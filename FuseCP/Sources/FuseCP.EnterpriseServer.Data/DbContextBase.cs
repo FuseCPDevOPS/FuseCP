@@ -90,6 +90,10 @@ namespace FuseCP.EnterpriseServer.Context
 
 		public virtual DbSet<AdditionalGroup> AdditionalGroups { get; set; }
 
+		public virtual DbSet<BruteForceLog> BruteForceLogs { get; set; }
+
+		public virtual DbSet<IpSecurityPolicy> IpSecurityPolicies { get; set; }
+
 		public virtual DbSet<AuditLog> AuditLogs { get; set; }
 
 		public virtual DbSet<AuditLogSource> AuditLogSources { get; set; }
@@ -374,6 +378,7 @@ namespace FuseCP.EnterpriseServer.Context
 			ApplyConfiguration(model, new BackgroundTaskParameterConfiguration());
 			ApplyConfiguration(model, new BackgroundTaskStackConfiguration());
 			ApplyConfiguration(model, new BlackBerryUserConfiguration());
+			ApplyConfiguration(model, new BruteForceLogConfiguration());
 			ApplyConfiguration(model, new ClusterConfiguration());
 			ApplyConfiguration(model, new CommentConfiguration());
 			ApplyConfiguration(model, new CrmUserConfiguration());
@@ -398,6 +403,7 @@ namespace FuseCP.EnterpriseServer.Context
 			ApplyConfiguration(model, new HostingPlanQuotaConfiguration());
 			ApplyConfiguration(model, new HostingPlanResourceConfiguration());
 			ApplyConfiguration(model, new IpAddressConfiguration());
+			ApplyConfiguration(model, new IpSecurityPolicyConfiguration());
 			ApplyConfiguration(model, new LyncUserConfiguration());
 			ApplyConfiguration(model, new LyncUserPlanConfiguration());
 			ApplyConfiguration(model, new OcsUserConfiguration());
@@ -505,6 +511,12 @@ namespace FuseCP.EnterpriseServer.Data
 
         DbSet<AdditionalGroup> additionalGroups = null;
         public virtual DbSet<AdditionalGroup> AdditionalGroups => additionalGroups ??= Set<AdditionalGroup>();
+
+        DbSet<BruteForceLog> bruteForceLogs = null;
+        public virtual DbSet<BruteForceLog> BruteForceLogs => bruteForceLogs ??= Set<BruteForceLog>();
+
+        DbSet<IpSecurityPolicy> ipSecurityPolicies = null;
+        public virtual DbSet<IpSecurityPolicy> IpSecurityPolicies => ipSecurityPolicies ??= Set<IpSecurityPolicy>();
 
         DbSet<AuditLog> auditLogs = null;
         public virtual DbSet<AuditLog> AuditLogs => auditLogs ??= Set<AuditLog>();

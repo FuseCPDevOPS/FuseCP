@@ -20476,3 +20476,49 @@ BEGIN
 	VALUES (N'20260313093000_RemoveLegacyCrmArtifacts', N'9.0.9');
 END;
 GO
+
+IF NOT EXISTS (
+	SELECT * FROM [__EFMigrationsHistory]
+	WHERE [MigrationId] = N'20260318133000_AddBruteForceProtection'
+)
+BEGIN
+	IF OBJECT_ID(N'[dbo].[BruteForceLogs]') IS NULL
+	BEGIN
+		CREATE TABLE [dbo].[BruteForceLogs] (
+			[Id] int NOT NULL IDENTITY,
+			[IpAddress] nvarchar(45) NOT NULL,
+			[Username] nvarchar(255) NULL,
+			[Layer] nvarchar(20) NOT NULL,
+			[AttemptTime] datetime2 NOT NULL,
+			[Succeeded] bit NOT NULL,
+			[UserAgent] nvarchar(500) NULL,
+			CONSTRAINT [PK_BruteForceLogs] PRIMARY KEY ([Id])
+		);
+	END;
+
+	IF OBJECT_ID(N'[dbo].[IpSecurityPolicies]') IS NULL
+	BEGIN
+		CREATE TABLE [dbo].[IpSecurityPolicies] (
+			[Id] int NOT NULL IDENTITY,
+			[IpRange] nvarchar(50) NOT NULL,
+			[IsWhitelist] bit NOT NULL,
+			[CreatedDate] datetime2 NOT NULL,
+			[ExpiresDate] datetime2 NULL,
+			[Reason] nvarchar(500) NULL,
+			[IsActive] bit NOT NULL,
+			[SeverityLevel] int NOT NULL,
+			[CreatedBy] nvarchar(255) NULL,
+			CONSTRAINT [PK_IpSecurityPolicies] PRIMARY KEY ([Id])
+		);
+	END;
+
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE [name] = 'IX_BruteForceLogs_IpAddress_Layer_AttemptTime' AND [object_id] = OBJECT_ID(N'[dbo].[BruteForceLogs]'))
+		CREATE INDEX [IX_BruteForceLogs_IpAddress_Layer_AttemptTime] ON [dbo].[BruteForceLogs] ([IpAddress], [Layer], [AttemptTime]);
+
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE [name] = 'IX_IpSecurityPolicies_IpRange_IsActive' AND [object_id] = OBJECT_ID(N'[dbo].[IpSecurityPolicies]'))
+		CREATE INDEX [IX_IpSecurityPolicies_IpRange_IsActive] ON [dbo].[IpSecurityPolicies] ([IpRange], [IsActive]);
+
+	INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+	VALUES (N'20260318133000_AddBruteForceProtection', N'9.0.9');
+END;
+GO
