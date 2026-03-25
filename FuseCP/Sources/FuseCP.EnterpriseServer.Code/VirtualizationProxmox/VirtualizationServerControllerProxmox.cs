@@ -463,7 +463,7 @@ namespace FuseCP.EnterpriseServer
                 int serviceId = GetServiceId(packageId);
 
                 // load service settings
-                StringDictionary settings = ServerController.GetServiceSettings(serviceId);
+                ServerController.GetServiceSettings(serviceId);
                 #endregion
 
 
@@ -643,7 +643,7 @@ namespace FuseCP.EnterpriseServer
                 VirtualizationServerProxmox vs = GetVirtualizationProxy(vm.ServiceId);
 
                 // load service settings
-                StringDictionary settings = ServerController.GetServiceSettings(vm.ServiceId);
+                ServerController.GetServiceSettings(vm.ServiceId);
 
                 #region Setup External network
                 TaskManager.Write("VPS_CREATE_SETUP_EXTERNAL_NETWORK");
@@ -654,7 +654,6 @@ namespace FuseCP.EnterpriseServer
                     if (vm.ExternalNetworkEnabled)
                     {
                         // set VLAN for IPs
-                        int vlan = vm.defaultaccessvlan;
 
                         // provision IP addresses
                         ResultObject privResult = AddVirtualMachineExternalIPAddresses(vm.Id, randomExternalAddresses,
@@ -761,7 +760,7 @@ namespace FuseCP.EnterpriseServer
                         if (!privNic.IsDHCP)
                         {
                             // provision IP addresses
-                            ResultObject extResult = AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false);
+                            AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false);
 
                             // set primary IP address
                             privNic = GetPrivateNetworkAdapterDetails(vm.Id);
@@ -1792,7 +1791,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     if (state == VirtualMachineRequestedState.TurnOff || state == VirtualMachineRequestedState.TurnOff)
                     {
-                        JobResult result = vps.ChangeVirtualMachineState(machine.VirtualMachineId, state);
+                        vps.ChangeVirtualMachineState(machine.VirtualMachineId, state);
 
 
 
@@ -1810,7 +1809,7 @@ namespace FuseCP.EnterpriseServer
                     }
                     else if (state == VirtualMachineRequestedState.Start)
                     {
-                        JobResult result = vps.ChangeVirtualMachineState(machine.VirtualMachineId, VirtualMachineRequestedState.Start);
+                        vps.ChangeVirtualMachineState(machine.VirtualMachineId, VirtualMachineRequestedState.Start);
 
                         // spin until fully started
                         VirtualMachine vm = vps.GetVirtualMachine(machine.VirtualMachineId);
@@ -1922,7 +1921,7 @@ namespace FuseCP.EnterpriseServer
             try
             {
                 // get proxy
-                VirtualizationServerProxmox vs = GetVirtualizationProxy(vm.ServiceId);
+                GetVirtualizationProxy(vm.ServiceId);
 
                 // change administrator password
                 JobResult result = SendAdministratorPasswordKVP(itemId, password);
@@ -2231,7 +2230,7 @@ namespace FuseCP.EnterpriseServer
             try
             {
                 // load service settings
-                StringDictionary settings = ServerController.GetServiceSettings(vm.ServiceId);
+                ServerController.GetServiceSettings(vm.ServiceId);
 
                 // get proxy
                 VirtualizationServerProxmox vs = GetVirtualizationProxy(vm.ServiceId);
@@ -2363,7 +2362,7 @@ namespace FuseCP.EnterpriseServer
                 #region Check Quotas
                 // check quotas
                 List<string> quotaResults = new List<string>();
-                PackageContext cntx = PackageController.GetPackageContext(vm.PackageId);
+                PackageController.GetPackageContext(vm.PackageId);
 
                 // check the number of created snapshots
                 int createdNumber = vs.GetVirtualMachineSnapshots(vm.VirtualMachineId).Length;
@@ -2745,7 +2744,7 @@ namespace FuseCP.EnterpriseServer
         private NetworkAdapterDetails GetExternalNetworkDetailsInternal(int serviceId)
         {
             // load service settings
-            StringDictionary settings = ServerController.GetServiceSettings(serviceId);
+            ServerController.GetServiceSettings(serviceId);
 
             // create NIC object
             NetworkAdapterDetails nic = new NetworkAdapterDetails();
@@ -3315,7 +3314,7 @@ namespace FuseCP.EnterpriseServer
             Trace.TraceInformation("Entering GetSortedNormalizedIPAddresses()");
             Trace.TraceInformation("Param - subnetMask: {0}", subnetMask);
 
-            var mask = IPAddress.Parse(subnetMask);
+            IPAddress.Parse(subnetMask);
             SortedList<IPAddress, string> sortedIps = new SortedList<IPAddress, string>();
             foreach (PrivateIPAddress ip in ips)
             {
@@ -3330,14 +3329,14 @@ namespace FuseCP.EnterpriseServer
 
         private string GetPrivateNetworkSubnetMask(string cidr, bool v6)
         {
-            if (v6)
-            {
-                return "/" + cidr;
-            }
-            else
-            {
-                return IPAddress.Parse("/" + cidr).ToV4MaskString();
-            }
+            return v6 ? "/" + cidr : IPAddress.Parse("/" + cidr).ToV4MaskString();
+
+
+
+
+
+
+
         }
 
         private string GetSubnetMaskCidr(string subnetMask)
@@ -3364,8 +3363,8 @@ namespace FuseCP.EnterpriseServer
 
         private bool CheckPrivateIPAddress(string subnetMask, string ipAddress)
         {
-            var mask = IPAddress.Parse(subnetMask);
-            var ip = IPAddress.Parse(ipAddress);
+            IPAddress.Parse(subnetMask);
+            IPAddress.Parse(ipAddress);
 
             //return ((mask & ip) == mask);
             return true;

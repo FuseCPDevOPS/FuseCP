@@ -112,14 +112,14 @@ namespace CryptSharp
                 saltBytes = Encoding.ASCII.GetBytes(saltString);
 
                 HashAlgorithm A;
-                if (sha512)
-                {
-                    A = System.Security.Cryptography.SHA512.Create();
-                }
-                else
-                {
-                    A = System.Security.Cryptography.MD5.Create();
-                }
+                A = sha512 ? System.Security.Cryptography.SHA512.Create() : System.Security.Cryptography.MD5.Create();
+
+
+
+
+
+
+
 
                 crypt = Crypt(password, saltBytes, rounds, A);
 

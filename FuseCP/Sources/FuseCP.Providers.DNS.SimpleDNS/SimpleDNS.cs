@@ -73,7 +73,7 @@ namespace FuseCP.Providers.DNS
 		{
             try
             {
-                string response = ExecuteDnsQuery("getzone", "zone=" + zoneName);
+                ExecuteDnsQuery("getzone", "zone=" + zoneName);
                 return true;
             }
             catch (WebException ex)
@@ -609,7 +609,6 @@ namespace FuseCP.Providers.DNS
 
 				recordName = columns[0];
 				if (columns.Length > 1)
-					recordTTL = columns[1];
 				if (columns.Length > 2)
 					recordType = columns[2];
 				if (columns.Length > 3)
@@ -732,7 +731,7 @@ namespace FuseCP.Providers.DNS
 			// render comment/service records
 			foreach (DnsRecord rr in records)
 			{
-				if (rr.RecordText != null && rr.RecordText.StartsWith(";") && !(rr.RecordType == DnsRecordType.TXT))
+				if (rr.RecordText != null && rr.RecordText.StartsWith(";") && rr.RecordType != DnsRecordType.TXT)
 				{
 					sb.Append(rr.RecordText);
 
@@ -848,7 +847,7 @@ namespace FuseCP.Providers.DNS
 				queryParams += "&masterip=" + masterServers[0];
 
 			// execute query
-			string result = ExecuteDnsQuery("updatezone", queryParams);
+			ExecuteDnsQuery("updatezone", queryParams);
 		}
 		#endregion
 

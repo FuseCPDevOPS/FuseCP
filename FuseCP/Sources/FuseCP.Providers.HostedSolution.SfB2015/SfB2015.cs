@@ -887,7 +887,7 @@ namespace FuseCP.Providers.HostedSolution
                         {
                             foreach (PSObject res in result)
                             {
-                                string Identity = GetPSObjectProperty(res, "Identity").ToString();
+                                GetPSObjectProperty(res, "Identity").ToString();
                                 string str = "" + GetPSObjectProperty(res, name);
                                 ret.Add(str);
                             }

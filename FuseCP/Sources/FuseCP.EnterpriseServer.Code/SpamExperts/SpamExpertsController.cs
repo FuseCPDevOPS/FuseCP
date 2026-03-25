@@ -72,7 +72,7 @@ namespace FuseCP.EnterpriseServer
             if (IsPackageServiceEnabled(domain.PackageId, serviceId))
             {
                 Server.Client.SpamExperts server = GetServer(serviceId);
-                var res = server.DeleteDomainFilter(domain.DomainName);
+                server.DeleteDomainFilter(domain.DomainName);
             }
         }
 
@@ -95,7 +95,7 @@ namespace FuseCP.EnterpriseServer
             if (IsPackageServiceEnabled(domain.PackageId, serviceId))
             {
                 Server.Client.SpamExperts server = GetServer(serviceId);
-                var res = server.DeleteDomainFilterAlias(domain.DomainName,alias);
+                server.DeleteDomainFilterAlias(domain.DomainName,alias);
             }
         }
 

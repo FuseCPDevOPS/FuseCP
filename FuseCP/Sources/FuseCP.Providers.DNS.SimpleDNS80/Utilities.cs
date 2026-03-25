@@ -48,7 +48,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS80
             }
             catch (TaskCanceledException e)
             {
-                Debug.WriteLine("ERROR: " + e.ToString());
+                Debug.WriteLine("ERROR: " + e);
             }
 
             return response;

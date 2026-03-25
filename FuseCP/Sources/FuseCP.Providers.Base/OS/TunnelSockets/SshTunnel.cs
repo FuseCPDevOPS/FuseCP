@@ -73,7 +73,6 @@ namespace FuseCP.Providers.OS
 
         private async Task<SshUri> InitAsync()
         {
-            var sshhost = Uri.DnsSafeHost;
             var remotehost = Uri.RemoteForwardHost;
             var sshhostip = await DnsService.GetFirstIPAddressAsync(Uri.DnsSafeHost);
             if (uri.RemoteForwardHost == null)
@@ -89,6 +88,7 @@ namespace FuseCP.Providers.OS
                     Loopback = IPAddress.IPv6Loopback;
                 }
             }
+            var sshhost = Uri.DnsSafeHost;
             sshhost = sshhostip.ToString();
 
             if (string.IsNullOrEmpty(Uri.Password))

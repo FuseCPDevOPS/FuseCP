@@ -42,7 +42,6 @@ namespace FuseCP.Tests
 		public IISExpress(Component component, (Scheme, string)[] urls = null)
         {
 			Urls = urls;
-			var testprojpath = Paths.Test;
 			var iisExprPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "IIS Express");
 			var appcmd = Path.Combine(iisExprPath, "AppCmd.exe");
 			var admincmd = Path.Combine(iisExprPath, "IisExpressAdminCmd.exe");

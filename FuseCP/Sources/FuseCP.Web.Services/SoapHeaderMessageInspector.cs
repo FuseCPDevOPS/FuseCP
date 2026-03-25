@@ -82,7 +82,7 @@ namespace FuseCP.Web.Services
 				{
 					if (!isRest)
 					{
-						int hpos = request.Headers.FindHeader(p.PropertyType.Name, $"{Namespace}{p.PropertyType.Name}");
+						request.Headers.FindHeader(p.PropertyType.Name, $"{Namespace}{p.PropertyType.Name}");
 						var getHeaderMethod = request.Headers.GetType().GetMethod("GetHeader", new Type[] { typeof(string), typeof(string) });
 						getHeaderMethod = getHeaderMethod.MakeGenericMethod(p.PropertyType);
 						var header = getHeaderMethod.Invoke(request.Headers, new object[] { p.PropertyType.Name, $"{Namespace}{p.PropertyType.Name}" });
@@ -111,7 +111,7 @@ namespace FuseCP.Web.Services
 					{
 						if (!isRest)
 						{
-							int hpos = request.Headers.FindHeader(f.FieldType.Name, $"{Namespace}{f.FieldType.Name}");
+							request.Headers.FindHeader(f.FieldType.Name, $"{Namespace}{f.FieldType.Name}");
 							var getHeaderMethod = request.Headers.GetType().GetMethod("GetHeader", new Type[] { typeof(string), typeof(string) });
 							getHeaderMethod = getHeaderMethod.MakeGenericMethod(f.FieldType);
 							var header = getHeaderMethod.Invoke(request.Headers, new object[] { f.FieldType.Name, $"{Namespace}{f.FieldType.Name}" });

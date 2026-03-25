@@ -707,7 +707,7 @@ namespace FuseCP.EnterpriseServer
                         if (!privNic.IsDHCP)
                         {
                             // provision IP addresses
-                            ResultObject extResult = AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false);
+                            AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false);
 
                             // set primary IP address
                             privNic = GetPrivateNetworkAdapterDetails(vm.Id);
@@ -1480,15 +1480,15 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // try adding KVP items
                 result = vs.AddKVPItems(vm.VirtualMachineId, kvp);
 
-                if (result.Job != null && result.Job.JobState == ConcreteJobState.Exception)
-                {
-                    // try updating KVP items
-                    return vs.ModifyKVPItems(vm.VirtualMachineId, kvp);
-                }
-                else
-                {
-                    return result;
-                }
+                return result.Job != null && result.Job.JobState == ConcreteJobState.Exception ? vs.ModifyKVPItems(vm.VirtualMachineId, kvp) : result;
+
+
+
+
+
+
+
+
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
@@ -1913,7 +1913,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             try
             {
                 // get proxy
-                VirtualizationServer vs = GetVirtualizationProxy(vm.ServiceId);
+                GetVirtualizationProxy(vm.ServiceId);
 
                 // change administrator password
                 JobResult result = SendAdministratorPasswordKVP(itemId, password);
@@ -2343,7 +2343,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 #region Check Quotas
                 // check quotas
                 List<string> quotaResults = new List<string>();
-                PackageContext cntx = PackageController.GetPackageContext(vm.PackageId);
+                PackageController.GetPackageContext(vm.PackageId);
 
                                 // check the number of created snapshots
                 int createdNumber = vs.GetVirtualMachineSnapshots(vm.VirtualMachineId).Length;
@@ -3222,7 +3222,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             Trace.TraceInformation("Entering GetSortedNormalizedIPAddresses()");
             Trace.TraceInformation("Param - subnetMask: {0}", subnetMask);
 
-            var mask = IPAddress.Parse(subnetMask);
+            IPAddress.Parse(subnetMask);
             SortedList<IPAddress, string> sortedIps = new SortedList<IPAddress, string>();
             foreach (PrivateIPAddress ip in ips)
             {
@@ -3236,14 +3236,14 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         }
 
 		private string GetPrivateNetworkSubnetMask(string cidr, bool v6) {
-            if (v6)
-            {
-                return "/" + cidr;
-            }
-            else
-            {
-                return IPAddress.Parse("/" + cidr).ToV4MaskString();
-            }
+            return v6 ? "/" + cidr : IPAddress.Parse("/" + cidr).ToV4MaskString();
+
+
+
+
+
+
+
 		}
 
 		private string GetSubnetMaskCidr(string subnetMask) {
@@ -3265,8 +3265,8 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 		
         private bool CheckPrivateIPAddress(string subnetMask, string ipAddress)
         {
-            var mask = IPAddress.Parse(subnetMask);
-            var ip = IPAddress.Parse(ipAddress);
+            IPAddress.Parse(subnetMask);
+            IPAddress.Parse(ipAddress);
 
             //return ((mask & ip) == mask);
             return true;

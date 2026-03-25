@@ -36,12 +36,20 @@ foreach ($group in ($byFile | Sort-Object Name)) {
             if ($span -match '^(.+) != true$') { $fixed = "!($($Matches[1]))" }
         } elseif ($msg -match "'A == true'") {
             if ($span -match '^(.+) == true$') { $fixed = $Matches[1] }
+        } elseif ($msg -match "'A \? true : false'") {
+            if ($span -match '^(.+?)\s*\?\s*true\s*:\s*false$') { $fixed = $Matches[1].Trim() }
+        } elseif ($msg -match "'A \? false : true'") {
+            if ($span -match '^(.+?)\s*\?\s*false\s*:\s*true$') { $fixed = "!(" + $Matches[1].Trim() + ")" }
         } elseif ($msg -match "'A \|\| false'") {
             if ($span -match '^(.+) \|\| false$') { $fixed = $Matches[1] }
         } elseif ($msg -match "'A && true'") {
             if ($span -match '^(.+) && true$') { $fixed = $Matches[1] }
         } elseif ($msg -match "'true \|\| A' is always 'true'") {
             $fixed = "true"
+        } elseif ($msg -match "'!\(A == B\)'") {
+            if ($span -match '^!\((.+) == (.+)\)$') { $fixed = "$($Matches[1]) != $($Matches[2])" }
+        } elseif ($msg -match "'!\(A != B\)'") {
+            if ($span -match '^!\((.+) != (.+)\)$') { $fixed = "$($Matches[1]) == $($Matches[2])" }
         } elseif ($msg -match "'A \? B : true'") {
             if ($span -match '^(.+?) \? (.+) : true$') { $fixed = "!($($Matches[1])) || $($Matches[2])" }
         } elseif ($msg -match "'A \? B : false'") {

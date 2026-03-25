@@ -1531,7 +1531,7 @@ HttpClient client = CreateHttpClient();
                     mailAlias.IncludeAllDomainUsers = alias["includeAllDomainUsers"];
 
 
-                    if (members.ToArray().Length == 1 && mailAlias.IncludeAllDomainUsers == false)
+                    if (members.ToArray().Length == 1 && !(mailAlias.IncludeAllDomainUsers))
 					{
 						Log.WriteInfo("GetMailAliases - Found {0}", alias["name"].ToString());
 						mailAlias.ForwardTo = alias["targets"][0].ToString();
@@ -1596,14 +1596,14 @@ HttpClient client = CreateHttpClient();
 				throw new Exception(result["message"]);
 
 			alias.Name = result["alias"]["name"].ToString();
-			if (result["alias"]["aliasTargetList"] != null)
-			{
-				alias.ForwardTo = result["alias"]["aliasTargetList"][0].ToString();
-			}
-			else
-			{
-				alias.ForwardTo = "";
-			}
+			alias.ForwardTo = result["alias"]["aliasTargetList"] != null ? result["alias"]["aliasTargetList"][0].ToString() : "";
+
+
+
+
+
+
+
 			return alias;
 		}
 
@@ -1725,7 +1725,7 @@ HttpClient client = CreateHttpClient();
 
 					mailGroup.IncludeAllDomainUsers = alias["includeAllDomainUsers"];
 
-                    if (members.ToArray().Length != 1 || mailGroup.IncludeAllDomainUsers == true)
+                    if (members.ToArray().Length != 1 || mailGroup.IncludeAllDomainUsers)
 					{
 						mailGroup.Members = members.ToArray();
 						groups.Add(mailGroup);
@@ -2153,7 +2153,7 @@ HttpClient client = CreateHttpClient();
 
 						dynamic deleteresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + member.id + "/delete", GetDomainName(listName), DelListPram).Result;
 
-						bool deletesuccess = Convert.ToBoolean(deleteresult["success"]);
+						Convert.ToBoolean(deleteresult["success"]);
 						if (!success)
 							throw new Exception(deleteresult["message"]);
 					}
@@ -2368,7 +2368,7 @@ HttpClient client = CreateHttpClient();
 
 					dynamic mailRemoveMemberresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + listID + "/subscriber-remove", domain, mailRemoveMemberPram).Result;
 
-					bool mailRemoveMembersuccess = Convert.ToBoolean(mailRemoveMemberresult["success"]);
+					Convert.ToBoolean(mailRemoveMemberresult["success"]);
 					if (!success)
 						throw new Exception(mailRemoveMemberresult["message"]);
 				}
@@ -2378,7 +2378,7 @@ HttpClient client = CreateHttpClient();
 
 					dynamic SetSubscriberListresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + listID + "/subscriber-remove", domain, list.Members).Result;
 
-					bool SetSubscriberListsuccess = Convert.ToBoolean(SetSubscriberListresult["success"]);
+					Convert.ToBoolean(SetSubscriberListresult["success"]);
 					if (!success)
 						throw new Exception(SetSubscriberListresult["message"]);
 				}
@@ -2501,7 +2501,7 @@ HttpClient client = CreateHttpClient();
 							if (!files.Any(f => f.Contains("SmarterMail"))) continue;
 
 							var assemblyName = AssemblyName.GetAssemblyName(dll);
-							return assemblyName?.Version != null && assemblyName.Version.Major == 100 ? true : false;
+							return assemblyName?.Version != null && assemblyName.Version.Major == 100;
 
 						}
 						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
@@ -2530,14 +2530,14 @@ HttpClient client = CreateHttpClient();
 
 		protected string GetBoolean(string Boolean)
 		{
-			if (Boolean == "1" | Boolean == "true")
-            {
-				return "true";
-            }
-			else
-            {
-				return "false"; 
-            }				
+			return Boolean == "1" | Boolean == "true" ? "true" : "false";
+
+
+
+
+
+
+
 		}
 	}
 }

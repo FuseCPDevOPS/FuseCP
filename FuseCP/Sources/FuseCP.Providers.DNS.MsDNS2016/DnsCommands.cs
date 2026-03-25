@@ -85,7 +85,6 @@ namespace FuseCP.Providers.DNS
 
         private static string GetWMIZoneRecordData(this PowerShellHelper ps, DnsRecord res, string zoneName)
         {
-            string RecordData = "Unable to show fully";
 
             string wmiNamespace = @"Root\MicrosoftDNS";
             string wmiquery = "select * from MicrosoftDNS_TXTType Where OwnerName=\'" + res.RecordName + "." + zoneName + "\'";
@@ -96,6 +95,7 @@ namespace FuseCP.Providers.DNS
             Collection<PSObject> results = ps.RunPipeline(cmd);
             PSObject result = results[0];
 
+            string RecordData = "Unable to show fully";
             RecordData = result.Members["RecordData"].Value.ToString();
 
 

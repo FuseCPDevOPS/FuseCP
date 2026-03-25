@@ -184,14 +184,14 @@ namespace FuseCP.Providers.Database
 				lineOfText = reader.ReadLine();
 				if (lineOfText == null)
 				{
-					if (sb.Length > 0)
-					{
-						return sb.ToString();
-					}
-					else
-					{
-						return null;
-					}
+					return sb.Length > 0 ? sb.ToString() : null;
+
+
+
+
+
+
+
 				}
 
 				if (lineOfText.TrimEnd().ToUpper() == "GO")

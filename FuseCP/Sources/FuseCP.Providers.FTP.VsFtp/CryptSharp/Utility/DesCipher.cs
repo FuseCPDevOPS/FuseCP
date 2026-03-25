@@ -175,11 +175,10 @@ namespace CryptSharp.Utility
                 int B = (int)((KER >> ((7 - i) * 6)) & 0x3f);
                 int n = ((((B >> 4) & 2) | (B & 1)) << 4) | ((B >> 1) & 0xf);
                 SKER |= S[i][n] << ((7 - i) * 4);
-                B = 0; n = 0;
             }
 
             uint f = (uint)Permute(P, (ulong)SKER, 32);
-            SKER = 0; return f;
+            return f;
         }
 
         void DesEnd(byte[] outputBuffer, int outputOffset, ref uint L, ref uint R)
@@ -199,7 +198,7 @@ namespace CryptSharp.Utility
             ulong[] kex = new ulong[16];
 
             ulong k = BitPacking.UInt64FromBEBytes(key, 0);
-            ulong kp = Permute(PC1, k, 64); k = 0;
+            ulong kp = Permute(pc1, k, 64); k = 0;
 
             uint cn = (uint)(kp >> 28);
             uint dn = (uint)(kp & 0xfffffff);
@@ -211,7 +210,7 @@ namespace CryptSharp.Utility
             for (int i = 0; i < kex.Length; i++)
             {
                 ulong cd = (ulong)c[i] << 28 | d[i];
-                kex[i] = Permute(PC2, cd, 56);
+                kex[i] = Permute(pc2, cd, 56);
             }
             Security.Clear(c); Security.Clear(d);
 
@@ -238,12 +237,11 @@ namespace CryptSharp.Utility
             salt = outputSalt;
         }
 
-        static void Salt(ref ulong E, int reversedSalt)
+        static void Salt(ref ulong local_E, int reversedSalt)
         {
-            ulong initial = E;
-            ulong H = (E >> 24) & (ulong)(uint)reversedSalt, L = E & (ulong)(uint)reversedSalt;
-            E &= ~((ulong)(uint)reversedSalt << 24 | (uint)reversedSalt);
-            E |= H | L << 24;
+            ulong H = (local_E >> 24) & (ulong)(uint)reversedSalt, L = local_E & (ulong)(uint)reversedSalt;
+            local_E &= ~((ulong)(uint)reversedSalt << 24 | (uint)reversedSalt);
+            local_E |= H | L << 24;
         }
     }
 }

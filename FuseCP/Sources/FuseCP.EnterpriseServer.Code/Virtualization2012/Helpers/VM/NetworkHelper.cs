@@ -113,10 +113,10 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                     guestNetworkAdapterConfiguration.Subnets = subnetMasks;
 
                     // name servers
-                    if (!String.IsNullOrEmpty(nic.AlternateNameServer))
-                        guestNetworkAdapterConfiguration.DNSServers = new string[] { nic.PreferredNameServer, nic.AlternateNameServer };
-                    else
-                        guestNetworkAdapterConfiguration.DNSServers = new string[] { nic.PreferredNameServer };
+                    guestNetworkAdapterConfiguration.DNSServers = !String.IsNullOrEmpty(nic.AlternateNameServer) ? new string[] { nic.PreferredNameServer, nic.AlternateNameServer } : new string[] { nic.PreferredNameServer };
+
+
+
                 }
             }
 
@@ -167,14 +167,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
 
         public string GetPrivateNetworkSubnetMask(string cidr, bool v6)
         {
-            if (v6)
-            {
-                return "/" + cidr;
-            }
-            else
-            {
-                return IPAddress.Parse("/" + cidr).ToV4MaskString();
-            }
+            return v6 ? "/" + cidr : IPAddress.Parse("/" + cidr).ToV4MaskString();
+
+
+
+
+
+
+
         }
         public string GenerateMacAddress()
         {

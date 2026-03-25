@@ -275,14 +275,14 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
             else
                 item.Name = String.Format("{0}://{1}", rootWebApplicationUri.Scheme, item.Name);
 
-            if (rootWebApplicationUri.Port > 0 && rootWebApplicationUri.Port != 80 && rootWebApplicationUri.Port != 443)
-            {
-                item.PhysicalAddress = String.Format("{0}:{1}", item.Name, rootWebApplicationUri.Port);
-            }
-            else
-            {
-                item.PhysicalAddress = item.Name;
-            }
+            item.PhysicalAddress = rootWebApplicationUri.Port > 0 && rootWebApplicationUri.Port != 80 && rootWebApplicationUri.Port != 443 ? String.Format("{0}:{1}", item.Name, rootWebApplicationUri.Port) : item.Name;
+
+
+
+
+
+
+
 
             if (Utils.ParseBool(hostedSharePointSettings["LocalHostFile"], false))
             {

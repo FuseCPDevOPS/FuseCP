@@ -49,14 +49,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
                 cookiedata.password = settings["GuacamoleHyperVAdministratorPassword"];
                 cookiedata.domain = settings["GuacamoleHyperVDomain"];
                 cookiedata.hostname = settings["GuacamoleHyperVIP"];
-                if (String.IsNullOrEmpty(settings["GuacamoleHyperVUser"]))
-                {
-                    cookiedata.username = "Administrator";
-                }
-                else
-                {
-                    cookiedata.username = settings["GuacamoleHyperVUser"];
-                }
+                cookiedata.username = String.IsNullOrEmpty(settings["GuacamoleHyperVUser"]) ? "Administrator" : settings["GuacamoleHyperVUser"];
+
+
+
+
+
+
+
             }
             catch
             {

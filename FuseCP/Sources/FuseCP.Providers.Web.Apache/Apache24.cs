@@ -69,7 +69,7 @@ namespace FuseCP.Providers.Web
 
 		void ReloadApache()
 		{
-			var output = Shell.Exec($"{apachectl} start");
+			Shell.Exec($"{apachectl} start");
 			Shell.Exec($"{apachectl} graceful");
 		}
 
@@ -474,11 +474,11 @@ namespace FuseCP.Providers.Web
 			var conf = Config(siteId);
 			var url = "/" + directoryName.TrimStart('/');
 			var location = conf.Descendants.OfType<Location>().FirstOrDefault(loc => loc.Url == url);
-			if (location != null)
-			{
-				return GetAppVirtualDirectory(location);
-			}
-			else return null;
+			return location != null ? GetAppVirtualDirectory(location) : null;
+
+
+
+
 		}
 
 		public SSLCertificate GetCertificate(WebSite site)
@@ -631,7 +631,6 @@ namespace FuseCP.Providers.Web
 					var ip = match.Groups["adr"].Success ? match.Groups["adr"].Value : "";
 					if (ip == "*" || ip == "0.0.0.0" || ip == "[::]" || ip == "::") ip = "";
 					var port = match.Groups["port"].Value;
-					var domain = match.Groups["domain"].Success ? match.Groups["domain"].Value : "";
 					var listen = $"{(ip == "" ? port : $"{ip}:{port}")} https";
 					var listenv4 = $"{(ip == "" ? $"0.0.0.0:{port}" : listen)} https";
 					var listenv6 = $"{(ip == "" ? $"[::]:{port}" : listen)} https";

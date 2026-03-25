@@ -1227,14 +1227,14 @@ namespace FuseCP.EnterpriseServer
                 foreach (KeyValuePair<string, QuotaValueInfo> quota in cntx.Quotas)
                 {
                     int unusedQty;
-                    if (quota.Value.QuotaAllocatedValue == -1)
-                    {
-                        unusedQty = 1;
-                    }
-                    else
-                    {
-                        unusedQty = quota.Value.QuotaAllocatedValue - quota.Value.QuotaUsedValue;
-                    }
+                    unusedQty = quota.Value.QuotaAllocatedValue == -1 ? 1 : quota.Value.QuotaAllocatedValue - quota.Value.QuotaUsedValue;
+
+
+
+
+
+
+
                     if (unusedQty == 0) continue;
 
                     int vps2012ServiceId;
@@ -2142,14 +2142,14 @@ namespace FuseCP.EnterpriseServer
         public string EvaluateUserPackageTempate(int userId, int packageId, string template)
         {
             // package context
-            if (packageId > -1)
-            {
-                return EvaluatePackageTempate(packageId, template, false, false);
-            }
-            else
-            {
-                return EvaluateAccountTempate(userId, template, false, false);
-            }
+            return packageId > -1 ? EvaluatePackageTempate(packageId, template, false, false) : EvaluateAccountTempate(userId, template, false, false);
+
+
+
+
+
+
+
         }
 
         public string EvaluatePackageTempate(int packageId, string template, bool signup, bool email)

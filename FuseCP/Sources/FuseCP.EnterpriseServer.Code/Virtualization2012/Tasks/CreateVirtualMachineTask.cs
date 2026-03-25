@@ -216,7 +216,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         if (!privNic.IsDHCP)
                         {
                             // provision IP addresses
-                            ResultObject extResult = IpAddressPrivateHelper.AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false, false, null, null, null, null);
+                            IpAddressPrivateHelper.AddVirtualMachinePrivateIPAddresses(vm.Id, randomPrivateAddresses, privateAddressesNumber, privateAddresses, false, false, null, null, null, null);
                         }
 
                         // connecto to network
@@ -256,7 +256,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         if (!dmzNic.IsDHCP)
                         {
                             // provision IP addresses
-                            ResultObject extResult = IpAddressPrivateHelper.AddVirtualMachineDmzIPAddresses(vm.Id, randomDmzAddresses, dmzAddressesNumber, dmzAddresses, false, false, null, null, null, null);
+                            IpAddressPrivateHelper.AddVirtualMachineDmzIPAddresses(vm.Id, randomDmzAddresses, dmzAddressesNumber, dmzAddresses, false, false, null, null, null, null);
                         }
 
                         // connecto to network
@@ -311,14 +311,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
 
                     for (int i = 0; i < vm.VirtualHardDrivePath.Length; i++)
                     {
-                        if (i == 0)
-                        {
-                            result = vs.ConvertVirtualHardDisk(vm.OperatingSystemTemplatePath, vm.VirtualHardDrivePath[i], vhdType, osTemplate.VhdBlockSizeBytes);
-                        }
-                        else
-                        {
-                            result = vs.CreateVirtualHardDisk(vm.VirtualHardDrivePath[i], vhdType, osTemplate.VhdBlockSizeBytes, (ulong)vm.HddSize[i]);
-                        }
+                        result = i == 0 ? vs.ConvertVirtualHardDisk(vm.OperatingSystemTemplatePath, vm.VirtualHardDrivePath[i], vhdType, osTemplate.VhdBlockSizeBytes) : vs.CreateVirtualHardDisk(vm.VirtualHardDrivePath[i], vhdType, osTemplate.VhdBlockSizeBytes, (ulong)vm.HddSize[i]);
+
+
+
+
+
+
+
 
                         // check return
                         if (result.ReturnValue != ReturnCode.JobStarted)

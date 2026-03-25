@@ -1923,7 +1923,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (ActiveDirectoryUtils.AdObjectExists(userPath))
                 {                    
-                    var userObject = ActiveDirectoryUtils.GetADObject(userPath);
+                    ActiveDirectoryUtils.GetADObject(userPath);
                     ActiveDirectoryUtils.AddObjectToGroup(userPath, groupPath);                    
                 }                
             }
@@ -2281,7 +2281,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     idxAuth = 8 + i * 4;
                     UInt32 iSubAuth = BitConverter.ToUInt32(sidBytes, idxAuth);
                     strSid.Append("-");
-                    strSid.Append(iSubAuth.ToString());
+                    strSid.Append(iSubAuth);
                 }
             }
             catch
@@ -2327,14 +2327,14 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             var users = (string[])(RdsRunspaceExtensions.GetPSObjectProperty(psObject, "UserGroups"));
 
-            if (users != null && users.Any())
-            {
-                remoteApp.Users = users;
-            }
-            else
-            {
-                remoteApp.Users = null;
-            }
+            remoteApp.Users = users != null && users.Any() ? users : null;
+
+
+
+
+
+
+
             
             return remoteApp;
         }

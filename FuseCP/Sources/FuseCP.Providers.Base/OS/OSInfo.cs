@@ -161,7 +161,6 @@ namespace FuseCP.Providers.OS
 		{
 			get
 			{
-				var local_flavor = OSFlavor;
 				return version;
 			}
 		}

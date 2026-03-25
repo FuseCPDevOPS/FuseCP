@@ -403,13 +403,10 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     if (!string.IsNullOrEmpty(sipAddress) && user.SipAddress != sipAddress)
                     {
-                        if (sipAddress != usr.UserPrincipalName)
+                        if (sipAddress != usr.UserPrincipalName && Database.SfBUserExists(accountId, sipAddress))
                         {
-                            if (Database.SfBUserExists(accountId, sipAddress))
-                            {
-                                TaskManager.CompleteResultTask(res, SfBErrorCodes.ADDRESS_ALREADY_USED);
-                                return res;
-                            }
+                            TaskManager.CompleteResultTask(res, SfBErrorCodes.ADDRESS_ALREADY_USED);
+                            return res;
                         }
 
                         user.SipAddress = sipAddress;

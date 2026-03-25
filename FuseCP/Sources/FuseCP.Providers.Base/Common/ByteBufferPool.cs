@@ -116,15 +116,15 @@ namespace System.IO
 						_bufferPool[_current] = null;
 
 						// update "current" index
-						if (_current == _last)
-						{
-							// this is the last free buffer
-							_current = -1;
-						}
-						else
-						{
-							_current = (_current + 1) % _max;
-						}
+						_current = _current == _last ? -1 : (_current + 1) % _max;
+
+
+
+
+
+
+
+
 
 						_controlCookie = cookie;
 						return buffer;

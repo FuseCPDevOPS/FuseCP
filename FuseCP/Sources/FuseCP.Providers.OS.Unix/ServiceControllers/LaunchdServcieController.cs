@@ -123,7 +123,7 @@ public class LaunchdServiceController : ServiceController
 	public override void Remove(string serviceId)
 	{
 		serviceId = ValidateServiceId(serviceId);
-		var serviceFile = Path.Combine(ServicesDirectory, $"{serviceId}.plist");
+		Path.Combine(ServicesDirectory, $"{serviceId}.plist");
 
 		Shell.Exec($"launchctl disable system/{serviceId}");
 		Shell.Exec($"launchctl bootout  system {ServiceFile(serviceId)}");

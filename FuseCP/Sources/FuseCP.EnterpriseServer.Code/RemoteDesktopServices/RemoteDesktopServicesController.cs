@@ -420,7 +420,7 @@ namespace FuseCP.EnterpriseServer
                 var existingSessionHosts = GetRdsServersPagedInternal("", "", "", 1, 1000, rdsControllerServiceID).Servers;
                 RemoteDesktopServicesHelpers.FillSessionHosts(collection.SessionHosts, existingSessionHosts, newCollection.Id, itemId);
                 newCollection.Servers = ObjectUtils.CreateListFromDataReader<RdsServer>(Database.GetRDSServersByCollectionId(newCollection.Id)).ToList();
-                UserInfo user = PackageController.GetPackageOwner(org.PackageId);
+                PackageController.GetPackageOwner(org.PackageId);
                 var organizationUsers = OrganizationController.GetOrganizationUsersPaged(itemId, null, null, null, 0, Int32.MaxValue).PageUsers.Select(u => u.SamAccountName.Split('\\').Last().ToLower());
                 var newUsers = organizationUsers.Where(x => collection.UserGroups.Select(a => a.PropertyValue.ToString().Split('\\').Last().ToLower()).Contains(x));
 
@@ -1923,7 +1923,7 @@ namespace FuseCP.EnterpriseServer
                     return result;
                 }
 
-                var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
+                RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
 
                 var collection = GetRdsCollection(collectionId, false);
 

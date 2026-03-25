@@ -104,7 +104,7 @@ namespace FuseCP.Providers.Filters
             }
             catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
             {
-                result = "EXCEPTION:" + exc.ToString();
+                result = "EXCEPTION:" + exc;
                 Log.WriteWarning(result);
             }
 
@@ -163,7 +163,7 @@ namespace FuseCP.Providers.Filters
             Log.WriteStart("DeleteDomainFilter");
 
             var result = ExecCommand("domainuser/remove", "username", domain);
-            result = ExecCommand("outgoingusers/remove", "domain", domain);
+            ExecCommand("outgoingusers/remove", "domain", domain);
             result = ExecCommand("domain/remove", "domain", domain);
 
             Log.WriteEnd("DeleteDomainFilter");

@@ -621,13 +621,13 @@ return keywords.TryGetValue(tokenData, out var _ckv) ? CreateToken(_ckv) : Creat
         #region Helper Methods
         private char LA(int count)
         {
-            if (pos + count >= data.Length)
-                return EOF;
-            else
-            {
-                //Debug.Write(data[pos + count]);
-                return data[pos + count];
-            }
+            return pos + count >= data.Length ? EOF : data[pos + count];
+
+
+
+
+
+
         }
 
         private char Consume()

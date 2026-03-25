@@ -471,7 +471,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
             Trace.TraceInformation("Entering GetSortedNormalizedIPAddresses()");
             Trace.TraceInformation("Param - subnetMask: {0}", subnetMask);
 
-            var mask = IPAddress.Parse(subnetMask);
+            IPAddress.Parse(subnetMask);
             SortedList<IPAddress, string> sortedIps = new SortedList<IPAddress, string>();
             foreach (PrivateIPAddress ip in ips)
             {
@@ -489,7 +489,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
             Trace.TraceInformation("Entering GetSortedNormalizedIPAddresses()");
             Trace.TraceInformation("Param - subnetMask: {0}", subnetMask);
 
-            var mask = IPAddress.Parse(subnetMask);
+            IPAddress.Parse(subnetMask);
             SortedList<IPAddress, string> sortedIps = new SortedList<IPAddress, string>();
             foreach (DmzIPAddress ip in ips)
             {
@@ -524,8 +524,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
 
         private bool CheckPrivateIPAddress(string subnetMask, string ipAddress)
         {
-            var mask = IPAddress.Parse(subnetMask);
-            var ip = IPAddress.Parse(ipAddress);
+            IPAddress.Parse(subnetMask);
+            IPAddress.Parse(ipAddress);
 
             //return ((mask & ip) == mask);
             return true;
@@ -553,8 +553,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
 
         private bool CheckDmzIPAddress(string subnetMask, string ipAddress)
         {
-            var mask = IPAddress.Parse(subnetMask);
-            var ip = IPAddress.Parse(ipAddress);
+            IPAddress.Parse(subnetMask);
+            IPAddress.Parse(ipAddress);
 
             //return ((mask & ip) == mask);
             return true;

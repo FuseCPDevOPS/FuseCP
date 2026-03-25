@@ -98,7 +98,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         }
                         VMSettings.Generation = osTemplate.Generation;
                         VMSettings.SecureBootTemplate = osTemplate.SecureBootTemplate;
-                        VMSettings.EnableSecureBoot = !(osTemplate.Generation == 1) && osTemplate.EnableSecureBoot;
+                        VMSettings.EnableSecureBoot = osTemplate.Generation != 1 && osTemplate.EnableSecureBoot;
                         VMSettings.OperatingSystemTemplate = osTemplate.Name;
                         VMSettings.LegacyNetworkAdapter = osTemplate.LegacyNetworkAdapter;
                         VMSettings.RemoteDesktopEnabled = osTemplate.RemoteDesktop;

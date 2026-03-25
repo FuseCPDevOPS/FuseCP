@@ -452,25 +452,25 @@ namespace FuseCP.Providers.HostedSolution
             string msExchVersion = ActiveDirectoryUtils.GetADObjectStringProperty(entry, "msExchVersion");
             if (!string.IsNullOrEmpty(msExchVersion))
             {
-                if (enabled)
-                {
-                    filter = string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)({0}=disabled))", ADAttributes.CustomAttribute2);
-                }
-                else
-                {
-                    filter = string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!{0}=disabled))", ADAttributes.CustomAttribute2);
-                }
+                filter = enabled ? string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)({0}=disabled))", ADAttributes.CustomAttribute2) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!{0}=disabled))", ADAttributes.CustomAttribute2);
+
+
+
+
+
+
+
             }
             else
             {
-                if (enabled)
-                {
-                    filter = string.Format(CultureInfo.InvariantCulture, "(|(&(objectCategory=user)(memberOf={0}))(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2)))", org.SecurityGroup);
-                }
-                else
-                {
-                    filter = string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))");
-                }
+                filter = enabled ? string.Format(CultureInfo.InvariantCulture, "(|(&(objectCategory=user)(memberOf={0}))(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2)))", org.SecurityGroup) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))");
+
+
+
+
+
+
+
             }
 
             using (DirectorySearcher searcher = new DirectorySearcher(entry, filter))
@@ -866,7 +866,7 @@ namespace FuseCP.Providers.HostedSolution
                 var cmd = new Command("Get-ADFineGrainedPasswordPolicy");
                 cmd.Parameters.Add("Identity", psoName);
 
-                var result = ExecuteShellCommand(runspace, cmd);
+                ExecuteShellCommand(runspace, cmd);
             }
             catch
             {
@@ -1777,18 +1777,18 @@ namespace FuseCP.Providers.HostedSolution
             PrincipalSearchResult<Principal> principalgroups = null;
             List<ExchangeAccount> ret = new List<ExchangeAccount>();
 
-            var ouPath = GetUserPath(organizationId.ToString(), userName);
+            GetUserPath(organizationId.ToString(), userName);
             
 
             using PrincipalContext ctx = new PrincipalContext(ContextType.Domain, RootDomain);
 
             principalgroups = UserPrincipal.FindByIdentity(ctx, userName).GetGroups();
-            HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups.ToString());
+            HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups);
 
             foreach (Principal principalgroup in principalgroups)
             {
                 HostedSolutionLog.DebugInfo("Group Name: {0}", principalgroup.Name);
-                HostedSolutionLog.DebugInfo("path: {0}\n SamAccountName {1}\n Name: {2}\n UPN: {3}\n StructuralObjectClass: {4}\n Context: {5}\nContext: {6}\n DisplayName: {7}\n ContextType: {8}", principalgroup.DistinguishedName, principalgroup.SamAccountName, principalgroup.Name, principalgroup.UserPrincipalName, principalgroup.StructuralObjectClass, principalgroup.Context.ToString(), principalgroup.Context, principalgroup.DisplayName, principalgroup.ContextType.ToString());
+                HostedSolutionLog.DebugInfo("path: {0}\n SamAccountName {1}\n Name: {2}\n UPN: {3}\n StructuralObjectClass: {4}\n Context: {5}\nContext: {6}\n DisplayName: {7}\n ContextType: {8}", principalgroup.DistinguishedName, principalgroup.SamAccountName, principalgroup.Name, principalgroup.UserPrincipalName, principalgroup.StructuralObjectClass, principalgroup.Context, principalgroup.Context, principalgroup.DisplayName, principalgroup.ContextType);
                 string path = ActiveDirectoryUtils.AddADPrefix(principalgroup.DistinguishedName);
                 DirectoryEntry groupEntry = ActiveDirectoryUtils.GetADObject(path);
 
@@ -2273,7 +2273,7 @@ namespace FuseCP.Providers.HostedSolution
                 CloseRunspace(runSpace);
             }
 
-            return string.IsNullOrEmpty(gpoId) ? false : true;
+            return !(string.IsNullOrEmpty(gpoId));
         }
 
         private bool CheckMappedDriveExists(string organizationId, string path, bool newDrive)

@@ -727,7 +727,7 @@ namespace FuseCP.Providers.DNS
 						methodParams["RefreshInterval"] = RefreshInterval;
 						methodParams["RetryDelay"] = RetryDelay;
 
-						ManagementBaseObject outParams = objSoa.InvokeMethod("Modify", methodParams, null);
+						objSoa.InvokeMethod("Modify", methodParams, null);
 					}
 					//
 					objSoa.Dispose();

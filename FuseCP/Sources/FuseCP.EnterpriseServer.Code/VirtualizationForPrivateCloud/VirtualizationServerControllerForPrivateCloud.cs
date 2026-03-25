@@ -443,7 +443,7 @@ namespace FuseCP.EnterpriseServer
                 StringDictionary settings = ServerController.GetServiceSettings(serviceId);
 
                 PackageInfo pk = PackageController.GetPackage(packageId);
-                UserInfo user = UserController.GetUser(pk.UserId);
+                UserController.GetUser(pk.UserId);
                 #endregion
 
                 #region Create meta item
@@ -1472,15 +1472,15 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // try adding KVP items
                 result = vs.AddKVPItems(vm.VmId.ToString(), kvp);
 
-                if (result.Job != null && result.Job.JobState == ConcreteJobState.Exception)
-                {
-                    // try updating KVP items
-                    return vs.ModifyKVPItems(vm.VmId.ToString(), kvp);
-                }
-                else
-                {
-                    return result;
-                }
+                return result.Job != null && result.Job.JobState == ConcreteJobState.Exception ? vs.ModifyKVPItems(vm.VmId.ToString(), kvp) : result;
+
+
+
+
+
+
+
+
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
@@ -1916,7 +1916,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             try
             {
                 // get proxy
-                var vs = GetVirtualizationProxy(vm.ServiceId);
+                GetVirtualizationProxy(vm.ServiceId);
 
                 // change administrator password
                 JobResult result = SendAdministratorPasswordKVP(itemId, password);
@@ -2070,7 +2070,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 vm.PrivateNetworkEnabled = privateNetworkEnabled;
 
                 // load service settings
-                StringDictionary settings = ServerController.GetServiceSettings(vm.ServiceId);
+                ServerController.GetServiceSettings(vm.ServiceId);
 
                 #region setup external network
                 if (vm.ExternalNetworkEnabled
@@ -2337,7 +2337,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 #region Check Quotas
                 // check quotas
                 List<string> quotaResults = new List<string>();
-                PackageContext cntx = PackageController.GetPackageContext(vm.PackageId);
+                PackageController.GetPackageContext(vm.PackageId);
 
                                 // check the number of created snapshots
                 int createdNumber = vs.GetVirtualMachineSnapshots(vm.Name).Length;
@@ -3726,7 +3726,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             try
             {
                 ServiceProviderItem serviceProviderItem = PackageController.GetPackageItem(ItemID);
-                ServiceInfo serviceInfo = ServerController.GetServiceInfo(serviceProviderItem.ServiceId);
+                ServerController.GetServiceInfo(serviceProviderItem.ServiceId);
 
                 var vs = GetVirtualizationProxy(serviceProviderItem.ServiceId);
 

@@ -236,7 +236,7 @@ namespace FuseCP.EnterpriseServer
 
 								try
 								{
-									int backupResult = BackupItem(tempFolder, writer, item, group, controller);
+									BackupItem(tempFolder, writer, item, group, controller);
 								}
 								catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 								{
@@ -554,7 +554,7 @@ namespace FuseCP.EnterpriseServer
 
 							FileStream stream = new FileStream(backupFileNamePath, FileMode.Create, FileAccess.Write);
 
-							byte[] buffer = new byte[FILE_BUFFER_LENGTH];
+									byte[] buffer = new byte[FILE_BUFFER_LENGTH];
 							int offset = 0;
 							do
 							{
@@ -640,7 +640,7 @@ namespace FuseCP.EnterpriseServer
 					List<ServiceInfo> services = ServerController.GetServicesByServerId(serverId);
 					List<string> parts = new List<string>();
 					foreach (ServiceInfo service in services)
-						parts.Add("@serviceId = " + service.ServiceId.ToString());
+						parts.Add("@serviceId = " + service.ServiceId);
 					condition = "[" + String.Join(" or ", parts.ToArray()) + "]";
 				}
 

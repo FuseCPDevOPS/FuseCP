@@ -700,12 +700,12 @@ namespace FuseCP.Providers.Virtualization
                         {
                             bool canUpdateStaticRAM = vm.DynamicMemory == null
                             || (realVm.DynamicMemory.Enabled == vm.DynamicMemory.Enabled
-                                && realVm.DynamicMemory.Enabled == false);
+                                && !(realVm.DynamicMemory.Enabled));
 
                             bool canUpdateDynamicRAM = vm.DynamicMemory != null
                                 && realVm.RamSize == vm.RamSize
                                 && realVm.DynamicMemory.Enabled == vm.DynamicMemory.Enabled
-                                && realVm.DynamicMemory.Enabled == true;
+                                && realVm.DynamicMemory.Enabled;
 
                             if (canUpdateStaticRAM)
                             {
@@ -2536,10 +2536,10 @@ namespace FuseCP.Providers.Virtualization
         public bool IsEmptyFolders(string path)
         {
             string cmd;
-            if (!string.IsNullOrEmpty(ServerNameSettings))
-                cmd = "Invoke-Command -ComputerName " + ServerNameSettings + " -ScriptBlock { dir @('" + path + "') -Directory -recurse | where { $_.GetFiles()} |  Select Fullname }";
-            else
-                cmd = "dir @('" + path + "') -Directory -recurse | where { $_.GetFiles()} |  Select Fullname";
+            cmd = !string.IsNullOrEmpty(ServerNameSettings) ? "Invoke-Command -ComputerName " + ServerNameSettings + " -ScriptBlock { dir @('" + path + "') -Directory -recurse | where { $_.GetFiles()} |  Select Fullname }" : "dir @('" + path + "') -Directory -recurse | where { $_.GetFiles()} |  Select Fullname";
+
+
+
             Command cmdScript = new Command(cmd, true);
             Collection<PSObject> result = PowerShell.Execute(cmdScript, false);
             return result.Count < 1;

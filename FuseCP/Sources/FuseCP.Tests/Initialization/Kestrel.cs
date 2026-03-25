@@ -62,8 +62,8 @@ namespace FuseCP.Tests
 			{
 				shell = new WSLShell(wslDistro);
 
-				testdllpath = Paths.Wsl(testdllpath);
-				testprojpath = Paths.Wsl(testprojpath);
+				Paths.Wsl(testdllpath);
+				Paths.Wsl(testprojpath);
 				dll = Paths.Wsl(dll);
 				pfx = Paths.Wsl(pfx);
 			}

@@ -179,14 +179,11 @@ namespace FuseCP.Providers.OS
 		{
 			var tokens = TokenizeArguments(arguments).ToList();
 			var argumentListProperty = typeof(ProcessStartInfo).GetProperty("ArgumentList");
-			if (argumentListProperty != null)
+			if (argumentListProperty != null && argumentListProperty.GetValue(startInfo) is IList argumentList)
 			{
-				if (argumentListProperty.GetValue(startInfo) is IList argumentList)
-				{
-					foreach (var token in tokens)
-						argumentList.Add(token);
-					return;
-				}
+				foreach (var token in tokens)
+					argumentList.Add(token);
+				return;
 			}
 
 			startInfo.Arguments = string.Join(" ", tokens.Select(QuoteArgument));
@@ -274,32 +271,32 @@ namespace FuseCP.Providers.OS
 			if (cmdWithPath != null)
 			{
 				var child = Clone;
-				var process = new Process();
-				child.Process = process;
-				process.StartInfo.FileName = cmdWithPath;
-				ApplyArguments(process.StartInfo, arguments);
-				process.StartInfo.UseShellExecute = false;
-				process.StartInfo.CreateNoWindow = CreateNoWindow;
-				process.StartInfo.WindowStyle = WindowStyle;
-				process.StartInfo.WorkingDirectory = WorkingDirectory ??
-					process.StartInfo.WorkingDirectory;
-				process.StartInfo.RedirectStandardOutput = true;
-				process.StartInfo.RedirectStandardError = true;
-				process.StartInfo.RedirectStandardInput = true;
-				process.StartInfo.StandardOutputEncoding = encoding ?? Encoding ?? Encoding.Default;
-				process.StartInfo.StandardErrorEncoding = encoding ?? Encoding ?? Encoding.Default;
+				var local_process = new Process();
+				child.Process = local_process;
+				local_process.StartInfo.FileName = cmdWithPath;
+				ApplyArguments(local_process.StartInfo, arguments);
+				local_process.StartInfo.UseShellExecute = false;
+				local_process.StartInfo.CreateNoWindow = CreateNoWindow;
+				local_process.StartInfo.WindowStyle = WindowStyle;
+				local_process.StartInfo.WorkingDirectory = WorkingDirectory ??
+					local_process.StartInfo.WorkingDirectory;
+				local_process.StartInfo.RedirectStandardOutput = true;
+				local_process.StartInfo.RedirectStandardError = true;
+				local_process.StartInfo.RedirectStandardInput = true;
+				local_process.StartInfo.StandardOutputEncoding = encoding ?? Encoding ?? Encoding.Default;
+				local_process.StartInfo.StandardErrorEncoding = encoding ?? Encoding ?? Encoding.Default;
 				var env = environment ?? Environment;
 				if (env != null)
 				{
 					foreach (var variable in env)
 					{
-						if (!process.StartInfo.EnvironmentVariables.ContainsKey(variable.Key))
-							process.StartInfo.EnvironmentVariables.Add(variable.Key, variable.Value);
+						if (!local_process.StartInfo.EnvironmentVariables.ContainsKey(variable.Key))
+							local_process.StartInfo.EnvironmentVariables.Add(variable.Key, variable.Value);
 						else
-							process.StartInfo.EnvironmentVariables[variable.Key] = variable.Value;
+							local_process.StartInfo.EnvironmentVariables[variable.Key] = variable.Value;
 					}
 				}
-				process.Exited += (obj, args) =>
+				local_process.Exited += (obj, args) =>
 				{
 					child.exitCode = child.Process.ExitCode;
 					child.Lock.Wait();
@@ -308,8 +305,8 @@ namespace FuseCP.Providers.OS
 
 					child.CheckCompleted();
 				};
-				process.EnableRaisingEvents = true;
-				process.ErrorDataReceived += (p, data) =>
+				local_process.EnableRaisingEvents = true;
+				local_process.ErrorDataReceived += (p, data) =>
 				{
 					if (data.Data == null)
 					{
@@ -331,7 +328,7 @@ namespace FuseCP.Providers.OS
 						}
 					}
 				};
-				process.OutputDataReceived += (p, data) =>
+				local_process.OutputDataReceived += (p, data) =>
 				{
 					if (data.Data == null)
 					{
@@ -354,10 +351,10 @@ namespace FuseCP.Providers.OS
 						}
 					}
 				};
-				process.Start();
-				process.BeginOutputReadLine();
-				process.BeginErrorReadLine();
-				process.StandardInput.AutoFlush = true;
+				local_process.Start();
+				local_process.BeginOutputReadLine();
+				local_process.BeginErrorReadLine();
+				local_process.StandardInput.AutoFlush = true;
 				return child;
 			}
 			else

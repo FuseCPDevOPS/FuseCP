@@ -88,7 +88,7 @@ namespace FuseCP.Providers
         protected void CheckTempPath(string path)
         {
             // check path
-            string tempPath = Path.GetTempPath();
+            Path.GetTempPath();
 
 			//bug when calling from local machine
             //if (!path.ToLower().StartsWith(tempPath.ToLower()))

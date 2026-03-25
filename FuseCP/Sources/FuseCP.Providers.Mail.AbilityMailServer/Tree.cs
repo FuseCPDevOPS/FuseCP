@@ -49,8 +49,8 @@ namespace FuseCP.Providers.Mail
 		{
 			get
 			{
-				if (_searchIndex.ContainsKey(keyName))
-					return _searchIndex[keyName];
+if (_searchIndex.TryGetValue(keyName, out var _ckv))
+					return _ckv;
 
 				return null;
 			}

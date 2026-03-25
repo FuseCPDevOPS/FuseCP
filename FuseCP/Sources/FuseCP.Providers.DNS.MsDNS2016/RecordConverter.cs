@@ -181,14 +181,14 @@ namespace FuseCP.Providers.DNS
                 case DnsRecordType.UNKNOWN:
                     {
                         DnsRecordType type;
-                        if (get)
-                        {
-                            type = DnsRecordType.CAA;
-                        }
-                        else
-                        {
-                            type = DnsRecordType.UNKNOWN;
-                        }
+                        type = get ? DnsRecordType.CAA : DnsRecordType.UNKNOWN;
+
+
+
+
+
+
+
                         return new DnsRecord()
                         {
                             RecordType = type,

@@ -58,14 +58,14 @@ namespace FuseCP.EnterpriseServer
                         secureSocketOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
                     }
 
-                    if (enableLegacySSL)
-                    {
-                        client.SslProtocols = SslProtocols.None;
-                    }
-                    else
-                    {
-                        client.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-                    }
+                    client.SslProtocols = enableLegacySSL ? SslProtocols.None : SslProtocols.Tls12 | SslProtocols.Tls13;
+
+
+
+
+
+
+
 
                     // Connect
                     await client.ConnectAsync(smtpServer, smtpPort, secureSocketOptions);

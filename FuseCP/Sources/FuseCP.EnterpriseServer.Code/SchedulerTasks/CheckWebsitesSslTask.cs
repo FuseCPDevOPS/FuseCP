@@ -232,7 +232,7 @@ namespace FuseCP.EnterpriseServer
                 };
 
                 using var httpClient = new HttpClient(httpClientHandler);
-                httpResponse = await httpClient.SendAsync(new HttpRequestMessage(httpMethod, url));
+                await httpClient.SendAsync(new HttpRequestMessage(httpMethod, url));
             }
             catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {

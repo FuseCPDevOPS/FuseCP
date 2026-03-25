@@ -325,7 +325,7 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             // load server info
-            ServerInfo server = ServerController.GetServerById(serverId, false);
+            ServerController.GetServerById(serverId, false);
 
             // place log record
             TaskManager.StartTask("SERVER", "RESET_TERMINAL_SESSION", sessionId, serverId);
@@ -360,7 +360,7 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             // load server info
-            ServerInfo server = ServerController.GetServerById(serverId, false);
+            ServerController.GetServerById(serverId, false);
 
             // place log record
             TaskManager.StartTask("SERVER", "TERMINATE_SYSTEM_PROCESS", pid, serverId);
@@ -395,7 +395,7 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             // load server info
-            ServerInfo server = ServerController.GetServerById(serverId, false);
+            ServerController.GetServerById(serverId, false);
 
             // place log record
             TaskManager.StartTask("SERVER", "CHANGE_WINDOWS_SERVICE_STATUS", id, serverId);
@@ -532,7 +532,7 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             // load server info
-            ServerInfo server = ServerController.GetServerById(serverId, false);
+            ServerController.GetServerById(serverId, false);
 
             // place log record
             TaskManager.StartTask("SERVER", "REBOOT", serverId);

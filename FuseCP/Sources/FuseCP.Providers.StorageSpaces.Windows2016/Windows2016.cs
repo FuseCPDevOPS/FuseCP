@@ -649,7 +649,7 @@ namespace FuseCP.Providers.StorageSpaces
 
             try
             {
-                if (preserveInheritance == false && permissions != null)
+                if (!(preserveInheritance) && permissions != null)
                 {
                     if (permissions.All(x => !string.Equals(x.AccountName, "Domain Admins", StringComparison.InvariantCultureIgnoreCase)))
                     {
@@ -838,7 +838,7 @@ namespace FuseCP.Providers.StorageSpaces
                 };
 
                 object[] errors = null;
-                var result = ExecuteLocalScript(runspace, scripts, out errors);
+                ExecuteLocalScript(runspace, scripts, out errors);
 
                 return GetShare(shareName, runspace);
             }
@@ -1004,7 +1004,7 @@ namespace FuseCP.Providers.StorageSpaces
                 };
 
                 object[] errors = null;
-                var result = ExecuteLocalScript(runspace, scripts, out errors);
+                ExecuteLocalScript(runspace, scripts, out errors);
             }
             catch (Exception ex)
             {
@@ -1264,14 +1264,14 @@ namespace FuseCP.Providers.StorageSpaces
             var pathWithoutDriveLetter = fullPath.Replace(driveLetter, string.Empty);
             driveLetter = driveLetter.Replace(":\\", string.Empty);
 
-            SetQuotaLimitOnFolder(pathWithoutDriveLetter, driveLetter, quotaType, (qouteSizeBytes / (1024 * 1024)).ToString() + "MB", 0, String.Empty, String.Empty);
+            SetQuotaLimitOnFolder(pathWithoutDriveLetter, driveLetter, quotaType, (qouteSizeBytes / (1024 * 1024)) + "MB", 0, String.Empty, String.Empty);
         }
 
         public Quota GetFolderQuota(string fullPath)
         {
             var quotas = GetQuotasForOrganization(Directory.GetParent(fullPath).ToString(), string.Empty, string.Empty);
 
-            if (quotas.ContainsKey(fullPath) == false)
+            if (!(quotas.ContainsKey(fullPath)))
             {
                 return null;
             }

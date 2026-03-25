@@ -73,9 +73,9 @@ namespace FuseCP.Providers.Mail
 					mailbox.Name,
 					new string[]
                     {
-                        "isenabled=" + mailbox.Enabled.ToString(),
-                        "maxsize=" + mailbox.MaxMailboxSize.ToString(),
-                        "passwordlocked=" + mailbox.PasswordLocked.ToString(),
+                        "isenabled=" + mailbox.Enabled,
+                        "maxsize=" + mailbox.MaxMailboxSize,
+                        "passwordlocked=" + mailbox.PasswordLocked,
                         "replytoaddress=" + (mailbox.ReplyTo != null ? mailbox.ReplyTo : ""),
                         "signature=" + (mailbox.Signature != null ? mailbox.Signature : ""),
 						"spamforwardoption=none"
@@ -145,9 +145,9 @@ namespace FuseCP.Providers.Mail
 					mailbox.Name,
 					new string[]
                     {
-                        "isenabled=" + mailbox.Enabled.ToString(),
-                        "maxsize=" + mailbox.MaxMailboxSize.ToString(),
-                        "passwordlocked=" + mailbox.PasswordLocked.ToString(),
+                        "isenabled=" + mailbox.Enabled,
+                        "maxsize=" + mailbox.MaxMailboxSize,
+                        "passwordlocked=" + mailbox.PasswordLocked,
                         "replytoaddress=" + (mailbox.ReplyTo != null ? mailbox.ReplyTo : ""),
                         "signature=" + (mailbox.Signature != null ? mailbox.Signature : ""),
 						"spamforwardoption=none"
@@ -225,7 +225,7 @@ namespace FuseCP.Providers.Mail
 			try
 			{
 				string domain = GetDomainName(listName);
-				string account = GetAccountName(listName);
+				GetAccountName(listName);
 
 				SM3.svcMailListAdmin lists = new SM3.svcMailListAdmin();
 				PrepareProxy(lists);
@@ -437,7 +437,7 @@ namespace FuseCP.Providers.Mail
 				SM3.svcMailListAdmin svcLists = new SM3.svcMailListAdmin();
 				PrepareProxy(svcLists);
 
-				string account = GetAccountName(listName);
+				GetAccountName(listName);
 				string domain = GetDomainName(listName);
 
 				SM3.GenericResult gResult = svcLists.DeleteList(

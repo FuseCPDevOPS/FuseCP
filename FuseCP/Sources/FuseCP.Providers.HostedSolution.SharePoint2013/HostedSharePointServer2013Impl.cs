@@ -189,23 +189,23 @@ namespace FuseCP.Providers.HostedSolution
         /// <param name="warningStorage">The warning storage value.</param>
         public void UpdateQuotas(Uri root, string url, long maxStorage, long warningStorage)
         {
-            if (maxStorage != -1)
-            {
-                maxStorage = maxStorage*1024*1024;
-            }
-            else
-            {
-                maxStorage = 0;
-            }
+            maxStorage = maxStorage != -1 ? maxStorage*1024*1024 : 0;
 
-            if (warningStorage != -1 && maxStorage != -1)
-            {
-                warningStorage = Math.Min(warningStorage, maxStorage)*1024*1024;
-            }
-            else
-            {
-                warningStorage = 0;
-            }
+
+
+
+
+
+
+
+            warningStorage = warningStorage != -1 && maxStorage != -1 ? Math.Min(warningStorage, maxStorage)*1024*1024 : 0;
+
+
+
+
+
+
+
 
             Runspace runspace = null;
 

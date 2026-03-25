@@ -322,7 +322,7 @@ namespace FuseCP.EnterpriseServer
                 site.AnonymousUserPassword = Guid.NewGuid().ToString("P");
 
                 // folders
-                string packageHome = FilesController.GetHomeFolder(packageId);
+                FilesController.GetHomeFolder(packageId);
 
                 // add random string to the domain if specified
                 string randDomainName = siteName;
@@ -1439,7 +1439,7 @@ namespace FuseCP.EnterpriseServer
                 bindings.AddRange(web.GetSiteBindings(siteItem.SiteId));
 
                 // check if web site has dedicated IP assigned
-                bool dedicatedIp = bindings.Exists(binding => { return String.IsNullOrEmpty(binding.Host) && binding.IP != "*"; });
+                bindings.Exists(binding => { return String.IsNullOrEmpty(binding.Host) && binding.IP != "*"; });
 
                 // update binding only for "shared" ip addresses
                 // add new host headers
@@ -1600,7 +1600,7 @@ namespace FuseCP.EnterpriseServer
                 bindings.AddRange(web.GetSiteBindings(siteItem.SiteId));
 
                 // check if web site has dedicated IP assigned
-                bool dedicatedIp = bindings.Exists(binding => { return String.IsNullOrEmpty(binding.Host) && binding.IP != "*"; });
+                bindings.Exists(binding => { return String.IsNullOrEmpty(binding.Host) && binding.IP != "*"; });
 
                 // update binding only for "shared" ip addresses
 
@@ -3977,7 +3977,7 @@ Please ensure the web site has been assigned bindings in the appropriate format 
 					return;
 				}
 				//
-				ServiceInfo webService = ServerController.GetServiceInfo(serviceId);
+				ServerController.GetServiceInfo(serviceId);
 				// Loading ip addresses from Web Sites address pool related to the package
 				List<PackageIPAddress> ips = ServerController.GetPackageUnassignedIPAddresses(packageId, IPAddressPool.WebSites);
 				// Looking for an entry matching by package and external/internal ip
@@ -3998,7 +3998,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             // folders
             UserInfo user = PackageController.GetPackageOwner(packageId);
             UserSettings webPolicy = UserController.GetUserSettings(user.UserId, UserSettings.WEB_POLICY);
-            string packageHome = FilesController.GetHomeFolder(packageId);
+            FilesController.GetHomeFolder(packageId);
 
             // need to extract hostName and domainName from itemName
             // assumes the first segment is the host and the remaining segments are the domain

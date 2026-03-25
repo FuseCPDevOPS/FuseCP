@@ -179,7 +179,7 @@ namespace FuseCP.Providers.Virtualization
                     using (CimMethodResult result = _miCim.InvokeMethod(objFile, "Copy", inParams))
                     {
                         if ((uint)result.ReturnValue.Value != 0)
-                            throw new Exception("Copy file failed: Result error: " + result.ReturnValue.Value.ToString());
+                            throw new Exception("Copy file failed: Result error: " + result.ReturnValue.Value);
                     }                        
                 }
                 //    // copy using WMI

@@ -2743,7 +2743,7 @@ namespace FuseCP.EnterpriseServer
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
 
-                PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                PackageController.GetPackageContext(org.PackageId);
 
                 var oldObj = exchange.GetResourceMailboxSettings(account.UserPrincipalName);
 
@@ -4054,7 +4054,7 @@ namespace FuseCP.EnterpriseServer
                 LogExtension.WriteObject(tag);
 
                 // load package context
-                PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                PackageController.GetPackageContext(org.PackageId);
 
                 if (org.PackageId > 1)
                 {
@@ -4118,7 +4118,7 @@ namespace FuseCP.EnterpriseServer
                 LogExtension.SetItemName(tag.TagName);
 
                 // load package context
-                PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                PackageController.GetPackageContext(org.PackageId);
 
                 if (org.PackageId > 1)
                 {
@@ -4173,7 +4173,7 @@ namespace FuseCP.EnterpriseServer
                 if (exchangeServiceId > 0)
                 {
                     // load package context
-                    PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                    PackageController.GetPackageContext(org.PackageId);
 
                     if (org.PackageId > 1)
                     {
@@ -4298,7 +4298,7 @@ namespace FuseCP.EnterpriseServer
                 LogExtension.WriteObject(planTag);
 
                 // load package context
-                PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                PackageController.GetPackageContext(org.PackageId);
 
                 if (org.PackageId > 1)
                 {
@@ -4342,7 +4342,7 @@ namespace FuseCP.EnterpriseServer
             try
             {
                 // load package context
-                PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                PackageController.GetPackageContext(org.PackageId);
 
                 if (org.PackageId > 1)
                 {

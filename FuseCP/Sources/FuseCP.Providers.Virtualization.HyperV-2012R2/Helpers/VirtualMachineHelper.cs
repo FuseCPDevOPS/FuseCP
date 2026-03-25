@@ -304,7 +304,7 @@ namespace FuseCP.Providers.Virtualization
                 var ramInfo = cimRamInfo.CimInstanceProperties;
                 vm.RamSize = Convert.ToInt32(ramInfo["VirtualQuantity"].Value);
 
-                bool isDynamicMemoryEnabled = Convert.ToBoolean(ramInfo["DynamicMemoryEnabled"].Value);
+                Convert.ToBoolean(ramInfo["DynamicMemoryEnabled"].Value);
 
                 vm.Generation = Convert.ToString(objSettings["VirtualSystemSubType"].Value).EndsWith(":2") ? 2 : 1;
                 vm.ProcessorCount = Convert.ToInt32(objSummary["NumberOfProcessors"].Value);

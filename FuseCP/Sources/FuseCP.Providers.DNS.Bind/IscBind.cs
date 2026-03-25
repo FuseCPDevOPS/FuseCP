@@ -721,7 +721,6 @@ namespace FuseCP.Providers.DNS
 
                 recordName = columns[0];
                 if (columns.Length > 1)
-                    recordTTL = columns[1];
                 if (columns.Length > 2)
                     recordType = columns[2];
                 if (columns.Length > 3)

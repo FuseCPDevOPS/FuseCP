@@ -1635,14 +1635,14 @@ namespace FuseCP.EnterpriseServer
 			}
 
 			string quotaName;
-			if (isDmz)
-            {
-				quotaName = Quotas.VPS2012_DMZ_VLANS_NUMBER;
-			}
-            else
-            {
-				quotaName = Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
-			}
+			quotaName = isDmz ? Quotas.VPS2012_DMZ_VLANS_NUMBER : Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
+
+
+
+
+
+
+
 
 			// get maximum server IPs
 			List<VLANInfo> vlans = ServerController.GetUnallottedVLANs(packageId, groupName);
@@ -2212,14 +2212,14 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			int number = 0;
 
             string quotaName;
-			if (isDmz)
-            {
-				quotaName = Quotas.VPS2012_DMZ_VLANS_NUMBER;
-			}
-            else
-            {
-				quotaName = Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
-			}
+			quotaName = isDmz ? Quotas.VPS2012_DMZ_VLANS_NUMBER : Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
+
+
+
+
+
+
+
 
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
 if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
@@ -2334,14 +2334,14 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 		{
 			if (pool == IPAddressPool.PhoneNumbers)
 			{
-				if (groupName == "SfB")
-				{
-					return Quotas.SFB_PHONE;
-				}
-				else
-				{
-					return Quotas.LYNC_PHONE;
-				}
+				return groupName == "SfB" ? Quotas.SFB_PHONE : Quotas.LYNC_PHONE;
+
+
+
+
+
+
+
 			}
 
 			if (String.Compare(groupName, ResourceGroups.VPS, true) == 0)

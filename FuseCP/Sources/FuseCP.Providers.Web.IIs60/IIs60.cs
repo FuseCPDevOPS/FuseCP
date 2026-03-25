@@ -440,30 +440,30 @@ namespace FuseCP.Providers.Web
 				site.ColdFusionAvailable = false;
 			}
 
-			WebAppVirtualDirectory[] appdirs = GetAppVirtualDirectories(siteId);
-			WebVirtualDirectory[] virtdirs = GetVirtualDirectories(siteId);
+			GetAppVirtualDirectories(siteId);
+			GetVirtualDirectories(siteId);
 
 			if (IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed())
 			{
-				if (AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "jakarta"))
-				{
-					site.CreateCFAppVirtualDirectories = true;
-				}
-				else
-				{
-					site.CreateCFAppVirtualDirectories = false;
-				}
+				site.CreateCFAppVirtualDirectories = AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "jakarta") ? true : false;
+
+
+
+
+
+
+
 			}
 			else
 			{
-				if (AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "JRunScripts"))
-				{
-					site.CreateCFAppVirtualDirectories = true;
-				}
-				else
-				{
-					site.CreateCFAppVirtualDirectories = false;
-				}
+				site.CreateCFAppVirtualDirectories = AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "JRunScripts") ? true : false;
+
+
+
+
+
+
+
 			}
 
 			// check sharepoint
@@ -535,7 +535,7 @@ namespace FuseCP.Providers.Web
 					// try to give it original name
 					for (int i = 2; i < 99; i++)
 					{
-						string username = user.Name + i.ToString();
+						string username = user.Name + i;
 						if (!SecurityUtils.UserExists(username, ServerSettings, UsersOU))
 						{
 							user.Name = username;
@@ -832,7 +832,7 @@ namespace FuseCP.Providers.Web
 			#endregion
 
 			#region ColdFusion Virtual Directories
-			WebAppVirtualDirectory[] virtdirs = GetAppVirtualDirectories(site.SiteId);
+			GetAppVirtualDirectories(site.SiteId);
 			bool cfDirsinstalled = false;
 
 			if (IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed())
@@ -1029,7 +1029,7 @@ namespace FuseCP.Providers.Web
 		public virtual void CreateCFAppVirtualDirectories(string siteId)
 		{
 			WebAppVirtualDirectory scriptsDirectory = new WebAppVirtualDirectory();
-			WebSite site = GetSite(siteId);
+			GetSite(siteId);
 			scriptsDirectory.Name = "CFIDE";
 			scriptsDirectory.ContentPath = CFScriptsDirectoryPath;
 			scriptsDirectory.EnableAnonymousAccess = true;
@@ -1046,14 +1046,14 @@ namespace FuseCP.Providers.Web
 			}
 
 			WebAppVirtualDirectory flashRemotingDir = new WebAppVirtualDirectory();
-			if (IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed())
-			{
-				flashRemotingDir.Name = "jakarta";
-			}
-			else
-			{
-				flashRemotingDir.Name = "JRunScripts";
-			}
+			flashRemotingDir.Name = IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed() ? "jakarta" : "JRunScripts";
+
+
+
+
+
+
+
 			flashRemotingDir.ContentPath = CFFlashRemotingDirPath;
 			flashRemotingDir.EnableAnonymousAccess = true;
 			flashRemotingDir.EnableWindowsAuthentication = true;
@@ -1152,7 +1152,7 @@ namespace FuseCP.Providers.Web
 
 
 			// load parent site settings
-			ManagementObject objSite = wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
+			wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
 
 			// check write permissions
 			dir.EnableWritePermissions = CheckWriteAccessEnabled(dir.ContentPath,
@@ -1380,7 +1380,7 @@ namespace FuseCP.Providers.Web
 			FillAppVirtualDirectoryRestFromWmiObject(dir, objDir);
 
 			// load parent site settings
-			ManagementObject objSite = wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
+			wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
 
 			// check write permissions
 			dir.EnableWritePermissions = CheckWriteAccessEnabled(dir.ContentPath,
@@ -1826,7 +1826,7 @@ namespace FuseCP.Providers.Web
 		{
 
 			//wsconfig.exe -remove -ws iis -site "tube.com" -v
-			string pathWs = Path.Combine(GetColdFusionRootPath(), @"runtime\bin");
+			Path.Combine(GetColdFusionRootPath(), @"runtime\bin");
 			//string command = String.Format("wsconfig.exe -remove -ws iis -site \"{0}\" -v", siteName);
 
 			string execpath = Path.Combine(GetColdFusionRootPath(), @"runtime\bin\wsconfig.exe");
@@ -1861,7 +1861,6 @@ namespace FuseCP.Providers.Web
 
 			try
 			{
-				object test = objFilter.Properties["Name"].Value;
 				return true;
 			}
 			catch
@@ -2506,7 +2505,7 @@ namespace FuseCP.Providers.Web
 				if (colonIdx != -1)
 				{
 					string username = line.Substring(0, colonIdx);
-					string password = line.Substring(colonIdx + 1);
+					line.Substring(colonIdx + 1);
 					if (String.Compare(username, user.Name, true) == 0)
 					{
 						// already exists
@@ -2521,6 +2520,7 @@ namespace FuseCP.Providers.Web
 						{
 							// change password
 							BsdDES des = new BsdDES();
+							string password = line.Substring(colonIdx + 1);
 							password = des.Crypt(user.Password);
 
 							// update line
@@ -4048,7 +4048,7 @@ namespace FuseCP.Providers.Web
 		public virtual bool GetDirectoryBrowseEnabled(string siteId)
 		{
 			ManagementObject objVirtDir = wmi.GetObject(String.Format("IIsWebVirtualDirSetting='{0}'", GetAppVirtualDirectoryPath(siteId, "")));
-			return objVirtDir.Properties["EnableDirBrowsing"].Value != null ? (bool)objVirtDir.Properties["EnableDirBrowsing"].Value : false;
+			return objVirtDir.Properties["EnableDirBrowsing"].Value != null && (bool)objVirtDir.Properties["EnableDirBrowsing"].Value;
 		}
 
 		public virtual void SetDirectoryBrowseEnabled(string siteId, bool enabled)

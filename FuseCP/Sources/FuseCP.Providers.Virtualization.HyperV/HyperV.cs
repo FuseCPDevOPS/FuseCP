@@ -218,7 +218,7 @@ namespace FuseCP.Providers.Virtualization
 
             // network adapters
             List<VirtualMachineNetworkAdapter> nics = new List<VirtualMachineNetworkAdapter>();
-            ManagementObject objVM = GetVirtualMachineObject(vmId);
+            GetVirtualMachineObject(vmId);
 
             // synthetic adapters
             foreach (ManagementObject objNic in wmi.GetWmiObjects("Msvm_SyntheticEthernetPortSettingData", "InstanceID like 'Microsoft:{0}%'", vmId))
@@ -500,7 +500,7 @@ namespace FuseCP.Providers.Virtualization
             inParams["ComputerSystem"] = objVM;
             inParams["SystemSettingData"] = objSettings.GetText(TextFormat.CimDtd20);
             ManagementBaseObject outParams = objVmsvc.InvokeMethod("ModifyVirtualSystem", inParams, null);
-            JobResult job = CreateJobResultFromWmiMethodResults(outParams);
+            CreateJobResultFromWmiMethodResults(outParams);
 
             // setup CPU
             ManagementObject objCpu = wmi.GetWmiObject("Msvm_ProcessorSettingData", "InstanceID Like 'Microsoft:{0}%'", vmId);
@@ -522,7 +522,7 @@ namespace FuseCP.Providers.Virtualization
             inParams["ComputerSystem"] = objVM;
             inParams["ResourceSettingData"] = vmConfig.ToArray();
             outParams = objVmsvc.InvokeMethod("ModifyVirtualSystemResources", inParams, null);
-            job = CreateJobResultFromWmiMethodResults(outParams);
+            CreateJobResultFromWmiMethodResults(outParams);
         }
 
         private void AddVirtualMachineDvdDrive(string vmId, ManagementObject objVM)
@@ -605,7 +605,7 @@ namespace FuseCP.Providers.Virtualization
                     objExtNic["VirtualSystemIdentifiers"] = new string[] { Guid.NewGuid().ToString("B") };
 
                 // add NIC
-                ManagementObject objCreatedExtNic = AddVirtualMachineResources(objVm, objExtNic);
+                AddVirtualMachineResources(objVm, objExtNic);
             }
         }
 
@@ -946,7 +946,7 @@ namespace FuseCP.Providers.Virtualization
             // load snapshot
             ManagementObject objSnapshot = GetSnapshotObject(snapshotId);
 
-            ManagementObjectCollection objRelated = objVm.GetRelated("Msvm_SettingsDefineState");
+            objVm.GetRelated("Msvm_SettingsDefineState");
 
             // get method params
             ManagementBaseObject inParams = objVmsvc.GetMethodParameters("ApplyVirtualSystemSnapshot");

@@ -596,14 +596,14 @@ namespace FuseCP.Providers.Web.Apache
 				.SelectMany(filepattern =>
 				{
 					if (!Path.IsPathRooted(filepattern)) filepattern = Path.Combine(Path.GetDirectoryName(FullName), filepattern);
-					if (filepattern.Contains('*') || filepattern.Contains('?'))
-					{
-						return System.IO.Directory.EnumerateFiles(filepattern);
-					}
-					else
-					{
-						return new string[] { filepattern };
-					}
+					return filepattern.Contains('*') || filepattern.Contains('?') ? System.IO.Directory.EnumerateFiles(filepattern) : new string[] { filepattern };
+
+
+
+
+
+
+
 				});
 			foreach (var file in files)
 			{

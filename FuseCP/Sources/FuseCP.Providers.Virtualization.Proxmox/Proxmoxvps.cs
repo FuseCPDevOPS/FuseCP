@@ -355,7 +355,7 @@ namespace FuseCP.Providers.Virtualization
 
                         // Checking for bootdisk as newer VMs use boot not bootorder
                         string bootdisk;
-                        if (!vmconfigconfigvalue.ContainsKey("bootdisk"))
+if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                         {
                             string boot1 = (string)vmconfigconfigvalue["boot"];
                             var bootvar = boot1.Replace("order=", "").Split(';');
@@ -701,14 +701,14 @@ namespace FuseCP.Providers.Virtualization
                 }
 
 
-                if (resultclient.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    jobResult.ReturnValue = ReturnCode.JobStarted;
-                }
-                else
-                {
-                    jobResult.ReturnValue = ReturnCode.Failed;
-                }
+                jobResult.ReturnValue = resultclient.StatusCode.Equals(HttpStatusCode.OK) ? ReturnCode.JobStarted : ReturnCode.Failed;
+
+
+
+
+
+
+
 
             }
             catch (Exception ex)
@@ -752,14 +752,14 @@ namespace FuseCP.Providers.Virtualization
         public JobResult RenameVirtualMachine(string vmId, string name)
         {
             var changedname = Api.ChangeName(vmId, name);
-            if (changedname.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                return ProxmoxJobHelper.CreateSuccessResult(ReturnCode.OK);
-            }
-            else
-            {
-                return ProxmoxJobHelper.CreateSuccessResult(ReturnCode.Failed);
-            }
+            return changedname.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateSuccessResult(ReturnCode.OK) : ProxmoxJobHelper.CreateSuccessResult(ReturnCode.Failed);
+
+
+
+
+
+
+
         }
 
         public JobResult DeleteVirtualMachine(string vmId)
@@ -770,14 +770,14 @@ namespace FuseCP.Providers.Virtualization
                 throw new Exception("The virtual computer system must be in the powered off or saved state prior to calling Destroy method.");
 
             var deleted = Api.Delete(vmId);
-            if (deleted.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                return ProxmoxJobHelper.CreateSuccessResult(ReturnCode.JobStarted);
-            }
-            else
-            {
-                return ProxmoxJobHelper.CreateSuccessResult(ReturnCode.Failed);
-            }
+            return deleted.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateSuccessResult(ReturnCode.JobStarted) : ProxmoxJobHelper.CreateSuccessResult(ReturnCode.Failed);
+
+
+
+
+
+
+
         }
 
         public JobResult ExportVirtualMachine(string vmId, string exportPath)
@@ -867,7 +867,6 @@ namespace FuseCP.Providers.Virtualization
             var vm = Api.NodeId(vmId);
 
             var vnc = Api.Nodes[vm.Node].Qemu[vm.Id].Vncproxy.Vncproxy(true, true).Result;
-            var vncRequested = DateTime.Now;
             var dic = vnc.ResponseToDictionary;
             var data = dic["data"] as IDictionary<string, object>;
             var ticket = data["ticket"] as string;
@@ -980,13 +979,13 @@ namespace FuseCP.Providers.Virtualization
                             Created = DateTime.Now
                         };
 
-                        if (snapshot.ContainsKey("parent"))
-                            proxmoxsnapshot.ParentId = snapshot["parent"].ToString();
-                        if (snapshot.ContainsKey("description"))
-                            proxmoxsnapshot.Name = snapshot["description"].ToString();
+if (snapshot.TryGetValue("parent", out var parentValue))
+                            proxmoxsnapshot.ParentId = parentValue.ToString();
+if (snapshot.TryGetValue("description", out var descriptionValue))
+                            proxmoxsnapshot.Name = descriptionValue.ToString();
 
-                        if (snapshot.ContainsKey("snaptime"))
-                            proxmoxsnapshot.Created = ConvertFromUnixTimestamp(snapshot["snaptime"].ToString());
+if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
+                            proxmoxsnapshot.Created = ConvertFromUnixTimestamp(snapTimeValue.ToString());
 
                         if (proxmoxsnapshot.Id.Equals("current"))
                         {
@@ -1092,15 +1091,15 @@ namespace FuseCP.Providers.Virtualization
                 }
 
                 var snapshot = Api.CreateSnapshot(vmId, snapname, snapdescr);
-                if (snapshot.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    return ProxmoxJobHelper.CreateResultUpid(snapshot.Data, ConcreteJobState.Running, ReturnCode.JobStarted);
+                return snapshot.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResultUpid(snapshot.Data, ConcreteJobState.Running, ReturnCode.JobStarted) : ProxmoxJobHelper.CreateResultUpid(snapshot.Data, ConcreteJobState.Failed, ReturnCode.Failed);
 
-                }
-                else
-                {
-                    return ProxmoxJobHelper.CreateResultUpid(snapshot.Data, ConcreteJobState.Failed, ReturnCode.Failed);
-                }
+
+
+
+
+
+
+
 
             }
             catch (Exception ex)
@@ -1116,15 +1115,15 @@ namespace FuseCP.Providers.Virtualization
             try
             {
                 var renameresult = Api.RenameSnapshot(vmId, snapshotId, name);
-                if (renameresult.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    return ProxmoxJobHelper.CreateResult(ConcreteJobState.Completed, ReturnCode.OK);
+                return renameresult.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResult(ConcreteJobState.Completed, ReturnCode.OK) : ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
 
-                }
-                else
-                {
-                    return ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
-                }
+
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -1138,15 +1137,15 @@ namespace FuseCP.Providers.Virtualization
             try
             {
                 var applyresult = Api.Rollback(vmId, snapshotId);
-                if (applyresult.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    return ProxmoxJobHelper.CreateResultUpid(applyresult.Data, ConcreteJobState.Running, ReturnCode.JobStarted);
+                return applyresult.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResultUpid(applyresult.Data, ConcreteJobState.Running, ReturnCode.JobStarted) : ProxmoxJobHelper.CreateResultUpid(applyresult.Data, ConcreteJobState.Failed, ReturnCode.Failed);
 
-                }
-                else
-                {
-                    return ProxmoxJobHelper.CreateResultUpid(applyresult.Data, ConcreteJobState.Failed, ReturnCode.Failed);
-                }
+
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -1158,7 +1157,7 @@ namespace FuseCP.Providers.Virtualization
         public JobResult DeleteSnapshot(string vmId, string snapshotId)
         {
             // Delete screenshot
-            var snapshot = GetSnapshot(vmId, snapshotId);
+            GetSnapshot(vmId, snapshotId);
             var screenshotFile = SnapshotScreenshotFile(snapshotId);
             if (File.Exists(screenshotFile)) File.Delete(screenshotFile);
 
@@ -1170,15 +1169,15 @@ namespace FuseCP.Providers.Virtualization
                 JToken jsonResponse = JToken.Parse(deleteresult.Content);
                 String jobid = jsonResponse["data"].ToString();
 
-                if (deleteresult.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    jobResult = ProxmoxJobHelper.CreateResult(ConcreteJobState.Running, ReturnCode.JobStarted);
+                jobResult = deleteresult.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResult(ConcreteJobState.Running, ReturnCode.JobStarted) : ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
 
-                }
-                else
-                {
-                    jobResult = ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
-                }
+
+
+
+
+
+
+
                 jobResult.Job.Id = jobid;
 
             }

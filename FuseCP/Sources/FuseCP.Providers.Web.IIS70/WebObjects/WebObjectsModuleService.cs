@@ -180,7 +180,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             {
                 var appPool = srvman.ApplicationPools[poolName];
                 //
-                if (Constants.X64Environment && appPool.Enable32BitAppOnWin64 == false)
+                if (Constants.X64Environment && !(appPool.Enable32BitAppOnWin64))
                 {
                     appPool.Enable32BitAppOnWin64 = true;
                     srvman.CommitChanges();
@@ -704,7 +704,6 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             //
             using (var iisManager = GetServerManager())
             {
-                Application iisSiteObject = iisManager.Sites[siteId].Applications["/"];
                 if (!SiteExists(iisManager, siteId))
                     return null;
 
@@ -862,7 +861,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     throw new ApplicationException();
 
 				var iisSiteObject = srvman.Sites[siteId];
-				var iisAppObject = iisSiteObject.Applications.Add(directoryName, physicalPath);
+				iisSiteObject.Applications.Add(directoryName, physicalPath);
 				//
 				srvman.CommitChanges();
 			}

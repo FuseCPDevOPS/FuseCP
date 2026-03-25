@@ -323,7 +323,7 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             // load original schedule
-            ScheduleInfo originalSchedule = GetScheduleInternal(schedule.ScheduleId);
+            GetScheduleInternal(schedule.ScheduleId);
 
             schedule.LastRun = schedule.LastRun;
             CalculateNextStartTime(schedule);

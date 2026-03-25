@@ -90,23 +90,23 @@ namespace FuseCP.Providers.OS
                         var match = Regex.Match(uri.PathAndQuery, @"^/?(?:(?<localport>[0-9]+):)?(?:(?<host>\[[0-9a-fA-F:]+\]|[0-9a-zA-Z_.-]+):)?(?<remoteport>[0-9]+)(?:/(?<path>.*?))?(?:\?(?<query>.*?))?$");
                         if (match.Success)
                         {
-                            if (match.Groups["localport"].Success)
-                            {
-                                LocalForwardPort = uint.Parse(match.Groups["localport"].Value);
-                            }
-                            else LocalForwardPort = 0;
+                            LocalForwardPort = match.Groups["localport"].Success ? uint.Parse(match.Groups["localport"].Value) : 0;
 
-                            if (match.Groups["host"].Success)
-                            {
-                                RemoteForwardHost = match.Groups["host"].Value;
-                            }
-                            else RemoteForwardHost = null;
 
-                            if (match.Groups["remoteport"].Success)
-                            {
-                                RemoteForwardPort = uint.Parse(match.Groups["remoteport"].Value);
-                            }
-                            else RemoteForwardPort = 0;
+
+
+
+                            RemoteForwardHost = match.Groups["host"].Success ? match.Groups["host"].Value : null;
+
+
+
+
+
+                            RemoteForwardPort = match.Groups["remoteport"].Success ? uint.Parse(match.Groups["remoteport"].Value) : 0;
+
+
+
+
 
                             Path = match.Groups["path"].Success ? match.Groups["path"].Value : "";
 

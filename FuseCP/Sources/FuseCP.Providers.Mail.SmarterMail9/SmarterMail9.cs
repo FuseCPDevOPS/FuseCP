@@ -1347,14 +1347,14 @@ namespace FuseCP.Providers.Mail
             {
                 MailAccount account = GetAccount(mailAliasName);
                 newAlias.Name = account.Name;
-                if ((account.ForwardingAddresses != null) && (account.ForwardingAddresses.Length > 0))
-                {
-                    newAlias.ForwardTo = account.ForwardingAddresses[0];
-                }
-                else
-                {
-                    newAlias.ForwardTo = string.Empty;
-                }
+                newAlias.ForwardTo = (account.ForwardingAddresses != null) && (account.ForwardingAddresses.Length > 0) ? account.ForwardingAddresses[0] : string.Empty;
+
+
+
+
+
+
+
                 DeleteAccount(mailAliasName);
                 CreateMailAlias(newAlias);
                 return newAlias;
@@ -1362,14 +1362,14 @@ namespace FuseCP.Providers.Mail
 
             AliasInfoResult result = aliases.GetAlias(AdminUsername, AdminPassword, GetDomainName(mailAliasName), mailAliasName);
             alias.Name = result.AliasInfo.Name;
-            if ((result.AliasInfo.Addresses != null) && (result.AliasInfo.Addresses.Length > 0))
-            {
-                alias.ForwardTo = result.AliasInfo.Addresses[0];
-            }
-            else
-            {
-                alias.ForwardTo = "empty@email.com";
-            }
+            alias.ForwardTo = (result.AliasInfo.Addresses != null) && (result.AliasInfo.Addresses.Length > 0) ? result.AliasInfo.Addresses[0] : "empty@email.com";
+
+
+
+
+
+
+
             return alias;
         }
 
@@ -1594,7 +1594,7 @@ namespace FuseCP.Providers.Mail
             try
             {
                 string domain = GetDomainName(listName);
-                string account = GetAccountName(listName);
+                GetAccountName(listName);
 
                 svcMailListAdmin lists = new svcMailListAdmin();
                 PrepareProxy(lists);
@@ -2025,7 +2025,7 @@ namespace FuseCP.Providers.Mail
                 svcMailListAdmin svcLists = new svcMailListAdmin();
                 PrepareProxy(svcLists);
 
-                string account = GetAccountName(listName);
+                GetAccountName(listName);
                 string domain = GetDomainName(listName);
 
                 GenericResult Result = svcLists.DeleteList(

@@ -723,8 +723,7 @@ namespace FuseCP.EnterpriseServer
             string domainname = "";
             DomainInfo domain = ServerController.GetDomain(domainId);
             if (domain != null)
-                domainname = domain.DomainName;
-
+                    domainname = domain.DomainName;
             int res = ServerController.DeleteDomain(domainId);
             return res;
         }
@@ -735,9 +734,7 @@ namespace FuseCP.EnterpriseServer
             string domainname = "";
             DomainInfo domain = ServerController.GetDomain(domainId);
             if (domain != null)
-                domainname = domain.DomainName;
-
-
+                    domainname = domain.DomainName;
             int res = ServerController.DetachDomain(domainId);
             return res;
         }

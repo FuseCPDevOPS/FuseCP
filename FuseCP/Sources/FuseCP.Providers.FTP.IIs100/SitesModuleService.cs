@@ -463,7 +463,7 @@ namespace FuseCP.Providers.FTP.IIs100
 					{
 						application.VirtualDirectories.Remove(accountDirectory);
 					}
-					VirtualDirectory createdAppVirtualDirectory = application.VirtualDirectories.Add(ftpVirtualDir, account.Folder);
+					application.VirtualDirectories.Add(ftpVirtualDir, account.Folder);
 
 
 					AuthorizationRuleCollection authRulesCollection = this.GetAuthorizationRuleCollection(String.Format("{0}/{1}", siteName, account.Name));
@@ -829,13 +829,10 @@ namespace FuseCP.Providers.FTP.IIs100
 
 		private void Dispose(bool disposing)
 		{
-			if (disposing)
+			if (disposing && this.ServerManager != null)
 			{
-				if (this.ServerManager != null)
-				{
-					this.ServerManager.Dispose();
-					this.ServerManager = null;
-				}
+				this.ServerManager.Dispose();
+				this.ServerManager = null;
 			}
 		}
     }

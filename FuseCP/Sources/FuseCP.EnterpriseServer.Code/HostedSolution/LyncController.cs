@@ -401,13 +401,10 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     if (!string.IsNullOrEmpty(sipAddress) && user.SipAddress != sipAddress)
                     {
-                        if (sipAddress != usr.UserPrincipalName)
+                        if (sipAddress != usr.UserPrincipalName && Database.LyncUserExists(accountId, sipAddress))
                         {
-                            if (Database.LyncUserExists(accountId, sipAddress))
-                            {
-                                TaskManager.CompleteResultTask(res, LyncErrorCodes.ADDRESS_ALREADY_USED);
-                                return res;
-                            }
+                            TaskManager.CompleteResultTask(res, LyncErrorCodes.ADDRESS_ALREADY_USED);
+                            return res;
                         }
                         user.SipAddress = sipAddress;
                     }

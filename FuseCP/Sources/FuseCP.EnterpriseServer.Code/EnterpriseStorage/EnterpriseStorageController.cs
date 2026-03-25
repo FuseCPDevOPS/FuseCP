@@ -206,7 +206,7 @@ namespace FuseCP.EnterpriseServer
                     return new SystemFile[0];
                 }
 
-                EnterpriseStorage es = GetEnterpriseStorage(GetEnterpriseStorageServiceID(org.PackageId));
+                GetEnterpriseStorage(GetEnterpriseStorageServiceID(org.PackageId));
 
                 DataSet ds = Database.GetEnterpriseFoldersPaged(itemId, "FolderName", "", "", 0, int.MaxValue);
 
@@ -475,7 +475,7 @@ namespace FuseCP.EnterpriseServer
             bool checkResult = true;
 
             var esServiceId = GetEnterpriseStorageServiceID(packageId);
-            int webServiceId = PackageController.GetPackageServiceId(packageId, ResourceGroups.Web);
+            PackageController.GetPackageServiceId(packageId, ResourceGroups.Web);
 
             Organization org = OrganizationController.GetOrganization(itemId);
 
@@ -1269,7 +1269,7 @@ namespace FuseCP.EnterpriseServer
 
                 if (CheckUsersDomainExistsInternal(itemId, org.PackageId))
                 {
-                    EnterpriseStorage es = GetEnterpriseStorage(GetEnterpriseStorageServiceID(org.PackageId));
+                    GetEnterpriseStorage(GetEnterpriseStorageServiceID(org.PackageId));
 
                     DataSet ds = Database.GetEnterpriseFoldersPaged(itemId, "FolderName", string.Format("%{0}%", filterValue), sortColumn, startRow, maximumRows);
 
@@ -2252,7 +2252,7 @@ namespace FuseCP.EnterpriseServer
 
                 if (esServiceId != 0)
                 {
-                    StringDictionary esSesstings = ServerController.GetServiceSettings(esServiceId);
+                    ServerController.GetServiceSettings(esServiceId);
 
                     Organizations orgProxy = OrganizationController.GetOrganizationProxy(org.ServiceId);
 

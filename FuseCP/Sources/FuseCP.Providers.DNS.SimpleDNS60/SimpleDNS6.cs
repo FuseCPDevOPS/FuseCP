@@ -289,7 +289,7 @@ namespace FuseCP.Providers.DNS
 			// add zone records
 			foreach (DnsRecord record in records)
 			{
-				if (!SupportedDnsRecords.ContainsKey(record.RecordType))
+if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 					continue;
 
 				string m_strRecordName = ConvertRecordNameToSDNSFormat(record.RecordName, zoneName);
@@ -298,7 +298,7 @@ namespace FuseCP.Providers.DNS
 				List<string> m_strRecordData = new List<string>();
 				String m_strRecordType = String.Empty;
 				// build record data
-				SupportedDnsRecords[record.RecordType](zoneName, ref m_strRecordType, record, m_strRecordData);
+				_ckv(zoneName, ref m_strRecordType, record, m_strRecordData);
 
 				// skip if already added
 				if (dnsZone.Records.Contains(m_strRecordName, m_strRecordType, m_strRecordData.ToArray()))
@@ -430,7 +430,7 @@ namespace FuseCP.Providers.DNS
 				Connection cn = SetupProviderConnection();
 
 				DNSZone dnsZone = cn.GetZone(zoneName);
-				dnsZone.Comments = "Updated by FuseCP DNS API at " + DateTime.Now.ToString();
+				dnsZone.Comments = "Updated by FuseCP DNS API at " + DateTime.Now;
 
 				DNSRecord soaRecord = (dnsZone.Records.Count == 0) ? dnsZone.Records.Add("@", "SOA") : dnsZone.Records[0];
 				// Fill record fields with the data
@@ -460,7 +460,7 @@ namespace FuseCP.Providers.DNS
 			{
 				Connection cn = SetupProviderConnection();
 				//
-				DNSZone dnsZone = cn.GetZone(zoneName);
+				cn.GetZone(zoneName);
 				//
 				return true;
 			}

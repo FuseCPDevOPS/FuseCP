@@ -386,14 +386,14 @@ namespace FuseCP.EnterpriseServer
 			MailAlias alias = mail.GetMailAlias(item.Name);
 
 			// add common properties
-			if (!String.IsNullOrEmpty(alias.ForwardTo))
-			{
-				item.ForwardTo = alias.ForwardTo;
-			}
-			else
-			{
-				item.ForwardTo = alias.ForwardingAddresses[0];
-			}
+			item.ForwardTo = !String.IsNullOrEmpty(alias.ForwardTo) ? alias.ForwardTo : alias.ForwardingAddresses[0];
+
+
+
+
+
+
+
 
 
 			return item;

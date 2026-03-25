@@ -756,10 +756,10 @@ namespace FuseCP.Providers.Database
 		{
 			DataTable dtProcesses = ExecuteQuery("SHOW PROCESSLIST");
 			//
-			string filter = String.Format("db = '{0}'", database);
+			String.Format("db = '{0}'", database);
 			//
 			if (dtProcesses.Columns["db"].DataType == typeof(System.Byte[]))
-				filter = String.Format("Convert(db, 'System.String') = '{0}'", database);
+				String.Format("Convert(db, 'System.String') = '{0}'", database);
 
 			DataView dvProcesses = new DataView(dtProcesses);
 			foreach (DataRowView rowSid in dvProcesses)

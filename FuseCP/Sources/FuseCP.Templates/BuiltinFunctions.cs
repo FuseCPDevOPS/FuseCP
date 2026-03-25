@@ -87,7 +87,7 @@ namespace FuseCP.Templates
         {
             try
             {
-                int number = Convert.ToInt32(val);
+                Convert.ToInt32(val);
                 return true;
             }
             catch

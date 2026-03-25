@@ -56,7 +56,7 @@ namespace FuseCP.Providers.HostedSolution
                 runspaceConfiguration = RunspaceConfiguration.Create();
                 PSSnapInException exception = null;
 
-                PSSnapInInfo info = runspaceConfiguration.AddPSSnapIn(SharepointSnapInName, out exception);
+                runspaceConfiguration.AddPSSnapIn(SharepointSnapInName, out exception);
                 HostedSolutionLog.LogInfo("Sharepoint snapin loaded");
 
                 if (exception != null)

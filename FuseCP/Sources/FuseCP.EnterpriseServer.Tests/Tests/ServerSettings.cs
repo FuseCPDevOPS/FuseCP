@@ -79,7 +79,7 @@ namespace FuseCP.Tests
 			esClient.Protocol = Web.Clients.Protocols.BasicHttps;
 			esClient.Credentials.UserName = "serveradmin";
 			esClient.Credentials.Password = CryptoUtils.SHA256("123456");
-			var settings = esClient.GetSystemSettings(SystemSettings.DEBUG_SETTINGS);
+			esClient.GetSystemSettings(SystemSettings.DEBUG_SETTINGS);
 		}
 
 		[TestMethod]
@@ -94,7 +94,7 @@ namespace FuseCP.Tests
 			esClient.Url = EnterpriseServer.AssemblyUrl;
 			esClient.Credentials.UserName = "serveradmin";
 			esClient.Credentials.Password = CryptoUtils.SHA256("123456");
-			var settings = esClient.GetSystemSettings(SystemSettings.DEBUG_SETTINGS);
+			esClient.GetSystemSettings(SystemSettings.DEBUG_SETTINGS);
 		}
 	}
 }

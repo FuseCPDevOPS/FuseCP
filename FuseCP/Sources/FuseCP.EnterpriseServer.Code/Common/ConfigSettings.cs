@@ -59,14 +59,14 @@ namespace FuseCP.EnterpriseServer
 				if (cryptoKey == null)
 				{
 					string key;
-					if (OSInfo.IsNetFX)
-					{
-						key = ConfigurationManager.AppSettings["FuseCP.AltCryptoKey"];
-					}
-					else
-					{
-						key = Web.Services.Configuration.AltCryptoKey;
-					}
+					key = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.AltCryptoKey"] : Web.Services.Configuration.AltCryptoKey;
+
+
+
+
+
+
+
 
 					string value = string.Empty;
 
@@ -76,14 +76,14 @@ namespace FuseCP.EnterpriseServer
 						cryptoKey = value;
 					else
 					{
-						if (OSInfo.IsNetFX)
-						{
-							cryptoKey = ConfigurationManager.AppSettings["FuseCP.CryptoKey"];
-						}
-						else
-						{
-							cryptoKey = Web.Services.Configuration.CryptoKey;
-						}
+						cryptoKey = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.CryptoKey"] : Web.Services.Configuration.CryptoKey;
+
+
+
+
+
+
+
 					}
 				}
 				return cryptoKey;
@@ -118,14 +118,14 @@ namespace FuseCP.EnterpriseServer
 			{
 				if (webApplicationPath == null)
 				{
-					if (OSInfo.IsNetFX)
-					{
-						webApplicationPath = ConfigurationManager.AppSettings["FuseCP.EnterpriseServer.WebApplicationsPath"];
-					}
-					else
-					{
-						webApplicationPath = Web.Services.Configuration.WebApplicationsPath;
-					}
+					webApplicationPath = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.EnterpriseServer.WebApplicationsPath"] : Web.Services.Configuration.WebApplicationsPath;
+
+
+
+
+
+
+
 				}
 				if (webApplicationPath.StartsWith("~")) webApplicationPath = Web.Services.Server.MapPath(webApplicationPath);
 

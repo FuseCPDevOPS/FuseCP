@@ -595,7 +595,7 @@ namespace FuseCP.Providers.Web
 					// try to give it original name
 					for (int i = 2; i < 99; i++)
 					{
-						string username = user.Name + i.ToString();
+						string username = user.Name + i;
 						if (!SecurityUtils.UserExists(username, ServerSettings, UsersOU))
 						{
 							user.Name = username;
@@ -712,7 +712,7 @@ namespace FuseCP.Providers.Web
 		{
 			//
 			var config = srvman.GetWebConfiguration(virtualDir.FullQualifiedPath);
-			var handlersSection = config.GetSection(Constants.HandlersSection);
+			config.GetSection(Constants.HandlersSection);
 
 			//
 			string fqPath = virtualDir.FullQualifiedPath;
@@ -1504,7 +1504,7 @@ namespace FuseCP.Providers.Web
 					UpdateAppVirtualDirectory(site.SiteId, vdir);
 				}
 				// Enforce Web Deploy publishing settings if enabled to ensure we use correct settings all the time
-				if (site.WebDeploySitePublishingEnabled == true)
+				if (site.WebDeploySitePublishingEnabled)
 				{
 					EnforceDelegationRulesRestrictions(site.Name, site.WebDeployPublishingAccount);
 				}
@@ -1766,7 +1766,7 @@ namespace FuseCP.Providers.Web
 				FileUtils.CreateDirectory(directory.ContentPath);
 			}
 			//
-			WebSite webSite = GetSite(siteId);
+			GetSite(siteId);
 			// copy props from parent site
 			directory.ParentSiteName = siteId;
 
@@ -1951,7 +1951,7 @@ namespace FuseCP.Providers.Web
 		public override void CreateEnterpriseStorageAppVirtualDirectory(string siteId, WebAppVirtualDirectory directory)
 		{
 			// Create iisDirObject folder if not exists.
-			if (!FileUtils.DirectoryExists(directory.ContentPath) && new Uri(directory.ContentPath).IsUnc == false)
+			if (!FileUtils.DirectoryExists(directory.ContentPath) && !(new Uri(directory.ContentPath).IsUnc))
 			{
 				FileUtils.CreateDirectory(directory.ContentPath);
 			}
@@ -2344,7 +2344,7 @@ namespace FuseCP.Providers.Web
 			//
 			// Shared app pool is a subject restrictions to change ASP.NET version and recycle the pool,
 			// so we need to remove these restrictions
-			if (aphl.is_shared_pool(webSite.ApplicationPool) == true)
+			if (aphl.is_shared_pool(webSite.ApplicationPool))
 			{
 				//
 				moduleService.RemoveUserFromRule("recycleApp", "{userScope}", fqUsername);
@@ -2366,7 +2366,7 @@ namespace FuseCP.Providers.Web
 			// Instantiate application pool helper to retrieve the app pool mode web site is running in
 			WebAppPoolHelper aphl = new WebAppPoolHelper(ProviderSettings);
 			// Shared app pool is a subject restrictions to change ASP.NET version and recycle the pool
-			if (aphl.is_shared_pool(webSite.ApplicationPool) == true)
+			if (aphl.is_shared_pool(webSite.ApplicationPool))
 			{
 				//
 				moduleService.RestrictRuleToUser("recycleApp", "{userScope}", fqUsername);
@@ -3077,7 +3077,7 @@ namespace FuseCP.Providers.Web
 				if (colonIdx != -1)
 				{
 					string username = line.Substring(0, colonIdx);
-					string password = line.Substring(colonIdx + 1);
+					line.Substring(colonIdx + 1);
 					if (String.Compare(username, user.Name, true) == 0)
 					{
 						// already exists
@@ -3091,6 +3091,7 @@ namespace FuseCP.Providers.Web
 						if (!String.IsNullOrEmpty(user.Password))
 						{
 							// hash password
+							string password = line.Substring(colonIdx + 1);
 							password = GeneratePasswordHash(user);
 
 							// update line
@@ -3165,7 +3166,7 @@ namespace FuseCP.Providers.Web
 
 		public override void DeleteHeliconApeUser(string siteId, string userName)
 		{
-			string rootPath = GetSiteContentPath(siteId);
+			GetSiteContentPath(siteId);
 			HtaccessUser user = new HtaccessUser();
 			user.Name = userName;
 
@@ -3284,7 +3285,7 @@ namespace FuseCP.Providers.Web
 
 		public override void DeleteHeliconApeGroup(string siteId, string groupName)
 		{
-			string rootPath = GetSiteContentPath(siteId);
+			GetSiteContentPath(siteId);
 
 			// delete group
 			WebGroup group = new WebGroup();
@@ -3499,14 +3500,14 @@ namespace FuseCP.Providers.Web
 			}
 
 			WebAppVirtualDirectory flashRemotingDir = new WebAppVirtualDirectory();
-			if (IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed())
-			{
-				flashRemotingDir.Name = "jakarta";
-			}
-			else
-			{
-				flashRemotingDir.Name = "JRunScripts";
-			}
+			flashRemotingDir.Name = IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed() ? "jakarta" : "JRunScripts";
+
+
+
+
+
+
+
 			flashRemotingDir.ContentPath = CFFlashRemotingDirPath;
 			flashRemotingDir.EnableAnonymousAccess = true;
 			flashRemotingDir.EnableWindowsAuthentication = true;
@@ -3686,7 +3687,7 @@ namespace FuseCP.Providers.Web
 					using (var srvman = webObjectsSvc.GetServerManager())
 					{
 						// Local variables
-						bool enable32BitAppOnWin64 = (aphl.dotNetVersion(item.Mode) == SiteAppPoolMode.dotNetFramework1) ? true : false;
+						bool enable32BitAppOnWin64 = (aphl.dotNetVersion(item.Mode) == SiteAppPoolMode.dotNetFramework1);
 						//
 						if (srvman.ApplicationPools[item.Name] == null)
 						{
@@ -3751,7 +3752,7 @@ namespace FuseCP.Providers.Web
 
 		private void SetupWebDeployPublishingOnServer(List<string> messages)
 		{
-			if (IsWebDeployInstalled() == false
+			if (!(IsWebDeployInstalled())
 				|| String.IsNullOrEmpty(ProviderSettings[WDeployEnabled]))
 				return;
 			//
@@ -3767,7 +3768,7 @@ namespace FuseCP.Providers.Web
 			var appHostConfigFilePath = FileUtils.EvaluateSystemVariables(@"%WINDIR%\system32\inetsrv\config\applicationHost.config");
 			//
 			#region Repair feature
-			if (repairFeature == true && enableFeature == true)
+			if (repairFeature && enableFeature)
 			{
 				// Cleanup NTFS permissions
 				SecurityUtils.RemoveNtfsPermissions(appHostConfigFilePath, appHostConfigWriter, ServerSettings, UsersOU, GroupsOU);
@@ -3790,10 +3791,10 @@ namespace FuseCP.Providers.Web
 
 			// Create applicationHost.config writer account
 			#region appHostConfigWriter account provisioning
-			if (enableFeature == true)
+			if (enableFeature)
 			{
 				//
-				if (SecurityUtils.UserExists(appHostConfigWriter, ServerSettings, UsersOU) == false)
+				if (!(SecurityUtils.UserExists(appHostConfigWriter, ServerSettings, UsersOU)))
 				{
 					//
 					try
@@ -3826,7 +3827,7 @@ namespace FuseCP.Providers.Web
 			}
 			else
 			{
-				if (SecurityUtils.UserExists(appHostConfigWriter, ServerSettings, UsersOU) == true)
+				if (SecurityUtils.UserExists(appHostConfigWriter, ServerSettings, UsersOU))
 				{
 					//
 					try
@@ -3853,7 +3854,7 @@ namespace FuseCP.Providers.Web
 			if (enableFeature)
 			{
 				//
-				if (SecurityUtils.UserExists(appPoolConfigEditor, ServerSettings, UsersOU) == false)
+				if (!(SecurityUtils.UserExists(appPoolConfigEditor, ServerSettings, UsersOU)))
 				{
 					//
 					try
@@ -3884,7 +3885,7 @@ namespace FuseCP.Providers.Web
 			}
 			else
 			{
-				if (SecurityUtils.UserExists(appPoolConfigEditor, ServerSettings, UsersOU) == true)
+				if (SecurityUtils.UserExists(appPoolConfigEditor, ServerSettings, UsersOU))
 				{
 					//
 					try
@@ -3910,37 +3911,37 @@ namespace FuseCP.Providers.Web
 			{
 				var moduleService = new DelegationRulesModuleService();
 				//
-				if (moduleService.DelegationRuleExists("contentPath,iisApp", "{userScope}") == false)
+				if (!(moduleService.DelegationRuleExists("contentPath,iisApp", "{userScope}")))
 				{
 					moduleService.AddDelegationRule("contentPath,iisApp", "{userScope}", "PathPrefix", "CurrentUser", String.Empty, String.Empty);
 				}
 				//
-				if (moduleService.DelegationRuleExists("dbFullSql", "Data Source=") == false)
+				if (!(moduleService.DelegationRuleExists("dbFullSql", "Data Source=")))
 				{
 					moduleService.AddDelegationRule("dbFullSql", "Data Source=", "ConnectionString", "CurrentUser", String.Empty, String.Empty);
 				}
 				//
-				if (moduleService.DelegationRuleExists("dbMySql", "Server=") == false)
+				if (!(moduleService.DelegationRuleExists("dbMySql", "Server=")))
 				{
 					moduleService.AddDelegationRule("dbMySql", "Server=", "ConnectionString", "CurrentUser", String.Empty, String.Empty);
 				}
 				//
-				if (moduleService.DelegationRuleExists("createApp", "{userScope}") == false)
+				if (!(moduleService.DelegationRuleExists("createApp", "{userScope}")))
 				{
 					moduleService.AddDelegationRule("createApp", "{userScope}", "PathPrefix", "SpecificUser", appHostConfigWriter, appHostConfigWriterPassword);
 				}
 				//
-				if (moduleService.DelegationRuleExists("setAcl", "{userScope}") == false)
+				if (!(moduleService.DelegationRuleExists("setAcl", "{userScope}")))
 				{
 					moduleService.AddDelegationRule("setAcl", "{userScope}", "PathPrefix", "CurrentUser", String.Empty, String.Empty);
 				}
 				//
-				if (moduleService.DelegationRuleExists("recycleApp", "{userScope}") == false)
+				if (!(moduleService.DelegationRuleExists("recycleApp", "{userScope}")))
 				{
 					moduleService.AddDelegationRule("recycleApp", "{userScope}", "PathPrefix", "SpecificUser", appPoolConfigEditor, appPoolConfigEditorPassword);
 				}
 				//
-				if (moduleService.DelegationRuleExists("appPoolPipeline,appPoolNetFx", "{userScope}") == false)
+				if (!(moduleService.DelegationRuleExists("appPoolPipeline,appPoolNetFx", "{userScope}")))
 				{
 					moduleService.AddDelegationRule("appPoolPipeline,appPoolNetFx", "{userScope}", "PathPrefix", "SpecificUser", appHostConfigWriter, appHostConfigWriterPassword);
 				}
@@ -4052,7 +4053,7 @@ namespace FuseCP.Providers.Web
 				{
 					var enabled = dirBrowseSvc.GetDirectoryBrowseSettings(srvman, site)[DirectoryBrowseGlobals.Enabled];
 
-					return enabled != null ? (bool)enabled : false;
+					return enabled != null && (bool)enabled;
 				}
 			}
 
@@ -4090,22 +4091,21 @@ namespace FuseCP.Providers.Web
 		public override bool CheckWebManagementAccountExists(string accountName)
 		{
 			// Preserve setting to restore it back
-			bool adEnabled = ServerSettings.ADEnabled;
 			// !!! Bypass AD for WMSVC as it requires full-qualified username to authenticate user
 			// against the web server
 			//ServerSettings.ADEnabled = false;
 
-			if (IdentityCredentialsMode == "IISMNGR")
-			{
-				return ManagementAuthentication.GetUser(accountName) != null ? true : false;
+			return IdentityCredentialsMode == "IISMNGR" ? ManagementAuthentication.GetUser(accountName) != null : SecurityUtils.UserExists(accountName, ServerSettings, String.Empty);
 
 
 
-			}
-			else
-			{
-				return SecurityUtils.UserExists(accountName, ServerSettings, String.Empty);
-			}
+
+
+
+
+
+
+
 		}
 
 		public override ResultObject CheckWebManagementPasswordComplexity(string accountPassword)
@@ -4146,7 +4146,6 @@ namespace FuseCP.Providers.Web
 		private void GrantWebManagementAccessInternally(string siteName, string accountName, string accountPassword, NTFSPermission permissions)
 		{
 			// Preserve setting to restore it back
-			bool adEnabled = ServerSettings.ADEnabled;
 			// !!! Bypass AD for WMSVC as it requires full-qualified username to authenticate user
 			// against the web server
 			//ServerSettings.ADEnabled = false;

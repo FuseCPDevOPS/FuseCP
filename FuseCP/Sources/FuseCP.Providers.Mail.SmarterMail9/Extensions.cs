@@ -30,11 +30,11 @@ namespace FuseCP.Providers.Mail.SM9.Extensions
 		public static string[] PrepareSetRequestedUserSettingsWebMethodParams(this MailAccount mailbox)
 		{
 			return new string[] {
-                        "isenabled=" + mailbox.Enabled.ToString(),
+                        "isenabled=" + mailbox.Enabled,
 						// Fix for incorrect mailbox size
                         "maxsize=" + (mailbox.UnlimitedSize ? "0" : mailbox.MaxMailboxSize.ToString()),
-                        "lockpassword=" + mailbox.PasswordLocked.ToString(),
-						"passwordlocked" + mailbox.PasswordLocked.ToString(),
+                        "lockpassword=" + mailbox.PasswordLocked,
+						"passwordlocked" + mailbox.PasswordLocked,
                         "replytoaddress=" + (mailbox.ReplyTo != null ? mailbox.ReplyTo : ""),
                         "signature=" + (mailbox.Signature != null ? mailbox.Signature : ""),
 						"spamforwardoption=none",

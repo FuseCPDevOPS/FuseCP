@@ -75,8 +75,7 @@ namespace FuseCP.Providers.DNS
                 .addParam("IPAddress", IPAddress.Loopback);
 
             PSObject res = ps.RunPipeline(cmd).FirstOrDefault();
-            PSPropertyInfo p = res.Properties["Result"];
-            return null == res || null == res.Properties ? false : true;
+            return !(null == res || null == res.Properties);
 
 
 

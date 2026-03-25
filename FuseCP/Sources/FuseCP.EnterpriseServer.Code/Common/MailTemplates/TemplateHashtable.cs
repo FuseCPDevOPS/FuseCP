@@ -33,14 +33,14 @@ namespace FuseCP.EnterpriseServer.MailTemplates
 			{
 				string str;
 				object item = this["logoUrl"];
-				if (item != null)
-				{
-					str = item.ToString();
-				}
-				else
-				{
-					str = null;
-				}
+				str = item != null ? item.ToString() : null;
+
+
+
+
+
+
+
 				return str;
 			}
 			set
@@ -90,24 +90,24 @@ namespace FuseCP.EnterpriseServer.MailTemplates
 				{
 					organizationGeneralSettings = organizationController.GetOrganizationGeneralSettings(orgId.Value);
 				}
-				if (organizationGeneralSettings != null)
-				{
-					organizationLogoUrl = organizationGeneralSettings.OrganizationLogoUrl;
-				}
-				else
-				{
-					organizationLogoUrl = null;
-				}
+				organizationLogoUrl = organizationGeneralSettings != null ? organizationGeneralSettings.OrganizationLogoUrl : null;
+
+
+
+
+
+
+
 				if (!string.IsNullOrEmpty(organizationLogoUrl))
 				{
-					if (organizationGeneralSettings != null)
-					{
-						str = organizationGeneralSettings.OrganizationLogoUrl;
-					}
-					else
-					{
-						str = null;
-					}
+					str = organizationGeneralSettings != null ? organizationGeneralSettings.OrganizationLogoUrl : null;
+
+
+
+
+
+
+
 					this.LogoUrl = str;
 				}
 			}

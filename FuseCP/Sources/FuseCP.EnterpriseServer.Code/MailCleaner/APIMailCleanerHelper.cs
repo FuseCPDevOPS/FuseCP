@@ -166,7 +166,6 @@ namespace FuseCP.EnterpriseServer
             {
                 if (lxmNode.Name == "response" && lxmNode.FirstChild.Name == "message")
                 {
-                        lstMessage = lxmNode.FirstChild.InnerText;
                 }
             }
 

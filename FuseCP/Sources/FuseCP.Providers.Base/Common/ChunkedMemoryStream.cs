@@ -286,7 +286,6 @@ namespace System.Runtime.Remoting.Channels
 				_readChunk = _readChunk.Next;
 				_readOffset = 0;
 				chunkBuffer = _readChunk.Buffer;
-				chunkSize = chunkBuffer.Length;
 				if (_readChunk.Next == null)
 					chunkSize = _writeOffset;
 			}
@@ -356,7 +355,6 @@ namespace System.Runtime.Remoting.Channels
 				_writeChunk = _writeChunk.Next;
 				_writeOffset = 0;
 				chunkBuffer = _writeChunk.Buffer;
-				chunkSize = chunkBuffer.Length;
 			}
 
 			chunkBuffer[_writeOffset++] = value;

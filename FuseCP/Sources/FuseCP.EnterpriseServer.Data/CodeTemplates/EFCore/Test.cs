@@ -41,14 +41,14 @@ namespace FuseCP.EnterpriseServer.Data
 
 			var annotations = EntityType.GetDataAnnotations(annotationCodeGenerator);
 			var coreAnnotations = annotations.Where(a => a.Type.FullName.Contains("EntityFrameworkCore"));
-			var commonAnnotations = annotations.Except(coreAnnotations);
+			annotations.Except(coreAnnotations);
 
-			var match = Regex.Match("", @$"^using\s+{Regex.Escape(EntityType.Name)}\s*=.*?$", RegexOptions.Multiline);
+			Regex.Match("", @$"^using\s+{Regex.Escape(EntityType.Name)}\s*=.*?$", RegexOptions.Multiline);
 
 			var fcp = Assembly.Load("FuseCP.EnterpriseServer.Data.Core");
 			var scaffoldType = fcp.GetType("FuseCP.EnterpriseServer.Data.Scaffolding.Scaffold, FuseCP.EnterpriseServer.Data.Core");
 			var getEntityDataMethod = scaffoldType.GetMethod("GetEntityData");
-			var entityData = (StringBuilder)getEntityDataMethod.Invoke(null, new object[] { EntityType, Options, 12 });
+			getEntityDataMethod.Invoke(null, new object[] { EntityType, Options, 12 });
 
 			var sb = new StringBuilder();
 			foreach (var property in EntityType.GetProperties())

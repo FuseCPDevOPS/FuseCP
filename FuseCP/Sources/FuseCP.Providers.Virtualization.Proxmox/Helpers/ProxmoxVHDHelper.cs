@@ -44,14 +44,14 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 						VirtualHardDiskInfo disk = new VirtualHardDiskInfo();
 						disk.ControllerNumber = 1;
 						disk.ControllerLocation = 1;
-						if (property.Key.Contains("ide") || property.Key.Contains("virtio"))
-						{
-							disk.VHDControllerType = ControllerType.IDE;
-						}
-						else
-						{
-							disk.VHDControllerType = ControllerType.SCSI;
-						}
+						disk.VHDControllerType = property.Key.Contains("ide") || property.Key.Contains("virtio") ? ControllerType.IDE : ControllerType.SCSI;
+
+
+
+
+
+
+
 						disk.Path = parsepath(val);
 						disk.Name = property.Key;
 						disks.Add(disk);

@@ -342,7 +342,7 @@ namespace FuseCP.EnterpriseServer
         public int SetUserPassword(int itemId, int accountId, string password)
         {
             // load account
-            OrganizationUser user = OrganizationController.GetAccount(itemId, accountId);
+            OrganizationController.GetAccount(itemId, accountId);
 
             int res = OrganizationController.SetUserPassword(itemId, accountId, password);
 
@@ -374,7 +374,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteUser(int itemId, int accountId)
         {
             // load account
-            OrganizationUser user = OrganizationController.GetAccount(itemId, accountId);
+            OrganizationController.GetAccount(itemId, accountId);
 
             int res = OrganizationController.DeleteUser(itemId, accountId);
             return res;

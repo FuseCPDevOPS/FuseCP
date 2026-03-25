@@ -3979,7 +3979,7 @@ namespace FuseCP.EnterpriseServer
 						.DefaultIfEmpty(),
 						(g, vg) => new
 						{
-							VirtualGroupId = (int?)(vg != null ? vg.VirtualGroupId : null),
+							VirtualGroupId = vg != null ? (int?)vg.VirtualGroupId : null,
 							g.GroupId,
 							g.GroupName,
 							g.GroupOrder,
@@ -9098,7 +9098,7 @@ namespace FuseCP.EnterpriseServer
 						ServerId = pl.Plan.ServerId != null ? pl.Plan.ServerId : 0,
 						ServerName = pl.Plan.Server != null ? pl.Plan.Server.ServerName : "None",
 						ServerComments = pl.Plan.Server != null ? pl.Plan.Server.Comments : "",
-						VirtualServer = !(pl.Plan.Server != null) || pl.Plan.Server.VirtualServer,
+						VirtualServer = pl.Plan.Server == null || pl.Plan.Server.VirtualServer,
 						// package
 						PackageName = p != null ? p.PackageName : "None"
 					})
@@ -9769,7 +9769,7 @@ namespace FuseCP.EnterpriseServer
 					p.Addon.Quantity
 				})
 				.Where(p => p.QuotaId == quotaId && p.StatusId == 1 /* active */)
-				.Sum(p => (int?)(p.QuotaValue * p.Quantity)) ?? 0;
+				.Sum(p => (p.QuotaValue * p.Quantity)) ?? 0;
 
 			/*
 			usedQuantity = Packages
@@ -10035,7 +10035,7 @@ namespace FuseCP.EnterpriseServer
 						ServerId = p.ServerId ?? 0,
 						ServerName = p.Server != null ? p.Server.ServerName : "None",
 						ServerComments = p.Server != null ? p.Server.Comments : "",
-						VirtualServer = !(p.Server != null) || p.Server.VirtualServer,
+						VirtualServer = p.Server == null || p.Server.VirtualServer,
 						// hosting plan
 						p.HostingPlan.PlanName,
 						// user
@@ -10109,7 +10109,7 @@ namespace FuseCP.EnterpriseServer
 						ServerId = p.ServerId != null ? p.ServerId : 0,
 						ServerName = p.Server != null ? p.Server.ServerName : "None",
 						ServerComments = p.Server != null ? p.Server.Comments : "",
-						VirtualServer = !(p.Server != null) || p.Server.VirtualServer,
+						VirtualServer = p.Server == null || p.Server.VirtualServer,
 						// hosting plan
 						p.PlanId,
 						p.HostingPlan.PlanName,
@@ -11269,7 +11269,6 @@ namespace FuseCP.EnterpriseServer
 					.Select(p => new { p.PlanId, p.ParentPackageId })
 					.FirstOrDefault();
 				var packagePlanId = package?.PlanId;
-				var parentPackageId = package?.ParentPackageId;
 
 				// get resource groups
 				var groups = ResourceGroups
@@ -12404,16 +12403,16 @@ namespace FuseCP.EnterpriseServer
 							.FirstOrDefault();
 					}
 
-					if (settings != null)
-					{
-						/// <summary>TODO</summary>
-						return EntityDataReader(new Data.Entities.PackageSetting[] { settings });
-					}
-					else
-					{
-						/// <summary>TODO</summary>
-						return EntityDataReader(Array.Empty<Data.Entities.PackageSetting>());
-					}
+					return settings != null ? EntityDataReader(new Data.Entities.PackageSetting[] { settings }) : EntityDataReader(Array.Empty<Data.Entities.PackageSetting>());
+
+
+
+
+
+
+
+
+
 				}
 			}
 			else
@@ -13021,27 +13020,27 @@ namespace FuseCP.EnterpriseServer
 				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("PackagesNumber"))
 				{
-					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
-					{
-						packagesSelected = packagesSelected.OrderByDescending(p => p.PackagesNumber);
-					}
-					else
-					{
-						packagesSelected = packagesSelected.OrderBy(p => p.PackagesNumber);
-					}
+					packagesSelected = sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase) ? packagesSelected.OrderByDescending(p => p.PackagesNumber) : packagesSelected.OrderBy(p => p.PackagesNumber);
+
+
+
+
+
+
+
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("QuotaValue"))
 				{
-					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
-					{
-						packagesSelected = packagesSelected.OrderByDescending(p => p.QuotaValue);
-					}
-					else
-					{
-						packagesSelected = packagesSelected.OrderBy(p => p.QuotaValue);
-					}
+					packagesSelected = sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase) ? packagesSelected.OrderByDescending(p => p.QuotaValue) : packagesSelected.OrderBy(p => p.QuotaValue);
+
+
+
+
+
+
+
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 
@@ -14247,14 +14246,14 @@ namespace FuseCP.EnterpriseServer
 
 					var count = schedules.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn))
-					{
-						schedules = schedules.OrderBy(ColumnName(sortColumn));
-					}
-					else
-					{
-						schedules = schedules.OrderBy(s => s.ScheduleName);
-					}
+					schedules = !string.IsNullOrEmpty(sortColumn) ? schedules.OrderBy(ColumnName(sortColumn)) : schedules.OrderBy(s => s.ScheduleName);
+
+
+
+
+
+
+
 
 					schedules = schedules.Skip(startRow).Take(maximumRows);
 
@@ -17935,14 +17934,14 @@ namespace FuseCP.EnterpriseServer
 					accounts = accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
 				}
 
-				if (!string.IsNullOrEmpty(sortColumn))
-				{
-					accounts = accounts.OrderBy(ColumnName(sortColumn));
-				}
-				else
-				{
-					accounts = accounts.OrderBy(a => a.DisplayName);
-				}
+				accounts = !string.IsNullOrEmpty(sortColumn) ? accounts.OrderBy(ColumnName(sortColumn)) : accounts.OrderBy(a => a.DisplayName);
+
+
+
+
+
+
+
 
 				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
@@ -20001,23 +20000,23 @@ namespace FuseCP.EnterpriseServer
 						ea.SamAccountName
 					});
 
-				var usersCount = users.Count();
+				users.Count();
 
 				if (sortColumn == "DisplayName")
 				{
-					if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-					{
-						users = users.OrderBy(ea => ea.DisplayName);
-					}
-					else users = users.OrderByDescending(ea => ea.DisplayName);
+					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.DisplayName) : users.OrderByDescending(ea => ea.DisplayName);
+
+
+
+
 				}
 				else
 				{
-					if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-					{
-						users = users.OrderBy(ea => ea.PrimaryEmailAddress);
-					}
-					else users = users.OrderByDescending(ea => ea.PrimaryEmailAddress);
+					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.PrimaryEmailAddress) : users.OrderByDescending(ea => ea.PrimaryEmailAddress);
+
+
+
+
 				}
 
 				users = users.Skip(startRow).Take(count);
@@ -20178,23 +20177,23 @@ namespace FuseCP.EnterpriseServer
 						ea.SamAccountName
 					});
 
-				var usersCount = users.Count();
+				users.Count();
 
 				if (sortColumn == "DisplayName")
 				{
-					if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-					{
-						users = users.OrderBy(ea => ea.DisplayName);
-					}
-					else users = users.OrderByDescending(ea => ea.DisplayName);
+					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.DisplayName) : users.OrderByDescending(ea => ea.DisplayName);
+
+
+
+
 				}
 				else
 				{
-					if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-					{
-						users = users.OrderBy(ea => ea.PrimaryEmailAddress);
-					}
-					else users = users.OrderByDescending(ea => ea.PrimaryEmailAddress);
+					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.PrimaryEmailAddress) : users.OrderByDescending(ea => ea.PrimaryEmailAddress);
+
+
+
+
 				}
 
 				users = users.Skip(startRow).Take(count);
@@ -20814,14 +20813,14 @@ namespace FuseCP.EnterpriseServer
 
 				var countUsers = users.Count();
 
-				if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-				{
-					users = users.OrderBy(ColumnName(sortColumn));
-				}
-				else
-				{
-					users = users.OrderBy($"{sortColumn} desc");
-				}
+				users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ColumnName(sortColumn)) : users.OrderBy($"{sortColumn} desc");
+
+
+
+
+
+
+
 
 				users = users.Skip(startRow).Take(count);
 
@@ -21429,14 +21428,14 @@ namespace FuseCP.EnterpriseServer
 
 				var countUsers = users.Count();
 
-				if (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-				{
-					users = users.OrderBy(ColumnName(sortColumn));
-				}
-				else
-				{
-					users = users.OrderBy($"{sortColumn} desc");
-				}
+				users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ColumnName(sortColumn)) : users.OrderBy($"{sortColumn} desc");
+
+
+
+
+
+
+
 
 				users = users.Skip(startRow).Take(count);
 

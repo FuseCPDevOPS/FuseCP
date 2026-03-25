@@ -76,7 +76,7 @@ namespace FuseCP.Providers.HostedSolution
 			{
 				runSpace = OpenRunspace();
 
-				string server = GetServerName();
+				GetServerName();
 				string securityGroupPath = AddADPrefix(securityGroup);
 
 				//Create mail enabled organization security group
@@ -680,8 +680,8 @@ namespace FuseCP.Providers.HostedSolution
 
 							foreach (PSObject objDatabase in databases)
 							{
-								if (((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning") == false) &&
-									 ((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning") == false))
+								if ((!((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning"))) &&
+									 (!((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning"))))
 								{
 									string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
 

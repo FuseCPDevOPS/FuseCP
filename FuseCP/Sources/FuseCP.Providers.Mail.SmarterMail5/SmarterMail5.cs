@@ -552,10 +552,10 @@ namespace FuseCP.Providers.Mail
                     mailbox.Name,
                     new string[]
                     {
-                        "isenabled=" + mailbox.Enabled.ToString(),
-                        "maxsize=" + mailbox.MaxMailboxSize.ToString(),
-                        "lockpassword=" + mailbox.PasswordLocked.ToString(),
-						"passwordlocked" + mailbox.PasswordLocked.ToString(),
+                        "isenabled=" + mailbox.Enabled,
+                        "maxsize=" + mailbox.MaxMailboxSize,
+                        "lockpassword=" + mailbox.PasswordLocked,
+						"passwordlocked" + mailbox.PasswordLocked,
                         "replytoaddress=" + (mailbox.ReplyTo != null ? mailbox.ReplyTo : ""),
                         "signature=" + (mailbox.Signature != null ? mailbox.Signature : ""),
 						"spamforwardoption=none"
@@ -759,10 +759,10 @@ namespace FuseCP.Providers.Mail
                     mailbox.Name,
                     new string[]
                     {
-                        "isenabled=" + mailbox.Enabled.ToString(),
-                        "maxsize=" + mailbox.MaxMailboxSize.ToString(),
-                        "passwordlocked=" + mailbox.PasswordLocked.ToString(),
-						"lockpassword=" + mailbox.PasswordLocked.ToString(),
+                        "isenabled=" + mailbox.Enabled,
+                        "maxsize=" + mailbox.MaxMailboxSize,
+                        "passwordlocked=" + mailbox.PasswordLocked,
+						"lockpassword=" + mailbox.PasswordLocked,
                         "replytoaddress=" + (mailbox.ReplyTo != null ? mailbox.ReplyTo : ""),
                         "signature=" + (mailbox.Signature != null ? mailbox.Signature : ""),
 						"spamforwardoption=none"
@@ -970,7 +970,7 @@ namespace FuseCP.Providers.Mail
             try
             {
                 string domain = GetDomainName(listName);
-                string account = GetAccountName(listName);
+                GetAccountName(listName);
 
 				SM5.svcMailListAdmin lists = new SM5.svcMailListAdmin();
                 PrepareProxy(lists);
@@ -1259,7 +1259,7 @@ namespace FuseCP.Providers.Mail
 				SM5.svcMailListAdmin svcLists = new SM5.svcMailListAdmin();
                 PrepareProxy(svcLists);
 
-                string account = GetAccountName(listName);
+                GetAccountName(listName);
                 string domain = GetDomainName(listName);
 
 				SM5.GenericResult Result = svcLists.DeleteList(

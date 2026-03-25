@@ -68,7 +68,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
             try
             {
                 // get proxy
-                VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
+                VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
 
                 // change administrator password
                 JobResult result = KvpExchangeHelper.SendAdministratorPasswordKVP(itemId, password, cleanResult);

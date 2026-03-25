@@ -316,7 +316,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                                 throw new Exception("The generation of VM was not configured in the template");
                             vm.Generation = osTemplate.Generation;
                             vm.SecureBootTemplate = osTemplate.SecureBootTemplate;
-                            vm.EnableSecureBoot = !(osTemplate.Generation == 1) && osTemplate.EnableSecureBoot;
+                            vm.EnableSecureBoot = osTemplate.Generation != 1 && osTemplate.EnableSecureBoot;
                             vm.OperatingSystemTemplate = osTemplate.Name;
                             vm.LegacyNetworkAdapter = osTemplate.LegacyNetworkAdapter;
                             vm.RemoteDesktopEnabled = osTemplate.RemoteDesktop;

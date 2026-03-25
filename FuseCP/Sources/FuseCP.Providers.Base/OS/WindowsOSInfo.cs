@@ -379,15 +379,15 @@ namespace FuseCP.Providers.OS
                                     }
                                     else
                                     {
-                                        if (info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION)
-                                        {
-                                            //XP Pro x64
-                                            ret = WindowsVersion.WindowsXP;
-                                        }
-                                        else
-                                        {
-                                            ret = WindowsVersion.WindowsServer2003;
-                                        }
+                                        ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.WindowsXP : WindowsVersion.WindowsServer2003;
+
+
+
+
+
+
+
+
                                         break;
                                     }
                                     break;
@@ -508,14 +508,14 @@ namespace FuseCP.Providers.OS
 
                 using (var ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(subkey))
                 {
-                    if (ndpKey != null && ndpKey.GetValue("Release") != null)
-                    {
-                        return CheckFor45PlusVersion((int)ndpKey.GetValue("Release"));
-                    }
-                    else
-                    {
-                        return $"{Environment.Version.Major}.{Environment.Version.Minor}";
-                    }
+                    return ndpKey != null && ndpKey.GetValue("Release") != null ? CheckFor45PlusVersion((int)ndpKey.GetValue("Release")) : $"{Environment.Version.Major}.{Environment.Version.Minor}";
+
+
+
+
+
+
+
                 }
             }
         }

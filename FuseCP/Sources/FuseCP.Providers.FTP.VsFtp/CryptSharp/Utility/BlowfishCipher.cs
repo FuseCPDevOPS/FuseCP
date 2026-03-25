@@ -239,14 +239,14 @@ namespace CryptSharp.Utility
 				data = 0x00000000;
 				for (k = 0; k < 4; k ++)
 				{
-                    if ((flags & EksBlowfishKeyExpansionFlags.EmulateCryptBlowfishSignExtensionBug) != 0)
-                    {
-                        data = (data << 8) | (uint)(int)(sbyte)key[j];
-                    }
-                    else
-                    {
-                        data = (data << 8) | key[j];
-                    }
+                    data = (flags & EksBlowfishKeyExpansionFlags.EmulateCryptBlowfishSignExtensionBug) != 0 ? (data << 8) | (uint)(int)(sbyte)key[j] : (data << 8) | key[j];
+
+
+
+
+
+
+
 
                     j = (j + 1) % key.Length;
 				}

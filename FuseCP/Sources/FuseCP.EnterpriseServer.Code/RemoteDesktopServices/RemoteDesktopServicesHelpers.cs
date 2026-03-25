@@ -308,14 +308,14 @@ namespace FuseCP.EnterpriseServer
             try
             {
                 var serverIp = rds.GetServerIp(server.FqdName);
-                if (serverIp != null)
-                {
-                    server.Address = serverIp.ToString();
-                }
-                else
-                {
-                    server.Address = "";
-                }
+                server.Address = serverIp != null ? serverIp.ToString() : "";
+
+
+
+
+
+
+
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {

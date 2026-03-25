@@ -86,9 +86,9 @@ namespace FuseCP.Providers.EnterpriseStorage
                         folder.FullName = dir.FullName;
                         folder.IsDirectory = true;
 
-                        if (quotas.ContainsKey(fullName))
+if (quotas.TryGetValue(fullName, out var _ckv))
                         {
-                            folder.Size = quotas[fullName].Usage;
+                            folder.Size = _ckv.Usage;
 
                             if (folder.Size == -1)
                             {
@@ -124,7 +124,7 @@ namespace FuseCP.Providers.EnterpriseStorage
                     ? quotasArray[parentFolderPath] 
                     : windows.GetQuotasForOrganization(parentFolderPath, string.Empty, string.Empty);
 
-                if (quotas.ContainsKey(folder.FullName) == false)
+                if (!(quotas.ContainsKey(folder.FullName)))
                 {
                     continue;
                 }
@@ -363,7 +363,6 @@ namespace FuseCP.Providers.EnterpriseStorage
             var settings = GetWebDavSetting(null);
             var result = new List<SystemFile>();
 #pragma warning disable 0219
-            var isRootSearch = false;
 #pragma warning restore 0219
 
             if (searchPaths.Any(string.IsNullOrEmpty))

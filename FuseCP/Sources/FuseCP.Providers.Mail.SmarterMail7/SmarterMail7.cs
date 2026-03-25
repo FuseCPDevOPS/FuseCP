@@ -1576,7 +1576,7 @@ namespace FuseCP.Providers.Mail
 			try
 			{
 				string domain = GetDomainName(listName);
-				string account = GetAccountName(listName);
+				GetAccountName(listName);
 
 				svcMailListAdmin lists = new svcMailListAdmin();
 				PrepareProxy(lists);
@@ -2005,7 +2005,7 @@ namespace FuseCP.Providers.Mail
 				svcMailListAdmin svcLists = new svcMailListAdmin();
 				PrepareProxy(svcLists);
 
-				string account = GetAccountName(listName);
+				GetAccountName(listName);
 				string domain = GetDomainName(listName);
 
 				GenericResult Result = svcLists.DeleteList(

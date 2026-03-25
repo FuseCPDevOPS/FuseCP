@@ -1047,7 +1047,7 @@ namespace FuseCP.EnterpriseServer
                 SharePointServer sps = GetSharePoint(item.ServiceId);
 
                 // read site info
-                SystemGroup sysGroup = sps.GetGroup(item.Name);
+                sps.GetGroup(item.Name);
 
                 XmlSerializer serializer = new XmlSerializer(typeof(SystemGroup));
                 serializer.Serialize(writer, group);

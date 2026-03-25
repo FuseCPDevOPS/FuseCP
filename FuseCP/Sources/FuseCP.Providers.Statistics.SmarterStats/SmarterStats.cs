@@ -327,7 +327,7 @@ namespace FuseCP.Providers.Statistics
                     if (!newUsers.Contains(username) && username != ownerUsername)
                     {
                         // delete user
-                        GenericResult2 r = AutomationClient.DeleteUser(Username, Password, siteId, username);
+                        AutomationClient.DeleteUser(Username, Password, siteId, username);
                     }
                 }
             }

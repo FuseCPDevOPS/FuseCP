@@ -166,7 +166,7 @@ namespace FuseCP.Providers.Mail
 			{
 				MailDomain domain = new MailDomain();
 
-				domain.Enabled = domainConfig["enabled"] == "1" ? true : false;
+				domain.Enabled = domainConfig["enabled"] == "1";
 				domain.Name = domainConfig["domain"];
 
 				if (domainConfig["usemaxusers"] == "1")

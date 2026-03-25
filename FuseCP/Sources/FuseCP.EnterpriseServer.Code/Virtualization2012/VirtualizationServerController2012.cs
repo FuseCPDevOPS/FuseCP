@@ -775,7 +775,7 @@ namespace FuseCP.EnterpriseServer
                 #region Check Quotas
                 // check quotas
                 List<string> quotaResults = new List<string>();
-                PackageContext cntx = PackageController.GetPackageContext(vm.PackageId);
+                PackageController.GetPackageContext(vm.PackageId);
 
                 // check the number of created snapshots
                 int createdNumber = vs.GetVirtualMachineSnapshots(vm.VirtualMachineId).Length;

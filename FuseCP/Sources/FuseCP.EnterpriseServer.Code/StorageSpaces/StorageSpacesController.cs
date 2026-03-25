@@ -1025,7 +1025,6 @@ namespace FuseCP.EnterpriseServer
                 throw new Exception(string.Format("Storage space folder with id={0} not found", storageSpaceFolderId));
             }
 
-            var origSearchPath = searchPath;
             var ss = GetStorageSpaceService(storageSpace.ServiceId);
 
             int index = searchPath.IndexOf(Path.DirectorySeparatorChar);

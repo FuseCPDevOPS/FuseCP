@@ -218,7 +218,7 @@ namespace CryptSharp
             string regex = @"\A"
                 + Regex.Escape(cryptPrefix)
                 + @"(rounds=(?<rounds>[0-9]{1,9})\$)?(?<salt>[A-Za-z0-9./]{1,99})(\$(?<crypt>[A-Za-z0-9./]{"
-                + keyCharacters.ToString()
+                + keyCharacters
                 + @"}))?\z";
             return new Regex(regex, RegexOptions.CultureInvariant);
         }

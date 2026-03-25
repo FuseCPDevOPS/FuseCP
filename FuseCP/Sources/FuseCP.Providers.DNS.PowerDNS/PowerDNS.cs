@@ -1002,14 +1002,14 @@ namespace FuseCP.Providers.DNS
                     Serial = notifiedSerial;
                 }
 
-                if (Serial.Length < 10 || !Serial.StartsWith(todayDate))
-                {
-                    Serial = todayDate + "01";
-                }
-                else
-                {
-                    Serial = (UInt32.Parse(Serial) + 1).ToString();
-                }
+                Serial = Serial.Length < 10 || !Serial.StartsWith(todayDate) ? todayDate + "01" : (UInt32.Parse(Serial) + 1).ToString();
+
+
+
+
+
+
+
             }
 
             private void UpdateProperty(int index, string data)
@@ -1159,14 +1159,14 @@ namespace FuseCP.Providers.DNS
                 DomainType.Value = domainType;
 
                 MySqlParameter MasterServer = new MySqlParameter("?MasterServer", MySqlDbType.VarString);
-                if (domainType == "SLAVE")
-                {
-                    MasterServer.Value = nameServers[0];
-                } 
-                else
-                {
-                    MasterServer.Value = null;
-                }
+                MasterServer.Value = domainType == "SLAVE" ? nameServers[0] : null;
+
+
+
+
+
+
+
 
 
                 ExecuteNonQuery(

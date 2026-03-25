@@ -69,8 +69,6 @@ public class SystemdServiceController : ServiceController
 		string loaded, active, status = null;
 		if (match.Success)
 		{
-			loaded = match.Groups["loaded"].Value;
-			active = match.Groups["active"].Value;
 			status = match.Groups["status"].Value;
 		}
 		return new OSService()

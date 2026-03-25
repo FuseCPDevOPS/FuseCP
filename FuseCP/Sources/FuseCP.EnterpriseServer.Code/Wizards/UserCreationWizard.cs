@@ -286,7 +286,6 @@ namespace FuseCP.EnterpriseServer
                         mailDomain.AbuseAccount = "mail";
                         MailServerController.UpdateMailDomain(mailDomain);
 
-                        int mailDomainId = mailDomain.Id;
                     }
                     catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {

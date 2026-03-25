@@ -484,13 +484,13 @@ namespace FuseCP.Providers.HostedSolution
             string dn = path;
             if (!dn.ToUpper().StartsWith("LDAP://"))
             {
-                if (string.IsNullOrEmpty(primaryDomainController))
-                {
-                    dn = string.Format("LDAP://{0}", dn);
+                dn = string.IsNullOrEmpty(primaryDomainController) ? string.Format("LDAP://{0}", dn) : string.Format("LDAP://{0}/{1}", primaryDomainController, dn);
 
-                }
-                else
-                    dn = string.Format("LDAP://{0}/{1}", primaryDomainController, dn);
+
+
+
+
+
             }
             return dn;
         }

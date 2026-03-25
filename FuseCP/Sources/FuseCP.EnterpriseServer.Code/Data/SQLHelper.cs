@@ -816,14 +816,14 @@ namespace Microsoft.ApplicationBlocks.Data
 				SqlDataReader dataReader;
 
 				// Call ExecuteReader with the appropriate CommandBehavior
-				if (connectionOwnership == SqlConnectionOwnership.External)
-				{
-					dataReader = cmd.ExecuteReader();
-				}
-				else
-				{
-					dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-				}
+				dataReader = connectionOwnership == SqlConnectionOwnership.External ? cmd.ExecuteReader() : cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+
+
+
+
+
 			
 				// Detach the SqlParameters from the command object, so they can be used again.
 				// HACK: There is a problem here, the output parameter values are fletched 
@@ -2519,14 +2519,14 @@ namespace Microsoft.ApplicationBlocks.Data
 			string hashKey = connectionString + ":" + commandText;
 
 			SqlParameter[] cachedParameters = paramCache[hashKey] as SqlParameter[];
-			if (cachedParameters == null)
-			{			
-				return null;
-			}
-			else
-			{
-				return CloneParameters(cachedParameters);
-			}
+			return cachedParameters == null ? null : CloneParameters(cachedParameters);
+
+
+
+
+
+
+
 		}
 
         #endregion caching functions

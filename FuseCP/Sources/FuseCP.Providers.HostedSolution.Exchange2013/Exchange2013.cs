@@ -747,7 +747,6 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
                 //Update the new path to the user in the directory.
-                path = result.Path;
                 string filterAttribute = (string)result.Properties["cn"][0];
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -778,7 +777,7 @@ namespace FuseCP.Providers.HostedSolution
             {
                 runSpace = OpenRunspace();
 
-                string server = GetServerName();
+                GetServerName();
                 string securityGroupPath = AddADPrefix(securityGroup);
 
                 //Create mail enabled organization security group
@@ -2689,8 +2688,8 @@ namespace FuseCP.Providers.HostedSolution
 
                             foreach (PSObject objDatabase in databases)
                             {
-                                if (((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning") == false) &&
-                                    ((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning") == false))
+                                if ((!((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning"))) &&
+                                    (!((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning"))))
                                 {
                                     string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
 
@@ -4031,7 +4030,7 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         for (int num = 1; num < 100; num++)
                         {
-                            string testEmailUser = parts[0] + num.ToString();
+                            string testEmailUser = parts[0] + num;
                             if (!CheckEmailExist(runSpace, testEmailUser + "@" + defaultOrganizationDomain))
                             {
                                 tempEmailUser = testEmailUser;
@@ -5276,7 +5275,7 @@ namespace FuseCP.Providers.HostedSolution
                 ExchangeTransaction transaction = StartTransaction();
                 try
                 {
-                    string rootId = AddPublicFolderMailbox(runSpace, orgCanonicalName, GetPublicFolderMailboxName(organizationId), domain, GetAddressBookPolicyName(organizationId));
+                    AddPublicFolderMailbox(runSpace, orgCanonicalName, GetPublicFolderMailboxName(organizationId), domain, GetAddressBookPolicyName(organizationId));
                     transaction.RegisterNewPublicFolderMailbox(orgCanonicalName + "/" + GetPublicFolderMailboxName(organizationId));
                 }
                 catch
@@ -5498,7 +5497,6 @@ namespace FuseCP.Providers.HostedSolution
             cmd.Parameters.Add("Identity", id);
             cmd.Parameters.Add("Mailbox", mailbox);
             Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-            PSObject obj = result[0];
         }
 
         private void EnableMailPublicFolderInternal(string organizationId, string folder, string accountName,
@@ -5735,7 +5733,7 @@ namespace FuseCP.Providers.HostedSolution
             foreach (PSObject obj in result)
             {
                 string userId = ObjToString(GetPSObjectProperty(obj, "User"));
-                if (userId == "Default" || userId == "Anonymous" || userId.StartsWith("NT:") == true)
+                if (userId == "Default" || userId == "Anonymous" || userId.StartsWith("NT:"))
                     continue;
 
                 object rights = GetPSObjectProperty(obj, "AccessRights");
@@ -7493,7 +7491,7 @@ namespace FuseCP.Providers.HostedSolution
             Command cmd = new Command("Set-AcceptedDomain");
             cmd.Parameters.Add("Identity", id);
             cmd.Parameters.Add("DomainType", domainType.ToString());
-            cmd.Parameters.Add("AddressBookEnabled", !(domainType == ExchangeAcceptedDomainType.InternalRelay));
+            cmd.Parameters.Add("AddressBookEnabled", domainType != ExchangeAcceptedDomainType.InternalRelay);
             cmd.Parameters.Add("Confirm", new SwitchParameter(false));
             ExecuteShellCommand(runSpace, cmd);
             ExchangeLog.LogEnd("SetAcceptedDomainType");
@@ -7743,16 +7741,16 @@ namespace FuseCP.Providers.HostedSolution
             }
             else
             {
-                if (wipeRequestTime.HasValue || wipeSentTime.HasValue)
-                {
-                    //red
-                    device.Status = MobileDeviceStatus.PendingWipe;
-                }
-                else
-                {
-                    //black
-                    device.Status = MobileDeviceStatus.OK;
-                }
+                device.Status = wipeRequestTime.HasValue || wipeSentTime.HasValue ? MobileDeviceStatus.PendingWipe : MobileDeviceStatus.OK;
+
+
+
+
+
+
+
+
+
             }
 
             return device;
@@ -7891,14 +7889,14 @@ namespace FuseCP.Providers.HostedSolution
         internal int ConvertUnlimitedToInt32(Unlimited<int> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = value.Value;
-            }
+            ret = value.IsUnlimited ? -1 : value.Value;
+
+
+
+
+
+
+
             return ret;
         }
 
@@ -7939,14 +7937,14 @@ namespace FuseCP.Providers.HostedSolution
         internal long ConvertUnlimitedToBytes(Unlimited<ByteQuantifiedSize> value)
         {
             long ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = Convert.ToInt64(value.Value.ToBytes());
-            }
+            ret = value.IsUnlimited ? -1 : Convert.ToInt64(value.Value.ToBytes());
+
+
+
+
+
+
+
             return ret;
         }
 
@@ -8008,28 +8006,28 @@ namespace FuseCP.Providers.HostedSolution
         internal int ConvertUnlimitedToKB(Unlimited<ByteQuantifiedSize> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = Convert.ToInt32(value.Value.ToKB());
-            }
+            ret = value.IsUnlimited ? -1 : Convert.ToInt32(value.Value.ToKB());
+
+
+
+
+
+
+
             return ret;
         }
 
         internal int ConvertUnlimitedToMB(Unlimited<ByteQuantifiedSize> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = Convert.ToInt32(value.Value.ToMB());
-            }
+            ret = value.IsUnlimited ? -1 : Convert.ToInt32(value.Value.ToMB());
+
+
+
+
+
+
+
             return ret;
         }
 
@@ -8037,28 +8035,28 @@ namespace FuseCP.Providers.HostedSolution
         internal int ConvertUnlimitedToHours(Unlimited<EnhancedTimeSpan> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = Convert.ToInt32(value.Value.TotalHours);
-            }
+            ret = value.IsUnlimited ? -1 : Convert.ToInt32(value.Value.TotalHours);
+
+
+
+
+
+
+
             return ret;
         }
 
         internal int ConvertUnlimitedToMinutes(Unlimited<EnhancedTimeSpan> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = Convert.ToInt32(value.Value.TotalMinutes);
-            }
+            ret = value.IsUnlimited ? -1 : Convert.ToInt32(value.Value.TotalMinutes);
+
+
+
+
+
+
+
             return ret;
         }
 
@@ -8103,14 +8101,14 @@ namespace FuseCP.Providers.HostedSolution
         internal int ConvertUnlimitedTimeSpanToDays(Unlimited<EnhancedTimeSpan> value)
         {
             int ret = 0;
-            if (value.IsUnlimited)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = value.Value.Days;
-            }
+            ret = value.IsUnlimited ? -1 : value.Value.Days;
+
+
+
+
+
+
+
             return ret;
         }
 
@@ -8546,7 +8544,7 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("RetentionAction", Enum.GetName(typeof(ExchangeRetentionPolicyTagAction), RetentionAction));
                 cmd.Parameters.Add("RetentionEnabled", true);
 
-                result = ExecuteShellCommand(runSpace, cmd, res);
+                ExecuteShellCommand(runSpace, cmd, res);
             }
             finally
             {
@@ -8637,7 +8635,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 cmd.Parameters.Add("RetentionPolicyTagLinks", RetentionPolicyTagLinks);
 
-                result = ExecuteShellCommand(runSpace, cmd, res);
+                ExecuteShellCommand(runSpace, cmd, res);
             }
             finally
             {
@@ -8666,7 +8664,7 @@ namespace FuseCP.Providers.HostedSolution
             try
             {
                 runSpace = OpenRunspace();
-                runSpaceEx = OpenRunspaceEx();
+                OpenRunspaceEx();
 
                 Command cmd;
 

@@ -179,7 +179,7 @@ namespace FuseCP.Providers.Virtualization
                             bool addPath = true;
                             foreach (string path in vmSettings.VirtualHardDrivePath)
                             {
-                                if (path != null && path.ToLower().Contains((vmSettings.Name + index.ToString() + Path.GetExtension(vmSettings.OperatingSystemTemplatePath)).ToLower()))
+                                if (path != null && path.ToLower().Contains((vmSettings.Name + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath)).ToLower()))
                                 {
                                     addPath = false;
                                     index++;
@@ -188,7 +188,7 @@ namespace FuseCP.Providers.Virtualization
                             }
                             if (addPath)
                             {
-                                vmSettings.VirtualHardDrivePath[i] = Path.Combine(vmSettings.RootFolderPath, msHddHyperVFolderName + index.ToString() + Path.GetExtension(vmSettings.OperatingSystemTemplatePath));
+                                vmSettings.VirtualHardDrivePath[i] = Path.Combine(vmSettings.RootFolderPath, msHddHyperVFolderName + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath));
                                 break;
                             }
                         }

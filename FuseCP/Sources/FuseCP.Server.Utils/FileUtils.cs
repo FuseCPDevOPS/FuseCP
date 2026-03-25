@@ -221,17 +221,17 @@ namespace FuseCP.Providers.Utils
         private static string EvaluateSystemVariable(Match match)
         {
             string EnvVar = Environment.GetEnvironmentVariable(match.Groups[1].Value);
-            if (string.IsNullOrEmpty(EnvVar))
-            {
-                // bugfix: The % characters should be replaced by the content of the environment
-                // variable
-                //return @"%" + match.Groups[1].Value + @"%";
-                return match.Groups[1].Value;
-            }
-            else
-            {
-                return EnvVar;
-            }
+            return string.IsNullOrEmpty(EnvVar) ? match.Groups[1].Value : EnvVar;
+
+
+
+
+
+
+
+
+
+
         }
 
         public static bool FileExists(string path)
@@ -460,7 +460,7 @@ namespace FuseCP.Providers.Utils
 		/// </returns>
 		private static Encoding GetEncodingByNameOrDefault(string encoding, Encoding defaultEncoding)
 		{
-			Encoding currentEncoding = defaultEncoding;
+            Encoding currentEncoding = defaultEncoding;
 
 			try
 			{
@@ -1109,7 +1109,7 @@ namespace FuseCP.Providers.Utils
 
                     ManagementBaseObject inParams = processClass.GetMethodParameters("Create");
                     inParams["CommandLine"] = cmdFilePath;
-                    ManagementBaseObject outParams = processClass.InvokeMethod("Create", inParams, null);
+                    processClass.InvokeMethod("Create", inParams, null);
 
                 }
             }

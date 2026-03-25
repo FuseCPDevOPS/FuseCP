@@ -135,14 +135,14 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public static string BuildSqlServerConnectionString(string dbServer, string dbName, string dbLogin, string dbPassw)
 		{
-			if (String.IsNullOrEmpty(dbLogin) && String.IsNullOrEmpty(dbPassw))
-			{
-				return String.Format("DbType=SqlServer;Server={0};Initial Catalog={1};Integrated Security=SSPI;TrustServerCertificate=true;", dbServer, dbName);
-			}
-			else
-			{
-				return String.Format("DbType=SqlServer;Server={0};Initial Catalog={1};User id={2};Password={3};TrustServerCertificate=true;", dbServer, dbName, dbLogin, dbPassw);
-			}
+			return String.IsNullOrEmpty(dbLogin) && String.IsNullOrEmpty(dbPassw) ? String.Format("DbType=SqlServer;Server={0};Initial Catalog={1};Integrated Security=SSPI;TrustServerCertificate=true;", dbServer, dbName) : String.Format("DbType=SqlServer;Server={0};Initial Catalog={1};User id={2};Password={3};TrustServerCertificate=true;", dbServer, dbName, dbLogin, dbPassw);
+
+
+
+
+
+
+
 		}
 
 		public static string BuildMySqlConnectionString(string server, int port, string user, string password, string database)
@@ -639,7 +639,7 @@ namespace FuseCP.EnterpriseServer.Data
 				case Data.DbType.SqliteFX:
 					var csb = new ConnectionStringBuilder(connectionString);
 					var dbFile = (string)(csb["data source"] ?? "");
-					var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+					Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 					if (!Path.IsPathRooted(dbFile))
 					{
 						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Combine(installationFolder, dbFile);
@@ -708,7 +708,7 @@ namespace FuseCP.EnterpriseServer.Data
 				case Data.DbType.SqliteFX:
 					var csb = new ConnectionStringBuilder(ConnStr);
 					var dbFile = (string)(csb["data source"] ?? "");
-					var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+					Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 					if (!Path.IsPathRooted(dbFile))
 					{
 						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Combine(installationFolder, dbFile);
@@ -883,7 +883,6 @@ LOG ON(
 			Data.DbType dbType;
 			string ConnStr, server;
 			var csb = new ConnectionStringBuilder(connectionString);
-			server = csb["server"] as string;
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{
@@ -904,7 +903,6 @@ LOG ON(
 			Data.DbType dbType;
 			string ConnStr, server;
 			var csb = new ConnectionStringBuilder(connectionString);
-			server = csb["server"] as string;
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{
@@ -1378,14 +1376,14 @@ LOG ON(
 					lineOfText = Reader.ReadLine();
 					if (lineOfText == null)
 					{
-						if (sb.Length > 0)
-						{
-							return sb.ToString();
-						}
-						else
-						{
-							return null;
-						}
+						return sb.Length > 0 ? sb.ToString() : null;
+
+
+
+
+
+
+
 					}
 
 					if (HasDelimiter(lineOfText))

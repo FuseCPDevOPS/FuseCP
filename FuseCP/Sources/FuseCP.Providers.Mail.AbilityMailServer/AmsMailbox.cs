@@ -126,7 +126,7 @@ namespace FuseCP.Providers.Mail
 			MailAccount account = new MailAccount();
 
 			account.Name = string.Concat(userConfig["user"], "@", userConfig["domain"]);
-			account.Enabled = userConfig["enabled"] == "1" ? true : false;
+			account.Enabled = userConfig["enabled"] == "1";
 			account.Password = userConfig["pass"];
 
 			// read forwardings
@@ -149,7 +149,7 @@ namespace FuseCP.Providers.Mail
 			TreeNode autoresponses = deliveryConfig.ChildNodes["autoresponses"];
 			if (autoresponses != null)
 			{
-				account.ResponderEnabled = autoresponses["enabled"] == "1" ? true : false;
+				account.ResponderEnabled = autoresponses["enabled"] == "1";
 				account.ResponderSubject = autoresponses["subject"];
 				account.ResponderMessage = autoresponses["body"];
 
@@ -165,7 +165,7 @@ namespace FuseCP.Providers.Mail
 			MailGroup group = new MailGroup();
 
 			group.Name = mailboxName;
-			group.Enabled = userConfig["enabled"] == "1" ? true : false;
+			group.Enabled = userConfig["enabled"] == "1";
 
 			TreeNode redirection = deliveryConfig.ChildNodes["redirection"];
 

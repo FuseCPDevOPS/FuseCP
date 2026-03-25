@@ -34,7 +34,6 @@ namespace FuseCP.Providers
 
         public virtual string Encrypt(string InputText, bool legacy = false)
         {
-            string Password = CryptoKey;
 
             if (!EncryptionEnabled || string.IsNullOrEmpty(InputText)) return InputText;
 

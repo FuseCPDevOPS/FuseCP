@@ -712,7 +712,7 @@ namespace FuseCP.EnterpriseServer.Data
 		{
 			//
 			var typeSource = source.GetType();
-			var typeTarget = target.GetType();
+			target.GetType();
 			// get all property infos
 			Hashtable props = null;
 			if (propertiesCache[typeSource.Name] != null)

@@ -2070,7 +2070,7 @@ namespace FuseCP.EnterpriseServer
                 throw new Exception(string.Format("Organization not found (ItemId = {0})", itemId));
             }
 
-            Organizations orgProxy = GetOrganizationProxy(org.ServiceId);
+            GetOrganizationProxy(org.ServiceId);
 
 
             UserInfo owner = PackageController.GetPackageOwner(org.PackageId);
@@ -3173,7 +3173,6 @@ namespace FuseCP.EnterpriseServer
 
                     if (deletedUser != null)
                     {
-                        accountType = deletedUser.OriginAT;
 
                         if (!deletedUser.IsArchiveEmpty)
                         {
@@ -4387,7 +4386,7 @@ namespace FuseCP.EnterpriseServer
                 if (org == null)
                     return null;
 
-                Organizations orgProxy = GetOrganizationProxy(org.ServiceId);
+                GetOrganizationProxy(org.ServiceId);
 
                 // load account
                 ExchangeAccount account = ExchangeServerController.GetAccount(itemId, accountId);

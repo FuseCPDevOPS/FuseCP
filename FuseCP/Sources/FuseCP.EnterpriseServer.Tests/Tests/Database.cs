@@ -76,7 +76,6 @@ namespace FuseCP.Tests
 #else
 				var providersStatic = db.Providers.Where(p => EF.Functions.Like(p.ProviderName, columnValue));
 #endif
-				var config = new ParsingConfig { ResolveTypesBySimpleName = true };
 				var providersDynamic = db.Providers.Where(DynamicFunctions.ColumnLike(db.Providers, columnName, columnValue));
 				var nstatic = providersStatic.Count();
 				var ndynamic = providersDynamic.Count();
@@ -93,7 +92,7 @@ namespace FuseCP.Tests
 			using (var db = new DataProvider(ConnectionString(dbtype)))
 			{
 				db.AlwaysUseEntityFramework = true;
-				var set = db.GetSearchObject(1, 1, null, "%test%", 0, 0, "", 0, 15, null, null, false, true);
+				db.GetSearchObject(1, 1, null, "%test%", 0, 0, "", 0, 15, null, null, false, true);
 			}
 		}
 
@@ -106,7 +105,7 @@ namespace FuseCP.Tests
 			using (var db = new DataProvider(ConnectionString(dbtype)))
 			{
 				db.AlwaysUseEntityFramework = false;
-				var set = db.GetSearchObject(1, 1, null, "%test%", 0, 0, "", 0, 15, null, null, false, true);
+				db.GetSearchObject(1, 1, null, "%test%", 0, 0, "", 0, 15, null, null, false, true);
 			}
 		}
 

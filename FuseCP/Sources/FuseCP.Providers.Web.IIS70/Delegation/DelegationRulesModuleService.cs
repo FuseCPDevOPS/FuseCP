@@ -44,7 +44,7 @@ namespace FuseCP.Providers.Web.Delegation
 				// Update rule if exists
 				foreach (var rule in rulesCollection)
 				{
-					if (rulePredicate.Invoke(rule) == true)
+					if (rulePredicate.Invoke(rule))
 					{
 						var permissions = rule.GetCollection("permissions");
 						//
@@ -106,7 +106,7 @@ namespace FuseCP.Providers.Web.Delegation
 				// Update rule if exists
 				foreach (var rule in rulesCollection)
 				{
-					if (rulePredicate.Invoke(rule) == true)
+					if (rulePredicate.Invoke(rule))
 					{
 						var permissions = rule.GetCollection("permissions");
 						//
@@ -149,7 +149,7 @@ namespace FuseCP.Providers.Web.Delegation
 				// Update rule if exists
 				foreach (var rule in rulesCollection)
 				{
-					if (predicate.Invoke(rule) == true)
+					if (predicate.Invoke(rule))
 					{
 						exists = true;
 						//
@@ -183,7 +183,7 @@ namespace FuseCP.Providers.Web.Delegation
 				foreach (var rule in rulesCollection)
 				{
 					//
-					if (predicate.Invoke(rule) == true)
+					if (predicate.Invoke(rule))
 					{
 						if (identityType.Equals("SpecificUser"))
 						{
@@ -261,7 +261,7 @@ namespace FuseCP.Providers.Web.Delegation
 				foreach (var rule in rulesCollection)
 				{
 					// Match rule against predicate
-					if (predicate.Invoke(rule) == true)
+					if (predicate.Invoke(rule))
 					{
 						rulesCollection.Remove(rule);
 						//

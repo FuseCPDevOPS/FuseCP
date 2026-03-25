@@ -151,7 +151,7 @@ namespace CryptSharp
         static string Regex
         {
             get { return @"\A(?<prefix>\$2[axy]\$)(?<rounds>[0-9]{2})\$(?<salt>[A-Za-z0-9./]{22})(?<crypt>[A-Za-z0-9./]{"
-                + ((BlowfishCipher.BCryptLength * 8 + 5) / 6).ToString() + @"})?\z"; }
+                + ((BlowfishCipher.BCryptLength * 8 + 5) / 6) + @"})?\z"; }
         }
     }
 }

@@ -120,7 +120,7 @@ namespace FuseCP.EnterpriseServer.Data.Scaffolding
 				var entityClrType = entityType.ClrType;
 				if (entityClrType == null) return writer;
 				var defaultEntityData = Activator.CreateInstance(entityClrType);
-				var setType = typeof(DbSet<>).MakeGenericType(entityClrType);
+				typeof(DbSet<>).MakeGenericType(entityClrType);
 				var setMethod = db.BaseContext.GetType().GetMethod("Set", BindingFlags.Public | BindingFlags.Instance, new Type[0]);
 				var setGenericMethod = setMethod.MakeGenericMethod(entityClrType);
 				var set = (IQueryable)setGenericMethod.Invoke(db.BaseContext, new object[0]);

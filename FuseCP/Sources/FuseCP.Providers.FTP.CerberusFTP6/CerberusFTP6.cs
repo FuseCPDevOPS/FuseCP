@@ -337,7 +337,7 @@ namespace FuseCP.Providers.FTP
             bool success;
             foreach (var cerberusAccount in cerberusAccounts)
             {
-                success = GetUserInformation(cerberusAccount, ref userAccount, ref message);
+                GetUserInformation(cerberusAccount, ref userAccount, ref message);
                 if (userAccount.rootList[0] != null)
                 {
                     ftpAccounts[i].CanRead = userAccount.rootList[0].permissions.allowDownload;

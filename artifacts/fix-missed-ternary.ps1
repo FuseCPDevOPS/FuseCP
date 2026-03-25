@@ -19,6 +19,38 @@ function Split-IfCondition([string]$line) {
     return @($trimmed.Substring($start+1, $end-$start-1).Trim(), $trimmed.Substring($end+1).Trim())
 }
 
+function Get-SingleStatementFromBlock([string[]]$lines, [int]$openLine0) {
+    if ($openLine0 -lt 0 -or $openLine0 -ge $lines.Count) { return $null }
+    if ($lines[$openLine0].Trim() -notmatch '^\{\s*$') { return $null }
+
+    $depth = 0
+    $closeLine0 = -1
+    for ($i = $openLine0; $i -lt $lines.Count; $i++) {
+        foreach ($c in $lines[$i].ToCharArray()) {
+            if ($c -eq '{') { $depth++ }
+            elseif ($c -eq '}') { $depth-- }
+        }
+        if ($depth -eq 0) { $closeLine0 = $i; break }
+    }
+    if ($closeLine0 -lt 0) { return $null }
+
+    $codeLines = @()
+    for ($i = $openLine0 + 1; $i -lt $closeLine0; $i++) {
+        $trimmed = $lines[$i].Trim()
+        if ($trimmed -eq '' -or $trimmed.StartsWith('//')) { continue }
+        $codeLines += [pscustomobject]@{ Line = $i; Text = $trimmed }
+    }
+
+    if ($codeLines.Count -ne 1) { return $null }
+
+    return [pscustomobject]@{
+        Statement = $codeLines[0].Text
+        OpenLine = $openLine0
+        CloseLine = $closeLine0
+        StatementLine = $codeLines[0].Line
+    }
+}
+
 $alertsJson = Join-Path $PSScriptRoot "codeql-open-alerts.json"
 $repoRoot   = Split-Path $PSScriptRoot
 
@@ -106,29 +138,55 @@ foreach ($filePath in $byFile.Keys) {
         while ($bodyLn -lt $lines.Count -and $lines[$bodyLn].Trim() -eq "") { $bodyLn++ }
         if ($bodyLn -ge $lines.Count) { continue }
         $bodyLine = $lines[$bodyLn].Trim()
-        if ($bodyLine -match '\{') { continue }
         if ($bodyLine.StartsWith("else")) { continue }
 
-        $elseLn = $bodyLn + 1
+        $ifLinesToRemove = @($bodyLn)
+        if ($bodyLine -match '^\{\s*$') {
+            $ifBlock = Get-SingleStatementFromBlock $lines $bodyLn
+            if ($ifBlock -eq $null) { continue }
+            $bodyLine = $ifBlock.Statement
+            $ifLinesToRemove = @($ifBlock.OpenLine..$ifBlock.CloseLine)
+            $elseLn = $ifBlock.CloseLine + 1
+        } else {
+            $elseLn = $bodyLn + 1
+        }
+
         while ($elseLn -lt $lines.Count -and $lines[$elseLn].Trim() -eq "") { $elseLn++ }
         if ($elseLn -ge $lines.Count) { continue }
         $trimmedElse = $lines[$elseLn].Trim()
         if (-not $trimmedElse.StartsWith("else")) { continue }
         if ($trimmedElse.StartsWith("else if")) { continue }
-        if ($trimmedElse -match '\{') { continue }
 
         $elseBody    = ""
         $elseBodyLn  = -1
+        $elseLinesToRemove = @($elseLn)
         if ($trimmedElse -match '^else\s+(.+)$') {
-            $elseBody   = $Matches[1].Trim()
-            $elseBodyLn = $elseLn
+            $candidate = $Matches[1].Trim()
+            if ($candidate -match '^\{\s*$') {
+                $elseBlock = Get-SingleStatementFromBlock $lines $elseLn
+                if ($elseBlock -eq $null) { continue }
+                $elseBody = $elseBlock.Statement
+                $elseBodyLn = $elseBlock.StatementLine
+                $elseLinesToRemove = @($elseBlock.OpenLine..$elseBlock.CloseLine)
+            } else {
+                $elseBody   = $candidate
+                $elseBodyLn = $elseLn
+            }
         } else {
             $elseBodyLn = $elseLn + 1
             while ($elseBodyLn -lt $lines.Count -and $lines[$elseBodyLn].Trim() -eq "") { $elseBodyLn++ }
             if ($elseBodyLn -ge $lines.Count) { continue }
-            $elseBody = $lines[$elseBodyLn].Trim()
+            if ($lines[$elseBodyLn].Trim() -match '^\{\s*$') {
+                $elseBlock = Get-SingleStatementFromBlock $lines $elseBodyLn
+                if ($elseBlock -eq $null) { continue }
+                $elseBody = $elseBlock.Statement
+                $elseBodyLn = $elseBlock.StatementLine
+                $elseLinesToRemove = @($elseLn) + @($elseBlock.OpenLine..$elseBlock.CloseLine)
+            } else {
+                $elseBody = $lines[$elseBodyLn].Trim()
+                $elseLinesToRemove = @($elseLn, $elseBodyLn)
+            }
         }
-        if ($elseBody -match '\{') { continue }
 
         $ifRetM   = [regex]::Match($bodyLine, '^return\s+(.+);\s*$')
         $elseRetM = [regex]::Match($elseBody, '^return\s+(.+);\s*$')
@@ -137,9 +195,7 @@ foreach ($filePath in $byFile.Keys) {
             $falseV = $elseRetM.Groups[1].Value
             if ($trueV -notmatch '\?' -and $falseV -notmatch '\?') {
                 $lines[$ln0]    = "${spaces}return $cond ? $trueV : $falseV;"
-                $lines[$bodyLn] = $null
-                $lines[$elseLn] = $null
-                if ($elseBodyLn -ne $elseLn) { $lines[$elseBodyLn] = $null }
+                foreach ($idx in ($ifLinesToRemove + $elseLinesToRemove | Sort-Object -Unique)) { $lines[$idx] = $null }
                 $changed = $true; $totalFixed++
                 Write-Host "TERNARY(B-ret): $([System.IO.Path]::GetFileName($filePath)) L$($alert.Line)"
                 continue
@@ -153,9 +209,7 @@ foreach ($filePath in $byFile.Keys) {
             $varEl = $elseAssM.Groups[1].Value; $falseV = $elseAssM.Groups[2].Value
             if ($varIf -eq $varEl -and $trueV -notmatch '\?' -and $falseV -notmatch '\?') {
                 $lines[$ln0]    = "${spaces}$varIf = $cond ? $trueV : $falseV;"
-                $lines[$bodyLn] = $null
-                $lines[$elseLn] = $null
-                if ($elseBodyLn -ne $elseLn) { $lines[$elseBodyLn] = $null }
+                foreach ($idx in ($ifLinesToRemove + $elseLinesToRemove | Sort-Object -Unique)) { $lines[$idx] = $null }
                 $changed = $true; $totalFixed++
                 Write-Host "TERNARY(B-ass): $([System.IO.Path]::GetFileName($filePath)) L$($alert.Line)"
                 continue

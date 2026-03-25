@@ -129,14 +129,14 @@ namespace FuseCP.EnterpriseServer
                 // update SOA record
 
                 string hostmaster = primSettings["ResponsiblePerson"];
-                if (String.IsNullOrEmpty(hostmaster))
-                {
-                    hostmaster = "hostmaster." + zoneName;
-                }
-                else
-                {
-                    hostmaster = Utils.ReplaceStringVariable(hostmaster, "domain_name", zoneName);
-                }
+                hostmaster = String.IsNullOrEmpty(hostmaster) ? "hostmaster." + zoneName : Utils.ReplaceStringVariable(hostmaster, "domain_name", zoneName);
+
+
+
+
+
+
+
 
                 dns.UpdateSoaRecord(zoneName, "", primaryNameServer, hostmaster);
 
