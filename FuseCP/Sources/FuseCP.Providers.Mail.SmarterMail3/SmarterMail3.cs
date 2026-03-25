@@ -24,7 +24,7 @@ namespace FuseCP.Providers.Mail
 {
     public class SmarterMail3 : SmarterMail2
     {
-		static string[] sm3Settings = new string[] {
+		static readonly string[] sm3Settings = new string[] {
             "description",
 			"disabled",
 			"moderator",

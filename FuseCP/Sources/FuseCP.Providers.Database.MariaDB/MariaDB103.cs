@@ -109,18 +109,15 @@ namespace FuseCP.Providers.Database
             //
             List<string> users = new List<string>();
             //
-            if (dtResult != null)
+            if (dtResult != null && dtResult.DefaultView != null)
             {
-                if (dtResult.DefaultView != null)
+                DataView dvUsers = dtResult.DefaultView;
+                //
+                foreach (DataRowView drUser in dvUsers)
                 {
-                    DataView dvUsers = dtResult.DefaultView;
-                    //
-                    foreach (DataRowView drUser in dvUsers)
+                    if (!Convert.IsDBNull(drUser["user"]))
                     {
-                        if (!Convert.IsDBNull(drUser["user"]))
-                        {
-                            users.Add(Convert.ToString(drUser["user"]));
-                        }
+                        users.Add(Convert.ToString(drUser["user"]));
                     }
                 }
             }
@@ -145,18 +142,15 @@ namespace FuseCP.Providers.Database
             List<string> databases = new List<string>();
             //
             //
-            if (dtResult != null)
+            if (dtResult != null && dtResult.DefaultView != null)
             {
-                if (dtResult.DefaultView != null)
+                DataView dvDatabases = dtResult.DefaultView;
+                //
+                foreach (DataRowView drDatabase in dvDatabases)
                 {
-                    DataView dvDatabases = dtResult.DefaultView;
-                    //
-                    foreach (DataRowView drDatabase in dvDatabases)
+                    if (!Convert.IsDBNull(drDatabase["db"]))
                     {
-                        if (!Convert.IsDBNull(drDatabase["db"]))
-                        {
-                            databases.Add(Convert.ToString(drDatabase["db"]));
-                        }
+                        databases.Add(Convert.ToString(drDatabase["db"]));
                     }
                 }
             }

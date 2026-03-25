@@ -45,7 +45,7 @@ public class LaunchdServiceController : ServiceController
 		{
 			var name = match.Groups["name"].Value;
 			var pid = match.Groups["pid"].Value;
-			var script = Path.Combine(ServicesDirectory, name);
+			var script = Path.Combine(ServicesDirectory, name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			bool running = !string.IsNullOrEmpty(pid);
 			string description = "";
 			if (File.Exists(script))

@@ -390,7 +390,7 @@ namespace FuseCP.Providers.FTP
 
         private string GetFileZillaConfigPath()
         {
-            return Path.Combine(FileZillaFolder, FILEZILLA_SERVER_FILE);
+            return Path.Combine(FileZillaFolder, FILEZILLA_SERVER_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
 
         private string MD5(string str)

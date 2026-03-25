@@ -203,12 +203,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         DomainInfo domain = ServerController.GetDomain(org.DefaultDomain);
 
                         //Add the service records
-                        if (domain != null)
+                        if (domain != null && domain.ZoneItemId != 0)
                         {
-                            if (domain.ZoneItemId != 0)
-                            {
-                                ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Lync, domain, "");
-                            }
+                            ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Lync, domain, "");
                         }
                         
                         PackageController.UpdatePackageItem(org);
@@ -402,20 +399,17 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     }
 
 
-                    if (!string.IsNullOrEmpty(sipAddress))
+                    if (!string.IsNullOrEmpty(sipAddress) && user.SipAddress != sipAddress)
                     {
-                        if (user.SipAddress != sipAddress)
+                        if (sipAddress != usr.UserPrincipalName)
                         {
-                            if (sipAddress != usr.UserPrincipalName)
+                            if (Database.LyncUserExists(accountId, sipAddress))
                             {
-                                if (Database.LyncUserExists(accountId, sipAddress))
-                                {
-                                    TaskManager.CompleteResultTask(res, LyncErrorCodes.ADDRESS_ALREADY_USED);
-                                    return res;
-                                }
+                                TaskManager.CompleteResultTask(res, LyncErrorCodes.ADDRESS_ALREADY_USED);
+                                return res;
                             }
-                            user.SipAddress = sipAddress;
                         }
+                        user.SipAddress = sipAddress;
                     }
 
                     user.LineUri = lineUri;

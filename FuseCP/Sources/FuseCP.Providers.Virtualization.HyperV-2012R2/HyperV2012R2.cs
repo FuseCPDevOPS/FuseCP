@@ -673,12 +673,9 @@ namespace FuseCP.Providers.Virtualization
                             }
                         }
                     }
-                    if (!hddChanged && realVm.EnableSecureBoot == vm.EnableSecureBoot)
+                    if ((!hddChanged && realVm.EnableSecureBoot == vm.EnableSecureBoot) && (realVm.Generation > 1 || realVm.BootFromCD == vm.BootFromCD))
                     {
-                        if (realVm.Generation > 1 || realVm.BootFromCD == vm.BootFromCD)
-                        {
-                            canChangeValueWihoutReboot = true;
-                        }
+                        canChangeValueWihoutReboot = true;
                     }
                 }
 

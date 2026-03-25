@@ -60,7 +60,7 @@ public class AssemblyLoaderNetCore
 				var relativename = Path.Combine(p, $"{name.Name}.dll");
 				return new
 				{
-					FullName = new DirectoryInfo(Path.Combine(exepath, relativename)).FullName,
+					FullName = new DirectoryInfo(Path.Combine(exepath, relativename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))).FullName,
 					Name = relativename
 				};
 			})

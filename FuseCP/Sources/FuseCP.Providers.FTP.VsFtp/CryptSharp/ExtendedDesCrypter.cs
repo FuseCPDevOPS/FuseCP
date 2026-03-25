@@ -48,7 +48,7 @@ namespace CryptSharp
 
         static readonly Regex _regex = new Regex(Regex, RegexOptions.CultureInvariant);
 
-        static CrypterOptions _properties = new CrypterOptions()
+        static readonly CrypterOptions _properties = new CrypterOptions()
         {
             { CrypterProperty.MinRounds, MinRounds },
             { CrypterProperty.MaxRounds, MaxRounds }

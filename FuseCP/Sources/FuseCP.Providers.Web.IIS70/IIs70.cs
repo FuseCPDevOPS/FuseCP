@@ -373,7 +373,7 @@ namespace FuseCP.Providers.Web
 		public const string FRONTPAGE_PORT_REGLOC_x86 = @"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\Ports\";
 		public const string FRONTPAGE_PORT_REGLOC_x64 = @"SOFTWARE\Wow6432Node\Microsoft\Shared Tools\Web Server Extensions\Ports\";
 
-		private string[] INSTALL_SECTIONS_ALLOWED = new string[] {
+		private readonly string[] INSTALL_SECTIONS_ALLOWED = new string[] {
 			Constants.CachingSection,
 			Constants.DefaultDocumentsSection,
 			Constants.DirectoryBrowseSection,
@@ -1050,7 +1050,7 @@ namespace FuseCP.Providers.Web
 				fqPath += "/";
 			//
 			fqPath += CGI_BIN_FOLDER;
-			string cgiBinPath = Path.Combine(virtualDir.ContentPath, CGI_BIN_FOLDER);
+			string cgiBinPath = Path.Combine(virtualDir.ContentPath, CGI_BIN_FOLDER.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			using (ServerManager srvman = webObjectsSvc.GetServerManager())
 			{
@@ -1566,25 +1566,19 @@ namespace FuseCP.Providers.Web
 				{
 					handlersCollection.Remove(e);
 				}
-				if (site.ColdFusionInstalled)
+				if (site.ColdFusionInstalled && (IsColdFusion7Installed() || IsColdFusion8Installed() || IsColdFusion9Installed()))
 				{
+					var cfElement = handlersCollection.CreateElement("add");
 
-					if (IsColdFusion7Installed() || IsColdFusion8Installed() || IsColdFusion9Installed())
-					{
-						var cfElement = handlersCollection.CreateElement("add");
-
-						cfElement["name"] = "coldfusion";
-						cfElement["modules"] = "IsapiModule";
-						cfElement["path"] = "*";
-						cfElement["scriptProcessor"] = base.ColdFusionPath;
-						cfElement["verb"] = "*";
-						cfElement["resourceType"] = "Unspecified";
-						cfElement["requireAccess"] = "None";
-						cfElement["preCondition"] = "bitness64";
-						handlersCollection.AddAt(0, cfElement);
-					}
-
-
+					cfElement["name"] = "coldfusion";
+					cfElement["modules"] = "IsapiModule";
+					cfElement["path"] = "*";
+					cfElement["scriptProcessor"] = base.ColdFusionPath;
+					cfElement["verb"] = "*";
+					cfElement["resourceType"] = "Unspecified";
+					cfElement["requireAccess"] = "None";
+					cfElement["preCondition"] = "bitness64";
+					handlersCollection.AddAt(0, cfElement);
 				}
 				srvman.CommitChanges();
 			}
@@ -2924,7 +2918,7 @@ namespace FuseCP.Providers.Web
 		public override void DeleteHeliconApeFolder(string siteId, string folderPath)
 		{
 			string rootPath = GetSiteContentPath(siteId);
-			string contentPath = Path.Combine(rootPath, folderPath);
+			string contentPath = Path.Combine(rootPath, folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			string htaccessPath = Path.Combine(contentPath, HtaccessFolder.HTACCESS_FILE);
 
 			if (File.Exists(htaccessPath))
@@ -4493,13 +4487,9 @@ namespace FuseCP.Providers.Web
 
 				ConfigurationElement scopeElement = FindElement(authorizationRulesCollection, "scope", "path", fqWebPath);
 
-				if (scopeElement != null)
+				if (scopeElement != null && scopeElement.GetCollection().Count > 0)
 				{
-					// At least one authorization rule exists
-					if (scopeElement.GetCollection().Count > 0)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 
@@ -4522,13 +4512,9 @@ namespace FuseCP.Providers.Web
 
 				ConfigurationElement scopeElement = FindElement(authorizationRulesCollection, "scope", "path", fqWebPath);
 
-				if (scopeElement != null)
+				if (scopeElement != null && scopeElement.GetCollection().Count > 0)
 				{
-					// At least one authorization rule exists
-					if (scopeElement.GetCollection().Count > 0)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 

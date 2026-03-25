@@ -44,7 +44,7 @@ namespace CryptSharp
     /// </summary>
     public class CrypterOptions : IEnumerable<KeyValuePair<CrypterOptionKey, object>>
     {
-        Dictionary<CrypterOptionKey, object> _options = new Dictionary<CrypterOptionKey, object>();
+        readonly Dictionary<CrypterOptionKey, object> _options = new Dictionary<CrypterOptionKey, object>();
 
         static CrypterOptions()
         {

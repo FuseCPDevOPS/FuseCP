@@ -108,7 +108,7 @@ public class OpenRCServiceController: ServiceController
 			body.AppendLine(srvc.Body);
 		}
 		
-		var script = Path.Combine(ScriptPath, srvc.ServiceId);
+		var script = Path.Combine(ScriptPath, srvc.ServiceId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 		File.WriteAllText(script, body.ToString());
 
 		Shell.Exec($"chmod +x {script}");

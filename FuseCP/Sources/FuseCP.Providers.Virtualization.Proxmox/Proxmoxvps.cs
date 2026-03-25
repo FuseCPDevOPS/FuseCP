@@ -799,7 +799,7 @@ namespace FuseCP.Providers.Virtualization
 			*/
         }
 
-        static Dictionary<string, System.Net.IPAddress[]> ResolvedHosts = new Dictionary<string, System.Net.IPAddress[]>();
+        static readonly Dictionary<string, System.Net.IPAddress[]> ResolvedHosts = new Dictionary<string, System.Net.IPAddress[]>();
 
         public bool IsLocalAddress(string adr)
         {
@@ -858,7 +858,7 @@ namespace FuseCP.Providers.Virtualization
             }
         }
 
-        static ConcurrentDictionary<VncConnection, VncConnection> VncConnections = new ConcurrentDictionary<VncConnection, VncConnection>();
+        static readonly ConcurrentDictionary<VncConnection, VncConnection> VncConnections = new ConcurrentDictionary<VncConnection, VncConnection>();
 
         public VncCredentials GetPveVncCredentials(string vmId)
         {

@@ -217,13 +217,10 @@ namespace FuseCP.EnterpriseServer
             foreach (string str in organizationSettings)
             {
                 string[] props = str.Split('=');
-                if (props.Length == 2)
+                if (props.Length == 2 && props[0].ToLower() == property)
                 {
-                    if (props[0].ToLower() == property)
-                    {
-                        value = props[1];
-                        break;
-                    }
+					value = props[1];
+					break;
                 }
             }
 

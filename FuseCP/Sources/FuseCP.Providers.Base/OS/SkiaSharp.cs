@@ -79,7 +79,7 @@ namespace FuseCP.Providers.OS
                     string libraryFileName = libraryName;
                     if (!libraryFileName.EndsWith(".so")) libraryFileName += ".so";
                     if (!libraryFileName.StartsWith("lib")) libraryFileName = "lib" + libraryFileName;
-                    var nativeDllPath = Path.Combine(currentDllPath, runtimeIdentifier, libraryFileName);
+                    var nativeDllPath = Path.Combine(currentDllPath, runtimeIdentifier, libraryFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                     if (File.Exists(nativeDllPath))
                     {

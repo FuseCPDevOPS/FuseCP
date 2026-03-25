@@ -68,7 +68,7 @@ namespace FuseCP.Providers.StorageSpaces
             string path = folderPath;
 
             if (shareNameDrive != null)
-                path = Path.Combine(shareNameDrive + @":\", folderPath);
+                path = Path.Combine(shareNameDrive + @":\", folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             Runspace runSpace = null;
             try

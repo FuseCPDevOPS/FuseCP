@@ -43,7 +43,7 @@ namespace FuseCP.Providers.FTP
             get { return ProviderSettings["ServiceUrl"]; }
         }
         #endregion
-        CerberusFTPService client = new CerberusFTPService() { RequireMtom = false, EnableDecompression = true };
+        readonly CerberusFTPService client = new CerberusFTPService() { RequireMtom = false, EnableDecompression = true };
 
         #region Main Methods
         public override bool IsInstalled()
@@ -164,12 +164,9 @@ namespace FuseCP.Providers.FTP
             client.Url = ServiceUrl;
             var response = client.GetUserList(new GetUserListRequest());
 
-            if (response != null)
+            if (response != null && response.result)
             {
-                if (response.result)
-                {
-                    return response.UserList;
-                }
+                return response.UserList;
             }
 
             return null;
@@ -435,37 +432,34 @@ namespace FuseCP.Providers.FTP
 
             for (int i = 0; i < filesList.Length; i++)
             {
-                if (DateTime.TryParseExact(filesList[i].Substring(filesList[i].LastIndexOf(".") + 1), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.NoCurrentDateDefault, out dateParsed))
+                if (DateTime.TryParseExact(filesList[i].Substring(filesList[i].LastIndexOf(".") + 1), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.NoCurrentDateDefault, out dateParsed) && dateParsed >= fromDateTime)
                 {
-                    if (dateParsed >= fromDateTime)
+                    using (StreamReader sr = new StreamReader(filesList[i]))
                     {
-                        using (StreamReader sr = new StreamReader(filesList[i]))
+                        long bytesReceived = 0;
+                        long bytesSent = 0;
+                        string line = "";
+
+                        while ((line = sr.ReadLine()) != null)
                         {
-                            long bytesReceived = 0;
-                            long bytesSent = 0;
-                            string line = "";
-
-                            while ((line = sr.ReadLine()) != null)
+                            if (line.StartsWith("[") && line.Contains("B sent)") && ftpUserName == (line.Substring(line.IndexOf("[", 31) + 1, line.IndexOf("]", line.IndexOf("[", 31)) - (line.IndexOf("[", 31)) - 1)))
                             {
-                                if (line.StartsWith("[") && line.Contains("B sent)") && ftpUserName == (line.Substring(line.IndexOf("[", 31) + 1, line.IndexOf("]", line.IndexOf("[", 31)) - (line.IndexOf("[", 31)) - 1)))
-                                {
-                                    bytesSent = bytesSent + long.Parse(line.Substring(line.IndexOf("' (") + 3, line.IndexOf(" B ", line.IndexOf("' (")) - (line.IndexOf("' (") + 3)));
-                                }
-                                if (line.StartsWith("[") && line.Contains("B received)") && ftpUserName == (line.Substring(line.IndexOf("[", 31) + 1, line.IndexOf("]", line.IndexOf("[", 31)) - (line.IndexOf("[", 31)) - 1)))
-                                {
-                                    bytesReceived = bytesReceived + long.Parse(line.Substring(line.IndexOf("' (") + 3, line.IndexOf(" B ", line.IndexOf("' (")) - (line.IndexOf("' (") + 3)));
-                                }
+                                bytesSent = bytesSent + long.Parse(line.Substring(line.IndexOf("' (") + 3, line.IndexOf(" B ", line.IndexOf("' (")) - (line.IndexOf("' (") + 3)));
                             }
-
-                            DailyStatistics dailyStats = new DailyStatistics();
-                            dailyStats.Year = dateParsed.Year;
-                            dailyStats.Month = dateParsed.Month;
-                            dailyStats.Day = dateParsed.Day;
-                            dailyStats.BytesSent = bytesSent;
-                            dailyStats.BytesReceived = bytesReceived;
-
-                            days.Add(dailyStats);
+                            if (line.StartsWith("[") && line.Contains("B received)") && ftpUserName == (line.Substring(line.IndexOf("[", 31) + 1, line.IndexOf("]", line.IndexOf("[", 31)) - (line.IndexOf("[", 31)) - 1)))
+                            {
+                                bytesReceived = bytesReceived + long.Parse(line.Substring(line.IndexOf("' (") + 3, line.IndexOf(" B ", line.IndexOf("' (")) - (line.IndexOf("' (") + 3)));
+                            }
                         }
+
+                        DailyStatistics dailyStats = new DailyStatistics();
+                        dailyStats.Year = dateParsed.Year;
+                        dailyStats.Month = dateParsed.Month;
+                        dailyStats.Day = dateParsed.Day;
+                        dailyStats.BytesSent = bytesSent;
+                        dailyStats.BytesReceived = bytesReceived;
+
+                        days.Add(dailyStats);
                     }
                 }
             }

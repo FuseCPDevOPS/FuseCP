@@ -258,14 +258,14 @@ namespace FuseCP.Web.Clients
             string file;
             if (arch == Architecture.X64)
             {
-                file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x64.dll")) : Path.Combine(assemblyPath, "x64", dllName);
+                file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x64.dll")) : Path.Combine(assemblyPath, "x64", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             }
             else if (arch == Architecture.X86)
             {
-				file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x86.dll")) : Path.Combine(assemblyPath, "x86", dllName);
+				file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x86.dll")) : Path.Combine(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
-				file = Path.Combine(assemblyPath, "x86", dllName);
+				file = Path.Combine(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
             }
             else throw new NotSupportedException($"Architecture {arch} not supported.");
 
@@ -362,7 +362,7 @@ namespace FuseCP.Web.Clients
                 .Select(p =>
                 {
                     var relativename = Path.Combine(p, $"{name}.dll");
-                    var fullName = Path.GetFullPath(Path.Combine(ExePath, relativename));
+                    var fullName = Path.GetFullPath(Path.Combine(ExePath, relativename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
                     return new
                     {
                         FullName = fullName,

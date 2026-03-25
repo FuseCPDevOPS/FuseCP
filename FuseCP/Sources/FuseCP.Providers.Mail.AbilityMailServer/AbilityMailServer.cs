@@ -182,9 +182,8 @@ namespace FuseCP.Providers.Mail
 			if (amsAlias.Load(config))
 			{
 				string amsDomain = amsAlias.DomainConfig["convertdomain"];
-				if (string.Compare(amsDomain, domainName, true) == 0)
+				if (string.Compare(amsDomain, domainName, true) == 0 && !amsAlias.DeleteAlias(config))
 				{
-					if (!amsAlias.DeleteAlias(config))
 						throw new Exception("Couldn't delete alias.");
 				}
 			}

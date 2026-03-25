@@ -574,9 +574,8 @@ namespace FuseCP.Providers.DNS
 
 
             //NS record
-            if (record.RecordType == DnsRecordType.NS)
+            if (record.RecordType == DnsRecordType.NS && string.IsNullOrEmpty(record.RecordName))
             {
-                if (string.IsNullOrEmpty(record.RecordName))
                     record.RecordName = zoneName;
             }
 

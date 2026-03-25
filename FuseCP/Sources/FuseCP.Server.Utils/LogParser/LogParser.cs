@@ -112,7 +112,7 @@ namespace FuseCP.Providers.Utils.LogParser
 						// add new statistics
 						try
 						{
-							monthlyStats = new MonthlyStatistics(Path.Combine(statsDir, statsName), true);
+							monthlyStats = new MonthlyStatistics(Path.Combine(statsDir, statsName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), true);
 							monthlyLogs[statsName] = monthlyStats;
 						}
 						catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -261,7 +261,7 @@ namespace FuseCP.Providers.Utils.LogParser
 		private string GetStatsFilePath()
 		{
 			string homePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogParser");
-			homePath = Path.Combine(homePath, serviceName);
+			homePath = Path.Combine(homePath, serviceName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			//
 			return homePath.EndsWith(@"\") ? homePath : homePath + @"\";
 		}

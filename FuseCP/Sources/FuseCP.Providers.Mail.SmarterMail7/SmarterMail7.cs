@@ -32,7 +32,7 @@ namespace FuseCP.Providers.Mail
 {
 	public class SmarterMail7 : HostingServiceProviderBase, IMailServer
 	{
-		static string[] smListSettings = new string[] {
+		static readonly string[] smListSettings = new string[] {
             "description",
 			"disabled",
 			"moderator",
@@ -506,7 +506,7 @@ namespace FuseCP.Providers.Mail
 					result = domains.AddDomain(AdminUsername,
 											   AdminPassword,
 											   domain.Name,
-											   Path.Combine(DomainsPath, domain.Name),
+											   Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
 											   SYSTEM_DOMAIN_ADMIN, // admin username
 											   Guid.NewGuid().ToString("P"), // admin password
 											   "Domain", // admin first name
@@ -537,7 +537,7 @@ namespace FuseCP.Providers.Mail
 				{
 					result = domains.AddDomain(AdminUsername, AdminPassword,
 											   domain.Name,
-											   Path.Combine(DomainsPath, domain.Name),
+											   Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
 											   SYSTEM_DOMAIN_ADMIN, // admin username
 											   Guid.NewGuid().ToString("P"), // admin password
 											   "Domain", // admin first name

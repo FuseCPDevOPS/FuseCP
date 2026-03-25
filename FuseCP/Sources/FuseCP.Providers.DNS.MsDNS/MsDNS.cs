@@ -693,48 +693,44 @@ namespace FuseCP.Providers.DNS
 
 				ManagementObject objSoa = wmi.GetWmiObject("MicrosoftDNS_SOAType", "ContainerName = '{0}'", RemoveTrailingDot(zoneName));
 
-				if (objSoa != null)
+				if (objSoa != null && objSoa.Properties["OwnerName"].Value.Equals(zoneName))
 				{
-					if (objSoa.Properties["OwnerName"].Value.Equals(zoneName))
+					string primaryServer = (string)objSoa.Properties["PrimaryServer"].Value;
+					string responsibleParty = (string)objSoa.Properties["ResponsibleParty"].Value;
+					UInt32 serialNumber = (UInt32)objSoa.Properties["SerialNumber"].Value;
+
+					// update record's serial number
+					string sn = serialNumber.ToString();
+					string todayDate = DateTime.Now.ToString("yyyyMMdd");
+					if (sn.Length < 10 || !sn.StartsWith(todayDate))
 					{
-						string primaryServer = (string)objSoa.Properties["PrimaryServer"].Value;
-						string responsibleParty = (string)objSoa.Properties["ResponsibleParty"].Value;
-						UInt32 serialNumber = (UInt32)objSoa.Properties["SerialNumber"].Value;
-
-						// update record's serial number
-						string sn = serialNumber.ToString();
-						string todayDate = DateTime.Now.ToString("yyyyMMdd");
-						if (sn.Length < 10 || !sn.StartsWith(todayDate))
-						{
-							// build a new serial number
-							sn = todayDate + "01";
-							serialNumber = UInt32.Parse(sn);
-						}
-						else
-						{
-							// just increment serial number
-							serialNumber += 1;
-						}
-
-						// update SOA record
-						using (ManagementBaseObject methodParams = objSoa.GetMethodParameters("Modify"))
-						{
-							methodParams["ResponsibleParty"] = responsibleParty;
-							methodParams["PrimaryServer"] = primaryServer;
-							methodParams["SerialNumber"] = serialNumber;
-
-							methodParams["ExpireLimit"] = ExpireLimit;
-							methodParams["MinimumTTL"] = MinimumTTL;
-							methodParams["TTL"] = MinimumTTL;
-							methodParams["RefreshInterval"] = RefreshInterval;
-							methodParams["RetryDelay"] = RetryDelay;
-
-							ManagementBaseObject outParams = objSoa.InvokeMethod("Modify", methodParams, null);
-						}
-						//
-						objSoa.Dispose();
+						// build a new serial number
+						sn = todayDate + "01";
+						serialNumber = UInt32.Parse(sn);
+					}
+					else
+					{
+						// just increment serial number
+						serialNumber += 1;
 					}
 
+					// update SOA record
+					using (ManagementBaseObject methodParams = objSoa.GetMethodParameters("Modify"))
+					{
+						methodParams["ResponsibleParty"] = responsibleParty;
+						methodParams["PrimaryServer"] = primaryServer;
+						methodParams["SerialNumber"] = serialNumber;
+
+						methodParams["ExpireLimit"] = ExpireLimit;
+						methodParams["MinimumTTL"] = MinimumTTL;
+						methodParams["TTL"] = MinimumTTL;
+						methodParams["RefreshInterval"] = RefreshInterval;
+						methodParams["RetryDelay"] = RetryDelay;
+
+						ManagementBaseObject outParams = objSoa.InvokeMethod("Modify", methodParams, null);
+					}
+					//
+					objSoa.Dispose();
 				}
 			}
 			catch (ManagementException ex)

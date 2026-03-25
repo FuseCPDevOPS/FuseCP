@@ -547,9 +547,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 		private void SyncWebSiteBindingsChanges(string siteId, ServerBinding[] bindings, bool emptyBindingsAllowed)
 		{
 			// ensure site bindings
-            if (!emptyBindingsAllowed)
+            if (!emptyBindingsAllowed && (bindings == null || bindings.Length == 0))
             {
-                if (bindings == null || bindings.Length == 0)
                     throw new Exception("SiteServerBindingsEmpty");
             }
 			

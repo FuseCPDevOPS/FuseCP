@@ -93,7 +93,7 @@ namespace FuseCP.Providers.Utils.LogParser
 
 			try
 			{
-				writer = new StreamWriter(Path.Combine(dir, statsFile));
+				writer = new StreamWriter(Path.Combine(dir, statsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
 
 				foreach (int day in days.Keys)
 				{

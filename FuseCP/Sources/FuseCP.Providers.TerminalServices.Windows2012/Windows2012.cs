@@ -1007,7 +1007,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             //New-Item -Path "RDS:\GatewayServer\CAP" -Name "Allow Admins" -UserGroups "Administrators@." -AuthMethod 1
             //Set-Item -Path "RDS:\GatewayServer\CAP\Allow Admins\SessionTimeout" -Value 480 -SessionTimeoutAction 0
 
-            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(CapPath, policyName)))
+            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(CapPath, policyName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))))
             {
                 RemoveRdCap(runSpace, gatewayHost, policyName);
             }
@@ -1025,7 +1025,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
         private void CreateHelpDeskRdCapForce(Runspace runSpace, string gatewayHost)
         {                        
-            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(CapPath, RDSHelpDeskRdCapPolicyName)))
+            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(CapPath, RDSHelpDeskRdCapPolicyName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))))
             {
                 return;
             }
@@ -1043,7 +1043,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
         private void CreateHelpDeskRdRapForce(Runspace runSpace, string gatewayHost)
         {
-            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(RapPath, RDSHelpDeskRdRapPolicyName)))
+            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(RapPath, RDSHelpDeskRdRapPolicyName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))))
             {
                 return;
             }
@@ -1086,7 +1086,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             //New-Item -Path "RDS:\GatewayServer\RAP" -Name "Allow Connections To Everywhere" -UserGroups "Administrators@." -ComputerGroupType 1
             //Set-Item -Path "RDS:\GatewayServer\RAP\Allow Connections To Everywhere\PortNumbers" -Value 3389,3390
 
-            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(RapPath, policyName)))
+            if (ItemExistsRemote(runSpace, gatewayHost, Path.Combine(RapPath, policyName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))))
             {
                 RemoveRdRap(runSpace, gatewayHost, policyName);
             }
@@ -2006,12 +2006,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     ActiveDirectoryUtils.RemoveObjectFromGroup(computerObject.Path, GetComputerGroupPath(organizationId, collectionName));
                 }
 
-                if (ActiveDirectoryUtils.AdObjectExists(GetHelpDeskGroupPath(RDSHelpDeskComputerGroup)))
+                if (ActiveDirectoryUtils.AdObjectExists(GetHelpDeskGroupPath(RDSHelpDeskComputerGroup)) && ActiveDirectoryUtils.IsComputerInGroup(samName, RDSHelpDeskComputerGroup))
                 {
-                    if (ActiveDirectoryUtils.IsComputerInGroup(samName, RDSHelpDeskComputerGroup))
-                    {
-                        ActiveDirectoryUtils.RemoveObjectFromGroup(computerObject.Path, GetHelpDeskGroupPath(RDSHelpDeskComputerGroup));
-                    }
+                    ActiveDirectoryUtils.RemoveObjectFromGroup(computerObject.Path, GetHelpDeskGroupPath(RDSHelpDeskComputerGroup));
                 }
             }
         }

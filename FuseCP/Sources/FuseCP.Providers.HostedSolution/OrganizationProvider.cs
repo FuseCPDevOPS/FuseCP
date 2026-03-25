@@ -1425,9 +1425,8 @@ namespace FuseCP.Providers.HostedSolution
                 searcher.SearchScope = SearchScope.Subtree;
 
                 SearchResult resCollection = searcher.FindOne();
-                if (resCollection != null)
+                if (resCollection != null && resCollection.Properties["samaccountname"] != null)
                 {
-                    if (resCollection.Properties["samaccountname"] != null)
                         bFound = true;
                 }
             }

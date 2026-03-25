@@ -74,7 +74,7 @@ namespace FuseCP.Providers.DNS
 		#endregion
 
 		#region Records handlers
-		private Dictionary<DnsRecordType, BuildDnsRecordDataEventHandler> SupportedDnsRecords = new Dictionary<DnsRecordType, BuildDnsRecordDataEventHandler>()
+		private readonly Dictionary<DnsRecordType, BuildDnsRecordDataEventHandler> SupportedDnsRecords = new Dictionary<DnsRecordType, BuildDnsRecordDataEventHandler>()
 		{
 			// A record
 			{ DnsRecordType.A, new BuildDnsRecordDataEventHandler(BuildRecordData_ARecord) },
@@ -317,32 +317,28 @@ namespace FuseCP.Providers.DNS
 
 		public override void AddZoneRecord(string zoneName, DnsRecord record)
 		{
-			if (ZoneExists(zoneName))
+			if (ZoneExists(zoneName) && SupportedDnsRecords.ContainsKey(record.RecordType))
 			{
+				string m_strRecordName = ConvertRecordNameToSDNSFormat(record.RecordName, zoneName);
 				//
-				if (SupportedDnsRecords.ContainsKey(record.RecordType))
-				{
-					string m_strRecordName = ConvertRecordNameToSDNSFormat(record.RecordName, zoneName);
-					//
-					Connection cn = SetupProviderConnection();
-					DNSZone dnsZone = cn.GetZone(zoneName);
-					//
-					List<string> m_strRecordData = new List<string>();
-					String m_strRecordType = String.Empty;
-					// build record data
-					SupportedDnsRecords[record.RecordType](zoneName, ref m_strRecordType, record, m_strRecordData);
+				Connection cn = SetupProviderConnection();
+				DNSZone dnsZone = cn.GetZone(zoneName);
+				//
+				List<string> m_strRecordData = new List<string>();
+				String m_strRecordType = String.Empty;
+				// build record data
+				SupportedDnsRecords[record.RecordType](zoneName, ref m_strRecordType, record, m_strRecordData);
 
-					// skip if already added
-					if (dnsZone.Records.Contains(m_strRecordName, m_strRecordType, m_strRecordData.ToArray()))
-						return;
+				// skip if already added
+				if (dnsZone.Records.Contains(m_strRecordName, m_strRecordType, m_strRecordData.ToArray()))
+					return;
 
-					//
-					dnsZone.Records.Add(m_strRecordName, m_strRecordType, m_strRecordData.ToArray());
-					//
-					cn.UpdateZone(dnsZone, false);
-					//
-					UpdateSoaRecord(zoneName);
-				}
+				//
+				dnsZone.Records.Add(m_strRecordName, m_strRecordType, m_strRecordData.ToArray());
+				//
+				cn.UpdateZone(dnsZone, false);
+				//
+				UpdateSoaRecord(zoneName);
 			}
 		}
 

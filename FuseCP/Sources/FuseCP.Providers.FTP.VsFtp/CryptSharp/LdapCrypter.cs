@@ -62,7 +62,7 @@ namespace CryptSharp
             { LdapCrypterVariant.Cleartext, CreateRegex(@"\A(?<prefix>{(?i:CLEARTEXT)\})(?<salt>.*)\z") }
         };
 
-        CrypterEnvironment _environment;
+        readonly CrypterEnvironment _environment;
 
         static LdapCrypter()
         {

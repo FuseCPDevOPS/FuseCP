@@ -30,7 +30,7 @@ namespace FuseCP.Providers.Virtualization
     {
         private readonly string _remoteComputerName;
         protected static InitialSessionState session = null;
-        object psLocker = new object();
+        readonly object psLocker = new object();
         private readonly bool isStatic = false;
         public bool IsStaticObj { get => isStatic; }
         public string RemoteComputerName { get => _remoteComputerName; }

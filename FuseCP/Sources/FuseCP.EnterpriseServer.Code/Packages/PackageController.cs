@@ -537,34 +537,31 @@ namespace FuseCP.EnterpriseServer
                             }
 
                             domain = ServerController.GetDomain(domainId);
-                            if (domain != null)
+                            if (domain != null && domain.ZoneItemId != 0)
                             {
-                                if (domain.ZoneItemId != 0)
-                                {
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Os, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Dns, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Ftp, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2000, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2005, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2008, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2012, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2014, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2016, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2017, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2019, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2022, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2025, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql4, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql5, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql8, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql9, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MariaDB, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Statistics, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPS, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPS2012, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPSForPC, domain, "");
-                                    ServerController.AddServiceDNSRecords(packageId, ResourceGroups.RDS, domain, "");
-                                }
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Os, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Dns, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Ftp, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2000, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2005, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2008, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2012, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2014, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2016, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2017, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2019, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2022, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MsSql2025, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql4, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql5, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql8, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MySql9, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.MariaDB, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.Statistics, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPS, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPS2012, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.VPSForPC, domain, "");
+                                ServerController.AddServiceDNSRecords(packageId, ResourceGroups.RDS, domain, "");
                             }
 
                             if (createPreviewDomain)

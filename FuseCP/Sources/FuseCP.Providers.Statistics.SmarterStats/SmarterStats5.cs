@@ -94,9 +94,8 @@ namespace FuseCP.Providers.Statistics
 			int version = 0;
 			string[] split = productVersion.Split(new[] { '.' });
 
-			if (int.TryParse(split[0], out version))
+			if (int.TryParse(split[0], out version) && version >= 5)
 			{
-				if(version >= 5)
 					return true;
 			}
 			//

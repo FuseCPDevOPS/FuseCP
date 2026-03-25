@@ -93,9 +93,8 @@ namespace FuseCP.Providers.Virtualization
             Collection<PSObject> results = null;
 
             // Add computerName parameter to command if it is remote server
-            if (addComputerNameParameter)
+            if (addComputerNameParameter && !string.IsNullOrEmpty(_remoteComputerName))
             {
-                if (!string.IsNullOrEmpty(_remoteComputerName))
                     cmd.Parameters.Add("ComputerName", _remoteComputerName);
             }
 

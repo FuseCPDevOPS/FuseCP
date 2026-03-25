@@ -1484,13 +1484,13 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         RollbackAction(transaction.Actions[i], runSpace);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError("Rollback error", ex);
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("Rollback error", ex);
             }
@@ -1598,5 +1598,6 @@ namespace FuseCP.Providers.HostedSolution
         }
     }
 }
+
 
 

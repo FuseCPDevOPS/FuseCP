@@ -386,14 +386,11 @@ namespace FuseCP.Providers.Web.Iis
                 var wildcardHostName = hostNames.SingleOrDefault(h => h.StartsWith("*."));
 
                 // If a wildcard certificate is used
-                if (wildcardHostName != null)
+                if (wildcardHostName != null && !dedicatedIp)
                 {
-                    if (!dedicatedIp)
-                    {
-                        // If using a wildcard ssl and not a dedicated IP, we take all the matching bindings on the site and use it to bind to SSL also.
-                        hostNames.Remove(wildcardHostName);
-                        hostNames.AddRange(website.Bindings.Where(b => !string.IsNullOrEmpty(b.Host) && b.Host.EndsWith(wildcardHostName.Substring(2))).Select(b => b.Host));
-                    }
+                    // If using a wildcard ssl and not a dedicated IP, we take all the matching bindings on the site and use it to bind to SSL also.
+                    hostNames.Remove(wildcardHostName);
+                    hostNames.AddRange(website.Bindings.Where(b => !string.IsNullOrEmpty(b.Host) && b.Host.EndsWith(wildcardHostName.Substring(2))).Select(b => b.Host));
                 }
 
                 // For every hostname

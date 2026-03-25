@@ -37,7 +37,7 @@ namespace FuseCP.Providers.Virtualization
 			public bool EOF = false;
 			public int MaxColor;
 
-			char[] token = new char[64];
+			readonly char[] token = new char[64];
 
 			public Reader() { }
 			public Reader(Stream stream): this()

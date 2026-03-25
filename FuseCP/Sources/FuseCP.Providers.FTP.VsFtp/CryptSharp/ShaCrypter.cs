@@ -50,7 +50,7 @@ namespace CryptSharp
         const int MinRounds = 1000;
         const int MaxRounds = 999999999;
 
-        static CrypterOptions _properties = new CrypterOptions()
+        static readonly CrypterOptions _properties = new CrypterOptions()
         {
             { CrypterProperty.MinRounds, MinRounds },
             { CrypterProperty.MaxRounds, MaxRounds }

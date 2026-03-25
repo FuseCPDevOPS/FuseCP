@@ -29,8 +29,8 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     internal class Wmi
     {
-        string nameSpace = null;
-        string computerName = null;
+        readonly string nameSpace = null;
+        readonly string computerName = null;
         ManagementScope scope = null;
 
         public Wmi(string nameSpace) : this(nameSpace, null)

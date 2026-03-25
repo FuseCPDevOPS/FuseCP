@@ -289,8 +289,8 @@ namespace FuseCP.Providers.Database
 			string collation = String.IsNullOrEmpty(DatabaseCollation) ? "" : " COLLATE " + DatabaseCollation;
 
 			// create command
-			string dataFile = Path.Combine(database.Location, database.Name) + "_data.mdf";
-			string logFile = Path.Combine(database.Location, database.Name) + "_log.ldf";
+			string dataFile = Path.Combine(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_data.mdf";
+			string logFile = Path.Combine(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_log.ldf";
 
 
 			commandText = string.Format("CREATE DATABASE [{0}]" +
@@ -546,7 +546,7 @@ namespace FuseCP.Providers.Database
 			string bakFile;
 			if (DatabaseBackupLocation != "" && DatabaseBackupNetworkPath != "")
 			{
-				bakFile = Path.Combine(DatabaseBackupLocation, backupName);
+				bakFile = Path.Combine(DatabaseBackupLocation, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				string networkBakFile = DatabaseBackupNetworkPath + "/" + backupName;
 
 				// backup database
@@ -558,7 +558,7 @@ namespace FuseCP.Providers.Database
 			else
 			{
 				string tempPath = Path.GetTempPath();
-				bakFile = Path.Combine(tempPath, backupName);
+				bakFile = Path.Combine(tempPath, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				//string backupName = databaseName + " Database Backup";
 
 				// backup database

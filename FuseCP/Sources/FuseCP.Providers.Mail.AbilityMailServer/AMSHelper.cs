@@ -101,9 +101,8 @@ namespace FuseCP.Providers.Mail
                             string[] split = s.Split(new char[] { '=' });
                             if (Path.IsPathRooted(split[1]))
                             {
-                                if (String.Equals(split[1], "\\config\\accounts\\"))
+                                if (String.Equals(split[1], "\\config\\accounts\\") && serverLocation != null)
                                 {
-                                    if (serverLocation != null)
                                         return Path.Combine(serverLocation, "config\\accounts\\");
                                 }
                                     serverLocation = split[1];

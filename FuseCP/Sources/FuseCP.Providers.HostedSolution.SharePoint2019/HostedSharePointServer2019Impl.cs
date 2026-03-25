@@ -384,7 +384,7 @@ namespace FuseCP.Providers.HostedSolution
 
                     if (zip)
                     {
-                        string zipFile = Path.Combine(tempPath, filename);
+                        string zipFile = Path.Combine(tempPath, filename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                         string zipRoot = Path.GetDirectoryName(backupFileName);
 
                         FileUtils.ZipFiles(zipFile, zipRoot, new[] {Path.GetFileName(backupFileName)});

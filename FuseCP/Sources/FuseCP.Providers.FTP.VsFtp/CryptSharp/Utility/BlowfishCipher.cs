@@ -51,7 +51,7 @@ namespace CryptSharp.Utility
     /// </summary>
 	public partial class BlowfishCipher : IDisposable
 	{
-		static byte[] _zeroSalt = new byte[16];
+		static readonly byte[] _zeroSalt = new byte[16];
 		uint[] P; uint[][] S;
 
         static BlowfishCipher()

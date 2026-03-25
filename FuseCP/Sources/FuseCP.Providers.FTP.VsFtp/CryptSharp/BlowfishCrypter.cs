@@ -48,14 +48,14 @@ namespace CryptSharp
         const int MinRounds = 4;
         const int MaxRounds = 31;
 
-        static CrypterOptions _properties = new CrypterOptions()
+        static readonly CrypterOptions _properties = new CrypterOptions()
         {
             { CrypterProperty.MaxPasswordLength, MaxPasswordLength },
             { CrypterProperty.MinRounds, MinRounds },
             { CrypterProperty.MaxRounds, MaxRounds }
         }.MakeReadOnly();
 
-        static Regex _regex = new Regex(Regex, RegexOptions.CultureInvariant);
+        static readonly Regex _regex = new Regex(Regex, RegexOptions.CultureInvariant);
 
         /// <inheritdoc />
         public override string GenerateSalt(CrypterOptions options)

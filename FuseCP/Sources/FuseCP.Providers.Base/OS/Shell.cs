@@ -143,7 +143,7 @@ namespace FuseCP.Providers.OS
 				file = Paths
 					  .SelectMany(p =>
 					  {
-						  var p1 = Path.Combine(p, cmd);
+						  var p1 = Path.Combine(p, cmd.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 						  return new string[] { p1, Path.ChangeExtension(p1, "exe") };
 					  })
 					  .FirstOrDefault(p => File.Exists(p));
@@ -442,7 +442,7 @@ namespace FuseCP.Providers.OS
 		public Action<string> LogOutput { get; set; }
 		public Action<string> LogError { get; set; }
 
-		StringBuilder output, error, outputAndError;
+		readonly StringBuilder output, error, outputAndError;
 
 		public async Task<Shell> Task()
 		{

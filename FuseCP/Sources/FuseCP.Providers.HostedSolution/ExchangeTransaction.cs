@@ -19,7 +19,7 @@ namespace FuseCP.Providers.HostedSolution
 {
     public class ExchangeTransaction
     {
-        List<TransactionAction> actions = null;
+        readonly List<TransactionAction> actions = null;
 
         public ExchangeTransaction()
         {

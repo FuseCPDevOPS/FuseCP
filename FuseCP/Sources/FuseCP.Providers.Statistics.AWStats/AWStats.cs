@@ -108,7 +108,7 @@ namespace FuseCP.Providers.Statistics
         public virtual StatsSite GetSite(string siteId)
         {
             string configFileName = ConfigFileName.Replace("[DOMAIN_NAME]", siteId);
-            string configFilePath = Path.Combine(AwStatsFolder, configFileName);
+            string configFilePath = Path.Combine(AwStatsFolder, configFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             if (!File.Exists(configFilePath))
                 return null;
@@ -145,7 +145,7 @@ namespace FuseCP.Providers.Statistics
 
                 // ...and substitute variables
                 configFileName = configFileName.Replace("[DOMAIN_NAME]", site.Name);
-                string configFilePath = Path.Combine(awFolder, configFileName);
+                string configFilePath = Path.Combine(awFolder, configFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                 // check if the file already exists
                 if (File.Exists(configFilePath))
@@ -175,7 +175,7 @@ namespace FuseCP.Providers.Statistics
                 writer.Close();
 
                 // add line to the batch file
-                string batchFilePath = Path.Combine(awFolder, BatchFileName);
+                string batchFilePath = Path.Combine(awFolder, BatchFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                 // create file if not exists
                 if (!File.Exists(batchFilePath))
@@ -231,14 +231,14 @@ namespace FuseCP.Providers.Statistics
 
             // ...and substitute variables
             configFileName = configFileName.Replace("[DOMAIN_NAME]", siteId);
-            string configFilePath = Path.Combine(AwStatsFolder, configFileName);
+            string configFilePath = Path.Combine(AwStatsFolder, configFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             // check if the config file already exists
             if (File.Exists(configFilePath))
                 File.Delete(configFilePath);
 
             // remove line from the batch file
-            string batchFilePath = Path.Combine(AwStatsFolder, BatchFileName);
+            string batchFilePath = Path.Combine(AwStatsFolder, BatchFileName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             // create file if not exists
             if (!File.Exists(batchFilePath))

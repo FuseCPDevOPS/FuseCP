@@ -455,7 +455,7 @@ namespace FuseCP.Providers.Database
 			// zip database files
 			if (zipBackup)
 			{
-				string zipFile = Path.Combine(BackupTempFolder, backupName);
+				string zipFile = Path.Combine(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 				FileUtils.ZipFiles(zipFile, Path.GetDirectoryName(bakFile), new string[] { Path.GetFileName(bakFile) });
 
@@ -475,12 +475,12 @@ namespace FuseCP.Providers.Database
 
 			var exe = OSInfo.IsWindows ? "mysqldump.exe" : "mysqldump";
 
-			string cmd = Path.Combine(MariaDBBinFolder, exe);
-			if (!File.Exists(cmd)) cmd = Path.Combine(InstallFolder, exe);
+			string cmd = Path.Combine(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			if (!File.Exists(cmd)) cmd = Path.Combine(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			if (!File.Exists(cmd)) cmd = Shell.Default.Find(exe);
 			if (cmd == null) throw new FileNotFoundException($"mysqldump executable not found.");
 			
-			string bakFile = Path.Combine(BackupTempFolder, backupName);
+			string bakFile = Path.Combine(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			cmd = $"\"{cmd}\" --host={ServerName} --port={ServerPort} --user={RootLogin} --password={RootPassword} --opt --skip-extended-insert --skip-quick --skip-comments --result-file=\"{bakFile}\" {databaseName}";
 
@@ -499,8 +499,8 @@ namespace FuseCP.Providers.Database
 
 			var exe = OSInfo.IsWindows ? "mysql.exe" : "mysql";
 
-			string mysqlexe = Path.Combine(MariaDBBinFolder, exe);
-			if (!File.Exists(mysqlexe)) mysqlexe = Path.Combine(InstallFolder, exe);
+			string mysqlexe = Path.Combine(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			if (!File.Exists(mysqlexe)) mysqlexe = Path.Combine(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			if (!File.Exists(mysqlexe)) mysqlexe = Shell.Default.Find(exe);
 			if (mysqlexe == null) throw new FileNotFoundException($"mysql executable not found.");
 
@@ -689,18 +689,15 @@ namespace FuseCP.Providers.Database
 			//
 			List<string> users = new List<string>();
 			//
-			if (dtResult != null)
+			if (dtResult != null && dtResult.DefaultView != null)
 			{
-				if (dtResult.DefaultView != null)
+				DataView dvUsers = dtResult.DefaultView;
+				//
+				foreach (DataRowView drUser in dvUsers)
 				{
-					DataView dvUsers = dtResult.DefaultView;
-					//
-					foreach (DataRowView drUser in dvUsers)
+					if (!Convert.IsDBNull(drUser["user"]))
 					{
-						if (!Convert.IsDBNull(drUser["user"]))
-						{
-							users.Add(Convert.ToString(drUser["user"]));
-						}
+						users.Add(Convert.ToString(drUser["user"]));
 					}
 				}
 			}
@@ -725,18 +722,15 @@ namespace FuseCP.Providers.Database
 			List<string> databases = new List<string>();
 			//
 			//
-			if (dtResult != null)
+			if (dtResult != null && dtResult.DefaultView != null)
 			{
-				if (dtResult.DefaultView != null)
+				DataView dvDatabases = dtResult.DefaultView;
+				//
+				foreach (DataRowView drDatabase in dvDatabases)
 				{
-					DataView dvDatabases = dtResult.DefaultView;
-					//
-					foreach (DataRowView drDatabase in dvDatabases)
+					if (!Convert.IsDBNull(drDatabase["db"]))
 					{
-						if (!Convert.IsDBNull(drDatabase["db"]))
-						{
-							databases.Add(Convert.ToString(drDatabase["db"]));
-						}
+						databases.Add(Convert.ToString(drDatabase["db"]));
 					}
 				}
 			}

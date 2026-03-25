@@ -597,19 +597,15 @@ namespace FuseCP.Providers.HostedSolution
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (Organization org in items.OfType<Organization>())
 			{
-				if (item is Organization org)
+				try
 				{
-					try
-					{
-
-						ChangeOrganizationState(org.DistinguishedName, enabled);
-					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
-					}
+					ChangeOrganizationState(org.DistinguishedName, enabled);
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error switching '{0}' {1}", org.Name, org.GetType().Name), ex);
 				}
 			}
 		}
@@ -642,26 +638,23 @@ namespace FuseCP.Providers.HostedSolution
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (Organization org in items.OfType<Organization>())
 			{
-				if (item is Organization org)
+				try
 				{
-					try
-					{
-						Log.WriteStart(String.Format("Calculating '{0}' disk space", item.Name));
+					Log.WriteStart(String.Format("Calculating '{0}' disk space", org.Name));
 
-						// calculate disk space
-						ServiceProviderItemDiskSpace diskspace = new ServiceProviderItemDiskSpace();
-						diskspace.ItemId = item.Id;
-						diskspace.DiskSpace = CalculateOrganizationDiskSpace(org.OrganizationId, org.DistinguishedName);
-						itemsDiskspace.Add(diskspace);
+					// calculate disk space
+					ServiceProviderItemDiskSpace diskspace = new ServiceProviderItemDiskSpace();
+					diskspace.ItemId = org.Id;
+					diskspace.DiskSpace = CalculateOrganizationDiskSpace(org.OrganizationId, org.DistinguishedName);
+					itemsDiskspace.Add(diskspace);
 
-						Log.WriteEnd(String.Format("Calculating '{0}' disk space", item.Name));
-					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error calculating '{0}' Exchange organization disk space", item.Name), ex);
-					}
+					Log.WriteEnd(String.Format("Calculating '{0}' disk space", org.Name));
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error calculating '{0}' Exchange organization disk space", org.Name), ex);
 				}
 			}
 
@@ -678,7 +671,7 @@ namespace FuseCP.Providers.HostedSolution
 				string path = ConvertDomainName(RootDomain);
 				using DirectoryEntry entry = new DirectoryEntry(path, username, password);
 				//Bind to the native AdsObject to force authentication.
-				object obj = entry.NativeObject;
+				_ = entry.NativeObject;
 
 				using DirectorySearcher search = new DirectorySearcher(entry);
 

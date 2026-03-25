@@ -177,7 +177,7 @@ namespace CryptSharp
         #region CrypterCollection
         sealed class CrypterCollection : IList<Crypter>
         {
-            List<Crypter> _crypters = new List<Crypter>();
+            readonly List<Crypter> _crypters = new List<Crypter>();
 
             public CrypterCollection()
             {

@@ -549,7 +549,7 @@ namespace FuseCP.Providers.Web
 			{
 				SiteRootPath = siteRootPath,
 				Path = folderPath,
-				ContentPath = System.IO.Path.Combine(siteRootPath, folderPath)
+				ContentPath = System.IO.Path.Combine(siteRootPath, folderPath.TrimStart('\\', '/'))
 			};
 
 			folder.ReadHtaccess();

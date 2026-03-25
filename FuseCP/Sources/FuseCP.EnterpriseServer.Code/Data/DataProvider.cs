@@ -8304,25 +8304,22 @@ namespace FuseCP.EnterpriseServer
 				using (var transaction = Database.BeginTransaction())
 				{
 					// Fix to allow plans assigned to serveradmin
-					if (itemTypeName == "FuseCP.Providers.HostedSolution.Organization, FuseCP.Providers.Base")
+					if (itemTypeName == "FuseCP.Providers.HostedSolution.Organization, FuseCP.Providers.Base" && !ServiceItems.Any(s => s.PackageId == 1))
 					{
-						if (!ServiceItems.Any(s => s.PackageId == 1))
+						var serviceItem = new Data.Entities.ServiceItem()
 						{
-							var serviceItem = new Data.Entities.ServiceItem()
-							{
-								PackageId = 1,
-								ItemTypeId = itemTypeId,
-								ServiceId = serviceId,
-								ItemName = "System",
-								CreatedDate = DateTime.Now
-							};
-							ServiceItems.Add(serviceItem);
-							ExchangeOrganizations.Add(new Data.Entities.ExchangeOrganization()
-							{
-								Item = serviceItem,
-								OrganizationId = "System"
-							});
-						}
+							PackageId = 1,
+							ItemTypeId = itemTypeId,
+							ServiceId = serviceId,
+							ItemName = "System",
+							CreatedDate = DateTime.Now
+						};
+						ServiceItems.Add(serviceItem);
+						ExchangeOrganizations.Add(new Data.Entities.ExchangeOrganization()
+						{
+							Item = serviceItem,
+							OrganizationId = "System"
+						});
 					}
 
 					// add item

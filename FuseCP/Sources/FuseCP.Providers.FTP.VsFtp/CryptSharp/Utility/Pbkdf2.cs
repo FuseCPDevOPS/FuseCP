@@ -64,9 +64,9 @@ namespace CryptSharp.Utility
     public class Pbkdf2 : Stream
     {
         #region PBKDF2
-        byte[] _saltBuffer, _digest, _digestT1;
-        KeyedHashAlgorithm _hmacAlgorithm;
-        int _iterations;
+        readonly byte[] _saltBuffer, _digest, _digestT1;
+        readonly KeyedHashAlgorithm _hmacAlgorithm;
+        readonly int _iterations;
 
         /// <summary>
         /// Creates a new PBKDF2 stream.

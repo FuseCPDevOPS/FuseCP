@@ -51,12 +51,12 @@ namespace CryptSharp.Utility
     /// </summary>
     public partial class BaseEncoding : Encoding
     {
-        int _bitCount;
-        int _bitMask;
-        string _characters;
-        bool _msbComesFirst;
-        Dictionary<char, int> _values;
-        BaseEncodingDecodeFilterCallback _decodeFilterCallback;
+        readonly int _bitCount;
+        readonly int _bitMask;
+        readonly string _characters;
+        readonly bool _msbComesFirst;
+        readonly Dictionary<char, int> _values;
+        readonly BaseEncodingDecodeFilterCallback _decodeFilterCallback;
 
         /// <summary>
         /// Defines a binary-to-text encoding.

@@ -404,7 +404,7 @@ namespace FuseCP.Providers.FTP
 
         private string GetServUConfigPath()
         {
-            return Path.Combine(ServUFolder, SERVU_DAEMON_CONFIG_FILE);
+            return Path.Combine(ServUFolder, SERVU_DAEMON_CONFIG_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
         #endregion
 
