@@ -7152,7 +7152,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateServiceProperties(int serviceId, string xml)
 		{
-			if (true || UseEntityFramework) // always use EF since StoredProcedure is very slow
+			if (true) // always use EF since StoredProcedure is very slow
 			{
 				var properties = XElement.Parse(xml)
 					.Elements()

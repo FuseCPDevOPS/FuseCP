@@ -453,7 +453,7 @@ namespace FuseCP.EnterpriseServer
                                 pageContent = pageContent.Replace("[SITE_IP]", site.SiteIPAddress);
 
                             }
-                            string path = Path.Combine(
+                            string path = Path.Join(
                                  FilesController.GetVirtualPackagePath(packageId, site.ContentPath), pageName);
 
                             if (!FilesController.FileExists(packageId, path))
@@ -4042,9 +4042,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             try
             {
                 string logFolder = (site.IIs7) ? site[WebSite.IIS7_SITE_ID] : "W3SVC" + siteId;
-                string logsSrcFolder = Path.Combine(site.LogsPath, logFolder);
+                string logsSrcFolder = Path.Join(site.LogsPath, logFolder);
                 if (os.DirectoryExists(logsSrcFolder))
-                    os.CopyFile(logsSrcFolder, Path.Combine(logsPath, logFolder));
+                    os.CopyFile(logsSrcFolder, Path.Join(logsPath, logFolder));
             }
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -4069,7 +4069,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
                     WebAppVirtualDirectory virtDir = web.GetAppVirtualDirectory(siteId, virtDirPointer.Name);
 
                     // copy directory files
-                    string vdirPath = Path.Combine(contentPath, virtDir.Name);
+                    string vdirPath = Path.Join(contentPath, virtDir.Name);
                     os.CopyFile(virtDir.ContentPath, vdirPath);
 
                     virtDir.ContentPath = vdirPath;

@@ -492,13 +492,13 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         tempPath = Path.GetTempPath();
                     }
-                    string backupFileName = Path.Combine(tempPath, (zip ? StringUtils.CleanIdentifier(siteCollectionUrl) + ".bsh" : StringUtils.CleanIdentifier(filename)));
+                    string backupFileName = Path.Join(tempPath, (zip ? StringUtils.CleanIdentifier(siteCollectionUrl) + ".bsh" : StringUtils.CleanIdentifier(filename)));
                     // Backup requested site.
                     rootWebApplication.Sites.Backup(siteCollectionUrl, backupFileName, true);
 
                     if (zip)
                     {
-                        string zipFile = Path.Combine(tempPath, filename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                        string zipFile = Path.Join(tempPath, filename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                         string zipRoot = Path.GetDirectoryName(backupFileName);
 
                         FileUtils.ZipFiles(zipFile, zipRoot, new string[] { Path.GetFileName(backupFileName) });

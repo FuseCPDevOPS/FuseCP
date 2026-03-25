@@ -528,7 +528,7 @@ namespace FuseCP.EnterpriseServer
 
                     EnterpriseStorageController.CreateFolder(itemId, true);
 
-                    EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, org.OrganizationId, Path.Combine(homePath, org.OrganizationId));
+                    EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, org.OrganizationId, Path.Join(homePath, org.OrganizationId));
                 }
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -566,7 +566,7 @@ namespace FuseCP.EnterpriseServer
 
                     Organization org = OrganizationController.GetOrganization(itemId);
 
-                    EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, Path.Combine(org.OrganizationId, folderName), uncPath);
+                    EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, Path.Join(org.OrganizationId, folderName), uncPath);
                 }
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -1723,7 +1723,7 @@ namespace FuseCP.EnterpriseServer
         private SystemFile ConvertToSystemFile(EsFolder esfolder, string organizationId)
         {
             string fullName = esfolder.StorageSpaceFolderId == null
-                   ? System.IO.Path.Combine(string.Format("{0}:\\{1}\\{2}", esfolder.LocationDrive, esfolder.HomeFolder, organizationId), esfolder.FolderName)
+                   ? System.IO.Path.Join(string.Format("{0}:\\{1}\\{2}", esfolder.LocationDrive, esfolder.HomeFolder, organizationId), esfolder.FolderName)
                    : esfolder.Path;
 
             var folder = new SystemFile();
@@ -1912,7 +1912,7 @@ namespace FuseCP.EnterpriseServer
                     curSetting = new WebDavSetting(esSesstings["LocationDrive"], esSesstings["UsersHome"], esSesstings["UsersDomain"]);
                 }
 
-                var orgFolder = Path.Combine(curSetting.HomeFolder, orgId, folderName);
+                var orgFolder = Path.Join(curSetting.HomeFolder, orgId, folderName);
 
                 var os = GetOS(packageId);
 

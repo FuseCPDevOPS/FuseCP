@@ -49,11 +49,11 @@ namespace FuseCP.Tests
 			instances.Add(this);
 			var apppath = Paths.Path(component);
 			var testdllpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			var testprojpath = Path.GetFullPath(Path.Combine(testdllpath, "..", "..", ".."));
-			var workingDir = Path.Combine(apppath, "bin_dotnet");
-			var log = Path.GetFullPath(Path.Combine(Paths.Test, "TestResults", $"Kestrel.log"));
+			var testprojpath = Path.GetFullPath(Path.Join(testdllpath, "..", "..", ".."));
+			var workingDir = Path.Join(apppath, "bin_dotnet");
+			var log = Path.GetFullPath(Path.Join(Paths.Test, "TestResults", $"Kestrel.log"));
 			if (!Directory.Exists(Path.GetDirectoryName(log))) Directory.CreateDirectory(Path.GetDirectoryName(log));
-			var dll = Path.Combine(workingDir, $"{Paths.App}.{component}.dll");
+			var dll = Path.Join(workingDir, $"{Paths.App}.{component}.dll");
 			var pfx = Certificate.CertFilePath;
 
 			Shell shell;
@@ -189,7 +189,7 @@ namespace FuseCP.Tests
 				Directory.CreateDirectory(workingDir);
 			}
 
-			var overlayPath = Path.Combine(workingDir, "appsettings.hardened.json");
+			var overlayPath = Path.Join(workingDir, "appsettings.hardened.json");
 			var escapedCertificateFile = certificateFile?.Replace("\\", "\\\\") ?? string.Empty;
 			var escapedApplicationUrls = applicationUrls?.Replace("\\", "\\\\") ?? string.Empty;
 			const string testServerPassword = "cRDtpNCeBiql5KOQsKVyrA0sAiA=";

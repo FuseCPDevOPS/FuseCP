@@ -837,7 +837,7 @@ namespace FuseCP.EnterpriseServer
 
 				// download remote backup
                 backupName = EnsureSafeBackupFileName(backupName);
-                string localBackupPath = Path.Combine(Path.GetFullPath(tempFolder), backupName);
+                string localBackupPath = Path.Join(Path.GetFullPath(tempFolder), backupName);
 
 				byte[] buffer = null;
 				FileStream stream = new FileStream(localBackupPath, FileMode.Create, FileAccess.Write);
@@ -906,7 +906,7 @@ namespace FuseCP.EnterpriseServer
 				XmlNode fileNode = itemNode.SelectSingleNode("File[@name='DatabaseBackup']");
                 string backupFileName = EnsureSafeBackupFileName(fileNode.Attributes["path"].Value);
                 long backupFileLength = Int64.Parse(fileNode.Attributes["size"].Value);
-				string localBackupFilePath = Path.Combine(tempFolder, backupFileName);
+				string localBackupFilePath = Path.Join(tempFolder, backupFileName);
 
                 if (new FileInfo(localBackupFilePath).Length != backupFileLength)
                     return -3;

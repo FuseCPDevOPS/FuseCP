@@ -757,7 +757,7 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                                 handler.OnStart();
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (ex is not OutOfMemoryException && ex is not StackOverflowException && ex is not AccessViolationException)
                     {
                         WriteError(ex, "Error executing task event handler: {0}", ex.Message);
                     }
@@ -769,7 +769,7 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
         {
             // load configuration
             string appRoot = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(appRoot, "TaskEventHandlers.config");
+            string path = Path.Join(appRoot, "TaskEventHandlers.config");
 
             if (eventHandlers == null)
             {
@@ -785,7 +785,7 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     XmlNodeList xmlReferences = xmlConfigs[0].SelectNodes("//reference");
                     foreach (XmlElement xmlReference in xmlReferences)
                     {
-                        string referencePath = Path.Combine(appRoot, xmlReference.GetAttribute("src"));
+                        string referencePath = Path.Join(appRoot, xmlReference.GetAttribute("src"));
                         if (File.Exists(referencePath))
                         {
                             XmlDocument xmldoc = new XmlDocument();

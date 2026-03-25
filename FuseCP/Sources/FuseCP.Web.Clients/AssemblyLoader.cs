@@ -49,7 +49,7 @@ namespace FuseCP.Web.Clients
             {
                 if (shadowCopyFolder == null)
                 {
-                    shadowCopyFolder = Path.Combine(Path.GetTempPath(), "FuseCPShadowCopies");
+                    shadowCopyFolder = Path.Join(Path.GetTempPath(), "FuseCPShadowCopies");
                     if (!Directory.Exists(shadowCopyFolder)) Directory.CreateDirectory(shadowCopyFolder);
                 }
                 return shadowCopyFolder;
@@ -105,7 +105,7 @@ namespace FuseCP.Web.Clients
                     int n = 0;
                     while (n < MaxTries)
                     {
-                        var dir = Path.Combine(ShadowCopyFolder, guid.ToString());
+                        var dir = Path.Join(ShadowCopyFolder, guid.ToString());
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -118,7 +118,7 @@ namespace FuseCP.Web.Clients
                 }
                 if (ShadowDir == null) throw new Exception("Cannot create ShadowCopy folder");
 
-                return Path.Combine(ShadowDir, Path.GetFileName(file));
+                return Path.Join(ShadowDir, Path.GetFileName(file));
             }
         }
 
@@ -129,7 +129,7 @@ namespace FuseCP.Web.Clients
             {
                 if (shadowCopyFolder != null && Directory.Exists(shadowCopyFolder))
                 {
-                    var excludeDir = Path.Combine(ShadowCopyFolder, guid.ToString());
+                    var excludeDir = Path.Join(ShadowCopyFolder, guid.ToString());
 
                     var files = Directory.EnumerateFiles(ShadowCopyFolder, "*.*", SearchOption.AllDirectories)
                         .Where(file => !file.StartsWith(excludeDir))
@@ -258,14 +258,14 @@ namespace FuseCP.Web.Clients
             string file;
             if (arch == Architecture.X64)
             {
-                file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x64.dll")) : Path.Combine(assemblyPath, "x64", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                file = archExtension ? Path.Join(assemblyPath, Path.ChangeExtension(dllName, $"x64.dll")) : Path.Join(assemblyPath, "x64", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             }
             else if (arch == Architecture.X86)
             {
-				file = archExtension ? Path.Combine(assemblyPath, Path.ChangeExtension(dllName, $"x86.dll")) : Path.Combine(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				file = archExtension ? Path.Join(assemblyPath, Path.ChangeExtension(dllName, $"x86.dll")) : Path.Join(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
-				file = Path.Combine(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				file = Path.Join(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
             }
             else throw new NotSupportedException($"Architecture {arch} not supported.");
 
@@ -361,8 +361,8 @@ namespace FuseCP.Web.Clients
                 var dlls = Paths
                 .Select(p =>
                 {
-                    var relativename = Path.Combine(p, $"{name}.dll");
-                    var fullName = Path.GetFullPath(Path.Combine(ExePath, relativename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+                    var relativename = Path.Join(p, $"{name}.dll");
+                    var fullName = Path.GetFullPath(Path.Join(ExePath, relativename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
                     return new
                     {
                         FullName = fullName,

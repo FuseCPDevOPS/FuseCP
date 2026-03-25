@@ -269,12 +269,12 @@ namespace FuseCP.EnterpriseServer
 				// save signed doc to file
 				try
 				{
-					doc.Save(Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
+					doc.Save(Path.Join(tempFolder, BACKUP_CATALOG_FILE_NAME));
 				}
 				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't save backup catalog file: "
-						+ Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
+						+ Path.Join(tempFolder, BACKUP_CATALOG_FILE_NAME));
 					return 0;
 				}
 
@@ -289,7 +289,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
 
-                string backupFileNamePath = Path.Combine(tempFolder, backupFileName);
+                string backupFileNamePath = Path.Join(tempFolder, backupFileName);
 
 				try
 				{
@@ -314,7 +314,7 @@ namespace FuseCP.EnterpriseServer
 					// copy to local folder or UNC
 					try
 					{
-						string destFile = Path.Combine(NormalizeAbsolutePath(storeServerFolder), backupFileName);
+						string destFile = Path.Join(NormalizeAbsolutePath(storeServerFolder), backupFileName);
 						File.Copy(backupFileNamePath, destFile, true);
 					}
 					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -335,7 +335,7 @@ namespace FuseCP.EnterpriseServer
 							ServiceProviderProxy.Init(os, osServiceId);
 
 							string remoteBackupPath = FilesController.GetFullPackagePath(storePackageId,
-								Path.Combine(storePackageFolder, backupFileName));
+								Path.Join(storePackageFolder, backupFileName));
 
 							FileStream stream = new FileStream(backupFileNamePath, FileMode.Open, FileAccess.Read);
 							byte[] buffer = new byte[FILE_BUFFER_LENGTH];
@@ -538,7 +538,7 @@ namespace FuseCP.EnterpriseServer
 				// create temp folder
 				string tempFolder = GetTempBackupFolder();
 
-				string backupFileNamePath = Path.Combine(tempFolder, backupFileName);
+				string backupFileNamePath = Path.Join(tempFolder, backupFileName);
 				if (storePackageId > 0)
 				{
 					try
@@ -598,7 +598,7 @@ namespace FuseCP.EnterpriseServer
 
 				try
 				{
-					doc.Load(Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
+					doc.Load(Path.Join(tempFolder, BACKUP_CATALOG_FILE_NAME));
 				}
 				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
@@ -811,7 +811,7 @@ namespace FuseCP.EnterpriseServer
 		{
 			try
 			{
-				string tempFile = Path.Combine(NormalizeAbsolutePath(path), "check");
+				string tempFile = Path.Join(NormalizeAbsolutePath(path), "check");
 				StreamWriter writer = File.CreateText(tempFile);
 				writer.Close();
 				File.Delete(tempFile);
@@ -837,7 +837,7 @@ namespace FuseCP.EnterpriseServer
 					ServiceProviderProxy.Init(os, osServiceId);
 
 					string remoteServerPathCheck = FilesController.GetFullPackagePath(packageId,
-						Path.Combine(safeRelativePath, "check.txt"));
+						Path.Join(safeRelativePath, "check.txt"));
 
 					//
 					os.CreateFile(remoteServerPathCheck);
@@ -952,7 +952,7 @@ namespace FuseCP.EnterpriseServer
         public string GetTempBackupFolder()
         {
             string timeStamp = DateTime.Now.Ticks.ToString();
-            string tempFolder = Path.Combine(ConfigSettings.BackupsPath, GetLoggedUsername() + "_" + timeStamp);
+            string tempFolder = Path.Join(ConfigSettings.BackupsPath, GetLoggedUsername() + "_" + timeStamp);
 
             // create folder
             if (!Directory.Exists(tempFolder))

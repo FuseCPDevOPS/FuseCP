@@ -85,10 +85,10 @@ namespace FuseCP.Providers.DNS
 			string assemblyFile = String.Empty;
 			// Versions 5.x.x compatibility
 			if (connectorVersion.StartsWith("5."))
-				assemblyFile = Path.Combine(connectorLocation, @"Binaries\.NET 2.0\" + args.Name.Split(',')[0] + ".dll");
+				assemblyFile = Path.Join(connectorLocation, @"Binaries\.NET 2.0\" + args.Name.Split(',')[0] + ".dll");
 			// Newest versions compatibility
 			else
-				assemblyFile = Path.Combine(connectorLocation, @"Assemblies\" + args.Name.Split(',')[0] + ".dll");
+				assemblyFile = Path.Join(connectorLocation, @"Assemblies\" + args.Name.Split(',')[0] + ".dll");
 			//
 			Log.WriteInfo(assemblyFile);
 			//

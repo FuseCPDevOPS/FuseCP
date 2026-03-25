@@ -78,7 +78,7 @@ public class EnterpriseServer : IDisposable
 		get
 		{
 			var exepath = IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			var esserver = IO.Path.GetFullPath(IO.Path.Combine(exepath, "..", "..", "..", "..", "FuseCP.EnterpriseServer"));
+			var esserver = IO.Path.GetFullPath(IO.Path.Join(exepath, "..", "..", "..", "..", "FuseCP.EnterpriseServer"));
 			return esserver;
 		}
 	}
@@ -91,7 +91,7 @@ public class EnterpriseServer : IDisposable
 				lock (Lock)
 				{
 					if (path != null) return path;
-					path = IO.Path.Combine(IO.Path.GetTempPath(), "FuseCP", "FuseCP.EnterpriseServer.Tests", Guid.NewGuid().ToString());
+					path = IO.Path.Join(IO.Path.GetTempPath(), "FuseCP", "FuseCP.EnterpriseServer.Tests", Guid.NewGuid().ToString());
 					mustClone = true;
 					tmpPath = path;
 				}
@@ -112,7 +112,7 @@ public class EnterpriseServer : IDisposable
 		DeleteDirectory(IO.Path.GetDirectoryName(local_path));
 
 		var exepath = IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-		var esserver = IO.Path.GetFullPath(IO.Path.Combine(exepath, "..", "..", "..", "..", "FuseCP.EnterpriseServer"));
+		var esserver = IO.Path.GetFullPath(IO.Path.Join(exepath, "..", "..", "..", "..", "FuseCP.EnterpriseServer"));
 
 		Console.WriteLine($"Cloning {IO.Path.GetFileName(EnterpriseServerPath)} ...");
 		FuseCP.Providers.Utils.FileUtils.CopyDirectory(esserver, local_path);
@@ -238,7 +238,7 @@ public class EnterpriseServer : IDisposable
 	}
 
 	public static string SetupSqliteDb() {
-		var dbfile = IO.Path.Combine(Path, "App_Data", $"{DatabaseName}.sqlite");
+		var dbfile = IO.Path.Join(Path, "App_Data", $"{DatabaseName}.sqlite");
 		var dir = IO.Path.GetDirectoryName(dbfile);
 		if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 

@@ -363,7 +363,7 @@ namespace FuseCP.Providers.FTP
                 case Mode.ActiveDirectory:
                     var user = SecurityUtils.GetUser(accountName, ServerSettings, UsersOU);
 
-                    var path = Path.Combine(user.MsIIS_FTPRoot, user.MsIIS_FTPDir.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    var path = Path.Join(user.MsIIS_FTPRoot, user.MsIIS_FTPDir.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                     var permission = GetUserPermission(accountName, path);
                     var account = new FtpAccount()
                     {
@@ -492,7 +492,7 @@ namespace FuseCP.Providers.FTP
                         var sid = SecurityUtils.GetAccountSid(account.Name, ServerSettings, UsersOU, GroupsOU);
 
                         // Remove the permissions set for this account on previous folder
-                        SecurityUtils.RemoveNtfsPermissionsBySid(Path.Combine(ftpRoot, oldDir.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), sid);
+                        SecurityUtils.RemoveNtfsPermissionsBySid(Path.Join(ftpRoot, oldDir.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), sid);
 
                         // If no permissions is to be set, exit
                         if (!account.CanRead && !account.CanWrite)
@@ -1014,7 +1014,7 @@ namespace FuseCP.Providers.FTP
             // calculate bandwidth for Default FTP Site
             FtpSite ftpSite = GetSite(SiteId);
             string siteId = String.Concat("FTPSVC", ftpSite[FtpSite.MSFTP7_SITE_ID]);
-            string logsPath = Path.Combine(ftpSite.LogFileDirectory, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            string logsPath = Path.Join(ftpSite.LogFileDirectory, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             // create parser object
             // and update statistics

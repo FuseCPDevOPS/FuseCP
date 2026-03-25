@@ -52,7 +52,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             string rootFolderPath = EvaluateItemVariables(rootFolderPattern, vm);
             if (!rootFolderPath.EndsWith(vm.Name))  //we must be sure that Path ends with vm.Name (hostname)!
             {
-                rootFolderPath = Path.Combine(rootFolderPath, vm.Name);
+                rootFolderPath = Path.Join(rootFolderPath, vm.Name);
             }
             return rootFolderPath;
         }
@@ -70,14 +70,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             string[] virtualHardDrivePath = new string[hddNumber];
             for (int i = 0; i < hddNumber; i++)
             {
-                virtualHardDrivePath[i] = Path.Combine(rootFolderPath, msHddHyperVFolderName + (i > 0 ? i.ToString() : "") + vhdExtension);
+                virtualHardDrivePath[i] = Path.Join(rootFolderPath, msHddHyperVFolderName + (i > 0 ? i.ToString() : "") + vhdExtension);
             }
             return virtualHardDrivePath;
         }
 
         public string GetCorrectTemplateFilePath(string templatesPath, string osTemplateFile)
         {
-            return Path.Combine(templatesPath, osTemplateFile);
+            return Path.Join(templatesPath, osTemplateFile);
         }
 
         public string EvaluateItemVariables(string str, ServiceProviderItem item)

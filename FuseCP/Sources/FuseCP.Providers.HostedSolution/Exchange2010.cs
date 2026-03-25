@@ -828,7 +828,7 @@ namespace FuseCP.Providers.HostedSolution
 				if (string.IsNullOrEmpty(exchangePath))
 					return null;
 
-				string path = Path.Combine(exchangePath, args.Name.Split(',')[0] + ".dll");
+				string path = Path.Join(exchangePath, args.Name.Split(',')[0] + ".dll");
 				if (!File.Exists(path))
 					return null;
 

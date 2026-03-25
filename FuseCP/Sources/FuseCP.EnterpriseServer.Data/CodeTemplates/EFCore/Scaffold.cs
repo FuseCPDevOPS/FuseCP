@@ -282,13 +282,13 @@ namespace FuseCP.EnterpriseServer.Data.Scaffolding
 					Console.WriteLine($"EntityData for {typeName} found.");
 				return entityData;
 			}
-			var dataFile = Path.Combine(Path.GetTempPath(), "FuseCP.EntityData.txt");
+			var dataFile = Path.Join(Path.GetTempPath(), "FuseCP.EntityData.txt");
 			var dataInfo = new FileInfo(dataFile);
 			//Console.WriteLine($"TemplateFile: {templateFile}");
 			//Console.WriteLine($"ProjectDir: {options.ProjectDir}");
 			//Console.WriteLine($"ContextDir: {options.ContextDir}");
 			//Console.WriteLine($"CurrentDir: {Environment.CurrentDirectory}");
-			var contextDir = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(templateFile), options.ContextDir));
+			var contextDir = new DirectoryInfo(Path.Join(Path.GetDirectoryName(templateFile), options.ContextDir));
 			var fileInfos = contextDir.EnumerateFiles("*.cs")
 				.Where(fi => !fi.Name.Contains(options.ContextName));
 			if (dataInfo.Exists &&

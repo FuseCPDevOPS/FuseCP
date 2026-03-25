@@ -78,7 +78,7 @@ namespace FuseCP.Providers.EnterpriseStorage
 
                     foreach (DirectoryInfo dir in dirs)
                     {
-                        string fullName = System.IO.Path.Combine(rootPath, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                        string fullName = System.IO.Path.Join(rootPath, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                         SystemFile folder = new SystemFile();
 
@@ -373,11 +373,11 @@ if (quotas.TryGetValue(fullName, out var _ckv))
             {
                 using (var conn = new OleDbConnection("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';"))
                 {
-                    var rootFolder = Path.Combine(settings.LocationDrive + ":\\", settings.HomeFolder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-                    rootFolder = Path.Combine(rootFolder, organizationId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    var rootFolder = Path.Join(settings.LocationDrive + ":\\", settings.HomeFolder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    rootFolder = Path.Join(rootFolder, organizationId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                     var wsSql = string.Format(@"SELECT System.FileName, System.DateModified, System.Size, System.Kind, System.ItemPathDisplay, System.ItemType, System.Search.AutoSummary FROM SYSTEMINDEX WHERE System.FileName LIKE '%{0}%' AND ({1})",
-                        searchText, string.Join(" OR ", searchPaths.Select(x => string.Format("{0} = '{1}'", recursive ? "SCOPE" : "DIRECTORY", Path.Combine(rootFolder, x.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)))).ToArray()));
+                        searchText, string.Join(" OR ", searchPaths.Select(x => string.Format("{0} = '{1}'", recursive ? "SCOPE" : "DIRECTORY", Path.Join(rootFolder, x.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)))).ToArray()));
 
                     conn.Open();
 

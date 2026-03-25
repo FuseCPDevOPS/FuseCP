@@ -339,7 +339,7 @@ namespace FuseCP.Providers.Mail
                 {
                     result = domains.AddDomain(AdminUsername, AdminPassword,
                                                              domain.Name,
-                                                             Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
                                                              SYSTEM_DOMAIN_ADMIN, // admin username
                                                              Guid.NewGuid().ToString("P"), // admin password
                                                              "Domain", // admin first name
@@ -368,7 +368,7 @@ namespace FuseCP.Providers.Mail
                 {
                     result = domains.AddDomain(AdminUsername, AdminPassword,
                                                              domain.Name,
-                                                             Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
                                                              SYSTEM_DOMAIN_ADMIN, // admin username
                                                              Guid.NewGuid().ToString("P"), // admin password
                                                              "Domain", // admin first name
@@ -1434,7 +1434,7 @@ namespace FuseCP.Providers.Mail
                         string mailboxName = name.Substring(0, name.IndexOf("@"));
                         string domainName = name.Substring(name.IndexOf("@") + 1);
 
-                        string mailboxPath = Path.Combine(DomainsPath, String.Format("{0}\\Users\\{1}", domainName, mailboxName));
+                        string mailboxPath = Path.Join(DomainsPath, String.Format("{0}\\Users\\{1}", domainName, mailboxName));
 
                         Log.WriteStart(String.Format("Calculating '{0}' folder size", mailboxPath));
 

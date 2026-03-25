@@ -47,7 +47,7 @@ namespace FuseCP.Providers.Database
 
 		protected string MariaDBBinFolder
 		{
-			get { return Path.Combine(InstallFolder, "Bin"); }
+			get { return Path.Join(InstallFolder, "Bin"); }
 		}
 
 		protected int ServerPort
@@ -434,7 +434,7 @@ namespace FuseCP.Providers.Database
 		{
 			if (path == null)
 			{
-				path = Path.Combine(Path.GetTempPath(), fileName);
+				path = Path.Join(Path.GetTempPath(), fileName);
 				if (FileUtils.FileExists(path))
 					FileUtils.DeleteFile(path);
 			}
@@ -455,7 +455,7 @@ namespace FuseCP.Providers.Database
 			// zip database files
 			if (zipBackup)
 			{
-				string zipFile = Path.Combine(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				string zipFile = Path.Join(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 				FileUtils.ZipFiles(zipFile, Path.GetDirectoryName(bakFile), new string[] { Path.GetFileName(bakFile) });
 
@@ -475,12 +475,12 @@ namespace FuseCP.Providers.Database
 
 			var exe = OSInfo.IsWindows ? "mysqldump.exe" : "mysqldump";
 
-			string cmd = Path.Combine(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-			if (!File.Exists(cmd)) cmd = Path.Combine(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string cmd = Path.Join(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			if (!File.Exists(cmd)) cmd = Path.Join(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			if (!File.Exists(cmd)) cmd = Shell.Default.Find(exe);
 			if (cmd == null) throw new FileNotFoundException($"mysqldump executable not found.");
 			
-			string bakFile = Path.Combine(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string bakFile = Path.Join(BackupTempFolder, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			cmd = $"\"{cmd}\" --host={ServerName} --port={ServerPort} --user={RootLogin} --password={RootPassword} --opt --skip-extended-insert --skip-quick --skip-comments --result-file=\"{bakFile}\" {databaseName}";
 
@@ -494,13 +494,13 @@ namespace FuseCP.Providers.Database
 		{
 			if (databaseName.Contains(" ") || databaseName.Contains("\n")) throw new NotSupportedException("databaseName must not contain whitespace");
 
-			string zipPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+			string zipPath = Path.Join(Path.GetTempPath(), Guid.NewGuid().ToString());
 			FileUtils.CreateDirectory(zipPath);
 
 			var exe = OSInfo.IsWindows ? "mysql.exe" : "mysql";
 
-			string mysqlexe = Path.Combine(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-			if (!File.Exists(mysqlexe)) mysqlexe = Path.Combine(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string mysqlexe = Path.Join(MariaDBBinFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			if (!File.Exists(mysqlexe)) mysqlexe = Path.Join(InstallFolder, exe.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			if (!File.Exists(mysqlexe)) mysqlexe = Shell.Default.Find(exe);
 			if (mysqlexe == null) throw new FileNotFoundException($"mysql executable not found.");
 
@@ -525,7 +525,7 @@ namespace FuseCP.Providers.Database
 			string tempPath = Path.GetTempPath();
 
 			//create folder with unique name to avoid getting all files from temp directory
-			string zipPath = Path.Combine(tempPath, Guid.NewGuid().ToString());
+			string zipPath = Path.Join(tempPath, Guid.NewGuid().ToString());
 
 			// store original database information
 			SqlDatabase database = GetDatabase(databaseName);
@@ -547,7 +547,7 @@ namespace FuseCP.Providers.Database
 					// just add file to the collection
 					if (!FileUtils.DirectoryExists(zipPath))
 						FileUtils.CreateDirectory(zipPath);
-					string newfile = Path.Combine(zipPath, Path.GetFileName(file));
+					string newfile = Path.Join(zipPath, Path.GetFileName(file));
 					FileUtils.MoveFile(file, newfile);
 					expandedFiles.Add(newfile);
 				}
@@ -579,7 +579,7 @@ namespace FuseCP.Providers.Database
 
 				// Check executable
 				string MariaDBEXEPath = null;
-				if (File.Exists(Path.Combine(MariaDBBinFolder, "mysql.exe")))
+				if (File.Exists(Path.Join(MariaDBBinFolder, "mysql.exe")))
 				{
 					MariaDBEXEPath = MariaDBBinFolder;
 					Log.WriteInfo("MariaDBEXE Path: {0}", MariaDBEXEPath);
@@ -591,7 +591,7 @@ namespace FuseCP.Providers.Database
 				}
 
 				// create temporary batchfile
-				string batchfilename = Path.Combine(zipPath, "MariaDB_Restore.bat");
+				string batchfilename = Path.Join(zipPath, "MariaDB_Restore.bat");
 				StreamWriter file = new StreamWriter(batchfilename);
 				file.WriteLine("@ECHO OFF");
 				file.WriteLine("cls");
@@ -601,7 +601,7 @@ namespace FuseCP.Providers.Database
 				file.WriteLine("set password=%4%");
 				file.WriteLine("set dbname=%5%");
 				file.WriteLine("set dumpfile=%6%");
-				file.WriteLine("\"" + Path.Combine(MariaDBEXEPath, "mysql") + "\" --host=%host% --port=%port% --user=%user% --password=%password% %dbname% < %dumpfile%");
+				file.WriteLine("\"" + Path.Join(MariaDBEXEPath, "mysql") + "\" --host=%host% --port=%port% --user=%user% --password=%password% %dbname% < %dumpfile%");
 				file.Close();
 				// restore from .SQL file
 				CloseDatabaseConnections(database.Name);
@@ -780,7 +780,7 @@ namespace FuseCP.Providers.Database
 		{
 			// read mySQL INI file
 			string dataPath = null;
-			string iniPath = Path.Combine(InstallFolder, "my.ini");
+			string iniPath = Path.Join(InstallFolder, "my.ini");
 			if (File.Exists(iniPath))
 			{
 				string[] lines = File.ReadAllLines(iniPath);
@@ -797,9 +797,9 @@ namespace FuseCP.Providers.Database
 			}
 
 			if (String.IsNullOrEmpty(dataPath))
-				dataPath = Path.Combine(InstallFolder, "data");
+				dataPath = Path.Join(InstallFolder, "data");
 
-			string dbFolder = Path.Combine(dataPath, database);
+			string dbFolder = Path.Join(dataPath, database.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			Log.WriteStart("Database path: " + dbFolder);
 

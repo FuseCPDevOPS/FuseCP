@@ -654,7 +654,7 @@ namespace FuseCP.EnterpriseServer
             // Problem: The folder will not created in the Storage-Space
             // Fix: Remove groupName from Path-Creation
             // return Path.Combine(path, groupName, organizationId, folderName);
-            return Path.Combine(path, organizationId, folderName);
+            return Path.Join(path, organizationId, folderName);
         }
 
         public ResultObject DeleteStorageSpaceFolder(int storageSpaceId, int storageSpaceFolderId)
@@ -924,7 +924,7 @@ namespace FuseCP.EnterpriseServer
 
                 ss.RenameFolder(fullPath, newName);
 
-                var newPath = Path.Combine(Directory.GetParent(fullPath).ToString(), newName);
+                var newPath = Path.Join(Directory.GetParent(fullPath).ToString(), newName);
 
                 var shareName = GenerateShareName(organizationId, newName);
 
@@ -1034,7 +1034,7 @@ namespace FuseCP.EnterpriseServer
             {
                 searchPath = searchPath.Substring(index + 1);
 
-                searchPath = Path.Combine(storageSpaceFolder.Path, searchPath);
+                searchPath = Path.Join(storageSpaceFolder.Path, searchPath);
             }
             else
             {

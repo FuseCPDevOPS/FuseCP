@@ -103,17 +103,17 @@ namespace FuseCP.Providers.Mail
                             {
                                 if (String.Equals(split[1], "\\config\\accounts\\") && serverLocation != null)
                                 {
-                                        return Path.Combine(serverLocation, "config\\accounts\\");
+                                        return Path.Join(serverLocation, "config\\accounts\\");
                                 }
                                     serverLocation = split[1];
                                     DirectoryInfo Location = new DirectoryInfo(split[1]);
                                     if (!Location.Exists)
                                         Location.Create();
-                                    string groupConfPath = Path.Combine(split[1], @"\groups.ini");
+                                    string groupConfPath = Path.Join(split[1], @"\groups.ini");
                                     if (!File.Exists(groupConfPath))
                                         if (key != null)
                                             File.Copy(
-                                                Path.Combine((string) key.GetValue("InstallLocation"), GroupsConfigFile),
+                                                Path.Join((string) key.GetValue("InstallLocation"), GroupsConfigFile),
                                                 groupConfPath);
                                     break;
                             }
@@ -181,7 +181,7 @@ namespace FuseCP.Providers.Mail
 		{
 			string domain = AmsMailbox.GetDomainName(maillistName);
 			string account = AmsMailbox.GetAccountName(maillistName);
-			string listConfig = Path.Combine(AMSLocation, string.Format(MailListConfigFile, domain, account));
+			string listConfig = Path.Join(AMSLocation, string.Format(MailListConfigFile, domain, account));
 
 			return ReadAmsConfigurationFile(listConfig);
 		}
@@ -190,7 +190,7 @@ namespace FuseCP.Providers.Mail
 		{
 			string domain = AmsMailbox.GetDomainName(maillistName);
 			string account = AmsMailbox.GetAccountName(maillistName);
-			string listConfig = Path.Combine(AMSLocation, string.Format(MailListConfigFile, domain, account));
+			string listConfig = Path.Join(AMSLocation, string.Format(MailListConfigFile, domain, account));
 
 			return SaveAmsConfigurationFile(config, listConfig);
 		}
@@ -218,7 +218,7 @@ namespace FuseCP.Providers.Mail
 			bool succeed = false;
 			string account = AmsMailbox.GetAccountName(mailboxName);
 			string domain = AmsMailbox.GetDomainName(mailboxName);
-			string accountDir = Path.Combine(AMSLocation, string.Format(AccountFolder, domain, account));
+			string accountDir = Path.Join(AMSLocation, string.Format(AccountFolder, domain, account));
 
 			try
 			{
@@ -236,7 +236,7 @@ namespace FuseCP.Providers.Mail
 		public static bool RemoveDomain(string domainName)
 		{
 			bool succeed = false;
-			string domainFolder = Path.Combine(AMSLocation, string.Format(DomainFolder, domainName));
+			string domainFolder = Path.Join(AMSLocation, string.Format(DomainFolder, domainName));
 
 			try
 			{
@@ -256,7 +256,7 @@ namespace FuseCP.Providers.Mail
 			bool succeed = false;
 			string account = AmsMailbox.GetAccountName(maillistName);
 			string domain = AmsMailbox.GetDomainName(maillistName);
-			string maillistConfig = Path.Combine(AMSLocation, string.Format(MailListConfigFile, domain, account));
+			string maillistConfig = Path.Join(AMSLocation, string.Format(MailListConfigFile, domain, account));
 
 			try
 			{
@@ -277,7 +277,7 @@ namespace FuseCP.Providers.Mail
 
 			try
 			{
-				string amsConfig = Path.Combine(AMSLocation, configFile);
+				string amsConfig = Path.Join(AMSLocation, configFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
                 if (!File.Exists(amsConfig))
                 {
@@ -346,7 +346,7 @@ namespace FuseCP.Providers.Mail
 				StringBuilder builder = new StringBuilder();
 				config.Serialize(builder);
 
-				amsConfig = Path.Combine(AMSLocation, configFile);
+				amsConfig = Path.Join(AMSLocation, configFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                 amsBackup = string.Concat(amsConfig, ".bak");
 
 				string configFolder = Path.GetDirectoryName(amsConfig);

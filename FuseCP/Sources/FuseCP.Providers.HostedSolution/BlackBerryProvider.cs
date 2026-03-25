@@ -93,7 +93,7 @@ namespace FuseCP.Providers.HostedSolution
 		{
 			ResultObject res = HostedSolutionLog.StartLog<ResultObject>("CreateBlackBerryUserInternal");
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -229,7 +229,7 @@ namespace FuseCP.Providers.HostedSolution
 		{
 			ResultObject res = HostedSolutionLog.StartLog<ResultObject>("DeleteBlackBerryUserInternal");
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -291,7 +291,7 @@ namespace FuseCP.Providers.HostedSolution
 				 HostedSolutionLog.StartLog<BlackBerryUserStatsResult>("GetBlackBerryUserData");
 
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -407,7 +407,7 @@ namespace FuseCP.Providers.HostedSolution
 		protected string[] CheckSettings()
 		{
 			List<string> ret = new List<string>();
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -435,7 +435,7 @@ namespace FuseCP.Providers.HostedSolution
 		{
 			ResultObject res = HostedSolutionLog.StartLog<ResultObject>("SetActivationPasswordWithExpirationTimeInternal");
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -484,7 +484,7 @@ namespace FuseCP.Providers.HostedSolution
 		{
 			ResultObject res = HostedSolutionLog.StartLog<ResultObject>("SetEmailActivationPassword");
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{
@@ -531,7 +531,7 @@ namespace FuseCP.Providers.HostedSolution
 		{
 			ResultObject res = HostedSolutionLog.StartLog<ResultObject>("DeleteDataFromBlackBerryDevice");
 
-			string file = Path.Combine(UtilityPath, "besuseradminclient.exe");
+			string file = Path.Join(UtilityPath, "besuseradminclient.exe");
 
 			if (!File.Exists(file))
 			{

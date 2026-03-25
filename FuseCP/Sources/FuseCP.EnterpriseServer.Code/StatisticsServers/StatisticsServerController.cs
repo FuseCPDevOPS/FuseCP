@@ -165,7 +165,7 @@ namespace FuseCP.EnterpriseServer
                 ServiceProviderProxy.Init(stats, serviceId);
                 string siteNumber = (site.IIs7) ? site[WebSite.IIS7_SITE_ID] : siteItem.SiteId.Replace("/", "");
                 string logsCommonFolder = site.LogsPath;
-                string logsFolder = Path.Combine(logsCommonFolder, siteNumber);
+                string logsFolder = Path.Join(logsCommonFolder, siteNumber);
 
 				// get service settings
 				StringDictionary settings = ServerController.GetServiceSettings(serviceId);

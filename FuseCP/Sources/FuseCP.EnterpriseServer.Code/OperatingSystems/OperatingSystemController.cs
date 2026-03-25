@@ -668,7 +668,7 @@ namespace FuseCP.EnterpriseServer
 
                 // download zipped file
                 backupName = EnsureSafeBackupFileName(backupName);
-                string localBackupPath = Path.Combine(Path.GetFullPath(tempFolder), backupName);
+                string localBackupPath = Path.Join(Path.GetFullPath(tempFolder), backupName);
 
                 byte[] buffer = null;
                 FileStream stream = new FileStream(localBackupPath, FileMode.Create, FileAccess.Write);
@@ -775,7 +775,7 @@ namespace FuseCP.EnterpriseServer
                 XmlNode fileNode = itemNode.SelectSingleNode("File[@name='SpaceFiles']");
                 string backupFileName = EnsureSafeBackupFileName(fileNode.Attributes["path"].Value);
                 long backupFileLength = Int64.Parse(fileNode.Attributes["size"].Value);
-                string localBackupFilePath = Path.Combine(tempFolder, backupFileName);
+                string localBackupFilePath = Path.Join(tempFolder, backupFileName);
 
                 if (new FileInfo(localBackupFilePath).Length != backupFileLength)
                     return -3;
@@ -785,7 +785,7 @@ namespace FuseCP.EnterpriseServer
 
                 int readBytes = 0;
                 long length = 0;
-                string remoteBackupPath = Path.Combine(homeFolder.Name, backupFileName);
+                string remoteBackupPath = Path.Join(homeFolder.Name, backupFileName);
                 do
                 {
                     // read package file

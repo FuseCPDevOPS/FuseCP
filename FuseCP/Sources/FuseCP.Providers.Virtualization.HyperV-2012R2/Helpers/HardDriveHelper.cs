@@ -188,7 +188,7 @@ namespace FuseCP.Providers.Virtualization
                             }
                             if (addPath)
                             {
-                                vmSettings.VirtualHardDrivePath[i] = Path.Combine(vmSettings.RootFolderPath, msHddHyperVFolderName + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath));
+                                vmSettings.VirtualHardDrivePath[i] = Path.Join(vmSettings.RootFolderPath, msHddHyperVFolderName + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath));
                                 break;
                             }
                         }

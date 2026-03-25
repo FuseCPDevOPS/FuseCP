@@ -390,7 +390,7 @@ namespace FuseCP.Providers.FTP
 
         private string GetFileZillaConfigPath()
         {
-            return Path.Combine(FileZillaFolder, FILEZILLA_SERVER_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            return Path.Join(FileZillaFolder, FILEZILLA_SERVER_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
 
         private string MD5(string str)
@@ -416,7 +416,7 @@ namespace FuseCP.Providers.FTP
 
         private void ReloadFileZillaConfig()
         {
-            OS.Shell.Default.Exec($"\"{Path.Combine(FileZillaFolder, "FileZilla Server.exe")}\" /reload-config");
+            OS.Shell.Default.Exec($"\"{Path.Join(FileZillaFolder, "FileZilla Server.exe")}\" /reload-config");
         }
         #endregion
 

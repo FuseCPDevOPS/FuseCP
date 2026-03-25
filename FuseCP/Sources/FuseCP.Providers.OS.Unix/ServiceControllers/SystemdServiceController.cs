@@ -211,7 +211,7 @@ WantedBy=multi-user.target
 			.Replace("\r\n", "\n");
 		srvcFile = Regex.Replace(srvcFile, @"^\s*$(?!^\[.*?\])", "", RegexOptions.Multiline); // remove empty lines
 
-		File.WriteAllText(Path.Combine(ServicesDirectory, $"{desc.ServiceId}.service"), srvcFile);
+		File.WriteAllText(Path.Join(ServicesDirectory, $"{desc.ServiceId}.service"), srvcFile);
 
 		Shell.Exec($"systemctl daemon-reload");
 
@@ -221,7 +221,7 @@ WantedBy=multi-user.target
 	public override void Remove(string serviceId)
 	{
 		serviceId = ValidateServiceId(serviceId);
-		var file = Path.Combine(ServicesDirectory, $"{serviceId}.service");
+		var file = Path.Join(ServicesDirectory, $"{serviceId}.service");
 		if (File.Exists(file))
 		{
 			File.Delete(file);

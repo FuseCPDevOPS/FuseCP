@@ -103,7 +103,7 @@ namespace FuseCP.EnterpriseServer.Data
                     var dbFile = (string)csb["Data Source"];
                     if (!Path.IsPathRooted(dbFile))
                     {
-                        dbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFile);
+                        dbFile = Path.Join(AppDomain.CurrentDomain.BaseDirectory, dbFile);
                         csb["Data Source"] = dbFile;
                     }
 #if NETFRAMEWORK

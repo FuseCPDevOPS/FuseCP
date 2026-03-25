@@ -54,7 +54,7 @@ namespace FuseCP.Providers.Mail
 		{
 			if (!config.ChildNodes.Contains(domainConfig))
 			{
-                domainConfig["dir"] = Path.Combine(AMSHelper.AMSLocation, domainName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                domainConfig["dir"] = Path.Join(AMSHelper.AMSLocation, domainName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				config.ChildNodes.Add(domainConfig);
 			}
 

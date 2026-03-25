@@ -196,14 +196,14 @@ namespace FuseCP.Providers.Web
 		private void ReadHttpdConf()
 		{
 			filename = HTTPD_CONF_FILE;
-			string htpath = System.IO.Path.Combine(ContentPath, filename);
+			string htpath = System.IO.Path.Join(ContentPath, filename.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 			HtaccessContent = ReadFile(htpath);
 		}
 
 		public void ReadHtaccess()
 		{
 			filename = HTACCESS_FILE;
-			string htpath = System.IO.Path.Combine(ContentPath, filename);
+			string htpath = System.IO.Path.Join(ContentPath, filename.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 			HtaccessContent = ReadFile(htpath);
 
 			ParseHtaccess();
@@ -239,7 +239,7 @@ namespace FuseCP.Providers.Web
 			}
 			else
 			{
-				string authUserFilePath = System.IO.Path.Combine(SiteRootPath, HTPASSWDS_FILE);
+				string authUserFilePath = System.IO.Path.Join(SiteRootPath, HTPASSWDS_FILE.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 				if (File.Exists(authUserFilePath))
 				{
 					AuthUserFile = authUserFilePath;
@@ -253,7 +253,7 @@ namespace FuseCP.Providers.Web
 			}
 			else
 			{
-				string authGroupFilePath = System.IO.Path.Combine(SiteRootPath, HTGROUPS_FILE);
+				string authGroupFilePath = System.IO.Path.Join(SiteRootPath, HTGROUPS_FILE.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 				if (File.Exists(authGroupFilePath))
 				{
 					AuthGroupFile = authGroupFilePath;
@@ -305,7 +305,7 @@ namespace FuseCP.Providers.Web
 					UpdateAuthDirectives();
 				}
 
-				string htaccessPath = System.IO.Path.Combine(ContentPath, filename);
+				string htaccessPath = System.IO.Path.Join(ContentPath, filename.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 				WriteFile(htaccessPath, HtaccessContent);
 			}
 		}
@@ -525,7 +525,7 @@ namespace FuseCP.Providers.Web
 
 		private static bool HasHtaccessInDirectory(string path)
 		{
-			return File.Exists(System.IO.Path.Combine(path, HTACCESS_FILE));
+			return File.Exists(System.IO.Path.Join(path, HTACCESS_FILE.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar)));
 		}
 
 		private static string RelativePath(string basePath, string subPath)
@@ -549,7 +549,7 @@ namespace FuseCP.Providers.Web
 			{
 				SiteRootPath = siteRootPath,
 				Path = folderPath,
-				ContentPath = System.IO.Path.Combine(siteRootPath, folderPath.TrimStart('\\', '/'))
+				ContentPath = System.IO.Path.Join(siteRootPath, folderPath.TrimStart('\\', '/'))
 			};
 
 			folder.ReadHtaccess();

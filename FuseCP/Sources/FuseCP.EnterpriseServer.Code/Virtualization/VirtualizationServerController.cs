@@ -513,7 +513,7 @@ namespace FuseCP.EnterpriseServer
                 vm.RootFolderPath = EvaluateItemVariables(rootFolderPattern, vm);
                 var correctVhdPath = GetCorrectTemplateFilePath(templatesPath, osTemplateFile);
                 vm.OperatingSystemTemplatePath = correctVhdPath;
-                vm.VirtualHardDrivePath = new[] { Path.Combine(vm.RootFolderPath, hostname + Path.GetExtension(correctVhdPath)) };
+                vm.VirtualHardDrivePath = new[] { Path.Join(vm.RootFolderPath, hostname + Path.GetExtension(correctVhdPath)) };
 
                 // save meta-item
                 try
@@ -576,9 +576,9 @@ namespace FuseCP.EnterpriseServer
         private string GetCorrectTemplateFilePath(string templatesPath, string osTemplateFile)
         {
             if (osTemplateFile.Trim().EndsWith(".vhdx"))
-                return Path.Combine(templatesPath, osTemplateFile);
+                return Path.Join(templatesPath, osTemplateFile);
 
-            return Path.Combine(templatesPath, osTemplateFile + ".vhd");
+            return Path.Join(templatesPath, osTemplateFile + ".vhd");
         }
 
         internal void CreateVirtualMachineInternal(string taskId, VirtualMachine vm, LibraryItem osTemplate,
@@ -2211,7 +2211,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 string libPath = settings["DvdLibraryPath"];
 
                 // combine full path
-                string fullPath = Path.Combine(libPath, isoPath);
+                string fullPath = Path.Join(libPath, isoPath);
 
                 // get proxy
                 VirtualizationServer vs = GetVirtualizationProxy(vm.ServiceId);

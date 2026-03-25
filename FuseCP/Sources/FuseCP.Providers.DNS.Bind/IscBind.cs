@@ -1049,7 +1049,7 @@ namespace FuseCP.Providers.DNS
 
         private string GetZoneFilePath(string zoneName)
         {
-            return Path.Combine(ZonesFolderPath, GetZoneFileName(zoneName));
+            return Path.Join(ZonesFolderPath, GetZoneFileName(zoneName));
         }
 
         private string GetZoneFileName(string zoneName)

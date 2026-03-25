@@ -2906,7 +2906,7 @@ namespace FuseCP.EnterpriseServer
 
                                 deletedUser.FolderName = Path.GetFileName(folder.UncPath);
 
-                                path = Path.Combine(folder.UncPath, deletedUser.FileName);
+                                path = Path.Join(folder.UncPath, deletedUser.FileName);
                             }
                             else
                             {
@@ -2925,7 +2925,7 @@ namespace FuseCP.EnterpriseServer
                                     SetFRSMQuotaOnFolder(org.PackageId, deletedUser.StoragePath, org.OrganizationId, diskSpaceQuota, QuotaType.Hard);
                                 }
 
-                                path = FilesController.ConvertToUncPath(serviceId, Path.Combine(GetDirectory(deletedUser.StoragePath), deletedUser.FolderName, deletedUser.FileName));
+                                path = FilesController.ConvertToUncPath(serviceId, Path.Join(GetDirectory(deletedUser.StoragePath), deletedUser.FolderName, deletedUser.FileName));
                             }
 
                             ExchangeServerController.ExportMailBox(itemId, accountId, path);
@@ -2965,7 +2965,7 @@ namespace FuseCP.EnterpriseServer
         {
             var user = GetDeletedUser(deleteAccountId);
 
-            var path = Path.Combine(user.StoragePath, user.FolderName, user.FileName);
+            var path = Path.Join(user.StoragePath, user.FolderName, user.FileName);
 
             var os = GetOS(packageId);
 
@@ -3049,7 +3049,7 @@ namespace FuseCP.EnterpriseServer
 
             if (os != null && os.CheckFileServicesInstallation())
             {
-                return os.DirectoryExists(Path.Combine(path, folderName));
+                return os.DirectoryExists(Path.Join(path, folderName));
             }
 
             return false;
@@ -3061,7 +3061,7 @@ namespace FuseCP.EnterpriseServer
 
             if (os != null && os.CheckFileServicesInstallation())
             {
-                os.CreateDirectory(Path.Combine(path, folderName));
+                os.CreateDirectory(Path.Join(path, folderName));
             }
         }
 
@@ -3071,7 +3071,7 @@ namespace FuseCP.EnterpriseServer
 
             if (os != null && os.CheckFileServicesInstallation())
             {
-                os.DeleteFile(Path.Combine(path, folderName, fileName));
+                os.DeleteFile(Path.Join(path, folderName, fileName));
             }
         }
 
@@ -3109,7 +3109,7 @@ namespace FuseCP.EnterpriseServer
                 #endregion
 
                 os.SetQuotaLimitOnFolder(
-                    Path.Combine(GetDirectory(path), folderName),
+                    Path.Join(GetDirectory(path), folderName),
                     GetLocationDrive(path), quotaType,
                     quotaInfo.QuotaAllocatedValuePerOrganization + unit,
                     0, String.Empty, String.Empty);

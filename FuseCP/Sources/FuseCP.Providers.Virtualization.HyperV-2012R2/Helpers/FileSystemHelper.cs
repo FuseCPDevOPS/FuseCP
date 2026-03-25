@@ -41,7 +41,7 @@ namespace FuseCP.Providers.Virtualization
         public string ReadRemoteFile(string path)
         {
             // temp file name on "system" drive available through hidden share
-            string tempPath = Path.Combine(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string tempPath = Path.Join(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             HostedSolutionLog.LogInfo("Read remote file: " + path);
             HostedSolutionLog.LogInfo("Local file temp path: " + tempPath);
@@ -65,7 +65,7 @@ namespace FuseCP.Providers.Virtualization
         public void WriteRemoteFile(string path, string content)
         {
             // temp file name on "system" drive available through hidden share
-            string tempPath = Path.Combine(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string tempPath = Path.Join(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             // write to temp file
             string remoteTempPath = ConvertToUNC(tempPath);

@@ -1050,7 +1050,7 @@ namespace FuseCP.Providers.Web
 				fqPath += "/";
 			//
 			fqPath += CGI_BIN_FOLDER;
-			string cgiBinPath = Path.Combine(virtualDir.ContentPath, CGI_BIN_FOLDER.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string cgiBinPath = Path.Join(virtualDir.ContentPath, CGI_BIN_FOLDER.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			using (ServerManager srvman = webObjectsSvc.GetServerManager())
 			{
@@ -2402,7 +2402,7 @@ namespace FuseCP.Providers.Web
 			{
 				//Check per-site installation
 				string sitepath = GetSiteContentPath(srvman, siteId);
-				string dllPath = Path.Combine(sitepath, "Bin\\Helicon.Ape.dll");
+				string dllPath = Path.Join(sitepath, "Bin\\Helicon.Ape.dll");
 
 				result = File.Exists(dllPath);
 
@@ -2417,19 +2417,19 @@ namespace FuseCP.Providers.Web
 			if (string.IsNullOrEmpty(installDir))
 				return HELICON_APE_NOT_REGISTERED;
 
-			string apeModulePath = Path.Combine(installDir, "bin\\Helicon.Ape.dll");
+			string apeModulePath = Path.Join(installDir, "bin\\Helicon.Ape.dll");
 			if (File.Exists(apeModulePath))
 			{
 				return System.Diagnostics.FileVersionInfo.GetVersionInfo(apeModulePath).FileVersion;
 			}
 
-			apeModulePath = Path.Combine(installDir, "ManualInstall\\bin\\Helicon.Ape.dll");
+			apeModulePath = Path.Join(installDir, "ManualInstall\\bin\\Helicon.Ape.dll");
 			if (File.Exists(apeModulePath))
 			{
 				return System.Diagnostics.FileVersionInfo.GetVersionInfo(apeModulePath).FileVersion;
 			}
 
-			apeModulePath = Path.Combine(installDir, "Helicon.Ape.dll");
+			apeModulePath = Path.Join(installDir, "Helicon.Ape.dll");
 			if (File.Exists(apeModulePath))
 			{
 				return System.Diagnostics.FileVersionInfo.GetVersionInfo(apeModulePath).FileVersion;
@@ -2526,13 +2526,13 @@ namespace FuseCP.Providers.Web
 
 
 
-			string registrationInfo = FindregistrationInfo(Path.Combine(installDir, "licenses.conf"));
+			string registrationInfo = FindregistrationInfo(Path.Join(installDir, "licenses.conf"));
 			if (!string.IsNullOrEmpty(registrationInfo))
 				return registrationInfo;
 
 
 
-			registrationInfo = FindregistrationInfo(Path.Combine(installDir, "httpd.conf"));
+			registrationInfo = FindregistrationInfo(Path.Join(installDir, "httpd.conf"));
 			if (!string.IsNullOrEmpty(registrationInfo))
 				return registrationInfo;
 
@@ -2918,8 +2918,8 @@ namespace FuseCP.Providers.Web
 		public override void DeleteHeliconApeFolder(string siteId, string folderPath)
 		{
 			string rootPath = GetSiteContentPath(siteId);
-			string contentPath = Path.Combine(rootPath, folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-			string htaccessPath = Path.Combine(contentPath, HtaccessFolder.HTACCESS_FILE);
+			string contentPath = Path.Join(rootPath, folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string htaccessPath = Path.Join(contentPath, HtaccessFolder.HTACCESS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			if (File.Exists(htaccessPath))
 			{
@@ -2964,7 +2964,7 @@ namespace FuseCP.Providers.Web
 			//users.Add(new WebUser {Name = HtaccessFolder.VALID_USER});
 
 			// load users file
-			string usersPath = Path.Combine(rootPath, HtaccessFolder.HTPASSWDS_FILE);
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
 
 			// iterate through all lines
@@ -2989,7 +2989,7 @@ namespace FuseCP.Providers.Web
 		{
 			// load users file
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Combine(rootPath, HtaccessFolder.HTPASSWDS_FILE);
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
 
 			// iterate through all lines
@@ -3021,7 +3021,7 @@ namespace FuseCP.Providers.Web
 
 			// read groups information
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, HtaccessFolder.HTGROUPS_FILE);
+			string groupsPath = Path.Join(rootPath, HtaccessFolder.HTGROUPS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = HtaccessFolder.ReadLinesFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -3060,7 +3060,7 @@ namespace FuseCP.Providers.Web
 				return;
 
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Combine(rootPath, HtaccessFolder.HTPASSWDS_FILE);
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			// load users file
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
@@ -3117,7 +3117,7 @@ namespace FuseCP.Providers.Web
 
 			// update groups
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, HtaccessFolder.HTGROUPS_FILE);
+			string groupsPath = Path.Join(rootPath, HtaccessFolder.HTGROUPS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = HtaccessFolder.ReadLinesFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -3185,7 +3185,7 @@ namespace FuseCP.Providers.Web
 			List<WebGroup> groups = new List<WebGroup>();
 
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, HtaccessFolder.HTGROUPS_FILE);
+			string groupsPath = Path.Join(rootPath, HtaccessFolder.HTGROUPS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = HtaccessFolder.ReadLinesFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -3208,7 +3208,7 @@ namespace FuseCP.Providers.Web
 		{
 			string rootPath = GetSiteContentPath(siteId);
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, HtaccessFolder.HTGROUPS_FILE);
+			string groupsPath = Path.Join(rootPath, HtaccessFolder.HTGROUPS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = HtaccessFolder.ReadLinesFile(groupsPath);
 
 			WebGroup group = null;
@@ -3248,7 +3248,7 @@ namespace FuseCP.Providers.Web
 			List<string> updatedGroups = new List<string>();
 
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, HtaccessFolder.HTGROUPS_FILE);
+			string groupsPath = Path.Join(rootPath, HtaccessFolder.HTGROUPS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = HtaccessFolder.ReadLinesFile(groupsPath);
 
 			bool exists = false;
@@ -3572,7 +3572,7 @@ namespace FuseCP.Providers.Web
 
 				if (IsColdFusionSystemInstalled())
 				{
-					string pathWsConfigSettings = Path.Combine(GetColdFusionRootPath(), @"runtime\lib\wsconfig\wsconfig.properties");
+					string pathWsConfigSettings = Path.Join(GetColdFusionRootPath(), @"runtime\lib\wsconfig\wsconfig.properties");
 					StreamReader file = new StreamReader(pathWsConfigSettings);
 					string line = String.Empty;
 					int counter = 0;
@@ -3981,7 +3981,7 @@ namespace FuseCP.Providers.Web
 					{
 						WebSite site = GetSite(item.Name);
 						string siteId = site[WebSite.IIS7_SITE_ID];
-						string logsPath = Path.Combine(site.LogsPath, siteId);
+						string logsPath = Path.Join(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 						if (!Directory.Exists(logsPath))
 							continue;
@@ -4018,7 +4018,7 @@ namespace FuseCP.Providers.Web
 
 						WebSite site = GetSite(item.Name);
 						//
-						string logsPath = Path.Combine(site.LogsPath, site[WebSite.IIS7_SITE_ID]);
+						string logsPath = Path.Join(site.LogsPath, site[WebSite.IIS7_SITE_ID]);
 
 						// calculate disk space
 						ServiceProviderItemDiskSpace diskspace = new ServiceProviderItemDiskSpace();

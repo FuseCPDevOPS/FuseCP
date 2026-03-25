@@ -42,12 +42,12 @@ namespace FuseCP.Tests
 		public IISExpress(Component component, (Scheme, string)[] urls = null)
         {
 			Urls = urls;
-			var iisExprPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "IIS Express");
-			var appcmd = Path.Combine(iisExprPath, "AppCmd.exe");
-			var admincmd = Path.Combine(iisExprPath, "IisExpressAdminCmd.exe");
-			var iisexpress = Path.Combine(iisExprPath, "iisexpress.exe");
+			var iisExprPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "IIS Express");
+			var appcmd = Path.Join(iisExprPath, "AppCmd.exe");
+			var admincmd = Path.Join(iisExprPath, "IisExpressAdminCmd.exe");
+			var iisexpress = Path.Join(iisExprPath, "iisexpress.exe");
 			var serverPath = Paths.Path(component);
-			var log = Path.GetFullPath(Path.Combine(Paths.Test, "TestResults", $"IISExpress.log"));
+			var log = Path.GetFullPath(Path.Join(Paths.Test, "TestResults", $"IISExpress.log"));
 			if (!Directory.Exists(Path.GetDirectoryName(log))) Directory.CreateDirectory(Path.GetDirectoryName(log));
 
 			// setup iis express

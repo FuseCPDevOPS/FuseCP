@@ -370,7 +370,7 @@ namespace FuseCP.Providers.HostedSolution
                     tempPath = Path.GetTempPath();
                 }
 
-                string backupFileName = Path.Combine(tempPath, (zip ? StringUtils.CleanIdentifier(siteCollectionUrl) + ".bsh" : StringUtils.CleanIdentifier(filename)));
+                string backupFileName = Path.Join(tempPath, (zip ? StringUtils.CleanIdentifier(siteCollectionUrl) + ".bsh" : StringUtils.CleanIdentifier(filename)));
                 HostedSolutionLog.DebugInfo("backupFilePath: {0}", backupFileName);
                 Runspace runspace = null;
 
@@ -384,7 +384,7 @@ namespace FuseCP.Providers.HostedSolution
 
                     if (zip)
                     {
-                        string zipFile = Path.Combine(tempPath, filename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                        string zipFile = Path.Join(tempPath, filename.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                         string zipRoot = Path.GetDirectoryName(backupFileName);
 
                         FileUtils.ZipFiles(zipFile, zipRoot, new[] {Path.GetFileName(backupFileName)});

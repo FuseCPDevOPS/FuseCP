@@ -46,11 +46,11 @@ namespace FuseCP.Tests
 			}
 		}
 
-		public static string EnterpriseServer => IO.Path.GetFullPath(IO.Path.Combine(Test, $@"..\{App}.EnterpriseServer"));
-		public static string Server => IO.Path.GetFullPath(IO.Path.Combine(Test, $@"..\{App}.Server"));
-		public static string Portal => IO.Path.GetFullPath(IO.Path.Combine(Test, $@"..\{App}.WebPortal"));
-		public static string WebDavPortal => IO.Path.GetFullPath(IO.Path.Combine(Test, $@"..\{App}.WebDavPortal"));
-		public static string Installer => IO.Path.GetFullPath(IO.Path.Combine(Test, $@"..\..\..\{App}.WebSite\Sources\{App}.WebSite\Sources\"));
+		public static string EnterpriseServer => IO.Path.GetFullPath(IO.Path.Join(Test, $@"..\{App}.EnterpriseServer"));
+		public static string Server => IO.Path.GetFullPath(IO.Path.Join(Test, $@"..\{App}.Server"));
+		public static string Portal => IO.Path.GetFullPath(IO.Path.Join(Test, $@"..\{App}.WebPortal"));
+		public static string WebDavPortal => IO.Path.GetFullPath(IO.Path.Join(Test, $@"..\{App}.WebDavPortal"));
+		public static string Installer => IO.Path.GetFullPath(IO.Path.Join(Test, $@"..\..\..\{App}.WebSite\Sources\{App}.WebSite\Sources\"));
 		public static string Wsl(string path)
 		{
 			if (path.Length > 1 && IO.Path.IsPathRooted(path)) path = char.ToLower(path[0]) + path.Substring(2);

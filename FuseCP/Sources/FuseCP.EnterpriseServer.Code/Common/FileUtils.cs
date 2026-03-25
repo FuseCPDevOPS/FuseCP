@@ -26,7 +26,7 @@ namespace FuseCP.EnterpriseServer;
 	private static string EnsurePathUnderRoot(string rootPath, string relativePath)
 	{
 		string normalizedRoot = Path.GetFullPath(rootPath);
-		string candidate = Path.GetFullPath(Path.Combine(normalizedRoot, relativePath ?? String.Empty));
+		string candidate = Path.GetFullPath(Path.Join(normalizedRoot, relativePath ?? String.Empty));
 		if (!candidate.StartsWith(normalizedRoot.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar,
 			StringComparison.OrdinalIgnoreCase) &&
 			!String.Equals(candidate, normalizedRoot, StringComparison.OrdinalIgnoreCase))
@@ -132,7 +132,7 @@ namespace FuseCP.EnterpriseServer;
 			foreach (DirectoryInfo dir in root.GetDirectories())
 			{
 				items.Add(
-					System.IO.Path.Combine(direcrotyPath, dir.Name)
+					System.IO.Path.Join(direcrotyPath, dir.Name)
 					);
 			}
 
@@ -140,7 +140,7 @@ namespace FuseCP.EnterpriseServer;
 			foreach (FileInfo file in root.GetFiles())
 			{
 				items.Add(
-					System.IO.Path.Combine(direcrotyPath, file.Name)
+					System.IO.Path.Join(direcrotyPath, file.Name)
 					);
 			}
 		}

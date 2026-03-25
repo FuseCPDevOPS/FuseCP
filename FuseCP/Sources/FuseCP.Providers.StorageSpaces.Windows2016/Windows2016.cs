@@ -68,7 +68,7 @@ namespace FuseCP.Providers.StorageSpaces
             string path = folderPath;
 
             if (shareNameDrive != null)
-                path = Path.Combine(shareNameDrive + @":\", folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                path = Path.Join(shareNameDrive + @":\", folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             Runspace runSpace = null;
             try
@@ -778,7 +778,7 @@ namespace FuseCP.Providers.StorageSpaces
 
             try
             {
-                var newPath = Path.Combine(Directory.GetParent(originalPath).ToString(), newName);
+                var newPath = Path.Join(Directory.GetParent(originalPath).ToString(), newName);
 
                 FileUtils.MoveFile(originalPath, newPath);
             }

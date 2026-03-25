@@ -66,9 +66,9 @@ namespace FuseCP.EnterpriseServer.Data
 						ModelCodeGenerationOptions options = new ModelCodeGenerationOptions();
 						options.ProjectDir = Environment.CurrentDirectory;
 						options.ContextName = "DbContextBase";
-						options.ContextDir = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\Configuration\Sources"));
+						options.ContextDir = Path.GetFullPath(Path.Join(Environment.CurrentDirectory, @"..\..\Configuration\Sources"));
 						options.ConnectionString = connectionString;
-						var templateFile = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"CodeTemplates\EFCore\bla.t4"));
+						var templateFile = Path.GetFullPath(Path.Join(Environment.CurrentDirectory, @"CodeTemplates\EFCore\bla.t4"));
 						entityData = Scaffolding.Scaffold.GetEntityDatasFromSeparateProcess(entityType, options, templateFile, indent);
 					}
 					Console.Write(Scaffolding.Scaffold.Escape(entityData));

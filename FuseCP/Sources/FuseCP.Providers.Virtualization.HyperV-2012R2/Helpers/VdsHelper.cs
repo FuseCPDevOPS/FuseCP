@@ -319,7 +319,7 @@ namespace FuseCP.Providers.Virtualization
         private string RunDiskPart(string script)
         {
             // create temp script file name
-            string localPath = Path.Combine(_fileSystemHelper.GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string localPath = Path.Join(_fileSystemHelper.GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             // save script to remote temp file
             string remotePath = _fileSystemHelper.ConvertToUNC(localPath);

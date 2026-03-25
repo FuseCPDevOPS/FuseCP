@@ -54,7 +54,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 	public string UnixPath(string path) => path.Replace('\\', Path.DirectorySeparatorChar);
 
-	public string PathCombine(params string[] segments) => Path.Combine(segments);
+	public string PathCombine(params string[] segments) => Path.Join(segments);
 
 	public virtual string CreatePackageFolder(string initialPath)
 	{

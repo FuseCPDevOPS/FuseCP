@@ -103,11 +103,11 @@ namespace FuseCP.Server
 		private static IEnumerable<string> GetProviderProbeRoots()
 		{
 			var baseDir = AppContext.BaseDirectory;
-			yield return Path.Combine(baseDir, "Providers");
-			yield return Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "Providers"));
-			yield return Path.Combine(baseDir, "netstandard");
-			yield return Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "netstandard"));
-			yield return Path.GetFullPath(Path.Combine(baseDir, "..", "bin"));
+			yield return Path.Join(baseDir, "Providers");
+			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "Providers"));
+			yield return Path.Join(baseDir, "netstandard");
+			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "netstandard"));
+			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin"));
 		}
 	}
 }

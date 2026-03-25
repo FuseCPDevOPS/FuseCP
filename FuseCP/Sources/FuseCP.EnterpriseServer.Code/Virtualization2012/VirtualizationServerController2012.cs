@@ -643,7 +643,7 @@ namespace FuseCP.EnterpriseServer
                 string libPath = settings["DvdLibraryPath"];
 
                 // combine full path
-                string fullPath = Path.Combine(libPath, isoPath);
+                string fullPath = Path.Join(libPath, isoPath);
 
                 // get proxy
                 VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);

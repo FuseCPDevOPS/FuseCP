@@ -137,7 +137,7 @@ namespace FuseCP.Providers.FTP
             List<FtpAccount> accounts = new List<FtpAccount>();
 
             // get all settings files in directory
-            string usersPath = Path.Combine(GetDomainPath(SiteId), "users");
+            string usersPath = Path.Join(GetDomainPath(SiteId), "users");
             string[] files = Directory.GetFiles(usersPath, "*.ini");
             foreach (string file in files)
             {

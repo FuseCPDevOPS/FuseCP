@@ -443,9 +443,7 @@ namespace FuseCP.Providers.Web
 			GetAppVirtualDirectories(siteId);
 			GetVirtualDirectories(siteId);
 
-			if (IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed())
-			{
-				site.CreateCFAppVirtualDirectories = AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "jakarta") ? true : false;
+			site.CreateCFAppVirtualDirectories = IsColdFusion10Installed() || IsColdFusion11Installed() || IsColdFusion2016Installed() ? AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "jakarta") : AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "JRunScripts");
 
 
 
@@ -453,10 +451,6 @@ namespace FuseCP.Providers.Web
 
 
 
-			}
-			else
-			{
-				site.CreateCFAppVirtualDirectories = AppVirtualDirectoryExists(siteId, "CFIDE") && AppVirtualDirectoryExists(siteId, "JRunScripts") ? true : false;
 
 
 
@@ -464,7 +458,13 @@ namespace FuseCP.Providers.Web
 
 
 
-			}
+
+
+
+
+
+
+
 
 			// check sharepoint
 			site.SharePointInstalled = IsSharePointInstalledOnWebSite(siteId);
@@ -982,7 +982,7 @@ namespace FuseCP.Providers.Web
 			if (cgiBinInstalled)
 			{
 				// create folder if not exists
-				string cgiBinPath = Path.Combine(contentPath, CGI_BIN_FOLDER.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				string cgiBinPath = Path.Join(contentPath, CGI_BIN_FOLDER.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				if (!FileUtils.DirectoryExists(cgiBinPath))
 					FileUtils.CreateDirectory(cgiBinPath);
 
@@ -1776,7 +1776,7 @@ namespace FuseCP.Providers.Web
 		protected void EnableColdFusionScripting(string siteName)
 		{
 			//cf_root/runtime/bin/wsconfig.exe -server coldfusion -ws iis -site "web31" -coldfusion -v
-			string pathWs = Path.Combine(GetColdFusionRootPath(), @"runtime\bin\wsconfig.exe");
+			string pathWs = Path.Join(GetColdFusionRootPath(), @"runtime\bin\wsconfig.exe");
 			string enableCF = String.Format("{0} -server coldfusion -ws iis -site \"{1}\" -coldfusion -v -norestart", pathWs, siteName);
 			try
 			{
@@ -1803,7 +1803,7 @@ namespace FuseCP.Providers.Web
 
 			if (IsColdFusionSystemInstalled())
 			{
-				string pathWsConfigSettings = Path.Combine(GetColdFusionRootPath(), @"runtime\lib\wsconfig\wsconfig.properties");
+				string pathWsConfigSettings = Path.Join(GetColdFusionRootPath(), @"runtime\lib\wsconfig\wsconfig.properties");
 				StreamReader file = new StreamReader(pathWsConfigSettings);
 				string line = String.Empty;
 				int counter = 0;
@@ -1826,10 +1826,10 @@ namespace FuseCP.Providers.Web
 		{
 
 			//wsconfig.exe -remove -ws iis -site "tube.com" -v
-			Path.Combine(GetColdFusionRootPath(), @"runtime\bin");
+			Path.Join(GetColdFusionRootPath(), @"runtime\bin");
 			//string command = String.Format("wsconfig.exe -remove -ws iis -site \"{0}\" -v", siteName);
 
-			string execpath = Path.Combine(GetColdFusionRootPath(), @"runtime\bin\wsconfig.exe");
+			string execpath = Path.Join(GetColdFusionRootPath(), @"runtime\bin\wsconfig.exe");
 			string command = String.Format("{0} -remove -ws iis -site \"{1}\" -v", execpath, siteName);
 
 			if (IsColdFusionEnabledOnSite(siteId))
@@ -2230,7 +2230,7 @@ namespace FuseCP.Providers.Web
 			string rootPath = GetSiteContentPath(siteId);
 			List<WebFolder> folders = new List<WebFolder>();
 
-			string foldersFile = Path.Combine(rootPath, ProtectedFoldersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string foldersFile = Path.Join(rootPath, ProtectedFoldersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			if (File.Exists(foldersFile))
 			{
 				List<string> list = ReadFile(foldersFile);
@@ -2255,8 +2255,8 @@ namespace FuseCP.Providers.Web
 			// read folder file
 			string rootPath = GetSiteContentPath(siteId);
 			string normalizedPath = NormalizeFolderPath(folderPath);
-			string path = Path.Combine(rootPath, normalizedPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-			path = Path.Combine(path, ProtectedAccessFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string path = Path.Join(rootPath, normalizedPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			path = Path.Join(path, ProtectedAccessFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			List<string> folderLines = ReadFile(path);
 			if (folderLines.Count == 0)
@@ -2305,8 +2305,8 @@ namespace FuseCP.Providers.Web
 			string rootPath = GetSiteContentPath(siteId);
 			string normalizedPath = NormalizeFolderPath(folder.Path);
 
-			string path = Path.Combine(rootPath, normalizedPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-			path = Path.Combine(path, ProtectedAccessFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string path = Path.Join(rootPath, normalizedPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			path = Path.Join(path, ProtectedAccessFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			if (!deleteFolder)
 			{
@@ -2318,13 +2318,13 @@ namespace FuseCP.Providers.Web
 					accessLines.Add(AUTH_NAME_DIRECTIVE + folder.Title);
 
 				// link to users file
-				string usersFile = Path.Combine(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				string usersFile = Path.Join(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				if (!File.Exists(usersFile))
 					WriteFile(usersFile, new List<string>());
 				accessLines.Add(ProtectedUsersFile_DIRECTIVE + usersFile);
 
 				// link to groups file
-				string groupsFile = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				string groupsFile = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				if (!File.Exists(groupsFile))
 					WriteFile(groupsFile, new List<string>());
 				accessLines.Add(ProtectedGroupsFile_DIRECTIVE + groupsFile);
@@ -2369,7 +2369,7 @@ namespace FuseCP.Providers.Web
 				updatedFolders.Add(folderName);
 
 			// save folders list
-			string foldersFile = Path.Combine(rootPath, ProtectedFoldersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string foldersFile = Path.Join(rootPath, ProtectedFoldersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			WriteFile(foldersFile, updatedFolders);
 		}
 
@@ -2395,7 +2395,7 @@ namespace FuseCP.Providers.Web
 			List<WebUser> users = new List<WebUser>();
 
 			// load users file
-			string usersPath = Path.Combine(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = ReadFile(usersPath);
 
 			// iterate through all lines
@@ -2420,7 +2420,7 @@ namespace FuseCP.Providers.Web
 		{
 			// load users file
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Combine(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = ReadFile(usersPath);
 
 			// iterate through all lines
@@ -2452,7 +2452,7 @@ namespace FuseCP.Providers.Web
 
 			// read groups information
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string groupsPath = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = ReadFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -2488,7 +2488,7 @@ namespace FuseCP.Providers.Web
 		private void UpdateUser(string siteId, WebUser user, bool deleteUser)
 		{
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Combine(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, ProtectedUsersFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			// load users file
 			List<string> lines = ReadFile(usersPath);
@@ -2547,7 +2547,7 @@ namespace FuseCP.Providers.Web
 
 			// update groups
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string groupsPath = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = ReadFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -2615,7 +2615,7 @@ namespace FuseCP.Providers.Web
 			List<WebGroup> groups = new List<WebGroup>();
 
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string groupsPath = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = ReadFile(groupsPath);
 
 			for (int i = 0; i < groupLines.Count; i++)
@@ -2638,7 +2638,7 @@ namespace FuseCP.Providers.Web
 		{
 			string rootPath = GetSiteContentPath(siteId);
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string groupsPath = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = ReadFile(groupsPath);
 
 			WebGroup group = null;
@@ -2678,7 +2678,7 @@ namespace FuseCP.Providers.Web
 			List<string> updatedGroups = new List<string>();
 
 			// open groups file
-			string groupsPath = Path.Combine(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string groupsPath = Path.Join(rootPath, ProtectedGroupsFile.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> groupLines = ReadFile(groupsPath);
 
 			bool exists = false;
@@ -3427,7 +3427,7 @@ namespace FuseCP.Providers.Web
 					}
 					if (String.Compare(errorA.HandlerType, "file", true) == 0)
 					{
-						errorA.ErrorContent = Path.Combine(virtDir.ContentPath,
+						errorA.ErrorContent = Path.Join(virtDir.ContentPath,
 							FileUtils.CorrectRelativePath(errorA.ErrorContent));
 					}
 					//
@@ -3981,7 +3981,7 @@ namespace FuseCP.Providers.Web
 						WebSite site = GetSite(((WebSite)item).SiteId);
 						//string sitePath = site.ContentPath;
 						string siteId = ((WebSite)item).SiteId.Replace("/", "");
-						string logsPath = Path.Combine(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+						string logsPath = Path.Join(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 						// calculate disk space
 						ServiceProviderItemDiskSpace diskspace = new ServiceProviderItemDiskSpace();
@@ -4020,7 +4020,7 @@ namespace FuseCP.Providers.Web
 					{
 						WebSite site = GetSite(((WebSite)item).SiteId);
 						string siteId = ((WebSite)item).SiteId.Replace("/", "");
-						string logsPath = Path.Combine(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+						string logsPath = Path.Join(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 						if (!Directory.Exists(logsPath))
 							continue;

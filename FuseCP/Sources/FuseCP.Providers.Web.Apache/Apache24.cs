@@ -53,7 +53,7 @@ namespace FuseCP.Providers.Web
 
 		ConfigFile Config(string siteId)
 		{
-			var path = Path.Combine(ApacheConfigPath, "sites-available", $"{siteId}.conf");
+			var path = Path.Join(ApacheConfigPath, "sites-available", $"{siteId}.conf");
 			return ConfigFile.Load(path);
 		}
 
@@ -566,7 +566,7 @@ namespace FuseCP.Providers.Web
 		{
 			var conf = Config(siteId);
 			var vhost = conf.Sections.OfType<VirtualHost>().FirstOrDefault();
-			var enabledFile = Path.Combine(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
+			var enabledFile = Path.Join(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
 			var enabled = File.Exists(enabledFile);
 
 			return new WebSite()
@@ -656,7 +656,7 @@ namespace FuseCP.Providers.Web
 
 		public string[] GetSites()
 		{
-			var path = Path.Combine(ApacheConfigPath, "sites-available");
+			var path = Path.Join(ApacheConfigPath, "sites-available");
 			var files = System.IO.Directory.EnumerateFiles(path, "*.conf");
 			var sites = files.Select(file => Path.GetFileNameWithoutExtension(file));
 			return sites.ToArray();
@@ -669,7 +669,7 @@ namespace FuseCP.Providers.Web
 
 		public ServerState GetSiteState(string siteId)
 		{
-			var enabledFile = Path.Combine(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
+			var enabledFile = Path.Join(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
 			var enabled = File.Exists(enabledFile);
 			return enabled ? ServerState.Started : ServerState.Stopped;
 		}
@@ -814,7 +814,7 @@ namespace FuseCP.Providers.Web
 
 		public bool SiteExists(string siteId)
 		{
-			var path = Path.Combine(ApacheConfigPath, "sites-available", $"{siteId}.conf");
+			var path = Path.Join(ApacheConfigPath, "sites-available", $"{siteId}.conf");
 			return File.Exists(path);
 		}
 

@@ -158,10 +158,10 @@ namespace FuseCP.EnterpriseServer.Data
 				if (!database.Contains(Path.DirectorySeparatorChar.ToString()))
 				{
 					if (!database.Contains(".")) database = $"{database}.sqlite";
-					database = integrated ? Path.Combine(enterpriseServerPath, "App_Data", database) : Path.Combine("App_Data", database);
+					database = integrated ? Path.Join(enterpriseServerPath, "App_Data", database) : Path.Join("App_Data", database);
 
 				}
-				database = Path.GetFullPath(Path.Combine(installationFolder, database));
+				database = Path.GetFullPath(Path.Join(installationFolder, database));
 			}
 			return $"DbType=Sqlite;Data Source={database}";
 		}
@@ -172,7 +172,7 @@ namespace FuseCP.EnterpriseServer.Data
 			{
 				if (!database.Contains(".")) database = $"{database}.sqlite";
 				//var integrated = vars.EmbedEnterpriseServer;
-				database = integrated ? Path.Combine(enterpriseServerPath, "App_Data", database) : Path.Combine("App_Data", database);
+				database = integrated ? Path.Join(enterpriseServerPath, "App_Data", database) : Path.Join("App_Data", database);
 
 			}
 			return $"DbType=Sqlite;Data Source={database}";
@@ -642,7 +642,7 @@ namespace FuseCP.EnterpriseServer.Data
 					Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 					if (!Path.IsPathRooted(dbFile))
 					{
-						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Combine(installationFolder, dbFile);
+						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Join(installationFolder, dbFile);
 						dbFile = Path.GetFullPath(dbFile);
 					}
 					return File.Exists(dbFile);
@@ -668,7 +668,7 @@ namespace FuseCP.EnterpriseServer.Data
 					var csb = new ConnectionStringBuilder(ConnStr);
 					var dbFile = (string)(csb["data source"] ?? "");
 					var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-					if (!Path.IsPathRooted(dbFile)) dbFile = Path.GetFullPath(Path.Combine(assemblyPath, "..", dbFile));
+					if (!Path.IsPathRooted(dbFile)) dbFile = Path.GetFullPath(Path.Join(assemblyPath, "..", dbFile));
 					csb["data source"] = dbFile;
 					ConnStr = csb.ToString();
 					Tmp = (int)ExecuteSql(ConnStr, $"SELECT COUNT(name) FROM sqlite_master").Tables[0].Rows[0][0];
@@ -711,7 +711,7 @@ namespace FuseCP.EnterpriseServer.Data
 					Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 					if (!Path.IsPathRooted(dbFile))
 					{
-						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Combine(installationFolder, dbFile);
+						if (!string.IsNullOrEmpty(installationFolder)) dbFile = Path.Join(installationFolder, dbFile);
 						dbFile = Path.GetFullPath(dbFile);
 					}
 					CreateDatabaseSqlite(dbFile);
@@ -986,8 +986,8 @@ LOG ON(
 					if (localDb)
 					{
 						var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-						var dbfile = Path.Combine(profile, $"{databaseName}.mdf");
-						var logfile = Path.Combine(profile, $"{databaseName}_log.ldf");
+						var dbfile = Path.Join(profile, $"{databaseName}.mdf");
+						var logfile = Path.Join(profile, $"{databaseName}_log.ldf");
 						if (File.Exists(dbfile)) File.Delete(dbfile);
 						if (File.Exists(logfile)) File.Delete(logfile);
 					}
@@ -1009,7 +1009,7 @@ LOG ON(
 					if (!Path.IsPathRooted(dbFile))
 					{
 						if (installPath == null) installPath = AppDomain.CurrentDomain.BaseDirectory;
-						dbFile = Path.GetFullPath(Path.Combine(installPath, dbFile));
+						dbFile = Path.GetFullPath(Path.Join(installPath, dbFile));
 					}
 					File.Delete(dbFile);
 					break;

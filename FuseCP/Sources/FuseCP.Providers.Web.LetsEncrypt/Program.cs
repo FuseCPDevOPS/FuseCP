@@ -66,7 +66,7 @@ namespace FuseCP.Providers.Web.LetsEncrypt
 			var storename = args[1];
 			var certthumb = args[2];
 
-			var webConfigFileName = Path.Combine(rootPath, "web.config");
+			var webConfigFileName = Path.Join(rootPath, "web.config");
 			XDocument wdoc = null;
 			using (var webConfigFile = File.OpenRead(webConfigFileName))
 			{

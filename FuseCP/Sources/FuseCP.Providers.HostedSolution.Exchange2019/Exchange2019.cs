@@ -6912,7 +6912,7 @@ namespace FuseCP.Providers.HostedSolution
                     string value = (string)rk.GetValue("MsiInstallPath", null);
                     rk.Close();
                     if (!string.IsNullOrEmpty(value))
-                        ExchangePath = Path.Combine(value, "bin");
+                        ExchangePath = Path.Join(value, "bin");
                 }
             }
             return ExchangePath;
@@ -6927,7 +6927,7 @@ namespace FuseCP.Providers.HostedSolution
                 if (string.IsNullOrEmpty(exchangePath))
                     return null;
 
-                string path = Path.Combine(exchangePath, args.Name.Split(',')[0] + ".dll");
+                string path = Path.Join(exchangePath, args.Name.Split(',')[0] + ".dll");
                 if (!File.Exists(path))
                     return null;
 

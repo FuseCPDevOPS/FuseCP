@@ -691,10 +691,10 @@ namespace FuseCP.EnterpriseServer
 				return res;
 			}
 
-			string downloadPath = Path.Combine(
+			string downloadPath = Path.Join(
 				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 				"FuseCP", "Downloads");
-			string unpackedZipDirectory = Path.Combine(downloadPath,
+			string unpackedZipDirectory = Path.Join(downloadPath,
 				Path.GetFileNameWithoutExtension(zipFileName));
 			string ipAddress = os.Url.Split('/')[2].Split(':')[0];
 
@@ -706,7 +706,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					Directory.CreateDirectory(downloadPath);
 				}
-				string zipFullPath = Path.Combine(downloadPath, zipFileName);
+				string zipFullPath = Path.Join(downloadPath, zipFileName);
 				FileStream stream = File.Create(zipFullPath);
 				stream.Close();
 				using (System.IO.MemoryStream zipFileContent = new System.IO.MemoryStream(zipFile))

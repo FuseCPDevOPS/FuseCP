@@ -75,14 +75,14 @@ public class DynamicLibraries
 			: "e_sqlite3.dll";
 
 		// Try root output first
-		string path = Path.Combine(baseDir, libName);
+		string path = Path.Join(baseDir, libName);
 
 		// If not found, try runtimes subfolders
 		if (!File.Exists(path))
 		{
 			string arch = RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant();
 			string rid = OSInfo.IsMac ? "osx" : "linux";
-			path = Path.Combine(baseDir, $"runtimes/{rid}-{arch}/native/{libName}");
+			path = Path.Join(baseDir, $"runtimes/{rid}-{arch}/native/{libName}");
 		}
 
 		if (File.Exists(path))

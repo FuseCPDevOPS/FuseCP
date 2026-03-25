@@ -419,8 +419,8 @@ namespace FuseCP.Providers.OS
 			public WSLGlobalConfiguration(WSLShell shell, string user) { User = user; Shell = shell; Open(); }
 			public virtual string User { get; set; } = null;
 			public override string File => User == null ?
-				Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), ".wslconfig") :
-				Path.Combine(Path.GetDirectoryName(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile)), User, ".wslconfig");
+				Path.Join(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), ".wslconfig") :
+				Path.Join(Path.GetDirectoryName(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile)), User, ".wslconfig");
 			protected override bool IsWslFile => false;
 			public Wsl2Section Wsl2 => (Wsl2Section)this[nameof(Wsl2)];
 			public ExperimentalSection Experimental => (ExperimentalSection)this[nameof(Experimental)];

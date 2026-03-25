@@ -422,7 +422,7 @@ public class FilesController: ControllerBase
             for (int i = 0; i < files.Length; i++)
             {
                 string srcFilePath = GetFullPackagePath(packageId, files[i]);
-                string destFilePath = Path.Combine(destFullFolder,
+                string destFilePath = Path.Join(destFullFolder,
                     srcFilePath.Substring(srcFilePath.LastIndexOf("\\") + 1));
 
                 if (srcFilePath == destFilePath)
@@ -481,7 +481,7 @@ public class FilesController: ControllerBase
             for (int i = 0; i < files.Length; i++)
             {
                 string srcFilePath = GetFullPackagePath(packageId, files[i]);
-                string destFilePath = Path.Combine(destFullFolder,
+                string destFilePath = Path.Join(destFullFolder,
                     srcFilePath.Substring(srcFilePath.LastIndexOf("\\") + 1));
                 if (srcFilePath == destFilePath)
                 {

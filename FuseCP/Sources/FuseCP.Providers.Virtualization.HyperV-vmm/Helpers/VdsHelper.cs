@@ -205,7 +205,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
         private static string RunDiskPart(string serverName, string script)
         {
             // create temp script file name
-            string localPath = Path.Combine(GetTempRemoteFolder(serverName), Guid.NewGuid().ToString("N"));
+            string localPath = Path.Join(GetTempRemoteFolder(serverName), Guid.NewGuid().ToString("N"));
 
             // save script to remote temp file
             string remotePath = ConvertToUNC(serverName, localPath);

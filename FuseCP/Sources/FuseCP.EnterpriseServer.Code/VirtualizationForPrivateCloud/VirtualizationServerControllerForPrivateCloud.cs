@@ -1203,7 +1203,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
                 // set OS template
                 string templatesPath = settings["OsTemplatesPath"];
-                item.OperatingSystemTemplatePath = Path.Combine(templatesPath, osTemplateFile + ".vhd");
+                item.OperatingSystemTemplatePath = Path.Join(templatesPath, osTemplateFile + ".vhd");
                 try
                 {
                     LibraryItem[] osTemplates = GetOperatingSystemTemplatesByServiceId(serviceId);
@@ -2205,7 +2205,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 string libPath = settings["DvdLibraryPath"];
 
                 // combine full path
-                string fullPath = Path.Combine(libPath, isoPath);
+                string fullPath = Path.Join(libPath, isoPath);
 
                 // get proxy
                 var vs = GetVirtualizationProxy(vm.ServiceId);

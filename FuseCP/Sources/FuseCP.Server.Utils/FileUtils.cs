@@ -307,7 +307,7 @@ namespace FuseCP.Providers.Utils
             DirectoryInfo[] dirs = root.GetDirectories();
             foreach (DirectoryInfo dir in dirs)
             {
-                string fullName = System.IO.Path.Combine(path, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                string fullName = System.IO.Path.Join(path, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                 SystemFile fi = new SystemFile(dir.Name, fullName, true, 0, dir.CreationTime, dir.LastWriteTime);
                 items.Add(fi);
 
@@ -319,7 +319,7 @@ namespace FuseCP.Providers.Utils
             FileInfo[] files = root.GetFiles();
             foreach (FileInfo file in files)
             {
-                string fullName = System.IO.Path.Combine(path, file.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                string fullName = System.IO.Path.Join(path, file.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                 SystemFile fi = new SystemFile(file.Name, fullName, false, file.Length, file.CreationTime, file.LastWriteTime);
                 items.Add(fi);
             }
@@ -348,7 +348,7 @@ namespace FuseCP.Providers.Utils
 
         private static void GetFilesList(ArrayList files, string rootFolder, string folder, string pattern)
         {
-            string fullPath = System.IO.Path.Combine(rootFolder, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            string fullPath = System.IO.Path.Join(rootFolder, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             // add files in the current folder
             FileInfo[] dirFiles = new DirectoryInfo(fullPath).GetFiles(pattern);
@@ -364,7 +364,7 @@ namespace FuseCP.Providers.Utils
             DirectoryInfo[] dirs = new DirectoryInfo(fullPath).GetDirectories();
             foreach (DirectoryInfo dir in dirs)
             {
-                GetFilesList(files, rootFolder, System.IO.Path.Combine(folder, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), pattern);
+                GetFilesList(files, rootFolder, System.IO.Path.Join(folder, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), pattern);
             }
         }
 
@@ -382,14 +382,14 @@ namespace FuseCP.Providers.Utils
             folders.Add(fi);
 
             // add children folders
-            string fullPath = System.IO.Path.Combine(rootFolder, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            string fullPath = System.IO.Path.Join(rootFolder, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
             DirectoryInfo dir = new DirectoryInfo(fullPath);
             fi.Created = dir.CreationTime;
             fi.Changed = dir.LastWriteTime;
             DirectoryInfo[] subDirs = dir.GetDirectories();
             foreach (DirectoryInfo subDir in subDirs)
             {
-                GetDirectoriesRecursive(folders, rootFolder, System.IO.Path.Combine(folder, subDir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+                GetDirectoriesRecursive(folders, rootFolder, System.IO.Path.Join(folder, subDir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
             }
         }
 
@@ -689,8 +689,8 @@ namespace FuseCP.Providers.Utils
             DirectoryInfo[] dirs = srcDir.GetDirectories();
             foreach (DirectoryInfo dir in dirs)
             {
-                CopyDirectory(System.IO.Path.Combine(sourceDir, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
-                    System.IO.Path.Combine(destinationDir, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+                CopyDirectory(System.IO.Path.Join(sourceDir, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                    System.IO.Path.Join(destinationDir, dir.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
             }
 
             // copy files
@@ -698,7 +698,7 @@ namespace FuseCP.Providers.Utils
             foreach (FileInfo file in files)
             {
                 // copy file
-                file.CopyTo(System.IO.Path.Combine(destinationDir, file.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), true);
+                file.CopyTo(System.IO.Path.Join(destinationDir, file.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)), true);
             }
         }
 
@@ -719,7 +719,7 @@ namespace FuseCP.Providers.Utils
             {
                 foreach (string file in files)
                 {
-                    string fullPath = Path.Combine(rootPath, file.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    string fullPath = Path.Join(rootPath, file.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                     if (Directory.Exists(fullPath))
                     {
                         //add directory with the same directory name
@@ -749,7 +749,7 @@ namespace FuseCP.Providers.Utils
                 string[] zipfiles = BackupFileNames(rootpath, "").ToArray();
                 foreach (string file in zipfiles)
                 {
-                    string fullPath = Path.Combine(rootpath, file.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    string fullPath = Path.Join(rootpath, file.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                     if (Directory.Exists(fullPath))
                     {
                         //add empty Directory
@@ -774,7 +774,7 @@ namespace FuseCP.Providers.Utils
         public static List<string> BackupFileNames(string rootpath, string folder)
         {
             // get the list of files
-            SystemFile[] files = GetFiles(Path.Combine(rootpath, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+            SystemFile[] files = GetFiles(Path.Join(rootpath, folder.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
 
             List<String> list_files = new List<String>();
             foreach (SystemFile file_i in files)
@@ -783,13 +783,13 @@ namespace FuseCP.Providers.Utils
                 {
                     if (file_i.IsDirectory)
                     {
-                        string filename = Path.Combine(folder, file_i.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                        string filename = Path.Join(folder, file_i.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                         list_files.Add(filename);
                         list_files.AddRange(BackupFileNames(rootpath, filename));
                     }
                     else
                     {
-                        string filename = Path.Combine(folder, file_i.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                        string filename = Path.Join(folder, file_i.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                         // Ignore fcpak and old wspak Backup Files in Backup Folder
                         if (!(filename.EndsWith(".fcpak")) && !(filename.EndsWith(".wspak")))
                         {

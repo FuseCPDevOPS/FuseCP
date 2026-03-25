@@ -1063,7 +1063,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
         public string SnapshotScreenshotFile(string snapshotId)
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FuseCP", "Snapshots", $"proxmox-screenshot-{snapshotId}.png");
+            return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FuseCP", "Snapshots", $"proxmox-screenshot-{snapshotId}.png");
         }
 
         public JobResult CreateSnapshot(string vmId)

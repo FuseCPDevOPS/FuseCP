@@ -103,7 +103,7 @@ namespace FuseCP.Providers.Mail
 		{
 			if (!config.ChildNodes.Contains(userConfig))
 			{
-				userConfig["dir"] = Path.Combine(AMSHelper.AMSLocation, string.Format(@"{0}\{1}\", GetDomainName(mailboxName), GetAccountName(mailboxName)));
+				userConfig["dir"] = Path.Join(AMSHelper.AMSLocation, string.Format(@"{0}\{1}\", GetDomainName(mailboxName), GetAccountName(mailboxName)));
 				config.ChildNodes.Add(userConfig);
 			}
 

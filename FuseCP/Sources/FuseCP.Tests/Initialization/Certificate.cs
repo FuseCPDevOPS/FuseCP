@@ -32,7 +32,7 @@ namespace FuseCP.Tests
 
 		public static string CertFilePath {
 			get {
-				var certfile = Path.Combine(Paths.Test, "Initialization", CertFile);
+				var certfile = Path.Join(Paths.Test, "Initialization", CertFile);
 				var asm = Assembly.GetExecutingAssembly();
 				var resxs = asm.GetManifestResourceNames();
 				var localhostPfx = resxs.FirstOrDefault(r => r.EndsWith(CertFile));

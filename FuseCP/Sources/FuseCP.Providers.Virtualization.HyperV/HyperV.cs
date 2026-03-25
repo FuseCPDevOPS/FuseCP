@@ -1182,7 +1182,7 @@ namespace FuseCP.Providers.Virtualization
         #region Library
         public LibraryItem[] GetLibraryItems(string path)
         {
-            path = Path.Combine(FileUtils.EvaluateSystemVariables(path), LIBRARY_INDEX_FILE_NAME);
+            path = Path.Join(FileUtils.EvaluateSystemVariables(path), LIBRARY_INDEX_FILE_NAME);
 
             // convert to UNC if it is a remote computer
             path = ConvertToUNC(path);
@@ -1772,7 +1772,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
         private string RunDiskPart(string script)
         {
             // create temp script file name
-            string localPath = Path.Combine(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string localPath = Path.Join(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             // save script to remote temp file
             string remotePath = ConvertToUNC(localPath);
@@ -1797,7 +1797,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
         public string ReadRemoteFile(string path)
         {
             // temp file name on "system" drive available through hidden share
-            string tempPath = Path.Combine(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string tempPath = Path.Join(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             Log.WriteInfo("Read remote file: " + path);
             Log.WriteInfo("Local file temp path: " + tempPath);
@@ -1821,7 +1821,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
         public void WriteRemoteFile(string path, string content)
         {
             // temp file name on "system" drive available through hidden share
-            string tempPath = Path.Combine(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
+            string tempPath = Path.Join(GetTempRemoteFolder(), Guid.NewGuid().ToString("N"));
 
             // write to temp file
             string remoteTempPath = ConvertToUNC(tempPath);

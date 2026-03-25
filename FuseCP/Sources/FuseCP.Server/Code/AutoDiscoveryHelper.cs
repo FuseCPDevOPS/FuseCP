@@ -77,7 +77,7 @@ namespace FuseCP.Server.Code
 #if NETFRAMEWORK
             return System.Web.HttpContext.Current.Server.MapPath("~/");
 #else
-            return new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..")).FullName;
+            return new DirectoryInfo(Path.Join(AppDomain.CurrentDomain.BaseDirectory, "..")).FullName;
 #endif
         }
 

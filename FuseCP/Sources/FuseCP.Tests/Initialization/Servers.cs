@@ -142,7 +142,7 @@ public class Servers
 	public static WSLShell.WSLDistro WslDistro(Os os)
 	{
 		var shell = WSLShell.Default.Clone as WSLShell;
-		shell.LogFile = System.IO.Path.Combine(Paths.Test, "TestResults", $"WSL.log");
+		shell.LogFile = System.IO.Path.Join(Paths.Test, "TestResults", $"WSL.log");
 		var installed = shell.InstalledDistros
 			.OrderByDescending(d => d.Distro);
 		var distro = os switch

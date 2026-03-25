@@ -59,7 +59,7 @@ namespace FuseCP.Providers.DNS
 				return null;
 			}
 			//
-			string assemblyFile = Path.Combine(connectorLocation, args.Name.Split(',')[0] + ".dll");
+			string assemblyFile = Path.Join(connectorLocation, args.Name.Split(',')[0] + ".dll");
 			//
 			Log.WriteInfo(assemblyFile);
 			//

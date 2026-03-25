@@ -36,7 +36,7 @@ public class LaunchdServiceController : ServiceController
 			throw new ArgumentException("Invalid service identifier.", nameof(serviceId));
 		return serviceId;
 	}
-	string ServiceFile(string serviceId) => Path.Combine(ServicesDirectory, $"{ValidateServiceId(serviceId)}.plist");
+	string ServiceFile(string serviceId) => Path.Join(ServicesDirectory, $"{ValidateServiceId(serviceId)}.plist");
 	public override IEnumerable<OSService> All()
 	{
 		var servicesText = Shell.Exec("launchctl list").Output().Result;
@@ -45,7 +45,7 @@ public class LaunchdServiceController : ServiceController
 		{
 			var name = match.Groups["name"].Value;
 			var pid = match.Groups["pid"].Value;
-			var script = Path.Combine(ServicesDirectory, name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			var script = Path.Join(ServicesDirectory, name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			bool running = !string.IsNullOrEmpty(pid);
 			string description = "";
 			if (File.Exists(script))
@@ -123,7 +123,7 @@ public class LaunchdServiceController : ServiceController
 	public override void Remove(string serviceId)
 	{
 		serviceId = ValidateServiceId(serviceId);
-		Path.Combine(ServicesDirectory, $"{serviceId}.plist");
+		Path.Join(ServicesDirectory, $"{serviceId}.plist");
 
 		Shell.Exec($"launchctl disable system/{serviceId}");
 		Shell.Exec($"launchctl bootout  system {ServiceFile(serviceId)}");

@@ -143,7 +143,7 @@ namespace FuseCP.Providers.OS
 				file = Paths
 					  .SelectMany(p =>
 					  {
-						  var p1 = Path.Combine(p, cmd.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+						  var p1 = Path.Join(p, cmd.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 						  return new string[] { p1, Path.ChangeExtension(p1, "exe") };
 					  })
 					  .FirstOrDefault(p => File.Exists(p));

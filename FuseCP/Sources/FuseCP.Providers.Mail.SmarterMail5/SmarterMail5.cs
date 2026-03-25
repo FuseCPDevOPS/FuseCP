@@ -179,7 +179,7 @@ namespace FuseCP.Providers.Mail
                 {
                     result = domains.AddDomain(AdminUsername, AdminPassword,
                                                              domain.Name,
-                                                             Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
                                                              SYSTEM_DOMAIN_ADMIN, // admin username
                                                              Guid.NewGuid().ToString("P"), // admin password
                                                              "Domain", // admin first name
@@ -210,7 +210,7 @@ namespace FuseCP.Providers.Mail
                 {
                     result = domains.AddDomain(AdminUsername, AdminPassword,
                                                              domain.Name,
-                                                             Path.Combine(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
                                                              SYSTEM_DOMAIN_ADMIN, // admin username
                                                              Guid.NewGuid().ToString("P"), // admin password
                                                              "Domain", // admin first name

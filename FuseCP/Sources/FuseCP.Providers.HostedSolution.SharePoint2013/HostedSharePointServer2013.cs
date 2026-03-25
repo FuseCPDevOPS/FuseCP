@@ -165,7 +165,7 @@ namespace FuseCP.Providers.HostedSolution
         {
             if (path == null)
             {
-                path = Path.Combine(Path.GetTempPath(), fileName);
+                path = Path.Join(Path.GetTempPath(), fileName);
                 if (FileUtils.FileExists(path))
                 {
                     FileUtils.DeleteFile(path);

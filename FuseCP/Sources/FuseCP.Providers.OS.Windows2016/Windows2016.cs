@@ -74,7 +74,7 @@ namespace FuseCP.Providers.OS
         #endregion
 
         #region Files
-        public string PathCombine(params string[] segments) => Path.Combine(segments);
+        public string PathCombine(params string[] segments) => Path.Join(segments);
 
         public virtual string CreatePackageFolder(string initialPath)
         {
@@ -1525,7 +1525,7 @@ namespace FuseCP.Providers.OS
             string path = folderPath;
 
             if (shareNameDrive != null)
-                path = Path.Combine(shareNameDrive + @":\", folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                path = Path.Join(shareNameDrive + @":\", folderPath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
             Runspace runSpace = null;
             try

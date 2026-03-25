@@ -308,8 +308,8 @@ namespace FuseCP.Providers.Database
 			string collation = GetValidatedCollationClause();
 
 			// create command
-			string dataFile = Path.Combine(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_data.mdf";
-			string logFile = Path.Combine(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_log.ldf";
+			string dataFile = Path.Join(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_data.mdf";
+			string logFile = Path.Join(database.Location, database.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)) + "_log.ldf";
 
 
 			commandText = string.Format("CREATE DATABASE {0}" +
@@ -539,7 +539,7 @@ namespace FuseCP.Providers.Database
 		{
 			if (path == null)
 			{
-				path = Path.Combine(Path.GetTempPath(), fileName);
+				path = Path.Join(Path.GetTempPath(), fileName);
 				if (FileUtils.FileExists(path))
 					FileUtils.DeleteFile(path);
 			}
@@ -571,7 +571,7 @@ namespace FuseCP.Providers.Database
 			// zip backup file
 			if (zipBackupFile)
 			{
-				string zipFile = Path.Combine(Path.GetTempPath(), backupFileName);
+				string zipFile = Path.Join(Path.GetTempPath(), backupFileName);
 				string zipRoot = Path.GetDirectoryName(bakFile);
 
 				// zip files
@@ -595,7 +595,7 @@ namespace FuseCP.Providers.Database
 			string bakFile;
 			if (DatabaseBackupLocation != "" && DatabaseBackupNetworkPath != "")
 			{
-				bakFile = Path.Combine(DatabaseBackupLocation, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				bakFile = Path.Join(DatabaseBackupLocation, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				string networkBakFile = DatabaseBackupNetworkPath + "/" + backupName;
 
 				// backup database
@@ -607,7 +607,7 @@ namespace FuseCP.Providers.Database
 			else
 			{
 				string tempPath = Path.GetTempPath();
-				bakFile = Path.Combine(tempPath, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+				bakFile = Path.Join(tempPath, backupName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 				//string backupName = databaseName + " Database Backup";
 
 				// backup database
@@ -641,7 +641,7 @@ namespace FuseCP.Providers.Database
 				string[] destFiles = new string[files.Length];
 				for (int i = 0; i < files.Length; i++)
 				{
-					destFiles[i] = Path.Combine(tempPath, Path.GetFileName(files[i]));
+					destFiles[i] = Path.Join(tempPath, Path.GetFileName(files[i]));
 					FileUtils.CopyFile(files[i], destFiles[i]);
 				}
 				return destFiles;
@@ -701,7 +701,7 @@ namespace FuseCP.Providers.Database
 			string tempPath = Path.GetTempPath();
 
 			//create folder with unique name to avoid getting all files from temp directory
-			string zipPath = Path.Combine(tempPath, Guid.NewGuid().ToString());
+			string zipPath = Path.Join(tempPath, Guid.NewGuid().ToString());
 
 			// store original database information
 			SqlDatabase database = GetDatabase(databaseName);
