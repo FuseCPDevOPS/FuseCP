@@ -82,7 +82,7 @@ namespace FuseCP.Providers.HostedSolution
                     runspace.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }
@@ -273,3 +273,5 @@ namespace FuseCP.Providers.HostedSolution
 
     }
 }
+
+

@@ -59,7 +59,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                             exchange =
                                 ExchangeServerController.GetExchangeServer(exchangeServiceId, org.ServiceId);
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             throw new ApplicationException(
                                 string.Format("Could not get exchange server. PackageId: {0}", org.PackageId), ex);
@@ -69,7 +69,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         {
                             item.TotalPublicFoldersSize = exchange.GetPublicFolderSize(org.OrganizationId, "\\" + org.OrganizationId);
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             throw new ApplicationException(
                                 string.Format("Could not get public folder size. OrgId: {0}", org.OrganizationId), ex);
@@ -81,12 +81,12 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         org.DiskSpace = (int)(item.TotalPublicFoldersSize + item.TotalMailboxesSize);
                         PackageController.UpdatePackageItem(org);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         throw new ApplicationException(string.Format("Could not calcualate diskspace. Org Id: {0}", org.Id), ex);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -199,7 +199,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 package = PackageController.GetPackage(org.PackageId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Could not get package {0}", org.PackageId), ex);
             }
@@ -209,7 +209,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 user = UserController.GetUser(package.UserId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Could not get user {0}", package.UserId), ex);
             }
@@ -254,7 +254,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 users = CRMController.GetCRMOrganizationUsers(org.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(
                     string.Format("Could not get CRM Organization users. OrgId : {0}", org.Id), ex);
@@ -265,7 +265,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 crm = GetCRMProxy(org.PackageId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Could not get CRM Proxy. PackageId: {0}", org.PackageId),
                                                ex);
@@ -301,7 +301,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                                          
                     report.CRMReport.Items.Add(stats);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -321,7 +321,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateExchangeReportItems(org, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -335,7 +335,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateCRMReportItems(org, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -349,7 +349,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateSharePointItem(org, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -363,7 +363,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateSharePointEnterpriseItem(org, report, topReseller);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -378,7 +378,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateLyncReportItems(org, report, topReseller);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -391,7 +391,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateSfBReportItems(org, report, topReseller);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -405,7 +405,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     PopulateOrganizationStatisticsReport(org, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -438,7 +438,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 siteCollections = HostedSharePointServerController.GetSiteCollections(org.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Could not get site collections. OrgId: {0}", org.Id), ex);
             }
@@ -452,7 +452,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 int serviceId = GetHostedSharePointServiceId(org.PackageId);
                 srv = GetHostedSharePointServer(serviceId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(
                     string.Format("Could not get sharepoint server. PackageId: {0}", org.PackageId), ex);
@@ -476,7 +476,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     report.SharePointReport.Items.Add(stats);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -492,7 +492,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 siteCollections = HostedSharePointServerEntController.GetSiteCollections(org.Id);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Could not get site collections. OrgId: {0}", org.Id), ex);
             }
@@ -507,7 +507,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 int serviceId = GetHostedSharePointEntServiceId(org.PackageId);
                 srvEnt = GetHostedSharePointServerEnt(serviceId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(
                     string.Format("Could not get sharepoint enterprise server. PackageId: {0}", org.PackageId), ex);
@@ -530,7 +530,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                     report.SharePointEnterpriseReport.Items.Add(stats);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -551,7 +551,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 mailboxes = ExchangeServerController.GetExchangeMailboxes(org.Id);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
 
@@ -566,7 +566,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 exchange = ExchangeServerController.GetExchangeServer(exchangeServiceId, org.ServiceId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
 
@@ -587,7 +587,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                         stats = exchange.GetMailboxStatistics(mailbox.UserPrincipalName);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError(ex);
 
@@ -613,7 +613,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         TaskManager.Write("Items.Add");
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -639,7 +639,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 LyncUsersPagedResult res = LyncController.GetLyncUsers(org.Id);
                 if (res.IsSuccess) lyncUsers = res.Value.PageUsers;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(
                     string.Format("Could not get lync users for current organization {0}", org.Id), ex);
@@ -669,7 +669,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         stats.LyncUserPlan = plan.LyncUserPlanName;
                         stats.DisplayName = lyncUser.DisplayName;
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "Could not get lync statistics. AccountName: {0}",
                                                lyncUser.DisplayName);
@@ -682,7 +682,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         report.LyncReport.Items.Add(stats);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -704,7 +704,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 SfBUsersPagedResult res = SfBController.GetSfBUsers(org.Id);
                 if (res.IsSuccess) sfbUsers = res.Value.PageUsers;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(
                     string.Format("Could not get sfb users for current organization {0}", org.Id), ex);
@@ -734,7 +734,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         stats.SfBUserPlan = plan.SfBUserPlanName;
                         stats.DisplayName = sfbUser.DisplayName;
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "Could not get sfb statistics. AccountName: {0}",
                                                sfbUser.DisplayName);
@@ -747,7 +747,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         report.SfBReport.Items.Add(stats);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -766,7 +766,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 organizations = OrganizationController.GetOrganizations(packageId, false);
 
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Cannot get organizations in current package {0}", packageId), ex);
             }
@@ -777,7 +777,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     PopulateOrganizationData(org, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -795,7 +795,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 ds = PackageController.GetRawMyPackages(user.UserId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException(string.Format("Cannot get user's spaces {0}", user.UserId), ex);
             }
@@ -807,7 +807,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     PopulateSpaceData(packageId, report, topReseller);
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -825,7 +825,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 users = UserController.GetUsers(userId, false);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ApplicationException("Cannot get users for report", ex);
             }
@@ -850,7 +850,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                                      string.IsNullOrEmpty(topReseller) ? user.Username : topReseller);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -889,7 +889,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 GetUsersData(report, userId, generateExchangeReport, generateSharePointReport, generateCRMReport,
                              generateOrganizationReport, generateLyncReport, generateSfBReport, null);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex, "Cannot get enterprise solution statistics report");
             }
@@ -902,3 +902,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
     }
 
 }
+
+

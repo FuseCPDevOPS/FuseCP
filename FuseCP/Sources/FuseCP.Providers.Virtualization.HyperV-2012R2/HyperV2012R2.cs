@@ -118,7 +118,7 @@ namespace FuseCP.Providers.Virtualization
         #endregion
 
         #region Fields
-        private static object _mountVHDlocker = new object();
+        private static readonly object _mountVHDlocker = new object();
         private PowerShellManager _powerShell;
         protected PowerShellManager PowerShell
         {
@@ -244,10 +244,10 @@ namespace FuseCP.Providers.Virtualization
                     // This does not truly give the RAM usage, only the memory assigned to the VPS - True for Version 5.0
                     // Lets handle detection of total memory and usage else where. SetUsagesFromKVP method have been made for it.
 
-                    if (Convert.ToDouble(vm.Version) > Convert.ToDouble(Constants.ConfigurationVersion))
-                        vm.RamUsage = Convert.ToInt32(Convert.ToInt64(vmObject.GetProperty("MemoryDemand", true)) / Constants.Size1M);
-                    else
-                        vm.RamUsage = Convert.ToInt32(Convert.ToInt64(vmObject.GetProperty("MemoryStartup", true)) / Constants.Size1M);
+                    vm.RamUsage = Convert.ToDouble(vm.Version) > Convert.ToDouble(Constants.ConfigurationVersion) ? Convert.ToInt32(Convert.ToInt64(vmObject.GetProperty("MemoryDemand", true)) / Constants.Size1M) : Convert.ToInt32(Convert.ToInt64(vmObject.GetProperty("MemoryStartup", true)) / Constants.Size1M);
+
+
+
 
                     vm.RamSize = Convert.ToInt32(Convert.ToInt64(vmObject.GetProperty("MemoryStartup", suppressErrors)) / Constants.Size1M);
                     vm.Uptime = Convert.ToInt64(vmObject.GetProperty<TimeSpan>("UpTime").TotalMilliseconds);
@@ -735,7 +735,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("TryToUpdateVirtualMachineWithoutReboot", ex);
                 isSuccess = false;
@@ -763,7 +763,7 @@ namespace FuseCP.Providers.Virtualization
                     if (vm != null)
                         isExist = true;
                 }
-                catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                 finally
                 {
                     if (!isExist)
@@ -1417,7 +1417,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetSecureBootTemplates", ex);
             }
@@ -2293,7 +2293,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error {0} Virtual Machine '{1}'",
                     started ? "starting" : "turning off",
@@ -2368,7 +2368,7 @@ namespace FuseCP.Providers.Virtualization
                         HostedSolutionLog.LogWarning(String.Format("Cannot delete virtual machine folder '{0}' it is not Empty!",
                         vm.RootFolderPath));
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolutionLog.LogError(String.Format("Cannot delete virtual machine folder '{0}'",
                         vm.RootFolderPath), ex);
@@ -2376,7 +2376,7 @@ namespace FuseCP.Providers.Virtualization
                 #endregion
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2389,7 +2389,7 @@ namespace FuseCP.Providers.Virtualization
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }
@@ -2848,3 +2848,5 @@ namespace FuseCP.Providers.Virtualization
         }
     }
 }
+
+

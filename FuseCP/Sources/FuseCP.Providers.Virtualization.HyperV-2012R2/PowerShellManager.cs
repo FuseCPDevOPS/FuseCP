@@ -31,7 +31,7 @@ namespace FuseCP.Providers.Virtualization
         private readonly string _remoteComputerName;
         protected static InitialSessionState session = null;
         object psLocker = new object();
-        private bool isStatic = false;
+        private readonly bool isStatic = false;
         public bool IsStaticObj { get => isStatic; }
         public string RemoteComputerName { get => _remoteComputerName; }
 
@@ -82,7 +82,7 @@ namespace FuseCP.Providers.Virtualization
                     RunSpace = null;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }
@@ -264,7 +264,7 @@ namespace FuseCP.Providers.Virtualization
 
                 ExecuteFromStaticObj(cmd, false, true);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ClearOldJobs", ex);
             }
@@ -366,3 +366,5 @@ namespace FuseCP.Providers.Virtualization
         #endregion
     }
 }
+
+

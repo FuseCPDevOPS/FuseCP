@@ -166,7 +166,7 @@ namespace FuseCP.Providers.Database
 
 				reader.Close();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Can't run SQL script", ex);
 			}
@@ -353,7 +353,7 @@ namespace FuseCP.Providers.Database
 				if (Directory.GetFileSystemEntries(dbFolder).Length == 0)
 					Directory.Delete(dbFolder);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error deleting '{0}' database folder", dbFolder), ex);
 			}
@@ -597,7 +597,7 @@ namespace FuseCP.Providers.Database
 				}
 				return destFiles;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Can't detach/copy database", ex);
 			}
@@ -765,7 +765,7 @@ namespace FuseCP.Providers.Database
 				// backup (rename) original database files
 				BackupFiles(originalFiles);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				AttachDatabase(database.Name, files);
 				throw new Exception("Can't restore database", ex);
@@ -798,7 +798,7 @@ namespace FuseCP.Providers.Database
 					throw new ApplicationException("Can't attach database!", ex);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// restore original database files
 				RollbackFiles(originalFiles);
@@ -1182,7 +1182,7 @@ namespace FuseCP.Providers.Database
 			{
 				conn.Open();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				messages.Add("Could not connect to the specified SQL Server: " + ex.Message);
 			}
@@ -1229,7 +1229,7 @@ namespace FuseCP.Providers.Database
 						}
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(String.Format("Error switching '{0}' MS SQL database", item.Name), ex);
 				}
@@ -1247,7 +1247,7 @@ namespace FuseCP.Providers.Database
 						// delete database
 						DeleteDatabase(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MS SQL Database", item.Name), ex);
 					}
@@ -1259,7 +1259,7 @@ namespace FuseCP.Providers.Database
 						// delete user
 						DeleteUser(item.Name, null);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MS SQL User", item.Name), ex);
 					}
@@ -1292,7 +1292,7 @@ namespace FuseCP.Providers.Database
 
 						Log.WriteEnd(String.Format("Calculating '{0}' database size", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' SQL Server database size", item.Name), ex);
 					}
@@ -1417,3 +1417,5 @@ namespace FuseCP.Providers.Database
 	}
 #pragma warning restore CS0618
 }
+
+

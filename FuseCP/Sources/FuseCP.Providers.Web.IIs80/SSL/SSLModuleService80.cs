@@ -120,7 +120,7 @@ namespace FuseCP.Providers.Web.Iis
                     AddBinding(x509Cert, website);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Error adding SSL certificate", ex);
                 cert.Success = false;
@@ -168,7 +168,7 @@ namespace FuseCP.Providers.Web.Iis
                 CloseRunspace(runSpace);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Error adding Lets Encrypt certificate IIS80", ex);
                 return ex.ToString();
@@ -193,7 +193,7 @@ namespace FuseCP.Providers.Web.Iis
             {
                 certificate = GetCurrentSiteCertificate(website);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 certificate = new SSLCertificate
                 {
@@ -500,7 +500,7 @@ namespace FuseCP.Providers.Web.Iis
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Unable to delete certificate for website {0}", website.Name), ex);
                 result.IsSuccess = false;
@@ -641,9 +641,9 @@ namespace FuseCP.Providers.Web.Iis
                     store.Remove(x509Cert);
                     store.Close();
                 }
-                catch (Exception)
+                catch (Exception rollbackEx) when (!(rollbackEx is OutOfMemoryException) && !(rollbackEx is StackOverflowException) && !(rollbackEx is AccessViolationException))
                 {
-                    Log.WriteError("SSLModuleService could not rollback and remove certificate from store", ex);
+                    Log.WriteError("SSLModuleService could not rollback and remove certificate from store", rollbackEx);
                 }
 
                 // Install old certificate back if any
@@ -705,7 +705,7 @@ namespace FuseCP.Providers.Web.Iis
                     runspace.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }
@@ -857,3 +857,5 @@ namespace FuseCP.Providers.Web.Iis
 
     }
 }
+
+

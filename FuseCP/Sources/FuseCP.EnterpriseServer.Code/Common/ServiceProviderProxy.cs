@@ -144,7 +144,7 @@ namespace FuseCP.EnterpriseServer
 					TryRecordServerAuthAttempt(encryptedServerUrl, serverId, succeeded: true);
 				}
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				try
 				{
@@ -154,7 +154,7 @@ namespace FuseCP.EnterpriseServer
 					resolved.UseServerRequestAuthentication = false;
 					TryRecordServerAuthAttempt(encryptedServerUrl, serverId, succeeded: true);
 				}
-				catch (Exception)
+				catch (Exception autoDiscoveryEx) when (!(autoDiscoveryEx is OutOfMemoryException) && !(autoDiscoveryEx is StackOverflowException) && !(autoDiscoveryEx is AccessViolationException))
 				{
 					resolved.UseServerRequestAuthentication = false;
 					resolved.PasswordIsSHA256 = defaultPasswordIsSHA256;
@@ -181,7 +181,7 @@ namespace FuseCP.EnterpriseServer
 				var bruteForce = new BruteForceProtectionService(this);
 				bruteForce.RecordAttempt(remoteAddress, $"server:{serverId}", BruteForceProtectionService.Layers.Server, succeeded);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// Best-effort logging only.
 			}
@@ -215,3 +215,5 @@ namespace FuseCP.EnterpriseServer
 		}
 	}
 }
+
+

@@ -30,7 +30,7 @@ namespace FuseCP.Providers.Virtualization
     public class NetworkAdapterHelper
     {
         private const int defaultvlan = 0;
-        private PowerShellManager _powerShell;
+        private readonly PowerShellManager _powerShell;
 
         public NetworkAdapterHelper(PowerShellManager powerShellManager)
         {
@@ -58,7 +58,7 @@ namespace FuseCP.Providers.Virtualization
                     {
                         adapter.IPAddresses = psAdapter.GetProperty<string[]>("IPAddresses");
                     }
-                    catch (Exception ex) { HostedSolution.HostedSolutionLog.LogError("VirtualMachineNetworkAdapter", ex); }
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { HostedSolution.HostedSolutionLog.LogError("VirtualMachineNetworkAdapter", ex); }
                     adapter.MacAddress = psAdapter.GetString("MacAddress");
                     adapter.SwitchName = psAdapter.GetString("SwitchName");
 
@@ -103,7 +103,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     SetVLAN(realVmData, Constants.EXTERNAL_NETWORK_ADAPTER_NAME, vmSettings.defaultaccessvlan);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolution.HostedSolutionLog.LogError("NetworkAdapterHelperSetVLAN", ex);
                 }
@@ -123,7 +123,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     SetVLAN(realVmData, Constants.PRIVATE_NETWORK_ADAPTER_NAME, vmSettings.PrivateNetworkVlan);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolution.HostedSolutionLog.LogError("NetworkAdapterHelperSetVLAN", ex);
                 }
@@ -143,7 +143,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     SetVLAN(realVmData, Constants.DMZ_NETWORK_ADAPTER_NAME, vmSettings.DmzNetworkVlan);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolution.HostedSolutionLog.LogError("NetworkAdapterHelperSetVLAN", ex);
                 }
@@ -200,3 +200,5 @@ namespace FuseCP.Providers.Virtualization
         }
     }
 }
+
+

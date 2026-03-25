@@ -220,7 +220,7 @@ namespace FuseCP.EnterpriseServer.Security
 							: (authenticationInfo.SupportsLegacyPasswordAuthentication ? "Legacy fallback enabled" : "Legacy compatibility");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // Best-effort server probe; failure leaves ProbeSucceeded false.
                 }
@@ -285,3 +285,5 @@ namespace FuseCP.EnterpriseServer.Security
         }
     }
 }
+
+

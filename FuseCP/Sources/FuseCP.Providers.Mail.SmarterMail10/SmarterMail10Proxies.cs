@@ -4896,7 +4896,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4933,7 +4933,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDomainExCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4970,7 +4970,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateDomainNameAndPathCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5007,7 +5007,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GenerateDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5044,7 +5044,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5081,7 +5081,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RenameDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5118,7 +5118,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ReloadDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5155,7 +5155,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5192,7 +5192,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5229,7 +5229,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5266,7 +5266,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5303,7 +5303,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5340,7 +5340,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5377,7 +5377,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetAllDomainsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5414,7 +5414,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainCountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5451,7 +5451,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetAllDomainAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5488,7 +5488,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5525,7 +5525,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5562,7 +5562,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetAllDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5599,7 +5599,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5636,7 +5636,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5673,7 +5673,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5710,7 +5710,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DisableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5747,7 +5747,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal EnableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5784,7 +5784,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5821,7 +5821,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5858,7 +5858,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainForwardingCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5895,7 +5895,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5932,7 +5932,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -5969,7 +5969,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -6006,7 +6006,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -6043,7 +6043,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -6080,7 +6080,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -6117,7 +6117,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteDomainForwardBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -6154,7 +6154,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetDomainArchiveRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10603,7 +10603,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal QueueMailBoxMigrationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10646,7 +10646,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetMigrationStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10683,7 +10683,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10720,7 +10720,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10757,7 +10757,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AuthenticateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10794,7 +10794,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10831,7 +10831,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10868,7 +10868,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10905,7 +10905,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUserForwardingInfo2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10942,7 +10942,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -10979,7 +10979,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11016,7 +11016,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11053,7 +11053,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetLastLoginTimesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11090,7 +11090,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11127,7 +11127,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11164,7 +11164,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetInactiveUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11201,7 +11201,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserForwardingInfo2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11238,7 +11238,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11275,7 +11275,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11312,7 +11312,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserQuotasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11349,7 +11349,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11386,7 +11386,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal LoginValidatedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11423,7 +11423,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11460,7 +11460,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ToggleActiveSyncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11497,7 +11497,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal IsUserEnabledForActiveSyncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11534,7 +11534,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListRSSFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11571,7 +11571,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11608,7 +11608,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserStatsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11645,7 +11645,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11682,7 +11682,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11719,7 +11719,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11756,7 +11756,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11793,7 +11793,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserGroupsByUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11830,7 +11830,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetUserGroupsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12566,7 +12566,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12603,7 +12603,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetCatchAllCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12640,7 +12640,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12677,7 +12677,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12714,7 +12714,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12751,7 +12751,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14782,7 +14782,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14819,7 +14819,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14856,7 +14856,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetMailingListsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14893,7 +14893,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteAllListsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14930,7 +14930,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -14967,7 +14967,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15004,7 +15004,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15041,7 +15041,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15078,7 +15078,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15115,7 +15115,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSubscriber2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15152,7 +15152,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15189,7 +15189,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15226,7 +15226,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15263,7 +15263,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15300,7 +15300,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15337,7 +15337,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15374,7 +15374,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15411,7 +15411,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15448,7 +15448,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetSubscriberList2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15485,7 +15485,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15522,7 +15522,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -15559,7 +15559,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -16008,7 +16008,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDomainAliasWithoutMxCheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -16045,7 +16045,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -16082,7 +16082,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24661,7 +24661,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal StartServicesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24698,7 +24698,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal StopServicesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24735,7 +24735,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RequestStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24772,7 +24772,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetEditionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24809,7 +24809,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteServerPortCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24846,7 +24846,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListServerPortsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24883,7 +24883,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddServerPortCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24920,7 +24920,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetSMTPBlockedSendersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24957,7 +24957,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddDOSAbuseDetectionRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -24994,7 +24994,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddHarvestingAbuseDetectionRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25031,7 +25031,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddIncomingGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25068,7 +25068,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetIncomingGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25105,7 +25105,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListIncomingGatewaysCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25142,7 +25142,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateIncomingGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25179,7 +25179,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveIncomingGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25216,7 +25216,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddInternalSpammerNotificationAbuseDetectionRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25253,7 +25253,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteAbuseDetectionRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25290,7 +25290,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetDOSAbuseDetectionRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25327,7 +25327,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetHarvestingAbuseDetectionRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25364,7 +25364,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetInternalSpammerNotificationAbuseDetectionRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25401,7 +25401,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSMTPBlockedSenderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25438,7 +25438,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteSpamAssassinServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25475,7 +25475,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSpamAssassinServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25512,7 +25512,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListSpamAssassinServersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25549,7 +25549,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25586,7 +25586,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25623,7 +25623,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetSpoolMessageCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25660,7 +25660,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListGreylistingFiltersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25697,7 +25697,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListPortsAssignedToIPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25734,7 +25734,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemovePortFromIPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25771,7 +25771,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AssignPortToIPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25808,7 +25808,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListGatewaysCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25845,7 +25845,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25882,7 +25882,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetGlobalTrustedSendersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25919,7 +25919,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddGlobalTrustedSenderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25956,7 +25956,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteGlobalTrustedSenderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -25993,7 +25993,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteGreylistingFilterCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26030,7 +26030,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetWhitelistEntriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26067,7 +26067,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetBlacklistEntriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26104,7 +26104,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetBlacklistEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26141,7 +26141,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetWhitelistEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26178,7 +26178,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddGreylistingFilterCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26215,7 +26215,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSmtpAuthenticationBypassCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26252,7 +26252,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteSmtpAuthenticationBypassCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26289,7 +26289,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal GetSmtpAuthenticationBypassesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26326,7 +26326,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26363,7 +26363,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSmarterMailGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26400,7 +26400,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26437,7 +26437,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal UpdateGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26474,7 +26474,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListSystemAdminsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26511,7 +26511,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal SetSystemAdminPasswordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26548,7 +26548,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteSystemAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26585,7 +26585,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddSystemAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26622,7 +26622,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddIPRestrictionToSystemAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26659,7 +26659,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal RemoveIPRestrictionFromSystemAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26696,7 +26696,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddHostnameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26733,7 +26733,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteHostnameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26770,7 +26770,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListHostnamesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26807,7 +26807,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddFolderAutocleanRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26844,7 +26844,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteFolderAutoCleanRuleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26881,7 +26881,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListFolderAutoCleanRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26918,7 +26918,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal AddForwardingBlacklistEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26955,7 +26955,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal DeleteForwardingBlacklistEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -26992,7 +26992,7 @@ namespace FuseCP.Mail.SM10
 	{
 
 		/// <summary>Auto-generated member.</summary>
-		private object[] results;
+		private readonly object[] results;
 
 		/// <summary>Auto-generated member.</summary>
 		internal ListForwardingBlacklistEntriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :

@@ -418,7 +418,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 				FileUtils.CreateDirectory(UsersHome);
 			}
 		}
-		catch (Exception ex)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			messages.Add(String.Format("Folder '{0}' could not be created: {1}",
 				 UsersHome, ex.Message));
@@ -436,7 +436,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 					// delete home folder
 					DeleteFile(item.Name);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 			}
@@ -464,7 +464,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 					Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(ex);
 				}
@@ -573,8 +573,8 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 							var timetxt = match.Groups["time"].Value;
 							if (!timetxt.Contains("Z") || !DateTime.TryParse($"{datetxt}T{timetxt}", out time))
 							{
-								if (DateTime.TryParse(timetxt, out time)) time = date.Add(time.TimeOfDay);
-								else time = date;
+								time = DateTime.TryParse(timetxt, out time) ? date.Add(time.TimeOfDay) : date;
+
 							}
 						}
 						else time = date;
@@ -725,7 +725,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 			var process = Process.GetProcessById(pid);
 			if (process != null) process.Kill();
 		}
-		catch (Exception swallowedEx)
+		catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 		{
 		    System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
 		}
@@ -889,17 +889,17 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 				case OSFlavor.Ubuntu: return Apt;
 				case OSFlavor.Mac: return Brew;
 				case OSFlavor.Fedora:
-					if (OSInfo.OSVersion.Major >= 22 && Dnf.IsInstallerInstalled) return Dnf;
-					else return Yum;
+					return OSInfo.OSVersion.Major >= 22 && Dnf.IsInstallerInstalled ? Dnf : Yum;
+
 				case OSFlavor.RedHat:
-					if (OSInfo.OSVersion.Major >= 9 && Dnf.IsInstallerInstalled) return Dnf;
-					else return Yum;
+					return OSInfo.OSVersion.Major >= 9 && Dnf.IsInstallerInstalled ? Dnf : Yum;
+
 				case OSFlavor.CentOS:
-					if (OSInfo.OSVersion.Major >= 8 && Dnf.IsInstallerInstalled) return Dnf;
-					else return Yum;
+					return OSInfo.OSVersion.Major >= 8 && Dnf.IsInstallerInstalled ? Dnf : Yum;
+
 				case OSFlavor.Oracle:
-					if (OSInfo.OSVersion.Major >= 8 && Dnf.IsInstallerInstalled) return Dnf;
-					else return Yum;
+					return OSInfo.OSVersion.Major >= 8 && Dnf.IsInstallerInstalled ? Dnf : Yum;
+
 				case OSFlavor.SUSE: return Zypper;
 				case OSFlavor.Arch: return Pacman;
 				case OSFlavor.Alpine: return Apk;
@@ -937,3 +937,5 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	static TraceListener defaultTraceListener = null;
 	public TraceListener DefaultTraceListener => defaultTraceListener ?? (defaultTraceListener = new SyslogTraceListener());
     }
+
+

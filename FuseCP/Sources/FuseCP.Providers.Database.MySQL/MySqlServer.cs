@@ -775,7 +775,7 @@ namespace FuseCP.Providers.Database
 				{
 					ExecuteNonQuery(cmdText);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError("Cannot drop MySQL connection: " + cmdText, ex);
 				}
@@ -830,7 +830,7 @@ namespace FuseCP.Providers.Database
 			{
 				conn.Open();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				messages.Add("Could not connect to the specified MySQL Server: " + ex.Message);
 			}
@@ -861,7 +861,7 @@ namespace FuseCP.Providers.Database
 						// delete database
 						DeleteDatabase(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MS SQL Database", item.Name), ex);
 					}
@@ -873,7 +873,7 @@ namespace FuseCP.Providers.Database
 						// delete user
 						DeleteUser(item.Name, null);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MS SQL User", item.Name), ex);
 					}
@@ -904,7 +904,7 @@ namespace FuseCP.Providers.Database
 
 						Log.WriteEnd(String.Format("Calculating '{0}' database size", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' SQL Server database size", item.Name), ex);
 					}
@@ -966,7 +966,7 @@ namespace FuseCP.Providers.Database
 							if (ver.StartsWith(version)) return true;
 						}
 					}
-					catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 				}
 			}
 			return false;
@@ -974,9 +974,11 @@ namespace FuseCP.Providers.Database
 
 		protected virtual bool IsInstalled(string version)
 		{
-			if (OSInfo.IsWindows) return IsInstalledWindows(version);
-			else return IsInstalledUnix(version);
+			return OSInfo.IsWindows ? IsInstalledWindows(version) : IsInstalledUnix(version);
+
 		}
 		public override bool IsInstalled() => IsInstalled("4.1");
 	}
 }
+
+

@@ -571,7 +571,7 @@ namespace FuseCP.EnterpriseServer
                                 ServerController.CreateDomainPreviewDomain("", domainId);
 
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             // error while adding domain
                             DeletePackage(packageId);
@@ -592,7 +592,7 @@ namespace FuseCP.EnterpriseServer
                                 return result;
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             // error while creating web site
                             DeletePackage(packageId);
@@ -621,7 +621,7 @@ namespace FuseCP.EnterpriseServer
                                 return result;
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             // error while creating ftp account
                             DeletePackage(packageId);
@@ -687,7 +687,7 @@ namespace FuseCP.EnterpriseServer
                             if (!String.IsNullOrEmpty(previewDomain))
                                 MailServerController.AddMailDomainPointer(mailDomainId, instantDomain.DomainId);
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             // error while creating mail account
                             DeletePackage(packageId);
@@ -705,7 +705,7 @@ namespace FuseCP.EnterpriseServer
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1957,7 +1957,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 //record.RecordType = LogRecordType.Error;
                 //record.Description["Error"] = ex.ToString();
@@ -2386,7 +2386,7 @@ namespace FuseCP.EnterpriseServer
                         {
                             tmp[key] = items[key];
                         }
-                        catch (Exception e)
+                        catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
                         {
                             throw new Exception("Error while adding template with key [" + key + "].", e);
                         }
@@ -2399,7 +2399,7 @@ namespace FuseCP.EnterpriseServer
             {
                 return String.Format("Error in template (Line {0}, Column {1}): {2}", ex.Line, ex.Column, ex.Message);
             }
-            catch (Exception e)
+            catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 throw new Exception("Error while adding template.", e);
             }
@@ -2783,3 +2783,5 @@ if (orderedItems.TryGetValue(serviceId, out var _ckv))
         #endregion
     }
 }
+
+

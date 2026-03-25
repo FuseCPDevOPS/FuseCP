@@ -238,7 +238,7 @@ namespace FuseCP.EnterpriseServer
 								{
 									int backupResult = BackupItem(tempFolder, writer, item, group, controller);
 								}
-								catch (Exception ex)
+								catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 								{
 									TaskManager.WriteError(ex, "Can't backup item");
 								}
@@ -248,7 +248,7 @@ namespace FuseCP.EnterpriseServer
     						}
 						}
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex);
 					}
@@ -271,7 +271,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					doc.Save(Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't save backup catalog file: "
 						+ Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
@@ -299,7 +299,7 @@ namespace FuseCP.EnterpriseServer
 					foreach (string zipFile in zipFiles)
 						File.Delete(zipFile);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't zip backed up files");
 					return 0;
@@ -317,7 +317,7 @@ namespace FuseCP.EnterpriseServer
 						string destFile = Path.Combine(NormalizeAbsolutePath(storeServerFolder), backupFileName);
 						File.Copy(backupFileNamePath, destFile, true);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex, "Can't copy backup to destination location");
 						return 0;
@@ -357,7 +357,7 @@ namespace FuseCP.EnterpriseServer
 							stream.Close();
 						}
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex, "Can't copy backup to destination hosting space");
 						return 0;
@@ -374,7 +374,7 @@ namespace FuseCP.EnterpriseServer
 						// delete backup folder and all its contents
 						Directory.Delete(tempFolder, true);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex, "Can't delete temporary backup folder");
 						return 0;
@@ -387,7 +387,7 @@ namespace FuseCP.EnterpriseServer
 
                 TaskController.UpdateTask(topTask);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				TaskManager.WriteError(ex);
 			}
@@ -571,7 +571,7 @@ namespace FuseCP.EnterpriseServer
 
 						}
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex, "Can't copy source backup set");
 						return 0;
@@ -587,7 +587,7 @@ namespace FuseCP.EnterpriseServer
 					// unpack archive
 					FileUtils.UnzipFiles(backupFileNamePath, tempFolder);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't unzip backup set");
 					return 0;
@@ -600,7 +600,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					doc.Load(Path.Combine(tempFolder, BACKUP_CATALOG_FILE_NAME));
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't find/open backup catalog file");
 					return 0;
@@ -699,7 +699,7 @@ namespace FuseCP.EnterpriseServer
 									int restoreResult = controller.RestoreItem(tempFolder, itemNode,
 										itemId, itemType, itemName, itemPackageId, itemServiceId, group);
 								}
-								catch (Exception ex)
+								catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 								{
 									TaskManager.WriteError(ex, "Can't restore item");
 								}
@@ -708,7 +708,7 @@ namespace FuseCP.EnterpriseServer
 							}
 						}
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						TaskManager.WriteError(ex);
 					}
@@ -719,13 +719,13 @@ namespace FuseCP.EnterpriseServer
 				{
 					Directory.Delete(tempFolder, true);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Can't delete temporary backup folder");
 					return 0;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				TaskManager.WriteError(ex);
 			}
@@ -757,7 +757,7 @@ namespace FuseCP.EnterpriseServer
                     return BackupItem(tempFolder, writer, item, group, controller);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -779,7 +779,7 @@ namespace FuseCP.EnterpriseServer
             {
                 return controller.BackupItem(tempFolder, writer, item, group);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -965,3 +965,5 @@ namespace FuseCP.EnterpriseServer
         #endregion
     }
 }
+
+

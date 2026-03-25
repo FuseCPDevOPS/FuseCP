@@ -107,10 +107,12 @@ namespace FuseCP.Providers.Virtualization
 					return match.Groups["version"].Value;
 				}
 			}
-			catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+			catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
 			return "";
 		}
 		public override bool IsInstalled() => !string.IsNullOrEmpty(GetInstalledVersion());
 	}
 }
+
+

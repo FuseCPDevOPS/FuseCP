@@ -261,7 +261,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CANNOT_CHECK_HOST_EXISTS, ex);
                     return res;
@@ -284,10 +284,10 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
 
 
                 // dynamic memory
-                if (VMSettings.DynamicMemory != null && VMSettings.DynamicMemory.Enabled)
-                    vm.DynamicMemory = VMSettings.DynamicMemory;
-                else
-                    vm.DynamicMemory = null;
+                vm.DynamicMemory = VMSettings.DynamicMemory != null && VMSettings.DynamicMemory.Enabled ? VMSettings.DynamicMemory : null;
+
+
+
 
                 // networking
                 //vm.ExternalNetworkEnabled = externalNetworkEnabled;
@@ -331,7 +331,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         throw new Exception("The template " + osTemplateFile + " was not found in the HyperV Service Template Library.");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.GET_OS_TEMPLATES_ERROR, ex);
                     return res;
@@ -367,7 +367,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         }
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         res.AddError(VirtualizationErrorCodes.RAM_VM_RAM_RESERVE_ERROR, ex);
                         return res;
@@ -384,7 +384,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                             throw new Exception(virtualHardDrivePath + " is already present in the system");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.HDD_VM_FILE_EXIST_ERROR, ex);
                     return res;
@@ -398,7 +398,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     else
                         PackageController.UpdatePackageItem(vm);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CREATE_META_ITEM_ERROR, ex);
                     return res;
@@ -433,7 +433,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
 
                     worker.CreateAsync();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // delete meta item
                     PackageController.DeletePackageItem(vm.Id);
@@ -444,7 +444,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (!createMetaItem)
                 {
@@ -461,3 +461,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
+

@@ -1317,10 +1317,10 @@ namespace FuseCP.Providers.DNS
             if (host == String.Empty)
                 return host;
 
-            if (host.ToLower() == zoneName.ToLower())
-                return string.Empty;
-            else
-                return host.Substring(0, (host.Length - zoneName.Length - 1));
+            return host.ToLower() == zoneName.ToLower() ? string.Empty : host.Substring(0, (host.Length - zoneName.Length - 1));
+
+
+
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)

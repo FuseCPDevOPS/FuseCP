@@ -224,7 +224,7 @@ namespace FuseCP.Providers.OS
 
                 return baseWebSocket;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new IOException(ex.Message, ex);
             }
@@ -365,7 +365,7 @@ namespace FuseCP.Providers.OS
                         Lock.Release();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     await Lock.WaitAsync();
                     destException = ex;
@@ -411,7 +411,7 @@ namespace FuseCP.Providers.OS
                     Lock.Release();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 exception = ex;
             }
@@ -539,7 +539,7 @@ namespace FuseCP.Providers.OS
                 serializer.WriteObject(writer, obj);
                 writer.Flush();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new SerializationException(ex.Message, ex);
             }
@@ -597,7 +597,7 @@ namespace FuseCP.Providers.OS
                 {
                     await UpgradeTunnelSocket.ConnectAsync();
                 }
-                catch (Exception swallowedEx)
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {
 
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
@@ -770,7 +770,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new IOException(ex.Message, ex);
             }
@@ -788,7 +788,7 @@ namespace FuseCP.Providers.OS
                 await socket.ConnectAsync(new IPEndPoint(address, port));
                 BaseSocket = socket;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new IOException(ex.Message, ex);
             }
@@ -809,7 +809,7 @@ namespace FuseCP.Providers.OS
                 BaseSocket.Listen(MaxPendingConncections);
                 return port;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return 0;
             }
@@ -877,3 +877,5 @@ namespace FuseCP.Providers.OS
         }
     }
 }
+
+

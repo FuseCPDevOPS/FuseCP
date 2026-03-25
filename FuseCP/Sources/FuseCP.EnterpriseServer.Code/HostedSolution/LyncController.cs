@@ -261,7 +261,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     userWorker.Enable_CsComputerAsync();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_ADD_LYNC_USER, ex);
                 return res;
@@ -271,7 +271,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.AddLyncUser(accountId, lyncUserPlanId, user.UserPrincipalName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_ADD_LYNC_USER_TO_DATABASE, ex);
                 return res;
@@ -350,7 +350,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
 
@@ -424,7 +424,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     lync.SetLyncUserGeneralSettings(org.OrganizationId, usr.UserPrincipalName, user);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.FAILED_SET_SETTINGS, ex);
                 return res;
@@ -460,7 +460,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return successful ? 0 : BusinessErrorCodes.ERROR_LYNC_DELETE_SOME_PROBLEMS;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -509,7 +509,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     Database.SetLyncUserLyncUserplan(accountId, lyncUserPlanId);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_ADD_LYNC_USER_TO_DATABASE, ex);
                     return res;
@@ -519,7 +519,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 TaskManager.CompleteResultTask();
                 return res;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_UPDATE_LYNC_USER, ex);
                 return res;
@@ -544,7 +544,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 ObjectUtils.FillCollectionFromDataReader(accounts, reader);
                 res.Value = new LyncUsersPaged { PageUsers = accounts.ToArray() };
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.GET_LYNC_USERS, ex);
                 return res;
@@ -575,7 +575,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 res.Value = Database.GetLyncUsersCount(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.GET_LYNC_USER_COUNT, ex);
                 return res;
@@ -616,7 +616,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 if (user != null)
                     lync.DeleteUser(user.UserPrincipalName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_DELETE_LYNC_USER, ex);
                 return res;
@@ -626,7 +626,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.DeleteLyncUser(accountId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_DELETE_LYNC_USER_FROM_METADATA, ex);
                 return res;
@@ -674,7 +674,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return plans;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -736,7 +736,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 return ObjectUtils.FillObjectFromDataReader<LyncUserPlan>(
                     Database.GetLyncUserPlan(lyncUserPlanId));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -771,7 +771,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return Database.AddLyncUserPlan(itemID, lyncUserPlan);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -811,7 +811,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 Database.UpdateLyncUserPlan(itemID, lyncUserPlan);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -838,7 +838,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -861,7 +861,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 Database.SetOrganizationDefaultLyncUserPlan(itemId, lyncUserPlanId);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -893,7 +893,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 lyncFederationDomains = lync.GetFederationDomains(org.OrganizationId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -973,7 +973,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 if (!bDomainExists)
                     lync.AddFederationDomain(org.OrganizationId, domainName.ToLower(), proxyFqdn);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_ADD_LYNC_FEDERATIONDOMAIN, ex);
                 return res;
@@ -1015,7 +1015,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 lync.RemoveFederationDomain(org.OrganizationId, domainName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, LyncErrorCodes.CANNOT_REMOVE_LYNC_FEDERATIONDOMAIN, ex);
                 return res;
@@ -1064,7 +1064,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     ret = lync.GetPolicyList(type, name);
                 }
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
             }
@@ -1093,3 +1093,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
     }
 }
+
+

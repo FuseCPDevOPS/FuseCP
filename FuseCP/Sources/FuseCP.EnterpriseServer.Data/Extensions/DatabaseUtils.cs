@@ -323,7 +323,7 @@ namespace FuseCP.EnterpriseServer.Data
 						reader.Close();
 					}
 				}
-				catch (Exception swallowedEx)
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 				{
 				    System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
 				}
@@ -1528,7 +1528,7 @@ SELECT DatabaseVersion FROM Version");
 					})
 					.Max() ?? default;
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				return default;
 			}
@@ -1578,7 +1578,7 @@ SELECT DatabaseVersion FROM Version");
 							{
 								command.ExecuteNonQuery();
 							}
-							catch (Exception ex)
+							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 							{
 								throw new Exception("Error executing SQL command: " + sql, ex);
 							}
@@ -1597,7 +1597,7 @@ SELECT DatabaseVersion FROM Version");
 					ProcessMySqlScript(connection, connectionString, script, commandCount, OnProgressChange, ProcessInstallVariables);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Can't run SQL script " + script.File, ex);
 			}
@@ -1741,7 +1741,7 @@ SELECT DatabaseVersion FROM Version");
 						commandCount++;
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					throw new Exception("Can't read SQL script " + script.File, ex);
 				}
@@ -1755,3 +1755,5 @@ SELECT DatabaseVersion FROM Version");
 		}
 	}
 }
+
+

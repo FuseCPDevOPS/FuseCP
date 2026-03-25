@@ -195,7 +195,7 @@ namespace FuseCP.Providers.Database
                 {
                     ExecuteNonQuery(cmdText);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError("Cannot drop MariaDB connection: " + cmdText, ex);
                 }
@@ -207,3 +207,5 @@ namespace FuseCP.Providers.Database
 
     }
 }
+
+

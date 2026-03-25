@@ -228,7 +228,7 @@ namespace FuseCP.EnterpriseServer
                 result.Text = ex.ToString();
                 TaskManager.WriteError(ex.ToString());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.Status = -1;
                 result.Text = ex.ToString();
@@ -254,3 +254,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

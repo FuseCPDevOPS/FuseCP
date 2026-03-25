@@ -50,7 +50,7 @@ namespace FuseCP.Tests
 						await VerifyEnterpriseServerAccess(url);
 						return;
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						lastException = ex;
 						TestContext.WriteLine($"EnterpriseServer check via {framework} failed: {ex.Message}");
@@ -98,3 +98,5 @@ namespace FuseCP.Tests
 		}
 	}
 }
+
+

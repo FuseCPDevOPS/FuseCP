@@ -28,8 +28,8 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class DvdDriveHelper
     {
-        private PowerShellManager _powerShell;
-        private MiManager _mi;
+        private readonly PowerShellManager _powerShell;
+        private readonly MiManager _mi;
 
         public DvdDriveHelper(PowerShellManager powerShellManager, MiManager mi)
         {

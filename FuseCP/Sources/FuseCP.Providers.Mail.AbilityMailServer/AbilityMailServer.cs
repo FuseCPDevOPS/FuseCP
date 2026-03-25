@@ -464,7 +464,7 @@ namespace FuseCP.Providers.Mail
 						// delete mail domain
 						DeleteDomain(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' mail domain", item.Name), ex);
 					}
@@ -485,7 +485,7 @@ namespace FuseCP.Providers.Mail
 						// update mail domain
 						UpdateDomain(domain);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' mail domain", item.Name), ex);
 					}
@@ -533,3 +533,5 @@ namespace FuseCP.Providers.Mail
 
 	}
 }
+
+

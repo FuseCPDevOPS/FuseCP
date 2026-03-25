@@ -68,7 +68,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 isBlackBerryUser = Database.CheckBlackBerryUserExists(accountId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_CHECK_IF_BLACKBERRY_USER_EXISTS, ex);
                 return res;
@@ -91,7 +91,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                                       accountId));                
                 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -118,7 +118,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     return res;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_USER_GENERAL_SETTINGS, ex);
                 return res;
@@ -130,7 +130,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -145,7 +145,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     return res;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_CHECK_QUOTA, ex);
                 return res;
@@ -161,7 +161,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                    return res;
                }
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_ADD_BLACKBERRY_USER, ex);
                 return res;
@@ -171,7 +171,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.AddBlackBerryUser(accountId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_ADD_BLACKBERRY_USER_TO_DATABASE, ex);
                 return res;
@@ -194,7 +194,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 ObjectUtils.FillCollectionFromDataReader(accounts, reader);
                 res.Value = new OrganizationUsersPaged {PageUsers = accounts.ToArray()};
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, CrmErrorCodes.GET_CRM_USERS, ex);
                 return res;
@@ -220,7 +220,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 res.Value = Database.GetBlackBerryUsersCount(itemId, name, email);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, CrmErrorCodes.GET_CRM_USER_COUNT, ex);
                 return res;
@@ -240,7 +240,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -258,7 +258,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -274,7 +274,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     return res;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_DELETE_BLACKBERRY_USER, ex);
                 return res;
@@ -284,7 +284,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.DeleteBlackBerryUser(accountId);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_DELETE_BLACKBERRY_USER_FROM_METADATA, ex);
                 return res;
@@ -305,7 +305,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -323,7 +323,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -342,7 +342,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 res.Value = tmp.Value;
                 
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_USER_STATS, ex);
                 return res;
@@ -363,7 +363,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -381,7 +381,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -398,7 +398,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 }                
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_SET_ACTIVATION_PASSWORD, ex);
                 return res;
@@ -419,7 +419,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -437,7 +437,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -454,7 +454,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 }                
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_SET_EMAIL_ACTIVATION_PASSWORD, ex);
                 return res;
@@ -475,7 +475,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 blackBerry = GetBlackBerryProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_GET_BLACKBERRY_PROXY, ex);
                 return res;
@@ -493,7 +493,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -511,7 +511,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, BlackBerryErrorsCodes.CANNOT_DELETE_DATA_FROM_BLACKBERRY_DEVICE, ex);
                 return res;
@@ -524,3 +524,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
        
     }
 }
+
+

@@ -230,7 +230,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // delete completed items
                 vs.RemoveKVPItems(vm.VirtualMachineId, completedTasks.ToArray());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error deleting KVP items: {0}", ex.Message));
@@ -286,7 +286,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error setting KVP items '{0}': {1}", taskDataLog, ex.Message));
@@ -321,7 +321,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error clean last KVP item: {0}", ex.Message));
@@ -340,7 +340,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 taskName = taskName.Replace(REPLACE_PREFIX, PREFIX);
                 vs.RemoveKVPItems(vm.VirtualMachineId, new string[] { taskName });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error deleting  Unused KVP items: {0}", ex.Message));
@@ -348,3 +348,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
         }
     }
 }
+
+

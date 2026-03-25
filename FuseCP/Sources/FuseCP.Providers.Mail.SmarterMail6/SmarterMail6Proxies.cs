@@ -3654,7 +3654,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3691,7 +3691,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDomainExCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3728,7 +3728,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateDomainNameAndPathCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3765,7 +3765,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GenerateDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3802,7 +3802,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3839,7 +3839,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RenameDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3876,7 +3876,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal ReloadDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3913,7 +3913,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3950,7 +3950,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -3987,7 +3987,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4024,7 +4024,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4061,7 +4061,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4098,7 +4098,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4135,7 +4135,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAllDomainsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4172,7 +4172,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainCountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4209,7 +4209,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAllDomainAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4246,7 +4246,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4283,7 +4283,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4320,7 +4320,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAllDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4357,7 +4357,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4394,7 +4394,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4431,7 +4431,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4468,7 +4468,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DisableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4505,7 +4505,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal EnableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4542,7 +4542,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4579,7 +4579,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4616,7 +4616,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainForwardingCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4653,7 +4653,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4690,7 +4690,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4727,7 +4727,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4764,7 +4764,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4801,7 +4801,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4838,7 +4838,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -4875,7 +4875,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteDomainForwardBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7678,7 +7678,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7715,7 +7715,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7752,7 +7752,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AuthenticateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7789,7 +7789,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7826,7 +7826,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7863,7 +7863,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7900,7 +7900,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserForwardingInfo2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7937,7 +7937,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -7974,7 +7974,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8011,7 +8011,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8048,7 +8048,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8085,7 +8085,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8122,7 +8122,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetInactiveUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8159,7 +8159,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8196,7 +8196,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8233,7 +8233,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserQuotasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8270,7 +8270,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8307,7 +8307,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal LoginValidatedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8344,7 +8344,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8381,7 +8381,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal ToggleActiveSyncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8418,7 +8418,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal ListRSSFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8455,7 +8455,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8492,7 +8492,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserStatsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8529,7 +8529,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8566,7 +8566,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RemoveUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8603,7 +8603,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8640,7 +8640,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8677,7 +8677,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserGroupsByUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -8714,7 +8714,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserGroupsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -9328,7 +9328,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -9365,7 +9365,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetCatchAllCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -9409,7 +9409,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11133,7 +11133,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11170,7 +11170,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11207,7 +11207,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetMailingListsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11244,7 +11244,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteAllListsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11281,7 +11281,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11318,7 +11318,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11355,7 +11355,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11392,7 +11392,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11429,7 +11429,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11466,7 +11466,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11503,7 +11503,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RemoveSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11540,7 +11540,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RemoveDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11577,7 +11577,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11614,7 +11614,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11651,7 +11651,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11688,7 +11688,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11725,7 +11725,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11762,7 +11762,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11799,7 +11799,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -11836,7 +11836,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12236,7 +12236,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDomainAliasWithoutMxCheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12273,7 +12273,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -12310,7 +12310,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13429,7 +13429,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RequestStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13466,7 +13466,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetEditionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13503,7 +13503,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13540,7 +13540,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13577,7 +13577,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetSpoolMessageCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13614,7 +13614,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal ListGatewaysCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13651,7 +13651,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13688,7 +13688,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13725,7 +13725,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddSmarterMailGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13762,7 +13762,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal RemoveGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13799,7 +13799,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13832,7 +13832,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13869,7 +13869,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
@@ -13906,7 +13906,7 @@ namespace FuseCP.Mail.SM6
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :

@@ -129,7 +129,7 @@ namespace FuseCP.EnterpriseServer
 	        {
                 return (T)Convert.ChangeType(Settings[settingName], typeof(T));
 	        }
-	        catch (Exception swallowedEx)
+	        catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 	        {
 	            System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
 	        }
@@ -143,3 +143,5 @@ namespace FuseCP.EnterpriseServer
 		}
 	}
 }
+
+

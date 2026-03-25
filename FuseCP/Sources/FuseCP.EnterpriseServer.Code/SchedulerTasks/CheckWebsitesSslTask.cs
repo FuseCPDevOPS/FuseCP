@@ -234,7 +234,7 @@ namespace FuseCP.EnterpriseServer
                 using var httpClient = new HttpClient(httpClientHandler);
                 httpResponse = await httpClient.SendAsync(new HttpRequestMessage(httpMethod, url));
             }
-            catch (Exception e)
+            catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 string errorMessage = e.InnerException.Message;
                 if (httpResponse != null) errorMessage += ", HTTP Response Code: " + httpResponse.StatusCode;
@@ -271,3 +271,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

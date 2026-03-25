@@ -115,7 +115,7 @@ namespace FuseCP.Providers.DNS
                 {
                     Directory.CreateDirectory(ZonesFolderPath);
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     return new string[] { String.Format("Failed to create BIND zones folder: {0}", ZonesFolderPath) };
                 }
@@ -1028,10 +1028,10 @@ namespace FuseCP.Providers.DNS
 
         private string RemoveTrailingDot(string str)
         {
-            if (str.Length == 0 || str[str.Length - 1] != '.')
-                return str;
-            else
-                return str.Substring(0, str.Length - 1);
+            return str.Length == 0 || str[str.Length - 1] != '.' ? str : str.Substring(0, str.Length - 1);
+
+
+
         }
 
         private string LoadZoneFile(string zoneName)
@@ -1140,3 +1140,5 @@ namespace FuseCP.Providers.DNS
         public override bool IsInstalled() => IsInstalled("9.;8.");
     }
 }
+
+

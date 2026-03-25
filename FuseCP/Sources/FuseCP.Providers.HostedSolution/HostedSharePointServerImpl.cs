@@ -67,7 +67,7 @@ namespace FuseCP.Providers.HostedSolution
                     return languages.ToArray();
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -149,7 +149,7 @@ namespace FuseCP.Providers.HostedSolution
                     return siteCollections.ToArray();
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -180,7 +180,7 @@ namespace FuseCP.Providers.HostedSolution
                     return null;
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -205,16 +205,16 @@ namespace FuseCP.Providers.HostedSolution
                     SPWebApplication rootWebApplication = SPWebApplication.Lookup(root);
 
                     SPQuota quota = new SPQuota();
-                    if (maxStorage != -1)
-                        quota.StorageMaximumLevel = maxStorage * 1024 * 1024;
-                    else
-                        quota.StorageMaximumLevel = 0;
+                    quota.StorageMaximumLevel = maxStorage != -1 ? maxStorage * 1024 * 1024 : 0;
 
 
-                    if (warningStorage != -1 && maxStorage != -1)
-                        quota.StorageWarningLevel = Math.Min(warningStorage, maxStorage) * 1024 * 1024;
-                    else
-                        quota.StorageWarningLevel = 0;
+
+
+
+                    quota.StorageWarningLevel = warningStorage != -1 && maxStorage != -1 ? Math.Min(warningStorage, maxStorage) * 1024 * 1024 : 0;
+
+
+
 
                     rootWebApplication.GrantAccessToProcessIdentity(WindowsIdentity.GetCurrent().Name);
                     rootWebApplication.Sites[url].Quota = quota;
@@ -351,7 +351,7 @@ namespace FuseCP.Providers.HostedSolution
                         }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError(ex);
 
@@ -454,7 +454,7 @@ namespace FuseCP.Providers.HostedSolution
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError(ex);
 
@@ -463,7 +463,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to delete site collection.", ex);
             }
@@ -509,7 +509,7 @@ namespace FuseCP.Providers.HostedSolution
                     return backupFileName;
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to backup site collection.", ex);
             }
@@ -575,7 +575,7 @@ namespace FuseCP.Providers.HostedSolution
                     FileUtils.DeleteFile(expandedFile);
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to restore site collection.", ex);
             }
@@ -606,6 +606,8 @@ namespace FuseCP.Providers.HostedSolution
         }
     }
 }
+
+
 
 
 

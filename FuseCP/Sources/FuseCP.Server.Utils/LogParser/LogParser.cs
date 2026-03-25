@@ -115,7 +115,7 @@ namespace FuseCP.Providers.Utils.LogParser
 							monthlyStats = new MonthlyStatistics(Path.Combine(statsDir, statsName), true);
 							monthlyLogs[statsName] = monthlyStats;
 						}
-						catch (Exception ex)
+						catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 						{
 							// Handle an exception
 							Log.WriteError(String.Format("LogParser: Failed to instantiate monthly stats file '{0}' at '{1}' path", statsName, statsDir), ex);
@@ -136,7 +136,7 @@ namespace FuseCP.Providers.Utils.LogParser
 					// IIS 6 vs. IIS 7 log files calculation logic discrepancies
 					CalculateStatisticsLine(dayStats, reader.LineFields, reader.LineValues);
 				}
-				catch(Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
                     Log.WriteError(String.Format("Failed to process line {0}, statistics directory path {1}, statistics file name {2}", reader.LogLine, statsDir, reader.LogName), ex);
 				}
@@ -251,7 +251,7 @@ namespace FuseCP.Providers.Utils.LogParser
                 sb.Append(".log");
                 //
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Monthly Statistics FileName: year - {0}, month - {1}, keyValue - {2}", year, month, keyValues[i]), ex);
             }
@@ -268,3 +268,5 @@ namespace FuseCP.Providers.Utils.LogParser
 	}
 
 }
+
+

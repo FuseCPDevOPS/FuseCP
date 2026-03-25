@@ -178,7 +178,7 @@ namespace FuseCP.EnterpriseServer
 				// Operation has succeeded
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				TaskManager.WriteError(ex);
 				//
@@ -249,3 +249,5 @@ namespace FuseCP.EnterpriseServer
 		}
 	}
 }
+
+

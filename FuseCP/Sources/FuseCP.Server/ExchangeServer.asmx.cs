@@ -688,7 +688,7 @@ namespace FuseCP.Server
                 ES.RemoveJournalRule(journalEmail);
                 LogEnd("RemoveJournalRule");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("RemoveJournalRule", ex);
             }
@@ -1562,3 +1562,5 @@ namespace FuseCP.Server
  
 	}
 }
+
+

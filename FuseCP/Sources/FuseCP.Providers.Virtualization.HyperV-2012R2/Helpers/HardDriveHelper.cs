@@ -32,9 +32,9 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class HardDriveHelper
     {
-        private PowerShellManager _powerShell;
-        private MiManager _mi;
-        private FileSystemHelper _fileSystemHelper;
+        private readonly PowerShellManager _powerShell;
+        private readonly MiManager _mi;
+        private readonly FileSystemHelper _fileSystemHelper;
 
         public HardDriveHelper(PowerShellManager powerShellManager, MiManager mi, FileSystemHelper fileSystemHelper)
         {

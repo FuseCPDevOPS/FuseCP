@@ -83,7 +83,7 @@ namespace FuseCP.EnterpriseServer
                             isSfB && report.SfBReport != null ? report.SfBReport.ToCSV() : string.Empty);
 
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -155,3 +155,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

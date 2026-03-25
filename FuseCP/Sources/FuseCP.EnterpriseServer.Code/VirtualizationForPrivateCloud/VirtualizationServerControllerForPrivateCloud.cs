@@ -231,7 +231,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.CANNOT_CHECK_HOST_EXISTS, ex);
                 return res;
@@ -250,7 +250,7 @@ namespace FuseCP.EnterpriseServer
 
                 worker.CreateAsync();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.CREATE_ERROR, ex);
                 return res;
@@ -373,7 +373,7 @@ namespace FuseCP.EnterpriseServer
                         return res;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CANNOT_CHECK_HOST_EXISTS, ex);
                     TaskManager.CompleteResultTask(res);
@@ -505,7 +505,7 @@ namespace FuseCP.EnterpriseServer
 
                     TaskManager.ItemId = vmInfo.VmId;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CREATE_META_ITEM_ERROR, ex);
                     TaskManager.CompleteResultTask(res);
@@ -527,7 +527,7 @@ namespace FuseCP.EnterpriseServer
 
 //                    worker.Run(vmInfo);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // delete meta item
                     PackageController.DeletePackageItem(vmInfo.VmId);
@@ -538,7 +538,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.CREATE_ERROR, ex);
                 TaskManager.CompleteResultTask(res);
@@ -1217,7 +1217,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.GET_OS_TEMPLATES_ERROR, ex);
                     return res;
@@ -1296,7 +1296,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // save item once again
                 PackageController.UpdatePackageItem(item);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.IMPORT_ERROR, ex);
                 return res;
@@ -1447,7 +1447,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // delete completed items
                 vs.RemoveKVPItems(vm.VmId.ToString(), completedTasks.ToArray());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error deleting KVP items: {0}", ex.Message));
@@ -1482,7 +1482,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error setting KVP items '{0}': {1}", kvp[0].Data, ex.Message));
@@ -1522,7 +1522,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
                 return sw.SwitchId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_CREATE_PRIVATE_VIRTUAL_SWITCH_ERROR");
                 return null;
@@ -1692,7 +1692,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CHANGE_ADMIN_PASSWORD_ERROR, ex);
                 return res;
@@ -1865,7 +1865,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.IsSuccess = false;
                     res.ErrorCodes.Add(VirtualizationErrorCodes.CANNOT_CHANGE_VIRTUAL_SERVER_STATE);
@@ -1873,7 +1873,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     TaskManager.CompleteResultTask(res);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.IsSuccess = false;
                 res.ErrorCodes.Add(VirtualizationErrorCodes.CHANGE_VIRTUAL_MACHINE_STATE_GENERAL_ERROR);
@@ -1932,7 +1932,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 vm.AdministratorPassword = CryptoUtils.Encrypt(password);
                 PackageController.UpdatePackageItem(vm);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CHANGE_ADMIN_PASSWORD_ERROR, ex);
                 return res;
@@ -2121,7 +2121,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CHANGE_VM_CONFIGURATION, ex);
                 return res;
@@ -2219,7 +2219,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.INSERT_DVD_DISK_ERROR, ex);
                 return res;
@@ -2268,7 +2268,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.EJECT_DVD_DISK_ERROR, ex);
                 return res;
@@ -2364,7 +2364,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.TAKE_SNAPSHOT_ERROR, ex);
                 return res;
@@ -2434,7 +2434,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.APPLY_SNAPSHOT_ERROR, ex);
                 return res;
@@ -2484,7 +2484,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.RENAME_SNAPSHOT_ERROR, ex);
                 return res;
@@ -2540,7 +2540,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_SNAPSHOT_ERROR, ex);
                 return res;
@@ -2596,7 +2596,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_SNAPSHOT_SUBTREE_ERROR, ex);
                 return res;
@@ -2791,7 +2791,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ADD_VIRTUAL_MACHINE_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -2835,7 +2835,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SET_VIRTUAL_MACHINE_PRIMARY_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -2883,7 +2883,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_VIRTUAL_MACHINE_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -3048,7 +3048,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ADD_VIRTUAL_MACHINE_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -3112,7 +3112,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SET_VIRTUAL_MACHINE_PRIMARY_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -3160,7 +3160,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 if(provisionKvp)
                     SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_VIRTUAL_MACHINE_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -3389,7 +3389,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // delete meta item
                 PackageController.DeletePackageItem(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_ERROR, ex);
                 return res;
@@ -3495,7 +3495,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SEND_SUMMARY_LETTER, ex);
                 TaskManager.WriteWarning("VPS_SEND_SUMMARY_LETTER_ERROR", ex.Message);
@@ -3678,7 +3678,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
                 ret = vs.GetDeviceEvents(serviceInfo.ServerName, serviceProviderItem.Name);
             }
-            catch(Exception )
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret = null;
             }
@@ -3704,7 +3704,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
                 ret  = vs.GetMonitoringAlerts(serviceInfo.ServerName, serviceProviderItem.Name);
             }
-            catch (Exception )
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             { 
                 ret = null;
             }
@@ -3732,7 +3732,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
                 ret = vs.GetPerfomanceValue(serviceProviderItem.Name, perf, startPeriod, endPeriod);
             }
-            catch (Exception )
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret = null;
             }
@@ -3756,3 +3756,5 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         #endregion
     }
 }
+
+

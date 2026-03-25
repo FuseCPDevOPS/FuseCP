@@ -135,7 +135,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.GET_OS_TEMPLATES_ERROR, ex);
                     return res;
@@ -283,7 +283,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 // save item once again
                 PackageController.UpdatePackageItem(item);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.IMPORT_ERROR, ex);
                 return res;
@@ -294,3 +294,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
+

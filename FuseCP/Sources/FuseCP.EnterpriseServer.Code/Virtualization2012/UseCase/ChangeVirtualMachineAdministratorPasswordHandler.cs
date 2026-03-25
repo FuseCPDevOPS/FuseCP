@@ -84,7 +84,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 vm.AdministratorPassword = CryptoUtils.Encrypt(password);
                 PackageController.UpdatePackageItem(vm);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CHANGE_ADMIN_PASSWORD_ERROR, ex);
                 return res;
@@ -95,3 +95,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
+

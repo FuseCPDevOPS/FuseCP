@@ -10237,8 +10237,8 @@ namespace FuseCP.EnterpriseServer
 
 						var count = items.Count();
 
-						if (string.IsNullOrEmpty(sortColumn)) items = items.OrderBy(it => it.ItemName);
-						else items = items.OrderBy(ColumnName(sortColumn));
+						items = string.IsNullOrEmpty(sortColumn) ? items.OrderBy(it => it.ItemName) : items.OrderBy(ColumnName(sortColumn));
+
 
 						items = items.Skip(startRow).Take(maximumRows);
 
@@ -10295,8 +10295,8 @@ namespace FuseCP.EnterpriseServer
 
                         var count = domains.Count();
 
-						if (string.IsNullOrEmpty(sortColumn)) domains = domains.OrderBy(it => it.ItemName);
-						else domains = domains.OrderBy(ColumnName(sortColumn));
+						domains = string.IsNullOrEmpty(sortColumn) ? domains.OrderBy(it => it.ItemName) : domains.OrderBy(ColumnName(sortColumn));
+
 
 						domains = domains.Skip(startRow).Take(maximumRows);
 
@@ -10488,8 +10488,8 @@ namespace FuseCP.EnterpriseServer
 
 				var count = packages.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn)) packages = packages.OrderBy(ColumnName(sortColumn));
-				else packages = packages.OrderBy(p => p.PackageName);
+				packages = !string.IsNullOrEmpty(sortColumn) ? packages.OrderBy(ColumnName(sortColumn)) : packages.OrderBy(p => p.PackageName);
+
 
 				packages = packages.Skip(startRow).Take(maximumRows);
 
@@ -12656,8 +12656,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = logs.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) logs = logs.OrderBy(ColumnName(sortColumn));
-					else logs = logs.OrderByDescending(l => l.StartDate);
+					logs = !string.IsNullOrEmpty(sortColumn) ? logs.OrderBy(ColumnName(sortColumn)) : logs.OrderByDescending(l => l.StartDate);
+
 
 					logs = logs.Skip(startRow).Take(maximumRows);
 
@@ -16142,8 +16142,8 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 
-				if (!string.IsNullOrEmpty(sortColumn)) accounts = accounts.OrderBy(ColumnName(sortColumn));
-				else accounts = accounts.OrderBy(a => a.DisplayName);
+				accounts = !string.IsNullOrEmpty(sortColumn) ? accounts.OrderBy(ColumnName(sortColumn)) : accounts.OrderBy(a => a.DisplayName);
+
 
 				var accountsSelected = accounts
 					.Select(a => new
@@ -16252,8 +16252,8 @@ namespace FuseCP.EnterpriseServer
 
 				var count = accounts.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn)) accounts = accounts.OrderBy(ColumnName(sortColumn));
-				else accounts = accounts.OrderBy(a => a.DisplayName);
+				accounts = !string.IsNullOrEmpty(sortColumn) ? accounts.OrderBy(ColumnName(sortColumn)) : accounts.OrderBy(a => a.DisplayName);
+
 
 				accounts = accounts.Skip(startRow).Take(maximumRows);
 
@@ -16337,8 +16337,8 @@ namespace FuseCP.EnterpriseServer
 					accounts = accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
 				}
 
-				if (!string.IsNullOrEmpty(sortColumn)) accounts = accounts.OrderBy(ColumnName(sortColumn));
-				else accounts = accounts.OrderBy(a => a.DisplayName);
+				accounts = !string.IsNullOrEmpty(sortColumn) ? accounts.OrderBy(ColumnName(sortColumn)) : accounts.OrderBy(a => a.DisplayName);
+
 
 				var accountsSelected = accounts
 					.Select(a => new
@@ -18147,13 +18147,13 @@ namespace FuseCP.EnterpriseServer
 
 				if (sortDirection == "ASC")
 				{
-					if (sortColumn == "DisplayName") accounts = accounts.OrderBy(a => a.DisplayName);
-					else accounts = accounts.OrderBy(a => a.PrimaryEmailAddress);
+					accounts = sortColumn == "DisplayName" ? accounts.OrderBy(a => a.DisplayName) : accounts.OrderBy(a => a.PrimaryEmailAddress);
+
 				}
 				else
 				{
-					if (sortColumn == "DisplayName") accounts = accounts.OrderByDescending(a => a.DisplayName);
-					else accounts = accounts.OrderByDescending(a => a.PrimaryEmailAddress);
+					accounts = sortColumn == "DisplayName" ? accounts.OrderByDescending(a => a.DisplayName) : accounts.OrderByDescending(a => a.PrimaryEmailAddress);
+
 				}
 				accounts = accounts.Skip(startRow).Take(count);
 				/// <summary>TODO</summary>
@@ -18407,8 +18407,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = items.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) items = items.OrderBy(ColumnName(sortColumn));
-					else items = items.OrderBy(i => i.ItemName);
+					items = !string.IsNullOrEmpty(sortColumn) ? items.OrderBy(ColumnName(sortColumn)) : items.OrderBy(i => i.ItemName);
+
 
 					items = items.Skip(startRow).Take(maximumRows);
 
@@ -18543,8 +18543,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = items.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) items = items.OrderBy(ColumnName(sortColumn));
-					else items = items.OrderBy(i => i.ItemName);
+					items = !string.IsNullOrEmpty(sortColumn) ? items.OrderBy(ColumnName(sortColumn)) : items.OrderBy(i => i.ItemName);
+
 
 					items = items.Skip(startRow).Take(maximumRows);
 
@@ -18663,8 +18663,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = items.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) items = items.OrderBy(ColumnName(sortColumn));
-					else items = items.OrderBy(i => i.ItemName);
+					items = !string.IsNullOrEmpty(sortColumn) ? items.OrderBy(ColumnName(sortColumn)) : items.OrderBy(i => i.ItemName);
+
 
 					items = items.Skip(startRow).Take(maximumRows);
 
@@ -18785,8 +18785,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = items.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) items = items.OrderBy(ColumnName(sortColumn));
-					else items = items.OrderBy(i => i.ItemName);
+					items = !string.IsNullOrEmpty(sortColumn) ? items.OrderBy(ColumnName(sortColumn)) : items.OrderBy(i => i.ItemName);
+
 
 					items = items.Skip(startRow).Take(maximumRows);
 
@@ -19065,8 +19065,8 @@ namespace FuseCP.EnterpriseServer
 
 					var count = addresses.Count();
 
-					if (string.IsNullOrEmpty(sortColumn)) addresses = addresses.OrderBy(a => a.ExternalIp);
-					else addresses = addresses.OrderBy(ColumnName(sortColumn));
+					addresses = string.IsNullOrEmpty(sortColumn) ? addresses.OrderBy(a => a.ExternalIp) : addresses.OrderBy(ColumnName(sortColumn));
+
 
 					addresses = addresses.Skip(startRow).Take(maximumRows);
 					/// <summary>TODO</summary>
@@ -19220,8 +19220,8 @@ namespace FuseCP.EnterpriseServer
 
 				var count = addresses.Count();
 
-				if (string.IsNullOrEmpty(sortColumn)) addresses = addresses.OrderBy(pa => pa.IpAddress);
-				else addresses = addresses.OrderBy(ColumnName(sortColumn));
+				addresses = string.IsNullOrEmpty(sortColumn) ? addresses.OrderBy(pa => pa.IpAddress) : addresses.OrderBy(ColumnName(sortColumn));
+
 
 				addresses = addresses.Skip(startRow).Take(maximumRows);
 				/// <summary>TODO</summary>
@@ -19318,8 +19318,8 @@ namespace FuseCP.EnterpriseServer
 
 				var count = addresses.Count();
 
-				if (string.IsNullOrEmpty(sortColumn)) addresses = addresses.OrderBy(pa => pa.IpAddress);
-				else addresses = addresses.OrderBy(ColumnName(sortColumn));
+				addresses = string.IsNullOrEmpty(sortColumn) ? addresses.OrderBy(pa => pa.IpAddress) : addresses.OrderBy(ColumnName(sortColumn));
+
 
 				addresses = addresses.Skip(startRow).Take(maximumRows);
 				/// <summary>TODO</summary>
@@ -20933,7 +20933,6 @@ namespace FuseCP.EnterpriseServer
 				var plans = LyncUserPlans.Where(p => p.ItemId == itemID);
 				if (!plans.Any() && lyncUserPlan.LyncUserPlanType == 0)
 				{
-					isDefault = true;
 				}
 				else
 				{
@@ -21554,7 +21553,6 @@ namespace FuseCP.EnterpriseServer
 				var plans = SfBUserPlans.Where(p => p.ItemId == itemID);
 				if (!plans.Any() && sfbUserPlan.SfBUserPlanType == 0)
 				{
-					isDefault = true;
 				}
 				else
 				{

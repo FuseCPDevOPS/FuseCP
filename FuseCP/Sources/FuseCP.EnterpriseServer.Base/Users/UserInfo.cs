@@ -360,7 +360,7 @@ namespace FuseCP.EnterpriseServer
                         return result;
                     }
                 }
-                catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                 return result;
             }
         }
@@ -396,3 +396,5 @@ namespace FuseCP.EnterpriseServer
         public string PinSecret { get; set; }
     };
 }
+
+

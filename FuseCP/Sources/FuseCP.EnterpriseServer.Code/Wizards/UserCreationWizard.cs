@@ -169,7 +169,7 @@ namespace FuseCP.EnterpriseServer
                             return domainId;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -195,7 +195,7 @@ namespace FuseCP.EnterpriseServer
                             return webSiteId;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -228,7 +228,7 @@ namespace FuseCP.EnterpriseServer
                             return ftpAccountId;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -288,7 +288,7 @@ namespace FuseCP.EnterpriseServer
 
                         int mailDomainId = mailDomain.Id;
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -358,3 +358,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

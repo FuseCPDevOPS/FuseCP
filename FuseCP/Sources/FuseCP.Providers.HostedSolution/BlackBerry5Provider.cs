@@ -88,7 +88,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("CreateBlackBerry5UserInternal", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -118,7 +118,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("CreateBlackBerry5UserInternal", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND_HANDHELDCLEANUP, ex);
                 return res;
@@ -165,7 +165,7 @@ namespace FuseCP.Providers.HostedSolution
                         string.Format("Exit code is not 0. {0}, ExitCode = {1}", output, exitCode));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("SetActivationPasswordWithExpirationTimeInternal", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -208,7 +208,7 @@ namespace FuseCP.Providers.HostedSolution
                         string.Format("Exit code is not 0. {0}, ExitCode = {1}", output, exitCode));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("RemoveEmailActivationPassword", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -260,7 +260,7 @@ namespace FuseCP.Providers.HostedSolution
                         string.Format("Exit code is not 0. {0}, ExitCode = {1}", output, exitCode));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("SetEmailActivationPassword", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -304,7 +304,7 @@ namespace FuseCP.Providers.HostedSolution
                         string.Format("Exit code is not 0. {0}, ExitCode = {1}", output, exitCode));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("DeleteDataFromBlackBerry5Device", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -345,7 +345,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 res.Value = items;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("GetBlackBerry5UserStatsInternal", res, BlackBerryErrorsCodes.CANNOT_POPULATE_STATS, ex);
                 return res;
@@ -396,7 +396,7 @@ namespace FuseCP.Providers.HostedSolution
                         string.Format("Exit code is not 0. {0}, ExitCode = {1}", error, exitCode));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("GetBlackBerry5UserData", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 keys = null;
@@ -425,7 +425,7 @@ namespace FuseCP.Providers.HostedSolution
                 values = regex.Split(data[startRow]);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("GetBlackBerry5UserData", res, BlackBerryErrorsCodes.CANNOT_SPLIT_STATS, ex);
                 keys = null;
@@ -483,7 +483,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.EndLog("DeleteBlackBerry5UserInternal", res, BlackBerryErrorsCodes.CANNOT_EXECUTE_COMMAND, ex);
                 return res;
@@ -494,3 +494,5 @@ namespace FuseCP.Providers.HostedSolution
         }
     }
 }
+
+

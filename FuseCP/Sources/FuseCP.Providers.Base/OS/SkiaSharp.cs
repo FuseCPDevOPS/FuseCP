@@ -32,7 +32,7 @@ namespace FuseCP.Providers.OS
             {
                 codeBase = assembly?.GetType().GetProperty("CodeBase")?.GetValue(assembly) as string;
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
             }
@@ -129,3 +129,5 @@ namespace FuseCP.Providers.OS
         }
     }
 }
+
+

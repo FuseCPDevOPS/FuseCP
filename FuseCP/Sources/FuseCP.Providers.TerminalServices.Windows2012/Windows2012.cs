@@ -606,7 +606,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 var usersGroupPath = GetUsersGroupPath(organizationId, collectionName);
                 SetUsersToCollectionAdGroup(collectionName, organizationId, users, usersGroupName, usersGroupPath);
             }
-            catch (Exception e)
+            catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 result = false;
                 Log.WriteWarning(e.ToString());
@@ -815,7 +815,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     Log.WriteInfo(string.Format("{0} users added successfully", remoteApp.DisplayName));
                 }
             }
-            catch(Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result = false;
             }
@@ -1327,7 +1327,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
             }
-            catch (Exception e)
+            catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 Log.WriteError($"Error while trying to remove GPO {gpoName}|{key}. Maybe it did not exist?", e);
             }
@@ -1879,7 +1879,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 runSpace.ExecuteShellCommand(cmd, false, PrimaryDomainController);
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
         }
 
         private bool ExistRdsServerInDeployment(Runspace runSpace, RdsServer server)
@@ -2357,7 +2357,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 var address = Dns.GetHostAddresses(hostname);
                 return address;
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
             }
@@ -3134,10 +3134,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
             string domainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
             string hostName = Dns.GetHostName();
             string fqdn;
-            if (!hostName.Contains(domainName))
-                fqdn = hostName + "." + domainName;
-            else
-                fqdn = hostName;
+            fqdn = !hostName.Contains(domainName) ? hostName + "." + domainName : hostName;
+
+
+
 
             if (serverName.Equals(fqdn))//check locally
             {
@@ -3173,4 +3173,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
         #endregion
     }
 }
+
+
 

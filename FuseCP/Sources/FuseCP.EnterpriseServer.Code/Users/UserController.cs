@@ -208,7 +208,7 @@ namespace FuseCP.EnterpriseServer
 
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -425,7 +425,7 @@ namespace FuseCP.EnterpriseServer
 
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -490,7 +490,7 @@ namespace FuseCP.EnterpriseServer
 
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -549,7 +549,7 @@ namespace FuseCP.EnterpriseServer
 
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -776,7 +776,7 @@ namespace FuseCP.EnterpriseServer
 
 				return userId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -915,7 +915,7 @@ namespace FuseCP.EnterpriseServer
 				TaskManager.WriteError(ex, "The process has been terminated by the user.");
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -970,7 +970,7 @@ namespace FuseCP.EnterpriseServer
 
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1061,7 +1061,7 @@ namespace FuseCP.EnterpriseServer
 				return 0;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1156,7 +1156,7 @@ namespace FuseCP.EnterpriseServer
 
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1190,3 +1190,5 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 	}
 }
+
+

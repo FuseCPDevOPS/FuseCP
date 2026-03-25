@@ -129,8 +129,8 @@ namespace FuseCP.Providers.Virtualization
 			{
 				string format = r.ReadString();
 				if (format != "P3" && format != "P6") throw new Exception("This file format is not supported.");
-				if (format == "P3") r.Format = ImageFormat.P3;
-				else r.Format = ImageFormat.P6;
+				r.Format = format == "P3" ? ImageFormat.P3 : ImageFormat.P6;
+
 
 				int width = int.Parse(r.ReadString() ?? "0");
 				int height = int.Parse(r.ReadString() ?? "0");

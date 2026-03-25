@@ -303,7 +303,7 @@ namespace FuseCP.Providers.OS
 
 				ExecuteShellCommand(runSpace, cmd, false);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("InstallFsrmService", ex);
 
@@ -349,7 +349,7 @@ namespace FuseCP.Providers.OS
 					runspace.Close();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Runspace error", ex);
 			}
@@ -506,3 +506,5 @@ namespace FuseCP.Providers.OS
 		protected override Type WebServerType => Type.GetType("FuseCP.Providers.Web.IIs100, FuseCP.Providers.Web.IIs100");
 	}
 }
+
+

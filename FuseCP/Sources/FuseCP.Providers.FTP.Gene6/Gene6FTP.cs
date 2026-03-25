@@ -239,7 +239,7 @@ namespace FuseCP.Providers.FTP
                 if (!Directory.Exists(InstallFolder))
                     messages.Add(String.Format("Specified '{0}' installation folder does not exist", InstallFolder));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 messages.Add(String.Format("Could not check existance of the installation folder: {0}", ex.Message));
                 return messages.ToArray();
@@ -265,7 +265,7 @@ namespace FuseCP.Providers.FTP
                         account.Enabled = enabled;
                         UpdateAccount(account);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
@@ -284,7 +284,7 @@ namespace FuseCP.Providers.FTP
                         // delete FTP account from default FTP site
                         DeleteAccount(item.Name);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
@@ -318,7 +318,7 @@ namespace FuseCP.Providers.FTP
                         // get daily statistics
                         itemsBandwidth[i].Days = parser.GetDailyStatistics(since, new string[] { item.Name });
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -685,3 +685,5 @@ TransferLimitType=never");
         }
     }
 }
+
+

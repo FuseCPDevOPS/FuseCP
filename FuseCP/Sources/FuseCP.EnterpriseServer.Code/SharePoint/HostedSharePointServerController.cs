@@ -125,7 +125,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                 HostedSharePointServer hostedSharePointServer = GetHostedSharePointServer(serviceId);
                 return hostedSharePointServer.GetSupportedLanguages();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -336,7 +336,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
                 return itemId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -401,7 +401,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -500,7 +500,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
                 return backFile;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -587,7 +587,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -880,7 +880,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                             hostedSharePointServer.UpdateQuotas(siteCollection.PhysicalAddress, realMaxSizeValue,
                                                                 warningStorage);
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             TaskManager.WriteError(ex);
                         }
@@ -889,7 +889,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -942,7 +942,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                     retDiskSpace[0].Url = string.Empty;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -985,7 +985,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                 hostedSharePointServer.UpdateQuotas(sc.PhysicalAddress, maxSize,
                                                     warningStorage);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1007,3 +1007,5 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
      }
 }
+
+

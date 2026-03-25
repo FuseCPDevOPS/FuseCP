@@ -21,7 +21,7 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class ReplicaHelper
     {
-        private PowerShellManager _powerShell;
+        private readonly PowerShellManager _powerShell;
 
         public ReplicaHelper(PowerShellManager powerShellManager)
         {

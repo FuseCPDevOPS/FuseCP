@@ -177,7 +177,7 @@ if (lookupContext.Variables.TryGetValue(variable.Name, out var _ckv))
             {
                 val = prop.GetValue(val, null);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ParserException("Cannot read property value: " + ex.Message, Line, Column);
             }
@@ -243,7 +243,7 @@ if (lookupContext.Variables.TryGetValue(variable.Name, out var _ckv))
             {
                 val = methodInfo.Invoke(val, prms);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new ParserException("Cannot call method: " + ex.Message, Line, Column);
             }
@@ -264,3 +264,5 @@ if (lookupContext.Variables.TryGetValue(variable.Name, out var _ckv))
         }
     }
 }
+
+

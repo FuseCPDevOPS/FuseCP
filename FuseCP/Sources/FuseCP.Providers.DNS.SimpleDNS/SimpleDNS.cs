@@ -964,10 +964,10 @@ namespace FuseCP.Providers.DNS
 
 		private string RemoveTrailingDot(string str)
 		{
-			if (str.Length == 0 || str[str.Length - 1] != '.')
-				return str;
-			else
-				return str.Substring(0, str.Length - 1);
+			return str.Length == 0 || str[str.Length - 1] != '.' ? str : str.Substring(0, str.Length - 1);
+
+
+
 		}
 
 		private static string UrlEncodeData(string value)

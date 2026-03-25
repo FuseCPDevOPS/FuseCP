@@ -131,7 +131,7 @@ namespace FuseCP.EnterpriseServer
                 using (var database = new DataProvider()) database.AddAuditLogRecord(recordId, severityId, userId, username, packageId, itemId, itemName,
                     startDate, finishDate, sourceName, taskName, executionLog);
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
         }
 
         private DateTime GetStartDate(DateTime d)
@@ -179,3 +179,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

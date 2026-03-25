@@ -174,7 +174,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
                     if (serviceId != oldServiceId && CheckVmService(serviceId, itemId, vm.VirtualMachineId)) return serviceId;
                 }
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
             return -1;
         }
@@ -191,7 +191,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
                     return true;
                 }
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
             return false;
         }
 
@@ -226,7 +226,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
 
                 return sw.SwitchId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_CREATE_PRIVATE_VIRTUAL_SWITCH_ERROR");
                 return null;
@@ -264,7 +264,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
 
                 return sw.SwitchId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_CREATE_DMZ_VIRTUAL_SWITCH_ERROR");
                 return null;
@@ -272,3 +272,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
         }
     }
 }
+
+

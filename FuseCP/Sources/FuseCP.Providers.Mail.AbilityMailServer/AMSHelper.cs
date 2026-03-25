@@ -121,7 +121,7 @@ namespace FuseCP.Providers.Mail
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(ex);
                 }
@@ -226,7 +226,7 @@ namespace FuseCP.Providers.Mail
 				Directory.Delete(accountDir, true);
 				succeed = true;
 			}
-			catch(Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex);
 			}
@@ -244,7 +244,7 @@ namespace FuseCP.Providers.Mail
 				Directory.Delete(domainFolder, true);
 				succeed = true;
 			}
-			catch(Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex.Message, ex);
 			}
@@ -264,7 +264,7 @@ namespace FuseCP.Providers.Mail
 				File.Delete(maillistConfig);
 				succeed = true;
 			}
-			catch(Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex.Message, ex);
 			}
@@ -384,3 +384,5 @@ namespace FuseCP.Providers.Mail
 		}
 	}
 }
+
+

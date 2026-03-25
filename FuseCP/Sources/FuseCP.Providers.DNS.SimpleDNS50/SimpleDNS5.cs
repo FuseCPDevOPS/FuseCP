@@ -208,10 +208,10 @@ namespace FuseCP.Providers.DNS
 			{
 				Uri uri = new Uri(SimpleDnsUrl);
 
-				if (String.IsNullOrEmpty(SimpleDnsPassword))
-					return new Connection(uri.Host, uri.Port);
-				else
-					return new Connection(uri.Host, uri.Port, SimpleDnsPassword);
+				return String.IsNullOrEmpty(SimpleDnsPassword) ? new Connection(uri.Host, uri.Port) : new Connection(uri.Host, uri.Port, SimpleDnsPassword);
+
+
+
 			}
 			catch (UriFormatException ex)
 			{
@@ -247,10 +247,10 @@ namespace FuseCP.Providers.DNS
 			// Setup zone data transfer
 			if (secondaryServers != null && secondaryServers.Length != 0)
 			{
-				if (secondaryServers.Length == 1 && secondaryServers[0] == "*")
-					zoneObj.AllowZoneTransfer = "*";
-				else
-					zoneObj.AllowZoneTransfer = String.Join(" ", secondaryServers);
+				zoneObj.AllowZoneTransfer = secondaryServers.Length == 1 && secondaryServers[0] == "*" ? "*" : String.Join(" ", secondaryServers);
+
+
+
 			}
 
 			// Update SOA record

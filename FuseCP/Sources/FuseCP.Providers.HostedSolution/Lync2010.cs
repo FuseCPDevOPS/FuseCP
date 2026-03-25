@@ -343,7 +343,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteConferencingPolicy(runSpace, organizationId);
 					}
-					catch (Exception swallowedEx)
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 					{
 					    System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
 					}
@@ -352,7 +352,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteExternalAccessPolicy(runSpace, organizationId);
 					}
-					catch (Exception swallowedEx)
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 					{
 					    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 					}
@@ -361,7 +361,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteMobilityPolicy(runSpace, organizationId + " EnableOutSideVoice");
 					}
-					catch (Exception swallowedEx)
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 					{
 					    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 					}
@@ -370,7 +370,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteMobilityPolicy(runSpace, organizationId + " DisableOutSideVoice");
 					}
-					catch (Exception swallowedEx)
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 					{
 					    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 					}
@@ -379,7 +379,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteSimpleUrl(runSpace, sipDomain, tenantId);
 					}
-					catch (Exception swallowedEx)
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 					{
 					    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 					}
@@ -508,7 +508,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							PlanSet = SetLyncUserPlanInternal(organizationId, userUpn, plan, runSpace);
 						}
-						catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 						if (!PlanSet) System.Threading.Thread.Sleep(trySleep);
 					}
 
@@ -691,7 +691,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd, false);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret = false;
 				HostedSolutionLog.LogError("SetLyncUserGeneralSettingsInternal", ex);
@@ -1160,10 +1160,10 @@ namespace FuseCP.Providers.HostedSolution
 				}
 			}
 
-			if (domains != null)
-				return domains.ToArray();
-			else
-				return null;
+			return domains != null ? domains.ToArray() : null;
+
+
+
 		}
 
 
@@ -1335,7 +1335,7 @@ namespace FuseCP.Providers.HostedSolution
 					runspace.Close();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("Runspace error", ex);
 			}
@@ -1396,7 +1396,6 @@ namespace FuseCP.Providers.HostedSolution
 					}
 				}
 			}
-			pipeLine = null;
 			errors = errorList.ToArray();
 			HostedSolutionLog.LogEnd("ExecuteShellCommand");
 			return results;
@@ -1596,3 +1595,5 @@ namespace FuseCP.Providers.HostedSolution
 		}
 	}
 }
+
+

@@ -233,7 +233,7 @@ namespace FuseCP.EnterpriseServer
 								ctrl.ImportItem(packageId, itemTypeId,
 									Type.GetType(itemType.TypeName), group, itemName);
 							}
-							catch (Exception ex)
+							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 							{
 								TaskManager.WriteError(ex, "Can't import item");
 							}
@@ -306,3 +306,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

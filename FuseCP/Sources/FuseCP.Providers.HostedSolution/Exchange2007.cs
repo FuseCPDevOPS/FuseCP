@@ -606,7 +606,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						ChangeOrganizationState(org.DistinguishedName, enabled);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -630,7 +630,7 @@ namespace FuseCP.Providers.HostedSolution
 						DeleteAcceptedDomain(null, item.Name);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 				}
@@ -658,7 +658,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						Log.WriteEnd(String.Format("Calculating '{0}' disk space", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' Exchange organization disk space", item.Name), ex);
 					}
@@ -695,7 +695,7 @@ namespace FuseCP.Providers.HostedSolution
 				path = result.Path;
 				string filterAttribute = (string)result.Properties["cn"][0];
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				return false;
 				//throw new Exception("Error authenticating user. " + ex.Message);
@@ -874,10 +874,10 @@ namespace FuseCP.Providers.HostedSolution
 		private string GetOABGenerationServerName()
 		{
 			string ret = null;
-			if (!string.IsNullOrEmpty(OABGenerationServer))
-				ret = OABGenerationServer;
-			else
-				ret = GetServerName();
+			ret = !string.IsNullOrEmpty(OABGenerationServer) ? OABGenerationServer : GetServerName();
+
+
+
 			return ret;
 		}
 
@@ -949,7 +949,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(offlineAddressBook))
 						DeleteOfflineAddressBook(runSpace, offlineAddressBook);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Offline Address Book " + offlineAddressBook, ex);
@@ -961,7 +961,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(addressList))
 						DeleteAddressList(runSpace, addressList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Address List " + addressList, ex);
@@ -973,7 +973,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(roomsAddressList))
 						DeleteAddressList(runSpace, roomsAddressList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Rooms Address List " + roomsAddressList, ex);
@@ -985,7 +985,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(globalAddressList))
 						DeleteGlobalAddressList(runSpace, globalAddressList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Global Address List " + globalAddressList, ex);
@@ -996,7 +996,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					DeleteActiveSyncPolicy(runSpace, organizationId);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete ActiveSyncPolicy " + organizationId, ex);
@@ -1007,7 +1007,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					DisableMailSecurityDistributionGroup(runSpace, securityGroup);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not disable mail security distribution group " + securityGroup, ex);
@@ -1098,7 +1098,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						RemoveMailbox(runSpace, id);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ret = false;
 						ExchangeLog.LogError(string.Format("Can't delete mailbox {0}", id), ex);
@@ -1128,7 +1128,7 @@ namespace FuseCP.Providers.HostedSolution
 						id = ObjToString(GetPSObjectProperty(obj, "Identity"));
 						RemoveContact(runSpace, id);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ret = false;
 						ExchangeLog.LogError(string.Format("Can't delete contact {0}", id), ex);
@@ -1159,7 +1159,7 @@ namespace FuseCP.Providers.HostedSolution
 						id = ObjToString(GetPSObjectProperty(obj, "Identity"));
 						RemoveDistributionGroup(runSpace, id);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ret = false;
 						ExchangeLog.LogError(string.Format("Can't delete distribution list {0}", id), ex);
@@ -1182,7 +1182,7 @@ namespace FuseCP.Providers.HostedSolution
 			{
 				RemovePublicFolder(runSpace, publicFolder);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret = false;
 				ExchangeLog.LogError(string.Format("Can't delete public folder {0}", publicFolder), ex);
@@ -1207,7 +1207,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteAcceptedDomain(runSpace, domain.DomainName);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(string.Format("Failed to delete accepted domain {0}", domain), ex);
 						ret = false;
@@ -2038,7 +2038,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						id = CheckResultObjectDN(result);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(ex);
 					}
@@ -3646,7 +3646,7 @@ namespace FuseCP.Providers.HostedSolution
 					securityGroupId = CheckResultObjectDN(result);
 					ExchangeLog.DebugInfo("Result: {0}", securityGroupId);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(ex);
 				}
@@ -4718,7 +4718,7 @@ namespace FuseCP.Providers.HostedSolution
 						if (errors.Length == 0)
 							success = true;
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(ex);
 					}
@@ -5287,7 +5287,7 @@ namespace FuseCP.Providers.HostedSolution
 						result = ExecuteShellCommand(runSpace, cmd);
 						addressListDN = CheckResultObjectDN(result);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(ex);
 					}
@@ -5339,7 +5339,7 @@ namespace FuseCP.Providers.HostedSolution
 						result = ExecuteShellCommand(runSpace, cmd);
 						addressListDN = CheckResultObjectDN(result);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(ex);
 					}
@@ -5666,10 +5666,10 @@ namespace FuseCP.Providers.HostedSolution
 
 		internal object GetADObjectProperty(DirectoryEntry entry, string name)
 		{
-			if (entry.Properties.Contains(name))
-				return entry.Properties[name][0];
-			else
-				return String.Empty;
+			return entry.Properties.Contains(name) ? entry.Properties[name][0] : String.Empty;
+
+
+
 		}
 
 
@@ -5905,7 +5905,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					prop = ou.Properties["uPNSuffixes"];
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ExchangeLog.LogWarning("AD object or property not found: {0}", ex);
 				}
@@ -6083,7 +6083,7 @@ namespace FuseCP.Providers.HostedSolution
 					runspace.Close();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("Runspace error", ex);
 			}
@@ -6684,7 +6684,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					result = ExecuteShellCommand(runSpace, cmd);
 				}
-				catch (Exception swallowedEx)
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 				{
 				    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 				}
@@ -6836,7 +6836,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					result = ExecuteShellCommand(runSpace, cmd);
 				}
-				catch (Exception swallowedEx)
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 				{
 				    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 				}
@@ -7178,10 +7178,10 @@ namespace FuseCP.Providers.HostedSolution
 		internal string GetServerName()
 		{
 			string ret = null;
-			if (!string.IsNullOrEmpty(MailboxCluster))
-				ret = MailboxCluster;
-			else
-				ret = System.Environment.MachineName;
+			ret = !string.IsNullOrEmpty(MailboxCluster) ? MailboxCluster : System.Environment.MachineName;
+
+
+
 			return ret;
 		}
 
@@ -7241,13 +7241,13 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						RollbackAction(transaction.Actions[i], runSpace);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError("Rollback error", ex);
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("Rollback error", ex);
 			}
@@ -7382,7 +7382,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd);
 
 			}
-			catch (Exception exc)
+			catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
 			{
 				ExchangeLog.LogError(exc);
 				return -1;
@@ -7420,7 +7420,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd);
 
 			}
-			catch (Exception exc)
+			catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
 			{
 				ExchangeLog.LogError(exc);
 				return -1;
@@ -7446,7 +7446,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd);
 
 			}
-			catch (Exception exc)
+			catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
 			{
 				ExchangeLog.LogError(exc);
 				return -1;
@@ -7471,7 +7471,7 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("Member", member);
 				ExecuteShellCommand(runSpace, cmd);
 			}
-			catch (Exception exc)
+			catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
 			{
 				ExchangeLog.LogError(exc);
 				return -1;
@@ -7545,3 +7545,5 @@ namespace FuseCP.Providers.HostedSolution
 		#endregion
 	}
 }
+
+

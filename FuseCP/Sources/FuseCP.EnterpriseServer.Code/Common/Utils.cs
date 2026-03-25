@@ -162,10 +162,12 @@ namespace FuseCP.EnterpriseServer
             {
                 return (DateTime) value;
             }
-            catch(Exception )
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return DateTime.MinValue;
             }
         }
     }
 }
+
+

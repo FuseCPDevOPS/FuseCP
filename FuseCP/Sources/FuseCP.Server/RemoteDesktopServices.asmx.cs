@@ -755,7 +755,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetServerIp for '{1}'", ProviderSettings.ProviderName, hostName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetServerIp for '{1}'", ProviderSettings.ProviderName, hostName), ex);
                 //throw;
@@ -764,3 +764,5 @@ namespace FuseCP.Server
         }
     }
 }
+
+

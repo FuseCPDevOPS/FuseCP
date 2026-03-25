@@ -38,7 +38,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 vm = VirtualMachineHelper.GetVirtualMachineExtendedInfo(vmgeneral.ServiceId, vmgeneral.VirtualMachineId);
                 vm.ExternalNicMacAddress = vmgeneral.ExternalNicMacAddress;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_GET_VM_DETAILS");
             }
@@ -63,3 +63,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
         }
     }
 }
+
+

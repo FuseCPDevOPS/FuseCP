@@ -35,9 +35,9 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class VdsHelper
     {
-        private MiManager _miCim;
-        private FileSystemHelper _fileSystemHelper;
-        private string _serverName;
+        private readonly MiManager _miCim;
+        private readonly FileSystemHelper _fileSystemHelper;
+        private readonly string _serverName;
 
         public VdsHelper(MiManager mi, FileSystemHelper fileSystemHelper)
         {

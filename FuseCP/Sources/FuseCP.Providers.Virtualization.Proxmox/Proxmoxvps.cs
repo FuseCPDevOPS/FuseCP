@@ -120,7 +120,7 @@ namespace FuseCP.Providers.Virtualization
                         var term = ssh.RunCommand("hostname");
                         node = term.Result;
                     }
-                    catch (Exception swallowedEx)
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                     {
 
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
@@ -438,7 +438,7 @@ namespace FuseCP.Providers.Virtualization
                         }
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetVirtualMachines VMList", ex);
                     }
@@ -466,7 +466,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 image = (SKImage)Api.GetScreenshot(vmId);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var svgName = assembly.GetManifestResourceNames()
@@ -933,7 +933,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 await tunnel.ConnectAsync();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw new IOException(ex.Message, ex);
             }
@@ -999,7 +999,7 @@ namespace FuseCP.Providers.Virtualization
                         }
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetVirtualMachineSnapshots", ex);
                     }
@@ -1009,7 +1009,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     snapshots.Find(x => x.Id.Equals(current_snapshot)).IsCurrent = true;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     //no current snapshot found - no snapshots
                     HostedSolutionLog.LogInfo("GetVirtualMachineSnapshots no Snapshots found", ex.Message);
@@ -1049,7 +1049,7 @@ namespace FuseCP.Providers.Virtualization
                     if (snapshot.Data.snaptime > 0)
                         proxmoxsnapshot.Created = ConvertFromUnixTimestamp(snapshot.Data.snaptime.ToString());
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolutionLog.LogWarning("GetSnapshot unable to set snapshot values", ex);
                 }
@@ -1304,14 +1304,14 @@ namespace FuseCP.Providers.Virtualization
                         }
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogWarning("GetDVDISOs - unable to add DVD to List", ex.Message);
                     }
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogWarning("GetDVDISOs - unable to Get DVD ISO List", ex.Message);
             }
@@ -2048,7 +2048,7 @@ namespace FuseCP.Providers.Virtualization
                         }
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetProcessorCoresNumber", ex);
                     }
@@ -2198,7 +2198,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error {0} Virtual Machine '{1}'",
                      started ? "starting" : "turning off",
@@ -2263,7 +2263,7 @@ namespace FuseCP.Providers.Virtualization
                 #endregion
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2276,7 +2276,7 @@ namespace FuseCP.Providers.Virtualization
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }
@@ -2606,3 +2606,5 @@ namespace FuseCP.Providers.Virtualization
 
     }
 }
+
+

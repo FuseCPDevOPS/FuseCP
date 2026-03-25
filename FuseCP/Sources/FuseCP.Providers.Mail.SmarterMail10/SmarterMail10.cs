@@ -150,7 +150,7 @@ namespace FuseCP.Providers.Mail
 							UpdateDomain(mailDomain);
 						}
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
 					}
@@ -169,7 +169,7 @@ namespace FuseCP.Providers.Mail
 						// delete mail domain
 						DeleteDomain(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
 					}
@@ -206,7 +206,7 @@ namespace FuseCP.Providers.Mail
                         itemsDiskspace.Add(diskspace);
                         Log.WriteEnd(String.Format("Calculating mail account '{0}' size", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}
@@ -236,7 +236,7 @@ namespace FuseCP.Providers.Mail
 						// get daily statistics
 						itemsBandwidth[i].Days = GetDailyStatistics(since, item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(ex);
 						System.Diagnostics.Debug.WriteLine(ex);
@@ -282,7 +282,7 @@ namespace FuseCP.Providers.Mail
 					date = date.AddDays(1);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Could not get SmarterMail domain statistics", ex);
 			}
@@ -308,7 +308,7 @@ namespace FuseCP.Providers.Mail
 				DomainSettingsResult result = domains.GetDomainSettings(AdminUsername, AdminPassword, domainName);
 				return result.Result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain exists", ex);
 			}
@@ -327,7 +327,7 @@ namespace FuseCP.Providers.Mail
 
 				return result.DomainNames;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domains", ex);
 			}
@@ -444,7 +444,7 @@ namespace FuseCP.Providers.Mail
 
 				return domain;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get mail domain", ex);
 			}
@@ -577,7 +577,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (DomainExists(domain.Name))
 				{
@@ -674,7 +674,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not update mail domain", ex);
 			}
@@ -695,7 +695,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain", ex);
 			}
@@ -713,7 +713,7 @@ namespace FuseCP.Providers.Mail
 				}
 				return false;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain alias exists", ex);
 			}
@@ -733,7 +733,7 @@ namespace FuseCP.Providers.Mail
 
 				return result.DomainAliasNames;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domain aliases", ex);
 			}
@@ -752,7 +752,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not add mail domain alias", ex);
 			}
@@ -771,7 +771,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain alias", ex);
 			}
@@ -1022,7 +1022,7 @@ namespace FuseCP.Providers.Mail
 
 				return result.Result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not check whether mailbox exists", ex);
 			}
@@ -1055,7 +1055,7 @@ namespace FuseCP.Providers.Mail
 				}
 				return accounts.ToArray();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get the list of domain mailboxes", ex);
 			}
@@ -1137,7 +1137,7 @@ namespace FuseCP.Providers.Mail
 
 				return mailbox;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get mailbox", ex);
 			}
@@ -1197,7 +1197,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (AccountExists(mailbox.Name))
 				{
@@ -1267,7 +1267,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not update mailbox", ex);
 			}
@@ -1287,7 +1287,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not delete mailbox", ex);
 			}
@@ -1311,7 +1311,7 @@ namespace FuseCP.Providers.Mail
 
 				return true;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail alias exists", ex);
 			}
@@ -1345,7 +1345,7 @@ namespace FuseCP.Providers.Mail
 				}
 				return aliasesList.ToArray();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail aliases", ex);
 			}
@@ -1409,7 +1409,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 			}
 
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (MailAliasExists(mailAlias.Name))
 				{
@@ -1438,7 +1438,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not update mailAlias", ex);
 			}
@@ -1458,7 +1458,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not delete mailAlias", ex);
 			}
@@ -1480,7 +1480,7 @@ namespace FuseCP.Providers.Mail
 				return (result.Result
 					&& result.AliasInfo.Name != "Empty");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain group exists", ex);
 			}
@@ -1515,7 +1515,7 @@ namespace FuseCP.Providers.Mail
 
 				return groups.ToArray();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domain groups", ex);
 			}
@@ -1540,7 +1540,7 @@ namespace FuseCP.Providers.Mail
 				group.Enabled = true; // by default
 				return group;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not get mail domain group", ex);
 			}
@@ -1559,7 +1559,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not create mail domain group", ex);
 			}
@@ -1578,7 +1578,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not update mail domain group", ex);
 			}
@@ -1597,7 +1597,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain group", ex);
 			}
@@ -1633,7 +1633,7 @@ namespace FuseCP.Providers.Mail
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -1690,7 +1690,7 @@ namespace FuseCP.Providers.Mail
 
 				return mailLists.ToArray();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain domain mail lists.", ex);
 			}
@@ -1735,7 +1735,7 @@ namespace FuseCP.Providers.Mail
 
 				return list;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -1924,7 +1924,7 @@ namespace FuseCP.Providers.Mail
 						throw new Exception(result.Message);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (ListExists(list.Name))
 				{
@@ -2024,7 +2024,7 @@ namespace FuseCP.Providers.Mail
 						throw new Exception(result.Message);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Couldn't update mail list.", ex);
 			}
@@ -2054,7 +2054,7 @@ namespace FuseCP.Providers.Mail
 				if (!Result.Result)
 					throw new Exception(Result.Message);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Couldn't delete a mail list.", ex);
 			}
@@ -2174,3 +2174,5 @@ namespace FuseCP.Providers.Mail
         }
     }	
 }
+
+

@@ -463,7 +463,7 @@ namespace FuseCP.Providers.EnterpriseStorage
                     FileUtils.CreateDirectory(UsersHome);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 messages.Add(String.Format("Folder '{0}' could not be created: {1}",
                     UsersHome, ex.Message));
@@ -481,7 +481,7 @@ namespace FuseCP.Providers.EnterpriseStorage
                         // delete home folder
                         FileUtils.DeleteFile(item.Name);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -509,7 +509,7 @@ namespace FuseCP.Providers.EnterpriseStorage
 
                         Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -568,3 +568,5 @@ namespace FuseCP.Providers.EnterpriseStorage
         }
     }
 }
+
+

@@ -102,7 +102,7 @@ namespace FuseCP.Providers.Filters
 
                 Log.WriteInfo("result = {0}", result);
             }
-            catch (Exception exc)
+            catch (Exception exc) when (!(exc is OutOfMemoryException) && !(exc is StackOverflowException) && !(exc is AccessViolationException))
             {
                 result = "EXCEPTION:" + exc.ToString();
                 Log.WriteWarning(result);
@@ -267,3 +267,5 @@ namespace FuseCP.Providers.Filters
 
     }
 }
+
+

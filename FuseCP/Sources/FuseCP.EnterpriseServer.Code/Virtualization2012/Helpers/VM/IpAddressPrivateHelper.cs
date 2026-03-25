@@ -70,7 +70,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // send KVP config items
                 NetworkHelper.InjectIPadresses(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.RESTORE_VIRTUAL_MACHINE_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -109,7 +109,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // send KVP config items
                 NetworkHelper.InjectIPadresses(itemId, "DMZ");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.RESTORE_VIRTUAL_MACHINE_DMZ_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -263,7 +263,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 //if(provisionKvp)
                 //    SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ADD_VIRTUAL_MACHINE_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -414,7 +414,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                         }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ADD_VIRTUAL_MACHINE_DMZ_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -594,7 +594,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 if (provisionKvp)
                     KvpExchangeHelper.SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SET_VIRTUAL_MACHINE_PRIMARY_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -638,7 +638,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 if (provisionKvp)
                     KvpExchangeHelper.SendNetworkAdapterKVP(itemId, "DMZ");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SET_VIRTUAL_MACHINE_PRIMARY_DMZ_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -719,7 +719,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 //if(provisionKvp)
                 //    SendNetworkAdapterKVP(itemId, "Private");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_VIRTUAL_MACHINE_PRIVATE_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -798,7 +798,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                         }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_VIRTUAL_MACHINE_DMZ_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -810,3 +810,5 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
 
     }
 }
+
+

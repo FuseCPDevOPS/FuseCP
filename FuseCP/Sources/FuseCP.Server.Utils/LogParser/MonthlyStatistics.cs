@@ -103,7 +103,7 @@ namespace FuseCP.Providers.Utils.LogParser
 					writer.WriteLine("{0} {1} {2}", day, statsLine.BytesSent, statsLine.BytesReceived);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception(String.Format("Can't open '{0}' log file", statsFile), ex);
 			}
@@ -115,3 +115,5 @@ namespace FuseCP.Providers.Utils.LogParser
 		}
 	}
 }
+
+

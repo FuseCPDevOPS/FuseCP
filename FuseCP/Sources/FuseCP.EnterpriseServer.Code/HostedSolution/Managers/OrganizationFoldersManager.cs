@@ -88,7 +88,7 @@ namespace FuseCP.EnterpriseServer
                     throw new Exception(string.Join(";",deletionResult.ErrorCodes));
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error deleting organization folder", exception);
@@ -119,7 +119,7 @@ namespace FuseCP.EnterpriseServer
                     DeleteFolders(itemId, storageSpaceFolderType.ToString());
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error deleting organization folders", exception);
@@ -152,7 +152,7 @@ namespace FuseCP.EnterpriseServer
                     DeleteFolder(itemId, folder.Id);
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error deleting organization folders", exception);
@@ -173,3 +173,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

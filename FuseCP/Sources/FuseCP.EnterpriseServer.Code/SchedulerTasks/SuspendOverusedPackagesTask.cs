@@ -154,7 +154,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         PackageController.ChangePackageStatus(null, package.PackageId, PackageStatus.Suspended, false);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError("Error while changing space status: " + ex);
                     }
@@ -198,3 +198,5 @@ namespace FuseCP.EnterpriseServer
 		}
     }
 }
+
+

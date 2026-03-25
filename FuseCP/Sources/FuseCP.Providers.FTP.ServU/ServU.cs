@@ -311,7 +311,7 @@ namespace FuseCP.Providers.FTP
 						account.Enabled = enabled;
 						UpdateAccount(account);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -330,7 +330,7 @@ namespace FuseCP.Providers.FTP
 						// delete FTP account
 						DeleteAccount(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -446,3 +446,5 @@ namespace FuseCP.Providers.FTP
         }
     }
 }
+
+

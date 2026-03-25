@@ -33,7 +33,7 @@ namespace FuseCP.Providers.Virtualization
 {
 	public class ApiClient: PveClient, IDisposable
 	{
-		private string baseUrl;
+		private readonly string baseUrl;
 		//private string node;
 		private ApiTicket apiTicket;
 		private Proxmoxvps Provider { get; set; }
@@ -57,8 +57,8 @@ namespace FuseCP.Providers.Virtualization
 				(sender, certificate, chain, sslPolicyErrors) =>
 					true
 			};
-			if (timeout <= 0) options.Timeout = null;
-			else options.Timeout = TimeSpan.FromMilliseconds(timeout);
+			options.Timeout = timeout <= 0 ? null : TimeSpan.FromMilliseconds(timeout);
+
 			return new RestClient(options);
 		}
 		public Result Login(User user)
@@ -465,7 +465,7 @@ namespace FuseCP.Providers.Virtualization
 						return apivm;
 					}
 				}
-				catch (Exception)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					apivm.Node = vmId.Split(':')[0];
 				}
@@ -477,3 +477,5 @@ namespace FuseCP.Providers.Virtualization
 		}
     }
 }
+
+

@@ -155,7 +155,7 @@ namespace FuseCP.EnterpriseServer
 
                 TaskManager.ItemId = itemId;
             }
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				TaskManager.WriteError(ex);
 				if (ex.InnerException != null &&
@@ -240,7 +240,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 if (ex.Message.Contains("Password doesn't meet complexity") || 
                     ex.Message.Contains("IceWarp password policy denies use of this account") ||
@@ -292,7 +292,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -462,7 +462,7 @@ namespace FuseCP.EnterpriseServer
 
 				return itemId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -510,7 +510,7 @@ namespace FuseCP.EnterpriseServer
 				mail.UpdateMailAlias(alias);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -547,7 +547,7 @@ namespace FuseCP.EnterpriseServer
 				PackageController.DeletePackageItem(origItem.Id);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -661,7 +661,7 @@ namespace FuseCP.EnterpriseServer
 
 				return itemId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -710,7 +710,7 @@ namespace FuseCP.EnterpriseServer
 				mail.UpdateGroup(item);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -747,7 +747,7 @@ namespace FuseCP.EnterpriseServer
 				PackageController.DeletePackageItem(origItem.Id);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -911,7 +911,7 @@ namespace FuseCP.EnterpriseServer
 
 				return itemId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -967,7 +967,7 @@ namespace FuseCP.EnterpriseServer
 				PackageController.UpdatePackageItem(item);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1004,7 +1004,7 @@ namespace FuseCP.EnterpriseServer
 				PackageController.DeletePackageItem(origItem.Id);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1161,7 +1161,7 @@ namespace FuseCP.EnterpriseServer
 
                 return itemId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1204,7 +1204,7 @@ namespace FuseCP.EnterpriseServer
 				PackageController.UpdatePackageItem(item);
 				return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1267,7 +1267,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1351,7 +1351,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1405,7 +1405,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1508,7 +1508,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					domains.AddRange(mail.GetDomainAliases(itemName));
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Error importing mail domain - skipped");
 					return;
@@ -1537,7 +1537,7 @@ namespace FuseCP.EnterpriseServer
 						PackageController.AddPackageItem(account);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Error importing mail account");
 				}
@@ -1553,7 +1553,7 @@ namespace FuseCP.EnterpriseServer
 						PackageController.AddPackageItem(alias);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Error importing mail aliases");
 				}
@@ -1569,7 +1569,7 @@ namespace FuseCP.EnterpriseServer
 						PackageController.AddPackageItem(mailGroup);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Error importing mail group");
 				}
@@ -1585,7 +1585,7 @@ namespace FuseCP.EnterpriseServer
 						PackageController.AddPackageItem(list);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					TaskManager.WriteError(ex, "Error importing mail list");
 				}
@@ -1895,3 +1895,5 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 	}
 }
+
+

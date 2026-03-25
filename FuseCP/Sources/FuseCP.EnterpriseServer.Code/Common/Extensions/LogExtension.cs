@@ -96,7 +96,7 @@ namespace FuseCP.EnterpriseServer.Extensions
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -130,7 +130,7 @@ namespace FuseCP.EnterpriseServer.Extensions
 
                 TaskManager.Write(LogExtensionHelper.CombineString(propertyName, propertyValue));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -151,7 +151,7 @@ namespace FuseCP.EnterpriseServer.Extensions
                     LogProperty(obj, expression);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -182,7 +182,7 @@ namespace FuseCP.EnterpriseServer.Extensions
                     LogPropertyIfChanged(oldObj, property, newValue, withOld);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -203,7 +203,7 @@ namespace FuseCP.EnterpriseServer.Extensions
 
                 return LogPropertyIfChanged(obj, property, newValue, withOld);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -231,7 +231,7 @@ namespace FuseCP.EnterpriseServer.Extensions
                     TaskManager.Write(prefix + LogExtensionHelper.CombineString(parameterName, parameterValue));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -246,7 +246,7 @@ namespace FuseCP.EnterpriseServer.Extensions
             {
                 TaskManager.Write(LogExtensionHelper.CombineString(name, value));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -262,7 +262,7 @@ namespace FuseCP.EnterpriseServer.Extensions
             {
                 TaskManager.ItemName = itemName;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 WriteException(ex);
             }
@@ -293,7 +293,7 @@ namespace FuseCP.EnterpriseServer.Extensions
             {
                 oldValue = property.GetValue(obj, null);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.Write("Cant get {0} property", property.Name);
                 return obj;
@@ -356,3 +356,5 @@ namespace FuseCP.EnterpriseServer.Extensions
 
     }
 }
+
+

@@ -54,7 +54,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     runspace.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }
@@ -325,3 +325,5 @@ namespace FuseCP.Providers.RemoteDesktopServices
         }
     }
 }
+
+

@@ -86,7 +86,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         ServiceProviderProxy.Init(ocs, serviceId);
                         list.Add(ocs);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError(ex);
                     }
@@ -117,7 +117,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     currentEdgeServer.DeleteDomain(domainName);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -132,7 +132,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     currentEdgeServer.AddDomain(domainName);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -185,7 +185,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 isOCSUser = Database.CheckOCSUserExists(accountId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_CHECK_IF_OCS_USER_EXISTS, ex);
                 return res;
@@ -208,7 +208,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                                       accountId));
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_GET_ACCOUNT, ex);
                 return res;
@@ -230,7 +230,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_GET_USER_GENERAL_SETTINGS, ex);
                 return res;
@@ -246,7 +246,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_CHECK_QUOTA, ex);
                 return res;
@@ -259,7 +259,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 ocs = GetOCSProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_GET_OCS_PROXY, ex);
                 return res;
@@ -273,7 +273,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 instanceId = ocs.CreateUser(user.PrimaryEmailAddress, user.DistinguishedName);
                 retOCSUser.InstanceId = instanceId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_ADD_OCS_USER, ex);
                 return res;
@@ -284,7 +284,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 SetUserGeneralSettingsByDefault(itemId, instanceId, ocs);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_SET_DEFAULT_SETTINGS, ex);
                 return res;
@@ -295,7 +295,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.AddOCSUser(accountId, instanceId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_ADD_OCS_USER_TO_DATABASE, ex);
                 return res;
@@ -320,7 +320,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 ObjectUtils.FillCollectionFromDataReader(accounts, reader);
                 res.Value = new OCSUsersPaged { PageUsers = accounts.ToArray() };
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.GET_OCS_USERS, ex);
                 return res;
@@ -346,7 +346,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 res.Value = Database.GetOCSUsersCount(itemId, name, email);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.GET_OCS_USER_COUNT, ex);
                 return res;
@@ -366,7 +366,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 ocsServer = GetOCSProxy(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_GET_OCS_PROXY, ex);
                 return res;
@@ -377,7 +377,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 ocsServer.DeleteUser(instanceId);                                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_DELETE_OCS_USER, ex);
                 return res;
@@ -387,7 +387,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.DeleteOCSUser(instanceId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, OCSErrorCodes.CANNOT_DELETE_OCS_USER_FROM_METADATA, ex);
                 return res;
@@ -408,7 +408,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 OCSServer ocs = GetOCSProxy(itemId);
                 user = ocs.GetUserGeneralSettings(instanceId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
                 
@@ -428,7 +428,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                                            archiveInternalCommunications, archiveFederatedCommunications,
                                            enabledForEnhancedPresence);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -437,3 +437,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         }
     }
 }
+
+

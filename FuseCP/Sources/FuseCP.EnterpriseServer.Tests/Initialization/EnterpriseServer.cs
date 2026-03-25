@@ -170,7 +170,7 @@ public class EnterpriseServer : IDisposable
 				localDbAvailable = 1;
 				localDbUnavailableReason = null;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				localDbAvailable = 0;
 				localDbUnavailableReason = ex.Message;
@@ -209,7 +209,7 @@ public class EnterpriseServer : IDisposable
 			localDbUnavailableReason = null;
 			return true;
 		}
-		catch (Exception ex)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			localDbAvailable = 0;
 			localDbUnavailableReason = ex.Message;
@@ -326,3 +326,5 @@ public class EnterpriseServer : IDisposable
 		FuseCP.Web.Clients.AssemblyLoader.ProbingPaths = @"..\FuseCP.EnterpriseServer\bin;..\FuseCP.EnterpriseServer\bin\Code;..\FuseCP.EnterpriseServer\bin\netstandard";
 	}
 }
+
+

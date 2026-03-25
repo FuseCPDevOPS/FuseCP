@@ -165,7 +165,7 @@ namespace FuseCP.Web.Clients
                         {
                             Directory.Delete(dir);
                         }
-                        catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                        catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace FuseCP.Web.Clients
                         }
                     }
                 }
-                catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
                 try
                 {
@@ -220,7 +220,7 @@ namespace FuseCP.Web.Clients
                         init.Invoke(null, new object[0]);
                     }
                 }
-                catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
 #if NETFRAMEWORK
 				exposeWebServices = exposeWebServices ?? ConfigurationManager.AppSettings["ExposeWebServices"];
@@ -388,7 +388,7 @@ namespace FuseCP.Web.Clients
                             if (File.Exists(pdb)) File.Copy(pdb, Path.ChangeExtension(temp, $".pdb"), true);
                             file = temp;
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             throw new Exception($"Cannot load assembly {temp} because it's used by another process: {ex}");
                         }
@@ -416,3 +416,5 @@ namespace FuseCP.Web.Clients
         }
     }
 }
+
+

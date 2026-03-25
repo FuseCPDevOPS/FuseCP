@@ -133,7 +133,7 @@ namespace FuseCP.Providers.Utils.LogParser
                 }
                 //
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
             }
@@ -172,7 +172,7 @@ namespace FuseCP.Providers.Utils.LogParser
 						lastLineIndex = lineIndex;
 					}
 				}
-				catch(Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					// can't open log file
 					// skip it
@@ -352,3 +352,5 @@ namespace FuseCP.Providers.Utils.LogParser
 
 	}
 }
+
+

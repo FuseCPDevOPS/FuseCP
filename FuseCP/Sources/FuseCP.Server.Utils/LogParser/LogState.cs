@@ -54,7 +54,7 @@ namespace FuseCP.Providers.Utils.LogParser
 				reader.Close();
                 
 			}
-			catch(Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex);
 
@@ -99,3 +99,5 @@ namespace FuseCP.Providers.Utils.LogParser
 		}
 	}
 }
+
+

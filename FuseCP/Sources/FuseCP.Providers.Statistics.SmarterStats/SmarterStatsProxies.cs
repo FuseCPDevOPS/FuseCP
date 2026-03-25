@@ -811,7 +811,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetGlobalDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -849,7 +849,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetServersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -887,7 +887,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal PingServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -925,7 +925,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -963,7 +963,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -1001,7 +1001,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2398,7 +2398,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddSiteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2436,7 +2436,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddSiteWithFTPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2474,7 +2474,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateSiteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2512,7 +2512,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteSiteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2550,7 +2550,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteSiteByNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2588,7 +2588,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetAllSitesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2626,7 +2626,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetSitesForServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2664,7 +2664,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetSiteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2702,7 +2702,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetSiteStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -2740,7 +2740,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal MoveSiteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3529,7 +3529,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal AddUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3567,7 +3567,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3605,7 +3605,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal DeleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3643,7 +3643,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3681,7 +3681,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3719,7 +3719,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal SetSiteOwnerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
@@ -3757,7 +3757,7 @@ namespace FuseCP.Providers.Statistics
     {
 
         /// <summary>TODO</summary>
-        private object[] results;
+        private readonly object[] results;
 
         /// <summary>TODO</summary>
         internal ValidateLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)

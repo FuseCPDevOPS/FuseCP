@@ -76,10 +76,10 @@ namespace FuseCP.Providers.DNS
 
             PSObject res = ps.RunPipeline(cmd).FirstOrDefault();
             PSPropertyInfo p = res.Properties["Result"];
-            if (null == res || null == res.Properties)
-                return false;
-            else
-                return true;
+            return null == res || null == res.Properties ? false : true;
+
+
+
         }
 
         #region Zones

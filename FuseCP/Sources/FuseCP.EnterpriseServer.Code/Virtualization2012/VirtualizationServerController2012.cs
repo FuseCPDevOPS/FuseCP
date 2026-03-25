@@ -657,7 +657,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.INSERT_DVD_DISK_ERROR, ex);
                 return res;
@@ -706,7 +706,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.EJECT_DVD_DISK_ERROR, ex);
                 return res;
@@ -802,7 +802,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.TAKE_SNAPSHOT_ERROR, ex);
                 return res;
@@ -868,7 +868,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.APPLY_SNAPSHOT_ERROR, ex);
                 return res;
@@ -917,7 +917,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.RENAME_SNAPSHOT_ERROR, ex);
                 return res;
@@ -973,7 +973,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_SNAPSHOT_ERROR, ex);
                 return res;
@@ -1029,7 +1029,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_SNAPSHOT_SUBTREE_ERROR, ex);
                 return res;
@@ -1421,7 +1421,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SEND_SUMMARY_LETTER, ex);
                 TaskManager.WriteWarning("VPS_SEND_SUMMARY_LETTER_ERROR", ex.Message);
@@ -1472,7 +1472,7 @@ namespace FuseCP.EnterpriseServer
                 vs.SetReplicaServer(remoteServer, thumbprint, storagePath);
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError(VirtualizationErrorCodes.SET_REPLICA_SERVER_ERROR, ex);
             }
@@ -1488,7 +1488,7 @@ namespace FuseCP.EnterpriseServer
                 vs.UnsetReplicaServer(remoteServer);
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError(VirtualizationErrorCodes.UNSET_REPLICA_SERVER_ERROR, ex);
             }
@@ -1552,7 +1552,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1582,7 +1582,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError(VirtualizationErrorCodes.DISABLE_REPLICATION_ERROR, ex);
             }
@@ -1605,7 +1605,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError(VirtualizationErrorCodes.PAUSE_REPLICATION_ERROR, ex);
             }
@@ -1628,7 +1628,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.IsSuccess = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError(VirtualizationErrorCodes.RESUME_REPLICATION_ERROR, ex);
             }
@@ -1658,3 +1658,5 @@ namespace FuseCP.EnterpriseServer
 
     }
 }
+
+

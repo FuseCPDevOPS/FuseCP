@@ -40,7 +40,7 @@ namespace FuseCP.Providers
                         ((HostingServiceProviderBase)provider).ServerSettings = ServerSettings;
                         ((HostingServiceProviderBase)provider).ProviderSettings = ProviderSettings;
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         throw new Exception(String.Format("Can not create '{0}' provider instance with '{1}' type",
                             ProviderSettings.ProviderName, ProviderSettings.ProviderType), ex);
@@ -84,3 +84,5 @@ namespace FuseCP.Providers
         }
     }
 }
+
+

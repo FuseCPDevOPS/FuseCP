@@ -21,7 +21,7 @@ namespace FuseCP.Providers.Mail
 {
 	public class Tree
 	{
-		private TreeNodeCollection childNodes;
+		private readonly TreeNodeCollection childNodes;
 
 		public TreeNodeCollection ChildNodes
 		{
@@ -42,8 +42,8 @@ namespace FuseCP.Providers.Mail
 
 	public class TreeNodeCollection : ICollection<TreeNode>
 	{
-		private List<TreeNode> _collection;
-		private Dictionary<string, TreeNode> _searchIndex;
+		private readonly List<TreeNode> _collection;
+		private readonly Dictionary<string, TreeNode> _searchIndex;
 
 		public TreeNode this[string keyName]
 		{

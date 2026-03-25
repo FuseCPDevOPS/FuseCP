@@ -26,7 +26,7 @@ namespace FuseCP.Providers.DNS
 	/// <remarks>It's probably a good idea to move to some utility module.</remarks>
 	public class PowerShellHelper: IDisposable
 	{
-		private static InitialSessionState s_session = null;
+		private static readonly InitialSessionState s_session = null;
 
 		static PowerShellHelper()
 		{

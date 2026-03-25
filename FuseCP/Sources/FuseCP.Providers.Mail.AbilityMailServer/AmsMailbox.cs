@@ -25,7 +25,7 @@ namespace FuseCP.Providers.Mail
 		private TreeNode userConfig;
 		private Tree accountConfig;
 		private Tree deliveryConfig;
-		private string mailboxName;
+		private readonly string mailboxName;
 
 		public TreeNode UserConfig
 		{

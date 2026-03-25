@@ -30,8 +30,8 @@ namespace FuseCP.Providers.Virtualization
     public class VmConfigurationVersionHelper
     {
         const int WINDOWS_2012R2_BUILD = 9600;
-        private int _build = 0;
-        private PowerShellManager _powerShell;
+        private readonly int _build = 0;
+        private readonly PowerShellManager _powerShell;
         public VmConfigurationVersionHelper(PowerShellManager powerShell)
         {
             _powerShell = powerShell;
@@ -39,7 +39,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 _build = ConvertNullableToInt32(Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", ""));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 /* if error then Windows is too old, or MS made BC changes, or Adminstrator broke Windows Registry*/
                 HostedSolutionLog.LogWarning("VmConfigurationVersionHelper", ex); //log error, but continue, cause it's not critical
@@ -60,7 +60,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 result = _powerShell.Execute(cmd, true, true);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogWarning("VmConfigurationVersionHelper.GetSupportedVerions", ex); //log error, but continue, because it's not critical and we return 0 collection
             }
@@ -104,3 +104,5 @@ namespace FuseCP.Providers.Virtualization
         }
     }
 }
+
+

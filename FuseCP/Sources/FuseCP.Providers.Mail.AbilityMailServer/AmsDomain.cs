@@ -22,7 +22,7 @@ namespace FuseCP.Providers.Mail
 {
 	public class AmsDomain
 	{
-		private string domainName;
+		private readonly string domainName;
 		private TreeNode domainConfig;
 
 		public FuseCP.Providers.Mail.TreeNode DomainConfig

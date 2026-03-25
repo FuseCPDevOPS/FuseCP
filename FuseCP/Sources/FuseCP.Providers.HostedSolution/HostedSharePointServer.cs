@@ -217,7 +217,7 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						DeleteSiteCollection((SharePointSiteCollection)item);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -251,7 +251,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						Log.WriteEnd(String.Format("Calculating '{0}' site logs size", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}
@@ -341,3 +341,5 @@ namespace FuseCP.Providers.HostedSolution
 
 	}
 }
+
+

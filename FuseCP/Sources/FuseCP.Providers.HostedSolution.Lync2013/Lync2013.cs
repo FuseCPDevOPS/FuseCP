@@ -158,7 +158,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     DeleteConferencingPolicy(runspace, organizationId);
                 }
-                catch (Exception swallowedEx)
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
                 }
@@ -167,7 +167,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     DeleteExternalAccessPolicy(runspace, organizationId);
                 }
-                catch (Exception swallowedEx)
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -176,7 +176,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     DeleteMobilityPolicy(runspace, organizationId + " EnableOutSideVoice");
                 }
-                catch (Exception swallowedEx)
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -185,7 +185,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     DeleteMobilityPolicy(runspace, organizationId + " DisableOutSideVoice");
                 }
-                catch (Exception swallowedEx)
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -281,7 +281,7 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         PlanSet = SetLyncUserPlanInternal(organizationId, userUpn, plan, runspace);
                     }
-                    catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                     if (!PlanSet) System.Threading.Thread.Sleep(trySleep);
                 }
 
@@ -442,7 +442,7 @@ namespace FuseCP.Providers.HostedSolution
                 command = new Command("Update-CsUserDatabase");
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret = false;
                 HostedSolutionLog.LogError("SetLyncUserGeneralSettingsInternal", ex);
@@ -905,3 +905,5 @@ namespace FuseCP.Providers.HostedSolution
         #endregion
     }
 }
+
+

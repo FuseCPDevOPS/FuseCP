@@ -70,7 +70,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         sfb.ReloadConfiguration();
                     }
                 }
-                catch (Exception exe)
+                catch (Exception exe) when (!(exe is OutOfMemoryException) && !(exe is StackOverflowException) && !(exe is AccessViolationException))
                 {
                     TaskManager.WriteError(exe);
                     continue;
@@ -79,3 +79,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         }
     }
 }
+
+

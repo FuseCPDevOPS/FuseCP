@@ -627,8 +627,8 @@ namespace FuseCP.EnterpriseServer.Data
 		public static object CreateObjectFromDataTable(Type type, DataTable table,
 			string nameColumn, string valueColumn, bool persistentOnly)
 		{
-			if (table is Data.IEntityDataSet entitySet) return CreateObjectFromEntitySet(type, entitySet, nameColumn, valueColumn, persistentOnly);
-			else return CreateObjectFromDataView(type, table.DefaultView, nameColumn, valueColumn, persistentOnly);
+			return table is Data.IEntityDataSet entitySet ? CreateObjectFromEntitySet(type, entitySet, nameColumn, valueColumn, persistentOnly) : CreateObjectFromDataView(type, table.DefaultView, nameColumn, valueColumn, persistentOnly);
+
 		}
 
 		public static object CreateObjectFromDataView(Type type, DataView dv,
@@ -923,10 +923,10 @@ namespace FuseCP.EnterpriseServer.Data
 				return 0M;
 			if (type == typeof(DateTime))
 				return default(DateTime);
-			if (type == typeof(TimeSpan))
-				return TimeSpan.Zero;
-			else
-				return null;
+			return type == typeof(TimeSpan) ? TimeSpan.Zero : null;
+
+
+
 		}
 
 		public static object Cast(string val, Type type)

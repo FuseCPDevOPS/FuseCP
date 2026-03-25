@@ -28,7 +28,7 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class MemoryHelper
     {
-        private PowerShellManager _powerShell;
+        private readonly PowerShellManager _powerShell;
 
         public MemoryHelper(PowerShellManager powerShellManager)
         {

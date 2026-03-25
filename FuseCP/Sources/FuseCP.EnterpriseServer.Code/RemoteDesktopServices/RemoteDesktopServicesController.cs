@@ -356,7 +356,7 @@ namespace FuseCP.EnterpriseServer
                 rds.SendMessage(recipients, text);
                 Database.AddRDSMessage(rdsCollectionId, text, userName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SHADOW_RDS_SESSION", ex);
             }
@@ -430,7 +430,7 @@ namespace FuseCP.EnterpriseServer
                 string xml = RemoteDesktopServicesHelpers.GetSettingsXml(emptySettings);
                 Database.UpdateRdsServerSettings(newCollection.Id, string.Format("Collection-{0}-Settings", newCollection.Id), xml);
             }            
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -468,7 +468,7 @@ namespace FuseCP.EnterpriseServer
                 var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
                 rds.ShadowSession(sessionId, fqdName, control);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SHADOW_RDS_SESSION", ex);
             }
@@ -527,7 +527,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -630,7 +630,7 @@ namespace FuseCP.EnterpriseServer
 
                 rds.InstallCertificate(content, password, new string[] {rdsServer.FqdName});
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -674,7 +674,7 @@ namespace FuseCP.EnterpriseServer
                 System.Buffer.BlockCopy(certificate.Hash.ToCharArray(), 0, hash, 0, hash.Length);
                 certificate.Id = Database.AddRdsCertificate(certificate.ServiceId, certificate.Content, hash, certificate.FileName, certificate.ValidFrom, certificate.ExpiryDate);                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (ex.InnerException != null)
                 {
@@ -726,7 +726,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 FillRdsCollection(collection);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_RDS_COLLECTION", ex);
             }
@@ -786,7 +786,7 @@ namespace FuseCP.EnterpriseServer
 
                 rds.SaveRdsCollectionLocalAdmins(users.Select(u => u.AccountName).ToArray(), servers.Select(s => s.FqdName).ToArray(), org.OrganizationId, collection.Name);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -890,7 +890,7 @@ namespace FuseCP.EnterpriseServer
                     Database.AddRDSServerToCollection(server.Id, collection.Id);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {                
                 throw TaskManager.WriteError(ex);
             }
@@ -944,7 +944,7 @@ namespace FuseCP.EnterpriseServer
                     Database.AddRDSServerToCollection(server.Id, collection.Id);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_RDS_COLLECTION", ex);
             }
@@ -991,7 +991,7 @@ namespace FuseCP.EnterpriseServer
                     Database.UpdateRDSCollectionSettings(collection.Settings);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_RDS_COLLECTION", ex);
                 throw TaskManager.WriteError(ex);
@@ -1056,7 +1056,7 @@ namespace FuseCP.EnterpriseServer
                 Database.DeleteRDSServerSettings(collection.Id);
                 Database.DeleteRDSCollection(collection.Id);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_REMOVE_RDS_COLLECTION", ex);
             }
@@ -1096,7 +1096,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.AddRange(rds.GetAvailableRemoteApplications(collectionName));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 taskResult.AddError("REMOTE_DESKTOP_SERVICES_ADD_RDS_COLLECTION", ex);
             }
@@ -1276,7 +1276,7 @@ namespace FuseCP.EnterpriseServer
                 rdsServer.ConnectionEnabled = newConnectionAllowed;
                 Database.UpdateRDSServer(rdsServer);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SET_RDS_SERVER_NEW_CONNECTIONS_ALLOWED", ex);
             }
@@ -1367,7 +1367,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.AddRDSServerToCollection(rdsServer.Id, rdsCollection.Id);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_RDS_SERVER_TO_COLLECTION", ex);
             }
@@ -1407,7 +1407,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.RemoveRDSServerFromCollection(rdsServer.Id);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_REMOVE_RDS_SERVER_FROM_COLLECTION", ex);
             }
@@ -1434,7 +1434,7 @@ namespace FuseCP.EnterpriseServer
             {
                 Database.UpdateRDSServer(rdsServer);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_UPDATE_RDS_SERVER", ex);
             }
@@ -1474,7 +1474,7 @@ namespace FuseCP.EnterpriseServer
                 rds.MoveRdsServerToTenantOU(rdsServer.FqdName, org.OrganizationId);
                 Database.AddRDSServerToOrganization(itemId, serverId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1513,7 +1513,7 @@ namespace FuseCP.EnterpriseServer
                 rds.RemoveRdsServerFromTenantOU(rdsServer.FqdName, org.OrganizationId);
                 Database.RemoveRDSServerFromOrganization(rdsServerId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1540,7 +1540,7 @@ namespace FuseCP.EnterpriseServer
             {
                 Database.DeleteRDSServer(rdsServerId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_REMOVE_RDS_SERVER", ex);
             }
@@ -1623,7 +1623,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_USER_TO_RDS_COLLECTION", ex);
             }
@@ -1685,7 +1685,7 @@ namespace FuseCP.EnterpriseServer
                 var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
                 rds.SetApplicationUsers(collection.Name, remoteApp, users.ToArray());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SET_REMOTE_APP_USERS", ex);
             }
@@ -1723,7 +1723,7 @@ namespace FuseCP.EnterpriseServer
                 var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
                 rds.LogOffRdsUser(unifiedSessionId, hostServer);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_LOG_OFF_RDS_USER", ex);
             }
@@ -1767,7 +1767,7 @@ namespace FuseCP.EnterpriseServer
                 remoteApp.ShowInWebAccess = true;
                 rds.AddRemoteApplication(collection.Name, remoteApp);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_ADD_REMOTE_APP_TO_COLLECTION", ex);
             }
@@ -1800,7 +1800,7 @@ namespace FuseCP.EnterpriseServer
                     rds.ShutDownRdsServer(fqdnName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SHUTDOWN_RDS_SERVER", ex);
             }
@@ -1833,7 +1833,7 @@ namespace FuseCP.EnterpriseServer
                     rds.RestartRdsServer(fqdnName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_RESTART_RDS_SERVER", ex);
             }
@@ -1890,7 +1890,7 @@ namespace FuseCP.EnterpriseServer
 
                 rds.RemoveRemoteApplication(collection.Name, application);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_REMOVE_REMOTE_APP_FROM_COLLECTION", ex);
             }
@@ -1948,7 +1948,7 @@ namespace FuseCP.EnterpriseServer
                     RemoveRemoteApplicationFromCollection(itemId, collection, app);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_SET_APPS_TO_RDS_COLLECTION", ex);
             }
@@ -1987,7 +1987,7 @@ namespace FuseCP.EnterpriseServer
                     RemoveRdsServerFromOrganization(itemId, server.Id);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 result.AddError("REMOTE_DESKTOP_SERVICES_CLEANUP", ex);
             }
@@ -2112,7 +2112,7 @@ namespace FuseCP.EnterpriseServer
                     result = rds.GetRdsServerStatus(fqdnName);
                 }
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
             }
@@ -2121,3 +2121,5 @@ namespace FuseCP.EnterpriseServer
         } 
     }
 }
+
+

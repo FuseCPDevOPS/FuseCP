@@ -66,7 +66,7 @@ namespace FuseCP.Providers.Web
                     runspace.Close();
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 Log.WriteError("Runspace error", exception);
             }
@@ -203,7 +203,7 @@ namespace FuseCP.Providers.Web
                     this.ExecuteShellCommand(runspace, command, false);
                     return true;
                 }
-                catch (Exception exception)
+                catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
                 {
                     Log.WriteError(string.Format("InstallWindowsFeature  {0}", featureName), exception);
                     flag = false;
@@ -233,3 +233,5 @@ namespace FuseCP.Providers.Web
         }
     }
 }
+
+

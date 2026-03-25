@@ -620,7 +620,7 @@ namespace FuseCP.EnterpriseServer
                         scheduledTasks.Add(task.ScheduleId, task);
                 }
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
             return scheduledTasks;
         }
@@ -683,7 +683,6 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
 #else
                                 _ckv.Interrupt();
 #endif
-                            _ckv = null;
                         }
                     Thread deleted;
                     _taskThreadsDictionary.TryRemove(task.Id, out deleted);
@@ -951,4 +950,6 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
 
     }
 }
+
+
 

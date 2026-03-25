@@ -29,9 +29,9 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class BiosHelper
     {
-        private PowerShellManager _powerShell;
-        private DvdDriveHelper _dvdDriveHelper;
-        private HardDriveHelper _hardDriveHelper;
+        private readonly PowerShellManager _powerShell;
+        private readonly DvdDriveHelper _dvdDriveHelper;
+        private readonly HardDriveHelper _hardDriveHelper;
 
         public BiosHelper(PowerShellManager powerShellManager, DvdDriveHelper dvdDriveHelper, HardDriveHelper hardDriveHelper)
         {
@@ -79,7 +79,7 @@ namespace FuseCP.Providers.Virtualization
                     {
                         info.SecureBootTemplate = result[0].GetString("SecureBootTemplate");
                     }
-                    catch (Exception)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         info.SecureBootTemplate = "";//catch error on Hyper-V 2012 R2 (No Secure Boot Templates)
                     }
@@ -153,3 +153,5 @@ namespace FuseCP.Providers.Virtualization
         }
     }
 }
+
+

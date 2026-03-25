@@ -317,7 +317,7 @@ namespace FuseCP.EnterpriseServer
                     server.Address = "";
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 server.Address = "RDSGW Unavailable";
                 return server;
@@ -399,7 +399,7 @@ namespace FuseCP.EnterpriseServer
                 var address = Dns.GetHostAddresses(hostname);
                 return address;
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
             }
@@ -408,3 +408,5 @@ namespace FuseCP.EnterpriseServer
         }               
     }
 }
+
+

@@ -263,7 +263,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     userWorker.Enable_CsComputerAsync();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_ADD_SFB_USER, ex);
                 return res;
@@ -273,7 +273,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.AddSfBUser(accountId, sfbUserPlanId, user.UserPrincipalName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_ADD_SFB_USER_TO_DATABASE, ex);
                 return res;
@@ -352,7 +352,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
 
@@ -427,7 +427,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     sfb.SetSfBUserGeneralSettings(org.OrganizationId, usr.UserPrincipalName, user);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.FAILED_SET_SETTINGS, ex);
                 return res;
@@ -463,7 +463,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return successful ? 0 : BusinessErrorCodes.ERROR_SFB_DELETE_SOME_PROBLEMS;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -512,7 +512,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     Database.SetSfBUserSfBUserPlan(accountId, sfbUserPlanId);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_ADD_SFB_USER_TO_DATABASE, ex);
                     return res;
@@ -522,7 +522,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 TaskManager.CompleteResultTask();
                 return res;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_UPDATE_SFB_USER, ex);
                 return res;
@@ -547,7 +547,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 ObjectUtils.FillCollectionFromDataReader(accounts, reader);
                 res.Value = new SfBUsersPaged { PageUsers = accounts.ToArray() };
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.GET_SFB_USERS, ex);
                 return res;
@@ -578,7 +578,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 res.Value = Database.GetSfBUsersCount(itemId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.GET_SFB_USER_COUNT, ex);
                 return res;
@@ -619,7 +619,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 if (user != null)
                     sfb.DeleteUser(user.UserPrincipalName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_DELETE_SFB_USER, ex);
                 return res;
@@ -629,7 +629,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 Database.DeleteSfBUser(accountId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_DELETE_SFB_USER_FROM_METADATA, ex);
                 return res;
@@ -677,7 +677,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return plans;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -739,7 +739,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 return ObjectUtils.FillObjectFromDataReader<SfBUserPlan>(
                     Database.GetSfBUserPlan(sfbUserPlanId));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -774,7 +774,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return Database.AddSfBUserPlan(itemID, sfbUserPlan);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -814,7 +814,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 Database.UpdateSfBUserPlan(itemID, sfbUserPlan);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -841,7 +841,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -864,7 +864,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 Database.SetOrganizationDefaultSfBUserPlan(itemId, sfbUserPlanId);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -896,7 +896,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 sfbFederationDomains = sfb.GetFederationDomains(org.OrganizationId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -976,7 +976,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 if (!bDomainExists)
                     sfb.AddFederationDomain(org.OrganizationId, domainName.ToLower(), proxyFqdn);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_ADD_SFB_FEDERATIONDOMAIN, ex);
                 return res;
@@ -1018,7 +1018,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 sfb.RemoveFederationDomain(org.OrganizationId, domainName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, SfBErrorCodes.CANNOT_REMOVE_SFB_FEDERATIONDOMAIN, ex);
                 return res;
@@ -1067,7 +1067,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     ret = sfb.GetPolicyList(type, name);
                 }
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
             }
@@ -1096,3 +1096,5 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
     }
 }
+
+

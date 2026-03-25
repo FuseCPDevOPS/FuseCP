@@ -92,7 +92,7 @@ namespace FuseCP.EnterpriseServer
                         PackageController.ChangePackageStatus(null, packageId, PackageStatus.Suspended, false);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // load package details
                 PackageInfo package = PackageController.GetPackage(packageId);
@@ -132,7 +132,7 @@ namespace FuseCP.EnterpriseServer
                     ServiceProviderProxy.Init(prov, serviceId);
                     return prov.GetServiceItemsBandwidth(objItems.ToArray(), since);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError("Error in Service ID: {1}  Error: {0}", ex.ToString(), serviceId.ToString());
                 }
@@ -175,3 +175,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

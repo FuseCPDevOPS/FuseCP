@@ -67,7 +67,7 @@ namespace FuseCP.Providers.DNS
 
         #endregion
 
-        private PowerShellHelper ps = null;
+        private readonly PowerShellHelper ps = null;
 		private bool bulkRecords;
 
 		public MsDNS2012()

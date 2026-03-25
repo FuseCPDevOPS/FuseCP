@@ -130,7 +130,7 @@ namespace FuseCP.EnterpriseServer
                     throw new Exception("Error saving resource groups");
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error saving Storage Space Level", exception);
@@ -170,7 +170,7 @@ namespace FuseCP.EnterpriseServer
                 Database.RemoveStorageSpaceLevel(id);
 
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error removing Storage Space Level", exception);
@@ -228,7 +228,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error saving Storage Space Level Resource Groups", exception);
@@ -383,7 +383,7 @@ namespace FuseCP.EnterpriseServer
 
                 ss.UpdateStorageSettings(space.Path, space.FsrmQuotaSizeBytes, space.FsrmQuotaType);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error saving Storage Space", exception);
@@ -429,7 +429,7 @@ namespace FuseCP.EnterpriseServer
                 Database.RemoveStorageSpace(id);
 
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error removing Storage Space", exception);
@@ -464,7 +464,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.Value = bestStorage.Id;
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error finding best Storage Space", exception);
@@ -520,7 +520,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.Value = Database.CreateStorageSpaceFolder(folderName, storageSpace.Id, fullPath, share.UncPath, true, quotaType, quotaInBytes);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error creating Storage Space folder", exception);
@@ -580,7 +580,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.UpdateStorageSpaceFolder(storageSpaceFolderId, folderName, storageSpace.Id, fullPath, uncPath, false, quotaType, quotaInBytes);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error removing Storage Space", exception);
@@ -629,7 +629,7 @@ namespace FuseCP.EnterpriseServer
 
                 return share;
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 result.AddError("Error sharing Storage Space folder", exception);
 
@@ -698,7 +698,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.RemoveStorageSpaceFolder(storageSpaceFolderId);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error removing Storage Space folder", exception);
@@ -757,7 +757,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.UpdateStorageSpaceFolder(storageSpaceFolderId, storageFolder.Name, storageSpaceId, storageFolder.Path, storageFolder.UncPath, storageFolder.IsShared, quotaType, quotaInBytes);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error removing Storage Space folder", exception);
@@ -822,7 +822,7 @@ namespace FuseCP.EnterpriseServer
 
                 ss.SetFolderNtfsPermissions(fullPath, permissions, isProtected, preserveInheritance);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error setting NTFS permissions on Storage Space folder", exception);
@@ -874,7 +874,7 @@ namespace FuseCP.EnterpriseServer
 
                 result.Value = ss.FileOrDirectoryExist(fullPath);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error during folder exist check", exception);
@@ -935,7 +935,7 @@ namespace FuseCP.EnterpriseServer
                 StorageSpacesController.UpdateStorageSpaceFolder(storageSpaceId, folderId, organizationId, group, newName, share.UncPath, folder.FsrmQuotaSizeBytes, folder.FsrmQuotaType);
 
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
                 result.AddError("Error during folder rename", exception);
@@ -1083,7 +1083,7 @@ namespace FuseCP.EnterpriseServer
 
                 ss.ShareSetAbeState(folder.Path, enabled);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 TaskManager.WriteError(exception);
             }
@@ -1121,7 +1121,7 @@ namespace FuseCP.EnterpriseServer
 
                 return ss.ShareGetAbeState(folder.Path);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 throw TaskManager.WriteError(exception);
             }
@@ -1156,7 +1156,7 @@ namespace FuseCP.EnterpriseServer
 
                 ss.ShareSetEncyptDataAccess(folder.Path, enabled);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 throw TaskManager.WriteError(exception);
             }
@@ -1193,7 +1193,7 @@ namespace FuseCP.EnterpriseServer
 
                 return ss.ShareGetEncyptDataAccessStatus(folder.Path);
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!(exception is OutOfMemoryException) && !(exception is StackOverflowException) && !(exception is AccessViolationException))
             {
                 throw TaskManager.WriteError(exception);
             }
@@ -1291,3 +1291,5 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
+

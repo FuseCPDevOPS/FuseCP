@@ -298,7 +298,7 @@ namespace FuseCP.Providers.FTP
 					{
 						DeleteAccount(item.Name);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError($"Error deleting '{item.Name}' vsftpd user", ex);
 					}
@@ -319,7 +319,7 @@ namespace FuseCP.Providers.FTP
 						account.Enabled = enabled;
 						UpdateAccount(account);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -351,7 +351,7 @@ namespace FuseCP.Providers.FTP
 								if (version.Major == 3) return true;
 							}
 						}
-						catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 					}
 				}
 			}
@@ -361,3 +361,5 @@ namespace FuseCP.Providers.FTP
 
 	}
 }
+
+

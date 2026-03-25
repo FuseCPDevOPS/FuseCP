@@ -66,7 +66,7 @@ namespace FuseCP.Providers.DNS
 
         #endregion
 
-		private WmiHelper wmi = null;
+		private readonly WmiHelper wmi = null;
 		private bool bulkRecords;
 
 		public MsDNS()
@@ -280,10 +280,10 @@ namespace FuseCP.Providers.DNS
 
 		private string CorrectHost(string zoneName, string host)
 		{
-			if (host.ToLower() == zoneName.ToLower())
-				return "";
-			else
-				return host.Substring(0, (host.Length - zoneName.Length - 1));
+			return host.ToLower() == zoneName.ToLower() ? "" : host.Substring(0, (host.Length - zoneName.Length - 1));
+
+
+
 		}
 
 		private ManagementObject GetZone(string zoneName)

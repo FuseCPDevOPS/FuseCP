@@ -32,8 +32,8 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class VirtualMachineHelper
     {
-        private PowerShellManager _powerShell;
-        private MiManager _mi;
+        private readonly PowerShellManager _powerShell;
+        private readonly MiManager _mi;
 
         public VirtualMachineHelper(PowerShellManager powerShellManager, MiManager mi)
         {
@@ -292,10 +292,10 @@ namespace FuseCP.Providers.Virtualization
                 vm.CpuUsage = Convert.ToInt32(objSummary["ProcessorLoad"].Value);
                 vm.Version = Convert.ToString(objSettings["Version"].Value);
 
-                if (Convert.ToDouble(vm.Version) > Convert.ToDouble(Constants.ConfigurationVersion))
-                    vm.RamUsage = Convert.ToInt32(Convert.ToUInt64(objSummary["MemoryUsage"].Value) / Constants.Size1M);
-                else
-                    vm.RamUsage = Convert.ToInt32(Convert.ToUInt64(objSummary["MemoryAvailable"].Value) / Constants.Size1M);
+                vm.RamUsage = Convert.ToDouble(vm.Version) > Convert.ToDouble(Constants.ConfigurationVersion) ? Convert.ToInt32(Convert.ToUInt64(objSummary["MemoryUsage"].Value) / Constants.Size1M) : Convert.ToInt32(Convert.ToUInt64(objSummary["MemoryAvailable"].Value) / Constants.Size1M);
+
+
+
 
                 CimInstance cimRamInfo = _mi.GetCimInstanceWithSelect(
                     "Msvm_MemorySettingData",

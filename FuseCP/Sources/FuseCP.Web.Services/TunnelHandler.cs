@@ -47,7 +47,7 @@ namespace FuseCP.Web.Services
                 await listener.ProvideUpgradeTunnelSocketAsync(destination);
                 await listener.Transmit(destination);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (listener.IsConnected) await listener.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
                 if (destination.IsConnected) await destination.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
@@ -106,7 +106,7 @@ namespace FuseCP.Web.Services
                                 await webSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Cannot get a tunnel", CancellationToken.None);
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         await webSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, $"{ex.Message}\n{ex.StackTrace}", CancellationToken.None);
                     }
@@ -120,3 +120,5 @@ namespace FuseCP.Web.Services
         }
     }
 }
+
+

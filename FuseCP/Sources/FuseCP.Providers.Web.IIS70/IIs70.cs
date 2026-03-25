@@ -340,20 +340,20 @@ namespace FuseCP.Providers.Web
 	[SupportedOSPlatform("windows")]
 	public class IIs70 : IIs60, IWebServer
 	{
-		private WebObjectsModuleService webObjectsSvc;
-		private DirectoryBrowseModuleService dirBrowseSvc;
-		private AnonymAuthModuleService anonymAuthSvc;
-		private WindowsAuthModuleService winAuthSvc;
-		private BasicAuthModuleService basicAuthSvc;
-		private CompressionModuleService comprSvc;
-		private DefaultDocsModuleService defaultDocSvc;
-		private CustomHttpErrorsModuleService customErrorsSvc;
-		private CustomHttpHeadersModuleService customHeadersSvc;
-		private ClassicAspModuleService classicAspSvc;
-		private MimeTypesModuleService mimeTypesSvc;
-		private ExtensionsModuleService extensionsSvc;
-		private HandlersModuleService handlersSvc;
-		private HttpRedirectModuleService httpRedirectSvc;
+		private readonly WebObjectsModuleService webObjectsSvc;
+		private readonly DirectoryBrowseModuleService dirBrowseSvc;
+		private readonly AnonymAuthModuleService anonymAuthSvc;
+		private readonly WindowsAuthModuleService winAuthSvc;
+		private readonly BasicAuthModuleService basicAuthSvc;
+		private readonly CompressionModuleService comprSvc;
+		private readonly DefaultDocsModuleService defaultDocSvc;
+		private readonly CustomHttpErrorsModuleService customErrorsSvc;
+		private readonly CustomHttpHeadersModuleService customHeadersSvc;
+		private readonly ClassicAspModuleService classicAspSvc;
+		private readonly MimeTypesModuleService mimeTypesSvc;
+		private readonly ExtensionsModuleService extensionsSvc;
+		private readonly HandlersModuleService handlersSvc;
+		private readonly HttpRedirectModuleService httpRedirectSvc;
 		//
 
 		#region Constants
@@ -396,10 +396,10 @@ namespace FuseCP.Providers.Web
 		{
 			get
 			{
-				if (Constants.X64Environment)
-					return FPSE2002_OWSADM_PATH_x64;
-				else
-					return FPSE2002_OWSADM_PATH_x86;
+				return Constants.X64Environment ? FPSE2002_OWSADM_PATH_x64 : FPSE2002_OWSADM_PATH_x86;
+
+
+
 			}
 		}
 
@@ -407,10 +407,10 @@ namespace FuseCP.Providers.Web
 		{
 			get
 			{
-				if (Constants.X64Environment)
-					return FRONTPAGE_2002_REGLOC_x64;
-				else
-					return FRONTPAGE_2002_REGLOC_x86;
+				return Constants.X64Environment ? FRONTPAGE_2002_REGLOC_x64 : FRONTPAGE_2002_REGLOC_x86;
+
+
+
 			}
 		}
 
@@ -418,10 +418,10 @@ namespace FuseCP.Providers.Web
 		{
 			get
 			{
-				if (Constants.X64Environment)
-					return FRONTPAGE_ALLPORTS_REGLOC_x64;
-				else
-					return FRONTPAGE_ALLPORTS_REGLOC_x86;
+				return Constants.X64Environment ? FRONTPAGE_ALLPORTS_REGLOC_x64 : FRONTPAGE_ALLPORTS_REGLOC_x86;
+
+
+
 			}
 		}
 
@@ -429,10 +429,10 @@ namespace FuseCP.Providers.Web
 		{
 			get
 			{
-				if (Constants.X64Environment)
-					return FRONTPAGE_PORT_REGLOC_x64;
-				else
-					return FRONTPAGE_PORT_REGLOC_x86;
+				return Constants.X64Environment ? FRONTPAGE_PORT_REGLOC_x64 : FRONTPAGE_PORT_REGLOC_x86;
+
+
+
 			}
 		}
 
@@ -1344,7 +1344,7 @@ namespace FuseCP.Providers.Web
 					{
 						accounts.Add((string)anonymAuthSvc.GetAuthenticationSettings(srvman, siteIds[i])[AuthenticationGlobals.AnonymousAuthenticationUserName]);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(String.Format("Web site {0} is either deleted or doesn't exist", siteIds[i]), ex);
 					}
@@ -1396,7 +1396,7 @@ namespace FuseCP.Providers.Web
 				// Set web site logging settings
 				webObjectsSvc.SetWebSiteLoggingSettings(site);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 			}
@@ -1423,7 +1423,7 @@ namespace FuseCP.Providers.Web
 			{
 				webObjectsSvc.ChangeSiteState(site.SiteId, ServerState.Started);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 			}
@@ -2416,7 +2416,7 @@ namespace FuseCP.Providers.Web
 			return result;
 		}
 
-		private static string HELICON_APE_NOT_REGISTERED = "Not registered";
+		private static readonly string HELICON_APE_NOT_REGISTERED = "Not registered";
 
 		private string GetHeliconApeVersion(string siteId, string installDir)
 		{
@@ -3404,7 +3404,7 @@ namespace FuseCP.Providers.Web
 				winAuthSvc.SetEnabled(siteId, true);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				// Signal to the client installation request has been failed.
@@ -3454,7 +3454,7 @@ namespace FuseCP.Providers.Web
 					// Disable Windows Authentication mode
 					winAuthSvc.SetEnabled(siteId, false);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(String.Format("FPSE2002 uninstall error. Web site: {0}.", siteId), ex);
 				}
@@ -3644,7 +3644,7 @@ namespace FuseCP.Providers.Web
 			{
 				SecurityUtils.EnsureOrganizationalUnitsExist(ServerSettings, UsersOU, GroupsOU);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				messages.Add(String.Format("Could not check/create Organizational Units: {0}", ex.Message));
@@ -3671,7 +3671,7 @@ namespace FuseCP.Providers.Web
 						SecurityUtils.CreateGroup(group, ServerSettings, UsersOU, GroupsOU);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError(ex);
 					messages.Add(String.Format("There was an error while adding '{0}' group: {1}",
@@ -3709,7 +3709,7 @@ namespace FuseCP.Providers.Web
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				//
@@ -3722,7 +3722,7 @@ namespace FuseCP.Providers.Web
 				webObjectsSvc.SetWebServerDefaultLoggingSettings(LogExtFileFlags.SiteName
 					| LogExtFileFlags.BytesRecv | LogExtFileFlags.BytesSent | LogExtFileFlags.Date);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				//
@@ -3736,7 +3736,7 @@ namespace FuseCP.Providers.Web
 				webObjectsSvc.SetWebServerDefaultLoggingSettings(LogExtFileFlags.SiteName
 					| LogExtFileFlags.BytesRecv | LogExtFileFlags.BytesSent | LogExtFileFlags.Date);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				//
@@ -3820,7 +3820,7 @@ namespace FuseCP.Providers.Web
 						// Grant appropriate NTFS permissions
 						SecurityUtils.GrantNtfsPermissions(appHostConfigFilePath, appHostConfigWriter, NTFSPermission.Modify, true, true, ServerSettings, UsersOU, GroupsOU);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						var errorMessage = "Could not create applicationHost.config writer account";
 						//
@@ -3842,7 +3842,7 @@ namespace FuseCP.Providers.Web
 						// Remove writer account
 						SecurityUtils.DeleteUser(appHostConfigWriter, ServerSettings, UsersOU);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						var errorMessage = "Could not remove applicationHost.config writer user account";
 						//
@@ -3878,7 +3878,7 @@ namespace FuseCP.Providers.Web
 							UsersOU,
 							GroupsOU);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						var errorMessage = "Could not create application pool configuration editor account";
 						//
@@ -3898,7 +3898,7 @@ namespace FuseCP.Providers.Web
 						// Remove appPool config editor account
 						SecurityUtils.DeleteUser(appPoolConfigEditor, ServerSettings, UsersOU);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						var errorMessage = "Could not remove applicationHost.config writer user account";
 						//
@@ -3999,7 +3999,7 @@ namespace FuseCP.Providers.Web
 						// get daily statistics
 						itemsBandwidth[i].Days = parser.GetDailyStatistics(since, new string[] { siteId });
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}
@@ -4033,7 +4033,7 @@ namespace FuseCP.Providers.Web
 
 						Log.WriteEnd(String.Format("Calculating '{0}' site logs size", item.Name));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}
@@ -4103,10 +4103,10 @@ namespace FuseCP.Providers.Web
 
 			if (IdentityCredentialsMode == "IISMNGR")
 			{
-				if (ManagementAuthentication.GetUser(accountName) != null)
-					return true;
-				else
-					return false;
+				return ManagementAuthentication.GetUser(accountName) != null ? true : false;
+
+
+
 			}
 			else
 			{
@@ -4340,7 +4340,7 @@ namespace FuseCP.Providers.Web
 					isInstalled = true;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Could not retrieve Web Deploy key from the registry", ex);
 			}
@@ -4555,7 +4555,7 @@ namespace FuseCP.Providers.Web
 					else
 						isWmSvcInstalled = false;
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					Log.WriteError("Failed to determine whether Web Management Service is installed", ex);
 				}
@@ -4587,7 +4587,7 @@ namespace FuseCP.Providers.Web
 						PInvoke.RegistryHive.HKLM.GetDwordSubKeyValue_x64(@"SOFTWARE\Microsoft\WebManagement\Server", "RequiresWindowsCredentials");
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Failed to retrieve Web Management Service settings", ex);
 			}
@@ -4612,7 +4612,7 @@ namespace FuseCP.Providers.Web
 				Domain objDomain = Domain.GetDomain(objContext);
 				domainName = objDomain.Name;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Get domain name error", ex);
 			}
@@ -4638,7 +4638,7 @@ namespace FuseCP.Providers.Web
 				Domain objDomain = Domain.GetDomain(objContext);
 				domainName = objDomain.Name;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Get domain name error", ex);
 			}
@@ -4917,3 +4917,5 @@ namespace FuseCP.Providers.Web
 		}
     }
 }
+
+

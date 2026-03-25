@@ -23,7 +23,7 @@ namespace FuseCP.Providers.Mail
 	{
 		private TreeNode nodeConfig;
 		private Tree listConfig;
-		private string maillistName;
+		private readonly string maillistName;
 
 		public TreeNode Config
 		{

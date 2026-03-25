@@ -28,7 +28,7 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class SnapshotHelper
     {
-        private PowerShellManager _powerShell;
+        private readonly PowerShellManager _powerShell;
 
         public SnapshotHelper(PowerShellManager powerShellManager)
         {

@@ -302,7 +302,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 ExecuteShellCommand(runSpace, cmd, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("InstallFsrmService", ex);
 
@@ -348,7 +348,7 @@ namespace FuseCP.Providers.StorageSpaces
                     runspace.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }
@@ -534,7 +534,7 @@ namespace FuseCP.Providers.StorageSpaces
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 messages.Add(String.Format("Error installing Services for Storage Space Service: {0}", ex.Message));
@@ -554,7 +554,7 @@ namespace FuseCP.Providers.StorageSpaces
                         // delete home folder
                         FileUtils.DeleteFile(item.Name);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -582,7 +582,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                         Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -1414,7 +1414,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 ExecuteShellCommand(runSpace, cmd, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(string.Format("InstallWindowsFeature  {0}", featureName), ex);
 
@@ -1431,3 +1431,5 @@ namespace FuseCP.Providers.StorageSpaces
         }
     }
 }
+
+

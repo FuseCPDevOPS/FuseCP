@@ -79,7 +79,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 						//
 						OS.Shell.Default.Exec($"{cmd} unlock config -section:{sectionName}");
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						messages.Add(String.Format("Could not unlock section '{0}'. Reason: {1}",
 							sectionName, ex.StackTrace));
@@ -928,3 +928,5 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 
     
 }
+
+

@@ -163,7 +163,7 @@ namespace FuseCP.Providers.OS
                 Trace.TraceInformation($"SSH Tunnel on {SanitizeForLog(Url)} started.");
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ConnectException = ex;
                 IsConnecting = false;
@@ -192,7 +192,7 @@ namespace FuseCP.Providers.OS
                 ForwardedPort.Exception += Restart;
                 Trace.TraceInformation($"SSH Tunnel on {SanitizeForLog(Url)} started.");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ConnectException = ex;
                 IsConnecting = false;
@@ -224,7 +224,7 @@ namespace FuseCP.Providers.OS
                     Client.Connect();
                     ForwardedPort.Start();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ConnectException = ex;
                     isRestarting = false;
@@ -253,7 +253,7 @@ namespace FuseCP.Providers.OS
                     {
                         ForwardedPort.Stop();
                     }
-                    catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                 }
                 if (Client.IsConnected)
                 {
@@ -261,7 +261,7 @@ namespace FuseCP.Providers.OS
                     {
                         Client.Disconnect();
                     }
-                    catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                 }
             }
         }
@@ -276,3 +276,5 @@ namespace FuseCP.Providers.OS
         }
     }
 }
+
+

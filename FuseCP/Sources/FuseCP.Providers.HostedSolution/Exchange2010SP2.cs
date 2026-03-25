@@ -201,7 +201,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(addressBookPolicy))
 						DeleteAddressBookPolicy(runSpace, addressBookPolicy);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete AddressBook Policy " + addressBookPolicy, ex);
@@ -213,7 +213,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(offlineAddressBook))
 						DeleteOfflineAddressBook(runSpace, offlineAddressBook);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Offline Address Book " + offlineAddressBook, ex);
@@ -225,7 +225,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(addressList))
 						DeleteAddressList(runSpace, addressList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Address List " + addressList, ex);
@@ -237,7 +237,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(roomList))
 						DeleteAddressList(runSpace, roomList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Address List " + roomList, ex);
@@ -250,7 +250,7 @@ namespace FuseCP.Providers.HostedSolution
 					if (!string.IsNullOrEmpty(globalAddressList))
 						DeleteGlobalAddressList(runSpace, globalAddressList);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete Global Address List " + globalAddressList, ex);
@@ -261,7 +261,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					DeleteActiveSyncPolicy(runSpace, organizationId);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not delete ActiveSyncPolicy " + organizationId, ex);
@@ -272,7 +272,7 @@ namespace FuseCP.Providers.HostedSolution
 				{
 					DisableMailSecurityDistributionGroup(runSpace, securityGroup);
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret = false;
 					ExchangeLog.LogError("Could not disable mail security distribution group " + securityGroup, ex);
@@ -363,7 +363,7 @@ namespace FuseCP.Providers.HostedSolution
 
 						id = CheckResultObjectDN(result);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						ExchangeLog.LogError(ex);
 					}
@@ -509,7 +509,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteAddressBookPolicy(runSpace, upn + " AP");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
 						}
@@ -518,7 +518,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteGlobalAddressList(runSpace, upn + " GAL");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 						}
@@ -527,7 +527,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteAddressList(runSpace, upn + " AL");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 						}
@@ -576,7 +576,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteAddressBookPolicy(runSpace, upn + " AP");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 						}
@@ -585,7 +585,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteGlobalAddressList(runSpace, upn + " GAL");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 						}
@@ -594,7 +594,7 @@ namespace FuseCP.Providers.HostedSolution
 						{
 							DeleteAddressList(runSpace, upn + " AL");
 						}
-						catch (Exception swallowedEx)
+						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
 						{
 						    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 						}
@@ -820,4 +820,6 @@ namespace FuseCP.Providers.HostedSolution
 		}
 	}
 }
+
+
 

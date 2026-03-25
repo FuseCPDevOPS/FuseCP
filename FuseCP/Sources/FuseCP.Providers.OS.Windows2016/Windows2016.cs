@@ -527,7 +527,7 @@ namespace FuseCP.Providers.OS
                     FileUtils.CreateDirectory(UsersHome);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 messages.Add(String.Format("Folder '{0}' could not be created: {1}",
                      UsersHome, ex.Message));
@@ -548,7 +548,7 @@ namespace FuseCP.Providers.OS
                         // delete DSN
                         DeleteDSN(item.Name);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -576,7 +576,7 @@ namespace FuseCP.Providers.OS
 
                         Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -1067,7 +1067,7 @@ namespace FuseCP.Providers.OS
                             m.InvokeMethod("GetOwner", methodParams);
                             username = methodParams[0];
                         }
-                        catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+                        catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 
                         var args = m["CommandLine"] as string ?? "";
                         string cmd = "";
@@ -1290,7 +1290,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetHypervisorLogicalProcessorTotalRunTime", ex);
                 //ignore error, return default value
@@ -1759,7 +1759,7 @@ namespace FuseCP.Providers.OS
 
                 ExecuteShellCommand(runSpace, local_cmd, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("InstallFsrmService", ex);
 
@@ -1805,7 +1805,7 @@ namespace FuseCP.Providers.OS
                     runspace.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }
@@ -1962,3 +1962,5 @@ namespace FuseCP.Providers.OS
         protected virtual Type WebServerType => Type.GetType("FuseCP.Providers.Web.IIs100, FuseCP.Providers.Web.IIs100");
     }
 }
+
+

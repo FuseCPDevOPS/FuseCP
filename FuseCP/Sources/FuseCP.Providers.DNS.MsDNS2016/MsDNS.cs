@@ -22,7 +22,7 @@ namespace FuseCP.Providers.DNS
 {
     public class MsDNS2016 : MsDNS2012, IDnsServer
     {
-        private PowerShellHelper ps = null;
+        private readonly PowerShellHelper ps = null;
         private bool bulkRecords;
 
         public MsDNS2016()

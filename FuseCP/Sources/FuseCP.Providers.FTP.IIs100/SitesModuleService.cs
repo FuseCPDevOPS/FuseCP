@@ -124,7 +124,7 @@ namespace FuseCP.Providers.FTP.IIs100
                 if (ftpSiteElement.ServerAutoStart)
                     ftpSiteElement.Start();
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
             }
@@ -241,7 +241,7 @@ namespace FuseCP.Providers.FTP.IIs100
                     ftpSiteElement.Start();
                 }
             }
-            catch (Exception swallowedEx)
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
             }
@@ -840,4 +840,6 @@ namespace FuseCP.Providers.FTP.IIs100
 		}
     }
 }
+
+
 

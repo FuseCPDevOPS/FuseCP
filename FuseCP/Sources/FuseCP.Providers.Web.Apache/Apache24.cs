@@ -924,7 +924,7 @@ namespace FuseCP.Providers.Web
 							return ver;
 						}
 					}
-					catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 				}
 			}
 			return "";
@@ -944,3 +944,5 @@ namespace FuseCP.Providers.Web
 		}
 	}
 }
+
+

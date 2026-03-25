@@ -2011,7 +2011,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error {0} Virtual Machine '{1}'",
                     started ? "starting" : "turning off",
@@ -2080,7 +2080,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 {
                     DeleteFile(vm.RootFolderPath);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("Cannot delete virtual machine folder '{0}'",
                         vm.RootFolderPath), ex);
@@ -2088,7 +2088,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 #endregion
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2101,7 +2101,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }
@@ -2490,3 +2490,5 @@ exit", Convert.ToInt32(objDisk["Index"])));
         #endregion Hyper-V Cloud
     }
 }
+
+

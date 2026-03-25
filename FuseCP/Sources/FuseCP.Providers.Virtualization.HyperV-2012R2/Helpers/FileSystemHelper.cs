@@ -29,8 +29,8 @@ namespace FuseCP.Providers.Virtualization
     [SupportedOSPlatform("windows")]
     public class FileSystemHelper
     {
-        private MiManager _miCim;
-        private string _serverName;
+        private readonly MiManager _miCim;
+        private readonly string _serverName;
 
         public FileSystemHelper(MiManager mi)
         {
@@ -325,7 +325,7 @@ namespace FuseCP.Providers.Virtualization
                     terminateResult = await Task.Run(() => _miCim.InvokeMethod(processToKill, "Terminate"));
                 }
             }
-            catch (Exception swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
             finally
             {
                 processToKill?.Dispose();
@@ -334,3 +334,5 @@ namespace FuseCP.Providers.Virtualization
         }
     }
 }
+
+

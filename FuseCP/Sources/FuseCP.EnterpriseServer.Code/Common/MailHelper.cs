@@ -131,7 +131,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     return BusinessErrorCodes.SMTP_CLIENT_NOT_PERMITTED;
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     return BusinessErrorCodes.SMTP_UNKNOWN_ERROR;
                 }
@@ -194,7 +194,7 @@ namespace FuseCP.EnterpriseServer
 
                         mailkitAttachments.Add(mimePart); //
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // Log the error if a specific attachment fails conversion
                         Console.WriteLine($"Error converting attachment '{attachment.Name}': {ex.Message}"); //
@@ -215,7 +215,7 @@ namespace FuseCP.EnterpriseServer
             {
                 return SendMessageAsync(from, to, bcc, subject, body, mailkitPriority, isHtml, mailkitAttachments).GetAwaiter().GetResult();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return BusinessErrorCodes.SMTP_UNKNOWN_ERROR;
             }
@@ -239,3 +239,5 @@ namespace FuseCP.EnterpriseServer
 
     }
 }
+
+
