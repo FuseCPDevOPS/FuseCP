@@ -32,233 +32,305 @@ namespace FuseCP.Mail.SM6
     using System.Web.Services;
     using System.ComponentModel;
     using System.Web.Services.Protocols;
+    /// <summary>TODO</summary>
     using System;
     using System.Xml.Serialization;
 
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcDomainAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcDomainAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDomainExOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateDomainNameAndPathOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GenerateDomainKeysCertOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainKeysCertOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RenameDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback ReloadDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetRequestedDomainDefaultsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetRequestedDomainSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetRequestedDomainDefaultsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetRequestedDomainSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAllDomainsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainCountsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAllDomainAliasesOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainUsersOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainStatisticsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAllDomainStatisticsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetPrimaryDomainAdminOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetPrimaryDomainAdminOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainDefaultsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DisableDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback EnableDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainInfoOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainForwardingOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainForwardingBlockOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDomainForwardingBlockByTargetAddressOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetDomainForwardingBlockOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetDomainForwardingBlockByTargetAddressOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDomainForwardingBlockOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteDomainForwardingBlockOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteDomainForwardBlockByTargetAddressOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcDomainAdmin()
         {
             this.Url = "http://localhost:9998/services/svcDomainAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDomainCompletedEventHandler AddDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDomainExCompletedEventHandler AddDomainExCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateDomainNameAndPathCompletedEventHandler UpdateDomainNameAndPathCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GenerateDomainKeysCertCompletedEventHandler GenerateDomainKeysCertCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainKeysCertCompletedEventHandler GetDomainKeysCertCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RenameDomainCompletedEventHandler RenameDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event ReloadDomainCompletedEventHandler ReloadDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateDomainCompletedEventHandler UpdateDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetRequestedDomainDefaultsCompletedEventHandler GetRequestedDomainDefaultsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetRequestedDomainSettingsCompletedEventHandler GetRequestedDomainSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetRequestedDomainDefaultsCompletedEventHandler SetRequestedDomainDefaultsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetRequestedDomainSettingsCompletedEventHandler SetRequestedDomainSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteDomainCompletedEventHandler DeleteDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAllDomainsCompletedEventHandler GetAllDomainsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainCountsCompletedEventHandler GetDomainCountsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAllDomainAliasesCompletedEventHandler GetAllDomainAliasesCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainUsersCompletedEventHandler GetDomainUsersCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainStatisticsCompletedEventHandler GetDomainStatisticsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAllDomainStatisticsCompletedEventHandler GetAllDomainStatisticsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetPrimaryDomainAdminCompletedEventHandler GetPrimaryDomainAdminCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetPrimaryDomainAdminCompletedEventHandler SetPrimaryDomainAdminCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainDefaultsCompletedEventHandler GetDomainDefaultsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DisableDomainCompletedEventHandler DisableDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event EnableDomainCompletedEventHandler EnableDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainInfoCompletedEventHandler GetDomainInfoCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainSettingsCompletedEventHandler GetDomainSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainForwardingCompletedEventHandler GetDomainForwardingCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainForwardingBlockCompletedEventHandler GetDomainForwardingBlockCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDomainForwardingBlockByTargetAddressCompletedEventHandler GetDomainForwardingBlockByTargetAddressCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetDomainForwardingBlockCompletedEventHandler SetDomainForwardingBlockCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetDomainForwardingBlockByTargetAddressCompletedEventHandler SetDomainForwardingBlockByTargetAddressCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDomainForwardingBlockCompletedEventHandler AddDomainForwardingBlockCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteDomainForwardingBlockCompletedEventHandler DeleteDomainForwardingBlockCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteDomainForwardBlockByTargetAddressCompletedEventHandler DeleteDomainForwardBlockByTargetAddressCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDomain(
                     string AuthUserName,
                     string AuthPassword,
@@ -319,8 +391,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDomain(
                     string AuthUserName,
                     string AuthPassword,
@@ -382,16 +455,18 @@ namespace FuseCP.Mail.SM6
                         ListCommandAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAsync(
                     string AuthUserName,
                     string AuthPassword,
@@ -424,8 +499,9 @@ namespace FuseCP.Mail.SM6
             this.AddDomainAsync(AuthUserName, AuthPassword, DomainName, Path, PrimaryDomainAdminUserName, PrimaryDomainAdminPassword, PrimaryDomainAdminFirstName, PrimaryDomainAdminLastName, IP, ImapPort, PopPort, SmtpPort, MaxAliases, MaxDomainSizeInMB, MaxDomainUsers, MaxMailboxSizeInMB, MaxMessageSize, MaxRecipients, MaxDomainAliases, MaxLists, ShowDomainAliasMenu, ShowContentFilteringMenu, ShowSpamMenu, ShowStatsMenu, RequireSmtpAuthentication, ShowListMenu, ListCommandAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAsync(
                     string AuthUserName,
                     string AuthPassword,
@@ -490,6 +566,7 @@ namespace FuseCP.Mail.SM6
                         ListCommandAddress}, this.AddDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDomainOperationCompleted(object arg)
         {
             if ((this.AddDomainCompleted != null))
@@ -499,9 +576,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDomainEx", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDomainEx(string AuthUserName, string AuthPassword, string DomainName, string Path, string PrimaryDomainAdminUserName, string PrimaryDomainAdminPassword, string PrimaryDomainAdminFirstName, string PrimaryDomainAdminLastName, string IP)
         {
             object[] results = this.Invoke("AddDomainEx", new object[] {
@@ -517,8 +595,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDomainEx(string AuthUserName, string AuthPassword, string DomainName, string Path, string PrimaryDomainAdminUserName, string PrimaryDomainAdminPassword, string PrimaryDomainAdminFirstName, string PrimaryDomainAdminLastName, string IP, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddDomainEx", new object[] {
@@ -533,23 +612,26 @@ namespace FuseCP.Mail.SM6
                         IP}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDomainEx(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainExAsync(string AuthUserName, string AuthPassword, string DomainName, string Path, string PrimaryDomainAdminUserName, string PrimaryDomainAdminPassword, string PrimaryDomainAdminFirstName, string PrimaryDomainAdminLastName, string IP)
         {
             this.AddDomainExAsync(AuthUserName, AuthPassword, DomainName, Path, PrimaryDomainAdminUserName, PrimaryDomainAdminPassword, PrimaryDomainAdminFirstName, PrimaryDomainAdminLastName, IP, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainExAsync(string AuthUserName, string AuthPassword, string DomainName, string Path, string PrimaryDomainAdminUserName, string PrimaryDomainAdminPassword, string PrimaryDomainAdminFirstName, string PrimaryDomainAdminLastName, string IP, object userState)
         {
             if ((this.AddDomainExOperationCompleted == null))
@@ -568,6 +650,7 @@ namespace FuseCP.Mail.SM6
                         IP}, this.AddDomainExOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDomainExOperationCompleted(object arg)
         {
             if ((this.AddDomainExCompleted != null))
@@ -577,9 +660,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateDomainNameAndPath", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateDomainNameAndPath(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, string NewDomainPath)
         {
             object[] results = this.Invoke("UpdateDomainNameAndPath", new object[] {
@@ -591,8 +675,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateDomainNameAndPath(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, string NewDomainPath, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateDomainNameAndPath", new object[] {
@@ -603,23 +688,26 @@ namespace FuseCP.Mail.SM6
                         NewDomainPath}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateDomainNameAndPath(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateDomainNameAndPathAsync(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, string NewDomainPath)
         {
             this.UpdateDomainNameAndPathAsync(AuthUserName, AuthPassword, OldDomainName, NewDomainName, NewDomainPath, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateDomainNameAndPathAsync(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, string NewDomainPath, object userState)
         {
             if ((this.UpdateDomainNameAndPathOperationCompleted == null))
@@ -634,6 +722,7 @@ namespace FuseCP.Mail.SM6
                         NewDomainPath}, this.UpdateDomainNameAndPathOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateDomainNameAndPathOperationCompleted(object arg)
         {
             if ((this.UpdateDomainNameAndPathCompleted != null))
@@ -643,9 +732,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GenerateDomainKeysCert", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainKeyResult GenerateDomainKeysCert(string AuthUserName, string AuthPassword, string DomainName, int KeySize, string selector)
         {
             object[] results = this.Invoke("GenerateDomainKeysCert", new object[] {
@@ -657,8 +747,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainKeyResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGenerateDomainKeysCert(string AuthUserName, string AuthPassword, string DomainName, int KeySize, string selector, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GenerateDomainKeysCert", new object[] {
@@ -669,23 +760,26 @@ namespace FuseCP.Mail.SM6
                         selector}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainKeyResult EndGenerateDomainKeysCert(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainKeyResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GenerateDomainKeysCertAsync(string AuthUserName, string AuthPassword, string DomainName, int KeySize, string selector)
         {
             this.GenerateDomainKeysCertAsync(AuthUserName, AuthPassword, DomainName, KeySize, selector, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GenerateDomainKeysCertAsync(string AuthUserName, string AuthPassword, string DomainName, int KeySize, string selector, object userState)
         {
             if ((this.GenerateDomainKeysCertOperationCompleted == null))
@@ -700,6 +794,7 @@ namespace FuseCP.Mail.SM6
                         selector}, this.GenerateDomainKeysCertOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGenerateDomainKeysCertOperationCompleted(object arg)
         {
             if ((this.GenerateDomainKeysCertCompleted != null))
@@ -709,9 +804,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainKeysCert", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainKeyResult GetDomainKeysCert(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetDomainKeysCert", new object[] {
@@ -721,8 +817,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainKeyResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainKeysCert(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainKeysCert", new object[] {
@@ -731,23 +828,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainKeyResult EndGetDomainKeysCert(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainKeyResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainKeysCertAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetDomainKeysCertAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainKeysCertAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetDomainKeysCertOperationCompleted == null))
@@ -760,6 +860,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetDomainKeysCertOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainKeysCertOperationCompleted(object arg)
         {
             if ((this.GetDomainKeysCertCompleted != null))
@@ -769,9 +870,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RenameDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult RenameDomain(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName)
         {
             object[] results = this.Invoke("RenameDomain", new object[] {
@@ -782,8 +884,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRenameDomain(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RenameDomain", new object[] {
@@ -793,23 +896,26 @@ namespace FuseCP.Mail.SM6
                         NewDomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndRenameDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RenameDomainAsync(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName)
         {
             this.RenameDomainAsync(AuthUserName, AuthPassword, OldDomainName, NewDomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RenameDomainAsync(string AuthUserName, string AuthPassword, string OldDomainName, string NewDomainName, object userState)
         {
             if ((this.RenameDomainOperationCompleted == null))
@@ -823,6 +929,7 @@ namespace FuseCP.Mail.SM6
                         NewDomainName}, this.RenameDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRenameDomainOperationCompleted(object arg)
         {
             if ((this.RenameDomainCompleted != null))
@@ -832,9 +939,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ReloadDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult ReloadDomain(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("ReloadDomain", new object[] {
@@ -844,8 +952,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginReloadDomain(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ReloadDomain", new object[] {
@@ -854,23 +963,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndReloadDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ReloadDomainAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.ReloadDomainAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ReloadDomainAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.ReloadDomainOperationCompleted == null))
@@ -883,6 +995,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.ReloadDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnReloadDomainOperationCompleted(object arg)
         {
             if ((this.ReloadDomainCompleted != null))
@@ -892,9 +1005,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateDomain(
                     string AuthUserName,
                     string AuthPassword,
@@ -945,8 +1059,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateDomain(
                     string AuthUserName,
                     string AuthPassword,
@@ -998,16 +1113,18 @@ namespace FuseCP.Mail.SM6
                         ListCommandAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateDomainAsync(
                     string AuthUserName,
                     string AuthPassword,
@@ -1035,8 +1152,9 @@ namespace FuseCP.Mail.SM6
             this.UpdateDomainAsync(AuthUserName, AuthPassword, DomainName, ServerIP, ImapPort, PopPort, SmtpPort, MaxAliases, MaxDomainSizeInMB, MaxDomainUsers, MaxMailboxSizeInMB, MaxMessageSize, MaxRecipients, MaxDomainAliases, MaxLists, ShowDomainAliasMenu, ShowContentFilteringMenu, ShowSpamMenu, ShowStatsMenu, RequireSmtpAuthentication, ShowListMenu, ListCommandAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateDomainAsync(
                     string AuthUserName,
                     string AuthPassword,
@@ -1091,6 +1209,7 @@ namespace FuseCP.Mail.SM6
                         ListCommandAddress}, this.UpdateDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateDomainOperationCompleted(object arg)
         {
             if ((this.UpdateDomainCompleted != null))
@@ -1100,9 +1219,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRequestedDomainDefaults", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SettingsRequestResult GetRequestedDomainDefaults(string AuthUserName, string AuthPassword, string[] requestedSettings)
         {
             object[] results = this.Invoke("GetRequestedDomainDefaults", new object[] {
@@ -1112,8 +1232,9 @@ namespace FuseCP.Mail.SM6
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetRequestedDomainDefaults(string AuthUserName, string AuthPassword, string[] requestedSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedDomainDefaults", new object[] {
@@ -1122,23 +1243,26 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SettingsRequestResult EndGetRequestedDomainDefaults(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedDomainDefaultsAsync(string AuthUserName, string AuthPassword, string[] requestedSettings)
         {
             this.GetRequestedDomainDefaultsAsync(AuthUserName, AuthPassword, requestedSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedDomainDefaultsAsync(string AuthUserName, string AuthPassword, string[] requestedSettings, object userState)
         {
             if ((this.GetRequestedDomainDefaultsOperationCompleted == null))
@@ -1151,6 +1275,7 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, this.GetRequestedDomainDefaultsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetRequestedDomainDefaultsOperationCompleted(object arg)
         {
             if ((this.GetRequestedDomainDefaultsCompleted != null))
@@ -1160,9 +1285,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRequestedDomainSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SettingsRequestResult GetRequestedDomainSettings(string AuthUserName, string AuthPassword, string DomainName, string[] requestedSettings)
         {
             object[] results = this.Invoke("GetRequestedDomainSettings", new object[] {
@@ -1173,8 +1299,9 @@ namespace FuseCP.Mail.SM6
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetRequestedDomainSettings(string AuthUserName, string AuthPassword, string DomainName, string[] requestedSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedDomainSettings", new object[] {
@@ -1184,23 +1311,26 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SettingsRequestResult EndGetRequestedDomainSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedDomainSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string[] requestedSettings)
         {
             this.GetRequestedDomainSettingsAsync(AuthUserName, AuthPassword, DomainName, requestedSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedDomainSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string[] requestedSettings, object userState)
         {
             if ((this.GetRequestedDomainSettingsOperationCompleted == null))
@@ -1214,6 +1344,7 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, this.GetRequestedDomainSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetRequestedDomainSettingsOperationCompleted(object arg)
         {
             if ((this.GetRequestedDomainSettingsCompleted != null))
@@ -1223,9 +1354,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetRequestedDomainDefaults", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetRequestedDomainDefaults(string AuthUserName, string AuthPassword, string[] newSettings)
         {
             object[] results = this.Invoke("SetRequestedDomainDefaults", new object[] {
@@ -1235,8 +1367,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetRequestedDomainDefaults(string AuthUserName, string AuthPassword, string[] newSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedDomainDefaults", new object[] {
@@ -1245,23 +1378,26 @@ namespace FuseCP.Mail.SM6
                         newSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetRequestedDomainDefaults(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedDomainDefaultsAsync(string AuthUserName, string AuthPassword, string[] newSettings)
         {
             this.SetRequestedDomainDefaultsAsync(AuthUserName, AuthPassword, newSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedDomainDefaultsAsync(string AuthUserName, string AuthPassword, string[] newSettings, object userState)
         {
             if ((this.SetRequestedDomainDefaultsOperationCompleted == null))
@@ -1274,6 +1410,7 @@ namespace FuseCP.Mail.SM6
                         newSettings}, this.SetRequestedDomainDefaultsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetRequestedDomainDefaultsOperationCompleted(object arg)
         {
             if ((this.SetRequestedDomainDefaultsCompleted != null))
@@ -1283,9 +1420,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetRequestedDomainSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetRequestedDomainSettings(string AuthUserName, string AuthPassword, string DomainName, string[] newSettings)
         {
             object[] results = this.Invoke("SetRequestedDomainSettings", new object[] {
@@ -1296,8 +1434,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetRequestedDomainSettings(string AuthUserName, string AuthPassword, string DomainName, string[] newSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedDomainSettings", new object[] {
@@ -1307,23 +1446,26 @@ namespace FuseCP.Mail.SM6
                         newSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetRequestedDomainSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedDomainSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string[] newSettings)
         {
             this.SetRequestedDomainSettingsAsync(AuthUserName, AuthPassword, DomainName, newSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedDomainSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string[] newSettings, object userState)
         {
             if ((this.SetRequestedDomainSettingsOperationCompleted == null))
@@ -1337,6 +1479,7 @@ namespace FuseCP.Mail.SM6
                         newSettings}, this.SetRequestedDomainSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetRequestedDomainSettingsOperationCompleted(object arg)
         {
             if ((this.SetRequestedDomainSettingsCompleted != null))
@@ -1346,9 +1489,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteDomain(string AuthUserName, string AuthPassword, string DomainName, bool DeleteFiles)
         {
             object[] results = this.Invoke("DeleteDomain", new object[] {
@@ -1359,8 +1503,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteDomain(string AuthUserName, string AuthPassword, string DomainName, bool DeleteFiles, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteDomain", new object[] {
@@ -1370,23 +1515,26 @@ namespace FuseCP.Mail.SM6
                         DeleteFiles}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainAsync(string AuthUserName, string AuthPassword, string DomainName, bool DeleteFiles)
         {
             this.DeleteDomainAsync(AuthUserName, AuthPassword, DomainName, DeleteFiles, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainAsync(string AuthUserName, string AuthPassword, string DomainName, bool DeleteFiles, object userState)
         {
             if ((this.DeleteDomainOperationCompleted == null))
@@ -1400,6 +1548,7 @@ namespace FuseCP.Mail.SM6
                         DeleteFiles}, this.DeleteDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteDomainOperationCompleted(object arg)
         {
             if ((this.DeleteDomainCompleted != null))
@@ -1409,9 +1558,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllDomains", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainListResult GetAllDomains(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("GetAllDomains", new object[] {
@@ -1420,8 +1570,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAllDomains(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAllDomains", new object[] {
@@ -1429,23 +1580,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainListResult EndGetAllDomains(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainsAsync(string AuthUserName, string AuthPassword)
         {
             this.GetAllDomainsAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainsAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.GetAllDomainsOperationCompleted == null))
@@ -1457,6 +1611,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.GetAllDomainsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAllDomainsOperationCompleted(object arg)
         {
             if ((this.GetAllDomainsCompleted != null))
@@ -1466,9 +1621,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainCounts", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainCountInfoResult GetDomainCounts(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetDomainCounts", new object[] {
@@ -1478,8 +1634,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainCountInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainCounts(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainCounts", new object[] {
@@ -1488,23 +1645,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainCountInfoResult EndGetDomainCounts(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainCountInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainCountsAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetDomainCountsAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainCountsAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetDomainCountsOperationCompleted == null))
@@ -1517,6 +1677,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetDomainCountsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainCountsOperationCompleted(object arg)
         {
             if ((this.GetDomainCountsCompleted != null))
@@ -1526,9 +1687,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllDomainAliases", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainAliasInfoResult GetAllDomainAliases(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("GetAllDomainAliases", new object[] {
@@ -1537,8 +1699,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainAliasInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAllDomainAliases(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAllDomainAliases", new object[] {
@@ -1546,23 +1709,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainAliasInfoResult EndGetAllDomainAliases(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainAliasInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainAliasesAsync(string AuthUserName, string AuthPassword)
         {
             this.GetAllDomainAliasesAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainAliasesAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.GetAllDomainAliasesOperationCompleted == null))
@@ -1574,6 +1740,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.GetAllDomainAliasesOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAllDomainAliasesOperationCompleted(object arg)
         {
             if ((this.GetAllDomainAliasesCompleted != null))
@@ -1583,9 +1750,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainUsers", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainUserInfoResult GetDomainUsers(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetDomainUsers", new object[] {
@@ -1595,8 +1763,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainUserInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainUsers(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainUsers", new object[] {
@@ -1605,23 +1774,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainUserInfoResult EndGetDomainUsers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainUserInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainUsersAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetDomainUsersAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainUsersAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetDomainUsersOperationCompleted == null))
@@ -1634,6 +1806,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetDomainUsersOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainUsersOperationCompleted(object arg)
         {
             if ((this.GetDomainUsersCompleted != null))
@@ -1643,9 +1816,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainStatistics", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public StatInfoResult GetDomainStatistics(string AuthUserName, string AuthPassword, string DomainName, System.DateTime StartDate, System.DateTime EndDate)
         {
             object[] results = this.Invoke("GetDomainStatistics", new object[] {
@@ -1657,8 +1831,9 @@ namespace FuseCP.Mail.SM6
             return ((StatInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainStatistics(string AuthUserName, string AuthPassword, string DomainName, System.DateTime StartDate, System.DateTime EndDate, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainStatistics", new object[] {
@@ -1669,23 +1844,26 @@ namespace FuseCP.Mail.SM6
                         EndDate}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public StatInfoResult EndGetDomainStatistics(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((StatInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainStatisticsAsync(string AuthUserName, string AuthPassword, string DomainName, System.DateTime StartDate, System.DateTime EndDate)
         {
             this.GetDomainStatisticsAsync(AuthUserName, AuthPassword, DomainName, StartDate, EndDate, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainStatisticsAsync(string AuthUserName, string AuthPassword, string DomainName, System.DateTime StartDate, System.DateTime EndDate, object userState)
         {
             if ((this.GetDomainStatisticsOperationCompleted == null))
@@ -1700,6 +1878,7 @@ namespace FuseCP.Mail.SM6
                         EndDate}, this.GetDomainStatisticsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainStatisticsOperationCompleted(object arg)
         {
             if ((this.GetDomainStatisticsCompleted != null))
@@ -1709,9 +1888,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllDomainStatistics", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public AllDomainStatResult GetAllDomainStatistics(string AuthUserName, string AuthPassword, System.DateTime StartDate, System.DateTime EndDate)
         {
             object[] results = this.Invoke("GetAllDomainStatistics", new object[] {
@@ -1722,8 +1902,9 @@ namespace FuseCP.Mail.SM6
             return ((AllDomainStatResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAllDomainStatistics(string AuthUserName, string AuthPassword, System.DateTime StartDate, System.DateTime EndDate, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAllDomainStatistics", new object[] {
@@ -1733,23 +1914,26 @@ namespace FuseCP.Mail.SM6
                         EndDate}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public AllDomainStatResult EndGetAllDomainStatistics(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((AllDomainStatResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainStatisticsAsync(string AuthUserName, string AuthPassword, System.DateTime StartDate, System.DateTime EndDate)
         {
             this.GetAllDomainStatisticsAsync(AuthUserName, AuthPassword, StartDate, EndDate, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAllDomainStatisticsAsync(string AuthUserName, string AuthPassword, System.DateTime StartDate, System.DateTime EndDate, object userState)
         {
             if ((this.GetAllDomainStatisticsOperationCompleted == null))
@@ -1763,6 +1947,7 @@ namespace FuseCP.Mail.SM6
                         EndDate}, this.GetAllDomainStatisticsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAllDomainStatisticsOperationCompleted(object arg)
         {
             if ((this.GetAllDomainStatisticsCompleted != null))
@@ -1772,9 +1957,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPrimaryDomainAdmin", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public PrimaryDomainAdminResult GetPrimaryDomainAdmin(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetPrimaryDomainAdmin", new object[] {
@@ -1784,8 +1970,9 @@ namespace FuseCP.Mail.SM6
             return ((PrimaryDomainAdminResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetPrimaryDomainAdmin(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetPrimaryDomainAdmin", new object[] {
@@ -1794,23 +1981,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public PrimaryDomainAdminResult EndGetPrimaryDomainAdmin(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((PrimaryDomainAdminResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPrimaryDomainAdminAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetPrimaryDomainAdminAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPrimaryDomainAdminAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetPrimaryDomainAdminOperationCompleted == null))
@@ -1823,6 +2013,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetPrimaryDomainAdminOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetPrimaryDomainAdminOperationCompleted(object arg)
         {
             if ((this.GetPrimaryDomainAdminCompleted != null))
@@ -1832,9 +2023,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetPrimaryDomainAdmin", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetPrimaryDomainAdmin(string AuthUserName, string AuthPassword, string DomainName, string AdminUserName)
         {
             object[] results = this.Invoke("SetPrimaryDomainAdmin", new object[] {
@@ -1845,8 +2037,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetPrimaryDomainAdmin(string AuthUserName, string AuthPassword, string DomainName, string AdminUserName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetPrimaryDomainAdmin", new object[] {
@@ -1856,23 +2049,26 @@ namespace FuseCP.Mail.SM6
                         AdminUserName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetPrimaryDomainAdmin(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPrimaryDomainAdminAsync(string AuthUserName, string AuthPassword, string DomainName, string AdminUserName)
         {
             this.SetPrimaryDomainAdminAsync(AuthUserName, AuthPassword, DomainName, AdminUserName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPrimaryDomainAdminAsync(string AuthUserName, string AuthPassword, string DomainName, string AdminUserName, object userState)
         {
             if ((this.SetPrimaryDomainAdminOperationCompleted == null))
@@ -1886,6 +2082,7 @@ namespace FuseCP.Mail.SM6
                         AdminUserName}, this.SetPrimaryDomainAdminOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetPrimaryDomainAdminOperationCompleted(object arg)
         {
             if ((this.SetPrimaryDomainAdminCompleted != null))
@@ -1895,9 +2092,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainDefaults", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainSettingsResult GetDomainDefaults(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("GetDomainDefaults", new object[] {
@@ -1906,8 +2104,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainDefaults(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainDefaults", new object[] {
@@ -1915,23 +2114,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainSettingsResult EndGetDomainDefaults(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainDefaultsAsync(string AuthUserName, string AuthPassword)
         {
             this.GetDomainDefaultsAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainDefaultsAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.GetDomainDefaultsOperationCompleted == null))
@@ -1943,6 +2145,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.GetDomainDefaultsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainDefaultsOperationCompleted(object arg)
         {
             if ((this.GetDomainDefaultsCompleted != null))
@@ -1952,9 +2155,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DisableDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DisableDomain(string AuthUserName, string AuthPassword, string domainName)
         {
             object[] results = this.Invoke("DisableDomain", new object[] {
@@ -1964,8 +2168,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDisableDomain(string AuthUserName, string AuthPassword, string domainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DisableDomain", new object[] {
@@ -1974,23 +2179,26 @@ namespace FuseCP.Mail.SM6
                         domainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDisableDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DisableDomainAsync(string AuthUserName, string AuthPassword, string domainName)
         {
             this.DisableDomainAsync(AuthUserName, AuthPassword, domainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DisableDomainAsync(string AuthUserName, string AuthPassword, string domainName, object userState)
         {
             if ((this.DisableDomainOperationCompleted == null))
@@ -2003,6 +2211,7 @@ namespace FuseCP.Mail.SM6
                         domainName}, this.DisableDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDisableDomainOperationCompleted(object arg)
         {
             if ((this.DisableDomainCompleted != null))
@@ -2012,9 +2221,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/EnableDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult EnableDomain(string AuthUserName, string AuthPassword, string domainName)
         {
             object[] results = this.Invoke("EnableDomain", new object[] {
@@ -2024,8 +2234,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginEnableDomain(string AuthUserName, string AuthPassword, string domainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("EnableDomain", new object[] {
@@ -2034,23 +2245,26 @@ namespace FuseCP.Mail.SM6
                         domainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndEnableDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void EnableDomainAsync(string AuthUserName, string AuthPassword, string domainName)
         {
             this.EnableDomainAsync(AuthUserName, AuthPassword, domainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void EnableDomainAsync(string AuthUserName, string AuthPassword, string domainName, object userState)
         {
             if ((this.EnableDomainOperationCompleted == null))
@@ -2063,6 +2277,7 @@ namespace FuseCP.Mail.SM6
                         domainName}, this.EnableDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnEnableDomainOperationCompleted(object arg)
         {
             if ((this.EnableDomainCompleted != null))
@@ -2072,9 +2287,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainInfo", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainInfoResult GetDomainInfo(string AuthUserName, string AuthPassword, string domainName)
         {
             object[] results = this.Invoke("GetDomainInfo", new object[] {
@@ -2084,8 +2300,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainInfo(string AuthUserName, string AuthPassword, string domainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainInfo", new object[] {
@@ -2094,23 +2311,26 @@ namespace FuseCP.Mail.SM6
                         domainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainInfoResult EndGetDomainInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainInfoAsync(string AuthUserName, string AuthPassword, string domainName)
         {
             this.GetDomainInfoAsync(AuthUserName, AuthPassword, domainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainInfoAsync(string AuthUserName, string AuthPassword, string domainName, object userState)
         {
             if ((this.GetDomainInfoOperationCompleted == null))
@@ -2123,6 +2343,7 @@ namespace FuseCP.Mail.SM6
                         domainName}, this.GetDomainInfoOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainInfoOperationCompleted(object arg)
         {
             if ((this.GetDomainInfoCompleted != null))
@@ -2132,9 +2353,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainSettingsResult GetDomainSettings(string AuthUserName, string AuthPassword, string domainName)
         {
             object[] results = this.Invoke("GetDomainSettings", new object[] {
@@ -2144,8 +2366,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainSettings(string AuthUserName, string AuthPassword, string domainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainSettings", new object[] {
@@ -2154,23 +2377,26 @@ namespace FuseCP.Mail.SM6
                         domainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainSettingsResult EndGetDomainSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainSettingsAsync(string AuthUserName, string AuthPassword, string domainName)
         {
             this.GetDomainSettingsAsync(AuthUserName, AuthPassword, domainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainSettingsAsync(string AuthUserName, string AuthPassword, string domainName, object userState)
         {
             if ((this.GetDomainSettingsOperationCompleted == null))
@@ -2183,6 +2409,7 @@ namespace FuseCP.Mail.SM6
                         domainName}, this.GetDomainSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainSettingsOperationCompleted(object arg)
         {
             if ((this.GetDomainSettingsCompleted != null))
@@ -2192,9 +2419,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainForwarding", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainForwardInfoResult GetDomainForwarding(string AuthUserName, string AuthPassword, bool includeDomains)
         {
             object[] results = this.Invoke("GetDomainForwarding", new object[] {
@@ -2204,8 +2432,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainForwardInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainForwarding(string AuthUserName, string AuthPassword, bool includeDomains, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainForwarding", new object[] {
@@ -2214,23 +2443,26 @@ namespace FuseCP.Mail.SM6
                         includeDomains}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainForwardInfoResult EndGetDomainForwarding(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainForwardInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingAsync(string AuthUserName, string AuthPassword, bool includeDomains)
         {
             this.GetDomainForwardingAsync(AuthUserName, AuthPassword, includeDomains, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingAsync(string AuthUserName, string AuthPassword, bool includeDomains, object userState)
         {
             if ((this.GetDomainForwardingOperationCompleted == null))
@@ -2243,6 +2475,7 @@ namespace FuseCP.Mail.SM6
                         includeDomains}, this.GetDomainForwardingOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainForwardingOperationCompleted(object arg)
         {
             if ((this.GetDomainForwardingCompleted != null))
@@ -2252,9 +2485,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainForwardingBlock", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfoResult GetDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID)
         {
             object[] results = this.Invoke("GetDomainForwardingBlock", new object[] {
@@ -2264,8 +2498,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainForwardBlockInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainForwardingBlock", new object[] {
@@ -2274,23 +2509,26 @@ namespace FuseCP.Mail.SM6
                         blockID}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfoResult EndGetDomainForwardingBlock(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainForwardBlockInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID)
         {
             this.GetDomainForwardingBlockAsync(AuthUserName, AuthPassword, blockID, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID, object userState)
         {
             if ((this.GetDomainForwardingBlockOperationCompleted == null))
@@ -2303,6 +2541,7 @@ namespace FuseCP.Mail.SM6
                         blockID}, this.GetDomainForwardingBlockOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainForwardingBlockOperationCompleted(object arg)
         {
             if ((this.GetDomainForwardingBlockCompleted != null))
@@ -2312,9 +2551,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDomainForwardingBlockByTargetAddress", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfoResult GetDomainForwardingBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress)
         {
             object[] results = this.Invoke("GetDomainForwardingBlockByTargetAddress", new object[] {
@@ -2324,8 +2564,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainForwardBlockInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDomainForwardingBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDomainForwardingBlockByTargetAddress", new object[] {
@@ -2334,23 +2575,26 @@ namespace FuseCP.Mail.SM6
                         targetAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfoResult EndGetDomainForwardingBlockByTargetAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainForwardBlockInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress)
         {
             this.GetDomainForwardingBlockByTargetAddressAsync(AuthUserName, AuthPassword, targetAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDomainForwardingBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress, object userState)
         {
             if ((this.GetDomainForwardingBlockByTargetAddressOperationCompleted == null))
@@ -2363,6 +2607,7 @@ namespace FuseCP.Mail.SM6
                         targetAddress}, this.GetDomainForwardingBlockByTargetAddressOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDomainForwardingBlockByTargetAddressOperationCompleted(object arg)
         {
             if ((this.GetDomainForwardingBlockByTargetAddressCompleted != null))
@@ -2372,9 +2617,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDomainForwardingBlock", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID, string targetAddress, string[] domains)
         {
             object[] results = this.Invoke("SetDomainForwardingBlock", new object[] {
@@ -2386,8 +2632,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID, string targetAddress, string[] domains, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetDomainForwardingBlock", new object[] {
@@ -2398,23 +2645,26 @@ namespace FuseCP.Mail.SM6
                         domains}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetDomainForwardingBlock(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID, string targetAddress, string[] domains)
         {
             this.SetDomainForwardingBlockAsync(AuthUserName, AuthPassword, blockID, targetAddress, domains, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID, string targetAddress, string[] domains, object userState)
         {
             if ((this.SetDomainForwardingBlockOperationCompleted == null))
@@ -2429,6 +2679,7 @@ namespace FuseCP.Mail.SM6
                         domains}, this.SetDomainForwardingBlockOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetDomainForwardingBlockOperationCompleted(object arg)
         {
             if ((this.SetDomainForwardingBlockCompleted != null))
@@ -2438,9 +2689,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDomainForwardingBlockByTargetAddress", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetDomainForwardingBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress, string[] domains)
         {
             object[] results = this.Invoke("SetDomainForwardingBlockByTargetAddress", new object[] {
@@ -2451,8 +2703,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetDomainForwardingBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress, string[] domains, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetDomainForwardingBlockByTargetAddress", new object[] {
@@ -2462,23 +2715,26 @@ namespace FuseCP.Mail.SM6
                         domains}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetDomainForwardingBlockByTargetAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDomainForwardingBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress, string[] domains)
         {
             this.SetDomainForwardingBlockByTargetAddressAsync(AuthUserName, AuthPassword, targetAddress, domains, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDomainForwardingBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress, string[] domains, object userState)
         {
             if ((this.SetDomainForwardingBlockByTargetAddressOperationCompleted == null))
@@ -2492,6 +2748,7 @@ namespace FuseCP.Mail.SM6
                         domains}, this.SetDomainForwardingBlockByTargetAddressOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetDomainForwardingBlockByTargetAddressOperationCompleted(object arg)
         {
             if ((this.SetDomainForwardingBlockByTargetAddressCompleted != null))
@@ -2501,9 +2758,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDomainForwardingBlock", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDomainForwardingBlock(string AuthUserName, string AuthPassword, string targetAddress, string[] domains)
         {
             object[] results = this.Invoke("AddDomainForwardingBlock", new object[] {
@@ -2514,8 +2772,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDomainForwardingBlock(string AuthUserName, string AuthPassword, string targetAddress, string[] domains, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddDomainForwardingBlock", new object[] {
@@ -2525,23 +2784,26 @@ namespace FuseCP.Mail.SM6
                         domains}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDomainForwardingBlock(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, string targetAddress, string[] domains)
         {
             this.AddDomainForwardingBlockAsync(AuthUserName, AuthPassword, targetAddress, domains, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, string targetAddress, string[] domains, object userState)
         {
             if ((this.AddDomainForwardingBlockOperationCompleted == null))
@@ -2555,6 +2817,7 @@ namespace FuseCP.Mail.SM6
                         domains}, this.AddDomainForwardingBlockOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDomainForwardingBlockOperationCompleted(object arg)
         {
             if ((this.AddDomainForwardingBlockCompleted != null))
@@ -2564,9 +2827,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteDomainForwardingBlock", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID)
         {
             object[] results = this.Invoke("DeleteDomainForwardingBlock", new object[] {
@@ -2576,8 +2840,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteDomainForwardingBlock(string AuthUserName, string AuthPassword, int blockID, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteDomainForwardingBlock", new object[] {
@@ -2586,23 +2851,26 @@ namespace FuseCP.Mail.SM6
                         blockID}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteDomainForwardingBlock(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID)
         {
             this.DeleteDomainForwardingBlockAsync(AuthUserName, AuthPassword, blockID, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainForwardingBlockAsync(string AuthUserName, string AuthPassword, int blockID, object userState)
         {
             if ((this.DeleteDomainForwardingBlockOperationCompleted == null))
@@ -2615,6 +2883,7 @@ namespace FuseCP.Mail.SM6
                         blockID}, this.DeleteDomainForwardingBlockOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteDomainForwardingBlockOperationCompleted(object arg)
         {
             if ((this.DeleteDomainForwardingBlockCompleted != null))
@@ -2624,9 +2893,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteDomainForwardBlockByTargetAddress", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteDomainForwardBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress)
         {
             object[] results = this.Invoke("DeleteDomainForwardBlockByTargetAddress", new object[] {
@@ -2636,8 +2906,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteDomainForwardBlockByTargetAddress(string AuthUserName, string AuthPassword, string targetAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteDomainForwardBlockByTargetAddress", new object[] {
@@ -2646,23 +2917,26 @@ namespace FuseCP.Mail.SM6
                         targetAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteDomainForwardBlockByTargetAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainForwardBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress)
         {
             this.DeleteDomainForwardBlockByTargetAddressAsync(AuthUserName, AuthPassword, targetAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainForwardBlockByTargetAddressAsync(string AuthUserName, string AuthPassword, string targetAddress, object userState)
         {
             if ((this.DeleteDomainForwardBlockByTargetAddressOperationCompleted == null))
@@ -2675,6 +2949,7 @@ namespace FuseCP.Mail.SM6
                         targetAddress}, this.DeleteDomainForwardBlockByTargetAddressOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteDomainForwardBlockByTargetAddressOperationCompleted(object arg)
         {
             if ((this.DeleteDomainForwardBlockByTargetAddressCompleted != null))
@@ -2684,15 +2959,16 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2702,20 +2978,23 @@ namespace FuseCP.Mail.SM6
     public partial class GenericResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2725,24 +3004,28 @@ namespace FuseCP.Mail.SM6
     public partial class DomainForwardBlockInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfo domainForwardBlock;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2752,20 +3035,23 @@ namespace FuseCP.Mail.SM6
     public partial class DomainForwardBlockInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int blockID;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string targetAddress;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] domains;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2775,25 +3061,29 @@ namespace FuseCP.Mail.SM6
     public partial class DomainForwardInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public DomainForwardBlockInfo[] blocks;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2803,24 +3093,28 @@ namespace FuseCP.Mail.SM6
     public partial class DomainInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Path;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2830,100 +3124,123 @@ namespace FuseCP.Mail.SM6
     public partial class DomainSettingsResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string ServerIP;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Path;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ImapPort;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int PopPort;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int SmtpPort;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxAliases;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxDomainAliases;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxLists;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxDomainSizeInMB;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxDomainUsers;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxMailboxSizeInMB;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxMessageSize;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MaxRecipients;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool ShowDomainAliasMenu;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool ShowContentFilteringMenu;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool ShowSpamMenu;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool ShowStatsMenu;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool ShowListMenu;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool RequireSmtpAuthentication;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string ListCommandAddress;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2933,24 +3250,28 @@ namespace FuseCP.Mail.SM6
     public partial class PrimaryDomainAdminResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string PrimaryAdmin;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2960,32 +3281,38 @@ namespace FuseCP.Mail.SM6
     public partial class DomainStatInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string DomainName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long MessagesReceived;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long MessagesSent;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesReceived;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesSent;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesSize;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -2995,25 +3322,29 @@ namespace FuseCP.Mail.SM6
     public partial class AllDomainStatResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public DomainStatInfo[] Stats;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3023,40 +3354,48 @@ namespace FuseCP.Mail.SM6
     public partial class StatInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long MessagesReceived;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long MessagesSent;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesReceived;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesSent;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long BytesSize;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3066,32 +3405,38 @@ namespace FuseCP.Mail.SM6
     public partial class DomainUserInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] Users;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] DomainAliases;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool CatchAll;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3101,16 +3446,18 @@ namespace FuseCP.Mail.SM6
     public partial class DomainAliasInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Name;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string DomainName;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3120,25 +3467,29 @@ namespace FuseCP.Mail.SM6
     public partial class DomainAliasInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public DomainAliasInfo[] DomainAliases;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3148,36 +3499,43 @@ namespace FuseCP.Mail.SM6
     public partial class DomainCountInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int Users;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int MailingLists;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int Aliases;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long Size;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3187,24 +3545,28 @@ namespace FuseCP.Mail.SM6
     public partial class DomainListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] DomainNames;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3214,24 +3576,28 @@ namespace FuseCP.Mail.SM6
     public partial class SettingsRequestResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] settingValues;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3241,53 +3607,63 @@ namespace FuseCP.Mail.SM6
     public partial class DomainKeyResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string privateKey;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string publicKey;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string selector;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDomainCompletedEventHandler(object sender, AddDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3299,28 +3675,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDomainExCompletedEventHandler(object sender, AddDomainExCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDomainExCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDomainExCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3332,28 +3712,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateDomainNameAndPathCompletedEventHandler(object sender, UpdateDomainNameAndPathCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateDomainNameAndPathCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateDomainNameAndPathCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3365,28 +3749,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GenerateDomainKeysCertCompletedEventHandler(object sender, GenerateDomainKeysCertCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GenerateDomainKeysCertCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GenerateDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainKeyResult Result
         {
@@ -3398,28 +3786,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainKeysCertCompletedEventHandler(object sender, GetDomainKeysCertCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainKeysCertCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainKeysCertCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainKeyResult Result
         {
@@ -3431,28 +3823,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void RenameDomainCompletedEventHandler(object sender, RenameDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RenameDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RenameDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3464,28 +3860,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void ReloadDomainCompletedEventHandler(object sender, ReloadDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ReloadDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal ReloadDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3497,28 +3897,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateDomainCompletedEventHandler(object sender, UpdateDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3530,28 +3934,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedDomainDefaultsCompletedEventHandler(object sender, GetRequestedDomainDefaultsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedDomainDefaultsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SettingsRequestResult Result
         {
@@ -3563,28 +3971,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedDomainSettingsCompletedEventHandler(object sender, GetRequestedDomainSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedDomainSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SettingsRequestResult Result
         {
@@ -3596,28 +4008,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedDomainDefaultsCompletedEventHandler(object sender, SetRequestedDomainDefaultsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedDomainDefaultsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetRequestedDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3629,28 +4045,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedDomainSettingsCompletedEventHandler(object sender, SetRequestedDomainSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedDomainSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetRequestedDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3662,28 +4082,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteDomainCompletedEventHandler(object sender, DeleteDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3695,28 +4119,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetAllDomainsCompletedEventHandler(object sender, GetAllDomainsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAllDomainsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetAllDomainsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainListResult Result
         {
@@ -3728,28 +4156,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainCountsCompletedEventHandler(object sender, GetDomainCountsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainCountsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainCountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainCountInfoResult Result
         {
@@ -3761,28 +4193,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetAllDomainAliasesCompletedEventHandler(object sender, GetAllDomainAliasesCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAllDomainAliasesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetAllDomainAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainAliasInfoResult Result
         {
@@ -3794,28 +4230,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainUsersCompletedEventHandler(object sender, GetDomainUsersCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainUserInfoResult Result
         {
@@ -3827,28 +4267,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainStatisticsCompletedEventHandler(object sender, GetDomainStatisticsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainStatisticsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public StatInfoResult Result
         {
@@ -3860,28 +4304,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetAllDomainStatisticsCompletedEventHandler(object sender, GetAllDomainStatisticsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAllDomainStatisticsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetAllDomainStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public AllDomainStatResult Result
         {
@@ -3893,28 +4341,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetPrimaryDomainAdminCompletedEventHandler(object sender, GetPrimaryDomainAdminCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetPrimaryDomainAdminCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public PrimaryDomainAdminResult Result
         {
@@ -3926,28 +4378,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetPrimaryDomainAdminCompletedEventHandler(object sender, SetPrimaryDomainAdminCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetPrimaryDomainAdminCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetPrimaryDomainAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -3959,28 +4415,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainDefaultsCompletedEventHandler(object sender, GetDomainDefaultsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainDefaultsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainDefaultsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainSettingsResult Result
         {
@@ -3992,28 +4452,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DisableDomainCompletedEventHandler(object sender, DisableDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DisableDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DisableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4025,28 +4489,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void EnableDomainCompletedEventHandler(object sender, EnableDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class EnableDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal EnableDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4058,28 +4526,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainInfoCompletedEventHandler(object sender, GetDomainInfoCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainInfoResult Result
         {
@@ -4091,28 +4563,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainSettingsCompletedEventHandler(object sender, GetDomainSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainSettingsResult Result
         {
@@ -4124,28 +4600,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainForwardingCompletedEventHandler(object sender, GetDomainForwardingCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainForwardingCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainForwardingCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainForwardInfoResult Result
         {
@@ -4157,28 +4637,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainForwardingBlockCompletedEventHandler(object sender, GetDomainForwardingBlockCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainForwardingBlockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainForwardBlockInfoResult Result
         {
@@ -4190,28 +4674,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDomainForwardingBlockByTargetAddressCompletedEventHandler(object sender, GetDomainForwardingBlockByTargetAddressCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDomainForwardingBlockByTargetAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public DomainForwardBlockInfoResult Result
         {
@@ -4223,28 +4711,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetDomainForwardingBlockCompletedEventHandler(object sender, SetDomainForwardingBlockCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetDomainForwardingBlockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4256,28 +4748,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetDomainForwardingBlockByTargetAddressCompletedEventHandler(object sender, SetDomainForwardingBlockByTargetAddressCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetDomainForwardingBlockByTargetAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetDomainForwardingBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4289,28 +4785,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDomainForwardingBlockCompletedEventHandler(object sender, AddDomainForwardingBlockCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDomainForwardingBlockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4322,28 +4822,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteDomainForwardingBlockCompletedEventHandler(object sender, DeleteDomainForwardingBlockCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteDomainForwardingBlockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteDomainForwardingBlockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4355,28 +4859,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteDomainForwardBlockByTargetAddressCompletedEventHandler(object sender, DeleteDomainForwardBlockByTargetAddressCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteDomainForwardBlockByTargetAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteDomainForwardBlockByTargetAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -4388,199 +4896,260 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcUserAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcUserAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddUser2OperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AuthenticateUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUser2OperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUserForwardingInfoOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUserForwardingInfo2OperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUserAutoResponseInfoOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetRequestedUserSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetRequestedUserSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetInactiveUsersOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserForwardingInfoOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserAutoResponseInfoOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserQuotasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUsersOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback LoginValidatedOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddRSSFeedOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback ToggleActiveSyncOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback ListRSSFeedsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteRSSFeedOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserStatsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddUserGroupOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RemoveUserGroupOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateUserGroupOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserGroupOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserGroupsByUserOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetUserGroupsByDomainOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcUserAdmin()
         {
             this.Url = "http://localhost:9998/services/svcUserAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddUserCompletedEventHandler AddUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddUser2CompletedEventHandler AddUser2Completed;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AuthenticateUserCompletedEventHandler AuthenticateUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUserCompletedEventHandler UpdateUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUser2CompletedEventHandler UpdateUser2Completed;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUserForwardingInfoCompletedEventHandler UpdateUserForwardingInfoCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUserForwardingInfo2CompletedEventHandler UpdateUserForwardingInfo2Completed;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUserAutoResponseInfoCompletedEventHandler UpdateUserAutoResponseInfoCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteUserCompletedEventHandler DeleteUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserCompletedEventHandler GetUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetRequestedUserSettingsCompletedEventHandler GetRequestedUserSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetRequestedUserSettingsCompletedEventHandler SetRequestedUserSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetInactiveUsersCompletedEventHandler GetInactiveUsersCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserForwardingInfoCompletedEventHandler GetUserForwardingInfoCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserAutoResponseInfoCompletedEventHandler GetUserAutoResponseInfoCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserQuotasCompletedEventHandler GetUserQuotasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUsersCompletedEventHandler GetUsersCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event LoginValidatedCompletedEventHandler LoginValidatedCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddRSSFeedCompletedEventHandler AddRSSFeedCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event ToggleActiveSyncCompletedEventHandler ToggleActiveSyncCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event ListRSSFeedsCompletedEventHandler ListRSSFeedsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteRSSFeedCompletedEventHandler DeleteRSSFeedCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserStatsCompletedEventHandler GetUserStatsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddUserGroupCompletedEventHandler AddUserGroupCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RemoveUserGroupCompletedEventHandler RemoveUserGroupCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateUserGroupCompletedEventHandler UpdateUserGroupCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserGroupCompletedEventHandler GetUserGroupCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserGroupsByUserCompletedEventHandler GetUserGroupsByUserCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetUserGroupsByDomainCompletedEventHandler GetUserGroupsByDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddUser(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin)
         {
             object[] results = this.Invoke("AddUser", new object[] {
@@ -4595,8 +5164,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddUser(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddUser", new object[] {
@@ -4610,23 +5180,26 @@ namespace FuseCP.Mail.SM6
                         IsDomainAdmin}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUserAsync(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin)
         {
             this.AddUserAsync(AuthUserName, AuthPassword, NewUsername, NewPassword, DomainName, FirstName, LastName, IsDomainAdmin, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUserAsync(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, object userState)
         {
             if ((this.AddUserOperationCompleted == null))
@@ -4644,6 +5217,7 @@ namespace FuseCP.Mail.SM6
                         IsDomainAdmin}, this.AddUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddUserOperationCompleted(object arg)
         {
             if ((this.AddUserCompleted != null))
@@ -4653,9 +5227,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddUser2", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddUser2(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, int maxMailboxSize)
         {
             object[] results = this.Invoke("AddUser2", new object[] {
@@ -4671,8 +5246,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddUser2(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, int maxMailboxSize, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddUser2", new object[] {
@@ -4687,23 +5263,26 @@ namespace FuseCP.Mail.SM6
                         maxMailboxSize}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddUser2(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUser2Async(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, int maxMailboxSize)
         {
             this.AddUser2Async(AuthUserName, AuthPassword, NewUsername, NewPassword, DomainName, FirstName, LastName, IsDomainAdmin, maxMailboxSize, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUser2Async(string AuthUserName, string AuthPassword, string NewUsername, string NewPassword, string DomainName, string FirstName, string LastName, bool IsDomainAdmin, int maxMailboxSize, object userState)
         {
             if ((this.AddUser2OperationCompleted == null))
@@ -4722,6 +5301,7 @@ namespace FuseCP.Mail.SM6
                         maxMailboxSize}, this.AddUser2OperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddUser2OperationCompleted(object arg)
         {
             if ((this.AddUser2Completed != null))
@@ -4731,9 +5311,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AuthenticateUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AuthenticateUser(string UserName, string DomainName, string Password)
         {
             object[] results = this.Invoke("AuthenticateUser", new object[] {
@@ -4743,8 +5324,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAuthenticateUser(string UserName, string DomainName, string Password, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AuthenticateUser", new object[] {
@@ -4753,23 +5335,26 @@ namespace FuseCP.Mail.SM6
                         Password}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAuthenticateUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AuthenticateUserAsync(string UserName, string DomainName, string Password)
         {
             this.AuthenticateUserAsync(UserName, DomainName, Password, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AuthenticateUserAsync(string UserName, string DomainName, string Password, object userState)
         {
             if ((this.AuthenticateUserOperationCompleted == null))
@@ -4782,6 +5367,7 @@ namespace FuseCP.Mail.SM6
                         Password}, this.AuthenticateUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAuthenticateUserOperationCompleted(object arg)
         {
             if ((this.AuthenticateUserCompleted != null))
@@ -4791,9 +5377,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUser(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin)
         {
             object[] results = this.Invoke("UpdateUser", new object[] {
@@ -4807,8 +5394,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUser(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUser", new object[] {
@@ -4821,23 +5409,26 @@ namespace FuseCP.Mail.SM6
                         IsDomainAdmin}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserAsync(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin)
         {
             this.UpdateUserAsync(AuthUserName, AuthPassword, EmailAddress, NewPassword, NewFirstName, NewLastName, IsDomainAdmin, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserAsync(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, object userState)
         {
             if ((this.UpdateUserOperationCompleted == null))
@@ -4854,6 +5445,7 @@ namespace FuseCP.Mail.SM6
                         IsDomainAdmin}, this.UpdateUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUserOperationCompleted(object arg)
         {
             if ((this.UpdateUserCompleted != null))
@@ -4863,9 +5455,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUser2", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUser2(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, int maxMailboxSize)
         {
             object[] results = this.Invoke("UpdateUser2", new object[] {
@@ -4880,8 +5473,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUser2(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, int maxMailboxSize, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUser2", new object[] {
@@ -4895,23 +5489,26 @@ namespace FuseCP.Mail.SM6
                         maxMailboxSize}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUser2(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUser2Async(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, int maxMailboxSize)
         {
             this.UpdateUser2Async(AuthUserName, AuthPassword, EmailAddress, NewPassword, NewFirstName, NewLastName, IsDomainAdmin, maxMailboxSize, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUser2Async(string AuthUserName, string AuthPassword, string EmailAddress, string NewPassword, string NewFirstName, string NewLastName, bool IsDomainAdmin, int maxMailboxSize, object userState)
         {
             if ((this.UpdateUser2OperationCompleted == null))
@@ -4929,6 +5526,7 @@ namespace FuseCP.Mail.SM6
                         maxMailboxSize}, this.UpdateUser2OperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUser2OperationCompleted(object arg)
         {
             if ((this.UpdateUser2Completed != null))
@@ -4938,9 +5536,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUserForwardingInfo", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUserForwardingInfo(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string ForwardingAddress)
         {
             object[] results = this.Invoke("UpdateUserForwardingInfo", new object[] {
@@ -4952,8 +5551,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUserForwardingInfo(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string ForwardingAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUserForwardingInfo", new object[] {
@@ -4964,23 +5564,26 @@ namespace FuseCP.Mail.SM6
                         ForwardingAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUserForwardingInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserForwardingInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string ForwardingAddress)
         {
             this.UpdateUserForwardingInfoAsync(AuthUserName, AuthPassword, EmailAddress, DeleteOnForward, ForwardingAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserForwardingInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string ForwardingAddress, object userState)
         {
             if ((this.UpdateUserForwardingInfoOperationCompleted == null))
@@ -4995,6 +5598,7 @@ namespace FuseCP.Mail.SM6
                         ForwardingAddress}, this.UpdateUserForwardingInfoOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUserForwardingInfoOperationCompleted(object arg)
         {
             if ((this.UpdateUserForwardingInfoCompleted != null))
@@ -5004,9 +5608,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUserForwardingInfo2", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUserForwardingInfo2(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string[] ForwardingAddresses)
         {
             object[] results = this.Invoke("UpdateUserForwardingInfo2", new object[] {
@@ -5018,8 +5623,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUserForwardingInfo2(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string[] ForwardingAddresses, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUserForwardingInfo2", new object[] {
@@ -5030,23 +5636,26 @@ namespace FuseCP.Mail.SM6
                         ForwardingAddresses}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUserForwardingInfo2(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserForwardingInfo2Async(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string[] ForwardingAddresses)
         {
             this.UpdateUserForwardingInfo2Async(AuthUserName, AuthPassword, EmailAddress, DeleteOnForward, ForwardingAddresses, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserForwardingInfo2Async(string AuthUserName, string AuthPassword, string EmailAddress, bool DeleteOnForward, string[] ForwardingAddresses, object userState)
         {
             if ((this.UpdateUserForwardingInfo2OperationCompleted == null))
@@ -5061,6 +5670,7 @@ namespace FuseCP.Mail.SM6
                         ForwardingAddresses}, this.UpdateUserForwardingInfo2OperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUserForwardingInfo2OperationCompleted(object arg)
         {
             if ((this.UpdateUserForwardingInfo2Completed != null))
@@ -5070,9 +5680,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUserAutoResponseInfo", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUserAutoResponseInfo(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, string Subject, string Body)
         {
             object[] results = this.Invoke("UpdateUserAutoResponseInfo", new object[] {
@@ -5085,8 +5696,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUserAutoResponseInfo(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, string Subject, string Body, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUserAutoResponseInfo", new object[] {
@@ -5098,23 +5710,26 @@ namespace FuseCP.Mail.SM6
                         Body}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUserAutoResponseInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserAutoResponseInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, string Subject, string Body)
         {
             this.UpdateUserAutoResponseInfoAsync(AuthUserName, AuthPassword, EmailAddress, Enabled, Subject, Body, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserAutoResponseInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, string Subject, string Body, object userState)
         {
             if ((this.UpdateUserAutoResponseInfoOperationCompleted == null))
@@ -5130,6 +5745,7 @@ namespace FuseCP.Mail.SM6
                         Body}, this.UpdateUserAutoResponseInfoOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUserAutoResponseInfoOperationCompleted(object arg)
         {
             if ((this.UpdateUserAutoResponseInfoCompleted != null))
@@ -5139,9 +5755,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteUser(string AuthUserName, string AuthPassword, string Username, string DomainName)
         {
             object[] results = this.Invoke("DeleteUser", new object[] {
@@ -5152,8 +5769,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteUser(string AuthUserName, string AuthPassword, string Username, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteUser", new object[] {
@@ -5163,23 +5781,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteUserAsync(string AuthUserName, string AuthPassword, string Username, string DomainName)
         {
             this.DeleteUserAsync(AuthUserName, AuthPassword, Username, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteUserAsync(string AuthUserName, string AuthPassword, string Username, string DomainName, object userState)
         {
             if ((this.DeleteUserOperationCompleted == null))
@@ -5193,6 +5814,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.DeleteUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteUserOperationCompleted(object arg)
         {
             if ((this.DeleteUserCompleted != null))
@@ -5202,9 +5824,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserInfoResult GetUser(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             object[] results = this.Invoke("GetUser", new object[] {
@@ -5214,8 +5837,9 @@ namespace FuseCP.Mail.SM6
             return ((UserInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUser(string AuthUserName, string AuthPassword, string EmailAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUser", new object[] {
@@ -5224,23 +5848,26 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserInfoResult EndGetUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserAsync(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             this.GetUserAsync(AuthUserName, AuthPassword, EmailAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserAsync(string AuthUserName, string AuthPassword, string EmailAddress, object userState)
         {
             if ((this.GetUserOperationCompleted == null))
@@ -5253,6 +5880,7 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, this.GetUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserOperationCompleted(object arg)
         {
             if ((this.GetUserCompleted != null))
@@ -5262,9 +5890,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRequestedUserSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SettingsRequestResult GetRequestedUserSettings(string AuthUserName, string AuthPassword, string EmailAddress, string[] requestedSettings)
         {
             object[] results = this.Invoke("GetRequestedUserSettings", new object[] {
@@ -5275,8 +5904,9 @@ namespace FuseCP.Mail.SM6
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetRequestedUserSettings(string AuthUserName, string AuthPassword, string EmailAddress, string[] requestedSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedUserSettings", new object[] {
@@ -5286,23 +5916,26 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SettingsRequestResult EndGetRequestedUserSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedUserSettingsAsync(string AuthUserName, string AuthPassword, string EmailAddress, string[] requestedSettings)
         {
             this.GetRequestedUserSettingsAsync(AuthUserName, AuthPassword, EmailAddress, requestedSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedUserSettingsAsync(string AuthUserName, string AuthPassword, string EmailAddress, string[] requestedSettings, object userState)
         {
             if ((this.GetRequestedUserSettingsOperationCompleted == null))
@@ -5316,6 +5949,7 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, this.GetRequestedUserSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetRequestedUserSettingsOperationCompleted(object arg)
         {
             if ((this.GetRequestedUserSettingsCompleted != null))
@@ -5325,9 +5959,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetRequestedUserSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetRequestedUserSettings(string AuthUserName, string AuthPassword, string EmailAddress, string[] newSettings)
         {
             object[] results = this.Invoke("SetRequestedUserSettings", new object[] {
@@ -5338,8 +5973,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetRequestedUserSettings(string AuthUserName, string AuthPassword, string EmailAddress, string[] newSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedUserSettings", new object[] {
@@ -5349,23 +5985,26 @@ namespace FuseCP.Mail.SM6
                         newSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetRequestedUserSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedUserSettingsAsync(string AuthUserName, string AuthPassword, string EmailAddress, string[] newSettings)
         {
             this.SetRequestedUserSettingsAsync(AuthUserName, AuthPassword, EmailAddress, newSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedUserSettingsAsync(string AuthUserName, string AuthPassword, string EmailAddress, string[] newSettings, object userState)
         {
             if ((this.SetRequestedUserSettingsOperationCompleted == null))
@@ -5379,6 +6018,7 @@ namespace FuseCP.Mail.SM6
                         newSettings}, this.SetRequestedUserSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetRequestedUserSettingsOperationCompleted(object arg)
         {
             if ((this.SetRequestedUserSettingsCompleted != null))
@@ -5388,9 +6028,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetInactiveUsers", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public InactiveUserResult GetInactiveUsers(string AuthUserName, string AuthPassword, System.DateTime date)
         {
             object[] results = this.Invoke("GetInactiveUsers", new object[] {
@@ -5400,8 +6041,9 @@ namespace FuseCP.Mail.SM6
             return ((InactiveUserResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetInactiveUsers(string AuthUserName, string AuthPassword, System.DateTime date, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetInactiveUsers", new object[] {
@@ -5410,23 +6052,26 @@ namespace FuseCP.Mail.SM6
                         date}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public InactiveUserResult EndGetInactiveUsers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((InactiveUserResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetInactiveUsersAsync(string AuthUserName, string AuthPassword, System.DateTime date)
         {
             this.GetInactiveUsersAsync(AuthUserName, AuthPassword, date, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetInactiveUsersAsync(string AuthUserName, string AuthPassword, System.DateTime date, object userState)
         {
             if ((this.GetInactiveUsersOperationCompleted == null))
@@ -5439,6 +6084,7 @@ namespace FuseCP.Mail.SM6
                         date}, this.GetInactiveUsersOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetInactiveUsersOperationCompleted(object arg)
         {
             if ((this.GetInactiveUsersCompleted != null))
@@ -5448,9 +6094,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserForwardingInfo", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserForwardingInfoResult GetUserForwardingInfo(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             object[] results = this.Invoke("GetUserForwardingInfo", new object[] {
@@ -5460,8 +6107,9 @@ namespace FuseCP.Mail.SM6
             return ((UserForwardingInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserForwardingInfo(string AuthUserName, string AuthPassword, string EmailAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserForwardingInfo", new object[] {
@@ -5470,23 +6118,26 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserForwardingInfoResult EndGetUserForwardingInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserForwardingInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserForwardingInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             this.GetUserForwardingInfoAsync(AuthUserName, AuthPassword, EmailAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserForwardingInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, object userState)
         {
             if ((this.GetUserForwardingInfoOperationCompleted == null))
@@ -5499,6 +6150,7 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, this.GetUserForwardingInfoOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserForwardingInfoOperationCompleted(object arg)
         {
             if ((this.GetUserForwardingInfoCompleted != null))
@@ -5508,9 +6160,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserAutoResponseInfo", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserAutoResponseResult GetUserAutoResponseInfo(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             object[] results = this.Invoke("GetUserAutoResponseInfo", new object[] {
@@ -5520,8 +6173,9 @@ namespace FuseCP.Mail.SM6
             return ((UserAutoResponseResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserAutoResponseInfo(string AuthUserName, string AuthPassword, string EmailAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserAutoResponseInfo", new object[] {
@@ -5530,23 +6184,26 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserAutoResponseResult EndGetUserAutoResponseInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserAutoResponseResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserAutoResponseInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             this.GetUserAutoResponseInfoAsync(AuthUserName, AuthPassword, EmailAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserAutoResponseInfoAsync(string AuthUserName, string AuthPassword, string EmailAddress, object userState)
         {
             if ((this.GetUserAutoResponseInfoOperationCompleted == null))
@@ -5559,6 +6216,7 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, this.GetUserAutoResponseInfoOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserAutoResponseInfoOperationCompleted(object arg)
         {
             if ((this.GetUserAutoResponseInfoCompleted != null))
@@ -5568,9 +6226,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserQuotas", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public QuotaInfoListResult GetUserQuotas(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetUserQuotas", new object[] {
@@ -5580,8 +6239,9 @@ namespace FuseCP.Mail.SM6
             return ((QuotaInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserQuotas(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserQuotas", new object[] {
@@ -5590,23 +6250,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public QuotaInfoListResult EndGetUserQuotas(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((QuotaInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserQuotasAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetUserQuotasAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserQuotasAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetUserQuotasOperationCompleted == null))
@@ -5619,6 +6282,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetUserQuotasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserQuotasOperationCompleted(object arg)
         {
             if ((this.GetUserQuotasCompleted != null))
@@ -5628,9 +6292,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUsers", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserInfoListResult GetUsers(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetUsers", new object[] {
@@ -5640,8 +6305,9 @@ namespace FuseCP.Mail.SM6
             return ((UserInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUsers(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUsers", new object[] {
@@ -5650,23 +6316,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserInfoListResult EndGetUsers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUsersAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetUsersAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUsersAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetUsersOperationCompleted == null))
@@ -5679,6 +6348,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetUsersOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUsersOperationCompleted(object arg)
         {
             if ((this.GetUsersCompleted != null))
@@ -5688,9 +6358,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/LoginValidated", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public LoginResult LoginValidated(string Username, string Password)
         {
             object[] results = this.Invoke("LoginValidated", new object[] {
@@ -5699,8 +6370,9 @@ namespace FuseCP.Mail.SM6
             return ((LoginResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginLoginValidated(string Username, string Password, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("LoginValidated", new object[] {
@@ -5708,23 +6380,26 @@ namespace FuseCP.Mail.SM6
                         Password}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public LoginResult EndLoginValidated(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((LoginResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void LoginValidatedAsync(string Username, string Password)
         {
             this.LoginValidatedAsync(Username, Password, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void LoginValidatedAsync(string Username, string Password, object userState)
         {
             if ((this.LoginValidatedOperationCompleted == null))
@@ -5736,6 +6411,7 @@ namespace FuseCP.Mail.SM6
                         Password}, this.LoginValidatedOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnLoginValidatedOperationCompleted(object arg)
         {
             if ((this.LoginValidatedCompleted != null))
@@ -5745,9 +6421,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddRSSFeed", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddRSSFeed(string AuthUserName, string AuthPassword, string EmailAddress, string rssUrl, string rssName, string rssFolder)
         {
             object[] results = this.Invoke("AddRSSFeed", new object[] {
@@ -5760,8 +6437,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddRSSFeed(string AuthUserName, string AuthPassword, string EmailAddress, string rssUrl, string rssName, string rssFolder, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddRSSFeed", new object[] {
@@ -5773,23 +6451,26 @@ namespace FuseCP.Mail.SM6
                         rssFolder}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddRSSFeed(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddRSSFeedAsync(string AuthUserName, string AuthPassword, string EmailAddress, string rssUrl, string rssName, string rssFolder)
         {
             this.AddRSSFeedAsync(AuthUserName, AuthPassword, EmailAddress, rssUrl, rssName, rssFolder, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddRSSFeedAsync(string AuthUserName, string AuthPassword, string EmailAddress, string rssUrl, string rssName, string rssFolder, object userState)
         {
             if ((this.AddRSSFeedOperationCompleted == null))
@@ -5805,6 +6486,7 @@ namespace FuseCP.Mail.SM6
                         rssFolder}, this.AddRSSFeedOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddRSSFeedOperationCompleted(object arg)
         {
             if ((this.AddRSSFeedCompleted != null))
@@ -5814,9 +6496,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ToggleActiveSync", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult ToggleActiveSync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled)
         {
             object[] results = this.Invoke("ToggleActiveSync", new object[] {
@@ -5827,8 +6510,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginToggleActiveSync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ToggleActiveSync", new object[] {
@@ -5838,23 +6522,26 @@ namespace FuseCP.Mail.SM6
                         Enabled}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndToggleActiveSync(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ToggleActiveSyncAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled)
         {
             this.ToggleActiveSyncAsync(AuthUserName, AuthPassword, EmailAddress, Enabled, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ToggleActiveSyncAsync(string AuthUserName, string AuthPassword, string EmailAddress, bool Enabled, object userState)
         {
             if ((this.ToggleActiveSyncOperationCompleted == null))
@@ -5868,6 +6555,7 @@ namespace FuseCP.Mail.SM6
                         Enabled}, this.ToggleActiveSyncOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnToggleActiveSyncOperationCompleted(object arg)
         {
             if ((this.ToggleActiveSyncCompleted != null))
@@ -5877,9 +6565,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ListRSSFeeds", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public RSSFeedListResult ListRSSFeeds(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             object[] results = this.Invoke("ListRSSFeeds", new object[] {
@@ -5889,8 +6578,9 @@ namespace FuseCP.Mail.SM6
             return ((RSSFeedListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginListRSSFeeds(string AuthUserName, string AuthPassword, string EmailAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ListRSSFeeds", new object[] {
@@ -5899,23 +6589,26 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public RSSFeedListResult EndListRSSFeeds(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((RSSFeedListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ListRSSFeedsAsync(string AuthUserName, string AuthPassword, string EmailAddress)
         {
             this.ListRSSFeedsAsync(AuthUserName, AuthPassword, EmailAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ListRSSFeedsAsync(string AuthUserName, string AuthPassword, string EmailAddress, object userState)
         {
             if ((this.ListRSSFeedsOperationCompleted == null))
@@ -5928,6 +6621,7 @@ namespace FuseCP.Mail.SM6
                         EmailAddress}, this.ListRSSFeedsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnListRSSFeedsOperationCompleted(object arg)
         {
             if ((this.ListRSSFeedsCompleted != null))
@@ -5937,9 +6631,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteRSSFeed", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteRSSFeed(string AuthUserName, string AuthPassword, string EmailAddress, string UID)
         {
             object[] results = this.Invoke("DeleteRSSFeed", new object[] {
@@ -5950,8 +6645,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteRSSFeed(string AuthUserName, string AuthPassword, string EmailAddress, string UID, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteRSSFeed", new object[] {
@@ -5961,23 +6657,26 @@ namespace FuseCP.Mail.SM6
                         UID}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteRSSFeed(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteRSSFeedAsync(string AuthUserName, string AuthPassword, string EmailAddress, string UID)
         {
             this.DeleteRSSFeedAsync(AuthUserName, AuthPassword, EmailAddress, UID, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteRSSFeedAsync(string AuthUserName, string AuthPassword, string EmailAddress, string UID, object userState)
         {
             if ((this.DeleteRSSFeedOperationCompleted == null))
@@ -5991,6 +6690,7 @@ namespace FuseCP.Mail.SM6
                         UID}, this.DeleteRSSFeedOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteRSSFeedOperationCompleted(object arg)
         {
             if ((this.DeleteRSSFeedCompleted != null))
@@ -6000,9 +6700,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserStats", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public StatInfoResult GetUserStats(string AuthUserName, string AuthPassword, string EmailAddress, System.DateTime Start, System.DateTime End)
         {
             object[] results = this.Invoke("GetUserStats", new object[] {
@@ -6014,8 +6715,9 @@ namespace FuseCP.Mail.SM6
             return ((StatInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserStats(string AuthUserName, string AuthPassword, string EmailAddress, System.DateTime Start, System.DateTime End, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserStats", new object[] {
@@ -6026,23 +6728,26 @@ namespace FuseCP.Mail.SM6
                         End}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public StatInfoResult EndGetUserStats(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((StatInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserStatsAsync(string AuthUserName, string AuthPassword, string EmailAddress, System.DateTime Start, System.DateTime End)
         {
             this.GetUserStatsAsync(AuthUserName, AuthPassword, EmailAddress, Start, End, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserStatsAsync(string AuthUserName, string AuthPassword, string EmailAddress, System.DateTime Start, System.DateTime End, object userState)
         {
             if ((this.GetUserStatsOperationCompleted == null))
@@ -6057,6 +6762,7 @@ namespace FuseCP.Mail.SM6
                         End}, this.GetUserStatsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserStatsOperationCompleted(object arg)
         {
             if ((this.GetUserStatsCompleted != null))
@@ -6066,9 +6772,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddUserGroup", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupName, string[] UserNames)
         {
             object[] results = this.Invoke("AddUserGroup", new object[] {
@@ -6080,8 +6787,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupName, string[] UserNames, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddUserGroup", new object[] {
@@ -6092,23 +6800,26 @@ namespace FuseCP.Mail.SM6
                         UserNames}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddUserGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupName, string[] UserNames)
         {
             this.AddUserGroupAsync(AuthUserName, AuthPassword, DomainName, UserGroupName, UserNames, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupName, string[] UserNames, object userState)
         {
             if ((this.AddUserGroupOperationCompleted == null))
@@ -6123,6 +6834,7 @@ namespace FuseCP.Mail.SM6
                         UserNames}, this.AddUserGroupOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddUserGroupOperationCompleted(object arg)
         {
             if ((this.AddUserGroupCompleted != null))
@@ -6132,9 +6844,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RemoveUserGroup", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult RemoveUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID)
         {
             object[] results = this.Invoke("RemoveUserGroup", new object[] {
@@ -6145,8 +6858,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRemoveUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RemoveUserGroup", new object[] {
@@ -6156,23 +6870,26 @@ namespace FuseCP.Mail.SM6
                         UserGroupID}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndRemoveUserGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID)
         {
             this.RemoveUserGroupAsync(AuthUserName, AuthPassword, DomainName, UserGroupID, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, object userState)
         {
             if ((this.RemoveUserGroupOperationCompleted == null))
@@ -6186,6 +6903,7 @@ namespace FuseCP.Mail.SM6
                         UserGroupID}, this.RemoveUserGroupOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRemoveUserGroupOperationCompleted(object arg)
         {
             if ((this.RemoveUserGroupCompleted != null))
@@ -6195,9 +6913,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateUserGroup", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, string UserGroupName, string[] UserNames)
         {
             object[] results = this.Invoke("UpdateUserGroup", new object[] {
@@ -6210,8 +6929,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, string UserGroupName, string[] UserNames, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateUserGroup", new object[] {
@@ -6223,23 +6943,26 @@ namespace FuseCP.Mail.SM6
                         UserNames}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateUserGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, string UserGroupName, string[] UserNames)
         {
             this.UpdateUserGroupAsync(AuthUserName, AuthPassword, DomainName, UserGroupID, UserGroupName, UserNames, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, string UserGroupName, string[] UserNames, object userState)
         {
             if ((this.UpdateUserGroupOperationCompleted == null))
@@ -6255,6 +6978,7 @@ namespace FuseCP.Mail.SM6
                         UserNames}, this.UpdateUserGroupOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateUserGroupOperationCompleted(object arg)
         {
             if ((this.UpdateUserGroupCompleted != null))
@@ -6264,9 +6988,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserGroup", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserGroupInfoResult GetUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID)
         {
             object[] results = this.Invoke("GetUserGroup", new object[] {
@@ -6277,8 +7002,9 @@ namespace FuseCP.Mail.SM6
             return ((UserGroupInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserGroup(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserGroup", new object[] {
@@ -6288,23 +7014,26 @@ namespace FuseCP.Mail.SM6
                         UserGroupID}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserGroupInfoResult EndGetUserGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserGroupInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID)
         {
             this.GetUserGroupAsync(AuthUserName, AuthPassword, DomainName, UserGroupID, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupAsync(string AuthUserName, string AuthPassword, string DomainName, string UserGroupID, object userState)
         {
             if ((this.GetUserGroupOperationCompleted == null))
@@ -6318,6 +7047,7 @@ namespace FuseCP.Mail.SM6
                         UserGroupID}, this.GetUserGroupOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserGroupOperationCompleted(object arg)
         {
             if ((this.GetUserGroupCompleted != null))
@@ -6327,9 +7057,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserGroupsByUser", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserGroupsResult GetUserGroupsByUser(string AuthUserName, string AuthPassword, string DomainName, string UserName, bool IncludeUserNames)
         {
             object[] results = this.Invoke("GetUserGroupsByUser", new object[] {
@@ -6341,8 +7072,9 @@ namespace FuseCP.Mail.SM6
             return ((UserGroupsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserGroupsByUser(string AuthUserName, string AuthPassword, string DomainName, string UserName, bool IncludeUserNames, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserGroupsByUser", new object[] {
@@ -6353,23 +7085,26 @@ namespace FuseCP.Mail.SM6
                         IncludeUserNames}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserGroupsResult EndGetUserGroupsByUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserGroupsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupsByUserAsync(string AuthUserName, string AuthPassword, string DomainName, string UserName, bool IncludeUserNames)
         {
             this.GetUserGroupsByUserAsync(AuthUserName, AuthPassword, DomainName, UserName, IncludeUserNames, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupsByUserAsync(string AuthUserName, string AuthPassword, string DomainName, string UserName, bool IncludeUserNames, object userState)
         {
             if ((this.GetUserGroupsByUserOperationCompleted == null))
@@ -6384,6 +7119,7 @@ namespace FuseCP.Mail.SM6
                         IncludeUserNames}, this.GetUserGroupsByUserOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserGroupsByUserOperationCompleted(object arg)
         {
             if ((this.GetUserGroupsByUserCompleted != null))
@@ -6393,9 +7129,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUserGroupsByDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public UserGroupsResult GetUserGroupsByDomain(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetUserGroupsByDomain", new object[] {
@@ -6405,8 +7142,9 @@ namespace FuseCP.Mail.SM6
             return ((UserGroupsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetUserGroupsByDomain(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserGroupsByDomain", new object[] {
@@ -6415,23 +7153,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserGroupsResult EndGetUserGroupsByDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((UserGroupsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupsByDomainAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetUserGroupsByDomainAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetUserGroupsByDomainAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetUserGroupsByDomainOperationCompleted == null))
@@ -6444,6 +7185,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetUserGroupsByDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetUserGroupsByDomainOperationCompleted(object arg)
         {
             if ((this.GetUserGroupsByDomainCompleted != null))
@@ -6453,15 +7195,16 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6471,25 +7214,29 @@ namespace FuseCP.Mail.SM6
     public partial class UserGroupsResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public UserGroupInfo[] UserGroups;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6499,20 +7246,23 @@ namespace FuseCP.Mail.SM6
     public partial class UserGroupInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string guid;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string name;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] userNames;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6522,24 +7272,28 @@ namespace FuseCP.Mail.SM6
     public partial class UserGroupInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserGroupInfo UserGroup;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6549,24 +7303,28 @@ namespace FuseCP.Mail.SM6
     public partial class RSSFeed
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string uid;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string name;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string url;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string folder;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6576,29 +7334,34 @@ namespace FuseCP.Mail.SM6
     public partial class RSSFeedListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public RSSFeed[] RSSFeeds;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] Folders;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6608,20 +7371,23 @@ namespace FuseCP.Mail.SM6
     public partial class LoginResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool LoginValidated;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6631,25 +7397,29 @@ namespace FuseCP.Mail.SM6
     public partial class UserInfoListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public UserInfo[] Users;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6659,32 +7429,38 @@ namespace FuseCP.Mail.SM6
     public partial class UserInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string UserName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Password;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string FirstName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string LastName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool IsSystemAdmin;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool IsDomainAdmin;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6694,20 +7470,23 @@ namespace FuseCP.Mail.SM6
     public partial class UserQuota
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string UserName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long MaxSpace;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public long CurrentSpace;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6717,25 +7496,29 @@ namespace FuseCP.Mail.SM6
     public partial class QuotaInfoListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public UserQuota[] Users;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6745,32 +7528,38 @@ namespace FuseCP.Mail.SM6
     public partial class UserAutoResponseResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Enabled;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Subject;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Body;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6780,28 +7569,33 @@ namespace FuseCP.Mail.SM6
     public partial class UserForwardingInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool DeleteOnForward;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string ForwardingAddress;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6811,28 +7605,33 @@ namespace FuseCP.Mail.SM6
     public partial class InactiveUserResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] EmailAddress;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.DateTime[] LastLogin;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -6842,45 +7641,53 @@ namespace FuseCP.Mail.SM6
     public partial class UserInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public UserInfo UserInfo;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddUserCompletedEventHandler(object sender, AddUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -6892,28 +7699,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddUser2CompletedEventHandler(object sender, AddUser2CompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddUser2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -6925,28 +7736,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AuthenticateUserCompletedEventHandler(object sender, AuthenticateUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AuthenticateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AuthenticateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -6958,28 +7773,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUserCompletedEventHandler(object sender, UpdateUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -6991,28 +7810,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUser2CompletedEventHandler(object sender, UpdateUser2CompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUser2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUser2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7024,28 +7847,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUserForwardingInfoCompletedEventHandler(object sender, UpdateUserForwardingInfoCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUserForwardingInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7057,28 +7884,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUserForwardingInfo2CompletedEventHandler(object sender, UpdateUserForwardingInfo2CompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUserForwardingInfo2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUserForwardingInfo2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7090,28 +7921,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUserAutoResponseInfoCompletedEventHandler(object sender, UpdateUserAutoResponseInfoCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUserAutoResponseInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7123,28 +7958,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteUserCompletedEventHandler(object sender, DeleteUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7156,28 +7995,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserCompletedEventHandler(object sender, GetUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserInfoResult Result
         {
@@ -7189,28 +8032,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedUserSettingsCompletedEventHandler(object sender, GetRequestedUserSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedUserSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SettingsRequestResult Result
         {
@@ -7222,28 +8069,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedUserSettingsCompletedEventHandler(object sender, SetRequestedUserSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedUserSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetRequestedUserSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7255,28 +8106,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetInactiveUsersCompletedEventHandler(object sender, GetInactiveUsersCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetInactiveUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetInactiveUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public InactiveUserResult Result
         {
@@ -7288,28 +8143,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserForwardingInfoCompletedEventHandler(object sender, GetUserForwardingInfoCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserForwardingInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserForwardingInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserForwardingInfoResult Result
         {
@@ -7321,28 +8180,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserAutoResponseInfoCompletedEventHandler(object sender, GetUserAutoResponseInfoCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserAutoResponseInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserAutoResponseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserAutoResponseResult Result
         {
@@ -7354,28 +8217,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserQuotasCompletedEventHandler(object sender, GetUserQuotasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserQuotasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserQuotasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public QuotaInfoListResult Result
         {
@@ -7387,28 +8254,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUsersCompletedEventHandler(object sender, GetUsersCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserInfoListResult Result
         {
@@ -7420,28 +8291,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void LoginValidatedCompletedEventHandler(object sender, LoginValidatedCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class LoginValidatedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal LoginValidatedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public LoginResult Result
         {
@@ -7453,28 +8328,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddRSSFeedCompletedEventHandler(object sender, AddRSSFeedCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddRSSFeedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7486,28 +8365,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void ToggleActiveSyncCompletedEventHandler(object sender, ToggleActiveSyncCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ToggleActiveSyncCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal ToggleActiveSyncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7519,28 +8402,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void ListRSSFeedsCompletedEventHandler(object sender, ListRSSFeedsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ListRSSFeedsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal ListRSSFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public RSSFeedListResult Result
         {
@@ -7552,28 +8439,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteRSSFeedCompletedEventHandler(object sender, DeleteRSSFeedCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteRSSFeedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteRSSFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7585,28 +8476,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserStatsCompletedEventHandler(object sender, GetUserStatsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserStatsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserStatsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public StatInfoResult Result
         {
@@ -7618,28 +8513,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddUserGroupCompletedEventHandler(object sender, AddUserGroupCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddUserGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7651,28 +8550,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void RemoveUserGroupCompletedEventHandler(object sender, RemoveUserGroupCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RemoveUserGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RemoveUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7684,28 +8587,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateUserGroupCompletedEventHandler(object sender, UpdateUserGroupCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateUserGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -7717,28 +8624,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserGroupCompletedEventHandler(object sender, GetUserGroupCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserGroupInfoResult Result
         {
@@ -7750,28 +8661,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserGroupsByUserCompletedEventHandler(object sender, GetUserGroupsByUserCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserGroupsByUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserGroupsByUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserGroupsResult Result
         {
@@ -7783,28 +8698,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetUserGroupsByDomainCompletedEventHandler(object sender, GetUserGroupsByDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserGroupsByDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetUserGroupsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public UserGroupsResult Result
         {
@@ -7816,61 +8735,76 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcAliasAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcAliasAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetCatchAllOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAliasesOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcAliasAdmin()
         {
             this.Url = "http://localhost:9998/services/svcAliasAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddAliasCompletedEventHandler AddAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetCatchAllCompletedEventHandler SetCatchAllCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateAliasCompletedEventHandler UpdateAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteAliasCompletedEventHandler DeleteAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAliasCompletedEventHandler GetAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAliasesCompletedEventHandler GetAliasesCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses)
         {
             object[] results = this.Invoke("AddAlias", new object[] {
@@ -7882,8 +8816,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddAlias", new object[] {
@@ -7894,23 +8829,26 @@ namespace FuseCP.Mail.SM6
                         Addresses}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses)
         {
             this.AddAliasAsync(AuthUserName, AuthPassword, DomainName, AliasName, Addresses, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses, object userState)
         {
             if ((this.AddAliasOperationCompleted == null))
@@ -7925,6 +8863,7 @@ namespace FuseCP.Mail.SM6
                         Addresses}, this.AddAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddAliasOperationCompleted(object arg)
         {
             if ((this.AddAliasCompleted != null))
@@ -7934,9 +8873,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetCatchAll", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetCatchAll(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             object[] results = this.Invoke("SetCatchAll", new object[] {
@@ -7947,8 +8887,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetCatchAll(string AuthUserName, string AuthPassword, string DomainName, string AliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetCatchAll", new object[] {
@@ -7958,23 +8899,26 @@ namespace FuseCP.Mail.SM6
                         AliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetCatchAll(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetCatchAllAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             this.SetCatchAllAsync(AuthUserName, AuthPassword, DomainName, AliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetCatchAllAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, object userState)
         {
             if ((this.SetCatchAllOperationCompleted == null))
@@ -7988,6 +8932,7 @@ namespace FuseCP.Mail.SM6
                         AliasName}, this.SetCatchAllOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetCatchAllOperationCompleted(object arg)
         {
             if ((this.SetCatchAllCompleted != null))
@@ -7997,9 +8942,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses)
         {
             object[] results = this.Invoke("UpdateAlias", new object[] {
@@ -8011,8 +8957,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateAlias", new object[] {
@@ -8023,23 +8970,26 @@ namespace FuseCP.Mail.SM6
                         Addresses}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses)
         {
             this.UpdateAliasAsync(AuthUserName, AuthPassword, DomainName, AliasName, Addresses, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, string[] Addresses, object userState)
         {
             if ((this.UpdateAliasOperationCompleted == null))
@@ -8054,6 +9004,7 @@ namespace FuseCP.Mail.SM6
                         Addresses}, this.UpdateAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateAliasOperationCompleted(object arg)
         {
             if ((this.UpdateAliasCompleted != null))
@@ -8063,9 +9014,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             object[] results = this.Invoke("DeleteAlias", new object[] {
@@ -8076,8 +9028,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteAlias", new object[] {
@@ -8087,23 +9040,26 @@ namespace FuseCP.Mail.SM6
                         AliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             this.DeleteAliasAsync(AuthUserName, AuthPassword, DomainName, AliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, object userState)
         {
             if ((this.DeleteAliasOperationCompleted == null))
@@ -8117,6 +9073,7 @@ namespace FuseCP.Mail.SM6
                         AliasName}, this.DeleteAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteAliasOperationCompleted(object arg)
         {
             if ((this.DeleteAliasCompleted != null))
@@ -8126,9 +9083,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public AliasInfoResult GetAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             object[] results = this.Invoke("GetAlias", new object[] {
@@ -8139,8 +9097,9 @@ namespace FuseCP.Mail.SM6
             return ((AliasInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAlias(string AuthUserName, string AuthPassword, string DomainName, string AliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAlias", new object[] {
@@ -8150,23 +9109,26 @@ namespace FuseCP.Mail.SM6
                         AliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public AliasInfoResult EndGetAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((AliasInfoResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName)
         {
             this.GetAliasAsync(AuthUserName, AuthPassword, DomainName, AliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string AliasName, object userState)
         {
             if ((this.GetAliasOperationCompleted == null))
@@ -8180,6 +9142,7 @@ namespace FuseCP.Mail.SM6
                         AliasName}, this.GetAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAliasOperationCompleted(object arg)
         {
             if ((this.GetAliasCompleted != null))
@@ -8189,9 +9152,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAliases", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public AliasInfoListResult GetAliases(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetAliases", new object[] {
@@ -8201,8 +9165,9 @@ namespace FuseCP.Mail.SM6
             return ((AliasInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAliases(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAliases", new object[] {
@@ -8211,23 +9176,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public AliasInfoListResult EndGetAliases(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((AliasInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasesAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetAliasesAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasesAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetAliasesOperationCompleted == null))
@@ -8240,6 +9208,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetAliasesOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAliasesOperationCompleted(object arg)
         {
             if ((this.GetAliasesCompleted != null))
@@ -8249,8 +9218,9 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
@@ -8258,7 +9228,7 @@ namespace FuseCP.Mail.SM6
     }
 
     
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -8268,25 +9238,29 @@ namespace FuseCP.Mail.SM6
     public partial class AliasInfoListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public AliasInfo[] AliasInfos;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -8296,16 +9270,18 @@ namespace FuseCP.Mail.SM6
     public partial class AliasInfo
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Name;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] Addresses;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -8315,45 +9291,53 @@ namespace FuseCP.Mail.SM6
     public partial class AliasInfoResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public AliasInfo AliasInfo;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddAliasCompletedEventHandler(object sender, AddAliasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -8365,28 +9349,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetCatchAllCompletedEventHandler(object sender, SetCatchAllCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetCatchAllCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetCatchAllCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -8398,34 +9386,39 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void UpdateAliasCompletedEventHandler(object sender, UpdateAliasCompletedEventArgs e);
 
     
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetAliasesCompletedEventHandler(object sender, GetAliasesCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAliasesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetAliasesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public AliasInfoListResult Result
         {
@@ -8437,145 +9430,188 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcMailListAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcMailListAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetRequestedListSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetRequestedListSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetMailingListsByDomainOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteAllListsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetListCommandAddressOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetListCommandAddressOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddSubscriberOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDigestSubscriberOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RemoveSubscriberOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RemoveDigestSubscriberOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetSubscriberListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetPosterWhiteListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetPosterKillListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetDigestSubscriberListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetSubscriberListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetDigestSubscriberListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetPosterWhiteListOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetPosterKillListOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcMailListAdmin()
         {
             this.Url = "http://localhost:9998/services/svcMailListAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetRequestedListSettingsCompletedEventHandler SetRequestedListSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetRequestedListSettingsCompletedEventHandler GetRequestedListSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetMailingListsByDomainCompletedEventHandler GetMailingListsByDomainCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteAllListsCompletedEventHandler DeleteAllListsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteListCompletedEventHandler DeleteListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetListCommandAddressCompletedEventHandler GetListCommandAddressCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetListCommandAddressCompletedEventHandler SetListCommandAddressCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddListCompletedEventHandler AddListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddSubscriberCompletedEventHandler AddSubscriberCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDigestSubscriberCompletedEventHandler AddDigestSubscriberCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RemoveSubscriberCompletedEventHandler RemoveSubscriberCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RemoveDigestSubscriberCompletedEventHandler RemoveDigestSubscriberCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetSubscriberListCompletedEventHandler GetSubscriberListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetPosterWhiteListCompletedEventHandler GetPosterWhiteListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetPosterKillListCompletedEventHandler GetPosterKillListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetDigestSubscriberListCompletedEventHandler GetDigestSubscriberListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetSubscriberListCompletedEventHandler SetSubscriberListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetDigestSubscriberListCompletedEventHandler SetDigestSubscriberListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetPosterWhiteListCompletedEventHandler SetPosterWhiteListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetPosterKillListCompletedEventHandler SetPosterKillListCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetRequestedListSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetRequestedListSettings(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] newSettings)
         {
             object[] results = this.Invoke("SetRequestedListSettings", new object[] {
@@ -8587,8 +9623,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetRequestedListSettings(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] newSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedListSettings", new object[] {
@@ -8599,23 +9636,26 @@ namespace FuseCP.Mail.SM6
                         newSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetRequestedListSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedListSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] newSettings)
         {
             this.SetRequestedListSettingsAsync(AuthUserName, AuthPassword, DomainName, ListName, newSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedListSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] newSettings, object userState)
         {
             if ((this.SetRequestedListSettingsOperationCompleted == null))
@@ -8630,6 +9670,7 @@ namespace FuseCP.Mail.SM6
                         newSettings}, this.SetRequestedListSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetRequestedListSettingsOperationCompleted(object arg)
         {
             if ((this.SetRequestedListSettingsCompleted != null))
@@ -8639,9 +9680,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRequestedListSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SettingsRequestResult GetRequestedListSettings(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] requestedSettings)
         {
             object[] results = this.Invoke("GetRequestedListSettings", new object[] {
@@ -8653,8 +9695,9 @@ namespace FuseCP.Mail.SM6
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetRequestedListSettings(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] requestedSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedListSettings", new object[] {
@@ -8665,23 +9708,26 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SettingsRequestResult EndGetRequestedListSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SettingsRequestResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedListSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] requestedSettings)
         {
             this.GetRequestedListSettingsAsync(AuthUserName, AuthPassword, DomainName, ListName, requestedSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedListSettingsAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] requestedSettings, object userState)
         {
             if ((this.GetRequestedListSettingsOperationCompleted == null))
@@ -8696,6 +9742,7 @@ namespace FuseCP.Mail.SM6
                         requestedSettings}, this.GetRequestedListSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetRequestedListSettingsOperationCompleted(object arg)
         {
             if ((this.GetRequestedListSettingsCompleted != null))
@@ -8705,9 +9752,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetMailingListsByDomain", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public MailingListResult GetMailingListsByDomain(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetMailingListsByDomain", new object[] {
@@ -8717,8 +9765,9 @@ namespace FuseCP.Mail.SM6
             return ((MailingListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetMailingListsByDomain(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetMailingListsByDomain", new object[] {
@@ -8727,23 +9776,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public MailingListResult EndGetMailingListsByDomain(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((MailingListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetMailingListsByDomainAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetMailingListsByDomainAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetMailingListsByDomainAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetMailingListsByDomainOperationCompleted == null))
@@ -8756,6 +9808,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetMailingListsByDomainOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetMailingListsByDomainOperationCompleted(object arg)
         {
             if ((this.GetMailingListsByDomainCompleted != null))
@@ -8765,9 +9818,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteAllLists", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteAllLists(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("DeleteAllLists", new object[] {
@@ -8777,8 +9831,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteAllLists(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteAllLists", new object[] {
@@ -8787,23 +9842,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteAllLists(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteAllListsAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.DeleteAllListsAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteAllListsAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.DeleteAllListsOperationCompleted == null))
@@ -8816,6 +9874,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.DeleteAllListsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteAllListsOperationCompleted(object arg)
         {
             if ((this.DeleteAllListsCompleted != null))
@@ -8825,9 +9884,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteList(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             object[] results = this.Invoke("DeleteList", new object[] {
@@ -8838,8 +9898,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteList(string AuthUserName, string AuthPassword, string DomainName, string ListName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteList", new object[] {
@@ -8849,23 +9910,26 @@ namespace FuseCP.Mail.SM6
                         ListName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             this.DeleteListAsync(AuthUserName, AuthPassword, DomainName, ListName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, object userState)
         {
             if ((this.DeleteListOperationCompleted == null))
@@ -8879,6 +9943,7 @@ namespace FuseCP.Mail.SM6
                         ListName}, this.DeleteListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteListOperationCompleted(object arg)
         {
             if ((this.DeleteListCompleted != null))
@@ -8888,9 +9953,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetListCommandAddress", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public ListCommandResult GetListCommandAddress(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetListCommandAddress", new object[] {
@@ -8900,8 +9966,9 @@ namespace FuseCP.Mail.SM6
             return ((ListCommandResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetListCommandAddress(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetListCommandAddress", new object[] {
@@ -8910,23 +9977,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public ListCommandResult EndGetListCommandAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((ListCommandResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetListCommandAddressAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetListCommandAddressAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetListCommandAddressAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetListCommandAddressOperationCompleted == null))
@@ -8939,6 +10009,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetListCommandAddressOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetListCommandAddressOperationCompleted(object arg)
         {
             if ((this.GetListCommandAddressCompleted != null))
@@ -8948,9 +10019,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetListCommandAddress", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetListCommandAddress(string AuthUserName, string AuthPassword, string DomainName, string commandAddress)
         {
             object[] results = this.Invoke("SetListCommandAddress", new object[] {
@@ -8961,8 +10033,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetListCommandAddress(string AuthUserName, string AuthPassword, string DomainName, string commandAddress, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetListCommandAddress", new object[] {
@@ -8972,23 +10045,26 @@ namespace FuseCP.Mail.SM6
                         commandAddress}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetListCommandAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetListCommandAddressAsync(string AuthUserName, string AuthPassword, string DomainName, string commandAddress)
         {
             this.SetListCommandAddressAsync(AuthUserName, AuthPassword, DomainName, commandAddress, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetListCommandAddressAsync(string AuthUserName, string AuthPassword, string DomainName, string commandAddress, object userState)
         {
             if ((this.SetListCommandAddressOperationCompleted == null))
@@ -9002,6 +10078,7 @@ namespace FuseCP.Mail.SM6
                         commandAddress}, this.SetListCommandAddressOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetListCommandAddressOperationCompleted(object arg)
         {
             if ((this.SetListCommandAddressCompleted != null))
@@ -9011,9 +10088,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Moderator, string Description)
         {
             object[] results = this.Invoke("AddList", new object[] {
@@ -9026,8 +10104,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Moderator, string Description, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddList", new object[] {
@@ -9039,23 +10118,26 @@ namespace FuseCP.Mail.SM6
                         Description}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Moderator, string Description)
         {
             this.AddListAsync(AuthUserName, AuthPassword, DomainName, ListName, Moderator, Description, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Moderator, string Description, object userState)
         {
             if ((this.AddListOperationCompleted == null))
@@ -9071,6 +10153,7 @@ namespace FuseCP.Mail.SM6
                         Description}, this.AddListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddListOperationCompleted(object arg)
         {
             if ((this.AddListCompleted != null))
@@ -9080,9 +10163,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddSubscriber", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             object[] results = this.Invoke("AddSubscriber", new object[] {
@@ -9094,8 +10178,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddSubscriber", new object[] {
@@ -9106,23 +10191,26 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddSubscriber(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             this.AddSubscriberAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscriber, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, object userState)
         {
             if ((this.AddSubscriberOperationCompleted == null))
@@ -9137,6 +10225,7 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, this.AddSubscriberOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddSubscriberOperationCompleted(object arg)
         {
             if ((this.AddSubscriberCompleted != null))
@@ -9146,9 +10235,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDigestSubscriber", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDigestSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             object[] results = this.Invoke("AddDigestSubscriber", new object[] {
@@ -9160,8 +10250,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDigestSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddDigestSubscriber", new object[] {
@@ -9172,23 +10263,26 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDigestSubscriber(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDigestSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             this.AddDigestSubscriberAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscriber, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDigestSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, object userState)
         {
             if ((this.AddDigestSubscriberOperationCompleted == null))
@@ -9203,6 +10297,7 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, this.AddDigestSubscriberOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDigestSubscriberOperationCompleted(object arg)
         {
             if ((this.AddDigestSubscriberCompleted != null))
@@ -9212,9 +10307,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RemoveSubscriber", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult RemoveSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             object[] results = this.Invoke("RemoveSubscriber", new object[] {
@@ -9226,8 +10322,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRemoveSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RemoveSubscriber", new object[] {
@@ -9238,23 +10335,26 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndRemoveSubscriber(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             this.RemoveSubscriberAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscriber, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, object userState)
         {
             if ((this.RemoveSubscriberOperationCompleted == null))
@@ -9269,6 +10369,7 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, this.RemoveSubscriberOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRemoveSubscriberOperationCompleted(object arg)
         {
             if ((this.RemoveSubscriberCompleted != null))
@@ -9278,9 +10379,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RemoveDigestSubscriber", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult RemoveDigestSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             object[] results = this.Invoke("RemoveDigestSubscriber", new object[] {
@@ -9292,8 +10394,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRemoveDigestSubscriber(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RemoveDigestSubscriber", new object[] {
@@ -9304,23 +10407,26 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndRemoveDigestSubscriber(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveDigestSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber)
         {
             this.RemoveDigestSubscriberAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscriber, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveDigestSubscriberAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string Subscriber, object userState)
         {
             if ((this.RemoveDigestSubscriberOperationCompleted == null))
@@ -9335,6 +10441,7 @@ namespace FuseCP.Mail.SM6
                         Subscriber}, this.RemoveDigestSubscriberOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRemoveDigestSubscriberOperationCompleted(object arg)
         {
             if ((this.RemoveDigestSubscriberCompleted != null))
@@ -9344,9 +10451,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSubscriberList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SubscriberListResult GetSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             object[] results = this.Invoke("GetSubscriberList", new object[] {
@@ -9357,8 +10465,9 @@ namespace FuseCP.Mail.SM6
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetSubscriberList", new object[] {
@@ -9368,23 +10477,26 @@ namespace FuseCP.Mail.SM6
                         ListName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SubscriberListResult EndGetSubscriberList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             this.GetSubscriberListAsync(AuthUserName, AuthPassword, DomainName, ListName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, object userState)
         {
             if ((this.GetSubscriberListOperationCompleted == null))
@@ -9398,6 +10510,7 @@ namespace FuseCP.Mail.SM6
                         ListName}, this.GetSubscriberListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetSubscriberListOperationCompleted(object arg)
         {
             if ((this.GetSubscriberListCompleted != null))
@@ -9407,9 +10520,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPosterWhiteList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SubscriberListResult GetPosterWhiteList(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             object[] results = this.Invoke("GetPosterWhiteList", new object[] {
@@ -9420,8 +10534,9 @@ namespace FuseCP.Mail.SM6
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetPosterWhiteList(string AuthUserName, string AuthPassword, string DomainName, string ListName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetPosterWhiteList", new object[] {
@@ -9431,23 +10546,26 @@ namespace FuseCP.Mail.SM6
                         ListName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SubscriberListResult EndGetPosterWhiteList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPosterWhiteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             this.GetPosterWhiteListAsync(AuthUserName, AuthPassword, DomainName, ListName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPosterWhiteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, object userState)
         {
             if ((this.GetPosterWhiteListOperationCompleted == null))
@@ -9461,6 +10579,7 @@ namespace FuseCP.Mail.SM6
                         ListName}, this.GetPosterWhiteListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetPosterWhiteListOperationCompleted(object arg)
         {
             if ((this.GetPosterWhiteListCompleted != null))
@@ -9470,9 +10589,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPosterKillList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SubscriberListResult GetPosterKillList(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             object[] results = this.Invoke("GetPosterKillList", new object[] {
@@ -9483,8 +10603,9 @@ namespace FuseCP.Mail.SM6
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetPosterKillList(string AuthUserName, string AuthPassword, string DomainName, string ListName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetPosterKillList", new object[] {
@@ -9494,23 +10615,26 @@ namespace FuseCP.Mail.SM6
                         ListName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SubscriberListResult EndGetPosterKillList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPosterKillListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             this.GetPosterKillListAsync(AuthUserName, AuthPassword, DomainName, ListName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetPosterKillListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, object userState)
         {
             if ((this.GetPosterKillListOperationCompleted == null))
@@ -9524,6 +10648,7 @@ namespace FuseCP.Mail.SM6
                         ListName}, this.GetPosterKillListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetPosterKillListOperationCompleted(object arg)
         {
             if ((this.GetPosterKillListCompleted != null))
@@ -9533,9 +10658,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDigestSubscriberList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public SubscriberListResult GetDigestSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             object[] results = this.Invoke("GetDigestSubscriberList", new object[] {
@@ -9546,8 +10672,9 @@ namespace FuseCP.Mail.SM6
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetDigestSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetDigestSubscriberList", new object[] {
@@ -9557,23 +10684,26 @@ namespace FuseCP.Mail.SM6
                         ListName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public SubscriberListResult EndGetDigestSubscriberList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((SubscriberListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDigestSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName)
         {
             this.GetDigestSubscriberListAsync(AuthUserName, AuthPassword, DomainName, ListName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetDigestSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, object userState)
         {
             if ((this.GetDigestSubscriberListOperationCompleted == null))
@@ -9587,6 +10717,7 @@ namespace FuseCP.Mail.SM6
                         ListName}, this.GetDigestSubscriberListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetDigestSubscriberListOperationCompleted(object arg)
         {
             if ((this.GetDigestSubscriberListCompleted != null))
@@ -9596,9 +10727,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetSubscriberList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             object[] results = this.Invoke("SetSubscriberList", new object[] {
@@ -9610,8 +10742,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetSubscriberList", new object[] {
@@ -9622,23 +10755,26 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetSubscriberList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             this.SetSubscriberListAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscribers, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, object userState)
         {
             if ((this.SetSubscriberListOperationCompleted == null))
@@ -9653,6 +10789,7 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, this.SetSubscriberListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetSubscriberListOperationCompleted(object arg)
         {
             if ((this.SetSubscriberListCompleted != null))
@@ -9662,9 +10799,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDigestSubscriberList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetDigestSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             object[] results = this.Invoke("SetDigestSubscriberList", new object[] {
@@ -9676,8 +10814,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetDigestSubscriberList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetDigestSubscriberList", new object[] {
@@ -9688,23 +10827,26 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetDigestSubscriberList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDigestSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             this.SetDigestSubscriberListAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscribers, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetDigestSubscriberListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, object userState)
         {
             if ((this.SetDigestSubscriberListOperationCompleted == null))
@@ -9719,6 +10861,7 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, this.SetDigestSubscriberListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetDigestSubscriberListOperationCompleted(object arg)
         {
             if ((this.SetDigestSubscriberListCompleted != null))
@@ -9728,9 +10871,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetPosterWhiteList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetPosterWhiteList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             object[] results = this.Invoke("SetPosterWhiteList", new object[] {
@@ -9742,8 +10886,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetPosterWhiteList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetPosterWhiteList", new object[] {
@@ -9754,23 +10899,26 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetPosterWhiteList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPosterWhiteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             this.SetPosterWhiteListAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscribers, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPosterWhiteListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, object userState)
         {
             if ((this.SetPosterWhiteListOperationCompleted == null))
@@ -9785,6 +10933,7 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, this.SetPosterWhiteListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetPosterWhiteListOperationCompleted(object arg)
         {
             if ((this.SetPosterWhiteListCompleted != null))
@@ -9794,9 +10943,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetPosterKillList", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetPosterKillList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             object[] results = this.Invoke("SetPosterKillList", new object[] {
@@ -9808,8 +10958,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetPosterKillList(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetPosterKillList", new object[] {
@@ -9820,23 +10971,26 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetPosterKillList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPosterKillListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers)
         {
             this.SetPosterKillListAsync(AuthUserName, AuthPassword, DomainName, ListName, Subscribers, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetPosterKillListAsync(string AuthUserName, string AuthPassword, string DomainName, string ListName, string[] Subscribers, object userState)
         {
             if ((this.SetPosterKillListOperationCompleted == null))
@@ -9851,6 +11005,7 @@ namespace FuseCP.Mail.SM6
                         Subscribers}, this.SetPosterKillListOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetPosterKillListOperationCompleted(object arg)
         {
             if ((this.SetPosterKillListCompleted != null))
@@ -9860,15 +11015,16 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -9878,24 +11034,28 @@ namespace FuseCP.Mail.SM6
     public partial class SubscriberListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] Subscribers;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -9905,24 +11065,28 @@ namespace FuseCP.Mail.SM6
     public partial class ListCommandResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string commandAddress;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -9932,45 +11096,53 @@ namespace FuseCP.Mail.SM6
     public partial class MailingListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] listNames;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedListSettingsCompletedEventHandler(object sender, SetRequestedListSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedListSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -9982,28 +11154,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedListSettingsCompletedEventHandler(object sender, GetRequestedListSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedListSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetRequestedListSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SettingsRequestResult Result
         {
@@ -10015,28 +11191,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetMailingListsByDomainCompletedEventHandler(object sender, GetMailingListsByDomainCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetMailingListsByDomainCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetMailingListsByDomainCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public MailingListResult Result
         {
@@ -10048,28 +11228,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteAllListsCompletedEventHandler(object sender, DeleteAllListsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteAllListsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteAllListsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10081,28 +11265,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteListCompletedEventHandler(object sender, DeleteListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10114,28 +11302,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetListCommandAddressCompletedEventHandler(object sender, GetListCommandAddressCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetListCommandAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public ListCommandResult Result
         {
@@ -10147,28 +11339,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetListCommandAddressCompletedEventHandler(object sender, SetListCommandAddressCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetListCommandAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetListCommandAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10180,28 +11376,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddListCompletedEventHandler(object sender, AddListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10213,28 +11413,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddSubscriberCompletedEventHandler(object sender, AddSubscriberCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddSubscriberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10246,28 +11450,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDigestSubscriberCompletedEventHandler(object sender, AddDigestSubscriberCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDigestSubscriberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10279,28 +11487,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void RemoveSubscriberCompletedEventHandler(object sender, RemoveSubscriberCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RemoveSubscriberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RemoveSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10312,28 +11524,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void RemoveDigestSubscriberCompletedEventHandler(object sender, RemoveDigestSubscriberCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RemoveDigestSubscriberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RemoveDigestSubscriberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10345,28 +11561,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetSubscriberListCompletedEventHandler(object sender, GetSubscriberListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetSubscriberListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SubscriberListResult Result
         {
@@ -10378,28 +11598,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetPosterWhiteListCompletedEventHandler(object sender, GetPosterWhiteListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetPosterWhiteListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SubscriberListResult Result
         {
@@ -10411,28 +11635,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetPosterKillListCompletedEventHandler(object sender, GetPosterKillListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetPosterKillListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SubscriberListResult Result
         {
@@ -10444,28 +11672,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void GetDigestSubscriberListCompletedEventHandler(object sender, GetDigestSubscriberListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetDigestSubscriberListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public SubscriberListResult Result
         {
@@ -10477,28 +11709,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetSubscriberListCompletedEventHandler(object sender, SetSubscriberListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetSubscriberListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10510,28 +11746,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetDigestSubscriberListCompletedEventHandler(object sender, SetDigestSubscriberListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetDigestSubscriberListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetDigestSubscriberListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10543,28 +11783,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetPosterWhiteListCompletedEventHandler(object sender, SetPosterWhiteListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetPosterWhiteListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetPosterWhiteListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10576,28 +11820,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void SetPosterKillListCompletedEventHandler(object sender, SetPosterKillListCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetPosterKillListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetPosterKillListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10609,49 +11857,60 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcDomainAliasAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcDomainAliasAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDomainAliasWithoutMxCheckOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddDomainAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback DeleteDomainAliasOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetAliasesOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcDomainAliasAdmin()
         {
             this.Url = "http://localhost:9998/services/svcDomainAliasAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDomainAliasWithoutMxCheckCompletedEventHandler AddDomainAliasWithoutMxCheckCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddDomainAliasCompletedEventHandler AddDomainAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event DeleteDomainAliasCompletedEventHandler DeleteDomainAliasCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetAliasesCompletedEventHandler GetAliasesCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDomainAliasWithoutMxCheck", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDomainAliasWithoutMxCheck(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             object[] results = this.Invoke("AddDomainAliasWithoutMxCheck", new object[] {
@@ -10662,8 +11921,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDomainAliasWithoutMxCheck(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddDomainAliasWithoutMxCheck", new object[] {
@@ -10673,23 +11933,26 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDomainAliasWithoutMxCheck(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAliasWithoutMxCheckAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             this.AddDomainAliasWithoutMxCheckAsync(AuthUserName, AuthPassword, DomainName, DomainAliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAliasWithoutMxCheckAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, object userState)
         {
             if ((this.AddDomainAliasWithoutMxCheckOperationCompleted == null))
@@ -10703,6 +11966,7 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, this.AddDomainAliasWithoutMxCheckOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDomainAliasWithoutMxCheckOperationCompleted(object arg)
         {
             if ((this.AddDomainAliasWithoutMxCheckCompleted != null))
@@ -10712,9 +11976,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddDomainAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddDomainAlias(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             object[] results = this.Invoke("AddDomainAlias", new object[] {
@@ -10725,8 +11990,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddDomainAlias(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddDomainAlias", new object[] {
@@ -10736,23 +12002,26 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddDomainAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             this.AddDomainAliasAsync(AuthUserName, AuthPassword, DomainName, DomainAliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddDomainAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, object userState)
         {
             if ((this.AddDomainAliasOperationCompleted == null))
@@ -10766,6 +12035,7 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, this.AddDomainAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddDomainAliasOperationCompleted(object arg)
         {
             if ((this.AddDomainAliasCompleted != null))
@@ -10775,9 +12045,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DeleteDomainAlias", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult DeleteDomainAlias(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             object[] results = this.Invoke("DeleteDomainAlias", new object[] {
@@ -10788,8 +12059,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginDeleteDomainAlias(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteDomainAlias", new object[] {
@@ -10799,23 +12071,26 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndDeleteDomainAlias(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName)
         {
             this.DeleteDomainAliasAsync(AuthUserName, AuthPassword, DomainName, DomainAliasName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void DeleteDomainAliasAsync(string AuthUserName, string AuthPassword, string DomainName, string DomainAliasName, object userState)
         {
             if ((this.DeleteDomainAliasOperationCompleted == null))
@@ -10829,6 +12104,7 @@ namespace FuseCP.Mail.SM6
                         DomainAliasName}, this.DeleteDomainAliasOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnDeleteDomainAliasOperationCompleted(object arg)
         {
             if ((this.DeleteDomainAliasCompleted != null))
@@ -10838,9 +12114,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAliases", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public DomainAliasInfoListResult GetAliases(string AuthUserName, string AuthPassword, string DomainName)
         {
             object[] results = this.Invoke("GetAliases", new object[] {
@@ -10850,8 +12127,9 @@ namespace FuseCP.Mail.SM6
             return ((DomainAliasInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetAliases(string AuthUserName, string AuthPassword, string DomainName, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAliases", new object[] {
@@ -10860,23 +12138,26 @@ namespace FuseCP.Mail.SM6
                         DomainName}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public DomainAliasInfoListResult EndGetAliases(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((DomainAliasInfoListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasesAsync(string AuthUserName, string AuthPassword, string DomainName)
         {
             this.GetAliasesAsync(AuthUserName, AuthPassword, DomainName, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetAliasesAsync(string AuthUserName, string AuthPassword, string DomainName, object userState)
         {
             if ((this.GetAliasesOperationCompleted == null))
@@ -10889,6 +12170,7 @@ namespace FuseCP.Mail.SM6
                         DomainName}, this.GetAliasesOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetAliasesOperationCompleted(object arg)
         {
             if ((this.GetAliasesCompleted != null))
@@ -10898,15 +12180,16 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -10916,45 +12199,53 @@ namespace FuseCP.Mail.SM6
     public partial class DomainAliasInfoListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] DomainAliasNames;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDomainAliasWithoutMxCheckCompletedEventHandler(object sender, AddDomainAliasWithoutMxCheckCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDomainAliasWithoutMxCheckCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDomainAliasWithoutMxCheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10966,28 +12257,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void AddDomainAliasCompletedEventHandler(object sender, AddDomainAliasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddDomainAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -10999,28 +12294,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    /// <summary>TODO</summary>
     public delegate void DeleteDomainAliasCompletedEventHandler(object sender, DeleteDomainAliasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteDomainAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteDomainAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -11032,91 +12331,116 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "svcServerAdminSoap", Namespace = "http://tempuri.org/")]
+    /// <summary>TODO</summary>
     public partial class svcServerAdmin : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RequestStatusOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetEditionOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetRequestedSystemSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback SetRequestedSystemSettingsOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetSpoolMessageCountOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback ListGatewaysOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback GetGatewayOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddGatewayOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback AddSmarterMailGatewayOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback RemoveGatewayOperationCompleted;
 
+        /// <summary>TODO</summary>
         private System.Threading.SendOrPostCallback UpdateGatewayOperationCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public svcServerAdmin()
         {
             this.Url = "http://localhost:9998/Services/svcServerAdmin.asmx";
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RequestStatusCompletedEventHandler RequestStatusCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetEditionCompletedEventHandler GetEditionCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetRequestedSystemSettingsCompletedEventHandler GetRequestedSystemSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event SetRequestedSystemSettingsCompletedEventHandler SetRequestedSystemSettingsCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetSpoolMessageCountCompletedEventHandler GetSpoolMessageCountCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event ListGatewaysCompletedEventHandler ListGatewaysCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event GetGatewayCompletedEventHandler GetGatewayCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddGatewayCompletedEventHandler AddGatewayCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event AddSmarterMailGatewayCompletedEventHandler AddSmarterMailGatewayCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event RemoveGatewayCompletedEventHandler RemoveGatewayCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public event UpdateGatewayCompletedEventHandler UpdateGatewayCompleted;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RequestStatus", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public RequestStatusResult RequestStatus(string AuthUserName, string AuthPassword, string[] reqStats)
         {
             object[] results = this.Invoke("RequestStatus", new object[] {
@@ -11126,8 +12450,9 @@ namespace FuseCP.Mail.SM6
             return ((RequestStatusResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRequestStatus(string AuthUserName, string AuthPassword, string[] reqStats, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RequestStatus", new object[] {
@@ -11136,23 +12461,26 @@ namespace FuseCP.Mail.SM6
                         reqStats}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public RequestStatusResult EndRequestStatus(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((RequestStatusResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RequestStatusAsync(string AuthUserName, string AuthPassword, string[] reqStats)
         {
             this.RequestStatusAsync(AuthUserName, AuthPassword, reqStats, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RequestStatusAsync(string AuthUserName, string AuthPassword, string[] reqStats, object userState)
         {
             if ((this.RequestStatusOperationCompleted == null))
@@ -11165,6 +12493,7 @@ namespace FuseCP.Mail.SM6
                         reqStats}, this.RequestStatusOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRequestStatusOperationCompleted(object arg)
         {
             if ((this.RequestStatusCompleted != null))
@@ -11174,9 +12503,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetEdition", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public EditionResult GetEdition(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("GetEdition", new object[] {
@@ -11185,8 +12515,9 @@ namespace FuseCP.Mail.SM6
             return ((EditionResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetEdition(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetEdition", new object[] {
@@ -11194,23 +12525,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public EditionResult EndGetEdition(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((EditionResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetEditionAsync(string AuthUserName, string AuthPassword)
         {
             this.GetEditionAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetEditionAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.GetEditionOperationCompleted == null))
@@ -11222,6 +12556,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.GetEditionOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetEditionOperationCompleted(object arg)
         {
             if ((this.GetEditionCompleted != null))
@@ -11231,9 +12566,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRequestedSystemSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public RequestSettingsResult GetRequestedSystemSettings(string AuthUserName, string AuthPassword, string[] reqSettings)
         {
             object[] results = this.Invoke("GetRequestedSystemSettings", new object[] {
@@ -11243,8 +12579,9 @@ namespace FuseCP.Mail.SM6
             return ((RequestSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetRequestedSystemSettings(string AuthUserName, string AuthPassword, string[] reqSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedSystemSettings", new object[] {
@@ -11253,23 +12590,26 @@ namespace FuseCP.Mail.SM6
                         reqSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public RequestSettingsResult EndGetRequestedSystemSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((RequestSettingsResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedSystemSettingsAsync(string AuthUserName, string AuthPassword, string[] reqSettings)
         {
             this.GetRequestedSystemSettingsAsync(AuthUserName, AuthPassword, reqSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetRequestedSystemSettingsAsync(string AuthUserName, string AuthPassword, string[] reqSettings, object userState)
         {
             if ((this.GetRequestedSystemSettingsOperationCompleted == null))
@@ -11282,6 +12622,7 @@ namespace FuseCP.Mail.SM6
                         reqSettings}, this.GetRequestedSystemSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetRequestedSystemSettingsOperationCompleted(object arg)
         {
             if ((this.GetRequestedSystemSettingsCompleted != null))
@@ -11291,9 +12632,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetRequestedSystemSettings", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult SetRequestedSystemSettings(string AuthUserName, string AuthPassword, string[] newSettings)
         {
             object[] results = this.Invoke("SetRequestedSystemSettings", new object[] {
@@ -11303,8 +12645,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginSetRequestedSystemSettings(string AuthUserName, string AuthPassword, string[] newSettings, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedSystemSettings", new object[] {
@@ -11313,23 +12656,26 @@ namespace FuseCP.Mail.SM6
                         newSettings}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndSetRequestedSystemSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedSystemSettingsAsync(string AuthUserName, string AuthPassword, string[] newSettings)
         {
             this.SetRequestedSystemSettingsAsync(AuthUserName, AuthPassword, newSettings, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void SetRequestedSystemSettingsAsync(string AuthUserName, string AuthPassword, string[] newSettings, object userState)
         {
             if ((this.SetRequestedSystemSettingsOperationCompleted == null))
@@ -11342,6 +12688,7 @@ namespace FuseCP.Mail.SM6
                         newSettings}, this.SetRequestedSystemSettingsOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnSetRequestedSystemSettingsOperationCompleted(object arg)
         {
             if ((this.SetRequestedSystemSettingsCompleted != null))
@@ -11351,9 +12698,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSpoolMessageCount", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public MessageCountResult GetSpoolMessageCount(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("GetSpoolMessageCount", new object[] {
@@ -11362,8 +12710,9 @@ namespace FuseCP.Mail.SM6
             return ((MessageCountResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetSpoolMessageCount(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetSpoolMessageCount", new object[] {
@@ -11371,23 +12720,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public MessageCountResult EndGetSpoolMessageCount(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((MessageCountResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetSpoolMessageCountAsync(string AuthUserName, string AuthPassword)
         {
             this.GetSpoolMessageCountAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetSpoolMessageCountAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.GetSpoolMessageCountOperationCompleted == null))
@@ -11399,6 +12751,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.GetSpoolMessageCountOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetSpoolMessageCountOperationCompleted(object arg)
         {
             if ((this.GetSpoolMessageCountCompleted != null))
@@ -11408,9 +12761,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ListGateways", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GatewayListResult ListGateways(string AuthUserName, string AuthPassword)
         {
             object[] results = this.Invoke("ListGateways", new object[] {
@@ -11419,8 +12773,9 @@ namespace FuseCP.Mail.SM6
             return ((GatewayListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginListGateways(string AuthUserName, string AuthPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ListGateways", new object[] {
@@ -11428,23 +12783,26 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GatewayListResult EndListGateways(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GatewayListResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ListGatewaysAsync(string AuthUserName, string AuthPassword)
         {
             this.ListGatewaysAsync(AuthUserName, AuthPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void ListGatewaysAsync(string AuthUserName, string AuthPassword, object userState)
         {
             if ((this.ListGatewaysOperationCompleted == null))
@@ -11456,6 +12814,7 @@ namespace FuseCP.Mail.SM6
                         AuthPassword}, this.ListGatewaysOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnListGatewaysOperationCompleted(object arg)
         {
             if ((this.ListGatewaysCompleted != null))
@@ -11465,9 +12824,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetGateway", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GatewayResult GetGateway(string AuthUserName, string AuthPassword, string guid)
         {
             object[] results = this.Invoke("GetGateway", new object[] {
@@ -11477,8 +12837,9 @@ namespace FuseCP.Mail.SM6
             return ((GatewayResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginGetGateway(string AuthUserName, string AuthPassword, string guid, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetGateway", new object[] {
@@ -11487,23 +12848,26 @@ namespace FuseCP.Mail.SM6
                         guid}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GatewayResult EndGetGateway(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GatewayResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetGatewayAsync(string AuthUserName, string AuthPassword, string guid)
         {
             this.GetGatewayAsync(AuthUserName, AuthPassword, guid, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void GetGatewayAsync(string AuthUserName, string AuthPassword, string guid, object userState)
         {
             if ((this.GetGatewayOperationCompleted == null))
@@ -11516,6 +12880,7 @@ namespace FuseCP.Mail.SM6
                         guid}, this.GetGatewayOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnGetGatewayOperationCompleted(object arg)
         {
             if ((this.GetGatewayCompleted != null))
@@ -11525,9 +12890,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddGateway", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddGateway(string AuthUserName, string AuthPassword, string address, bool enabled)
         {
             object[] results = this.Invoke("AddGateway", new object[] {
@@ -11538,8 +12904,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddGateway(string AuthUserName, string AuthPassword, string address, bool enabled, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddGateway", new object[] {
@@ -11549,23 +12916,26 @@ namespace FuseCP.Mail.SM6
                         enabled}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddGateway(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddGatewayAsync(string AuthUserName, string AuthPassword, string address, bool enabled)
         {
             this.AddGatewayAsync(AuthUserName, AuthPassword, address, enabled, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddGatewayAsync(string AuthUserName, string AuthPassword, string address, bool enabled, object userState)
         {
             if ((this.AddGatewayOperationCompleted == null))
@@ -11579,6 +12949,7 @@ namespace FuseCP.Mail.SM6
                         enabled}, this.AddGatewayOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddGatewayOperationCompleted(object arg)
         {
             if ((this.AddGatewayCompleted != null))
@@ -11588,9 +12959,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AddSmarterMailGateway", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult AddSmarterMailGateway(string AuthUserName, string AuthPassword, string address, bool enabled, string smUrl, string smUserName, string smPassword)
         {
             object[] results = this.Invoke("AddSmarterMailGateway", new object[] {
@@ -11604,8 +12976,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginAddSmarterMailGateway(string AuthUserName, string AuthPassword, string address, bool enabled, string smUrl, string smUserName, string smPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddSmarterMailGateway", new object[] {
@@ -11618,23 +12991,26 @@ namespace FuseCP.Mail.SM6
                         smPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndAddSmarterMailGateway(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddSmarterMailGatewayAsync(string AuthUserName, string AuthPassword, string address, bool enabled, string smUrl, string smUserName, string smPassword)
         {
             this.AddSmarterMailGatewayAsync(AuthUserName, AuthPassword, address, enabled, smUrl, smUserName, smPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void AddSmarterMailGatewayAsync(string AuthUserName, string AuthPassword, string address, bool enabled, string smUrl, string smUserName, string smPassword, object userState)
         {
             if ((this.AddSmarterMailGatewayOperationCompleted == null))
@@ -11651,6 +13027,7 @@ namespace FuseCP.Mail.SM6
                         smPassword}, this.AddSmarterMailGatewayOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnAddSmarterMailGatewayOperationCompleted(object arg)
         {
             if ((this.AddSmarterMailGatewayCompleted != null))
@@ -11660,9 +13037,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RemoveGateway", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult RemoveGateway(string AuthUserName, string AuthPassword, string guid)
         {
             object[] results = this.Invoke("RemoveGateway", new object[] {
@@ -11672,8 +13050,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginRemoveGateway(string AuthUserName, string AuthPassword, string guid, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RemoveGateway", new object[] {
@@ -11682,23 +13061,26 @@ namespace FuseCP.Mail.SM6
                         guid}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndRemoveGateway(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveGatewayAsync(string AuthUserName, string AuthPassword, string guid)
         {
             this.RemoveGatewayAsync(AuthUserName, AuthPassword, guid, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void RemoveGatewayAsync(string AuthUserName, string AuthPassword, string guid, object userState)
         {
             if ((this.RemoveGatewayOperationCompleted == null))
@@ -11711,6 +13093,7 @@ namespace FuseCP.Mail.SM6
                         guid}, this.RemoveGatewayOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnRemoveGatewayOperationCompleted(object arg)
         {
             if ((this.RemoveGatewayCompleted != null))
@@ -11720,9 +13103,10 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateGateway", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        /// <summary>TODO</summary>
         public GenericResult UpdateGateway(string AuthUserName, string AuthPassword, string guid, string address, bool enabled, bool isSmarterMailServer, string smUrl, string smUserName, string smPassword)
         {
             object[] results = this.Invoke("UpdateGateway", new object[] {
@@ -11738,8 +13122,9 @@ namespace FuseCP.Mail.SM6
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public System.IAsyncResult BeginUpdateGateway(string AuthUserName, string AuthPassword, string guid, string address, bool enabled, bool isSmarterMailServer, string smUrl, string smUserName, string smPassword, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("UpdateGateway", new object[] {
@@ -11754,23 +13139,26 @@ namespace FuseCP.Mail.SM6
                         smPassword}, callback, asyncState);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public GenericResult EndUpdateGateway(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((GenericResult)(results[0]));
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateGatewayAsync(string AuthUserName, string AuthPassword, string guid, string address, bool enabled, bool isSmarterMailServer, string smUrl, string smUserName, string smPassword)
         {
             this.UpdateGatewayAsync(AuthUserName, AuthPassword, guid, address, enabled, isSmarterMailServer, smUrl, smUserName, smPassword, null);
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public void UpdateGatewayAsync(string AuthUserName, string AuthPassword, string guid, string address, bool enabled, bool isSmarterMailServer, string smUrl, string smUserName, string smPassword, object userState)
         {
             if ((this.UpdateGatewayOperationCompleted == null))
@@ -11789,6 +13177,7 @@ namespace FuseCP.Mail.SM6
                         smPassword}, this.UpdateGatewayOperationCompleted, userState);
         }
 
+        /// <summary>TODO</summary>
         private void OnUpdateGatewayOperationCompleted(object arg)
         {
             if ((this.UpdateGatewayCompleted != null))
@@ -11798,15 +13187,16 @@ namespace FuseCP.Mail.SM6
             }
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11816,24 +13206,28 @@ namespace FuseCP.Mail.SM6
     public partial class RequestStatusResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] KeyValuePairs;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11843,48 +13237,58 @@ namespace FuseCP.Mail.SM6
     public partial class GatewayResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string guid;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string gatewayAddress;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool enabled;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool isSmarterMailServer;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string smUrl;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string smUserName;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string smPassword;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11894,25 +13298,29 @@ namespace FuseCP.Mail.SM6
     public partial class GatewayListResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+        /// <summary>TODO</summary>
         public GatewayResult[] gateways;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11922,24 +13330,28 @@ namespace FuseCP.Mail.SM6
     public partial class MessageCountResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int messageCount;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11949,24 +13361,28 @@ namespace FuseCP.Mail.SM6
     public partial class RequestSettingsResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string[] KeyValuePairs;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -11976,45 +13392,53 @@ namespace FuseCP.Mail.SM6
     public partial class EditionResult
     {
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public bool Result;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public int ResultCode;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Message;
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
+        /// <summary>TODO</summary>
         public string Edition;
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void RequestStatusCompletedEventHandler(object sender, RequestStatusCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RequestStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RequestStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public RequestStatusResult Result
         {
@@ -12026,28 +13450,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetEditionCompletedEventHandler(object sender, GetEditionCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetEditionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetEditionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public EditionResult Result
         {
@@ -12059,28 +13487,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedSystemSettingsCompletedEventHandler(object sender, GetRequestedSystemSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedSystemSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public RequestSettingsResult Result
         {
@@ -12092,28 +13524,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedSystemSettingsCompletedEventHandler(object sender, SetRequestedSystemSettingsCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedSystemSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal SetRequestedSystemSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12125,28 +13561,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetSpoolMessageCountCompletedEventHandler(object sender, GetSpoolMessageCountCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetSpoolMessageCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetSpoolMessageCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public MessageCountResult Result
         {
@@ -12158,28 +13598,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ListGatewaysCompletedEventHandler(object sender, ListGatewaysCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ListGatewaysCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal ListGatewaysCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GatewayListResult Result
         {
@@ -12191,28 +13635,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetGatewayCompletedEventHandler(object sender, GetGatewayCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetGatewayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GatewayResult Result
         {
@@ -12224,28 +13672,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddGatewayCompletedEventHandler(object sender, AddGatewayCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddGatewayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12257,28 +13709,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddSmarterMailGatewayCompletedEventHandler(object sender, AddSmarterMailGatewayCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddSmarterMailGatewayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal AddSmarterMailGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12290,28 +13746,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void RemoveGatewayCompletedEventHandler(object sender, RemoveGatewayCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RemoveGatewayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal RemoveGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12323,28 +13783,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void UpdateGatewayCompletedEventHandler(object sender, UpdateGatewayCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateGatewayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateGatewayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12358,23 +13822,26 @@ namespace FuseCP.Mail.SM6
 
     
     
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class UpdateAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal UpdateAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12386,28 +13853,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteAliasCompletedEventHandler(object sender, DeleteAliasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal DeleteAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public GenericResult Result
         {
@@ -12419,28 +13890,32 @@ namespace FuseCP.Mail.SM6
         }
     }
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetAliasCompletedEventHandler(object sender, GetAliasCompletedEventArgs e);
 
-    /// <summary>TODO</summary>
+    /// <summary>Auto-generated member.</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAliasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
+        /// <summary>TODO</summary>
         private object[] results;
 
+        /// <summary>TODO</summary>
         internal GetAliasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
             base(exception, cancelled, userState)
         {
             this.results = results;
         }
 
-        /// <summary>TODO</summary>
+        /// <summary>Auto-generated member.</summary>
         /// <remarks/>
         public AliasInfoResult Result
         {

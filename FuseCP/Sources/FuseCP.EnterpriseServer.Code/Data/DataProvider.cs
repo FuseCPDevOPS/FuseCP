@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+/// <summary>TODO</summary>
 using System;
 using System.Configuration;
 using System.Data;
@@ -62,12 +63,16 @@ namespace FuseCP.EnterpriseServer
 	/// The source code of the Stored Procedures can be found in the FuseCP.EnterpriseServer.Data project in the
 	/// Migrations\SqlServer\StoredProcedures folder.
 	/// </summary>
+	/// <summary>TODO</summary>
 	public class DataProvider : Data.DbContext
 	{
+		/// <summary>Auto-generated member.</summary>
 		public const long MB = 1024 * 1024;
 
 #if UseEntityFramework
+		/// <summary>Auto-generated member.</summary>
 		public bool? useEntityFramework = null;
+		/// <summary>Auto-generated member.</summary>
 		public static bool? alwaysUseEntityFramework = null;
 		int queryAlwaysUseEFStarted = 0;
 		public bool AlwaysUseEntityFramework
@@ -102,6 +107,7 @@ namespace FuseCP.EnterpriseServer
 					}
 					else alwaysUseEntityFramework = true;
 				}
+				/// <summary>TODO</summary>
 				return alwaysUseEntityFramework ?? false;
 			}
 			set
@@ -120,20 +126,31 @@ namespace FuseCP.EnterpriseServer
 			set { useEntityFramework = value; }
 		}
 #else
+		/// <summary>Auto-generated member.</summary>
 		public const bool UseEntityFramework = false;
 #endif
 
+		/// <summary>TODO</summary>
 		readonly ControllerBase Provider;
+		/// <summary>TODO</summary>
 		ServerController serverController;
+		/// <summary>Auto-generated member.</summary>
 		protected ServerController ServerController => serverController ??= new ServerController(Provider);
+		/// <summary>Auto-generated member.</summary>
 
 		public DataProvider() : base() { Provider = null; }
+		/// <summary>Auto-generated member.</summary>
 		public DataProvider(ControllerBase provider) : base() { Provider = provider; }
+		/// <summary>Auto-generated member.</summary>
 		public DataProvider(string connectionString) : base(connectionString) { Provider = null; }
+		/// <summary>Auto-generated member.</summary>
 
 		private DataProvider clone = null;
+		/// <summary>Auto-generated member.</summary>
 		public new DataProvider Clone => clone ??= Context;
+		/// <summary>Auto-generated member.</summary>
 		public new DataProvider Context => new DataProvider(ConnectionString);
+		/// <summary>Auto-generated member.</summary>
 		public override void Dispose()
 		{
 			clone?.Dispose();
@@ -141,9 +158,11 @@ namespace FuseCP.EnterpriseServer
 		}
 
 		//public string ConnectionString => ConfigSettings.ConnectionString;
+		/// <summary>Auto-generated member.</summary>
 		private string ObjectQualifier => "";
 
 		#region System Settings
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSystemSettings(string settingsName)
 		{
@@ -156,15 +175,18 @@ namespace FuseCP.EnterpriseServer
 						s.PropertyName,
 						s.PropertyValue
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(settings);
 			}
 			return SqlHelper.ExecuteReader(
 				 NativeConnectionString,
 				 CommandType.StoredProcedure,
 				 "GetSystemSettings",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@SettingsName", settingsName)
 			);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetSystemSettings(string settingsName, string xml)
 		{
@@ -196,7 +218,9 @@ namespace FuseCP.EnterpriseServer
 					 NativeConnectionString,
 					 CommandType.StoredProcedure,
 					 "SetSystemSettings",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SettingsName", settingsName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Xml", xml)
 				);
 			}
@@ -205,6 +229,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Theme Settings
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetThemes()
 		{
@@ -221,6 +246,7 @@ namespace FuseCP.EnterpriseServer
 						t.RTLName,
 						t.DisplayOrder
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(themes);
 			}
 			else
@@ -229,6 +255,7 @@ namespace FuseCP.EnterpriseServer
 					 ObjectQualifier + "GetThemes");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetThemeSettings(int ThemeID)
 		{
@@ -243,15 +270,18 @@ namespace FuseCP.EnterpriseServer
 						ts.PropertyName,
 						ts.PropertyValue
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(settings);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetThemeSettings",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ThemeID", ThemeID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetThemeSetting(int ThemeID, string SettingsName)
 		{
@@ -266,22 +296,27 @@ namespace FuseCP.EnterpriseServer
 						ts.PropertyName,
 						ts.PropertyValue
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(setting);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetThemeSetting",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ThemeID", ThemeID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SettingsName", SettingsName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckActorUserRights(int actorId, int? userId)
 		{
 			if (actorId == -1 || userId == null || userId == 0 ||
 				// check if the user requests himself
 				actorId == userId)
+				/// <summary>TODO</summary>
 				return true;
 
 			// check if the user requests his owner
@@ -307,6 +342,7 @@ namespace FuseCP.EnterpriseServer
 				}
 			} while (true);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUserThemeSettings(int actorId, int userId)
 		{
@@ -314,6 +350,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				const string SettingsName = "Theme";
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var id = userId;
@@ -342,19 +379,25 @@ namespace FuseCP.EnterpriseServer
 								ts.PropertyValue
 							});
 					}
+					/// <summary>TODO</summary>
 					else break;
 				}
+				/// <summary>TODO</summary>
 				return EntityDataSet(settings);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserSettings",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SettingsName", "Theme"));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateUserThemeSetting(int actorId, int userId, string PropertyName, string PropertyValue)
 		{
@@ -363,6 +406,7 @@ namespace FuseCP.EnterpriseServer
 				const string SettingsName = "Theme";
 
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var setting = UserSettings
@@ -390,18 +434,24 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUserThemeSetting",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PropertyName", PropertyName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PropertyValue", PropertyValue));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteUserThemeSetting(int actorId, int userId, string PropertyName)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				UserSettings
@@ -413,8 +463,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeleteUserThemeSetting",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PropertyName", PropertyName));
 			}
 		}
@@ -422,7 +475,9 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Users
+		/// <summary>Auto-generated member.</summary>
 		public bool IsFreshDatabase => Users.Count() == 1;
+		/// <summary>Auto-generated member.</summary>
 		public bool CheckUserExists(string username)
 		{
 			if (UseEntityFramework)
@@ -437,11 +492,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "CheckUserExists",
 					 prmExists,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@username", username));
 
 				return Convert.ToBoolean(prmExists.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IEnumerable<int> UserParents(int actorId, int userId)
 		{
@@ -450,6 +507,7 @@ namespace FuseCP.EnterpriseServer
 				.FirstOrDefault(u => u.UserId == userId);
 			while (user != null)
 			{
+				/// <summary>TODO</summary>
 				yield return userId;
 				if (user.OwnerId.HasValue)
 				{
@@ -458,9 +516,11 @@ namespace FuseCP.EnterpriseServer
 						.Select(u => new { u.UserId, u.OwnerId })
 						.FirstOrDefault(u => u.UserId == userId);
 				}
+				/// <summary>TODO</summary>
 				else break;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public TempIdSet UserChildren(int ownerId, bool recursive = true)
 		{
@@ -491,10 +551,13 @@ namespace FuseCP.EnterpriseServer
 					level++;
 				}
 			}
+			/// <summary>TODO</summary>
 			else SaveChanges();
 
+			/// <summary>TODO</summary>
 			return set;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckUserParent(int ownerId, int? userId)
 		{
@@ -521,6 +584,7 @@ namespace FuseCP.EnterpriseServer
 
 			return user != null && user.OwnerId.HasValue && user.OwnerId.Value == ownerId;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public string GetItemComments(int itemId, string itemTypeId, int actorId)
 		{
@@ -551,6 +615,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return sb.ToString();
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public string ColumnName(string sortColumn)
 		{
@@ -558,6 +623,7 @@ namespace FuseCP.EnterpriseServer
 			return i >= 0 ? sortColumn.Substring(i + 1) : sortColumn;
 
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUsersPaged(int actorId, int userId, string filterColumn, string filterValue,
 			 int statusId, int roleId, string sortColumn, int startRow, int maximumRows, bool recursive)
@@ -653,6 +719,7 @@ namespace FuseCP.EnterpriseServer
 							u.EcommerceEnabled
 						});
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, usersSelected);
 				}
 			}
@@ -660,42 +727,68 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUsersPaged",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@statusId", statusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@roleId", roleId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@startRow", startRow),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@maximumRows", maximumRows),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public class TextSearchItem
 		{
+			/// <summary>Auto-generated member.</summary>
 			public int ItemId;
+			/// <summary>Auto-generated member.</summary>
 			public string TextSearch;
+			/// <summary>Auto-generated member.</summary>
 			public string ColumnType;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public class ItemService
 		{
+			/// <summary>Auto-generated member.</summary>
 			public int ItemId;
+			/// <summary>Auto-generated member.</summary>
 			public int? ItemTypeId;
+			/// <summary>Auto-generated member.</summary>
 			public int UserId;
+			/// <summary>Auto-generated member.</summary>
 			public string Username;
+			/// <summary>Auto-generated member.</summary>
 			public string FullName;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public class ItemsDomain
 		{
+			/// <summary>Auto-generated member.</summary>
 			public int ItemId;
+			/// <summary>Auto-generated member.</summary>
 			public int UserId;
+			/// <summary>Auto-generated member.</summary>
 			public string Username;
+			/// <summary>Auto-generated member.</summary>
 			public string FullName;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public static Expression<Func<TElement, bool>> BuildOrExpression<TElement, TValue>(
 			Expression<Func<TElement, TValue>> valueSelector,
@@ -703,14 +796,17 @@ namespace FuseCP.EnterpriseServer
 		)
 		{
 			if (null == valueSelector)
+				/// <summary>TODO</summary>
 				throw new ArgumentNullException("valueSelector");
 
 			if (null == values)
+				/// <summary>TODO</summary>
 				throw new ArgumentNullException("values");
 
 			ParameterExpression p = valueSelector.Parameters.Single();
 
 			if (!values.Any())
+				/// <summary>TODO</summary>
 				return e => false;
 
 			var equals = values.Select(value =>
@@ -728,6 +824,7 @@ namespace FuseCP.EnterpriseServer
 
 			return Expression.Lambda<Func<TElement, bool>>(body, p);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSearchObject(int actorId, int userId, string filterColumn, string filterValue,
 			int statusId, int roleId, string sortColumn, int startRow, int maximumRows, string colType, string fullType,
@@ -736,6 +833,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				if (colType == null) colType = "";
@@ -1107,6 +1205,7 @@ namespace FuseCP.EnterpriseServer
 
 					/*------------------------------------RDS------------------------------------------------*/
 
+					/// <summary>TODO</summary>
 					IQueryable<SearchItem> rdsItems;
 
 					if (!isAdmin) rdsItems = Enumerable.Empty<SearchItem>().AsQueryable();
@@ -1182,6 +1281,7 @@ namespace FuseCP.EnterpriseServer
 
 					/*------------------------------------VirtualServer------------------------------------------------*/
 
+					/// <summary>TODO</summary>
 					IQueryable<SearchItem> vpsItems;
 
 					if (!isAdmin) vpsItems = Enumerable.Empty<SearchItem>().AsQueryable();
@@ -1436,6 +1536,7 @@ namespace FuseCP.EnterpriseServer
 
 					if (maximumRows > 0) result = result.Skip(startRow).Take(maximumRows).ToList();
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, colTypes, result);
 				}
 			}
@@ -1443,21 +1544,35 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetSearchObject",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@StatusId", statusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@RoleId", roleId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@StartRow", startRow),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@MaximumRows", maximumRows),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Recursive", recursive),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ColType", colType),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FullType", fullType),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OnlyFind", onlyFind));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSearchTableByColumns(string PagedStored, string FilterValue, int MaximumRows,
 			 bool Recursive, int PoolID, int ServerID, int ActorID, int StatusID, int PlanID, int OrgID,
@@ -1468,6 +1583,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				//throw new NotImplementedException();
 
+				/// <summary>TODO</summary>
 				int vpsTypeId;
 				switch (VPSType)
 				{
@@ -1747,6 +1863,7 @@ namespace FuseCP.EnterpriseServer
 						case "ServiceItems":
 
 							if (!CheckActorPackageRights(ActorID, PackageID))
+								/// <summary>TODO</summary>
 								throw new AccessViolationException("You are not allowed to access this package");
 
 							var groupId = ResourceGroups
@@ -1855,6 +1972,7 @@ namespace FuseCP.EnterpriseServer
 						case "VirtualMachines":
 
 							if (!CheckActorPackageRights(ActorID, PackageID))
+								/// <summary>TODO</summary>
 								throw new AccessViolationException("You are not allowed to access this package");
 
 							var packageIps = PackageIpAddresses
@@ -1995,6 +2113,7 @@ namespace FuseCP.EnterpriseServer
 						.OrderBy(x => x.TextSearch)
 						.Take(MaximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(result);
 				}
 			}
@@ -2002,32 +2121,51 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetSearchTableByColumns",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PagedStored", PagedStored),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterValue", FilterValue),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@MaximumRows", MaximumRows),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Recursive", Recursive),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PoolID", PoolID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", ServerID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorID", ActorID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@StatusID", StatusID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PlanID", PlanID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OrgID", OrgID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ItemTypeName", ItemTypeName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@GroupName", GroupName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PackageID", PackageID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VPSType", VPSType),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@RoleID", RoleID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", UserID),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@FilterColumns", FilterColumns));
 			}
 		}
 
 		//TODO END
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetUsersSummary(int actorId, int userId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var users = Users.Where(u => u.OwnerId == userId && !u.IsPeer);
@@ -2046,16 +2184,20 @@ namespace FuseCP.EnterpriseServer
 				set.Tables.Add(EntityDataTable(usersByStatus));
 				set.Tables.Add(EntityDataTable(usersByRole));
 
+				/// <summary>TODO</summary>
 				return set;
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUsersSummary",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public TempIdSet UsersTree(int ownerId, bool recursive)
 		{
@@ -2076,8 +2218,10 @@ namespace FuseCP.EnterpriseServer
 				}
 			}
 
+			/// <summary>TODO</summary>
 			return tree;
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetUserDomainsPaged(int actorId, int userId, string filterColumn, string filterValue,
 			 string sortColumn, int startRow, int maximumRows)
 		{
@@ -2126,6 +2270,7 @@ namespace FuseCP.EnterpriseServer
 						users = users.OrderBy(ColumnName(sortColumn));
 					}
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, users);
 				}
 			}
@@ -2133,15 +2278,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserDomainsPaged",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@filterColumn", VerifyColumnName(filterColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@filterValue", VerifyColumnValue(filterValue)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@sortColumn", VerifyColumnName(sortColumn)),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@startRow", startRow),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CanGetUserDetails(int actorId, int userId)
 		{
@@ -2174,6 +2327,7 @@ namespace FuseCP.EnterpriseServer
 
 			return user != null && user.OwnerId.HasValue && user.OwnerId == actorId;
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetUsers(int actorId, int ownerId, bool recursive)
 		{
 			if (UseEntityFramework)
@@ -2213,6 +2367,7 @@ namespace FuseCP.EnterpriseServer
 							u.EcommerceEnabled
 						});
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(users);
 				}
 			}
@@ -2220,11 +2375,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUsers",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OwnerID", ownerId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUserParents(int actorId, int userId)
 		{
@@ -2259,6 +2418,7 @@ namespace FuseCP.EnterpriseServer
 							u.User.CompanyName,
 							u.User.EcommerceEnabled
 						});
+					/// <summary>TODO</summary>
 					return EntityDataSet(users);
 				}
 			}
@@ -2266,10 +2426,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserParents",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUserPeers(int actorId, int userId)
 		{
@@ -2300,16 +2463,20 @@ namespace FuseCP.EnterpriseServer
 						u.CompanyName,
 						u.EcommerceEnabled
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(userPeers);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserPeers",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@userId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserByExchangeOrganizationIdInternally(int itemId)
 		{
@@ -2353,15 +2520,18 @@ namespace FuseCP.EnterpriseServer
 						u.User.EcommerceEnabled,
 						u.User.AdditionalParams
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserByExchangeOrganizationIdInternally",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserByIdInternally(int userId)
 		{
@@ -2406,15 +2576,18 @@ namespace FuseCP.EnterpriseServer
 						u.MfaMode,
 						u.PinSecret
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserByIdInternally",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserByUsernameInternally(string username)
 		{
@@ -2459,15 +2632,18 @@ namespace FuseCP.EnterpriseServer
 						u.MfaMode,
 						u.PinSecret
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserByUsernameInternally",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Username", username));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CanGetUserPassword(int actorId, int userId)
 		{
@@ -2505,6 +2681,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return user != null && user.OwnerId == actorId; // actor is owner of user
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetUserById(int actorId, int userId)
 		{
 			if (UseEntityFramework)
@@ -2550,16 +2727,20 @@ namespace FuseCP.EnterpriseServer
 						PinSecret = canGetUserPassword ? u.PinSecret : ""
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(user);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserById",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserByUsername(int actorId, string username)
 		{
@@ -2571,6 +2752,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(u =>
 					{
 						var canGetUserPassword = CanGetUserPassword(actorId, u.UserId);
+						/// <summary>TODO</summary>
 						return new UserInfoInternal()
 						{
 							UserId = u.UserId,
@@ -2610,16 +2792,20 @@ namespace FuseCP.EnterpriseServer
 					})
 					.Where(u => Clone.CanGetUserDetails(actorId, u.UserId));
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(user);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserByUsername",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Username", username));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CanCreateUser(int actorId, int ownerId)
 		{
@@ -2644,6 +2830,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return user != null && user.OwnerId == actorId;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddUser(int actorId, int ownerId, int roleId, int statusId, string subscriberNumber, int loginStatusId, bool isDemo,
 			 bool isPeer, string comments, string username, string password,
@@ -2701,37 +2888,65 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddUser",
 					 prmUserId,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OwnerID", ownerId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@RoleID", roleId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@StatusId", statusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SubscriberNumber", subscriberNumber),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@LoginStatusId", loginStatusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsDemo", isDemo),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsPeer", isPeer),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@username", username),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@password", password),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@firstName", firstName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@lastName", lastName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@email", email),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@secondaryEmail", secondaryEmail),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@address", address),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@city", city),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@country", country),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@state", state),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@zip", zip),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@primaryPhone", primaryPhone),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@secondaryPhone", secondaryPhone),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@fax", fax),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@instantMessenger", instantMessenger),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@htmlMail", htmlMail),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@CompanyName", companyName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@EcommerceEnabled", ecommerceEnabled));
 
 				return Convert.ToInt32(prmUserId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CanUpdateUserDetails(int actorId, int userId)
 		{
@@ -2764,6 +2979,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return user != null && user.OwnerId == actorId;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateUser(int actorId, int userId, int roleId, int statusId, string subscriberNumber, int loginStatusId, bool isDemo,
 			 bool isPeer, string comments, string firstName, string lastName, string email, string secondaryEmail,
@@ -2814,34 +3030,61 @@ namespace FuseCP.EnterpriseServer
 				// update user
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUser",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@RoleID", roleId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@StatusId", statusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SubscriberNumber", subscriberNumber),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@LoginStatusId", loginStatusId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsDemo", isDemo),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsPeer", isPeer),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@firstName", firstName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@lastName", lastName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@email", email),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@secondaryEmail", secondaryEmail),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@address", address),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@city", city),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@country", country),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@state", state),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@zip", zip),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@primaryPhone", primaryPhone),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@secondaryPhone", secondaryPhone),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@fax", fax),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@instantMessenger", instantMessenger),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@htmlMail", htmlMail),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@CompanyName", companyName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@EcommerceEnabled", ecommerceEnabled),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdditionalParams", additionalParams));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateUserFailedLoginAttempt(int userId, int lockOut, bool reset)
 		{
@@ -2851,6 +3094,7 @@ namespace FuseCP.EnterpriseServer
 				if (user == null) return;
 
 				if (reset) user.FailedLogins = 0;
+                /// <summary>TODO</summary>
                 else if (lockOut <= (user.FailedLogins ?? int.MinValue)) user.LoginStatusId = 2;
                 else user.FailedLogins = (user.FailedLogins ?? 0) + 1;
 
@@ -2860,11 +3104,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUserFailedLoginAttempt",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@LockOut", lockOut),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Reset", reset));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteUser(int actorId, int userId)
 		{
@@ -2890,10 +3138,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeleteUser",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void ChangeUserPassword(int actorId, int userId, string password)
 		{
@@ -2913,11 +3164,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "ChangeUserPassword",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@password", password));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetUserOneTimePassword(int userId, string password, int auths)
 		{
@@ -2935,11 +3190,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "SetUserOneTimePassword",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Password", password),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OneTimePasswordState", auths));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateUserPinSecret(int actorId, int userId, string pinSecret)
 		{
@@ -2958,12 +3217,16 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUserPinSecret",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PinSecret", pinSecret)
 					 );
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateUserMfaMode(int actorId, int userId, int mfaMode)
 		{
@@ -2982,11 +3245,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUserMfaMode",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@MfaMode", mfaMode));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CanUserChangeMfa(int callerId, int changeUserId, bool canPeerChangeMfa)
 		{
@@ -3044,8 +3311,11 @@ namespace FuseCP.EnterpriseServer
 				prmResult.Direction = ParameterDirection.Output;
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "CanChangeMfa",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@CallerID", callerId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ChangeUserID", changeUserId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@CanPeerChangeMfa", canPeerChangeMfa ? 1 : 0),
 					 prmResult
 					 );
@@ -3053,6 +3323,7 @@ namespace FuseCP.EnterpriseServer
 				return Convert.ToBoolean(prmResult.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserPackagesServerUrls(int userId)
 		{
@@ -3073,12 +3344,14 @@ namespace FuseCP.EnterpriseServer
 						server.ServerUrl
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(urls);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserPackagesServerUrls",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserId", userId));
 			}
 		}
@@ -3086,11 +3359,13 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region User Settings
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetUserSettings(int actorId, int userId, string settingsName)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var id = userId;
@@ -3101,26 +3376,33 @@ namespace FuseCP.EnterpriseServer
 						.Select(u => new { u.UserId, u.OwnerId })
 						.FirstOrDefault(u => u.UserId == id);
 					if (user != null && user.OwnerId.HasValue) id = user.OwnerId.Value;
+					/// <summary>TODO</summary>
 					else break;
 					setting = UserSettings.Where(s => s.SettingsName == settingsName && s.UserId == id);
 				}
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(setting);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetUserSettings",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SettingsName", settingsName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void UpdateUserSettings(int actorId, int userId, string settingsName, string xml)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				UserSettings.RemoveRange(UserSettings
@@ -3143,17 +3425,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateUserSettings",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@UserID", userId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ActorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SettingsName", settingsName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Xml", xml));
 			}
 		}
 		#endregion
 
 		#region Servers
+		/// <summary>Auto-generated member.</summary>
 		public bool CheckIsUserAdmin(int userId) =>
 			userId == -1 || Users.Any(u => u.UserId == userId && u.RoleId == 1);
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetAllServers(int actorId)
 		{
 			if (UseEntityFramework)
@@ -3173,15 +3461,18 @@ namespace FuseCP.EnterpriseServer
 						s.Comments
 					});
 				
+				/// <summary>TODO</summary>
 				return EntityDataSet(servers);
             }
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetAllServers",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetServers(int actorId)
 		{
 			if (UseEntityFramework)
@@ -3224,15 +3515,18 @@ namespace FuseCP.EnterpriseServer
 						s.Service.Comments
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(servers, services);
             }
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetServers",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServer(int actorId, int serverId, bool forAutodiscover)
 		{
@@ -3264,17 +3558,22 @@ namespace FuseCP.EnterpriseServer
 						s.PasswordIsSHA256
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(server);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetServer",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@forAutodiscover", forAutodiscover));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServerShortDetails(int serverId)
 		{
@@ -3291,15 +3590,18 @@ namespace FuseCP.EnterpriseServer
 						s.InstantDomainAlias
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(server);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetServerShortDetails",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServerByName(int actorId, string serverName)
 		{
@@ -3330,16 +3632,20 @@ namespace FuseCP.EnterpriseServer
 						s.PasswordIsSHA256
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(server);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetServerByName",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerName", serverName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServerInternal(int serverId)
 		{
@@ -3369,15 +3675,18 @@ namespace FuseCP.EnterpriseServer
 						s.PasswordIsSHA256
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(server);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetServerInternal",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddServer(string serverName, string serverUrl,
 			 string password, string comments, bool virtualServer, string instantDomainAlias,
@@ -3418,25 +3727,41 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddServer",
 					 prmServerId,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerName", serverName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerUrl", serverUrl),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Password", password),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VirtualServer", virtualServer),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@InstantDomainAlias", instantDomainAlias),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PrimaryGroupId", primaryGroupId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdEnabled", adEnabled),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdRootDomain", adRootDomain),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdUsername", adUsername),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdPassword", adPassword),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdAuthenticationType", adAuthenticationType),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OSPlatform", osPlatform),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsCore", isCore),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PasswordIsSHA256", passwordIsSHA256));
 
 				return Convert.ToInt32(prmServerId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateServer(int serverId, string serverName, string serverUrl,
 			 string password, string comments, string instantDomainAlias,
@@ -3472,25 +3797,43 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateServer",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerName", serverName),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerUrl", serverUrl),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Password", password),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@InstantDomainAlias", instantDomainAlias),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PrimaryGroupId", primaryGroupId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdEnabled", adEnabled),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdRootDomain", adRootDomain),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdUsername", adUsername),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdPassword", adPassword),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdAuthenticationType", adAuthenticationType),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdParentDomain", adParentDomain),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AdParentDomainController", adParentDomainController),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@OSPlatform", osPlatform),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@IsCore", isCore),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PasswordIsSHA256", PasswordIsSHA256));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteServer(int serverId)
 		{
@@ -3531,6 +3874,7 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeleteServer",
 					 prmResult,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId));
 
 				return Convert.ToInt32(prmResult.Value);
@@ -3539,6 +3883,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Virtual Servers
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetVirtualServers(int actorId)
 		{
 			if (UseEntityFramework)
@@ -3558,15 +3903,18 @@ namespace FuseCP.EnterpriseServer
 						s.PrimaryGroupId
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(servers);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetVirtualServers",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetAvailableVirtualServices(int actorId, int serverId)
 		{
@@ -3602,16 +3950,20 @@ namespace FuseCP.EnterpriseServer
 				set.Tables.Add(EntityDataTable(servers));
 				set.Tables.Add(EntityDataTable(services));
 
+				/// <summary>TODO</summary>
 				return set;
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetAvailableVirtualServices",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetVirtualServices(int actorId, int serverId, bool forAutodiscover)
 		{
@@ -3655,17 +4007,22 @@ namespace FuseCP.EnterpriseServer
 						s.Service.Provider.DisplayName,
 						s.Server.ServerName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(virtGroups, services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetVirtualServices",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@actorId", actorId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@forAutodiscover", forAutodiscover));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddVirtualServices(int serverId, string xml)
 		{
@@ -3705,10 +4062,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddVirtualServices",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteVirtualServices(int serverId, string xml)
 		{
@@ -3735,10 +4095,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeleteVirtualServices",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateVirtualGroups(int serverId, string xml)
 		{
@@ -3771,7 +4134,9 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdateVirtualGroups",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@xml", xml));
 			}
 		}
@@ -3780,6 +4145,7 @@ namespace FuseCP.EnterpriseServer
 		#region Providers
 
 		// Providers methods
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetProviders()
 		{
@@ -3807,6 +4173,7 @@ namespace FuseCP.EnterpriseServer
 						j.Provider.DisableAutoDiscovery
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(providers);
 			}
 			else
@@ -3815,6 +4182,7 @@ namespace FuseCP.EnterpriseServer
 					 ObjectQualifier + "GetProviders");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetGroupProviders(int groupId)
 		{
@@ -3841,15 +4209,18 @@ namespace FuseCP.EnterpriseServer
 						ProviderGroupedName = j.ResourceGroup.GroupName + " - " + j.Provider.DisplayName,
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(providers);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetGroupProviders",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@groupId", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetProvider(int providerId)
 		{
@@ -3867,15 +4238,18 @@ namespace FuseCP.EnterpriseServer
 						p.ProviderType
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(provider);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetProvider",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ProviderID", providerId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetProviderByServiceID(int serviceId)
 		{
@@ -3892,15 +4266,18 @@ namespace FuseCP.EnterpriseServer
 						p.ProviderType
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(provider);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetProviderByServiceID",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServiceID", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public bool GetQuotaHidden(string quotaName, int groupID)
 		{
 			if (UseEntityFramework)
@@ -3917,13 +4294,16 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetQuotaHidden",
+					/// <summary>TODO</summary>
 					new SqlParameter("@QuotaName", quotaName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupID", groupID),
 					prmHideQuota);
 
 				return (prmHideQuota.Value as bool?) == true;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int UpdateQuotaHidden(string quotaName, int groupID, bool hideQuota)
 		{
@@ -3936,14 +4316,18 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateQuotaHidden",
+					/// <summary>TODO</summary>
 					new SqlParameter("@QuotaName", quotaName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupID", groupID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HideQuota", hideQuota.ToString()));
 			}
 		}
 		#endregion
 
 		#region Private Network VLANs
+		/// <summary>Auto-generated member.</summary>
 		public int AddPrivateNetworkVLAN(int serverId, int vlan, string comments)
 		{
 			if (UseEntityFramework)
@@ -3968,13 +4352,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddPrivateNetworkVlan",
 					 prmAddresId,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Vlan", vlan),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments));
 
 				return Convert.ToInt32(prmAddresId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeletePrivateNetworkVLAN(int vlanId)
 		{
@@ -3994,11 +4382,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeletePrivateNetworkVLAN",
 					 prmResult,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VlanID", vlanId));
 
 				return Convert.ToInt32(prmResult.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPrivateNetworkVLANsPaged(int actorId, int serverId,
 			 string filterColumn, string filterValue,
@@ -4062,22 +4452,32 @@ namespace FuseCP.EnterpriseServer
 
 				vlans = vlans.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(count, vlans);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 												 "GetPrivateNetworVLANsPaged",
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@ActorId", actorId),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@ServerId", serverId),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@startRow", startRow),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPrivateNetworVLAN(int vlanId)
 		{
@@ -4086,15 +4486,18 @@ namespace FuseCP.EnterpriseServer
 				var vlan = PrivateNetworkVlans
 					.Where(v => v.VlanId == vlanId);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(vlan);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "GetPrivateNetworVLAN",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VlanID", vlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdatePrivateNetworVLAN(int vlanId, int serverId, int vlan, string comments)
 		{
@@ -4113,12 +4516,17 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "UpdatePrivateNetworVLAN",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VlanID", vlanId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Vlan", vlan),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckPackageParent(int parentPackageId, int packageId)
 		{
@@ -4138,6 +4546,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return package != null && package.ParentPackageId == parentPackageId;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackagePrivateNetworkVLANs(int packageId, string sortColumn, int startRow, int maximumRows)
 		{
@@ -4178,6 +4587,7 @@ namespace FuseCP.EnterpriseServer
 
 					vlans = vlans.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, vlans);
 				}
 			}
@@ -4185,13 +4595,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 												 "GetPackagePrivateNetworkVLANs",
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@PackageID", packageId),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@startRow", startRow),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeallocatePackageVLAN(int id)
 		{
@@ -4216,9 +4632,11 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure, "DeallocatePackageVLAN",
+												  /// <summary>TODO</summary>
 												  new SqlParameter("@PackageVlanID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUnallottedVLANs(int packageId, int serviceId)
 		{
@@ -4267,6 +4685,7 @@ namespace FuseCP.EnterpriseServer
 								v.Vlan.Vlan,
 								v.Vlan.ServerId
 							});
+						/// <summary>TODO</summary>
 						return EntityDataReader(vlans);
 					}
 					else
@@ -4298,6 +4717,7 @@ namespace FuseCP.EnterpriseServer
 							})
 							.OrderByDescending(v => v.ServerId)
 							.ThenBy(v => v.Vlan);
+						/// <summary>TODO</summary>
 						return EntityDataReader(vlans);
 					}
 				}
@@ -4323,6 +4743,7 @@ namespace FuseCP.EnterpriseServer
 						})
 						.OrderByDescending(g => g.ServerId)
 						.ThenBy(g => g.Vlan);
+					/// <summary>TODO</summary>
 					return EntityDataReader(vlans);
 				}
 			}
@@ -4330,10 +4751,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 												 "GetUnallottedVLANs",
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@PackageId", packageId),
+													 /// <summary>TODO</summary>
 													 new SqlParameter("@ServiceId", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AllocatePackageVLANs(int packageId, bool isDmz, string xml)
 		{
@@ -4367,14 +4791,18 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				SqlParameter[] param = new[] {
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDmz", isDmz),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xml", xml)
 				};
 
 				ExecuteLongNonQuery("AllocatePackageVLANs", param);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageDmzNetworkVLANs(int packageId, string sortColumn, int startRow, int maximumRows)
 		{
@@ -4415,6 +4843,7 @@ namespace FuseCP.EnterpriseServer
 
 					vlans = vlans.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, vlans);
 				}
 			}
@@ -4422,16 +4851,22 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 										 "GetPackageDmzNetworkVLANs",
+											/// <summary>TODO</summary>
 											new SqlParameter("@PackageID", packageId),
+											/// <summary>TODO</summary>
 											new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+											/// <summary>TODO</summary>
 											new SqlParameter("@startRow", startRow),
+											/// <summary>TODO</summary>
 											new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
 		#endregion
 
 		#region IPAddresses
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetIPAddress(int ipAddressId)
 		{
 			if (UseEntityFramework)
@@ -4450,15 +4885,18 @@ namespace FuseCP.EnterpriseServer
 						ip.Comments,
 						ip.Vlan
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(address);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AddressID", ipAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetIPAddresses(int actorId, int poolId, int serverId)
 		{
@@ -4542,18 +4980,24 @@ namespace FuseCP.EnterpriseServer
                         Username = u != null ? u.Username : null
                     });
 
+                /// <summary>TODO</summary>
                 return EntityDataReader(addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetIPAddressesPaged(int actorId, int poolId, int serverId,
 			string filterColumn, string filterValue,
@@ -4676,23 +5120,34 @@ namespace FuseCP.EnterpriseServer
 
 				addresses = addresses.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(count, addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetIPAddressesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddIPAddress(int poolId, int serverId, string externalIP, string internalIP,
 			 string subnetMask, string defaultGateway, string comments, int VLAN)
@@ -4725,18 +5180,27 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddIPAddress",
 					 prmAddresId,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@externalIP", externalIP),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@internalIP", internalIP),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@PoolId", poolId),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@SubnetMask", subnetMask),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@DefaultGateway", defaultGateway),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@Comments", comments),
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@VLAN", VLAN));
 
 				return Convert.ToInt32(prmAddresId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateIPAddress(int addressId, int poolId, int serverId,
 			 string externalIP, string internalIP, string subnetMask, string defaultGateway, string comments, int VLAN)
@@ -4763,17 +5227,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "UpdateIPAddress",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@AddressID", addressId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@externalIP", externalIP),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@internalIP", internalIP),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ServerID", serverId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@PoolId", poolId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@SubnetMask", subnetMask),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@DefaultGateway", defaultGateway),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@Comments", comments),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@VLAN", VLAN));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateIPAddresses(string xmlIds, int poolId, int serverId,
 			 string subnetMask, string defaultGateway, string comments, int VLAN)
@@ -4802,15 +5276,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "UpdateIPAddresses",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@Xml", xmlIds),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ServerID", serverId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@PoolId", poolId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@SubnetMask", subnetMask),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@DefaultGateway", defaultGateway),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@Comments", comments),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@VLAN", VLAN));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteIPAddress(int ipAddressId)
 		{
@@ -4840,6 +5322,7 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "DeleteIPAddress",
 					 prmResult,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@AddressID", ipAddressId));
 
 				return Convert.ToInt32(prmResult.Value);
@@ -4848,6 +5331,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Clusters
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetClusters(int actorId)
 		{
 			if (UseEntityFramework)
@@ -4856,15 +5340,18 @@ namespace FuseCP.EnterpriseServer
 
 				var clusters = Clusters.Where(c => isAdmin);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(clusters);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetClusters",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddCluster(string clusterName)
 		{
@@ -4885,11 +5372,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					 ObjectQualifier + "AddCluster",
 					 prmId,
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ClusterName", clusterName));
 
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteCluster(int clusterId)
 		{
@@ -4913,6 +5402,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "DeleteCluster",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ClusterId", clusterId));
 			}
 		}
@@ -4920,6 +5410,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Global DNS records
+		/// <summary>Auto-generated member.</summary>
 
 		public string GetFullIPAddress(string externalIp, string internalIp)
 		{
@@ -4933,8 +5424,10 @@ namespace FuseCP.EnterpriseServer
 				else ip = $"{ip} ({internalIp})";
 			}
 
+			/// <summary>TODO</summary>
 			return ip;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDnsRecordsByService(int actorId, int serviceId)
 		{
@@ -4984,16 +5477,20 @@ namespace FuseCP.EnterpriseServer
 						r.ExternalIp,
 						r.InternalIp
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(records);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetDnsRecordsByService",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@actorId", actorId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ServiceId", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDnsRecordsByServer(int actorId, int serverId)
 		{
@@ -5043,16 +5540,20 @@ namespace FuseCP.EnterpriseServer
 						r.ExternalIp,
 						r.InternalIp
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(records);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetDnsRecordsByServer",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@actorId", actorId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ServerId", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckActorPackageRights(int actorId, int? packageId)
 		{
@@ -5069,8 +5570,10 @@ namespace FuseCP.EnterpriseServer
 
 			if (ownerId == null) return true; // unexisting package
 
+			/// <summary>TODO</summary>
 			return CheckActorUserRights(actorId, ownerId.Value);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDnsRecordsByPackage(int actorId, int packageId)
 		{
@@ -5122,16 +5625,20 @@ namespace FuseCP.EnterpriseServer
 						r.ExternalIp,
 						r.InternalIp
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(records);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetDnsRecordsByPackage",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@actorId", actorId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@PackageId", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDnsRecordsByGroup(int groupId)
 		{
@@ -5151,15 +5658,18 @@ namespace FuseCP.EnterpriseServer
 						r.MXPriority
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(records);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetDnsRecordsByGroup",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@GroupId", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetDnsRecordsTotal(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
@@ -5273,16 +5783,20 @@ namespace FuseCP.EnterpriseServer
 									r.RecordData)),
 						IPAddress = GetFullIPAddress(r.ExternalIp, r.InternalIp)
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(recordsSelected);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDnsRecordsTotal",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetDnsRecord(int actorId, int recordId)
 		{
@@ -5311,21 +5825,27 @@ namespace FuseCP.EnterpriseServer
 					.SingleOrDefault();
 
 				if (record != null && (record.ServiceId > 0 || record.ServerId > 0) && !CheckIsUserAdmin(actorId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to perform this operation");
 
 				if (record != null && record.PackageId > 0 && !CheckActorPackageRights(actorId, record.PackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(records);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordId", recordId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddDnsRecord(int actorId, int serviceId, int serverId, int packageId, string recordType,
 			 string recordName, string recordData, int mxPriority, int SrvPriority, int SrvWeight, int SrvPort, int ipAddressId)
@@ -5333,9 +5853,11 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if ((serviceId > 0 || serverId > 0) && !CheckIsUserAdmin(actorId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You should have administrator role to perform such operation");
 
 				if (packageId > 0 && !CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				int? serverIdOrNull = serverId != 0 ? serverId : null;
@@ -5374,20 +5896,33 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordType", recordType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordName", recordName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordData", recordData),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MXPriority", mxPriority),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvPriority", SrvPriority),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvWeight", SrvWeight),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvPort", SrvPort),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IpAddressId", ipAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void UpdateDnsRecord(int actorId, int recordId, string recordType,
 			 string recordName, string recordData, int mxPriority, int SrvPriority, int SrvWeight, int SrvPort, int ipAddressId)
 		{
@@ -5402,9 +5937,11 @@ namespace FuseCP.EnterpriseServer
 				{
 					// check rights
 					if ((record.ServiceId > 0 || record.ServerId > 0) && !CheckIsUserAdmin(actorId))
+						/// <summary>TODO</summary>
 						throw new AccessViolationException("You are not allowed to perform this operation");
 
 					if (record.PackageId > 0 && !CheckActorPackageRights(actorId, record.PackageId))
+						/// <summary>TODO</summary>
 						throw new AccessViolationException("You are not allowed to access this package");
 
 					record.RecordType = recordType;
@@ -5423,18 +5960,29 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordId", recordId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordType", recordType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordName", recordName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordData", recordData),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MXPriority", mxPriority),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvPriority", SrvPriority),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvWeight", SrvWeight),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SrvPort", SrvPort),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IpAddressId", ipAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public void DeleteDnsRecord(int actorId, int recordId)
@@ -5460,13 +6008,16 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordId", recordId));
 			}
 		}
 		#endregion
 
 		#region Domains
+		/// <summary>Auto-generated member.</summary>
 
 		public TempIdSet PackagesTree(int packageId, bool recursive = false)
 		{
@@ -5487,14 +6038,17 @@ namespace FuseCP.EnterpriseServer
 				}
 			}
 
+			/// <summary>TODO</summary>
 			return tree;
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetDomains(int actorId, int packageId, bool recursive = true)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var tree = PackagesTree(packageId, recursive))
@@ -5522,6 +6076,7 @@ namespace FuseCP.EnterpriseServer
 							d.IsDomainPointer,
 							d.RegistrarName
 						});
+					/// <summary>TODO</summary>
 					return EntityDataSet(domains);
 				}
 			}
@@ -5529,17 +6084,22 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				 ObjectQualifier + "GetDomains",
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@ActorId", actorId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@PackageId", packageId),
+				 /// <summary>TODO</summary>
 				 new SqlParameter("@Recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetResellerDomains(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// load parent package
@@ -5561,16 +6121,20 @@ namespace FuseCP.EnterpriseServer
 						d.MailDomainId,
 						MailDomainName = d.MailDomain != null ? d.MailDomain.ItemName : null
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(domains);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetResellerDomains",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDomainsPaged(int actorId, int packageId, int serverId, bool recursive, string filterColumn, string filterValue,
 			 string sortColumn, int startRow, int maximumRows)
@@ -5579,11 +6143,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				TempIdSet childPackages = null;
 				try
 				{
+					/// <summary>TODO</summary>
 					IQueryable<Data.Entities.Domain> domainsFiltered;
 					if (!recursive) domainsFiltered = Domains.Where(d => d.PackageId == packageId);
 					else
@@ -5659,6 +6225,7 @@ namespace FuseCP.EnterpriseServer
 
 					domains = domains.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, domains);
 				}
 				finally
@@ -5670,17 +6237,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDomainsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recursive", recursive),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetDomain(int actorId, int domainId)
 		{
@@ -5708,16 +6285,20 @@ namespace FuseCP.EnterpriseServer
 					})
 					.ToList()
 					.Where(d => CheckActorPackageRights(actorId, d.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataReader(domains);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@domainId", domainId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetDomainByName(int actorId, string domainName, bool searchOnDomainPointer, bool isDomainPointer)
 		{
@@ -5745,18 +6326,24 @@ namespace FuseCP.EnterpriseServer
 					})
 					.AsEnumerable()
 					.Where(d => Clone.CheckActorPackageRights(actorId, d.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataReader(domains);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDomainByName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@domainName", domainName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SearchOnDomainPointer", searchOnDomainPointer),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDomainPointer", isDomainPointer));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public DataSet GetDomainsByZoneId(int actorId, int zoneId)
@@ -5784,16 +6371,20 @@ namespace FuseCP.EnterpriseServer
 					})
 					.AsEnumerable()
 					.Where(d => Clone.CheckActorPackageRights(actorId, d.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataSet(domains);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDomainsByZoneID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ZoneID", zoneId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetDomainsByDomainItemId(int actorId, int domainId)
 		{
@@ -5820,16 +6411,20 @@ namespace FuseCP.EnterpriseServer
 					})
 					.AsEnumerable()
 					.Where(d => Clone.CheckActorPackageRights(actorId, d.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataSet(domains);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetDomainsByDomainItemID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainID", domainId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 
@@ -5869,13 +6464,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckDomain",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@domainName", domainName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@isDomainPointer", isDomainPointer));
 
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 
@@ -5900,11 +6499,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckDomainUsedByHostedOrganization",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@domainName", domainName));
 
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public int AddDomain(int actorId, int packageId, int zoneItemId, string domainName,
@@ -5913,6 +6514,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var domain = new Data.Entities.Domain()
@@ -5942,20 +6544,31 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddDomain",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ZoneItemId", zoneItemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainName", domainName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HostingAllowed", hostingAllowed),
+					/// <summary>TODO</summary>
 					new SqlParameter("@WebSiteId", webSiteId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailDomainId", mailDomainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsSubDomain", isSubDomain),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsPreviewDomain", isPreviewDomain),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDomainPointer", isDomainPointer));
 
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateDomain(int actorId, int domainId, int zoneItemId,
 			 bool hostingAllowed, int webSiteId, int mailDomainId, int domainItemId)
@@ -5966,6 +6579,7 @@ namespace FuseCP.EnterpriseServer
 				if (domain == null) return;
 
 				if (!CheckActorPackageRights(actorId, domain.PackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				domain.ZoneItemId = zoneItemId != 0 ? zoneItemId : null;
@@ -5980,15 +6594,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ZoneItemId", zoneItemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HostingAllowed", hostingAllowed),
+					/// <summary>TODO</summary>
 					new SqlParameter("@WebSiteId", webSiteId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailDomainId", mailDomainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainItemId", domainItemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteDomain(int actorId, int domainId)
 		{
@@ -5998,6 +6620,7 @@ namespace FuseCP.EnterpriseServer
 				if (domain == null) return;
 
 				if (!CheckActorPackageRights(actorId, domain.PackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				Domains.Remove(domain);
@@ -6008,13 +6631,16 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId));
 			}
 		}
 		#endregion
 
 		#region Services
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetServicesByServerId(int actorId, int serverId)
 		{
 			if (UseEntityFramework)
@@ -6047,16 +6673,20 @@ namespace FuseCP.EnterpriseServer
 						ProviderName = s.Provider.DisplayName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServicesByServerID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerID", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServicesByServerIdGroupName(int actorId, int serverId, string groupName)
 		{
@@ -6092,17 +6722,22 @@ namespace FuseCP.EnterpriseServer
                     .Where(s => s.GroupName == groupName);
 
 
+                /// <summary>TODO</summary>
                 return EntityDataReader(services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServicesByServerIDGroupName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerID", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetRawServicesByServerId(int actorId, int serverId)
 		{
@@ -6140,16 +6775,20 @@ namespace FuseCP.EnterpriseServer
 						ProviderName = s.Provider.DisplayName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups, services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetRawServicesByServerID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerID", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServicesByGroupId(int actorId, int groupId)
 		{
@@ -6176,16 +6815,20 @@ namespace FuseCP.EnterpriseServer
 						FullServiceName = s.Service.ServiceName + " on " + t.ServerName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServicesByGroupID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupId", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServicesByGroupName(int actorId, string groupName, bool forAutodiscover)
 		{
@@ -6226,17 +6869,22 @@ namespace FuseCP.EnterpriseServer
 						FullServiceName = s.Service.ServiceName + " on " + s.Server.ServerName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(services);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServicesByGroupName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@forAutodiscover", forAutodiscover));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetService(int actorId, int serviceId)
 		{
@@ -6256,6 +6904,7 @@ namespace FuseCP.EnterpriseServer
 						t.ServerName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(services);
 			}
 			else
@@ -6263,10 +6912,13 @@ namespace FuseCP.EnterpriseServer
 				return SqlHelper.ExecuteReader(NativeConnectionString,
 					CommandType.StoredProcedure,
 					ObjectQualifier + "GetService",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddService(int serverId, int providerId, string serviceName, int serviceQuotaValue,
 			 int clusterId, string comments)
@@ -6335,6 +6987,7 @@ namespace FuseCP.EnterpriseServer
 
 					transaction.Commit();
 				}
+				/// <summary>TODO</summary>
 				return serviceId;
 			}
 			else
@@ -6345,11 +6998,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddService",
 					prmServiceId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerID", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProviderID", providerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceName", serviceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceQuotaValue", serviceQuotaValue),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClusterId", clusterId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@comments", comments));
 
 				UpdateServerPackageServices(serverId);
@@ -6357,6 +7016,7 @@ namespace FuseCP.EnterpriseServer
 				return Convert.ToInt32(prmServiceId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateServiceFully(int serviceId, int providerId, string serviceName, int serviceQuotaValue,
 			 int clusterId, string comments)
@@ -6381,14 +7041,21 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateServiceFully",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProviderID", providerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceName", serviceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceQuotaValue", serviceQuotaValue),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClusterId", clusterId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Comments", comments));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateService(int serviceId, string serviceName, int serviceQuotaValue,
 			 int clusterId, string comments)
@@ -6412,13 +7079,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateService",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceName", serviceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceQuotaValue", serviceQuotaValue),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClusterId", clusterId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Comments", comments));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteService(int serviceId)
 		{
@@ -6446,11 +7119,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteService",
 					prmResult,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId));
 
 				return Convert.ToInt32(prmResult.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServiceProperties(int actorId, int serviceId)
 		{
@@ -6459,6 +7134,7 @@ namespace FuseCP.EnterpriseServer
 				var properties = ServiceProperties
 					.Where(s => s.ServiceId == serviceId);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(properties);
 			}
 			else
@@ -6466,10 +7142,13 @@ namespace FuseCP.EnterpriseServer
 				return SqlHelper.ExecuteReader(NativeConnectionString,
 					CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceProperties",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateServiceProperties(int serviceId, string xml)
 		{
@@ -6500,10 +7179,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateServiceProperties",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetResourceGroup(int groupId)
 		{
@@ -6519,6 +7201,7 @@ namespace FuseCP.EnterpriseServer
 						g.GroupController
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(groups);
 			}
 			else
@@ -6526,9 +7209,11 @@ namespace FuseCP.EnterpriseServer
 				return SqlHelper.ExecuteReader(NativeConnectionString,
 					CommandType.StoredProcedure,
 					ObjectQualifier + "GetResourceGroup",
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupId", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetResourceGroups()
 		{
@@ -6543,6 +7228,7 @@ namespace FuseCP.EnterpriseServer
 						g.GroupController
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups);
 			}
 			else
@@ -6552,6 +7238,7 @@ namespace FuseCP.EnterpriseServer
 					ObjectQualifier + "GetResourceGroups");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetResourceGroupByName(string groupName)
 		{
@@ -6566,6 +7253,7 @@ namespace FuseCP.EnterpriseServer
 						g.GroupName,
 						g.GroupController
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(group);
 			}
 			else
@@ -6573,6 +7261,7 @@ namespace FuseCP.EnterpriseServer
 				return SqlHelper.ExecuteReader(NativeConnectionString,
 					CommandType.StoredProcedure,
 					ObjectQualifier + "GetResourceGroupByName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName));
 			}
 		}
@@ -6580,12 +7269,14 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Service Items
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetServiceItems(int actorId, int packageId, string groupName, string itemTypeName, bool recursive)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
                 using (var tree = PackagesTree(packageId, recursive))
@@ -6675,6 +7366,7 @@ namespace FuseCP.EnterpriseServer
 							p.PropertyValue
 						});
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(serviceItems, itemProperties);
 				}
 			}
@@ -6682,13 +7374,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItems",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemTypeName", itemTypeName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemsPaged(int actorId, int packageId, string groupName, string itemTypeName,
 			int serverId, bool recursive, string filterColumn, string filterValue,
@@ -6697,6 +7395,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var groupId = ResourceGroups
@@ -6710,6 +7409,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(t => t.ItemTypeId)
 					.FirstOrDefault();
 
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.ServiceItem> serviceItems;
 				TempIdSet childPackages = null;
 				try
@@ -6824,6 +7524,7 @@ namespace FuseCP.EnterpriseServer
 							s.PropertyValue
 						});
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, items, properties);
 				}
 				finally
@@ -6835,19 +7536,31 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeName", itemTypeName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recursive", recursive),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSearchableServiceItemTypes()
 		{
@@ -6862,6 +7575,7 @@ namespace FuseCP.EnterpriseServer
 						t.DisplayName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(types);
 			}
 			else
@@ -6870,6 +7584,7 @@ namespace FuseCP.EnterpriseServer
 					ObjectQualifier + "GetSearchableServiceItemTypes");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemsByService(int actorId, int serviceId)
 		{
@@ -6943,16 +7658,20 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(items, properties);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsByService",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetServiceItemsCount(string typeName, string groupName, int serviceId)
 		{
@@ -6978,14 +7697,18 @@ namespace FuseCP.EnterpriseServer
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsCount",
 					prmTotalNumber,
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeName", typeName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serviceId", serviceId));
 
 				// read identity
 				return Convert.ToInt32(prmTotalNumber.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemsForStatistics(int actorId, int serviceId, int packageId,
 			bool calculateDiskspace, bool calculateBandwidth, bool suspendable, bool disposable)
@@ -7033,27 +7756,37 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(serviceItems, properties);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsForStatistics",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@calculateDiskspace", calculateDiskspace),
+					/// <summary>TODO</summary>
 					new SqlParameter("@calculateBandwidth", calculateBandwidth),
+					/// <summary>TODO</summary>
 					new SqlParameter("@suspendable", suspendable),
+					/// <summary>TODO</summary>
 					new SqlParameter("@disposable", disposable));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemsByPackage(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// select service items
@@ -7123,16 +7856,20 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(items, properties);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsByPackage",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItem(int actorId, int itemId)
 		{
@@ -7208,16 +7945,20 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(items, properties);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItem",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckServiceItemExists(int serviceId, string itemName, string itemTypeName)
 		{
@@ -7239,13 +7980,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckServiceItemExistsInService",
 					prmExists,
+					/// <summary>TODO</summary>
 					new SqlParameter("@serviceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeName", itemTypeName));
 
 				return Convert.ToBoolean(prmExists.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckServiceItemExists(string itemName, string groupName, string itemTypeName)
 		{
@@ -7287,13 +8032,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckServiceItemExists",
 					prmExists,
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeName", itemTypeName));
 
 				return Convert.ToBoolean(prmExists.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemByName(int actorId, int packageId, string groupName,
 			string itemName, string itemTypeName)
@@ -7301,6 +8050,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// select service items
@@ -7371,25 +8121,33 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(items, properties);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemByName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeName", itemTypeName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetServiceItemsByName(int actorId, int packageId, string itemName)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// select service items
@@ -7462,6 +8220,7 @@ namespace FuseCP.EnterpriseServer
 						p.PropertyValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(items, properties);
 
 			}
@@ -7469,11 +8228,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsByName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetServiceItemsCountByNameAndServiceId(int actorId, int serviceId, string groupName,
 			string itemName, string itemTypeName)
@@ -7499,17 +8262,24 @@ namespace FuseCP.EnterpriseServer
 
 				object obj = SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsCountByNameAndServiceId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemTypeName", itemTypeName));
 
 				if (!int.TryParse(obj.ToString(), out res)) return -1;
 
+				/// <summary>TODO</summary>
 				return res;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddServiceItem(int actorId, int serviceId, int packageId, string itemName,
 			string itemTypeName, string xmlProperties)
@@ -7517,6 +8287,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var groupId = Services
@@ -7594,18 +8365,26 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddServiceItem",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceID", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemTypeName", itemTypeName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xmlProperties", xmlProperties),
+					/// <summary>TODO</summary>
 					new SqlParameter("@CreatedDate", DateTime.Now),
 					prmItemId);
 
 				return Convert.ToInt32(prmItemId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateServiceItem(int actorId, int itemId, string itemName, string xmlProperties)
 		{
@@ -7616,6 +8395,7 @@ namespace FuseCP.EnterpriseServer
 				var packageId = item?.PackageId;
 
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -7647,12 +8427,17 @@ namespace FuseCP.EnterpriseServer
 				// update item
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateServiceItem",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@XmlProperties", xmlProperties));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteServiceItem(int actorId, int itemId)
 		{
@@ -7664,6 +8449,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -7708,10 +8494,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteServiceItem",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void MoveServiceItem(int actorId, int itemId, int destinationServiceId, bool forAutodiscover)
 		{
@@ -7723,6 +8512,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 
 				if (!forAutodiscover && !CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -7740,12 +8530,17 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "MoveServiceItem",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DestinationServiceID", destinationServiceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@forAutodiscover", forAutodiscover));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool GetPackageAllocatedResource(int? packageId, int groupId, int? serverId)
 		{
@@ -7796,6 +8591,7 @@ namespace FuseCP.EnterpriseServer
 						}
 					}
 
+					/// <summary>TODO</summary>
 					return groupEnabled;
 				}
 				else // parentPackageId != null
@@ -7832,8 +8628,10 @@ namespace FuseCP.EnterpriseServer
 				id = package?.ParentPackageId;
 			}
 
+			/// <summary>TODO</summary>
 			return false;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetPackageServiceId(int actorId, int packageId, string groupName, bool updatePackage)
 		{
@@ -7841,6 +8639,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				int serviceId = 0;
@@ -7853,6 +8652,7 @@ namespace FuseCP.EnterpriseServer
 						.Join(ResourceGroups.Where(rg => rg.GroupName == groupName),
 							s => s.Provider.GroupId, rg => rg.GroupId, (s, rg) => s.ServiceId)
 						.FirstOrDefault();
+					/// <summary>TODO</summary>
 					return serviceId;
 				}
 
@@ -7901,6 +8701,7 @@ namespace FuseCP.EnterpriseServer
 				serviceId = serviceIdQuery
 					.FirstOrDefault();
 
+				/// <summary>TODO</summary>
 				return serviceId;
 			}
 			else
@@ -7910,21 +8711,27 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageServiceID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@groupName", groupName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UpdatePackage", updatePackage),
 					prmServiceId);
 
 				return Convert.ToInt32(prmServiceId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public string GetMailFilterURL(int actorId, int packageId, string groupName)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var groupId = ResourceGroups
@@ -7948,6 +8755,7 @@ namespace FuseCP.EnterpriseServer
 					.Where(p => p.ServiceId == serviceId && p.PropertyName == "apiurl")
 					.Select(p => p.PropertyValue)
 					.FirstOrDefault();
+				/// <summary>TODO</summary>
 				return filterUrl;
 			}
 			else
@@ -7957,14 +8765,18 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetFilterURL",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName),
 					prmFilterUrl);
 
 				return Convert.ToString(prmFilterUrl.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public string GetMailFilterUrlByHostingPlan(int actorId, int PlanID, string groupName)
 		{
@@ -7985,6 +8797,7 @@ namespace FuseCP.EnterpriseServer
 					.Where(p => p.ProviderName == "MailCleaner")
 					.Select(p => p.ProviderId)
 					.FirstOrDefault();
+				/// <summary>TODO</summary>
 				int serviceId;
 				if (isVirtualServer)
 				{
@@ -8009,6 +8822,7 @@ namespace FuseCP.EnterpriseServer
 					.Where(p => p.ServiceId == serviceId && p.PropertyName == "apiurl")
 					.Select(p => p.PropertyValue)
 					.FirstOrDefault();
+				/// <summary>TODO</summary>
 				return filterUrl;
 			}
 			else
@@ -8018,14 +8832,18 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetFilterURLByHostingPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanID", PlanID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName),
 					prmFilterUrl);
 
 				return Convert.ToString(prmFilterUrl.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public void UpdatePackageDiskSpace(int packageId, string xml)
@@ -8074,10 +8892,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				ExecuteLongNonQuery(
 					ObjectQualifier + "UpdatePackageDiskSpace",
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdatePackageBandwidth(int packageId, string xml)
 		{
@@ -8150,10 +8971,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				ExecuteLongNonQuery(
 					ObjectQualifier + "UpdatePackageBandwidth",
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DateTime GetPackageBandwidthUpdate(int packageId)
 		{
@@ -8173,11 +8997,13 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageBandwidthUpdate",
 					prmUpdateDate,
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId));
 
 				return (prmUpdateDate.Value != DBNull.Value) ? Convert.ToDateTime(prmUpdateDate.Value) : DateTime.MinValue;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdatePackageBandwidthUpdate(int packageId, DateTime updateDate)
 		{
@@ -8189,10 +9015,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdatePackageBandwidthUpdate",
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@updateDate", updateDate));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServiceItemType(int itemTypeId)
 		{
@@ -8200,6 +9029,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				var type = ServiceItemTypes
 					.Where(t => t.ItemTypeId == itemTypeId);
+				/// <summary>TODO</summary>
 				return EntityDataReader(type);
 			}
 			else
@@ -8208,9 +9038,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetServiceItemType",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemTypeID", itemTypeId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetServiceItemTypes()
 		{
@@ -8218,6 +9050,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				var types = ServiceItemTypes
 					.OrderBy(t => t.TypeOrder);
+				/// <summary>TODO</summary>
 				return EntityDataReader(types);
 			}
 			else
@@ -8232,12 +9065,14 @@ namespace FuseCP.EnterpriseServer
 
 		#region Plans
 		// Plans methods
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetHostingPlans(int actorId, int userId)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var plans = HostingPlans
@@ -8271,16 +9106,20 @@ namespace FuseCP.EnterpriseServer
 						PackageName = p != null ? p.PackageName : "None"
 					})
 					.OrderBy(pl => pl.PlanName);
+				/// <summary>TODO</summary>
 				return EntityDataSet(plans);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 				ObjectQualifier + "GetHostingPlans",
+				/// <summary>TODO</summary>
 				new SqlParameter("@actorId", actorId),
+				/// <summary>TODO</summary>
 				new SqlParameter("@userId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetHostingAddons(int actorId, int userId)
 		{
@@ -8288,6 +9127,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var plans = HostingPlans
@@ -8308,16 +9148,20 @@ namespace FuseCP.EnterpriseServer
 						pl.IsAddon,
 						PackagesNumber = pl.Packages.Count(),
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(plans);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetHostingAddons",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUserAvailableHostingPlans(int actorId, int userId)
 		{
@@ -8325,6 +9169,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var ownerId = Users
@@ -8349,16 +9194,20 @@ namespace FuseCP.EnterpriseServer
 						pl.RecurrenceUnit,
 						pl.IsAddon
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(plans);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetUserAvailableHostingPlans",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetUserAvailableHostingAddons(int actorId, int userId)
 		{
@@ -8366,6 +9215,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var ownerId = Users
@@ -8390,16 +9240,20 @@ namespace FuseCP.EnterpriseServer
 						pl.RecurrenceUnit,
 						pl.IsAddon
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(plans);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetUserAvailableHostingAddons",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetHostingPlan(int actorId, int planId)
 		{
@@ -8422,16 +9276,20 @@ namespace FuseCP.EnterpriseServer
 						p.RecurrenceUnit,
 						p.IsAddon
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plans);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetHostingPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanId", planId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckActorParentPackageRights(int actorId, int? packageId)
 		{
@@ -8445,8 +9303,10 @@ namespace FuseCP.EnterpriseServer
 			if (userId == null) return true;
 
 			// check user
+			/// <summary>TODO</summary>
 			return CanGetUserDetails(actorId, userId ?? -1);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool GetPackageServiceLevelResource(int? packageId, int groupId, int? serverId)
 		{
@@ -8518,11 +9378,14 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 			}
 
+			/// <summary>TODO</summary>
 			return false;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetPackageAllocatedQuota(int? packageId, int quotaId)
 		{
+			/// <summary>TODO</summary>
 			int result;
 
 			var quotaTypeId = Quotas
@@ -8553,6 +9416,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					if (quotaTypeId == 1) // boolean
 						quotaValue = 1; // enabled
+					/// <summary>TODO</summary>
 					else if (quotaTypeId > 1) // numeric
 						quotaValue = -1; // unlimited
 				}
@@ -8626,8 +9490,10 @@ namespace FuseCP.EnterpriseServer
 				pid = package?.ParentPackageId;
 			}
 
+			/// <summary>TODO</summary>
 			return result;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetHostingPlanQuotas(int actorId, int packageId, int planId, int serverId)
 		{
@@ -8635,6 +9501,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorParentPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				if (serverId == 0)
@@ -8712,18 +9579,24 @@ namespace FuseCP.EnterpriseServer
 						ParentQuotaValue = GetPackageAllocatedQuota(packageId, q.QuotaId),
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups, quotas);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetHostingPlanQuotas",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateHostingPlanQuotas(int actorId, int planId, string quotasXml)
 		{
@@ -8734,6 +9607,7 @@ namespace FuseCP.EnterpriseServer
 
 			// check rights
 			if (!CheckActorUserRights(actorId, userId))
+				/// <summary>TODO</summary>
 				throw new AccessViolationException("You are not allowed to access this account");
 
 			var xml = XElement.Parse(quotasXml);
@@ -8766,6 +9640,7 @@ namespace FuseCP.EnterpriseServer
 
 			SaveChanges();
 		}
+		/// <summary>Auto-generated member.</summary>
 		public int AddHostingPlan(int actorId, int userId, int packageId, string planName,
 			string planDescription, bool available, int serverId, decimal setupPrice, decimal recurringPrice,
 			int recurrenceUnit, int recurrenceLength, bool isAddon, string quotasXml)
@@ -8774,6 +9649,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				if (serverId == 0)
@@ -8818,18 +9694,31 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddHostingPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planName", planName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planDescription", planDescription),
+					/// <summary>TODO</summary>
 					new SqlParameter("@available", available),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@setupPrice", setupPrice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurringPrice", recurringPrice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurrenceUnit", recurrenceUnit),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurrenceLength", recurrenceLength),
+					/// <summary>TODO</summary>
 					new SqlParameter("@isAddon", isAddon),
+					/// <summary>TODO</summary>
 					new SqlParameter("@quotasXml", quotasXml),
 					prmPlanId);
 
@@ -8837,6 +9726,7 @@ namespace FuseCP.EnterpriseServer
 				return Convert.ToInt32(prmPlanId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CheckExceedingQuota(int? packageId, int quotaId, int quotaTypeId)
 		{
@@ -8850,6 +9740,7 @@ namespace FuseCP.EnterpriseServer
 			// check numeric quota
 			if (quotaTypeId == 2 && packageQuotaValue == -1) return 0; // unlimited, can exceed
 
+			/// <summary>TODO</summary>
 			int usedQuantity, usedPlans, usedOverrides, usedAddons;
 
 			// limited by hosting plans
@@ -8895,13 +9786,18 @@ namespace FuseCP.EnterpriseServer
 
 			return usedQuantity - packageQuotaValue;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public class ExceedingQuota
 		{
+			/// <summary>Auto-generated member.</summary>
 			public int QuotaId { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public string QuotaName { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public int QuotaValue { get; set; }
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IEnumerable<ExceedingQuota> GetPackageExceedingQuotas(int? packageId)
 		{
@@ -8954,6 +9850,7 @@ namespace FuseCP.EnterpriseServer
 			}
 			return Enumerable.Empty<ExceedingQuota>();
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet UpdateHostingPlan(int actorId, int planId, int packageId, int serverId, string planName,
 			string planDescription, bool available, decimal setupPrice, decimal recurringPrice,
@@ -8968,6 +9865,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				if (serverId == 0)
@@ -9007,6 +9905,7 @@ namespace FuseCP.EnterpriseServer
 					if (exceedingQuotas.Any()) transaction.Rollback();
 					else transaction.Commit();
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(exceedingQuotas);
 				}
 			}
@@ -9014,23 +9913,36 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateHostingPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planName", planName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planDescription", planDescription),
+					/// <summary>TODO</summary>
 					new SqlParameter("@available", available),
+					/// <summary>TODO</summary>
 					new SqlParameter("@setupPrice", setupPrice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurringPrice", recurringPrice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurrenceUnit", recurrenceUnit),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recurrenceLength", recurrenceLength),
+					/// <summary>TODO</summary>
 					new SqlParameter("@quotasXml", quotasXml));
 			}
 		}
 
 		/*
 		// TODO: This method is missing from the stored procedures
+		/// <summary>Auto-generated member.</summary>
 		public int CopyHostingPlan(int planId, int userId, int packageId)
 		{
 			if (UseEntityFramework)
@@ -9043,14 +9955,18 @@ namespace FuseCP.EnterpriseServer
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CopyHostingPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@SourcePlanID", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
 					prmPlanId);
 
 				return Convert.ToInt32(prmPlanId.Value);
 			}
 		} */
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteHostingPlan(int actorId, int planId)
 		{
@@ -9062,6 +9978,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(p => p.PackageId)
 					.FirstOrDefault();
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// check if some packages uses this plan
@@ -9083,7 +10000,9 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteHostingPlan",
 					prmResult,
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanId", planId));
 
 				return Convert.ToInt32(prmResult.Value);
@@ -9094,12 +10013,14 @@ namespace FuseCP.EnterpriseServer
 		#region Packages
 
 		// Packages
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetMyPackages(int actorId, int userId)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var packages = Packages
@@ -9158,16 +10079,20 @@ namespace FuseCP.EnterpriseServer
 						p.Email,
 						p.DefaultTopPackage
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(packages);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetMyPackages",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackages(int actorId, int userId)
 		{
@@ -9200,16 +10125,20 @@ namespace FuseCP.EnterpriseServer
 						p.User.Email,
 						p.DefaultTopPackage
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(packages);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackages",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetNestedPackagesSummary(int actorId, int packageId)
 		{
@@ -9217,6 +10146,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var nofPackages = new[] { new { PackagesNumber = Packages
@@ -9234,16 +10164,20 @@ namespace FuseCP.EnterpriseServer
 						PackagesNumber = p.Count()
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(nofPackages, spaces);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetNestedPackagesSummary",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet SearchServiceItemsPaged(int actorId, int userId, int itemTypeId, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
@@ -9252,6 +10186,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				if (itemTypeId != 13)
@@ -9307,6 +10242,7 @@ namespace FuseCP.EnterpriseServer
 
 						items = items.Skip(startRow).Take(maximumRows);
 
+						/// <summary>TODO</summary>
 						return EntityDataSet(count, items);
 					}
 				}
@@ -9364,6 +10300,7 @@ namespace FuseCP.EnterpriseServer
 
 						domains = domains.Skip(startRow).Take(maximumRows);
 
+						/// <summary>TODO</summary>
 						return EntityDataSet(count, domains);
 					}
 				}
@@ -9372,15 +10309,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "SearchServiceItemsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeId", itemTypeId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackagesPaged(int actorId, int userId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
@@ -9456,6 +10401,7 @@ namespace FuseCP.EnterpriseServer
 							p.Email
 						});
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, packagesSelected);
 				}
 			}
@@ -9463,15 +10409,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackagesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetNestedPackagesPaged(int actorId, int packageId, string filterColumn, string filterValue,
 			int statusId, int planId, int serverId, string sortColumn, int startRow, int maximumRows)
@@ -9479,6 +10433,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var packages = Packages
@@ -9566,24 +10521,36 @@ namespace FuseCP.EnterpriseServer
 						p.Email
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, packagesSelected);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetNestedPackagesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@serverId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackagePackages(int actorId, int packageId, bool recursive)
 		{
@@ -9591,8 +10558,10 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packagesFiltered;
 				TempIdSet childPackages = null;
 				try
@@ -9643,6 +10612,7 @@ namespace FuseCP.EnterpriseServer
 							p.User.RoleId,
 							p.User.Email
 						});
+					/// <summary>TODO</summary>
 					return EntityDataSet(packages);
 				}
 				finally
@@ -9654,11 +10624,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackagePackages",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackage(int actorId, int packageId)
 		{
@@ -9684,16 +10658,20 @@ namespace FuseCP.EnterpriseServer
 						p.OverrideQuotas,
 						p.DefaultTopPackage
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(packages);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackage",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CalculatePackageDiskspace(int packageId)
 		{
@@ -9709,8 +10687,10 @@ namespace FuseCP.EnterpriseServer
 					p => new { p.Diskspace.GroupId, p.Package.PlanId }, hr => new { hr.GroupId, PlanId = (int?)hr.PlanId },
 					(p, hr) => p.Diskspace.DiskSpace)
 				.Sum(space => (long?)space) ?? 0) + MB / 2) / MB);
+			/// <summary>TODO</summary>
 			return diskspace;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CalculatePackageBandwidth(int packageId)
 		{
@@ -9731,8 +10711,10 @@ namespace FuseCP.EnterpriseServer
 					p => new { p.Bandwidth.GroupId, p.Package.PlanId }, hr => new { hr.GroupId, PlanId = (int?)hr.PlanId },
 					(p, hr) => p.Bandwidth.BytesSent + p.Bandwidth.BytesReceived)
 				.Sum(space => (long?)space) ?? 0) + MB / 2) / MB);
+			/// <summary>TODO</summary>
 			return bandwidth;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CalculateQuotaUsage(int packageId, int quotaId)
 		{
@@ -9864,6 +10846,7 @@ namespace FuseCP.EnterpriseServer
 						.Count();
 					break;
 				case 558: // RAM of VPS2012
+					/// <summary>TODO</summary>
 					int fixedMem, dynamicMem;
 					ps = ServiceItemProperties
 						.Join(ServiceItems, p => p.ItemId, s => s.ItemId, (p, s) => new
@@ -10260,8 +11243,10 @@ namespace FuseCP.EnterpriseServer
 					}
 					break;
 			}
+			/// <summary>TODO</summary>
 			return result;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetMailAccountsCountForDomain(int packageId, string domain)
 		{
@@ -10272,12 +11257,14 @@ namespace FuseCP.EnterpriseServer
 				.Where(t => t.ParentPackageId == packageId)
 				.Count();
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetPackageQuotas(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var package = Packages
@@ -10348,16 +11335,20 @@ namespace FuseCP.EnterpriseServer
 						QuotaUsedValue = Clone.CalculateQuotaUsage(packageId, q.Quota.QuotaId),
 						q.Quota.PerOrganization
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups, quotas);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageQuotas",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetParentPackageQuotas(int actorId, int packageId)
 		{
@@ -10365,6 +11356,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorParentPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				// TODO is this implementation really just the same as GetPackageQuotas?
@@ -10428,16 +11420,20 @@ namespace FuseCP.EnterpriseServer
 						QuotaUsedValue = Clone.CalculateQuotaUsage(packageId, q.Quota.QuotaId),
 						q.Quota.PerOrganization
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups, quotas);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetParentPackageQuotas",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackageQuotasForEdit(int actorId, int packageId)
 		{
@@ -10445,6 +11441,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var package = Packages
@@ -10510,16 +11507,20 @@ namespace FuseCP.EnterpriseServer
 						QuotaUsedValue = Clone.CalculateQuotaUsage(packageId, q.Quota.QuotaId),
 						q.Quota.PerOrganization
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(groups, quotas);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageQuotasForEdit",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IEnumerable<int> PackageParents(int packageId)
 		{
@@ -10534,6 +11535,7 @@ namespace FuseCP.EnterpriseServer
 				pid = parentPackageId.FirstOrDefault();
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet AddPackage(int actorId, out int packageId, int userId, int planId, string packageName,
 			string packageComments, int statusId, DateTime purchaseDate)
@@ -10557,6 +11559,7 @@ namespace FuseCP.EnterpriseServer
 
 				// check rights
 				if (!CheckActorPackageRights(actorId, parentPackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var today = DateTime.Now.Date;
@@ -10603,6 +11606,7 @@ namespace FuseCP.EnterpriseServer
 
 					//DistributePackageServices(actorId, packageId);
 
+					/// <summary>TODO</summary>
 					return result;
 				}
 			}
@@ -10614,12 +11618,19 @@ namespace FuseCP.EnterpriseServer
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddPackage",
 					prmPackageId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageName", packageName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageComments", packageComments),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@purchaseDate", purchaseDate));
 
 				// read identity
@@ -10627,14 +11638,17 @@ namespace FuseCP.EnterpriseServer
 
 				DistributePackageServices(actorId, packageId);
 
+				/// <summary>TODO</summary>
 				return ds;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdatePackageQuotas(int actorId, int packageId, string xml)
 		{
 			// check rights
 			if (!CheckActorPackageRights(actorId, packageId))
+				/// <summary>TODO</summary>
 				throw new AccessViolationException("You are not allowed to access this package");
 
 			// delete old Package resources
@@ -10677,6 +11691,7 @@ namespace FuseCP.EnterpriseServer
 
 			SaveChanges();
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet UpdatePackage(int actorId, int packageId, int planId, string packageName,
 			string packageComments, int statusId, DateTime purchaseDate,
@@ -10686,6 +11701,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var package = Packages
@@ -10710,6 +11726,7 @@ namespace FuseCP.EnterpriseServer
 						UpdatePackageQuotas(actorId, packageId, quotasXml);
 
 						// check exceeding quotas if plan has been changed
+						/// <summary>TODO</summary>
 						ExceedingQuota[] exceedingQuotas;
 
 						if (oldPlanId != planId || overrideQuotas)
@@ -10723,33 +11740,47 @@ namespace FuseCP.EnterpriseServer
 						if (exceedingQuotas.Any()) transaction.Rollback();
 						else transaction.Commit();
 
+						/// <summary>TODO</summary>
 						return EntityDataSet(exceedingQuotas);
 					}
 				}
+				/// <summary>TODO</summary>
 				else return EntityDataSet(Array.Empty<ExceedingQuota>());
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdatePackage",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageName", packageName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageComments", packageComments),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@purchaseDate", purchaseDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@overrideQuotas", overrideQuotas),
+					/// <summary>TODO</summary>
 					new SqlParameter("@quotasXml", quotasXml),
+					/// <summary>TODO</summary>
 					new SqlParameter("@defaultTopPackage", defaultTopPackage));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void ChangePackageUser(int actorId, int packageId, int userId)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
                 Packages
@@ -10760,11 +11791,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "ChangePackageUser",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserId", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdatePackageName(int actorId, int packageId, string packageName,
 			string packageComments)
@@ -10778,6 +11813,7 @@ namespace FuseCP.EnterpriseServer
 
 				if (!CheckActorPackageRights(actorId, packageId) || userId == actorId ||
 					Users.Any(u => u.OwnerId == userId && u.IsPeer))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
                 // update package
@@ -10793,18 +11829,24 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdatePackageName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageName", packageName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageComments", packageComments));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeletePackage(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -10857,17 +11899,21 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeletePackage",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
 
 		// Package Add-ons
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetPackageAddons(int actorId, int packageId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var addons = PackageAddons
@@ -10884,16 +11930,20 @@ namespace FuseCP.EnterpriseServer
 						hp.PlanName,
 						hp.PlanDescription
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(addons);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageAddons",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageAddon(int actorId, int packageAddonId)
 		{
@@ -10904,6 +11954,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(p => p.PackageId)
 					.FirstOrDefault();
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var addon = PackageAddons
@@ -10918,16 +11969,20 @@ namespace FuseCP.EnterpriseServer
 						a.StatusId,
 						a.Comments
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(addon);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageAddon",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddonID", packageAddonId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet AddPackageAddon(int actorId, out int addonId, int packageId, int planId, int quantity,
 			int statusId, DateTime purchaseDate, string comments)
@@ -10935,6 +11990,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var parentPackageId = Packages
@@ -10964,6 +12020,7 @@ namespace FuseCP.EnterpriseServer
 					if (exceedingQuotas.Any()) transaction.Rollback();
 					else transaction.Commit();
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(exceedingQuotas);
 				}
 			}
@@ -10975,20 +12032,29 @@ namespace FuseCP.EnterpriseServer
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddPackageAddon",
 					prmPackageAddonId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Quantity", quantity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PurchaseDate", purchaseDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Comments", comments));
 
 				// read identity
 				addonId = Convert.ToInt32(prmPackageAddonId.Value);
 
+				/// <summary>TODO</summary>
 				return ds;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet UpdatePackageAddon(int actorId, int packageAddonId, int planId, int quantity,
 			int statusId, DateTime purchaseDate, string comments)
@@ -10999,10 +12065,12 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault(a => a.PackageAddonId == packageAddonId);
 				if (package == null)
 				{
+					/// <summary>TODO</summary>
 					return EntityDataSet(Array.Empty<ExceedingQuota>());
 				}
 
 				if (!CheckActorPackageRights(actorId, package.PackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -11032,6 +12100,7 @@ namespace FuseCP.EnterpriseServer
 						transaction.Commit();
 					}
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(exceedingQuotas);
 				}
 			}
@@ -11039,15 +12108,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdatePackageAddon",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddonID", packageAddonId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@planId", planId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Quantity", quantity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PurchaseDate", purchaseDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Comments", comments));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeletePackageAddon(int actorId, int packageAddonId)
 		{
@@ -11059,6 +12136,7 @@ namespace FuseCP.EnterpriseServer
 				if (package != null)
 				{
 					if (!CheckActorPackageRights(actorId, package.PackageId))
+						/// <summary>TODO</summary>
 						throw new AccessViolationException("You are not allowed to access this package");
 
 					PackageAddons.Remove(package);
@@ -11070,10 +12148,13 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeletePackageAddon",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddonID", packageAddonId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateServerPackageServices(int serverId)
 		{
@@ -11094,6 +12175,7 @@ namespace FuseCP.EnterpriseServer
 				// get server packages
 				IDataReader packagesReader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.Text,
 					 @"SELECT PackageID FROM Packages WHERE ServerID = @ServerID",
+					 /// <summary>TODO</summary>
 					 new SqlParameter("@ServerID", serverId));
 
 				// call DistributePackageServices for all packages on this server
@@ -11104,6 +12186,7 @@ namespace FuseCP.EnterpriseServer
 				}
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DistributePackageServices(int actorId, int packageId)
 		{
@@ -11279,7 +12362,9 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DistributePackageServices",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 			}
 		}
@@ -11287,16 +12372,19 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Packages Settings
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetPackageSettings(int actorId, int packageId, string settingsName)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				if (packageId <= 1) // system package
 				{
+					/// <summary>TODO</summary>
 					return EntityDataReader(new Data.Entities.PackageSetting[]
 					{
 						new Data.Entities.PackageSetting() { PackageId = packageId, PropertyName = "Dump", PropertyValue = "" }
@@ -11321,10 +12409,12 @@ namespace FuseCP.EnterpriseServer
 
 					if (settings != null)
 					{
+						/// <summary>TODO</summary>
 						return EntityDataReader(new Data.Entities.PackageSetting[] { settings });
 					}
 					else
 					{
+						/// <summary>TODO</summary>
 						return EntityDataReader(Array.Empty<Data.Entities.PackageSetting>());
 					}
 				}
@@ -11333,17 +12423,22 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void UpdatePackageSettings(int actorId, int packageId, string settingsName, string xml)
 		{
 			if (UseEntityFramework)
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -11372,15 +12467,20 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdatePackageSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Xml", xml));
 			}
 		}
 		#endregion
 
 		#region Quotas
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetProviderServiceQuota(int providerId)
 		{
 			if (UseEntityFramework)
@@ -11390,15 +12490,18 @@ namespace FuseCP.EnterpriseServer
 					.Join(Quotas, p => p.GroupId, q => q.GroupId, (p, q) => q)
 					.Where(q => q.ServiceQuota == true)
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(quota);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetProviderServiceQuota",
+					/// <summary>TODO</summary>
 					new SqlParameter("@providerId", providerId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageQuota(int actorId, int packageId, string quotaName)
 		{
@@ -11406,6 +12509,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var orgsCount = GetPackageAllocatedQuota(packageId, 205); // 205 - HostedSolution.Organizations
@@ -11430,20 +12534,25 @@ namespace FuseCP.EnterpriseServer
 						QuotaAllocatedValuePerOrganization = q.AllocatedQuota,
 						QuotaUsedValue = Clone.CalculateQuotaUsage(packageId, q.Quota.QuotaId)
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(quotas);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPackageQuota",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@QuotaName", quotaName));
 			}
 		}
 		#endregion
 
 		#region Log
+		/// <summary>Auto-generated member.</summary>
 		public void AddAuditLogRecord(string recordId, int severityId,
 			int userId, string username, int packageId, int itemId, string itemName, DateTime startDate, DateTime finishDate, string sourceName,
 			string taskName, string executionLog)
@@ -11472,20 +12581,33 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddAuditLogRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@recordId", recordId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severityId", severityId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@username", username),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@finishDate", finishDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sourceName", sourceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskName", taskName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@executionLog", executionLog));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetAuditLogRecordsPaged(int actorId, int userId, int packageId, int itemId, string itemName, DateTime startDate, DateTime endDate,
 			int severityId, string sourceName, string taskName, string sortColumn, int startRow, int maximumRows)
@@ -11494,6 +12616,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				if (sourceName == null) sourceName = "";
@@ -11575,6 +12698,7 @@ namespace FuseCP.EnterpriseServer
 							EffectiveUserId = u != null ?
 								(u.IsPeer ? u.OwnerId : u.UserId) : null
 						});
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, logsWithUser);
 				}
 				finally
@@ -11586,27 +12710,42 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetAuditLogRecordsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EndDate", endDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severityId", severityId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sourceName", sourceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskName", taskName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetAuditLogSources()
 		{
 			if (UseEntityFramework)
 			{
 				var sources = AuditLogSources.Select(l => new { l.SourceName });
+				/// <summary>TODO</summary>
 				return EntityDataSet(sources);
 			}
 			else
@@ -11615,6 +12754,7 @@ namespace FuseCP.EnterpriseServer
 					ObjectQualifier + "GetAuditLogSources");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetAuditLogTasks(string sourceName)
 		{
@@ -11624,15 +12764,18 @@ namespace FuseCP.EnterpriseServer
 				var tasks = AuditLogTasks
 					.Where(t => sourceName == null || t.SourceName == sourceName)
 					.Select(t => new { t.SourceName, t.TaskName });
+				/// <summary>TODO</summary>
 				return EntityDataSet(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetAuditLogTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@sourceName", sourceName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetAuditLogRecord(string recordId)
 		{
@@ -11674,15 +12817,18 @@ namespace FuseCP.EnterpriseServer
 						RoleId = u != null ? u.RoleId : 0,
 						Email = u != null ? u.Email : null,
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(logsWithUser);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetAuditLogRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@recordId", recordId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteAuditLogRecords(int actorId, int userId, int itemId, string itemName, DateTime startDate, DateTime endDate,
 			int severityId, string sourceName, string taskName)
@@ -11690,6 +12836,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
 				var isAdmin = Users.Any(u => u.UserId == actorId && u.RoleId == 1);
@@ -11716,17 +12863,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteAuditLogRecords",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@endDate", endDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severityId", severityId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sourceName", sourceName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskName", taskName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteAuditLogRecordsComplete()
 		{
@@ -11759,6 +12916,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Reports
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetPackagesBandwidthPaged(int actorId, int userId, int packageId,
 			DateTime startDate, DateTime endDate, string sortColumn,
 			int startRow, int maximumRows)
@@ -11767,6 +12925,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var packagesGrouped = Packages
@@ -11862,6 +13021,7 @@ namespace FuseCP.EnterpriseServer
 						.OrderByDescending(p => p.UsagePercentage)
 						.Skip(startRow).Take(maximumRows);
 				}
+				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("PackagesNumber"))
 				{
 					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
@@ -11874,6 +13034,7 @@ namespace FuseCP.EnterpriseServer
 					}
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
+				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("QuotaValue"))
 				{
 					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
@@ -11887,22 +13048,33 @@ namespace FuseCP.EnterpriseServer
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, packagesSelected);
 			}
 			else
 			{
+				/// <summary>TODO</summary>
 				return ExecuteLongDataSet(
 					ObjectQualifier + "GetPackagesBandwidthPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EndDate", endDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackagesDiskspacePaged(int actorId, int userId, int packageId, string sortColumn,
 			int startRow, int maximumRows)
@@ -11911,6 +13083,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var packagesGrouped = Packages
@@ -12007,6 +13180,7 @@ namespace FuseCP.EnterpriseServer
 						.OrderByDescending(p => p.UsagePercentage);
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
+				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("PackagesNumber"))
 				{
 					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
@@ -12021,6 +13195,7 @@ namespace FuseCP.EnterpriseServer
 					}
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
+				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("QuotaValue"))
 				{
 					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
@@ -12036,20 +13211,29 @@ namespace FuseCP.EnterpriseServer
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, packagesSelected);
 			}
 			else
 			{
+				/// <summary>TODO</summary>
 				return ExecuteLongDataSet(
 					ObjectQualifier + "GetPackagesDiskspacePaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@sortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackageBandwidth(int actorId, int packageId, DateTime startDate, DateTime endDate)
 		{
@@ -12057,6 +13241,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var packagesGrouped = PackagesTreeCaches
@@ -12106,18 +13291,25 @@ namespace FuseCP.EnterpriseServer
                         BytesReceived = g.BytesReceived != null ? g.BytesReceived : 0,
                         BytesTotal = g.BytesTotal != null ? g.BytesTotal : 0
                     });
+				/// <summary>TODO</summary>
 				return EntityDataSet(packages);
 			}
 			else
 			{
+				/// <summary>TODO</summary>
 				return ExecuteLongDataSet(
 					ObjectQualifier + "GetPackageBandwidth",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EndDate", endDate));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPackageDiskspace(int actorId, int packageId)
 		{
@@ -12125,6 +13317,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var packagesGrouped = PackagesTreeCaches
@@ -12165,13 +13358,17 @@ namespace FuseCP.EnterpriseServer
                         DiskspaceBytes = g.DiskspaceBytes.HasValue ? g.DiskspaceBytes.Value : 0
                     });
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(packages);
 			}
 			else
 			{
+				/// <summary>TODO</summary>
 				return ExecuteLongDataSet(
 					ObjectQualifier + "GetPackageDiskspace",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId));
 			}
 		}
@@ -12179,6 +13376,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Scheduler
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTask(string taskId)
 		{
@@ -12211,15 +13409,18 @@ namespace FuseCP.EnterpriseServer
 					})
 					.Take(1);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetBackgroundTask",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetScheduleBackgroundTasks(int scheduleId)
 		{
@@ -12253,15 +13454,18 @@ namespace FuseCP.EnterpriseServer
 						t.NotifyOnComplete,
 						t.Status
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleBackgroundTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IEnumerable<int> GetChildUsersId(int userId)
 		{
@@ -12280,6 +13484,7 @@ namespace FuseCP.EnterpriseServer
 					.ToList();
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTasks(int actorId)
 		{
@@ -12317,15 +13522,18 @@ namespace FuseCP.EnterpriseServer
 						t.NotifyOnComplete,
 						t.Status
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetBackgroundTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTasks(Guid guid)
 		{
@@ -12356,15 +13564,18 @@ namespace FuseCP.EnterpriseServer
 						t.NotifyOnComplete,
 						t.Status
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetThreadBackgroundTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@guid", guid));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetProcessBackgroundTasks(BackgroundTaskStatus status)
 		{
@@ -12394,15 +13605,18 @@ namespace FuseCP.EnterpriseServer
 						t.NotifyOnComplete,
 						t.Status
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetProcessBackgroundTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@status", (int)status));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTopTask(Guid guid)
 		{
@@ -12436,15 +13650,18 @@ namespace FuseCP.EnterpriseServer
 						t.NotifyOnComplete,
 						t.Status
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetBackgroundTopTask",
+					/// <summary>TODO</summary>
 					new SqlParameter("@guid", guid));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddBackgroundTask(Guid guid, string taskId, int scheduleId, int packageId, int userId,
 			int effectiveUserId, string taskName, int itemId, string itemName, DateTime startDate,
@@ -12486,29 +13703,48 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddBackgroundTask",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@guid", guid),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@effectiveUserId", effectiveUserId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskName", taskName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startDate", startDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@indicatorCurrent", indicatorCurrent),
+					/// <summary>TODO</summary>
 					new SqlParameter("@indicatorMaximum", indicatorMaximum),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumExecutionTime", maximumExecutionTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@source", source),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severity", severity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@completed", completed),
+					/// <summary>TODO</summary>
 					new SqlParameter("@notifyOnComplete", notifyOnComplete),
+					/// <summary>TODO</summary>
 					new SqlParameter("@status", status));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddBackgroundTaskLog(int taskId, DateTime date, string exceptionStackTrace,
 			bool innerTaskStart, int severity, string text, int textIdent, string xmlParameters)
@@ -12533,16 +13769,25 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddBackgroundTaskLog",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@date", date),
+					/// <summary>TODO</summary>
 					new SqlParameter("@exceptionStackTrace", exceptionStackTrace),
+					/// <summary>TODO</summary>
 					new SqlParameter("@innerTaskStart", innerTaskStart),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severity", severity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@text", text),
+					/// <summary>TODO</summary>
 					new SqlParameter("@textIdent", textIdent),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xmlParameters", xmlParameters));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTaskLogs(int taskId, DateTime startLogTime)
 		{
@@ -12562,16 +13807,20 @@ namespace FuseCP.EnterpriseServer
 						l.Text,
 						l.XmlParameters
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(logs);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetBackgroundTaskLogs",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startLogTime", startLogTime));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateBackgroundTask(Guid guid, int taskId, int scheduleId, int packageId, string taskName, int itemId,
 			string itemName, DateTime finishDate, int indicatorCurrent, int indicatorMaximum, int maximumExecutionTime,
@@ -12605,25 +13854,42 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateBackgroundTask",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Guid", guid),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskName", taskName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemName", itemName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@finishDate", finishDate == DateTime.MinValue ? DBNull.Value : (object)finishDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@indicatorCurrent", indicatorCurrent),
+					/// <summary>TODO</summary>
 					new SqlParameter("@indicatorMaximum", indicatorMaximum),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumExecutionTime", maximumExecutionTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@source", source),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severity", severity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@completed", completed),
+					/// <summary>TODO</summary>
 					new SqlParameter("@notifyOnComplete", notifyOnComplete),
+					/// <summary>TODO</summary>
 					new SqlParameter("@status", (int)status));
 
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBackgroundTaskParams(int taskId)
 		{
@@ -12632,15 +13898,18 @@ namespace FuseCP.EnterpriseServer
 				var parameters = BackgroundTaskParameters
 					.Where(p => p.TaskId == taskId)
 					.Select(p => new { p.ParameterId, p.TaskId, p.Name, p.SerializerValue, p.TypeName });
+				/// <summary>TODO</summary>
 				return EntityDataReader(parameters);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetBackgroundTaskParams",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddBackgroundTaskParam(int taskId, string name, string value, string typeName)
 		{
@@ -12660,12 +13929,17 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddBackgroundTaskParam",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@value", value),
+					/// <summary>TODO</summary>
 					new SqlParameter("@typeName", typeName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteBackgroundTaskParams(int taskId)
 		{
@@ -12677,9 +13951,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteBackgroundTaskParams",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddBackgroundTaskStack(int taskId)
 		{
@@ -12696,9 +13972,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddBackgroundTaskStack",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteBackgroundTasks(Guid guid)
 		{
@@ -12725,9 +14003,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteBackgroundTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@guid", guid));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteBackgroundTask(int taskId)
 		{
@@ -12745,6 +14025,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteBackgroundTask",
+					/// <summary>TODO</summary>
 					new SqlParameter("@id", taskId));
 			}
 		}
@@ -12753,6 +14034,7 @@ namespace FuseCP.EnterpriseServer
 		// GetScheduleTask(int actorId, string taskId) the WHERE clause is roleId >= t.RoleId. Looks like a
 		// bug, but I don't know if >= or <= is correct. I think roleId <= t.RoleID is correct, since a
 		// lower roleId is more privileged.
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleTasks(int actorId)
 		{
 			if (UseEntityFramework)
@@ -12764,12 +14046,14 @@ namespace FuseCP.EnterpriseServer
 				var tasks = ScheduleTasks
 					.Where(t => roleId <= t.RoleId)
 					.Select(t => new { t.TaskId, t.TaskType, t.RoleId });
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleTasks",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId));
 			}
 		}
@@ -12778,6 +14062,7 @@ namespace FuseCP.EnterpriseServer
 		// GetScheduleTask(int actorId, string taskId) the WHERE clause is roleId >= t.RoleId. Looks like a
 		// bug, but I don't know if >= or <= is correct. I think roleId <= t.RoleID is correct, since a
 		// lower roleId is more privileged. So I corrected the WHERE clause to roleId <= r.RoleId.
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleTask(int actorId, string taskId)
 		{
 			if (UseEntityFramework)
@@ -12789,16 +14074,20 @@ namespace FuseCP.EnterpriseServer
 				var tasks = ScheduleTasks
 					.Where(t => t.TaskId == taskId && roleId <= /* was >= */  t.RoleId)
 					.Select(t => new { t.TaskId, t.TaskType, t.RoleId });
+				/// <summary>TODO</summary>
 				return EntityDataReader(tasks);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleTask",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSchedules(int actorId, int packageId)
 		{
@@ -12806,6 +14095,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
                 using (var tree = PackagesTree(actorId, true))
@@ -12868,6 +14158,7 @@ namespace FuseCP.EnterpriseServer
 							s.DataTypeId,
 							ParameterValue = sp != null ? sp.ParameterValue : s.DefaultValue
 						});
+					/// <summary>TODO</summary>
 					return EntityDataSet(schedules, parameters);
 				}
 			}
@@ -12875,11 +14166,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSchedules",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recursive", true));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSchedulesPaged(int actorId, int packageId, bool recursive,
 			string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
@@ -12888,6 +14183,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var tree = PackagesTree(packageId, recursive))
@@ -12965,6 +14261,7 @@ namespace FuseCP.EnterpriseServer
 
 					schedules = schedules.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataSet(count, schedules);
 				}
 			}
@@ -12972,16 +14269,25 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSchedulesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@recursive", recursive),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetSchedule(int actorId, int scheduleId)
 		{
@@ -13044,16 +14350,20 @@ namespace FuseCP.EnterpriseServer
 						ParameterValue = sp != null ? sp.ParameterValue : s.DefaultValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(schedule, task, parameter);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSchedule",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleInternal(int scheduleId)
 		{
 			if (UseEntityFramework)
@@ -13083,15 +14393,18 @@ namespace FuseCP.EnterpriseServer
 						s.WeekMonthDay
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(schedule);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleInternal",
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetNextSchedule()
 		{
 			if (UseEntityFramework)
@@ -13164,6 +14477,7 @@ namespace FuseCP.EnterpriseServer
                         ParameterValue = sp != null ? sp.ParameterValue : p.DefaultValue
                     });
 
+                /// <summary>TODO</summary>
                 return EntityDataSet(schedule, task, parameter);
 			}
 			else
@@ -13172,6 +14486,7 @@ namespace FuseCP.EnterpriseServer
 					ObjectQualifier + "GetNextSchedule");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleParameters(int actorId, string taskId, int scheduleId)
 		{
 			if (UseEntityFramework)
@@ -13182,6 +14497,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(s => s.PackageId)
 					.FirstOrDefault();
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var parameters = ScheduleTaskParameters
@@ -13215,14 +14531,18 @@ namespace FuseCP.EnterpriseServer
 						s.ParameterValue
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(parameters);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleParameters",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
@@ -13232,6 +14552,7 @@ namespace FuseCP.EnterpriseServer
 		/// </summary>
 		/// <param name="taskId">Task id which points to task for which view configuration will be loaded.</param>
 		/// <returns>View configuration for the task with supplied id.</returns>
+		/// <summary>TODO</summary>
 		public IDataReader GetScheduleTaskViewConfigurations(string taskId)
 		{
 			if (UseEntityFramework)
@@ -13246,15 +14567,18 @@ namespace FuseCP.EnterpriseServer
 						c.Description
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(conf);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleTaskViewConfigurations",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddSchedule(int actorId, string taskId, int packageId,
 			string scheduleName, string scheduleTypeId, int interval,
@@ -13265,6 +14589,7 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -13317,27 +14642,44 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddSchedule",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@packageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleName", scheduleName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleTypeId", scheduleTypeId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@interval", interval),
+					/// <summary>TODO</summary>
 					new SqlParameter("@fromTime", fromTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@toTime", toTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startTime", startTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@nextRun", nextRun),
+					/// <summary>TODO</summary>
 					new SqlParameter("@enabled", enabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@priorityId", priorityId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@historiesNumber", historiesNumber),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maxExecutionTime", maxExecutionTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@weekMonthDay", weekMonthDay),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xmlParameters", xmlParameters));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateSchedule(int actorId, int scheduleId, string taskId,
 			string scheduleName, string scheduleTypeId, int interval,
@@ -13353,6 +14695,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(s => s.PackageId)
 					.FirstOrDefault();
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -13397,25 +14740,43 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateSchedule",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleName", scheduleName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleTypeId", scheduleTypeId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@interval", interval),
+					/// <summary>TODO</summary>
 					new SqlParameter("@fromTime", fromTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@toTime", toTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startTime", startTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@lastRun", (lastRun == DateTime.MinValue) ? DBNull.Value : (object)lastRun),
+					/// <summary>TODO</summary>
 					new SqlParameter("@nextRun", nextRun),
+					/// <summary>TODO</summary>
 					new SqlParameter("@enabled", enabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@priorityId", priorityId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@historiesNumber", historiesNumber),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maxExecutionTime", maxExecutionTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@weekMonthDay", weekMonthDay),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xmlParameters", xmlParameters));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteSchedule(int actorId, int scheduleId)
 		{
@@ -13427,6 +14788,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(s => s.PackageId)
 					.FirstOrDefault();
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				using (var transaction = Database.BeginTransaction())
@@ -13442,15 +14804,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteSchedule",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
 
 		/*
 		// TODO This rotuine is not present in the Stored Procedures
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetScheduleHistories(int actorId, int scheduleId)
 		{
+			/// <summary>TODO</summary>
 			throw new NotImplementedException();
 
 			if (UseEntityFramework)
@@ -13460,14 +14826,18 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleHistories",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}
 
 		// TODO This rotuine is not present in the Stored Procedures
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleHistory(int actorId, int scheduleHistoryId)
 		{
+			/// <summary>TODO</summary>
 			throw new NotImplementedException();
 
 			if (UseEntityFramework)
@@ -13477,15 +14847,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetScheduleHistory",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleHistoryId", scheduleHistoryId));
 			}
 		}
 
 		// TODO This rotuine is not present in the Stored Procedures
+		/// <summary>Auto-generated member.</summary>
 		public int AddScheduleHistory(int actorId, int scheduleId,
 			DateTime startTime, DateTime finishTime, string statusId, string executionLog)
 		{
+			/// <summary>TODO</summary>
 			throw new NotImplementedException();
 
 			if (UseEntityFramework)
@@ -13499,11 +14873,17 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddScheduleHistory",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startTime", (startTime == DateTime.MinValue) ? DBNull.Value : (object)startTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@finishTime", (finishTime == DateTime.MinValue) ? DBNull.Value : (object)finishTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@executionLog", executionLog));
 
 				// read identity
@@ -13512,9 +14892,11 @@ namespace FuseCP.EnterpriseServer
 		}
 
 		// TODO This rotuine is not present in the Stored Procedures
+		/// <summary>Auto-generated member.</summary>
 		public void UpdateScheduleHistory(int actorId, int scheduleHistoryId,
 			DateTime startTime, DateTime finishTime, string statusId, string executionLog)
 		{
+			/// <summary>TODO</summary>
 			throw new NotImplementedException();
 
 			if (UseEntityFramework)
@@ -13524,18 +14906,26 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateScheduleHistory",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleHistoryId", scheduleHistoryId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startTime", (startTime == DateTime.MinValue) ? DBNull.Value : (object)startTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@finishTime", (finishTime == DateTime.MinValue) ? DBNull.Value : (object)finishTime),
+					/// <summary>TODO</summary>
 					new SqlParameter("@statusId", statusId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@executionLog", executionLog));
 			}
 		}
 
 		// TODO This rotuine is not present in the Stored Procedures
+		/// <summary>Auto-generated member.</summary>
 		public void DeleteScheduleHistories(int actorId, int scheduleId)
 		{
+			/// <summary>TODO</summary>
 			throw new NotImplementedException();
 
 			if (UseEntityFramework)
@@ -13545,19 +14935,23 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteScheduleHistories",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@scheduleId", scheduleId));
 			}
 		}*/
 		#endregion
 
 		#region Comments
+		/// <summary>Auto-generated member.</summary>
 		public DataSet GetComments(int actorId, int userId, string itemTypeId, int itemId)
 		{
 			if (UseEntityFramework)
 			{
 				//check rights
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this account");
 
                 var comments = Comments
@@ -13583,18 +14977,24 @@ namespace FuseCP.EnterpriseServer
                         c.User.Email
                     });
 
+                /// <summary>TODO</summary>
                 return EntityDataSet(comments);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetComments",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@userId", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeId", itemTypeId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddComment(int actorId, string itemTypeId, int itemId,
 			 string commentText, int severityId)
@@ -13617,13 +15017,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddComment",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemTypeId", itemTypeId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@commentText", commentText),
+					/// <summary>TODO</summary>
 					new SqlParameter("@severityId", severityId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteComment(int actorId, int commentId)
 		{
@@ -13635,6 +15041,7 @@ namespace FuseCP.EnterpriseServer
 					.Select(c => (int?)c.UserId)
 					.FirstOrDefault();
 				if (!CheckActorUserRights(actorId, userId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to perform this operation");
 
 				Comments.Where(c => c.CommentId == commentId).ExecuteDelete();
@@ -13643,34 +15050,43 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteComment",
+					/// <summary>TODO</summary>
 					new SqlParameter("@actorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@commentId", commentId));
 			}
 		}
 		#endregion
 
 		#region Helper Methods
+		/// <summary>Auto-generated member.</summary>
 		private string VerifyColumnName(string str)
 		{
 			if (str == null)
 				str = "";
 			return Regex.Replace(str, @"[^\w\. ]", "");
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private string VerifyColumnValue(string str)
 		{
 			return String.IsNullOrEmpty(str) ? str : str.Replace("'", "''");
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private DataSet ExecuteLongDataSet(string spName, params SqlParameter[] parameters)
 		{
+			/// <summary>TODO</summary>
 			return ExecuteLongDataSet(spName, CommandType.StoredProcedure, parameters);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private DataSet ExecuteLongQueryDataSet(string spName, params SqlParameter[] parameters)
 		{
+			/// <summary>TODO</summary>
 			return ExecuteLongDataSet(spName, CommandType.Text, parameters);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private DataSet ExecuteLongDataSet(string commandText, CommandType commandType, params SqlParameter[] parameters)
 		{
@@ -13699,8 +15115,10 @@ namespace FuseCP.EnterpriseServer
 					conn.Close();
 			}
 
+			/// <summary>TODO</summary>
 			return ds;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private void ExecuteLongNonQuery(string spName, params SqlParameter[] parameters)
 		{
@@ -13728,39 +15146,55 @@ namespace FuseCP.EnterpriseServer
 					conn.Close();
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataTable EntityDataTable<TEntity>(IEnumerable<TEntity> set) where TEntity : class => new EntityDataTable<TEntity>(set);
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet(params DataTable[] tables)
 		{
 			var dataSet = new DataSet();
 			foreach (var table in tables) dataSet.Tables.Add(table);
+			/// <summary>TODO</summary>
 			return dataSet;
 		}
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet<TEntity>(IEnumerable<TEntity> set) where TEntity : class
 			=> EntityDataSet(EntityDataTable(set));
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet<TEntity>(int count, IEnumerable<TEntity> set) where TEntity : class
 			=> EntityDataSet(CountDataTable(count), EntityDataTable(set));
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet<TEntity1, TEntity2>(int count, IEnumerable<TEntity1> set1, IEnumerable<TEntity2> set2)
+			/// <summary>TODO</summary>
 			where TEntity1 : class where TEntity2 : class
 			=> EntityDataSet(CountDataTable(count), EntityDataTable(set1), EntityDataTable(set2));
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet<TEntity1, TEntity2>(IEnumerable<TEntity1> set1, IEnumerable<TEntity2> set2)
+			/// <summary>TODO</summary>
 			where TEntity1 : class where TEntity2 : class
 			=> EntityDataSet(EntityDataTable(set1), EntityDataTable(set2));
+		/// <summary>Auto-generated member.</summary>
 		public DataSet EntityDataSet<TEntity1, TEntity2, TEntity3>(IEnumerable<TEntity1> set1, IEnumerable<TEntity2> set2, IEnumerable<TEntity3> set3)
+			/// <summary>TODO</summary>
 			where TEntity1 : class where TEntity2 : class where TEntity3 : class
 			=> EntityDataSet(EntityDataTable(set1), EntityDataTable(set2), EntityDataTable(set3));
+		/// <summary>Auto-generated member.</summary>
 		public DataTable CountDataTable(int count)
 		{
 			var table = new DataTable();
 			table.Columns.Add(new DataColumn("Column1", typeof(int)));
 			table.Rows.Add(count);
+			/// <summary>TODO</summary>
 			return table;
 		}
+		/// <summary>Auto-generated member.</summary>
 		public CountDataReader<TEntity> EntityDataReader<TEntity>(int count, IEnumerable<TEntity> set) where TEntity : class => new CountDataReader<TEntity>(set, count);
+		/// <summary>Auto-generated member.</summary>
 		public EntityDataReader<TEntity> EntityDataReader<TEntity>(IEnumerable<TEntity> set) where TEntity : class => new EntityDataReader<TEntity>(set);
 		#endregion
 
 		#region Exchange Server
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddExchangeAccount(int itemId, ExchangeAccountType accountType, string accountName,
 			string displayName, string primaryEmailAddress, bool mailEnabledPublicFolder,
@@ -13797,20 +15231,31 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddExchangeAccount",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountType", accountType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountName", accountName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisplayName", displayName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrimaryEmailAddress", primaryEmailAddress),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailEnabledPublicFolder", mailEnabledPublicFolder),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxManagerActions", mailboxManagerActions),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SamAccountName", samAccountName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", (mailboxPlanId == 0) ? (object)DBNull.Value : (object)mailboxPlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SubscriberNumber", (string.IsNullOrEmpty(subscriberNumber) ? (object)DBNull.Value : (object)subscriberNumber)));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddExchangeAccountEmailAddress(int accountId, string emailAddress)
 		{
@@ -13830,10 +15275,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddExchangeAccountEmailAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EmailAddress", emailAddress));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddExchangeOrganization(int itemId, string organizationId)
 		{
@@ -13856,10 +15304,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddExchangeOrganization",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrganizationID", organizationId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddExchangeOrganizationDomain(int itemId, int domainId, bool isHost)
 		{
@@ -13880,11 +15331,15 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddExchangeOrganizationDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainID", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsHost", isHost));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void ChangeExchangeAcceptedDomainType(int itemId, int domainId, int domainTypeId)
 		{
@@ -13900,11 +15355,15 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"ChangeExchangeAcceptedDomainType",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainID", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainTypeID", domainTypeId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeOrganizationStatistics(int itemId)
 		{
@@ -13958,6 +15417,7 @@ namespace FuseCP.EnterpriseServer
 						UsedLitigationHoldSpace = tmp.UsedLitigationHoldSpaces.Min() ?? 0,
 						UsedArchingStorage = archiveSize
 					};
+					/// <summary>TODO</summary>
 					return EntityDataReader(new[] { sizes });
 				}
 				else
@@ -13976,6 +15436,7 @@ namespace FuseCP.EnterpriseServer
 						UsedLitigationHoldSpace = tmp.UsedLitigationHoldSpaces.Sum() ?? 0,
 						UsedArchingStorage = archiveSize
 					};
+					/// <summary>TODO</summary>
 					return EntityDataReader(new[] { sizes });
 				}
 			}
@@ -13985,9 +15446,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeOrganizationStatistics",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteUserEmailAddresses(int accountId, string primaryAddress)
 		{
@@ -14003,10 +15466,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteUserEmailAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrimaryEmailAddress", primaryAddress));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeAccount(int itemId, int accountId)
 		{
@@ -14022,10 +15488,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeAccount",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeAccountEmailAddress(int accountId, string emailAddress)
 		{
@@ -14040,10 +15509,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeAccountEmailAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EmailAddress", emailAddress));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeOrganization(int itemId)
 		{
@@ -14062,9 +15534,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeOrganization",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeOrganizationDomain(int itemId, int domainId)
 		{
@@ -14079,10 +15553,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeOrganizationDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainID", domainId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool ExchangeAccountEmailAddressExists(string emailAddress, bool checkContacts)
 		{
@@ -14100,13 +15577,16 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"ExchangeAccountEmailAddressExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@EmailAddress", emailAddress),
+					/// <summary>TODO</summary>
 					new SqlParameter("@checkContacts", checkContacts),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool ExchangeOrganizationDomainExists(int domainId)
 		{
@@ -14123,12 +15603,14 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"ExchangeOrganizationDomainExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainID", domainId),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public bool ExchangeOrganizationExists(string organizationId)
 		{
 			if (UseEntityFramework)
@@ -14144,12 +15626,14 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"ExchangeOrganizationExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrganizationID", organizationId),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public bool ExchangeAccountExists(string accountName)
 		{
 			if (UseEntityFramework)
@@ -14167,12 +15651,14 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"ExchangeAccountExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountName", accountName),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void UpdateExchangeAccount(int accountId, string accountName, ExchangeAccountType accountType,
 			string displayName, string primaryEmailAddress, bool mailEnabledPublicFolder,
 			string mailboxManagerActions, string samAccountName, int mailboxPlanId, int archivePlanId, string subscriberNumber,
@@ -14203,20 +15689,33 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeAccount",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountName", accountName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisplayName", displayName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountType", (int)accountType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrimaryEmailAddress", primaryEmailAddress),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailEnabledPublicFolder", mailEnabledPublicFolder),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxManagerActions", mailboxManagerActions),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SamAccountName", samAccountName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", (mailboxPlanId == 0) ? (object)DBNull.Value : (object)mailboxPlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivingMailboxPlanId", (archivePlanId < 1) ? (object)DBNull.Value : (object)archivePlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SubscriberNumber", (string.IsNullOrEmpty(subscriberNumber) ? (object)DBNull.Value : (object)subscriberNumber)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableArchiving", EnableArchiving));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void UpdateExchangeAccountServiceLevelSettings(int accountId, int levelId, bool isVIP)
 		{
 			if (UseEntityFramework)
@@ -14235,11 +15734,15 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeAccountSLSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", (levelId == 0) ? (object)DBNull.Value : (object)levelId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsVIP", isVIP));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateExchangeAccountUserPrincipalName(int accountId, string userPrincipalName)
 		{
@@ -14258,10 +15761,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeAccountUserPrincipalName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserPrincipalName", userPrincipalName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetExchangeAccount(int itemId, int accountId)
 		{
 			if (UseEntityFramework)
@@ -14295,6 +15801,7 @@ namespace FuseCP.EnterpriseServer
 						a.Account.IsVip
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(account);
 			}
 			else
@@ -14303,10 +15810,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccount",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetExchangeAccountByAccountName(int itemId, string accountName)
 		{
 			if (UseEntityFramework)
@@ -14338,6 +15848,7 @@ namespace FuseCP.EnterpriseServer
 						a.Account.EnableArchiving
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(account);
 			}
 			else
@@ -14346,10 +15857,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountByAccountName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountName", accountName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetExchangeAccountByMailboxPlanId(int itemId, int MailboxPlanId)
 		{
 			if (UseEntityFramework)
@@ -14364,6 +15878,7 @@ namespace FuseCP.EnterpriseServer
 					accounts = accounts
 						.Where(a => a.ItemId == itemId && a.MailboxPlanId == null && accountTypes.Any(t => t == a.AccountType));
 				}
+				/// <summary>TODO</summary>
 				else if (itemId == 0)
 				{
 					accounts = accounts
@@ -14407,6 +15922,7 @@ namespace FuseCP.EnterpriseServer
 						a.Account.EnableArchiving
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(account);
 			}
 			else
@@ -14415,10 +15931,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountByMailboxPlanId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", MailboxPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeAccountEmailAddresses(int accountId)
 		{
@@ -14427,6 +15946,7 @@ namespace FuseCP.EnterpriseServer
 				var addresses = ExchangeAccountEmailAddresses
 					.Where(a => a.AccountId == accountId)
 					.Select(a => new { a.AddressId, a.AccountId, a.EmailAddress });
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
@@ -14435,9 +15955,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountEmailAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetExchangeOrganizationDomains(int itemId)
 		{
 			if (UseEntityFramework)
@@ -14451,6 +15973,7 @@ namespace FuseCP.EnterpriseServer
 						ed.IsHost,
 						ed.DomainTypeId
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(domains);
 			}
 			else
@@ -14459,9 +15982,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeOrganizationDomains",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeAccounts(int itemId, ExchangeAccountType accountType)
 		{
@@ -14485,6 +16010,7 @@ namespace FuseCP.EnterpriseServer
 						a.UserPrincipalName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -14493,10 +16019,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccounts",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountType", accountType));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetExchangeAccountByAccountNameWithoutItemId(string userPrincipalName)
 		{
 			if (UseEntityFramework)
@@ -14528,6 +16057,7 @@ namespace FuseCP.EnterpriseServer
 						a.Account.EnableArchiving
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(account);
 			}
 			else
@@ -14536,9 +16066,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountByAccountNameWithoutItemId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserPrincipalName", userPrincipalName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeMailboxes(int itemId)
 		{
@@ -14561,6 +16093,7 @@ namespace FuseCP.EnterpriseServer
 						a.UserPrincipalName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -14569,9 +16102,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeMailboxes",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader SearchExchangeAccountsByTypes(int actorId, int itemId, ExchangeAccountType[] accountTypes,
 			string filterColumn, string filterValue, string sortColumn)
@@ -14584,6 +16119,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
@@ -14624,6 +16160,7 @@ namespace FuseCP.EnterpriseServer
 						a.SubscriberNumber,
 						a.UserPrincipalName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(accountsSelected);
 			}
 			else
@@ -14634,14 +16171,21 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SearchExchangeAccountsByTypes",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountTypes", accountTypesAsString),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetExchangeAccountsPaged(int actorId, int itemId, string accountTypesAsString,
 			string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows, bool archiving)
@@ -14649,6 +16193,7 @@ namespace FuseCP.EnterpriseServer
 			// check input parameters
 			if (!Regex.IsMatch(accountTypesAsString, @"^\s*([0-9]+|[a-zA-Z_][a-zA-Z0-9_]*)(\s*,\s*([0-9]+|[a-zA-Z_][a-zA-Z0-9_]*))*\s*$", RegexOptions.Singleline))
 			{
+				/// <summary>TODO</summary>
 				throw new ArgumentException("Wrong patameter", "accountTypesAsString");
 			}
 
@@ -14657,10 +16202,14 @@ namespace FuseCP.EnterpriseServer
 			var accountTypes = accountTypesAsString.Split(',')
 				.Select(t =>
 				{
+					/// <summary>TODO</summary>
 					int type;
+					/// <summary>TODO</summary>
 					ExchangeAccountType etype;
 					if (int.TryParse(t, out type)) return (ExchangeAccountType)type;
+					/// <summary>TODO</summary>
 					else if (Enum.TryParse<ExchangeAccountType>(t, out etype)) return etype;
+					/// <summary>TODO</summary>
 					else throw new NotSupportedException($"Value {t} is not a valid ExchangeAccountType.");
 				})
 				.ToList();
@@ -14673,6 +16222,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
@@ -14725,6 +16275,7 @@ namespace FuseCP.EnterpriseServer
 						a.IsVip
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, accountsSelected);
 			}
 			else
@@ -14735,17 +16286,27 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountTypes", accountTypesAsString),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Archiving", archiving));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader SearchExchangeAccounts(int actorId, int itemId, bool includeMailboxes,
 			bool includeContacts, bool includeDistributionLists, bool includeRooms, bool includeEquipment, bool includeSharedMailbox,
 			bool includeSecurityGroups, string filterColumn, string filterValue, string sortColumn)
@@ -14758,6 +16319,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
@@ -14792,6 +16354,7 @@ namespace FuseCP.EnterpriseServer
 						a.UserPrincipalName
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(accountsSelected);
 			}
 			else
@@ -14800,20 +16363,33 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SearchExchangeAccounts",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeMailboxes", includeMailboxes),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeContacts", includeContacts),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeDistributionLists", includeDistributionLists),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeRooms", includeRooms),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeEquipment", includeEquipment),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeSharedMailbox", includeSharedMailbox),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeSecurityGroups", includeSecurityGroups),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader SearchExchangeAccount(int actorId, ExchangeAccountType accountType, string primaryEmailAddress)
 		{
@@ -14826,6 +16402,7 @@ namespace FuseCP.EnterpriseServer
 
 				// check rights
 				if (!CheckActorPackageRights(actorId, account.PackageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
@@ -14845,6 +16422,7 @@ namespace FuseCP.EnterpriseServer
 						a.SubscriberNumber,
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -14853,14 +16431,18 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SearchExchangeAccount",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountType", (int)accountType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrimaryEmailAddress", primaryEmailAddress));
 			}
 		}
 		#endregion
 
 		#region Exchange Mailbox Plans
+		/// <summary>Auto-generated member.</summary>
 		public int AddExchangeMailboxPlan(int itemId, string mailboxPlan, bool enableActiveSync, bool enableIMAP, bool enableMAPI, bool enableOWA, bool enablePOP, bool enableAutoReply,
 			bool isDefault, int issueWarningPct, int keepDeletedItemsDays, int mailboxSizeMB, int maxReceiveMessageSizeKB, int maxRecipients,
 			int maxSendMessageSizeKB, int prohibitSendPct, int prohibitSendReceivePct, bool hideFromAddressBook, int mailboxPlanType,
@@ -14873,6 +16455,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					isDefault = true;
 				}
+				/// <summary>TODO</summary>
 				else if (isDefault && mailboxPlanType == 0)
 				{
 #if NETFRAMEWORK
@@ -14932,40 +16515,71 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddExchangeMailboxPlan",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlan", mailboxPlan),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableActiveSync", enableActiveSync),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableIMAP", enableIMAP),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableMAPI", enableMAPI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableOWA", enableOWA),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnablePOP", enablePOP),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableAutoReply", enableAutoReply),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", isDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IssueWarningPct", issueWarningPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@KeepDeletedItemsDays", keepDeletedItemsDays),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxSizeMB", mailboxSizeMB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxReceiveMessageSizeKB", maxReceiveMessageSizeKB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxRecipients", maxRecipients),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxSendMessageSizeKB", maxSendMessageSizeKB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProhibitSendPct", prohibitSendPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProhibitSendReceivePct", prohibitSendReceivePct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HideFromAddressBook", hideFromAddressBook),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanType", mailboxPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowLitigationHold", enabledLitigationHold),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecoverableItemsWarningPct", recoverableItemsWarning),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecoverableItemsSpace", recoverableItemsSpace),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LitigationHoldUrl", litigationHoldUrl),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LitigationHoldMsg", litigationHoldMsg),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Archiving", archiving),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableArchiving", EnableArchiving),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchiveSizeMB", ArchiveSizeMB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchiveWarningPct", ArchiveWarningPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableForceArchiveDeletion", enableForceArchiveDeletion),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsForJournaling", isForJournaling));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateExchangeMailboxPlan(int mailboxPlanID, string mailboxPlan, bool enableActiveSync, bool enableIMAP, bool enableMAPI, bool enableOWA, bool enablePOP, bool enableAutoReply,
 			bool isDefault, int issueWarningPct, int keepDeletedItemsDays, int mailboxSizeMB, int maxReceiveMessageSizeKB, int maxRecipients,
@@ -15017,38 +16631,69 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeMailboxPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanID", mailboxPlanID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlan", mailboxPlan),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableActiveSync", enableActiveSync),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableIMAP", enableIMAP),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableMAPI", enableMAPI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableOWA", enableOWA),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnablePOP", enablePOP),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableAutoReply", enableAutoReply),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", isDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IssueWarningPct", issueWarningPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@KeepDeletedItemsDays", keepDeletedItemsDays),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxSizeMB", mailboxSizeMB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxReceiveMessageSizeKB", maxReceiveMessageSizeKB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxRecipients", maxRecipients),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxSendMessageSizeKB", maxSendMessageSizeKB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProhibitSendPct", prohibitSendPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProhibitSendReceivePct", prohibitSendReceivePct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HideFromAddressBook", hideFromAddressBook),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanType", mailboxPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowLitigationHold", enabledLitigationHold),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecoverableItemsWarningPct", recoverableItemsWarning),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecoverableItemsSpace", recoverableItemsSpace),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LitigationHoldUrl", litigationHoldUrl),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LitigationHoldMsg", litigationHoldMsg),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Archiving", Archiving),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableArchiving", EnableArchiving),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchiveSizeMB", ArchiveSizeMB),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchiveWarningPct", ArchiveWarningPct),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableForceArchiveDeletion", enableForceArchiveDeletion),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsForJournaling", isForJournaling));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeMailboxPlan(int mailboxPlanId)
 		{
@@ -15062,9 +16707,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeMailboxPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", mailboxPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeMailboxPlan(int mailboxPlanId)
 		{
@@ -15106,6 +16753,7 @@ namespace FuseCP.EnterpriseServer
 						p.EnableForceArchiveDeletion,
 						p.IsForJournaling
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plan);
 			}
 			else
@@ -15114,9 +16762,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeMailboxPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", mailboxPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeMailboxPlans(int itemId, bool archiving)
 		{
@@ -15155,6 +16805,7 @@ namespace FuseCP.EnterpriseServer
 						p.EnableForceArchiveDeletion,
 						p.IsForJournaling
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plans);
 			}
 			else
@@ -15163,10 +16814,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeMailboxPlans",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Archiving", archiving));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeOrganization(int itemId)
 		{
@@ -15181,6 +16835,7 @@ namespace FuseCP.EnterpriseServer
 						o.LyncUserPlanId,
 						o.SfBuserPlanId
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(orgs);
 			}
 			else
@@ -15189,9 +16844,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeOrganization",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetOrganizationDefaultExchangeMailboxPlan(int itemId, int mailboxPlanId)
 		{
@@ -15206,10 +16863,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetOrganizationDefaultExchangeMailboxPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", mailboxPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetExchangeAccountMailboxPlan(int accountId, int mailboxPlanId, int archivePlanId, bool EnableArchiving)
 		{
@@ -15229,15 +16889,20 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetExchangeAccountMailboxplan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", (mailboxPlanId == 0) ? (object)DBNull.Value : (object)mailboxPlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivingMailboxPlanId", (archivePlanId < 1) ? (object)DBNull.Value : (object)archivePlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnableArchiving", EnableArchiving));
 			}
 		}
 		#endregion
 
 		#region Exchange Retention Policy Tags
+		/// <summary>Auto-generated member.</summary>
 		public int AddExchangeRetentionPolicyTag(int ItemID, string TagName, int TagType, int AgeLimitForRetention, int RetentionAction)
 		{
 			if (UseEntityFramework)
@@ -15264,15 +16929,21 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddExchangeRetentionPolicyTag",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", ItemID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagName", TagName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagType", TagType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AgeLimitForRetention", AgeLimitForRetention),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RetentionAction", RetentionAction));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateExchangeRetentionPolicyTag(int TagID, int ItemID, string TagName, int TagType, int AgeLimitForRetention, int RetentionAction)
 		{
@@ -15296,14 +16967,21 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeRetentionPolicyTag",
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagID", TagID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", ItemID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagName", TagName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagType", TagType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AgeLimitForRetention", AgeLimitForRetention),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RetentionAction", RetentionAction));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeRetentionPolicyTag(int TagID)
 		{
@@ -15319,9 +16997,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeRetentionPolicyTag",
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagID", TagID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeRetentionPolicyTag(int TagID)
 		{
@@ -15338,6 +17018,7 @@ namespace FuseCP.EnterpriseServer
 						t.AgeLimitForRetention,
 						t.RetentionAction
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tag);
 			}
 			else
@@ -15346,9 +17027,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeRetentionPolicyTag",
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagID", TagID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeRetentionPolicyTags(int itemId)
 		{
@@ -15366,6 +17049,7 @@ namespace FuseCP.EnterpriseServer
 						t.AgeLimitForRetention,
 						t.RetentionAction
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tags);
 			}
 			else
@@ -15374,9 +17058,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeRetentionPolicyTags",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddExchangeMailboxPlanRetentionPolicyTag(int TagID, int MailboxPlanId)
 		{
@@ -15401,12 +17087,15 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddExchangeMailboxPlanRetentionPolicyTag",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@TagID", TagID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", MailboxPlanId));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void DeleteExchangeMailboxPlanRetentionPolicyTag(int PlanTagID)
 		{
 			if (UseEntityFramework)
@@ -15420,9 +17109,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeMailboxPlanRetentionPolicyTag",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanTagID", PlanTagID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeMailboxPlanRetentionPolicyTags(int MailboxPlanId)
 		{
@@ -15460,6 +17151,7 @@ namespace FuseCP.EnterpriseServer
 						d.MailboxPlan,
 						TagName = t != null ? t.TagName : null
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(tags);
 			}
 			else
@@ -15468,12 +17160,14 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeMailboxPlanRetentionPolicyTags",
+					/// <summary>TODO</summary>
 					new SqlParameter("@MailboxPlanId", MailboxPlanId));
 			}
 		}
 		#endregion
 
 		#region Exchange Disclaimers
+		/// <summary>Auto-generated member.</summary>
 		public int AddExchangeDisclaimer(int itemID, ExchangeDisclaimer disclaimer)
 		{
 			if (UseEntityFramework)
@@ -15498,13 +17192,17 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddExchangeDisclaimer",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisclaimerName", disclaimer.DisclaimerName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisclaimerText", disclaimer.DisclaimerText));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateExchangeDisclaimer(int itemID, ExchangeDisclaimer disclaimer)
 		{
@@ -15533,11 +17231,15 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateExchangeDisclaimer",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExchangeDisclaimerId", disclaimer.ExchangeDisclaimerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisclaimerName", disclaimer.DisclaimerName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisclaimerText", disclaimer.DisclaimerText));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExchangeDisclaimer(int exchangeDisclaimerId)
 		{
@@ -15551,9 +17253,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteExchangeDisclaimer",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExchangeDisclaimerId", exchangeDisclaimerId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeDisclaimer(int exchangeDisclaimerId)
 		{
@@ -15568,6 +17272,7 @@ namespace FuseCP.EnterpriseServer
 						d.DisclaimerName,
 						d.DisclaimerText
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(disclaimers);
 			}
 			else
@@ -15576,9 +17281,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeDisclaimer",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExchangeDisclaimerId", exchangeDisclaimerId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetExchangeDisclaimers(int itemId)
 		{
@@ -15594,6 +17301,7 @@ namespace FuseCP.EnterpriseServer
 						d.DisclaimerText
 					})
 					.OrderBy(d => d.DisclaimerName);
+				/// <summary>TODO</summary>
 				return EntityDataReader(disclaimers);
 			}
 			else
@@ -15602,9 +17310,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeDisclaimers",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetExchangeAccountDisclaimerId(int AccountID, int ExchangeDisclaimerId)
 		{
@@ -15626,10 +17336,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetExchangeAccountDisclaimerId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", AccountID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExchangeDisclaimerId", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetExchangeAccountDisclaimerId(int AccountID)
 		{
@@ -15646,21 +17359,27 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetExchangeAccountDisclaimerId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", AccountID));
 
+				/// <summary>TODO</summary>
 				int ret;
 				if (!int.TryParse(objReturn.ToString(), out ret)) return -1;
+				/// <summary>TODO</summary>
 				return ret;
 			}
 		}
 		#endregion
 
 		#region Organizations
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddAccessToken(AccessToken token)
 		{
+			/// <summary>TODO</summary>
 			return AddAccessToken(token.AccessTokenGuid, token.AccountId, token.ItemId, token.ExpirationDate, token.TokenType);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddAccessToken(Guid accessToken, int accountId, int itemId, DateTime expirationDate, AccessTokenTypes type)
 		{
@@ -15688,16 +17407,22 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddAccessToken",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpirationDate", expirationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TokenType", (int)type));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetAccessTokenResponseMessage(Guid accessToken, string response)
 		{
@@ -15713,10 +17438,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetAccessTokenSmsResponse",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SmsResponse", response));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExpiredAccessTokens()
 		{
@@ -15733,6 +17461,7 @@ namespace FuseCP.EnterpriseServer
 					"DeleteExpiredAccessTokenTokens");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetAccessTokenByAccessToken(Guid accessToken, AccessTokenTypes type)
 		{
@@ -15751,6 +17480,7 @@ namespace FuseCP.EnterpriseServer
 						t.TokenType,
 						t.SmsResponse
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(token);
 			}
 			else
@@ -15759,10 +17489,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetAccessTokenByAccessToken",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TokenType", type));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
 		{
@@ -15778,10 +17511,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteAccessToken",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TokenType", type));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateOrganizationSettings(int itemId, string settingsName, string xml)
 		{
@@ -15809,11 +17545,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateExchangeOrganizationSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOrganizationSettings(int itemId, string settingsName)
 		{
@@ -15827,16 +17567,20 @@ namespace FuseCP.EnterpriseServer
 						s.SettingsName,
 						s.Xml
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(settings);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetExchangeOrganizationSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddOrganizationDeletedUser(int accountId, int originAT, string storagePath, string folderName, string fileName, DateTime expirationDate)
 		{
@@ -15865,16 +17609,23 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddOrganizationDeletedUser",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OriginAT", originAT),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StoragePath", storagePath),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FileName", fileName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpirationDate", expirationDate));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteOrganizationDeletedUser(int id)
 		{
@@ -15889,9 +17640,11 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteOrganizationDeletedUser",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOrganizationDeletedUser(int accountId)
 		{
@@ -15908,6 +17661,7 @@ namespace FuseCP.EnterpriseServer
 						a.FileName,
 						a.ExpirationDate
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(account);
 			}
 			else
@@ -15916,9 +17670,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationDeletedUser",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetAdditionalGroups(int userId)
 		{
@@ -15926,6 +17682,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				var groups = AdditionalGroups
 					.Where(g => g.UserId == userId);
+				/// <summary>TODO</summary>
 				return EntityDataReader(groups);
 			}
 			else
@@ -15934,9 +17691,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetAdditionalGroups",
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddAdditionalGroup(int userId, string groupName)
 		{
@@ -15961,13 +17720,16 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddAdditionalGroup",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteAdditionalGroup(int groupId)
 		{
@@ -15982,9 +17744,11 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteAdditionalGroup",
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupID", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateAdditionalGroup(int groupId, string groupName)
 		{
@@ -16010,10 +17774,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateAdditionalGroup",
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupID", groupId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupName", groupName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void DeleteOrganizationUser(int itemId)
 		{
 			if (UseEntityFramework)
@@ -16025,9 +17792,11 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure, "DeleteOrganizationUsers",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetItemIdByOrganizationId(string id)
 		{
@@ -16041,11 +17810,13 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				object obj = SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetItemIdByOrganizationId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrganizationId", id));
 
 				return (obj == null || DBNull.Value == obj) ? 0 : (int)obj;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOrganizationStatistics(int itemId)
 		{
@@ -16071,6 +17842,7 @@ namespace FuseCP.EnterpriseServer
 						.Where(a => a.AccountType == ExchangeAccountType.DeletedUser)
 						.Count()
 				};
+				/// <summary>TODO</summary>
 				return EntityDataReader(new[] { stats });
 			}
 			else
@@ -16079,9 +17851,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationStatistics",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOrganizationGroupsByDisplayName(int itemId, string displayName)
 		{
@@ -16100,6 +17874,7 @@ namespace FuseCP.EnterpriseServer
 						a.DisplayName,
 						a.UserPrincipalName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -16108,10 +17883,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationGroupsByDisplayName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisplayName", displayName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader SearchOrganizationAccounts(int actorId, int itemId,
 			string filterColumn, string filterValue, string sortColumn, bool includeMailboxes)
@@ -16124,6 +17902,7 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
@@ -16168,6 +17947,7 @@ namespace FuseCP.EnterpriseServer
 					accounts = accounts.OrderBy(a => a.DisplayName);
 				}
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -16176,23 +17956,35 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SearchOrganizationAccounts",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IncludeMailboxes", includeMailboxes));
 			}
 		}
 
 		class OrganizationObject
 		{
+			/// <summary>Auto-generated member.</summary>
 			public string ObjectName { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public int ObjectId { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public ExchangeAccountType ObjectType { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public string DisplayName { get; set; }
+			/// <summary>Auto-generated member.</summary>
 			public int OwnerId { get; set; }
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetOrganizationObjectsByDomain(int itemId, string domainName)
 		{
@@ -16263,6 +18055,7 @@ namespace FuseCP.EnterpriseServer
 							OwnerId = 0
 						}))
 					.OrderBy(o => o.DisplayName);
+				/// <summary>TODO</summary>
 				return EntityDataSet(objects);
 			}
 			else
@@ -16271,13 +18064,16 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationObjectsByDomain",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainName", domainName));
 			}
 		}
 		#endregion
 
 		#region CRM
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetCRMUsersCount(int itemId, string name, string email, int CALType)
 		{
@@ -16300,23 +18096,29 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlParameter[] sqlParams = new SqlParameter[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
+					/// <summary>TODO</summary>
 					new SqlParameter("@CALType", CALType)
 				};
 
 				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetCRMUsersCount", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private SqlParameter GetFilterSqlParam(string paramName, string value)
 		{
 			if (string.IsNullOrEmpty(value))
+				/// <summary>TODO</summary>
 				return new SqlParameter(paramName, DBNull.Value);
 
+			/// <summary>TODO</summary>
 			return new SqlParameter(paramName, value);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetCrmUsers(int itemId, string sortColumn, string sortDirection, string name, string email, int startRow, int count)
 		{
@@ -16354,17 +18156,23 @@ namespace FuseCP.EnterpriseServer
 					else accounts = accounts.OrderByDescending(a => a.PrimaryEmailAddress);
 				}
 				accounts = accounts.Skip(startRow).Take(count);
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
 			{
 				SqlParameter[] sqlParams = new SqlParameter[] {
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", sortColumn),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortDirection", sortDirection),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("Count", count)
 				};
 
@@ -16374,6 +18182,7 @@ namespace FuseCP.EnterpriseServer
 					"GetCRMUsers", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetCRMOrganizationUsers(int itemId)
 		{
@@ -16391,6 +18200,7 @@ namespace FuseCP.EnterpriseServer
 						a.PrimaryEmailAddress,
 						a.SamAccountName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
 			}
 			else
@@ -16399,6 +18209,7 @@ namespace FuseCP.EnterpriseServer
 					new SqlParameter[] { new SqlParameter("@ItemID", itemId) });
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void CreateCRMUser(int itemId, Guid crmId, Guid businessUnitId, int CALType)
 		{
@@ -16421,14 +18232,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "InsertCRMUser",
 					new SqlParameter[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@ItemID", itemId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@CrmUserID", crmId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@BusinessUnitId", businessUnitId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@CALType", CALType)
 					});
 
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateCRMUser(int itemId, int CALType)
 		{
@@ -16441,11 +18257,14 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "UpdateCRMUser",
 					new SqlParameter[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@ItemID", itemId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@CALType", CALType)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetCrmUser(int accountId)
 		{
@@ -16458,15 +18277,18 @@ namespace FuseCP.EnterpriseServer
 						CrmUserId = u.CrmUserGuid,
 						u.BusinessUnitId
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(user);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "GetCRMUser",
 					new SqlParameter[] { new SqlParameter("@AccountID", accountId) });
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetCrmUserCount(int itemId)
 		{
@@ -16483,6 +18305,7 @@ namespace FuseCP.EnterpriseServer
 					new SqlParameter[] { new SqlParameter("@ItemID", itemId) });
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteCrmOrganization(int organizationId)
 		{
@@ -16499,6 +18322,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region VPS - Virtual Private Servers
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetVirtualMachinesPaged(int actorId, int packageId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows, bool recursive)
@@ -16507,6 +18331,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var externalIpAddresses = PackageIpAddresses
@@ -16516,6 +18341,7 @@ namespace FuseCP.EnterpriseServer
 						pip.ItemId,
 						ip.ExternalIp
 					});
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
 				TempIdSet childPackages = null;
 				try
@@ -16586,6 +18412,7 @@ namespace FuseCP.EnterpriseServer
 
 					items = items.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
 				finally
@@ -16597,17 +18424,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetVirtualMachinesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetVirtualMachinesPaged2012(int actorId, int packageId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows, bool recursive)
@@ -16616,6 +18453,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var externalIpAddresses = PackageIpAddresses
@@ -16625,6 +18463,7 @@ namespace FuseCP.EnterpriseServer
 						pip.ItemId,
 						ip.ExternalIp
 					});
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
 				TempIdSet childPackages = null;
 				try
@@ -16709,6 +18548,7 @@ namespace FuseCP.EnterpriseServer
 
 					items = items.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
 				finally
@@ -16720,17 +18560,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetVirtualMachinesPaged2012",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetVirtualMachinesPagedProxmox(int actorId, int packageId, string filterColumn, string filterValue,
 			 string sortColumn, int startRow, int maximumRows, bool recursive)
@@ -16739,6 +18589,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var externalIpAddresses = PackageIpAddresses
@@ -16748,6 +18599,7 @@ namespace FuseCP.EnterpriseServer
 						pip.ItemId,
 						ip.ExternalIp
 					});
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
 				TempIdSet childPackages = null;
 				try
@@ -16816,6 +18668,7 @@ namespace FuseCP.EnterpriseServer
 
 					items = items.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
 				finally
@@ -16827,17 +18680,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetVirtualMachinesPagedProxmox",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetVirtualMachinesForPCPaged(int actorId, int packageId, string filterColumn, string filterValue,
 			 string sortColumn, int startRow, int maximumRows, bool recursive)
@@ -16846,6 +18709,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// check rights
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var externalIpAddresses = PackageIpAddresses
@@ -16855,6 +18719,7 @@ namespace FuseCP.EnterpriseServer
 						pip.ItemId,
 						ip.ExternalIp
 					});
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
 				TempIdSet childPackages = null;
 				try
@@ -16925,6 +18790,7 @@ namespace FuseCP.EnterpriseServer
 
 					items = items.Skip(startRow).Take(maximumRows);
 
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
 				finally
@@ -16936,25 +18802,36 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetVirtualMachinesPagedForPC",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
 		#endregion
 
 		#region VPS - External Network
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUnallottedIPAddresses(int packageId, int serviceId, int poolId)
 		{
 			if (UseEntityFramework)
 			{
+				/// <summary>TODO</summary>
 				int? serverId, parentPackageId;
 
 				if (packageId == -1) // NO PackageID defined, use ServerID from ServiceID (VPS Import)
@@ -17001,6 +18878,7 @@ namespace FuseCP.EnterpriseServer
 								ip.DefaultGateway,
 								ip.Vlan
 							});
+						/// <summary>TODO</summary>
 						return EntityDataReader(addresses);
 					}
 					else
@@ -17034,6 +18912,7 @@ namespace FuseCP.EnterpriseServer
 								ip.DefaultGateway,
 								ip.Vlan
 							});
+						/// <summary>TODO</summary>
 						return EntityDataReader(addresses);
 					}
 				}
@@ -17064,6 +18943,7 @@ namespace FuseCP.EnterpriseServer
 							ip.DefaultGateway,
 							ip.Vlan
 						});
+					/// <summary>TODO</summary>
 					return EntityDataReader(addresses);
 				}
 			}
@@ -17071,11 +18951,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetUnallottedIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AllocatePackageIPAddresses(int packageId, int orgId, string xml)
 		{
@@ -17104,20 +18988,25 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				SqlParameter[] param = new[] {
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrgID", orgId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@xml", xml)
 				};
 
 				ExecuteLongNonQuery("AllocatePackageIPAddresses", param);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageIPAddresses(int packageId, int orgId, int poolId, string filterColumn, string filterValue,
 			 string sortColumn, int startRow, int maximumRows, bool recursive)
 		{
 			if (UseEntityFramework)
 			{
+				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.PackageIpAddress> addressesFiltered;
 				TempIdSet childPackages = null;
 				try
@@ -17180,6 +19069,7 @@ namespace FuseCP.EnterpriseServer
 					else addresses = addresses.OrderBy(ColumnName(sortColumn));
 
 					addresses = addresses.Skip(startRow).Take(maximumRows);
+					/// <summary>TODO</summary>
 					return EntityDataReader(count, addresses);
 				}
 				finally
@@ -17191,18 +19081,29 @@ namespace FuseCP.EnterpriseServer
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackageIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrgID", orgId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetPackageIPAddressesCount(int packageId, int orgId, int poolId)
 		{
@@ -17232,14 +19133,19 @@ namespace FuseCP.EnterpriseServer
 			{
 				object obj = SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackageIPAddressesCount",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrgID", orgId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId));
 				int res = 0;
 				int.TryParse(obj.ToString(), out res);
+				/// <summary>TODO</summary>
 				return res;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeallocatePackageIPAddress(int id)
 		{
@@ -17268,12 +19174,14 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure, "DeallocatePackageIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddressID", id));
 			}
 		}
 		#endregion
 
 		#region VPS - Private Network
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackagePrivateIPAddressesPaged(int packageId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
@@ -17316,21 +19224,30 @@ namespace FuseCP.EnterpriseServer
 				else addresses = addresses.OrderBy(ColumnName(sortColumn));
 
 				addresses = addresses.Skip(startRow).Take(maximumRows);
+				/// <summary>TODO</summary>
 				return EntityDataReader(count, addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackagePrivateIPAddressesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackagePrivateIPAddresses(int packageId)
 		{
@@ -17346,19 +19263,23 @@ namespace FuseCP.EnterpriseServer
 						a.Item.ItemName,
 						a.IsPrimary
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackagePrivateIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
 		#endregion
 
 		#region VPS - DMZ Network
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageDmzIPAddressesPaged(int packageId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
@@ -17401,21 +19322,30 @@ namespace FuseCP.EnterpriseServer
 				else addresses = addresses.OrderBy(ColumnName(sortColumn));
 
 				addresses = addresses.Skip(startRow).Take(maximumRows);
+				/// <summary>TODO</summary>
 				return EntityDataReader(count, addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 										 "GetPackageDmzIPAddressesPaged",
+											/// <summary>TODO</summary>
 											new SqlParameter("@PackageID", packageId),
+											/// <summary>TODO</summary>
 											new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+											/// <summary>TODO</summary>
 											new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+											/// <summary>TODO</summary>
 											new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+											/// <summary>TODO</summary>
 											new SqlParameter("@startRow", startRow),
+											/// <summary>TODO</summary>
 											new SqlParameter("@maximumRows", maximumRows));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageDmzIPAddresses(int packageId)
 		{
@@ -17431,16 +19361,20 @@ namespace FuseCP.EnterpriseServer
 						a.Item.ItemName,
 						a.IsPrimary
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 									 "GetPackageDmzIPAddresses",
+										/// <summary>TODO</summary>
 										new SqlParameter("@PackageID", packageId));
+				/// <summary>TODO</summary>
 				return reader;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddItemDmzIPAddress(int actorId, int itemId, string ipAddress)
 		{
@@ -17460,6 +19394,7 @@ namespace FuseCP.EnterpriseServer
 						IsPrimary = false
 					};
 					DmzIpAddresses.Add(ip);
+					/// <summary>TODO</summary>
 					return SaveChanges();
 				}
 				return 0;
@@ -17468,11 +19403,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 								"AddItemDmzIPAddress",
+								/// <summary>TODO</summary>
 								new SqlParameter("@ActorID", actorId),
+								/// <summary>TODO</summary>
 								new SqlParameter("@ItemID", itemId),
+								/// <summary>TODO</summary>
 								new SqlParameter("@IPAddress", ipAddress));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int SetItemDmzPrimaryIPAddress(int actorId, int itemId, int dmzAddressId)
 		{
@@ -17486,17 +19425,22 @@ namespace FuseCP.EnterpriseServer
 
 				foreach (var ip in addresses) ip.IsPrimary = ip.DmzAddressId == dmzAddressId;
 
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 								"SetItemDmzPrimaryIPAddress",
+								/// <summary>TODO</summary>
 								new SqlParameter("@ActorID", actorId),
+								/// <summary>TODO</summary>
 								new SqlParameter("@ItemID", itemId),
+								/// <summary>TODO</summary>
 								new SqlParameter("@DmzAddressID", dmzAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemDmzIPAddress(int actorId, int itemId, int dmzAddressId)
 		{
@@ -17510,6 +19454,7 @@ namespace FuseCP.EnterpriseServer
 
 				DmzIpAddresses.RemoveRange(addresses);
 
+				/// <summary>TODO</summary>
 				return SaveChanges();
 
 			}
@@ -17517,11 +19462,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 									"DeleteItemDmzIPAddress",
+									/// <summary>TODO</summary>
 									new SqlParameter("@ActorID", actorId),
+									/// <summary>TODO</summary>
 									new SqlParameter("@ItemID", itemId),
+									/// <summary>TODO</summary>
 									new SqlParameter("@DmzAddressID", dmzAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetItemDmzIPAddresses(int actorId, int itemId)
 		{
@@ -17546,16 +19495,20 @@ namespace FuseCP.EnterpriseServer
 						ip.IsPrimary
 					});
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 									"GetItemDmzIPAddresses",
+									/// <summary>TODO</summary>
 									new SqlParameter("@ActorID", actorId),
+									/// <summary>TODO</summary>
 									new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemDmzIPAddresses(int actorId, int itemId)
 		{
@@ -17569,6 +19522,7 @@ namespace FuseCP.EnterpriseServer
 
 				DmzIpAddresses.RemoveRange(addresses);
 
+				/// <summary>TODO</summary>
 				return SaveChanges();
 
 			}
@@ -17576,13 +19530,16 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 								"DeleteItemDmzIPAddresses",
+								/// <summary>TODO</summary>
 								new SqlParameter("@ActorID", actorId),
+								/// <summary>TODO</summary>
 								new SqlParameter("@ItemID", itemId));
 			}
 		}
 		#endregion
 
 		#region VPS - External Network Adapter
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetPackageUnassignedIPAddresses(int actorId, int packageId, int orgId, int poolId)
 		{
 			if (UseEntityFramework)
@@ -17609,18 +19566,24 @@ namespace FuseCP.EnterpriseServer
 						a.Address.DefaultGateway,
 						a.Address.Vlan
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackageUnassignedIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@OrgID", orgId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolId", poolId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetPackageIPAddress(int packageAddressId)
 		{
@@ -17645,15 +19608,18 @@ namespace FuseCP.EnterpriseServer
 						a.Package.User.Username,
 						a.IsPrimary
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(address);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetPackageIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddressId", packageAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetItemIPAddresses(int actorId, int itemId, int poolId)
 		{
@@ -17674,17 +19640,22 @@ namespace FuseCP.EnterpriseServer
 					.OrderByDescending(a => a.IsPrimary)
 					.AsEnumerable()
 					.Where(a => Clone.CheckActorPackageRights(actorId, a.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetItemIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PoolID", poolId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddItemIPAddress(int actorId, int itemId, int packageAddressId)
 		{
@@ -17699,6 +19670,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					address.ItemId = itemId;
 					address.IsPrimary = false;
+					/// <summary>TODO</summary>
 					return SaveChanges();
 				}
 				return 0;
@@ -17707,11 +19679,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"AddItemIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddressID", packageAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int SetItemPrimaryIPAddress(int actorId, int itemId, int packageAddressId)
 		{
@@ -17731,17 +19707,22 @@ namespace FuseCP.EnterpriseServer
 						ip.IsPrimary = ip.PackageAddressId == packageAddressId;
 					}
 				}
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"SetItemPrimaryIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddressID", packageAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemIPAddress(int actorId, int itemId, int packageAddressId)
 		{
@@ -17756,17 +19737,22 @@ namespace FuseCP.EnterpriseServer
 						ip.IsPrimary = false;
 					}
 				}
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"DeleteItemIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageAddressID", packageAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemIPAddresses(int actorId, int itemId)
 		{
@@ -17782,19 +19768,23 @@ namespace FuseCP.EnterpriseServer
 						ip.IsPrimary = false;
 					}
 				}
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"DeleteItemIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
 		#endregion
 
 		#region VPS - Private Network Adapter
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetItemPrivateIPAddresses(int actorId, int itemId)
 		{
 			if (UseEntityFramework)
@@ -17811,16 +19801,20 @@ namespace FuseCP.EnterpriseServer
 						a.IpAddress,
 						a.IsPrimary
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(addresses);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					"GetItemPrivateIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddItemPrivateIPAddress(int actorId, int itemId, string ipAddress)
 		{
@@ -17841,6 +19835,7 @@ namespace FuseCP.EnterpriseServer
 						IsPrimary = false
 					};
 					PrivateIpAddresses.Add(ip);
+					/// <summary>TODO</summary>
 					return SaveChanges();
 				}
 				return 0;
@@ -17849,11 +19844,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"AddItemPrivateIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IPAddress", ipAddress));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int SetItemPrivatePrimaryIPAddress(int actorId, int itemId, int privateAddressId)
 		{
@@ -17867,6 +19866,7 @@ namespace FuseCP.EnterpriseServer
 
 				foreach (var ip in addresses) ip.IsPrimary = ip.PrivateAddressId == privateAddressId;
 
+				/// <summary>TODO</summary>
 				return SaveChanges();
 
 			}
@@ -17874,11 +19874,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"SetItemPrivatePrimaryIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrivateAddressID", privateAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemPrivateIPAddress(int actorId, int itemId, int privateAddressId)
 		{
@@ -17890,17 +19894,22 @@ namespace FuseCP.EnterpriseServer
 						.Where(pa => pa.PrivateAddressId == privateAddressId)
 						.AsEnumerable()
 						.Where(pa => Clone.CheckActorPackageRights(actorId, pa.Item.PackageId)));
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"DeleteItemPrivateIPAddress",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PrivateAddressID", privateAddressId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int DeleteItemPrivateIPAddresses(int actorId, int itemId)
 		{
@@ -17912,19 +19921,23 @@ namespace FuseCP.EnterpriseServer
 						.Where(pa => pa.ItemId == itemId)
 						.AsEnumerable()
 						.Where(pa => Clone.CheckActorPackageRights(actorId, pa.Item.PackageId)));
+				/// <summary>TODO</summary>
 				return SaveChanges();
 			}
 			else
 			{
 				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					"DeleteItemPrivateIPAddresses",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
 		#endregion
 
 		#region BlackBerry
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddBlackBerryUser(int accountId)
 		{
@@ -17948,6 +19961,7 @@ namespace FuseCP.EnterpriseServer
 					new[] { new SqlParameter("@AccountID", accountId) });
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckBlackBerryUserExists(int accountId)
 		{
@@ -17958,10 +19972,12 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				int res = (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "CheckBlackBerryUserExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 				return res > 0;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetBlackBerryUsers(int itemId, string sortColumn, string sortDirection, string name, string email, int startRow, int count)
 		{
@@ -18011,18 +20027,24 @@ namespace FuseCP.EnterpriseServer
 
 				// TODO bug not returning usersCount?
 				//return EntityDataReader(usersCount, users);
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
 			{
 				SqlParameter[] sqlParams = new SqlParameter[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", sortColumn),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortDirection", sortDirection),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("Count", count)
 				};
 
@@ -18033,6 +20055,7 @@ namespace FuseCP.EnterpriseServer
 					"GetBlackBerryUsers", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetBlackBerryUsersCount(int itemId, string name, string email)
 		{
@@ -18057,6 +20080,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlParameter[] sqlParams = new SqlParameter[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
@@ -18065,6 +20089,7 @@ namespace FuseCP.EnterpriseServer
 				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetBlackBerryUsersCount", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public void DeleteBlackBerryUser(int accountId)
 		{
 			if (UseEntityFramework)
@@ -18082,6 +20107,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region OCS
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddOCSUser(int accountId, string instanceId)
 		{
@@ -18104,11 +20130,14 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddOCSUser",
 					new[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@AccountID", accountId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@InstanceID", instanceId)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckOCSUserExists(int accountId)
 		{
@@ -18119,10 +20148,12 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				int res = (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "CheckOCSUserExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 				return res > 0;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOCSUsers(int itemId, string sortColumn, string sortDirection, string name, string email, int startRow, int count)
 		{
@@ -18173,18 +20204,24 @@ namespace FuseCP.EnterpriseServer
 
                 // TODO bug not returning usersCount?
                 // return EntityDataReader(usersCount, users);
+                /// <summary>TODO</summary>
                 return EntityDataReader(users);
             }
             else
 			{
 				SqlParameter[] sqlParams = new SqlParameter[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", sortColumn),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortDirection", sortDirection),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("Count", count)
 				};
 
@@ -18194,6 +20231,7 @@ namespace FuseCP.EnterpriseServer
 					 "GetOCSUsers", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 		public int GetOCSUsersCount(int itemId, string name, string email)
 		{
 			if (UseEntityFramework)
@@ -18217,6 +20255,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlParameter[] sqlParams = new SqlParameter[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
 					GetFilterSqlParam("@Name", name),
 					GetFilterSqlParam("@Email", email),
@@ -18225,6 +20264,7 @@ namespace FuseCP.EnterpriseServer
 				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetOCSUsersCount", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteOCSUser(string instanceId)
 		{
@@ -18241,6 +20281,7 @@ namespace FuseCP.EnterpriseServer
 
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public string GetOCSUserInstanceID(int accountId)
 		{
@@ -18250,6 +20291,7 @@ namespace FuseCP.EnterpriseServer
 					.Where(u => u.AccountId == accountId)
 					.Select(u => u.InstanceId)
 					.FirstOrDefault();
+				/// <summary>TODO</summary>
 				return instanceId;
 			}
 			else
@@ -18264,11 +20306,13 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region SSL
+		/// <summary>Auto-generated member.</summary>
 		public int AddSSLRequest(int actorId, int packageId, int siteID, int userID, string friendlyname, string hostname, string csr, int csrLength, string distinguishedName, bool isRenewal, int previousID)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 				var cert = new Data.Entities.SslCertificate()
 				{
@@ -18292,27 +20336,40 @@ namespace FuseCP.EnterpriseServer
 				prmId.Direction = ParameterDirection.Output;
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddSSLRequest", prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@WebSiteID", siteID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FriendlyName", friendlyname),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HostName", hostname),
+					/// <summary>TODO</summary>
 					new SqlParameter("@CSR", csr),
+					/// <summary>TODO</summary>
 					new SqlParameter("@CSRLength", csrLength),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DistinguishedName", distinguishedName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsRenewal", isRenewal),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PreviousId", previousID));
 
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void CompleteSSLRequest(int actorId, int packageId, int id, string certificate, string distinguishedName, string serialNumber, byte[] hash, DateTime validFrom, DateTime expiryDate)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var cert = SslCertificates
@@ -18333,23 +20390,34 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CompleteSSLRequest",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DistinguishedName", distinguishedName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Certificate", certificate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SerialNumber", serialNumber),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Hash", Convert.ToBase64String(hash)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ValidFrom", validFrom),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpiryDate", expiryDate));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddPFX(int actorId, int packageId, int siteID, int userID, string hostname, string friendlyName, string distinguishedName, int csrLength, string serialNumber, DateTime validFrom, DateTime expiryDate)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 				var cert = new Data.Entities.SslCertificate()
 				{
@@ -18371,16 +20439,27 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "AddPFX",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserID", userID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@WebSiteID", siteID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FriendlyName", friendlyName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HostName", hostname),
+					/// <summary>TODO</summary>
 					new SqlParameter("@CSRLength", csrLength),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DistinguishedName", distinguishedName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SerialNumber", serialNumber),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ValidFrom", validFrom),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpiryDate", expiryDate));
 			}
 		}
@@ -18395,15 +20474,18 @@ namespace FuseCP.EnterpriseServer
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSSL",
+					/// <summary>TODO</summary>
 					new SqlParameter("@SSLID", id));
 			}
 		}*/
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetCertificatesForSite(int actorId, int packageId, int siteId)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 				var cert = SslCertificates
 					.Where(c => c.SiteId == siteId)
@@ -18424,23 +20506,29 @@ namespace FuseCP.EnterpriseServer
 						c.PreviousId,
 						c.SerialNumber
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(cert);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetCertificatesForSite",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@websiteid", siteId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetPendingCertificates(int actorId, int packageId, int id, bool recursive)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 				var certs = SslCertificates
 					.Where(c => id == c.SiteId && c.Installed == false && c.IsRenewal == false)
@@ -18455,18 +20543,24 @@ namespace FuseCP.EnterpriseServer
 						c.Hash,
 						c.Installed
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(certs);
 			}
 			else
 			{
 				return SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetPendingSSLForWebsite",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageId", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@websiteid", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Recursive", recursive));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSSLCertificateByID(int actorId, int id)
 		{
@@ -18491,16 +20585,20 @@ namespace FuseCP.EnterpriseServer
 					})
 					.AsEnumerable()
 					.Where(c => Clone.CheckActorPackageRights(actorId, c.PackageId));
+				/// <summary>TODO</summary>
 				return EntityDataReader(cert);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSSLCertificateByID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CheckSSL(int siteID, bool renewal)
 		{
@@ -18517,7 +20615,9 @@ namespace FuseCP.EnterpriseServer
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckSSL",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@siteID", siteID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Renewal", renewal));
 
 				return Convert.ToInt32(prmId.Value);
@@ -18525,26 +20625,32 @@ namespace FuseCP.EnterpriseServer
 		}
 
 		// TODO this is a duplicate of GetSSLCertificateByID
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetSiteCert(int actorId, int siteID)
 		{
 			if (UseEntityFramework)
 			{
+				/// <summary>TODO</summary>
 				return GetSSLCertificateByID(actorId, siteID);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSSLCertificateByID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", siteID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteCertificate(int actorId, int packageId, int id)
 		{
 			if (UseEntityFramework)
 			{
 				if (!CheckActorPackageRights(actorId, packageId))
+					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 				SslCertificates.Where(c => c.Id == id).ExecuteDelete();
 			}
@@ -18552,11 +20658,15 @@ namespace FuseCP.EnterpriseServer
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "DeleteCertificate",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActorID", actorId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckSSLExistsForWebsite(int siteId)
 		{
@@ -18570,7 +20680,9 @@ namespace FuseCP.EnterpriseServer
 				prmId.Direction = ParameterDirection.Output;
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckSSLExistsForWebsite", prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@siteID", siteId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SerialNumber", ""));
 				return Convert.ToBoolean(prmId.Value);
 			}
@@ -18578,6 +20690,7 @@ namespace FuseCP.EnterpriseServer
 		#endregion
 
 		#region Lync
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddLyncUser(int accountId, int lyncUserPlanId, string sipAddress)
 		{
@@ -18601,12 +20714,16 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddLyncUser",
 					new[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@AccountID", accountId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@LyncUserPlanID", lyncUserPlanId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@SipAddress", sipAddress)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateLyncUser(int accountId, string sipAddress)
 		{
@@ -18622,11 +20739,14 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"UpdateLyncUser",
 					new[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@AccountID", accountId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@SipAddress", sipAddress)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public bool CheckLyncUserExists(int accountId)
@@ -18638,10 +20758,12 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				int res = (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "CheckLyncUserExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 				return res > 0;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool LyncUserExists(int accountId, string sipAddress)
 		{
@@ -18663,13 +20785,16 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"LyncUserExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SipAddress", sipAddress),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetLyncUsers(int itemId, string sortColumn, string sortDirection, int startRow, int count)
 		{
@@ -18703,15 +20828,21 @@ namespace FuseCP.EnterpriseServer
 
 				users = users.Skip(startRow).Take(count);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(countUsers, users);
 			}
 			else
 			{
 				SqlParameter[] sqlParams = new SqlParameter[] {
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", sortColumn),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortDirection", sortDirection),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("Count", count)
 				};
 
@@ -18722,6 +20853,7 @@ namespace FuseCP.EnterpriseServer
 					"GetLyncUsers", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetLyncUsersByPlanId(int itemId, int planId)
 		{
@@ -18741,6 +20873,7 @@ namespace FuseCP.EnterpriseServer
 						lu.LyncUserPlan.LyncUserPlanName
 					})
 					.Where(u => u.LyncUserPlanId == planId);
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
@@ -18749,10 +20882,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetLyncUsersByPlanId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanId", planId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetLyncUsersCount(int itemId)
 		{
@@ -18770,6 +20906,7 @@ namespace FuseCP.EnterpriseServer
 				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetLyncUsersCount", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteLyncUser(int accountId)
 		{
@@ -18786,6 +20923,7 @@ namespace FuseCP.EnterpriseServer
 
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddLyncUserPlan(int itemID, LyncUserPlan lyncUserPlan)
 		{
@@ -18841,29 +20979,49 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddLyncUserPlan",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanName", lyncUserPlan.LyncUserPlanName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanType", lyncUserPlan.LyncUserPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IM", lyncUserPlan.IM),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Mobility", lyncUserPlan.Mobility),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MobilityEnableOutsideVoice", lyncUserPlan.MobilityEnableOutsideVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Federation", lyncUserPlan.Federation),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Conferencing", lyncUserPlan.Conferencing),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnterpriseVoice", lyncUserPlan.EnterpriseVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@VoicePolicy", lyncUserPlan.VoicePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", lyncUserPlan.IsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RemoteUserAccess", lyncUserPlan.RemoteUserAccess),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PublicIMConnectivity", lyncUserPlan.PublicIMConnectivity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowOrganizeMeetingsWithExternalAnonymous", lyncUserPlan.AllowOrganizeMeetingsWithExternalAnonymous),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Telephony", lyncUserPlan.Telephony),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerURI", lyncUserPlan.ServerURI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivePolicy", lyncUserPlan.ArchivePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyDialPlanPolicy", lyncUserPlan.TelephonyDialPlanPolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyVoicePolicy", lyncUserPlan.TelephonyVoicePolicy));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateLyncUserPlan(int itemID, LyncUserPlan lyncUserPlan)
 		{
@@ -18900,27 +21058,47 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateLyncUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanId", lyncUserPlan.LyncUserPlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanName", lyncUserPlan.LyncUserPlanName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanType", lyncUserPlan.LyncUserPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IM", lyncUserPlan.IM),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Mobility", lyncUserPlan.Mobility),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MobilityEnableOutsideVoice", lyncUserPlan.MobilityEnableOutsideVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Federation", lyncUserPlan.Federation),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Conferencing", lyncUserPlan.Conferencing),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnterpriseVoice", lyncUserPlan.EnterpriseVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@VoicePolicy", lyncUserPlan.VoicePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", lyncUserPlan.IsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RemoteUserAccess", lyncUserPlan.RemoteUserAccess),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PublicIMConnectivity", lyncUserPlan.PublicIMConnectivity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowOrganizeMeetingsWithExternalAnonymous", lyncUserPlan.AllowOrganizeMeetingsWithExternalAnonymous),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Telephony", lyncUserPlan.Telephony),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerURI", lyncUserPlan.ServerURI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivePolicy", lyncUserPlan.ArchivePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyDialPlanPolicy", lyncUserPlan.TelephonyDialPlanPolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyVoicePolicy", lyncUserPlan.TelephonyVoicePolicy));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteLyncUserPlan(int lyncUserPlanId)
 		{
@@ -18934,9 +21112,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteLyncUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanId", lyncUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetLyncUserPlan(int lyncUserPlanId)
 		{
@@ -18967,6 +21147,7 @@ namespace FuseCP.EnterpriseServer
 						p.TelephonyDialPlanPolicy,
 						p.TelephonyVoicePolicy
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plan);
 			}
 			else
@@ -18975,9 +21156,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetLyncUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanId", lyncUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public IDataReader GetLyncUserPlans(int itemId)
@@ -19002,6 +21185,7 @@ namespace FuseCP.EnterpriseServer
 						p.VoicePolicy,
 						p.IsDefault
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plans);
 			}
 			else
@@ -19010,9 +21194,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetLyncUserPlans",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetOrganizationDefaultLyncUserPlan(int itemId, int lyncUserPlanId)
 		{
@@ -19039,10 +21225,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetOrganizationDefaultLyncUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanId", lyncUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetLyncUserPlanByAccountId(int AccountId)
 		{
@@ -19066,6 +21255,7 @@ namespace FuseCP.EnterpriseServer
 							p.VoicePolicy,
 							p.IsDefault
 						});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plan);
 			}
 			else
@@ -19074,9 +21264,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetLyncUserPlanByAccountId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", AccountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void SetLyncUserLyncUserplan(int accountId, int lyncUserPlanId)
 		{
@@ -19092,14 +21284,17 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetLyncUserLyncUserplan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
 					// TODO: Bug, LyncUserPlanId is not nullable in the table
+					/// <summary>TODO</summary>
 					new SqlParameter("@LyncUserPlanId", (lyncUserPlanId == 0) ? (object)DBNull.Value : (object)lyncUserPlanId));
 			}
 		}
 		#endregion
 
 		#region SfB
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddSfBUser(int accountId, int sfbUserPlanId, string sipAddress)
 		{
@@ -19123,12 +21318,16 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddSfBUser",
 					new[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@AccountID", accountId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@SfBUserPlanID", sfbUserPlanId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@SipAddress", sipAddress)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateSfBUser(int accountId, string sipAddress)
 		{
@@ -19154,11 +21353,14 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"UpdateSfBUser",
 					new[] {
+						/// <summary>TODO</summary>
 						new SqlParameter("@AccountID", accountId),
+						/// <summary>TODO</summary>
 						new SqlParameter("@SipAddress", sipAddress)
 					});
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckSfBUserExists(int accountId)
 		{
@@ -19169,10 +21371,12 @@ namespace FuseCP.EnterpriseServer
 			else
 			{
 				int res = (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "CheckSfBUserExists",
+				/// <summary>TODO</summary>
 				new SqlParameter("@AccountID", accountId));
 				return res > 0;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool SfBUserExists(int accountId, string sipAddress)
 		{
@@ -19192,13 +21396,16 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SfBUserExists",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SipAddress", sipAddress),
 					outParam);
 
 				return Convert.ToBoolean(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSfBUsers(int itemId, string sortColumn, string sortDirection, int startRow, int count)
 		{
@@ -19237,16 +21444,22 @@ namespace FuseCP.EnterpriseServer
 
 				users = users.Skip(startRow).Take(count);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(countUsers, users);
 			}
 			else
 			{
 				SqlParameter[] sqlParams = new[]
 				{
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", sortColumn),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortDirection", sortDirection),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StartRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("Count", count)
 				};
 
@@ -19256,6 +21469,7 @@ namespace FuseCP.EnterpriseServer
 					"GetSfBUsers", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSfBUsersByPlanId(int itemId, int planId)
 		{
@@ -19281,6 +21495,7 @@ namespace FuseCP.EnterpriseServer
 						u.User.SfBUserPlanId,
 						p.SfBUserPlanName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
@@ -19289,10 +21504,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSfBUsersByPlanId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PlanId", planId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetSfBUsersCount(int itemId)
 		{
@@ -19310,6 +21528,7 @@ namespace FuseCP.EnterpriseServer
 				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetSfBUsersCount", sqlParams);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteSfBUser(int accountId)
 		{
@@ -19325,6 +21544,7 @@ namespace FuseCP.EnterpriseServer
 					new[] { new SqlParameter("@AccountId", accountId) });
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddSfBUserPlan(int itemID, SfBUserPlan sfbUserPlan)
 		{
@@ -19380,29 +21600,49 @@ namespace FuseCP.EnterpriseServer
 					CommandType.StoredProcedure,
 					"AddSfBUserPlan",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanName", sfbUserPlan.SfBUserPlanName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanType", sfbUserPlan.SfBUserPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IM", sfbUserPlan.IM),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Mobility", sfbUserPlan.Mobility),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MobilityEnableOutsideVoice", sfbUserPlan.MobilityEnableOutsideVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Federation", sfbUserPlan.Federation),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Conferencing", sfbUserPlan.Conferencing),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnterpriseVoice", sfbUserPlan.EnterpriseVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@VoicePolicy", sfbUserPlan.VoicePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", sfbUserPlan.IsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RemoteUserAccess", sfbUserPlan.RemoteUserAccess),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PublicIMConnectivity", sfbUserPlan.PublicIMConnectivity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowOrganizeMeetingsWithExternalAnonymous", sfbUserPlan.AllowOrganizeMeetingsWithExternalAnonymous),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Telephony", sfbUserPlan.Telephony),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerURI", sfbUserPlan.ServerURI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivePolicy", sfbUserPlan.ArchivePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyDialPlanPolicy", sfbUserPlan.TelephonyDialPlanPolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyVoicePolicy", sfbUserPlan.TelephonyVoicePolicy));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public void UpdateSfBUserPlan(int itemID, SfBUserPlan sfbUserPlan)
@@ -19431,27 +21671,47 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateSfBUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanId", sfbUserPlan.SfBUserPlanId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanName", sfbUserPlan.SfBUserPlanName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanType", sfbUserPlan.SfBUserPlanType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IM", sfbUserPlan.IM),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Mobility", sfbUserPlan.Mobility),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MobilityEnableOutsideVoice", sfbUserPlan.MobilityEnableOutsideVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Federation", sfbUserPlan.Federation),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Conferencing", sfbUserPlan.Conferencing),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EnterpriseVoice", sfbUserPlan.EnterpriseVoice),
+					/// <summary>TODO</summary>
 					new SqlParameter("@VoicePolicy", sfbUserPlan.VoicePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDefault", sfbUserPlan.IsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RemoteUserAccess", sfbUserPlan.RemoteUserAccess),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PublicIMConnectivity", sfbUserPlan.PublicIMConnectivity),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AllowOrganizeMeetingsWithExternalAnonymous", sfbUserPlan.AllowOrganizeMeetingsWithExternalAnonymous),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Telephony", sfbUserPlan.Telephony),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerURI", sfbUserPlan.ServerURI),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ArchivePolicy", sfbUserPlan.ArchivePolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyDialPlanPolicy", sfbUserPlan.TelephonyDialPlanPolicy),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TelephonyVoicePolicy", sfbUserPlan.TelephonyVoicePolicy));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteSfBUserPlan(int sfbUserPlanId)
 		{
@@ -19465,9 +21725,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteSfBUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanId", sfbUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSfBUserPlan(int sfbUserPlanId)
 		{
@@ -19498,6 +21760,7 @@ namespace FuseCP.EnterpriseServer
 						p.TelephonyDialPlanPolicy,
 						p.TelephonyVoicePolicy
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plan);
 			}
 			else
@@ -19506,9 +21769,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSfBUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanId", sfbUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public IDataReader GetSfBUserPlans(int itemId)
@@ -19533,6 +21798,7 @@ namespace FuseCP.EnterpriseServer
 						p.VoicePolicy,
 						p.IsDefault
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plans);
 			}
 			else
@@ -19541,9 +21807,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSfBUserPlans",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public void SetOrganizationDefaultSfBUserPlan(int itemId, int sfbUserPlanId)
@@ -19570,10 +21838,13 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetOrganizationDefaultSfBUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanId", sfbUserPlanId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSfBUserPlanByAccountId(int AccountId)
 		{
@@ -19599,6 +21870,7 @@ namespace FuseCP.EnterpriseServer
 						p.VoicePolicy,
 						p.IsDefault
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(plans);
 			}
 			else
@@ -19607,9 +21879,11 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSfBUserPlanByAccountId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", AccountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 
 		public void SetSfBUserSfBUserPlan(int accountId, int sfbUserPlanId)
@@ -19636,8 +21910,10 @@ namespace FuseCP.EnterpriseServer
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"SetSfBUserSfBUserPlan",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId),
 					// TODO: Bug SfBUserPlanId is not nullable in the table
+					/// <summary>TODO</summary>
 					new SqlParameter("@SfBUserPlanId", (sfbUserPlanId == 0) ? (object)DBNull.Value : (object)sfbUserPlanId));
 			}
 		}
@@ -19656,6 +21932,7 @@ namespace FuseCP.EnterpriseServer
 					.Where(p => Name == p.PackageName)
 					.Select(p => (int?)p.PackageId)
 					.FirstOrDefault() ?? -1;
+				/// <summary>TODO</summary>
 				return packageId;
 			}
 			else
@@ -19676,13 +21953,16 @@ namespace FuseCP.EnterpriseServer
 				//    throw new Exception("Provider not found");
 				//}
 
+				/// <summary>TODO</summary>
 				return packageId;
 			}
 		}*/
+        /// <summary>Auto-generated member.</summary>
         public IEnumerable<int> GetProviderIdsByServerId(int serverId) =>
 			Services
 			   .Where(s => s.ServerId == serverId)
 			   .Select(s => s.ProviderId);
+        /// <summary>Auto-generated member.</summary>
 
         public int GetServiceIdByProviderForServer(int providerId, int packageId)
 		{
@@ -19702,7 +21982,9 @@ namespace FuseCP.EnterpriseServer
 FROM PackageServices
 LEFT JOIN Services ON Services.ServiceID = PackageServices.ServiceID
 WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @ProviderID",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ProviderID", providerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@PackageID", packageId));
 
 				if (reader.Read())
@@ -19716,6 +21998,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 		#endregion
 
 		#region Enterprise Storage
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddWebDavAccessToken(Base.HostedSolution.WebDavAccessToken accessToken)
 		{
@@ -19744,17 +22027,24 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddWebDavAccessToken",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken.AccessToken),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilePath", accessToken.FilePath),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AuthData", accessToken.AuthData),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpirationDate", accessToken.ExpirationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accessToken.AccountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", accessToken.ItemId));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteExpiredWebDavAccessTokens()
 		{
@@ -19771,6 +22061,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					"DeleteExpiredWebDavAccessTokens");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetWebDavAccessTokenById(int id)
 		{
@@ -19779,6 +22070,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var now = DateTime.Now;
 				var tokens = WebDavAccessTokens
 					.Where(t => t.Id == id && t.ExpirationDate > now);
+				/// <summary>TODO</summary>
 				return EntityDataReader(tokens);
 			}
 			else
@@ -19787,9 +22079,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetWebDavAccessTokenById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetWebDavAccessTokenByAccessToken(Guid accessToken)
 		{
@@ -19798,6 +22092,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var now = DateTime.Now;
 				var tokens = WebDavAccessTokens
 					.Where(t => t.AccessToken == accessToken && t.ExpirationDate > now);
+				/// <summary>TODO</summary>
 				return EntityDataReader(tokens);
 			}
 			else
@@ -19806,9 +22101,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetWebDavAccessTokenByAccessToken",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccessToken", accessToken));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddEnterpriseFolder(int itemId, string folderName, int folderQuota, string locationDrive, string homeFolder, string domain, int? storageSpaceFolderId)
 		{
@@ -19838,18 +22135,26 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddEnterpriseFolder",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderQuota", folderQuota),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LocationDrive", locationDrive),
+					/// <summary>TODO</summary>
 					new SqlParameter("@HomeFolder", homeFolder),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Domain", domain),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceFolderId", storageSpaceFolderId));
 
 				// read identity
 				return Convert.ToInt32(prmId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateEnterpriseFolderStorageSpaceFolder(int itemId, string folderName, int? storageSpaceFolderId)
 		{
@@ -19868,11 +22173,15 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateEntepriseFolderStorageSpaceFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceFolderId", storageSpaceFolderId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteEnterpriseFolder(int itemId, string folderName)
 		{
@@ -19887,10 +22196,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteEnterpriseFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateEnterpriseFolder(int itemId, string folderID, string folderName, int folderQuota)
 		{
@@ -19910,12 +22222,17 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateEnterpriseFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderID", folderID),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderQuota", folderQuota));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetEnterpriseFolders(int itemId)
 		{
@@ -19925,6 +22242,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					.Where(f => f.ItemId == itemId)
 					.Select(f => new { f.LocationDrive, f.HomeFolder, f.Domain })
 					.Distinct();
+				/// <summary>TODO</summary>
 				return EntityDataReader(folders);
 			}
 			else
@@ -19933,9 +22251,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetEnterpriseFolders",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetEnterpriseFoldersPaged(int itemId, string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
 		{
@@ -19976,6 +22296,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				folders = folders.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, folders);
 			}
 			else
@@ -19984,14 +22305,21 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetEnterpriseFoldersPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetEnterpriseFolder(int itemId, string folderName)
 		{
@@ -20019,6 +22347,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					})
 					.Take(1);
 
+				/// <summary>TODO</summary>
 				return EntityDataReader(folder);
 			}
 			else
@@ -20027,10 +22356,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetEnterpriseFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetWebDavPortalUserSettingsByAccountId(int accountId)
 		{
@@ -20039,6 +22371,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var setting = WebDavPortalUsersSettings
 					.Where(s => s.AccountId == accountId)
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(setting);
 			}
 			else
@@ -20047,9 +22380,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetWebDavPortalUsersSettingsByAccountId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountId", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddWebDavPortalUsersSettings(int accountId, string settings)
 		{
@@ -20074,13 +22409,16 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddWebDavPortalUsersSettings",
 					settingsId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountId", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Settings", settings));
 
 				// read identity
 				return Convert.ToInt32(settingsId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateWebDavPortalUsersSettings(int accountId, string settings)
 		{
@@ -20099,10 +22437,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateWebDavPortalUsersSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountId", accountId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Settings", settings));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteAllEnterpriseFolderOwaUsers(int itemId, int folderId)
 		{
@@ -20117,10 +22458,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteAllEnterpriseFolderOwaUsers",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderID", folderId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddEnterpriseFolderOwaUser(int itemId, int folderId, int accountId)
 		{
@@ -20146,14 +22490,18 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddEnterpriseFolderOwaUser",
 					id,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderID", folderId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountId", accountId));
 
 				// read identity
 				return Convert.ToInt32(id.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetEnterpriseFolderOwaUsers(int itemId, int folderId)
 		{
@@ -20174,6 +22522,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						p.Account.SubscriberNumber,
 						p.Account.UserPrincipalName
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
@@ -20182,10 +22531,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetEnterpriseFolderOwaUsers",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderID", folderId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetEnterpriseFolderId(int itemId, string folderName)
 		{
@@ -20195,6 +22547,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					.Where(f => f.ItemId == itemId && f.FolderName == folderName)
 					.Select(f => new { f.EnterpriseFolderId })
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(folders);
 			}
 			else
@@ -20203,10 +22556,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetEnterpriseFolderId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FolderName", folderName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetUserEnterpriseFolderWithOwaEditPermission(int itemId, int accountId)
 		{
@@ -20215,6 +22571,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var folder = EnterpriseFoldersOwaPermissions
 					.Where(p => p.ItemId == itemId && p.AccountId == accountId)
 					.Select(p => new { p.Folder.FolderName });
+				/// <summary>TODO</summary>
 				return EntityDataReader(folder);
 			}
 			else
@@ -20223,18 +22580,22 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetUserEnterpriseFolderWithOwaEditPermission",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
 		#endregion
 
 		#region Support Service Levels
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSupportServiceLevels()
 		{
 			if (UseEntityFramework)
 			{
+				/// <summary>TODO</summary>
 				return EntityDataReader(SupportServiceLevels);
 			}
 			else
@@ -20243,6 +22604,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					ObjectQualifier + "GetSupportServiceLevels");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddSupportServiceLevel(string levelName, string levelDescription)
 		{
@@ -20291,6 +22653,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					}
 				}
 
+				/// <summary>TODO</summary>
 				return levelId;
 			}
 			else
@@ -20303,12 +22666,15 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddSupportServiceLevel",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelName", levelName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelDescription", levelDescription));
 
 				return Convert.ToInt32(outParam.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateSupportServiceLevel(int levelId, string levelName, string levelDescription)
 		{
@@ -20342,11 +22708,15 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateSupportServiceLevel",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", levelId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelName", levelName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelDescription", levelDescription));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteSupportServiceLevel(int levelId)
 		{
@@ -20391,14 +22761,17 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteSupportServiceLevel",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", levelId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetSupportServiceLevel(int levelID)
 		{
 			if (UseEntityFramework)
 			{
+				/// <summary>TODO</summary>
 				return EntityDataReader(SupportServiceLevels.Where(l => l.LevelId == levelID));
 			}
 			else
@@ -20407,9 +22780,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSupportServiceLevel",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", levelID));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckServiceLevelUsage(int levelID)
 		{
@@ -20422,6 +22797,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 			else
 			{
 				int res = (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "CheckServiceLevelUsage",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", levelID));
 				return res > 0;
 			}
@@ -20430,6 +22806,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 		#endregion
 
 		#region Storage Spaces 
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetStorageSpaceLevelsPaged(string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
 		{
@@ -20457,6 +22834,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				levels = levels.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, levels);
 			}
 			else
@@ -20465,13 +22843,19 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceLevelsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceLevelById(int id)
 		{
@@ -20481,6 +22865,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					.Where(sl => sl.Id == id)
 					.Select(sl => new { sl.Id, sl.Name, sl.Description })
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(levels);
 			}
 			else
@@ -20489,9 +22874,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceLevelById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int UpdateStorageSpaceLevel(StorageSpaceLevel level)
 		{
@@ -20511,13 +22898,17 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateStorageSpaceLevel",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", level.Id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", level.Name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", level.Description));
 
 				return level.Id;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int InsertStorageSpaceLevel(StorageSpaceLevel level)
 		{
@@ -20542,13 +22933,16 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"InsertStorageSpaceLevel",
 					id,
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", level.Name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", level.Description));
 
 				// read identity
 				return Convert.ToInt32(id.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveStorageSpaceLevel(int id)
 		{
@@ -20564,9 +22958,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveStorageSpaceLevel",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceLevelResourceGroups(int levelId)
 		{
@@ -20582,6 +22978,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						g.Group.GroupController,
 						g.Group.ShowGroup
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(groups);
 			}
 			else
@@ -20590,9 +22987,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetLevelResourceGroups",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", levelId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveStorageSpaceLevelResourceGroups(int levelId)
 		{
@@ -20606,9 +23005,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteLevelResourceGroups",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", levelId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddStorageSpaceLevelResourceGroup(int levelId, int groupId)
 		{
@@ -20628,10 +23029,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddLevelResourceGroups",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", levelId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@GroupId", groupId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetStorageSpacesPaged(string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
 		{
@@ -20670,6 +23074,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				spaces = spaces.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, spaces);
 			}
 			else
@@ -20678,13 +23083,19 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpacesPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceById(int id)
 		{
@@ -20710,6 +23121,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 							.Where(f => f.StorageSpaceId == s.Id)
 							.Sum(f => (long?)f.FsrmQuotaSizeBytes) ?? 0
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(spaces);
 			}
 			else
@@ -20718,9 +23130,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceByServiceAndPath(int serverId, string path)
 		{
@@ -20746,6 +23160,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 							.Where(f => f.StorageSpaceId == s.Id)
 							.Sum(f => (long?)f.FsrmQuotaSizeBytes) ?? 0
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(spaces);
 			}
 			else
@@ -20754,10 +23169,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceByServiceAndPath",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Path", path));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int UpdateStorageSpace(StorageSpace space)
 		{
@@ -20787,21 +23205,33 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateStorageSpace",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", space.Id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", space.Name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", space.ServiceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", space.ServerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", space.LevelId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Path", space.Path),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaType", space.FsrmQuotaType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaSizeBytes", space.FsrmQuotaSizeBytes),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsShared", space.IsShared),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDisabled", space.IsDisabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UncPath", space.UncPath));
 
 				return space.Id;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int InsertStorageSpace(StorageSpace space)
 		{
@@ -20834,21 +23264,32 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"InsertStorageSpace",
 					id,
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", space.Name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", space.ServiceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", space.ServerId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", space.LevelId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Path", space.Path),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaType", space.FsrmQuotaType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaSizeBytes", space.FsrmQuotaSizeBytes),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsShared", space.IsShared),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsDisabled", space.IsDisabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UncPath", space.UncPath));
 
 				// read identity
 				return Convert.ToInt32(id.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveStorageSpace(int id)
 		{
@@ -20862,9 +23303,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveStorageSpace",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetStorageSpacesByLevelId(int levelId)
 		{
@@ -20890,6 +23333,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 							.Where(f => f.StorageSpaceId == s.Id)
 							.Sum(f => (long?)f.FsrmQuotaSizeBytes) ?? 0
 					});
+				/// <summary>TODO</summary>
 				return EntityDataSet(spaces);
 			}
 			else
@@ -20898,9 +23342,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpacesByLevelId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@LevelId", levelId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpacesByResourceGroupName(string groupName)
 		{
@@ -20926,6 +23372,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 							.Where(f => f.StorageSpaceId == s.Id)
 							.Sum(f => (long?)f.FsrmQuotaSizeBytes) ?? 0
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(spaces);
 			}
 			else
@@ -20934,9 +23381,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpacesByResourceGroupName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ResourceGroupName", groupName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CreateStorageSpaceFolder(StorageSpaceFolder folder)
 		{
@@ -20944,6 +23393,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 			return folder.Id;
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int CreateStorageSpaceFolder(string name, int storageSpaceId, string path, string uncPath, bool isShared, QuotaType quotaType, long fsrmQuotaSizeBytes)
 		{
@@ -20973,24 +23423,34 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"CreateStorageSpaceFolder",
 					id,
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceId", storageSpaceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Path", path),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UncPath", uncPath),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsShared", isShared),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaType", quotaType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaSizeBytes", fsrmQuotaSizeBytes));
 
 				// read identity
 				return Convert.ToInt32(id.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int UpdateStorageSpaceFolder(StorageSpaceFolder folder)
 		{
+			/// <summary>TODO</summary>
 			return UpdateStorageSpaceFolder(folder.Id, folder.Name, folder.StorageSpaceId, folder.Path, folder.UncPath,
 				folder.IsShared, folder.FsrmQuotaType, folder.FsrmQuotaSizeBytes);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int UpdateStorageSpaceFolder(int id, string folderName, int storageSpaceId, string path, string uncPath, bool isShared, QuotaType type, long fsrmQuotaSizeBytes)
 		{
@@ -21009,6 +23469,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					folder.FsrmQuotaSizeBytes = fsrmQuotaSizeBytes;
 					SaveChanges();
 				}
+				/// <summary>TODO</summary>
 				return id;
 			}
 			else
@@ -21017,18 +23478,28 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateStorageSpaceFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", folderName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceId", storageSpaceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Path", path),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UncPath", uncPath),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IsShared", isShared),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaType", type),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FsrmQuotaSizeBytes", fsrmQuotaSizeBytes));
 
+				/// <summary>TODO</summary>
 				return id;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceFoldersByStorageSpaceId(int id)
 		{
@@ -21047,6 +23518,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						f.FsrmQuotaType,
 						f.FsrmQuotaSizeBytes
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(folders);
 			}
 			else
@@ -21055,9 +23527,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceFoldersByStorageSpaceId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceId", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetStorageSpaceFolderById(int id)
 		{
@@ -21077,6 +23551,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						f.FsrmQuotaType,
 						f.FsrmQuotaSizeBytes
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(folder);
 			}
 			else
@@ -21085,9 +23560,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetStorageSpaceFolderById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveStorageSpaceFolder(int id)
 		{
@@ -21101,12 +23578,14 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveStorageSpaceFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
 		#endregion
 
 		#region RDS
+		/// <summary>Auto-generated member.</summary>
 
 		public bool CheckRDSServerExists(string ServerFQDN)
 		{
@@ -21122,11 +23601,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "CheckRDSServer",
 					prmId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerFQDN", ServerFQDN));
 
 				return Convert.ToInt32(prmId.Value) != 0;
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRdsServerSettings(int serverId, string settingsName)
 		{
@@ -21142,16 +23623,20 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						s.ApplyUsers,
 						s.ApplyAdministrators
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(settings);
 			}
 			else
 			{
 				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetRDSServerSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRdsServerSettings(int serverId, string settingsName, string xml)
 		{
@@ -21183,11 +23668,15 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 			{
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateRDSServerSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SettingsName", settingsName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Xml", xml));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddRdsCertificate(int serviceId, string content, byte[] hash, string fileName, DateTime? validFrom, DateTime? expiryDate)
 		{
@@ -21216,16 +23705,23 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddRDSCertificate",
 					rdsCertificateId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Content", content),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Hash", Convert.ToBase64String(hash)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FileName", fileName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ValidFrom", validFrom),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ExpiryDate", expiryDate));
 
 				return Convert.ToInt32(rdsCertificateId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRdsCertificateByServiceId(int serviceId)
 		{
@@ -21245,6 +23741,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						c.ValidFrom,
 						c.ExpiryDate
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(cert);
 			}
 			else
@@ -21253,9 +23750,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCertificateByServiceId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServiceId", serviceId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRdsCollectionSettingsByCollectionId(int collectionId)
 		{
@@ -21284,6 +23783,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						s.EncryptionLevel,
 						s.AuthenticateUsingNla
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(setting);
 			}
 			else
@@ -21292,16 +23792,20 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionSettingsByCollectionId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionID", collectionId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddRdsCollectionSettings(RdsCollectionSettings settings)
 		{
+			/// <summary>TODO</summary>
 			return AddRdsCollectionSettings(settings.RdsCollectionId, settings.DisconnectedSessionLimitMin, settings.ActiveSessionLimitMin, settings.IdleSessionLimitMin, settings.BrokenConnectionAction,
 				settings.AutomaticReconnectionEnabled, settings.TemporaryFoldersDeletedOnExit, settings.TemporaryFoldersPerSession, settings.ClientDeviceRedirectionOptions, settings.ClientPrinterRedirected,
 				settings.ClientPrinterAsDefault, settings.RDEasyPrintDriverEnabled, settings.MaxRedirectedMonitors, settings.SecurityLayer, settings.EncryptionLevel, settings.AuthenticateUsingNLA);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private int AddRdsCollectionSettings(int rdsCollectionId, int disconnectedSessionLimitMin, int activeSessionLimitMin, int idleSessionLimitMin, string brokenConnectionAction,
 			 bool automaticReconnectionEnabled, bool temporaryFoldersDeletedOnExit, bool temporaryFoldersPerSession, string clientDeviceRedirectionOptions, bool ClientPrinterRedirected,
@@ -21342,26 +23846,43 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddRDSCollectionSettings",
 					rdsCollectionSettingsId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@RdsCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisconnectedSessionLimitMin", disconnectedSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActiveSessionLimitMin", activeSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IdleSessionLimitMin", idleSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@BrokenConnectionAction", brokenConnectionAction),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AutomaticReconnectionEnabled", automaticReconnectionEnabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TemporaryFoldersDeletedOnExit", temporaryFoldersDeletedOnExit),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TemporaryFoldersPerSession", temporaryFoldersPerSession),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientDeviceRedirectionOptions", clientDeviceRedirectionOptions),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientPrinterRedirected", ClientPrinterRedirected),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientPrinterAsDefault", clientPrinterAsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDEasyPrintDriverEnabled", rdEasyPrintDriverEnabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxRedirectedMonitors", maxRedirectedMonitors),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SecurityLayer", SecurityLayer),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EncryptionLevel", EncryptionLevel),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AuthenticateUsingNLA", AuthenticateUsingNLA));
 
 				return Convert.ToInt32(rdsCollectionSettingsId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSCollectionSettings(RdsCollectionSettings settings)
 		{
@@ -21369,6 +23890,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				settings.AutomaticReconnectionEnabled, settings.TemporaryFoldersDeletedOnExit, settings.TemporaryFoldersPerSession, settings.ClientDeviceRedirectionOptions, settings.ClientPrinterRedirected,
 				settings.ClientPrinterAsDefault, settings.RDEasyPrintDriverEnabled, settings.MaxRedirectedMonitors, settings.SecurityLayer, settings.EncryptionLevel, settings.AuthenticateUsingNLA);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSCollectionSettings(int id, int rdsCollectionId, int disconnectedSessionLimitMin, int activeSessionLimitMin, int idleSessionLimitMin, string brokenConnectionAction,
 			bool automaticReconnectionEnabled, bool temporaryFoldersDeletedOnExit, bool temporaryFoldersPerSession, string clientDeviceRedirectionOptions, bool ClientPrinterRedirected,
@@ -21405,25 +23927,43 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateRDSCollectionSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RdsCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisconnectedSessionLimitMin", disconnectedSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ActiveSessionLimitMin", activeSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IdleSessionLimitMin", idleSessionLimitMin),
+					/// <summary>TODO</summary>
 					new SqlParameter("@BrokenConnectionAction", brokenConnectionAction),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AutomaticReconnectionEnabled", automaticReconnectionEnabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TemporaryFoldersDeletedOnExit", temporaryFoldersDeletedOnExit),
+					/// <summary>TODO</summary>
 					new SqlParameter("@TemporaryFoldersPerSession", temporaryFoldersPerSession),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientDeviceRedirectionOptions", clientDeviceRedirectionOptions),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientPrinterRedirected", ClientPrinterRedirected),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ClientPrinterAsDefault", clientPrinterAsDefault),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDEasyPrintDriverEnabled", rdEasyPrintDriverEnabled),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MaxRedirectedMonitors", maxRedirectedMonitors),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SecurityLayer", SecurityLayer),
+					/// <summary>TODO</summary>
 					new SqlParameter("@EncryptionLevel", EncryptionLevel),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AuthenticateUsingNLA", AuthenticateUsingNLA));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteRDSCollectionSettings(int id)
 		{
@@ -21437,9 +23977,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteRDSCollectionSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSCollectionsByItemId(int itemId)
 		{
@@ -21447,6 +23989,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 			{
 				var items = RdsCollections
 					.Where(c => c.ItemId == itemId);
+				/// <summary>TODO</summary>
 				return EntityDataReader(items);
 			}
 			else
@@ -21455,9 +23998,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionsByItemId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSCollectionByName(string name)
 		{
@@ -21466,6 +24011,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var items = RdsCollections
 					.Where(c => c.DisplayName == name)
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(items);
 			}
 			else
@@ -21474,9 +24020,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionByName",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSCollectionById(int id)
 		{
@@ -21485,6 +24033,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var collection = RdsCollections
 					.Where(c => c.Id == id)
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(collection);
 			}
 			else
@@ -21493,9 +24042,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetRDSCollectionsPaged(int itemId, string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
 		{
@@ -21523,6 +24074,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				collections = collections.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, collections);
 			}
 			else
@@ -21531,14 +24083,21 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionsPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@itemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddRDSCollection(int itemId, string name, string description, string displayName)
 		{
@@ -21565,15 +24124,20 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddRDSCollection",
 					rdsCollectionId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", description),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisplayName", displayName));
 
 				// read identity
 				return Convert.ToInt32(rdsCollectionId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetOrganizationRdsUsersCount(int itemId)
 		{
@@ -21591,12 +24155,14 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsUsersCount",
 					count,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId));
 
 				// read identity
 				return Convert.ToInt32(count.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetOrganizationRdsCollectionsCount(int itemId)
 		{
@@ -21612,12 +24178,14 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsCollectionsCount",
 					count,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId));
 
 				// read identity
 				return Convert.ToInt32(count.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetOrganizationRdsServersCount(int itemId)
 		{
@@ -21633,17 +24201,20 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsServersCount",
 					count,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId));
 
 				// read identity
 				return Convert.ToInt32(count.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSCollection(RdsCollection collection)
 		{
 			UpdateRDSCollection(collection.Id, collection.ItemId, collection.Name, collection.Description, collection.DisplayName);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSCollection(int id, int itemId, string name, string description, string displayName)
 		{
@@ -21666,13 +24237,19 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateRDSCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", description),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DisplayName", displayName));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteRDSServerSettings(int serverId)
 		{
@@ -21686,9 +24263,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteRDSServerSettings",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ServerId", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteRDSCollection(int id)
 		{
@@ -21711,9 +24290,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteRDSCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddRDSServer(string name, string fqdName, string description, string controller)
 		{
@@ -21740,15 +24321,20 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddRDSServer",
 					rdsServerId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@FqdName", fqdName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", description),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Controller", controller));
 
 				// read identity
 				return Convert.ToInt32(rdsServerId.Value);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSServersByItemId(int itemId)
 		{
@@ -21771,6 +24357,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						s.Server.RdsCollectionId,
 						ItemName = i != null ? i.ItemName : null
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(servers);
 			}
 			else
@@ -21779,9 +24366,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSServersByItemId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetRDSServersPaged(int? itemId, int? collectionId, string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows, string controller, bool ignoreItemId = false, bool ignoreRdsCollectionId = false)
 		{
@@ -21836,6 +24425,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				servers = servers.Skip(startRow).Take(maximumRows);
 
+				/// <summary>TODO</summary>
 				return EntityDataSet(count, servers);
 			}
 			else
@@ -21844,18 +24434,29 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSServersPaged",
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterColumn", VerifyColumnName(filterColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FilterValue", VerifyColumnValue(filterValue)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@SortColumn", VerifyColumnName(sortColumn)),
+					/// <summary>TODO</summary>
 					new SqlParameter("@startRow", startRow),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RdsCollectionId", collectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IgnoreItemId", ignoreItemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@IgnoreRdsCollectionId", ignoreRdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@maximumRows", maximumRows),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Controller", controller));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSServerById(int id)
 		{
@@ -21882,6 +24483,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						s.CollectionName
 					})
 					.Take(1);
+				/// <summary>TODO</summary>
 				return EntityDataReader(server);
 			}
 			else
@@ -21890,9 +24492,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSServerById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSServersByCollectionId(int collectionId)
 		{
@@ -21915,6 +24519,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						s.Server.RdsCollectionId,
 						ItemName = si != null ? si.ItemName : null,
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(servers);
 			}
 			else
@@ -21923,9 +24528,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSServersByCollectionId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RdsCollectionId", collectionId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteRDSServer(int id)
 		{
@@ -21939,15 +24546,18 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteRDSServer",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSServer(RdsServer server)
 		{
 			UpdateRDSServer(server.Id, server.ItemId, server.Name, server.FqdName, server.Description,
 				 server.RdsCollectionId, server.ConnectionEnabled);
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateRDSServer(int id, int? itemId, string name, string fqdName, string description, int? rdsCollectionId, string connectionEnabled)
 		{
@@ -21978,15 +24588,23 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateRDSServer",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Name", name),
+					/// <summary>TODO</summary>
 					new SqlParameter("@FqdName", fqdName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Description", description),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ConnectionEnabled", connEnabled));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddRDSServerToCollection(int serverId, int rdsCollectionId)
 		{
@@ -22005,10 +24623,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddRDSServerToCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddRDSServerToOrganization(int itemId, int serverId)
 		{
@@ -22027,10 +24648,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddRDSServerToOrganization",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", serverId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemID", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveRDSServerFromOrganization(int serverId)
 		{
@@ -22049,9 +24673,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveRDSServerFromOrganization",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveRDSServerFromCollection(int serverId)
 		{
@@ -22070,9 +24696,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveRDSServerFromCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", serverId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetRDSCollectionUsersByRDSCollectionId(int id)
 		{
@@ -22101,6 +24729,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						a.LevelId,
 						a.IsVip
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(users);
 			}
 			else
@@ -22109,9 +24738,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSCollectionUsersByRDSCollectionId",
+					/// <summary>TODO</summary>
 					new SqlParameter("@id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddRDSUserToRDSCollection(int rdsCollectionId, int accountId)
 		{
@@ -22131,10 +24762,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddUserToRDSCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void RemoveRDSUserFromRDSCollection(int rdsCollectionId, int accountId)
 		{
@@ -22150,10 +24784,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"RemoveRDSUserFromRDSCollection",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@AccountID", accountId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int GetRDSControllerServiceIDbyFQDN(string fqdnName)
 		{
@@ -22171,6 +24808,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetRDSControllerServiceIDbyFQDN",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RdsfqdnName", fqdnName),
 					prmController);
 
@@ -22181,6 +24819,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 		#endregion
 
 		#region MX|NX Services
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetAllPackages()
 		{
@@ -22201,6 +24840,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						p.OverrideQuotas,
 						p.BandwidthUpdated
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(packages);
 			}
 			else
@@ -22211,6 +24851,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					"GetAllPackages");
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetDomainDnsRecords(int domainId, DnsRecordType recordType)
 		{
@@ -22227,6 +24868,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						r.Value,
 						r.Date
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(records);
 			}
 			else
@@ -22235,10 +24877,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetDomainDnsRecords",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordType", recordType));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetDomainAllDnsRecords(int domainId)
 		{
@@ -22255,6 +24900,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						r.Value,
 						r.Date
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(records);
 			}
 			else
@@ -22263,9 +24909,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetDomainAllDnsRecords",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void AddDomainDnsRecord(DnsRecordInfo domainDnsRecord)
 		{
@@ -22288,15 +24936,21 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"AddDomainDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainDnsRecord.DomainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@RecordType", domainDnsRecord.RecordType),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DnsServer", domainDnsRecord.DnsServer),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Value", domainDnsRecord.Value),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Date", domainDnsRecord.Date));
 			}
 		}
 
 		/* Table ScheduleTasksEmailTemplates does not exist.
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetScheduleTaskEmailTemplate(string taskId)
 		{
 			if (UseEntityFramework)
@@ -22309,9 +24963,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetScheduleTaskEmailTemplate",
+					/// <summary>TODO</summary>
 					new SqlParameter("@taskId", taskId));
 			}
 		} */
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteDomainDnsRecord(int id)
 		{
@@ -22327,9 +24983,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteDomainDnsRecord",
+					/// <summary>TODO</summary>
 					new SqlParameter("@Id", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateDomainCreationDate(int domainId, DateTime date)
 		{
@@ -22347,6 +25005,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				UpdateDomainDate(domainId, "UpdateDomainCreationDate", date);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateDomainExpirationDate(int domainId, DateTime date)
 		{
@@ -22364,6 +25023,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				UpdateDomainDate(domainId, "UpdateDomainExpirationDate", date);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateDomainLastUpdateDate(int domainId, DateTime date)
 		{
@@ -22381,6 +25041,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				UpdateDomainDate(domainId, "UpdateDomainLastUpdateDate", date);
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		private void UpdateDomainDate(int domainId, string storedProcedure, DateTime date)
 		{
@@ -22405,10 +25066,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				NativeConnectionString,
 				CommandType.StoredProcedure,
 				storedProcedure,
+				/// <summary>TODO</summary>
 				new SqlParameter("@DomainId", domainId),
+				/// <summary>TODO</summary>
 				new SqlParameter("@Date", date));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateDomainDates(int domainId, DateTime? domainCreationDate, DateTime? domainExpirationDate, DateTime? domainLastUpdateDate)
 		{
@@ -22429,12 +25093,17 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateDomainDates",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainCreationDate", domainCreationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainExpirationDate", domainExpirationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainLastUpdateDate", domainLastUpdateDate));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void UpdateWhoisDomainInfo(int domainId, DateTime? domainCreationDate, DateTime? domainExpirationDate, DateTime? domainLastUpdateDate, string registrarName)
 		{
@@ -22456,16 +25125,22 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"UpdateWhoisDomainInfo",
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainId", domainId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainCreationDate", domainCreationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainExpirationDate", domainExpirationDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainLastUpdateDate", domainLastUpdateDate),
+					/// <summary>TODO</summary>
 					new SqlParameter("@DomainRegistrarName", registrarName));
 			}
 		}
 		#endregion
 
 		#region Organization Storage Space Folders
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetOrganizationStoragSpaceFolders(int itemId)
 		{
 			if (UseEntityFramework)
@@ -22483,6 +25158,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						e.StorageSpaceFolder.FsrmQuotaType,
 						e.StorageSpaceFolder.FsrmQuotaSizeBytes
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(folders);
 			}
 			else
@@ -22491,9 +25167,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationStoragSpaceFolders",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public IDataReader GetOrganizationStoragSpacesFolderByType(int itemId, string type)
 		{
@@ -22512,6 +25190,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 						e.StorageSpaceFolder.FsrmQuotaType,
 						e.StorageSpaceFolder.FsrmQuotaSizeBytes
 					});
+				/// <summary>TODO</summary>
 				return EntityDataReader(folders);
 			}
 			else
@@ -22520,10 +25199,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationStoragSpacesFolderByType",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Type", type));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public void DeleteOrganizationStoragSpacesFolder(int id)
 		{
@@ -22538,9 +25220,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				SqlHelper.ExecuteNonQuery(NativeConnectionString,
 					CommandType.StoredProcedure,
 					"DeleteOrganizationStoragSpacesFolder",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", id));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddOrganizationStoragSpacesFolder(int itemId, string type, int storageSpaceFolderId)
 		{
@@ -22554,6 +25238,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				};
 				ExchangeOrganizationSsFolders.Add(folder);
 				SaveChanges();
+				/// <summary>TODO</summary>
 				return storageSpaceFolderId;
 			}
 			else
@@ -22566,8 +25251,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddOrganizationStoragSpacesFolder",
 					outParam,
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Type", type),
+					/// <summary>TODO</summary>
 					new SqlParameter("@StorageSpaceFolderId", storageSpaceFolderId));
 
 				return Convert.ToInt32(outParam.Value);
@@ -22575,6 +25263,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 		}
 
 		/* Stored procedure is not in Database
+		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetOrganizationStorageSpacesFolderById(int itemId, int folderId)
 		{
 			if (UseEntityFramework)
@@ -22586,13 +25275,16 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetOrganizationStorageSpacesFolderById",
+					/// <summary>TODO</summary>
 					new SqlParameter("@ItemId", itemId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@ID", folderId));
 			}
 		}*/
 		#endregion
 
 		#region RDS Messages
+		/// <summary>Auto-generated member.</summary>
 
 		public DataSet GetRDSMessagesByCollectionId(int rdsCollectionId)
 		{
@@ -22601,6 +25293,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				var messages = RdsMessages
 					.Where(m => m.RdsCollectionId == rdsCollectionId)
 					.Select(m => new { m.Id, m.RdsCollectionId, m.MessageText, m.UserName, m.Date });
+				/// <summary>TODO</summary>
 				return EntityDataSet(messages);
 			}
 			else
@@ -22609,9 +25302,11 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetRDSMessages",
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId));
 			}
 		}
+		/// <summary>Auto-generated member.</summary>
 
 		public int AddRDSMessage(int rdsCollectionId, string messageText, string userName)
 		{
@@ -22638,9 +25333,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 					CommandType.StoredProcedure,
 					"AddRDSMessage",
 					rdsMessageId,
+					/// <summary>TODO</summary>
 					new SqlParameter("@RDSCollectionId", rdsCollectionId),
+					/// <summary>TODO</summary>
 					new SqlParameter("@MessageText", messageText),
+					/// <summary>TODO</summary>
 					new SqlParameter("@UserName", userName),
+					/// <summary>TODO</summary>
 					new SqlParameter("@Date", DateTime.Now));
 
 				return Convert.ToInt32(rdsMessageId.Value);

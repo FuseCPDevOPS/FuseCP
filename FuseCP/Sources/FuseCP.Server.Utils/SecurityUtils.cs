@@ -153,8 +153,7 @@ namespace FuseCP.Providers.Utils
             // iterate through each account
             foreach (UserPermission permission in users)
             {
-                SecurityIdentifier identity = null;
-                identity = String.Compare(permission.AccountName, "network service", true) == 0 ? new SecurityIdentifier(SystemSID.NETWORK_SERVICE) : new SecurityIdentifier(GetAccountSid(permission.AccountName, serverSettings, usersOU, groupsOU));
+                SecurityIdentifier identity = String.Compare(permission.AccountName, "network service", true) == 0 ? new SecurityIdentifier(SystemSID.NETWORK_SERVICE) : new SecurityIdentifier(GetAccountSid(permission.AccountName, serverSettings, usersOU, groupsOU));
 
 
 
@@ -188,8 +187,7 @@ namespace FuseCP.Providers.Utils
             // iterate through each account
             foreach (UserPermission permission in users)
             {
-                SecurityIdentifier identity = null;
-                identity = String.Compare(permission.AccountName, "network service", true) == 0 ? new SecurityIdentifier(SystemSID.NETWORK_SERVICE) : new SecurityIdentifier(GetAccountSid(permission.AccountName, serverSettings, usersOU, groupsOU));
+                SecurityIdentifier identity = String.Compare(permission.AccountName, "network service", true) == 0 ? new SecurityIdentifier(SystemSID.NETWORK_SERVICE) : new SecurityIdentifier(GetAccountSid(permission.AccountName, serverSettings, usersOU, groupsOU));
 
 
 
@@ -451,7 +449,7 @@ namespace FuseCP.Providers.Utils
                 foreach (SearchResult result in results)
                 {
                     DirectoryEntry objUser = GetDirectoryObject(result.Path, serverSettings);
-                    users.Add(GetObjectProperty(objUser, "cn").ToString());
+                    users.Add((string)GetObjectProperty(objUser, "cn"));
                 }
             }
             else
@@ -465,17 +463,10 @@ namespace FuseCP.Providers.Utils
 
         public static bool UserExists(string username, RemoteServerSettings serverSettings, string usersOU)
         {
-            if (serverSettings.ADEnabled)
-            {
-                // AD mode
-                return (GetUserObject(username, serverSettings, usersOU) != null);
-            }
-            else
-            {
-                // LOCAL mode
-                return (wmi.ExecuteQuery(
+            return serverSettings.ADEnabled
+                ? GetUserObject(username, serverSettings, usersOU) != null
+                : (wmi.ExecuteQuery(
                     String.Format("SELECT * FROM Win32_UserAccount WHERE Name='{0}'", username))).Count > 0;
-            }
         }
 
         public static SystemUser GetUser(string username, RemoteServerSettings serverSettings, string usersOU)
@@ -492,17 +483,17 @@ namespace FuseCP.Providers.Utils
 
                     // fill user
                     SystemUser user = new SystemUser();
-                    user.Name = GetObjectProperty(objUser, "cn").ToString();
+                    user.Name = (string)GetObjectProperty(objUser, "cn");
                     user.FullName = (GetObjectProperty(objUser, "givenName") + " " +
                         GetObjectProperty(objUser, "sn")).Trim();
-                    user.Description = GetObjectProperty(objUser, "description").ToString();
+                    user.Description = (string)GetObjectProperty(objUser, "description");
 
                     ADAccountOptions userFlags = (ADAccountOptions)objUser.Properties["userAccountControl"].Value;
                     user.PasswordCantChange = ((userFlags & ADAccountOptions.UF_PASSWD_CANT_CHANGE) != 0);
                     user.PasswordNeverExpires = ((userFlags & ADAccountOptions.UF_DONT_EXPIRE_PASSWD) != 0);
                     user.AccountDisabled = ((userFlags & ADAccountOptions.UF_ACCOUNTDISABLE) != 0);
-                    user.MsIIS_FTPDir = GetObjectProperty(objUser, "msIIS-FTPDir").ToString();
-                    user.MsIIS_FTPRoot = GetObjectProperty(objUser, "msIIS-FTPRoot").ToString();
+                    user.MsIIS_FTPDir = (string)GetObjectProperty(objUser, "msIIS-FTPDir");
+                    user.MsIIS_FTPRoot = (string)GetObjectProperty(objUser, "msIIS-FTPRoot");
 
                     // get user groups
                     user.MemberOf = GetUserGroups(objUser);
@@ -933,7 +924,7 @@ namespace FuseCP.Providers.Utils
             {
                 // Get the Directory Entry.
                 using DirectoryEntry objGroup = new DirectoryEntry(group);
-                string groupFullName = GetObjectProperty(objGroup, "distinguishedName").ToString();
+                string groupFullName = (string)GetObjectProperty(objGroup, "distinguishedName");
                 int startPos = groupFullName.IndexOf("CN=") + 3;
                 int endPos = groupFullName.IndexOf(",", startPos);
                 userGroups.Add(groupFullName.Substring(startPos, endPos - startPos));
@@ -986,16 +977,11 @@ namespace FuseCP.Providers.Utils
 
         private static string GetUserName(string userName, RemoteServerSettings serverSettings)
         {
-            if (userName.Contains("\\"))
-            {
-                string[] tmp = userName.Split('\\');
-                return tmp.Length > 1 ? tmp[1] : tmp[0];
-
-
-
-            }
-            else
+            if (!userName.Contains("\\"))
                 return userName;
+
+            string[] tmp = userName.Split('\\');
+            return tmp.Length > 1 ? tmp[1] : tmp[0];
         }
 
         private static DirectoryEntry GetUserObject(DirectoryEntry objRoot, string userName,
@@ -1013,14 +999,7 @@ namespace FuseCP.Providers.Utils
             SearchResult results = deSearch.FindOne();
 
             //if found then return, otherwise return Null
-            if (results != null)
-            {
-                return GetDirectoryObject(results.Path, serverSettings);
-            }
-            else
-            {
-                return null;
-            }
+            return results != null ? GetDirectoryObject(results.Path, serverSettings) : null;
         }
 
         private static DirectoryEntry GetUserObject(string userName, RemoteServerSettings serverSettings, string usersOU)
@@ -1065,9 +1044,9 @@ namespace FuseCP.Providers.Utils
                 // get group entry
                 using (DirectoryEntry group = computer.Children.Find(groupName, "group"))
                 {
-                    string userObjPath = "WinNT://{0}/{1}";
-                    //
-                    userObjPath = serverSettings.ADEnabled ? String.Format(userObjPath, serverSettings.ADRootDomain, userName) : String.Format(userObjPath, Environment.MachineName, userName);
+                    string userObjPath = serverSettings.ADEnabled
+                        ? String.Format("WinNT://{0}/{1}", serverSettings.ADRootDomain, userName)
+                        : String.Format("WinNT://{0}/{1}", Environment.MachineName, userName);
 
 
 
@@ -1159,9 +1138,9 @@ namespace FuseCP.Providers.Utils
                 // get group entry
                 using (DirectoryEntry group = computer.Children.Find(groupName, "group"))
                 {
-                    string userObjPath = "WinNT://{0}/{1}";
-                    //
-                    userObjPath = serverSettings.ADEnabled ? String.Format(userObjPath, serverSettings.ADRootDomain, userName) : String.Format(userObjPath, Environment.MachineName, userName);
+                    string userObjPath = serverSettings.ADEnabled
+                        ? String.Format("WinNT://{0}/{1}", serverSettings.ADRootDomain, userName)
+                        : String.Format("WinNT://{0}/{1}", Environment.MachineName, userName);
 
 
 
@@ -1184,17 +1163,10 @@ namespace FuseCP.Providers.Utils
 
         public static bool GroupExists(string groupName, RemoteServerSettings serverSettings, string groupsOU)
         {
-            if (serverSettings.ADEnabled)
-            {
-                // AD mode
-                return (FindGroupObject(groupName, serverSettings, groupsOU) != null);
-            }
-            else
-            {
-                // LOCAL mode
-                return (wmi.ExecuteQuery(
+            return serverSettings.ADEnabled
+                ? FindGroupObject(groupName, serverSettings, groupsOU) != null
+                : (wmi.ExecuteQuery(
                     String.Format("SELECT * FROM Win32_Group WHERE Name='{0}'", groupName))).Count > 0;
-            }
         }
 
         public static string[] GetGroups(RemoteServerSettings serverSettings, string groupsOU)
@@ -1219,7 +1191,7 @@ namespace FuseCP.Providers.Utils
                 foreach (SearchResult result in results)
                 {
                     DirectoryEntry objGroup = GetDirectoryObject(result.Path, serverSettings);
-                    groups.Add(GetObjectProperty(objGroup, "cn").ToString());
+                    groups.Add((string)GetObjectProperty(objGroup, "cn"));
                 }
             }
             else
@@ -1245,8 +1217,8 @@ namespace FuseCP.Providers.Utils
 
                     // fill group
                     SystemGroup group = new SystemGroup();
-                    group.Name = GetObjectProperty(objGroup, "cn").ToString();
-                    group.Description = GetObjectProperty(objGroup, "description").ToString();
+                    group.Name = (string)GetObjectProperty(objGroup, "cn");
+                    group.Description = (string)GetObjectProperty(objGroup, "description");
 
                     // get group users
                     group.Members = GetGroupUsers(objGroup);
@@ -1541,14 +1513,7 @@ namespace FuseCP.Providers.Utils
             SearchResult results = deSearch.FindOne();
 
             //if found then return, otherwise return Null
-            if (results != null)
-            {
-                return GetDirectoryObject(results.Path, serverSettings);
-            }
-            else
-            {
-                return null;
-            }
+            return results != null ? GetDirectoryObject(results.Path, serverSettings) : null;
         }
         #endregion
 
@@ -1744,9 +1709,9 @@ namespace FuseCP.Providers.Utils
                 else
                 {
                     Int64 iVal = (Int32)(sidBytes[1]) +
-                        (Int32)(sidBytes[2] << 8) +
-                        (Int32)(sidBytes[3] << 16) +
-                        (Int32)(sidBytes[4] << 24);
+                        (sidBytes[2] << 8) +
+                        (sidBytes[3] << 16) +
+                        (sidBytes[4] << 24);
                     strSid.Append("-");
                     strSid.Append(iVal);
                 }

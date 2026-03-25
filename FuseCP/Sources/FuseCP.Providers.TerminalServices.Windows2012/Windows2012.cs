@@ -172,7 +172,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
         public override string[] Install()
         {            
             Runspace runSpace = null;
-            PSObject feature = null;
 
             try
             {
@@ -180,17 +179,17 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (!IsFeatureInstalled("Desktop-Experience", runSpace))
                 {
-                    feature = AddFeature(runSpace, "Desktop-Experience", true, false);                    
+                    AddFeature(runSpace, "Desktop-Experience", true, false);
                 }
 
                 if (!IsFeatureInstalled("NET-Framework-Core", runSpace))
                 {
-                    feature = AddFeature(runSpace, "NET-Framework-Core", true, false);
+                    AddFeature(runSpace, "NET-Framework-Core", true, false);
                 }
 
                 if (!IsFeatureInstalled("NET-Framework-45-Core", runSpace))
                 {
-                    feature = AddFeature(runSpace, "NET-Framework-45-Core", true, false);                    
+                    AddFeature(runSpace, "NET-Framework-45-Core", true, false);
                 }
             }
             finally
@@ -647,7 +646,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 string helpDeskGroupSamAccountName = CheckOrCreateAdGroup(GetHelpDeskGroupPath(RDSHelpDeskGroup), GetRootOUPath(), RDSHelpDeskGroup, RDSHelpDeskGroupDescription);
                 string groupName = GetLocalAdminsGroupName(collectionName);
                 string groupPath = GetGroupPath(organizationId, collectionName, groupName);
-                string localAdminsGroupSamAccountName = CheckOrCreateAdGroup(groupPath, GetOrganizationPath(organizationId), groupName, FCPAdministratorsGroupDescription);
+                CheckOrCreateAdGroup(groupPath, GetOrganizationPath(organizationId), groupName, FCPAdministratorsGroupDescription);
 
                 AddAdGroupToLocalAdmins(runSpace, server.FqdName, LocalAdministratorsGroupName);
                 AddAdGroupToLocalAdmins(runSpace, server.FqdName, helpDeskGroupSamAccountName);
@@ -993,14 +992,14 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var addCmdString = string.Format(AddNpsString, policyName.Replace(" ", "_"), count + 1, ConvertByteToStringSid(userGroupSid));
             Command addCmd = new Command(addCmdString);
 
-            var result = runSpace.ExecuteRemoteShellCommand(centralNpshost, addCmd, PrimaryDomainController);
+            runSpace.ExecuteRemoteShellCommand(centralNpshost, addCmd, PrimaryDomainController);
         }
 
         internal void RemoveNpsPolicy(Runspace runSpace, string centralNpshost, string policyName)
         {
             var removeCmd = new Command(string.Format("netsh nps delete np {0}", policyName.Replace(" ", "_")));
 
-            var removeResult = runSpace.ExecuteRemoteShellCommand(centralNpshost, removeCmd, PrimaryDomainController);
+            runSpace.ExecuteRemoteShellCommand(centralNpshost, removeCmd, PrimaryDomainController);
         }
 
         internal void CreateRdCapForce(Runspace runSpace, string gatewayHost, string policyName, string collectionName, List<string> groups)
@@ -1137,17 +1136,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
             try
             {
                 runspace = RdsRunspaceExtensions.OpenRunspace();
-                var index = ServerSettings.ADRootDomain.LastIndexOf(".");
-                var domainName = ServerSettings.ADRootDomain;
                 string groupName = GetLocalAdminsGroupName(collectionName);
                 string groupPath = GetGroupPath(organizationId, collectionName, groupName);
                 string helpDeskGroupSamAccountName = CheckOrCreateAdGroup(GetHelpDeskGroupPath(RDSHelpDeskGroup), GetRootOUPath(), RDSHelpDeskGroup, RDSHelpDeskGroupDescription);
                 string localAdminsGroupSamAccountName = CheckOrCreateAdGroup(groupPath, GetOrganizationPath(organizationId), groupName, FCPAdministratorsGroupDescription);
-
-                if (index > 0)
-                {
-                    domainName = ServerSettings.ADRootDomain.Substring(0, index);
-                }
 
                 foreach (var hostName in hosts)
                 {                                                     
@@ -1254,7 +1246,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
         private void CheckPolicySecurityFiltering(Runspace runspace, string gpoName, DirectoryEntry collectionComputersEntry)
         {
             var scripts = new List<string>{
-                string.Format("Get-GPPermissions -Name {0} -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName").ToString()))
+                string.Format("Get-GPPermissions -Name {0} -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", (string)ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName")))
             };
 
             object[] errors = null;
@@ -1263,7 +1255,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             if (errors != null && errors.Any())
             {
                 scripts = new List<string>{
-                    string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName").ToString()))
+                    string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", (string)ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName")))
                 };
             }
 
@@ -1333,7 +1325,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 cmd.Parameters.Add("Name", gpoName);
                 cmd.Parameters.Add("Key", string.Format("\"{0}\"", key));
 
-                Collection<PSObject> result = runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
+                runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
             }
             catch (Exception e)
             {
@@ -1367,7 +1359,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             cmd.Parameters.Add("Value", value);            
             cmd.Parameters.Add("Type", type);
 
-            Collection<PSObject> result = runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
+            runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
         }
 
         private void SetRegistryValue(Runspace runspace, string key, string gpoName, string value, string valueName, string type)
@@ -1379,7 +1371,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             cmd.Parameters.Add("ValueName", valueName);
             cmd.Parameters.Add("Type", type);
 
-            Collection<PSObject> result = runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
+            runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
         }
 
         private void CreateHelpDeskPolicy(Runspace runspace, DirectoryEntry entry, DirectoryEntry collectionComputersEntry, string organizationId, string collectionName)
@@ -1434,7 +1426,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             Command cmd = new Command("Remove-GPO");
             cmd.Parameters.Add("Name", gpoName);
 
-            Collection<PSObject> result = runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
+            runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
         }
 
         private void ExcludeAdminsFromUsersPolicy(Runspace runspace, string gpoId, string collectionName)
@@ -1464,8 +1456,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 "$AclRule = New-Object System.DirectoryServices.ActiveDirectoryAccessRule([System.Security.Principal.IdentityReference]$SID.Translate([System.Security.Principal.NTAccount]), [System.DirectoryServices.ActiveDirectoryRights]\"GenericRead\", [System.Security.AccessControl.AccessControlType]\"Allow\")",
                 "$ADSI.psbase.ObjectSecurity.AddAccessRule($AclRule)",
                 "$ADSI.psbase.CommitChanges()",
-                string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", ActiveDirectoryUtils.GetADObjectProperty(entry, "sAMAccountName").ToString())),
-                string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName").ToString()))
+                string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", (string)ActiveDirectoryUtils.GetADObjectProperty(entry, "sAMAccountName"))),
+                string.Format("Set-GPPermissions -Name {0} -PermissionLevel gpoapply -TargetName {1} -TargetType group", gpoName, string.Format("'{0}'", (string)ActiveDirectoryUtils.GetADObjectProperty(collectionComputersEntry, "sAMAccountName")))
             };
 
             object[] errors = null;
@@ -1501,7 +1493,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
             }
             catch (Exception)
             {
-                gpoId = null;
                 throw;
             }
 
@@ -1527,8 +1518,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
             }
             catch (Exception)
             {
-                gpoId = null;
-
                 throw;
             }
 
@@ -1612,7 +1601,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 groupEntry = ActiveDirectoryUtils.GetADObject(groupPath);
             }
 
-            return ActiveDirectoryUtils.GetADObjectProperty(groupEntry, "sAMAccountName").ToString();
+            return (string)ActiveDirectoryUtils.GetADObjectProperty(groupEntry, "sAMAccountName");
         }
 
         private void AddAdGroupToLocalAdmins(Runspace runspace, string hostName, string samAccountName)
@@ -1935,7 +1924,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 if (ActiveDirectoryUtils.AdObjectExists(userPath))
                 {                    
                     var userObject = ActiveDirectoryUtils.GetADObject(userPath);
-                    var samName = (string)ActiveDirectoryUtils.GetADObjectProperty(userObject, "sAMAccountName");                                        
                     ActiveDirectoryUtils.AddObjectToGroup(userPath, groupPath);                    
                 }                
             }
@@ -2042,13 +2030,13 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (!IsFeatureInstalled(hostName, "Desktop-Experience", runSpace))
                 {
-                    feature = AddFeature(runSpace, hostName, "Desktop-Experience", true, false);
+                    AddFeature(runSpace, hostName, "Desktop-Experience", true, false);
                     Log.WriteInfo("Add Feature Desktop-Experience: {0}", hostName);
                 }
 
                 if (!IsFeatureInstalled(hostName, "NET-Framework-Core", runSpace))
                 {
-                    feature = AddFeature(runSpace, hostName, "NET-Framework-Core", true, false);
+                    AddFeature(runSpace, hostName, "NET-Framework-Core", true, false);
                     Log.WriteInfo("Add Feature NET-Framework-Core: {0}", hostName);
                 }
             }            
@@ -2158,8 +2146,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
             }
 
             hostName = hostName.ToLower().Replace(string.Format(".{0}", ServerSettings.ADRootDomain.ToLower()), "");            
-            var rootComputerPath = GetRdsServerPath(hostName);
-            var tenantComputerPath = GetTenantComputerPath(hostName, organizationId);            
 
             if (!string.IsNullOrEmpty(ComputersRootOU))
             {                
@@ -2265,7 +2251,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             try
             {
                 // Add SID revision.
-                strSid.Append(sidBytes[0].ToString());
+                strSid.Append(sidBytes[0]);
                 // Next six bytes are SID authority value.
                 if (sidBytes[6] != 0 || sidBytes[5] != 0)
                 {
@@ -2283,11 +2269,11 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 else
                 {
                     Int64 iVal = (Int32)(sidBytes[1]) +
-                        (Int32)(sidBytes[2] << 8) +
-                        (Int32)(sidBytes[3] << 16) +
-                        (Int32)(sidBytes[4] << 24);
+                        (sidBytes[2] << 8) +
+                        (sidBytes[3] << 16) +
+                        (sidBytes[4] << 24);
                     strSid.Append("-");
-                    strSid.Append(iVal.ToString());
+                    strSid.Append(iVal);
                 }
 
                 // Get sub authority count...
@@ -2894,7 +2880,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
             cmd.Parameters.Add("CollectionName", collectionName);
             cmd.Parameters.Add("ConnectionBroker", ConnectionBroker);
             var userSessions = runSpace.ExecuteShellCommand(cmd, false, PrimaryDomainController, out errors);            
-            var properties = typeof(RdsUserSession).GetProperties();            
 
             foreach(var userSession in  userSessions)
             {

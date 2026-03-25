@@ -16,155 +16,228 @@
 namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
 {
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name = "CerberusFTPServiceSoapBinding", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AuthenticatedRequest))]
+    /// <summary>TODO</summary>
     public partial class CerberusFTPService : Microsoft.Web.Services3.WebServicesClientProtocol
     {
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetBackupServersOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SaveBackupServersOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SharePublicFileOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback AddIpOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DeleteIpOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback TestAndVerifyDatabaseOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback CreateStatisticsDatabaseOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DropStatisticsDatabaseOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetMimeMappingsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SaveMimeMappingsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ServerSummaryStatusOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ServerInformationOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback CurrentStatusOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback StartServerOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback StopServerOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ServerStartedOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback InitializeServerOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ShutdownServerOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetEventRulesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SetEventRulesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DeleteRequestedAccountsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetRequestedAccountsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SetRequestedAccountsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetAuthenticationListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SetAuthenticationListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetHostnameOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SetWANIPOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback AddUserOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback AddGroupOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DeleteUserOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DeleteGroupOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback AddRootOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback DeleteRootOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetUserListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetGroupListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetUserInformationOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetConnectedUserListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ChangePasswordOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback RenameUserOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback TerminateConnectionOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetProfilesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetGroupsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetConfigurationOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetInterfacesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetIPBlockListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetAutoBlockListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetAppPathsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetLicenseInfoOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback VerifyLicenseOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetCurrentConnectionCountOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetAllCurrentConnectionCountOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetInterfaceByIDOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetInterfaceListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback InitializeInterfaceOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ShutdownInterfaceOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetStatisticsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetCurrentBandwidthOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetFeaturesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SaveProfilesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SaveConfigurationOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback CommitSettingsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback SaveBlockListOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ModifyInterfaceOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback ShutdownConnectionsOnInterfaceOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetFileTransfersOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GetLogMessagesOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback BlockAddressOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback GenerateStatisticsOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback BackupServerConfigurationOperationCompleted;
+        /// <summary>Auto-generated member.</summary>
 
         private System.Threading.SendOrPostCallback RestoreServerConfigurationOperationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public CerberusFTPService()
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
@@ -172,218 +245,290 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetBackupServersCompletedEventHandler GetBackupServersCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SaveBackupServersCompletedEventHandler SaveBackupServersCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SharePublicFileCompletedEventHandler SharePublicFileCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event AddIpCompletedEventHandler AddIpCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DeleteIpCompletedEventHandler DeleteIpCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event TestAndVerifyDatabaseCompletedEventHandler TestAndVerifyDatabaseCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event CreateStatisticsDatabaseCompletedEventHandler CreateStatisticsDatabaseCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DropStatisticsDatabaseCompletedEventHandler DropStatisticsDatabaseCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetMimeMappingsCompletedEventHandler GetMimeMappingsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SaveMimeMappingsCompletedEventHandler SaveMimeMappingsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ServerSummaryStatusCompletedEventHandler ServerSummaryStatusCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ServerInformationCompletedEventHandler ServerInformationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event CurrentStatusCompletedEventHandler CurrentStatusCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event StartServerCompletedEventHandler StartServerCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event StopServerCompletedEventHandler StopServerCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ServerStartedCompletedEventHandler ServerStartedCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event InitializeServerCompletedEventHandler InitializeServerCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ShutdownServerCompletedEventHandler ShutdownServerCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetEventRulesCompletedEventHandler GetEventRulesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SetEventRulesCompletedEventHandler SetEventRulesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DeleteRequestedAccountsCompletedEventHandler DeleteRequestedAccountsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetRequestedAccountsCompletedEventHandler GetRequestedAccountsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SetRequestedAccountsCompletedEventHandler SetRequestedAccountsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetAuthenticationListCompletedEventHandler GetAuthenticationListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SetAuthenticationListCompletedEventHandler SetAuthenticationListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetHostnameCompletedEventHandler GetHostnameCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SetWANIPCompletedEventHandler SetWANIPCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event AddUserCompletedEventHandler AddUserCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event AddGroupCompletedEventHandler AddGroupCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DeleteUserCompletedEventHandler DeleteUserCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DeleteGroupCompletedEventHandler DeleteGroupCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event AddRootCompletedEventHandler AddRootCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event DeleteRootCompletedEventHandler DeleteRootCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetUserListCompletedEventHandler GetUserListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetGroupListCompletedEventHandler GetGroupListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetUserInformationCompletedEventHandler GetUserInformationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetConnectedUserListCompletedEventHandler GetConnectedUserListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ChangePasswordCompletedEventHandler ChangePasswordCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event RenameUserCompletedEventHandler RenameUserCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event TerminateConnectionCompletedEventHandler TerminateConnectionCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetProfilesCompletedEventHandler GetProfilesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetGroupsCompletedEventHandler GetGroupsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetConfigurationCompletedEventHandler GetConfigurationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetInterfacesCompletedEventHandler GetInterfacesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetIPBlockListCompletedEventHandler GetIPBlockListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetAutoBlockListCompletedEventHandler GetAutoBlockListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetAppPathsCompletedEventHandler GetAppPathsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetLicenseInfoCompletedEventHandler GetLicenseInfoCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event VerifyLicenseCompletedEventHandler VerifyLicenseCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetCurrentConnectionCountCompletedEventHandler GetCurrentConnectionCountCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetAllCurrentConnectionCountCompletedEventHandler GetAllCurrentConnectionCountCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetInterfaceByIDCompletedEventHandler GetInterfaceByIDCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetInterfaceListCompletedEventHandler GetInterfaceListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event InitializeInterfaceCompletedEventHandler InitializeInterfaceCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ShutdownInterfaceCompletedEventHandler ShutdownInterfaceCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetStatisticsCompletedEventHandler GetStatisticsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetCurrentBandwidthCompletedEventHandler GetCurrentBandwidthCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetFeaturesCompletedEventHandler GetFeaturesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SaveProfilesCompletedEventHandler SaveProfilesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SaveConfigurationCompletedEventHandler SaveConfigurationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event CommitSettingsCompletedEventHandler CommitSettingsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event SaveBlockListCompletedEventHandler SaveBlockListCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ModifyInterfaceCompletedEventHandler ModifyInterfaceCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event ShutdownConnectionsOnInterfaceCompletedEventHandler ShutdownConnectionsOnInterfaceCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetFileTransfersCompletedEventHandler GetFileTransfersCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GetLogMessagesCompletedEventHandler GetLogMessagesCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event BlockAddressCompletedEventHandler BlockAddressCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event GenerateStatisticsCompletedEventHandler GenerateStatisticsCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event BackupServerConfigurationCompletedEventHandler BackupServerConfigurationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public event RestoreServerConfigurationCompletedEventHandler RestoreServerConfigurationCompleted;
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetBackupServers", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetBackupServersResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetBackupServersResponse GetBackupServers([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetBackupServersRequest GetBackupServersRequest)
         {
             object[] results = this.Invoke("GetBackupServers", new object[] {
@@ -392,6 +537,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetBackupServers(GetBackupServersRequest GetBackupServersRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetBackupServers", new object[] {
@@ -399,6 +545,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetBackupServersResponse EndGetBackupServers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -406,12 +553,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetBackupServersAsync(GetBackupServersRequest GetBackupServersRequest)
         {
             this.GetBackupServersAsync(GetBackupServersRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetBackupServersAsync(GetBackupServersRequest GetBackupServersRequest, object userState)
         {
             if ((this.GetBackupServersOperationCompleted == null))
@@ -421,6 +570,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetBackupServers", new object[] {
                         GetBackupServersRequest}, this.GetBackupServersOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetBackupServersOperationCompleted(object arg)
         {
@@ -432,8 +582,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SaveBackupServers", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SaveBackupServersResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SaveBackupServersResponse SaveBackupServers([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SaveBackupServersRequest SaveBackupServersRequest)
         {
             object[] results = this.Invoke("SaveBackupServers", new object[] {
@@ -442,6 +594,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSaveBackupServers(SaveBackupServersRequest SaveBackupServersRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SaveBackupServers", new object[] {
@@ -449,6 +602,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SaveBackupServersResponse EndSaveBackupServers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -456,12 +610,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveBackupServersAsync(SaveBackupServersRequest SaveBackupServersRequest)
         {
             this.SaveBackupServersAsync(SaveBackupServersRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveBackupServersAsync(SaveBackupServersRequest SaveBackupServersRequest, object userState)
         {
             if ((this.SaveBackupServersOperationCompleted == null))
@@ -471,6 +627,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SaveBackupServers", new object[] {
                         SaveBackupServersRequest}, this.SaveBackupServersOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSaveBackupServersOperationCompleted(object arg)
         {
@@ -482,8 +639,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SharePublicFile", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SharePublicFileResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SharePublicFileResponse SharePublicFile([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SharePublicFileRequest SharePublicFileRequest)
         {
             object[] results = this.Invoke("SharePublicFile", new object[] {
@@ -492,6 +651,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSharePublicFile(SharePublicFileRequest SharePublicFileRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SharePublicFile", new object[] {
@@ -499,6 +659,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SharePublicFileResponse EndSharePublicFile(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -506,12 +667,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SharePublicFileAsync(SharePublicFileRequest SharePublicFileRequest)
         {
             this.SharePublicFileAsync(SharePublicFileRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SharePublicFileAsync(SharePublicFileRequest SharePublicFileRequest, object userState)
         {
             if ((this.SharePublicFileOperationCompleted == null))
@@ -521,6 +684,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SharePublicFile", new object[] {
                         SharePublicFileRequest}, this.SharePublicFileOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSharePublicFileOperationCompleted(object arg)
         {
@@ -532,8 +696,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/AddIp", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("AddIpResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public AddIpResponse AddIp([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] AddIpRequest AddIpRequest)
         {
             object[] results = this.Invoke("AddIp", new object[] {
@@ -542,6 +708,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginAddIp(AddIpRequest AddIpRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddIp", new object[] {
@@ -549,6 +716,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public AddIpResponse EndAddIp(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -556,12 +724,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddIpAsync(AddIpRequest AddIpRequest)
         {
             this.AddIpAsync(AddIpRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddIpAsync(AddIpRequest AddIpRequest, object userState)
         {
             if ((this.AddIpOperationCompleted == null))
@@ -571,6 +741,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("AddIp", new object[] {
                         AddIpRequest}, this.AddIpOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnAddIpOperationCompleted(object arg)
         {
@@ -582,8 +753,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DeleteIp", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DeleteIpResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DeleteIpResponse DeleteIp([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DeleteIpRequest DeleteIpRequest)
         {
             object[] results = this.Invoke("DeleteIp", new object[] {
@@ -592,6 +765,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDeleteIp(DeleteIpRequest DeleteIpRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteIp", new object[] {
@@ -599,6 +773,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DeleteIpResponse EndDeleteIp(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -606,12 +781,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteIpAsync(DeleteIpRequest DeleteIpRequest)
         {
             this.DeleteIpAsync(DeleteIpRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteIpAsync(DeleteIpRequest DeleteIpRequest, object userState)
         {
             if ((this.DeleteIpOperationCompleted == null))
@@ -621,6 +798,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DeleteIp", new object[] {
                         DeleteIpRequest}, this.DeleteIpOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDeleteIpOperationCompleted(object arg)
         {
@@ -632,8 +810,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/TestAndVerifyDatabase", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("TestAndVerifyDatabaseResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public TestAndVerifyDatabaseResponse TestAndVerifyDatabase([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] TestAndVerifyDatabaseRequest TestAndVerifyDatabaseRequest)
         {
             object[] results = this.Invoke("TestAndVerifyDatabase", new object[] {
@@ -642,6 +822,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginTestAndVerifyDatabase(TestAndVerifyDatabaseRequest TestAndVerifyDatabaseRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("TestAndVerifyDatabase", new object[] {
@@ -649,6 +830,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public TestAndVerifyDatabaseResponse EndTestAndVerifyDatabase(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -656,12 +838,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void TestAndVerifyDatabaseAsync(TestAndVerifyDatabaseRequest TestAndVerifyDatabaseRequest)
         {
             this.TestAndVerifyDatabaseAsync(TestAndVerifyDatabaseRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void TestAndVerifyDatabaseAsync(TestAndVerifyDatabaseRequest TestAndVerifyDatabaseRequest, object userState)
         {
             if ((this.TestAndVerifyDatabaseOperationCompleted == null))
@@ -671,6 +855,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("TestAndVerifyDatabase", new object[] {
                         TestAndVerifyDatabaseRequest}, this.TestAndVerifyDatabaseOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnTestAndVerifyDatabaseOperationCompleted(object arg)
         {
@@ -682,8 +867,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/CreateStatisticsDatabase", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("CreateStatisticsDatabaseResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public CreateStatisticsDatabaseResponse CreateStatisticsDatabase([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] CreateStatisticsDatabaseRequest CreateStatisticsDatabaseRequest)
         {
             object[] results = this.Invoke("CreateStatisticsDatabase", new object[] {
@@ -692,6 +879,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginCreateStatisticsDatabase(CreateStatisticsDatabaseRequest CreateStatisticsDatabaseRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("CreateStatisticsDatabase", new object[] {
@@ -699,6 +887,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public CreateStatisticsDatabaseResponse EndCreateStatisticsDatabase(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -706,12 +895,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CreateStatisticsDatabaseAsync(CreateStatisticsDatabaseRequest CreateStatisticsDatabaseRequest)
         {
             this.CreateStatisticsDatabaseAsync(CreateStatisticsDatabaseRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CreateStatisticsDatabaseAsync(CreateStatisticsDatabaseRequest CreateStatisticsDatabaseRequest, object userState)
         {
             if ((this.CreateStatisticsDatabaseOperationCompleted == null))
@@ -721,6 +912,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("CreateStatisticsDatabase", new object[] {
                         CreateStatisticsDatabaseRequest}, this.CreateStatisticsDatabaseOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnCreateStatisticsDatabaseOperationCompleted(object arg)
         {
@@ -732,8 +924,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DropStatisticsDatabase", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DropStatisticsDatabaseResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DropStatisticsDatabaseResponse DropStatisticsDatabase([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DropStatisticsDatabaseRequest DropStatisticsDatabaseRequest)
         {
             object[] results = this.Invoke("DropStatisticsDatabase", new object[] {
@@ -742,6 +936,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDropStatisticsDatabase(DropStatisticsDatabaseRequest DropStatisticsDatabaseRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DropStatisticsDatabase", new object[] {
@@ -749,6 +944,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DropStatisticsDatabaseResponse EndDropStatisticsDatabase(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -756,12 +952,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DropStatisticsDatabaseAsync(DropStatisticsDatabaseRequest DropStatisticsDatabaseRequest)
         {
             this.DropStatisticsDatabaseAsync(DropStatisticsDatabaseRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DropStatisticsDatabaseAsync(DropStatisticsDatabaseRequest DropStatisticsDatabaseRequest, object userState)
         {
             if ((this.DropStatisticsDatabaseOperationCompleted == null))
@@ -771,6 +969,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DropStatisticsDatabase", new object[] {
                         DropStatisticsDatabaseRequest}, this.DropStatisticsDatabaseOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDropStatisticsDatabaseOperationCompleted(object arg)
         {
@@ -782,8 +981,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetMimeMappings", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetMimeMappingsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetMimeMappingsResponse GetMimeMappings([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetMimeMappingsRequest GetMimeMappingsRequest)
         {
             object[] results = this.Invoke("GetMimeMappings", new object[] {
@@ -792,6 +993,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetMimeMappings(GetMimeMappingsRequest GetMimeMappingsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetMimeMappings", new object[] {
@@ -799,6 +1001,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetMimeMappingsResponse EndGetMimeMappings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -806,12 +1009,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetMimeMappingsAsync(GetMimeMappingsRequest GetMimeMappingsRequest)
         {
             this.GetMimeMappingsAsync(GetMimeMappingsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetMimeMappingsAsync(GetMimeMappingsRequest GetMimeMappingsRequest, object userState)
         {
             if ((this.GetMimeMappingsOperationCompleted == null))
@@ -821,6 +1026,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetMimeMappings", new object[] {
                         GetMimeMappingsRequest}, this.GetMimeMappingsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetMimeMappingsOperationCompleted(object arg)
         {
@@ -832,8 +1038,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SaveMimeMappings", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SaveMimeMappingsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SaveMimeMappingsResponse SaveMimeMappings([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SaveMimeMappingsRequest SaveMimeMappingsRequest)
         {
             object[] results = this.Invoke("SaveMimeMappings", new object[] {
@@ -842,6 +1050,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSaveMimeMappings(SaveMimeMappingsRequest SaveMimeMappingsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SaveMimeMappings", new object[] {
@@ -849,6 +1058,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SaveMimeMappingsResponse EndSaveMimeMappings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -856,12 +1066,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveMimeMappingsAsync(SaveMimeMappingsRequest SaveMimeMappingsRequest)
         {
             this.SaveMimeMappingsAsync(SaveMimeMappingsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveMimeMappingsAsync(SaveMimeMappingsRequest SaveMimeMappingsRequest, object userState)
         {
             if ((this.SaveMimeMappingsOperationCompleted == null))
@@ -871,6 +1083,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SaveMimeMappings", new object[] {
                         SaveMimeMappingsRequest}, this.SaveMimeMappingsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSaveMimeMappingsOperationCompleted(object arg)
         {
@@ -882,8 +1095,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ServerSummaryStatus", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ServerSummaryStatusResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ServerSummaryStatusResponse ServerSummaryStatus([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ServerSummaryStatusRequest ServerSummaryStatusRequest)
         {
             object[] results = this.Invoke("ServerSummaryStatus", new object[] {
@@ -892,6 +1107,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginServerSummaryStatus(ServerSummaryStatusRequest ServerSummaryStatusRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ServerSummaryStatus", new object[] {
@@ -899,6 +1115,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ServerSummaryStatusResponse EndServerSummaryStatus(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -906,12 +1123,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerSummaryStatusAsync(ServerSummaryStatusRequest ServerSummaryStatusRequest)
         {
             this.ServerSummaryStatusAsync(ServerSummaryStatusRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerSummaryStatusAsync(ServerSummaryStatusRequest ServerSummaryStatusRequest, object userState)
         {
             if ((this.ServerSummaryStatusOperationCompleted == null))
@@ -921,6 +1140,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ServerSummaryStatus", new object[] {
                         ServerSummaryStatusRequest}, this.ServerSummaryStatusOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnServerSummaryStatusOperationCompleted(object arg)
         {
@@ -932,8 +1152,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ServerInformation", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ServerInformationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ServerInformationResponse ServerInformation([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ServerInformationRequest ServerInformationRequest)
         {
             object[] results = this.Invoke("ServerInformation", new object[] {
@@ -942,6 +1164,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginServerInformation(ServerInformationRequest ServerInformationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ServerInformation", new object[] {
@@ -949,6 +1172,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ServerInformationResponse EndServerInformation(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -956,12 +1180,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerInformationAsync(ServerInformationRequest ServerInformationRequest)
         {
             this.ServerInformationAsync(ServerInformationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerInformationAsync(ServerInformationRequest ServerInformationRequest, object userState)
         {
             if ((this.ServerInformationOperationCompleted == null))
@@ -971,6 +1197,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ServerInformation", new object[] {
                         ServerInformationRequest}, this.ServerInformationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnServerInformationOperationCompleted(object arg)
         {
@@ -982,8 +1209,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/CurrentStatus", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("CurrentStatusResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public CurrentStatusResponse CurrentStatus([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] CurrentStatusRequest CurrentStatusRequest)
         {
             object[] results = this.Invoke("CurrentStatus", new object[] {
@@ -992,6 +1221,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginCurrentStatus(CurrentStatusRequest CurrentStatusRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("CurrentStatus", new object[] {
@@ -999,6 +1229,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public CurrentStatusResponse EndCurrentStatus(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1006,12 +1237,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CurrentStatusAsync(CurrentStatusRequest CurrentStatusRequest)
         {
             this.CurrentStatusAsync(CurrentStatusRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CurrentStatusAsync(CurrentStatusRequest CurrentStatusRequest, object userState)
         {
             if ((this.CurrentStatusOperationCompleted == null))
@@ -1021,6 +1254,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("CurrentStatus", new object[] {
                         CurrentStatusRequest}, this.CurrentStatusOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnCurrentStatusOperationCompleted(object arg)
         {
@@ -1032,8 +1266,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/StartServer", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("StartServerResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public StartServerResponse StartServer([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] StartServerRequest StartServerRequest)
         {
             object[] results = this.Invoke("StartServer", new object[] {
@@ -1042,6 +1278,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginStartServer(StartServerRequest StartServerRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("StartServer", new object[] {
@@ -1049,6 +1286,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public StartServerResponse EndStartServer(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1056,12 +1294,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void StartServerAsync(StartServerRequest StartServerRequest)
         {
             this.StartServerAsync(StartServerRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void StartServerAsync(StartServerRequest StartServerRequest, object userState)
         {
             if ((this.StartServerOperationCompleted == null))
@@ -1071,6 +1311,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("StartServer", new object[] {
                         StartServerRequest}, this.StartServerOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnStartServerOperationCompleted(object arg)
         {
@@ -1082,8 +1323,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/StopServer", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("StopServerResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public StopServerResponse StopServer([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] StopServerRequest StopServerRequest)
         {
             object[] results = this.Invoke("StopServer", new object[] {
@@ -1092,6 +1335,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginStopServer(StopServerRequest StopServerRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("StopServer", new object[] {
@@ -1099,6 +1343,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public StopServerResponse EndStopServer(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1106,12 +1351,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void StopServerAsync(StopServerRequest StopServerRequest)
         {
             this.StopServerAsync(StopServerRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void StopServerAsync(StopServerRequest StopServerRequest, object userState)
         {
             if ((this.StopServerOperationCompleted == null))
@@ -1121,6 +1368,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("StopServer", new object[] {
                         StopServerRequest}, this.StopServerOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnStopServerOperationCompleted(object arg)
         {
@@ -1132,8 +1380,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ServerStarted", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ServerStartedResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ServerStartedResponse ServerStarted([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ServerStartedRequest ServerStartedRequest)
         {
             object[] results = this.Invoke("ServerStarted", new object[] {
@@ -1142,6 +1392,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginServerStarted(ServerStartedRequest ServerStartedRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ServerStarted", new object[] {
@@ -1149,6 +1400,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ServerStartedResponse EndServerStarted(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1156,12 +1408,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerStartedAsync(ServerStartedRequest ServerStartedRequest)
         {
             this.ServerStartedAsync(ServerStartedRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ServerStartedAsync(ServerStartedRequest ServerStartedRequest, object userState)
         {
             if ((this.ServerStartedOperationCompleted == null))
@@ -1171,6 +1425,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ServerStarted", new object[] {
                         ServerStartedRequest}, this.ServerStartedOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnServerStartedOperationCompleted(object arg)
         {
@@ -1182,8 +1437,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/InitializeServer", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("InitializeServerResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public InitializeServerResponse InitializeServer([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] InitializeServerRequest InitializeServerRequest)
         {
             object[] results = this.Invoke("InitializeServer", new object[] {
@@ -1192,6 +1449,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginInitializeServer(InitializeServerRequest InitializeServerRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("InitializeServer", new object[] {
@@ -1199,6 +1457,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public InitializeServerResponse EndInitializeServer(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1206,12 +1465,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void InitializeServerAsync(InitializeServerRequest InitializeServerRequest)
         {
             this.InitializeServerAsync(InitializeServerRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void InitializeServerAsync(InitializeServerRequest InitializeServerRequest, object userState)
         {
             if ((this.InitializeServerOperationCompleted == null))
@@ -1221,6 +1482,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("InitializeServer", new object[] {
                         InitializeServerRequest}, this.InitializeServerOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnInitializeServerOperationCompleted(object arg)
         {
@@ -1232,8 +1494,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ShutdownServer", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ShutdownServerResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ShutdownServerResponse ShutdownServer([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ShutdownServerRequest ShutdownServerRequest)
         {
             object[] results = this.Invoke("ShutdownServer", new object[] {
@@ -1242,6 +1506,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginShutdownServer(ShutdownServerRequest ShutdownServerRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ShutdownServer", new object[] {
@@ -1249,6 +1514,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ShutdownServerResponse EndShutdownServer(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1256,12 +1522,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownServerAsync(ShutdownServerRequest ShutdownServerRequest)
         {
             this.ShutdownServerAsync(ShutdownServerRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownServerAsync(ShutdownServerRequest ShutdownServerRequest, object userState)
         {
             if ((this.ShutdownServerOperationCompleted == null))
@@ -1271,6 +1539,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ShutdownServer", new object[] {
                         ShutdownServerRequest}, this.ShutdownServerOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnShutdownServerOperationCompleted(object arg)
         {
@@ -1282,8 +1551,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetEventRules", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetEventRulesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetEventRulesResponse GetEventRules([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetEventRulesRequest GetEventRulesRequest)
         {
             object[] results = this.Invoke("GetEventRules", new object[] {
@@ -1292,6 +1563,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetEventRules(GetEventRulesRequest GetEventRulesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetEventRules", new object[] {
@@ -1299,6 +1571,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetEventRulesResponse EndGetEventRules(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1306,12 +1579,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetEventRulesAsync(GetEventRulesRequest GetEventRulesRequest)
         {
             this.GetEventRulesAsync(GetEventRulesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetEventRulesAsync(GetEventRulesRequest GetEventRulesRequest, object userState)
         {
             if ((this.GetEventRulesOperationCompleted == null))
@@ -1321,6 +1596,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetEventRules", new object[] {
                         GetEventRulesRequest}, this.GetEventRulesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetEventRulesOperationCompleted(object arg)
         {
@@ -1332,8 +1608,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SetEventRules", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SetEventRulesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SetEventRulesResponse SetEventRules([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SetEventRulesRequest SetEventRulesRequest)
         {
             object[] results = this.Invoke("SetEventRules", new object[] {
@@ -1342,6 +1620,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSetEventRules(SetEventRulesRequest SetEventRulesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetEventRules", new object[] {
@@ -1349,6 +1628,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SetEventRulesResponse EndSetEventRules(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1356,12 +1636,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetEventRulesAsync(SetEventRulesRequest SetEventRulesRequest)
         {
             this.SetEventRulesAsync(SetEventRulesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetEventRulesAsync(SetEventRulesRequest SetEventRulesRequest, object userState)
         {
             if ((this.SetEventRulesOperationCompleted == null))
@@ -1371,6 +1653,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SetEventRules", new object[] {
                         SetEventRulesRequest}, this.SetEventRulesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSetEventRulesOperationCompleted(object arg)
         {
@@ -1382,8 +1665,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DeleteRequestedAccounts", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DeleteRequestedAccountsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DeleteRequestedAccountsResponse DeleteRequestedAccounts([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DeleteRequestedAccountsRequest DeleteRequestedAccountsRequest)
         {
             object[] results = this.Invoke("DeleteRequestedAccounts", new object[] {
@@ -1392,6 +1677,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDeleteRequestedAccounts(DeleteRequestedAccountsRequest DeleteRequestedAccountsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteRequestedAccounts", new object[] {
@@ -1399,6 +1685,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DeleteRequestedAccountsResponse EndDeleteRequestedAccounts(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1406,12 +1693,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteRequestedAccountsAsync(DeleteRequestedAccountsRequest DeleteRequestedAccountsRequest)
         {
             this.DeleteRequestedAccountsAsync(DeleteRequestedAccountsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteRequestedAccountsAsync(DeleteRequestedAccountsRequest DeleteRequestedAccountsRequest, object userState)
         {
             if ((this.DeleteRequestedAccountsOperationCompleted == null))
@@ -1421,6 +1710,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DeleteRequestedAccounts", new object[] {
                         DeleteRequestedAccountsRequest}, this.DeleteRequestedAccountsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDeleteRequestedAccountsOperationCompleted(object arg)
         {
@@ -1432,8 +1722,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetRequestedAccounts", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetRequestedAccountsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetRequestedAccountsResponse GetRequestedAccounts([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetRequestedAccountsRequest GetRequestedAccountsRequest)
         {
             object[] results = this.Invoke("GetRequestedAccounts", new object[] {
@@ -1442,6 +1734,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetRequestedAccounts(GetRequestedAccountsRequest GetRequestedAccountsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetRequestedAccounts", new object[] {
@@ -1449,6 +1742,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetRequestedAccountsResponse EndGetRequestedAccounts(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1456,12 +1750,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetRequestedAccountsAsync(GetRequestedAccountsRequest GetRequestedAccountsRequest)
         {
             this.GetRequestedAccountsAsync(GetRequestedAccountsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetRequestedAccountsAsync(GetRequestedAccountsRequest GetRequestedAccountsRequest, object userState)
         {
             if ((this.GetRequestedAccountsOperationCompleted == null))
@@ -1471,6 +1767,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetRequestedAccounts", new object[] {
                         GetRequestedAccountsRequest}, this.GetRequestedAccountsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetRequestedAccountsOperationCompleted(object arg)
         {
@@ -1482,8 +1779,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SetRequestedAccounts", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SetRequestedAccountsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SetRequestedAccountsResponse SetRequestedAccounts([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SetRequestedAccountsRequest SetRequestedAccountsRequest)
         {
             object[] results = this.Invoke("SetRequestedAccounts", new object[] {
@@ -1492,6 +1791,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSetRequestedAccounts(SetRequestedAccountsRequest SetRequestedAccountsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetRequestedAccounts", new object[] {
@@ -1499,6 +1799,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SetRequestedAccountsResponse EndSetRequestedAccounts(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1506,12 +1807,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetRequestedAccountsAsync(SetRequestedAccountsRequest SetRequestedAccountsRequest)
         {
             this.SetRequestedAccountsAsync(SetRequestedAccountsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetRequestedAccountsAsync(SetRequestedAccountsRequest SetRequestedAccountsRequest, object userState)
         {
             if ((this.SetRequestedAccountsOperationCompleted == null))
@@ -1521,6 +1824,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SetRequestedAccounts", new object[] {
                         SetRequestedAccountsRequest}, this.SetRequestedAccountsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSetRequestedAccountsOperationCompleted(object arg)
         {
@@ -1532,8 +1836,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetAuthenticationList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetAuthenticationListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetAuthenticationListResponse GetAuthenticationList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetAuthenticationListRequest GetAuthenticationListRequest)
         {
             object[] results = this.Invoke("GetAuthenticationList", new object[] {
@@ -1542,6 +1848,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetAuthenticationList(GetAuthenticationListRequest GetAuthenticationListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAuthenticationList", new object[] {
@@ -1549,6 +1856,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetAuthenticationListResponse EndGetAuthenticationList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1556,12 +1864,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAuthenticationListAsync(GetAuthenticationListRequest GetAuthenticationListRequest)
         {
             this.GetAuthenticationListAsync(GetAuthenticationListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAuthenticationListAsync(GetAuthenticationListRequest GetAuthenticationListRequest, object userState)
         {
             if ((this.GetAuthenticationListOperationCompleted == null))
@@ -1571,6 +1881,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetAuthenticationList", new object[] {
                         GetAuthenticationListRequest}, this.GetAuthenticationListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetAuthenticationListOperationCompleted(object arg)
         {
@@ -1582,8 +1893,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SetAuthenticationList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SetAuthenticationListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SetAuthenticationListResponse SetAuthenticationList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SetAuthenticationListRequest SetAuthenticationListRequest)
         {
             object[] results = this.Invoke("SetAuthenticationList", new object[] {
@@ -1592,6 +1905,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSetAuthenticationList(SetAuthenticationListRequest SetAuthenticationListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetAuthenticationList", new object[] {
@@ -1599,6 +1913,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SetAuthenticationListResponse EndSetAuthenticationList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1606,12 +1921,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetAuthenticationListAsync(SetAuthenticationListRequest SetAuthenticationListRequest)
         {
             this.SetAuthenticationListAsync(SetAuthenticationListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetAuthenticationListAsync(SetAuthenticationListRequest SetAuthenticationListRequest, object userState)
         {
             if ((this.SetAuthenticationListOperationCompleted == null))
@@ -1621,6 +1938,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SetAuthenticationList", new object[] {
                         SetAuthenticationListRequest}, this.SetAuthenticationListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSetAuthenticationListOperationCompleted(object arg)
         {
@@ -1632,8 +1950,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetHostname", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetHostnameResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetHostnameResponse GetHostname([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetHostnameRequest GetHostnameRequest)
         {
             object[] results = this.Invoke("GetHostname", new object[] {
@@ -1642,6 +1962,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetHostname(GetHostnameRequest GetHostnameRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetHostname", new object[] {
@@ -1649,6 +1970,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetHostnameResponse EndGetHostname(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1656,12 +1978,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetHostnameAsync(GetHostnameRequest GetHostnameRequest)
         {
             this.GetHostnameAsync(GetHostnameRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetHostnameAsync(GetHostnameRequest GetHostnameRequest, object userState)
         {
             if ((this.GetHostnameOperationCompleted == null))
@@ -1671,6 +1995,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetHostname", new object[] {
                         GetHostnameRequest}, this.GetHostnameOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetHostnameOperationCompleted(object arg)
         {
@@ -1682,8 +2007,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SetWANIP", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SetWANIPResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SetWANIPResponse SetWANIP([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SetWANIPRequest SetWANIPRequest)
         {
             object[] results = this.Invoke("SetWANIP", new object[] {
@@ -1692,6 +2019,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSetWANIP(SetWANIPRequest SetWANIPRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SetWANIP", new object[] {
@@ -1699,6 +2027,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SetWANIPResponse EndSetWANIP(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1706,12 +2035,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetWANIPAsync(SetWANIPRequest SetWANIPRequest)
         {
             this.SetWANIPAsync(SetWANIPRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SetWANIPAsync(SetWANIPRequest SetWANIPRequest, object userState)
         {
             if ((this.SetWANIPOperationCompleted == null))
@@ -1721,6 +2052,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SetWANIP", new object[] {
                         SetWANIPRequest}, this.SetWANIPOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSetWANIPOperationCompleted(object arg)
         {
@@ -1732,8 +2064,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/AddUser", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("AddUserResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public AddUserResponse AddUser([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] AddUserRequest AddUserRequest)
         {
             object[] results = this.Invoke("AddUser", new object[] {
@@ -1742,6 +2076,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginAddUser(AddUserRequest AddUserRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddUser", new object[] {
@@ -1749,6 +2084,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public AddUserResponse EndAddUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1756,12 +2092,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddUserAsync(AddUserRequest AddUserRequest)
         {
             this.AddUserAsync(AddUserRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddUserAsync(AddUserRequest AddUserRequest, object userState)
         {
             if ((this.AddUserOperationCompleted == null))
@@ -1771,6 +2109,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("AddUser", new object[] {
                         AddUserRequest}, this.AddUserOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnAddUserOperationCompleted(object arg)
         {
@@ -1782,8 +2121,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/AddGroup", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("AddGroupResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public AddGroupResponse AddGroup([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] AddGroupRequest AddGroupRequest)
         {
             object[] results = this.Invoke("AddGroup", new object[] {
@@ -1792,6 +2133,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginAddGroup(AddGroupRequest AddGroupRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddGroup", new object[] {
@@ -1799,6 +2141,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public AddGroupResponse EndAddGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1806,12 +2149,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddGroupAsync(AddGroupRequest AddGroupRequest)
         {
             this.AddGroupAsync(AddGroupRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddGroupAsync(AddGroupRequest AddGroupRequest, object userState)
         {
             if ((this.AddGroupOperationCompleted == null))
@@ -1821,6 +2166,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("AddGroup", new object[] {
                         AddGroupRequest}, this.AddGroupOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnAddGroupOperationCompleted(object arg)
         {
@@ -1832,8 +2178,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DeleteUser", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DeleteUserResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DeleteUserResponse DeleteUser([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DeleteUserRequest DeleteUserRequest)
         {
             object[] results = this.Invoke("DeleteUser", new object[] {
@@ -1842,6 +2190,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDeleteUser(DeleteUserRequest DeleteUserRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteUser", new object[] {
@@ -1849,6 +2198,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DeleteUserResponse EndDeleteUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1856,12 +2206,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteUserAsync(DeleteUserRequest DeleteUserRequest)
         {
             this.DeleteUserAsync(DeleteUserRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteUserAsync(DeleteUserRequest DeleteUserRequest, object userState)
         {
             if ((this.DeleteUserOperationCompleted == null))
@@ -1871,6 +2223,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DeleteUser", new object[] {
                         DeleteUserRequest}, this.DeleteUserOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDeleteUserOperationCompleted(object arg)
         {
@@ -1882,8 +2235,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DeleteGroup", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DeleteGroupResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DeleteGroupResponse DeleteGroup([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DeleteGroupRequest DeleteGroupRequest)
         {
             object[] results = this.Invoke("DeleteGroup", new object[] {
@@ -1892,6 +2247,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDeleteGroup(DeleteGroupRequest DeleteGroupRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteGroup", new object[] {
@@ -1899,6 +2255,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DeleteGroupResponse EndDeleteGroup(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1906,12 +2263,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteGroupAsync(DeleteGroupRequest DeleteGroupRequest)
         {
             this.DeleteGroupAsync(DeleteGroupRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteGroupAsync(DeleteGroupRequest DeleteGroupRequest, object userState)
         {
             if ((this.DeleteGroupOperationCompleted == null))
@@ -1921,6 +2280,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DeleteGroup", new object[] {
                         DeleteGroupRequest}, this.DeleteGroupOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDeleteGroupOperationCompleted(object arg)
         {
@@ -1932,8 +2292,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/AddRoot", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("AddRootResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public AddRootResponse AddRoot([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] AddRootRequest AddRootRequest)
         {
             object[] results = this.Invoke("AddRoot", new object[] {
@@ -1942,6 +2304,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginAddRoot(AddRootRequest AddRootRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("AddRoot", new object[] {
@@ -1949,6 +2312,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public AddRootResponse EndAddRoot(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -1956,12 +2320,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddRootAsync(AddRootRequest AddRootRequest)
         {
             this.AddRootAsync(AddRootRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void AddRootAsync(AddRootRequest AddRootRequest, object userState)
         {
             if ((this.AddRootOperationCompleted == null))
@@ -1971,6 +2337,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("AddRoot", new object[] {
                         AddRootRequest}, this.AddRootOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnAddRootOperationCompleted(object arg)
         {
@@ -1982,8 +2349,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/DeleteRoot", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("DeleteRootResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public DeleteRootResponse DeleteRoot([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] DeleteRootRequest DeleteRootRequest)
         {
             object[] results = this.Invoke("DeleteRoot", new object[] {
@@ -1992,6 +2361,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginDeleteRoot(DeleteRootRequest DeleteRootRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("DeleteRoot", new object[] {
@@ -1999,6 +2369,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public DeleteRootResponse EndDeleteRoot(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2006,12 +2377,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteRootAsync(DeleteRootRequest DeleteRootRequest)
         {
             this.DeleteRootAsync(DeleteRootRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void DeleteRootAsync(DeleteRootRequest DeleteRootRequest, object userState)
         {
             if ((this.DeleteRootOperationCompleted == null))
@@ -2021,6 +2394,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("DeleteRoot", new object[] {
                         DeleteRootRequest}, this.DeleteRootOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnDeleteRootOperationCompleted(object arg)
         {
@@ -2032,8 +2406,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetUserList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetUserListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetUserListResponse GetUserList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetUserListRequest GetUserListRequest)
         {
             object[] results = this.Invoke("GetUserList", new object[] {
@@ -2042,6 +2418,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetUserList(GetUserListRequest GetUserListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserList", new object[] {
@@ -2049,6 +2426,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetUserListResponse EndGetUserList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2056,12 +2434,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetUserListAsync(GetUserListRequest GetUserListRequest)
         {
             this.GetUserListAsync(GetUserListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetUserListAsync(GetUserListRequest GetUserListRequest, object userState)
         {
             if ((this.GetUserListOperationCompleted == null))
@@ -2071,6 +2451,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetUserList", new object[] {
                         GetUserListRequest}, this.GetUserListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetUserListOperationCompleted(object arg)
         {
@@ -2082,8 +2463,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetGroupList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetGroupListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetGroupListResponse GetGroupList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetGroupListRequest GetGroupListRequest)
         {
             object[] results = this.Invoke("GetGroupList", new object[] {
@@ -2092,6 +2475,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetGroupList(GetGroupListRequest GetGroupListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetGroupList", new object[] {
@@ -2099,6 +2483,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetGroupListResponse EndGetGroupList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2106,12 +2491,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetGroupListAsync(GetGroupListRequest GetGroupListRequest)
         {
             this.GetGroupListAsync(GetGroupListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetGroupListAsync(GetGroupListRequest GetGroupListRequest, object userState)
         {
             if ((this.GetGroupListOperationCompleted == null))
@@ -2121,6 +2508,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetGroupList", new object[] {
                         GetGroupListRequest}, this.GetGroupListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetGroupListOperationCompleted(object arg)
         {
@@ -2132,8 +2520,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetUserInformation", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetUserInformationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetUserInformationResponse GetUserInformation([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetUserInformationRequest GetUserInformationRequest)
         {
             object[] results = this.Invoke("GetUserInformation", new object[] {
@@ -2142,6 +2532,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetUserInformation(GetUserInformationRequest GetUserInformationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetUserInformation", new object[] {
@@ -2149,6 +2540,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetUserInformationResponse EndGetUserInformation(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2156,12 +2548,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetUserInformationAsync(GetUserInformationRequest GetUserInformationRequest)
         {
             this.GetUserInformationAsync(GetUserInformationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetUserInformationAsync(GetUserInformationRequest GetUserInformationRequest, object userState)
         {
             if ((this.GetUserInformationOperationCompleted == null))
@@ -2171,6 +2565,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetUserInformation", new object[] {
                         GetUserInformationRequest}, this.GetUserInformationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetUserInformationOperationCompleted(object arg)
         {
@@ -2182,8 +2577,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetConnectedUserList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetConnectedUserListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetConnectedUserListResponse GetConnectedUserList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetConnectedUserListRequest GetConnectedUserListRequest)
         {
             object[] results = this.Invoke("GetConnectedUserList", new object[] {
@@ -2192,6 +2589,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetConnectedUserList(GetConnectedUserListRequest GetConnectedUserListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetConnectedUserList", new object[] {
@@ -2199,6 +2597,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetConnectedUserListResponse EndGetConnectedUserList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2206,12 +2605,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetConnectedUserListAsync(GetConnectedUserListRequest GetConnectedUserListRequest)
         {
             this.GetConnectedUserListAsync(GetConnectedUserListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetConnectedUserListAsync(GetConnectedUserListRequest GetConnectedUserListRequest, object userState)
         {
             if ((this.GetConnectedUserListOperationCompleted == null))
@@ -2221,6 +2622,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetConnectedUserList", new object[] {
                         GetConnectedUserListRequest}, this.GetConnectedUserListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetConnectedUserListOperationCompleted(object arg)
         {
@@ -2232,8 +2634,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ChangePassword", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ChangePasswordResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ChangePasswordResponse ChangePassword([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ChangePasswordRequest ChangePasswordRequest)
         {
             object[] results = this.Invoke("ChangePassword", new object[] {
@@ -2242,6 +2646,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginChangePassword(ChangePasswordRequest ChangePasswordRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ChangePassword", new object[] {
@@ -2249,6 +2654,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ChangePasswordResponse EndChangePassword(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2256,12 +2662,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ChangePasswordAsync(ChangePasswordRequest ChangePasswordRequest)
         {
             this.ChangePasswordAsync(ChangePasswordRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ChangePasswordAsync(ChangePasswordRequest ChangePasswordRequest, object userState)
         {
             if ((this.ChangePasswordOperationCompleted == null))
@@ -2271,6 +2679,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ChangePassword", new object[] {
                         ChangePasswordRequest}, this.ChangePasswordOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnChangePasswordOperationCompleted(object arg)
         {
@@ -2282,8 +2691,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/RenameUser", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("RenameUserResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public RenameUserResponse RenameUser([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] RenameUserRequest RenameUserRequest)
         {
             object[] results = this.Invoke("RenameUser", new object[] {
@@ -2292,6 +2703,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginRenameUser(RenameUserRequest RenameUserRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RenameUser", new object[] {
@@ -2299,6 +2711,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public RenameUserResponse EndRenameUser(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2306,12 +2719,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void RenameUserAsync(RenameUserRequest RenameUserRequest)
         {
             this.RenameUserAsync(RenameUserRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void RenameUserAsync(RenameUserRequest RenameUserRequest, object userState)
         {
             if ((this.RenameUserOperationCompleted == null))
@@ -2321,6 +2736,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("RenameUser", new object[] {
                         RenameUserRequest}, this.RenameUserOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnRenameUserOperationCompleted(object arg)
         {
@@ -2332,8 +2748,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/TerminateConnection", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("TerminateConnectionResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public TerminateConnectionResponse TerminateConnection([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] TerminateConnectionRequest TerminateConnectionRequest)
         {
             object[] results = this.Invoke("TerminateConnection", new object[] {
@@ -2342,6 +2760,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginTerminateConnection(TerminateConnectionRequest TerminateConnectionRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("TerminateConnection", new object[] {
@@ -2349,6 +2768,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public TerminateConnectionResponse EndTerminateConnection(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2356,12 +2776,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void TerminateConnectionAsync(TerminateConnectionRequest TerminateConnectionRequest)
         {
             this.TerminateConnectionAsync(TerminateConnectionRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void TerminateConnectionAsync(TerminateConnectionRequest TerminateConnectionRequest, object userState)
         {
             if ((this.TerminateConnectionOperationCompleted == null))
@@ -2371,6 +2793,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("TerminateConnection", new object[] {
                         TerminateConnectionRequest}, this.TerminateConnectionOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnTerminateConnectionOperationCompleted(object arg)
         {
@@ -2382,8 +2805,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetProfiles", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetProfilesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetProfilesResponse GetProfiles([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetProfilesRequest GetProfilesRequest)
         {
             object[] results = this.Invoke("GetProfiles", new object[] {
@@ -2392,6 +2817,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetProfiles(GetProfilesRequest GetProfilesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetProfiles", new object[] {
@@ -2399,6 +2825,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetProfilesResponse EndGetProfiles(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2406,12 +2833,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetProfilesAsync(GetProfilesRequest GetProfilesRequest)
         {
             this.GetProfilesAsync(GetProfilesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetProfilesAsync(GetProfilesRequest GetProfilesRequest, object userState)
         {
             if ((this.GetProfilesOperationCompleted == null))
@@ -2421,6 +2850,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetProfiles", new object[] {
                         GetProfilesRequest}, this.GetProfilesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetProfilesOperationCompleted(object arg)
         {
@@ -2432,8 +2862,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetGroups", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetGroupsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetGroupsResponse GetGroups([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetGroupsRequest GetGroupsRequest)
         {
             object[] results = this.Invoke("GetGroups", new object[] {
@@ -2442,6 +2874,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetGroups(GetGroupsRequest GetGroupsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetGroups", new object[] {
@@ -2449,6 +2882,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetGroupsResponse EndGetGroups(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2456,12 +2890,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetGroupsAsync(GetGroupsRequest GetGroupsRequest)
         {
             this.GetGroupsAsync(GetGroupsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetGroupsAsync(GetGroupsRequest GetGroupsRequest, object userState)
         {
             if ((this.GetGroupsOperationCompleted == null))
@@ -2471,6 +2907,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetGroups", new object[] {
                         GetGroupsRequest}, this.GetGroupsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetGroupsOperationCompleted(object arg)
         {
@@ -2482,8 +2919,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetConfiguration", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetConfigurationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetConfigurationResponse GetConfiguration([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetConfigurationRequest GetConfigurationRequest)
         {
             object[] results = this.Invoke("GetConfiguration", new object[] {
@@ -2492,6 +2931,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetConfiguration(GetConfigurationRequest GetConfigurationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetConfiguration", new object[] {
@@ -2499,6 +2939,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetConfigurationResponse EndGetConfiguration(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2506,12 +2947,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetConfigurationAsync(GetConfigurationRequest GetConfigurationRequest)
         {
             this.GetConfigurationAsync(GetConfigurationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetConfigurationAsync(GetConfigurationRequest GetConfigurationRequest, object userState)
         {
             if ((this.GetConfigurationOperationCompleted == null))
@@ -2521,6 +2964,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetConfiguration", new object[] {
                         GetConfigurationRequest}, this.GetConfigurationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetConfigurationOperationCompleted(object arg)
         {
@@ -2532,8 +2976,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetInterfaces", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetInterfacesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetInterfacesResponse GetInterfaces([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetInterfacesRequest GetInterfacesRequest)
         {
             object[] results = this.Invoke("GetInterfaces", new object[] {
@@ -2542,6 +2988,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetInterfaces(GetInterfacesRequest GetInterfacesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetInterfaces", new object[] {
@@ -2549,6 +2996,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetInterfacesResponse EndGetInterfaces(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2556,12 +3004,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfacesAsync(GetInterfacesRequest GetInterfacesRequest)
         {
             this.GetInterfacesAsync(GetInterfacesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfacesAsync(GetInterfacesRequest GetInterfacesRequest, object userState)
         {
             if ((this.GetInterfacesOperationCompleted == null))
@@ -2571,6 +3021,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetInterfaces", new object[] {
                         GetInterfacesRequest}, this.GetInterfacesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetInterfacesOperationCompleted(object arg)
         {
@@ -2582,8 +3033,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetIPBlockList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetIPBlockListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetIPBlockListResponse GetIPBlockList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetIPBlockListRequest GetIPBlockListRequest)
         {
             object[] results = this.Invoke("GetIPBlockList", new object[] {
@@ -2592,6 +3045,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetIPBlockList(GetIPBlockListRequest GetIPBlockListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetIPBlockList", new object[] {
@@ -2599,6 +3053,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetIPBlockListResponse EndGetIPBlockList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2606,12 +3061,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetIPBlockListAsync(GetIPBlockListRequest GetIPBlockListRequest)
         {
             this.GetIPBlockListAsync(GetIPBlockListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetIPBlockListAsync(GetIPBlockListRequest GetIPBlockListRequest, object userState)
         {
             if ((this.GetIPBlockListOperationCompleted == null))
@@ -2621,6 +3078,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetIPBlockList", new object[] {
                         GetIPBlockListRequest}, this.GetIPBlockListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetIPBlockListOperationCompleted(object arg)
         {
@@ -2632,8 +3090,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetAutoBlockList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetAutoBlockListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetAutoBlockListResponse GetAutoBlockList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetAutoBlockListRequest GetAutoBlockListRequest)
         {
             object[] results = this.Invoke("GetAutoBlockList", new object[] {
@@ -2642,6 +3102,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetAutoBlockList(GetAutoBlockListRequest GetAutoBlockListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAutoBlockList", new object[] {
@@ -2649,6 +3110,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetAutoBlockListResponse EndGetAutoBlockList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2656,12 +3118,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAutoBlockListAsync(GetAutoBlockListRequest GetAutoBlockListRequest)
         {
             this.GetAutoBlockListAsync(GetAutoBlockListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAutoBlockListAsync(GetAutoBlockListRequest GetAutoBlockListRequest, object userState)
         {
             if ((this.GetAutoBlockListOperationCompleted == null))
@@ -2671,6 +3135,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetAutoBlockList", new object[] {
                         GetAutoBlockListRequest}, this.GetAutoBlockListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetAutoBlockListOperationCompleted(object arg)
         {
@@ -2682,8 +3147,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetAppPaths", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetAppPathsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetAppPathsResponse GetAppPaths([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetAppPathsRequest GetAppPathsRequest)
         {
             object[] results = this.Invoke("GetAppPaths", new object[] {
@@ -2692,6 +3159,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetAppPaths(GetAppPathsRequest GetAppPathsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAppPaths", new object[] {
@@ -2699,6 +3167,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetAppPathsResponse EndGetAppPaths(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2706,12 +3175,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAppPathsAsync(GetAppPathsRequest GetAppPathsRequest)
         {
             this.GetAppPathsAsync(GetAppPathsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAppPathsAsync(GetAppPathsRequest GetAppPathsRequest, object userState)
         {
             if ((this.GetAppPathsOperationCompleted == null))
@@ -2721,6 +3192,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetAppPaths", new object[] {
                         GetAppPathsRequest}, this.GetAppPathsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetAppPathsOperationCompleted(object arg)
         {
@@ -2732,8 +3204,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetLicenseInfo", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetLicenseInfoResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetLicenseInfoResponse GetLicenseInfo([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetLicenseInfoRequest GetLicenseInfoRequest)
         {
             object[] results = this.Invoke("GetLicenseInfo", new object[] {
@@ -2742,6 +3216,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetLicenseInfo(GetLicenseInfoRequest GetLicenseInfoRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetLicenseInfo", new object[] {
@@ -2749,6 +3224,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetLicenseInfoResponse EndGetLicenseInfo(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2756,12 +3232,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetLicenseInfoAsync(GetLicenseInfoRequest GetLicenseInfoRequest)
         {
             this.GetLicenseInfoAsync(GetLicenseInfoRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetLicenseInfoAsync(GetLicenseInfoRequest GetLicenseInfoRequest, object userState)
         {
             if ((this.GetLicenseInfoOperationCompleted == null))
@@ -2771,6 +3249,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetLicenseInfo", new object[] {
                         GetLicenseInfoRequest}, this.GetLicenseInfoOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetLicenseInfoOperationCompleted(object arg)
         {
@@ -2782,8 +3261,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/VerifyLicense", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("VerifyLicenseResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public VerifyLicenseResponse VerifyLicense([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] VerifyLicenseRequest VerifyLicenseRequest)
         {
             object[] results = this.Invoke("VerifyLicense", new object[] {
@@ -2792,6 +3273,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginVerifyLicense(VerifyLicenseRequest VerifyLicenseRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("VerifyLicense", new object[] {
@@ -2799,6 +3281,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public VerifyLicenseResponse EndVerifyLicense(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2806,12 +3289,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void VerifyLicenseAsync(VerifyLicenseRequest VerifyLicenseRequest)
         {
             this.VerifyLicenseAsync(VerifyLicenseRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void VerifyLicenseAsync(VerifyLicenseRequest VerifyLicenseRequest, object userState)
         {
             if ((this.VerifyLicenseOperationCompleted == null))
@@ -2821,6 +3306,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("VerifyLicense", new object[] {
                         VerifyLicenseRequest}, this.VerifyLicenseOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnVerifyLicenseOperationCompleted(object arg)
         {
@@ -2832,8 +3318,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetCurrentConnectionCount", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetCurrentConnectionCountResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetCurrentConnectionCountResponse GetCurrentConnectionCount([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetCurrentConnectionCountRequest GetCurrentConnectionCountRequest)
         {
             object[] results = this.Invoke("GetCurrentConnectionCount", new object[] {
@@ -2842,6 +3330,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetCurrentConnectionCount(GetCurrentConnectionCountRequest GetCurrentConnectionCountRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetCurrentConnectionCount", new object[] {
@@ -2849,6 +3338,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetCurrentConnectionCountResponse EndGetCurrentConnectionCount(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2856,12 +3346,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetCurrentConnectionCountAsync(GetCurrentConnectionCountRequest GetCurrentConnectionCountRequest)
         {
             this.GetCurrentConnectionCountAsync(GetCurrentConnectionCountRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetCurrentConnectionCountAsync(GetCurrentConnectionCountRequest GetCurrentConnectionCountRequest, object userState)
         {
             if ((this.GetCurrentConnectionCountOperationCompleted == null))
@@ -2871,6 +3363,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetCurrentConnectionCount", new object[] {
                         GetCurrentConnectionCountRequest}, this.GetCurrentConnectionCountOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetCurrentConnectionCountOperationCompleted(object arg)
         {
@@ -2882,8 +3375,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetAllCurrentConnectionCount", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetAllCurrentConnectionCountResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetAllCurrentConnectionCountResponse GetAllCurrentConnectionCount([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetAllCurrentConnectionCountRequest GetAllCurrentConnectionCountRequest)
         {
             object[] results = this.Invoke("GetAllCurrentConnectionCount", new object[] {
@@ -2892,6 +3387,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetAllCurrentConnectionCount(GetAllCurrentConnectionCountRequest GetAllCurrentConnectionCountRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetAllCurrentConnectionCount", new object[] {
@@ -2899,6 +3395,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetAllCurrentConnectionCountResponse EndGetAllCurrentConnectionCount(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2906,12 +3403,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAllCurrentConnectionCountAsync(GetAllCurrentConnectionCountRequest GetAllCurrentConnectionCountRequest)
         {
             this.GetAllCurrentConnectionCountAsync(GetAllCurrentConnectionCountRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetAllCurrentConnectionCountAsync(GetAllCurrentConnectionCountRequest GetAllCurrentConnectionCountRequest, object userState)
         {
             if ((this.GetAllCurrentConnectionCountOperationCompleted == null))
@@ -2921,6 +3420,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetAllCurrentConnectionCount", new object[] {
                         GetAllCurrentConnectionCountRequest}, this.GetAllCurrentConnectionCountOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetAllCurrentConnectionCountOperationCompleted(object arg)
         {
@@ -2932,8 +3432,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetInterfaceByID", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetInterfaceResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetInterfaceResponse GetInterfaceByID([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetInterfaceByIDRequest GetInterfaceByIDRequest)
         {
             object[] results = this.Invoke("GetInterfaceByID", new object[] {
@@ -2942,6 +3444,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetInterfaceByID(GetInterfaceByIDRequest GetInterfaceByIDRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetInterfaceByID", new object[] {
@@ -2949,6 +3452,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetInterfaceResponse EndGetInterfaceByID(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -2956,12 +3460,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfaceByIDAsync(GetInterfaceByIDRequest GetInterfaceByIDRequest)
         {
             this.GetInterfaceByIDAsync(GetInterfaceByIDRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfaceByIDAsync(GetInterfaceByIDRequest GetInterfaceByIDRequest, object userState)
         {
             if ((this.GetInterfaceByIDOperationCompleted == null))
@@ -2971,6 +3477,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetInterfaceByID", new object[] {
                         GetInterfaceByIDRequest}, this.GetInterfaceByIDOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetInterfaceByIDOperationCompleted(object arg)
         {
@@ -2982,8 +3489,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetInterfaceList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetInterfaceListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetInterfaceListResponse GetInterfaceList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetInterfaceListRequest GetInterfaceListRequest)
         {
             object[] results = this.Invoke("GetInterfaceList", new object[] {
@@ -2992,6 +3501,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetInterfaceList(GetInterfaceListRequest GetInterfaceListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetInterfaceList", new object[] {
@@ -2999,6 +3509,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetInterfaceListResponse EndGetInterfaceList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3006,12 +3517,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfaceListAsync(GetInterfaceListRequest GetInterfaceListRequest)
         {
             this.GetInterfaceListAsync(GetInterfaceListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetInterfaceListAsync(GetInterfaceListRequest GetInterfaceListRequest, object userState)
         {
             if ((this.GetInterfaceListOperationCompleted == null))
@@ -3021,6 +3534,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetInterfaceList", new object[] {
                         GetInterfaceListRequest}, this.GetInterfaceListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetInterfaceListOperationCompleted(object arg)
         {
@@ -3032,8 +3546,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/InitializeInterface", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("InitializeInterfaceResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public InitializeInterfaceResponse InitializeInterface([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] InitializeInterfaceRequest InitializeInterfaceRequest)
         {
             object[] results = this.Invoke("InitializeInterface", new object[] {
@@ -3042,6 +3558,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginInitializeInterface(InitializeInterfaceRequest InitializeInterfaceRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("InitializeInterface", new object[] {
@@ -3049,6 +3566,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public InitializeInterfaceResponse EndInitializeInterface(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3056,12 +3574,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void InitializeInterfaceAsync(InitializeInterfaceRequest InitializeInterfaceRequest)
         {
             this.InitializeInterfaceAsync(InitializeInterfaceRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void InitializeInterfaceAsync(InitializeInterfaceRequest InitializeInterfaceRequest, object userState)
         {
             if ((this.InitializeInterfaceOperationCompleted == null))
@@ -3071,6 +3591,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("InitializeInterface", new object[] {
                         InitializeInterfaceRequest}, this.InitializeInterfaceOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnInitializeInterfaceOperationCompleted(object arg)
         {
@@ -3082,8 +3603,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ShutdownInterface", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ShutdownInterfaceResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ShutdownInterfaceResponse ShutdownInterface([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ShutdownInterfaceRequest ShutdownInterfaceRequest)
         {
             object[] results = this.Invoke("ShutdownInterface", new object[] {
@@ -3092,6 +3615,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginShutdownInterface(ShutdownInterfaceRequest ShutdownInterfaceRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ShutdownInterface", new object[] {
@@ -3099,6 +3623,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ShutdownInterfaceResponse EndShutdownInterface(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3106,12 +3631,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownInterfaceAsync(ShutdownInterfaceRequest ShutdownInterfaceRequest)
         {
             this.ShutdownInterfaceAsync(ShutdownInterfaceRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownInterfaceAsync(ShutdownInterfaceRequest ShutdownInterfaceRequest, object userState)
         {
             if ((this.ShutdownInterfaceOperationCompleted == null))
@@ -3121,6 +3648,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ShutdownInterface", new object[] {
                         ShutdownInterfaceRequest}, this.ShutdownInterfaceOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnShutdownInterfaceOperationCompleted(object arg)
         {
@@ -3132,8 +3660,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetStatistics", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetStatisticsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetStatisticsResponse GetStatistics([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetStatisticsRequest GetStatisticsRequest)
         {
             object[] results = this.Invoke("GetStatistics", new object[] {
@@ -3142,6 +3672,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetStatistics(GetStatisticsRequest GetStatisticsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetStatistics", new object[] {
@@ -3149,6 +3680,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetStatisticsResponse EndGetStatistics(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3156,12 +3688,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetStatisticsAsync(GetStatisticsRequest GetStatisticsRequest)
         {
             this.GetStatisticsAsync(GetStatisticsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetStatisticsAsync(GetStatisticsRequest GetStatisticsRequest, object userState)
         {
             if ((this.GetStatisticsOperationCompleted == null))
@@ -3171,6 +3705,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetStatistics", new object[] {
                         GetStatisticsRequest}, this.GetStatisticsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetStatisticsOperationCompleted(object arg)
         {
@@ -3182,8 +3717,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetCurrentBandwidth", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetCurrentBandwidthResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetCurrentBandwidthResponse GetCurrentBandwidth([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetCurrentBandwidthRequest GetCurrentBandwidthRequest)
         {
             object[] results = this.Invoke("GetCurrentBandwidth", new object[] {
@@ -3192,6 +3729,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetCurrentBandwidth(GetCurrentBandwidthRequest GetCurrentBandwidthRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetCurrentBandwidth", new object[] {
@@ -3199,6 +3737,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetCurrentBandwidthResponse EndGetCurrentBandwidth(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3206,12 +3745,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetCurrentBandwidthAsync(GetCurrentBandwidthRequest GetCurrentBandwidthRequest)
         {
             this.GetCurrentBandwidthAsync(GetCurrentBandwidthRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetCurrentBandwidthAsync(GetCurrentBandwidthRequest GetCurrentBandwidthRequest, object userState)
         {
             if ((this.GetCurrentBandwidthOperationCompleted == null))
@@ -3221,6 +3762,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetCurrentBandwidth", new object[] {
                         GetCurrentBandwidthRequest}, this.GetCurrentBandwidthOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetCurrentBandwidthOperationCompleted(object arg)
         {
@@ -3232,8 +3774,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetFeatures", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetFeaturesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetFeaturesResponse GetFeatures([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetFeaturesRequest GetFeaturesRequest)
         {
             object[] results = this.Invoke("GetFeatures", new object[] {
@@ -3242,6 +3786,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetFeatures(GetFeaturesRequest GetFeaturesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetFeatures", new object[] {
@@ -3249,6 +3794,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetFeaturesResponse EndGetFeatures(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3256,12 +3802,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetFeaturesAsync(GetFeaturesRequest GetFeaturesRequest)
         {
             this.GetFeaturesAsync(GetFeaturesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetFeaturesAsync(GetFeaturesRequest GetFeaturesRequest, object userState)
         {
             if ((this.GetFeaturesOperationCompleted == null))
@@ -3271,6 +3819,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetFeatures", new object[] {
                         GetFeaturesRequest}, this.GetFeaturesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetFeaturesOperationCompleted(object arg)
         {
@@ -3282,8 +3831,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SaveProfiles", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SaveProfilesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SaveProfilesResponse SaveProfiles([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SaveProfilesRequest SaveProfilesRequest)
         {
             object[] results = this.Invoke("SaveProfiles", new object[] {
@@ -3292,6 +3843,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSaveProfiles(SaveProfilesRequest SaveProfilesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SaveProfiles", new object[] {
@@ -3299,6 +3851,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SaveProfilesResponse EndSaveProfiles(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3306,12 +3859,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveProfilesAsync(SaveProfilesRequest SaveProfilesRequest)
         {
             this.SaveProfilesAsync(SaveProfilesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveProfilesAsync(SaveProfilesRequest SaveProfilesRequest, object userState)
         {
             if ((this.SaveProfilesOperationCompleted == null))
@@ -3321,6 +3876,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SaveProfiles", new object[] {
                         SaveProfilesRequest}, this.SaveProfilesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSaveProfilesOperationCompleted(object arg)
         {
@@ -3332,8 +3888,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SaveConfiguration", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SaveConfigurationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SaveConfigurationResponse SaveConfiguration([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SaveConfigurationRequest SaveConfigurationRequest)
         {
             object[] results = this.Invoke("SaveConfiguration", new object[] {
@@ -3342,6 +3900,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSaveConfiguration(SaveConfigurationRequest SaveConfigurationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SaveConfiguration", new object[] {
@@ -3349,6 +3908,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SaveConfigurationResponse EndSaveConfiguration(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3356,12 +3916,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveConfigurationAsync(SaveConfigurationRequest SaveConfigurationRequest)
         {
             this.SaveConfigurationAsync(SaveConfigurationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveConfigurationAsync(SaveConfigurationRequest SaveConfigurationRequest, object userState)
         {
             if ((this.SaveConfigurationOperationCompleted == null))
@@ -3371,6 +3933,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SaveConfiguration", new object[] {
                         SaveConfigurationRequest}, this.SaveConfigurationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSaveConfigurationOperationCompleted(object arg)
         {
@@ -3382,8 +3945,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/CommitSettings", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("CommitSettingsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public CommitSettingsResponse CommitSettings([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] CommitSettingsRequest CommitSettingsRequest)
         {
             object[] results = this.Invoke("CommitSettings", new object[] {
@@ -3392,6 +3957,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginCommitSettings(CommitSettingsRequest CommitSettingsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("CommitSettings", new object[] {
@@ -3399,6 +3965,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public CommitSettingsResponse EndCommitSettings(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3406,12 +3973,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CommitSettingsAsync(CommitSettingsRequest CommitSettingsRequest)
         {
             this.CommitSettingsAsync(CommitSettingsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void CommitSettingsAsync(CommitSettingsRequest CommitSettingsRequest, object userState)
         {
             if ((this.CommitSettingsOperationCompleted == null))
@@ -3421,6 +3990,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("CommitSettings", new object[] {
                         CommitSettingsRequest}, this.CommitSettingsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnCommitSettingsOperationCompleted(object arg)
         {
@@ -3432,8 +4002,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/SaveBlockList", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("SaveBlockListResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public SaveBlockListResponse SaveBlockList([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] SaveBlockListRequest SaveBlockListRequest)
         {
             object[] results = this.Invoke("SaveBlockList", new object[] {
@@ -3442,6 +4014,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginSaveBlockList(SaveBlockListRequest SaveBlockListRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("SaveBlockList", new object[] {
@@ -3449,6 +4022,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public SaveBlockListResponse EndSaveBlockList(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3456,12 +4030,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveBlockListAsync(SaveBlockListRequest SaveBlockListRequest)
         {
             this.SaveBlockListAsync(SaveBlockListRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void SaveBlockListAsync(SaveBlockListRequest SaveBlockListRequest, object userState)
         {
             if ((this.SaveBlockListOperationCompleted == null))
@@ -3471,6 +4047,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("SaveBlockList", new object[] {
                         SaveBlockListRequest}, this.SaveBlockListOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnSaveBlockListOperationCompleted(object arg)
         {
@@ -3482,8 +4059,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ModifyInterface", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ModifyInterfaceResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ModifyInterfaceResponse ModifyInterface([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ModifyInterfaceRequest ModifyInterfaceRequest)
         {
             object[] results = this.Invoke("ModifyInterface", new object[] {
@@ -3492,6 +4071,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginModifyInterface(ModifyInterfaceRequest ModifyInterfaceRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ModifyInterface", new object[] {
@@ -3499,6 +4079,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ModifyInterfaceResponse EndModifyInterface(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3506,12 +4087,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ModifyInterfaceAsync(ModifyInterfaceRequest ModifyInterfaceRequest)
         {
             this.ModifyInterfaceAsync(ModifyInterfaceRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ModifyInterfaceAsync(ModifyInterfaceRequest ModifyInterfaceRequest, object userState)
         {
             if ((this.ModifyInterfaceOperationCompleted == null))
@@ -3521,6 +4104,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ModifyInterface", new object[] {
                         ModifyInterfaceRequest}, this.ModifyInterfaceOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnModifyInterfaceOperationCompleted(object arg)
         {
@@ -3532,8 +4116,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/ShutdownConnectionsOnInterface", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("ShutdownConnectionsOnInterfaceResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public ShutdownConnectionsOnInterfaceResponse ShutdownConnectionsOnInterface([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] ShutdownConnectionsOnInterfaceRequest ShutdownConnectionsOnInterfaceRequest)
         {
             object[] results = this.Invoke("ShutdownConnectionsOnInterface", new object[] {
@@ -3542,6 +4128,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginShutdownConnectionsOnInterface(ShutdownConnectionsOnInterfaceRequest ShutdownConnectionsOnInterfaceRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("ShutdownConnectionsOnInterface", new object[] {
@@ -3549,6 +4136,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public ShutdownConnectionsOnInterfaceResponse EndShutdownConnectionsOnInterface(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3556,12 +4144,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownConnectionsOnInterfaceAsync(ShutdownConnectionsOnInterfaceRequest ShutdownConnectionsOnInterfaceRequest)
         {
             this.ShutdownConnectionsOnInterfaceAsync(ShutdownConnectionsOnInterfaceRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void ShutdownConnectionsOnInterfaceAsync(ShutdownConnectionsOnInterfaceRequest ShutdownConnectionsOnInterfaceRequest, object userState)
         {
             if ((this.ShutdownConnectionsOnInterfaceOperationCompleted == null))
@@ -3571,6 +4161,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("ShutdownConnectionsOnInterface", new object[] {
                         ShutdownConnectionsOnInterfaceRequest}, this.ShutdownConnectionsOnInterfaceOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnShutdownConnectionsOnInterfaceOperationCompleted(object arg)
         {
@@ -3582,8 +4173,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetFileTransfers", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetFileTransfersResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetFileTransfersResponse GetFileTransfers([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetFileTransfersRequest GetFileTransfersRequest)
         {
             object[] results = this.Invoke("GetFileTransfers", new object[] {
@@ -3592,6 +4185,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetFileTransfers(GetFileTransfersRequest GetFileTransfersRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetFileTransfers", new object[] {
@@ -3599,6 +4193,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetFileTransfersResponse EndGetFileTransfers(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3606,12 +4201,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetFileTransfersAsync(GetFileTransfersRequest GetFileTransfersRequest)
         {
             this.GetFileTransfersAsync(GetFileTransfersRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetFileTransfersAsync(GetFileTransfersRequest GetFileTransfersRequest, object userState)
         {
             if ((this.GetFileTransfersOperationCompleted == null))
@@ -3621,6 +4218,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetFileTransfers", new object[] {
                         GetFileTransfersRequest}, this.GetFileTransfersOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetFileTransfersOperationCompleted(object arg)
         {
@@ -3632,8 +4230,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GetLogMessages", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GetLogMessagesResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GetLogMessagesResponse GetLogMessages([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GetLogMessagesRequest GetLogMessagesRequest)
         {
             object[] results = this.Invoke("GetLogMessages", new object[] {
@@ -3642,6 +4242,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGetLogMessages(GetLogMessagesRequest GetLogMessagesRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GetLogMessages", new object[] {
@@ -3649,6 +4250,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GetLogMessagesResponse EndGetLogMessages(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3656,12 +4258,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetLogMessagesAsync(GetLogMessagesRequest GetLogMessagesRequest)
         {
             this.GetLogMessagesAsync(GetLogMessagesRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GetLogMessagesAsync(GetLogMessagesRequest GetLogMessagesRequest, object userState)
         {
             if ((this.GetLogMessagesOperationCompleted == null))
@@ -3671,6 +4275,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GetLogMessages", new object[] {
                         GetLogMessagesRequest}, this.GetLogMessagesOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGetLogMessagesOperationCompleted(object arg)
         {
@@ -3682,8 +4287,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/BlockAddress", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("BlockAddressResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public BlockAddressResponse BlockAddress([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] BlockAddressRequest BlockAddressRequest)
         {
             object[] results = this.Invoke("BlockAddress", new object[] {
@@ -3692,6 +4299,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginBlockAddress(BlockAddressRequest BlockAddressRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("BlockAddress", new object[] {
@@ -3699,6 +4307,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public BlockAddressResponse EndBlockAddress(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3706,12 +4315,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void BlockAddressAsync(BlockAddressRequest BlockAddressRequest)
         {
             this.BlockAddressAsync(BlockAddressRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void BlockAddressAsync(BlockAddressRequest BlockAddressRequest, object userState)
         {
             if ((this.BlockAddressOperationCompleted == null))
@@ -3721,6 +4332,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("BlockAddress", new object[] {
                         BlockAddressRequest}, this.BlockAddressOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnBlockAddressOperationCompleted(object arg)
         {
@@ -3732,8 +4344,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/GenerateStatistics", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("GenerateStatisticsResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public GenerateStatisticsResponse GenerateStatistics([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] GenerateStatisticsRequest GenerateStatisticsRequest)
         {
             object[] results = this.Invoke("GenerateStatistics", new object[] {
@@ -3742,6 +4356,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginGenerateStatistics(GenerateStatisticsRequest GenerateStatisticsRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("GenerateStatistics", new object[] {
@@ -3749,6 +4364,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public GenerateStatisticsResponse EndGenerateStatistics(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3756,12 +4372,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GenerateStatisticsAsync(GenerateStatisticsRequest GenerateStatisticsRequest)
         {
             this.GenerateStatisticsAsync(GenerateStatisticsRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void GenerateStatisticsAsync(GenerateStatisticsRequest GenerateStatisticsRequest, object userState)
         {
             if ((this.GenerateStatisticsOperationCompleted == null))
@@ -3771,6 +4389,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("GenerateStatistics", new object[] {
                         GenerateStatisticsRequest}, this.GenerateStatisticsOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnGenerateStatisticsOperationCompleted(object arg)
         {
@@ -3782,8 +4401,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/BackupServerConfiguration", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("BackupServerConfigurationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public BackupServerConfigurationResponse BackupServerConfiguration([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] BackupServerConfigurationRequest BackupServerConfigurationRequest)
         {
             object[] results = this.Invoke("BackupServerConfiguration", new object[] {
@@ -3792,6 +4413,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginBackupServerConfiguration(BackupServerConfigurationRequest BackupServerConfigurationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("BackupServerConfiguration", new object[] {
@@ -3799,6 +4421,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public BackupServerConfigurationResponse EndBackupServerConfiguration(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3806,12 +4429,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void BackupServerConfigurationAsync(BackupServerConfigurationRequest BackupServerConfigurationRequest)
         {
             this.BackupServerConfigurationAsync(BackupServerConfigurationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void BackupServerConfigurationAsync(BackupServerConfigurationRequest BackupServerConfigurationRequest, object userState)
         {
             if ((this.BackupServerConfigurationOperationCompleted == null))
@@ -3821,6 +4446,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("BackupServerConfiguration", new object[] {
                         BackupServerConfigurationRequest}, this.BackupServerConfigurationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnBackupServerConfigurationOperationCompleted(object arg)
         {
@@ -3832,8 +4458,10 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://cerberusllc.com/service/cerberusftpservice/RestoreServerConfiguration", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("RestoreServerConfigurationResponse", Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+        /// <summary>TODO</summary>
         public RestoreServerConfigurationResponse RestoreServerConfiguration([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://cerberusllc.com/service/cerberusftpservice")] RestoreServerConfigurationRequest RestoreServerConfigurationRequest)
         {
             object[] results = this.Invoke("RestoreServerConfiguration", new object[] {
@@ -3842,6 +4470,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public System.IAsyncResult BeginRestoreServerConfiguration(RestoreServerConfigurationRequest RestoreServerConfigurationRequest, System.AsyncCallback callback, object asyncState)
         {
             return this.BeginInvoke("RestoreServerConfiguration", new object[] {
@@ -3849,6 +4478,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public RestoreServerConfigurationResponse EndRestoreServerConfiguration(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
@@ -3856,12 +4486,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void RestoreServerConfigurationAsync(RestoreServerConfigurationRequest RestoreServerConfigurationRequest)
         {
             this.RestoreServerConfigurationAsync(RestoreServerConfigurationRequest, null);
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public void RestoreServerConfigurationAsync(RestoreServerConfigurationRequest RestoreServerConfigurationRequest, object userState)
         {
             if ((this.RestoreServerConfigurationOperationCompleted == null))
@@ -3871,6 +4503,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
             this.InvokeAsync("RestoreServerConfiguration", new object[] {
                         RestoreServerConfigurationRequest}, this.RestoreServerConfigurationOperationCompleted, userState);
         }
+        /// <summary>Auto-generated member.</summary>
 
         private void OnRestoreServerConfigurationOperationCompleted(object arg)
         {
@@ -3882,6 +4515,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
         }
 
         /// <remarks/>
+        /// <summary>Auto-generated member.</summary>
         public new void CancelAsync(object userState)
         {
             base.CancelAsync(userState);
@@ -3889,16 +4523,19 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetBackupServersRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3908,10 +4545,12 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Credentials credentials;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3921,13 +4560,16 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string user;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3937,19 +4579,26 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string file;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string message;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool success;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3959,22 +4608,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string msg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ulong id;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int type;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime time;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3984,43 +4641,58 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string localFilename;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string remoteFilename;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string user;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong percentElapsed;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong currentPosition;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong totalSize;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public double transferRate;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string timeLeft;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ulong ID;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public TransferType type;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isSecure;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -4035,6 +4707,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4044,43 +4717,56 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int maxConnectionLimit;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableActiveDirectory;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableLDAPAuthentication;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableFIPS1402;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableRemoteAdmin;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableClientCertificateVerify;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableSshFtp;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableHttp;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableEvents;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableReports;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableServerSync;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int productEditionCode;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4090,15 +4776,20 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string user;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public TransferType type;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4108,15 +4799,20 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("list")]
+        /// <summary>TODO</summary>
         public FileHitInfo[] list;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string file;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4126,20 +4822,26 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ipAddress;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dnsAddress;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool dontUseExternalIPForLocal;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public PassiveMode mode;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -4157,6 +4859,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4166,73 +4869,96 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isActive;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowLogin;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint listenPort;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int connectionLimit;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public PassiveOpts passiveSettings;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool requiresSecureControl;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool requiresSecureData;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string logoPath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string loginIconPath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string companyName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowWebAccountRequest;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool showWelcomeMsg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool redirectToHttps;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int defaultWebDirList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool showTimezone;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool showLocalTime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowUpdate;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool useHSTS;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string captchaPrivKey;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string captchaPubKey;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool captchaShowLogin;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool captchaShowReq;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4242,21 +4968,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long id;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public InterfaceOpts options;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string ipAddress;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public uint type;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4266,40 +4999,52 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string companyName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong issuedDate;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int upgradeTimeRemaining;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int clientCount;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int daysValid;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong installedDate;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isValid;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isForCompanyUse;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string productEdition;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMessage;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4309,34 +5054,44 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong id;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long interfaceID;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string lastCommand;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isSecure;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ipAddr;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public System.DateTime loginTime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string commandProgress;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string client;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4346,101 +5101,148 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyAuthentication authMethod;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ProtocolsAllowed protocols;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("root", IsNullable = false)]
+        /// <summary>TODO</summary>
         public VirtualDirectory[] rootList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isAllowPasswordChange;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool isAllowPasswordChangeSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isAnonymous;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool isAnonymousSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isSimpleDirectoryMode;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool isSimpleDirectoryModeSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isDisabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool isDisabledSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int maxLoginsAllowed;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool maxLoginsAllowedSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool requireSecureControl;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool requireSecureControlSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool requireSecureData;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool requireSecureDataSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime disableAfterTime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool disableAfterTimeSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ulong maxUploadFilesize;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool maxUploadFilesizeSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string ipAllowedList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string desc;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4450,27 +5252,38 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public AuthenticationMethod method;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool methodSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlTextAttribute()]
+        /// <summary>TODO</summary>
         public string Value;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -4488,6 +5301,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -4502,6 +5316,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4511,35 +5326,50 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool ftp;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool ftps;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool sftp;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool http;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool https;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4549,16 +5379,20 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string path;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public DirectoryPermissions permissions;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4568,40 +5402,52 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowListFile;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowListDir;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowDownload;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowUpload;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowRename;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowDelete;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowDirectoryCreation;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowDisplayHidden;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowZip;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowUnzip;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool allowShare;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4611,11 +5457,14 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4625,19 +5474,26 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4647,23 +5503,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ulong value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool valueSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4673,23 +5538,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool valueSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4699,23 +5573,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool valueSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4725,23 +5608,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool valueSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public UserPropertyPriority priority;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool prioritySpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4751,23 +5643,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string value;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public PasswordType type;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool noExpire;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime lastChange;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -4791,6 +5692,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4800,78 +5702,108 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Password password;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool isAllowPasswordChange;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool isAnonymous;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool isSimpleDirectoryMode;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool isDisabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyInt maxLoginsAllowed;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool requireSecureControl;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyBool requireSecureData;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyDateTime disableAfterTime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyAuthentication authMethod;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ProtocolsAllowed protocols;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyULong maxUploadFilesize;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UserPropertyString ipAllowedList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("group", IsNullable = false)]
+        /// <summary>TODO</summary>
         public groupMember[] groupList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("root", IsNullable = false)]
+        /// <summary>TODO</summary>
         public VirtualDirectory[] rootList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string fname;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string sname;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string email;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string tel;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string desc;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4881,13 +5813,16 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ip;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool overridePassiveMode;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4897,19 +5832,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string type;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string description;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4919,25 +5859,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong downloads;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong uploads;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong failedDownloads;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong failedUploads;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong totalConnections;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong currentConnections;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4947,30 +5894,40 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isStarted;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Statistics stats;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public double downBandwidth;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public double upBandwidth;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ulong totalConnections;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ulong activeListenerConnections;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool activeListenerConnectionsSpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4980,28 +5937,38 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Version version;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string hostname;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isStarted;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool isSuccess;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool isSuccessSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5011,23 +5978,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int maj;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int min;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int maint;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int build;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5037,18 +6013,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Version ver;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("item")]
+        /// <summary>TODO</summary>
         public string[] item;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public uint s;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VersionUpdateInfo))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -5059,26 +6041,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Version ver;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime buildDate;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ProductStatus status;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public ProcessArch arch;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public double minOS;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5093,6 +6085,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5113,23 +6106,29 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
+    /// <summary>TODO</summary>
     public partial class VersionUpdateInfo : VersionInfo
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string downloadURL;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("changeDescList")]
+        /// <summary>TODO</summary>
         public ChangeDescription[] changeDescList;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5139,17 +6138,22 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public VersionInfo currentVer;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public VersionUpdateInfo latestVer;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime lastChecked;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5159,79 +6163,108 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isSslEnabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string sslKeyType;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint sslKeyBits;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint sslCipherMinSymmetricBits;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isClientVerifyEnabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isFipsEnabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isSoapWebEnabled;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool isSoapSecure;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint soapPort;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ipPublic;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public InterfaceStatus ftpStatus;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("ftpStatusMsgs")]
+        /// <summary>TODO</summary>
         public string[] ftpStatusMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public InterfaceStatus sftpStatus;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("sftpStatusMsgs")]
+        /// <summary>TODO</summary>
         public string[] sftpStatusMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public InterfaceStatus httpStatus;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("httpStatusMsgs")]
+        /// <summary>TODO</summary>
         public string[] httpStatusMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool hipaaCompliant;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("hipaaCompliantMsgs")]
+        /// <summary>TODO</summary>
         public string[] hipaaCompliantMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("generalMsgs")]
+        /// <summary>TODO</summary>
         public string[] generalMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("securityMsgs")]
+        /// <summary>TODO</summary>
         public string[] securityMsgs;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public VulnerabilityAssessmentStatus vulnerabilityStatus;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public UpdateInformation updateInfo;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5249,6 +6282,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5266,6 +6300,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5275,13 +6310,16 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ext;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string type;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5291,16 +6329,20 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool success;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string label;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5310,10 +6352,12 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5323,28 +6367,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public DbDriverDescription driver;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string server;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint port;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string username;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string databaseName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string databasePath;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5354,17 +6406,22 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string addressFrom;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string addressTo;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public IpAccessRangeType type;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5379,6 +6436,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5388,29 +6446,40 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public IpAccessRange entry;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string note;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public System.DateTime blockedSince;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool blockedSinceSpecified;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public int blockForMinutes;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool blockForMinutesSpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5420,34 +6489,44 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string host;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ushort port;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool useSSL;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string username;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enableSync;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public SyncStatus lastSyncStatus;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public System.DateTime lastSyncTime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string lastSyncStatusMessage;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://cerberusllc.com/common")]
@@ -5465,6 +6544,7 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5474,16 +6554,20 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool enable;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public uint syncIntervalMinutes;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool syncOnServerChange;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5493,14 +6577,18 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public SyncServerConfig config;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("server", IsNullable = false)]
+        /// <summary>TODO</summary>
         public SyncServer[] servers;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5510,29 +6598,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public SyncServerType config;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SaveBackupServersRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public SyncServerType config;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5542,45 +6637,58 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SharePublicFileRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string username;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string shareRemoteFilePath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public int shareDurationHours;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string sharePassword;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool shareDeleteOnExpire;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool shareDeleteOnExpireSpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5590,30 +6698,38 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool success;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string link;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class AddIpRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("ipEntry")]
+        /// <summary>TODO</summary>
         public IpAccessEntry[] ipEntry;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5623,27 +6739,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DeleteIpRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("ipEntry")]
+        /// <summary>TODO</summary>
         public IpAccessRange[] ipEntry;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5653,26 +6776,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class TestAndVerifyDatabaseRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public DbConfig config;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5682,27 +6811,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("result", Namespace = "http://cerberusllc.com/common")]
+        /// <summary>TODO</summary>
         public DbOperationResult[] info;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class CreateStatisticsDatabaseRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public DbConfig config;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5712,27 +6848,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("result", Namespace = "http://cerberusllc.com/common")]
+        /// <summary>TODO</summary>
         public DbOperationResult[] info;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DropStatisticsDatabaseRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public DbConfig config;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5742,24 +6885,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("result", Namespace = "http://cerberusllc.com/common")]
+        /// <summary>TODO</summary>
         public DbOperationResult[] info;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetMimeMappingsRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5769,28 +6918,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("map", Namespace = "http://cerberusllc.com/common")]
+        /// <summary>TODO</summary>
         public MimeMapping[] mime;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SaveMimeMappingsRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("map", Namespace = "http://cerberusllc.com/common")]
+        /// <summary>TODO</summary>
         public MimeMapping[] mime;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5800,23 +6957,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ServerSummaryStatusRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5826,20 +6988,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ServerSummaryInfo result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ServerInformationRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5849,28 +7015,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public ServerInformation result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class CurrentStatusRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public long activeInterfaceId;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool activeInterfaceIdSpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5880,20 +7054,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Status result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class StartServerRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5903,20 +7081,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class StopServerRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5926,20 +7108,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ServerStartedRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5949,20 +7135,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class InitializeServerRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5972,20 +7162,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ShutdownServerRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5995,20 +7189,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetEventRulesRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6018,26 +7216,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SetEventRulesRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6047,24 +7251,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DeleteRequestedAccountsRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("guids")]
+        /// <summary>TODO</summary>
         public string[] guids;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6074,24 +7284,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("errors")]
+        /// <summary>TODO</summary>
         public string[] errors;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedAccountsRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6101,26 +7317,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedAccountsRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6130,20 +7352,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetAuthenticationListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6153,34 +7379,44 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("authenticationList")]
+        /// <summary>TODO</summary>
         public AuthenticationType[] authenticationList;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SetAuthenticationListRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dataXml;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("authenticationList")]
+        /// <summary>TODO</summary>
         public AuthenticationType[] authenticationList;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6190,20 +7426,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetHostnameRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6213,23 +7453,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SetWANIPRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public NewWANIP newWANInfo;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6239,23 +7484,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class AddUserRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public User User;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6265,26 +7515,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class AddGroupRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Group Group;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6294,26 +7550,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DeleteUserRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6323,26 +7585,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DeleteGroupRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string name;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6352,29 +7620,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class AddRootRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public VirtualDirectory Root;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6384,29 +7659,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class DeleteRootRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string dirName;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6416,23 +7698,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetUserListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6442,24 +7729,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("UserList")]
+        /// <summary>TODO</summary>
         public string[] UserList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetGroupListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6469,27 +7762,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("GroupList")]
+        /// <summary>TODO</summary>
         public string[] GroupList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetUserInformationRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6499,26 +7799,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public User UserInformation;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetConnectedUserListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6528,33 +7834,42 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("ConnectionList")]
+        /// <summary>TODO</summary>
         public Connection[] ConnectionList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ChangePasswordRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string oldPassword;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string newPassword;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6564,29 +7879,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class RenameUserRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string userName;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string newUserName;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6596,26 +7918,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string message;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class TerminateConnectionRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long ConnectionID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6625,20 +7953,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetProfilesRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6648,23 +7980,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetGroupsRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6674,23 +8011,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetConfigurationRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6700,23 +8042,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetInterfacesRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6726,23 +8073,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetIPBlockListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6752,23 +8104,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetAutoBlockListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6778,23 +8135,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string data;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetAppPathsRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6804,23 +8166,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string AppDataPath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string AppInstallPath;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetLicenseInfoRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6830,26 +8197,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public LicenseInfo LicenseInformation;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class VerifyLicenseRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string LicenseString;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6859,26 +8232,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public LicenseInfo LicenseInformation;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetCurrentConnectionCountRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6888,20 +8267,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetAllCurrentConnectionCountRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6911,23 +8294,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetInterfaceByIDRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6937,23 +8325,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Interface Interface;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetInterfaceListRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6963,27 +8356,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("InterfaceList")]
+        /// <summary>TODO</summary>
         public Interface[] InterfaceList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class InitializeInterfaceRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6993,23 +8393,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ShutdownInterfaceRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7019,28 +8424,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetStatisticsRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        /// <summary>TODO</summary>
         public bool includeFileStats;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <summary>TODO</summary>
         public bool includeFileStatsSpecified;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7050,27 +8463,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Statistics stats;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlArrayItemAttribute("list", Namespace = "http://cerberusllc.com/common", IsNullable = false)]
+        /// <summary>TODO</summary>
         public FileHit[] fileStats;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetCurrentBandwidthRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7080,23 +8500,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public double up;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public double down;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetFeaturesRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7106,29 +8531,36 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public Features Features;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SaveProfilesRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ProfilesXML;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string GroupsXML;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7138,23 +8570,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SaveConfigurationRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ConfigXML;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7164,27 +8601,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class CommitSettingsRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("InterfaceList")]
+        /// <summary>TODO</summary>
         public Interface[] InterfaceList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ConfigXML;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7194,26 +8638,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class SaveBlockListRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string IPBlockList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string AutoBlockListXML;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7223,26 +8673,32 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ModifyInterfaceRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public InterfaceOpts Opts;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7252,23 +8708,28 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class ShutdownConnectionsOnInterfaceRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public long InterfaceID;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7278,20 +8739,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetFileTransfersRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7301,24 +8766,30 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("transferList")]
+        /// <summary>TODO</summary>
         public FileTransfer[] transferList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GetLogMessagesRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7328,27 +8799,34 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("logList")]
+        /// <summary>TODO</summary>
         public LogMessage[] logList;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class BlockAddressRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string ipaddress;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7358,20 +8836,24 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class GenerateStatisticsRequest : AuthenticatedRequest
     {
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7381,32 +8863,40 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string filePath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class BackupServerConfigurationRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string filePath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7416,32 +8906,40 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string filePath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://cerberusllc.com/service/cerberusftpservice")]
+    /// <summary>TODO</summary>
     public partial class RestoreServerConfigurationRequest : AuthenticatedRequest
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string filePath;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string password;
     }
 
     /// <uwagi/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7451,28 +8949,38 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     {
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         [System.Xml.Serialization.XmlElementAttribute("importResult")]
+        /// <summary>TODO</summary>
         public ImportFileResult[] importResult;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public string errorMsg;
 
         /// <uwagi/>
+        /// <summary>Auto-generated member.</summary>
         public bool result;
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetBackupServersCompletedEventHandler(object sender, GetBackupServersCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetBackupServersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetBackupServersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7492,17 +9000,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SaveBackupServersCompletedEventHandler(object sender, SaveBackupServersCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SaveBackupServersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SaveBackupServersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7522,17 +9036,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SharePublicFileCompletedEventHandler(object sender, SharePublicFileCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SharePublicFileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SharePublicFileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7552,17 +9072,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddIpCompletedEventHandler(object sender, AddIpCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddIpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal AddIpCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7582,17 +9108,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteIpCompletedEventHandler(object sender, DeleteIpCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteIpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DeleteIpCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7612,17 +9144,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void TestAndVerifyDatabaseCompletedEventHandler(object sender, TestAndVerifyDatabaseCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class TestAndVerifyDatabaseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal TestAndVerifyDatabaseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7642,17 +9180,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void CreateStatisticsDatabaseCompletedEventHandler(object sender, CreateStatisticsDatabaseCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class CreateStatisticsDatabaseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal CreateStatisticsDatabaseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7672,17 +9216,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DropStatisticsDatabaseCompletedEventHandler(object sender, DropStatisticsDatabaseCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DropStatisticsDatabaseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DropStatisticsDatabaseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7702,17 +9252,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetMimeMappingsCompletedEventHandler(object sender, GetMimeMappingsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetMimeMappingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetMimeMappingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7732,17 +9288,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SaveMimeMappingsCompletedEventHandler(object sender, SaveMimeMappingsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SaveMimeMappingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SaveMimeMappingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7762,17 +9324,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ServerSummaryStatusCompletedEventHandler(object sender, ServerSummaryStatusCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ServerSummaryStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ServerSummaryStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7792,17 +9360,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ServerInformationCompletedEventHandler(object sender, ServerInformationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ServerInformationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ServerInformationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7822,17 +9396,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void CurrentStatusCompletedEventHandler(object sender, CurrentStatusCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class CurrentStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal CurrentStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7852,17 +9432,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void StartServerCompletedEventHandler(object sender, StartServerCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class StartServerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal StartServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7882,17 +9468,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void StopServerCompletedEventHandler(object sender, StopServerCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class StopServerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal StopServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7912,17 +9504,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ServerStartedCompletedEventHandler(object sender, ServerStartedCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ServerStartedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ServerStartedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7942,17 +9540,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void InitializeServerCompletedEventHandler(object sender, InitializeServerCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class InitializeServerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal InitializeServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -7972,17 +9576,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ShutdownServerCompletedEventHandler(object sender, ShutdownServerCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ShutdownServerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ShutdownServerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8002,17 +9612,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetEventRulesCompletedEventHandler(object sender, GetEventRulesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetEventRulesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetEventRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8032,17 +9648,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SetEventRulesCompletedEventHandler(object sender, SetEventRulesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetEventRulesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SetEventRulesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8062,17 +9684,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteRequestedAccountsCompletedEventHandler(object sender, DeleteRequestedAccountsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteRequestedAccountsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DeleteRequestedAccountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8092,17 +9720,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetRequestedAccountsCompletedEventHandler(object sender, GetRequestedAccountsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetRequestedAccountsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetRequestedAccountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8122,17 +9756,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SetRequestedAccountsCompletedEventHandler(object sender, SetRequestedAccountsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetRequestedAccountsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SetRequestedAccountsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8152,17 +9792,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetAuthenticationListCompletedEventHandler(object sender, GetAuthenticationListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAuthenticationListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetAuthenticationListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8182,17 +9828,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SetAuthenticationListCompletedEventHandler(object sender, SetAuthenticationListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetAuthenticationListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SetAuthenticationListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8212,17 +9864,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetHostnameCompletedEventHandler(object sender, GetHostnameCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetHostnameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetHostnameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8242,17 +9900,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SetWANIPCompletedEventHandler(object sender, SetWANIPCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SetWANIPCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SetWANIPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8272,17 +9936,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddUserCompletedEventHandler(object sender, AddUserCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal AddUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8302,17 +9972,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddGroupCompletedEventHandler(object sender, AddGroupCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal AddGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8332,17 +10008,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteUserCompletedEventHandler(object sender, DeleteUserCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DeleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8362,17 +10044,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteGroupCompletedEventHandler(object sender, DeleteGroupCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DeleteGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8392,17 +10080,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void AddRootCompletedEventHandler(object sender, AddRootCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class AddRootCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal AddRootCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8422,17 +10116,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void DeleteRootCompletedEventHandler(object sender, DeleteRootCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class DeleteRootCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal DeleteRootCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8452,17 +10152,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetUserListCompletedEventHandler(object sender, GetUserListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetUserListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8482,17 +10188,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetGroupListCompletedEventHandler(object sender, GetGroupListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetGroupListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetGroupListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8512,17 +10224,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetUserInformationCompletedEventHandler(object sender, GetUserInformationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetUserInformationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetUserInformationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8542,17 +10260,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetConnectedUserListCompletedEventHandler(object sender, GetConnectedUserListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetConnectedUserListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetConnectedUserListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8572,17 +10296,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ChangePasswordCompletedEventHandler(object sender, ChangePasswordCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ChangePasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ChangePasswordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8602,17 +10332,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void RenameUserCompletedEventHandler(object sender, RenameUserCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RenameUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal RenameUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8632,17 +10368,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void TerminateConnectionCompletedEventHandler(object sender, TerminateConnectionCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class TerminateConnectionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal TerminateConnectionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8662,17 +10404,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetProfilesCompletedEventHandler(object sender, GetProfilesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetProfilesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetProfilesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8692,17 +10440,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetGroupsCompletedEventHandler(object sender, GetGroupsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetGroupsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetGroupsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8722,17 +10476,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetConfigurationCompletedEventHandler(object sender, GetConfigurationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetConfigurationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetConfigurationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8752,17 +10512,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetInterfacesCompletedEventHandler(object sender, GetInterfacesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetInterfacesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetInterfacesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8782,17 +10548,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetIPBlockListCompletedEventHandler(object sender, GetIPBlockListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetIPBlockListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetIPBlockListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8812,17 +10584,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetAutoBlockListCompletedEventHandler(object sender, GetAutoBlockListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAutoBlockListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetAutoBlockListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8842,17 +10620,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetAppPathsCompletedEventHandler(object sender, GetAppPathsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAppPathsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetAppPathsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8872,17 +10656,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetLicenseInfoCompletedEventHandler(object sender, GetLicenseInfoCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetLicenseInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetLicenseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8902,17 +10692,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void VerifyLicenseCompletedEventHandler(object sender, VerifyLicenseCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class VerifyLicenseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal VerifyLicenseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8932,17 +10728,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetCurrentConnectionCountCompletedEventHandler(object sender, GetCurrentConnectionCountCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetCurrentConnectionCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetCurrentConnectionCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8962,17 +10764,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetAllCurrentConnectionCountCompletedEventHandler(object sender, GetAllCurrentConnectionCountCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetAllCurrentConnectionCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetAllCurrentConnectionCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -8992,17 +10800,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetInterfaceByIDCompletedEventHandler(object sender, GetInterfaceByIDCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetInterfaceByIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetInterfaceByIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9022,17 +10836,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetInterfaceListCompletedEventHandler(object sender, GetInterfaceListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetInterfaceListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetInterfaceListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9052,17 +10872,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void InitializeInterfaceCompletedEventHandler(object sender, InitializeInterfaceCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class InitializeInterfaceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal InitializeInterfaceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9082,17 +10908,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ShutdownInterfaceCompletedEventHandler(object sender, ShutdownInterfaceCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ShutdownInterfaceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ShutdownInterfaceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9112,17 +10944,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetStatisticsCompletedEventHandler(object sender, GetStatisticsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetStatisticsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9142,17 +10980,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetCurrentBandwidthCompletedEventHandler(object sender, GetCurrentBandwidthCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetCurrentBandwidthCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetCurrentBandwidthCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9172,17 +11016,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetFeaturesCompletedEventHandler(object sender, GetFeaturesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetFeaturesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetFeaturesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9202,17 +11052,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SaveProfilesCompletedEventHandler(object sender, SaveProfilesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SaveProfilesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SaveProfilesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9232,17 +11088,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SaveConfigurationCompletedEventHandler(object sender, SaveConfigurationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SaveConfigurationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SaveConfigurationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9262,17 +11124,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void CommitSettingsCompletedEventHandler(object sender, CommitSettingsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class CommitSettingsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal CommitSettingsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9292,17 +11160,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void SaveBlockListCompletedEventHandler(object sender, SaveBlockListCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class SaveBlockListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal SaveBlockListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9322,17 +11196,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ModifyInterfaceCompletedEventHandler(object sender, ModifyInterfaceCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ModifyInterfaceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ModifyInterfaceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9352,17 +11232,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void ShutdownConnectionsOnInterfaceCompletedEventHandler(object sender, ShutdownConnectionsOnInterfaceCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class ShutdownConnectionsOnInterfaceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal ShutdownConnectionsOnInterfaceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9382,17 +11268,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetFileTransfersCompletedEventHandler(object sender, GetFileTransfersCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetFileTransfersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetFileTransfersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9412,17 +11304,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GetLogMessagesCompletedEventHandler(object sender, GetLogMessagesCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GetLogMessagesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GetLogMessagesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9442,17 +11340,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void BlockAddressCompletedEventHandler(object sender, BlockAddressCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class BlockAddressCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal BlockAddressCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9472,17 +11376,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void GenerateStatisticsCompletedEventHandler(object sender, GenerateStatisticsCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class GenerateStatisticsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal GenerateStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9502,17 +11412,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void BackupServerConfigurationCompletedEventHandler(object sender, BackupServerConfigurationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class BackupServerConfigurationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal BackupServerConfigurationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
@@ -9532,17 +11448,23 @@ namespace FuseCP.Providers.FTP.CerberusFTP6Proxy
     }
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    /// <summary>TODO</summary>
     public delegate void RestoreServerConfigurationCompletedEventHandler(object sender, RestoreServerConfigurationCompletedEventArgs e);
 
     /// <remarks/>
+    /// <summary>Auto-generated member.</summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <summary>TODO</summary>
     public partial class RestoreServerConfigurationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
+        /// <summary>Auto-generated member.</summary>
 
         private object[] results;
+        /// <summary>Auto-generated member.</summary>
 
         internal RestoreServerConfigurationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
                 base(exception, cancelled, userState)
