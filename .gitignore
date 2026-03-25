@@ -92,3 +92,6 @@ packages/
 .fake
 # Runtime-written hardened authentication overlay - contains hashed credentials, never commit
 appsettings.hardened.json
+
+# Local secret backup artifacts - never commit
+artifacts/local-secret-config-backup-*/
