@@ -340,7 +340,7 @@ namespace FuseCP.EnterpriseServer
                 StatisticsServer stats = GetStatisticsServer(item.ServiceId);
 
                 // read site info
-                StatsSite itemSite = item as StatsSite;
+                StatsSite itemSite = (StatsSite)item;
                 StatsSite site = stats.GetSite(itemSite.SiteId);
 
                 XmlSerializer serializer = new XmlSerializer(typeof(StatsSite));

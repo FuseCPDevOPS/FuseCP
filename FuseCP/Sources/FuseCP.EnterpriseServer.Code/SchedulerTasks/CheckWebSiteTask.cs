@@ -68,9 +68,12 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            if ((String.IsNullOrEmpty(strResponseStatus) || !useResponseStatus)
-                && (String.IsNullOrEmpty(responseContains) || !useResponseContains)
-                && (String.IsNullOrEmpty(responseNotContains) || !useResponseDoesntContain))
+            bool isResponseStatusNotConfigured = String.IsNullOrEmpty(strResponseStatus) || !useResponseStatus;
+            bool isResponseContainsNotConfigured = String.IsNullOrEmpty(responseContains) || !useResponseContains;
+            bool isResponseNotContainsNotConfigured = String.IsNullOrEmpty(responseNotContains) || !useResponseDoesntContain;
+            if (isResponseStatusNotConfigured
+                && isResponseContainsNotConfigured
+                && isResponseNotContainsNotConfigured)
             {
                 TaskManager.WriteWarning("Specify one of 'Response Status', 'Response Contain' or 'Response Doesn't Contain' parameters.");
                 return;

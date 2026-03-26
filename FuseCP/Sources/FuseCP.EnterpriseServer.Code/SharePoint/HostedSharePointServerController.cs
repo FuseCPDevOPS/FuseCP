@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using FuseCP.EnterpriseServer.Base.HostedSolution;
@@ -85,18 +86,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
             Organization org = OrganizationController.GetOrganization(organizationId);
 
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(org.PackageId, typeof(SharePointSiteCollection), false);
-            items.ConvertAll<SharePointSiteCollection>(delegate(ServiceProviderItem item) { return (SharePointSiteCollection)item; });
-            List<SharePointSiteCollection> ret = new List<SharePointSiteCollection>();
-            foreach (ServiceProviderItem item in items)
-            {
-                SharePointSiteCollection siteCollection = item as SharePointSiteCollection;
-                if (siteCollection != null && siteCollection.OrganizationId == organizationId)
-                {
-                    ret.Add(siteCollection);
-                }
-            }
-
-            return ret;
+            return items.OfType<SharePointSiteCollection>().Where(siteCollection => siteCollection.OrganizationId == organizationId).ToList();
         }
 
         /// <summary>
@@ -802,10 +792,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
 
             if (quota.QuotaAllocatedValue == -1)
             {
-                if (size == -1)//Unlimited 
-                    return -1;
-                else
-                    return size;
+                return size == -1 ? -1 : size;
             }
             else
             {

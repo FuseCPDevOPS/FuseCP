@@ -79,9 +79,8 @@ namespace FuseCP.EnterpriseServer
                 if (!String.IsNullOrEmpty(strSecondaryServices))
                 {
                     string[] secondaryServices = strSecondaryServices.Split(',');
-                    foreach (string strSecondaryId in secondaryServices)
+                    foreach (int secondaryId in secondaryServices.Select(strSecondaryId => Utils.ParseInt(strSecondaryId, 0)))
                     {
-                        int secondaryId = Utils.ParseInt(strSecondaryId, 0);
                         if (secondaryId == 0)
                             continue;
 
@@ -99,10 +98,9 @@ namespace FuseCP.EnterpriseServer
                 if (!String.IsNullOrEmpty(allowTransfers))
                 {
                     string[] ips = Utils.ParseDelimitedString(allowTransfers, '\n', ' ', ',', ';');
-                    foreach (string ip in ips)
+                    foreach (string ip in ips.Where(ip => !secondaryIPAddresses.Contains(ip)))
                     {
-                        if (!secondaryIPAddresses.Contains(ip))
-                            secondaryIPAddresses.Add(ip);
+                        secondaryIPAddresses.Add(ip);
                     }
                 }
 
@@ -382,7 +380,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         return idn.GetUnicode(z);
                     }
-                    catch
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         return null;
                     }
