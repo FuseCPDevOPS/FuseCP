@@ -4293,8 +4293,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // restore web site
                 XmlSerializer serializer = new XmlSerializer(typeof(WebSite));
-                WebSite site = (WebSite)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("WebSite")));
+                XmlNode webSiteNode = itemNode.SelectSingleNode("WebSite");
+                using var webSiteReader = new XmlNodeReader(webSiteNode);
+                WebSite site = (WebSite)serializer.Deserialize(webSiteReader);
 
                 // create site if required
                 if (!web.SiteExists(site.SiteId))
@@ -4314,8 +4315,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
                 {
                     // deserialize vdir
                     serializer = new XmlSerializer(typeof(WebAppVirtualDirectory));
-                    WebAppVirtualDirectory vdir = (WebAppVirtualDirectory)serializer.Deserialize(
-                        new XmlNodeReader(vdirNode));
+                    using var vdirReader = new XmlNodeReader(vdirNode);
+                    WebAppVirtualDirectory vdir = (WebAppVirtualDirectory)serializer.Deserialize(vdirReader);
 
                     if (!web.AppVirtualDirectoryExists(site.SiteId, vdir.Name))
                     {
@@ -4346,8 +4347,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(SharedSSLFolder));
-                SharedSSLFolder sslFolder = (SharedSSLFolder)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("SharedSSLFolder")));
+                XmlNode sharedSslFolderNode = itemNode.SelectSingleNode("SharedSSLFolder");
+                using var sharedSslFolderReader = new XmlNodeReader(sharedSslFolderNode);
+                SharedSSLFolder sslFolder = (SharedSSLFolder)serializer.Deserialize(sharedSslFolderReader);
 
                 // create vdir if required
                 int idx = sslFolder.Name.LastIndexOf("/");
