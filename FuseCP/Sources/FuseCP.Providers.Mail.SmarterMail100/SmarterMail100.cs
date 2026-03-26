@@ -2153,7 +2153,7 @@ HttpClient client = CreateHttpClient();
 
 						dynamic deleteresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + member.id + "/delete", GetDomainName(listName), DelListPram).Result;
 
-						Convert.ToBoolean(deleteresult["success"]);
+						success = Convert.ToBoolean(deleteresult["success"]);
 						if (!success)
 							throw new Exception(deleteresult["message"]);
 					}
@@ -2368,7 +2368,7 @@ HttpClient client = CreateHttpClient();
 
 					dynamic mailRemoveMemberresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + listID + "/subscriber-remove", domain, mailRemoveMemberPram).Result;
 
-					Convert.ToBoolean(mailRemoveMemberresult["success"]);
+					success = Convert.ToBoolean(mailRemoveMemberresult["success"]);
 					if (!success)
 						throw new Exception(mailRemoveMemberresult["message"]);
 				}
@@ -2378,7 +2378,7 @@ HttpClient client = CreateHttpClient();
 
 					dynamic SetSubscriberListresult = ExecDomainPostCommand("settings/domain/mailing-lists/" + listID + "/subscriber-remove", domain, list.Members).Result;
 
-					Convert.ToBoolean(SetSubscriberListresult["success"]);
+					success = Convert.ToBoolean(SetSubscriberListresult["success"]);
 					if (!success)
 						throw new Exception(SetSubscriberListresult["message"]);
 				}

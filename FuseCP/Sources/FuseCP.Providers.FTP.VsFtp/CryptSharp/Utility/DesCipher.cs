@@ -198,7 +198,8 @@ namespace CryptSharp.Utility
             ulong[] kex = new ulong[16];
 
             ulong k = BitPacking.UInt64FromBEBytes(key, 0);
-            ulong kp = Permute(pc1, k, 64); k = 0;
+            ulong kp = Permute(pc1, k, 64);
+            k = 0; // Security: clear key material from local variable
 
             uint cn = (uint)(kp >> 28);
             uint dn = (uint)(kp & 0xfffffff);

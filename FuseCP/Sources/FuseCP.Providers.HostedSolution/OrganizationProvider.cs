@@ -447,23 +447,11 @@ namespace FuseCP.Providers.HostedSolution
         {
             string path = GetOrganizationPath(org.OrganizationId);
             DirectoryEntry entry = ActiveDirectoryUtils.GetADObject(path);
-            string filter = "";
 
             string msExchVersion = ActiveDirectoryUtils.GetADObjectStringProperty(entry, "msExchVersion");
-            if (!string.IsNullOrEmpty(msExchVersion))
-            {
-                filter = enabled ? string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)({0}=disabled))", ADAttributes.CustomAttribute2) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!{0}=disabled))", ADAttributes.CustomAttribute2);
-
-
-
-
-
-
-
-            }
-            else
-            {
-                filter = enabled ? string.Format(CultureInfo.InvariantCulture, "(|(&(objectCategory=user)(memberOf={0}))(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2)))", org.SecurityGroup) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))");
+            string filter = !string.IsNullOrEmpty(msExchVersion)
+                ? (enabled ? string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)({0}=disabled))", ADAttributes.CustomAttribute2) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!{0}=disabled))", ADAttributes.CustomAttribute2))
+                : (enabled ? string.Format(CultureInfo.InvariantCulture, "(|(&(objectCategory=user)(memberOf={0}))(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2)))", org.SecurityGroup) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"));
 
 
 
@@ -491,9 +479,8 @@ namespace FuseCP.Providers.HostedSolution
             {
                 try
                 {
-                    if (item is Organization)
+                    if (item is Organization org)
                     {
-                        Organization org = item as Organization;
                         DeleteOrganizationInternal(org.OrganizationId);
                     }
 
@@ -1783,12 +1770,12 @@ namespace FuseCP.Providers.HostedSolution
             using PrincipalContext ctx = new PrincipalContext(ContextType.Domain, RootDomain);
 
             principalgroups = UserPrincipal.FindByIdentity(ctx, userName).GetGroups();
-            HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups);
+            HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups?.GetType().Name ?? "null");
 
             foreach (Principal principalgroup in principalgroups)
             {
                 HostedSolutionLog.DebugInfo("Group Name: {0}", principalgroup.Name);
-                HostedSolutionLog.DebugInfo("path: {0}\n SamAccountName {1}\n Name: {2}\n UPN: {3}\n StructuralObjectClass: {4}\n Context: {5}\nContext: {6}\n DisplayName: {7}\n ContextType: {8}", principalgroup.DistinguishedName, principalgroup.SamAccountName, principalgroup.Name, principalgroup.UserPrincipalName, principalgroup.StructuralObjectClass, principalgroup.Context, principalgroup.Context, principalgroup.DisplayName, principalgroup.ContextType);
+                HostedSolutionLog.DebugInfo("path: {0}\n SamAccountName {1}\n Name: {2}\n UPN: {3}\n StructuralObjectClass: {4}\n Context: {5}\nContext: {6}\n DisplayName: {7}\n ContextType: {8}", principalgroup.DistinguishedName, principalgroup.SamAccountName, principalgroup.Name, principalgroup.UserPrincipalName, principalgroup.StructuralObjectClass, principalgroup.Context?.Name ?? "null", principalgroup.Context?.Name ?? "null", principalgroup.DisplayName, principalgroup.ContextType);
                 string path = ActiveDirectoryUtils.AddADPrefix(principalgroup.DistinguishedName);
                 DirectoryEntry groupEntry = ActiveDirectoryUtils.GetADObject(path);
 

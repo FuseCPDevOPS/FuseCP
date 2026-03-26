@@ -100,15 +100,7 @@ namespace FuseCP.EnterpriseServer.MailTemplates
 
 				if (!string.IsNullOrEmpty(organizationLogoUrl))
 				{
-					str = organizationGeneralSettings != null ? organizationGeneralSettings.OrganizationLogoUrl : null;
-
-
-
-
-
-
-
-					this.LogoUrl = str;
+					this.LogoUrl = organizationLogoUrl;
 				}
 			}
 		}

@@ -460,7 +460,7 @@ namespace FuseCP.Providers.Utils
 		/// </returns>
 		private static Encoding GetEncodingByNameOrDefault(string encoding, Encoding defaultEncoding)
 		{
-            Encoding currentEncoding = defaultEncoding;
+            Encoding currentEncoding;
 
 			try
 			{

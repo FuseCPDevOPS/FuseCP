@@ -883,7 +883,6 @@ LOG ON(
 		{
 			Data.DbType dbType;
 			string ConnStr, server;
-			var csb = new ConnectionStringBuilder(connectionString);
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{
@@ -903,7 +902,6 @@ LOG ON(
 		{
 			Data.DbType dbType;
 			string ConnStr, server;
-			var csb = new ConnectionStringBuilder(connectionString);
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{

@@ -317,7 +317,7 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 
 		public override void AddZoneRecord(string zoneName, DnsRecord record)
 		{
-			if (ZoneExists(zoneName) && SupportedDnsRecords.ContainsKey(record.RecordType))
+			if (ZoneExists(zoneName) && SupportedDnsRecords.TryGetValue(record.RecordType, out var recordHandler))
 			{
 				string m_strRecordName = ConvertRecordNameToSDNSFormat(record.RecordName, zoneName);
 				//
@@ -327,7 +327,7 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 				List<string> m_strRecordData = new List<string>();
 				String m_strRecordType = String.Empty;
 				// build record data
-				SupportedDnsRecords[record.RecordType](zoneName, ref m_strRecordType, record, m_strRecordData);
+				recordHandler(zoneName, ref m_strRecordType, record, m_strRecordData);
 
 				// skip if already added
 				if (dnsZone.Records.Contains(m_strRecordName, m_strRecordType, m_strRecordData.ToArray()))

@@ -7152,8 +7152,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateServiceProperties(int serviceId, string xml)
 		{
-			if (true) // always use EF since StoredProcedure is very slow
-			{
+			{ // always use EF since StoredProcedure is very slow
 				var properties = XElement.Parse(xml)
 					.Elements()
 					.Select(e => new Data.Entities.ServiceProperty
@@ -18144,12 +18143,10 @@ namespace FuseCP.EnterpriseServer
 				if (sortDirection == "ASC")
 				{
 					accounts = sortColumn == "DisplayName" ? accounts.OrderBy(a => a.DisplayName) : accounts.OrderBy(a => a.PrimaryEmailAddress);
-
 				}
 				else
 				{
 					accounts = sortColumn == "DisplayName" ? accounts.OrderByDescending(a => a.DisplayName) : accounts.OrderByDescending(a => a.PrimaryEmailAddress);
-
 				}
 				accounts = accounts.Skip(startRow).Take(count);
 				/// <summary>TODO</summary>
@@ -20929,6 +20926,7 @@ namespace FuseCP.EnterpriseServer
 				var plans = LyncUserPlans.Where(p => p.ItemId == itemID);
 				if (!plans.Any() && lyncUserPlan.LyncUserPlanType == 0)
 				{
+					// First plan of type 0: no reset of defaults needed
 				}
 				else
 				{
@@ -21549,6 +21547,7 @@ namespace FuseCP.EnterpriseServer
 				var plans = SfBUserPlans.Where(p => p.ItemId == itemID);
 				if (!plans.Any() && sfbUserPlan.SfBUserPlanType == 0)
 				{
+					// First plan of type 0: no reset of defaults needed
 				}
 				else
 				{

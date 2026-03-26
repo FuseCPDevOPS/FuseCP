@@ -3340,7 +3340,11 @@ namespace FuseCP.EnterpriseServer
                 // load account
                 account = GetAccount(itemId, accountId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                // Swallow non-critical exceptions during org/account load; next try block handles the main operation
+                System.Diagnostics.Trace.TraceWarning("Exception loading org/account: " + ex.Message);
+            }
 
             try
             {

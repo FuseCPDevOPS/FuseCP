@@ -88,8 +88,7 @@ namespace FuseCP.Providers.OS
                     Loopback = IPAddress.IPv6Loopback;
                 }
             }
-            var sshhost = Uri.DnsSafeHost;
-            sshhost = sshhostip.ToString();
+            var sshhost = sshhostip.ToString();
 
             if (string.IsNullOrEmpty(Uri.Password))
             {

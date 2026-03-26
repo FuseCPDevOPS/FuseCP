@@ -720,10 +720,6 @@ namespace FuseCP.EnterpriseServer
         [WebMethod]
         public int DeleteDomain(int domainId)
         {
-            string domainname = "";
-            DomainInfo domain = ServerController.GetDomain(domainId);
-            if (domain != null)
-                    domainname = domain.DomainName;
             int res = ServerController.DeleteDomain(domainId);
             return res;
         }
@@ -731,10 +727,6 @@ namespace FuseCP.EnterpriseServer
         [WebMethod]
         public int DetachDomain(int domainId)
         {
-            string domainname = "";
-            DomainInfo domain = ServerController.GetDomain(domainId);
-            if (domain != null)
-                    domainname = domain.DomainName;
             int res = ServerController.DetachDomain(domainId);
             return res;
         }

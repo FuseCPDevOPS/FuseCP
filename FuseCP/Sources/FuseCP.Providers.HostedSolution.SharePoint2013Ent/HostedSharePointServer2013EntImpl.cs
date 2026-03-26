@@ -22,6 +22,7 @@ using System.Runtime.Versioning;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Security.Principal;
+using System.Text;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Administration;
 using FuseCP.Providers.SharePoint;
@@ -746,9 +747,11 @@ namespace FuseCP.Providers.HostedSolution
 
                         if (!bRecordExist)
                         {
-                            string outPut = contentArr.Where(o => o != string.Empty).Aggregate(string.Empty, (current, o) => current + (o + "\r\n"));
-                            outPut += siteCollection.RootWebApplicationInteralIpAddress + '\t' + siteCollection.RootWebApplicationFQDN + "\r\n";
-                            FileUtils.UpdateFileTextContent(path, outPut);
+                            var outPutBuilder = new StringBuilder();
+                            foreach (var o in contentArr.Where(o => o != string.Empty))
+                                outPutBuilder.Append(o).Append("\r\n");
+                            outPutBuilder.Append(siteCollection.RootWebApplicationInteralIpAddress).Append('\t').Append(siteCollection.RootWebApplicationFQDN).Append("\r\n");
+                            FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());
                         }
                     }
                 }
@@ -775,7 +778,7 @@ namespace FuseCP.Providers.HostedSolution
                         string content = FileUtils.GetFileTextContent(path);
                         content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                         string[] contentArr = content.Split(new[] {'\n'});
-                        string outPut = string.Empty;
+                        var outPutBuilder = new StringBuilder();
 
                         foreach (string s in contentArr)
                         {
@@ -804,17 +807,17 @@ namespace FuseCP.Providers.HostedSolution
 
                                     if (hostName.ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                     {
-                                        outPut += s + "\r\n";
+                                        outPutBuilder.Append(s).Append("\r\n");
                                     }
                                 }
                                 else
                                 {
-                                    outPut += s + "\r\n";
+                                    outPutBuilder.Append(s).Append("\r\n");
                                 }
                             }
                         }
 
-                        FileUtils.UpdateFileTextContent(path, outPut);
+                        FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());
                     }
                 }
             }

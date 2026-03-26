@@ -161,11 +161,12 @@ namespace FuseCP.EnterpriseServer
 
             XmlDocument xmlResult = new XmlDocument();
             xmlResult.LoadXml(lstXMLResult);
-            String lstMessage = String.Empty;
             foreach (XmlNode lxmNode in xmlResult.ChildNodes)
             {
                 if (lxmNode.Name == "response" && lxmNode.FirstChild.Name == "message")
                 {
+                    // Response message node found; no further processing required
+                    break;
                 }
             }
 

@@ -3091,8 +3091,7 @@ namespace FuseCP.Providers.Web
 						if (!String.IsNullOrEmpty(user.Password))
 						{
 							// hash password
-							string password = line.Substring(colonIdx + 1);
-							password = GeneratePasswordHash(user);
+							string password = GeneratePasswordHash(user);
 
 							// update line
 							updatedLine = username + ":" + password;

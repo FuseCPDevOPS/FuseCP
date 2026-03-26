@@ -554,7 +554,7 @@ namespace FuseCP.EnterpriseServer
 
 							FileStream stream = new FileStream(backupFileNamePath, FileMode.Create, FileAccess.Write);
 
-									byte[] buffer = new byte[FILE_BUFFER_LENGTH];
+									byte[] buffer;
 							int offset = 0;
 							do
 							{

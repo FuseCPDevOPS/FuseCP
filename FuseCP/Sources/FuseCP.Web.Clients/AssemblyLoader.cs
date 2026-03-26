@@ -264,8 +264,6 @@ namespace FuseCP.Web.Clients
             else if (arch == Architecture.X86)
             {
 				file = archExtension ? Path.Join(assemblyPath, Path.ChangeExtension(dllName, $"x86.dll")) : Path.Join(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-
-				file = Path.Join(assemblyPath, "x86", dllName.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
             }
             else throw new NotSupportedException($"Architecture {arch} not supported.");
 

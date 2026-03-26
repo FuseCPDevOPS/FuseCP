@@ -674,8 +674,7 @@ namespace FuseCP.EnterpriseServer
         {
 if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                 {
-                    if (_ckv != null)
-                        if (_ckv.IsAlive)
+                    if (_ckv != null && _ckv.IsAlive)
                         {
                             if (!task.Completed)
 #if NETFRAMEWORK

@@ -95,8 +95,7 @@ namespace FuseCP.Providers.DNS
             Collection<PSObject> results = ps.RunPipeline(cmd);
             PSObject result = results[0];
 
-            string RecordData = "Unable to show fully";
-            RecordData = result.Members["RecordData"].Value.ToString();
+            string RecordData = result.Members["RecordData"].Value.ToString();
 
 
             return RecordData;

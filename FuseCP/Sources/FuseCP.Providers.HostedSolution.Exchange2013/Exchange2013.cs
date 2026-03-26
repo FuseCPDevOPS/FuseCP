@@ -747,7 +747,6 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
                 //Update the new path to the user in the directory.
-                string filterAttribute = (string)result.Properties["cn"][0];
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
@@ -5496,7 +5495,7 @@ namespace FuseCP.Providers.HostedSolution
             Command cmd = new Command("Get-PublicFolderClientPermission");
             cmd.Parameters.Add("Identity", id);
             cmd.Parameters.Add("Mailbox", mailbox);
-            Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
+            ExecuteShellCommand(runSpace, cmd);
         }
 
         private void EnableMailPublicFolderInternal(string organizationId, string folder, string accountName,
@@ -7734,24 +7733,9 @@ namespace FuseCP.Providers.HostedSolution
             device.DeviceOSLanguage = (string)GetPSObjectProperty(obj, "DeviceOSLanguage");
             device.DevicePhoneNumber = (string)GetPSObjectProperty(obj, "DevicePhoneNumber");
             //status
-            if (wipeAckTime.HasValue)
-            {
-                //green
-                device.Status = MobileDeviceStatus.WipeSuccessful;
-            }
-            else
-            {
-                device.Status = wipeRequestTime.HasValue || wipeSentTime.HasValue ? MobileDeviceStatus.PendingWipe : MobileDeviceStatus.OK;
-
-
-
-
-
-
-
-
-
-            }
+            device.Status = wipeAckTime.HasValue
+                ? MobileDeviceStatus.WipeSuccessful
+                : (wipeRequestTime.HasValue || wipeSentTime.HasValue ? MobileDeviceStatus.PendingWipe : MobileDeviceStatus.OK);
 
             return device;
         }
@@ -8660,7 +8644,6 @@ namespace FuseCP.Providers.HostedSolution
             ResultObject res = new ResultObject() { IsSuccess = true };
 
             Runspace runSpace = null;
-            Runspace runSpaceEx = null;
             try
             {
                 runSpace = OpenRunspace();

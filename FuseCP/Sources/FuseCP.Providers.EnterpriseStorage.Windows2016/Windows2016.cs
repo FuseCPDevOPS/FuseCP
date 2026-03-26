@@ -124,12 +124,10 @@ if (quotas.TryGetValue(fullName, out var _ckv))
                     ? quotasArray[parentFolderPath] 
                     : windows.GetQuotasForOrganization(parentFolderPath, string.Empty, string.Empty);
 
-                if (!(quotas.ContainsKey(folder.FullName)))
+                if (!quotas.TryGetValue(folder.FullName, out var quota))
                 {
                     continue;
                 }
-
-                var quota = quotas[folder.FullName];
 
                 if (quota != null)
                 {

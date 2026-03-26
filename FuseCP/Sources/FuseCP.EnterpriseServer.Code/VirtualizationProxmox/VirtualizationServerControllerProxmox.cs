@@ -1789,7 +1789,7 @@ namespace FuseCP.EnterpriseServer
 
                 try
                 {
-                    if (state == VirtualMachineRequestedState.TurnOff || state == VirtualMachineRequestedState.TurnOff)
+                    if (state == VirtualMachineRequestedState.TurnOff || state == VirtualMachineRequestedState.ShutDown)
                     {
                         vps.ChangeVirtualMachineState(machine.VirtualMachineId, state);
 
@@ -2361,7 +2361,6 @@ namespace FuseCP.EnterpriseServer
 
                 #region Check Quotas
                 // check quotas
-                List<string> quotaResults = new List<string>();
                 PackageController.GetPackageContext(vm.PackageId);
 
                 // check the number of created snapshots

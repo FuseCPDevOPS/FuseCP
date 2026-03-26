@@ -664,8 +664,10 @@ namespace FuseCP.Providers.Utils
                     {
                         DirectoryEntry group = computer.Children.Find(groupName, "group");
                         if (group != null)
+                        {
                             group.Invoke("Add", new object[] { objUser.Path.ToString() });
-                        group.CommitChanges();
+                            group.CommitChanges();
+                        }
                     }
                 }
             }

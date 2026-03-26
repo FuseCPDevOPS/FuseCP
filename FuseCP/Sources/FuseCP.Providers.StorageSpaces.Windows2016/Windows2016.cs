@@ -1271,12 +1271,10 @@ namespace FuseCP.Providers.StorageSpaces
         {
             var quotas = GetQuotasForOrganization(Directory.GetParent(fullPath).ToString(), string.Empty, string.Empty);
 
-            if (!(quotas.ContainsKey(fullPath)))
+            if (!quotas.TryGetValue(fullPath, out var quota))
             {
                 return null;
             }
-
-            var quota = quotas[fullPath];
 
             if (quota != null)
             {

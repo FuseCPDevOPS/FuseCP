@@ -700,6 +700,8 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                         throw new ArgumentOutOfRangeException("newState");
                 }
 
+                if (resultclient == null)
+                    throw new InvalidOperationException($"No result for state change to {newState}");
 
                 jobResult.ReturnValue = resultclient.StatusCode.Equals(HttpStatusCode.OK) ? ReturnCode.JobStarted : ReturnCode.Failed;
 

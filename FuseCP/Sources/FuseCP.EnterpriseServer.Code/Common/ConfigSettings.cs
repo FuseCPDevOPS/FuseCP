@@ -75,16 +75,7 @@ namespace FuseCP.EnterpriseServer
 					if (!string.IsNullOrEmpty(value))
 						cryptoKey = value;
 					else
-					{
 						cryptoKey = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.CryptoKey"] : Web.Services.Configuration.CryptoKey;
-
-
-
-
-
-
-
-					}
 				}
 				return cryptoKey;
 			}

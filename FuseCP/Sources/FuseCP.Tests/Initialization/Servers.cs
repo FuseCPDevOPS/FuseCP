@@ -142,6 +142,7 @@ public class Servers
 	public static WSLShell.WSLDistro WslDistro(Os os)
 	{
 		var shell = WSLShell.Default.Clone as WSLShell;
+		if (shell == null) throw new InvalidOperationException("Failed to initialize WSL shell.");
 		shell.LogFile = System.IO.Path.Join(Paths.Test, "TestResults", $"WSL.log");
 		var installed = shell.InstalledDistros
 			.OrderByDescending(d => d.Distro);

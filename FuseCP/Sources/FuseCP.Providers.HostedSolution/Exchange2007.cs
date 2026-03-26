@@ -685,7 +685,6 @@ namespace FuseCP.Providers.HostedSolution
 				}
 
 				//Update the new path to the user in the directory.
-				string filterAttribute = (string)result.Properties["cn"][0];
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -4635,7 +4634,7 @@ namespace FuseCP.Providers.HostedSolution
 			cmd.Parameters.Add("Identity", id);
 			if (!string.IsNullOrEmpty(PublicFolderServer))
 				cmd.Parameters.Add("Server", PublicFolderServer);
-			Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
+			ExecuteShellCommand(runSpace, cmd);
 		}
 
 
@@ -6722,24 +6721,9 @@ namespace FuseCP.Providers.HostedSolution
 			device.DeviceOSLanguage = (string)GetPSObjectProperty(obj, "DeviceOSLanguage");
 			device.DevicePhoneNumber = (string)GetPSObjectProperty(obj, "DevicePhoneNumber");
 			//status
-			if (wipeAckTime.HasValue)
-			{
-				//green
-				device.Status = MobileDeviceStatus.WipeSuccessful;
-			}
-			else
-			{
-				device.Status = wipeRequestTime.HasValue || wipeSentTime.HasValue ? MobileDeviceStatus.PendingWipe : MobileDeviceStatus.OK;
-
-
-
-
-
-
-
-
-
-			}
+			device.Status = wipeAckTime.HasValue
+				? MobileDeviceStatus.WipeSuccessful
+				: (wipeRequestTime.HasValue || wipeSentTime.HasValue ? MobileDeviceStatus.PendingWipe : MobileDeviceStatus.OK);
 
 			return device;
 		}

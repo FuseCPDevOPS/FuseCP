@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Principal;
+using System.Text;
 
 using FuseCP.Providers.SharePoint;
 using FuseCP.Providers.Utils;
@@ -335,16 +336,16 @@ namespace FuseCP.Providers.HostedSolution
 
                             if (!bRecordExist)
                             {
-                                string outPut = string.Empty;
+                var outPutBuilder = new StringBuilder();
                                 foreach (string o in contentArr)
                                 {
                                     if (o != string.Empty)
-                                        outPut += o + "\r\n";
+                                        outPutBuilder.Append(o).Append("\r\n");
                                 }
 
-                                outPut += siteCollection.RootWebApplicationInteralIpAddress + '\t' + siteCollection.RootWebApplicationFQDN + "\r\n";
+                                outPutBuilder.Append(siteCollection.RootWebApplicationInteralIpAddress).Append('\t').Append(siteCollection.RootWebApplicationFQDN).Append("\r\n");
 
-                                FileUtils.UpdateFileTextContent(path, outPut);
+                                FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());
                             }
 
 
@@ -416,7 +417,7 @@ namespace FuseCP.Providers.HostedSolution
                                 string content = FileUtils.GetFileTextContent(path);
                                 content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                                 string[] contentArr = content.Split(new char[] { '\n' });
-                                string outPut = string.Empty;
+                                var outPutBuilder = new StringBuilder();
                                 foreach (string s in contentArr)
                                 {
                                     if (s != string.Empty)
@@ -441,16 +442,16 @@ namespace FuseCP.Providers.HostedSolution
 
                                             if (hostName.ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                             {
-                                                outPut += s + "\r\n";
+                                                outPutBuilder.Append(s).Append("\r\n");
                                             }
 
                                         }
                                         else
-                                            outPut += s + "\r\n";
+                                            outPutBuilder.Append(s).Append("\r\n");
                                     }
                                 }
 
-                                FileUtils.UpdateFileTextContent(path, outPut);
+                                FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());
                             }
                         }
                     }

@@ -162,9 +162,9 @@ namespace FuseCP.Providers.Filters
         {
             Log.WriteStart("DeleteDomainFilter");
 
-            var result = ExecCommand("domainuser/remove", "username", domain);
+            ExecCommand("domainuser/remove", "username", domain);
             ExecCommand("outgoingusers/remove", "domain", domain);
-            result = ExecCommand("domain/remove", "domain", domain);
+            var result = ExecCommand("domain/remove", "domain", domain);
 
             Log.WriteEnd("DeleteDomainFilter");
 

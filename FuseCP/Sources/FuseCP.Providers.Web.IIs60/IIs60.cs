@@ -1856,11 +1856,10 @@ namespace FuseCP.Providers.Web
 		private bool IsFrontPage2000Installed()
 		{
 			// query IIS filters to determine if FPSE 2000 is installed
-			ManagementObject objFilter = wmi.GetObject(String.Format("IIsFilter.Name='{0}'",
-				FRONTPAGE_PATH));
-
 			try
 			{
+				wmi.GetObject(String.Format("IIsFilter.Name='{0}'",
+					FRONTPAGE_PATH));
 				return true;
 			}
 			catch
@@ -2520,8 +2519,7 @@ namespace FuseCP.Providers.Web
 						{
 							// change password
 							BsdDES des = new BsdDES();
-							string password = line.Substring(colonIdx + 1);
-							password = des.Crypt(user.Password);
+							string password = des.Crypt(user.Password);
 
 							// update line
 							updatedLine = username + ":" + password;
