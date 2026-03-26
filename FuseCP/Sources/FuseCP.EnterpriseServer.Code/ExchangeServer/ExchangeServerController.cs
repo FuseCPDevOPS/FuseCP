@@ -3682,41 +3682,34 @@ namespace FuseCP.EnterpriseServer
                     mailboxPlan.EnablePOP = mailboxPlan.EnablePOP && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_POP3ALLOWED].QuotaAllocatedValue);
                     mailboxPlan.EnableAutoReply = mailboxPlan.EnableAutoReply && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2013_AUTOREPLY].QuotaAllocatedValue);
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.KeepDeletedItemsDays > cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue != -1 && mailboxPlan.KeepDeletedItemsDays > cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue)
                             mailboxPlan.KeepDeletedItemsDays = cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue;
 
                     if (mailboxPlan.Archiving)
                     {
-                        if (cntx.Quotas[Quotas.EXCHANGE2013_ARCHIVINGSTORAGE].QuotaAllocatedValuePerOrganization != -1)
-                            if (mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2013_ARCHIVINGSTORAGE].QuotaAllocatedValuePerOrganization)
+                        if (cntx.Quotas[Quotas.EXCHANGE2013_ARCHIVINGSTORAGE].QuotaAllocatedValuePerOrganization != -1 && mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2013_ARCHIVINGSTORAGE].QuotaAllocatedValuePerOrganization)
                                 mailboxPlan.MailboxSizeMB = cntx.Quotas[Quotas.EXCHANGE2013_ARCHIVINGSTORAGE].QuotaAllocatedValuePerOrganization;
                     }
                     else
                     {
-                        if (cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization != -1)
-                            if (mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization)
+                        if (cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization != -1 && mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization)
                                 mailboxPlan.MailboxSizeMB = cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization;
                     }
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxReceiveMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue != -1 && mailboxPlan.MaxReceiveMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue)
                             mailboxPlan.MaxReceiveMessageSizeKB = cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxSendMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue != -1 && mailboxPlan.MaxSendMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue)
                             mailboxPlan.MaxSendMessageSizeKB = cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxRecipients > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue != -1 && mailboxPlan.MaxRecipients > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue)
                             mailboxPlan.MaxRecipients = cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue;
 
                     if (Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue)) mailboxPlan.HideFromAddressBook = true;
 
                     mailboxPlan.AllowLitigationHold = mailboxPlan.AllowLitigationHold && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_ALLOWLITIGATIONHOLD].QuotaAllocatedValue);
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization != -1)
-                        if (mailboxPlan.RecoverableItemsSpace > cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization != -1 && mailboxPlan.RecoverableItemsSpace > cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization)
                             mailboxPlan.RecoverableItemsSpace = cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization;
                 }
 
@@ -3774,32 +3767,26 @@ namespace FuseCP.EnterpriseServer
                     mailboxPlan.EnablePOP = mailboxPlan.EnablePOP && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_POP3ALLOWED].QuotaAllocatedValue);
                     mailboxPlan.EnableAutoReply = mailboxPlan.EnableAutoReply && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2013_AUTOREPLY].QuotaAllocatedValue);
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.KeepDeletedItemsDays > cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue != -1 && mailboxPlan.KeepDeletedItemsDays > cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue)
                             mailboxPlan.KeepDeletedItemsDays = cntx.Quotas[Quotas.EXCHANGE2007_KEEPDELETEDITEMSDAYS].QuotaAllocatedValue;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization != -1)
-                        if (mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization != -1 && mailboxPlan.MailboxSizeMB > cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization)
                             mailboxPlan.MailboxSizeMB = cntx.Quotas[Quotas.EXCHANGE2007_DISKSPACE].QuotaAllocatedValuePerOrganization;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxReceiveMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue != -1 && mailboxPlan.MaxReceiveMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue)
                             mailboxPlan.MaxReceiveMessageSizeKB = cntx.Quotas[Quotas.EXCHANGE2007_MAXRECEIVEMESSAGESIZEKB].QuotaAllocatedValue;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxSendMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue != -1 && mailboxPlan.MaxSendMessageSizeKB > cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue)
                             mailboxPlan.MaxSendMessageSizeKB = cntx.Quotas[Quotas.EXCHANGE2007_MAXSENDMESSAGESIZEKB].QuotaAllocatedValue;
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue != -1)
-                        if (mailboxPlan.MaxRecipients > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue != -1 && mailboxPlan.MaxRecipients > cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue)
                             mailboxPlan.MaxRecipients = cntx.Quotas[Quotas.EXCHANGE2007_MAXRECIPIENTS].QuotaAllocatedValue;
 
                     if (Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue)) mailboxPlan.HideFromAddressBook = true;
 
                     mailboxPlan.AllowLitigationHold = mailboxPlan.AllowLitigationHold && Convert.ToBoolean(cntx.Quotas[Quotas.EXCHANGE2007_ALLOWLITIGATIONHOLD].QuotaAllocatedValue);
 
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization != -1)
-                        if (mailboxPlan.RecoverableItemsSpace > cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization)
+                    if (cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization != -1 && mailboxPlan.RecoverableItemsSpace > cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization)
                             mailboxPlan.RecoverableItemsSpace = cntx.Quotas[Quotas.EXCHANGE2007_RECOVERABLEITEMSSPACE].QuotaAllocatedValuePerOrganization;
 
                 }

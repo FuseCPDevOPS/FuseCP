@@ -110,8 +110,7 @@ namespace FuseCP.Providers.Mail
                                     if (!Location.Exists)
                                         Location.Create();
                                     string groupConfPath = Path.Join(split[1], @"\groups.ini");
-                                    if (!File.Exists(groupConfPath))
-                                        if (key != null)
+                                    if (!File.Exists(groupConfPath) && key != null)
                                             File.Copy(
                                                 Path.Join((string) key.GetValue("InstallLocation"), GroupsConfigFile),
                                                 groupConfPath);

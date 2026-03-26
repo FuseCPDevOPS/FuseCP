@@ -40,7 +40,83 @@ foreach ($group in ($byFile | Sort-Object Name)) {
         for ($i = $outerLn; $i -le [Math]::Min($outerLn+2, $lines.Count-1); $i++) {
             if ($lines[$i].Contains('{')) { $outerOpenBraceIdx = $i; break }
         }
-        if ($outerOpenBraceIdx -lt 0) { continue }
+        if ($outerOpenBraceIdx -lt 0) {
+            # BRACELESS OUTER IF: body is the very next non-empty code line (inner if)
+            $innerLn = -1
+            for ($i = $outerLn+1; $i -lt [Math]::Min($lines.Count, $outerLn+5); $i++) {
+                $t2 = $lines[$i].Trim()
+                if ($t2 -ne '' -and -not ($t2 -match '^//')) { $innerLn = $i; break }
+            }
+            if ($innerLn -lt 0) { continue }
+            # Verify there's no else after this block
+            $innerTrimmedBL = $lines[$innerLn].TrimStart()
+            if ($innerTrimmedBL -notmatch '^if\s*\(') { continue }
+            if ($innerTrimmedBL -notmatch '\)\s*$' -and $innerTrimmedBL -notmatch '\)\s*\{?\s*$') { continue }
+            $innerCondBL = if ($innerTrimmedBL -match '^if\s*\((.+)\)\s*\{?\s*$') { $Matches[1] } else { continue }
+            $hasBraceBL = $innerTrimmedBL -match '\{'
+            if (-not $hasBraceBL) {
+                # Braceless inner: body is next single statement
+                $stmtLn = -1
+                for ($i = $innerLn+1; $i -lt [Math]::Min($lines.Count, $innerLn+5); $i++) {
+                    $t2 = $lines[$i].Trim()
+                    if ($t2 -ne '' -and -not ($t2 -match '^//')) { $stmtLn = $i; break }
+                }
+                if ($stmtLn -lt 0) { continue }
+                # No else after statement
+                $afterLn = -1
+                for ($i = $stmtLn+1; $i -lt [Math]::Min($lines.Count, $stmtLn+4); $i++) {
+                    if ($lines[$i].Trim() -ne '') { $afterLn = $i; break }
+                }
+                if ($afterLn -ge 0 -and $lines[$afterLn].TrimStart() -match '^else\b') { continue }
+                $ocBL = $outerCond.Trim(); $icBL = $innerCondBL.Trim()
+                if ($ocBL -match '\|\|' -or ($ocBL -match '&&' -and -not ($ocBL -match '^\('))) { $ocBL = "($ocBL)" }
+                if ($icBL -match '\|\|' -or ($icBL -match '&&' -and -not ($icBL -match '^\('))) { $icBL = "($icBL)" }
+                # Remove outer if line and inner if line; insert merged if line
+                $rangeCountBL = $innerLn - $outerLn + 1
+                $lines.RemoveRange($outerLn, $rangeCountBL)
+                $lines.Insert($outerLn, "${indentStr}if ($ocBL && $icBL)")
+                $changed = $true; $totalFixed++
+                Write-Host "MERGED(bl-bl): $($relPath.Split('/')[-1]) L$($alert.most_recent_instance.location.start_line) [$ocBL && $icBL]"
+            } else {
+                # Braced inner: find matching close
+                $innerDepthBL = 0; $innerStartedBL = $false; $innerCloseBL = -1
+                for ($i = $innerLn; $i -lt [Math]::Min($lines.Count, $innerLn+80); $i++) {
+                    foreach ($c in $lines[$i].ToCharArray()) {
+                        if ($c -eq '{') { $innerDepthBL++; $innerStartedBL = $true }
+                        elseif ($c -eq '}') { $innerDepthBL-- }
+                    }
+                    if ($innerStartedBL -and $innerDepthBL -eq 0) { $innerCloseBL = $i; break }
+                }
+                if ($innerCloseBL -lt 0) { continue }
+                $afterLn = -1
+                for ($i = $innerCloseBL+1; $i -lt [Math]::Min($lines.Count, $innerCloseBL+4); $i++) {
+                    if ($lines[$i].Trim() -ne '') { $afterLn = $i; break }
+                }
+                if ($afterLn -ge 0 -and $lines[$afterLn].TrimStart() -match '^else\b') { continue }
+                $hasPreprocessorBL = $false
+                for ($i = $innerLn; $i -le $innerCloseBL; $i++) {
+                    if ($lines[$i].Trim() -match '^#(if|else|endif|pragma)') { $hasPreprocessorBL = $true; break }
+                }
+                if ($hasPreprocessorBL) { continue }
+                $innerBodyBL = @()
+                for ($i = $innerLn+1; $i -lt $innerCloseBL; $i++) {
+                    $innerBodyBL += [pscustomobject]@{Idx=$i; Raw=$lines[$i]}
+                }
+                if ($innerBodyBL.Count -eq 0) { continue }
+                $ocBL = $outerCond.Trim(); $icBL = $innerCondBL.Trim()
+                if ($ocBL -match '\|\|' -or ($ocBL -match '&&' -and -not ($ocBL -match '^\('))) { $ocBL = "($ocBL)" }
+                if ($icBL -match '\|\|' -or ($icBL -match '&&' -and -not ($icBL -match '^\('))) { $icBL = "($icBL)" }
+                $newLinesBL = @("${indentStr}if ($ocBL && $icBL)", "${indentStr}{")
+                foreach ($bl in $innerBodyBL) { $newLinesBL += $bl.Raw }
+                $newLinesBL += "${indentStr}}"
+                $rangeCountBL = $innerCloseBL - $outerLn + 1
+                $lines.RemoveRange($outerLn, $rangeCountBL)
+                for ($ri = $newLinesBL.Count - 1; $ri -ge 0; $ri--) { $lines.Insert($outerLn, $newLinesBL[$ri]) }
+                $changed = $true; $totalFixed++
+                Write-Host "MERGED(bl-br): $($relPath.Split('/')[-1]) L$($alert.most_recent_instance.location.start_line) [$ocBL && $icBL]"
+            }
+            continue  # handled in braceless path
+        }
 
         # Find matching closing brace for outer if
         $depth = 0; $started = $false; $outerCloseBraceIdx = -1

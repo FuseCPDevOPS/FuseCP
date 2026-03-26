@@ -827,8 +827,7 @@ namespace FuseCP.EnterpriseServer
                 //Cleanup Lync
                 try
                 {
-                    if (!string.IsNullOrEmpty(org.LyncTenantId))
-                        if (DeleteLyncUsers(itemId))
+                    if (!string.IsNullOrEmpty(org.LyncTenantId) && DeleteLyncUsers(itemId))
                             LyncController.DeleteOrganization(itemId);
                 }
                 catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -840,8 +839,7 @@ namespace FuseCP.EnterpriseServer
                 //Cleanup SfB
                 try
                 {
-                    if (!string.IsNullOrEmpty(org.SfBTenantId))
-                        if (DeleteSfBUsers(itemId))
+                    if (!string.IsNullOrEmpty(org.SfBTenantId) && DeleteSfBUsers(itemId))
                             SfBController.DeleteOrganization(itemId);
                 }
                 catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))

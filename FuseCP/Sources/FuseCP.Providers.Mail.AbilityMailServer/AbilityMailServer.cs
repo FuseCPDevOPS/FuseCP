@@ -230,8 +230,7 @@ namespace FuseCP.Providers.Mail
 			Tree config = AMSHelper.GetDomainsConfig();
 			AmsDomain amsAlias = new AmsDomain(aliasName);
 
-			if (amsAlias.Load(config))
-				if (string.Compare(amsAlias.DomainConfig["convertdomain"], domainName, true) == 0)
+			if (amsAlias.Load(config) && string.Compare(amsAlias.DomainConfig["convertdomain"], domainName, true) == 0)
 					return true;
 
 			return false;

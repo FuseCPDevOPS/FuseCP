@@ -284,8 +284,7 @@ namespace FuseCP.Providers.Mail
 		{
 			TreeNode redirection = deliveryConfig.ChildNodes["redirection"];
 
-			if (redirection != null)
-				if (redirection["stilldeliver"] == "0")
+			if (redirection != null && redirection["stilldeliver"] == "0")
 					return true;
 
 			return false;
