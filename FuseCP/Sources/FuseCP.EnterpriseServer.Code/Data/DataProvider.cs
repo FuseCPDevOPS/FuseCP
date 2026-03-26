@@ -15087,7 +15087,7 @@ namespace FuseCP.EnterpriseServer
 		private DataSet ExecuteLongDataSet(string commandText, CommandType commandType, params SqlParameter[] parameters)
 		{
 			using SqlConnection conn = new SqlConnection(NativeConnectionString);
-			SqlCommand cmd = new SqlCommand(commandText, conn);
+			using SqlCommand cmd = new SqlCommand(commandText, conn);
 			cmd.CommandType = commandType;
 			cmd.CommandTimeout = 300;
 
@@ -15102,7 +15102,7 @@ namespace FuseCP.EnterpriseServer
 			DataSet ds = new DataSet();
 			try
 			{
-				SqlDataAdapter da = new SqlDataAdapter(cmd);
+				using SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(ds);
 			}
 			finally
@@ -15119,7 +15119,7 @@ namespace FuseCP.EnterpriseServer
 		private void ExecuteLongNonQuery(string spName, params SqlParameter[] parameters)
 		{
 			using SqlConnection conn = new SqlConnection(NativeConnectionString);
-			SqlCommand cmd = new SqlCommand(spName, conn);
+			using SqlCommand cmd = new SqlCommand(spName, conn);
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandTimeout = 300;
 

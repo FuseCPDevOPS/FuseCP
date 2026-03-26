@@ -485,7 +485,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             }
 
             var thumbinfo = new SKImageInfo(width, height, SKColorType.Bgra8888, SKAlphaType.Opaque);
-            SKImage thumb = SKImage.Create(thumbinfo);
+            using SKImage thumb = SKImage.Create(thumbinfo);
             image?.ScalePixels(thumb.PeekPixels(), SKSamplingOptions.Default);
 
             using MemoryStream stream = new MemoryStream();
@@ -1236,7 +1236,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                 var img = SKImage.FromEncodedData(screenshotFile);
                 var thumbinfo = new SKImageInfo(width, height, SKColorType.Bgra8888, SKAlphaType.Opaque);
-                SKImage thumb = SKImage.Create(thumbinfo);
+                using SKImage thumb = SKImage.Create(thumbinfo);
                 img?.ScalePixels(thumb.PeekPixels(), SKSamplingOptions.Default);
 
                 using MemoryStream stream = new MemoryStream();
