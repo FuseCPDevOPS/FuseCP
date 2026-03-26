@@ -1063,8 +1063,9 @@ namespace FuseCP.EnterpriseServer
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(SystemUser));
-                SystemUser user = (SystemUser)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("SystemUser")));
+                XmlNode systemUserNode = itemNode.SelectSingleNode("SystemUser");
+                using var systemUserReader = new XmlNodeReader(systemUserNode);
+                SystemUser user = (SystemUser)serializer.Deserialize(systemUserReader);
 
                 // create user if required
                 if (!sps.UserExists(itemName))
@@ -1090,8 +1091,9 @@ namespace FuseCP.EnterpriseServer
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(SystemGroup));
-                SystemGroup sysGroup = (SystemGroup)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("SystemGroup")));
+                XmlNode systemGroupNode = itemNode.SelectSingleNode("SystemGroup");
+                using var systemGroupReader = new XmlNodeReader(systemGroupNode);
+                SystemGroup sysGroup = (SystemGroup)serializer.Deserialize(systemGroupReader);
 
                 // create user if required
                 if (!sps.GroupExists(itemName))
