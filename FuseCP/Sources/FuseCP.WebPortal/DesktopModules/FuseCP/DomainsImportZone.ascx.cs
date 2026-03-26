@@ -40,7 +40,8 @@ namespace FuseCP.Portal
             if (zoneFile != null && zoneFile.ContentLength > 0)
             {
                 //Get the contents from the file
-                var contents = new StreamReader(zoneFile.InputStream).ReadToEnd();
+                using var reader = new StreamReader(zoneFile.InputStream);
+                var contents = reader.ReadToEnd();
                 try
                 {
                     //Get the domain id that gets used throughout the method

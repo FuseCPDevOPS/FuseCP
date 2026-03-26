@@ -758,7 +758,9 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                 HostedSharePointServerEnt hostedSharePointServer = GetHostedSharePointServer(serviceId);
                 // Deserialize item.								                 
                 XmlSerializer serializer = new XmlSerializer(typeof(SharePointEnterpriseSiteCollection));
-                SharePointEnterpriseSiteCollection siteCollection = (SharePointEnterpriseSiteCollection)serializer.Deserialize(new XmlNodeReader(itemNode.SelectSingleNode("SharePointEnterpriseSiteCollection")));
+                XmlNode sharePointEnterpriseSiteCollectionNode = itemNode.SelectSingleNode("SharePointEnterpriseSiteCollection");
+                using var sharePointEnterpriseSiteCollectionReader = new XmlNodeReader(sharePointEnterpriseSiteCollectionNode);
+                SharePointEnterpriseSiteCollection siteCollection = (SharePointEnterpriseSiteCollection)serializer.Deserialize(sharePointEnterpriseSiteCollectionReader);
                 siteCollection.PackageId = packageId;
                 siteCollection.ServiceId = serviceId;
 

@@ -762,8 +762,9 @@ namespace FuseCP.EnterpriseServer
                 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(HomeFolder));
-                HomeFolder homeFolder = (HomeFolder)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("HomeFolder")));
+                XmlNode homeFolderNode = itemNode.SelectSingleNode("HomeFolder");
+                using var homeFolderReader = new XmlNodeReader(homeFolderNode);
+                HomeFolder homeFolder = (HomeFolder)serializer.Deserialize(homeFolderReader);
 
                 // create home folder if required
                 if (!os.DirectoryExists(homeFolder.Name))
@@ -823,8 +824,9 @@ namespace FuseCP.EnterpriseServer
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(SystemDSN));
-                SystemDSN dsn = (SystemDSN)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("SystemDSN")));
+                XmlNode systemDsnNode = itemNode.SelectSingleNode("SystemDSN");
+                using var systemDsnReader = new XmlNodeReader(systemDsnNode);
+                SystemDSN dsn = (SystemDSN)serializer.Deserialize(systemDsnReader);
 
                 // create DSN if required
                 if (os.GetDSN(itemName) == null)

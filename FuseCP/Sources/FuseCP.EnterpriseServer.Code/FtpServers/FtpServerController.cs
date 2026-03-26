@@ -375,8 +375,9 @@ namespace FuseCP.EnterpriseServer
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(FtpAccount));
-                FtpAccount account = (FtpAccount)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("FtpAccount")));
+                XmlNode ftpAccountNode = itemNode.SelectSingleNode("FtpAccount");
+                using var ftpAccountReader = new XmlNodeReader(ftpAccountNode);
+                FtpAccount account = (FtpAccount)serializer.Deserialize(ftpAccountReader);
 
                 // create DSN if required
                 if (!ftp.AccountExists(itemName))

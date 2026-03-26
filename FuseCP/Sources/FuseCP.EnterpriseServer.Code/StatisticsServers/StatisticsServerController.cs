@@ -357,8 +357,9 @@ namespace FuseCP.EnterpriseServer
 
                 // extract meta item
                 XmlSerializer serializer = new XmlSerializer(typeof(StatsSite));
-                StatsSite site = (StatsSite)serializer.Deserialize(
-                    new XmlNodeReader(itemNode.SelectSingleNode("StatsSite")));
+                XmlNode statsSiteNode = itemNode.SelectSingleNode("StatsSite");
+                using var statsSiteReader = new XmlNodeReader(statsSiteNode);
+                StatsSite site = (StatsSite)serializer.Deserialize(statsSiteReader);
 
                 // create site if required
                 if (stats.GetSite(site.SiteId) == null)

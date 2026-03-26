@@ -99,7 +99,8 @@ namespace FuseCP.EnterpriseServer.Data
 			using var writer = new StreamWriter(mem, Encoding.UTF8);
 			foreach (var stream in streams)
 			{
-				var text = new StreamReader(stream).ReadToEnd();
+				using var reader = new StreamReader(stream);
+				var text = reader.ReadToEnd();
 				writer.WriteLine(text);
 			}
 			writer.Flush();

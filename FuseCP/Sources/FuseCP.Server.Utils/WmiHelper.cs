@@ -42,7 +42,7 @@ namespace FuseCP.Providers.Utils
         {
             ObjectQuery objectQuery = new ObjectQuery(query);
 
-            ManagementObjectSearcher searcher =
+            using ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher(WmiScope, objectQuery);
             return searcher.Get();
         }

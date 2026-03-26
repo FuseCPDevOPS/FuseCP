@@ -1774,8 +1774,9 @@ namespace FuseCP.EnterpriseServer
 
 				// extract meta item
 				XmlSerializer serializer = new XmlSerializer(typeof(MailDomain));
-				MailDomain domain = (MailDomain)serializer.Deserialize(
-					new XmlNodeReader(itemNode.SelectSingleNode("MailDomain")));
+				XmlNode mailDomainNode = itemNode.SelectSingleNode("MailDomain");
+				using var mailDomainReader = new XmlNodeReader(mailDomainNode);
+				MailDomain domain = (MailDomain)serializer.Deserialize(mailDomainReader);
 
 				// create mail domain if required
 				List<string> domains = new List<string>();
@@ -1816,7 +1817,8 @@ namespace FuseCP.EnterpriseServer
 				// restore accounts
 				foreach (XmlNode accountNode in itemNode.SelectNodes("MailAccount"))
 				{
-					MailAccount account = (MailAccount)accountSerializer.Deserialize(new XmlNodeReader(accountNode));
+					using var accountNodeReader = new XmlNodeReader(accountNode);
+					MailAccount account = (MailAccount)accountSerializer.Deserialize(accountNodeReader);
 
 					if (!mail.AccountExists(account.Name))
 					{
@@ -1849,7 +1851,8 @@ namespace FuseCP.EnterpriseServer
 				// restore groups
 				foreach (XmlNode groupNode in itemNode.SelectNodes("MailGroup"))
 				{
-					MailGroup mailGroup = (MailGroup)groupSerializer.Deserialize(new XmlNodeReader(groupNode));
+					using var groupNodeReader = new XmlNodeReader(groupNode);
+					MailGroup mailGroup = (MailGroup)groupSerializer.Deserialize(groupNodeReader);
 
 					if (!mail.GroupExists(mailGroup.Name))
 					{
@@ -1868,7 +1871,8 @@ namespace FuseCP.EnterpriseServer
 				// restore lists
 				foreach (XmlNode listNode in itemNode.SelectNodes("MailList"))
 				{
-					MailList list = (MailList)listSerializer.Deserialize(new XmlNodeReader(listNode));
+					using var listNodeReader = new XmlNodeReader(listNode);
+					MailList list = (MailList)listSerializer.Deserialize(listNodeReader);
 
 					if (!mail.ListExists(list.Name))
 					{

@@ -893,8 +893,9 @@ namespace FuseCP.EnterpriseServer
 
 				// extract meta item
 				XmlSerializer serializer = new XmlSerializer(typeof(SqlDatabase));
-				SqlDatabase db = (SqlDatabase)serializer.Deserialize(
-					new XmlNodeReader(itemNode.SelectSingleNode("SqlDatabase")));
+                XmlNode sqlDatabaseNode = itemNode.SelectSingleNode("SqlDatabase");
+                using var sqlDatabaseReader = new XmlNodeReader(sqlDatabaseNode);
+                SqlDatabase db = (SqlDatabase)serializer.Deserialize(sqlDatabaseReader);
 
 				// create database if required
 				if (!sql.DatabaseExists(itemName))
@@ -954,8 +955,9 @@ namespace FuseCP.EnterpriseServer
 
 				// extract meta item
 				XmlSerializer serializer = new XmlSerializer(typeof(SqlUser));
-				SqlUser user = (SqlUser)serializer.Deserialize(
-					new XmlNodeReader(itemNode.SelectSingleNode("SqlUser")));
+                XmlNode sqlUserNode = itemNode.SelectSingleNode("SqlUser");
+                using var sqlUserReader = new XmlNodeReader(sqlUserNode);
+                SqlUser user = (SqlUser)serializer.Deserialize(sqlUserReader);
 
 				// create user if required
 				if (!sql.UserExists(itemName))

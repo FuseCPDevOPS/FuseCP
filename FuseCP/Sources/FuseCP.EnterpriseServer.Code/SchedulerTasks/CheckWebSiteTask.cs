@@ -176,7 +176,7 @@ namespace FuseCP.EnterpriseServer
 
                     using (var client = new HttpClient(handler))
                     {
-                        var response = client.GetAsync(url).GetAwaiter().GetResult();
+                        using var response = client.GetAsync(url).GetAwaiter().GetResult();
                         result.Status = (int)response.StatusCode;
                         result.Text = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                     }
@@ -202,7 +202,7 @@ namespace FuseCP.EnterpriseServer
                 string charSet = !String.IsNullOrEmpty(resp.CharacterSet) ? resp.CharacterSet : "utf-8";
                 Encoding encode = System.Text.Encoding.GetEncoding(charSet);
 
-                StreamReader sr = new StreamReader(respStream, encode);
+                using StreamReader sr = new StreamReader(respStream, encode);
 
                 Char[] read = new Char[256];
                 int count = sr.Read(read, 0, 256);

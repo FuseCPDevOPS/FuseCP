@@ -181,7 +181,8 @@ namespace FuseCP.Providers.OS
             try
             {
                 IsConnecting = true;
-                await Client.ConnectAsync(new CancellationTokenSource(ConnectTimeout).Token);
+                using var connectTimeout = new CancellationTokenSource(ConnectTimeout);
+                await Client.ConnectAsync(connectTimeout.Token);
                 await Task.Run(() =>
                 {
                     Client.AddForwardedPort(ForwardedPort);

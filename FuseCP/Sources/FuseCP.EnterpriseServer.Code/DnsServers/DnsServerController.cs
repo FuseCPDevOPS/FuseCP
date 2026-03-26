@@ -535,7 +535,8 @@ namespace FuseCP.EnterpriseServer
                 {
                     if (childNode.Name == "DnsRecord")
                     {
-                        records.Add((DnsRecord)serializer.Deserialize(new XmlNodeReader(childNode)));
+                        using var dnsRecordReader = new XmlNodeReader(childNode);
+                        records.Add((DnsRecord)serializer.Deserialize(dnsRecordReader));
                     }
                 }
 
