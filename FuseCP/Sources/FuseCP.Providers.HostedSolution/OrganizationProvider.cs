@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -452,15 +452,6 @@ namespace FuseCP.Providers.HostedSolution
             string filter = !string.IsNullOrEmpty(msExchVersion)
                 ? (enabled ? string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)({0}=disabled))", ADAttributes.CustomAttribute2) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!{0}=disabled))", ADAttributes.CustomAttribute2))
                 : (enabled ? string.Format(CultureInfo.InvariantCulture, "(|(&(objectCategory=user)(memberOf={0}))(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2)))", org.SecurityGroup) : string.Format(CultureInfo.InvariantCulture, "(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"));
-
-
-
-
-
-
-
-            }
-
             using (DirectorySearcher searcher = new DirectorySearcher(entry, filter))
             {
                 SearchResultCollection resCollection = searcher.FindAll();

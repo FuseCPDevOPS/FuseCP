@@ -7174,15 +7174,6 @@ namespace FuseCP.EnterpriseServer
 
 				SaveChanges();
 			}
-			else
-			{
-				SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
-					ObjectQualifier + "UpdateServiceProperties",
-					/// <summary>TODO</summary>
-					new SqlParameter("@ServiceId", serviceId),
-					/// <summary>TODO</summary>
-					new SqlParameter("@Xml", xml));
-			}
 		}
 		/// <summary>Auto-generated member.</summary>
 
