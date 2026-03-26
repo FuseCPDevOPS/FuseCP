@@ -1,0 +1,6 @@
+name: FuseCP CodeQL Config
+
+paths-ignore:
+  - "**/bin/**"
+  - "**/obj/**"
+  - "**/packages/**"
