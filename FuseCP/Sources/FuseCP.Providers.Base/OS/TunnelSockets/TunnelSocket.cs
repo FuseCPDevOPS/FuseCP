@@ -310,7 +310,8 @@ namespace FuseCP.Providers.OS
 
             if (IsWebSocket)
             {
-                var result = await BaseWebSocket.ReceiveAsync(data, new CancellationTokenSource(IdleTimeout).Token);
+                using var receiveTimeout = new CancellationTokenSource(IdleTimeout);
+                var result = await BaseWebSocket.ReceiveAsync(data, receiveTimeout.Token);
                 LastActivity = DateTime.Now;
                 return result;
             }
@@ -474,11 +475,13 @@ namespace FuseCP.Providers.OS
             const int BufferSize = 1024;
             var buffer = new byte[BufferSize];
             using var mem = new MemoryStream();
-            WebSocketReceiveResult result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), new CancellationTokenSource(IdleTimeout).Token);
+            using var receiveTimeout = new CancellationTokenSource(IdleTimeout);
+            WebSocketReceiveResult result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), receiveTimeout.Token);
             await mem.WriteAsync(buffer, 0, result.Count);
             while (!result.CloseStatus.HasValue && !result.EndOfMessage && result.MessageType == WebSocketMessageType.Text)
             {
-                result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), new CancellationTokenSource(IdleTimeout).Token);
+                using var loopReceiveTimeout = new CancellationTokenSource(IdleTimeout);
+                result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), loopReceiveTimeout.Token);
                 await mem.WriteAsync(buffer, 0, result.Count);
             }
             if (result.MessageType != WebSocketMessageType.Text)
@@ -558,11 +561,13 @@ namespace FuseCP.Providers.OS
             const int BufferSize = 1024;
             var buffer = new byte[BufferSize];
             var mem = new MemoryStream();
-            WebSocketReceiveResult result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), new CancellationTokenSource(IdleTimeout).Token);
+            using var receiveTimeout = new CancellationTokenSource(IdleTimeout);
+            WebSocketReceiveResult result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), receiveTimeout.Token);
             await mem.WriteAsync(buffer, 0, result.Count);
             while (!result.CloseStatus.HasValue && !result.EndOfMessage && result.MessageType == WebSocketMessageType.Binary)
             {
-                result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), new CancellationTokenSource(IdleTimeout).Token);
+                using var loopReceiveTimeout = new CancellationTokenSource(IdleTimeout);
+                result = await BaseWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), loopReceiveTimeout.Token);
                 await mem.WriteAsync(buffer, 0, result.Count);
             }
             if (result.MessageType != WebSocketMessageType.Binary)
@@ -748,7 +753,8 @@ namespace FuseCP.Providers.OS
 
                         try
                         {
-                            await clientWebSocket.ConnectAsync(new System.Uri(local_url), new CancellationTokenSource(ConnectTimeout).Token);
+                            using var connectTimeout = new CancellationTokenSource(ConnectTimeout);
+                            await clientWebSocket.ConnectAsync(new System.Uri(local_url), connectTimeout.Token);
                         }
                         catch (Exception)
                         {
