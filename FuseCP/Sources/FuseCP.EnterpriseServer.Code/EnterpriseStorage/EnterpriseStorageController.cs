@@ -2426,8 +2426,6 @@ namespace FuseCP.EnterpriseServer
 
         protected string[] GetUsedDriveLettersInternal(int itemId)
         {
-            List<string> driveLetters = new List<string>();
-
             try
             {
                 // load organization
@@ -2440,11 +2438,10 @@ namespace FuseCP.EnterpriseServer
 
                 Organizations orgProxy = OrganizationController.GetOrganizationProxy(org.ServiceId);
 
-                driveLetters = orgProxy.GetDriveMaps(org.OrganizationId).Select(x => x.DriveLetter).ToList();
+                List<string> driveLetters = orgProxy.GetDriveMaps(org.OrganizationId).Select(x => x.DriveLetter).ToList();
+                return driveLetters.ToArray();
             }
             catch (Exception) { throw; }
-
-            return driveLetters.ToArray();
 
         }
 

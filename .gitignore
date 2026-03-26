@@ -95,3 +95,7 @@ appsettings.hardened.json
 
 # Local secret backup artifacts - never commit
 artifacts/local-secret-config-backup-*/
+
+# Local-only CodeQL alert snapshots - kept on disk but not pushed
+artifacts/codeql-open-alerts.json
+artifacts/codeql-open-alerts-list.txt

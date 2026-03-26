@@ -443,7 +443,7 @@ namespace FuseCP.Providers.Virtualization
         public JobResult ChangeVirtualMachineState(string vmId, VirtualMachineRequestedState newState, string clusterName)
         {
             HostedSolutionLog.LogStart("ChangeVirtualMachineState");
-            var jobResult = new JobResult();
+            JobResult jobResult;
 
             var vm = GetVirtualMachine(vmId);
 

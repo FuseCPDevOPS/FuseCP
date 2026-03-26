@@ -91,7 +91,7 @@ public class SystemdServiceController : ServiceController
 			if (status == OSServiceStatus.PausePending || status == OSServiceStatus.Paused ||
 				status == OSServiceStatus.Stopped || status == OSServiceStatus.StopPending)
 			{
-				var shell = Shell.Exec($"systemctl stop {serviceId}.service").Task().Result;
+				Shell.Exec($"systemctl stop {serviceId}.service").Task().Wait();
 			}
 		}
 		else
@@ -99,7 +99,7 @@ public class SystemdServiceController : ServiceController
 			if (status == OSServiceStatus.StartPending || status == OSServiceStatus.Running ||
 				status == OSServiceStatus.ContinuePending)
 			{
-				var shell = Shell.Exec($"systemctl start {serviceId}.service").Task().Result;
+				Shell.Exec($"systemctl start {serviceId}.service").Task().Wait();
 			}
 		}
 	}

@@ -513,11 +513,7 @@ namespace FuseCP.Providers.Web.Iis
 			{
 				//
 				Site site = sm.Sites[website.SiteId];
-				// Just exit from the loop if https binding found
-				foreach (Binding bind in site.Bindings.Where(bind => bind.Protocol == "https"))
-					return true;
-				//
-				return false;
+                return site.Bindings.Any(bind => bind.Protocol == "https");
 			}
 		}
 

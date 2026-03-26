@@ -158,7 +158,7 @@ namespace FuseCP.Web.Clients
 			return Task.Factory.StartNew<T>(() => Invoke<T, TItem>(typeName, methodName, parameters),
 				CancellationToken.None,
 				TaskCreationOptions.None,
-				Scheduler);
+				scheduler);
 		}
 		protected Task InvokeAsync(string typeName, string methodName, object[] parameters)
 		{

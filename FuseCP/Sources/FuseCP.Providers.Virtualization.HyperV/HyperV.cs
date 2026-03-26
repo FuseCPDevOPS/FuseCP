@@ -352,7 +352,7 @@ namespace FuseCP.Providers.Virtualization
             ManagementObject objVM = wmi.GetWmiObjectByPath((string)outParams["DefinedSystem"]);
 
             // job
-            JobResult job = CreateJobResultFromWmiMethodResults(outParams); ;
+            CreateJobResultFromWmiMethodResults(outParams);
 
             // read VM id
             vmID = (string)objVM["Name"];

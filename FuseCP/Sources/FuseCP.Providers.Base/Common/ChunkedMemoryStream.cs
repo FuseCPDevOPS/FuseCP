@@ -286,8 +286,6 @@ namespace System.Runtime.Remoting.Channels
 				_readChunk = _readChunk.Next;
 				_readOffset = 0;
 				chunkBuffer = _readChunk.Buffer;
-				if (_readChunk.Next == null)
-					chunkSize = _writeOffset;
 			}
 
 			return chunkBuffer[_readOffset++];

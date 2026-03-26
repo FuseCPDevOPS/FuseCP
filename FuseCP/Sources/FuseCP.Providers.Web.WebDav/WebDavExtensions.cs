@@ -75,7 +75,6 @@ namespace FuseCP.Providers.Web.Extensions
         {
             return collection.FirstOrDefault(x =>
             {
-                var s = x["users"].ToString();
                 if (settings.Users.Any()
                     && x["users"].ToString() != string.Join(", ", settings.Users.ToArray()))
                 {

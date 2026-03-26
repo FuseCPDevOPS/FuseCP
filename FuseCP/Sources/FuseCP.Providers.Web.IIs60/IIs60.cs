@@ -305,7 +305,7 @@ namespace FuseCP.Providers.Web
 		public virtual void ChangeSiteState(string siteId, ServerState state)
 		{
 			ManagementObject objSite = wmi.GetObject(String.Format("IIsWebServer='{0}'", siteId));
-			string methodName = "Continue";
+			string methodName;
 			switch (state)
 			{
 				case ServerState.Started: methodName = "Start"; break;
@@ -1250,7 +1250,6 @@ namespace FuseCP.Providers.Web
 			// load parent site settings
 			ManagementObject objSite = wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
 			ManagementObject objSiteSetting = wmi.GetObject(String.Format("IIsWebVirtualDirSetting='{0}'", GetVirtualDirectoryPath(siteId, "")));
-			string siteName = (string)objSite.Properties["ServerComment"].Value;
 
 
 			if (String.IsNullOrEmpty(directory.AnonymousUsername) ||

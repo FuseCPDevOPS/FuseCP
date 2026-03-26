@@ -714,12 +714,6 @@ namespace FuseCP.Providers.Web
 			var config = srvman.GetWebConfiguration(virtualDir.FullQualifiedPath);
 			config.GetSection(Constants.HandlersSection);
 
-			//
-			string fqPath = virtualDir.FullQualifiedPath;
-			if (!fqPath.EndsWith(@"/"))
-				fqPath += "/";
-			//
-
 		}
 
 		private void FillAppVirtualDirectoryRestFromIISObject(ServerManager srvman, WebAppVirtualDirectory virtualDir)
@@ -812,8 +806,6 @@ namespace FuseCP.Providers.Web
 			try
 			{
 				var appool = srvman.ApplicationPools[vdir.ApplicationPool];
-				//
-				var aphl = new WebAppPoolHelper(ProviderSettings);
 				// ASP.NET 2.0 pipeline is supposed by default
 				var dotNetVersion = SiteAppPoolMode.dotNetFramework2;
 				//

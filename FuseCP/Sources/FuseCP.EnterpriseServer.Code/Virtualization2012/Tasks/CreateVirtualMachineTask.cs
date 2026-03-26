@@ -107,7 +107,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                     if (vm.ExternalNetworkEnabled)
                     {
                         // provision IP addresses
-                        ResultObject privResult = IpAddressExternalHelper.AddVirtualMachineInternalIPAddresses(vm.Id, randomExternalAddresses,
+                        IpAddressExternalHelper.AddVirtualMachineInternalIPAddresses(vm.Id, randomExternalAddresses,
                             externalAddressesNumber, externalAddresses, 0, vm.defaultaccessvlan);
 
                         // set primary IP address

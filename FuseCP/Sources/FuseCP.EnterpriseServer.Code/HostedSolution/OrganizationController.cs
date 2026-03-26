@@ -2705,7 +2705,8 @@ namespace FuseCP.EnterpriseServer
 
         private string BuildAccountName(string orgId, string name, int ServiceId)
         {
-            string accountName = name = name.Replace(" ", "");
+            name = name.Replace(" ", "");
+            string accountName;
             int counter = 0;
             bool bFound = false;
 
@@ -2767,7 +2768,8 @@ namespace FuseCP.EnterpriseServer
 
         private string BuildAccountNameWithCounterIfNeeded(string orgId, string name, int ServiceId)
         {
-            string accountName = name = name.Replace(" ", ""); //todo: this mutation of name is asking for trouble, as we use it later in the flow also.
+            name = name.Replace(" ", ""); //todo: this mutation of name is asking for trouble, as we use it later in the flow also.
+            string accountName;
             int counter = 0;
             bool bFound = false;
 

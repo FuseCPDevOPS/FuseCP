@@ -124,7 +124,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             }
 
 
-            LyncUser retLyncUser = new LyncUser();
             bool isLyncUser;
 
             isLyncUser = Database.CheckLyncUserExists(accountId);

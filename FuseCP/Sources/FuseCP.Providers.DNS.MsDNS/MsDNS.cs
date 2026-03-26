@@ -151,7 +151,7 @@ namespace FuseCP.Providers.DNS
             ManagementObjectCollection rrsPTR = wmi.GetWmiObjects("MicrosoftDNS_PTRType", "DomainName='{0}'", zoneName);
 
             List<DnsRecord> records = new List<DnsRecord>();
-            DnsRecord record = new DnsRecord();
+			DnsRecord record;
 
 			foreach (ManagementObject rr in rrsA)
 			{
@@ -356,7 +356,7 @@ namespace FuseCP.Providers.DNS
 					if (AdMode)
 						inParams["DsIntegrated"] = true;
 
-					using (ManagementBaseObject outParams = clsZone.InvokeMethod("CreateZone", inParams, null))
+					using (clsZone.InvokeMethod("CreateZone", inParams, null))
 					{
 						// update created zone
 						using (ManagementObject objZone = wmi.GetObject(String.Format(
@@ -1153,7 +1153,7 @@ namespace FuseCP.Providers.DNS
 		{
 
 			string query = string.Empty;
-			if ((host.Contains("._tcp")) | (host.Contains("._udp")) | (host.Contains("._tls")))
+			if ((host.Contains("._tcp")) || (host.Contains("._udp")) || (host.Contains("._tls")))
 			{
 				query = String.Format("SELECT * FROM MicrosoftDNS_SRVType " +
 				"WHERE ContainerName = '{0}' AND OwnerName ='{1}.{0}'",

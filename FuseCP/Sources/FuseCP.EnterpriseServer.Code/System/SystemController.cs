@@ -232,10 +232,8 @@ namespace FuseCP.EnterpriseServer
 					| DemandAccount.IsActive);
 				if (accountCheck < 0) return accountCheck;
 
-				SystemSettings settings = new SystemSettings();
-
 				// authentication settings
-				settings = new SystemSettings();
+				SystemSettings settings = new SystemSettings();
 				settings[SystemSettings.ALWAYS_USE_ENTITYFRAMEWORK] = useEntityFramework ? "True" : "False";
 
 				int result = SetSystemSettings(SystemSettings.DEBUG_SETTINGS, settings);

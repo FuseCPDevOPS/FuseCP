@@ -696,7 +696,7 @@ namespace FuseCP.EnterpriseServer
 
 								try
 								{
-									int restoreResult = controller.RestoreItem(tempFolder, itemNode,
+									controller.RestoreItem(tempFolder, itemNode,
 										itemId, itemType, itemName, itemPackageId, itemServiceId, group);
 								}
 								catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))

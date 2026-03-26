@@ -137,8 +137,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             var psObject = ExecuteShellCommand(runspace, cmd, false, primaryDomainController, out errors).FirstOrDefault();
 
-            typeof(RdsCollectionSettings).GetProperties().Select(p => p.Name.ToLower());
-            var collectionSettings = new RdsCollectionSettings();
             var result = new List<RdsCollectionSetting>();
 
             if (psObject != null)

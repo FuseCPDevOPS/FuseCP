@@ -2026,7 +2026,6 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             int cores = 0;
             int nodemaxcpu;
 
-            List<VirtualMachine> vmachines = new List<VirtualMachine>();
             try
             {
                 HostedSolutionLog.LogInfo("Proxmox Cluster Status");

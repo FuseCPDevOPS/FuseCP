@@ -266,7 +266,7 @@ namespace FuseCP.Providers.Mail
                     if (!result.Result)
                         throw new Exception(result.Message);
 
-                    if (result.BytesReceived != 0 | result.BytesSent != 0)
+                    if (result.BytesReceived != 0 || result.BytesSent != 0)
                     {
                         DailyStatistics dailyStats = new DailyStatistics();
                         dailyStats.Year = date.Year;

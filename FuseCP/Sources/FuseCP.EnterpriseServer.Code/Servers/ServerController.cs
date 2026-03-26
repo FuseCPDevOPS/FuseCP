@@ -715,8 +715,7 @@ namespace FuseCP.EnterpriseServer
 					using (System.IO.BinaryReader reader = new System.IO.BinaryReader(zipFileContent))
 					{
 						byte[] chunk = new byte[chunkSize];
-						int c;
-						while ((c = reader.Read(chunk, 0, chunk.Length)) != 0)
+						while (reader.Read(chunk, 0, chunk.Length) != 0)
 						{
 							FileStream s = new FileStream(zipFullPath, FileMode.Append, FileAccess.Write);
 							s.Write(chunk, 0, chunk.Length);
@@ -1425,10 +1424,8 @@ namespace FuseCP.EnterpriseServer
 
 		private ResultObject DeletePrivateNetworkVLAN(int vlanId)
 		{
-			ResultObject res = new ResultObject();
-
 			// start task
-			res = TaskManager.StartResultTask<ResultObject>("VLAN", "DELETE");
+			ResultObject res = TaskManager.StartResultTask<ResultObject>("VLAN", "DELETE");
 
 			try
 			{
@@ -2717,7 +2714,6 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			bool dnsEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Dns) > 0);
 			bool webEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Web) > 0);
 			bool mailEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Mail) > 0);
-			bool MailCleanerEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Filters) > 0);
 
 			// add main domain
 			int domainId = AddDomainInternal(packageId, domainName, createDnsZone && dnsEnabled, isSubDomain, false, isDomainPointer, allowSubDomains);

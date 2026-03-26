@@ -126,7 +126,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             }
 
 
-            SfBUser retSfBUser = new SfBUser();
             bool isSfBUser;
 
             isSfBUser = Database.CheckSfBUserExists(accountId);

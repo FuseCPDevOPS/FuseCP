@@ -5762,7 +5762,6 @@ namespace FuseCP.Providers.HostedSolution
             ExchangeLog.LogStart("SetPublicFolderGeneralSettingsInternal");
             ExchangeLog.DebugInfo("Folder: {0}", folder);
 
-            ExchangePublicFolder info = new ExchangePublicFolder();
             Runspace runSpace = null;
             try
             {
@@ -5774,8 +5773,6 @@ namespace FuseCP.Providers.HostedSolution
                 ExchangeAccount[] allAccounts = GetPublicFolderAccounts(runSpace, GetPublicFolderMailboxName(organizationId), folder, organizationId);
 
                 //Remove all accounts and re-apply               
-                List<ExchangeAccount> accountsToDelete = new List<ExchangeAccount>();
-                List<ExchangeAccount> accountsToAdd = new List<ExchangeAccount>();
 
                 foreach (ExchangeAccount existingAccount in allAccounts)
                 {

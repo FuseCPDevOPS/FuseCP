@@ -1615,7 +1615,6 @@ SELECT DatabaseVersion FROM Version");
 			var server = csb.ContainsKey("server") ? csb["server"] as string :
 				csb.ContainsKey("data source") ? csb["data source"] as string : null;
 			var localDb = server.ToLower().Contains("localdb");
-			var dbfile = csb.ContainsKey("AttachDbFilename") ? csb["AttachDbFilename"] as string : null;
 			csb.Remove("AttachDbFilename");
 			csb.Remove("Database");
 			csb.Remove("Initial Catalog");

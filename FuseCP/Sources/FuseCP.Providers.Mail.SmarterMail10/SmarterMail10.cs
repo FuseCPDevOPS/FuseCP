@@ -267,7 +267,7 @@ namespace FuseCP.Providers.Mail
 					if (!result.Result)
 						throw new Exception(result.Message);
 
-					if (result.BytesReceived != 0 | result.BytesSent != 0)
+					if (result.BytesReceived != 0 || result.BytesSent != 0)
 					{
 						DailyStatistics dailyStats = new DailyStatistics();
 						dailyStats.Year = date.Year;
@@ -1176,7 +1176,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
                 // set forwarding settings - Not tracking errors as this only applies to some versions due to API change (The above wont error)
-                result = users.UpdateUserForwardingInfo2(AdminUsername, AdminPassword,
+				users.UpdateUserForwardingInfo2(AdminUsername, AdminPassword,
                     mailbox.Name, mailbox.DeleteOnForward,
                     (mailbox.ForwardingAddresses != null ? String.Join(", ", mailbox.ForwardingAddresses) : ""));
 
@@ -1247,7 +1247,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
                 // set forwarding settings - Not tracking errors as this only applies to some versions due to API change (The above wont error)
-                result = users.UpdateUserForwardingInfo2(AdminUsername, AdminPassword,
+				users.UpdateUserForwardingInfo2(AdminUsername, AdminPassword,
                     mailbox.Name, mailbox.DeleteOnForward,
                     (mailbox.ForwardingAddresses != null ? String.Join(", ", mailbox.ForwardingAddresses) : ""));
 

@@ -340,7 +340,7 @@ namespace FuseCP.Providers.OS
             Exception destException = null, exception = null;
 
             // listen on the dest tunnel and send to main tunnel on another thread.
-            var receivingTask = Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 try
                 {
@@ -716,7 +716,7 @@ namespace FuseCP.Providers.OS
                 if (IsSshTunnel) await GetSshTunnelAsync();
                 if (IsSocket)
                 {
-                    ProtocolType protocol = ProtocolType.Tcp;
+                    ProtocolType protocol;
                     var local_url = Url;
                     if (local_url.StartsWith("tcp://")) protocol = ProtocolType.Tcp;
                     else if (local_url.StartsWith("udp://")) protocol = ProtocolType.Udp;

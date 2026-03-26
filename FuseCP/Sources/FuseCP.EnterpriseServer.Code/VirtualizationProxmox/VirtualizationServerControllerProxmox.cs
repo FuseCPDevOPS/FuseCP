@@ -656,7 +656,7 @@ namespace FuseCP.EnterpriseServer
                         // set VLAN for IPs
 
                         // provision IP addresses
-                        ResultObject privResult = AddVirtualMachineExternalIPAddresses(vm.Id, randomExternalAddresses,
+                        AddVirtualMachineExternalIPAddresses(vm.Id, randomExternalAddresses,
                             externalAddressesNumber, externalAddresses, false, vm.defaultaccessvlan);
 
                         // set primary IP address

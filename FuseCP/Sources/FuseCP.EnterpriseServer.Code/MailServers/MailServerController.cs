@@ -338,13 +338,11 @@ namespace FuseCP.EnterpriseServer
         {
             // load package context
             int maxSize = 0; // unlimited
-            bool maxMailboxSizeChangeable = false;
 
             PackageContext cntx = PackageController.GetParentPackageContext(packageId);
             if (cntx != null && cntx.Quotas.ContainsKey(Quotas.MAIL_MAXBOXSIZE))
             {
                 maxSize = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
-                maxMailboxSizeChangeable = (cntx.Quotas[Quotas.MAIL_DISABLESIZEEDIT].QuotaAllocatedValue == 0);
                 if (maxSize == -1)
                     return item.MaxMailboxSize;
             }

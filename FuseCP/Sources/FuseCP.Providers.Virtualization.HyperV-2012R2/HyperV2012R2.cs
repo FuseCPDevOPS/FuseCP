@@ -885,7 +885,7 @@ namespace FuseCP.Providers.Virtualization
         public JobResult ChangeVirtualMachineState(string vmId, VirtualMachineRequestedState newState, string clusterName)
         {
             HostedSolutionLog.LogStart("ChangeVirtualMachineState");
-            var jobResult = new JobResult();
+            JobResult jobResult;
 
             var vmData = GetVirtualMachineDataGeneral(vmId, false);
 
@@ -1496,7 +1496,6 @@ namespace FuseCP.Providers.Virtualization
                 foreach (CimInstance vswitch in allSwitches)
                 {
                     using (vswitch) {
-                        string switchId = vswitch.CimInstanceProperties["Name"]?.Value?.ToString();
                         string switchName = vswitch.CimInstanceProperties["ElementName"]?.Value?.ToString();
 
                         CimInstance[] switchPorts = mi.EnumerateAssociatedInstances(vswitch, "Msvm_SystemDevice", "Msvm_EthernetSwitchPort");
@@ -1535,8 +1534,6 @@ namespace FuseCP.Providers.Virtualization
         #region IP injection
         public JobResult InjectIPs(string vmId, GuestNetworkAdapterConfiguration guestNetworkAdapterConfiguration)
         {
-            JobResult result = new JobResult();
-
             //get VM
             using (CimInstance objVM = Mi.GetCimInstance("Msvm_ComputerSystem", "Name = '{0}'", vmId))
             using (CimInstance objVMSystemSettings = Mi.GetAssociatedCimInstance(objVM, "Msvm_VirtualSystemSettingData", "Msvm_SettingsDefineState"))

@@ -263,11 +263,9 @@ namespace FuseCP.EnterpriseServer
 
         public void CreateVMFromVMAsunc(int packageId, VMInfo vmTemplate, string vmName)
         {
-            ResultObject res = new ResultObject();
-
             Guid taksId = Guid.NewGuid();
 
-            res = TaskManager.StartResultTask<ResultObject>("VPSForPC", "CREATE", taksId, vmName, packageId);
+            ResultObject res = TaskManager.StartResultTask<ResultObject>("VPSForPC", "CREATE", taksId, vmName, packageId);
 
             string templateName = vmTemplate.Name;
 
@@ -329,11 +327,8 @@ namespace FuseCP.EnterpriseServer
                 bool externalNetworkEnabled, string externalNetworkLocation, string externalNicMacAddress, string externalVirtualNetwork,
                 bool privateNetworkEnabled, string privateNetworkLocation, string privateNicMacAddress, string privateVirtualNetwork, ushort privateVLanID)
         {
-            // result object
-            IntResult res = new IntResult();
-
             //Create Task 
-            res = TaskManager.StartResultTask<IntResult>("VPSForPC", "CREATE", vmName, packageId);
+            IntResult res = TaskManager.StartResultTask<IntResult>("VPSForPC", "CREATE", vmName, packageId);
 
             // meta item
             VMInfo vmInfo = null;

@@ -747,14 +747,13 @@ namespace FuseCP.EnterpriseServer
 
         private List<OrganizationUser> GetRdsCollectionLocalAdminsInternal(int collectionId)
         {
-            var result = new List<OrganizationUser>();
             var collection = ObjectUtils.FillObjectFromDataReader<RdsCollection>(Database.GetRDSCollectionById(collectionId));
             var servers = ObjectUtils.CreateListFromDataReader<RdsServer>(Database.GetRDSServersByCollectionId(collection.Id)).ToList();
             Organization org = OrganizationController.GetOrganization(collection.ItemId);
             
             if (org == null)
             {
-                return result;
+                return new List<OrganizationUser>();
             }
 
             var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));            
@@ -807,7 +806,6 @@ namespace FuseCP.EnterpriseServer
 
         private RdsCollectionSettings GetRdsCollectionSettingsInternal(int collectionId)
         {
-            var collection = ObjectUtils.FillObjectFromDataReader<RdsCollection>(Database.GetRDSCollectionById(collectionId));            
             var settings = ObjectUtils.FillObjectFromDataReader<RdsCollectionSettings>(Database.GetRdsCollectionSettingsByCollectionId(collectionId));
 
             if (settings != null)
@@ -851,7 +849,6 @@ namespace FuseCP.EnterpriseServer
         private int AddRdsCollectionInternal(int itemId, RdsCollection collection)
         {
             var result = TaskManager.StartResultTask<ResultObject>("REMOTE_DESKTOP_SERVICES", "ADD_RDS_COLLECTION");
-            var domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
             try
             {
@@ -1314,8 +1311,6 @@ namespace FuseCP.EnterpriseServer
 
                 if (rds.CheckRDSServerAvaliable(rdsServer.FqdName))
                 {
-                    var domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
-                     
                         rds.AddSessionHostFeatureToServer(rdsServer.FqdName);
                         rds.MoveSessionHostToRdsOU(rdsServer.Name);
                         rdsServer.Id = Database.AddRDSServer(rdsServer.Name, rdsServer.FqdName, rdsServer.Description, rdsControllerServiceID);

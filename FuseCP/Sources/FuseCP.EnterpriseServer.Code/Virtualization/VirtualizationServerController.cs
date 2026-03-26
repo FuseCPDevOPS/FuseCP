@@ -609,7 +609,7 @@ namespace FuseCP.EnterpriseServer
                     if (vm.ExternalNetworkEnabled)
                     {
                         // provision IP addresses
-                        ResultObject privResult = AddVirtualMachineExternalIPAddresses(vm.Id, randomExternalAddresses,
+                        AddVirtualMachineExternalIPAddresses(vm.Id, randomExternalAddresses,
                             externalAddressesNumber, externalAddresses, false);
 
                         // set primary IP address

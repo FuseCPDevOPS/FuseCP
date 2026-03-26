@@ -4572,7 +4572,6 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
         public List<SSLCertificate> GetPendingCertificates(int siteItemId)
         {
             WebSite item = GetWebSite(siteItemId);
-            List<SSLCertificate> certificates = new List<SSLCertificate>();
             return ObjectUtils.CreateListFromDataSet<SSLCertificate>(
                 Database.GetPendingCertificates(SecurityContext.User.UserId, item.PackageId, item.Id, false));
 
@@ -4604,7 +4603,6 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
         public List<SSLCertificate> GetCertificatesForSite(int siteId)
         {
             WebSite item = GetWebSite(siteId);
-            List<SSLCertificate> certificates = new List<SSLCertificate>();
             return ObjectUtils.CreateListFromDataSet<SSLCertificate>(
                 Database.GetCertificatesForSite(SecurityContext.User.UserId, item.PackageId, item.Id));
         }

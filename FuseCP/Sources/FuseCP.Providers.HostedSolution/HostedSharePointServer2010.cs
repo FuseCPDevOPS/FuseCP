@@ -252,7 +252,6 @@ namespace FuseCP.Providers.HostedSolution
             Runspace runSpace = null;
             try
             {
-                List<SharePointSiteCollection> siteCollections = new List<SharePointSiteCollection>();
 
                 runSpace = OpenRunspace();
                 Command cmd = new Command("Set-SPSite");

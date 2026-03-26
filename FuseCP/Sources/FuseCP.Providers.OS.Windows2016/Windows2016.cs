@@ -887,7 +887,6 @@ namespace FuseCP.Providers.OS
 
         public virtual List<SystemLogEntry> GetLogEntries(string logName)
         {
-            SystemLogEntriesPaged result = new SystemLogEntriesPaged();
             List<SystemLogEntry> entries = new List<SystemLogEntry>();
 
             if (String.IsNullOrEmpty(logName))

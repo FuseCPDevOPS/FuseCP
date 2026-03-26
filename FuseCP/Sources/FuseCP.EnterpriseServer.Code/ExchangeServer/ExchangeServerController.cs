@@ -2942,7 +2942,7 @@ namespace FuseCP.EnterpriseServer
                 List<string> toDelete = new List<string>();
                 foreach (string emailAddress in emailAddresses)
                 {
-                    if ((String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0) &
+                    if ((String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0) &&
                         (String.Compare(account.UserPrincipalName, emailAddress, true) != 0))
                         toDelete.Add(emailAddress);
                 }

@@ -145,23 +145,17 @@ namespace FuseCP.EnterpriseServer
 
         private IEnumerable<PackageInfo> GetUserPackages(int userId,UserRole userRole)
         {
-            var packages = new List<PackageInfo>();
-
             switch (userRole)
             {
                 case UserRole.Administrator:
                 {
-                    packages = ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
-                    break;
+                    return ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
                 }
                 default:
                 {
-                    packages = PackageController.GetMyPackages(userId);
-                    break; 
+                    return PackageController.GetMyPackages(userId);
                 }
             }
-
-            return packages;
         }
 
         private bool CheckDomainExpiration(DateTime? date, int daysBeforeNotify)

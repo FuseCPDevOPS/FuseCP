@@ -7684,7 +7684,7 @@ namespace FuseCP.EnterpriseServer
 				SqlParameter prmTotalNumber = new SqlParameter("@TotalNumber", SqlDbType.Int);
 				prmTotalNumber.Direction = ParameterDirection.Output;
 
-				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
+				SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetServiceItemsCount",
 					prmTotalNumber,
 					/// <summary>TODO</summary>
@@ -24136,7 +24136,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				SqlParameter count = new SqlParameter("@TotalNumber", SqlDbType.Int);
 				count.Direction = ParameterDirection.Output;
 
-				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
+				SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsUsersCount",
 					count,
 					/// <summary>TODO</summary>
@@ -24159,7 +24159,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				SqlParameter count = new SqlParameter("@TotalNumber", SqlDbType.Int);
 				count.Direction = ParameterDirection.Output;
 
-				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
+				SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsCollectionsCount",
 					count,
 					/// <summary>TODO</summary>
@@ -24182,7 +24182,7 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 				SqlParameter count = new SqlParameter("@TotalNumber", SqlDbType.Int);
 				count.Direction = ParameterDirection.Output;
 
-				DataSet ds = SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
+				SqlHelper.ExecuteDataset(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetOrganizationRdsServersCount",
 					count,
 					/// <summary>TODO</summary>

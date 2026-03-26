@@ -51,7 +51,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
             //int maximumExecutionSeconds = 60 * 30; //30 min for this task.
             //TaskManager.StartTask(taskId, "VPS2012", "REINSTALL", VMSettings.Name, VMSettings.Id, VMSettings.PackageId, maximumExecutionSeconds);
 
-            IntResult result = new IntResult();
             string osTemplateFile = VMSettings.OperatingSystemTemplate;
             TaskManager.Write(String.Format("VPS Operating System Template {0}", osTemplateFile));
 

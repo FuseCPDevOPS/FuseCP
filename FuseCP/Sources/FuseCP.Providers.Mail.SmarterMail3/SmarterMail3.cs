@@ -620,7 +620,7 @@ namespace FuseCP.Providers.Mail
                 if (!String.IsNullOrEmpty(productVersion))
                 {
                     string[] split = productVersion.Split(new char[] { '.' });
-                    return split[0].Equals("3") | split[0].Equals("4");
+                    return split[0].Equals("3") || split[0].Equals("4");
                 }
             }
             else
@@ -653,7 +653,7 @@ namespace FuseCP.Providers.Mail
                 if (!String.IsNullOrEmpty(productVersion))
                 {
                     string[] split = productVersion.Split(new[] { '.' });
-                    return split[0].Equals("3") | split[0].Equals("4");
+                    return split[0].Equals("3") || split[0].Equals("4");
                 }
             }
             return false;

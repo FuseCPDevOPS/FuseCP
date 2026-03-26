@@ -607,7 +607,7 @@ namespace FuseCP.Providers.Web
 		public static void WriteFile(string path, string content)
 		{
 			//	remove 'hidden' attribute
-			FileAttributes fileAttributes = FileAttributes.Normal;
+			FileAttributes fileAttributes;
 			if (File.Exists(path))
 			{
 				fileAttributes = File.GetAttributes(path);
