@@ -882,7 +882,7 @@ LOG ON(
 		public static bool LoginExists(string connectionString, string loginName)
 		{
 			Data.DbType dbType;
-			string ConnStr, server;
+			string ConnStr;
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{
@@ -901,7 +901,7 @@ LOG ON(
 		public static void DeleteLogin(string connectionString, string loginName)
 		{
 			Data.DbType dbType;
-			string ConnStr, server;
+			string ConnStr;
 			ParseConnectionString(connectionString, out dbType, out ConnStr);
 			switch (dbType)
 			{

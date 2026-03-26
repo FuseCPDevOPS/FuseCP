@@ -66,7 +66,7 @@ public class SystemdServiceController : ServiceController
 
 		var match = Regex.Match(output, @"^\s*Loaded:\s*(?<loaded>[^\s$]+).*?$(^.*$\r?\n)*\s*Active:\s*(?<active>[^\s$]+)\s+\((?<status>[^\)]+)\)", RegexOptions.Multiline);
 
-		string loaded, active, status = null;
+		string status = null;
 		if (match.Success)
 		{
 			status = match.Groups["status"].Value;

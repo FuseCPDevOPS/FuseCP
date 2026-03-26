@@ -334,7 +334,6 @@ namespace FuseCP.Providers.FTP
             var ftpAccounts = new FtpAccount[cerberusAccounts.Length];
             var i = 0;
 
-            bool success;
             foreach (var cerberusAccount in cerberusAccounts)
             {
                 GetUserInformation(cerberusAccount, ref userAccount, ref message);

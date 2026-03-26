@@ -72,7 +72,6 @@ namespace FuseCP.EnterpriseServer.MailTemplates
 		private TemplateHashtable(UserInfo user, int? orgId, ControllerBase provider = null): this(provider)
 		{
 			string organizationLogoUrl;
-			string str;
 			if (user != null)
 			{
 				this.User = user;

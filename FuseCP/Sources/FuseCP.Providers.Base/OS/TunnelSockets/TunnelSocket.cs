@@ -609,8 +609,7 @@ namespace FuseCP.Providers.OS
                 }
                 if (UpgradeTunnelSocket.IsConnected)
                 {
-                    // fire and forget CloseAsync to close current connection
-                    Clone.CloseAsync(WebSocketCloseStatus.NormalClosure, "Use upgrade tunnel");
+                    await Clone.CloseAsync(WebSocketCloseStatus.NormalClosure, "Use upgrade tunnel");
                     CopyFrom(UpgradeTunnelSocket);
                     UpgradeTunnelSocket = null;
                 }
