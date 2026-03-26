@@ -378,11 +378,15 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 }
 
                 string collectionComputersPath = GetComputerGroupPath(organizationId, collection.Name);
+                using var localAdminsEntry = new DirectoryEntry(GetGroupPath(organizationId, collection.Name, GetLocalAdminsGroupName(collection.Name)));
+                using var collectionComputersEntry = new DirectoryEntry(collectionComputersPath);
+                using var usersEntry = new DirectoryEntry(GetUsersGroupPath(organizationId, collection.Name));
+                using var helpDeskEntry = new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup));
                 CreatePolicy(runSpace, organizationId, string.Format("{0}-administrators", collection.Name),
-                    new DirectoryEntry(GetGroupPath(organizationId, collection.Name, GetLocalAdminsGroupName(collection.Name))), new DirectoryEntry(collectionComputersPath), collection.Name);
-                CreateUsersPolicy(runSpace, organizationId, string.Format("{0}-users", collection.Name), new DirectoryEntry(GetUsersGroupPath(organizationId, collection.Name))
-                    , new DirectoryEntry(collectionComputersPath), collection.Name);
-                CreateHelpDeskPolicy(runSpace, new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup)), new DirectoryEntry(collectionComputersPath), organizationId, collection.Name);
+                    localAdminsEntry, collectionComputersEntry, collection.Name);
+                CreateUsersPolicy(runSpace, organizationId, string.Format("{0}-users", collection.Name), usersEntry
+                    , collectionComputersEntry, collection.Name);
+                CreateHelpDeskPolicy(runSpace, helpDeskEntry, collectionComputersEntry, organizationId, collection.Name);
 
                 if (!CheckCollectionUserGroups(runSpace, collection.Name, new List<string> { GetUsersGroupName(collection.Name) }))
                 {
@@ -1189,12 +1193,16 @@ namespace FuseCP.Providers.RemoteDesktopServices
             {
                 runspace = RdsRunspaceExtensions.OpenRunspace();                
                 string collectionComputersPath = GetComputerGroupPath(organizationId, collectionName);
+                using var localAdminsEntry = new DirectoryEntry(GetGroupPath(organizationId, collectionName, GetLocalAdminsGroupName(collectionName)));
+                using var collectionComputersEntry = new DirectoryEntry(collectionComputersPath);
+                using var usersEntry = new DirectoryEntry(GetUsersGroupPath(organizationId, collectionName));
+                using var helpDeskEntry = new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup));
 
                 CreatePolicy(runspace, organizationId, string.Format("{0}-administrators", collectionName),
-                    new DirectoryEntry(GetGroupPath(organizationId, collectionName, GetLocalAdminsGroupName(collectionName))), new DirectoryEntry(collectionComputersPath), collectionName);
+                    localAdminsEntry, collectionComputersEntry, collectionName);
                 CreateUsersPolicy(runspace, organizationId, string.Format("{0}-users", collectionName),
-                    new DirectoryEntry(GetUsersGroupPath(organizationId, collectionName)), new DirectoryEntry(collectionComputersPath), collectionName);
-                CreateHelpDeskPolicy(runspace, new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup)), new DirectoryEntry(collectionComputersPath), organizationId, collectionName);                
+                    usersEntry, collectionComputersEntry, collectionName);
+                CreateHelpDeskPolicy(runspace, helpDeskEntry, collectionComputersEntry, organizationId, collectionName);                
                 RemoveRegistryValue(runspace, ScreenSaverGpoKey, administratorsGpo);
                 RemoveRegistryValue(runspace, ScreenSaverGpoKey, usersGpo);                
                 RemoveRegistryValue(runspace, RemoveRestartGpoKey, administratorsGpo);
@@ -1839,11 +1847,15 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 }
 
                 string collectionComputersPath = GetComputerGroupPath(organizationId, collection.Name);
+                using var localAdminsEntry = new DirectoryEntry(GetGroupPath(organizationId, collection.Name, GetLocalAdminsGroupName(collection.Name)));
+                using var collectionComputersEntry = new DirectoryEntry(collectionComputersPath);
+                using var usersEntry = new DirectoryEntry(GetUsersGroupPath(organizationId, collection.Name));
+                using var helpDeskEntry = new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup));
                 CreatePolicy(runSpace, organizationId, string.Format("{0}-administrators", collection.Name),
-                    new DirectoryEntry(GetGroupPath(organizationId, collection.Name, GetLocalAdminsGroupName(collection.Name))), new DirectoryEntry(collectionComputersPath), collection.Name);
-                CreateUsersPolicy(runSpace, organizationId, string.Format("{0}-users", collection.Name), new DirectoryEntry(GetUsersGroupPath(organizationId, collection.Name))
-                    , new DirectoryEntry(collectionComputersPath), collection.Name);
-                CreateHelpDeskPolicy(runSpace, new DirectoryEntry(GetHelpDeskGroupPath(RDSHelpDeskGroup)), new DirectoryEntry(collectionComputersPath), organizationId, collection.Name);
+                    localAdminsEntry, collectionComputersEntry, collection.Name);
+                CreateUsersPolicy(runSpace, organizationId, string.Format("{0}-users", collection.Name), usersEntry
+                    , collectionComputersEntry, collection.Name);
+                CreateHelpDeskPolicy(runSpace, helpDeskEntry, collectionComputersEntry, organizationId, collection.Name);
 
                 SetUsersInCollection(organizationId, collection.Name, users);
 
