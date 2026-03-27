@@ -134,7 +134,7 @@ namespace FuseCP.Portal
         {
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'Users'");
-            res.Append(", UserID: " + PanelSecurity.EffectiveUserId.ToString());
+            res.Append(", UserID: " + PanelSecurity.EffectiveUserId);
 	        res.Append(", StatusID: 0");
             res.Append(", RoleID: 0");
             res.Append(", Recursive: true");

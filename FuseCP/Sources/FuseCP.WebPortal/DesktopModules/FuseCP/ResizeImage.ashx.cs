@@ -87,7 +87,7 @@ namespace FuseCP.Portal
                     img = new Bitmap(response.GetResponseStream());
 #endif
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Trace.TraceError(ex.StackTrace);
 				}

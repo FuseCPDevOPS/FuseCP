@@ -50,14 +50,14 @@ namespace FuseCP.Portal
 
 		protected void btnCreateSiteCollection_Click(object sender, EventArgs e)
 		{
-			Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "sharepoint_edit_sitecollection", "SpaceID=" + PanelSecurity.PackageId.ToString()));
+			Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "sharepoint_edit_sitecollection", "SpaceID=" + PanelSecurity.PackageId));
 		}
 
 		public string GetSiteCollectionEditUrl(string siteCollectionId)
 		{
 			return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_edit_sitecollection",
 					"SiteCollectionID=" + siteCollectionId,
-					"ItemID=" + PanelRequest.ItemID.ToString());
+					"ItemID=" + PanelRequest.ItemID);
 		}
 
 		protected void odsSharePointSiteCollectionPaged_Selected(object sender, ObjectDataSourceStatusEventArgs e)
@@ -87,7 +87,7 @@ namespace FuseCP.Portal
 					gvSiteCollections.DataBind();
 					this.BindStats();
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					messageBox.ShowErrorMessage("HOSTEDSHAREPOINT_DELETE_SITECOLLECTION", ex);
 				}

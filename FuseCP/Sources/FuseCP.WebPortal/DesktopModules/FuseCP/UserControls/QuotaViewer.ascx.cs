@@ -89,7 +89,7 @@ namespace FuseCP.Portal
             else if (QuotaTypeId == 2)
             {
                 string availableText = string.Empty;
-                if (gauge.Available != -1) availableText = String.Format("({0} {1})", gauge.Available.ToString(), GetLocalizedString("Text.Available"));
+                if (gauge.Available != -1) availableText = String.Format("({0} {1})", gauge.Available, GetLocalizedString("Text.Available"));
 
                 litValue.Text = String.Format("{0} {1} {2} {3}",
                     gauge.Progress, GetLocalizedString("Text.Of"), ((total == -1) ? GetLocalizedString("Text.Unlimited") : total.ToString()), availableText);

@@ -354,7 +354,9 @@ namespace FuseCP.Portal
                     MinimumSymbols = (parts.Length > 5) ? Math.Max(Utils.ParseInt(parts[5], 0), MinimumSymbols) : MinimumSymbols;
                     notEqualToUsername = (parts.Length > 6) && Utils.ParseBool(parts[6], false);
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 // apply policy
                 if (enabled)

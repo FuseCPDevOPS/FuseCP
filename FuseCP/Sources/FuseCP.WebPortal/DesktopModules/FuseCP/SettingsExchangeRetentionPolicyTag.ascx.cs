@@ -202,7 +202,7 @@ namespace FuseCP.Portal
                         btnUpdatePolicy.Enabled = (string.IsNullOrEmpty(txtPolicy.Text)) ? false : true;
 
                     }
-                    catch (Exception)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("EXCHANGE_DELETE_RETENTIONPOLICY");
                     }

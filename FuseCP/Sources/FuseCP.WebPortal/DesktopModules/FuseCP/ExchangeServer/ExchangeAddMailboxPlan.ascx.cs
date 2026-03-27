@@ -351,7 +351,7 @@ namespace FuseCP.Portal.ExchangeServer
                 Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), RetentionPolicy ? "retentionpolicy" : "mailboxplans",
                     "SpaceID=" + PanelSecurity.PackageId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_ADD_MAILBOXPLAN", ex);
             }
@@ -407,7 +407,7 @@ namespace FuseCP.Portal.ExchangeServer
                         gvPolicy.DataBind();
                         UpdateTags();
                     }
-                    catch (Exception swallowedEx)
+                    catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                     {
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                     }

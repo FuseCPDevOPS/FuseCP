@@ -384,7 +384,7 @@ namespace FuseCP.Portal
                     SaveButtonSetting("buttons-Dark", ThemeButtonsDarkCookie, ReadButtonValues(rptButtonMatrix, "txtButtonDarkValue", DarkButtonDefaults));
 
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("USER_UPDATE_USER", ex);
                     return;
@@ -428,7 +428,7 @@ namespace FuseCP.Portal
                 FormsAuthentication.SignOut();
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RedirectToLogin", String.Format("setTimeout(\"window.location='{0}'\",{1});", loginClientUrl, redirectTimeout), true); 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("USER_CHANGE_PASSWORD", ex);
                 return;

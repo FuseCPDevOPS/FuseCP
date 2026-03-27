@@ -165,7 +165,7 @@ namespace FuseCP.Portal.ExchangeServer
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("DELETE_ORG", ex);
                 }
@@ -183,7 +183,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 ShowSuccessMessage("REQUEST_COMPLETED_SUCCESFULLY");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("ORGANIZATION_SET_DEFAULT_ORG", ex);
             }

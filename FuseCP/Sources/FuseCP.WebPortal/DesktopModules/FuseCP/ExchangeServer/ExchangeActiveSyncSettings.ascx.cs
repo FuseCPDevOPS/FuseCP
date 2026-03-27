@@ -67,7 +67,7 @@ namespace FuseCP.Portal.ExchangeServer
                 hoursRefreshInterval.ValueHours = policy.RefreshInterval;
                 ToggleControls();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_ACTIVESYNC_POLICY", ex);
             }
@@ -110,7 +110,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_SET_ACTIVESYNC_POLICY");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_SET_ACTIVESYNC_POLICY", ex);
             }

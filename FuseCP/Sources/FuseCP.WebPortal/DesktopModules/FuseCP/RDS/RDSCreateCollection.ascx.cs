@@ -54,7 +54,7 @@ namespace FuseCP.Portal.RDS
 
                 Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "rds_edit_collection", "CollectionId=" + collectionId, "ItemID=" + PanelRequest.ItemID));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSCOLLECTION_NOT_CREATED", ex);
             }

@@ -95,7 +95,7 @@ namespace FuseCP.Portal
                 }
 
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
                 DisableFormControls(this, btnCancel);
@@ -138,7 +138,7 @@ namespace FuseCP.Portal
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("STATS_ADD_STAT", ex);
                     return;
@@ -157,7 +157,7 @@ namespace FuseCP.Portal
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("STATS_UPDATE_STAT", ex);
                     return;
@@ -180,7 +180,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("STATS_DELETE_STAT", ex);
                 return;

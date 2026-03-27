@@ -93,7 +93,7 @@ namespace FuseCP.Portal
                 gv.Columns[gv.Columns.Count - 1].Visible =
                     (PanelSecurity.EffectiveUser.Role == UserRole.Administrator);
             }
-            catch (Exception swallowedEx)
+            catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
             {
                 System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
             }
@@ -152,7 +152,7 @@ namespace FuseCP.Portal
 
                     if (localizedMessage == null)
                     {
-                        localizedMessage = GetSharedLocalizedString(moduleName, "Message.Generic") + " " + resultCode.ToString();
+                        localizedMessage = GetSharedLocalizedString(moduleName, "Message.Generic") + " " + resultCode;
                     }
                     else
                     {

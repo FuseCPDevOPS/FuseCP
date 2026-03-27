@@ -82,7 +82,7 @@ namespace FuseCP.Portal.ExchangeServer
                 txtNotes.Text = contact.Notes;
                 ddlMAPIRichTextFormat.SelectedValue = contact.UseMapiRichTextFormat.ToString();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_CONTACT_SETTINGS", ex);
             }
@@ -136,7 +136,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_CONTACT_SETTINGS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_CONTACT_SETTINGS", ex);
             }

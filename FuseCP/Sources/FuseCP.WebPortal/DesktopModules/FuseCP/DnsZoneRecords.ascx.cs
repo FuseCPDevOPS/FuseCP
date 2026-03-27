@@ -111,7 +111,7 @@ namespace FuseCP.Portal
                     rowRecordTTL.Visible = false;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("GDNS_GET_RECORD", ex);
                 return;
@@ -202,7 +202,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage("GDNS_ADD_RECORD", ex);
                         return;
@@ -231,7 +231,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage("GDNS_UPDATE_RECORD", ex);
                         return;
@@ -263,7 +263,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("GDNS_DELETE_RECORD", ex);
                 return;

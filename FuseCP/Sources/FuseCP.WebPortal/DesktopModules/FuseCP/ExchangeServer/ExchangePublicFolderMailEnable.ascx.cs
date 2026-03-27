@@ -54,7 +54,7 @@ namespace FuseCP.Portal.ExchangeServer
 
 				ReturnBack();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("EXCHANGE_MAIL_ENABLE_PUBLIC_FOLDER", ex);
 			}
@@ -68,8 +68,8 @@ namespace FuseCP.Portal.ExchangeServer
 		private void ReturnBack()
 		{
 			Response.Redirect(EditUrl("AccountID", PanelRequest.AccountID.ToString(), "public_folder_settings",
-				"SpaceID=" + PanelSecurity.PackageId.ToString(),
-				"ItemID=" + PanelRequest.ItemID.ToString()));
+				"SpaceID=" + PanelSecurity.PackageId,
+				"ItemID=" + PanelRequest.ItemID));
 		}
 	}
 }

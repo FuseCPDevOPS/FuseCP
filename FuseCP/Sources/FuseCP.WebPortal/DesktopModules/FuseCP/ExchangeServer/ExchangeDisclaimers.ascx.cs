@@ -60,14 +60,14 @@ namespace FuseCP.Portal.ExchangeServer
         protected void btnCreateList_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "disclaimers_settings",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         public string GetListEditUrl(string accountId)
         {
             return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "disclaimers_settings",
                     "AccountID=" + accountId,
-                    "ItemID=" + PanelRequest.ItemID.ToString());
+                    "ItemID=" + PanelRequest.ItemID);
         }
 
         protected void odsAccountsPaged_Selected(object sender, ObjectDataSourceStatusEventArgs e)
@@ -100,7 +100,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("EXCHANGE_DELETE_DISCLAIMER", ex);
                 }

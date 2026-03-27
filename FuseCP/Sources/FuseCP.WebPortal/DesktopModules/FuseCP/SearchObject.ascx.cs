@@ -179,17 +179,17 @@ namespace FuseCP.Portal
                         break;
                     case TYPE_LYNC:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=edit_lync_user",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_lync_user",
                             "AccountID=" + accountId, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_SFB:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=edit_sfb_user",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_sfb_user",
                             "AccountID=" + accountId, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_FOLDER:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=enterprisestorage_folder_settings",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=enterprisestorage_folder_settings",
                             "FolderID=" + textSearch, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_SHAREPOINT:

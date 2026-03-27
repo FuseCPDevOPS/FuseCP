@@ -97,7 +97,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("WEB_UPDATE_SECURED_USER", ex);
                 return;
@@ -120,7 +120,7 @@ namespace FuseCP.Portal
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "edit_item",
                 "MenuID=securedfolders",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
     }
 }

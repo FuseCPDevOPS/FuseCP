@@ -57,7 +57,7 @@ namespace FuseCP.Portal.VPS2012
         protected void btnInsertDisk_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_insert_dvd",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnEjectDisk_Click(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(res, "VPS_ERROR_EJECT_DVD_DISK", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_EJECT_DVD_DISK", ex);
             }

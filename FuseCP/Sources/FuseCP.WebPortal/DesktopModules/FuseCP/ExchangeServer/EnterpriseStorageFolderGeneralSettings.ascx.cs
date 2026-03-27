@@ -109,7 +109,7 @@ namespace FuseCP.Portal.ExchangeServer
                     chkEda.Checked = ES.Services.StorageSpaces.GetStorageSpaceFolderEncryptDataAccessStatus(folder.StorageSpaceFolderId.Value);
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ENETERPRISE_STORAGE_GET_FOLDER_SETTINGS", ex);
             }
@@ -167,7 +167,7 @@ namespace FuseCP.Portal.ExchangeServer
                 Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "enterprisestorage_folders",
                         "ItemID=" + PanelRequest.ItemID));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ENTERPRISE_STORAGE_UPDATE_FOLDER_SETTINGS", ex);
             }
@@ -189,7 +189,7 @@ namespace FuseCP.Portal.ExchangeServer
                         "ItemID=" + PanelRequest.ItemID));
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ENTERPRISE_STORAGE_MIGRATE_TO_STORAGE_SPACES", ex);
             }

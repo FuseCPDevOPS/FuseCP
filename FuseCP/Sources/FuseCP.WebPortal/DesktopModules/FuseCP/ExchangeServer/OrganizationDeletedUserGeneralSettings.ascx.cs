@@ -139,7 +139,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 chkLocked.Checked = user.Locked;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_GET_USER_SETTINGS", ex);
             }

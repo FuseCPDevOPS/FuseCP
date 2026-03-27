@@ -45,7 +45,7 @@ namespace FuseCP.Portal
                 // redirect               
                 Response.Redirect(NavigatePageURL("SpaceHome", "SpaceID", PackageId.ToString()));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("APPLY_QUOTA", ex);
             }

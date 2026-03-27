@@ -66,7 +66,7 @@ namespace FuseCP.Portal
             foreach (ServiceProviderItemType type in types)
             {
                 node = new TreeNode();
-                node.Value = "-" + type.ItemTypeId.ToString();
+                node.Value = "-" + type.ItemTypeId;
                 node.Text = GetSharedLocalizedString("ServiceItemType." + type.DisplayName);
                 node.PopulateOnDemand = true;
                 node.SelectAction = TreeNodeSelectAction.None;
@@ -98,7 +98,7 @@ namespace FuseCP.Portal
                 {
                     TreeNode node = new TreeNode();
                     node.Text = item;
-                    node.Value = itemTypeId.ToString() + "|" + item;
+                    node.Value = itemTypeId + "|" + item;
                     node.ShowCheckBox = true;
                     node.SelectAction = TreeNodeSelectAction.None;
                     e.Node.ChildNodes.Add(node);
@@ -116,7 +116,7 @@ namespace FuseCP.Portal
 
                         TreeNode headerNode = new TreeNode();
                         headerNode.Text = GetSharedLocalizedString("ServiceItemType.HostHeader");
-                        headerNode.Value = "+" + itemTypeId.ToString();
+                        headerNode.Value = "+" + itemTypeId;
                         headerNode.ShowCheckBox = true;
                         headerNode.SelectAction = TreeNodeSelectAction.None;
                         e.Node.ChildNodes.Add(headerNode);
@@ -128,7 +128,7 @@ namespace FuseCP.Portal
                             TreeNode userNode = null;
                             foreach (TreeNode n in headerNode.ChildNodes)
                             {
-                                if (n.Value == "+" + itemTypeId.ToString() + "|" + objectData[1]) 
+                                if (n.Value == "+" + itemTypeId + "|" + objectData[1]) 
                                 {
                                     userNode = n;
                                     break;
@@ -139,7 +139,7 @@ namespace FuseCP.Portal
                             {
                                 userNode = new TreeNode();
                                 userNode.Text = objectData[0];
-                                userNode.Value = "+" + itemTypeId.ToString() + "|" + objectData[1];
+                                userNode.Value = "+" + itemTypeId + "|" + objectData[1];
                                 userNode.ShowCheckBox = true;
                                 userNode.SelectAction = TreeNodeSelectAction.None;
                                 headerNode.ChildNodes.Add(userNode);
@@ -147,7 +147,7 @@ namespace FuseCP.Portal
 
                             TreeNode siteNode = new TreeNode();
                             siteNode.Text = objectData[3];
-                            siteNode.Value = "+" + itemTypeId.ToString() + "|" + item;
+                            siteNode.Value = "+" + itemTypeId + "|" + item;
                             siteNode.ShowCheckBox = true;
                             userNode.SelectAction = TreeNodeSelectAction.None;
                             userNode.ChildNodes.Add(siteNode);

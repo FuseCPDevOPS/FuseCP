@@ -86,7 +86,7 @@ namespace FuseCP.Portal
                     quotaViewer.QuotaAvailable = -1;
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 /* do nothing */
             }

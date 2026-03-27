@@ -76,7 +76,7 @@ namespace FuseCP.Portal
                 gvComments.DataSource = ES.Services.Comments.GetComments(PanelSecurity.EffectiveUserId, ItemTypeId, ItemId);
                 gvComments.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("COMMENT_GET", ex);
                 return;
@@ -97,7 +97,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("COMMENT_ADD", ex);
                 return;
@@ -129,7 +129,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("COMMENT_DELETE", ex);
                 return;

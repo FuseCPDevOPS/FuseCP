@@ -61,7 +61,7 @@ namespace FuseCP.Portal
                         {
                             item = ES.Services.OperatingSystems.GetOdbcSource(PanelRequest.ItemID);
                         }
-                        catch (Exception ex)
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             ShowErrorMessage("DSN_GET", ex);
                             return;
@@ -161,7 +161,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
                 DisableFormControls(this, btnCancel);
@@ -284,7 +284,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("DSN_ADD", ex);
                     return;
@@ -302,7 +302,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("DSN_UPDATE", ex);
                     return;
@@ -325,7 +325,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DSN_DELETE", ex);
                 return;

@@ -164,7 +164,7 @@ namespace FuseCP.Portal.ExchangeServer
                         ShowSuccessMessage("REQUEST_COMPLETED_SUCCESFULLY");
 
                 }
-                catch (Exception)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("EXCHANGE_DELETE_MAILBOXPLAN");
                 }
@@ -198,7 +198,7 @@ namespace FuseCP.Portal.ExchangeServer
                 // rebind domains
                 BindMailboxPlans();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("EXCHANGE_SET_DEFAULT_MAILBOXPLAN", ex);
             }
@@ -226,7 +226,7 @@ namespace FuseCP.Portal.ExchangeServer
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("EXCHANGE_FAILED_TO_STAMP", ex);
             }

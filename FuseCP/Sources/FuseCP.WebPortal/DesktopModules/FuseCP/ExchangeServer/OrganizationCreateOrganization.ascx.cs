@@ -95,7 +95,7 @@ namespace FuseCP.Portal.ExchangeServer
                         return orgId;
                     }
                 }
-                catch (Exception swallowedEx)
+                catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -142,7 +142,7 @@ namespace FuseCP.Portal.ExchangeServer
                     txtOrganizationID.MaxLength = maxLength;
                     valRequireCorrectOrgID.ValidationExpression = string.Format("[a-zA-Z0-9.-]{{1,{0}}}", maxLength);
                 }
-                catch (Exception swallowedEx)
+                catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -170,7 +170,7 @@ namespace FuseCP.Portal.ExchangeServer
                         int num = 2;
                         while (ES.Services.Organizations.CheckOrgIdExists(orgId))
                         {
-                            orgId = domainName.ToLower() + num.ToString();
+                            orgId = domainName.ToLower() + num;
                             num++;
                         }
                     }
@@ -209,7 +209,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "organization_home", "ItemID=" + itemId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_CREATE_ORG", ex);
             }

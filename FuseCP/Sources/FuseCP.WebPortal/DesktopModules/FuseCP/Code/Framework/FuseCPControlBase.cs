@@ -397,7 +397,7 @@ namespace FuseCP.Portal
 			foreach (DataRow dr in ds.Tables[0].Rows)
 			{
 				quotas.Add(String.Format("{0} ({1})",
-					 GetSharedLocalizedString(Utils.ModuleName, "Quota." + dr["QuotaName"].ToString()),
+					 GetSharedLocalizedString(Utils.ModuleName, "Quota." + dr["QuotaName"]),
 					 dr["QuotaValue"]));
 			}
 			return GetSharedLocalizedString(Utils.ModuleName, "Text.ExceedingQuotas") + String.Join(", ", quotas.ToArray());

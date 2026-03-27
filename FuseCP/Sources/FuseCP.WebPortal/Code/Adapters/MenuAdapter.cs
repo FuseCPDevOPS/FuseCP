@@ -70,7 +70,7 @@ namespace CSSFriendly
         {
             if (Extender.AdapterEnabled)
             {
-                Extender.RenderBeginTag(writer, "AspNet-Menu2-" + Control.Orientation.ToString());
+                Extender.RenderBeginTag(writer, "AspNet-Menu2-" + Control.Orientation);
             }
             else
             {

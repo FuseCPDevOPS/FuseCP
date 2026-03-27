@@ -38,8 +38,8 @@ namespace FuseCP.Portal.ProviderControls
 		public void BindItem(MailAccount item)
 		{
             chkEnabled.Checked = item.Enabled;
-            lblSizeInfo.Text = item.Size.ToString() + " MB";
-            lblQuotaUsedInfo.Text = item.QuotaUsed.ToString() + " %";
+            lblSizeInfo.Text = item.Size + " MB";
+            lblQuotaUsedInfo.Text = item.QuotaUsed + " %";
             lblLastLoginDateInfo.Text = item.LastLogonTime;
             chkResponderEnabled.Checked = item.ResponderEnabled;
             chkResponderExpires.Checked = item.ResponderExpires;

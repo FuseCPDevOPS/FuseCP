@@ -313,7 +313,7 @@ namespace FuseCP.Portal.HostedSolution
 
         public string GetOCSArgument(int accountID, bool IsOCS, bool IsLync, bool IsSfB)
         {
-            return accountID.ToString() + "|" + IsOCS.ToString() + "|" + IsLync.ToString() + "|" + IsSfB.ToString();
+            return accountID + "|" + IsOCS + "|" + IsLync + "|" + IsSfB;
         }
 
         public ServiceLevel GetServiceLevel(int levelId)
@@ -357,7 +357,7 @@ namespace FuseCP.Portal.HostedSolution
                 // bind stats
                 BindStats();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATIONS_DELETE_USERS", ex);
             }

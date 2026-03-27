@@ -63,14 +63,14 @@ namespace FuseCP.Portal.ExchangeServer
         protected void btnCreateGroup_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "create_secur_group",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         public string GetListEditUrl(string accountId)
         {
             return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "secur_group_settings",
                     "AccountID=" + accountId,
-                    "ItemID=" + PanelRequest.ItemID.ToString());
+                    "ItemID=" + PanelRequest.ItemID);
         }
 
         public bool IsNotDefault(string accountType)
@@ -109,7 +109,7 @@ namespace FuseCP.Portal.ExchangeServer
                     // bind stats
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("ORGANIZATION_DELETE_SECURITY_GROUP", ex);
                 }

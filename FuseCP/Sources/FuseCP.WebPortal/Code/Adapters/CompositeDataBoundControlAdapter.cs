@@ -229,7 +229,7 @@ namespace CSSFriendly
                 {
                     writer.WriteBeginTag("a");
                     writer.WriteAttribute("class", _classOtherPage);
-                    writer.WriteAttribute("href", Page.ClientScript.GetPostBackClientHyperlink(Control, "Page$" + iStart.ToString(), true));
+                    writer.WriteAttribute("href", Page.ClientScript.GetPostBackClientHyperlink(Control, "Page$" + iStart, true));
                     writer.Write(HtmlTextWriter.TagRightChar);
                     writer.Write("...");
                     writer.WriteEndTag("a");
@@ -261,7 +261,7 @@ namespace CSSFriendly
                 {
                     writer.WriteBeginTag("a");
                     writer.WriteAttribute("class", _classOtherPage);
-                    writer.WriteAttribute("href", Page.ClientScript.GetPostBackClientHyperlink(Control, "Page$" + (iEnd + 1).ToString(), true));
+                    writer.WriteAttribute("href", Page.ClientScript.GetPostBackClientHyperlink(Control, "Page$" + (iEnd + 1), true));
                     writer.Write(HtmlTextWriter.TagRightChar);
                     writer.Write("...");
                     writer.WriteEndTag("a");

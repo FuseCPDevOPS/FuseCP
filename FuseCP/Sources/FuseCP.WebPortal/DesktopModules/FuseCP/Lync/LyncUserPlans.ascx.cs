@@ -115,7 +115,7 @@ namespace FuseCP.Portal.Lync
 
 
                 }
-                catch (Exception)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("LYNC_DELETE_PLAN");
                 }
@@ -148,7 +148,7 @@ namespace FuseCP.Portal.Lync
                 // rebind domains
                 BindPlans();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("LYNC_SET_DEFAULT_PLAN", ex);
             }
@@ -176,7 +176,7 @@ namespace FuseCP.Portal.Lync
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("LYNC_FAILED_TO_STAMP", ex);
             }

@@ -78,7 +78,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VSERVER_ADD_SERVICES", ex);
                 return;
@@ -90,7 +90,7 @@ namespace FuseCP.Portal
 
         public DataView GetServerServices(int serverId)
         {
-            return new DataView(dsServers.Tables[1], "ServerID=" + serverId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsServers.Tables[1], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
         }
         protected void btnAdd_Click(object sender, EventArgs e)
         {

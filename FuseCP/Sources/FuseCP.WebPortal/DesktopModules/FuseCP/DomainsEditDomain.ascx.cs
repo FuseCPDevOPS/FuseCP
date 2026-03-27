@@ -169,7 +169,7 @@ namespace FuseCP.Portal
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_GET_DOMAIN", ex);
                 return;
@@ -197,7 +197,7 @@ namespace FuseCP.Portal
                 }
                 ShowSuccessMessage("DOMAIN_UPDATE_DOMAIN");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_UPDATE_DOMAIN", ex);
                 return;
@@ -216,7 +216,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_DELETE_DOMAIN", ex);
                 return;
@@ -247,7 +247,7 @@ namespace FuseCP.Portal
         protected void EditDnsRecords_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("DomainID", PanelRequest.DomainID.ToString(), "zone_records",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void DisableDns_Click(object sender, EventArgs e)
@@ -268,7 +268,7 @@ namespace FuseCP.Portal
                 // show message
                 ShowSuccessMessage("DOMAIN_DISABLE_DNS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_DISABLE_DNS", ex);
                 return;
@@ -293,7 +293,7 @@ namespace FuseCP.Portal
                 // show message
                 ShowSuccessMessage("DOMAIN_ENABLE_DNS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_ENABLE_DNS", ex);
                 return;
@@ -318,7 +318,7 @@ namespace FuseCP.Portal
                 // show message
                 ShowSuccessMessage("DOMAIN_DELETE_INSTANT_ALIAS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_DELETE_INSTANT_ALIAS", ex);
                 return;
@@ -343,7 +343,7 @@ namespace FuseCP.Portal
                 // show message
                 ShowSuccessMessage("DOMAIN_CREATE_INSTANT_ALIAS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_CREATE_INSTANT_ALIAS", ex);
                 return;
@@ -375,7 +375,7 @@ namespace FuseCP.Portal
                 //Clean up the temporary file
                 File.Delete(tempFile);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("DOMAIN_EXPORT", ex);
             }
@@ -385,7 +385,7 @@ namespace FuseCP.Portal
         {
             //Redirect to the import view
             Response.Redirect(EditUrl("DomainID", PanelRequest.DomainID.ToString(), "import_zones",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
     }
 }

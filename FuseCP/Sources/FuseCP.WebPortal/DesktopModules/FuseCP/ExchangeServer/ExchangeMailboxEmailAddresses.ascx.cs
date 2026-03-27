@@ -89,7 +89,7 @@ namespace FuseCP.Portal.ExchangeServer
                 // rebind
                 BindEmails();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_MAILBOX_ADD_EMAIL", ex);
             }
@@ -140,7 +140,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_MAILBOX_SET_DEFAULT_EMAIL");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_MAILBOX_SET_DEFAULT_EMAIL", ex);
             }
@@ -200,7 +200,7 @@ namespace FuseCP.Portal.ExchangeServer
                 // rebind
                 BindEmails();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_MAILBOX_DELETE_EMAILS", ex);
             }
@@ -221,7 +221,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_MAILMANAGER");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILMANAGER", ex);
             }

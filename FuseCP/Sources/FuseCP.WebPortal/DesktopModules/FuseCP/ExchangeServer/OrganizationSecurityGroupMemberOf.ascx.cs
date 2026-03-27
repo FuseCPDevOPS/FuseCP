@@ -101,7 +101,7 @@ namespace FuseCP.Portal.HostedSolution
                 groups.SetAccounts(groupsList.ToArray());
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_GET_GROUP_SETTINGS", ex);
             }
@@ -160,7 +160,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 BindSettings();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_UPDATE_SECURITY_GROUP_SETTINGS", ex);
             }

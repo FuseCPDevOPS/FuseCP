@@ -67,7 +67,7 @@ namespace FuseCP.Portal.ExchangeServer
                     tabs.IsDefault = true;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_GET_SECURITY_GROUP_SETTINGS", ex);
             }
@@ -97,7 +97,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("ORGANIZATION_UPDATE_SECURITY_GROUP_SETTINGS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_UPDATE_SECURITY_GROUP_SETTINGS", ex);
             }

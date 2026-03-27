@@ -108,7 +108,7 @@ namespace FuseCP.Portal.RDS
                     throw new Exception("Too many RDS users added");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.Visible = true;
                 messageBox.ShowErrorMessage("RDS_USERS_NOT_UPDATED", ex);

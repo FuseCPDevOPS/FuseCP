@@ -38,7 +38,7 @@ namespace FuseCP.Portal
                     BindPackageItems();
                     BindPackagePackages();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_GET_PACKAGE", ex);
                     return;
@@ -53,7 +53,7 @@ namespace FuseCP.Portal
                 gvItems.DataSource = ES.Services.Packages.GetRawPackageItems(PanelSecurity.PackageId);
                 gvItems.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("INIT_SERVICE_ITEM_FORM", ex);
             }
@@ -96,7 +96,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_DELETE_PACKAGE", ex);
                     return;

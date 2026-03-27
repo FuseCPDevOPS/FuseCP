@@ -115,7 +115,7 @@ namespace FuseCP.Portal.SfB
 
 
                 }
-                catch (Exception)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("SFB_DELETE_PLAN");
                 }
@@ -148,7 +148,7 @@ namespace FuseCP.Portal.SfB
                 // rebind domains
                 BindPlans();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SFB_SET_DEFAULT_PLAN", ex);
             }
@@ -176,7 +176,7 @@ namespace FuseCP.Portal.SfB
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SFB_FAILED_TO_STAMP", ex);
             }

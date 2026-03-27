@@ -134,7 +134,7 @@ namespace FuseCP.Portal.Proxmox
 				listVlanLists.Items.Add(new ListItem("External network disabled", "-1"));
 				foreach (int vlan in vlans)
 				{
-					listVlanLists.Items.Add(new ListItem(String.Format("VLAN {0}", vlan.ToString()), vlan.ToString()));
+					listVlanLists.Items.Add(new ListItem(String.Format("VLAN {0}", vlan), vlan.ToString()));
 				}
 
 				// bind external network ips 4 selected vlan
@@ -388,14 +388,14 @@ namespace FuseCP.Portal.Proxmox
 				if (res.IsSuccess)
 				{
 					Response.Redirect(EditUrl("ItemID", res.Value.ToString(), "vps_general",
-						 "SpaceID=" + PanelSecurity.PackageId.ToString()));
+						 "SpaceID=" + PanelSecurity.PackageId));
 				}
 				else
 				{
 					messageBox.ShowMessage(res, "VPS_ERROR_CREATE", "VPS");
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("VPS_ERROR_CREATE", ex);
 			}

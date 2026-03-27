@@ -124,7 +124,7 @@ namespace FuseCP.Portal.VPSForPC
                 BindCheckboxOption(chkExternalNetworkEnabled, Quotas.VPSForPC_EXTERNAL_NETWORK_ENABLED);
                 BindCheckboxOption(chkPrivateNetworkEnabled, Quotas.VPSForPC_PRIVATE_NETWORK_ENABLED);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_LOAD_VM_META_ITEM", ex);
             }
@@ -143,7 +143,7 @@ namespace FuseCP.Portal.VPSForPC
         private void RedirectBack(string action)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_config",
-                "SpaceID=" + PanelSecurity.PackageId.ToString(),
+                "SpaceID=" + PanelSecurity.PackageId,
                 "action=" + action));
         }
 
@@ -185,7 +185,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_CHANGE_VM_CONFIGURATION", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_CHANGE_VM_CONFIGURATION", ex);
             }

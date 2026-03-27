@@ -90,7 +90,9 @@ namespace FuseCP.Portal
                         ddlValue.Items.Add(new ListItem(itemText, itemValue));
                     }
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 Utils.SelectListItem(ddlValue, val);
                 ddlValue.Visible = true;

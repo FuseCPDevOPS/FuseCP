@@ -34,7 +34,7 @@ namespace FuseCP.Portal
             get
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(chkEnabled.Checked.ToString()).Append(";");
+                sb.Append(chkEnabled.Checked).Append(";");
                 sb.Append(txtAllowedSymbols.Text).Append(";");
                 sb.Append(txtMinimumLength.Text).Append(";");
                 sb.Append(txtMaximumLength.Text).Append(";");
@@ -67,7 +67,9 @@ namespace FuseCP.Portal
                         txtPrefix.Text = parts[4];
                         txtSuffix.Text = parts[5];
                     }
-                    catch { /* skip */ }
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                    {
+                    }
                 }
 				ToggleControls();
             }

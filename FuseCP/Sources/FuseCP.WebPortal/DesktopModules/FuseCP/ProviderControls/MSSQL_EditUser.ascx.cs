@@ -66,7 +66,7 @@ namespace FuseCP.Portal.ProviderControls
                 ddlDefaultDatabase.DataBind();
                 ddlDefaultDatabase.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectDatabase"), ""));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("SQL_GET_DATABASE", ex);
                 return;

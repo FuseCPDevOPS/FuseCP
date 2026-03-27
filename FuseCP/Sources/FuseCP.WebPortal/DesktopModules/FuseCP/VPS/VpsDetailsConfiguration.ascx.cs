@@ -81,7 +81,7 @@ namespace FuseCP.Portal.VPS
                 bool manageAllowed = VirtualMachinesHelper.IsVirtualMachineManagementAllowed(PanelSecurity.PackageId);
                 btnEdit.Visible = manageAllowed;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_LOAD_VM_META_ITEM", ex);
             }
@@ -104,7 +104,7 @@ namespace FuseCP.Portal.VPS
                     messageBox.ShowMessage(res, "VPS_CHANGE_ADMIN_PASSWORD", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_CHANGE_ADMIN_PASSWORD", ex);
             }
@@ -113,7 +113,7 @@ namespace FuseCP.Portal.VPS
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_edit_config",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
     }
 }

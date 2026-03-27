@@ -107,7 +107,7 @@ namespace FuseCP.Portal
                 BindPolicies();
                 ShowSuccessMessage("SYSTEM_SETTINGS_SAVE");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }
@@ -145,7 +145,7 @@ namespace FuseCP.Portal
                 BindPolicies();
                 ShowSuccessMessage("POLICY_UPDATED");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
             }
@@ -159,7 +159,7 @@ namespace FuseCP.Portal
                 BindPolicies();
                 ShowSuccessMessage("POLICY_UPDATED");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
             }
@@ -310,7 +310,7 @@ namespace FuseCP.Portal
                 gvPolicies.DataSource = policies;
                 gvPolicies.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
                 DisableControls = true;

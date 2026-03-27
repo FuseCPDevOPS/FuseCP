@@ -84,8 +84,8 @@ namespace FuseCP.Portal.Lync
                         int MinPasswordLength = -1;
                         if (int.TryParse(pinPolicy[0], out MinPasswordLength))
                         {
-                            PinRegularExpressionValidator.ValidationExpression = "^([0-9]){" + MinPasswordLength.ToString() + ",}$";
-                            PinRegularExpressionValidator.ErrorMessage = "Must contain only numbers. Min. length " + MinPasswordLength.ToString();
+                            PinRegularExpressionValidator.ValidationExpression = "^([0-9]){" + MinPasswordLength + ",}$";
+                            PinRegularExpressionValidator.ErrorMessage = "Must contain only numbers. Min. length " + MinPasswordLength;
                         }
                     }
                 }
@@ -152,7 +152,7 @@ namespace FuseCP.Portal.Lync
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("UPDATE_LYNC_USER", ex);
                 return false;

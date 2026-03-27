@@ -68,7 +68,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_LETTER_SEND");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_LETTER_SEND", ex);
                 return;

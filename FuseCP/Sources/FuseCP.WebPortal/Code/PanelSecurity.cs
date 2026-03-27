@@ -39,7 +39,7 @@ namespace FuseCP.Portal
 				{
 					result = Int32.Parse(val.ToString());
 				}
-				catch
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					/* do nothing */
 				}
@@ -128,7 +128,7 @@ namespace FuseCP.Portal
 			List<string> pairs = new List<string>();
 			foreach (UserInfo user in users)
 			{
-				pairs.Add(user.UserId.ToString() + "=" + user.Username);
+				pairs.Add(user.UserId + "=" + user.Username);
 			}
 			string s = String.Join("*", pairs.ToArray());
 
@@ -214,7 +214,9 @@ namespace FuseCP.Portal
 					{
 						user = ES.Services.Users.GetUserById(SelectedUserId);
 					}
-					catch { }
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+					{
+					}
 
 					// create <empty> user
 					if (user == null)
@@ -255,7 +257,9 @@ namespace FuseCP.Portal
 				{
 					user = (UserInfo)HttpContext.Current.Items["FuseCPLoggedUser"];
 				}
-				catch { }
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+				}
 
 				if (user == null)
 				{
@@ -264,7 +268,9 @@ namespace FuseCP.Portal
 					{
 						user = PortalUtils.GetCurrentUser();
 					}
-					catch { }
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+					{
+					}
 
 					if (user != null)
 					{

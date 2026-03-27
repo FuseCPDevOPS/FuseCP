@@ -55,7 +55,9 @@ namespace FuseCP.Portal
                 //Change container title
                 ((Label)this.Parent.Parent.Parent.Parent.Parent.FindControl(FuseCP.WebPortal.DefaultPage.MODULE_TITLE_CONTROL_ID)).Text = "Service Levels";
             }
-            catch { /*to do*/ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
 

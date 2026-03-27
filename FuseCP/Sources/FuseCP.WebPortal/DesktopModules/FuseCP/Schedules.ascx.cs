@@ -83,7 +83,7 @@ namespace FuseCP.Portal
 
         public string GetScheduleStatus(int statusId)
         {
-			return GetSharedLocalizedString(Utils.ModuleName, "ScheduleStatus." + ((ScheduleStatus)statusId).ToString());
+			return GetSharedLocalizedString(Utils.ModuleName, "ScheduleStatus." + ((ScheduleStatus)statusId));
         }
 
         public bool IsScheduleActive(int statusId)
@@ -120,7 +120,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SCHEDULE_START_TASK", ex);
                     return;
@@ -137,7 +137,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SCHEDULE_STOP_TASK", ex);
                     return;
@@ -153,7 +153,7 @@ namespace FuseCP.Portal
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'Schedules'");
             res.Append(", RedirectUrl: '" + EditUrl("ScheduleID", "{0}", "edit", "SpaceID=" + PanelSecurity.PackageId).Substring(2) + "'");
-            res.Append(", PackageID: " + PanelSecurity.PackageId.ToString());
+            res.Append(", PackageID: " + PanelSecurity.PackageId);
             res.Append(", Recursive: ($('#" + chkRecursive.ClientID + "').val() == 'on')");
             return res.ToString();
         }

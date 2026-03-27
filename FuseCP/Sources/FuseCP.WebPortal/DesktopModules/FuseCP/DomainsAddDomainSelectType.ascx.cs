@@ -81,7 +81,7 @@ namespace FuseCP.Portal
             string returnUrl = (ViewState["ReturnURL"] != null) ? Server.UrlEncode(ViewState["ReturnURL"].ToString()) : "";
 
             return EditUrl("DomainType", domainType, "add_domain_step2",
-                "SpaceID=" + PanelSecurity.PackageId.ToString(),
+                "SpaceID=" + PanelSecurity.PackageId,
                 "ReturnURL=" + returnUrl);
         }
 

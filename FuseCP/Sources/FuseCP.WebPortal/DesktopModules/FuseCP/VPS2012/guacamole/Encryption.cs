@@ -42,7 +42,7 @@ namespace FuseCP.Portal.VPS2012.guacamole
             foreach (var value in key)
             {
                 decimal decValue = value;
-                strkey = String.Format("{0} {1}", strkey, decValue.ToString());
+                strkey = String.Format("{0} {1}", strkey, decValue);
             }
             return String.Format("{0}:{1}", key, IV);
         }

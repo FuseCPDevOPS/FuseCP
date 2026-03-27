@@ -109,8 +109,8 @@ namespace FuseCP.Portal
         protected string GetNavigatePackageLink(int packageId)
         {
 			return NavigateURL(PortalUtils.SPACE_ID_PARAM, packageId.ToString(),
-				"StartDate=" + DateTime.Parse(litStartDate.Text).Ticks.ToString(),
-				"EndDate=" + DateTime.Parse(litEndDate.Text).Ticks.ToString());
+				"StartDate=" + DateTime.Parse(litStartDate.Text).Ticks,
+				"EndDate=" + DateTime.Parse(litEndDate.Text).Ticks);
 
             /*return NavigateURL(TabId, "PackageID", packageId.ToString(),
                 "StartDate", DateTime.Parse(litStartDate.Text).Ticks.ToString(),

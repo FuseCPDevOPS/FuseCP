@@ -56,7 +56,7 @@ namespace FuseCP.Portal.ExchangeServer
                 chkSendersAuthenticated.Checked = contact.RequireSenderAuthentication;
                 rejectAccounts.SetAccounts(contact.RejectAccounts);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_CONTACT_MAILFLOW", ex);
             }
@@ -84,7 +84,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_CONTACT_MAILFLOW");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_CONTACT_MAILFLOW", ex);
             }

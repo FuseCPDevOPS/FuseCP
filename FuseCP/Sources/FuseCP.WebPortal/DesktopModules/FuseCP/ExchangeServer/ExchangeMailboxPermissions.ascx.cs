@@ -76,7 +76,7 @@ namespace FuseCP.Portal.ExchangeServer
                     litDisplayName.Text += GetSharedLocalizedString("EquipmentMailbox.Text");
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_MAILBOX_PERMISSIONS", ex);
             }
@@ -107,7 +107,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_MAILBOX_PERMISSIONS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILBOX_PERMISSIONS", ex);
             }

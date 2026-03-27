@@ -260,7 +260,7 @@ namespace FuseCP.Portal
                         btnUpdatePlan.Enabled = (string.IsNullOrEmpty(txtPlan.Text)) ? false : true;
 
                     }
-                    catch (Exception)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("SFB_DELETE_PLAN");
                     }
@@ -331,7 +331,7 @@ namespace FuseCP.Portal
 
                         break;
                     }
-                    catch (Exception swallowedEx)
+                    catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                     {
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                     }
@@ -526,7 +526,7 @@ namespace FuseCP.Portal
                 }
                 messageBox.ShowSuccessMessage("EXCHANGE_STAMPMAILBOXES");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_FAILED_TO_STAMP", ex);
             }

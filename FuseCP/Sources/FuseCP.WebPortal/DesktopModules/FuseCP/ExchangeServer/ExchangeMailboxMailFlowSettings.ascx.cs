@@ -105,7 +105,7 @@ namespace FuseCP.Portal.ExchangeServer
                 chkPmmAllowed.Checked = (account.MailboxManagerActions & MailboxManagerActions.MailFlowSettings) > 0;
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_MAILBOX_MAILFLOW", ex);
             }
@@ -160,7 +160,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_MAILBOX_MAILFLOW");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILBOX_MAILFLOW", ex);
             }
@@ -206,7 +206,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_MAILMANAGER");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILMANAGER", ex);
             }

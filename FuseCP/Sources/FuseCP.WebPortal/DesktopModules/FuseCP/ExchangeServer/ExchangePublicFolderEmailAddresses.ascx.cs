@@ -73,7 +73,7 @@ namespace FuseCP.Portal.ExchangeServer
 				// rebind
 				BindEmails();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 				messageBox.ShowErrorMessage("EXCHANGE_PFOLDER_ADD_EMAIL", ex);
             }
@@ -114,7 +114,7 @@ namespace FuseCP.Portal.ExchangeServer
 				// rebind
 				BindEmails();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 				messageBox.ShowErrorMessage("EXCHANGE_PFOLDER_SET_DEFAULT_EMAIL", ex);
             }
@@ -147,7 +147,7 @@ namespace FuseCP.Portal.ExchangeServer
 				// rebind
 				BindEmails();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 				messageBox.ShowErrorMessage("EXCHANGE_PFOLDER_DELETE_EMAILS", ex);
             }

@@ -52,7 +52,7 @@ namespace FuseCP.Portal.SkinControls
                             imgLogo.ImageUrl = logoImageURL;
                     }
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     // Auth cookie may be stale after a password change or session expiry;
                     // fall back to the default logo rather than crashing the page.

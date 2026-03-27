@@ -242,7 +242,7 @@ namespace FuseCP.Portal.VPS2012
                 if (res.IsSuccess)
                 {
                     Response.Redirect(EditUrl("ItemID", res.Value.ToString(), "vps_general",
-                        "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                        "SpaceID=" + PanelSecurity.PackageId));
                 }
                 else
                 {
@@ -250,7 +250,7 @@ namespace FuseCP.Portal.VPS2012
                     ShowCheckBoxes(true);
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_IMPORT", ex);
             }

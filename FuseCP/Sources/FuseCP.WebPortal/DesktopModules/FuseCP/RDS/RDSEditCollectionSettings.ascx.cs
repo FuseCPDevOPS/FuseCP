@@ -121,7 +121,7 @@ namespace FuseCP.Portal.RDS
                 collection.Settings = GetSettings(collection.Settings);                
                 ES.Services.RDS.EditRdsCollectionSettings(PanelRequest.ItemID, collection);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSCOLLECTIONSETTINGS_NOT_UPDATES", ex);                
                 return false;

@@ -93,7 +93,7 @@ namespace FuseCP.Portal.VPS
 
             // redirect to properties screen
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_general",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
     }
 }

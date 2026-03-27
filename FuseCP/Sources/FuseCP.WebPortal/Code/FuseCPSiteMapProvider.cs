@@ -241,7 +241,7 @@ namespace FuseCP.WebPortal
                     throw new Exception("HttpContext.Current is Invalid");
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e) when (!(e is System.OutOfMemoryException) && !(e is System.StackOverflowException) && !(e is System.AccessViolationException))
             {
                 throw new NotSupportedException("This provider requires a valid context.", e);
             }

@@ -36,20 +36,20 @@ namespace FuseCP.Portal
             get
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(chkEnabled.Checked.ToString()).Append(";");
+                sb.Append(chkEnabled.Checked).Append(";");
                 sb.Append(txtMinimumLength.Text).Append(";");
                 sb.Append(txtMaximumLength.Text).Append(";");
                 sb.Append(txtMinimumUppercase.Text).Append(";");
                 sb.Append(txtMinimumNumbers.Text).Append(";");
                 sb.Append(txtMinimumSymbols.Text).Append(";");
-                sb.Append(chkNotEqualUsername.Checked.ToString()).Append(";");
+                sb.Append(chkNotEqualUsername.Checked).Append(";");
                 sb.Append(txtLockedOut.Text).Append(";");
 
                 sb.Append(txtEnforcePasswordHistory.Text).Append(";");
                 sb.Append(txtAccountLockoutDuration.Text).Append(";");
                 sb.Append(txtResetAccountLockout.Text).Append(";");
-                sb.Append(chkLockOutSettigns.Checked.ToString()).Append(";");
-                sb.Append(chkPasswordComplexity.Checked.ToString()).Append(";");
+                sb.Append(chkLockOutSettigns.Checked).Append(";");
+                sb.Append(chkPasswordComplexity.Checked).Append(";");
 
                 sb.Append(txtMaxPasswordAge.Text).Append(";");
 
@@ -93,7 +93,7 @@ namespace FuseCP.Portal
 
                         txtMaxPasswordAge.Text = GetValueSafe(parts, 13, "42");
                     }
-                    catch
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         /* skip */
                     }
@@ -159,7 +159,9 @@ namespace FuseCP.Portal
                     return (T)Convert.ChangeType(array[index], typeof(T));
                 }
             }
-            catch{}
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
 
             return defaultValue;
         }

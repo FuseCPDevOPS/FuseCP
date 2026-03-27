@@ -50,7 +50,7 @@ namespace FuseCP.Portal
                     BindSettings();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PACKAGE_SETTINGS_GET", ex);
                 return;
@@ -133,7 +133,7 @@ namespace FuseCP.Portal
 
                 ReturnBack();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PACKAGE_SETTINGS_UPDATE", ex);
                 return;

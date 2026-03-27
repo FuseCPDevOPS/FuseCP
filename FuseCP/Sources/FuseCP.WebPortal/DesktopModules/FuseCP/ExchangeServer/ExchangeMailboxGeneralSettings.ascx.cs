@@ -242,7 +242,7 @@ namespace FuseCP.Portal.ExchangeServer
                     litDisplayName.Text += GetSharedLocalizedString("EquipmentMailbox.Text");
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Exception detailedException = BuildBindSettingsException(currentStep, ex);
                 System.Diagnostics.Trace.TraceError(detailedException.ToString());
@@ -383,7 +383,7 @@ namespace FuseCP.Portal.ExchangeServer
                 BindSettings();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILBOX_SETTINGS", ex);
                 return false;
@@ -421,7 +421,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_MAILMANAGER");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_MAILMANAGER", ex);
             }

@@ -64,7 +64,9 @@ namespace FuseCP.Portal.HostedSolution
                         "&AccountID=" + PanelRequest.AccountID;
 
             }
-            catch { } // skip
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
         private void BindSettings()
@@ -237,7 +239,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 chkUserMustChangePassword.Checked = user.UserMustChangePassword;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_GET_USER_SETTINGS", ex);
             }
@@ -383,7 +385,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 messageBox.ShowSuccessMessage("ORGANIZATION_UPDATE_USER_SETTINGS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_UPDATE_USER_SETTINGS", ex);
             }
@@ -431,7 +433,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 messageBox.ShowSuccessMessage("ORGANIZATION_SET_USER_USERPRINCIPALNAME");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_SET_USER_USERPRINCIPALNAME", ex);
             }
@@ -457,7 +459,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 messageBox.ShowSuccessMessage("ORGANIZATION_SET_USER_PASSWORD");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_SET_USER_PASSWORD", ex);
             }
@@ -489,7 +491,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 messageBox.ShowSuccessMessage("ORGANIZATION_UPDATE_USER_SETTINGS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_UPDATE_USER_SETTINGS", ex);
             }

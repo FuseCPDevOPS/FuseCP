@@ -55,7 +55,7 @@ namespace FuseCP.Portal.ProviderControls
                         hosts = ES.Services.VPSPC.GetClusters(PanelRequest.ServiceId);
                     }
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     hosts = null;
                 }
@@ -225,7 +225,7 @@ namespace FuseCP.Portal.ProviderControls
                 ddlPrivateNetworks.DataSource = networks ?? new VirtualNetworkInfo[] { };
                 ddlPrivateNetworks.DataBind();
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ddlExternalNetworks.Items.Add(new ListItem(GetLocalizedString("ErrorReadingNetworksList.Text"), ""));
                 ddlPrivateNetworks.Items.Add(new ListItem(GetLocalizedString("ErrorReadingNetworksList.Text"), ""));
@@ -257,7 +257,7 @@ namespace FuseCP.Portal.ProviderControls
             {
                 temp = ES.Services.VPSPC.CheckServerState(control, conn, name, PanelRequest.ServiceId);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBoxError.ShowErrorMessage("Server Error", ex);
             }

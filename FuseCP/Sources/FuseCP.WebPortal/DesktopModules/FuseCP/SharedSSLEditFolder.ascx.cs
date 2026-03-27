@@ -104,7 +104,7 @@ namespace FuseCP.Portal
             {
                 vdir = ES.Services.WebServers.GetSharedSSLFolder(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("WEB_GET_VDIR", ex);
                 return;
@@ -156,7 +156,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("WEB_UPDATE_VDIR", ex);
                 return;
@@ -176,7 +176,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("WEB_DELETE_VDIR", ex);
                 return;

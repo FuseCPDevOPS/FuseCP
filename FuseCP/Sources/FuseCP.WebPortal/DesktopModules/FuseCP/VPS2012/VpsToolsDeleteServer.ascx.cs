@@ -58,7 +58,7 @@ namespace FuseCP.Portal.VPS2012
                     }
                 }
             }
-            catch (Exception) { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
 
             // load VM item
             VirtualMachine vm = VirtualMachines2012Helper.GetCachedVirtualMachine(PanelRequest.ItemID);
@@ -111,7 +111,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(res, "VPS_ERROR_DELETE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETE", ex);
             }

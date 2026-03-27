@@ -147,7 +147,7 @@ namespace FuseCP.Portal
 			{
 				site = ES.Services.WebServers.GetWebSite(PanelRequest.ItemID);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_GET_SITE", ex);
 				return;
@@ -401,7 +401,7 @@ namespace FuseCP.Portal
 				//
 				messageBox.ShowSuccessMessage("WPUB_PASSW_CHANGE");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("WPUB_PASSW_CHANGE", ex);
 			}
@@ -433,7 +433,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("FILES_READ_FILE", ex);
 				return;
@@ -460,7 +460,7 @@ namespace FuseCP.Portal
 				//
 				messageBox.ShowSuccessMessage("WEB_PUB_DISABLE");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("WEB_PUB_DISABLE", ex);
 			}
@@ -837,7 +837,7 @@ namespace FuseCP.Portal
 				frontPageUsername.Text = frontPageUsername.Text;
 				ToggleFrontPageControls(true);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_FP_INSTALL", ex);
 				return;
@@ -858,7 +858,7 @@ namespace FuseCP.Portal
 
 				ShowSuccessMessage("WEB_FP_CHANGE_PASSWORD");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_FP_CHANGE_PASSWORD", ex);
 				return;
@@ -878,7 +878,7 @@ namespace FuseCP.Portal
 				ShowSuccessMessage("WEB_FP_UNINSTALL");
 				ToggleFrontPageControls(false);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_FP_UNINSTALL", ex);
 				return;
@@ -903,13 +903,13 @@ namespace FuseCP.Portal
         protected void btnAddVirtualDirectory_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "add_vdir",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void btnAddAppVirtualDirectory_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "add_appdir",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
         #endregion
 
@@ -952,7 +952,7 @@ namespace FuseCP.Portal
 
 				ShowSuccessMessage("WEB_UPDATE_SITE");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_UPDATE_SITE", ex);
 				return;
@@ -970,7 +970,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_DELETE_SITE", ex);
 				return;
@@ -1002,7 +1002,7 @@ namespace FuseCP.Portal
 			if (state == ServerState.Continuing)
 				state = ServerState.Started;
 
-			litStatus.Text = GetLocalizedString("SiteState." + state.ToString());
+			litStatus.Text = GetLocalizedString("SiteState." + state);
 			cmdStart.Visible = (state == ServerState.Stopped);
 			cmdContinue.Visible = (state == ServerState.Paused);
 			cmdPause.Visible = (state == ServerState.Started);
@@ -1025,7 +1025,7 @@ namespace FuseCP.Portal
 
 				BindSiteState(state);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_CHANGE_SITE_STATE", ex);
 				return;
@@ -1035,7 +1035,7 @@ namespace FuseCP.Portal
 		// AppPool
 		private void BindAppPoolState(AppPoolState state)
 		{
-			litAppPoolStatus.Text = GetLocalizedString("SiteState." + state.ToString());
+			litAppPoolStatus.Text = GetLocalizedString("SiteState." + state);
 
 			cmdAppPoolStart.Visible = (state == AppPoolState.Stopped || state == AppPoolState.Stopping);
 			cmdAppPoolStop.Visible = (state == AppPoolState.Started || state == AppPoolState.Starting);
@@ -1060,7 +1060,7 @@ namespace FuseCP.Portal
 				state = ES.Services.WebServers.GetAppPoolState(PanelRequest.ItemID);
 				BindAppPoolState(state);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_CHANGE_SITE_STATE", ex);
 				return;
@@ -1086,7 +1086,7 @@ namespace FuseCP.Portal
 
 				ShowSuccessMessage("WEB_DELETE_SITE_POINTER");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_DELETE_SITE_POINTER", ex);
 				return;
@@ -1099,7 +1099,7 @@ namespace FuseCP.Portal
 		protected void btnAddPointer_Click(object sender, EventArgs e)
 		{
 			Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "add_pointer",
-				PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+				PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
 		}
 		#endregion
 
@@ -1130,7 +1130,7 @@ namespace FuseCP.Portal
 
 				WebsitesSSLControl.InstalledCert = null;
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_SWITCH_TO_SHARED_IP", ex);
 				return;
@@ -1156,7 +1156,7 @@ namespace FuseCP.Portal
 
 				ShowSuccessMessage("WEB_SWITCH_TO_DEDICATED_IP");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("WEB_SWITCH_TO_DEDICATED_IP", ex);
 				return;

@@ -106,7 +106,7 @@ namespace FuseCP.Portal
 
 				await Task.WhenAll(loadService, loadSettingsControl);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_GET_SERVICE", ex);
 				return;
@@ -200,7 +200,7 @@ namespace FuseCP.Portal
 				// add control to the placeholder
 				serviceProps.Controls.Add((Control)ctrl);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_LOAD_SERVICE_CONTROL", ex);
 				return;
@@ -296,7 +296,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_UPDATE_SERVICE_PROPS", ex);
 				return;
@@ -330,7 +330,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_UPDATE_SERVICE", ex);
 				return;
@@ -345,7 +345,7 @@ namespace FuseCP.Portal
 			{
 				installResults = ES.Services.Servers.InstallService(PanelRequest.ServiceId);
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_INSTALL_SERVICE", ex);
 				return;
@@ -386,7 +386,7 @@ namespace FuseCP.Portal
 						return;
 					}
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					ShowErrorMessage("SERVER_DELETE_SERVICE", ex);
 					return;
@@ -414,7 +414,7 @@ namespace FuseCP.Portal
 
 				ddlClusters.Items.Insert(0, new ListItem("<Not Included>", ""));
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_GET_CLUSTER", ex);
 				return;
@@ -434,7 +434,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_ADD_CLUSTER", ex);
 				return;
@@ -455,7 +455,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_DELETE_CLUSTER", ex);
 				return;

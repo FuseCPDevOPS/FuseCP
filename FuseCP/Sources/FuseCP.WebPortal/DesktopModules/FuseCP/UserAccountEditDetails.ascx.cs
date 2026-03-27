@@ -99,7 +99,7 @@ namespace FuseCP.Portal
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("USER_GET_USER", ex);
                 return;
@@ -164,7 +164,7 @@ namespace FuseCP.Portal
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("USER_UPDATE_USER", ex);
                     return;

@@ -57,7 +57,7 @@ namespace FuseCP.WebPortal
 
 						_instance = (PortalThemeProvider)Activator.CreateInstance(providerType);
 					}
-					catch (Exception ex)
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						throw new Exception(string.Format("Could not create '{0}' theme provider", configuredTypeName), ex);
 					}

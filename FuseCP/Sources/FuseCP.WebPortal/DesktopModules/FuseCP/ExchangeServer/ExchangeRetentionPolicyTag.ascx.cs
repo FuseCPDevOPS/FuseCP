@@ -147,7 +147,7 @@ namespace FuseCP.Portal.ExchangeServer
                         ClearEditValues();
 
                     }
-                    catch (Exception)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage("EXCHANGE_DELETE_RETENTIONPOLICY");
                     }

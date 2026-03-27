@@ -40,7 +40,7 @@ namespace FuseCP.Portal
             {
                 ES.Services.MailServers.AddMailDomainPointer(PanelRequest.ItemID, domainsSelectDomainControl.DomainId);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("INIT_SERVICE_ITEM_FORM", ex);
                 return;
@@ -52,7 +52,7 @@ namespace FuseCP.Portal
         private void RedirectBack()
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "edit_item",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)

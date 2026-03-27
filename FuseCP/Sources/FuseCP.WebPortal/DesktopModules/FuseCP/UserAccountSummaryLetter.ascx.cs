@@ -38,7 +38,7 @@ namespace FuseCP.Portal
                 {
                     BindLetter();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("ACCOUNT_LETTER_GET", ex);
                     return;
@@ -54,7 +54,7 @@ namespace FuseCP.Portal
             {
                 body = ES.Services.Packages.GetEvaluatedAccountTemplateBody(PanelSecurity.SelectedUserId);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 body = ex.ToString();
             }
@@ -80,7 +80,7 @@ namespace FuseCP.Portal
 
                 ShowSuccessMessage("ACCOUNT_LETTER_SEND");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("ACCOUNT_LETTER_SEND", ex);
                 return;

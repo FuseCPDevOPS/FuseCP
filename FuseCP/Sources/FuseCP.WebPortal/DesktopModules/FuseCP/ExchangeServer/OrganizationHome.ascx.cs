@@ -39,35 +39,35 @@ namespace FuseCP.Portal.ExchangeServer
             OrganizationStatistics exchangeOrgStats = ES.Services.ExchangeServer.GetOrganizationStatisticsByOrganization(PanelRequest.ItemID);
 
             lnkMailboxes.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "mailboxes",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
 
             lnkSharedMailboxes.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "mailboxes",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkResourceMailboxes.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "mailboxes",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkJournalingMailboxes.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "journaling_mailboxes",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkContacts.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "contacts",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkLists.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "dlists",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkExchangeStorage.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "storage_usage",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkFolders.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "public_folders",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkExchangeLitigationHold.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "storage_usage",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             lnkExchangeArchiving.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "archivingmailboxes",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
 
             mailboxesStats.QuotaUsedValue = exchangeOrgStats.CreatedMailboxes;
@@ -398,7 +398,7 @@ namespace FuseCP.Portal.ExchangeServer
             if (stats.AllocatedOCSUsers != -1) ocsUsersStats.QuotaAvailable = stats.AllocatedOCSUsers - stats.CreatedOCSUsers;
 
             lnkOCSUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "ocs_users",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
         }
 
         private void BindLyncStats(OrganizationStatistics stats)
@@ -408,7 +408,7 @@ namespace FuseCP.Portal.ExchangeServer
             if (stats.AllocatedLyncUsers != -1) lyncUsersStats.QuotaAvailable = stats.AllocatedLyncUsers - stats.CreatedLyncUsers;
 
             lnkLyncUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "lync_users",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
         }
 
         private void BindSfBStats(OrganizationStatistics stats)
@@ -418,7 +418,7 @@ namespace FuseCP.Portal.ExchangeServer
             if (stats.AllocatedSfBUsers != -1) sfbUsersStats.QuotaAvailable = stats.AllocatedSfBUsers - stats.CreatedSfBUsers;
 
             lnkSfBUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "sfb_users",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
         }
 
 
@@ -429,7 +429,7 @@ namespace FuseCP.Portal.ExchangeServer
             if (stats.AllocatedBlackBerryUsers != -1) besUsersStats.QuotaAvailable = stats.AllocatedBlackBerryUsers - stats.CreatedBlackBerryUsers;
 
             lnkBESUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "blackberry_users",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
         }
 
         private void BindEnterpriseStorageStats(OrganizationStatistics stats)
@@ -439,14 +439,14 @@ namespace FuseCP.Portal.ExchangeServer
             if (stats.AllocatedEnterpriseStorageSpace != -1) enterpriseStorageSpaceStats.QuotaAvailable = stats.AllocatedEnterpriseStorageSpace - stats.UsedEnterpriseStorageSpace;
 
             lnkEnterpriseStorageSpace.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "enterprisestorage_folders",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
 
             enterpriseStorageFoldersStats.QuotaValue = stats.AllocatedEnterpriseStorageFolders;
             enterpriseStorageFoldersStats.QuotaUsedValue = stats.CreatedEnterpriseStorageFolders;
             if (stats.AllocatedEnterpriseStorageFolders != -1) enterpriseStorageFoldersStats.QuotaAvailable = stats.AllocatedEnterpriseStorageFolders - stats.CreatedEnterpriseStorageFolders;
 
             lnkEnterpriseStorageFolders.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "enterprisestorage_folders",
-            "SpaceID=" + PanelSecurity.PackageId.ToString());
+            "SpaceID=" + PanelSecurity.PackageId);
         }
 
         private void BindServiceLevelsStats(OrganizationStatistics stats)

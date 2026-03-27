@@ -64,8 +64,8 @@ namespace FuseCP.Portal.RDS.UserControls
         {
             return new Tab(id, GetLocalizedString(text),
                 HostModule.EditUrl("AccountID", PanelRequest.AccountID.ToString(), id,
-                "SpaceID=" + PanelSecurity.PackageId.ToString(),
-                "ItemID=" + PanelRequest.ItemID.ToString(), "CollectionID=" + PanelRequest.CollectionID));
+                "SpaceID=" + PanelSecurity.PackageId,
+                "ItemID=" + PanelRequest.ItemID, "CollectionID=" + PanelRequest.CollectionID));
         }
 
         protected string GetTabCssClass(int index)

@@ -33,7 +33,7 @@ namespace FuseCP.Portal.VPS2012
             {
                 litResults.Text = HttpUtility.HtmlEncode(ES.Services.VPS2012.EvaluateVirtualMachineTemplate(Utils.ParseInt(txtItemId.Text.Trim(), 0), txtTemplate.Text));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(EVALUATE_VIRTUAL_MACHINE_TEMPLATE, ex);                
             }

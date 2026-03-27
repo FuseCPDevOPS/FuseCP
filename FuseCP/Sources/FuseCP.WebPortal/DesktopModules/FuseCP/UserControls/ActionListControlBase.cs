@@ -112,7 +112,7 @@ namespace FuseCP.Portal.UserControls
 
                         HostModule.ShowSuccessMessage(Message);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostModule.ShowErrorMessage(Message, ex);
                     }

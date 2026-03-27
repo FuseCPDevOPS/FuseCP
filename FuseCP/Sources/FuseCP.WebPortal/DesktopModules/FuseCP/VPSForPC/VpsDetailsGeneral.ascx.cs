@@ -100,7 +100,7 @@ namespace FuseCP.Portal.VPSForPC
             {
                 vm = ES.Services.VPSPC.GetVirtualMachineGeneralDetails(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_DETAILS", ex);
             }
@@ -133,7 +133,7 @@ namespace FuseCP.Portal.VPSForPC
 
                 litRdpPageUrl.Text = Page.ResolveUrl("~/DesktopModules/FuseCP/VPSForPC/RemoteDesktop/Connect.aspx?ItemID=" + PanelRequest.ItemID + "&Resolution=");
 
-                litStatus.Text = GetLocalizedString("State." + vm.State.ToString());
+                litStatus.Text = GetLocalizedString("State." + vm.State);
                 litCreated.Text = vm.CreatedDate.ToString();
 
                 // CPU
@@ -288,7 +288,7 @@ namespace FuseCP.Portal.VPSForPC
                     {
                         // go to snapshots screen
                         Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_snapshots",
-                            "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                            "SpaceID=" + PanelSecurity.PackageId));
                     }
                     else
                     {
@@ -303,7 +303,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_CHANGE_VM_STATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CHANGE_VM_STATE", ex);
             }

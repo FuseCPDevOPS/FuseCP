@@ -89,8 +89,8 @@ namespace FuseCP.Portal.SfB
                         int MinPasswordLength = -1;
                         if (int.TryParse(pinPolicy[0], out MinPasswordLength))
                         {
-                            PinRegularExpressionValidator.ValidationExpression = "^([0-9]){" + MinPasswordLength.ToString() + ",}$";
-                            PinRegularExpressionValidator.ErrorMessage = "Must contain only numbers. Min. length " + MinPasswordLength.ToString();
+                            PinRegularExpressionValidator.ValidationExpression = "^([0-9]){" + MinPasswordLength + ",}$";
+                            PinRegularExpressionValidator.ErrorMessage = "Must contain only numbers. Min. length " + MinPasswordLength;
                         }
                     }
                 }

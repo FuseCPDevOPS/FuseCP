@@ -50,7 +50,7 @@ namespace FuseCP.Portal
                 dlUsers.DataSource = users;
                 dlUsers.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_GET_USER", ex);
                 return;
@@ -72,7 +72,7 @@ namespace FuseCP.Portal
             {
                 item = ES.Services.SharePointServers.GetSharePointGroup(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_GET_GROUP", ex);
                 return;
@@ -125,7 +125,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SHAREPOINT_ADD_GROUP", ex);
                     return;
@@ -143,7 +143,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SHAREPOINT_UPDATE_GROUP", ex);
                     return;
@@ -166,7 +166,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_DELETE_GROUP", ex);
                 return;

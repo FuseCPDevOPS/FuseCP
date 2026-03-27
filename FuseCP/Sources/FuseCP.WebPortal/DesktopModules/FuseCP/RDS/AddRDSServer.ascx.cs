@@ -75,7 +75,7 @@ namespace FuseCP.Portal.RDS
                 Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "rds_servers",
                                   "SpaceID=" + PanelSecurity.PackageId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSSERVER_NOT_ASSIGNED", ex);
             }

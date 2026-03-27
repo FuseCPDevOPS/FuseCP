@@ -118,7 +118,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("WEB_INSTALL_FOLDERS", ex);
                 return;
@@ -162,7 +162,7 @@ namespace FuseCP.Portal
         {
             return HostModule.EditUrl("ItemID", PanelRequest.ItemID.ToString(), ctrlKey,
                 "Name=" + name,
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString());
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId);
         }
 
         private bool DeleteFolder(string name)
@@ -176,7 +176,7 @@ namespace FuseCP.Portal
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("WEB_DELETE_SECURED_FOLDER", ex);
                 return false;
@@ -195,7 +195,7 @@ namespace FuseCP.Portal
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("WEB_DELETE_SECURED_USER", ex);
                 return false;
@@ -214,7 +214,7 @@ namespace FuseCP.Portal
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("WEB_DELETE_SECURED_GROUP", ex);
                 return false;

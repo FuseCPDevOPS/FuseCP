@@ -121,7 +121,7 @@ namespace FuseCP.Portal.SkinControls
 
                 lnkOrgn.NavigateUrl = PortalUtils.EditUrl(
                     "ItemID", PanelRequest.ItemID.ToString(), ORGANIZATION_CONTROL_KEY,
-                    "SpaceID=" + PanelSecurity.PackageId.ToString());
+                    "SpaceID=" + PanelSecurity.PackageId);
                 lnkOrgn.Text = org.Name;
 
                 string curCtrlKey = PanelRequest.Ctl.ToLower();
@@ -148,7 +148,7 @@ namespace FuseCP.Portal.SkinControls
                         lnkOrgCurPage.Text = PortalUtils.GetLocalizedString(DM_FOLDER_VIRTUAL_PATH + control.Src, PAGE_NANE_KEY);
                         lnkOrgCurPage.NavigateUrl = PortalUtils.EditUrl(
                             "ItemID", PanelRequest.ItemID.ToString(), ctrlKey,
-                            "SpaceID=" + PanelSecurity.PackageId.ToString());
+                            "SpaceID=" + PanelSecurity.PackageId);
                     }
                 }
             }

@@ -40,7 +40,7 @@ namespace FuseCP.Portal
                 gvProcesses.DataSource = ES.Services.Servers.GetOSProcesses(PanelRequest.ServerId);
                 gvProcesses.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SERVER_GET_PROCESS", ex);
                 return;
@@ -62,7 +62,7 @@ namespace FuseCP.Portal
                 // rebind processes
                 BindProcesses();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SERVER_TERMINATE_PROCESS", ex);
                 return;

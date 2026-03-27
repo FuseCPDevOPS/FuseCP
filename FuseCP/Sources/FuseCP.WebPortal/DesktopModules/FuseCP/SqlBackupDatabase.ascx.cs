@@ -63,7 +63,7 @@ namespace FuseCP.Portal
                 BindBackupName();
                 ToggleControls();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SQL_GET_DATABASE", ex);
                 return;
@@ -127,7 +127,7 @@ namespace FuseCP.Portal
                     Response.End();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SQL_BACKUP_DATABASE", ex);
                 return;

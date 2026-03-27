@@ -51,7 +51,7 @@ namespace FuseCP.Portal
                 dlGroups.DataSource = dsQuotas.Tables[0];
                 dlGroups.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
             }
@@ -68,7 +68,7 @@ namespace FuseCP.Portal
                 dlGroups.DataSource = dsQuotas.Tables[0].DefaultView;
                 dlGroups.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
             }
@@ -189,7 +189,7 @@ namespace FuseCP.Portal
 
         public DataView GetGroupQuotas(int groupId)
         {
-            return new DataView(dsQuotas.Tables[1], "GroupID=" + groupId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsQuotas.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         public string GetSharedLocalizedStringNotEmpty(string resourceKey, object resourceDescription)

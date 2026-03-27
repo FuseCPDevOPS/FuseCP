@@ -49,7 +49,7 @@ namespace FuseCP.Portal
                     if (!String.IsNullOrEmpty(PanelRequest.PoolId))
                         Utils.SelectListItem(ddlPools, PanelRequest.PoolId);
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("IP_ADD_INIT_FORM", ex);
                     return;
@@ -66,7 +66,7 @@ namespace FuseCP.Portal
                 ddlServer.DataSource = ES.Services.Servers.GetServers();
                 ddlServer.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
             }
@@ -85,7 +85,7 @@ namespace FuseCP.Portal
                 {
                     vlantag = Convert.ToInt32(VLAN.Text);
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     vlantag = 0;
                 }
@@ -117,7 +117,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage("IP_ADD_IP_RANGE", ex);
                         return;
@@ -136,7 +136,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage("IP_ADD_IP", ex);
                         return;

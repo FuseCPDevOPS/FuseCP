@@ -60,7 +60,7 @@ namespace FuseCP.Portal.VPS2012
             {
                 vm = ES.Services.VPS2012.GetVirtualMachineGeneralDetails(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_DETAILS", ex);
             }
@@ -76,7 +76,7 @@ namespace FuseCP.Portal.VPS2012
                         {
                             vm = ES.Services.VPS2012.GetVirtualMachineGeneralDetails(PanelRequest.ItemID);
                         }
-                        catch (Exception ex)
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_DETAILS", ex);
                         }
@@ -147,7 +147,7 @@ namespace FuseCP.Portal.VPS2012
                     {
                         ramPercent = Convert.ToInt32(vm.RamUsage / (float)totalRam * 100); //It is possible to get an Overflow exception
                     }
-                    catch
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ramPercent = 100;
                     }
@@ -179,7 +179,7 @@ namespace FuseCP.Portal.VPS2012
                     {
                         hddPercent = Convert.ToInt32(usedHdd / (float)sizeHdd * 100); //It is possible to get an Overflow exception
                     }
-                    catch
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         hddPercent = 100;
                     }
@@ -213,7 +213,9 @@ namespace FuseCP.Portal.VPS2012
                         if (totalMinutes > 0) //just because HyperV Created time is an unpredictable value, check that it's not a far future.
                             showButtons = (totalMinutes >= 15);
                     }
-                    catch { /* this should be impossible, but if vmCreatedTime has the wrong value - do nothing  */ }                    
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                    {
+                    }
                 }                
 
                 if (showButtons) 
@@ -324,7 +326,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(res, "VPS_ERROR_CHANGE_VM_STATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CHANGE_VM_STATE", ex);
             }
@@ -361,7 +363,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(res, "VPS_CHANGE_VM_HOSTNAME", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_CHANGE_VM_HOSTNAME", ex);
             }

@@ -42,7 +42,7 @@ namespace FuseCP.Portal
                 gvPackages.DataSource = ES.Services.Packages.GetMyPackages(PanelSecurity.SelectedUserId);
                 gvPackages.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PACKAGE_GET_PACKAGE", ex);
                 return;
@@ -68,7 +68,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("USER_DELETE_USER", ex);
                     return;

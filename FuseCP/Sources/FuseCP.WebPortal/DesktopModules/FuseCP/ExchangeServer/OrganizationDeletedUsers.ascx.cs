@@ -49,7 +49,7 @@ namespace FuseCP.Portal.HostedSolution
                         // read remote content
                         buffer = ES.Services.Organizations.GetArchiveFileBinaryChunk(PanelSecurity.PackageId, PanelRequest.ItemID, PanelRequest.AccountID, offset, FILE_BUFFER_LENGTH);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("ARCHIVE_FILE_READ_FILE", ex);
                         break;
@@ -129,7 +129,7 @@ namespace FuseCP.Portal.HostedSolution
                     // bind stats
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("ORGANIZATIONS_DELETE_USERS", ex);
                 }
@@ -304,7 +304,7 @@ namespace FuseCP.Portal.HostedSolution
 
         public string GetOCSArgument(int accountID, bool IsOCS, bool IsLync, bool IsSfB)
         {
-            return accountID.ToString() + "|" + IsOCS.ToString() + "|" + IsLync.ToString() + "|" + IsSfB.ToString();
+            return accountID + "|" + IsOCS + "|" + IsLync + "|" + IsSfB;
         }
 
         public ServiceLevel GetServiceLevel(int levelId)

@@ -271,7 +271,7 @@ namespace FuseCP.Portal
             {
                 result = ES.Services.WebServers.DeleteCertificateRequest(SiteId, (int)ViewState["CSRID"]);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(WEB_SSL_DELETE, ex);
             }
@@ -471,7 +471,7 @@ namespace FuseCP.Portal
                 Response.BinaryWrite(pfx);
                 Response.End();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(WEB_SSL_EXPORT, ex);
             }
@@ -664,7 +664,7 @@ namespace FuseCP.Portal
 
                 ApplyTabSelection();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("WEB_GET_SSL", ex);
             }
@@ -716,7 +716,7 @@ namespace FuseCP.Portal
             {
                 result = ES.Services.WebServers.DeleteCertificateRequest(SiteId, (int)ViewState["CSRID"]);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(WEB_SSL_DELETE, ex);
             }

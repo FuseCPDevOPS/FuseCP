@@ -175,7 +175,7 @@ public class PortalUtils
 			{
 				result = Boolean.Parse(val);
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				/* do nothing */
 			}
@@ -310,7 +310,7 @@ public class PortalUtils
 			rFormsCookie.Expires = DateTime.Now.AddYears(-1);
 			HttpContext.Current.Response.Cookies.Add(rFormsCookie);
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			// Never let auth-cookie cleanup fail the request.
 		}
@@ -362,7 +362,7 @@ public class PortalUtils
 						// Malformed cookie payload should not break the request pipeline.
 						InvalidateAuthCookieSafe();
 					}
-					catch
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						InvalidateAuthCookieSafe();
 					}
@@ -583,7 +583,7 @@ public class PortalUtils
 		{
 			bResult = Convert.ToBoolean(PortalConfiguration.SiteSettings["HideThemeAndLocale"]);
 		}
-		catch (Exception swallowedEx)
+		catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 		{
 		    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 		}
@@ -599,7 +599,7 @@ public class PortalUtils
 		{
 			bResult = Convert.ToBoolean(PortalConfiguration.SiteSettings["HideDemoCheckbox"]);
 		}
-		catch (Exception swallowedEx)
+		catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 		{
 		    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 		}
@@ -622,7 +622,7 @@ public class PortalUtils
 			}
 
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			return retValue;
 		}
@@ -893,7 +893,7 @@ public class PortalUtils
 
 				list.Items.AddRange(items.ToArray());
 			}
-			catch (Exception swallowedEx)
+			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{
 			    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 			}
@@ -931,7 +931,7 @@ public class PortalUtils
 
 				list.Items.AddRange(items.ToArray());
 			}
-			catch (Exception swallowedEx)
+			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{
 			    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 			}
@@ -987,7 +987,7 @@ public class PortalUtils
 				throw;
 			}
 #endif
-			catch (Exception swallowedEx)
+			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{
 			    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 			}
@@ -1204,7 +1204,7 @@ public class PortalUtils
 				}
 				else generalControlKey = xmlNode.GetAttribute("key");
 			}
-			catch (Exception swallowedEx)
+			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{
 			    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 			}

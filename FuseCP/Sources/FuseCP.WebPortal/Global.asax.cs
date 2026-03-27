@@ -76,7 +76,7 @@ namespace FuseCP.WebPortal
 							PortalUtils.InvalidateAuthCookieSafe();
 							return;
 						}
-						catch
+						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 						{
 							PortalUtils.InvalidateAuthCookieSafe();
 							return;
@@ -187,7 +187,9 @@ namespace FuseCP.WebPortal
 				using (var client = new HttpClient(httpClientHandler))
 					client.GetAsync(keepAliveUrl);
 			}
-			catch { }
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+			}
 		}
 	}
 }

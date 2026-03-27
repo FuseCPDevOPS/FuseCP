@@ -61,7 +61,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("WEB_ADD_SITE_POINTER", ex);
                 return;
@@ -73,7 +73,7 @@ namespace FuseCP.Portal
         private void RedirectBack()
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "edit_item",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)

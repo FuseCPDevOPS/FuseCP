@@ -40,7 +40,7 @@ namespace FuseCP.Portal.ProviderControls
                     if (!chkEnableHardQuota.Enabled)
                         lblFileServiceInfo.Visible = true;
                 }
-                catch (Exception swallowedEx)
+                catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }

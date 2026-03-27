@@ -122,7 +122,9 @@ namespace FuseCP.Portal
 	</body>
 </html>";
 				}
-				catch { /* skip */ }
+				catch (System.Exception catchEx) when (!(catchEx is System.OutOfMemoryException) && !(catchEx is System.StackOverflowException) && !(catchEx is System.AccessViolationException))
+				{
+				}
 			}
 			else
 			{
@@ -150,7 +152,7 @@ namespace FuseCP.Portal
 
 				lblSentMessage.Text = GetLocalizedString("Text.MessageSent");
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				lblSentMessage.Text = GetLocalizedString("Text.MessageSentError");
 			}

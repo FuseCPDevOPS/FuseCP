@@ -86,7 +86,7 @@ namespace FuseCP.Portal.VPSForPC
 				listOperatingSystems.DataSource = ES.Services.VPSPC.GetOperatingSystemTemplatesPC(PanelSecurity.PackageId);
 				listOperatingSystems.DataBind();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				listOperatingSystems.Items.Add(new ListItem(GetLocalizedString("SelectOsTemplate.Text"), ""));
 				listOperatingSystems.Enabled = false;
@@ -317,7 +317,7 @@ namespace FuseCP.Portal.VPSForPC
 				Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), String.Empty));
 				
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("VPS_ERROR_CREATE", ex);
 				//Response.Redirect(EditUrl("SpaceID",PanelSecurity.PackageId.ToString(), null));

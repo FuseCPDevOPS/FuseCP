@@ -39,7 +39,9 @@ namespace FuseCP.Portal.ProviderControls
                 {
                     txtFolder.Enabled = ES.Services.EnterpriseStorage.CheckFileServicesInstallation(PanelRequest.ServiceId);
                 }
-                catch { }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
             }
         }
 

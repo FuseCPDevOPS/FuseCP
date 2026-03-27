@@ -111,7 +111,7 @@ namespace FuseCP.Portal
 
             TreeNode node = new TreeNode();
             node.ImageUrl = ResolveUrl(String.Concat("~/App_Themes/", Page.Theme, "/Images/folder.png"));
-            node.Value = PackageId.ToString() + "," + RootFolder + "\\";
+            node.Value = PackageId + "," + RootFolder + "\\";
             node.Text = GetLocalizedString("Text.Root");
             node.PopulateOnDemand = true;
             DNNTree.Nodes.Add(node);
@@ -157,7 +157,7 @@ namespace FuseCP.Portal
             {
                 files = ES.Services.Files.GetFiles(packageId, path, IncludeFiles);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // add error node
                 TreeNode node = new TreeNode();
@@ -173,7 +173,7 @@ namespace FuseCP.Portal
 					fullPath += "\\";
 
 				TreeNode node = new TreeNode();
-				node.Value = packageId.ToString() + "," + fullPath;
+				node.Value = packageId + "," + fullPath;
 				node.Text = file.Name;
 				node.PopulateOnDemand = (file.IsDirectory && !file.IsEmpty);
 				

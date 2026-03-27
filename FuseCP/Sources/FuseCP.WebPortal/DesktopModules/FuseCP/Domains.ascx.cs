@@ -83,7 +83,7 @@ namespace FuseCP.Portal
         public string GetItemEditUrl(object packageId, object itemId)
         {
             return EditUrl("DomainID", itemId.ToString(), "edit_item",
-                PortalUtils.SPACE_ID_PARAM + "=" + packageId.ToString());
+                PortalUtils.SPACE_ID_PARAM + "=" + packageId);
         }
 
         public string GetUserHomePageUrl(int userId)
@@ -290,7 +290,7 @@ namespace FuseCP.Portal
                 }
                 #endif
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = string.Empty;
             }

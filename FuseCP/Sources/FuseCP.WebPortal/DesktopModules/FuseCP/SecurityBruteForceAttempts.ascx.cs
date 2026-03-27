@@ -226,7 +226,7 @@ namespace FuseCP.Portal
                 btnNextPage.Enabled = hasNextPage;
                 lblPageInfo.Text = $"Page {pageIndex + 1} ({PageSize} rows per page)";
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
                 DisableControls = true;
@@ -262,7 +262,7 @@ namespace FuseCP.Portal
                 BindCurrentPage(GetCurrentPageIndex());
                 ShowSuccessMessage("SYSTEM_SETTINGS_SAVE");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }

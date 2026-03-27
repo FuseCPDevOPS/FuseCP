@@ -41,7 +41,7 @@ namespace FuseCP.Portal.ProviderControls
                 ddlServers.DataSource = ES.Services.StatisticsServers.GetServers(PanelRequest.ServiceId);
                 ddlServers.DataBind();
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             { /* skip */ }
 
             txtSmarterUrl.Text = settings["SmarterUrl"];

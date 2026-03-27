@@ -63,7 +63,7 @@ namespace FuseCP.Portal
 					}
 
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					ShowErrorMessage("SQL_GET_DATABASE", ex);
 					return;
@@ -106,7 +106,7 @@ namespace FuseCP.Portal
                         {
                             item = ES.Services.DatabaseServers.GetSqlDatabase(PanelRequest.ItemID);
                         }
-                        catch (Exception ex)
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             ShowErrorMessage("SQL_GET_DATABASE", ex);
                             return;
@@ -173,7 +173,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("INIT_SERVICE_ITEM_FORM", ex);
                 DisableFormControls(this, btnCancel);
@@ -218,7 +218,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SQL_ADD_DATABASE", ex);
                     return;
@@ -237,7 +237,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SQL_UPDATE_DATABASE", ex);
                     return;
@@ -261,7 +261,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SQL_DELETE_DATABASE", ex);
                 return;

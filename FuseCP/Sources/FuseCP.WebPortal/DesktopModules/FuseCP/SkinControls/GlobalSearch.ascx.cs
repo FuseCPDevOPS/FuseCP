@@ -229,17 +229,17 @@ namespace FuseCP.Portal.SkinControls
                         break;
                     case TYPE_LYNC:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=edit_lync_user",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_lync_user",
                             "AccountID=" + accountId, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_SFB:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=edit_sfb_user",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_sfb_user",
                             "AccountID=" + accountId, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_FOLDER:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId.ToString(), "ctl=enterprisestorage_folder_settings",
+                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=enterprisestorage_folder_settings",
                             "FolderID=" + textSearch, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_SHAREPOINT:
@@ -253,22 +253,22 @@ namespace FuseCP.Portal.SkinControls
                         if (cntx.Groups.ContainsKey(ResourceGroups.VPS))
                         {
                             res = PortalUtils.NavigatePageURL(PID_SPACE_VPS, "SpaceID", spaceId.ToString(),
-                                "ItemID=" + itemId.ToString(), "ctl=vps_general", "moduleDefId=VPS");
+                                "ItemID=" + itemId, "ctl=vps_general", "moduleDefId=VPS");
                         }
                         else if (cntx.Groups.ContainsKey(ResourceGroups.VPS2012))
                         {
                             res = PortalUtils.NavigatePageURL(PID_SPACE_VPS2012, "SpaceID", spaceId.ToString(),
-                                "ItemID=" + itemId.ToString(), "ctl=vps_general", "moduleDefId=VPS2012");
+                                "ItemID=" + itemId, "ctl=vps_general", "moduleDefId=VPS2012");
                         }
                         else if (cntx.Groups.ContainsKey(ResourceGroups.VPSForPC))
                         {
                             res = PortalUtils.NavigatePageURL(PID_SPACE_VPSFORPC, "SpaceID", spaceId.ToString(),
-                                "ItemID=" + itemId.ToString(), "ctl=vps_general", "moduleDefId=VPSForPC");
+                                "ItemID=" + itemId, "ctl=vps_general", "moduleDefId=VPSForPC");
                         }
                         else if (cntx.Groups.ContainsKey(ResourceGroups.Proxmox))
                         {
                             res = PortalUtils.NavigatePageURL(PID_SPACE_PROXMOS, "SpaceID", spaceId.ToString(),
-                                "ItemID=" + itemId.ToString(), "ctl=vps_general", "moduleDefId=Proxmox");
+                                "ItemID=" + itemId, "ctl=vps_general", "moduleDefId=Proxmox");
                         }
                         else res = PortalUtils.GetSpaceHomePageUrl(spaceId);
                         break;

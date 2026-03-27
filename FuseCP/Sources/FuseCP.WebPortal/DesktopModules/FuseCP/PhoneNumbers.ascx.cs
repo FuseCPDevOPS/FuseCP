@@ -120,7 +120,7 @@ namespace FuseCP.Portal
                 // refresh grid
                 gvIPAddresses.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("IP_DELETE_RANGE_IP", ex);
                 return;

@@ -66,7 +66,7 @@ namespace FuseCP.Portal
                         // read remote content
                         buffer = ES.Services.Files.GetFileBinaryChunk(PanelSecurity.PackageId, downloadFile, offset, FILE_BUFFER_LENGTH);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("FILES_READ_FILE", ex);
                         break;
@@ -282,7 +282,7 @@ function SetCreateZipFocus()
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_CREATE_FILE", ex);
                 }
@@ -307,7 +307,7 @@ function SetCreateZipFocus()
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("FILES_UPLOAD_FILE", ex);
                         break;
@@ -353,7 +353,7 @@ function SetCreateZipFocus()
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 
                 messageBox.ShowErrorMessage("FILES_CREATE_FILE", ex);
@@ -384,7 +384,7 @@ function SetCreateZipFocus()
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_CREATE_FOLDER", ex);
             }
@@ -421,7 +421,7 @@ function SetCreateZipFocus()
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_ZIP_FILES", ex);
                 }
@@ -443,7 +443,7 @@ function SetCreateZipFocus()
                 {
                     ES.Services.Files.UnzipFiles(PanelSecurity.PackageId, files);
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_UNZIP_FILES", ex);
                 }
@@ -471,7 +471,7 @@ function SetCreateZipFocus()
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_COPY_FILES", ex);
                 }
@@ -499,7 +499,7 @@ function SetCreateZipFocus()
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_MOVE_FILES", ex);
                 }
@@ -525,7 +525,7 @@ function SetCreateZipFocus()
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_UPDATE_FILE", ex);
             }
@@ -558,7 +558,7 @@ function SetCreateZipFocus()
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_RENAME_FILE", ex);
             }
@@ -593,7 +593,7 @@ function SetCreateZipFocus()
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_CREATE_DB", ex);
             }
@@ -619,7 +619,7 @@ function SetCreateZipFocus()
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_DELETE_FILES", ex);
                 }
@@ -665,7 +665,7 @@ function SetCreateZipFocus()
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_UPDATE_PERMISSIONS", ex);
             }
@@ -701,7 +701,7 @@ function SetCreateZipFocus()
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("FILES_UPDATE_PERMISSIONS", ex);
 			}
@@ -762,7 +762,7 @@ function SetCreateZipFocus()
                     // show edit panel
                     EditFileModal.Show();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_READ_FILE", ex);
                 }
@@ -808,7 +808,7 @@ function SetCreateZipFocus()
 					// show permissions panel
 					PermissionsFileModal.Show();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("FILES_READ_PERMISSIONS", ex);
                 }
@@ -864,7 +864,7 @@ function SetCreateZipFocus()
 
                 EditFileModal.Show();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("FILES_READ_FILE", ex);
             }

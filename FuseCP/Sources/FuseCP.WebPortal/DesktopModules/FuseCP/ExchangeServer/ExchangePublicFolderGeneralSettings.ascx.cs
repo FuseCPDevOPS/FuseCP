@@ -66,7 +66,7 @@ namespace FuseCP.Portal.ExchangeServer
                            
                             }
                         }
-                        catch (Exception)
+                        catch (System.Exception catchEx) when (!(catchEx is System.OutOfMemoryException) && !(catchEx is System.StackOverflowException) && !(catchEx is System.AccessViolationException))
                         {
                             continue;
                         }
@@ -75,7 +75,7 @@ namespace FuseCP.Portal.ExchangeServer
                     ExchangeAccount[] accounts = list.ToArray();
                     allAccounts.SetAccounts(accounts);                   	
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 				messageBox.ShowErrorMessage("EXCHANGE_GET_PFOLDER_SETTINGS", ex);              
             }
@@ -110,7 +110,7 @@ namespace FuseCP.Portal.ExchangeServer
 
 				BindSettings();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 				messageBox.ShowErrorMessage("EXCHANGE_UPDATE_PFOLDER_SETTINGS", ex);
             }
@@ -124,8 +124,8 @@ namespace FuseCP.Portal.ExchangeServer
 		protected void btnMailEnable_Click(object sender, EventArgs e)
 		{
 			Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "public_folder_mailenable",
-				"SpaceID=" + PanelSecurity.PackageId.ToString(),
-				"AccountID=" + PanelRequest.AccountID.ToString()));
+				"SpaceID=" + PanelSecurity.PackageId,
+				"AccountID=" + PanelRequest.AccountID));
 		}
 
 		protected void btnMailDisable_Click(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace FuseCP.Portal.ExchangeServer
 				// re-bind settings
 				BindSettings();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messageBox.ShowErrorMessage("EXCHANGE_MAIL_DISABLE_PUBLIC_FOLDER", ex);
 			}

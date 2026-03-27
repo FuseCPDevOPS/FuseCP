@@ -96,7 +96,7 @@ namespace FuseCP.Portal.ExchangeServer
                 groups.SetAccounts(groupsList.ToArray());
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_DLIST_SETTINGS", ex);
             }
@@ -166,7 +166,7 @@ namespace FuseCP.Portal.ExchangeServer
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_DLIST_SETTINGS");
                 BindSettings();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_DLIST_SETTINGS", ex);
             }

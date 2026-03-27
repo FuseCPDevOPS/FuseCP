@@ -72,7 +72,7 @@ namespace FuseCP.Portal
                 LoadStatus();
                 LoadLegacyUsers();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }
@@ -90,7 +90,7 @@ namespace FuseCP.Portal
                 IList<LegacyPasswordUserInfo> users = FetchLegacyUsers();
                 ExportLegacyUsersCsv(users);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_LOAD", ex);
             }
@@ -147,7 +147,7 @@ namespace FuseCP.Portal
 
                 BindFixNowActions(status);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_LOAD", ex);
             }
@@ -223,7 +223,7 @@ namespace FuseCP.Portal
 					? $"{autoHardenableUsers} loaded user record(s) are currently auto-fixable."
 					: "No auto-fixable user records are in the current result set.");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_LOAD", ex);
             }
@@ -302,7 +302,7 @@ namespace FuseCP.Portal
                 ShowSuccessMessage("SYSTEM_SETTINGS_SAVE");
                 LoadStatus();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }

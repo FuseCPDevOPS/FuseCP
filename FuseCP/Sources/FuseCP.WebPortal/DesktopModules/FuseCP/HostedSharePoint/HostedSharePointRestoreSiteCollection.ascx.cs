@@ -65,7 +65,7 @@ namespace FuseCP.Portal
 
 				ToggleControls();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SHAREPOINT_GET_SITE", ex);
 				return;
@@ -132,7 +132,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SHAREPOINT_RESTORE_SITE", ex);
 				return;
@@ -153,7 +153,7 @@ namespace FuseCP.Portal
 
 		private void RedirectBack()
 		{
-            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_edit_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID.ToString()));
+			Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_edit_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID));
 		}
 		protected void radioUpload_CheckedChanged(object sender, EventArgs e)
 		{

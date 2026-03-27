@@ -62,7 +62,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                     gvDriveMaps.DataBind();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("ENTERPRISE_STORAGE_DELETE_DRIVE_MAP", ex);
                 }

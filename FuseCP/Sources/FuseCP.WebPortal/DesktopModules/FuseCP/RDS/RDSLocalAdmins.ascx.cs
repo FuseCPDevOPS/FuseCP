@@ -60,7 +60,7 @@ namespace FuseCP.Portal.RDS
             {
                 ES.Services.RDS.SaveRdsCollectionLocalAdmins(users.GetUsers(), PanelRequest.CollectionID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSLOCALADMINS_NOT_ADDED", ex);
                 return false;

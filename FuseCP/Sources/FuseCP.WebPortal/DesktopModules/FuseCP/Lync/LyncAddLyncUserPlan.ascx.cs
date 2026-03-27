@@ -262,7 +262,7 @@ namespace FuseCP.Portal.Lync
                 Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "lync_userplans",
                     "SpaceID=" + PanelSecurity.PackageId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("LYNC_ADD_PLAN", ex);
             }

@@ -36,7 +36,7 @@ namespace FuseCP.Portal
             {
                 BindServers();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
                 this.DisableControls = true;
@@ -55,12 +55,12 @@ namespace FuseCP.Portal
 
         public DataView GetServerServices(int serverId)
         {
-            return new DataView(dsServers.Tables[1], "ServerID=" + serverId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsServers.Tables[1], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
         }
 
         public DataView GetServerIPAddresses(int serverId)
         {
-            return new DataView(dsServers.Tables[2], "ServerID=" + serverId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsServers.Tables[2], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
         }
 
         protected void btnAddItem_Click(object sender, EventArgs e)

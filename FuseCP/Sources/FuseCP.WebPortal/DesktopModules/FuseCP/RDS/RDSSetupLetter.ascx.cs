@@ -68,7 +68,7 @@ namespace FuseCP.Portal.RDS
 
                 messageBox.ShowSuccessMessage("RDS_SETUP_LETTER_SEND");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("RDS_SETUP_LETTER_SEND", ex);
                 return;

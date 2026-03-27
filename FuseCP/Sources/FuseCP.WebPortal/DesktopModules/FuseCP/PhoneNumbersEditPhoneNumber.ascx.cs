@@ -44,7 +44,7 @@ namespace FuseCP.Portal
                     // bind IP
                     BindPhone();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("IP_GET_IP", ex);
                     return;
@@ -144,7 +144,7 @@ namespace FuseCP.Portal
                     //	 Redirect back to the portal home page
                     RedirectBack();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("IP_UPDATE_IP", ex);
                     return;

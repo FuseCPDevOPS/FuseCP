@@ -46,7 +46,9 @@ namespace FuseCP.WebPortal
 						return PortalUtils.AuthTicket;
 					}
 				}
-				catch { }
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+				}
 
 				return null;
 			}
@@ -293,7 +295,9 @@ namespace FuseCP.WebPortal
 					useHttpContext = true;
 				}
 			}
-			catch { }
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+			}
 
 			if (proxy == null)
 			{

@@ -111,7 +111,7 @@ namespace FuseCP.Portal.UserControls
                 var regex = new Regex(@"^(?!-)(xn--)?[a-zA-Z0-9][a-zA-Z0-9-_.]{0,61}[a-zA-Z0-9]{0,1}\.(?!-)(xn--)?([a-zA-Z0-9\-.]{1,50}|[a-zA-Z0-9-.]{1,30}\.[a-zA-Z]{2,})$", RegexOptions.CultureInvariant);
                 args.IsValid = regex.IsMatch(ascii);
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 args.IsValid = false;
             }

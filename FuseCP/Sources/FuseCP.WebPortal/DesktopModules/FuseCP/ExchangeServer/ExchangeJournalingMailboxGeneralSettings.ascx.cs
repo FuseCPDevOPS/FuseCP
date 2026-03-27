@@ -152,7 +152,7 @@ namespace FuseCP.Portal.ExchangeServer
                 }
                 imgVipUser.Visible = account.IsVIP && Cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_JOURNALING_MAILBOX_SETTINGS", ex);
             }
@@ -212,7 +212,7 @@ namespace FuseCP.Portal.ExchangeServer
                 BindSettings();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_JOURNALING_MAILBOX_SETTINGS", ex);
                 return false;

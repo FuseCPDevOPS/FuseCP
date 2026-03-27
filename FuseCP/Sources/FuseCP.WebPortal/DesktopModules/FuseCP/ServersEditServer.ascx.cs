@@ -78,7 +78,7 @@ namespace FuseCP.Portal
 						LoadNonCriticalAsync(BindServerVersion, () => SetDiagnosticsText(fcpVersion, DiagnosticsUnavailableText)),
 						LoadNonCriticalAsync(BindServerFilepath, () => SetDiagnosticsText(fcpFilepath, DiagnosticsUnavailableText)));
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					ShowErrorMessage("SERVER_GET_SERVER", ex);
 					return;
@@ -94,7 +94,7 @@ namespace FuseCP.Portal
 			{
 				await WithTimeoutAsync(action());
 			}
-			catch (Exception)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				onFailure?.Invoke();
 			}
@@ -274,7 +274,7 @@ namespace FuseCP.Portal
 				ramGauge.Total = (int)memory.TotalVisibleSizeKB / 1024;
 				ramGauge.Progress = (int)((memory.TotalVisibleSizeKB / 1024) - (memory.FreePhysicalKB / 1024));
 			}
-			catch (Exception)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				freeMemory.Text = "N/A";
 				totalMemory.Text = "N/A";
@@ -320,7 +320,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_UPDATE_SERVER", ex);
 				return;
@@ -341,7 +341,7 @@ namespace FuseCP.Portal
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_DELETE_SERVER", ex);
 				return;
@@ -379,7 +379,7 @@ namespace FuseCP.Portal
 					ServerServicesControl.BindServices();
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_DISCOVER_SERVICES", ex);
 				return;
@@ -406,7 +406,7 @@ namespace FuseCP.Portal
 
 				ShowSuccessMessage("SERVER_UPDATE_AD_PSW");
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_UPDATE_AD_PSW", ex);
 				return;

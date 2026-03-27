@@ -45,7 +45,7 @@ namespace FuseCP.Portal.RDS
             {
                 ES.Services.RDS.SetRemoteApplicationsToRdsCollection(PanelRequest.ItemID, PanelRequest.CollectionID, remoreApps.GetApps());
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(ex.Message);
                 return false;

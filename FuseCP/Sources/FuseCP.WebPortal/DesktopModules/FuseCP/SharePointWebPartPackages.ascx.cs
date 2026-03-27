@@ -50,7 +50,7 @@ namespace FuseCP.Portal
 
                 BindWebPartPackages();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_GET_SITE", ex);
                 return;
@@ -66,13 +66,13 @@ namespace FuseCP.Portal
         protected void btnInstall_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "install_webparts",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "edit_item",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void btnUninstall_Click(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace FuseCP.Portal
                     // bind packages
                     BindWebPartPackages();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SHAREPOINT_UNINSTALL_WEBPARTS", ex);
                     return;

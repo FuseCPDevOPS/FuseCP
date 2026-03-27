@@ -269,7 +269,7 @@ namespace FuseCP.Portal.ProviderControls
                 "Name=" + name,
                 PortalUtils.SPACE_ID_PARAM + "=" + int.Parse(Request.QueryString["ServiceID"]),
                 "ReturnUrlBase64="+ EncodeTo64(Server.UrlEncode(Request.Url.PathAndQuery)),
-                "UserID="+PanelSecurity.LoggedUserId.ToString()
+                "UserID="+PanelSecurity.LoggedUserId
                 );
         }
 

@@ -221,7 +221,9 @@ namespace FuseCP.Portal
                     maxLength = Math.Max(Utils.ParseInt(parts[2], 0), MaximumLength);
                     notEqualToUsername = Utils.ParseBool(parts[6], false);
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 // apply policy
                 if (enabled)

@@ -57,7 +57,7 @@ namespace FuseCP.Portal.VPS2012
                     }
                 }
             }
-            catch (Exception) { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
 
             Session.Timeout = 10;
             VirtualMachine vm = null;
@@ -89,7 +89,7 @@ namespace FuseCP.Portal.VPS2012
             if (IsNotReinstallPossible && !manageAllowed)
             {
                 messageBox.ShowWarningMessage("VPS_REINSTALL_LIMIT", 
-                    "You will be able to reinstall the server after - " + dateTimePlusHours.ToUniversalTime().ToString() + " UTC");
+                    "You will be able to reinstall the server after - " + dateTimePlusHours.ToUniversalTime() + " UTC");
                 reinstallForms.Visible = false;
                 btnReinstall.Enabled = false;
                 return;
@@ -246,7 +246,7 @@ namespace FuseCP.Portal.VPS2012
                 {
                     //Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), ""));
                     Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_general",
-                        "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                        "SpaceID=" + PanelSecurity.PackageId));
                     return;
                 }
                 else
@@ -254,7 +254,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(reinstallResult, "VPS_ERROR_CREATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CREATE", ex);
             }

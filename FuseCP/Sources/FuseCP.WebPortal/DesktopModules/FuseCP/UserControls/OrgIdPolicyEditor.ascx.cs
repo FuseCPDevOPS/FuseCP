@@ -28,7 +28,7 @@ namespace FuseCP.Portal.UserControls
             get
             {
                 var sb = new StringBuilder();
-                sb.Append(enablePolicyCheckBox.Checked.ToString()).Append(";");
+                sb.Append(enablePolicyCheckBox.Checked).Append(";");
                 sb.Append(txtMaximumLength.Text).Append(";");
 
                 return sb.ToString();
@@ -48,7 +48,7 @@ namespace FuseCP.Portal.UserControls
                         enablePolicyCheckBox.Checked = Utils.ParseBool(parts[0], false);
                         txtMaximumLength.Text = parts[1];
                     }
-                    catch (Exception swallowedEx)
+                    catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                     {
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                     }

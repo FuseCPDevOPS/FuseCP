@@ -35,7 +35,7 @@ namespace FuseCP.Portal
                     // bind VLAN
                     BindVLAN();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("VLAN_GET_VLAN", ex);
                     return;
@@ -101,7 +101,7 @@ namespace FuseCP.Portal
                     //	 Redirect back to the portal home page
                     RedirectBack();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("VLAN_UPDATE_VLAN", ex);
                     return;

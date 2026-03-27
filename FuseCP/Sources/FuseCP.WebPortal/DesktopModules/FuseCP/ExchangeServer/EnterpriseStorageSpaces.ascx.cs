@@ -93,7 +93,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("EXCHANGE_DELETE_DOMAIN", ex);
                 }
@@ -124,7 +124,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("EXCHANGE_CHANGE_DOMAIN", ex);
                 }
@@ -150,7 +150,7 @@ namespace FuseCP.Portal.ExchangeServer
                 // rebind domains
                 //BindDomainNames();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("EXCHANGE_SET_DEFAULT_DOMAIN", ex);
             }

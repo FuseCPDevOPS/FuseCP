@@ -47,7 +47,7 @@ namespace FuseCP.Portal
                     if (PanelRequest.ServerId != 0)
                         Utils.SelectListItem(ddlServer, PanelRequest.ServerId);
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("IP_ADD_INIT_FORM", ex);
                     return;
@@ -79,7 +79,7 @@ namespace FuseCP.Portal
                 ddlServer.DataSource = servers;
                 ddlServer.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
             }
@@ -119,7 +119,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage(errorKey, ex);
                         return;
@@ -140,7 +140,7 @@ namespace FuseCP.Portal
                             return;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         ShowErrorMessage(errorKey, ex);
                         return;

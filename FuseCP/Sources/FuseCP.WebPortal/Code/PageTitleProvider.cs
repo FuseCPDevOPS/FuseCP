@@ -35,7 +35,7 @@ namespace FuseCP.WebPortal
 					_instance = (PageTitleProvider)Activator.CreateInstance(Type.GetType(
 						ConfigurationManager.AppSettings["WebPortal.PageTitleProvider"]));
 				}
-				catch (Exception ex)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					throw new Exception("Could not create '{0}' page title provider", ex);
 				}

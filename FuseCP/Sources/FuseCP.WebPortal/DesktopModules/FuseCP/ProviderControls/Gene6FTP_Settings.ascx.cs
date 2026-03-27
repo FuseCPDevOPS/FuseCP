@@ -41,7 +41,7 @@ namespace FuseCP.Portal.ProviderControls
                 ddlFtpSite.DataSource = ES.Services.FtpServers.GetFtpSites(PanelRequest.ServiceId);
                 ddlFtpSite.DataBind();
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // do nothing
             }

@@ -37,7 +37,7 @@ namespace FuseCP.Portal
                 {
                     BindPlan();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PLAN_GET_PLAN", ex);
                     return;
@@ -142,7 +142,7 @@ namespace FuseCP.Portal
                     if (package != null)
                         plan.ServerId = package.ServerId;
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_GET_PACKAGE", ex);
                     return;
@@ -165,7 +165,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PLAN_ADD_PLAN", ex);
                     return;
@@ -184,7 +184,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PLAN_UPDATE_PLAN", ex);
                     return;
@@ -206,7 +206,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PLAN_DELETE_PLAN", ex);
                 return;

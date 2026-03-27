@@ -138,7 +138,7 @@ namespace FuseCP.Portal.UserControls
         public string GetItemEditUrl(object packageId, object itemId)
         {
             return HostModule.EditUrl("ItemID", itemId.ToString(), "edit_item",
-                 PortalUtils.SPACE_ID_PARAM + "=" + packageId.ToString());
+                 PortalUtils.SPACE_ID_PARAM + "=" + packageId);
         }
 
         public string GetUserHomePageUrl(int userId)

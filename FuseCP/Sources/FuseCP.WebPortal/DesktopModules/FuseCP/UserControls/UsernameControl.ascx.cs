@@ -156,7 +156,9 @@ namespace FuseCP.Portal
                     prefix = parts[4];
                     suffix = parts[5];
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 // apply policy
                 if (enabled)
@@ -193,7 +195,7 @@ namespace FuseCP.Portal
                     if (minLength > 0)
                     {
                         valCorrectMinLength.Enabled = true;
-                        valCorrectMinLength.ValidationExpression = "^.{" + minLength.ToString() + ",}$";
+                        valCorrectMinLength.ValidationExpression = "^.{" + minLength + ",}$";
                         valCorrectMinLength.ErrorMessage = String.Format(
                             GetLocalizedString("MinLength.Text"), minLength);
                     }

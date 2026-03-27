@@ -57,7 +57,7 @@ namespace FuseCP.Portal.Proxmox
             {
                 vm = ES.Services.Proxmox.GetVirtualMachineGeneralDetails(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_DETAILS", ex);
             }
@@ -242,7 +242,7 @@ namespace FuseCP.Portal.Proxmox
                     messageBox.ShowMessage(res, "VPS_ERROR_CHANGE_VM_STATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CHANGE_VM_STATE", ex);
             }
@@ -276,7 +276,7 @@ namespace FuseCP.Portal.Proxmox
                     {
                         // go to snapshots screen
                         Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_snapshots",
-                            "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                            "SpaceID=" + PanelSecurity.PackageId));
                     }
                     else
                     {
@@ -291,7 +291,7 @@ namespace FuseCP.Portal.Proxmox
                     messageBox.ShowMessage(res, "VPS_ERROR_CHANGE_VM_STATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CHANGE_VM_STATE", ex);
             }
@@ -326,7 +326,7 @@ namespace FuseCP.Portal.Proxmox
                     messageBox.ShowMessage(res, "VPS_CHANGE_VM_HOSTNAME", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_CHANGE_VM_HOSTNAME", ex);
             }

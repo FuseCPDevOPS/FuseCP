@@ -50,7 +50,7 @@ namespace FuseCP.Portal.ExchangeServer
         protected void btnUsedSize_Click(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "storage_usage_details",
-                    "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                    "SpaceID=" + PanelSecurity.PackageId));
         }
     }
 }

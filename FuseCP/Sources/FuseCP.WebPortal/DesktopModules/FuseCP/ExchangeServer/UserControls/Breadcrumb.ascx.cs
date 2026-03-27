@@ -42,7 +42,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
 				lnkOrg.NavigateUrl = HostModule.EditUrl(
 					"ItemID", PanelRequest.ItemID.ToString(), "organization_home",
-					"SpaceID=" + PanelSecurity.PackageId.ToString());
+					"SpaceID=" + PanelSecurity.PackageId);
 				lnkOrg.Text = org.Name;
 			}
 

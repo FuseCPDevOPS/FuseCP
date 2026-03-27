@@ -56,7 +56,7 @@ namespace FuseCP.Portal.ExchangeServer
                 chkSendersAuthenticated.Checked = dlist.RequireSenderAuthentication;
                 rejectAccounts.SetAccounts(dlist.RejectAccounts);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_GET_DLIST_MAILFLOW", ex);
             }
@@ -84,7 +84,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 messageBox.ShowSuccessMessage("EXCHANGE_UPDATE_DLIST_MAILFLOW");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_UPDATE_DLIST_MAILFLOW", ex);
             }

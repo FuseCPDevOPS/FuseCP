@@ -128,7 +128,7 @@ namespace FuseCP.Portal.UserControls
                     messageBox.ShowMessage(res, "VPS_ALLOCATE_EXTERNAL_ADDRESSES_ERROR", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ALLOCATE_EXTERNAL_ADDRESSES_ERROR", ex);
             }

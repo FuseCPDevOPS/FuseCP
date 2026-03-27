@@ -48,7 +48,7 @@ namespace FuseCP.Portal.VPSForPC
                     treeCheckPoints.Nodes.Add(new TreeNode(curr.Name, curr.Id));
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("Load Snapshot error.", ex);
                 btnCreateCheckPoint.Enabled = false;

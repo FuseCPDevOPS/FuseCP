@@ -181,14 +181,14 @@ namespace FuseCP.Portal.VPSForPC.UserControls
         {
             return new Tab(id, GetLocalizedString(text),
                 HostModule.EditUrl("ItemID", PanelRequest.ItemID.ToString(), id,
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         private Tab CreateTab(string id, string text, bool disabled)
         {
             return new Tab(id, GetLocalizedString(text), (disabled ? String.Empty :
                 HostModule.EditUrl("ItemID", PanelRequest.ItemID.ToString(), id,
-                "SpaceID=" + PanelSecurity.PackageId.ToString())));
+                "SpaceID=" + PanelSecurity.PackageId)));
         }
 
         protected string GetTabCssClass(int index)

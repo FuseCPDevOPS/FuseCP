@@ -30,7 +30,7 @@ namespace FuseCP.Portal
     {
 		public static string GetYesNo(bool flag)
 		{
-			return PortalUtils.GetSharedLocalizedString(Utils.ModuleName, "YesNo." + flag.ToString());
+			return PortalUtils.GetSharedLocalizedString(Utils.ModuleName, "YesNo." + flag);
 		}
 
 		public static string GetLocalizedResourceGroupName(string groupName)
@@ -82,7 +82,7 @@ namespace FuseCP.Portal
             {
                 return DateTime.Parse(strDate);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return defValue;
             }
@@ -106,7 +106,9 @@ namespace FuseCP.Portal
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
             decimal result = defaultValue;
             try { result = Decimal.Parse(val, nfi); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
     }

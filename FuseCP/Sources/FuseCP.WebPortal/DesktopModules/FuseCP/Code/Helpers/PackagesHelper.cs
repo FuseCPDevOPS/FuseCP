@@ -61,7 +61,7 @@ namespace FuseCP.Portal
         {
             try
             {
-                string key = "CachedPackageContext" + packageId.ToString();
+                string key = "CachedPackageContext" + packageId;
                 PackageContext cntx = (PackageContext)HttpContext.Current.Items[key];
                 if (cntx == null)
                 {
@@ -88,7 +88,7 @@ namespace FuseCP.Portal
                 }
                 return cntx;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return null;
             }
@@ -96,7 +96,7 @@ namespace FuseCP.Portal
 
         public static HostingPlanContext GetCachedHostingPlanContext(int planId)
         {
-            string key = "CachedHostingPlanContext" + planId.ToString();
+            string key = "CachedHostingPlanContext" + planId;
             HostingPlanContext cntx = (HostingPlanContext)HttpContext.Current.Items[key];
             if (cntx == null)
             {

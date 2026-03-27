@@ -128,7 +128,7 @@ namespace FuseCP.Portal.HostedSolution
                     "ItemID=" + PanelRequest.ItemID,
                     "Context=User"));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_CREATE_USER", ex);
             }

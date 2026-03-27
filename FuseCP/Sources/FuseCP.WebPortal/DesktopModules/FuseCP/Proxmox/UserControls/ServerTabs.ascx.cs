@@ -183,7 +183,7 @@ namespace FuseCP.Portal.Proxmox.UserControls
         {
             return new Tab(id, GetLocalizedString(text),
                 HostModule.EditUrl("ItemID", PanelRequest.ItemID.ToString(), id,
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected string GetTabCssClass(int index)

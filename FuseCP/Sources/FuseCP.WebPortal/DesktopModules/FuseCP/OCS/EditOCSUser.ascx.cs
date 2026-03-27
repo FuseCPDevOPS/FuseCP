@@ -91,7 +91,7 @@ namespace FuseCP.Portal.OCS
                 
                 messageBox.ShowSuccessMessage(UPDATE_OCS_USER);
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage(UPDATE_OCS_USER, ex);
             }

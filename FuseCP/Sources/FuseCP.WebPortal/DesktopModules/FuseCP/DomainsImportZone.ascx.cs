@@ -73,7 +73,7 @@ namespace FuseCP.Portal
                     //Show success message
                     ShowSuccessMessage("DOMAIN_IMPORT");
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     //Show error message
                     ShowErrorMessage("DOMAIN_IMPORT");

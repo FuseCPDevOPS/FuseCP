@@ -88,8 +88,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
         {
             return new Tab(id, GetLocalizedString(text),
                 HostModule.EditUrl("AccountID", PanelRequest.AccountID.ToString(), id,
-                "SpaceID=" + PanelSecurity.PackageId.ToString(),
-                "ItemID=" + PanelRequest.ItemID.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId,
+                "ItemID=" + PanelRequest.ItemID));
         }
     }
 }

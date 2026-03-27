@@ -151,17 +151,17 @@ namespace FuseCP.Portal
 
                     if (!String.IsNullOrEmpty(resourceGroup))
                     {
-                        displayValue = "String.IsNullOrEmpty(resourceGroup): " + String.IsNullOrEmpty(resourceGroup).ToString();
-                        displayValue += "| cntx.Groups.ContainsKey(resourceGroup): " + cntx.Groups.ContainsKey(resourceGroup).ToString();
+                        displayValue = "String.IsNullOrEmpty(resourceGroup): " + String.IsNullOrEmpty(resourceGroup);
+                        displayValue += "| cntx.Groups.ContainsKey(resourceGroup): " + cntx.Groups.ContainsKey(resourceGroup);
                         displayValue += "| resourceGroup: " + resourceGroup;
                     }
                     if (!String.IsNullOrEmpty(quota))
                     {
-                        displayValue += "| String.IsNullOrEmpty(quota): " + String.IsNullOrEmpty(quota).ToString();
-                        displayValue += "| cntx.Quotas.ContainsKey(quota): " + cntx.Quotas.ContainsKey(quota).ToString();
+                        displayValue += "| String.IsNullOrEmpty(quota): " + String.IsNullOrEmpty(quota);
+                        displayValue += "| cntx.Quotas.ContainsKey(quota): " + cntx.Quotas.ContainsKey(quota);
 
                         if (cntx.Quotas.ContainsKey(quota))
-                            displayValue += "| cntx.Quotas[quota].QuotaAllocatedValue: " + cntx.Quotas[quota].QuotaAllocatedValue.ToString();
+                            displayValue += "| cntx.Quotas[quota].QuotaAllocatedValue: " + cntx.Quotas[quota].QuotaAllocatedValue;
 
                         displayValue += "| quota: " + quota;
                     }

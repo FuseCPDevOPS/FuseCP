@@ -56,7 +56,7 @@ namespace FuseCP.Portal.UserControls
 
 				if (localizedMessage == null)
 				{
-					localizedMessage = GetSharedLocalizedString(moduleName, "Message.Generic") + " " + resultCode.ToString();
+					localizedMessage = GetSharedLocalizedString(moduleName, "Message.Generic") + " " + resultCode;
 				}
 			}
 

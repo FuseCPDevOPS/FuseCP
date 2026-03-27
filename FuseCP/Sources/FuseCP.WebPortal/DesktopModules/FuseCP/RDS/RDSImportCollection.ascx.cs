@@ -41,7 +41,7 @@ namespace FuseCP.Portal.RDS
                 //TODO correct value for parameter rdsControllerServiceID
                 throw new NotImplementedException("This feature has to be corrected in the code.");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSCOLLECTION_NOT_IMPORTED", ex);
             }            

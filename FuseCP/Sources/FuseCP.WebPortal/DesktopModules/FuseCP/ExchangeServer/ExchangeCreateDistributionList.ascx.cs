@@ -63,10 +63,10 @@ namespace FuseCP.Portal.ExchangeServer
                 }
 
                 Response.Redirect(EditUrl("AccountID", accountId.ToString(), "dlist_settings",
-                    "SpaceID=" + PanelSecurity.PackageId.ToString(),
-                    "ItemID=" + PanelRequest.ItemID.ToString()));
+                    "SpaceID=" + PanelSecurity.PackageId,
+                    "ItemID=" + PanelRequest.ItemID));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_CREATE_DISTRIBUTION_LIST", ex);
             }

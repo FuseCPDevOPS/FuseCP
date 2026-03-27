@@ -65,7 +65,7 @@ namespace FuseCP.Portal.VPSForPC
                         messageBox.ShowMessage(res, "VPS_ERROR_INSERT_DVD_DISK", "VPS");
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("VPS_ERROR_INSERT_DVD_DISK", ex);
                 }
@@ -75,7 +75,7 @@ namespace FuseCP.Portal.VPSForPC
         private void RedirectBack(string action)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_dvd",
-                "SpaceID=" + PanelSecurity.PackageId.ToString(),
+                "SpaceID=" + PanelSecurity.PackageId,
                 "action=" + action));
         }
     }

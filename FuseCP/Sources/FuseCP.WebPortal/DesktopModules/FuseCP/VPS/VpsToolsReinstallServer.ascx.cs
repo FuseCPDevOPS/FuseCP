@@ -31,7 +31,7 @@ namespace FuseCP.Portal.VPS
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_tools",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)

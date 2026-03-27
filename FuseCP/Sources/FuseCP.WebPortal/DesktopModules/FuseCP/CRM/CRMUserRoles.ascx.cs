@@ -91,7 +91,7 @@ namespace FuseCP.Portal.CRM
                         messageBox.ShowMessage(res, "GET_CRM_USER_ROLES", "HostedCRM");
                     }
                 }
-                catch(Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("GET_CRM_USER_ROLES", ex);
                 }
@@ -133,7 +133,7 @@ namespace FuseCP.Portal.CRM
 
                 return res.IsSuccess && res2.IsSuccess;
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("UPDATE_CRM_USER_ROLES", ex);
                 return false;

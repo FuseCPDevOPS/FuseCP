@@ -43,7 +43,7 @@ namespace FuseCP.Portal
                     BindServer();
                     BindServices();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("VSERVER_GET_SERVER", ex);
                     return;
@@ -108,7 +108,7 @@ namespace FuseCP.Portal
                 dlServiceGroups.DataSource = dsServices.Tables[0];
                 dlServiceGroups.DataBind();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("INIT_SERVICE_ITEM_FORM", ex);
             }
@@ -136,7 +136,7 @@ namespace FuseCP.Portal
 
         public DataView GetGroupServices(int groupId)
         {
-            return new DataView(dsServices.Tables[1], "GroupID=" + groupId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsServices.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         protected void dlServiceGroups_ItemDataBound(object sender, DataListItemEventArgs e)
@@ -205,7 +205,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VSERVER_UPDATE_SERVER", ex);
                 return;
@@ -226,7 +226,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VSERVER_DELETE_SERVER", ex);
                 return;
@@ -268,7 +268,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VSERVER_REMOVE_SERVICES", ex);
                 return;

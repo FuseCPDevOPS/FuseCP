@@ -70,7 +70,7 @@ namespace FuseCP.Portal.VPS2012
         private void RedirectBack()
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_network",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         private void ToggleControls()
@@ -116,7 +116,7 @@ namespace FuseCP.Portal.VPS2012
                     messageBox.ShowMessage(res, "VPS_ERROR_ADDING_IP_ADDRESS", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_ADDING_IP_ADDRESS", ex);
             }

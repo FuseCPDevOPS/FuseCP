@@ -153,7 +153,7 @@ namespace FuseCP.WebPortal
 
 				xml.Save(path);
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return false;
 			}

@@ -416,9 +416,9 @@ namespace FuseCP.WebPortal
                 ctrlSkin = LoadControl(skinPath);
                 skinPlaceHolder.Controls.Add(ctrlSkin);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                ShowError(skinPlaceHolder, String.Format("Can't load {0} skin: {1}", skinPath, ex.ToString()));
+                ShowError(skinPlaceHolder, String.Format("Can't load {0} skin: {1}", skinPath, ex));
                 return;
             }
 
@@ -528,9 +528,9 @@ namespace FuseCP.WebPortal
             {
                 ctrlContainer = LoadControl(containerPath);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                ShowError(pane, String.Format("Container '{0}' could not be loaded: {1}", containerPath, ex.ToString()));
+                ShowError(pane, String.Format("Container '{0}' could not be loaded: {1}", containerPath, ex));
                 return;
             }
 
@@ -585,9 +585,9 @@ namespace FuseCP.WebPortal
                         ctrlControl.ContainerControl = ctrlContainer;
                         contentPane.Controls.Add(ctrlControl);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
-                        ShowError(contentPane, String.Format("Control '{0}' could not be loaded: {1}", controlPath, ex.ToString()));
+                        ShowError(contentPane, String.Format("Control '{0}' could not be loaded: {1}", controlPath, ex));
                     }
                 }
             }

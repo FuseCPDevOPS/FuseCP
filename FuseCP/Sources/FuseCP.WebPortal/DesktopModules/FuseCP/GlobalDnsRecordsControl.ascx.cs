@@ -119,7 +119,7 @@ namespace FuseCP.Portal
 
                 ToggleRecordControls();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
                 return;
@@ -213,7 +213,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostModule.ShowErrorMessage("GDNS_ADD_RECORD", ex);
                     return;
@@ -231,7 +231,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostModule.ShowErrorMessage("GDNS_UPDATE_RECORD", ex);
                     return;
@@ -254,7 +254,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("GDNS_DELETE_RECORD", ex);
                 return;
@@ -294,7 +294,7 @@ namespace FuseCP.Portal
                 BindDnsRecords();
                 ShowPanels(false);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
             }

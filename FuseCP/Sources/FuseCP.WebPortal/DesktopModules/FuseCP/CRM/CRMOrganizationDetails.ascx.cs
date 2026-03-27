@@ -197,7 +197,7 @@ namespace FuseCP.Portal.CRM
                     ShowCrmOrganizationDetails(admin.DisplayName, org);
                 }
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("CRM_BIND_ORGANIZATION_DETAILS", ex);
             }
@@ -240,7 +240,7 @@ namespace FuseCP.Portal.CRM
                 
                 
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("CRM_CREATE_ORGANIZATION", ex);
             }
@@ -261,7 +261,7 @@ namespace FuseCP.Portal.CRM
                 
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("CRM_CREATE_ORGANIZATION", ex);
             }

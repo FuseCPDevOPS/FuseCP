@@ -58,7 +58,7 @@ namespace FuseCP.Portal
 
         public DataView GetGroupServices(int groupId)
         {
-            return new DataView(dsServices.Tables[1], "GroupID=" + groupId.ToString(), "", DataViewRowState.CurrentRows);
+            return new DataView(dsServices.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         public string EditServiceUrl(string key, string keyVal, string ctrlKey)

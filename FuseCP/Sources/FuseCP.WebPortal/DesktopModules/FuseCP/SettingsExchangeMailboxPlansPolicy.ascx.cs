@@ -249,7 +249,7 @@ namespace FuseCP.Portal
                         btnUpdateMailboxPlan.Enabled = (string.IsNullOrEmpty(txtMailboxPlan.Text)) ? false : true;
 
                     }
-                    catch (Exception)
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messageBox.ShowErrorMessage("EXCHANGE_DELETE_MAILBOXPLAN");
                     }
@@ -521,7 +521,7 @@ namespace FuseCP.Portal
                 }
                 messageBox.ShowSuccessMessage("EXCHANGE_STAMPMAILBOXES");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_FAILED_TO_STAMP", ex);
             }
@@ -552,7 +552,7 @@ namespace FuseCP.Portal
                         gvPolicy.DataBind();
                         UpdateTags();
                     }
-                    catch (Exception swallowedEx)
+                    catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                     {
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                     }
@@ -690,7 +690,7 @@ namespace FuseCP.Portal
                     BindMailboxPlans();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_SET_DEFAULT_MAILBOXPLAN", ex);
             }

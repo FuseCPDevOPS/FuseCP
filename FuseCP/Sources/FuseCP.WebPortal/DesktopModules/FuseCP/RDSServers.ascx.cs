@@ -150,7 +150,7 @@ namespace FuseCP.Portal
 
                     gvRDSServers.DataBind();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("REMOTE_DESKTOP_SERVICES_REMOVE_RDSSERVER", ex);
                 }
@@ -161,7 +161,7 @@ namespace FuseCP.Portal
                 {
                     ShowInfo(e.CommandArgument.ToString());
                 }
-                catch (Exception swallowedEx)
+                catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }
@@ -237,7 +237,7 @@ namespace FuseCP.Portal
                 ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 ShowSuccessMessage("RDSSESSIONHOST_CERTIFICATE_INSTALLED");
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("RDSSESSIONHOST_CERTIFICATE_NOT_INSTALLED", ex);
             }

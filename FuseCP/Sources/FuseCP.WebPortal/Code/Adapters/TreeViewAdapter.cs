@@ -353,8 +353,8 @@ namespace CSSFriendly
         {
             writer.WriteBeginTag("input");
             writer.WriteAttribute("type", "checkbox");
-            writer.WriteAttribute("id", treeView.ClientID + "n" + _checkboxIndex.ToString() + "CheckBox");
-            writer.WriteAttribute("name", treeView.UniqueID + "n" + _checkboxIndex.ToString() + "CheckBox");
+            writer.WriteAttribute("id", treeView.ClientID + "n" + _checkboxIndex + "CheckBox");
+            writer.WriteAttribute("name", treeView.UniqueID + "n" + _checkboxIndex + "CheckBox");
 
             if (!String.IsNullOrEmpty(treeView.Attributes["OnClientClickedCheckbox"]))
             {
@@ -371,7 +371,7 @@ namespace CSSFriendly
             {
                 writer.WriteLine();
                 writer.WriteBeginTag("label");
-                writer.WriteAttribute("for", treeView.ClientID + "n" + _checkboxIndex.ToString() + "CheckBox");
+                writer.WriteAttribute("for", treeView.ClientID + "n" + _checkboxIndex + "CheckBox");
                 writer.Write(HtmlTextWriter.TagRightChar);
                 writer.Write(item.Text);
                 writer.WriteEndTag("label");
@@ -462,7 +462,7 @@ namespace CSSFriendly
                 {
                     if (IsCheckbox(treeView, item))
                     {
-                        string name = treeView.UniqueID + "n" + _checkboxIndex.ToString() + "CheckBox";
+                        string name = treeView.UniqueID + "n" + _checkboxIndex + "CheckBox";
                         bool bIsNowChecked = (Page.Request.Form[name] != null);
                         if (item.Checked != bIsNowChecked)
                         {

@@ -94,7 +94,7 @@ namespace FuseCP.Portal
 
         public static UserInfo GetCachedUser(int userId)
         {
-            string key = "CachedUser" + userId.ToString();
+            string key = "CachedUser" + userId;
             UserInfo user = (UserInfo)HttpContext.Current.Cache[key];
             if (user == null)
             {
@@ -110,7 +110,7 @@ namespace FuseCP.Portal
 
         public static UserSettings GetCachedUserSettings(int userId, string settingsName)
         {
-            string key = "CachedUserSettings" + userId.ToString() + "_" + settingsName;
+            string key = "CachedUserSettings" + userId + "_" + settingsName;
             UserSettings settings = (UserSettings)HttpContext.Current.Cache[key];
             if (settings == null)
             {
@@ -176,7 +176,7 @@ namespace FuseCP.Portal
 
         public static void InvalidateCachedUser(int userId)
         {
-            string key = "CachedUser" + userId.ToString();
+            string key = "CachedUser" + userId;
             HttpContext.Current.Cache.Remove(key);
         }
 

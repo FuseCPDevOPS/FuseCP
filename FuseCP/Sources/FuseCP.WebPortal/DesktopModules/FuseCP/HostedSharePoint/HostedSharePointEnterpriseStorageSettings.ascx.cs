@@ -60,7 +60,7 @@ namespace FuseCP.Portal
                 }            
                 messageBox.ShowSuccessMessage("HOSTED_SHAREPOINT_UPDATE_QUOTAS");
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("HOSTED_SHAREPOINT_UPDATE_QUOTAS");
             }

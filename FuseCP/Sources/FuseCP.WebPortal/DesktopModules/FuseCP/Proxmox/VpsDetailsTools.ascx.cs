@@ -31,13 +31,13 @@ namespace FuseCP.Portal.Proxmox
         protected void btnReinstall_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_tools_reinstall",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_tools_delete",
-               "SpaceID=" + PanelSecurity.PackageId.ToString()));
+               "SpaceID=" + PanelSecurity.PackageId));
         }
     }
 }

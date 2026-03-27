@@ -75,7 +75,7 @@ namespace FuseCP.Portal
                 {
                     return DateTime.Parse(val);
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     /* do nothing */
                 }
@@ -97,7 +97,7 @@ namespace FuseCP.Portal
                 {
                     result = Int32.Parse(val.ToString());
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     /* do nothing */
                 }
@@ -115,7 +115,7 @@ namespace FuseCP.Portal
                 {
                     result = Boolean.Parse(val);
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     /* do nothing */
                 }
@@ -133,7 +133,7 @@ namespace FuseCP.Portal
                 {
                     result = Boolean.Parse(val.ToString());
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     /* do nothing */
                 }
@@ -151,7 +151,7 @@ namespace FuseCP.Portal
                 {
                     result = Decimal.Parse(val);
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     /* do nothing */
                 }

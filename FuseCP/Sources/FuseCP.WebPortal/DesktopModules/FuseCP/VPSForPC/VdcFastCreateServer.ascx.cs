@@ -66,7 +66,7 @@ namespace FuseCP.Portal.VPSForPC
                     throw new Exception("no VM");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 listOperatingSystems.Items.Add(new ListItem(GetLocalizedString("SelectVM.Text"), ""));
                 listOperatingSystems.Enabled = false;
@@ -102,7 +102,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_CREATE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_CREATE", ex);
             }

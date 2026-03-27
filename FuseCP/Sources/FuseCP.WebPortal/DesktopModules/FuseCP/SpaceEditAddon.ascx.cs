@@ -31,7 +31,7 @@ namespace FuseCP.Portal
                 {
                     BindPackageAddon();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_GET_ADDON", ex);
                     return;
@@ -101,7 +101,7 @@ namespace FuseCP.Portal
                 Utils.SelectListItem(ddlStatus, addon.StatusId);
 
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PACKAGE_GET_ADDON", ex);
                 return;
@@ -136,7 +136,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_ADD_ADDON", ex);
                     return;
@@ -155,7 +155,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("PACKAGE_UPDATE_ADDON", ex);
                     return;
@@ -176,7 +176,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("PACKAGE_DELETE_ADDON", ex);
                 return;

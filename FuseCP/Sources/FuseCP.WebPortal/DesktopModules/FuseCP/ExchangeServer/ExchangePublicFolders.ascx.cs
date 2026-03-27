@@ -114,7 +114,7 @@ namespace FuseCP.Portal.ExchangeServer
                 if(!String.IsNullOrEmpty(node.Value))
 				    node.NavigateUrl = EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "public_folder_settings",
 					    "AccountID=" + node.Value,
-					    "ItemID=" + PanelRequest.ItemID.ToString());
+					    "ItemID=" + PanelRequest.ItemID);
 
 				i++;
 			}
@@ -123,7 +123,7 @@ namespace FuseCP.Portal.ExchangeServer
         protected void btnCreatePublicFolder_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "create_public_folder",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnDeleteFolders_Click(object sender, EventArgs e)
@@ -160,7 +160,7 @@ namespace FuseCP.Portal.ExchangeServer
 					return;
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("EXCHANGE_DELETE_PUBLIC_FOLDER", ex);
 			}

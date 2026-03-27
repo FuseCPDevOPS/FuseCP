@@ -64,7 +64,7 @@ namespace FuseCP.Portal.CRM
                         messageBox.ShowMessage(res, "CREATE_CRM_USER", "HostedCRM");
                     }
                 }
-                catch(Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("CREATE_CRM_USER", ex);
                 }
@@ -97,7 +97,7 @@ namespace FuseCP.Portal.CRM
                 }
                     
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("CREATE_CRM_USER", ex);
             }

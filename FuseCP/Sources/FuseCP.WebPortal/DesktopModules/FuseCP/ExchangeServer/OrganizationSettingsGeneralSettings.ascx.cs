@@ -89,7 +89,7 @@ namespace FuseCP.Portal.ExchangeServer
             {
                 ES.Services.Organizations.UpdateOrganizationGeneralSettings(PanelRequest.ItemID, GetSettings());
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("ORANIZATIONSETTINGS_NOT_UPDATED", ex);
                 return false;

@@ -71,7 +71,7 @@ namespace FuseCP.Portal
                     lblTotalSize.Text = total.ToString();
                 }
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("HOSTED_SHAREPOINT_RECALCULATE_SIZE", ex);   
             }

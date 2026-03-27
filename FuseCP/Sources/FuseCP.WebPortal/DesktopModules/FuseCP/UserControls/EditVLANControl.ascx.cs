@@ -82,7 +82,7 @@ namespace FuseCP.Portal.UserControls
                 }
                 args.IsValid = int.TryParse(vlanStr, out vlan) && vlan >= 0 && vlan <= 4094;
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 args.IsValid = false;
             }

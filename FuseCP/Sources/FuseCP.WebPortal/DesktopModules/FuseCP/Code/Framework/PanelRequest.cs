@@ -32,7 +32,9 @@ namespace FuseCP.Portal
         {
             int result = defaultValue;
             try { result = Int32.Parse(HttpContext.Current.Request[key]); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -45,7 +47,9 @@ namespace FuseCP.Portal
         {
             bool result = defaultValue;
             try { result = bool.Parse(HttpContext.Current.Request[key]); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 

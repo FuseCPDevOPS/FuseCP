@@ -92,9 +92,9 @@ namespace FuseCP.Portal
 
                 // ...and go to service configuration page
                 Response.Redirect(EditUrl("ServerID", PanelRequest.ServerId.ToString(), "edit_service",
-                    "ServiceID=" + serviceId.ToString()), true);
+                    "ServiceID=" + serviceId), true);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SERVER_ADD_SERVICE", ex);
                 return;

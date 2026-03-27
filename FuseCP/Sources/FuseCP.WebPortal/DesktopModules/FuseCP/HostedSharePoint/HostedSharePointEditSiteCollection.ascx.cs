@@ -163,7 +163,7 @@ namespace FuseCP.Portal
                 //    return;
                 //}
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 
                 localMessageBox.ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
@@ -282,7 +282,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     localMessageBox.ShowErrorMessage("HOSTEDSHAREPOINT_ADD_SITECOLLECTION", ex);
                     return;
@@ -324,7 +324,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 localMessageBox.ShowErrorMessage("HOSTEDSHAREPOINT_DELETE_SITECOLLECTION", ex);
                 return;
@@ -362,19 +362,19 @@ namespace FuseCP.Portal
 
         protected void btnBackup_Click(object sender, EventArgs e)
         {
-            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_backup_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID.ToString()));
+            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_backup_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID));
         }
 
         protected void btnRestore_Click(object sender, EventArgs e)
         {
-            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_restore_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID.ToString()));
+            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_restore_sitecollection", "SiteCollectionID=" + this.SiteCollectionId, "ItemID=" + PanelRequest.ItemID));
         }
 
 
 
         private void RedirectToSiteCollectionsList()
         {
-            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_sitecollections", "ItemID=" + PanelRequest.ItemID.ToString()));
+            Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "sharepoint_sitecollections", "ItemID=" + PanelRequest.ItemID));
         }
 
         private bool UseSharedSLL(int packageID)

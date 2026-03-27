@@ -322,7 +322,7 @@ namespace FuseCP.Portal
 							break; // Once it passed then don't need to check for other access;
 					}
 				}
-				catch (Exception)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 				}
 				{ }
@@ -339,7 +339,7 @@ namespace FuseCP.Portal
 			if (loginStatus == BusinessSuccessCodes.SUCCESS_USER_ONETIMEPASSWORD)
 			{
 				// One time password should be changed after login
-				Response.Redirect("Default.aspx?mid=1&ctl=change_onetimepassword&onetimepassword=true&UserID=" + PanelSecurity.LoggedUserId.ToString());
+				Response.Redirect("Default.aspx?mid=1&ctl=change_onetimepassword&onetimepassword=true&UserID=" + PanelSecurity.LoggedUserId);
 			}
 			else
 			{
@@ -427,7 +427,7 @@ namespace FuseCP.Portal
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPS", "SpaceID", packageId.ToString(),
-								 "ItemID=" + vms.Items[0].ItemID.ToString(), "ctl=vps_general", "moduleDefId=VPS"));
+								 "ItemID=" + vms.Items[0].ItemID, "ctl=vps_general", "moduleDefId=VPS"));
 						}
 						else
 						{
@@ -447,7 +447,7 @@ namespace FuseCP.Portal
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPS2012", "SpaceID", packageId.ToString(),
-								 "ItemID=" + vms.Items[0].ItemID.ToString(), "ctl=vps_general", "moduleDefId=VPS2012"));
+								 "ItemID=" + vms.Items[0].ItemID, "ctl=vps_general", "moduleDefId=VPS2012"));
 						}
 						else
 						{
@@ -467,7 +467,7 @@ namespace FuseCP.Portal
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPSForPC", "SpaceID", packageId.ToString(),
-								 "ItemID=" + vms.Items[0].ItemID.ToString(), "ctl=vps_general", "moduleDefId=VPSForPC"));
+								 "ItemID=" + vms.Items[0].ItemID, "ctl=vps_general", "moduleDefId=VPSForPC"));
 						}
 						else
 						{

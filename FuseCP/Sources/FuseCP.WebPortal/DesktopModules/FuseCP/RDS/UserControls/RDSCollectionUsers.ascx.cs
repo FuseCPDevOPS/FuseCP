@@ -328,7 +328,7 @@ namespace FuseCP.Portal.RDS.UserControls
         {
             if (e.CommandName == "SetupInstructions")
             {
-                Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "rds_setup_letter", "CollectionID=" + PanelRequest.CollectionID, "ItemID=" + PanelRequest.ItemID, "AccountID=" + e.CommandArgument.ToString()));
+                Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "rds_setup_letter", "CollectionID=" + PanelRequest.CollectionID, "ItemID=" + PanelRequest.ItemID, "AccountID=" + e.CommandArgument));
             }
         }
 	}

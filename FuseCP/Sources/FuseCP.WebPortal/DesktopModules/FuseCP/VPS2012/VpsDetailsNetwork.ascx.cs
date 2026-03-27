@@ -90,7 +90,7 @@ namespace FuseCP.Portal.VPS2012
             {
                 virtualMachineNetworkAdapters = ES.Services.VPS2012.GetVirtualMachinesNetwordAdapterSettings(PanelRequest.ItemID);
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_DETAILS", ex);
             }
@@ -102,7 +102,7 @@ namespace FuseCP.Portal.VPS2012
                 BindGridViewOfVmIPs(virtualMachineNetworkAdapters);
                 CheckIfPossibleToDoIpInjection(virtualMachineNetworkAdapters);
             }
-            catch (Exception ex) //TODO: replace by messageBox ????
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) //TODO: replace by messageBox ????
             {
                 VMNetworkError.Text = "Error - " + ex;
                 VMNetworkError.Visible = true;
@@ -287,7 +287,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_RESTORE_EXTERNAL_IP", ex);
             }
@@ -310,7 +310,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_RESTORE_PRIVATE_IP", ex);
             }
@@ -333,7 +333,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_RESTORE_DMZ_IP", ex);
             }
@@ -342,19 +342,19 @@ namespace FuseCP.Portal.VPS2012
         protected void btnAddExternalAddress_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_add_external_ip",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnAddPrivateAddress_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_add_private_ip",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnAddDmzAddress_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_add_dmz_ip",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         protected void btnSetPrimaryPrivate_Click(object sender, EventArgs e)
@@ -383,7 +383,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_SETTING_PRIMARY_IP", ex);
             }
@@ -415,7 +415,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_SETTING_PRIMARY_IP", ex);
             }
@@ -461,7 +461,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETING_IP_ADDRESS", ex);
             }
@@ -507,7 +507,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETING_IP_ADDRESS", ex);
             }
@@ -539,7 +539,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_SETTING_PRIMARY_IP", ex);
             }
@@ -584,7 +584,7 @@ namespace FuseCP.Portal.VPS2012
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETING_IP_ADDRESS", ex);
             }

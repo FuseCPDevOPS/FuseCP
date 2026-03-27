@@ -54,14 +54,14 @@ namespace FuseCP.Portal.ExchangeServer
         protected void btnCreateContact_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "create_contact",
-                "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                "SpaceID=" + PanelSecurity.PackageId));
         }
 
         public string GetContactEditUrl(string accountId)
         {
             return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "contact_settings",
                     "AccountID=" + accountId,
-                    "ItemID=" + PanelRequest.ItemID.ToString());
+                    "ItemID=" + PanelRequest.ItemID);
         }
 
         protected void odsAccountsPaged_Selected(object sender, ObjectDataSourceStatusEventArgs e)
@@ -105,7 +105,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                     BindStats();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messageBox.ShowErrorMessage("EXCHANGE_DELETE_CONTACT", ex);
                 }

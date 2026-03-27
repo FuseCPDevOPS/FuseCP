@@ -144,7 +144,7 @@ namespace FuseCP.Portal
             {
                 serverVersion = ES.Services.Servers.GetServerVersion(ItemId);
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 serverVersion = "Server unavailable";
             }
@@ -241,7 +241,7 @@ namespace FuseCP.Portal
                 }
 
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = "<span class=\"bi bi-exclamation-triangle fs-5 text-danger\"></span>";
             }
@@ -263,7 +263,7 @@ namespace FuseCP.Portal
                     result = "<span class=\"bi bi-stop-circle fs-5 text-danger\"></span>";
                 }
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = "<span class=\"bi bi-exclamation-triangle fs-5 text-danger\"></span>";
             }
@@ -285,7 +285,7 @@ namespace FuseCP.Portal
                 }
                 return result;
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = "";
             }
@@ -345,7 +345,7 @@ namespace FuseCP.Portal
                 }
                 return result;
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = "";
             }
@@ -368,7 +368,7 @@ namespace FuseCP.Portal
 
                 return result;
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = "";
             }

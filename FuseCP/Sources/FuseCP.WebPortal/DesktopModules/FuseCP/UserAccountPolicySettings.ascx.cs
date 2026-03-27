@@ -44,7 +44,7 @@ namespace FuseCP.Portal
 
         public string GetSettingsLink(string settingsName, string settingsControl)
         {
-            return EditUrl("SettingsControl", settingsControl, "edit_settings", "SettingsName=" + settingsName, "UserID=" + SettingsUserId.ToString());
+            return EditUrl("SettingsControl", settingsControl, "edit_settings", "SettingsName=" + settingsName, "UserID=" + SettingsUserId);
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

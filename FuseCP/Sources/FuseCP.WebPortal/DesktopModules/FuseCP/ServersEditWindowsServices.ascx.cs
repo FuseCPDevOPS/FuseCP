@@ -56,7 +56,7 @@ namespace FuseCP.Portal
 				gvServices.DataSource = services;
 				gvServices.DataBind();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_GET_WIN_SERVICES", ex);
 				return;
@@ -80,7 +80,7 @@ namespace FuseCP.Portal
 				// rebind
 				BindServices();
 			}
-			catch (Exception ex)
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				ShowErrorMessage("SERVER_CHANGE_WIN_SERVICE_STATE", ex);
 				return;

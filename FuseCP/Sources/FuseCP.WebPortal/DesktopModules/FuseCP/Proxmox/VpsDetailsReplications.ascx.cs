@@ -188,7 +188,7 @@ namespace FuseCP.Portal.Proxmox
                     btnPause.Visible = true;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_GET_VM_REPLICATION", ex);
             }
@@ -266,7 +266,7 @@ namespace FuseCP.Portal.Proxmox
                 else
                     messageBox.ShowMessage(res, "VPS_SET_REPLICATION_ERROR", "VPS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VPS_SET_REPLICATION_ERROR", ex);
             }
@@ -286,7 +286,7 @@ namespace FuseCP.Portal.Proxmox
                 else
                     messageBox.ShowMessage(res, "VPS_DISABLE_REPLICATION_ERROR", "VPS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VPS_DISABLE_REPLICATION_ERROR", ex);
             }
@@ -306,7 +306,7 @@ namespace FuseCP.Portal.Proxmox
                 else
                     messageBox.ShowMessage(res, "VPS_PAUSE_REPLICATION_ERROR", "VPS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VPS_PAUSE_REPLICATION_ERROR", ex);
             }
@@ -326,7 +326,7 @@ namespace FuseCP.Portal.Proxmox
                 else
                     messageBox.ShowMessage(res, "VPS_RESUME_REPLICATION_ERROR", "VPS");
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("VPS_RESUME_REPLICATION_ERROR", ex);
             }

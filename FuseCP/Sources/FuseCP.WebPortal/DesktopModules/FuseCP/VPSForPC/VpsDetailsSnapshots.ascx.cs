@@ -133,7 +133,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_TAKE_SNAPSHOT", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_TAKE_SNAPSHOT", ex);
             }
@@ -157,7 +157,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_APPLY_SNAPSHOT", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_APPLY_SNAPSHOT", ex);
             }
@@ -182,7 +182,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_RENAME_SNAPSHOT", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_RENAME_SNAPSHOT", ex);
             }
@@ -206,7 +206,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_DELETE_SNAPSHOT", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETE_SNAPSHOT", ex);
             }
@@ -230,7 +230,7 @@ namespace FuseCP.Portal.VPSForPC
                     messageBox.ShowMessage(res, "VPS_ERROR_DELETE_SNAPSHOT_SUBTREE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETE_SNAPSHOT_SUBTREE", ex);
             }

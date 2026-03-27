@@ -100,7 +100,7 @@ namespace FuseCP.Portal.ExchangeServer
                 Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "org_domains",
                     "SpaceID=" + PanelSecurity.PackageId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("EXCHANGE_ADD_DOMAIN", ex);
             }

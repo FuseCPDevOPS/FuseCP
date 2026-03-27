@@ -54,7 +54,7 @@ namespace FuseCP.Portal
                         {
                             item = ES.Services.MailServers.GetMailGroup(PanelRequest.ItemID);
                         }
-                        catch (Exception ex)
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             ShowErrorMessage("MAIL_GET_GROUP", ex);
                             return;
@@ -95,7 +95,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
                 DisableFormControls(this, btnCancel);
@@ -163,7 +163,7 @@ namespace FuseCP.Portal
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("MAIL_ADD_GROUP", ex);
                     return;
@@ -181,7 +181,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("MAIL_UPDATE_GROUP", ex);
                     return;
@@ -204,7 +204,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("MAIL_DELETE_GROUP", ex);
                 return;

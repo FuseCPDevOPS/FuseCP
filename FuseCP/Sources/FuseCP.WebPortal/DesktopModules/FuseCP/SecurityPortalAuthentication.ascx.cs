@@ -51,7 +51,7 @@ namespace FuseCP.Portal
 
                 BindFixNowStatus();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_LOAD", ex);
             }
@@ -75,7 +75,7 @@ namespace FuseCP.Portal
                 ShowSuccessMessage("SYSTEM_SETTINGS_SAVE");
                 BindFixNowStatus();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }
@@ -112,7 +112,7 @@ namespace FuseCP.Portal
                 ShowSuccessMessage("SYSTEM_SETTINGS_SAVE");
                 BindFixNowStatus();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SYSTEM_SETTINGS_SAVE", ex);
             }

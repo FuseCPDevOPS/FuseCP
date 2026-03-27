@@ -37,21 +37,21 @@ namespace FuseCP.Portal
                 PanelSecurity.PackageId > 1);
 
             lnkNameServers.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsNameServers",
-                "edit_settings", "SettingsName=NameServers", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=NameServers", "SpaceID=" + PanelSecurity.PackageId);
             lnkPreviewDomain.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsPreviewDomain",
-                "edit_settings", "SettingsName=PreviewDomain", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=PreviewDomain", "SpaceID=" + PanelSecurity.PackageId);
             lnkSharedSSL.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsSharedSslSites",
-                "edit_settings", "SettingsName=SharedSslSites", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=SharedSslSites", "SpaceID=" + PanelSecurity.PackageId);
             lnkPackagesFolder.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsSpacesFolder",
-                "edit_settings", "SettingsName=ChildSpacesFolder", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=ChildSpacesFolder", "SpaceID=" + PanelSecurity.PackageId);
 			lnkExchangeServer.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsExchangeServer",
-				"edit_settings", "SettingsName=ExchangeServer", "SpaceID=" + PanelSecurity.PackageId.ToString());
+				"edit_settings", "SettingsName=ExchangeServer", "SpaceID=" + PanelSecurity.PackageId);
             lnkVps.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsVPS",
-                "edit_settings", "SettingsName=VirtualPrivateServers", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=VirtualPrivateServers", "SpaceID=" + PanelSecurity.PackageId);
             lnkVps2012.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsVPS2012",
-                "edit_settings", "SettingsName=VirtualPrivateServers2012", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=VirtualPrivateServers2012", "SpaceID=" + PanelSecurity.PackageId);
             lnkVpsForPC.NavigateUrl = EditUrl("SettingsControl", "SpaceSettingsVPSForPC",
-                "edit_settings", "SettingsName=VirtualPrivateServersForPrivateCloud", "SpaceID=" + PanelSecurity.PackageId.ToString());
+                "edit_settings", "SettingsName=VirtualPrivateServersForPrivateCloud", "SpaceID=" + PanelSecurity.PackageId);
 
             lnkDnsRecords.NavigateUrl = EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_globaldns");
 

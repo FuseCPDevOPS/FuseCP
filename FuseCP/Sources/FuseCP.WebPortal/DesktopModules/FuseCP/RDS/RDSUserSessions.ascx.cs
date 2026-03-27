@@ -54,7 +54,7 @@ namespace FuseCP.Portal.RDS
                     BindGrid();
                     ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("REMOTE_DESKTOP_SERVICES_LOG_OFF_USER", ex);
                 }
@@ -67,7 +67,7 @@ namespace FuseCP.Portal.RDS
                     ES.Services.RDS.ShadowSession(PanelRequest.ItemID, args[0], false, args[1]);
                     ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("REMOTE_DESKTOP_SERVICES_VIEW_SESSION", ex);
                 }
@@ -80,7 +80,7 @@ namespace FuseCP.Portal.RDS
                     ES.Services.RDS.ShadowSession(PanelRequest.ItemID, args[0], true, args[1]);
                     ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("REMOTE_DESKTOP_SERVICES_CONTROL_SESSION", ex);
                 }
@@ -187,7 +187,7 @@ namespace FuseCP.Portal.RDS
             {
                 userSessions = ES.Services.RDS.GetRdsUserSessions(PanelRequest.CollectionID).ToList();
             }
-            catch(Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("REMOTE_DESKTOP_SERVICES_USER_SESSIONS", ex);
             }

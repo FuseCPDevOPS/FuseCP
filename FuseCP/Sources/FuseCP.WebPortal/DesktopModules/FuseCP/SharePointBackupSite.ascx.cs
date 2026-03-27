@@ -54,7 +54,7 @@ namespace FuseCP.Portal
                 BindBackupName();
                 ToggleControls();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_GET_SITE", ex);
                 return;
@@ -105,7 +105,7 @@ namespace FuseCP.Portal
                     Response.End();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SHAREPOINT_BACKUP_SITE", ex);
                 return;
@@ -125,7 +125,7 @@ namespace FuseCP.Portal
         private void RedirectBack()
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "edit_item",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void chkZipBackup_CheckedChanged(object sender, EventArgs e)

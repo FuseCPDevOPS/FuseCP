@@ -52,7 +52,7 @@ namespace FuseCP.Portal
                     // bind schedule
                     BindSchedule();
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SCHEDULE_INIT_FORM", ex);
                     return;
@@ -374,7 +374,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SCHEDULE_ADD_TASK", ex);
                     return;
@@ -392,7 +392,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ShowErrorMessage("SCHEDULE_UPDATE_TASK", ex);
                     return;
@@ -422,7 +422,7 @@ namespace FuseCP.Portal
                 // redirect
                 RedirectSpaceHomePage();
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("SCHEDULE_DELETE_TASK", ex);
                 return;

@@ -43,7 +43,7 @@ namespace FuseCP.Portal
                     BindHostingPlan();                    
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ProcessException(ex);
                 this.DisableControls = true;
@@ -211,7 +211,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("USERWIZARD_CREATE_ACCOUNT", ex);
                 return;
@@ -253,7 +253,7 @@ namespace FuseCP.Portal
                 //}               
                     
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //If something happens here, just ignore it. Addons not so important that a Hosting Space
             }
@@ -377,7 +377,7 @@ namespace FuseCP.Portal
                         return orgId;
                     }
                 }
-                catch (Exception swallowedEx)
+                catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                 {
                     System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                 }

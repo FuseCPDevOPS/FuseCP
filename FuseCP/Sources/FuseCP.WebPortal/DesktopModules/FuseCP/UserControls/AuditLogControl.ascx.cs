@@ -72,7 +72,7 @@ namespace FuseCP.Portal.UserControls
                         FilterButtonsRow.Visible = false;
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     //ShowErrorMessage("AUDIT_INIT_FORM", ex);
                     HostModule.ProcessException(ex);
@@ -157,9 +157,9 @@ namespace FuseCP.Portal.UserControls
             foreach (DataRow dr in dtRecords.Rows)
             {
 				// Started
-                sb.AppendFormat("\"{0}\",", dr["StartDate"].ToString());
+                sb.AppendFormat("\"{0}\",", dr["StartDate"]);
 				// Finished
-                sb.AppendFormat("\"{0}\",", dr["FinishDate"].ToString());
+                sb.AppendFormat("\"{0}\",", dr["FinishDate"]);
 				// Severity
                 sb.AppendFormat("\"{0}\",", 
 					GetAuditLogRecordSeverityName((int)dr["SeverityID"]));
@@ -214,7 +214,7 @@ namespace FuseCP.Portal.UserControls
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostModule.ShowErrorMessage("AUDIT_CLEAR", ex);
                 return;

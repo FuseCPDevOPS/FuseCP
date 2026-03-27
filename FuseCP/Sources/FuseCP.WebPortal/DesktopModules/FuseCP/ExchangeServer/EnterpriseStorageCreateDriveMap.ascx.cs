@@ -60,7 +60,7 @@ namespace FuseCP.Portal.ExchangeServer
             //for (int i = 65; i < 91; i++) // increment from ASCII values for A-Z
             for (int i = 69; i < 91; i++) // E-Z
             {
-                ddlLetters.Items.Add(new ListItem(Convert.ToChar(i).ToString() + ":", Convert.ToChar(i).ToString()));// Add uppercase letters to possible drive letters
+                ddlLetters.Items.Add(new ListItem(Convert.ToChar(i) + ":", Convert.ToChar(i).ToString()));// Add uppercase letters to possible drive letters
             }
             
             //string[] usedLetters = ES.Services.EnterpriseStorage.GetUsedDriveLetters(PanelRequest.ItemID);
@@ -102,7 +102,7 @@ namespace FuseCP.Portal.ExchangeServer
                 Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "enterprisestorage_drive_maps",
                 "SpaceID=" + PanelSecurity.PackageId));
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messageBox.ShowErrorMessage("ENTERPRISE_STORAGE_CREATE_MAPPED_DRIVE", ex);
             }

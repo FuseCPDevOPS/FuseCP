@@ -75,7 +75,7 @@ namespace FuseCP.WebPortal
                     DataRow row = dt.Rows[i];
                     Dictionary<string, string> obj = new Dictionary<string, string>();
                     if (!String.IsNullOrEmpty(RedirectUrl) && ((int)row["Count"] == 1))
-                        obj["url"] = String.Format(RedirectUrl, row["ItemID"].ToString());
+                        obj["url"] = String.Format(RedirectUrl, row["ItemID"]);
                     obj["TextSearch"] = row["TextSearch"].ToString();
                     obj["ColumnType"] = row["ColumnType"].ToString();
                     dataList.Add(obj);

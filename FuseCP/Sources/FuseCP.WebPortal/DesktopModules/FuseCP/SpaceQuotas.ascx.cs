@@ -131,8 +131,8 @@ namespace FuseCP.Portal
 
             return
                 PortalUtils.NavigatePageURL("BandwidthReport", PortalUtils.SPACE_ID_PARAM, packageId.ToString(),
-                                            "StartDate=" + startDate.Ticks.ToString(),
-                                           "EndDate=" + endDate.Ticks.ToString(), "ctl=edit", "moduleDefId=BandwidthReport");
+                                            "StartDate=" + startDate.Ticks,
+                                           "EndDate=" + endDate.Ticks, "ctl=edit", "moduleDefId=BandwidthReport");
             
         }
 

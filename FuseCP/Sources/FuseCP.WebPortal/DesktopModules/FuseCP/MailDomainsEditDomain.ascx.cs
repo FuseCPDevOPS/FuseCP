@@ -52,7 +52,7 @@ namespace FuseCP.Portal
                         {
                             item = ES.Services.MailServers.GetMailDomain(PanelRequest.ItemID);
                         }
-                        catch (Exception ex)
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             ShowErrorMessage("MAIL_GET_DOMAIN", ex);
                             return;
@@ -87,7 +87,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("MAIL_INIT_DOMAIN_FORM", ex);
                 return;
@@ -124,7 +124,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("MAIL_UPDATE_DOMAIN", ex);
                 return;
@@ -146,7 +146,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ShowErrorMessage("MAIL_DELETE_DOMAIN", ex);
                 return;
@@ -176,7 +176,7 @@ namespace FuseCP.Portal
         protected void btnAddPointer_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "add_pointer",
-                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId.ToString()));
+                PortalUtils.SPACE_ID_PARAM + "=" + PanelSecurity.PackageId));
         }
 
         protected void gvPointers_RowDeleting(object sender, GridViewDeleteEventArgs e)
