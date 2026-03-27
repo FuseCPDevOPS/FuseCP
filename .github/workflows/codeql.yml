@@ -35,6 +35,9 @@ jobs:
           - language: csharp
             build_scope: enterprise
             build_mode: manual
+          - language: csharp
+            build_scope: webportal
+            build_mode: manual
           - language: javascript-typescript
             build_scope: none
             build_mode: none
@@ -80,6 +83,9 @@ jobs:
           }
           elseif ("${{ matrix.build_scope }}" -eq "enterprise") {
             dotnet build .\FuseCP\Sources\FuseCP.EnterpriseServer.sln -c Debug -m:1 -p:BuildInParallel=false --nologo
+          }
+          elseif ("${{ matrix.build_scope }}" -eq "webportal") {
+            dotnet build .\FuseCP\Sources\FuseCP.WebPortal.sln -c Debug -m:1 -p:BuildInParallel=false --nologo
           }
 
       - name: Perform CodeQL Analysis
