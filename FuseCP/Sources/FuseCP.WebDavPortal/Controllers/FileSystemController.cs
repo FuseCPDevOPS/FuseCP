@@ -120,6 +120,7 @@ namespace FuseCP.WebDavPortal.Controllers
 #pragma warning disable 0168
             catch (UnauthorizedException e)
             {
+                _ = e;
             }
 #pragma warning restore 0168
             {
@@ -154,6 +155,7 @@ namespace FuseCP.WebDavPortal.Controllers
 #pragma warning disable 0168
             catch (UnauthorizedException e)
             {
+                _ = e;
             }
 #pragma warning disable 0168
             {

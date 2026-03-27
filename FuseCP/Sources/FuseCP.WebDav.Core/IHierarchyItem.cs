@@ -230,6 +230,7 @@ namespace FuseCP.WebDav.Core
                     }
                     catch (AmbiguousMatchException)
                     {
+                        _ = 0;
                     }
                 }
 

@@ -171,7 +171,7 @@ namespace FuseCP.WebDav.Core.Security.Authorization
             {
                 folders = ScpContext.Services.EnterpriseStorage.GetUserEnterpriseFolderWithOwaEditPermission(principal.ItemId, accountsIds.ToArray());
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //TODO remove try catch when es &portal will be updated
                 return new List<string>();

@@ -43,7 +43,7 @@ foreach ($path in $byFile.Keys) {
             $var = $Matches[1]
             if ([string]::IsNullOrWhiteSpace($var)) { $var = 'ex' }
 
-            $replacement = "catch (Exception $var) when (!($var is OutOfMemoryException) && !($var is StackOverflowException) && !($var is AccessViolationException))"
+            $replacement = "catch (System.Exception $var) when (!($var is System.OutOfMemoryException) && !($var is System.StackOverflowException) && !($var is System.AccessViolationException))"
             $newLine = [regex]::Replace(
                 $line,
                 'catch\s*\(\s*(?:System\.)?Exception(?:\s+\w+)?\s*\)',
@@ -59,7 +59,7 @@ foreach ($path in $byFile.Keys) {
         } elseif ($line -match '^\s*catch\s*(?!\()') {
             $indentLen = $line.Length - $line.TrimStart().Length
             $indent = $line.Substring(0, $indentLen)
-            $newLine = "${indent}catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))"
+            $newLine = "${indent}catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))"
 
             if ($newLine -ne $line) {
                 $lines[$i] = $newLine

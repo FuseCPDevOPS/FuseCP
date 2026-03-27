@@ -139,6 +139,7 @@ namespace FuseCP.WebDav.Core
                 }
                 catch (AmbiguousMatchException)
                 {
+                    _ = 0;
                 }
 
                 return resource;
@@ -173,6 +174,7 @@ namespace FuseCP.WebDav.Core
                 }
                 catch (AmbiguousMatchException)
                 {
+                    _ = 0;
                 }
 
                 return folder;
@@ -203,7 +205,7 @@ namespace FuseCP.WebDav.Core
                     resource.SetHierarchyItem(item);
                     return resource;
                 }
-                catch (Exception)
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     return null;
                 }
@@ -478,6 +480,7 @@ namespace FuseCP.WebDav.Core
                 }
                 catch (AmbiguousMatchException)
                 {
+                    _ = 0;
                 }
             }
         }

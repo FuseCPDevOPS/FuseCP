@@ -50,7 +50,7 @@ namespace FuseCP.WebDav.Core.Security.Authentication
                     _principalContext = new PrincipalContext(ContextType.Domain, WebDavAppConfigManager.Instance.UserDomain);
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
 
                 Log.WriteError(ex);

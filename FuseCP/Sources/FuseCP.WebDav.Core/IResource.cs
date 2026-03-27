@@ -263,7 +263,7 @@ namespace FuseCP.WebDav.Core
                             networkStream.WriteTimeout = TimeOut;
                             networkStream.ReadTimeout = TimeOut;
                         }
-                        catch (Exception swallowedEx)
+                        catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                         {
                             System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                         }
@@ -561,7 +561,7 @@ namespace FuseCP.WebDav.Core
                                 break;
                         }
                     }
-                    catch (Exception swallowedEx)
+                    catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                     {
                         System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                     }
@@ -590,7 +590,7 @@ namespace FuseCP.WebDav.Core
                         {
                             _contentLength = Convert.ToInt64(property.StringValue);
                         }
-                        catch (Exception swallowedEx)
+                        catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
                         {
                             System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
                         }

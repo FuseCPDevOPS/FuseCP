@@ -259,7 +259,7 @@ namespace FuseCP.WebDav.Core.Managers
 
                 return _currentFolder.GetResource(resourceName);
             }
-            catch (Exception)
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return null;
             }
@@ -282,6 +282,7 @@ namespace FuseCP.WebDav.Core.Managers
 #pragma warning disable 0168
             catch (InvalidOperationException exception)
             {
+                _ = exception;
             }
 #pragma warning restore 0168
             {

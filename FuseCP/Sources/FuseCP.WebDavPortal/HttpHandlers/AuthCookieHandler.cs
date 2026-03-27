@@ -86,7 +86,7 @@ namespace FuseCP.WebDavPortal.HttpHandlers
                     authenticationService.LogIn(principalSerialized.Login, password);
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // Ignore malformed/expired cookies and continue request pipeline.
             }
