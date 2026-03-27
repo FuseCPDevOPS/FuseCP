@@ -107,9 +107,7 @@ public class FilesController: ControllerBase
 			}
 
         string homeFolder = GetHomeFolder(packageId);
-        string path = "\\";
-        if(fullPath.Length >= homeFolder.Length)
-            path = fullPath.Substring(homeFolder.Length);
+        string path = fullPath.Length >= homeFolder.Length ? fullPath.Substring(homeFolder.Length) : "\\";
         if (path == "")
             path = "\\";
         return path;

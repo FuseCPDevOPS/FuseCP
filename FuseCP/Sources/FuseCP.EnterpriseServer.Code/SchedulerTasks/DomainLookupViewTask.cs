@@ -319,15 +319,9 @@ namespace FuseCP.EnterpriseServer
 
             string body = string.Empty;
             bool isHtml = user.HtmlMail;
-
-            if (domainsChanges.Any())
-            {
-                body = user.HtmlMail ? settings["HtmlBody"] : settings["TextBody"];
-            }
-            else 
-            {
-                body = user.HtmlMail ? settings["NoChangesHtmlBody"] : settings["NoChangesTextBody"];
-            }
+            body = domainsChanges.Any()
+                ? (user.HtmlMail ? settings["HtmlBody"] : settings["TextBody"])
+                : (user.HtmlMail ? settings["NoChangesHtmlBody"] : settings["NoChangesTextBody"]);
 
             Hashtable items = new Hashtable();
 

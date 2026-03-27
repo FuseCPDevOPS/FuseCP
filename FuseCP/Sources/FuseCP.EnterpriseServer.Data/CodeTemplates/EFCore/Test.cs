@@ -37,7 +37,7 @@ namespace FuseCP.EnterpriseServer.Data
 		public void Do(IEntityType EntityType, ModelCodeGenerationOptions Options, IServiceProvider services)
 		{
 			var annotationCodeGenerator = services.GetRequiredService<IAnnotationCodeGenerator>();
-			var code = services.GetRequiredService<ICSharpHelper>();
+			services.GetRequiredService<ICSharpHelper>();
 
 			var annotations = EntityType.GetDataAnnotations(annotationCodeGenerator);
 			var coreAnnotations = annotations.Where(a => a.Type.FullName.Contains("EntityFrameworkCore"));
@@ -50,7 +50,6 @@ namespace FuseCP.EnterpriseServer.Data
 			var getEntityDataMethod = scaffoldType.GetMethod("GetEntityData");
 			getEntityDataMethod.Invoke(null, new object[] { EntityType, Options, 12 });
 
-			var sb = new StringBuilder();
 			foreach (var property in EntityType.GetProperties())
 			{
 				var propertyFluentApiCalls = property.GetFluentApiCalls(annotationCodeGenerator)

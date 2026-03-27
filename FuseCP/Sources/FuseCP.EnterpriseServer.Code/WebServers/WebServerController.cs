@@ -170,15 +170,9 @@ namespace FuseCP.EnterpriseServer
         private bool IsValidIPAdddress(string addr)
         {
             System.Net.IPAddress ip;
-            if (System.Net.IPAddress.TryParse(addr, out ip)) 
-            {
-                return ((ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6) ||
-                        (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork));
-            }
-            else 
-            {
-                return false;
-            }
+            return System.Net.IPAddress.TryParse(addr, out ip)
+                && (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6
+                    || ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
         }
 
         public int AddWebSite(int packageId, string hostName, int domainId, int packageAddressId,

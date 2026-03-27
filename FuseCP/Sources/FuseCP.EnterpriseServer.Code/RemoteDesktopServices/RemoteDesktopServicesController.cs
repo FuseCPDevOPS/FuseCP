@@ -748,7 +748,6 @@ namespace FuseCP.EnterpriseServer
         private List<OrganizationUser> GetRdsCollectionLocalAdminsInternal(int collectionId)
         {
             var collection = ObjectUtils.FillObjectFromDataReader<RdsCollection>(Database.GetRDSCollectionById(collectionId));
-            var servers = ObjectUtils.CreateListFromDataReader<RdsServer>(Database.GetRDSServersByCollectionId(collection.Id)).ToList();
             Organization org = OrganizationController.GetOrganization(collection.ItemId);
             
             if (org == null)
@@ -781,7 +780,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
-                var servers = ObjectUtils.CreateListFromDataReader<RdsServer>(Database.GetRDSServersByCollectionId(collection.Id)).ToList();                
+                var servers = ObjectUtils.CreateListFromDataReader<RdsServer>(Database.GetRDSServersByCollectionId(collection.Id)).ToList();
 
                 rds.SaveRdsCollectionLocalAdmins(users.Select(u => u.AccountName).ToArray(), servers.Select(s => s.FqdName).ToArray(), org.OrganizationId, collection.Name);
             }

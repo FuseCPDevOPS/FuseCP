@@ -152,14 +152,7 @@ namespace Microsoft.ApplicationBlocks.Data
 				if (parameterValues[i] is IDbDataParameter)
 				{
 					IDbDataParameter paramInstance = (IDbDataParameter)parameterValues[i];
-					if( paramInstance.Value == null )
-					{
-						commandParameters[i].Value = DBNull.Value; 
-					}
-					else
-					{
-						commandParameters[i].Value = paramInstance.Value;
-					}
+                    commandParameters[i].Value = paramInstance.Value ?? DBNull.Value;
 				}
 				else if (parameterValues[i] == null)
 				{

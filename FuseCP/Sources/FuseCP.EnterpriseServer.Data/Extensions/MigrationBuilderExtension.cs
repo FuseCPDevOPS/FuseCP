@@ -184,10 +184,8 @@ public static class MigrationBuilderExtension
 		{
 			var cmd = str.ToString(segment.Start, segment.Length)
 				.Trim();
-			string firstLine = null;
 			var firstLineMatch = Regex.Match(cmd, "^.*?(?=\r?\n)", RegexOptions.Singleline);
-			if (firstLineMatch.Success) firstLine = firstLineMatch.Value.Replace("\'", "\'\'");
-			else firstLine = $"Command {count++}";
+			string firstLine = firstLineMatch.Success ? firstLineMatch.Value.Replace("\'", "\'\'") : $"Command {count++}";
 			if (segment.HasSpecialCommand)
 			{
 				str.Remove(segment.Start, segment.Length);

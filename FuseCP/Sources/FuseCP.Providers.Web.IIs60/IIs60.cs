@@ -1248,7 +1248,6 @@ namespace FuseCP.Providers.Web
 		private void UpdateVirtualDirectory(string siteId, WebVirtualDirectory directory, bool updateProperties)
 		{
 			// load parent site settings
-			ManagementObject objSite = wmi.GetObject(String.Format("IIsWebServerSetting='{0}'", siteId));
 			ManagementObject objSiteSetting = wmi.GetObject(String.Format("IIsWebVirtualDirSetting='{0}'", GetVirtualDirectoryPath(siteId, "")));
 
 

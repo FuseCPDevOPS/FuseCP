@@ -62,8 +62,7 @@ namespace FuseCP.EnterpriseServer.Data
 					var typecode = new string(typeid);
 					var orderText = tokens.Length >= 3 ? tokens[tokens.Length - 3] : "";
 					orderText = orderText.Trim('_');
-					int order;
-					if (!int.TryParse(orderText, out order)) order = short.MaxValue;
+					int order = int.TryParse(orderText, out var parsedOrder) ? parsedOrder : short.MaxValue;
 
 					// Put Views first, then UserDefinedFunctions and then StoredProcedures and then the rest
 					string sortExpression;

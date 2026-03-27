@@ -72,33 +72,21 @@ namespace FuseCP.EnterpriseServer.Data
 		public IQueryable<int> OfLevel(int level)
 		{
 			var scope = Scope;
-			if (level == 0)
-			{
-				return Context.TempIds
+			return level == 0
+				? Context.TempIds
 					.Where(id => id.Scope == scope)
-					.Select(id => id.Id);
-			}
-			else
-			{
-				return Context.TempIds
+					.Select(id => id.Id)
+				: Context.TempIds
 					.Where(id => id.Scope == scope && id.Level == level)
 					.Select(id => id.Id);
-			}
 		}
 
 		public IQueryable<TempId> TempIds(int level = 0)
 		{
 			var scope = Scope;
-			if (level == 0)
-			{
-				return Context.TempIds
-					.Where(id => id.Scope == scope);
-			}
-			else
-			{
-				return Context.TempIds
-					.Where(id => id.Scope == scope && id.Level == level);
-			}
+			return level == 0
+				? Context.TempIds.Where(id => id.Scope == scope)
+				: Context.TempIds.Where(id => id.Scope == scope && id.Level == level);
 		}
 		public virtual void Add(int id, int level = 0)
 		{
@@ -248,33 +236,21 @@ namespace FuseCP.EnterpriseServer.Data
 		public IQueryable<DatedId> OfLevel(int level)
 		{
 			var scope = Scope;
-			if (level == 0)
-			{
-				return Context.TempIds
+			return level == 0
+				? Context.TempIds
 					.Where(id => id.Scope == scope)
-					.Select(id => new DatedId { Id = id.Id, Date = id.Date });
-			}
-			else
-			{
-				return Context.TempIds
+					.Select(id => new DatedId { Id = id.Id, Date = id.Date })
+				: Context.TempIds
 					.Where(id => id.Scope == scope && id.Level == level)
 					.Select(id => new DatedId { Id = id.Id, Date = id.Date });
-			}
 		}
 
 		public IQueryable<TempId> TempIds(int level = 0)
 		{
 			var scope = Scope;
-			if (level == 0)
-			{
-				return Context.TempIds
-					.Where(id => id.Scope == scope);
-			}
-			else
-			{
-				return Context.TempIds
-					.Where(id => id.Scope == scope && id.Level == level);
-			}
+			return level == 0
+				? Context.TempIds.Where(id => id.Scope == scope)
+				: Context.TempIds.Where(id => id.Scope == scope && id.Level == level);
 		}
 		public virtual void Add(DatedId id, int level = 0)
 		{

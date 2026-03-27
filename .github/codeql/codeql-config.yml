@@ -4,3 +4,8 @@ paths-ignore:
   - "**/bin/**"
   - "**/obj/**"
   - "**/packages/**"
+  - "FuseCP/Lib/**"
+  - "**/CryptSharp/**"
+  - "**/*ModelSnapshot.cs"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Data/CodeTemplates/**"
+  - "FuseCP/Sources/FuseCP.Build/**/*.cshtml"

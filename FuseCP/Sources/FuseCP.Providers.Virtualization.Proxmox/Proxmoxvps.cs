@@ -1163,15 +1163,13 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             var screenshotFile = SnapshotScreenshotFile(snapshotId);
             if (File.Exists(screenshotFile)) File.Delete(screenshotFile);
 
-
-            JobResult jobResult = ProxmoxJobHelper.CreateResult(ConcreteJobState.Running, ReturnCode.JobStarted);
             try
             {
                 var deleteresult = Api.DeleteSnapshot(vmId, snapshotId);
                 JToken jsonResponse = JToken.Parse(deleteresult.Content);
                 String jobid = jsonResponse["data"].ToString();
 
-                jobResult = deleteresult.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResult(ConcreteJobState.Running, ReturnCode.JobStarted) : ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
+                var jobResult = deleteresult.StatusCode.Equals(HttpStatusCode.OK) ? ProxmoxJobHelper.CreateResult(ConcreteJobState.Running, ReturnCode.JobStarted) : ProxmoxJobHelper.CreateResult(ConcreteJobState.Failed, ReturnCode.Failed);
 
 
 
@@ -1181,6 +1179,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
 
                 jobResult.Job.Id = jobid;
+                return jobResult;
 
             }
             catch (Exception ex)
@@ -1188,7 +1187,6 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 HostedSolutionLog.LogError("DeleteSnapshot", ex);
                 throw;
             }
-            return jobResult;
         }
 
         public JobResult DeleteSnapshotSubtree(string vmId, string snapshotId)

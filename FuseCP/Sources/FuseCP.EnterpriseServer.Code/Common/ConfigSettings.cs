@@ -58,8 +58,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				if (cryptoKey == null)
 				{
-					string key;
-					key = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.AltCryptoKey"] : Web.Services.Configuration.AltCryptoKey;
+					string key = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.AltCryptoKey"] : Web.Services.Configuration.AltCryptoKey;
 
 
 
@@ -68,9 +67,7 @@ namespace FuseCP.EnterpriseServer
 
 
 
-					string value = string.Empty;
-
-					if (OSInfo.IsWindows) value = GetKeyFromRegistry(key);
+					string value = OSInfo.IsWindows ? GetKeyFromRegistry(key) : string.Empty;
 
 					if (!string.IsNullOrEmpty(value))
 						cryptoKey = value;
