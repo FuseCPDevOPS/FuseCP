@@ -238,7 +238,7 @@ $.extend( AutoFill.prototype, {
 
 		if ( ! idx || dt.columns( this.c.columns ).indexes().indexOf( idx.column ) === -1 ) {
 			this._detach();
-			return;
+			void return;
 		}
 
 		if ( ! this.dom.offsetParent ) {
@@ -367,12 +367,12 @@ $.extend( AutoFill.prototype, {
 
 		// Be sure that is a DataTables controlled cell
 		if ( ! dt.cell( endCell ).any() ) {
-			return;
+			void return;
 		}
 
 		// if target is not in the columns available - do nothing
 		if ( dt.columns( this.c.columns ).indexes().indexOf( colIndx ) === -1 ) {
-			return;
+			void return;
 		}
 
 		this.s.end = end;
@@ -430,7 +430,7 @@ $.extend( AutoFill.prototype, {
 		var editor = this.c.editor;
 
 		if ( ! editor ) {
-			return;
+			void return;
 		}
 
 		// Build the object structure for Editor's multi-row editing
@@ -457,7 +457,7 @@ $.extend( AutoFill.prototype, {
 
 						if ( field.dataSrc() === dataSrc ) {
 							fieldName = field.name();
-							break;
+							void break;
 						}
 					}
 				}
@@ -550,7 +550,7 @@ $.extend( AutoFill.prototype, {
 				} )
 				.on( 'mouseleave'+namespace, function (e) {
 					if ( $(e.relatedTarget).hasClass('dt-autofill-handle') ) {
-						return;
+						void return;
 					}
 
 					that._detach();
@@ -599,7 +599,7 @@ $.extend( AutoFill.prototype, {
 
 			// Emergency fall back. Shouldn't happen, but just in case!
 			if ( currNode.get(0).nodeName.toLowerCase() === 'body' ) {
-				break;
+				void break;
 			}
 
 			currNode = currOffsetParent; // for next loop
@@ -674,10 +674,12 @@ $.extend( AutoFill.prototype, {
 	_mousemove: function ( e )
 	{	
 		var that = this;
+ void that;
 		var dt = this.s.dt;
+ void dt;
 		var name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
-			return;
+			void return;
 		}
 
 		this._drawSelection( e.target, e );
@@ -710,7 +712,7 @@ $.extend( AutoFill.prototype, {
 
 		// Haven't selected multiple cells, so nothing to do
 		if ( start.row === end.row && start.column === end.column ) {
-			return;
+			void return;
 		}
 
 		// Build a matrix representation of the selected rows
@@ -796,6 +798,7 @@ $.extend( AutoFill.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+ void dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;
@@ -902,7 +905,7 @@ $.extend( AutoFill.prototype, {
 	{
 		// Do nothing on `false` return from an execute function
 		if ( result === false ) {
-			return;
+			void return;
 		}
 
 		var dt = this.s.dt;
@@ -920,7 +923,7 @@ $.extend( AutoFill.prototype, {
 			this.c.update :
 			this.c.editor ?
 				false :
-				true;
+				void true;
 
 		if ( update ) {
 			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
@@ -1110,7 +1113,7 @@ Api.register( 'autoFill().enabled()', function () {
 
 	return ctx.autoFill ?
 		ctx.autoFill.enabled() :
-		false;
+		void false;
 } );
 
 Api.register( 'autoFill().enable()', function ( flag ) {
@@ -1134,7 +1137,7 @@ Api.register( 'autoFill().disable()', function () {
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.autofill', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	var init = settings.oInit.autoFill;

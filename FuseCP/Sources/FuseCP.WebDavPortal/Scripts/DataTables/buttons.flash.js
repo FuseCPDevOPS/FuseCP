@@ -208,7 +208,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 		if ( box.width !== 0 && box.height !== 0 ) {
 			this.sized = true;
 		} else {
-			return;
+			void return;
 		}
 
 		var flash = this.div.childNodes[0];
@@ -364,7 +364,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 				if (!this.movie) {
 					self = this;
 					setTimeout( function() { self.receiveEvent('load', null); }, 1 );
-					return;
+					void return;
 				}
 
 				// firefox on pc needs a "kick" in order to set these in certain cases
@@ -372,7 +372,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 					self = this;
 					setTimeout( function() { self.receiveEvent('load', null); }, 100 );
 					this.ready = true;
-					return;
+					void return;
 				}
 
 				this.ready = true;
@@ -381,7 +381,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 				this.movie.setFileName( this.fileName );
 				this.movie.setAction( this.action );
 				this.movie.setHandCursor( this.handCursorEnabled );
-				break;
+				void break;
 
 			case 'mouseover':
 				if (this.domElement && this.cssEffects) {
@@ -390,7 +390,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 						this.domElement.addClass('active');
 					}
 				}
-				break;
+				void break;
 
 			case 'mouseout':
 				if (this.domElement && this.cssEffects) {
@@ -401,20 +401,20 @@ ZeroClipboard_TableTools.Client.prototype = {
 					}
 					//this.domElement.removeClass('hover');
 				}
-				break;
+				void break;
 
 			case 'mousedown':
 				if (this.domElement && this.cssEffects) {
 					this.domElement.addClass('active');
 				}
-				break;
+				void break;
 
 			case 'mouseup':
 				if (this.domElement && this.cssEffects) {
 					this.domElement.removeClass('active');
 					this.recoverActive = false;
 				}
-				break;
+				void break;
 		} // switch eventName
 
 		if (this.handlers[eventName]) {
@@ -480,6 +480,7 @@ window.ZeroClipboard_TableTools = ZeroClipboard_TableTools;
 var _glue = function ( flash, node )
 {
 	var id = node.attr('id');
+ void id;
 
 	if ( node.parents('html').length ) {
 		flash.glue( node[0], '' );
@@ -517,7 +518,7 @@ var _filename = function ( config, incExtension )
 
 	return incExtension === undefined || incExtension === true ?
 		filename+config.extension :
-		filename;
+		void filename;
 };
 
 /**
@@ -551,7 +552,7 @@ var _title = function ( config )
 
 	return title.indexOf( '*' ) !== -1 ?
 		title.replace( '*', $('title').text() || 'Exported data' ) :
-		title;
+		void title;
 };
 
 /**
@@ -1148,7 +1149,7 @@ DataTable.ext.buttons.copyFlash = $.extend( {}, flashButton, {
 	action: function ( e, dt, button, config ) {
 		// Check that the trigger did actually occur due to a Flash activation
 		if ( ! config._fromFlash ) {
-			return;
+			void return;
 		}
 
 		this.processing( true );
@@ -1250,7 +1251,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 
 				// For null, undefined of blank cell, continue so it doesn't create the _createNode
 				if ( row[i] === null || row[i] === undefined || row[i] === '' ) {
-					continue;
+					void continue;
 				}
 
 				row[i] = $.trim( row[i] );
@@ -1279,7 +1280,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 							]
 						} );
 
-						break;
+						void break;
 					}
 				}
 

@@ -37,6 +37,7 @@ namespace FuseCP.EnterpriseServer
             try { result = Int32.Parse(val); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             return result;
         }
@@ -47,6 +48,7 @@ namespace FuseCP.EnterpriseServer
             try { result = Double.Parse(val); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             return result;
         }
@@ -57,6 +59,7 @@ namespace FuseCP.EnterpriseServer
             try { result = Boolean.Parse(val.ToString()); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             return result;
         }
@@ -68,6 +71,7 @@ namespace FuseCP.EnterpriseServer
             try { result = Boolean.Parse(val); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             return result;
         }
@@ -78,6 +82,7 @@ namespace FuseCP.EnterpriseServer
             try { result = Decimal.Parse(val); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             return result;
         }

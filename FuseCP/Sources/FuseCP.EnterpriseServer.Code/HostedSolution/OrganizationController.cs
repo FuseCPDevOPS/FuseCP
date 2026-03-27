@@ -421,6 +421,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                _ = ex;
                 }
 
                 if (enableAdditionalGroup)
@@ -3294,7 +3295,10 @@ namespace FuseCP.EnterpriseServer
                 // load account
                 account = GetAccount(itemId, accountId, false);
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                _ = ex;
+            }
 
             try
             {
@@ -3322,6 +3326,7 @@ namespace FuseCP.EnterpriseServer
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
             finally
             {
@@ -3378,6 +3383,7 @@ namespace FuseCP.EnterpriseServer
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+            _ = ex;
             }
 
             return (account);

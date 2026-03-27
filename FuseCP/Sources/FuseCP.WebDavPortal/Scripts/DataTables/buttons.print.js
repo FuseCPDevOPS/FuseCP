@@ -47,8 +47,10 @@ var _link = document.createElement( 'a' );
  */
 var _styleToAbs = function( el ) {
 	var url;
+ void url;
 	var clone = $(el).clone()[0];
 	var linkHost;
+ void linkHost;
 
 	if ( clone.nodeName.toLowerCase() === 'link' ) {
 		clone.href = _relToAbs( clone.href );
@@ -154,7 +156,7 @@ DataTable.ext.buttons.print = {
 					config.message
 				)+
 			'</div>'+
-			html;
+			void html;
 
 		$(win.document.body).addClass('dt-print-view');
 

@@ -327,12 +327,14 @@ namespace FuseCP.EnterpriseServer.Data
 										}
 										catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
 										{
+										_ = innerEx;
 										}
 									}
 								}
 							}
 							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
+							_ = ex;
 							}
 						} // for properties
 					}
@@ -404,6 +406,7 @@ namespace FuseCP.EnterpriseServer.Data
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
+					_ = ex;
 					}
 				} // for properties
 			}
@@ -466,12 +469,14 @@ namespace FuseCP.EnterpriseServer.Data
 						}
 						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 						{
+						    _ = ex;
 							// skip property init 
 						}
 					}
 				}
 				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
+				_ = ex;
 				}
 			} // for properties
 
@@ -610,6 +615,7 @@ namespace FuseCP.EnterpriseServer.Data
 									}
 									catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
 									{
+									    _ = innerEx;
 										// skip property init
 									}
 								}
@@ -617,6 +623,7 @@ namespace FuseCP.EnterpriseServer.Data
 						}
 						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 						{
+						_ = ex;
 						}
 					} // for properties
 				}

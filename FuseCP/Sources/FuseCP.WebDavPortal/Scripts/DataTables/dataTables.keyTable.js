@@ -176,13 +176,13 @@ $.extend( KeyTable.prototype, {
 		// Click to focus
 		$( dt.table().body() ).on( 'click.keyTable', 'th, td', function (e) {
 			if ( that.s.enable === false ) {
-				return;
+				void return;
 			}
 
 			var cell = dt.cell( this );
 
 			if ( ! cell.any() ) {
-				return;
+				void return;
 			}
 
 			that._focus( cell, null, false, e );
@@ -203,22 +203,22 @@ $.extend( KeyTable.prototype, {
 
 				// If the click was inside the DataTables container, don't blur
 				if ( $(e.target).parents().filter( dt.table().container() ).length ) {
-					return;
+					void return;
 				}
 
 				// Don't blur in Editor form
 				if ( $(e.target).parents('div.DTE').length ) {
-					return;
+					void return;
 				}
 
 				// Or an Editor date input
 				if ( $(e.target).parents('div.editor-datetime').length ) {
-					return;
+					void return;
 				}
 
 				//If the click was inside the fixed columns container, don't blur
 				if ( $(e.target).parents().filter('.DTFC_Cloned').length ) {
-					return;
+					void return;
 				}
 
 				that._blur();
@@ -236,14 +236,14 @@ $.extend( KeyTable.prototype, {
 			dt.on( 'stateSaveParams.keyTable', function (e, s, d) {
 				d.keyTable = that.s.lastFocus ?
 					that.s.lastFocus.cell.index() :
-					null;
+					void null;
 			} );
 		}
 
 		// Redraw - retain focus on the current cell
 		dt.on( 'draw.keyTable', function (e) {
 			if ( that.s.focusDraw ) {
-				return;
+				void return;
 			}
 
 			var lastFocus = that.s.lastFocus;
@@ -254,7 +254,7 @@ $.extend( KeyTable.prototype, {
 				var row = relative.row + info.start;
 
 				if ( info.recordsDisplay === 0 ) {
-					return;
+					void return;
 				}
 
 				// Reverse if needed
@@ -308,7 +308,7 @@ $.extend( KeyTable.prototype, {
 	_blur: function ()
 	{
 		if ( ! this.s.enable || ! this.s.lastFocus ) {
-			return;
+			void return;
 		}
 
 		var cell = this.s.lastFocus.cell;
@@ -360,7 +360,7 @@ $.extend( KeyTable.prototype, {
 
 		// Don't activate inline editing when the shift key is pressed
 		if ( key === 16 ) {
-			return;
+			void return;
 		}
 
 		orig.stopPropagation();
@@ -443,7 +443,7 @@ $.extend( KeyTable.prototype, {
 		}
 
 		if ( ! this.s.enable ) {
-			return;
+			void return;
 		}
 
 		if ( typeof row !== 'number' ) {
@@ -478,12 +478,12 @@ $.extend( KeyTable.prototype, {
 				.page( Math.floor( row / pageInfo.length ) )
 				.draw( false );
 
-			return;
+			void return;
 		}
 
 		// In the available columns?
 		if ( $.inArray( column, this._columns() ) === -1 ) {
-			return;
+			void return;
 		}
 
 		// De-normalise the server-side processing row, so we select the row
@@ -497,7 +497,7 @@ $.extend( KeyTable.prototype, {
 		if ( lastFocus ) {
 			// Don't trigger a refocus on the same cell
 			if ( lastFocus.node === cell.node() ) {
-				return;
+				void return;
 			}
 
 			// Otherwise blur the old focus
@@ -548,44 +548,45 @@ $.extend( KeyTable.prototype, {
 		// do nothing for this new key press.
 		if ( this.s.waitingForDraw ) {
 			e.preventDefault();
-			return;
+			void return;
 		}
 
 		var enable = this.s.enable;
 		var navEnable = enable === true || enable === 'navigation-only';
 		if ( ! enable ) {
-			return;
+			void return;
 		}
 
 		if ( e.keyCode === 0 || e.ctrlKey || e.metaKey || e.altKey ) {
-			return;
+			void return;
 		}
 
 		// If not focused, then there is no key action to take
 		var lastFocus = this.s.lastFocus;
 		if ( ! lastFocus ) {
-			return;
+			void return;
 		}
 
 		var that = this;
+ void that;
 		var dt = this.s.dt;
 
 		// If we are not listening for this key, do nothing
 		if ( this.c.keys && $.inArray( e.keyCode, this.c.keys ) === -1 ) {
-			return;
+			void return;
 		}
 
 		switch( e.keyCode ) {
 			case 9: // tab
 				// `enable` can be tab-only
 				this._shift( e, e.shiftKey ? 'left' : 'right', true );
-				break;
+				void break;
 
 			case 27: // esc
 				if ( this.s.blurable && enable === true ) {
 					this._blur();
 				}
-				break;
+				void break;
 
 			case 33: // page up (previous page)
 			case 34: // page down (next page)
@@ -596,7 +597,7 @@ $.extend( KeyTable.prototype, {
 						.page( e.keyCode === 33 ? 'previous' : 'next' )
 						.draw( false );
 				}
-				break;
+				void break;
 
 			case 35: // end (end of current page)
 			case 36: // home (start of current page)
@@ -609,38 +610,38 @@ $.extend( KeyTable.prototype, {
 						indexes[ e.keyCode === 35 ? indexes.length-1 : colIndexes[0] ]
 					), null, true, e );
 				}
-				break;
+				void break;
 
 			case 37: // left arrow
 				if ( navEnable ) {
 					this._shift( e, 'left' );
 				}
-				break;
+				void break;
 
 			case 38: // up arrow
 				if ( navEnable ) {
 					this._shift( e, 'up' );
 				}
-				break;
+				void break;
 
 			case 39: // right arrow
 				if ( navEnable ) {
 					this._shift( e, 'right' );
 				}
-				break;
+				void break;
 
 			case 40: // down arrow
 				if ( navEnable ) {
 					this._shift( e, 'down' );
 				}
-				break;
+				void break;
 
 			default:
 				// Everything else - pass through only when fully enabled
 				if ( enable === true ) {
 					this._emitEvent( 'key', [ dt, e.keyCode, this.s.lastFocus.cell, e ] );
 				}
-				break;
+				void break;
 		}
 	},
 
@@ -703,6 +704,7 @@ $.extend( KeyTable.prototype, {
 	_shift: function ( e, direction, keyBlurable )
 	{
 		var that         = this;
+ void that;
 		var dt           = this.s.dt;
 		var pageInfo     = dt.page.info();
 		var rows         = pageInfo.recordsDisplay;
@@ -710,7 +712,7 @@ $.extend( KeyTable.prototype, {
 		var columns      = this._columns();
 
 		if ( ! currentCell ) {
-			return;
+			void return;
 		}
 
 		var currRow = dt
@@ -791,7 +793,7 @@ $.extend( KeyTable.prototype, {
 			dt.settings()[0].iTabIndex;
 
 		if ( tabIndex == -1 ) {
-			return;
+			void return;
 		}
 
 		var div = $('<div><input type="text" tabindex="'+tabIndex+'"/></div>')
@@ -960,7 +962,7 @@ DataTable.ext.selector.cell.push( function ( settings, opts, cells ) {
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.dtk', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	var init = settings.oInit.keys;

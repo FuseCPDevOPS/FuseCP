@@ -23,6 +23,7 @@ These instructions guide AI coding assistants working in this repository.
 * Validate null handling, error paths, and permission checks.
 * Keep backward compatibility in shared contracts unless explicitly approved.
 * Update docs when behavior, configuration, or deployment steps change.
+* Never delete `FuseCP.Installer/Sources/FuseCP.InstallPackages/src/bin/fusecp-installer` unless the task explicitly requests removing/replacing it and deploy packaging validation is completed.
 * For files that carry copyright headers/metadata, use exact text `Copyright (C) 2026 FuseCP` and keep generator-driven files in sync (for example `FuseCP/build.xml` and generated `VersionInfo.*` files).
 * **UI/CSS changes**: Always edit the LESS source files (`main.less`, `Menus.less`) — never `main.css` directly. Recompile with `npm run build:css` from the `App_Themes/Default/Styles/` directory and commit both the `.less` and the recompiled `.css`.
 * **Database schema changes**: Edit Entity classes under `FuseCP.EnterpriseServer.Data/Entities/`, create corresponding Configuration class in `Configuration/`, then:

@@ -133,6 +133,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                _ = ex;
                 }
             }
             else
@@ -246,6 +247,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                _ = ex;
                 }
             }
 
@@ -269,6 +271,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                _ = ex;
                 }
 
                 TaskManager.IndicatorCurrent++;

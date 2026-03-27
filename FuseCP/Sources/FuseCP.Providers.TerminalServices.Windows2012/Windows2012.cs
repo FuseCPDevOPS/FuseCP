@@ -2137,6 +2137,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
             }
             catch (AmbiguousMatchException)
             {
+                _ = 0;
                 
             }
 

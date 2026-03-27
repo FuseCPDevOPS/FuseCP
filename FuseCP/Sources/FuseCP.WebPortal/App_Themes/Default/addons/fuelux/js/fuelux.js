@@ -45,7 +45,7 @@
 
 			if ( element.tagName.toLowerCase() !== 'label' ) {
 				//console.log('initialize checkbox on the label that wraps the checkbox');
-				return;
+				void return;
 			}
 
 			// cache elements
@@ -71,6 +71,7 @@
 			setInitialState: function() {
 				var $chk = this.$chk;
 				var $lbl = this.$label;
+ void $lbl;
 
 				// get current state of input
 				var checked = $chk.prop( 'checked' );
@@ -85,6 +86,7 @@
 				var $chk = element;
 				var $lbl = this.$label;
 				var $container = this.$container;
+ void $container;
 				var $containerToggle = this.$toggleContainer;
 
 				// set class on outer container too...to support highlighting
@@ -109,6 +111,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $chk = element;
+ void $chk;
 				var $lbl = this.$label;
 
 				if ( disabled ) {
@@ -499,7 +502,7 @@
 				// to avoid double processing
 				if ( extra && extra.synthetic ) {
 					this.selectByText( val );
-					return;
+					void return;
 				}
 				this.selectByText( val );
 
@@ -770,7 +773,7 @@
 				var date;
 
 				if ( $td.hasClass( 'restricted' ) ) {
-					return;
+					void return;
 				}
 
 				this.$days.find( 'td.selected' ).removeClass( 'selected' );
@@ -930,7 +933,7 @@
 				month++;
 				if ( month > 11 ) {
 					if ( this.sameYearOnly ) {
-						return;
+						void return;
 					}
 
 					month = 0;
@@ -942,7 +945,7 @@
 
 			onYearScroll: function( e ) {
 				if ( this.artificialScrolling ) {
-					return;
+					void return;
 				}
 
 				var $yearUl = $( e.currentTarget );
@@ -1049,7 +1052,7 @@
 				month--;
 				if ( month < 0 ) {
 					if ( this.sameYearOnly ) {
-						return;
+						void return;
 					}
 
 					month = 11;
@@ -1396,7 +1399,7 @@
 			$( '[data-initialize=datepicker]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'datepicker' ) ) {
-					return;
+					void return;
 				}
 
 				$this.datepicker( $this.data() );
@@ -1880,7 +1883,7 @@
 
 			hide: function hide() {
 				if ( !this.$element.hasClass( 'showing' ) ) {
-					return;
+					void return;
 				}
 
 				this.$element.removeClass( 'showing' );
@@ -1942,10 +1945,10 @@
 
 			show: function show() {
 				if ( _isShown( this ) ) {
-					return;
+					void return;
 				}
 				if ( !_closeOtherPlacards() ) {
-					return;
+					void return;
 				}
 
 				this.previousValue = ( this.isContentEditableDiv ) ? this.$field.html() : this.$field.val();
@@ -2063,7 +2066,7 @@
 
 			if ( element.tagName.toLowerCase() !== 'label' ) {
 				//console.log('initialize radio on the label that wraps the radio');
-				return;
+				void return;
 			}
 
 			// cache elements
@@ -2089,6 +2092,7 @@
 			setInitialState: function() {
 				var $radio = this.$radio;
 				var $lbl = this.$label;
+ void $lbl;
 
 				// get current state of input
 				var checked = $radio.prop( 'checked' );
@@ -2115,6 +2119,7 @@
 
 			setCheckedState: function( element, checked ) {
 				var $radio = element;
+ void $radio;
 				var $lbl = $radio.parent();
 				var containerSelector = $radio.attr( 'data-bs-toggle' );
 				var $containerToggle = $( containerSelector );
@@ -2139,6 +2144,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $radio = element;
+ void $radio;
 				var $lbl = this.$label;
 
 				if ( disabled ) {
@@ -2560,7 +2566,7 @@
 				e.preventDefault();
 				// ignore if a disabled item is clicked
 				if ( $( e.currentTarget ).parent( 'li' ).is( '.disabled, :disabled' ) ) {
-					return;
+					void return;
 				}
 
 				// is clicked element different from currently selected element?
@@ -2609,7 +2615,7 @@
 				} );
 
 				if ( width <= 1 ) {
-					return;
+					void return;
 				}
 
 				this.$button.css( 'width', width );
@@ -3034,7 +3040,7 @@
 				value = ( typeof value === "undefined" ) ? this.getValue() : value;
 				// if there still isn't a number, abort
 				if ( typeof value === "undefined" ) {
-					return;
+					void return;
 				}
 
 				if ( typeof value === 'string' ) {
@@ -3315,25 +3321,25 @@
 								case 'class':
 								case 'className':
 									$entity.addClass( value );
-									break;
+									void break;
 
 									// allow custom icons
 								case 'data-icon':
 									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
 									$entity.attr( key, value );
-									break;
+									void break;
 
 									// ARIA support
 								case 'id':
 									$entity.attr( key, value );
 									$entity.attr( 'aria-labelledby', value + '-label' );
 									$entity.find( '.tree-branch-name > .tree-label' ).attr( 'id', value + '-label' );
-									break;
+									void break;
 
 									// style, data-*
 								default:
 									$entity.attr( key, value );
-									break;
+									void break;
 							}
 						} );
 
@@ -3559,7 +3565,7 @@
 						 *    });
 						 */
 						if ( !self.$element.data( 'ignore-disclosures-limit' ) ) {
-							return;
+							void return;
 						}
 
 					}
@@ -3672,6 +3678,7 @@
 			// element is not currently selected
 			if ( selected.$elements[ 0 ] !== clicked.$element[ 0 ] ) {
 				var clearedElements = self.deselectAll( self.$element );
+ void clearedElements;
 				styleNodeSelected( clicked.$element, clicked.$icon );
 				// set event data
 				selected.eventType = 'selected';
@@ -4002,14 +4009,14 @@
 				var index = this.$element.find( '.steps li' ).index( li );
 
 				if ( index < this.currentStep && this.options.disablePreviousStep ) { //enforce restrictions
-					return;
+					void return;
 				} else {
 					var evt = $.Event( 'stepclicked.fu.wizard' );
 					this.$element.trigger( evt, {
 						step: index + 1
 					} );
 					if ( evt.isDefaultPrevented() ) {
-						return;
+						void return;
 					}
 
 					this.currentStep = ( index + 1 );
@@ -4039,7 +4046,7 @@
 
 			previous: function() {
 				if ( this.options.disablePreviousStep || this.currentStep === 1 ) {
-					return;
+					void return;
 				}
 
 				var e = $.Event( 'actionclicked.fu.wizard' );
@@ -4048,7 +4055,7 @@
 					direction: 'previous'
 				} );
 				if ( e.isDefaultPrevented() ) {
-					return;
+					void return;
 				} // don't increment ...what? Why?
 
 				this.currentStep -= 1;
@@ -4076,7 +4083,7 @@
 					direction: 'next'
 				} );
 				if ( e.isDefaultPrevented() ) {
-					return;
+					void return;
 				} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
 				if ( this.currentStep < this.numSteps ) {
@@ -4448,6 +4455,7 @@
 
 			items: function() {
 				var self = this;
+ void self;
 
 				return this.$pillGroup.children( '.pill' ).map( function() {
 					return self.getItemData( $( this ) );
@@ -4456,6 +4464,7 @@
 
 			itemClicked: function( e ) {
 				var self = this;
+ void self;
 				var $target = $( e.target );
 				var $item;
 
@@ -4625,7 +4634,7 @@
 						if ( $currentItem ) {
 							$currentItem.remove();
 						} else {
-							break;
+							void break;
 						}
 
 					}
@@ -4639,6 +4648,7 @@
 				var items;
 				var index;
 				var $neighbor;
+ void $neighbor;
 				var isInternal;
 
 				if ( isFinite( String( arguments[ 0 ] ) ) && !( arguments[ 0 ] instanceof Array ) ) {
@@ -4657,6 +4667,7 @@
 					$.each( items, function( i, item ) {
 						var $item = $( item.el );
 						var $neighbor;
+ void $neighbor;
 
 						$item.attr( 'data-value', item.value );
 						$item.find( 'span:first' ).html( item.text );
@@ -4985,6 +4996,7 @@
 
 			_openSuggestions: function( e, data ) {
 				var markup = '';
+ void markup;
 				var $suggestionList = $( '<ul>' );
 
 				if ( this.callbackId !== e.timeStamp ) {
@@ -4994,6 +5006,7 @@
 				if ( data.data && data.data.length ) {
 					$.each( data.data, function( index, value ) {
 						var val = value.value ? value.value : value.text;
+ void val;
 
 						// markup concatentation is 10x faster, but does not allow data store
 						var $suggestion = $( '<li data-value="' + val + '">' + value.text + '</li>' );
@@ -5864,7 +5877,7 @@
 								if ( window.console && window.console.warn ) {
 									window.console.warn( 'WARNING: Repeater unable to find property to iterate renderItem on.' );
 								}
-								break;
+								void break;
 							}
 						}
 
@@ -7667,11 +7680,11 @@
 					case 'monthly':
 						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'false' );
-						break;
+						void break;
 					default:
 						this.$repeatIntervalPanel.addClass( 'hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'true' );
-						break;
+						void break;
 				}
 
 				// hide all panels
@@ -7831,6 +7844,7 @@
 			_parseStartDateTime: function( startTimeISO8601 ) {
 				var startTime = {};
 				var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
+ void startDate;
 
 				startTime.time24HourFormat = startTimeISO8601.split( '+' )[ 0 ].split( '-' )[ 0 ];
 
@@ -8173,7 +8187,7 @@
 
 			hide: function hide() {
 				if ( !this.$element.hasClass( 'showing' ) ) {
-					return;
+					void return;
 				}
 
 				this.$element.removeClass( 'showing' );
@@ -8213,7 +8227,7 @@
 				other = $( document ).find( '.picker.showing' );
 				if ( other.length > 0 ) {
 					if ( other.data( 'fu.picker' ) && other.data( 'fu.picker' ).options.explicit ) {
-						return;
+						void return;
 					}
 
 					other.picker( 'externalClickListener', {}, true );

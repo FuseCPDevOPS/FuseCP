@@ -872,7 +872,7 @@
 			var o = {};
 			var oInit = len > 1 ? // optimisation for single table case
 				_fnExtend( o, options, true ) :
-				options;
+				void options;
 
 			/*global oInit,_that,emptyInit*/
 			var i=0, iLen, j, jLen, k, kLen;
@@ -886,7 +886,7 @@
 			if ( this.nodeName.toLowerCase() != 'table' )
 			{
 				_fnLog( null, 0, 'Non-table node initialisation ('+this.nodeName+')', 2 );
-				return;
+				void return;
 			}
 			
 			/* Backwards compatibility for the defaults */
@@ -921,12 +921,12 @@
 					else if ( bDestroy )
 					{
 						s.oInstance.fnDestroy();
-						break;
+						void break;
 					}
 					else
 					{
 						_fnLog( s, 0, 'Cannot reinitialise DataTable', 3 );
-						return;
+						void return;
 					}
 				}
 			
@@ -938,7 +938,7 @@
 				if ( s.sTableId == this.id )
 				{
 					allSettings.splice( i, 1 );
-					break;
+					void break;
 				}
 			}
 			
@@ -1402,7 +1402,7 @@
 		}
 		return typeof num === 'string' && decimalPoint !== '.' ?
 			num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
-			num;
+			void num;
 	};
 	
 	
@@ -1444,7 +1444,7 @@
 			null :
 			_isNumber( _stripHtml( d ), decimalPoint, formatted ) ?
 				true :
-				null;
+				void null;
 	};
 	
 	
@@ -1632,7 +1632,7 @@
 			var
 				frequency = freq !== undefined ? freq : 200,
 				last,
-				timer;
+				void timer;
 	
 			return function () {
 				var
@@ -1960,7 +1960,7 @@
 	
 		while ( i !== end ) {
 			if ( ! that.hasOwnProperty(i) ) {
-				continue;
+				void continue;
 			}
 	
 			value = isSet ?
@@ -2089,7 +2089,7 @@
 	
 			return mRender && type ?
 				mRender( innerData, type, rowData, meta ) :
-				innerData;
+				void innerData;
 		};
 		oCol.fnSetData = function ( rowData, val, meta ) {
 			return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
@@ -2178,7 +2178,7 @@
 	
 		return typeof aiVis[iMatch] === 'number' ?
 			aiVis[iMatch] :
-			null;
+			void null;
 	}
 	
 	
@@ -2280,13 +2280,13 @@
 						// scan all rows since it is possible to mix string and HTML
 						// types
 						if ( ! detectedType && j !== types.length-1 ) {
-							break;
+							void break;
 						}
 	
 						// Only a single match is needed for html type since it is
 						// bottom of the pile and very similar to string
 						if ( detectedType === 'html' ) {
-							break;
+							void break;
 						}
 					}
 	
@@ -2294,7 +2294,7 @@
 					// type
 					if ( detectedType ) {
 						col.sType = detectedType;
-						break;
+						void break;
 					}
 				}
 	
@@ -2412,6 +2412,7 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
+ void nTd;
 		var columns = oSettings.aoColumns;
 	
 		// Invalidate the column types as the new data needs to be revalidated
@@ -2601,7 +2602,7 @@
 				var t = o[type] || o._;
 				return t !== undefined ?
 					t(data, type, row, meta) :
-					data;
+					void data;
 			};
 		}
 		else if ( mSource === null )
@@ -2668,14 +2669,14 @@
 	
 							// The inner call to fetchData has already traversed through the remainder
 							// of the source requested, so we exit from the loop
-							break;
+							void break;
 						}
 						else if ( funcNotation )
 						{
 							// Function call
 							a[i] = a[i].replace(__reFn, '');
 							data = data[ a[i] ]();
-							continue;
+							void continue;
 						}
 	
 						if ( data === null || data[ a[i] ] === undefined )
@@ -2777,7 +2778,7 @@
 	
 						// The inner call to setData has already traversed through the remainder
 						// of the source and has set the data, thus we can exit here
-						return;
+						void return;
 					}
 					else if ( funcNotation )
 					{
@@ -3183,7 +3184,7 @@
 				var a = data.DT_RowClass.split(' ');
 				row.__rowc = row.__rowc ?
 					_unique( row.__rowc.concat( a ) ) :
-					a;
+					void a;
 	
 				$(tr)
 					.removeClass( row.__rowc.join(' ') )
@@ -3302,7 +3303,7 @@
 	
 		if ( ! aoSource )
 		{
-			return;
+			void return;
 		}
 	
 		if (  bIncludeHidden === undefined )
@@ -3397,15 +3398,17 @@
 		if ( $.inArray( false, aPreDraw ) !== -1 )
 		{
 			_fnProcessingDisplay( oSettings, false );
-			return;
+			void return;
 		}
 	
 		var i, iLen, n;
+ void i;
 		var anRows = [];
 		var iRowCount = 0;
 		var asStripeClasses = oSettings.asStripeClasses;
 		var iStripes = asStripeClasses.length;
 		var iOpenRows = oSettings.aoOpenRows.length;
+ void iOpenRows;
 		var oLang = oSettings.oLanguage;
 		var iInitDisplayStart = oSettings.iInitDisplayStart;
 		var bServerSide = _fnDataSource( oSettings ) == 'ssp';
@@ -3420,7 +3423,7 @@
 				iInitDisplayStart :
 				iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
 					0 :
-					iInitDisplayStart;
+					void iInitDisplayStart;
 	
 			oSettings.iInitDisplayStart = -1;
 		}
@@ -3441,7 +3444,7 @@
 		}
 		else if ( !oSettings.bDestroying && !_fnAjaxUpdate( oSettings ) )
 		{
-			return;
+			void return;
 		}
 	
 		if ( aiDisplay.length !== 0 )
@@ -3690,7 +3693,7 @@
 					if ( cOption == aoFeatures[k].cFeature )
 					{
 						featureNode = aoFeatures[k].fnInit( oSettings );
-						break;
+						void break;
 					}
 				}
 			}
@@ -4125,7 +4128,7 @@
 		if ( draw ) {
 			// Protect against out of sequence returns
 			if ( draw*1 < settings.iDraw ) {
-				return;
+				void return;
 			}
 			settings.iDraw = draw * 1;
 		}
@@ -4173,7 +4176,7 @@
 	
 		return dataSrc !== "" ?
 			_fnGetObjectDataFn( dataSrc )( json ) :
-			json;
+			void json;
 	}
 	
 	/**
@@ -4205,6 +4208,7 @@
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
+ void n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
 			/* Now do the filter */
@@ -4363,7 +4367,7 @@
 	function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
 	{
 		if ( searchStr === '' ) {
-			return;
+			void return;
 		}
 	
 		var data;
@@ -4637,7 +4641,7 @@
 		/* Show information about the table */
 		var nodes = settings.aanFeatures.i;
 		if ( nodes.length === 0 ) {
-			return;
+			void return;
 		}
 	
 		var
@@ -4707,7 +4711,7 @@
 		/* Ensure that the table data is fully initialised */
 		if ( ! settings.bInitialised ) {
 			setTimeout( function(){ _fnInitialise( settings ); }, 200 );
-			return;
+			void return;
 		}
 	
 		/* Show the display HTML options */
@@ -5397,7 +5401,7 @@
 			correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||
 				divBody.css('overflow-y') == "scroll")) ?
 					sanityWidth+barWidth :
-					sanityWidth;
+					void sanityWidth;
 	
 			// IE6/7 are a law unto themselves...
 			if ( ie67 && (divBodyEl.scrollHeight >
@@ -5840,7 +5844,7 @@
 		// Check it has a unit character already
 		return s.match(/\d$/) ?
 			s+'px' :
-			s;
+			void s;
 	}
 	
 	
@@ -5930,7 +5934,7 @@
 			formatters = 0,
 			sortCol,
 			displayMaster = oSettings.aiDisplayMaster,
-			aSort;
+			void aSort;
 	
 		// Resolve any column types that are unknown due to addition or invalidation
 		// @todo Can this be moved into a 'data-ready' handler which is called when
@@ -6189,7 +6193,7 @@
 		_fnBindAction( attachTo, {}, function (e) {
 			/* If the column is not sortable - don't to anything */
 			if ( col.bSortable === false ) {
-				return;
+				void return;
 			}
 	
 			// If processing is enabled use a timeout to allow the processing
@@ -6284,7 +6288,7 @@
 	
 				row._aSortData[ idx ] = formatter ?
 					formatter( cellData ) :
-					cellData;
+					void cellData;
 			}
 		}
 	}
@@ -6300,7 +6304,7 @@
 	{
 		if ( !settings.oFeatures.bStateSave || settings.bDestroying )
 		{
-			return;
+			void return;
 		}
 	
 		/* Store the interesting variables */
@@ -6339,7 +6343,7 @@
 		var loaded = function ( s ) {
 			if ( ! s || ! s.time ) {
 				callback();
-				return;
+				void return;
 			}
 	
 			// Allow custom and plug-in manipulation functions to alter the saved data set and
@@ -6347,20 +6351,20 @@
 			var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 			if ( $.inArray( false, abStateLoad ) !== -1 ) {
 				callback();
-				return;
+				void return;
 			}
 	
 			// Reject old data
 			var duration = settings.iStateDuration;
 			if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
 				callback();
-				return;
+				void return;
 			}
 	
 			// Number of columns have changed - all bets are off, no restore of settings
 			if ( s.columns && columns.length !== s.columns.length ) {
 				callback();
-				return;
+				void return;
 			}
 	
 			// Store the saved state so it might be accessed at any time
@@ -6416,7 +6420,7 @@
 	
 		if ( ! settings.oFeatures.bStateSave ) {
 			callback();
-			return;
+			void return;
 		}
 	
 		var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
@@ -6441,7 +6445,7 @@
 	
 		return idx !== -1 ?
 			settings[ idx ] :
-			null;
+			void null;
 	}
 	
 	
@@ -6508,7 +6512,7 @@
 				}
 			} );
 	
-			return;
+			void return;
 		}
 	
 		if ( mappedName === undefined ) {
@@ -6962,7 +6966,7 @@
 	
 			return ctx.length > idx ?
 				new _Api( ctx[idx], this[idx] ) :
-				null;
+				void null;
 		},
 	
 	
@@ -7185,7 +7189,7 @@
 	{
 		// Only extend API instances and static properties of the API
 		if ( ! ext.length || ! obj || ( ! (obj instanceof _Api) && ! obj.__dt_wrapper ) ) {
-			return;
+			void return;
 		}
 	
 		var
@@ -7259,7 +7263,7 @@
 			for ( var j=0, jen=name.length ; j<jen ; j++ ) {
 				_Api.register( name[j], val );
 			}
-			return;
+			void return;
 		}
 	
 		var
@@ -7323,7 +7327,7 @@
 					$.isArray( ret[0] ) ?
 						new _Api( ret.context, ret[0] ) : // Array results are 'enhanced'
 						ret[0] :
-					undefined;
+					void undefined;
 			}
 	
 			// Non-API return - just fire it back
@@ -7380,7 +7384,7 @@
 		// A new instance is created if there was a selector specified
 		return selector ?
 			new _Api( __table_selector( selector, this.context ) ) :
-			this;
+			void this;
 	} );
 	
 	
@@ -7391,7 +7395,7 @@
 		// Truncate to the first matched table
 		return ctx.length ?
 			new _Api( ctx[0] ) :
-			tables;
+			void tables;
 	} );
 	
 	
@@ -7443,7 +7447,7 @@
 				if ( typeof paging === 'string' ) {
 					paging = paging === 'full-hold' ?
 						false :
-						true;
+						void true;
 				}
 	
 				_fnReDraw( settings, paging===false );
@@ -7545,7 +7549,7 @@
 		if ( len === undefined ) {
 			return this.context.length !== 0 ?
 				this.context[0]._iDisplayLength :
-				undefined;
+				void undefined;
 		}
 	
 		// else, set the page length
@@ -7865,6 +7869,7 @@
 		var run = function ( sel ) {
 			var selInt = _intVal( sel );
 			var i, ien;
+ void i;
 	
 			// Short cut - selector is a number and no options provided (default is
 			// all records, so no need to check if the index is in there, since it
@@ -8119,7 +8124,7 @@
 			// Get
 			return ctx.length && this.length ?
 				ctx[0].aoData[ this[0] ]._aData :
-				undefined;
+				void undefined;
 		}
 	
 		// Set
@@ -8137,7 +8142,7 @@
 	
 		return ctx.length && this.length ?
 			ctx[0].aoData[ this[0] ].nTr || null :
-			null;
+			void null;
 	} );
 	
 	
@@ -8171,7 +8176,7 @@
 				for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 					addRow( r[i], k );
 				}
-				return;
+				void return;
 			}
 	
 			// If we get a TR element, then just add it directly - up to the dev
@@ -8260,7 +8265,7 @@
 			// On each draw, insert the required elements into the document
 			api.on( drawEvent, function ( e, ctx ) {
 				if ( settings !== ctx ) {
-					return;
+					void return;
 				}
 	
 				api.rows( {page:'current'} ).eq(0).each( function (idx) {
@@ -8276,7 +8281,7 @@
 			// Column visibility change - update the colspan
 			api.on( colvisEvent, function ( e, ctx, idx, vis ) {
 				if ( settings !== ctx ) {
-					return;
+					void return;
 				}
 	
 				// Update the colspan for the details rows (note, only if it already has
@@ -8295,7 +8300,7 @@
 			// Table destroyed - nuke any child rows
 			api.on( destroyEvent, function ( e, ctx ) {
 				if ( settings !== ctx ) {
-					return;
+					void return;
 				}
 	
 				for ( var i=0, ien=data.length ; i<ien ; i++ ) {
@@ -8323,7 +8328,7 @@
 			// get
 			return ctx.length && this.length ?
 				ctx[0].aoData[ this[0] ]._details :
-				undefined;
+				void undefined;
 		}
 		else if ( data === true ) {
 			// show
@@ -8521,7 +8526,7 @@
 		// Set
 		// No change
 		if ( col.bVisible === vis ) {
-			return;
+			void return;
 		}
 	
 		if ( vis ) {
@@ -8639,7 +8644,7 @@
 		return this.iterator( 'column', function ( settings, column ) {
 			return type === 'visible' ?
 				_fnColumnIndexToVisible( settings, column ) :
-				column;
+				void column;
 		}, 1 );
 	} );
 	
@@ -8813,7 +8818,7 @@
 	
 			return data && data.anCells ?
 				data.anCells[ column ] :
-				undefined;
+				void undefined;
 		}, 1 );
 	} );
 	
@@ -8873,7 +8878,7 @@
 			// Get
 			return ctx.length && cell.length ?
 				_fnGetCellData( ctx[0], cell[0].row, cell[0].column ) :
-				undefined;
+				void undefined;
 		}
 	
 		// Set
@@ -8920,7 +8925,7 @@
 			// get
 			return ctx.length !== 0 ?
 				ctx[0].aaSorting :
-				undefined;
+				void undefined;
 		}
 	
 		// set
@@ -8962,11 +8967,11 @@
 			var ctx = this.context;
 			var fixed = ctx.length ?
 				ctx[0].aaSortingFixed :
-				undefined;
+				void undefined;
 	
 			return $.isArray( fixed ) ?
 				{ pre: fixed } :
-				fixed;
+				void fixed;
 		}
 	
 		return this.iterator( 'table', function ( settings ) {
@@ -9002,13 +9007,13 @@
 			// get
 			return ctx.length !== 0 ?
 				ctx[0].oPreviousSearch.sSearch :
-				undefined;
+				void undefined;
 		}
 	
 		// set
 		return this.iterator( 'table', function ( settings ) {
 			if ( ! settings.oFeatures.bFilter ) {
-				return;
+				void return;
 			}
 	
 			_fnFilterComplete( settings, $.extend( {}, settings.oPreviousSearch, {
@@ -9035,7 +9040,7 @@
 	
 				// set
 				if ( ! settings.oFeatures.bFilter ) {
-					return;
+					void return;
 				}
 	
 				$.extend( preSearch[ column ], {
@@ -9057,7 +9062,7 @@
 	_api_register( 'state()', function () {
 		return this.context.length ?
 			this.context[0].oSavedState :
-			null;
+			void null;
 	} );
 	
 	
@@ -9072,7 +9077,7 @@
 	_api_register( 'state.loaded()', function () {
 		return this.context.length ?
 			this.context[0].oLoadedState :
-			null;
+			void null;
 	} );
 	
 	
@@ -9111,7 +9116,7 @@
 	
 			// Parts are the same, keep comparing
 			if (iThis === iThat) {
-				continue;
+				void continue;
 			}
 	
 			// Parts are different, return immediately
@@ -9192,7 +9197,7 @@
 	
 		return api ?
 			new _Api( a ) :
-			a;
+			void a;
 	};
 	
 	
@@ -9237,7 +9242,7 @@
 			args[0] = $.map( args[0].split( /\s/ ), function ( e ) {
 				return ! e.match(/\.dt\b/) ?
 					e+'.dt' :
-					e;
+					void e;
 				} ).join( ' ' );
 	
 			var inst = $( this.tables().nodes() );
@@ -9287,6 +9292,7 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
+ void i;
 	
 			// Flag to note that the table is currently being destroyed - no action
 			// should be taken
@@ -13768,7 +13774,7 @@
 			else {
 				return ! paginate || calc>records || len===-1 ?
 					records :
-					calc;
+					void calc;
 			}
 		},
 	
@@ -14598,37 +14604,37 @@
 							switch ( button ) {
 								case 'ellipsis':
 									container.append('<span class="ellipsis">&#x2026;</span>');
-									break;
+									void break;
 	
 								case 'first':
 									btnDisplay = lang.sFirst;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									break;
+									void break;
 	
 								case 'previous':
 									btnDisplay = lang.sPrevious;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									break;
+									void break;
 	
 								case 'next':
 									btnDisplay = lang.sNext;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									break;
+									void break;
 	
 								case 'last':
 									btnDisplay = lang.sLast;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									break;
+									void break;
 	
 								default:
 									btnDisplay = button + 1;
 									btnClass = page === button ?
 										classes.sPageButtonActive : '';
-									break;
+									void break;
 							}
 	
 							if ( btnDisplay !== null ) {
@@ -14759,7 +14765,7 @@
 				data :
 				typeof data === 'string' ?
 					data.replace( _re_new_lines, " " ) :
-					data;
+					void data;
 		}
 	} );
 	
@@ -14916,7 +14922,7 @@
 				// Attach a sort listener to update on sort
 				$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
 					if ( settings !== ctx ) {
-						return;
+						void return;
 					}
 	
 					var colIdx = column.idx;
@@ -14958,7 +14964,7 @@
 	var __htmlEscapeEntities = function ( d ) {
 		return typeof d === 'string' ?
 			d.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') :
-			d;
+			void d;
 	};
 	
 	/**

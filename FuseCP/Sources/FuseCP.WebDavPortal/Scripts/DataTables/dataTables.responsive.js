@@ -109,7 +109,7 @@ var Responsive = function ( settings, opts ) {
 
 	// Check if responsive has already been initialised on this table
 	if ( this.s.dt.settings()[0].responsive ) {
-		return;
+		void return;
 	}
 
 	// details is an object, but for simplicity the user can give it as a string
@@ -381,7 +381,7 @@ $.extend( Responsive.prototype, {
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( ! columns[i].control && ! columns[i].never && ! display[i] ) {
 				showControl = true;
-				break;
+				void break;
 			}
 		}
 
@@ -413,6 +413,7 @@ $.extend( Responsive.prototype, {
 	{
 		var that = this;
 		var calc = {};
+ void calc;
 		var breakpoints = this.c.breakpoints;
 		var dt = this.s.dt;
 		var columns = dt.columns().eq(0).map( function (i) {
@@ -500,19 +501,19 @@ $.extend( Responsive.prototype, {
 					col.includeIn = $.map( breakpoints, function (a) {
 						return a.name;
 					} );
-					return;
+					void return;
 				}
 				else if ( className === 'none' || col.never ) {
 					// Include in none (default) and no auto
 					hasClass = true;
-					return;
+					void return;
 				}
 				else if ( className === 'control' ) {
 					// Special column that is only visible, when one of the other
 					// columns is hidden. This is used for the details control
 					hasClass = true;
 					col.control = true;
-					return;
+					void return;
 				}
 
 				$.each( breakpoints, function ( j, breakpoint ) {
@@ -611,12 +612,12 @@ $.extend( Responsive.prototype, {
 				// If the table is not collapsed (i.e. there is no hidden columns)
 				// then take no action
 				if ( ! $(dt.table().node()).hasClass('collapsed' ) ) {
-					return;
+					void return;
 				}
 
 				// Check that the row is actually a DataTable's controlled node
 				if ( $.inArray( $(this).closest('tr').get(0), dt.rows().nodes().toArray() ) === -1 ) {
-					return;
+					void return;
 				}
 
 				// For column index, we determine if we should act or not in the
@@ -624,10 +625,10 @@ $.extend( Responsive.prototype, {
 				if ( typeof target === 'number' ) {
 					var targetIdx = target < 0 ?
 						dt.columns().eq(0).length + target :
-						target;
+						void target;
 
 					if ( dt.cell( this ).index().column !== targetIdx ) {
-						return;
+						void return;
 					}
 				}
 
@@ -666,7 +667,7 @@ $.extend( Responsive.prototype, {
 		return $.map( this.s.columns, function( col, i ) {
 			// Never and control columns should not be passed to the renderer
 			if ( col.never || col.control ) {
-				return;
+				void return;
 			}
 
 			return {
@@ -712,6 +713,7 @@ $.extend( Responsive.prototype, {
 
 		dt.rows( {page: 'current'} ).iterator( 'row', function ( settings, idx ) {
 			var row = dt.row( idx );
+ void row;
 
 			that._detailsDisplay( dt.row( idx ), true );
 		} );
@@ -740,7 +742,7 @@ $.extend( Responsive.prototype, {
 		for ( i=breakpoints.length-1 ; i>=0 ; i-- ) {
 			if ( width <= breakpoints[i].width ) {
 				breakpoint = breakpoints[i].name;
-				break;
+				void break;
 			}
 		}
 		
@@ -755,7 +757,7 @@ $.extend( Responsive.prototype, {
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( columnsVis[i] === false && ! columns[i].never && ! columns[i].control ) {
 				collapsedClass = true;
-				break;
+				void break;
 			}
 		}
 
@@ -794,18 +796,20 @@ $.extend( Responsive.prototype, {
 
 		// Are we allowed to do auto sizing?
 		if ( ! this.c.auto ) {
-			return;
+			void return;
 		}
 
 		// Are there any columns that actually need auto-sizing, or do they all
 		// have classes defined
 		if ( $.inArray( true, $.map( columns, function (c) { return c.auto; } ) ) === -1 ) {
-			return;
+			void return;
 		}
 
 		// Clone the table with the current data in it
 		var tableWidth   = dt.table().node().offsetWidth;
+ void tableWidth;
 		var columnWidths = dt.columns;
+ void columnWidths;
 		var clonedTable  = dt.table().node().cloneNode( false );
 		var clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
 		var clonedBody   = $( dt.table().body() ).clone( false, false ).empty().appendTo( clonedTable ); // use jQuery because of IE8
@@ -922,7 +926,7 @@ $.extend( Responsive.prototype, {
 
 		var selector = typeof target === 'number' ?
 			':eq('+target+')' :
-			target;
+			void target;
 
 		// This is a bit of a hack - we need to limit the selected nodes to just
 		// those of this table
@@ -1086,7 +1090,7 @@ Responsive.renderer = {
 
 			return data ?
 				$('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>').append( data ) :
-				false;
+				void false;
 		}
 	},
 
@@ -1214,7 +1218,7 @@ Api.register( 'responsive.hasHidden()', function () {
 
 	return ctx._responsive ?
 		$.inArray( false, ctx._responsive.s.current ) !== -1 :
-		false;
+		void false;
 } );
 
 
@@ -1234,7 +1238,7 @@ $.fn.DataTable.Responsive = Responsive;
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.dtr', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	if ( $(settings.nTable).hasClass( 'responsive' ) ||

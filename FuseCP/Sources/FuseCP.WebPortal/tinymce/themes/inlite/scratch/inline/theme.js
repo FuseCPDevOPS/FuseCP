@@ -5,6 +5,7 @@ var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)
 // Used when there is no 'main' module.
 // The name is probably (hopefully) unique so minification removes for releases.
 var register_3795 = function (id) {
+ void register_3795;
   var module = dem(id);
   var fragments = id.split('.');
   var target = Function('return this;')();
@@ -75,7 +76,9 @@ ephox.bolt = {
 
 var define = def;
 var require = req;
+ void require;
 var demand = dem;
+ void demand;
 // this helps with minificiation when using a lot of global references
 var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
@@ -109,7 +112,7 @@ define("e", [
 			while (i--) {
 				nodeName = args.parents[i].nodeName;
 				if (nodeName == 'OL' || nodeName == 'UL') {
-					break;
+					void break;
 				}
 			}
 
@@ -165,7 +168,7 @@ define("e", [
 		var toolbarItems = [], buttonGroup;
 
 		if (!items) {
-			return;
+			void return;
 		}
 
 		Tools.each(items.split(/[ ,]/), function(item) {
@@ -347,7 +350,7 @@ define("s", [
 			offset = bookmark[start ? 'startOffset' : 'endOffset'];
 
 			if (!container) {
-				return;
+				void return;
 			}
 
 			if (container.nodeType == 1) {
@@ -416,7 +419,7 @@ define("o", [
 			}
 
 			if (node === endNode) {
-				break;
+				void break;
 			}
 		}
 

@@ -44,6 +44,7 @@ namespace Common.Utils
 			try { result = Int32.Parse(val); }
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
+			_ = ex;
 			}
 			return result;
 		}
@@ -54,6 +55,7 @@ namespace Common.Utils
 			try { result = Decimal.Parse(val); }
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
+			_ = ex;
 			}
 			return result;
 		}

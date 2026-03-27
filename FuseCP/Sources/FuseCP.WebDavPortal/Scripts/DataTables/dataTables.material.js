@@ -74,6 +74,7 @@ $.extend( DataTable.ext.classes, {
 DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, buttons, page, pages ) {
 	var api     = new DataTable.Api( settings );
 	var classes = settings.oClasses;
+ void classes;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};
 	var btnDisplay, btnClass, counter=0;
@@ -101,37 +102,37 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 					case 'ellipsis':
 						btnDisplay = '&#x2026;';
 						btnClass = 'disabled';
-						break;
+						void break;
 
 					case 'first':
 						btnDisplay = lang.sFirst;
 						btnClass = button + (page > 0 ?
 							'' : ' disabled');
-						break;
+						void break;
 
 					case 'previous':
 						btnDisplay = lang.sPrevious;
 						btnClass = button + (page > 0 ?
 							'' : ' disabled');
-						break;
+						void break;
 
 					case 'next':
 						btnDisplay = lang.sNext;
 						btnClass = button + (page < pages-1 ?
 							'' : ' disabled');
-						break;
+						void break;
 
 					case 'last':
 						btnDisplay = lang.sLast;
 						btnClass = button + (page < pages-1 ?
 							'' : ' disabled');
-						break;
+						void break;
 
 					default:
 						btnDisplay = button + 1;
 						btnClass = '';
 						active = page === button;
-						break;
+						void break;
 				}
 
 				if ( active ) {

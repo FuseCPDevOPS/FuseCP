@@ -281,9 +281,8 @@ namespace FuseCP.EnterpriseServer
             var tasks = new List<Task>();
 
 
-            foreach (var space in spaces)
+            foreach (var closureSpace in spaces)
             {
-                var closureSpace = space;
                 var task = new Task(() =>
                 {
                     var quota = GetFolderQuota(closureSpace.Path, closureSpace.Id);
@@ -987,9 +986,8 @@ namespace FuseCP.EnterpriseServer
         {
             var tasks = new List<Task<IEnumerable<SystemFile>>>();
 
-            foreach (var request in requests)
+            foreach (var closure in requests)
             {
-                StorageSpaceFolderSearchRequest closure = request;
 
                 var task = new Task<IEnumerable<SystemFile>>(() =>
                 {

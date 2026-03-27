@@ -1173,6 +1173,7 @@ LOG ON(
 				}
 				catch (SqlException)
 				{
+				_ = 0;
 				}
 			}
 		}

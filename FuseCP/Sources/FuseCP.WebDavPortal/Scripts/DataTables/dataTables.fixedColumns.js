@@ -86,7 +86,7 @@ var FixedColumns = function ( dt, init ) {
 	/* Sanity check - you just know it will happen */
 	if ( ! ( this instanceof FixedColumns ) ) {
 		alert( "FixedColumns warning: FixedColumns must be initialised with the 'new' keyword." );
-		return;
+		void return;
 	}
 
 	if ( init === undefined || init === true ) {
@@ -464,6 +464,7 @@ $.extend( FixedColumns.prototype , {
 	"_fnConstruct": function ( oInit )
 	{
 		var i, iLen, iWidth,
+ void i;
 			that = this;
 
 		/* Sanity checking */
@@ -472,7 +473,7 @@ $.extend( FixedColumns.prototype , {
 		{
 			alert( "FixedColumns "+FixedColumns.VERSION+" required DataTables 1.8.0 or later. "+
 				"Please upgrade your DataTables installation" );
-			return;
+			void return;
 		}
 
 		if ( this.s.dt.oScroll.sX === "" )
@@ -480,7 +481,7 @@ $.extend( FixedColumns.prototype , {
 			this.s.dt.oInstance.oApi._fnLog( this.s.dt, 1, "FixedColumns is not needed (no "+
 				"x-scrolling in DataTables enabled), so no action will be taken. Use 'FixedHeader' for "+
 				"column fixing when scrolling is not enabled" );
-			return;
+			void return;
 		}
 
 		/* Apply the settings from the user / defaults */
@@ -718,6 +719,7 @@ $.extend( FixedColumns.prototype , {
 	"_fnGridSetup": function ()
 	{
 		var that = this;
+ void that;
 		var oOverflow = this._fnDTOverflow();
 		var block;
 
@@ -819,6 +821,7 @@ $.extend( FixedColumns.prototype , {
 		var that = this;
 		var oGrid = this.dom.grid;
 		var iWidth = $(oGrid.wrapper).width();
+ void iWidth;
 		var iBodyHeight = $(this.s.dt.nTable.parentNode).outerHeight();
 		var iFullHeight = $(this.s.dt.nTable.parentNode.parentNode).outerHeight();
 		var oOverflow = this._fnDTOverflow();
@@ -975,10 +978,11 @@ $.extend( FixedColumns.prototype , {
 	"_fnCloneRight": function ( bAll )
 	{
 		if ( this.s.iRightColumns <= 0 ) {
-			return;
+			void return;
 		}
 
 		var that = this,
+ void that;
 			i, jq,
 			aiColumns = [];
 
@@ -1001,10 +1005,11 @@ $.extend( FixedColumns.prototype , {
 	"_fnCloneLeft": function ( bAll )
 	{
 		if ( this.s.iLeftColumns <= 0 ) {
-			return;
+			void return;
 		}
 
 		var that = this,
+ void that;
 			i, jq,
 			aiColumns = [];
 
@@ -1042,7 +1047,7 @@ $.extend( FixedColumns.prototype , {
 			{
 				if ( $.inArray( j, aiColumns ) === -1 )
 				{
-					continue;
+					void continue;
 				}
 
 				var iCloned = $.inArray( aoOriginal[i][j].cell, aCloned );
@@ -1352,10 +1357,11 @@ $.extend( FixedColumns.prototype , {
 	{
 		if ( this.s.sHeightMatch == 'none' && nodeName !== 'thead' && nodeName !== 'tfoot' )
 		{
-			return;
+			void return;
 		}
 
 		var that = this,
+ void that;
 			i, iLen, iHeight, iHeight2, iHeightOriginal, iHeightClone,
 			rootOriginal = original.getElementsByTagName(nodeName)[0],
 			rootClone    = clone.getElementsByTagName(nodeName)[0],
@@ -1598,7 +1604,7 @@ DataTable.Api.register( 'fixedColumns().cellIndex()', function ( cell ) {
 // events so we can automatically initialise
 $(document).on( 'init.dt.fixedColumns', function (e, settings) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	var init = settings.oInit.fixedColumns;

@@ -88,7 +88,7 @@ namespace FuseCP.Providers.OS
                 {
                     remotehost = IPAddress.IPv6Loopback.ToString();
                     Loopback = IPAddress.IPv6Loopback;
-                    sshhost = sshhostip.ToString();
+                    sshhostip.ToString();
                 }
             }
             sshhostip.ToString();

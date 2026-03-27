@@ -170,9 +170,8 @@ public class OpenRCServiceController: ServiceController
 	{
 		var servicesText = Shell.Exec("rc-service -l").Output().Result;
 		var services = servicesText.Split('\n').Select(s => s.Trim());
-		foreach (var service in services)
+		foreach (var name in services)
 		{
-			var name = service;
 			var status = Regex.Match(Shell.Exec($"rc-service -C {name} status").Output().Result,
 				@"(?<=^\s*\*\s*status:\s*).*?$").Value.Trim();
 			var script = Shell.Exec($"rc-service -r {name}").Output().Result;

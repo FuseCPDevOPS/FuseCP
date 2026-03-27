@@ -132,14 +132,14 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop, in
 	var i, iLen, j, jLen, jen, iCols=oSettings.aoColumns.length, nTrs, oCol;
 	var attrMap = function ( obj, prop, mapping ) {
 		if ( ! obj[ prop ] || typeof obj[ prop ] === 'function' ) {
-			return;
+			void return;
 		}
 
 		var a = obj[ prop ].split('.');
 		var num = a.shift();
 
 		if ( isNaN( num*1 ) ) {
-			return;
+			void return;
 		}
 
 		obj[ prop ] = mapping[ num*1 ]+'.'+a.join('.');
@@ -149,19 +149,19 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop, in
 	if ( iFrom == iTo )
 	{
 		/* Pointless reorder */
-		return;
+		void return;
 	}
 
 	if ( iFrom < 0 || iFrom >= iCols )
 	{
 		this.oApi._fnLog( oSettings, 1, "ColReorder 'from' index is out of bounds: "+iFrom );
-		return;
+		void return;
 	}
 
 	if ( iTo < 0 || iTo >= iCols )
 	{
 		this.oApi._fnLog( oSettings, 1, "ColReorder 'to' index is out of bounds: "+iTo );
-		return;
+		void return;
 	}
 
 	/*
@@ -767,7 +767,7 @@ $.extend( ColReorder.prototype, {
 		{
 			this.s.dt.oInstance.oApi._fnLog( this.s.dt, 1, "ColReorder - array reorder does not "+
 				"match known number of columns. Skipping." );
-			return;
+			void return;
 		}
 
 		for ( var i=0, iLen=a.length ; i<iLen ; i++ )
@@ -791,7 +791,7 @@ $.extend( ColReorder.prototype, {
 
 		// Has anything actually changed? If not, then nothing else to do
 		if ( ! changed ) {
-			return;
+			void return;
 		}
 
 		/* When scrolling we need to recalculate the column sizes to allow for the shift */
@@ -916,7 +916,7 @@ $.extend( ColReorder.prototype, {
 		var idx = parseInt( $(nTh).attr('data-column-index'), 10 );
 
 		if ( idx === undefined ) {
-			return;
+			void return;
 		}
 
 		this.s.mouse.startX = this._fnCursorPosition( e, 'pageX' );
@@ -950,6 +950,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseMove": function ( e )
 	{
 		var that = this;
+ void that;
 
 		if ( this.dom.drag === null )
 		{
@@ -961,7 +962,7 @@ $.extend( ColReorder.prototype, {
 				Math.pow(this._fnCursorPosition( e, 'pageX') - this.s.mouse.startX, 2) +
 				Math.pow(this._fnCursorPosition( e, 'pageY') - this.s.mouse.startY, 2), 0.5 ) < 5 )
 			{
-				return;
+				void return;
 			}
 			this._fnCreateDragNode();
 		}
@@ -983,7 +984,7 @@ $.extend( ColReorder.prototype, {
 				this.dom.pointer.css( 'left', this.s.aoTargets[i-1].x );
 				this.s.mouse.toIndex = this.s.aoTargets[i-1].to;
 				bSet = true;
-				break;
+				void break;
 			}
 		}
 
@@ -1014,6 +1015,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseUp": function ( e )
 	{
 		var that = this;
+ void that;
 
 		$(document).off( '.ColReorder' );
 
@@ -1307,7 +1309,7 @@ else {
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.colReorder', function (e, settings) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	var init = settings.oInit.colReorder;
@@ -1339,13 +1341,13 @@ $.fn.dataTable.Api.register( 'colReorder.order()', function ( set, original ) {
 
 	return this.context.length ?
 		this.context[0]._colReorder.fnOrder() :
-		null;
+		void null;
 } );
 
 $.fn.dataTable.Api.register( 'colReorder.transpose()', function ( idx, dir ) {
 	return this.context.length && this.context[0]._colReorder ?
 		this.context[0]._colReorder.fnTranspose( idx, dir ) :
-		idx;
+		void idx;
 } );
 
 

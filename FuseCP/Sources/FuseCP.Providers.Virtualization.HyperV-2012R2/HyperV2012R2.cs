@@ -838,6 +838,7 @@ namespace FuseCP.Providers.Virtualization
                             }
                             catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
                             {
+                            _ = innerEx;
                             }
 
                             if (freeMemory > maxMemory)

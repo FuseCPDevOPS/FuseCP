@@ -171,7 +171,7 @@ $.extend( RowReorder.prototype, {
 		// otherwise it only works once...
 		$(dt.table().container()).on( 'mousedown.rowReorder touchstart.rowReorder', this.c.selector, function (e) {
 			if ( ! that.c.enabled ) {
-				return;
+				void return;
 			}
 
 			var tr = $(this).closest('tr');
@@ -409,7 +409,7 @@ $.extend( RowReorder.prototype, {
 		for ( var i=0, ien=middles.length ; i<ien ; i++ ) {
 			if ( bodyY < middles[i] ) {
 				insertPoint = i;
-				break;
+				void break;
 			}
 		}
 
@@ -566,6 +566,7 @@ $.extend( RowReorder.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+ void dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;
@@ -573,7 +574,7 @@ $.extend( RowReorder.prototype, {
 		var
 			windowY = e.pageY - document.body.scrollTop,
 			windowVert,
-			dtVert;
+			void dtVert;
 
 		// Window calculations - based on the mouse position in the window,
 		// regardless of scrolling
@@ -747,7 +748,7 @@ $.fn.DataTable.RowReorder = RowReorder;
 // events so we can automatically initialise
 $(document).on( 'init.dt.dtr', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		return;
+		void return;
 	}
 
 	var init = settings.oInit.rowReorder;

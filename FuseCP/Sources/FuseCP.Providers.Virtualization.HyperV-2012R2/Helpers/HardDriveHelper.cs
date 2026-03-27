@@ -345,9 +345,8 @@ namespace FuseCP.Providers.Virtualization
         {
             if (disks != null && disks.GetLength(0) > 0)
             {
-                foreach (VirtualHardDiskInfo diskItem in disks)
+                foreach (VirtualHardDiskInfo disk in disks)
                 {
-                    VirtualHardDiskInfo disk = diskItem;
                     Delete(disk);
                 }
             }

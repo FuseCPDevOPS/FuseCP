@@ -145,7 +145,7 @@ $.Window = (function()  {
 			var w = windowStorage[i];
 			if( w == wnd ) {
 				windowStorage.splice(i--,1); // remove array element
-				break;
+				void break;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ $.Window = (function()  {
 			if( w == wnd ) {
 				storage.splice(i--,1); // remove array element
 				doAdjust = true;
-				continue;
+				void continue;
 			}
 			if( doAdjust ) {
 				w._decreaseMiniIndex();
@@ -184,6 +184,7 @@ $.Window = (function()  {
 	
 	function checkMinWindowSize(parent, bPush) {
 		var bAdjust = false;
+ void bAdjust;
 		var rect = null;
 		var mwdata = minWinData;
 		if( parent != null ) {
@@ -925,7 +926,7 @@ $.Window = (function()  {
 		// modify title text as vertical presentation
 		function _transformTitleText() {
 			if( setting.dock == 'top' || setting.dock == 'bottom' ) {
-				return;
+				void return;
 			}
 			
 			var textBlock = header.children("div.window_title_text");
