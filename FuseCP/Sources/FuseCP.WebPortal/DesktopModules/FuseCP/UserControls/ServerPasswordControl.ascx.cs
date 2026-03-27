@@ -82,7 +82,7 @@ namespace FuseCP.Portal
                     if (string.IsNullOrEmpty(value))
                     {
                         string tail = "$" + txtPassword.ID;
-                        foreach (string key in Page.Request.Form.AllKeys ?? [].Where(key => key != null && key.EndsWith(tail, StringComparison.OrdinalIgnoreCase)))
+                        foreach (string key in (Page.Request.Form.AllKeys ?? Array.Empty<string>()).Where(key => key != null && key.EndsWith(tail, StringComparison.OrdinalIgnoreCase)))
                         {
                                 string candidate = Page.Request.Form[key];
                                 if (!string.IsNullOrEmpty(candidate))

@@ -55,7 +55,7 @@ namespace FuseCP.Portal.ProviderControls
 			var realm = settings["ProxmoxClusterRealm"] ?? "pam";
 			lstProxmoxClusterRealm.SelectedIndex = string.Equals(realm, "pam", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
 
-			bool.TryParse(settings["ProxmoxTrustClusterServerCertificate"] ?? $"{IsLocal}", out trustCert);
+			bool.TryParse(settings["ProxmoxTrustClusterServerCertificate"] ?? $"{IsLocal}", out bool trustCert);
 			chkProxmoxTrustServerCertificate.Checked = trustCert;
 			chkProxmoxTrustServerCertificate.Enabled = !IsLocal;
 			ViewState["PWD"] = settings["ProxmoxClusterAdminPass"];

@@ -110,7 +110,7 @@ namespace FuseCP.Portal
                 // new plan
                 try
                 {
-                    planId = ES.Services.Packages.AddHostingPlan(plan);
+                    int planId = ES.Services.Packages.AddHostingPlan(plan);
                     if (planId < 0)
                     {
                         ShowResultMessage(planId);

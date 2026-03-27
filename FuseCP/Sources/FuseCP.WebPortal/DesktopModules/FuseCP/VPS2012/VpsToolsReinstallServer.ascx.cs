@@ -82,8 +82,8 @@ namespace FuseCP.Portal.VPS2012
             bool manageAllowed = VirtualMachines2012Helper.IsVirtualMachineManagementAllowed(PanelSecurity.PackageId);
 
             vm.CreationTime = string.IsNullOrEmpty(vm.CreationTime) ? DateTime.Now.ToString() : vm.CreationTime;
-            DateTime.TryParse(vm.CreationTime, out dateTimePlusHours);
-            dateTimePlusHours.AddHours(9);
+            DateTime.TryParse(vm.CreationTime, out DateTime dateTimePlusHours);
+            dateTimePlusHours = dateTimePlusHours.AddHours(9);
             bool IsNotReinstallPossible = !(dateTimePlusHours <= DateTime.Now); //TODO: add possible to change that check.
             if (IsNotReinstallPossible && !manageAllowed)
             {

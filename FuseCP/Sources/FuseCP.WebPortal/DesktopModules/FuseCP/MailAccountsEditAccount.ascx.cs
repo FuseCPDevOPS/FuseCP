@@ -103,9 +103,9 @@ namespace FuseCP.Portal
 
 
 						MailAccount item = new MailAccount();
-if (settingsDictionary.TryGetValue("isDomainAdminEnabled", out var _ckv))
+                    if (settingsDictionary.ContainsKey("isDomainAdminEnabled"))
 						{
-							item.IsDomainAdminEnabled = Convert.ToBoolean(_ckv);
+                        item.IsDomainAdminEnabled = Convert.ToBoolean(settingsDictionary["isDomainAdminEnabled"]);
 						}
 						ctrl.BindItem(item);
 					}

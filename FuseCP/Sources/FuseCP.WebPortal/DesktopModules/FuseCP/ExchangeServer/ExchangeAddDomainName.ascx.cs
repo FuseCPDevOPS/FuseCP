@@ -36,7 +36,7 @@ namespace FuseCP.Portal.ExchangeServer
             ES.Services.SpamExperts.IsSpamExpertsEnabled(PanelSecurity.PackageId, ResourceGroups.Exchange);
 
             //currently adding SE domain aliases is disabled
-            isSEEnabled = false;
+            bool isSEEnabled = false;
 
             List<OrganizationDomainName> list = new List<OrganizationDomainName>();
             foreach (Organization o in orgs)

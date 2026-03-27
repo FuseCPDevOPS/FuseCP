@@ -330,9 +330,8 @@ namespace FuseCP.Portal.VPS2012
 
 
             // RAM size
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out var _ckv))
+          if (cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out QuotaValueInfo ramQuota))
             {
-                QuotaValueInfo ramQuota = _ckv;
                 if (ramQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited RAM
@@ -352,9 +351,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out var _ckv))
             }
 
             // HDD size
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
+            if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out QuotaValueInfo hddQuota))
             {
-                QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited HDD
@@ -368,8 +366,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             }
 
 if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
+              if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out QuotaValueInfo additionalHddQuota))
             {
-                QuotaValueInfo additionalHddQuota = _ckv;
                 if (additionalHddQuota.QuotaAllocatedValue == -1 || additionalHddQuota.QuotaAllocatedValue > 0) btnAddHdd.Visible = true;
             }
 
@@ -379,9 +377,9 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             txtHddMaxIOPS.Text = "0";
 
             // snapshots number
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out var _ckv))
+            if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
             {
-                int snapsNumber = _ckv.QuotaAllocatedValue;
+                int snapsNumber = snapsQuota.QuotaAllocatedValue;
                 txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
                 txtSnapshots.Enabled = (snapsNumber != 0);
             }

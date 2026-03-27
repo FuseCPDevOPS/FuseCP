@@ -2996,7 +2996,7 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-if (!settings.TryGetValue(UseStorageSpaces, out var _ckv))
+                if (!settings.ContainsKey(UseStorageSpaces))
             {
                 return false;
             }
