@@ -48,7 +48,6 @@ namespace FuseCP.Portal
             fileLookup.PackageId = item.PackageId;
             fileLookup.SelectedFile = item.ContentPath;
 
-            string resSuffix = item.IIs7 ? "IIS7" : "";
 
             chkDirectoryBrowsing.Checked = item.EnableDirectoryBrowsing;
 

@@ -65,14 +65,14 @@ namespace FuseCP.WebDav.Core
                 }
 
                 var client = new HttpClient(handler);
-                if (TimeOut == Timeout.Infinite)
-                {
-                    client.Timeout = Timeout.InfiniteTimeSpan;
-                }
-                else
-                {
-                    client.Timeout = TimeSpan.FromMilliseconds(TimeOut);
-                }
+                client.Timeout = TimeOut == Timeout.Infinite ? Timeout.InfiniteTimeSpan : TimeSpan.FromMilliseconds(TimeOut);
+
+
+
+
+
+
+
 
                 return client;
             }
@@ -459,23 +459,17 @@ namespace FuseCP.WebDav.Core
                     }
 
                     int childrenCount = 0;
-                    foreach (IHierarchyItem item in children)
+                    foreach (IHierarchyItem item in children.Where(item => item != null))
                     {
-                        if (item != null)
-                        {
                             childrenCount++;
-                        }
                     }
                     _children = new IHierarchyItem[childrenCount];
 
                     counter = 0;
-                    foreach (IHierarchyItem item in children)
+                    foreach (IHierarchyItem item in children.Where(item => item != null))
                     {
-                        if (item != null)
-                        {
                             _children[counter] = item;
                             counter++;
-                        }
                     }
                 }
                 catch (AmbiguousMatchException)

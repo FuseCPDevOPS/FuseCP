@@ -27,7 +27,7 @@ namespace FuseCP.WebDavPortal.Configurations.ActionSelectors
                 return string.Empty;
             }
 
-            if (!headers.ContainsKey("X-WOPI-Override"))
+if (!headers.TryGetValue("X-WOPI-Override", out var _ckv))
             {
                 return string.Empty;
             }

@@ -412,10 +412,8 @@ namespace FuseCP.Providers.DNS
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is DnsZone))
             {
-                if (item is DnsZone)
-                {
                     try
                     {
                         // delete DNS zone
@@ -429,7 +427,6 @@ namespace FuseCP.Providers.DNS
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS9 zone", item.Name), ex);
                     }
-                }
             }
         }
 

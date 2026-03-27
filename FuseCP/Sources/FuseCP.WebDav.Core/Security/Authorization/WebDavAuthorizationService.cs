@@ -129,7 +129,7 @@ namespace FuseCP.WebDav.Core.Security.Authorization
                 CurrentSession[WebDavAppConfigManager.Instance.SessionKeys.WebDavRootFoldersPermissions] = dictionary;
             }
 
-            return dictionary.ContainsKey(rootFolderName) ? dictionary[rootFolderName] : new ESPermission[0];
+            return dictionary.TryGetValue(rootFolderName, out var _ckv) ? _ckv : new ESPermission[0];
         }
 
         public IEnumerable<ExchangeAccount> GetUserSecurityGroups(ScpPrincipal principal)

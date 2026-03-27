@@ -915,12 +915,9 @@ namespace FuseCP.Providers.Utils
 
         public static long GetTotalFreeSpace(string driveName)
         {
-            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            foreach (DriveInfo drive in DriveInfo.GetDrives().Where(drive => drive.IsReady && drive.Name == driveName))
             {
-                if (drive.IsReady && drive.Name == driveName)
-                {
                     return drive.TotalFreeSpace;
-                }
             }
 
             return -1;

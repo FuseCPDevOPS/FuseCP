@@ -52,7 +52,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
         public bool AddNone
         {
-            get { return ViewState["AddNone"] != null ? (bool)ViewState["AddNone"] : false; }
+            get { return ViewState["AddNone"] != null && (bool)ViewState["AddNone"]; }
             set { ViewState["AddNone"] = value; }
         }
 

@@ -182,9 +182,9 @@ namespace FuseCP.Portal.VPS
             }
 
             // RAM size
-            if (cntx.Quotas.ContainsKey(Quotas.VPS_RAM))
+if (cntx.Quotas.TryGetValue(Quotas.VPS_RAM, out var _ckv))
             {
-                QuotaValueInfo ramQuota = cntx.Quotas[Quotas.VPS_RAM];
+                QuotaValueInfo ramQuota = _ckv;
                 if (ramQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited RAM
@@ -198,9 +198,9 @@ namespace FuseCP.Portal.VPS
             }
 
             // HDD size
-            if (cntx.Quotas.ContainsKey(Quotas.VPS_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.VPS_HDD, out var _ckv))
             {
-                QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPS_HDD];
+                QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited HDD
@@ -214,9 +214,9 @@ namespace FuseCP.Portal.VPS
             }
 
             // snapshots number
-            if (cntx.Quotas.ContainsKey(Quotas.VPS_SNAPSHOTS_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPS_SNAPSHOTS_NUMBER, out var _ckv))
             {
-                int snapsNumber = cntx.Quotas[Quotas.VPS_SNAPSHOTS_NUMBER].QuotaAllocatedValue;
+                int snapsNumber = _ckv.QuotaAllocatedValue;
                 txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
                 txtSnapshots.Enabled = (snapsNumber != 0);
             }

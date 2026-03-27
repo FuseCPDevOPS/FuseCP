@@ -58,7 +58,7 @@ namespace FuseCP.Portal.SkinControls
 
 			lnkSignIn.NavigateUrl = PortalUtils.LoginRedirectUrl;
 
-            string imagePath = String.Concat("~/", DefaultPage.THEMES_FOLDER, "/", Page.Theme, "/", "Images", "/");
+            String.Concat("~/", DefaultPage.THEMES_FOLDER, "/", Page.Theme, "/", "Images", "/");
 
             //imgSignOut.ImageUrl = imagePath + "signout_24.png";
         }

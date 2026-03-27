@@ -20,6 +20,7 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Linq;
 
 namespace FuseCP.WebPortal
 {
@@ -131,14 +132,11 @@ namespace FuseCP.WebPortal
                 // check if this is a root node
                 if (node.Key == ROOT_NODE_KEY)
                 {
-                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values)
+                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values.Where(page => page.ParentPage == null && !page.Hidden))
                     {
-                        if (page.ParentPage == null && !page.Hidden)
-                        {
                             SiteMapNode childNode = CreateNodeFromPage(page);
                             if (childNode != null)
                                 children.Add(childNode);
-                        }
                     }
                 }
             }

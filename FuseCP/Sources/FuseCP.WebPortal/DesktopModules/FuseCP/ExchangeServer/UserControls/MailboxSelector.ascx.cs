@@ -28,25 +28,25 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
         public bool MailboxesEnabled
         {
-            get { return ViewState["MailboxesEnabled"] != null ? (bool)ViewState["MailboxesEnabled"] : false; }
+            get { return ViewState["MailboxesEnabled"] != null && (bool)ViewState["MailboxesEnabled"]; }
             set { ViewState["MailboxesEnabled"] = value; }
         }
 
         public bool ContactsEnabled
         {
-            get { return ViewState["ContactsEnabled"] != null ? (bool)ViewState["ContactsEnabled"] : false; }
+            get { return ViewState["ContactsEnabled"] != null && (bool)ViewState["ContactsEnabled"]; }
             set { ViewState["ContactsEnabled"] = value; }
         }
 
         public bool DistributionListsEnabled
         {
-            get { return ViewState["DistributionListsEnabled"] != null ? (bool)ViewState["DistributionListsEnabled"] : false; }
+            get { return ViewState["DistributionListsEnabled"] != null && (bool)ViewState["DistributionListsEnabled"]; }
             set { ViewState["DistributionListsEnabled"] = value; }
         }
 
         public bool ShowOnlyMailboxes
         {
-            get { return ViewState["ShowOnlyMailboxes"] != null ? (bool)ViewState["ShowOnlyMailboxes"] : false; }
+            get { return ViewState["ShowOnlyMailboxes"] != null && (bool)ViewState["ShowOnlyMailboxes"]; }
             set { ViewState["ShowOnlyMailboxes"] = value; }
         }
 

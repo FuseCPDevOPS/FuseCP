@@ -17,6 +17,7 @@ using System;
 using System.Collections.Specialized;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.Mail;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -102,9 +103,9 @@ namespace FuseCP.Portal
 
 
 						MailAccount item = new MailAccount();
-						if (settingsDictionary.ContainsKey("isDomainAdminEnabled"))
+if (settingsDictionary.TryGetValue("isDomainAdminEnabled", out var _ckv))
 						{
-							item.IsDomainAdminEnabled = Convert.ToBoolean(settingsDictionary["isDomainAdminEnabled"]);
+							item.IsDomainAdminEnabled = Convert.ToBoolean(_ckv);
 						}
 						ctrl.BindItem(item);
 					}
@@ -120,24 +121,24 @@ namespace FuseCP.Portal
 
 		private void HandleMaxMailboxSizeLimitDisplay(PackageContext cntx)
 		{
-			if (cntx.Quotas.ContainsKey(Quotas.MAIL_DISABLESIZEEDIT))
+if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
 			{
 				// Obtain quotas from the plan assigned
-				bool maxMailboxSizeChangeable = (cntx.Quotas[Quotas.MAIL_DISABLESIZEEDIT].QuotaAllocatedValue == 0);
+				bool maxMailboxSizeChangeable = (_ckv.QuotaAllocatedValue == 0);
 				int maxMailboxSizeLimit = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
 				// Ensure all validation controls, markup and layout is rendered consistently
-				if (maxMailboxSizeLimit == -1 && maxMailboxSizeChangeable == false)
+				if (maxMailboxSizeLimit == -1 && !(maxMailboxSizeChangeable))
 				{
 					lblMaxMailboxSizeLimit.Visible = true;
 					txtMailBoxSizeLimit.Visible = false;
 				}
 				// 
-				else if (maxMailboxSizeLimit >= 0 && maxMailboxSizeChangeable == false)
+				else if (maxMailboxSizeLimit >= 0 && !(maxMailboxSizeChangeable))
 				{
 					lblMaxMailboxSizeLimit.Visible = true;
 					txtMailBoxSizeLimit.Visible = false;
 				}
-				else if(maxMailboxSizeLimit == -1 && maxMailboxSizeChangeable == true)
+				else if(maxMailboxSizeLimit == -1 && maxMailboxSizeChangeable)
 				{
 					lblMaxMailboxSizeLimit.Visible = false;
 					txtMailBoxSizeLimit.Visible = true;
@@ -174,10 +175,10 @@ namespace FuseCP.Portal
 		{
 			txtMailBoxSizeLimit.Text = sizeLimit.ToString();
 			// Ensure we use correct wording when the mailbox size limit is disabled for editing
-			if (sizeLimit == -1 || sizeLimit == 0)
-				lblMaxMailboxSizeLimit.Text = GetSharedLocalizedString("Text.Unlimited");
-			else
-				lblMaxMailboxSizeLimit.Text = sizeLimit.ToString();
+			lblMaxMailboxSizeLimit.Text = sizeLimit == -1 || sizeLimit == 0 ? GetSharedLocalizedString("Text.Unlimited") : sizeLimit.ToString();
+
+
+
 		}
 
         private void SaveItem()
@@ -198,35 +199,26 @@ namespace FuseCP.Portal
             {
                 //checking if account name is different from existing e-mail lists
                 MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
-                foreach (MailList list in lists)
+                foreach (MailList list in lists.Where(list => item.Name == list.Name))
                 {
-                    if (item.Name == list.Name)
-                    {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
                         return;
-                    }
                 }
 
                 //checking if account name is different from existing e-mail groups
                 MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true);
-                foreach (MailGroup group in mailgroups)
+                foreach (MailGroup group in mailgroups.Where(group => item.Name == group.Name))
                 {
-                    if (item.Name == group.Name)
-                    {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
                         return;
-                    }
                 }
 
                 //checking if account name is different from existing forwardings
                 MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
-                foreach (MailAlias forwarding in forwardings)
+                foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
                 {
-                    if (item.Name == forwarding.Name)
-                    {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
                         return;
-                    }
                 }
             }
 

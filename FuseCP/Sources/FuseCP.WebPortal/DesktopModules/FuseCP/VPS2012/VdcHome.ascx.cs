@@ -64,9 +64,8 @@ namespace FuseCP.Portal.VPS2012
         {
             bool isDeleting = false;
             VirtualMachine _vm = VirtualMachines2012Helper.GetCachedVirtualMachine(Convert.ToInt32(itemID));
-            if(_vm != null)
+            if (_vm != null && _vm.ProvisioningStatus == VirtualMachineProvisioningStatus.DeletionProgress)
             {
-                if (_vm.ProvisioningStatus == VirtualMachineProvisioningStatus.DeletionProgress)
                     isDeleting = true;
             }
             return isDeleting;

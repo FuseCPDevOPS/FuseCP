@@ -241,12 +241,9 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 		// ...after delete
 
 		// delete files
-		foreach (FileSyncAction action in actions)
+		foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Delete))
 		{
-			if (action.ActionType == SyncActionType.Delete)
-			{
 				FileUtils.DeleteFile(UnixPath(action.DestPath));
-			}
 		}
 	}
 
@@ -446,10 +443,8 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
 	{
 		List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-		foreach (ServiceProviderItem item in items)
+		foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
 		{
-			if (item is HomeFolder)
-			{
 				try
 				{
 					string path = UnixPath(item.Name);
@@ -468,7 +463,6 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 				{
 					Log.WriteError(ex);
 				}
-			}
 		}
 		return itemsDiskspace.ToArray();
 	}
@@ -496,12 +490,9 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 			files = new string[0];
 		}
 
-		foreach (var file in files)
+		foreach (var file in files.Where(file => file.EndsWith("log") || file.EndsWith(".log.gz")))
 		{
-			if (file.EndsWith("log") || file.EndsWith(".log.gz"))
-			{
 				yield return file;
-			}
 		}
 
 		string[] dirs = null;
@@ -540,10 +531,8 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 		var logs = EnumerateLogFiles(LogDir);
 		logs = logs.Where(l => LogName(l) == logName);
-		foreach (var log in logs)
+		foreach (var log in logs.Where(log => log != null))
 		{
-			if (log != null)
-			{
 				Stream file = null;
 				try
 				{
@@ -617,7 +606,6 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 					};
 					yield return entry;
 				}
-			}
 		}
 	}
 	public IEnumerable<SystemLogEntry> GetLogEntriesAsEnumerable(string logName)
@@ -796,13 +784,10 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	{
 		string[] fields = null;
 
-		foreach (var line in File.ReadLines("/proc/stat"))
+		foreach (var line in File.ReadLines("/proc/stat").Where(line => line.StartsWith("cpu ")))
 		{
-			if (line.StartsWith("cpu "))
-			{
 				fields = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 				break;
-			}
 		}
 
 		if (fields == null || fields.Length < 5)

@@ -514,10 +514,8 @@ namespace FuseCP.EnterpriseServer
                 try
                 {
                     LibraryItem[] osTemplates = GetOperatingSystemTemplates(vm.PackageId);
-                    foreach (LibraryItem item in osTemplates)
+                    foreach (LibraryItem item in osTemplates.Where(item => String.Compare(item.LibraryID, osTemplateId, true) == 0))
                     {
-                        if (String.Compare(item.LibraryID, osTemplateId, true) == 0)
-                        {
                             osTemplate = item;
 
                             // check minimal disk size
@@ -533,7 +531,6 @@ namespace FuseCP.EnterpriseServer
                             vm.RemoteDesktopEnabled = osTemplate.RemoteDesktop;
                             vm.OperatingSystemTemplateDeployParams = osTemplate.DeployScriptParams;
                             break;
-                        }
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -1197,14 +1194,11 @@ namespace FuseCP.EnterpriseServer
                 try
                 {
                     LibraryItem[] osTemplates = GetOperatingSystemTemplatesByServiceId(serviceId);
-                    foreach (LibraryItem osTemplate in osTemplates)
+                    foreach (LibraryItem osTemplate in osTemplates.Where(osTemplate => String.Compare(osTemplate.Path, osTemplateFile, true) == 0))
                     {
-                        if (String.Compare(osTemplate.Path, osTemplateFile, true) == 0)
-                        {
                             item.OperatingSystemTemplate = osTemplate.Name;
                             item.LegacyNetworkAdapter = osTemplate.LegacyNetworkAdapter;
                             break;
-                        }
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -1236,10 +1230,8 @@ namespace FuseCP.EnterpriseServer
                     // assign IP addresses to VM
                     for (int i = 0; i < externalAddresses.Length; i++)
                     {
-                        foreach (PackageIPAddress ip in packageIPs)
+                        foreach (PackageIPAddress ip in packageIPs.Where(ip => ip.AddressID == externalAddresses[i]))
                         {
-                            if (ip.AddressID == externalAddresses[i])
-                            {
                                 // assign to the item
                                 ServerController.AddItemIPAddress(itemId, ip.PackageAddressID);
 
@@ -1248,7 +1240,6 @@ namespace FuseCP.EnterpriseServer
                                     ServerController.SetItemPrimaryIPAddress(itemId, ip.PackageAddressID);
 
                                 break;
-                            }
                         }
                     }
                 }
@@ -1270,15 +1261,12 @@ namespace FuseCP.EnterpriseServer
                                     packageId, IPAddressPool.VpsManagementNetwork);
 
                     // assign IP addresses to VM
-                    foreach (PackageIPAddress ip in packageIPs)
+                    foreach (PackageIPAddress ip in packageIPs.Where(ip => ip.AddressID == managementAddress))
                     {
-                        if (ip.AddressID == managementAddress)
-                        {
                             // assign to the item
                             ServerController.AddItemIPAddress(itemId, ip.PackageAddressID);
 
                             break;
-                        }
                     }
                 }
                 #endregion
@@ -1567,12 +1555,9 @@ namespace FuseCP.EnterpriseServer
             ConcreteJob[] jobs = vps.GetVirtualMachineJobs(vm.VirtualMachineId).ToArray();
             List<ConcreteJob> retJobs = new List<ConcreteJob>();
 
-            foreach (ConcreteJob job in jobs)
+            foreach (ConcreteJob job in jobs.Where(job => job.JobState == ConcreteJobState.Running))
             {
-                if (job.JobState == ConcreteJobState.Running)
-                {
                     retJobs.Add(job);
-                }
             }
 
             return retJobs;
@@ -2841,12 +2826,9 @@ namespace FuseCP.EnterpriseServer
                 {
                     List<PackageIPAddress> packageips = ServerController.GetPackageUnassignedIPAddresses(vm.PackageId, IPAddressPool.VpsExternalNetwork);
                     List<PackageIPAddress> ips = new List<PackageIPAddress>();
-                    foreach (PackageIPAddress ip in packageips)
+                    foreach (PackageIPAddress ip in packageips.Where(ip => ip.VLAN == vlan))
                     {
-                        if (ip.VLAN == vlan)
-                        {
                             ips.Add(ip);
-                        }
                     }
                     if (addressesNumber > ips.Count)
                     {

@@ -137,7 +137,7 @@ namespace FuseCP.WebDavPortal.Controllers
                 return View(model);
             }
 
-            int result = UpdateUserProfile(ScpContext.User.ItemId, ScpContext.User.AccountId, model);
+            UpdateUserProfile(ScpContext.User.ItemId, ScpContext.User.AccountId, model);
 
             AddMessage(MessageType.Success, Resources.UI.UserProfileSuccessfullyUpdated);
 
@@ -170,7 +170,7 @@ namespace FuseCP.WebDavPortal.Controllers
                 return View(model);
             }
 
-            if (_authenticationService.ValidateAuthenticationData(ScpContext.User.Login, model.OldPassword) == false)
+            if (!(_authenticationService.ValidateAuthenticationData(ScpContext.User.Login, model.OldPassword)))
             {
                 AddMessage(MessageType.Error, Resources.Messages.OldPasswordIsNotCorrect);
 
@@ -244,7 +244,7 @@ namespace FuseCP.WebDavPortal.Controllers
                 && !string.IsNullOrEmpty(settings.GetValueOrDefault(EnterpriseServer.SystemSettings.TWILIO_AUTHTOKEN_KEY, string.Empty))
                 && !string.IsNullOrEmpty(settings.GetValueOrDefault(EnterpriseServer.SystemSettings.TWILIO_PHONEFROM_KEY, string.Empty));
 
-            if (string.IsNullOrEmpty(user.MobilePhone) || twilioEnabled == false)
+            if (string.IsNullOrEmpty(user.MobilePhone) || !(twilioEnabled))
             {
                 var result = ScpContext.Services.Organizations.SendResetUserPasswordPincodeEmail(accessToken.AccessTokenGuid, user.PrimaryEmailAddress);
 
@@ -340,7 +340,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
             model.IsTokenExist = accessToken != null;
 
-            if (model.IsTokenExist == false)
+            if (!(model.IsTokenExist))
             {
                 AddMessage(MessageType.Error, Resources.Messages.IncorrectPasswordResetUrl);
 
@@ -348,7 +348,7 @@ namespace FuseCP.WebDavPortal.Controllers
             }
 
 
-            if (accessToken != null && accessToken.IsSmsSent == false)
+            if (accessToken != null && !(accessToken.IsSmsSent))
             {
                 return RedirectToRoute(AccountRouteNames.PasswordResetPincodeSendOptions);
             }
@@ -449,12 +449,12 @@ namespace FuseCP.WebDavPortal.Controllers
         {
             var smsResponse = HttpContext.Session.GetString(WebDavAppConfigManager.Instance.SessionKeys.PasswordResetSmsKey);
 
-            if (string.IsNullOrEmpty(pincode) == false)
+            if (!(string.IsNullOrEmpty(pincode)))
             {
                 smsResponse = pincode;
             }
 
-            if (_smsAuthService.VerifyResponse(token, smsResponse) == false)
+            if (!(_smsAuthService.VerifyResponse(token, smsResponse)))
             {
                 AddMessage(MessageType.Error, Resources.Messages.IncorrectSmsResponse);
 

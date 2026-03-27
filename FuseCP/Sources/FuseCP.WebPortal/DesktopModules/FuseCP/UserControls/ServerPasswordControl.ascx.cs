@@ -30,6 +30,7 @@ using System.Web.UI.HtmlControls;
 
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -40,7 +41,7 @@ namespace FuseCP.Portal
 
         public bool ValidationEnabled
         {
-            get { return (ViewState["ValidationEnabled"] != null) ? (bool)ViewState["ValidationEnabled"] : true; }
+            get { return !((ViewState["ValidationEnabled"] != null)) || (bool)ViewState["ValidationEnabled"]; }
             set { ViewState["ValidationEnabled"] = value; ToggleControls(); }
         }
 
@@ -59,7 +60,7 @@ namespace FuseCP.Portal
 
         public bool EditMode
         {
-            get { return (ViewState["EditMode"] != null) ? (bool)ViewState["EditMode"] : false; }
+            get { return (ViewState["EditMode"] != null) && (bool)ViewState["EditMode"]; }
             set { ViewState["EditMode"] = value; ToggleControls(); }
         }
 
@@ -81,17 +82,14 @@ namespace FuseCP.Portal
                     if (string.IsNullOrEmpty(value))
                     {
                         string tail = "$" + txtPassword.ID;
-                        foreach (string key in Page.Request.Form.AllKeys ?? [])
+                        foreach (string key in Page.Request.Form.AllKeys ?? [].Where(key => key != null && key.EndsWith(tail, StringComparison.OrdinalIgnoreCase)))
                         {
-                            if (key != null && key.EndsWith(tail, StringComparison.OrdinalIgnoreCase))
-                            {
                                 string candidate = Page.Request.Form[key];
                                 if (!string.IsNullOrEmpty(candidate))
                                 {
                                     value = candidate;
                                     break;
                                 }
-                            }
                         }
                     }
 
@@ -105,7 +103,7 @@ namespace FuseCP.Portal
 
         public bool CheckPasswordLength
         {
-            get { return (ViewState["CheckPasswordLength"] != null) ? (bool)ViewState["CheckPasswordLength"] : true; }
+            get { return !((ViewState["CheckPasswordLength"] != null)) || (bool)ViewState["CheckPasswordLength"]; }
             set { ViewState["CheckPasswordLength"] = value; ToggleControls(); }
         }
 
@@ -219,7 +217,7 @@ namespace FuseCP.Portal
                     enabled = Utils.ParseBool(parts[0], false);
                     minLength = Math.Max(Utils.ParseInt(parts[1], 0), MinimumLength);
                     maxLength = Math.Max(Utils.ParseInt(parts[2], 0), MaximumLength);
-                    notEqualToUsername = Utils.ParseBool(parts[6], false);
+                    Utils.ParseBool(parts[6], false);
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {

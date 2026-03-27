@@ -122,10 +122,10 @@ namespace FuseCP.Portal
 				RedirectBack();
 
 			// load provider details
-			var provider = await Provider();
+			await Provider();
 
 			// load resource group details
-			var resourceGroup = await ResourceGroup();
+			await ResourceGroup();
 		}
 
 		private async Task BindService()

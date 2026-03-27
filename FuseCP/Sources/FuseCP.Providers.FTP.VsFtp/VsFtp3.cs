@@ -290,10 +290,8 @@ namespace FuseCP.Providers.FTP
 
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is FtpAccount))
 			{
-				if (item is FtpAccount)
-				{
 					try
 					{
 						DeleteAccount(item.Name);
@@ -302,16 +300,13 @@ namespace FuseCP.Providers.FTP
 					{
 						Log.WriteError($"Error deleting '{item.Name}' vsftpd user", ex);
 					}
-				}
 			}
 		}
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is FtpAccount))
 			{
-				if (item is FtpAccount)
-				{
 					try
 					{
 						// change FTP account state
@@ -323,7 +318,6 @@ namespace FuseCP.Providers.FTP
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
-				}
 			}
 		}
 
@@ -337,10 +331,8 @@ namespace FuseCP.Providers.FTP
 					.Concat(new string[] { Shell.Default.Find("vsftpd") })
 					.Where(exe => exe != null)
 					.Distinct();
-				foreach (var exe in processes)
+				foreach (var exe in processes.Where(exe => File.Exists(exe)))
 				{
-					if (File.Exists(exe))
-					{
 						try
 						{
 							var output = Shell.Default.ExecScript($"\"{exe}\" -v 0>&1").Output().Result;
@@ -352,7 +344,6 @@ namespace FuseCP.Providers.FTP
 							}
 						}
 						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-					}
 				}
 			}
 			return false;

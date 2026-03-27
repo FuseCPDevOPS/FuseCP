@@ -74,7 +74,7 @@ namespace FuseCP.Portal
                     txtSecondaryEmail.Text = user.SecondaryEmail;
                     ddlMailFormat.SelectedIndex = user.HtmlMail ? 1 : 0;
                     lblUsername.Text = PortalAntiXSS.Encode(user.Username);
-                    cbxMfaEnabled.Checked = user.MfaMode > 0 ? true: false;
+                    cbxMfaEnabled.Checked = user.MfaMode > 0;
                     cbxMfaEnabled.Enabled = ES.Services.Users.CanUserChangeMfa(PanelSecurity.SelectedUserId);
                     lblMfaEnabled.Visible = cbxMfaEnabled.Checked;
 

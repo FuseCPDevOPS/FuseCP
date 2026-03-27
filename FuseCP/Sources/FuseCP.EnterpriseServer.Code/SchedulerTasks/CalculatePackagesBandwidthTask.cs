@@ -21,6 +21,7 @@ using System.Globalization;
 
 using FuseCP.Providers;
 using FuseCP.Server.Client;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -152,10 +153,8 @@ namespace FuseCP.EnterpriseServer
 
 				if (itemsBandwidth != null)
 				{
-                    foreach (ServiceProviderItemBandwidth item in itemsBandwidth)
+                    foreach (ServiceProviderItemBandwidth item in itemsBandwidth.Where(item => item != null && item.Days != null))
                     {
-                        if (item != null && item.Days != null)
-                        {
                             foreach (DailyStatistics day in item.Days)
                             {
                                 string dt = new DateTime(day.Year, day.Month, day.Day).ToString("MM/dd/yyyy", culture);
@@ -165,7 +164,6 @@ namespace FuseCP.EnterpriseServer
                                     .Append(" received=\"").Append(day.BytesReceived).Append("\"")
                                     .Append("></item>\n");
                             }
-                        }
                     }
 				}
 			}

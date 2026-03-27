@@ -68,9 +68,9 @@ namespace FuseCP.Portal
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
                 // get quota
-                if (cntx.Quotas.ContainsKey(QuotaName))
+if (cntx.Quotas.TryGetValue(QuotaName, out var _ckv))
                 {
-                    QuotaValueInfo quota = cntx.Quotas[QuotaName];
+                    QuotaValueInfo quota = _ckv;
                     quotaViewer.QuotaTypeId = quota.QuotaTypeId;
                     quotaViewer.QuotaUsedValue = quota.QuotaUsedValue;
                     quotaViewer.QuotaValue = quota.QuotaAllocatedValue;

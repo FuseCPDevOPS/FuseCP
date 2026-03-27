@@ -99,7 +99,7 @@ namespace FuseCP.Portal
             // enable set default plan button if organization has two or more plans
             btnSetDefaultMailboxPlan.Enabled = gvMailboxPlans.Rows.Count > 1;
         
-            btnUpdateMailboxPlan.Enabled = (string.IsNullOrEmpty(txtMailboxPlan.Text)) ? false : true;
+            btnUpdateMailboxPlan.Enabled = !((string.IsNullOrEmpty(txtMailboxPlan.Text)));
         }
 
 
@@ -246,7 +246,7 @@ namespace FuseCP.Portal
                         UpdateTags();
 
 
-                        btnUpdateMailboxPlan.Enabled = (string.IsNullOrEmpty(txtMailboxPlan.Text)) ? false : true;
+                        btnUpdateMailboxPlan.Enabled = !((string.IsNullOrEmpty(txtMailboxPlan.Text)));
 
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -308,7 +308,7 @@ namespace FuseCP.Portal
                         }
 
                         
-                        btnUpdateMailboxPlan.Enabled  = (string.IsNullOrEmpty(txtMailboxPlan.Text)) ? false : true;
+                        btnUpdateMailboxPlan.Enabled  = !((string.IsNullOrEmpty(txtMailboxPlan.Text)));
 
                     break;
                 case "RestampItem":
@@ -458,20 +458,17 @@ namespace FuseCP.Portal
         {
             bool result = false;
 
-            foreach (ExchangeMailboxPlan p in plans)
+            foreach (ExchangeMailboxPlan p in plans.Where(p => p.MailboxPlan.ToLower() == plan.MailboxPlan.ToLower()))
             {
-                if (p.MailboxPlan.ToLower() == plan.MailboxPlan.ToLower())
-                {
                     result = true;
                     break;
-                }
             }
             return result;
         }
 
         protected void txtMailboxPlan_TextChanged(object sender, EventArgs e)
         {
-            btnUpdateMailboxPlan.Enabled = (string.IsNullOrEmpty(txtMailboxPlan.Text)) ? false : true;
+            btnUpdateMailboxPlan.Enabled = !((string.IsNullOrEmpty(txtMailboxPlan.Text)));
         }
 
 
@@ -495,10 +492,8 @@ namespace FuseCP.Portal
 
                             if ((orgs != null) && (orgs.GetLength(0) > 0))
                             {
-                                foreach (Organization org in orgs)
+                                foreach (Organization org in orgs.Where(org => !string.IsNullOrEmpty(org.GlobalAddressList)))
                                 {
-                                    if (!string.IsNullOrEmpty(org.GlobalAddressList))
-                                    {
                                         ExchangeAccount[] Accounts = ES.Services.ExchangeServer.GetExchangeAccountByMailboxPlanId(org.Id, sourceMailboxPlanId);
 
                                         foreach (ExchangeAccount a in Accounts)
@@ -513,7 +508,6 @@ namespace FuseCP.Portal
                                                 return;
                                             }
                                         }
-                                    }
                                 }
                             }
                         }
@@ -604,9 +598,8 @@ namespace FuseCP.Portal
 
                     foreach (Providers.HostedSolution.ExchangeRetentionPolicyTag tag in allTags)
                     {
-                        if (selectedTags != null)
+                        if (selectedTags != null && selectedTags.Find(x => x.TagID == tag.TagID) != null)
                         {
-                            if (selectedTags.Find(x => x.TagID == tag.TagID) != null)
                                 continue;
                         }
 

@@ -68,8 +68,8 @@ namespace FuseCP.Portal
             gvServiceLevels.DataSource = array;
             gvServiceLevels.DataBind();
 
-            btnAddServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text)) ? true : false;
-            btnUpdateServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text)) ? false : true;
+            btnAddServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text));
+            btnUpdateServiceLevel.Enabled = !((string.IsNullOrEmpty(txtServiceLevelName.Text)));
         }
 
 
@@ -134,8 +134,8 @@ namespace FuseCP.Portal
                     txtServiceLevelName.Text = serviceLevel.LevelName;
                     txtServiceLevelDescr.Text = serviceLevel.LevelDescription;
 
-                    btnUpdateServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text)) ? false : true;
-                    btnAddServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text)) ? true : false;
+                    btnUpdateServiceLevel.Enabled = !((string.IsNullOrEmpty(txtServiceLevelName.Text)));
+                    btnAddServiceLevel.Enabled = (string.IsNullOrEmpty(txtServiceLevelName.Text));
                     break;
             }
         }

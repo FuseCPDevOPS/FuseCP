@@ -66,14 +66,14 @@ namespace FuseCP.Portal.RDS
 
                 foreach(var user in remoteAppUsers)
                 {
-                    if (localAdmins.Select(l => l.AccountName).Contains(user.AccountName))
-                    {
-                        user.IsVIP = true;
-                    }
-                    else
-                    {
-                        user.IsVIP = false;
-                    }
+                    user.IsVIP = localAdmins.Select(l => l.AccountName).Contains(user.AccountName) ? true : false;
+
+
+
+
+
+
+
                 }
 
                 users.SetUsers(remoteAppUsers.ToArray());

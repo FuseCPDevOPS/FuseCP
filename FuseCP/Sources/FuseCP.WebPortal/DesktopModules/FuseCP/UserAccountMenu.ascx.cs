@@ -27,6 +27,7 @@ using System.Web.UI.HtmlControls;
 using System.Xml;
 
 using FuseCP.EnterpriseServer;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -90,13 +91,10 @@ namespace FuseCP.Portal
                     display = false;
                     string[] arrRoles = selectedUserContext.Split(',');
                     string userRole = PanelSecurity.SelectedUser.Role.ToString();
-                    foreach (string role in arrRoles)
+                    foreach (string role in arrRoles.Where(role => String.Compare(userRole, role, true) == 0))
                     {
-                        if (String.Compare(userRole, role, true) == 0)
-                        {
                             display = true;
                             break;
-                        }
                     }
                 }
 
@@ -105,13 +103,10 @@ namespace FuseCP.Portal
                     display = false;
                     string[] arrRoles = roles.Split(',');
                     string userRole = PanelSecurity.LoggedUser.Role.ToString();
-                    foreach (string role in arrRoles)
+                    foreach (string role in arrRoles.Where(role => String.Compare(userRole, role, true) == 0))
                     {
-                        if (String.Compare(userRole, role, true) == 0)
-                        {
                             display = true;
                             break;
-                        }
                     }
                 }
                 

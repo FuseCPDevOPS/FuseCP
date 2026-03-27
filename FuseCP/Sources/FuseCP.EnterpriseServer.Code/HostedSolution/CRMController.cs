@@ -25,6 +25,7 @@ using FuseCP.Providers.HostedSolution;
 using FuseCP.Providers.ResultObjects;
 using FuseCP.Server.Client;
 using FuseCP.EnterpriseServer.Data;
+using System.Linq;
 
 
 namespace FuseCP.EnterpriseServer
@@ -67,15 +68,12 @@ namespace FuseCP.EnterpriseServer
 			{
 				//check for existing empty A record
 				DnsRecord[] records = ServerController.GetDnsZoneRecords(domainId);
-				foreach (DnsRecord record in records)
+				foreach (DnsRecord record in records.Where(record => (record.RecordType == DnsRecordType.A || record.RecordType == DnsRecordType.AAAA) && (String.Compare(recordName, record.RecordName, true) == 0)))
 				{
-					if ((record.RecordType == DnsRecordType.A || record.RecordType == DnsRecordType.AAAA) && (String.Compare(recordName, record.RecordName, true) == 0))
-					{
 						CompleteTask(ret, CrmErrorCodes.CANNOT_CREATE_DNS_ZONE, null,
 							string.Format("DNS record already exists. DomainId={0}, RecordName={1}", domainId, recordName));
 						
 						return ret;
-					}
 				}
 				var type = ip.Contains(":") ? DnsRecordType.AAAA : DnsRecordType.A;
                 int res = ServerController.AddDnsZoneRecord(domainId, recordName, type, ip, 0, 0, 0, 0, 0);

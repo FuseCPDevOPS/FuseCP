@@ -103,7 +103,7 @@ namespace FuseCP.Portal.VPS2012.UserControls
             bool createError = (vm.ProvisioningStatus == VirtualMachineProvisioningStatus.Error);
 
             // load package context
-            PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+            PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
             // build tabs list
             List<Tab> tabsList = new List<Tab>();

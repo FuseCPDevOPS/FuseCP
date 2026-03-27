@@ -316,12 +316,9 @@ namespace FuseCP.WebDav.Core.Managers
 
             var folders = FCP.Services.EnterpriseStorage.GetEnterpriseFoldersPaged(user.ItemId, true, false, false, "", "", 0, int.MaxValue).PageItems;
 
-            foreach (var folder in folders)
+            foreach (var folder in folders.Where(folder => _webDavAuthorizationService.HasAccess(user, Uri.UnescapeDataString(new Uri(folder.Url).PathAndQuery))))
             {
-                if (_webDavAuthorizationService.HasAccess(user, Uri.UnescapeDataString(new Uri(folder.Url).PathAndQuery)))
-                {
                     rootFolders.Add(folder);
-                }
             }
 
             return rootFolders;

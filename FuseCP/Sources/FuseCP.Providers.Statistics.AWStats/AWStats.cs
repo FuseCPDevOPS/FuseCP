@@ -22,6 +22,7 @@ using System.Runtime.Versioning;
 using FuseCP.Server.Utils;
 using FuseCP.Providers.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace FuseCP.Providers.Statistics
 {
@@ -288,10 +289,8 @@ namespace FuseCP.Providers.Statistics
         #region IHostingServiceProvider methods
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is StatsSite))
             {
-                if (item is StatsSite)
-                {
                     try
                     {
                         DeleteSite(((StatsSite)item).SiteId);
@@ -300,7 +299,6 @@ namespace FuseCP.Providers.Statistics
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
-                }
             }
         }
         #endregion

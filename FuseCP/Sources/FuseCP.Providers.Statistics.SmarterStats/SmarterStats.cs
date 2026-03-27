@@ -19,6 +19,7 @@ using System.Text;
 using FuseCP.Server.Utils;
 using FuseCP.Providers.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 
 namespace FuseCP.Providers.Statistics
@@ -244,16 +245,13 @@ namespace FuseCP.Providers.Statistics
             int iSiteId = Int32.Parse(siteId);
 
             // add other users
-            foreach (StatsUser user in site.Users)
+            foreach (StatsUser user in site.Users.Where(user => user.Username.ToLower() != ownerUsername))
             {
-                if (user.Username.ToLower() != ownerUsername)
-                {
                     // add user
                     GenericResult2 r = AutomationClient.AddUser(Username, Password, iSiteId,
                         user.Username, user.Password, user.FirstName, user.LastName, user.IsAdmin);
                     if (!r.Result)
                         throw new Exception("Error adding site user: " + r.Message);
-                }
             }
 
             return siteId;
@@ -322,13 +320,10 @@ namespace FuseCP.Providers.Statistics
                 }
 
                 // delete users
-                foreach (string username in origUsers)
+                foreach (string username in origUsers.Where(username => !newUsers.Contains(username) && username != ownerUsername))
                 {
-                    if (!newUsers.Contains(username) && username != ownerUsername)
-                    {
                         // delete user
                         AutomationClient.DeleteUser(Username, Password, siteId, username);
-                    }
                 }
             }
         }
@@ -347,10 +342,8 @@ namespace FuseCP.Providers.Statistics
         #region IHostingServiceProvider methods
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is StatsSite))
             {
-                if (item is StatsSite)
-                {
                     try
                     {
                         DeleteSite(((StatsSite)item).SiteId);
@@ -359,7 +352,6 @@ namespace FuseCP.Providers.Statistics
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
-                }
             }
         }
         #endregion

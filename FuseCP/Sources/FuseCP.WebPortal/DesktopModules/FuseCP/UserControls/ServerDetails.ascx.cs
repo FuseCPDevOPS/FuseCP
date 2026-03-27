@@ -64,14 +64,14 @@ namespace FuseCP.Portal
             }
 
             // load server details
-            if (ServerName != null)
-            {
-                litServer.Text = ServerName;
-            }
-            else
-            {
-				litServer.Text = GetLocalizedString("Text.Unknown");
-            }
+            litServer.Text = ServerName != null ? ServerName : GetLocalizedString("Text.Unknown");
+
+
+
+
+
+
+
         }
     }
 }

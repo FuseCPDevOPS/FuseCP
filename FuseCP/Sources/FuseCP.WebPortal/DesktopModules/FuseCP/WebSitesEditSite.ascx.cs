@@ -109,7 +109,7 @@ namespace FuseCP.Portal
 
 			if (dlTabs.SelectedIndex == -1)
 			{
-				if (!IsPostBack && String.IsNullOrEmpty(Request["MenuID"]) == false)
+				if (!IsPostBack && !(String.IsNullOrEmpty(Request["MenuID"])))
 				{
 					// Find menu item requested
 					var st = filteredTabs.SingleOrDefault(x => x.Id.Equals(Request["MenuID"]));
@@ -198,14 +198,14 @@ namespace FuseCP.Portal
 			sharedIP.Visible = !site.IsDedicatedIP;
 
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-			if (Utils.CheckQouta(Quotas.WEB_ALLOWIPADDRESSMODESWITCH, cntx))
-            { 
-				cmdSwitchToDedicatedIP.Visible = (ddlIpAddresses.Items.Count > 0);
-            }
-            else
-            { 
-				cmdSwitchToDedicatedIP.Visible = cmdSwitchToSharedIP.Visible = false;
-            }
+			cmdSwitchToDedicatedIP.Visible = Utils.CheckQouta(Quotas.WEB_ALLOWIPADDRESSMODESWITCH, cntx) ? (ddlIpAddresses.Items.Count > 0) : cmdSwitchToSharedIP.Visible = false;
+
+
+
+
+
+
+
 
             litFrontPageUnavailable.Visible = false;
 			tblSharePoint.Visible = site.SharePointInstalled;
@@ -393,7 +393,7 @@ namespace FuseCP.Portal
 				//
 				var result = ES.Services.WebServers.ChangeWebDeployPublishingPassword(siteItemId, newAccountPassword);
 				//
-				if (result.IsSuccess == false)
+				if (!(result.IsSuccess))
 				{
 					messageBox.ShowErrorMessage("WPUB_PASSW_CHANGE");
 					return;
@@ -426,7 +426,7 @@ namespace FuseCP.Portal
 				// read remote content
 				result = ES.Services.WebServers.GetWebDeployPublishingProfile(PanelRequest.ItemID);
 				//
-				if (result.IsSuccess == false)
+				if (!(result.IsSuccess))
 				{
 					messageBox.ShowErrorMessage("WDEPLOY_GET_PROFILE");
 					//
@@ -480,17 +480,17 @@ namespace FuseCP.Portal
 		{
 			var ids = new List<int>();
 			// Add FTP account to profile
-			if (String.IsNullOrEmpty(MyFtpAccountList.SelectedValue) != true)
+			if (!(String.IsNullOrEmpty(MyFtpAccountList.SelectedValue)))
 			{
 				ids.Add(Convert.ToInt32(MyFtpAccountList.SelectedValue));
 			}
 			// Add database to profile
-			if (String.IsNullOrEmpty(MyDatabaseList.SelectedValue) != true)
+			if (!(String.IsNullOrEmpty(MyDatabaseList.SelectedValue)))
 			{
 				ids.Add(Convert.ToInt32(MyDatabaseList.SelectedValue));
 			}
 			// Add database user to profile
-			if (String.IsNullOrEmpty(MyDatabaseUserList.SelectedValue) != true)
+			if (!(String.IsNullOrEmpty(MyDatabaseUserList.SelectedValue)))
 			{
 				ids.Add(Convert.ToInt32(MyDatabaseUserList.SelectedValue));
 			}
@@ -543,7 +543,7 @@ namespace FuseCP.Portal
 			WDeployPublishingConfirmPasswordTextBox.Text = WDeployPublishingConfirmPasswordTextBox.Attributes["value"] = String.Empty;
 
 			// Step 1: Web Deploy feature is not installed on the server
-			if (item.WebDeployPublishingAvailable == false)
+			if (!(item.WebDeployPublishingAvailable))
 			{
 				// Enable panels
 				EnableControlsInBulk(PanelWDeployNotInstalled);
@@ -552,7 +552,7 @@ namespace FuseCP.Portal
 			}
 
 			// Step 2: Web Deploy feature is available but not publishing enabled for the web site yet
-			if (item.WebDeploySitePublishingEnabled == false)
+			if (!(item.WebDeploySitePublishingEnabled))
 			{
 				// Enable controls
 				EnableControlsInBulk(
@@ -571,7 +571,7 @@ namespace FuseCP.Portal
 				return;
 			}
 			// Step 3: Publishing has been enabled for the web site
-			if (item.WebDeploySitePublishingEnabled == true)
+			if (item.WebDeploySitePublishingEnabled)
 			{
 				// Enable controls
 				EnableControlsInBulk(
@@ -594,7 +594,7 @@ namespace FuseCP.Portal
 				WDeployPublishingConfirmPasswordTextBox.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
 			}
 			// Step 4: Publishing has been enabled and publishing profile has been built
-			if (item.WebDeploySitePublishingEnabled == true)
+			if (item.WebDeploySitePublishingEnabled)
 			{
 				// Enable controls
 				EnableControlsInBulk(PanelWDeployManagePublishingProfile);
@@ -614,7 +614,7 @@ namespace FuseCP.Portal
 		private void BindWebPublishingProfileDatabaseUsers()
 		{
 			//
-			if (String.IsNullOrEmpty(MyDatabaseList.SelectedValue) == false)
+			if (!(String.IsNullOrEmpty(MyDatabaseList.SelectedValue)))
 			{
 				var dbItem = ES.Services.DatabaseServers.GetSqlDatabase(Convert.ToInt32(MyDatabaseList.SelectedValue));
 				//
@@ -789,7 +789,7 @@ namespace FuseCP.Portal
 		protected void btnWmSvcSiteDisable_Click(object sender, EventArgs e)
 		{
 			//
-			string accountName = txtWmSvcAccountName.Text.Trim();
+			txtWmSvcAccountName.Text.Trim();
 
 			//
 			ES.Services.WebServers.RevokeWebManagementAccess(PanelRequest.ItemID);

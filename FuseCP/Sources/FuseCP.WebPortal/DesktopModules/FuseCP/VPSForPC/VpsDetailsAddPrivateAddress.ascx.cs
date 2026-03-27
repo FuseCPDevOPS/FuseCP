@@ -43,10 +43,10 @@ namespace FuseCP.Portal.VPSForPC
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            if (cntx.Quotas.ContainsKey(Quotas.VPS_PRIVATE_IP_ADDRESSES_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPS_PRIVATE_IP_ADDRESSES_NUMBER, out var _ckv))
             {
                 // set max number
-                QuotaValueInfo privQuota = cntx.Quotas[Quotas.VPS_PRIVATE_IP_ADDRESSES_NUMBER];
+                QuotaValueInfo privQuota = _ckv;
                 int maxPrivate = privQuota.QuotaAllocatedValue;
                 if (maxPrivate == -1)
                     maxPrivate = 10;

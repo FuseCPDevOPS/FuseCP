@@ -54,7 +54,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 tabsList.Add(CreateTab("secur_group_memberof", "Tab.MemberOf"));
             }
 
-            PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+            PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
             // find selected menu item
             selectedTabIndex = 0;

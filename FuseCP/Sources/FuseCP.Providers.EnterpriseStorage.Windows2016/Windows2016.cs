@@ -488,10 +488,8 @@ if (quotas.TryGetValue(fullName, out var _ckv))
         public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
         {
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
             {
-                if (item is HomeFolder)
-                {
                     try
                     {
                         string path = item.Name;
@@ -510,7 +508,6 @@ if (quotas.TryGetValue(fullName, out var _ckv))
                     {
                         Log.WriteError(ex);
                     }
-                }
             }
             return itemsDiskspace.ToArray();
         }
@@ -543,12 +540,9 @@ if (quotas.TryGetValue(fullName, out var _ckv))
             // var webDavSettings = new ArrayList();
             var webDavSettings = new List<WebDavSetting>();
 
-            foreach (var setting in settings)
+            foreach (var setting in settings.Where(setting => !setting.IsEmpty()))
             {
-                if (!setting.IsEmpty())
-                {
                     webDavSettings.Add(setting);
-                }
             }
 
             if (webDavSettings.Count == 0)

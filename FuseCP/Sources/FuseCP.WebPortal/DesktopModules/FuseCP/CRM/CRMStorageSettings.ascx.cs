@@ -47,7 +47,7 @@ namespace FuseCP.Portal
 
         private void BindValues()
         {
-            Organization org = ES.Services.Organizations.GetOrganization(PanelRequest.ItemID);
+            ES.Services.Organizations.GetOrganization(PanelRequest.ItemID);
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
             string quotaName = "";

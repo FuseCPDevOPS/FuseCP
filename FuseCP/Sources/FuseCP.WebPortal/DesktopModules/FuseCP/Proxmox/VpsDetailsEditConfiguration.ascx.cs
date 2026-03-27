@@ -56,9 +56,9 @@ namespace FuseCP.Portal.Proxmox
                 // bind CPU cores
                 int maxCores = ES.Services.Proxmox.GetMaximumCpuCoresNumber(vm.PackageId);
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_CPU_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out var _ckv))
                 {
-                    QuotaValueInfo cpuQuota = cntx.Quotas[Quotas.PROXMOX_CPU_NUMBER];
+                    QuotaValueInfo cpuQuota = _ckv;
 
                     if (cpuQuota.QuotaAllocatedValue != -1
                         && maxCores > cpuQuota.QuotaAllocatedValue)

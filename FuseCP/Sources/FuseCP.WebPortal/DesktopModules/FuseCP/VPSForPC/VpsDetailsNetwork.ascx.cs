@@ -21,6 +21,7 @@ using System.Web.UI.WebControls;
 using FuseCP.Providers.Virtualization;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.Common;
+using System.Linq;
 
 namespace FuseCP.Portal.VPSForPC
 {
@@ -64,15 +65,12 @@ namespace FuseCP.Portal.VPSForPC
             NetworkAdapterDetails nic = ES.Services.VPS.GetExternalNetworkAdapterDetails(PanelRequest.ItemID);
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses)
+            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
             {
-                if (ip.IsPrimary)
-                {
                     litExtAddress.Text = ip.IPAddress;
                     litExtSubnet.Text = ip.SubnetMask;
                     litExtGateway.Text = ip.DefaultGateway;
                     break;
-                }
             }
             lblTotalExternal.Text = nic.IPAddresses.Length.ToString();
 
@@ -87,13 +85,10 @@ namespace FuseCP.Portal.VPSForPC
             NetworkAdapterDetails nic = ES.Services.VPS.GetPrivateNetworkAdapterDetails(PanelRequest.ItemID);
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses)
+            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
             {
-                if (ip.IsPrimary)
-                {
                     litPrivAddress.Text = ip.IPAddress;
                     break;
-                }
             }
             litPrivSubnet.Text = nic.SubnetMask;
             litPrivFormat.Text = nic.NetworkFormat;

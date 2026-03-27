@@ -21,6 +21,7 @@ using System.Text;
 using System.IO;
 using FuseCP.Server.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace FuseCP.Providers.Mail
 {
@@ -94,10 +95,8 @@ namespace FuseCP.Providers.Mail
 			    
                 try
                 {
-                    foreach (string s in lines)
+                    foreach (string s in lines.Where(s => s.StartsWith("accountpath")))
                     {
-                        if (s.StartsWith("accountpath"))
-                        {
                             string[] split = s.Split(new char[] { '=' });
                             if (Path.IsPathRooted(split[1]))
                             {
@@ -116,7 +115,6 @@ namespace FuseCP.Providers.Mail
                                                 groupConfPath);
                                     break;
                             }
-                        }
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

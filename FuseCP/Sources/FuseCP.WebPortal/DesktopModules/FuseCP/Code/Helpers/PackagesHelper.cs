@@ -141,8 +141,8 @@ namespace FuseCP.Portal
                 return true;
             
             // check quota
-            if (cntx.Quotas.ContainsKey(quotaName))
-                return !cntx.Quotas[quotaName].QuotaExhausted;
+if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
+                return !_ckv.QuotaExhausted;
 
             return false;
         }

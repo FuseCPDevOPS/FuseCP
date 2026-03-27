@@ -24,7 +24,7 @@ namespace FuseCP.Portal.ProviderControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            PackageInfo info = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
+            ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
 
             AdvancedSettingsPanel.Visible = PanelSecurity.EffectiveUser.Role == UserRole.Administrator;
             InitValidators();

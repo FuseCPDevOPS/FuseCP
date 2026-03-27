@@ -45,16 +45,13 @@ namespace FuseCP.EnterpriseServer.Data
 			DT dobj = (DT)Activator.CreateInstance(typeof(DT));
 
 			// copy properties
-			foreach (string propName in sProps.Keys)
+			foreach (string propName in sProps.Keys.Where(propName => (dProps.ContainsKey(propName) && sProps[propName].Name != "Item") && sProps[propName].CanRead))
 			{
-				if ((dProps.ContainsKey(propName) && sProps[propName].Name != "Item") && sProps[propName].CanRead)
-				{
 					object val = sProps[propName].GetValue(so, null);
 					if (dProps[propName] != null && (val != null && dProps[propName].CanWrite))
 					{
 						dProps[propName].SetValue(dobj, val, null);
 					}
-				}
 			}
 			return dobj;
 		}
@@ -913,12 +910,9 @@ namespace FuseCP.EnterpriseServer.Data
 		{
 			Dictionary<string, PropertyInfo> hash = new Dictionary<string, PropertyInfo>();
 			PropertyInfo[] props = GetTypeProperties(type);
-			foreach (PropertyInfo prop in props)
+			foreach (PropertyInfo prop in props.Where(prop => !hash.ContainsKey(prop.Name)))
 			{
-				if (!hash.ContainsKey(prop.Name))
-				{
 					hash.Add(prop.Name, prop);
-				}
 			}
 			return hash;
 		}

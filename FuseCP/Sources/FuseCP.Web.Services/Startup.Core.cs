@@ -575,12 +575,9 @@ namespace FuseCP.Web.Services
 						host.Description.Behaviors.Add(debugBehavior);
 					}
 					host.Authorization.ServiceAuthorizationManager = new RestAuthorizationManager();
-					foreach (var endpoint in host.Description.Endpoints)
+					foreach (var endpoint in host.Description.Endpoints.Where(endpoint => endpoint.Binding is WebHttpBinding))
 					{
-						if (endpoint.Binding is WebHttpBinding)
-						{
 							endpoint.EndpointBehaviors.Add(new SoapHeaderMessageInspector());
-						}
 					}
 				});
 			});

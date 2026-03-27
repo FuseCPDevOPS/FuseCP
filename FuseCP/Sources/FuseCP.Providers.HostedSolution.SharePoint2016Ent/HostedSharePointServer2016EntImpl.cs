@@ -780,10 +780,8 @@ namespace FuseCP.Providers.HostedSolution
                         string[] contentArr = content.Split(new[] {'\n'});
                         var outPutBuilder = new StringBuilder();
 
-                        foreach (string s in contentArr)
+                        foreach (string s in contentArr.Where(s => s != string.Empty))
                         {
-                            if (s != string.Empty)
-                            {
                                 string hostName = string.Empty;
 
                                 if (s[0] != '#')
@@ -814,7 +812,6 @@ namespace FuseCP.Providers.HostedSolution
                                 {
                                     outPutBuilder.Append(s).Append("\r\n");
                                 }
-                            }
                         }
 
                         FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());

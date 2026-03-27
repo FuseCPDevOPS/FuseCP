@@ -54,7 +54,6 @@ namespace FuseCP.Portal
             fileLookup.PackageId = item.PackageId;
             fileLookup.SelectedFile = item.ContentPath;
 
-            string resSuffix = item.IIs7 ? "IIS7" : "";
 
             chkAuthAnonymous.Checked = item.EnableAnonymousAccess;
             chkAuthWindows.Checked = item.EnableWindowsAuthentication;
@@ -63,7 +62,7 @@ namespace FuseCP.Portal
             // toggle controls by quotas
             fileLookup.Enabled = PackagesHelper.CheckGroupQuotaEnabled(packageId, ResourceGroups.Web, Quotas.WEB_HOMEFOLDERS);
 
-            UserSettings settings = ES.Services.Users.GetUserSettings(PanelSecurity.SelectedUserId, "WebPolicy");
+            ES.Services.Users.GetUserSettings(PanelSecurity.SelectedUserId, "WebPolicy");
         }
 
         public void SaveWebItem(WebVirtualDirectory item)

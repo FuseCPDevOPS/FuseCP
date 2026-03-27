@@ -96,9 +96,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
                     hideItems = true;
             }
 
@@ -122,32 +121,25 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             if (Utils.CheckQouta(Quotas.EXCHANGE2013_JOURNALINGMAILBOXES, cntx))
                 exchangeGroup.MenuItems.Add(CreateMenuItem("JournalingMailboxes", "journaling_mailboxes"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_ACTIVESYNCALLOWED, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_ACTIVESYNCALLOWED, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("ActiveSyncPolicy", "activesync_policy"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("MailboxPlans", "mailboxplans"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("RetentionPolicy", "retentionpolicy"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("RetentionPolicyTag", "retentionpolicytag"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("ExchangeDomainNames", "domains"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("StorageUsage", "storage_usage"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_DISCLAIMERSALLOWED, cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_DISCLAIMERSALLOWED, cntx))
                     exchangeGroup.MenuItems.Add(CreateMenuItem("Disclaimers", "disclaimers"));
 
             if (exchangeGroup.MenuItems.Count > 0)
@@ -161,9 +153,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
                     hideItems = true;
             }
 
@@ -171,9 +162,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             {
                 MenuGroup organizationGroup = new MenuGroup(GetLocalizedString("Text.OrganizationGroup"), imagePath + "company24.png");
 
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx) == false)
+                if (!(Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, cntx)) && Utils.CheckQouta(Quotas.ORGANIZATION_DOMAINS, cntx))
                 {
-                    if (Utils.CheckQouta(Quotas.ORGANIZATION_DOMAINS, cntx))
                         organizationGroup.MenuItems.Add(CreateMenuItem("DomainNames", "org_domains"));
                 }
                 

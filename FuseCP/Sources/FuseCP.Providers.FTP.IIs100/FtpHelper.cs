@@ -22,6 +22,7 @@ namespace  FuseCP.Providers.FTP.IIs100
     using System;
     using System.Security.Cryptography;
     using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
     internal static class FtpHelper
     {
@@ -35,10 +36,8 @@ namespace  FuseCP.Providers.FTP.IIs100
         public static bool CanAuthenticateServer(X509Certificate2 certificate)
         {
             bool flag = false;
-            foreach (X509Extension extension in certificate.Extensions)
+            foreach (X509Extension extension in certificate.Extensions.Where(extension => string.Equals(extension.Oid.Value, "2.5.29.37", StringComparison.Ordinal)))
             {
-                if (string.Equals(extension.Oid.Value, "2.5.29.37", StringComparison.Ordinal))
-                {
                     flag = true;
                     X509EnhancedKeyUsageExtension extension2 = extension as X509EnhancedKeyUsageExtension;
                     if (extension2 != null)
@@ -52,7 +51,6 @@ namespace  FuseCP.Providers.FTP.IIs100
                             }
                         }
                     }
-                }
             }
             return !flag;
         }
@@ -163,12 +161,9 @@ namespace  FuseCP.Providers.FTP.IIs100
 
         public static bool IsFtpSite(Site site)
         {
-            foreach (Binding binding in site.Bindings)
+            foreach (Binding binding in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)))
             {
-                if (string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase))
-                {
                     return true;
-                }
             }
             return false;
         }

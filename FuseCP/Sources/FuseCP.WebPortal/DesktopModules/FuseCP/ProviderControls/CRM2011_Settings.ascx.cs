@@ -20,6 +20,7 @@ using FuseCP.EnterpriseServer;
 using FuseCP.Providers.Common;
 using FuseCP.Providers.ResultObjects;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.Portal.ProviderControls
 {
@@ -143,12 +144,9 @@ namespace FuseCP.Portal.ProviderControls
 
         private static int FindAddressByText(string address)
         {
-            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId))
+            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId).Where(addressInfo => addressInfo.InternalIP == address || addressInfo.ExternalIP == address))
             {
-                if (addressInfo.InternalIP == address || addressInfo.ExternalIP == address)
-                {
                     return addressInfo.AddressId;
-                }
             }
             return 0;
         }

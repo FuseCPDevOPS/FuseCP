@@ -21,6 +21,7 @@ using System.Text;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers;
 using FuseCP.Providers.Web;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -114,10 +115,8 @@ namespace FuseCP.EnterpriseServer
                         importableItems = ctrl.GetImportableItems(packageId, itemTypeId, Type.GetType(itemType.TypeName), group);
                     }
 
-                    foreach (string importableItem in importableItems)
+                    foreach (string importableItem in importableItems.Where(importableItem => !ignorelist.Contains(importableItem.ToLower())))
                     {
-                        if (!ignorelist.Contains(importableItem.ToLower()))
-                        {
                             var itemToImport = importableItem;
 
                             // For DNS zones the compare has been made using ascii, convert to unicode if necessary to make the list of items easier to read
@@ -127,7 +126,6 @@ namespace FuseCP.EnterpriseServer
                             }
 
                             items.Add(itemToImport);
-                        }
                     }
 
                 }

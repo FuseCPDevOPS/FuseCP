@@ -31,7 +31,7 @@ namespace FuseCP.Portal
     {
         public bool AllowEmptySelection
         {
-            get { return (ViewState["AllowEmptySelection"] != null) ? (bool)ViewState["AllowEmptySelection"] : true; }
+            get { return !((ViewState["AllowEmptySelection"] != null)) || (bool)ViewState["AllowEmptySelection"]; }
             set { ViewState["AllowEmptySelection"] = value; }
         }
 

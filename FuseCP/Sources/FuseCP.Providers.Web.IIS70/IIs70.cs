@@ -810,13 +810,10 @@ namespace FuseCP.Providers.Web
 				var dotNetVersion = SiteAppPoolMode.dotNetFramework2;
 				//
 				#region Iterate over managed runtime keys of the helper class to properly evaluate ASP.NET version installed
-				foreach (var k in WebAppPool.AspNetVersions)
+				foreach (var k in WebAppPool.AspNetVersions.Where(k => k.Value.Equals(appool.ManagedRuntimeVersion)))
 				{
-					if (k.Value.Equals(appool.ManagedRuntimeVersion))
-					{
 						dotNetVersion = k.Key;
 						break;
-					}
 				}
 				#endregion
 				// Detect pipeline mode being used
@@ -827,15 +824,12 @@ namespace FuseCP.Providers.Web
 				//
 				var aspNetVersion = String.Empty;
 				#region Iterate over supported ASP.NET versions based on result of the previous runtime version assesement
-				foreach (var item in WebAppPoolHelper.SupportedAppPoolModes)
+				foreach (var item in WebAppPoolHelper.SupportedAppPoolModes.Where(item => item.Value == dotNetVersion))
 				{
-					if (item.Value == dotNetVersion)
-					{
 						// Obtain ASP.NET version installed
 						aspNetVersion = item.Key;
 						//
 						break;
-					}
 				}
 				#endregion
 				// Assign the result of assesement
@@ -2197,23 +2191,17 @@ namespace FuseCP.Providers.Web
 				//
 				ConfigurationElementCollection modulesCollection = modulesSection.GetCollection();
 				//
-				foreach (ConfigurationElement moduleEntry in modulesCollection)
+				foreach (ConfigurationElement moduleEntry in modulesCollection.Where(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase)))
 				{
-					if (String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase))
-					{
 						modulesCollection.Remove(moduleEntry);
 						break;
-					}
 
 				}
 
-				foreach (ConfigurationElement moduleEntry in modulesCollection)
+				foreach (ConfigurationElement moduleEntry in modulesCollection.Where(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase)))
 				{
-					if (String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase))
-					{
 						modulesCollection.Remove(moduleEntry);
 						break;
-					}
 				}
 
 				srvman.CommitChanges();
@@ -2848,13 +2836,10 @@ namespace FuseCP.Providers.Web
 			// search folder
 			List<HtaccessFolder> htaccessFolders = GetHeliconApeFolders(siteId);
 
-			foreach (HtaccessFolder htaccessFolder in htaccessFolders)
+			foreach (HtaccessFolder htaccessFolder in htaccessFolders.Where(htaccessFolder => string.Equals(folderPath, htaccessFolder.Path, StringComparison.OrdinalIgnoreCase)))
 			{
-				if (string.Equals(folderPath, htaccessFolder.Path, StringComparison.OrdinalIgnoreCase))
-				{
 					htaccessFolder.ReadHtaccess();
 					return htaccessFolder;
-				}
 			}
 
 			// create new htaccess folder
@@ -3989,10 +3974,8 @@ namespace FuseCP.Providers.Web
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
 			{
-				if (item is WebSite)
-				{
 					try
 					{
 						Log.WriteStart(String.Format("Calculating '{0}' site logs size", item.Name));
@@ -4013,7 +3996,6 @@ namespace FuseCP.Providers.Web
 					{
 						Log.WriteError(ex);
 					}
-				}
 			}
 			return itemsDiskspace.ToArray();
 		}

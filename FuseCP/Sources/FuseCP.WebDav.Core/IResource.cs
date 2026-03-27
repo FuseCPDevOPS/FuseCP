@@ -75,14 +75,14 @@ namespace FuseCP.WebDav.Core
                 }
 
                 var client = new HttpClient(handler);
-                if (TimeOut == Timeout.Infinite)
-                {
-                    client.Timeout = Timeout.InfiniteTimeSpan;
-                }
-                else
-                {
-                    client.Timeout = TimeSpan.FromMilliseconds(TimeOut);
-                }
+                client.Timeout = TimeOut == Timeout.Infinite ? Timeout.InfiniteTimeSpan : TimeSpan.FromMilliseconds(TimeOut);
+
+
+
+
+
+
+
 
                 return client;
             }
@@ -568,13 +568,10 @@ namespace FuseCP.WebDav.Core
                 }
 
                 bool propertyFound = false;
-                foreach (Property prop in _properties)
+                foreach (Property prop in _properties.Where(prop => prop.Name.Equals(property.Name)))
                 {
-                    if (prop.Name.Equals(property.Name))
-                    {
                         prop.StringValue = property.StringValue;
                         propertyFound = true;
-                    }
                 }
 
                 if (!propertyFound)

@@ -3868,10 +3868,8 @@ namespace FuseCP.Providers.Web
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
 			{
-				if (item is WebSite)
-				{
 					try
 					{
 						// start/stop web site
@@ -3882,7 +3880,6 @@ namespace FuseCP.Providers.Web
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
-				}
 			}
 		}
 
@@ -3932,10 +3929,8 @@ namespace FuseCP.Providers.Web
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
 			{
-				if (item is WebSite)
-				{
 					try
 					{
 						Log.WriteStart(String.Format("Calculating '{0}' site logs size", item.Name));
@@ -3957,7 +3952,6 @@ namespace FuseCP.Providers.Web
 					{
 						Log.WriteError(ex);
 					}
-				}
 			}
 			return itemsDiskspace.ToArray();
 		}

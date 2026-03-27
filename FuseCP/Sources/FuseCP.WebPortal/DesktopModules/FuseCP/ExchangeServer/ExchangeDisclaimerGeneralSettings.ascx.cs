@@ -79,7 +79,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 if (PanelRequest.AccountID == 0)
                 {
-                    int id = ES.Services.ExchangeServer.AddExchangeDisclaimer(PanelRequest.ItemID, disclaimer);
+                    ES.Services.ExchangeServer.AddExchangeDisclaimer(PanelRequest.ItemID, disclaimer);
                 }
                 else
                 {

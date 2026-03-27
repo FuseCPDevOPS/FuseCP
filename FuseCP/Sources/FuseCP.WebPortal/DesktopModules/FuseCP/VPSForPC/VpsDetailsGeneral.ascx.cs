@@ -29,7 +29,7 @@ namespace FuseCP.Portal.VPSForPC
 			//
 			var result = String.Empty;
 			//
-			if (String.IsNullOrEmpty(computerName) == false)
+			if (!(String.IsNullOrEmpty(computerName)))
 			{
 				//
 				var indexOf = computerName.IndexOf(".");
@@ -49,19 +49,19 @@ namespace FuseCP.Portal.VPSForPC
 			//
 			var result = String.Empty;
 			//
-			if (String.IsNullOrEmpty(computerName) == false)
+			if (!(String.IsNullOrEmpty(computerName)))
 			{
 				//
 				var indexOf = computerName.IndexOf(".");
 				//
-				if (indexOf == -1)
-				{
-					result = computerName;
-				}
-				else
-				{
-					result = computerName.Substring(0, indexOf);
-				}
+				result = indexOf == -1 ? computerName : computerName.Substring(0, indexOf);
+
+
+
+
+
+
+
 			}
 			//
 			return result;

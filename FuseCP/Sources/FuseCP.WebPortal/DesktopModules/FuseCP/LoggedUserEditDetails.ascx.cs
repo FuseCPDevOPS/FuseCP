@@ -225,7 +225,7 @@ namespace FuseCP.Portal
                 txtSecondaryEmail.Text = user.SecondaryEmail;
                 lblUsername.Text = PortalAntiXSS.Encode(user.Username);
                 ddlMailFormat.SelectedIndex = user.HtmlMail ? 1 : 0;
-                cbxMfaEnabled.Checked = user.MfaMode > 0 ? true : false;
+                cbxMfaEnabled.Checked = user.MfaMode > 0;
                 cbxMfaEnabled.Enabled = ES.Services.Users.CanUserChangeMfa(PanelSecurity.LoggedUserId);
                 btnGetQRCodeData.Visible = cbxMfaEnabled.Checked;
                 lblMfaEnabled.Visible = cbxMfaEnabled.Checked;
@@ -265,7 +265,6 @@ namespace FuseCP.Portal
                         if (RowPropertyName == "Style")
                         {
                             Utils.SelectListItem(ddlThemeStyle, RowPropertyValue);
-                            UserThemeStyle = RowPropertyValue;
 
                         }
 

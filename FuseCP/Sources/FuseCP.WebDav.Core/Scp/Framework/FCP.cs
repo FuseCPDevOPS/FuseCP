@@ -58,9 +58,9 @@ namespace FuseCP.WebDav.Core.Scp.Framework
             {
                 FCP services = null;
 
-                if (Items.ContainsKey(WebServicesKey))
+if (Items.TryGetValue(WebServicesKey, out var _ckv))
                 {
-                    services = Items[WebServicesKey] as FCP;
+                    services = _ckv as FCP;
                 }
 
                 if (services == null)
@@ -249,9 +249,9 @@ namespace FuseCP.WebDav.Core.Scp.Framework
             string key = t.FullName + ".ServiceProxy";
             T proxy = default(T);
 
-            if (Items.ContainsKey(key))
+if (Items.TryGetValue(key, out var _ckv))
             {
-                proxy = (T)Items[key];
+                proxy = (T)_ckv;
             }
 
             if (proxy == null)

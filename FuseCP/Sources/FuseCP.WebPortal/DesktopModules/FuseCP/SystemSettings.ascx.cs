@@ -99,15 +99,15 @@ namespace FuseCP.Portal
             // FILE MANAGER
             settings = ES.Services.System.GetSystemSettings(FCP.SystemSettings.FILEMANAGER_SETTINGS);
 
-            if (settings != null && !String.IsNullOrEmpty(settings[FILE_MANAGER_EDITABLE_EXTENSIONS]))
-            {
-                txtFileManagerEditableExtensions.Text = settings[FILE_MANAGER_EDITABLE_EXTENSIONS].Replace(",", System.Environment.NewLine);
-            }
-            else
-            {
-                // Original FuseCP Extensions
-                txtFileManagerEditableExtensions.Text = FileManager.ALLOWED_EDIT_EXTENSIONS.Replace(",", System.Environment.NewLine);
-            }
+            txtFileManagerEditableExtensions.Text = settings != null && !String.IsNullOrEmpty(settings[FILE_MANAGER_EDITABLE_EXTENSIONS]) ? settings[FILE_MANAGER_EDITABLE_EXTENSIONS].Replace(",", System.Environment.NewLine) : FileManager.ALLOWED_EDIT_EXTENSIONS.Replace(",", System.Environment.NewLine);
+
+
+
+
+
+
+
+
 
             // RDS
             var services = ES.Services.RDS.GetRdsServices();
@@ -267,7 +267,7 @@ namespace FuseCP.Portal
                 // RDS Server
                 settings = new FCP.SystemSettings();
                 settings[RDS_MAIN_CONTROLLER] = ddlRdsController.SelectedValue;
-                int result = ES.Services.System.SetSystemSettings(FCP.SystemSettings.RDS_SETTINGS, settings);
+                ES.Services.System.SetSystemSettings(FCP.SystemSettings.RDS_SETTINGS, settings);
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {

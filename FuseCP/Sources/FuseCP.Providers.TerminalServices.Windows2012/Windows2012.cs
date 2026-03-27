@@ -261,12 +261,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
             {
                 runSpace = RdsRunspaceExtensions.OpenRunspace();
 
-                foreach (var server in servers)
+                foreach (var server in servers.Where(server => !ExistRdsServerInDeployment(runSpace, server)))
                 {                    
-                    if (!ExistRdsServerInDeployment(runSpace, server))
-                    {
                         AddRdsServerToDeployment(runSpace, server);
-                    }
                 }
             }
             catch (AmbiguousMatchException)
@@ -299,15 +296,12 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     throw new Exception(string.Format("Server{0} {1} already added to another collection", existingServers.Count == 1 ? "" : "s", string.Join(" ,", existingServers.ToArray())));
                 }                
 
-                foreach (var server in collection.Servers)
+                foreach (var server in collection.Servers.Where(server => !ExistRdsServerInDeployment(runSpace, server)))
                 {
                     //If server will restart it will not be added to collection
                     //Do not install feature here                        
 
-                    if (!ExistRdsServerInDeployment(runSpace, server))
-                    {                        
                         AddRdsServerToDeployment(runSpace, server);                        
-                    }
                 }
 
                 Log.WriteInfo("powershell: New-RDSessionCollection");
@@ -417,13 +411,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
             foreach (string item in groups)
             {
                 bool res = false;
-                foreach (string ugItem in ug)
+                foreach (string ugItem in ug.Where(ugItem => ugItem.ToLower().Contains(item.ToLower())))
                 {
-                    if (ugItem.ToLower().Contains(item.ToLower()))
-                    {
                         res = true;
                         break;
-                    }
                 }
                 if (!res) return false;
             }
@@ -2857,17 +2848,14 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             var properties = collection.Settings.GetType().GetProperties();
 
-            foreach(var prop in properties)
+            foreach (var prop in properties.Where(prop => prop.Name.ToLower() != "id" && prop.Name.ToLower() != "rdscollectionid"))
             {
-                if (prop.Name.ToLower() != "id" && prop.Name.ToLower() != "rdscollectionid")
-                {
                     var value = prop.GetValue(collection.Settings, null);
 
                     if (value != null)
                     {
                         cmd.Parameters.Add(prop.Name, value);
                     }
-                }
             }
 
             runspace.ExecuteShellCommand(cmd, false, PrimaryDomainController, out errors);

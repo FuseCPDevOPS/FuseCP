@@ -125,14 +125,11 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 try
                 {
                     LibraryItem[] osTemplates = VirtualizationHelper.GetOperatingSystemTemplatesByServiceId(serviceId);
-                    foreach (LibraryItem osTemplate in osTemplates)
+                    foreach (LibraryItem osTemplate in osTemplates.Where(osTemplate => String.Compare(osTemplate.Path, osTemplateFile, true) == 0))
                     {
-                        if (String.Compare(osTemplate.Path, osTemplateFile, true) == 0)
-                        {
                             item.OperatingSystemTemplate = osTemplate.Name;
                             item.LegacyNetworkAdapter = osTemplate.LegacyNetworkAdapter;
                             break;
-                        }
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -233,10 +230,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     // assign IP addresses to VM
                     for (int i = 0; i < externalAddresses.Length; i++)
                     {
-                        foreach (PackageIPAddress ip in packageIPs)
+                        foreach (PackageIPAddress ip in packageIPs.Where(ip => ip.AddressID == externalAddresses[i]))
                         {
-                            if (ip.AddressID == externalAddresses[i])
-                            {
                                 // assign to the item
                                 ServerController.AddItemIPAddress(itemId, ip.PackageAddressID);
 
@@ -245,7 +240,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                                     ServerController.SetItemPrimaryIPAddress(itemId, ip.PackageAddressID);
 
                                 break;
-                            }
                         }
                     }
                 }
@@ -267,15 +261,12 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                                     packageId, IPAddressPool.VpsManagementNetwork);
 
                     // assign IP addresses to VM
-                    foreach (PackageIPAddress ip in packageIPs)
+                    foreach (PackageIPAddress ip in packageIPs.Where(ip => ip.AddressID == managementAddress))
                     {
-                        if (ip.AddressID == managementAddress)
-                        {
                             // assign to the item
                             ServerController.AddItemIPAddress(itemId, ip.PackageAddressID);
 
                             break;
-                        }
                     }
                 }
                 #endregion

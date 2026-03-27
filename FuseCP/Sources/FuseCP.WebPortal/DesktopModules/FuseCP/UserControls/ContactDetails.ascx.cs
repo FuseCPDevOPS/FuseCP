@@ -88,10 +88,10 @@ namespace FuseCP.Portal
         {
             get
             {
-                if (ddlStates.Visible)
-                    return ddlStates.SelectedItem.Text;
-                else
-                    return NormalizeText(txtState.Text);
+                return ddlStates.Visible ? ddlStates.SelectedItem.Text : NormalizeText(txtState.Text);
+
+
+
             }
             set
             {

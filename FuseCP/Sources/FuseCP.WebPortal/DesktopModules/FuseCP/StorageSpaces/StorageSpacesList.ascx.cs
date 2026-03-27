@@ -42,14 +42,14 @@ namespace FuseCP.Portal.StorageSpaces
 
             var service = ES.Services.Servers.GetServiceInfo(serviceId);
 
-            if (service == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return service.ServiceName;
-            }
+            return service == null ? string.Empty : service.ServiceName;
+
+
+
+
+
+
+
         }
 
         public decimal ConvertBytesToGB(object size)

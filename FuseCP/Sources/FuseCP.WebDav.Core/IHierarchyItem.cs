@@ -235,13 +235,10 @@ namespace FuseCP.WebDav.Core
                 }
 
                 bool propertyFound = false;
-                foreach (Property prop in _properties)
+                foreach (Property prop in _properties.Where(prop => prop.Name.Equals(property.Name)))
                 {
-                    if (prop.Name.Equals(property.Name))
-                    {
                         prop.StringValue = property.StringValue;
                         propertyFound = true;
-                    }
                 }
 
                 if (!propertyFound)

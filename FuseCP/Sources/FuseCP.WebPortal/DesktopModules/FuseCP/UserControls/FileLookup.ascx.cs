@@ -47,7 +47,7 @@ namespace FuseCP.Portal
 
         public bool IncludeFiles
         {
-            get { return (ViewState["IncludeFiles"] != null) ? (bool)ViewState["IncludeFiles"] : false; }
+            get { return (ViewState["IncludeFiles"] != null) && (bool)ViewState["IncludeFiles"]; }
             set { ViewState["IncludeFiles"] = value; }
         }
 
@@ -91,9 +91,8 @@ namespace FuseCP.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack && !treeInitialized)
             {
-                if(!treeInitialized)
                     InitTree();
             }
         }

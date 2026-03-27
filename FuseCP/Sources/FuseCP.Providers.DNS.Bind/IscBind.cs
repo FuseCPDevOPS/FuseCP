@@ -668,10 +668,8 @@ namespace FuseCP.Providers.DNS
         #region IHostingServiceProvier methods
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is DnsZone))
             {
-                if (item is DnsZone)
-                {
                     try
                     {
                         // delete DNS zone
@@ -689,7 +687,6 @@ namespace FuseCP.Providers.DNS
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
                     }
-                }
             }
         }
         #endregion
@@ -1111,10 +1108,8 @@ namespace FuseCP.Providers.DNS
                 .Concat(new string[] { Shell.Default.Find("named") })
                 .Where(exe => exe != null)
                 .Distinct();
-            foreach (var exe in processes)
+            foreach (var exe in processes.Where(exe => File.Exists(exe)))
             {
-                if (File.Exists(exe))
-                {
                     try
                     {
                         var output = Shell.Default.Exec($"\"{exe}\" -version").Output().Result;
@@ -1129,7 +1124,6 @@ namespace FuseCP.Providers.DNS
                     catch (UnauthorizedAccessException swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                     catch (InvalidOperationException swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                     catch (AggregateException swallowedEx) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-                }
             }
             return false;
         }

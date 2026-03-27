@@ -890,7 +890,7 @@ function SetCreateZipFocus()
 			if (e.InputParameters == null)
 				return;
 			// Decode path parameter to pass it to the server as is
-			if (e.InputParameters.Contains("path") == true)
+			if (e.InputParameters.Contains("path"))
 			{
 				e.InputParameters["path"] = Server.HtmlDecode((String)e.InputParameters["path"]);
 			}

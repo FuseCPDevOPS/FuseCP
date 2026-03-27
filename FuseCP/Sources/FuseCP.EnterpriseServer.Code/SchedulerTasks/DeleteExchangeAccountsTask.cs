@@ -20,6 +20,7 @@ using System.Text;
 
 using FuseCP.Server.Client;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -38,12 +39,9 @@ namespace FuseCP.EnterpriseServer
             {
                 List<OrganizationDeletedUser> deletedUsers = OrganizationController.GetOrganizationDeletedUsers(organization.Id);
 
-                foreach (OrganizationDeletedUser deletedUser in deletedUsers)
+                foreach (OrganizationDeletedUser deletedUser in deletedUsers.Where(deletedUser => deletedUser.ExpirationDate > DateTime.UtcNow))
                 {
-                    if (deletedUser.ExpirationDate > DateTime.UtcNow)
-                    {
                         OrganizationController.DeleteUser(TaskManager.TopTask.ItemId, deletedUser.AccountId);
-                    }
                 }
             }
         }

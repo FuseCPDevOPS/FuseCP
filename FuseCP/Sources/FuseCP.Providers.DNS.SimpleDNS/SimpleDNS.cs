@@ -708,15 +708,12 @@ namespace FuseCP.Providers.DNS
 			sb.Append(";$; Updated with FuseCP DNS API ").Append(DateTime.Now).Append("\r");
 
 			// render comment/service records
-			foreach (DnsRecord rr in records)
+			foreach (DnsRecord rr in records.Where(rr => rr.RecordText != null && rr.RecordText.StartsWith(";") && rr.RecordType != DnsRecordType.TXT))
 			{
-				if (rr.RecordText != null && rr.RecordText.StartsWith(";") && rr.RecordType != DnsRecordType.TXT)
-				{
 					sb.Append(rr.RecordText);
 
 					// add line break
 					sb.Append("\r");
-				}
 			}
 
 			// render SOA record

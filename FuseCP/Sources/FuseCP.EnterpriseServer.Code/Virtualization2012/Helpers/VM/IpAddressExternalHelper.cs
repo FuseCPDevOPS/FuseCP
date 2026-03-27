@@ -118,12 +118,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 {
                     List<PackageIPAddress> packageips = ServerController.GetPackageUnassignedIPAddresses(vm.PackageId, IPAddressPool.VpsExternalNetwork);
                     List<PackageIPAddress> ips = new List<PackageIPAddress>();
-                    foreach (PackageIPAddress ip in packageips)
+                    foreach (PackageIPAddress ip in packageips.Where(ip => ip.VLAN == vlan))
                     {
-                        if (ip.VLAN == vlan)
-                        {
                             ips.Add(ip);
-                        }
                     }
                     if (addressesNumber > ips.Count)
                     {

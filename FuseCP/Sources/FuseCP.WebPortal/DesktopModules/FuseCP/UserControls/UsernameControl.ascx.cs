@@ -44,13 +44,13 @@ namespace FuseCP.Portal
 
         public bool EditMode
         {
-            get { return (ViewState["EditMode"] != null) ? (bool)ViewState["EditMode"] : false; }
+            get { return (ViewState["EditMode"] != null) && (bool)ViewState["EditMode"]; }
             set { ViewState["EditMode"] = value; ToggleControls(); }
         }
 
         public bool RequiredField
         {
-            get { return (ViewState["RequiredField"] != null) ? (bool)ViewState["RequiredField"] : true; }
+            get { return !((ViewState["RequiredField"] != null)) || (bool)ViewState["RequiredField"]; }
             set { ViewState["RequiredField"] = value; ToggleControls(); }
         }
 

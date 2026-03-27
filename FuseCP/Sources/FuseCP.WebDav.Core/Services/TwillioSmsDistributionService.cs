@@ -44,7 +44,7 @@ namespace FuseCP.WebDav.Core.Services
                 to: new Twilio.Types.PhoneNumber(phone)
             );
 
-            return string.IsNullOrEmpty(result.Status.ToString()) == false;
+            return !(string.IsNullOrEmpty(result.Status.ToString()));
 
 
         }
@@ -62,7 +62,7 @@ namespace FuseCP.WebDav.Core.Services
                 to: new Twilio.Types.PhoneNumber(phone)
             );
 
-            return string.IsNullOrEmpty(result.Status.ToString()) == false;
+            return !(string.IsNullOrEmpty(result.Status.ToString()));
         }
     }
 }

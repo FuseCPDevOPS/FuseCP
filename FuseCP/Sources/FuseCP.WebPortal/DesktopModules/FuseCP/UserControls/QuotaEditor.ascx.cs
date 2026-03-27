@@ -66,14 +66,13 @@ namespace FuseCP.Portal
                             else
                             {
 
-                                if (QuotaMinValue > 0)
-                                    quotaValue = Math.Max(Utils.ParseInt(txtQuotaValue.Text, 0), QuotaMinValue);
-                                else
-                                    quotaValue = Utils.ParseInt(txtQuotaValue.Text, 0);
+                                quotaValue = QuotaMinValue > 0 ? Math.Max(Utils.ParseInt(txtQuotaValue.Text, 0), QuotaMinValue) : Utils.ParseInt(txtQuotaValue.Text, 0);
 
-                                if (QuotaMaxValue > 0)
+
+
+
+                                if (QuotaMaxValue > 0 && Utils.ParseInt(txtQuotaValue.Text, 0) > QuotaMaxValue)
                                 {
-                                    if (Utils.ParseInt(txtQuotaValue.Text, 0) > QuotaMaxValue)
                                         quotaValue = QuotaMaxValue;
                                 }
                             }
@@ -101,9 +100,8 @@ namespace FuseCP.Portal
                                 if (QuotaMinValue > 0)
                                     quotaValue = Math.Max(quotaValue, QuotaMinValue);
 
-                                if (QuotaMaxValue > 0)
+                                if (QuotaMaxValue > 0 && quotaValue > QuotaMaxValue)
                                 {
-                                    if (quotaValue > QuotaMaxValue)
                                         quotaValue = QuotaMaxValue;
                                 }
 
@@ -126,10 +124,10 @@ namespace FuseCP.Portal
             }
             set
             {
-                if (QuotaMinValue > 0)
-                    txtQuotaValue.Text = Math.Max(value, QuotaMinValue).ToString();
-                else
-                    txtQuotaValue.Text = value.ToString();
+                txtQuotaValue.Text = QuotaMinValue > 0 ? Math.Max(value, QuotaMinValue).ToString() : value.ToString();
+
+
+
 
                 chkQuotaEnabled.Checked = (value > 0);
                 chkQuotaUnlimited.Checked = (value == -1);

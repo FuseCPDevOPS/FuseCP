@@ -33,6 +33,7 @@ using System.Web.UI.HtmlControls;
 
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -123,7 +124,7 @@ namespace FuseCP.Portal
                 gvPlans.DataBind();
             }
 
-            btnUpdatePlan.Enabled = (string.IsNullOrEmpty(txtPlan.Text)) ? false : true;
+            btnUpdatePlan.Enabled = !((string.IsNullOrEmpty(txtPlan.Text)));
         }
 
 
@@ -257,7 +258,7 @@ namespace FuseCP.Portal
 
                         txtPlan.Text = string.Empty;
 
-                        btnUpdatePlan.Enabled = (string.IsNullOrEmpty(txtPlan.Text)) ? false : true;
+                        btnUpdatePlan.Enabled = !((string.IsNullOrEmpty(txtPlan.Text)));
 
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -327,7 +328,7 @@ namespace FuseCP.Portal
                         ddTelephonyVoicePolicy.Items.Clear();
                         ddTelephonyVoicePolicy.Items.Add(new System.Web.UI.WebControls.ListItem(planTelephonyVoicePolicy.Replace("Tag:", ""), planTelephonyVoicePolicy));
 
-                        btnUpdatePlan.Enabled  = (string.IsNullOrEmpty(txtPlan.Text)) ? false : true;
+                        btnUpdatePlan.Enabled  = !((string.IsNullOrEmpty(txtPlan.Text)));
 
                         break;
                     }
@@ -464,20 +465,17 @@ namespace FuseCP.Portal
         {
             bool result = false;
 
-            foreach (LyncUserPlan p in plans)
+            foreach (LyncUserPlan p in plans.Where(p => p.LyncUserPlanName.ToLower() == plan.LyncUserPlanName.ToLower()))
             {
-                if (p.LyncUserPlanName.ToLower() == plan.LyncUserPlanName.ToLower())
-                {
                     result = true;
                     break;
-                }
             }
             return result;
         }
 
         protected void txtMailboxPlan_TextChanged(object sender, EventArgs e)
         {
-            btnUpdatePlan.Enabled = (string.IsNullOrEmpty(txtPlan.Text)) ? false : true;
+            btnUpdatePlan.Enabled = !((string.IsNullOrEmpty(txtPlan.Text)));
         }
 
         private void RestampLyncUsers(int sourcePlanId, int destinationPlanId)
@@ -500,10 +498,8 @@ namespace FuseCP.Portal
 
                             if ((orgs != null) && (orgs.GetLength(0) > 0))
                             {
-                                foreach (Organization org in orgs)
+                                foreach (Organization org in orgs.Where(org => !string.IsNullOrEmpty(org.LyncTenantId)))
                                 {
-                                    if (!string.IsNullOrEmpty(org.LyncTenantId))
-                                    {
                                         LyncUser[] Accounts = ES.Services.Lync.GetLyncUsersByPlanId(org.Id, sourcePlanId);
 
                                         foreach (LyncUser a in Accounts)
@@ -518,7 +514,6 @@ namespace FuseCP.Portal
                                                 return;
                                             }
                                         }
-                                    }
                                 }
                             }
                         }

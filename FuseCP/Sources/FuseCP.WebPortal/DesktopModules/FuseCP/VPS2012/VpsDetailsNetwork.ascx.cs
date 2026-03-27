@@ -23,6 +23,7 @@ using FuseCP.EnterpriseServer;
 using FuseCP.Providers.Common;
 using System.Text;
 using System.Data;
+using System.Linq;
 
 namespace FuseCP.Portal.VPS2012
 {
@@ -117,10 +118,8 @@ namespace FuseCP.Portal.VPS2012
                 btnRestoreExternalAddress.Visible = 
                 btnRestorePrivateAddress.Visible =
                 btnRestoreDmzAddress.Visible = false;
-            foreach (VirtualMachineNetworkAdapter adapter in Adapters)
+            foreach (VirtualMachineNetworkAdapter adapter in Adapters.Where(adapter => adapter.IPAddresses != null && adapter.IPAddresses.Length > 0))
             {
-                if (adapter.IPAddresses != null && adapter.IPAddresses.Length > 0) //if we can get IP information at least from 1 adapter it means that VM support IP Injection.
-                {
                     btnDeletePrivateByInject.Visible =
                         btnDeleteExternalByInject.Visible =
                         btnDeleteDmzByInject.Visible =
@@ -128,7 +127,6 @@ namespace FuseCP.Portal.VPS2012
                         btnRestorePrivateAddress.Visible =
                         btnRestoreDmzAddress.Visible = true;
                     break;
-                }
             }
         }
 
@@ -159,15 +157,12 @@ namespace FuseCP.Portal.VPS2012
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetExternalNetworkAdapterDetails(PanelRequest.ItemID);
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses)
+            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
             {
-                if (ip.IsPrimary)
-                {
                     litExtAddress.Text = ip.IPAddress;
                     litExtSubnet.Text = ip.SubnetMask;
                     litExtGateway.Text = ip.DefaultGateway;
                     break;
-                }
             }
             litExtVLAN.Text = nic.VLAN.ToString();
             locExtVLAN.Visible = nic.VLAN > 0;
@@ -192,13 +187,10 @@ namespace FuseCP.Portal.VPS2012
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetPrivateNetworkAdapterDetails(PanelRequest.ItemID);
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses)
+            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
             {
-                if (ip.IsPrimary)
-                {
                     litPrivAddress.Text = ip.IPAddress;
                     break;
-                }
             }
             litPrivSubnet.Text = nic.SubnetMask;
             litPrivGateway.Text = nic.DefaultGateway;
@@ -224,13 +216,10 @@ namespace FuseCP.Portal.VPS2012
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetDmzNetworkAdapterDetails(PanelRequest.ItemID);
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses)
+            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
             {
-                if (ip.IsPrimary)
-                {
                     litDmzAddress.Text = ip.IPAddress;
                     break;
-                }
             }
             litDmzSubnet.Text = nic.SubnetMask;
             litDmzGateway.Text = nic.DefaultGateway;
@@ -445,10 +434,10 @@ namespace FuseCP.Portal.VPS2012
             try
             {
                 ResultObject res = null;
-                if (byNewMethod)
-                    res = ES.Services.VPS2012.DeleteVirtualMachinePrivateIPAddressesByInject(PanelRequest.ItemID, addressIds);
-                else
-                    res = ES.Services.VPS2012.DeleteVirtualMachinePrivateIPAddresses(PanelRequest.ItemID, addressIds);
+                res = byNewMethod ? ES.Services.VPS2012.DeleteVirtualMachinePrivateIPAddressesByInject(PanelRequest.ItemID, addressIds) : ES.Services.VPS2012.DeleteVirtualMachinePrivateIPAddresses(PanelRequest.ItemID, addressIds);
+
+
+
 
                 if (res.IsSuccess)
                 {
@@ -491,10 +480,10 @@ namespace FuseCP.Portal.VPS2012
             try
             {
                 ResultObject res = null;
-                if (byNewMethod)
-                    res = ES.Services.VPS2012.DeleteVirtualMachineDmzIPAddressesByInject(PanelRequest.ItemID, addressIds);
-                else
-                    res = ES.Services.VPS2012.DeleteVirtualMachineDmzIPAddresses(PanelRequest.ItemID, addressIds);
+                res = byNewMethod ? ES.Services.VPS2012.DeleteVirtualMachineDmzIPAddressesByInject(PanelRequest.ItemID, addressIds) : ES.Services.VPS2012.DeleteVirtualMachineDmzIPAddresses(PanelRequest.ItemID, addressIds);
+
+
+
 
                 if (res.IsSuccess)
                 {
@@ -568,10 +557,10 @@ namespace FuseCP.Portal.VPS2012
             try
             {
                 ResultObject res = null;
-                if(byNewMethod)
-                    res = ES.Services.VPS2012.DeleteVirtualMachineExternalIPAddressesByInjection(PanelRequest.ItemID, addressIds);
-                else
-                    res = ES.Services.VPS2012.DeleteVirtualMachineExternalIPAddresses(PanelRequest.ItemID, addressIds);
+                res = byNewMethod ? ES.Services.VPS2012.DeleteVirtualMachineExternalIPAddressesByInjection(PanelRequest.ItemID, addressIds) : ES.Services.VPS2012.DeleteVirtualMachineExternalIPAddresses(PanelRequest.ItemID, addressIds);
+
+
+
 
                 if (res.IsSuccess)
                 {

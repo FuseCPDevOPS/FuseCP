@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.Text;
 using CryptSharp.Internal;
 using CryptSharp.Utility;
+using System.Linq;
 
 namespace CryptSharp
 {
@@ -124,12 +125,9 @@ namespace CryptSharp
         {
             Check.Null("cryptedPassword", cryptedPassword);
 
-            foreach (Crypter testCrypter in Crypters)
+            foreach (Crypter testCrypter in Crypters.Where(testCrypter => testCrypter.CanCrypt(cryptedPassword)))
             {
-                if (testCrypter.CanCrypt(cryptedPassword))
-                {
                     crypter = testCrypter; return true;
-                }
             }
 
             crypter = null; return false;

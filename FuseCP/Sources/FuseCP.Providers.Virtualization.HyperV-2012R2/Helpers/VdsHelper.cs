@@ -28,6 +28,7 @@ using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using Path = System.IO.Path;
+using System.Linq;
 
 
 namespace FuseCP.Providers.Virtualization
@@ -230,12 +231,9 @@ namespace FuseCP.Providers.Virtualization
                     foreach (var objPartition in partitions)
                     {
                         var logicalDisks = _miCim.EnumerateAssociatedInstances(objPartition, "Win32_LogicalDiskToPartition", "Win32_LogicalDisk");
-                        foreach (var objVolume in logicalDisks)
+                        foreach (var objVolume in logicalDisks.Where(objVolume => objVolume.CimInstanceProperties["Name"]?.Value != null))
                         {
-                            if (objVolume.CimInstanceProperties["Name"]?.Value != null)
-                            {
                                 volumes.Add(objVolume.CimInstanceProperties["Name"].Value.ToString().TrimEnd(':'));
-                            }
                         }
                     }
                 }

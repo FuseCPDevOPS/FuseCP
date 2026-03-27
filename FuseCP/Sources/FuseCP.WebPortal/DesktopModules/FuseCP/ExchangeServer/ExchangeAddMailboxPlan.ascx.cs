@@ -248,9 +248,8 @@ namespace FuseCP.Portal.ExchangeServer
 
                 foreach (Providers.HostedSolution.ExchangeRetentionPolicyTag tag in allTags)
                 {
-                    if (selectedTags!=null)
+                    if (selectedTags!=null && selectedTags.Find(x => x.TagID == tag.TagID) != null)
                     {
-                        if (selectedTags.Find(x => x.TagID == tag.TagID) != null)
                             continue;
                     }
 

@@ -64,20 +64,20 @@ namespace FuseCP.Portal.UserControls
 
             int quotaAllowed = -1;
             string quotaName;
-            if (isDmz)
-            {
-                quotaName = Quotas.VPS2012_DMZ_VLANS_NUMBER;
-            }
-            else
-            {
-                quotaName = Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
-            }
+            quotaName = isDmz ? Quotas.VPS2012_DMZ_VLANS_NUMBER : Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
+
+
+
+
+
+
+
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(quotaName))
+if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             {
-                int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
-                int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
+                int quotaAllocated = _ckv.QuotaAllocatedValue;
+                int quotaUsed = _ckv.QuotaUsedValue;
 
                 if (quotaAllocated != -1)
                     quotaAllowed = quotaAllocated - quotaUsed;

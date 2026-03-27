@@ -1375,12 +1375,9 @@ namespace FuseCP.EnterpriseServer
 
                     if (!rebuild)
                     {
-                        foreach (DnsRecord r in resourceRecords)
+                        foreach (DnsRecord r in resourceRecords.Where(r => r.RecordName != "*" && Database.CheckDomain(domain.PackageId, string.IsNullOrEmpty(r.RecordName) ? domain.DomainName : r.RecordName + "." + domain.DomainName, true) != 0))
                         {
-                            if (r.RecordName != "*" && Database.CheckDomain(domain.PackageId, string.IsNullOrEmpty(r.RecordName) ? domain.DomainName : r.RecordName + "." + domain.DomainName, true) != 0)
-                            {
                                     return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
-                            }
                         }
                     }
 
@@ -1446,11 +1443,9 @@ namespace FuseCP.EnterpriseServer
                 {
                     domain.WebSiteId = siteItemId;
                     domain.IsDomainPointer = true;
-                    foreach (ServerBinding b in bindings)
+                    foreach (ServerBinding b in bindings.Where(b => !string.IsNullOrEmpty(b.Host)))
                     {
                         //add new domain record
-                        if (!string.IsNullOrEmpty(b.Host))
-                        {
                             domain.DomainName = b.Host;
 
                             DomainInfo domainTmp = ServerController.GetDomain(domain.DomainName);
@@ -1467,7 +1462,6 @@ namespace FuseCP.EnterpriseServer
                                     ServerController.UpdateDomain(domainTmp);
                                 }
                             }
-                        }
                     }
                 }
                 else
@@ -4138,10 +4132,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             List<DomainInfo> domains = ServerController.GetDomains(packageId);
 
             // Get hostheader
-            foreach (ServerBinding b in web.GetSiteBindings(siteItem.SiteId))
+            foreach (ServerBinding b in web.GetSiteBindings(siteItem.SiteId).Where(b => (!DoesHeaderExistInDomains(b.Host.ToLower(), domains)) && (!string.IsNullOrEmpty(b.Host))))
             {
-                if ((!DoesHeaderExistInDomains(b.Host.ToLower(), domains)) && (!string.IsNullOrEmpty(b.Host)))
-                {
                     // If not get domain info and add to domains
                     int domainId = FindDomainForHeader(b.Host.ToLower(), domains);
                     if (domainId > 0)
@@ -4165,7 +4157,6 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
                             }
                         }
                     }
-                }
             }
 
             return 0;
@@ -4185,12 +4176,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             while ((header.IndexOf(".") != -1) && (counter < 2))
             {
 
-                foreach (DomainInfo d in domains)
+                foreach (DomainInfo d in domains.Where(d => (header == d.DomainName.ToLower()) && (!d.IsDomainPointer)))
                 {
-                    if ((header == d.DomainName.ToLower()) && (!d.IsDomainPointer))
-                    {
                         return d.DomainId;
-                    }
                 }
 
                 header = header.Substring(header.IndexOf(".") + 1);

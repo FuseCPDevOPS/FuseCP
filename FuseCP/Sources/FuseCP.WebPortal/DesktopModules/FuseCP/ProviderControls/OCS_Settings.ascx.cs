@@ -19,6 +19,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.Portal.ProviderControls
 {
@@ -92,13 +93,10 @@ namespace FuseCP.Portal.ProviderControls
                 int serviceId = (int) dr["ServiceID"];
                 ServiceInfo[] services = GetEDGEServices();
                 bool exists = false;
-                foreach (ServiceInfo current in services)
+                foreach (ServiceInfo current in services.Where(current => current.ServiceId == serviceId))
                 {
-                    if (current.ServiceId == serviceId)
-                    {
                         exists = true;
                         break;
-                    }
                 }
                 if (!exists)
                     ddl.Items.Add(new ListItem(dr["FullServiceName"].ToString(), serviceId.ToString()));

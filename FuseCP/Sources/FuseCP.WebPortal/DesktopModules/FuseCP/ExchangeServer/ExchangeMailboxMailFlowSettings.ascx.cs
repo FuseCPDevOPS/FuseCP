@@ -81,16 +81,16 @@ namespace FuseCP.Portal.ExchangeServer
                 accessAccounts.SetAccounts(mailbox.SendOnBehalfAccounts);
 
 
-                if (mailbox.SaveSentItems == 1)
-                {
-                    // Enabled
-                    chkSaveSentItems.Checked = true;
-                }
-                else
-                {
-                    // Disabled
-                    chkSaveSentItems.Checked = false;
-                }
+                chkSaveSentItems.Checked = mailbox.SaveSentItems == 1 ? true : false;
+
+
+
+
+
+
+
+
+
 
 
                 acceptAccounts.SetAccounts(mailbox.AcceptAccounts);
@@ -126,16 +126,16 @@ namespace FuseCP.Portal.ExchangeServer
                 }
                 else
                 {
-                    if (chkSaveSentItems.Checked)
-                    {
-                        // Enabled
-                        SaveSentItems = 1;
-                    }
-                    else
-                    {
-                        // Disabled
-                        SaveSentItems = 2;
-                    }
+                    SaveSentItems = chkSaveSentItems.Checked ? 1 : 2;
+
+
+
+
+
+
+
+
+
                 }
 
                 int result = ES.Services.ExchangeServer.SetMailboxMailFlowSettings(

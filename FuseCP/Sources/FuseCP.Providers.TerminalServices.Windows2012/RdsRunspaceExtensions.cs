@@ -141,16 +141,13 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (psObject != null)
             {
-                foreach (var prop in psObject.Properties)
+                foreach (var prop in psObject.Properties.Where(prop => prop.Name.ToLower() != "id" && prop.Name.ToLower() != "rdscollectionid"))
                 {                    
-                    if (prop.Name.ToLower() != "id" && prop.Name.ToLower() != "rdscollectionid")
-                    {
                         result.Add(new RdsCollectionSetting
                         {
                             PropertyName = prop.Name,
                             PropertyValue = prop.Value
                         });
-                    }
                 }
             }
 

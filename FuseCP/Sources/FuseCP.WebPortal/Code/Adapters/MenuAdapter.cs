@@ -414,14 +414,14 @@ namespace CSSFriendly
 
             if ((item != null) && (item.Parent != null))
             {
-                if (item.Parent.Selected)
-                {
-                    bRet = true;
-                }
-                else
-                {
-                    bRet = IsParentItemSelected(item.Parent);
-                }
+                bRet = item.Parent.Selected ? true : IsParentItemSelected(item.Parent);
+
+
+
+
+
+
+
             }
 
             return bRet;

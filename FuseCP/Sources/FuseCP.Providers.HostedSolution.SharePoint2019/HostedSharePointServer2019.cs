@@ -22,6 +22,7 @@ using Microsoft.Win32;
 using FuseCP.Providers.SharePoint;
 using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
+using System.Linq;
 
 namespace FuseCP.Providers.HostedSolution
 {
@@ -240,10 +241,8 @@ namespace FuseCP.Providers.HostedSolution
         {
             var itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is SharePointEnterpriseSiteCollection))
             {
-                if (item is SharePointEnterpriseSiteCollection)
-                {
                     try
                     {
                         Log.WriteStart(String.Format("Calculating '{0}' site logs size", item.Name));
@@ -258,7 +257,6 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         Log.WriteError(ex);
                     }
-                }
             }
 
             return itemsDiskspace.ToArray();

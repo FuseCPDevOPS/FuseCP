@@ -20,6 +20,7 @@ using System.Threading;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -132,15 +133,12 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateParamValue(String name, object value)
         {
-            foreach (BackgroundTaskParameter param in Params)
+            foreach (BackgroundTaskParameter param in Params.Where(param => param.Name == name))
             {
-                if (param.Name == name)
-                {
                     param.Value = value;
 
                     return;
 
-                }
             }
 
             Params.Add(new BackgroundTaskParameter(name, value));

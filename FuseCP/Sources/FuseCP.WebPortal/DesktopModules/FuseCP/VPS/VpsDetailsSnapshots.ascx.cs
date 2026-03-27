@@ -20,6 +20,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FuseCP.Providers.Common;
 using FuseCP.Providers.Virtualization;
+using System.Linq;
 
 namespace FuseCP.Portal.VPS
 {
@@ -90,10 +91,8 @@ namespace FuseCP.Portal.VPS
 
         private void AddChildNodes(TreeNodeCollection parent, string parentId, VirtualMachineSnapshot[] snapshots)
         {
-            foreach (VirtualMachineSnapshot snapshot in snapshots)
+            foreach (VirtualMachineSnapshot snapshot in snapshots.Where(snapshot => snapshot.ParentId == parentId))
             {
-                if (snapshot.ParentId == parentId)
-                {
                     // add node
                     TreeNode node = new TreeNode(snapshot.Name, snapshot.Id);
                     node.Expanded = true;
@@ -111,7 +110,6 @@ namespace FuseCP.Portal.VPS
 
                     // fill children
                     AddChildNodes(node.ChildNodes, snapshot.Id, snapshots);
-                }
             }
         }
 

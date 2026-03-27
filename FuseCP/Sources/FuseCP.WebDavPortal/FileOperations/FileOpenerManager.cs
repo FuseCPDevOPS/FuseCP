@@ -55,7 +55,7 @@ namespace FuseCP.WebDavPortal.FileOperations
         public string GetUrl(IHierarchyItem item, IUrlHelper urlHelper)
         {
             var opener = this[Path.GetExtension(item.DisplayName)];
-            string href = "/";
+            string href;
 
             switch (opener)
             {

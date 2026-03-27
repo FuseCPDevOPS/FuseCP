@@ -159,12 +159,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             ConcreteJob[] jobs = vps.GetVirtualMachineJobs(vm.VirtualMachineId);
             List<ConcreteJob> retJobs = new List<ConcreteJob>();
 
-            foreach (ConcreteJob job in jobs)
+            foreach (ConcreteJob job in jobs.Where(job => job.JobState == ConcreteJobState.Running))
             {
-                if (job.JobState == ConcreteJobState.Running)
-                {
                     retJobs.Add(job);
-                }
             }
 
             return retJobs;

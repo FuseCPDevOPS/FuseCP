@@ -120,14 +120,14 @@ namespace FuseCP.Portal
         {
             HtaccessFolder folder;
             WebSite site = ES.Services.WebServers.GetWebSite(PanelRequest.ItemID);
-            if (null != site && !String.IsNullOrEmpty(PanelRequest.Name))
-            {
-                folder = ES.Services.WebServers.GetHeliconApeFolder(PanelRequest.ItemID, PanelRequest.Name);
-            }
-            else
-            {
-                folder = new HtaccessFolder();
-            }
+            folder = null != site && !String.IsNullOrEmpty(PanelRequest.Name) ? ES.Services.WebServers.GetHeliconApeFolder(PanelRequest.ItemID, PanelRequest.Name) : new HtaccessFolder();
+
+
+
+
+
+
+
 
             folder.AuthName = txtTitle.Text.Trim();
             folder.AuthType = rblAuthType.SelectedItem.Value;

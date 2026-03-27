@@ -139,14 +139,14 @@ namespace FuseCP.WebDavPortal.Controllers
 
                 IEnumerable<IHierarchyItem> children;
 
-                if (string.IsNullOrEmpty(model.SearchValue))
-                {
-                    children = _webdavManager.OpenFolder(pathPart);
-                }
-                else
-                {
-                    children = _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, model.SearchValue, ScpContext.User.Login, true);
-                }
+                children = string.IsNullOrEmpty(model.SearchValue) ? _webdavManager.OpenFolder(pathPart) : _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, model.SearchValue, ScpContext.User.Login, true);
+
+
+
+
+
+
+
 
                 model.Items = children.Take(WebDavAppConfigManager.Instance.ElementsRendering.DefaultCount);
 
@@ -169,14 +169,14 @@ namespace FuseCP.WebDavPortal.Controllers
             var dtRequest = BuildDataTableRequest();
             IEnumerable<WebDavResource> folderItems;
 
-            if (string.IsNullOrEmpty(dtRequest.Search.Value) == false)
-            {
-                folderItems = _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, dtRequest.Search.Value, ScpContext.User.Login, true).Cast<WebDavResource>();
-            }
-            else
-            {
-                folderItems = _webdavManager.OpenFolder(pathPart).Cast<WebDavResource>();
-            }
+            folderItems = string.IsNullOrEmpty(dtRequest.Search.Value) == false ? _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, dtRequest.Search.Value, ScpContext.User.Login, true).Cast<WebDavResource>() : _webdavManager.OpenFolder(pathPart).Cast<WebDavResource>();
+
+
+
+
+
+
+
 
             var tableItems = AutoMapperPortalConfiguration.Mapper.Map<IEnumerable<WebDavResource>, IEnumerable<ResourceTableItemModel>>(folderItems).ToList();
 
@@ -289,7 +289,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
             string fileName = pathPart.Split('/').Last();
 
-            if (_webdavManager.IsFile(pathPart) == false)
+            if (!(_webdavManager.IsFile(pathPart)))
             {
                 throw new Exception(Resources.UI.NotAFile);
             }
@@ -411,7 +411,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
             var owaOpener = WebDavAppConfigManager.Instance.OfficeOnline.FirstOrDefault(x => x.Extension == Path.GetExtension(pathPart));
 
-            if (permissions.HasFlag(WebDavPermissions.Write) == false || (owaOpener != null && permissions.HasFlag(WebDavPermissions.OwaEdit) == false))
+            if (!(permissions.HasFlag(WebDavPermissions.Write)) || (owaOpener != null && !(permissions.HasFlag(WebDavPermissions.OwaEdit))))
             {
                 return new RedirectToRouteResult(FileSystemRouteNames.ShowContentPath, null);
             }
@@ -465,7 +465,7 @@ namespace FuseCP.WebDavPortal.Controllers
         {
             var permissions = _webDavAuthorizationService.GetPermissions(ScpContext.User, pathPart);
 
-            if (permissions.HasFlag(WebDavPermissions.Write) == false || permissions.HasFlag(WebDavPermissions.OwaEdit) == false || IsMobileDevice())
+            if (!(permissions.HasFlag(WebDavPermissions.Write)) || !(permissions.HasFlag(WebDavPermissions.OwaEdit)) || IsMobileDevice())
             {
                 return new RedirectToRouteResult(FileSystemRouteNames.ViewOfficeOnline, null);
             }

@@ -20,6 +20,7 @@ using FuseCP.Providers.SharePoint;
 using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace FuseCP.Providers.HostedSolution
 {
@@ -209,10 +210,8 @@ namespace FuseCP.Providers.HostedSolution
 		/// <param name="items">Items to be deleted.</param>
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is SharePointSiteCollection))
 			{
-				if (item is SharePointSiteCollection)
-				{
 					try
 					{
 						DeleteSiteCollection((SharePointSiteCollection)item);
@@ -221,7 +220,6 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
-				}
 			}
 		}
 
@@ -235,10 +233,8 @@ namespace FuseCP.Providers.HostedSolution
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is SharePointSiteCollection))
 			{
-				if (item is SharePointSiteCollection)
-				{
 					try
 					{
 						Log.WriteStart(String.Format("Calculating '{0}' site logs size", item.Name));
@@ -255,7 +251,6 @@ namespace FuseCP.Providers.HostedSolution
 					{
 						Log.WriteError(ex);
 					}
-				}
 			}
 			return itemsDiskspace.ToArray();
 		}

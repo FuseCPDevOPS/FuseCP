@@ -34,6 +34,7 @@ using FuseCP.Server.Utils;
 using System.Management;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
+using System.Linq;
 
 //using Microsoft.Rtc.Management.Hosted;
 using Microsoft.Rtc.Management.WritableConfig.Settings.Edge;
@@ -1271,13 +1272,10 @@ namespace FuseCP.Providers.HostedSolution
                             HostedSolutionLog.DebugInfo("Remove DomainName: {0}", domainName);
                             allowList = (AllowList)GetPSObjectProperty(result[0], "AllowedDomains");
                             DomainPattern domain = null;
-                            foreach (DomainPattern d in allowList.AllowedDomain)
+                            foreach (DomainPattern d in allowList.AllowedDomain.Where(d => d.Domain.ToLower() == domainName.ToLower()))
                             {
-                                if (d.Domain.ToLower() == domainName.ToLower())
-                                {
                                     domain = d;
                                     break;
-                                }
                             }
                             if (domain != null)
                                 allowList.AllowedDomain.Remove(domain);

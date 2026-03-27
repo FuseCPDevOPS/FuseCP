@@ -42,13 +42,13 @@ namespace FuseCP.Portal.UserControls
 
         public bool ManageAllowed
         {
-            get { return ViewState["ManageAllowed"] != null ? (bool)ViewState["ManageAllowed"] : false; }
+            get { return ViewState["ManageAllowed"] != null && (bool)ViewState["ManageAllowed"]; }
             set { ViewState["ManageAllowed"] = value; }
         }
 
         public bool IsDmz
         {
-            get { return ViewState["IsDmz"] != null ? (bool)ViewState["IsDmz"] : false; }
+            get { return ViewState["IsDmz"] != null && (bool)ViewState["IsDmz"]; }
             set { ViewState["IsDmz"] = value; }
         }
 

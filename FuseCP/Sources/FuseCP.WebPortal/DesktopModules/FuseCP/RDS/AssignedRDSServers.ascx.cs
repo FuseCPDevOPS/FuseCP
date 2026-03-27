@@ -38,30 +38,30 @@ namespace FuseCP.Portal.RDS
                 BindQuota(cntx);
             }
             
-            if (cntx.Quotas.ContainsKey(Quotas.RDS_SERVERS))
+if (cntx.Quotas.TryGetValue(Quotas.RDS_SERVERS, out var _ckv))
             {
                 //If logged in person is not Administrator
                 if (PanelSecurity.LoggedUser.Role != UserRole.Administrator )
                 {
                     // Check if User is allowed to add server
-                    if (!Utils.CheckQouta("RDS.DisableUserAddServer", cntx))
-                    {
-                        btnAddServerToOrg.Enabled = (!(cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue <= gvRDSAssignedServers.Rows.Count) || (cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue == -1));
-                    }
-                    else
-                    {
-                        btnAddServerToOrg.Enabled = false;
-                    }
+                    btnAddServerToOrg.Enabled = !Utils.CheckQouta("RDS.DisableUserAddServer", cntx) ? (!(_ckv.QuotaAllocatedValue <= gvRDSAssignedServers.Rows.Count) || (_ckv.QuotaAllocatedValue == -1)) : false;
+
+
+
+
+
+
+
 
                     // Check if User is allowed to add server
-                    if (!Utils.CheckQouta("RDS.DisableUserDeleteServer", cntx))
-                    {
-                        VisableDeleteServer = true;
-                    }
-                    else
-                    {
-                        VisableDeleteServer = false;
-                    }
+                    VisableDeleteServer = !Utils.CheckQouta("RDS.DisableUserDeleteServer", cntx) ? true : false;
+
+
+
+
+
+
+
                 }
                 else
                 {

@@ -67,9 +67,9 @@ namespace FuseCP.Portal.RDS
                 usersQuota.QuotaAvailable = stats.AllocatedRdsUsers - stats.CreatedRdsUsers;
             }
             
-            if (cntx.Quotas.ContainsKey(Quotas.RDS_USERS))
+if (cntx.Quotas.TryGetValue(Quotas.RDS_USERS, out var _ckv))
             {
-                return cntx.Quotas[Quotas.RDS_USERS];
+                return _ckv;
             }
 
             return null;

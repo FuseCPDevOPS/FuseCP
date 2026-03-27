@@ -82,12 +82,9 @@ namespace FuseCP.Portal.ProviderControls
 		        return 0;
 		    }
 
-            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId))
+            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId).Where(addressInfo => addressInfo.InternalIP == address || addressInfo.ExternalIP == address))
 			{
-				if (addressInfo.InternalIP == address || addressInfo.ExternalIP == address)
-				{
 					return addressInfo.AddressId;
-				}
 			}
 			return 0;
 		}

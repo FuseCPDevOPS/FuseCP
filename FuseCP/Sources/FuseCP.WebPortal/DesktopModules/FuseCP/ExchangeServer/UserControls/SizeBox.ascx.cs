@@ -90,12 +90,12 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (locPct.Visible)
-            {
-                valRequireCorrectNumber.ValidationExpression = @"(^100)$|^([0-9]{1,2})$";
-            }
-            else
-                valRequireCorrectNumber.ValidationExpression = @"[0-9]{0,15}";
+            valRequireCorrectNumber.ValidationExpression = locPct.Visible ? @"(^100)$|^([0-9]{1,2})$" : @"[0-9]{0,15}";
+
+
+
+
+
 
         }
     }

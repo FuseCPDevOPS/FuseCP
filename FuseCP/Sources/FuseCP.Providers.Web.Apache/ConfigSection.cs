@@ -604,14 +604,11 @@ namespace FuseCP.Providers.Web.Apache
 
 
 				});
-			foreach (var file in files)
+			foreach (var file in files.Where(file => File.Exists(file)))
 			{
-				if (File.Exists(file))
-				{
 					var include = new IncludeFile(file);
 					Add(include);
 					include.Include();
-				}
 			}
 		}
 

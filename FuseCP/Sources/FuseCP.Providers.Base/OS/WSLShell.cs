@@ -64,10 +64,8 @@ namespace FuseCP.Providers.OS
 			{
 				eol = eol ?? "\n";
 				sb.Append($"[{ToCamelCase(Title)}]{eol}");
-				foreach (var item in this)
+				foreach (var item in this.Where(item => item.Value != null))
 				{
-					if (item.Value != null)
-					{
 						var key = item.Key;
 						if (key.StartsWith("\"")) sb.Append(item.Value);
 						else
@@ -77,7 +75,6 @@ namespace FuseCP.Providers.OS
 							sb.Append(ToCamelCase(item.Value));
 						}
 						sb.Append(eol);
-					}
 				}
 			}
 

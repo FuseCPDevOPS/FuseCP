@@ -880,10 +880,8 @@ namespace FuseCP.Providers.Database
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is SqlDatabase))
 			{
-				if (item is SqlDatabase)
-				{
 					try
 					{
 						// get database details
@@ -902,7 +900,6 @@ namespace FuseCP.Providers.Database
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' SQL Server database size", item.Name), ex);
 					}
-				}
 			}
 
 			return itemsDiskspace.ToArray();
@@ -946,10 +943,8 @@ namespace FuseCP.Providers.Database
 				.Concat(new string[] { Shell.Default.Find("mysqld") })
 				.Where(exe => exe != null)
 				.Distinct();
-			foreach (var exe in processes)
+			foreach (var exe in processes.Where(exe => File.Exists(exe)))
 			{
-				if (File.Exists(exe))
-				{
 					try
 					{
 						var output = Shell.Default.Exec($"\"{exe}\" --version").Output().Result;
@@ -961,7 +956,6 @@ namespace FuseCP.Providers.Database
 						}
 					}
 					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-				}
 			}
 			return false;
 		}

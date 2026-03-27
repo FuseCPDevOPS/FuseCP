@@ -302,9 +302,9 @@ namespace FuseCP.Portal.VPS2012
 
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-                    if (cntx.Quotas.ContainsKey(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out var _ckv))
                     {
-                        QuotaValueInfo privQuota = cntx.Quotas[Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER];
+                        QuotaValueInfo privQuota = _ckv;
                         if (privQuota.QuotaAllocatedValue > 0 || privQuota.QuotaAllocatedValue == -1) privAdrCount = 1;
                     }
                 }
@@ -319,9 +319,9 @@ namespace FuseCP.Portal.VPS2012
 
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-                    if (cntx.Quotas.ContainsKey(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out var _ckv))
                     {
-                        QuotaValueInfo dmzQuota = cntx.Quotas[Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER];
+                        QuotaValueInfo dmzQuota = _ckv;
                         if (dmzQuota.QuotaAllocatedValue > 0 || dmzQuota.QuotaAllocatedValue == -1) dmzAdrCount = 1;
                     }
                 }
@@ -365,9 +365,9 @@ namespace FuseCP.Portal.VPS2012
             var hdds = GetAdditionalHdd();
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
             int freeHddGb = 0;
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             {
-                QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPS2012_HDD];
+                QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue != -1)
                 {
                     int availSize = hddQuota.QuotaAllocatedValue - hddQuota.QuotaUsedValue;
@@ -416,20 +416,20 @@ namespace FuseCP.Portal.VPS2012
         private void CheckAdditionalHddQuota(int currCount)
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_ADDITIONAL_VHD_COUNT))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             {
-                QuotaValueInfo additionalHddQuota = cntx.Quotas[Quotas.VPS2012_ADDITIONAL_VHD_COUNT];
+                QuotaValueInfo additionalHddQuota = _ckv;
                 int quotaHddCount = additionalHddQuota.QuotaAllocatedValue;
                 int maxHddCount;
                 VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineItem(PanelRequest.ItemID);
-                if (vm != null && vm.Generation > 1)
-                {
-                    maxHddCount = 62;
-                }
-                else
-                {
-                    maxHddCount = 2;
-                }
+                maxHddCount = vm != null && vm.Generation > 1 ? 62 : 2;
+
+
+
+
+
+
+
                 if (quotaHddCount == -1 || quotaHddCount > maxHddCount) quotaHddCount = maxHddCount;
                 btnAddHdd.Enabled = (currCount < quotaHddCount);
             }

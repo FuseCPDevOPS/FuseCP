@@ -195,7 +195,7 @@ namespace FuseCP.WebDavPortal.Controllers.Api
                 newFilePath = Path.ChangeExtension(token.FilePath, target);
             }
 
-            if (overwrite == false && _webDavManager.FileExist(newFilePath))
+            if (!(overwrite) && _webDavManager.FileExist(newFilePath))
             {
                 return Conflict();
             }

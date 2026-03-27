@@ -40,6 +40,7 @@
 using System;
 using System.Data;
 using System.Xml;
+using System.Linq;
 #if !EF64
 using Microsoft.Data.SqlClient;
 #else
@@ -78,10 +79,8 @@ namespace Microsoft.ApplicationBlocks.Data
 			if( command == null ) throw new ArgumentNullException( "command" );
 			if( commandParameters != null )
 			{
-				foreach (SqlParameter p in commandParameters)
+				foreach (SqlParameter p in commandParameters.Where(p => p != null))
 				{
-					if( p != null )
-					{
 						// Check for derived output value with no value assigned
 						if ( ( p.Direction == ParameterDirection.InputOutput || 
 							p.Direction == ParameterDirection.Input ) && 
@@ -90,7 +89,6 @@ namespace Microsoft.ApplicationBlocks.Data
 							p.Value = DBNull.Value;
 						}
 						command.Parameters.Add(p);
-					}
 				}
 			}
         }

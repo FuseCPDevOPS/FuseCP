@@ -19,7 +19,7 @@
     var _ua = Context.Request.Headers.UserAgent.ToString().ToLowerInvariant();
     var isMobile = _ua.Contains("mobile") || _ua.Contains("android") || _ua.Contains("iphone");
     bool isTargetBlank;
-    string href = "/";
+    string href;
     switch (opener)
     {
         case FileOpenerType.OfficeOnline:
@@ -37,7 +37,7 @@
     
     bool showStatistic = Model.ItemType == ItemType.Folder && Model.IsRootItem && resource != null;
 
-    var contentTypeProperty = Model.Properties.FirstOrDefault(x => x.Name.Name == "getcontenttype");
+    Model.Properties.FirstOrDefault(x => x.Name.Name == "getcontenttype");
 
     if (isTargetBlank == false && Model.ItemType != ItemType.Folder)
     {

@@ -111,33 +111,33 @@ namespace CSSFriendly
             string urlToResolve = url;
             int nPound = url.LastIndexOf("#");
             int nSlash = url.LastIndexOf("/");
-            if ((nPound > -1) && (nSlash > -1) && ((nSlash + 1) == nPound))
-            {
-                //  We have been given a somewhat strange URL.  It has a foreward slash (/) immediately followed
-                //  by a pound sign (#) like this xxx/#yyy.  This sort of oddly shaped URL is what you get when
-                //  you use named anchors instead of pages in the url attribute of a sitemapnode in an ASP.NET
-                //  sitemap like this:
-                //
-                //  <siteMapNode url="#Introduction" title="Introduction"  description="Introduction" />
-                //
-                //  The intend of the sitemap author is clearly to create a link to a named anchor in the page
-                //  that looks like these:
-                //
-                //  <a id="Introduction"></a>       (XHTML 1.1 Strict compliant)
-                //  <a name="Introduction"></a>     (more old fashioned but quite common in many pages)
-                //
-                //  However, the sitemap interpretter in ASP.NET doesn't understand url values that start with
-                //  a pound.  It prepends the current site's path in front of it before making it into a link
-                //  (typically for a TreeView or Menu).  We'll undo that problem, however, by converting this
-                //  sort of oddly shaped URL back into what was intended: a simple reference to a named anchor
-                //  that is expected to be within the current page.
+            urlToResolve = (nPound > -1) && (nSlash > -1) && ((nSlash + 1) == nPound) ? url.Substring(nPound) : AdaptedControl.ResolveClientUrl(urlToResolve);
 
-                urlToResolve = url.Substring(nPound);
-            }
-            else
-            {
-                urlToResolve = AdaptedControl.ResolveClientUrl(urlToResolve);
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //  And, just to be safe, we'll make sure there aren't any troublesome characters in whatever URL
             //  we have decided to use at this point.

@@ -37,10 +37,10 @@ namespace FuseCP.Portal.ProviderControls
             txtRootOU.Text = settings[RootOU];
             txtTemporyDomainName.Text = settings[TemporyDomainName];
 
-            if (settings.ContainsKey(UserNameFormat))
+if (settings.TryGetValue(UserNameFormat, out var _ckv))
             {
                 UserNameFormatDropDown.SelectedValue =
-                    UserNameFormatDropDown.Items.FindByText(settings[UserNameFormat]).Value;
+                    UserNameFormatDropDown.Items.FindByText(_ckv).Value;
             }
 
             txtArchiveStorageSpace.Text = settings[ArchiveStoragePath];

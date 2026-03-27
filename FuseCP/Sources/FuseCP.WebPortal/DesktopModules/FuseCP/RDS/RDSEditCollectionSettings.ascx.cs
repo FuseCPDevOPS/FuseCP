@@ -137,14 +137,14 @@ namespace FuseCP.Portal.RDS
             settings.IdleSessionLimitMin = slIdleSessionLimit.SelectedLimit;
             settings.AutomaticReconnectionEnabled = chAutomaticReconnection.Checked;
 
-            if (chDisconnect.Checked)
-            {
-                settings.BrokenConnectionAction = BrokenConnectionActionValues.Disconnect.ToString();
-            }
-            else
-            {
-                settings.BrokenConnectionAction = BrokenConnectionActionValues.LogOff.ToString();
-            }
+            settings.BrokenConnectionAction = chDisconnect.Checked ? BrokenConnectionActionValues.Disconnect.ToString() : BrokenConnectionActionValues.LogOff.ToString();
+
+
+
+
+
+
+
 
             settings.TemporaryFoldersDeletedOnExit = chDeleteOnExit.Checked;
             settings.TemporaryFoldersPerSession = chUseFolders.Checked;

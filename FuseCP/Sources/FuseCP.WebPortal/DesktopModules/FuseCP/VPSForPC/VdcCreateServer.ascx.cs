@@ -181,9 +181,9 @@ namespace FuseCP.Portal.VPSForPC
 			#endregion
 
 			// RAM size
-			if (cntx.Quotas.ContainsKey(Quotas.VPSForPC_RAM))
+if (cntx.Quotas.TryGetValue(Quotas.VPSForPC_RAM, out var _ckv))
 			{
-				QuotaValueInfo ramQuota = cntx.Quotas[Quotas.VPSForPC_RAM];
+				QuotaValueInfo ramQuota = _ckv;
 				if (ramQuota.QuotaAllocatedValue == -1)
 				{
 					// unlimited RAM
@@ -199,9 +199,9 @@ namespace FuseCP.Portal.VPSForPC
 			}
 
 			// HDD size
-			if (cntx.Quotas.ContainsKey(Quotas.VPSForPC_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.VPSForPC_HDD, out var _ckv))
 			{
-				QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPSForPC_HDD];
+				QuotaValueInfo hddQuota = _ckv;
 				if (hddQuota.QuotaAllocatedValue == -1)
 				{
 					// unlimited HDD
@@ -218,9 +218,8 @@ namespace FuseCP.Portal.VPSForPC
 			}
 
 			// snapshots number
-			if (cntx.Quotas.ContainsKey(Quotas.VPSForPC_SNAPSHOTS_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPSForPC_SNAPSHOTS_NUMBER, out var _ckv))
 			{
-				int snapsNumber = cntx.Quotas[Quotas.VPSForPC_SNAPSHOTS_NUMBER].QuotaAllocatedValue;
 				//txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
 				//txtSnapshots.Enabled = (snapsNumber != 0);
 			}

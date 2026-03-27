@@ -95,7 +95,6 @@ namespace FuseCP.Portal.ExchangeServer
 
                 // domain name
                 DomainInfo domain = ES.Services.Servers.GetDomain(domainId);
-                var DomainName = domain.DomainName;
 
                 try
                 {

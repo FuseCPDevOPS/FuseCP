@@ -39,9 +39,9 @@ namespace FuseCP.Portal.RDS
                 BindQuota(cntx);
             }
             
-            if (cntx.Quotas.ContainsKey(Quotas.RDS_COLLECTIONS))
+if (cntx.Quotas.TryGetValue(Quotas.RDS_COLLECTIONS, out var _ckv))
             {
-                btnAddCollection.Enabled = (!(cntx.Quotas[Quotas.RDS_COLLECTIONS].QuotaAllocatedValue <= gvRDSCollections.Rows.Count) || (cntx.Quotas[Quotas.RDS_COLLECTIONS].QuotaAllocatedValue == -1));
+                btnAddCollection.Enabled = (!(_ckv.QuotaAllocatedValue <= gvRDSCollections.Rows.Count) || (_ckv.QuotaAllocatedValue == -1));
             }
 
             var serviceId = ES.Services.RDS.GetRemoteDesktopServiceId(PanelRequest.ItemID);

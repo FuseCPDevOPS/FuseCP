@@ -138,7 +138,7 @@ namespace FuseCP.Portal
 		{
 			var enabledScpa = await ES.Services.Authentication.GetSystemSetupModeAsync().ConfigureAwait(false);
 			//
-			if (enabledScpa == false)
+			if (!(enabledScpa))
 			{
 				return;
 			}

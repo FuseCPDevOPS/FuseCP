@@ -34,10 +34,8 @@ namespace FuseCP.Portal
             {
                 // get item id from view state
                 int itemId = (ViewState["ItemId"] != null) ? (int)ViewState["ItemId"] : -1;
-                if (itemId == -1)
+                if (itemId == -1 && RequestItemId != null)
                 {
-                    // lookup in the request
-                    if (RequestItemId != null)
                         itemId = Utils.ParseInt(Request[RequestItemId], -1);
                 }
 

@@ -859,12 +859,9 @@ namespace FuseCP.EnterpriseServer
 
                 var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
 
-                foreach(var server in collection.Servers)
+                foreach (var server in collection.Servers.Where(server => !rds.CheckRDSServerAvaliable(server.FqdName)))
                 {                    
-                    if (!rds.CheckRDSServerAvaliable(server.FqdName))
-                    {
                         throw TaskManager.WriteError(new Exception(string.Format("Unable to connect to {0} server.", server.FqdName)));
-                    }
                 }
 
                 collection.Name = RemoteDesktopServicesHelpers.GetFormattedCollectionName(collection.DisplayName, org.OrganizationId);
@@ -1599,12 +1596,9 @@ namespace FuseCP.EnterpriseServer
                 rds.SetUsersInCollection(org.OrganizationId, collection.Name, users.Select(x => x.AccountName).ToArray());
 
                 //Remove from db
-                foreach (var userInDb in usersInDb)
+                foreach (var userInDb in usersInDb.Where(userInDb => !accountNames.Contains(userInDb.AccountName)))
                 {
-                    if (!accountNames.Contains(userInDb.AccountName))
-                    {
                         Database.RemoveRDSUserFromRDSCollection(collectionId, userInDb.AccountId);
-                    }
                 }
 
                 //Add to db

@@ -121,10 +121,10 @@ namespace FuseCP.Portal
 
                 int result;
                 
-                if (enable)
-                    result = ES.Services.Servers.EnableDomainDns(id);
-                else 
-                    result = ES.Services.Servers.DisableDomainDns(id);
+                result = enable ? ES.Services.Servers.EnableDomainDns(id) : ES.Services.Servers.DisableDomainDns(id);
+
+
+
 
 
                 if (result < 0)
@@ -150,10 +150,10 @@ namespace FuseCP.Portal
 
                 int result;
 
-                if (enable)
-                    result = ES.Services.Servers.CreateDomainPreviewDomain("", id);
-                else
-                    result = ES.Services.Servers.DeleteDomainPreviewDomain(id);
+                result = enable ? ES.Services.Servers.CreateDomainPreviewDomain("", id) : ES.Services.Servers.DeleteDomainPreviewDomain(id);
+
+
+
 
                 if (result < 0)
                     return result;

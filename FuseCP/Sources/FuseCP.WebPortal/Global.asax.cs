@@ -44,7 +44,7 @@ namespace FuseCP.WebPortal
 
 		protected void Application_PostAuthorizeRequest(Object sender, EventArgs e)
 		{
-			if (User.Identity.IsAuthenticated == true && Request.RawUrl.IndexOf("WebResource.axd") == -1)
+			if (User.Identity.IsAuthenticated && Request.RawUrl.IndexOf("WebResource.axd") == -1)
 			{
 				FormsAuthenticationTicket authTicket = (FormsAuthenticationTicket)Context.Items[FormsAuthentication.FormsCookieName];
 

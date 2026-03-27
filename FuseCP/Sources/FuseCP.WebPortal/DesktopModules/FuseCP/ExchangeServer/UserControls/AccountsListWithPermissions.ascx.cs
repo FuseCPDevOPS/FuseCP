@@ -19,6 +19,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FuseCP.Providers.HostedSolution;
 using System.Data;
+using System.Linq;
 
 namespace FuseCP.Portal.ExchangeServer.UserControls
 {
@@ -39,31 +40,31 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
         
         public bool MailboxesEnabled
 		{
-			get { return ViewState["MailboxesEnabled"] != null ? (bool)ViewState["MailboxesEnabled"] : false; }
+			get { return ViewState["MailboxesEnabled"] != null && (bool)ViewState["MailboxesEnabled"]; }
 			set { ViewState["MailboxesEnabled"] = value; }
 		}
 
 		public bool ContactsEnabled
 		{
-			get { return ViewState["ContactsEnabled"] != null ? (bool)ViewState["ContactsEnabled"] : false; }
+			get { return ViewState["ContactsEnabled"] != null && (bool)ViewState["ContactsEnabled"]; }
 			set { ViewState["ContactsEnabled"] = value; }
 		}
 
 		public bool DistributionListsEnabled
 		{
-			get { return ViewState["DistributionListsEnabled"] != null ? (bool)ViewState["DistributionListsEnabled"] : false; }
+			get { return ViewState["DistributionListsEnabled"] != null && (bool)ViewState["DistributionListsEnabled"]; }
 			set { ViewState["DistributionListsEnabled"] = value; }
 		}
 
         public bool SecurityGroupsEnabled
         {
-            get { return ViewState["SecurityGroupsEnabled"] != null ? (bool)ViewState["SecurityGroupsEnabled"] : false; }
+            get { return ViewState["SecurityGroupsEnabled"] != null && (bool)ViewState["SecurityGroupsEnabled"]; }
             set { ViewState["SecurityGroupsEnabled"] = value; }
         }
 
         public bool SharedMailboxEnabled
         {
-            get { return ViewState["SharedMailboxEnabled"] != null ? (bool)ViewState["SharedMailboxEnabled"] : false; }
+            get { return ViewState["SharedMailboxEnabled"] != null && (bool)ViewState["SharedMailboxEnabled"]; }
             set { ViewState["SharedMailboxEnabled"] = value; }
         }
 
@@ -246,13 +247,10 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 				{
 					// check if exists
 					bool exists = false;
-					foreach (ExchangeAccount account in accounts)
+					foreach (ExchangeAccount account in accounts.Where(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
 					{
-						if (String.Compare(newAccount.AccountName, account.AccountName, true) == 0)
-						{
 							exists = true;
 							break;
-						}
 					}
 
 					if (exists)

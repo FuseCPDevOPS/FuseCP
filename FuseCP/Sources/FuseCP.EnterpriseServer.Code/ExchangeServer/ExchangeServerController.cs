@@ -1606,13 +1606,10 @@ namespace FuseCP.EnterpriseServer
                 Database.GetExchangeOrganizationDomains(itemId));
 
             // set default domain
-            foreach (ExchangeDomainName domain in domains)
+            foreach (ExchangeDomainName domain in domains.Where(domain => String.Compare(domain.DomainName, org.DefaultDomain, true) == 0))
             {
-                if (String.Compare(domain.DomainName, org.DefaultDomain, true) == 0)
-                {
                     domain.IsDefault = true;
                     break;
-                }
             }
 
             return domains;
@@ -5418,13 +5415,10 @@ namespace FuseCP.EnterpriseServer
                 {
                     ExchangeDistributionList DistributionList = exchange.GetDistributionListGeneralSettings(DistributionAccount.AccountName);
 
-                    foreach (ExchangeAccount member in DistributionList.MembersAccounts)
+                    foreach (ExchangeAccount member in DistributionList.MembersAccounts.Where(member => member.AccountName == account.AccountName))
                     {
-                        if (member.AccountName == account.AccountName)
-                        {
                             ret.Add(DistributionAccount);
                             break;
-                        }
 
                     }
                 }
@@ -5974,10 +5968,8 @@ namespace FuseCP.EnterpriseServer
 
                     // rename nested folders
                     List<ExchangeAccount> folders = GetAccounts(itemId, ExchangeAccountType.PublicFolder);
-                    foreach (ExchangeAccount folder in folders)
+                    foreach (ExchangeAccount folder in folders.Where(folder => folder.DisplayName.ToLower().StartsWith(origName.ToLower() + "\\")))
                     {
-                        if (folder.DisplayName.ToLower().StartsWith(origName.ToLower() + "\\"))
-                        {
                             var newFolderName = newFullName + folder.DisplayName.Substring(origName.Length);
 
                             // Log Extension
@@ -5985,7 +5977,6 @@ namespace FuseCP.EnterpriseServer
 
                             folder.DisplayName = newFolderName;
                             UpdateAccount(folder);
-                        }
                     }
                 }
 

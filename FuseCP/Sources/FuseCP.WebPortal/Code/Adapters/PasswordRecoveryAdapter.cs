@@ -198,7 +198,6 @@ namespace CSSFriendly
             PasswordRecovery passwordRecovery = Control as PasswordRecovery;
             if (passwordRecovery != null)
             {
-                string provider = passwordRecovery.MembershipProvider;
             }
 
             //  By this time we have finished doing our event processing.  That means that if errors have
@@ -237,14 +236,14 @@ namespace CSSFriendly
                     break;
                 case State.VerifyingUser:
                     // We have a valid user. We did not encounter an error while verifying the user.
-                    if (PasswordRecoveryMembershipProvider.RequiresQuestionAndAnswer)
-                    {
-                        _state = State.Question;
-                    }
-                    else
-                    {
-                        _state = State.Success;
-                    }
+                    _state = PasswordRecoveryMembershipProvider.RequiresQuestionAndAnswer ? State.Question : State.Success;
+
+
+
+
+
+
+
                     _currentErrorText = "";
                     break;
             }

@@ -21,6 +21,7 @@ using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
 using System.Xml;
 using System.Configuration;
+using System.Linq;
 
 namespace FuseCP.Portal.ProviderControls
 {
@@ -262,13 +263,10 @@ namespace FuseCP.Portal.ProviderControls
                 List<ServiceInfo> services = GetServices(isHubservice ? HubTransports : ClientAccess);
                 bool exists = false;
                 if (services != null)
-                    foreach (ServiceInfo current in services)
+                    foreach (ServiceInfo current in services.Where(current => current != null && current.ServiceId == serviceId))
                     {                    
-                        if (current != null && current.ServiceId == serviceId)
-                        {
                             exists = true;
                             break;
-                        }
                     }
              
                 if (!exists)

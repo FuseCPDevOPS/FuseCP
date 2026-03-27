@@ -18,6 +18,7 @@ using FuseCP.Providers;
 using FuseCP.Providers.FTP;
 using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
+using System.Linq;
 
 namespace FuseCP.Providers.FTP.IIs100
 {
@@ -256,16 +257,13 @@ namespace FuseCP.Providers.FTP.IIs100
             {
                 store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
                 store.Open(OpenFlags.OpenExistingOnly);
-                foreach (X509Certificate2 certificate in store.Certificates)
+                foreach (X509Certificate2 certificate in store.Certificates.Where(certificate => FtpHelper.CanAuthenticateServer(certificate) && certificate.HasPrivateKey))
                 {
-                    if (FtpHelper.CanAuthenticateServer(certificate) && certificate.HasPrivateKey)
-                    {
                         PropertyBag bag = new PropertyBag();
                         bag[0] = certificate.FriendlyName;
                         bag[1] = certificate.GetCertHashString();
                         bag[2] = FtpHelper.ConvertDistinguishedNameToString(certificate.IssuerName);
                         list.Add(bag);
-                    }
                 }
             }
             finally
@@ -468,12 +466,9 @@ namespace FuseCP.Providers.FTP.IIs100
 
 					AuthorizationRuleCollection authRulesCollection = this.GetAuthorizationRuleCollection(String.Format("{0}/{1}", siteName, account.Name));
 					List<AuthorizationRule> rulesToRemove = new List<AuthorizationRule>();
-					foreach (AuthorizationRule rule in authRulesCollection)
+					foreach (AuthorizationRule rule in authRulesCollection.Where(rule => rule.AccessType == AuthorizationRuleAccessType.Allow && (rule.Users == "?" || rule.Users == "*")))
 					{
-						if (rule.AccessType == AuthorizationRuleAccessType.Allow && (rule.Users == "?" || rule.Users == "*"))
-						{
 							rulesToRemove.Add(rule);
-						}
 					}
 
 					foreach(AuthorizationRule rule in rulesToRemove)
@@ -558,12 +553,9 @@ namespace FuseCP.Providers.FTP.IIs100
 		{
 			List<string> ftpSiteNames = new List<string>();
 			// Add only ftp sites.
-			foreach(Site site in this.ServerManager.Sites)
+			foreach (Site site in this.ServerManager.Sites.Where(site => this.GetSiteBindings(site.Name).Length > 0))
 			{
-				if (this.GetSiteBindings(site.Name).Length > 0)
-				{
 					ftpSiteNames.Add(site.Name);
-				}
 			}
 
 			return ftpSiteNames;
@@ -640,14 +632,11 @@ namespace FuseCP.Providers.FTP.IIs100
 			if (this.SiteExists(siteName))
 			{
 				Site site = this.GetIisSite(siteName);
-				foreach (Binding binding in site.Bindings)
+				foreach (Binding binding in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)))
 				{
 					// Add only ftp bindings
-					if (string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase))
-					{
 						string[] parts = binding.BindingInformation.Split(':');
 						bindings.Add(new ServerBinding(parts[0], parts[1], parts[2]));
-					}
 				}
 			}
 			else
@@ -668,12 +657,9 @@ namespace FuseCP.Providers.FTP.IIs100
 			{
 				Site site = this.GetIisSite(siteName);
 				List<Binding> originalBindingsToRemove = new List<Binding>();
-				foreach (Binding binding in site.Bindings)
+				foreach (Binding binding in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)))
 				{
-					if (string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase))
-					{
 						originalBindingsToRemove.Add(binding);
-					}
 				}
 				// Remove all ftp bindings.
 				foreach (Binding binding in originalBindingsToRemove)

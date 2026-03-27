@@ -41,6 +41,7 @@ using FuseCP.EnterpriseServer.Client;
 using FuseCP.WebPortal;
 using System.Collections;
 using System.Security.Authentication;
+using System.Linq;
 
 namespace FuseCP.Portal;
 
@@ -214,14 +215,14 @@ public class PortalUtils
 				secureSocketOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
 			}
 
-			if (enableLegacySSL)
-			{
-				client.SslProtocols = SslProtocols.None;
-			}
-			else
-			{
-				client.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-			}
+			client.SslProtocols = enableLegacySSL ? SslProtocols.None : SslProtocols.Tls12 | SslProtocols.Tls13;
+
+
+
+
+
+
+
 
 			client.Connect(smtpServer, smtpPort, secureSocketOptions);
 
@@ -393,10 +394,10 @@ public class PortalUtils
 	{
 		get
 		{
-			if (HttpContext.Current.Request.ApplicationPath == "/")
-				return "";
-			else
-				return HttpContext.Current.Request.ApplicationPath;
+			return HttpContext.Current.Request.ApplicationPath == "/" ? "" : HttpContext.Current.Request.ApplicationPath;
+
+
+
 		}
 	}
 
@@ -859,8 +860,8 @@ public class PortalUtils
 	public static string GetThemedImage(string imageUrl)
 	{
 		Page page = HttpContext.Current.Handler as Page;
-		if (page != null) return page.ResolveUrl("~/App_Themes/" + page.Theme + "/Images/" + imageUrl);
-		else return VirtualPathUtility.ToAbsolute("~/App_Themes/Default/Images/" + imageUrl);
+		return page != null ? page.ResolveUrl("~/App_Themes/" + page.Theme + "/Images/" + imageUrl) : VirtualPathUtility.ToAbsolute("~/App_Themes/Default/Images/" + imageUrl);
+
 	}
 
 	public static string GetThemedIcon(string iconUrl)
@@ -1108,16 +1109,12 @@ public class PortalUtils
 			if (!String.IsNullOrEmpty(moduleDefinitionId) && !String.IsNullOrEmpty(controlId))
 			{
 				// 1. Read module controls first information first
-				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values)
+				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values.Where(md => String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)))
 				{
-					if (String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase))
-					{
 						// 2. Lookup for module control
-						foreach (ModuleControl mc in md.Controls.Values)
+						foreach (ModuleControl mc in md.Controls.Values.Where(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase)))
 						{
 							// 3. Compare against ctl parameter value
-							if (mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase))
-							{
 								// 4. Lookup for module id
 								foreach (int pmKey in PortalConfiguration.Site.Modules.Keys)
 								{
@@ -1130,9 +1127,7 @@ public class PortalUtils
 										goto End;
 									}
 								}
-							}
 						}
-					}
 				}
 			}
 		}
@@ -1198,11 +1193,11 @@ public class PortalUtils
 
 				XmlElement xmlNode = (XmlElement)xmlDoc.SelectSingleNode("/Controls/Control[@key=" + ToXPathLiteral(controlKey) + "]");
 
-				if (xmlNode.HasAttribute("general_key"))
-				{
-					generalControlKey = xmlNode.GetAttribute("general_key");
-				}
-				else generalControlKey = xmlNode.GetAttribute("key");
+				generalControlKey = xmlNode.HasAttribute("general_key") ? xmlNode.GetAttribute("general_key") : xmlNode.GetAttribute("key");
+
+
+
+
 			}
 			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{

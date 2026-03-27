@@ -23,6 +23,7 @@ using FuseCP.Server.Utils;
 using FuseCP.Providers.Utils;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace FuseCP.Providers.DNS
 {
@@ -1321,10 +1322,8 @@ namespace FuseCP.Providers.DNS
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is DnsZone))
             {
-                if (item is DnsZone)
-                {
                     try
                     {
                         // delete DNS zone
@@ -1342,7 +1341,6 @@ namespace FuseCP.Providers.DNS
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' Power DNS zone", item.Name), ex);
                     }
-                }
             }
         }
 

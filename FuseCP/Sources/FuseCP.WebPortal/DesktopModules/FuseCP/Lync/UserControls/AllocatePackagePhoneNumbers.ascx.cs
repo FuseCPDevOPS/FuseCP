@@ -72,10 +72,10 @@ namespace FuseCP.Portal.UserControls
             int quotaAllowed = -1;
             string quotaName = Quotas.LYNC_PHONE;
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(quotaName))
+if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             {
-                int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
-                //int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
+                int quotaAllocated = _ckv.QuotaAllocatedValue;
+                //int quotaUsed = _ckv.QuotaUsedValue;
 
                 int quotaUsed = ES.Services.Servers.GetPackageIPAddressesCount(PanelSecurity.PackageId, PanelRequest.ItemID, IPAddressPool.PhoneNumbers);
 

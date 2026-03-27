@@ -52,7 +52,7 @@ namespace FuseCP.Portal.ProviderControls
         {
             txtFolder.Text = settings["UsersHome"];
             //CO Changes
-            chkEnableHardQuota.Checked = settings["EnableHardQuota"] == "true" ? true : false;
+            chkEnableHardQuota.Checked = settings["EnableHardQuota"] == "true";
             //END 
         }
 

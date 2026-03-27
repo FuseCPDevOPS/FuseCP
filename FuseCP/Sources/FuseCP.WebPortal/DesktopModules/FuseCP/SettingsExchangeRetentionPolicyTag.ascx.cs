@@ -95,7 +95,7 @@ namespace FuseCP.Portal
                 gvPolicy.DataBind();
             }
 
-            btnUpdatePolicy.Enabled = (string.IsNullOrEmpty(txtPolicy.Text)) ? false : true;
+            btnUpdatePolicy.Enabled = !((string.IsNullOrEmpty(txtPolicy.Text)));
         }
 
 
@@ -199,7 +199,7 @@ namespace FuseCP.Portal
                         txtPolicy.Text = string.Empty;
                         ageLimitForRetention.QuotaValue = 0;
 
-                        btnUpdatePolicy.Enabled = (string.IsNullOrEmpty(txtPolicy.Text)) ? false : true;
+                        btnUpdatePolicy.Enabled = !((string.IsNullOrEmpty(txtPolicy.Text)));
 
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -235,7 +235,7 @@ namespace FuseCP.Portal
                         ageLimitForRetention.QuotaValue = tag.AgeLimitForRetention;
                         Utils.SelectListItem(ddRetentionAction, tag.RetentionAction);
 
-                        btnUpdatePolicy.Enabled = (string.IsNullOrEmpty(txtPolicy.Text)) ? false : true;
+                        btnUpdatePolicy.Enabled = !((string.IsNullOrEmpty(txtPolicy.Text)));
 
                     break;
             }

@@ -17,6 +17,7 @@ using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using FuseCP.Providers.ResultObjects;
 using System.Runtime.Serialization;
 
@@ -254,15 +255,12 @@ namespace FuseCP.Providers.Web
 			//
 			formatString = formatString.Replace("#SITE-NAME#", siteName);
 			//
-			foreach (var fwVersionKey in MMD.Keys)
+			foreach (var fwVersionKey in MMD.Keys.Where(fwVersionKey => (NHRT & fwVersionKey) == fwVersionKey))
 			{
-				if ((NHRT & fwVersionKey) == fwVersionKey)
-				{
 					formatString = formatString.Replace("#IIS6-ASPNET-VERSION#", MMD[fwVersionKey][IIS6]);
 					formatString = formatString.Replace("#IIS7-ASPNET-VERSION#", MMD[fwVersionKey][IIS7]);
 					//
 					break;
-				}
 			}
 			//
 			SiteAppPoolMode pipeline = NHRT & (SiteAppPoolMode.Classic | SiteAppPoolMode.Integrated);

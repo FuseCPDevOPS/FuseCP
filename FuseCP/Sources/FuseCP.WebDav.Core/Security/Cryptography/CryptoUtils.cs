@@ -51,7 +51,6 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
                     return value;
                 else
                     return ConfigurationManager.AppSettings["FuseCP.CryptoKey"];
-
             }
         }
 

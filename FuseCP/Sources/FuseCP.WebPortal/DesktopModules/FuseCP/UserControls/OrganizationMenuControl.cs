@@ -114,14 +114,14 @@ namespace FuseCP.Portal.UserControls
                         if (Request.QueryString.Get("Context") != null)
                         {
                             string Context = Request.QueryString.Get("Context").ToString();
-                            if (Context.Equals("JournalingMailbox", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                ctl = "journaling_mailboxes";
-                            }
-                            else
-                            {
-                                ctl = "mailboxes";
-                            }
+                            ctl = Context.Equals("JournalingMailbox", StringComparison.CurrentCultureIgnoreCase) ? "journaling_mailboxes" : "mailboxes";
+
+
+
+
+
+
+
                         }
                         else ctl = "mailboxes";
                     }
@@ -283,9 +283,8 @@ namespace FuseCP.Portal.UserControls
 
             UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
                     hideItems = true;
             }
 
@@ -299,10 +298,10 @@ namespace FuseCP.Portal.UserControls
                 {
                     MenuItem item;
 
-                    if (OrganizationMenuRoot != null) 
-                        item = OrganizationMenuRoot;
-                    else
-                        item = new MenuItem(GetLocalizedString("Text.OrganizationGroup"), "", "", null);
+                    item = OrganizationMenuRoot != null ? OrganizationMenuRoot : new MenuItem(GetLocalizedString("Text.OrganizationGroup"), "", "", null);
+
+
+
 
                     item.Selectable = false;
 
@@ -320,9 +319,8 @@ namespace FuseCP.Portal.UserControls
 
         private void PrepareOrganizationMenu(MenuItemCollection items)
         {
-            if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx) == false)
+            if (!(Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx)) && Utils.CheckQouta(Quotas.ORGANIZATION_DOMAINS, Cntx))
             {
-                if (Utils.CheckQouta(Quotas.ORGANIZATION_DOMAINS, Cntx))
                     items.Add(CreateMenuItem("DomainNames", "org_domains"));
             }
             
@@ -345,9 +343,8 @@ namespace FuseCP.Portal.UserControls
 
             UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
                     hideItems = true;
             }
 
@@ -391,32 +388,25 @@ namespace FuseCP.Portal.UserControls
             if (Utils.CheckQouta(Quotas.EXCHANGE2013_JOURNALINGMAILBOXES, Cntx))
                 exchangeItems.Add(CreateMenuItem("JournalingMailboxes", "journaling_mailboxes", @"Icons/exchange_journaling_mailboxes_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_ACTIVESYNCALLOWED, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_ACTIVESYNCALLOWED, Cntx))
                     exchangeItems.Add(CreateMenuItem("ActiveSyncPolicy", "activesync_policy", @"Icons/exchange_activesync_policy_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
                     exchangeItems.Add(CreateMenuItem("MailboxPlans", "mailboxplans", @"Icons/exchange_mailboxplans_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, Cntx))
                     exchangeItems.Add(CreateMenuItem("RetentionPolicy", "retentionpolicy", @"Icons/exchange_retentionpolicy_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, Cntx))
                     exchangeItems.Add(CreateMenuItem("RetentionPolicyTag", "retentionpolicytag", @"Icons/exchange_retentionpolicytag_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
                     exchangeItems.Add(CreateMenuItem("ExchangeDomainNames", "domains", @"Icons/exchange_accepted_domains_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_MAILBOXES, Cntx))
                     exchangeItems.Add(CreateMenuItem("StorageUsage", "storage_usage", @"Icons/exchange_storage_usages_48.png"));
 
-            if (!hideItems)
-                if (Utils.CheckQouta(Quotas.EXCHANGE2007_DISCLAIMERSALLOWED, Cntx))
+            if (!hideItems && Utils.CheckQouta(Quotas.EXCHANGE2007_DISCLAIMERSALLOWED, Cntx))
                     exchangeItems.Add(CreateMenuItem("Disclaimers", "disclaimers", @"Icons/exchange_disclaimers_48.png"));
 
         }
@@ -760,10 +750,10 @@ namespace FuseCP.Portal.UserControls
 
             if (ShowImg)
             {
-                if (img==null)
-                    item.ImageUrl =  PortalUtils.GetThemedIcon("Icons/tool_48.png");
-                else
-                    item.ImageUrl =  PortalUtils.GetThemedIcon(img);
+                item.ImageUrl = img==null ? PortalUtils.GetThemedIcon("Icons/tool_48.png") : PortalUtils.GetThemedIcon(img);
+
+
+
             }
 
             makeSelectedMenu(item);

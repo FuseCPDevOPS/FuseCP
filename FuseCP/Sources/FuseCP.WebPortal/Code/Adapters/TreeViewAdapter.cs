@@ -487,8 +487,8 @@ namespace CSSFriendly
 
         private bool IsCheckbox(TreeView treeView, TreeNode item)
         {
-            bool bItemCheckBoxDisallowed = (item.ShowCheckBox != null) && (item.ShowCheckBox.Value == false);
-            bool bItemCheckBoxWanted = (item.ShowCheckBox != null) && (item.ShowCheckBox.Value == true);
+            bool bItemCheckBoxDisallowed = (item.ShowCheckBox != null) && (!(item.ShowCheckBox.Value));
+            bool bItemCheckBoxWanted = (item.ShowCheckBox != null) && (item.ShowCheckBox.Value);
             bool bTreeCheckBoxWanted =
                  (treeView.ShowCheckBoxes == TreeNodeTypes.All) ||
                  ((treeView.ShowCheckBoxes == TreeNodeTypes.Leaf) && (!IsExpandable(item))) ||
@@ -505,14 +505,14 @@ namespace CSSFriendly
             {
                 if (item.Depth == 0)
                 {
-                    if (IsExpandable(item))
-                    {
-                        value = "AspNet-TreeView-Root";
-                    }
-                    else
-                    {
-                        value = "AspNet-TreeView-Root AspNet-TreeView-Leaf";
-                    }
+                    value = IsExpandable(item) ? "AspNet-TreeView-Root" : "AspNet-TreeView-Root AspNet-TreeView-Leaf";
+
+
+
+
+
+
+
                 }
                 else if (IsExpandable(item))
                 {
@@ -645,14 +645,14 @@ namespace CSSFriendly
 
             if ((item != null) && (item.Parent != null))
             {
-                if (item.Parent.Selected)
-                {
-                    bRet = true;
-                }
-                else
-                {
-                    bRet = IsParentNodeSelected(item.Parent);
-                }
+                bRet = item.Parent.Selected ? true : IsParentNodeSelected(item.Parent);
+
+
+
+
+
+
+
             }
 
             return bRet;

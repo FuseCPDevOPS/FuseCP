@@ -33,10 +33,10 @@ namespace FuseCP.Portal.SfB.UserControls
             {
                 if (ddlSipAddresses.Visible)
                 {
-                    if ((ddlSipAddresses != null) && (ddlSipAddresses.SelectedItem != null))
-                        return ddlSipAddresses.SelectedItem.Value;
-                    else
-                        return string.Empty;
+                    return (ddlSipAddresses != null) && (ddlSipAddresses.SelectedItem != null) ? ddlSipAddresses.SelectedItem.Value : string.Empty;
+
+
+
                 }
                 else
                 {

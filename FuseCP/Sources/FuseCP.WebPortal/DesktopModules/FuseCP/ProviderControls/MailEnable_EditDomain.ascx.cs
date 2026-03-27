@@ -50,10 +50,10 @@ namespace FuseCP.Portal.ProviderControls
             item.PostmasterAccount = ddlPostmasterAccount.SelectedValue;
 
             // if we have a smarthost we need to clear the catchall
-            if (chkDomainSmartHostEnabled.Checked)
-                item.CatchAllAccount= "";
-            else
-                item.CatchAllAccount = ddlCatchAllAccount.SelectedValue;
+            item.CatchAllAccount = chkDomainSmartHostEnabled.Checked ? "" : ddlCatchAllAccount.SelectedValue;
+
+
+
 
             item["MailEnable_SmartHostEnabled"] = chkDomainSmartHostEnabled.Checked.ToString();
             item["MailEnable_SmartHostAuth"] = chkDomainSmartHostAuthSenders.Checked.ToString(); 

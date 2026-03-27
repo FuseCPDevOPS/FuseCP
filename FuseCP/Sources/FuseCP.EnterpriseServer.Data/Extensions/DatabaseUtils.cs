@@ -367,10 +367,8 @@ namespace FuseCP.EnterpriseServer.Data
 				//attach parameters
 				if (commandParameters != null)
 				{
-					foreach (SqlParameter p in commandParameters)
+					foreach (SqlParameter p in commandParameters.Where(p => p != null))
 					{
-						if (p != null)
-						{
 							// Check for derived output value with no value assigned
 							if ((p.Direction == ParameterDirection.InputOutput ||
 								p.Direction == ParameterDirection.Input) &&
@@ -379,7 +377,6 @@ namespace FuseCP.EnterpriseServer.Data
 								p.Value = DBNull.Value;
 							}
 							cmd.Parameters.Add(p);
-						}
 					}
 				}
 				int ret = cmd.ExecuteNonQuery();

@@ -40,38 +40,38 @@ namespace FuseCP.Portal
 
         public bool HideWebSites
         {
-            get { return (ViewState["HideWebSites"] != null) ? (bool)ViewState["HideWebSites"] : false; }
+            get { return (ViewState["HideWebSites"] != null) && (bool)ViewState["HideWebSites"]; }
             set { ViewState["HideWebSites"] = value; }
         }
 
         public bool HidePreviewDomain
         {
-            get { return (ViewState["HidePreviewDomain"] != null) ? (bool)ViewState["HidePreviewDomain"] : false; }
+            get { return (ViewState["HidePreviewDomain"] != null) && (bool)ViewState["HidePreviewDomain"]; }
             set { ViewState["HidePreviewDomain"] = value; }
         }
 
         public bool HideMailDomains
         {
-            get { return (ViewState["HideMailDomains"] != null) ? (bool)ViewState["HideMailDomains"] : false; }
+            get { return (ViewState["HideMailDomains"] != null) && (bool)ViewState["HideMailDomains"]; }
             set { ViewState["HideMailDomains"] = value; }
         }
 
         public bool HideMailDomainPointers
         {
-            get { return (ViewState["HideMailDomainPointers"] != null) ? (bool)ViewState["HideMailDomainPointers"] : false; }
+            get { return (ViewState["HideMailDomainPointers"] != null) && (bool)ViewState["HideMailDomainPointers"]; }
             set { ViewState["HideMailDomainPointers"] = value; }
         }
 
 
         public bool HideDomainPointers
         {
-            get { return (ViewState["HideDomainPointers"] != null) ? (bool)ViewState["HideDomainPointers"] : false; }
+            get { return (ViewState["HideDomainPointers"] != null) && (bool)ViewState["HideDomainPointers"]; }
             set { ViewState["HideDomainPointers"] = value; }
         }
 
         public bool HideDomainsSubDomains
         {
-            get { return (ViewState["HideDomainsSubDomains"] != null) ? (bool)ViewState["HideDomainsSubDomains"] : false; }
+            get { return (ViewState["HideDomainsSubDomains"] != null) && (bool)ViewState["HideDomainsSubDomains"]; }
             set { ViewState["HideDomainsSubDomains"] = value; }
         }
 

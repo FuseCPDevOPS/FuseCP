@@ -24,6 +24,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Reflection;
 using System.IO;
+using System.Linq;
 
 namespace FuseCP.Portal.ReportingServices
 {
@@ -81,13 +82,10 @@ namespace FuseCP.Portal.ReportingServices
 		{
 			bool result = false;
 
-			foreach (string resourceName in this.assembly.GetManifestResourceNames())
+			foreach (string resourceName in this.assembly.GetManifestResourceNames().Where(resourceName => String.Compare(resourceName, this.reportName, StringComparison.OrdinalIgnoreCase) == 0))
 			{
-				if (String.Compare(resourceName, this.reportName, StringComparison.OrdinalIgnoreCase) == 0)
-				{
 					result = true;
 					break;
-				}
 			}
 
 			return result;

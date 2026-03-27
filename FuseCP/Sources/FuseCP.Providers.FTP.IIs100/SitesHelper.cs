@@ -22,6 +22,7 @@ namespace FuseCP.Providers.FTP.IIs100
     using Microsoft.Web.Management.Server;
     using System;
     using System.Collections;
+using System.Linq;
 
     internal class SitesHelper
     {
@@ -162,12 +163,9 @@ namespace FuseCP.Providers.FTP.IIs100
         public static ArrayList GetFtpBindings(BindingCollection bindings)
         {
             ArrayList list = new ArrayList();
-            foreach (Binding binding in bindings)
+            foreach (Binding binding in bindings.Where(binding => string.Equals(binding.Protocol.Trim(), "ftp", StringComparison.OrdinalIgnoreCase)))
             {
-                if (string.Equals(binding.Protocol.Trim(), "ftp", StringComparison.OrdinalIgnoreCase))
-                {
                     list.Add(binding.BindingInformation);
-                }
             }
             return list;
         }

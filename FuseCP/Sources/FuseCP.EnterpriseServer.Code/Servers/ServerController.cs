@@ -3614,12 +3614,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			{
 				var regex = new Regex(createdRegex, RegexOptions.IgnoreCase);
 
-				foreach (Match match in regex.Matches(raw))
+				foreach (Match match in regex.Matches(raw).Where(match => match.Success && match.Groups.Count == 2))
 				{
-					if (match.Success && match.Groups.Count == 2)
-					{
 						return match.Groups[1].ToString().Trim();
-					}
 				}
 			}
 
@@ -3635,12 +3632,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 			var result = DateTime.MinValue;
 
-			foreach (var datePattern in _datePatterns)
+			foreach (var datePattern in _datePatterns.Where(datePattern => DateTime.TryParseExact(dateString, datePattern, CultureInfo.InvariantCulture, DateTimeStyles.None, out result)))
 			{
-				if (DateTime.TryParseExact(dateString, datePattern, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-				{
 					return result;
-				}
 			}
 
 			return DateTime.Parse(dateString);

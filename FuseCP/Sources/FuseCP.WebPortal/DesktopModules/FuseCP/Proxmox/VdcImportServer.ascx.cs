@@ -20,6 +20,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using FuseCP.EnterpriseServer;
+using System.Linq;
 ﻿using FuseCP.Portal.Code.Helpers;
 ﻿using FuseCP.Providers.Virtualization;
 using FuseCP.Providers.ResultObjects;
@@ -156,27 +157,21 @@ namespace FuseCP.Portal.Proxmox
                 VirtualMachine vm = ES.Services.Proxmox.GetVirtualMachineExtendedInfo(serviceId, vmId);
                 if (vm != null)
                 {
-                    foreach (VirtualMachineNetworkAdapter adapter in vm.Adapters)
+                    foreach (VirtualMachineNetworkAdapter adapter in vm.Adapters.Where(adapter => adapter.MacAddress == selectedmac))
                     {
-                        if (adapter.MacAddress == selectedmac)
-                        {
                             adaptervlan = adapter.vlan;
-                        }
                     }
                 }
             }
             list.Items.Clear();
             //IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.Proxmox, pool);
             IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(-1, serviceId.ToString(), pool);
-            foreach (IPAddressInfo ip in ips)
+            foreach (IPAddressInfo ip in ips.Where(ip => ip.VLAN == adaptervlan))
             {
-                if (ip.VLAN == adaptervlan)
-                {
                     string txt = ip.ExternalIP;
                     if (!String.IsNullOrEmpty(ip.DefaultGateway))
                         txt += "/" + ip.DefaultGateway;
                     list.Items.Add(new ListItem(txt, ip.AddressId.ToString()));
-                }
             }
         }
 

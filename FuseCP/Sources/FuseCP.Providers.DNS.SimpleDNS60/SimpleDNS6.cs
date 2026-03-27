@@ -24,6 +24,7 @@ using FuseCP.Server.Utils;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Linq;
 
 namespace FuseCP.Providers.DNS
 {
@@ -344,10 +345,8 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is DnsZone))
             {
-                if (item is DnsZone)
-                {
                     try
                     {
                         // delete DNS zone
@@ -365,7 +364,6 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS6 zone", item.Name), ex);
                     }
-                }
             }
         }
 

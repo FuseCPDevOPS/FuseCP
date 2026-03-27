@@ -200,10 +200,10 @@ namespace FuseCP.WebPortal
 							 path, xmlControl.ParentNode.OuterXml));
 					control.Title = xmlControl.Attributes["title"].Value;
 
-					if (xmlControl.Attributes["type"] != null)
-						control.ControlType = (ModuleControlType)Enum.Parse(typeof(ModuleControlType), xmlControl.Attributes["type"].Value, true);
-					else
-						control.ControlType = ModuleControlType.View;
+					control.ControlType = xmlControl.Attributes["type"] != null ? (ModuleControlType)Enum.Parse(typeof(ModuleControlType), xmlControl.Attributes["type"].Value, true) : ModuleControlType.View;
+
+
+
 
 					if (String.IsNullOrEmpty(control.Key))
 						module.DefaultControl = control;
@@ -274,8 +274,8 @@ namespace FuseCP.WebPortal
 				if (xmlPage.Attributes["selectedUserContext"] != null)
 					page.Roles.AddRange(xmlPage.Attributes["selectedUserContext"].Value.Split(ROLES_DELIMITERS.ToCharArray()));
 
-				page.Enabled = (xmlPage.Attributes["enabled"] != null) ? Boolean.Parse(xmlPage.Attributes["enabled"].Value) : true;
-				page.Hidden = (xmlPage.Attributes["hidden"] != null) ? Boolean.Parse(xmlPage.Attributes["hidden"].Value) : false;
+				page.Enabled = !((xmlPage.Attributes["enabled"] != null)) || Boolean.Parse(xmlPage.Attributes["enabled"].Value);
+				page.Hidden = (xmlPage.Attributes["hidden"] != null) && Boolean.Parse(xmlPage.Attributes["hidden"].Value);
 				page.Align = (xmlPage.Attributes["align"] != null) ? xmlPage.Attributes["align"].Value : null;
 				page.SkinSrc = (xmlPage.Attributes["skin"] != null) ? xmlPage.Attributes["skin"].Value : null;
 				page.AdminSkinSrc = (xmlPage.Attributes["adminskin"] != null) ? xmlPage.Attributes["adminskin"].Value : null;

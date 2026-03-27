@@ -23,6 +23,7 @@ using FuseCP.Providers.SharePoint;
 using FuseCP.Providers.Utils;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Administration;
+using System.Linq;
 
 namespace FuseCP.Providers.HostedSolution
 {
@@ -418,10 +419,8 @@ namespace FuseCP.Providers.HostedSolution
                                 content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                                 string[] contentArr = content.Split(new char[] { '\n' });
                                 var outPutBuilder = new StringBuilder();
-                                foreach (string s in contentArr)
+                                foreach (string s in contentArr.Where(s => s != string.Empty))
                                 {
-                                    if (s != string.Empty)
-                                    {
                                         string IPAddr = string.Empty;
                                         string hostName = string.Empty;
                                         if (s[0] != '#')
@@ -448,7 +447,6 @@ namespace FuseCP.Providers.HostedSolution
                                         }
                                         else
                                             outPutBuilder.Append(s).Append("\r\n");
-                                    }
                                 }
 
                                 FileUtils.UpdateFileTextContent(path, outPutBuilder.ToString());

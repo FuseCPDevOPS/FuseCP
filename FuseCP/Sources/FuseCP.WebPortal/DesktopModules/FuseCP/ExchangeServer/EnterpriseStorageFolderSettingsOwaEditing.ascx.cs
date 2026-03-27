@@ -45,7 +45,7 @@ namespace FuseCP.Portal.ExchangeServer
             try
             {
                 // get settings
-                Organization org = ES.Services.Organizations.GetOrganization(PanelRequest.ItemID);
+                ES.Services.Organizations.GetOrganization(PanelRequest.ItemID);
 
                 SystemFile folder = ES.Services.EnterpriseStorage.GetEnterpriseFolder(
                     PanelRequest.ItemID, PanelRequest.FolderID);

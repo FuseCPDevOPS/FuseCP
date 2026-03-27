@@ -162,7 +162,7 @@ namespace FuseCP.Portal
             settings.UserId = PanelSecurity.SelectedUserId;
             settings.SettingsName = UserSettings.DISPLAY_PREFS;
             settings[UserSettings.GRID_ITEMS] = itemsNumber.ToString();
-            int res =  ES.Services.Users.UpdateUserSettings(settings);
+            ES.Services.Users.UpdateUserSettings(settings);
             
             HttpContext.Current.Session[ITEMS_PER_PAGE_SESSION] = itemsNumber;
         }

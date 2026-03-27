@@ -4696,12 +4696,9 @@ namespace FuseCP.Providers.HostedSolution
                     }
                 }
 
-                foreach (string delAccount in existingMembers.Keys)
+                foreach (string delAccount in existingMembers.Keys.Where(delAccount => !newMembers.ContainsKey(delAccount)))
                 {
-                    if (!newMembers.ContainsKey(delAccount))
-                    {
                         membersToDelete.Add(existingMembers[delAccount]);
-                    }
                 }
 
                 foreach (string member in membersToAdd)

@@ -164,9 +164,9 @@ namespace FuseCP.Portal
 
         public string GetDomainDnsRecords(int domainId)
         {
-            if(dnsRecords.ContainsKey(domainId))
+if (dnsRecords.TryGetValue(domainId, out var _ckv))
             {
-                return dnsRecords[domainId];
+                return _ckv;
             }
 
             var records = ES.Services.Servers.GetDomainDnsRecords(domainId);

@@ -19,6 +19,7 @@ using System.Text;
 using FuseCP.Providers.Web.Iis.Common;
 using Microsoft.Web.Administration;
 using System.Reflection;
+using System.Linq;
 
 namespace FuseCP.Providers.Web.Delegation
 {
@@ -42,22 +43,17 @@ namespace FuseCP.Providers.Web.Delegation
 				//
 				var rulesCollection = delegationSection.GetCollection();
 				// Update rule if exists
-				foreach (var rule in rulesCollection)
+				foreach (var rule in rulesCollection.Where(rule => rulePredicate.Invoke(rule)))
 				{
-					if (rulePredicate.Invoke(rule))
-					{
 						var permissions = rule.GetCollection("permissions");
 						//
 						var user = default(ConfigurationElement);
 						//
-						foreach (var item in permissions)
+						foreach (var item in permissions.Where(item => userPredicate.Invoke(item)))
 						{
-							if (userPredicate.Invoke(item))
-							{
 								user = item;
 								//
 								break;
-							}
 						}
 						//
 						if (user == null)
@@ -76,7 +72,6 @@ namespace FuseCP.Providers.Web.Delegation
 							//
 							srvman.CommitChanges();
 						}
-					}
 				}
 			}
 		}
@@ -104,24 +99,18 @@ namespace FuseCP.Providers.Web.Delegation
 				//
 				var rulesCollection = delegationSection.GetCollection();
 				// Update rule if exists
-				foreach (var rule in rulesCollection)
+				foreach (var rule in rulesCollection.Where(rule => rulePredicate.Invoke(rule)))
 				{
-					if (rulePredicate.Invoke(rule))
-					{
 						var permissions = rule.GetCollection("permissions");
 						//
-						foreach (var user in permissions)
+						foreach (var user in permissions.Where(user => userPredicate.Invoke(user)))
 						{
-							if (userPredicate.Invoke(user))
-							{
 								permissions.Remove(user);
 								//
 								srvman.CommitChanges();
 								//
 								break;
-							}
 						}
-					}
 				}
 			}
 		}
@@ -147,14 +136,11 @@ namespace FuseCP.Providers.Web.Delegation
 				//
 				var rulesCollection = delegationSection.GetCollection();
 				// Update rule if exists
-				foreach (var rule in rulesCollection)
+				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
 				{
-					if (predicate.Invoke(rule))
-					{
 						exists = true;
 						//
 						break;
-					}
 				}
 			}
 			//
@@ -180,11 +166,9 @@ namespace FuseCP.Providers.Web.Delegation
 				//
 				var rulesCollection = delegationSection.GetCollection();
 				// Update rule if exists
-				foreach (var rule in rulesCollection)
+				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
 				{
 					//
-					if (predicate.Invoke(rule))
-					{
 						if (identityType.Equals("SpecificUser"))
 						{
 							var runAsElement = rule.ChildElements["runAs"];
@@ -201,7 +185,6 @@ namespace FuseCP.Providers.Web.Delegation
 						}
 						//
 						return; // Exit
-					}
 				}
 				// Create new rule if none exists
 				var newRule = rulesCollection.CreateElement("rule");
@@ -258,17 +241,14 @@ namespace FuseCP.Providers.Web.Delegation
 				//
 				var rulesCollection = delegationSection.GetCollection();
 				// Remove rule if exists
-				foreach (var rule in rulesCollection)
+				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
 				{
 					// Match rule against predicate
-					if (predicate.Invoke(rule))
-					{
 						rulesCollection.Remove(rule);
 						//
 						srvman.CommitChanges();
 						//
 						return; // Exit
-					}
 				}
 			}
 		}

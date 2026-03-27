@@ -706,10 +706,10 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (ExternalSwitches == null)
             {
-                if (chkGetSwitchesByPS.Checked)
-                    ExternalSwitches = new List<VirtualSwitch>(ES.Services.VPS2012.GetExternalSwitches(PanelRequest.ServiceId, txtServerName.Text.Trim()));
-                else
-                    ExternalSwitches = new List<VirtualSwitch>(ES.Services.VPS2012.GetExternalSwitchesWMI(PanelRequest.ServiceId, txtServerName.Text.Trim()));
+                ExternalSwitches = chkGetSwitchesByPS.Checked ? new List<VirtualSwitch>(ES.Services.VPS2012.GetExternalSwitches(PanelRequest.ServiceId, txtServerName.Text.Trim())) : new List<VirtualSwitch>(ES.Services.VPS2012.GetExternalSwitchesWMI(PanelRequest.ServiceId, txtServerName.Text.Trim()));
+
+
+
 
             }
             return ExternalSwitches;

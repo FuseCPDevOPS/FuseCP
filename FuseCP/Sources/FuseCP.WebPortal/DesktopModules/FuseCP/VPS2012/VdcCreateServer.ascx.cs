@@ -238,10 +238,8 @@ namespace FuseCP.Portal.VPS2012
                 //firewall find
                 VirtualMachines2012Helper vmh = new VirtualMachines2012Helper();
                 VirtualMachineMetaItem[] machines = vmh.GetVirtualMachines(PanelSecurity.PackageId, "", "", "SI.ItemID", 20, 0);
-                foreach (var item in machines)
+                foreach (var item in machines.Where(item => !String.IsNullOrEmpty(item.ExternalIP) && !String.IsNullOrEmpty(item.IPAddress)))
                 {
-                    if (!String.IsNullOrEmpty(item.ExternalIP) && !String.IsNullOrEmpty(item.IPAddress))
-                    {
                         if (!item.IPAddress.Equals(txtGateway.Text)) chkCustomGateway.Checked = true;
                         txtGateway.Text = item.IPAddress;
                         txtDNS1.Text = item.IPAddress;
@@ -249,7 +247,6 @@ namespace FuseCP.Portal.VPS2012
                         VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineItem(item.ItemID);
                         if (vm != null && !String.IsNullOrEmpty(vm.CustomPrivateMask)) txtMask.Text = vm.CustomPrivateMask;
                         break;
-                    }
                 }
 
                 // set max number
@@ -293,10 +290,8 @@ namespace FuseCP.Portal.VPS2012
                 //firewall find
                 VirtualMachines2012Helper vmh = new VirtualMachines2012Helper();
                 VirtualMachineMetaItem[] machines = vmh.GetVirtualMachines(PanelSecurity.PackageId, "", "", "SI.ItemID", 20, 0);
-                foreach (var item in machines)
+                foreach (var item in machines.Where(item => !String.IsNullOrEmpty(item.ExternalIP) && !String.IsNullOrEmpty(item.DmzIP)))
                 {
-                    if (!String.IsNullOrEmpty(item.ExternalIP) && !String.IsNullOrEmpty(item.DmzIP))
-                    {
                         if (!item.DmzIP.Equals(txtDmzGateway.Text)) chkDmzCustomGateway.Checked = true;
                         txtDmzGateway.Text = item.DmzIP;
                         txtDmzDNS1.Text = item.DmzIP;
@@ -304,7 +299,6 @@ namespace FuseCP.Portal.VPS2012
                         VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineItem(item.ItemID);
                         if (vm != null && !String.IsNullOrEmpty(vm.CustomDmzMask)) txtDmzMask.Text = vm.CustomDmzMask;
                         break;
-                    }
                 }
 
                 // set max number
@@ -336,9 +330,9 @@ namespace FuseCP.Portal.VPS2012
 
 
             // RAM size
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_RAM))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out var _ckv))
             {
-                QuotaValueInfo ramQuota = cntx.Quotas[Quotas.VPS2012_RAM];
+                QuotaValueInfo ramQuota = _ckv;
                 if (ramQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited RAM
@@ -358,9 +352,9 @@ namespace FuseCP.Portal.VPS2012
             }
 
             // HDD size
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             {
-                QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPS2012_HDD];
+                QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue == -1)
                 {
                     // unlimited HDD
@@ -373,9 +367,9 @@ namespace FuseCP.Portal.VPS2012
                 }
             }
 
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_ADDITIONAL_VHD_COUNT))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             {
-                QuotaValueInfo additionalHddQuota = cntx.Quotas[Quotas.VPS2012_ADDITIONAL_VHD_COUNT];
+                QuotaValueInfo additionalHddQuota = _ckv;
                 if (additionalHddQuota.QuotaAllocatedValue == -1 || additionalHddQuota.QuotaAllocatedValue > 0) btnAddHdd.Visible = true;
             }
 
@@ -385,9 +379,9 @@ namespace FuseCP.Portal.VPS2012
             txtHddMaxIOPS.Text = "0";
 
             // snapshots number
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_SNAPSHOTS_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out var _ckv))
             {
-                int snapsNumber = cntx.Quotas[Quotas.VPS2012_SNAPSHOTS_NUMBER].QuotaAllocatedValue;
+                int snapsNumber = _ckv.QuotaAllocatedValue;
                 txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
                 txtSnapshots.Enabled = (snapsNumber != 0);
             }
@@ -476,15 +470,12 @@ namespace FuseCP.Portal.VPS2012
             PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
 
             listExternalAddresses.Items.Clear();
-            foreach (PackageIPAddress ip in ips)
+            foreach (PackageIPAddress ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
             {
-                if ((listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue)
-                {
                     string txt = ip.ExternalIP;
                     if (!String.IsNullOrEmpty(ip.DefaultGateway))
                         txt += "/" + ip.DefaultGateway + " [VLAN " + ip.VLAN + "]";
                     listExternalAddresses.Items.Add(new ListItem(txt, ip.PackageAddressID.ToString()));
-                }
             }
 
             // toggle controls
@@ -500,15 +491,12 @@ namespace FuseCP.Portal.VPS2012
             IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS2012, IPAddressPool.VpsExternalNetwork);
 
             listExternalAddresses.Items.Clear();
-            foreach (IPAddressInfo ip in ips)
+            foreach (IPAddressInfo ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
             {
-                if ((listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue)
-                {
                     string txt = ip.ExternalIP;
                     if (!String.IsNullOrEmpty(ip.DefaultGateway))
                         txt += "/" + ip.DefaultGateway + " [VLAN " + ip.VLAN + "]";
                     listExternalAddresses.Items.Add(new ListItem(txt, ip.AddressId.ToString()));
-                }
             }
 
             // toggle controls
@@ -755,9 +743,9 @@ namespace FuseCP.Portal.VPS2012
             var hdds = GetAdditionalHdd();
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
             int freeHddGb = 0;
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             {
-                QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPS2012_HDD];
+                QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue != -1)
                 {
                     int availSize = hddQuota.QuotaAllocatedValue - hddQuota.QuotaUsedValue;
@@ -783,26 +771,23 @@ namespace FuseCP.Portal.VPS2012
         private void RebindAdditionalHdd(List<AdditionalHdd> hdd)
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_ADDITIONAL_VHD_COUNT))
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             {
-                QuotaValueInfo additionalHddQuota = cntx.Quotas[Quotas.VPS2012_ADDITIONAL_VHD_COUNT];
+                QuotaValueInfo additionalHddQuota = _ckv;
                 int quotaHddCount = additionalHddQuota.QuotaAllocatedValue;
                 int maxHddCount = 62;
                 LibraryItem[] osTemplates = ES.Services.VPS2012.GetOperatingSystemTemplates(PanelSecurity.PackageId);
-                foreach (LibraryItem item in osTemplates)
+                foreach (LibraryItem item in osTemplates.Where(item => String.Compare(item.Path, listOperatingSystems.SelectedValue, true) == 0))
                 {
-                    if (String.Compare(item.Path, listOperatingSystems.SelectedValue, true) == 0)
-                    {
-                        if (item.Generation > 1)
-                        {
-                            maxHddCount = 62;
-                        }
-                        else
-                        {
-                            maxHddCount = 2;
-                        }
+                        maxHddCount = item.Generation > 1 ? 62 : 2;
+
+
+
+
+
+
+
                         break;
-                    }
                 }
                 if (quotaHddCount == -1 || quotaHddCount > maxHddCount) quotaHddCount = maxHddCount;
                 btnAddHdd.Enabled = (hdd.Count < quotaHddCount);

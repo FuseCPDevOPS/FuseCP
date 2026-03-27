@@ -34,7 +34,7 @@ namespace FuseCP.Portal
 
 		protected void CompleteSetupButton_Click(object sender, EventArgs e)
 		{
-			if (Page.IsValid == false)
+			if (!(Page.IsValid))
 			{
 				return;
 			}
@@ -46,7 +46,7 @@ namespace FuseCP.Portal
 		{
 			var enabledScpa = ES.Services.Authentication.GetSystemSetupMode();
 			//
-			if (enabledScpa == false)
+			if (!(enabledScpa))
 			{
 				Response.Redirect(EditUrl(""));
 			}

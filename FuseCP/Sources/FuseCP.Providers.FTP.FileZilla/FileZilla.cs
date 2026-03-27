@@ -25,6 +25,7 @@ using FuseCP.Providers;
 using FuseCP.Providers.FTP;
 using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
+using System.Linq;
 
 namespace FuseCP.Providers.FTP
 {
@@ -273,10 +274,8 @@ namespace FuseCP.Providers.FTP
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is FtpAccount))
             {
-                if (item is FtpAccount)
-                {
                     try
                     {
                         // change FTP account state
@@ -288,16 +287,13 @@ namespace FuseCP.Providers.FTP
                     {
                         Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
-                }
             }
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is FtpAccount))
             {
-                if (item is FtpAccount)
-                {
                     try
                     {
                         // delete FTP account
@@ -307,7 +303,6 @@ namespace FuseCP.Providers.FTP
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
-                }
             }
         }
 

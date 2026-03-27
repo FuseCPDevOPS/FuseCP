@@ -25,6 +25,7 @@ using System.Runtime.Versioning;
 using FuseCP.Server.Utils;
 using FuseCP.Providers.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace FuseCP.Providers.Database
 {
@@ -1272,10 +1273,8 @@ namespace FuseCP.Providers.Database
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is SqlDatabase))
 			{
-				if (item is SqlDatabase)
-				{
 					try
 					{
 						// get database details
@@ -1296,7 +1295,6 @@ namespace FuseCP.Providers.Database
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' SQL Server database size", item.Name), ex);
 					}
-				}
 			}
 
 			return itemsDiskspace.ToArray();

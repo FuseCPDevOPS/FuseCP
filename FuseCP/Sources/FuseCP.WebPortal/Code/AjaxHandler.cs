@@ -38,7 +38,7 @@ namespace FuseCP.WebPortal
                 string strMaximumRows = context.Request.Params["MaximumRows"];
                 int MaximumRows = strMaximumRows != null ? Int32.Parse(strMaximumRows) : 15;
                 string strRecursive = context.Request.Params["Recursive"];
-                bool Recursive = strRecursive != null ? serializer.Deserialize<Boolean>(strRecursive) : false;
+                bool Recursive = strRecursive != null && serializer.Deserialize<Boolean>(strRecursive);
                 string strPoolID = context.Request.Params["PoolID"];
                 int PoolID = strPoolID != null ? Int32.Parse(strPoolID) : 0;
                 string strServerID = context.Request.Params["ServerID"];
@@ -69,7 +69,6 @@ namespace FuseCP.WebPortal
 
                 DataTable dt = dsObjectItems.Tables[0];
                 List<Dictionary<string, string>> dataList = new List<Dictionary<string, string>>();
-                string Redirect = context.Request.Params["Redirect"];
                 for (int i = 0; i < dt.Rows.Count; ++i)
                 {
                     DataRow row = dt.Rows[i];

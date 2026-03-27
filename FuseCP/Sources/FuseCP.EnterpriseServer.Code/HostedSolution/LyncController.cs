@@ -24,6 +24,7 @@ using FuseCP.Providers.HostedSolution;
 using FuseCP.Providers.ResultObjects;
 using FuseCP.Server.Client;
 using FuseCP.EnterpriseServer.Data;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer.Code.HostedSolution
 {
@@ -950,13 +951,10 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 bool bDomainExists = false;
                 LyncFederationDomain[] domains = GetFederationDomains(itemId);
-                foreach (LyncFederationDomain d in domains)
+                foreach (LyncFederationDomain d in domains.Where(d => d.DomainName.ToLower() == domainName.ToLower()))
                 {
-                    if (d.DomainName.ToLower() == domainName.ToLower())
-                    {
                         bDomainExists = true;
                         break;
-                    }
 
                 }
                 

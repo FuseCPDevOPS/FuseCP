@@ -27,8 +27,8 @@ namespace FuseCP.Portal
         {
             bool manageAllowed = false;
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_MANAGING_ALLOWED))
-                manageAllowed = !cntx.Quotas[Quotas.VPS2012_MANAGING_ALLOWED].QuotaExhausted;
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_MANAGING_ALLOWED, out var _ckv))
+                manageAllowed = !_ckv.QuotaExhausted;
 
             if (PanelSecurity.EffectiveUser.Role == UserRole.Administrator)
                 manageAllowed = true;
@@ -40,7 +40,7 @@ namespace FuseCP.Portal
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
                     if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPS2012_MANAGING_ALLOWED))
-                        manageAllowed = !cntx.Quotas[Quotas.VPS2012_MANAGING_ALLOWED].QuotaExhausted;
+                        manageAllowed = !_ckv.QuotaExhausted;
                 }
             }
             return manageAllowed;
@@ -49,8 +49,8 @@ namespace FuseCP.Portal
         {
             bool reinstallAllowed = false;
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_REINSTALL_ALLOWED))
-                reinstallAllowed = !cntx.Quotas[Quotas.VPS2012_REINSTALL_ALLOWED].QuotaExhausted;
+if (cntx.Quotas.TryGetValue(Quotas.VPS2012_REINSTALL_ALLOWED, out var _ckv))
+                reinstallAllowed = !_ckv.QuotaExhausted;
 
             if (PanelSecurity.EffectiveUser.Role == UserRole.Administrator)
                 reinstallAllowed = true;
@@ -62,7 +62,7 @@ namespace FuseCP.Portal
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
                     if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPS2012_REINSTALL_ALLOWED))
-                        reinstallAllowed = !cntx.Quotas[Quotas.VPS2012_REINSTALL_ALLOWED].QuotaExhausted;
+                        reinstallAllowed = !_ckv.QuotaExhausted;
                 }
             }
             return reinstallAllowed;
@@ -124,14 +124,14 @@ namespace FuseCP.Portal
         PackageVLANsPaged packageVLANs;
         public PackageVLAN[] GetPackageVLANs(int packageId, bool isDmz, string sortColumn, int maximumRows, int startRowIndex)
         {
-            if (isDmz)
-            {
-                packageVLANs = ES.Services.Servers.GetPackageDmzNetworkVLANs(packageId, sortColumn, startRowIndex, maximumRows);
-            }
-            else
-            {
-                packageVLANs = ES.Services.Servers.GetPackagePrivateNetworkVLANs(packageId, sortColumn, startRowIndex, maximumRows);
-            }
+            packageVLANs = isDmz ? ES.Services.Servers.GetPackageDmzNetworkVLANs(packageId, sortColumn, startRowIndex, maximumRows) : ES.Services.Servers.GetPackagePrivateNetworkVLANs(packageId, sortColumn, startRowIndex, maximumRows);
+
+
+
+
+
+
+
             return packageVLANs.Items;
         }
 

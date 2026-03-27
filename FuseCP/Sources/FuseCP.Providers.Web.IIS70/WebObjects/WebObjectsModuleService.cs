@@ -530,15 +530,12 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 			// get server bingings
 			var bindings = new List<ServerBinding>();
 			//
-			foreach (var bindingObj in iisObject.Bindings)
+			foreach (var bindingObj in iisObject.Bindings.Where(bindingObj => String.Equals(bindingObj.Protocol, Uri.UriSchemeHttp, StringComparison.InvariantCultureIgnoreCase)))
 			{
                 // return only "http" bindings
-                if (String.Equals(bindingObj.Protocol, Uri.UriSchemeHttp, StringComparison.InvariantCultureIgnoreCase))
-                {
                     string[] parts = bindingObj.BindingInformation.Split(':');
                     // append binding
                     bindings.Add(new ServerBinding(bindingObj.Protocol, parts[0], parts[1], parts[2]));
-                }
 			}
 			//
 			return bindings.ToArray();

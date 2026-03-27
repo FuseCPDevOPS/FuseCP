@@ -51,11 +51,11 @@ namespace FuseCP.Portal.ExchangeServer
 
             if (!IsPostBack)
             {
-                PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+                PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
                 BindSettings();
 
-                UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
+                UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
             }
         }
 

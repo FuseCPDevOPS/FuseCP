@@ -157,9 +157,8 @@ namespace FuseCP.Portal.ExchangeServer
 
             UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
                     hideItems = true;
             }
 

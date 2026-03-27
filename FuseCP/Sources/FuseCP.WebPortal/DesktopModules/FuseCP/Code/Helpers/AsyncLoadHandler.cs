@@ -275,14 +275,14 @@ namespace FuseCP.Portal
             string result;
             try
             {
-                if (!string.IsNullOrEmpty(ES.Services.WebServers.GetWebSite(ItemId).HttpRedirect))
-                {
-                    result = "<span class=\"bi bi-check-circle fs-5 text-success\"></span>";
-                }
-                else
-                {
-                    result = "";
-                }
+                result = !string.IsNullOrEmpty(ES.Services.WebServers.GetWebSite(ItemId).HttpRedirect) ? "<span class=\"bi bi-check-circle fs-5 text-success\"></span>" : "";
+
+
+
+
+
+
+
                 return result;
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -304,7 +304,6 @@ namespace FuseCP.Portal
                 if (certificatesForSite.Length != 0)
                 {
                     DateTime expiryDate = certificatesForSite[0].ExpiryDate;
-                    DateTime datenow = DateTime.Today;
                     DateTime dateTime = new DateTime();
                     TimeSpan ts = expiryDate - DateTime.Now;
                     int diffInDays = ts.Days;
@@ -357,14 +356,14 @@ namespace FuseCP.Portal
             string result;
             try
             {
-                if (ES.Services.WebServers.GetCertificatesForSite(ItemId).Length == 1)
-                {
-                    result = "<span class=\"bi bi-lock fs-5 text-success\"></span>";
-                }
-                else
-                {
-                    result = "<span class=\"bi bi-unlock fs-5 text-danger\"></span>";
-                }
+                result = ES.Services.WebServers.GetCertificatesForSite(ItemId).Length == 1 ? "<span class=\"bi bi-lock fs-5 text-success\"></span>" : "<span class=\"bi bi-unlock fs-5 text-danger\"></span>";
+
+
+
+
+
+
+
 
                 return result;
             }

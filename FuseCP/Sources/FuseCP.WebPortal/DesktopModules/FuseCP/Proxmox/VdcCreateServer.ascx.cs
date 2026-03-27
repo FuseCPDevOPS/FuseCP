@@ -96,9 +96,9 @@ namespace FuseCP.Portal.Proxmox
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			int maxCores = ES.Services.Proxmox.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
 
-			if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_CPU_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out var _ckv))
 			{
-				QuotaValueInfo cpuQuota = cntx.Quotas[Quotas.PROXMOX_CPU_NUMBER];
+				QuotaValueInfo cpuQuota = _ckv;
 
 				if (cpuQuota.QuotaAllocatedValue != -1
 					 && maxCores > cpuQuota.QuotaAllocatedValue)
@@ -167,9 +167,9 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// RAM size
-			if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_RAM))
+if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_RAM, out var _ckv))
 			{
-				QuotaValueInfo ramQuota = cntx.Quotas[Quotas.PROXMOX_RAM];
+				QuotaValueInfo ramQuota = _ckv;
 				if (ramQuota.QuotaAllocatedValue == -1)
 				{
 					// unlimited RAM
@@ -189,9 +189,9 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// HDD size
-			if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_HDD))
+if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_HDD, out var _ckv))
 			{
-				QuotaValueInfo hddQuota = cntx.Quotas[Quotas.PROXMOX_HDD];
+				QuotaValueInfo hddQuota = _ckv;
 				if (hddQuota.QuotaAllocatedValue == -1)
 				{
 					// unlimited HDD
@@ -205,9 +205,9 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// snapshots number
-			if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_SNAPSHOTS_NUMBER))
+if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_SNAPSHOTS_NUMBER, out var _ckv))
 			{
-				int snapsNumber = cntx.Quotas[Quotas.PROXMOX_SNAPSHOTS_NUMBER].QuotaAllocatedValue;
+				int snapsNumber = _ckv.QuotaAllocatedValue;
 				txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
 				txtSnapshots.Enabled = (snapsNumber != 0);
 			}
@@ -263,15 +263,12 @@ namespace FuseCP.Portal.Proxmox
 			PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
 
 			listExternalAddresses.Items.Clear();
-			foreach (PackageIPAddress ip in ips)
+			foreach (PackageIPAddress ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
 			{
-				if ((listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue)
-				{
 					string txt = ip.ExternalIP;
 					if (!String.IsNullOrEmpty(ip.DefaultGateway))
 						txt += "/" + ip.DefaultGateway + " [VLAN " + ip.VLAN + "]";
 					listExternalAddresses.Items.Add(new ListItem(txt, ip.PackageAddressID.ToString()));
-				}
 			}
 
 			// toggle controls

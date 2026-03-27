@@ -21,6 +21,7 @@ using System.Web.UI.WebControls;
 using FuseCP.Providers.Common;
 using FuseCP.Providers.Virtualization;
 using FuseCP.EnterpriseServer;
+using System.Linq;
 
 namespace FuseCP.Portal.VPS2012
 {
@@ -41,15 +42,12 @@ namespace FuseCP.Portal.VPS2012
             int adaptervlan = ES.Services.VPS2012.GetExternalNetworkVLAN(PanelRequest.ItemID);
 
             PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
-            foreach (PackageIPAddress ip in ips)
+            foreach (PackageIPAddress ip in ips.Where(ip => ip.VLAN == adaptervlan))
             {
-                if (ip.VLAN == adaptervlan)
-                {
                     string txt = ip.ExternalIP;
                     if (!String.IsNullOrEmpty(ip.DefaultGateway))
                         txt += "/" + ip.DefaultGateway;
                     listExternalAddresses.Items.Add(new ListItem(txt, ip.PackageAddressID.ToString()));
-                }
             }
 
             // toggle controls

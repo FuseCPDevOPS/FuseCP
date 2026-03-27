@@ -33,13 +33,13 @@ namespace FuseCP.Portal
 
         public bool DisplayGauge
         {
-            get { return (ViewState["DisplayGauge"] != null) ? (bool)ViewState["DisplayGauge"] : true; }
+            get { return !((ViewState["DisplayGauge"] != null)) || (bool)ViewState["DisplayGauge"]; }
             set { ViewState["DisplayGauge"] = value; }
         }
 
         public bool DisplayText
         {
-            get { return (ViewState["DisplayText"] != null) ? (bool)ViewState["DisplayText"] : true; }
+            get { return !((ViewState["DisplayText"] != null)) || (bool)ViewState["DisplayText"]; }
             set { ViewState["DisplayText"] = value; }
         }
 

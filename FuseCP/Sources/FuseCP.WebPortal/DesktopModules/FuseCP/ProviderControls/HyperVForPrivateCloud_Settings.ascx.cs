@@ -46,14 +46,14 @@ namespace FuseCP.Portal.ProviderControls
             {
                 try
                 {
-                    if (radioServer.SelectedValue.Equals("host"))
-                    {
-                        hosts = ES.Services.VPSPC.GetHosts(PanelRequest.ServiceId);
-                    }
-                    else
-                    {
-                        hosts = ES.Services.VPSPC.GetClusters(PanelRequest.ServiceId);
-                    }
+                    hosts = radioServer.SelectedValue.Equals("host") ? ES.Services.VPSPC.GetHosts(PanelRequest.ServiceId) : ES.Services.VPSPC.GetClusters(PanelRequest.ServiceId);
+
+
+
+
+
+
+
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
@@ -111,8 +111,8 @@ namespace FuseCP.Portal.ProviderControls
             txtLibraryPath.Text = settings["LibraryPath"];
             txtMonitoringServerName.Text = settings["MonitoringServerName"];
 
-            chkUseSPNSCVMM.Checked = (String.IsNullOrEmpty(settings["UseSPNSCVMM"]) ? false : Convert.ToBoolean(settings["UseSPNSCVMM"]));
-            chkUseSPNSCOM.Checked = (String.IsNullOrEmpty(settings["UseSPNSCOM"]) ? false : Convert.ToBoolean(settings["UseSPNSCOM"]));
+            chkUseSPNSCVMM.Checked = (!(String.IsNullOrEmpty(settings["UseSPNSCVMM"])) && Convert.ToBoolean(settings["UseSPNSCVMM"]));
+            chkUseSPNSCOM.Checked = (!(String.IsNullOrEmpty(settings["UseSPNSCOM"])) && Convert.ToBoolean(settings["UseSPNSCOM"]));
             //// DVD library
             //txtDvdLibraryPath.Text = settings["DvdLibraryPath"];
 

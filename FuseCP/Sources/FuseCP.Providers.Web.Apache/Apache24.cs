@@ -909,10 +909,8 @@ namespace FuseCP.Providers.Web
 				.Concat(new string[] { Shell.Default.Find("httpd"), Shell.Default.Find("apache2") })
 				.Where(exe => exe != null)
 				.Distinct();
-			foreach (var exe in processes)
+			foreach (var exe in processes.Where(exe => File.Exists(exe)))
 			{
-				if (File.Exists(exe))
-				{
 					try
 					{
 						var output = Shell.Exec($"\"{exe}\" -V").Output().Result;
@@ -924,7 +922,6 @@ namespace FuseCP.Providers.Web
 						}
 					}
 					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-				}
 			}
 			return "";
 		}

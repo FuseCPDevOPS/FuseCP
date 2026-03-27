@@ -24,6 +24,7 @@ using FuseCP.EnterpriseServer.Data.Configuration;
 using FuseCP.EnterpriseServer.Data.Entities;
 using FuseCP.EnterpriseServer.Data.Extensions;
 using System.Reflection.Emit;
+using System.Linq;
 
 
 
@@ -468,12 +469,9 @@ namespace FuseCP.EnterpriseServer.Context
 
 				foreach (var entityType in model.Model.GetEntityTypes())
 				{
-					foreach (var property in entityType.GetProperties())
+					foreach (var property in entityType.GetProperties().Where(property => property.ClrType == typeof(DateTime)))
 					{
-						if (property.ClrType == typeof(DateTime))
-						{
 							property.SetValueConverter(dateTimeUtcConverter);
-						}
 					}
 				}
 			}

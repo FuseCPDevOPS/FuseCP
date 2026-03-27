@@ -41,7 +41,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
 		public bool MailEnabledFolder
 		{
-			get { return ViewState["MailEnabledFolder"] == null ? true : (bool)ViewState["MailEnabledFolder"]; }
+			get { return ViewState["MailEnabledFolder"] == null || (bool)ViewState["MailEnabledFolder"]; }
 			set { ViewState["MailEnabledFolder"] = value; BindTabs(); }
 		}
 

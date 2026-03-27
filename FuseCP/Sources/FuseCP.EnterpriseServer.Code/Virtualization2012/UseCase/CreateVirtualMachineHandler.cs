@@ -299,10 +299,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 {
                     bool isTemplateExist = false;
                     LibraryItem[] osTemplates = VirtualizationHelper.GetOperatingSystemTemplates(vm.PackageId);
-                    foreach (LibraryItem item in osTemplates)
+                    foreach (LibraryItem item in osTemplates.Where(item => String.Compare(item.Path, osTemplateFile, true) == 0))
                     {
-                        if (String.Compare(item.Path, osTemplateFile, true) == 0)
-                        {
                             osTemplate = item;
                             isTemplateExist = true;
 
@@ -321,7 +319,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                             vm.LegacyNetworkAdapter = osTemplate.LegacyNetworkAdapter;
                             vm.RemoteDesktopEnabled = osTemplate.RemoteDesktop;
                             break;
-                        }
                     }
                     if (!isTemplateExist)
                     { //give a description of the error for Third party services if they use SOAP

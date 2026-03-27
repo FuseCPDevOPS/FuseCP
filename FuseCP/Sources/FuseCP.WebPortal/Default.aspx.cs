@@ -402,10 +402,10 @@ namespace FuseCP.WebPortal
             else
             {
                 // edit skin
-                if (!String.IsNullOrEmpty(page.AdminSkinSrc))
-                    skinName = page.AdminSkinSrc;
-                else
-                    skinName = PortalConfiguration.SiteSettings["AdminSkin"];
+                skinName = !String.IsNullOrEmpty(page.AdminSkinSrc) ? page.AdminSkinSrc : PortalConfiguration.SiteSettings["AdminSkin"];
+
+
+
             }
 
             // load skin control
@@ -434,10 +434,8 @@ namespace FuseCP.WebPortal
                     {
                         // insert modules
                         ContentPane pane = page.ContentPanes[paneId];
-                        foreach (PageModule module in pane.Modules)
+                        foreach (PageModule module in pane.Modules.Where(module => IsAccessibleToUser(Context, module.ViewRoles)))
                         {
-                            if (IsAccessibleToUser(Context, module.ViewRoles))
-                            {
                                 // add module
                                 if (module.Settings.Contains("UseDefault"))
                                 {
@@ -446,7 +444,6 @@ namespace FuseCP.WebPortal
                                 }
                                 else
                                     AddModuleToContentPane(ctrlPane, module, "", editMode);
-                            }
                         }
                     }
                 }
@@ -483,7 +480,7 @@ namespace FuseCP.WebPortal
         protected void Page_PreRender(object sender, EventArgs e)
         {
             // Ensure the page's form action attribute is not empty
-            if (Request.RawUrl.Equals("/") == false)
+            if (!(Request.RawUrl.Equals("/")))
                 return;
             // Assign default page to avoid ASP.NET 4 issue w/ Extensionless URL Module & Custom HTTP Modules
             Form.Action = Form.ResolveUrl(DEFAULT_PAGE);
@@ -492,7 +489,7 @@ namespace FuseCP.WebPortal
         private void AddModuleToContentPane(Control pane, PageModule module, string ctrlKey, bool editMode)
         {
             string defId = module.ModuleDefinitionID;
-            if (!PortalConfiguration.ModuleDefinitions.ContainsKey(defId))
+if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out var _ckv))
             {
                 ShowError(pane, String.Format("Module definition '{0}' could not be found", defId));
                 return;
@@ -504,8 +501,8 @@ namespace FuseCP.WebPortal
                 control = definition.DefaultControl;
             else
             {
-                if (definition.Controls.ContainsKey(ctrlKey))
-                    control = definition.Controls[ctrlKey];
+                if (definition.Controls.TryGetValue(ctrlKey, out var ctrlVal))
+                    control = ctrlVal;
             }
 
             if (control == null)
@@ -669,14 +666,14 @@ namespace FuseCP.WebPortal
         private static string GetLocalizedResourceString(string suffix, string key)
         {
             List<string> list1 = null;
-            if (suffix == "Pages")
-            {
-                list1 = GetResourceFiles("Pages", "FCPLocaleAdapterPages");
-            }
-            else
-            {
-                list1 = GetResourceFiles("Modules", "FCPLocaleAdapterModules");
-            }
+            list1 = suffix == "Pages" ? GetResourceFiles("Pages", "FCPLocaleAdapterPages") : GetResourceFiles("Modules", "FCPLocaleAdapterModules");
+
+
+
+
+
+
+
 
             string text1 = null;
             foreach (string text2 in list1)

@@ -34,6 +34,7 @@ using Reports = FuseCP.EnterpriseServer.Base.Reports;
 using System.Diagnostics;
 using FuseCP.Templates;
 using FuseCP.EnterpriseServer.Data;
+using System.Linq;
 
 
 namespace FuseCP.EnterpriseServer
@@ -1995,17 +1996,14 @@ namespace FuseCP.EnterpriseServer
         {
             List<string> mailAddresses = new List<string>();
             //
-            foreach (string bccItem in bccAddresses)
+            foreach (string bccItem in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)))
             {
-                if (!String.IsNullOrEmpty(bccItem))
-                {
                     string bccAddress = bccItem.Trim();
                     // check if value is semicolon-delimited and convert it to the standard format
                     if (bccAddress.Contains(";"))
                         bccAddress = bccAddress.Replace(';', ',');
                     //
                     mailAddresses.Add(bccAddress);
-                }
             }
             //
             return String.Join(",", mailAddresses.ToArray());

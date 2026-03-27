@@ -19,6 +19,7 @@ using System.Text;
 using FuseCP.Providers.Mail.SM3;
 using Microsoft.Win32;
 using SM3 = FuseCP.Providers.Mail.SM3;
+using System.Linq;
 
 namespace FuseCP.Providers.Mail
 {
@@ -234,13 +235,10 @@ namespace FuseCP.Providers.Mail
 
 				if (result.Result)
 				{
-					foreach (string member in result.listNames)
+					foreach (string member in result.listNames.Where(member => string.Compare(member, listName, true) == 0))
 					{
-						if (string.Compare(member, listName, true) == 0)
-						{
 							exists = true;
 							break;
-						}
 					}
 				}
 			}

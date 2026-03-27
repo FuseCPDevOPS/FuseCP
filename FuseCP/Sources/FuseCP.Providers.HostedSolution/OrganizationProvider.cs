@@ -2260,13 +2260,10 @@ namespace FuseCP.Providers.HostedSolution
 
             MappedDrive[] drives = GetDriveMapsInternal(organizationId, newDrive);
 
-            foreach (var item in drives)
+            foreach (var item in drives.Where(item => item.Path == path))
             {
-                if (item.Path == path)
-                {
                     exists = true;
                     break;
-                }
             }
 
             if (drives.Length == 0 && newDrive)

@@ -640,12 +640,9 @@ namespace FuseCP.Providers.Web
 		public static void WriteLinesFile(string path, List<string> lines)
 		{
 			StringBuilder content = new StringBuilder();
-			foreach (string line in lines)
+			foreach (string line in lines.Where(line => !string.IsNullOrEmpty(line)))
 			{
-				if (!string.IsNullOrEmpty(line))
-				{
 					content.AppendLine(line);
-				}
 			}
 
 			WriteFile(path, content.ToString());

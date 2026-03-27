@@ -140,9 +140,8 @@ namespace FuseCP.Portal
         protected void gvReport_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DataRowView dr = (DataRowView)e.Row.DataItem;
-            if (dr != null)
+            if (dr != null && (dr["UsagePercentage"] != DBNull.Value && (int)dr["UsagePercentage"] > 100))
             {
-                if (dr["UsagePercentage"] != DBNull.Value && (int)dr["UsagePercentage"] > 100)
                     e.Row.CssClass = "NormalBold";
             }
         }

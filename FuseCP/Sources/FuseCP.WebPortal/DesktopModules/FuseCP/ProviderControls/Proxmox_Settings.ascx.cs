@@ -53,9 +53,8 @@ namespace FuseCP.Portal.ProviderControls
 			txtProxmoxClusterServerPort.Text = settings["ProxmoxClusterServerPort"] ?? "8006";
 			txtProxmoxClusterAdminUser.Text = settings["ProxmoxClusterAdminUser"];
 			var realm = settings["ProxmoxClusterRealm"] ?? "pam";
-			if (string.Equals(realm, "pam", StringComparison.OrdinalIgnoreCase)) lstProxmoxClusterRealm.SelectedIndex = 0;
-			else lstProxmoxClusterRealm.SelectedIndex = 1;
-			bool trustCert = IsLocal;
+			lstProxmoxClusterRealm.SelectedIndex = string.Equals(realm, "pam", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
+
 			bool.TryParse(settings["ProxmoxTrustClusterServerCertificate"] ?? $"{IsLocal}", out trustCert);
 			chkProxmoxTrustServerCertificate.Checked = trustCert;
 			chkProxmoxTrustServerCertificate.Enabled = !IsLocal;

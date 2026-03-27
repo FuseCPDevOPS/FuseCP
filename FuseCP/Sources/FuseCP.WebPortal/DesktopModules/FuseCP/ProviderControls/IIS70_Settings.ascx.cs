@@ -138,9 +138,9 @@ namespace FuseCP.Portal.ProviderControls
 			//
 			
 			//
-			if (String.IsNullOrEmpty(settings[WDeployEnabled]) == false)
+			if (!(String.IsNullOrEmpty(settings[WDeployEnabled])))
 			{
-				if (Convert.ToBoolean(settings[WDeployEnabled]) == true)
+				if (Convert.ToBoolean(settings[WDeployEnabled]))
 				{
 					WDeployEnabledCheckBox.Checked = true;
 				}

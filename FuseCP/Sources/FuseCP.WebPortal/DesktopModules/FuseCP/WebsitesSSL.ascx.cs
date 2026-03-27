@@ -69,10 +69,10 @@ namespace FuseCP.Portal
         {
             get
             {
-                if (ddlStates.Visible)
-                    return ddlStates.SelectedValue;
-                else
-                    return txtState.Text.Trim();
+                return ddlStates.Visible ? ddlStates.SelectedValue : txtState.Text.Trim();
+
+
+
             }
             set
             {
@@ -404,7 +404,6 @@ namespace FuseCP.Portal
             }
 
             byte[] pfx = upPFX.FileBytes;
-            string certPassword = txtPFXInstallPassword.Text;
 
             ResultObject result = ES.Services.WebServers.InstallPfx(pfx, webSiteId, txtPFXInstallPassword.Text);
 

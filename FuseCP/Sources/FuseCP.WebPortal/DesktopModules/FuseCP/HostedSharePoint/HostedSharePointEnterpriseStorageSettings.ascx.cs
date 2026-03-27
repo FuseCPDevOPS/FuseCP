@@ -16,6 +16,7 @@
 using System;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.HostedSolution;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -31,13 +32,10 @@ namespace FuseCP.Portal
                 Organization org = ES.Services.Organizations.GetOrganization(PanelRequest.ItemID);
 
                 PackageContext cntx = ES.Services.Packages.GetPackageContext(PanelSecurity.PackageId);
-                foreach(QuotaValueInfo quota in cntx.QuotasArray)
+                foreach (QuotaValueInfo quota in cntx.QuotasArray.Where(quota => quota.QuotaId == 551 /*Max storage quota*/))
                 {
-                    if (quota.QuotaId == 551 /*Max storage quota*/)
-                    {
                         maxStorageSettingsValue.ParentQuotaValue = quota.QuotaAllocatedValue;
                         warningValue.ParentQuotaValue = quota.QuotaAllocatedValue;
-                    }
                 }
                 
                 maxStorageSettingsValue.QuotaValue = org.MaxSharePointEnterpriseStorage;

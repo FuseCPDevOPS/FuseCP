@@ -46,7 +46,6 @@ namespace FuseCP.Portal.ExchangeServer
 			// get organization info
 			Organization org = ES.Services.ExchangeServer.GetOrganization(PanelRequest.ItemID);
 
-			string rootFolder = org.OrganizationId;
 			ddlParentFolder.Items.Add("\\" + org.OrganizationId);
 
 			// get public folder accounts

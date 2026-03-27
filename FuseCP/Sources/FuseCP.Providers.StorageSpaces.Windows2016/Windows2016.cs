@@ -567,10 +567,8 @@ namespace FuseCP.Providers.StorageSpaces
         public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
         {
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
             {
-                if (item is HomeFolder)
-                {
                     try
                     {
                         string path = item.Name;
@@ -589,7 +587,6 @@ namespace FuseCP.Providers.StorageSpaces
                     {
                         Log.WriteError(ex);
                     }
-                }
             }
             return itemsDiskspace.ToArray();
         }

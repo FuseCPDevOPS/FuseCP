@@ -89,10 +89,10 @@ namespace FuseCP.Portal
 
                 lnkDelete.NavigateUrl = EditUrl("UserID", PanelSecurity.SelectedUserId.ToString(), "delete");
 
-                if (!((PanelSecurity.LoggedUser.Role == UserRole.Reseller) | (PanelSecurity.LoggedUser.Role == UserRole.Administrator))) 
-                    lnkDelete.Visible = false;
-                else 
-                    lnkDelete.Visible = (PanelSecurity.SelectedUserId != PanelSecurity.EffectiveUserId);
+                lnkDelete.Visible = !((PanelSecurity.LoggedUser.Role == UserRole.Reseller) | (PanelSecurity.LoggedUser.Role == UserRole.Administrator)) ? false : (PanelSecurity.SelectedUserId != PanelSecurity.EffectiveUserId);
+
+
+
             }
         }
 

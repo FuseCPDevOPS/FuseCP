@@ -1051,15 +1051,12 @@ namespace FuseCP.Providers.Mail
                 List<MailAlias> aliasesList = new List<MailAlias>();
 
 
-                foreach (AliasInfo alias in result.AliasInfos)
+                foreach (AliasInfo alias in result.AliasInfos.Where(alias => alias.Addresses.Length == 1))
                 {
-                    if (alias.Addresses.Length == 1)
-                    {
                         MailAlias mailAlias = new MailAlias();
                         mailAlias.Name = alias.Name + "@" + domainName;
                         mailAlias.ForwardTo = alias.Addresses[0];
                         aliasesList.Add(mailAlias);
-                    }
                 }
                 return aliasesList.ToArray();
             }
@@ -1357,10 +1354,8 @@ namespace FuseCP.Providers.Mail
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
             {
-                if (item is MailDomain)
-                {
                     try
                     {
                         // enable/disable mail domain
@@ -1375,16 +1370,13 @@ namespace FuseCP.Providers.Mail
                     {
                         Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
                     }
-                }
             }
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
             {
-                if (item is MailDomain)
-                {
                     try
                     {
                         // delete mail domain
@@ -1394,7 +1386,6 @@ namespace FuseCP.Providers.Mail
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
                     }
-                }
             }
         }
 
@@ -1403,10 +1394,8 @@ namespace FuseCP.Providers.Mail
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
             // update items with diskspace
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is MailAccount))
             {
-                if (item is MailAccount)
-                {
                     try
                     {
 
@@ -1437,7 +1426,6 @@ namespace FuseCP.Providers.Mail
                     {
                         Log.WriteError(ex);
                     }
-                }
             }
             return itemsDiskspace.ToArray();
         }

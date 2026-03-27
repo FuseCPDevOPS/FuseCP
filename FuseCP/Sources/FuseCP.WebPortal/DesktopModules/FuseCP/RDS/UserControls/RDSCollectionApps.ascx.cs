@@ -116,10 +116,8 @@ namespace FuseCP.Portal.RDS.UserControls
 
             var requiredParams = addedApplications.Select(a => a.RequiredCommandLine.ToLower());
 
-            foreach (var host in sessionHosts)
+            foreach (var host in sessionHosts.Where(host => !requiredParams.Contains(string.Format("/v:{0}", host.ToLower()))))
             {
-                if (!requiredParams.Contains(string.Format("/v:{0}", host.ToLower())))
-                {                    
                     var fullRemote = new StartMenuApp
                     {
                         DisplayName = string.Format("Full Desktop - {0}", host.ToLower()),
@@ -144,7 +142,6 @@ namespace FuseCP.Portal.RDS.UserControls
                     {
                         apps.Add(fullRemote);
                     }
-                }
             }
 
             gvPopupApps.DataSource = apps;
@@ -165,13 +162,10 @@ namespace FuseCP.Portal.RDS.UserControls
 				{
 					// check if exists
 					bool exists = false;
-                    foreach (RemoteApplication app in apps)
+                    foreach (RemoteApplication app in apps.Where(app => app.DisplayName == newApp.DisplayName))
 					{
-                        if (app.DisplayName == newApp.DisplayName)
-						{
 							exists = true;
 							break;
-						}
 					}
 
 					if (exists)

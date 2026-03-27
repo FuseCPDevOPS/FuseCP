@@ -2996,7 +2996,7 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-            if (!settings.ContainsKey(UseStorageSpaces))
+if (!settings.TryGetValue(UseStorageSpaces, out var _ckv))
             {
                 return false;
             }
@@ -3015,12 +3015,9 @@ namespace FuseCP.EnterpriseServer
 
             ObjectUtils.FillCollectionFromDataSet(schedules, SchedulerController.GetSchedules(packageId));
 
-            foreach(var schedule in schedules)
+            foreach (var schedule in schedules.Where(schedule => schedule.TaskId == taskId))
             {
-                if (schedule.TaskId == taskId)
-                {
                     return true;
-                }
             }
 
             return false;
@@ -3533,13 +3530,10 @@ namespace FuseCP.EnterpriseServer
                     bool userPrincipalNameOwned = false;
                     ExchangeEmailAddress[] emails = ExchangeServerController.GetMailboxEmailAddresses(itemId, accountId);
 
-                    foreach (ExchangeEmailAddress mail in emails)
+                    foreach (ExchangeEmailAddress mail in emails.Where(mail => mail.EmailAddress == userPrincipalName))
                     {
-                        if (mail.EmailAddress == userPrincipalName)
-                        {
                             userPrincipalNameOwned = true;
                             break;
-                        }
                     }
 
                     if (!userPrincipalNameOwned && EmailAddressExists(userPrincipalName, false))
@@ -3806,13 +3800,10 @@ namespace FuseCP.EnterpriseServer
                 Database.GetExchangeOrganizationDomains(itemId));
 
             // set default domain
-            foreach (OrganizationDomainName domain in domains)
+            foreach (OrganizationDomainName domain in domains.Where(domain => String.Compare(domain.DomainName, org.DefaultDomain, true) == 0))
             {
-                if (String.Compare(domain.DomainName, org.DefaultDomain, true) == 0)
-                {
                     domain.IsDefault = true;
                     break;
-                }
             }
 
             return domains;
@@ -4416,13 +4407,10 @@ namespace FuseCP.EnterpriseServer
                 {
                     OrganizationSecurityGroup securityGroup = GetSecurityGroupGeneralSettings(itemId, securityGroupAccount.AccountId);
 
-                    foreach (ExchangeAccount member in securityGroup.MembersAccounts)
+                    foreach (ExchangeAccount member in securityGroup.MembersAccounts.Where(member => member.AccountName == account.AccountName))
                     {
-                        if (member.AccountName == account.AccountName)
-                        {
                             ret.Add(securityGroupAccount);
                             break;
-                        }
 
                     }
                 }

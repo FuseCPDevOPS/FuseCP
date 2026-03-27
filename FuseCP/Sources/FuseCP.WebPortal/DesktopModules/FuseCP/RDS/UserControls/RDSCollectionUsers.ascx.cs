@@ -174,14 +174,14 @@ namespace FuseCP.Portal.RDS.UserControls
 
             foreach (var user in collectionUsers)
             {
-                if (LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName))
-                {
-                    user.IsVIP = true;
-                }
-                else
-                {
-                    user.IsVIP = false;
-                }
+                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName) ? true : false;
+
+
+
+
+
+
+
             }
             
             SetUsers(collectionUsers);
@@ -191,27 +191,27 @@ namespace FuseCP.Portal.RDS.UserControls
 		{
             OrganizationUser[] accounts;
 
-            if (PanelRequest.Ctl == "rds_collection_edit_users")
-            {
-                accounts = ES.Services.Organizations.GetOrganizationUsersPaged(PanelRequest.ItemID, filterColumn, filterValue, null, 0, Int32.MaxValue).PageUsers;
-            }
-            else
-            {
-                accounts = ES.Services.RDS.GetRdsCollectionUsers(PanelRequest.CollectionID);
-            }
+            accounts = PanelRequest.Ctl == "rds_collection_edit_users" ? ES.Services.Organizations.GetOrganizationUsersPaged(PanelRequest.ItemID, filterColumn, filterValue, null, 0, Int32.MaxValue).PageUsers : ES.Services.RDS.GetRdsCollectionUsers(PanelRequest.CollectionID);
+
+
+
+
+
+
+
 
             if (LocalAdmins == null) LocalAdmins = ES.Services.RDS.GetRdsCollectionLocalAdmins(PanelRequest.CollectionID);
 
             foreach (var user in accounts)
             {
-                if (LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName))
-                {
-                    user.IsVIP = true;
-                }
-                else
-                {
-                    user.IsVIP = false;
-                }
+                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName) ? true : false;
+
+
+
+
+
+
+
             }
 
             accounts = accounts.Where(x => !GetUsers().Select(p => p.AccountName).Contains(x.AccountName)).ToArray();
@@ -235,13 +235,10 @@ namespace FuseCP.Portal.RDS.UserControls
 				{
 					// check if exists
 					bool exists = false;
-                    foreach (OrganizationUser user in users)
+                    foreach (OrganizationUser user in users.Where(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
 					{
-                        if (String.Compare(user.AccountName, newUser.AccountName, true) == 0)
-						{
 							exists = true;
 							break;
-						}
 					}
 
 					if (exists)

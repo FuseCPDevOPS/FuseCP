@@ -64,7 +64,7 @@ namespace FuseCP.WebDav.Core.Security.Authentication
         {
             Log.WriteStart("Login");
 
-            if (ValidateAuthenticationData(login, password) == false)
+            if (!(ValidateAuthenticationData(login, password)))
             {
                 return null;
             }
@@ -140,7 +140,7 @@ namespace FuseCP.WebDav.Core.Security.Authentication
 
             var user = UserPrincipal.FindByIdentity(_principalContext, IdentityType.UserPrincipalName, login);
 
-            if (user == null || _principalContext.ValidateCredentials(login, password) == false)
+            if (user == null || !(_principalContext.ValidateCredentials(login, password)))
             {
                 return false;
             }

@@ -142,13 +142,10 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 {
                     // check if exists
                     bool exists = false;
-                    foreach (OrganizationUser user in users)
+                    foreach (OrganizationUser user in users.Where(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
                     {
-                        if (String.Compare(user.AccountName, newUser.AccountName, true) == 0)
-                        {
                             exists = true;
                             break;
-                        }
                     }
 
                     if (exists)

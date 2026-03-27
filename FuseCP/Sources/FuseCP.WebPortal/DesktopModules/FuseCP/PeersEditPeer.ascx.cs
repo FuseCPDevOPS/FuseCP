@@ -106,7 +106,7 @@ namespace FuseCP.Portal
                 txtUsername.Text = user.Username;
                 lblUsername.Text = user.Username;
                 chkDemo.Checked = user.IsDemo;
-                cbxMfaEnabled.Checked = user.MfaMode > 0 ? true : false;
+                cbxMfaEnabled.Checked = user.MfaMode > 0;
                 cbxMfaEnabled.Enabled = ES.Services.Users.CanUserChangeMfa(PanelRequest.PeerID);
                 lblMfaEnabled.Visible = cbxMfaEnabled.Checked;
 

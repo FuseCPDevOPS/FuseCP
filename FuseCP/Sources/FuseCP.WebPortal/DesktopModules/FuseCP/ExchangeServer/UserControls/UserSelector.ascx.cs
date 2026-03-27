@@ -30,7 +30,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["IncludeMailboxes"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {
@@ -43,7 +43,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["IncludeMailboxesOnly"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {
@@ -57,7 +57,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["ExcludeOCSUsers"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {
@@ -70,7 +70,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["ExcludeLyncUsers"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {
@@ -83,7 +83,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["ExcludeSfBUsers"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {
@@ -97,7 +97,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             get
             {
                 object ret = ViewState["ExcludeBESUsers"];
-                return (ret != null) ? (bool)ret : false;
+                return (ret != null) && (bool)ret;
             }
             set
             {

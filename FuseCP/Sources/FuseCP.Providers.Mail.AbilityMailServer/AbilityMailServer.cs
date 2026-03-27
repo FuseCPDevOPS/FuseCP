@@ -19,6 +19,7 @@ using System.Text;
 
 using FuseCP.Server.Utils;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace FuseCP.Providers.Mail
 {
@@ -453,10 +454,8 @@ namespace FuseCP.Providers.Mail
 
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
 			{
-				if (item is MailDomain)
-				{
 					try
 					{
 						// delete mail domain
@@ -466,16 +465,13 @@ namespace FuseCP.Providers.Mail
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' mail domain", item.Name), ex);
 					}
-				}
 			}
 		}
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
 			{
-				if (item is MailDomain)
-				{
 					try
 					{
 						MailDomain domain = GetDomain(item.Name);
@@ -487,7 +483,6 @@ namespace FuseCP.Providers.Mail
 					{
 						Log.WriteError(String.Format("Error switching '{0}' mail domain", item.Name), ex);
 					}
-				}
 			}
 		}
 

@@ -1464,14 +1464,11 @@ namespace FuseCP.Providers.Virtualization
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is VirtualMachine))
             {
-                if (item is VirtualMachine)
-                {
                     // start/stop virtual machine
                     VirtualMachine vm = item as VirtualMachine;
                     ChangeVirtualMachineServiceItemState(vm, enabled);
-                }
             }
         }
 

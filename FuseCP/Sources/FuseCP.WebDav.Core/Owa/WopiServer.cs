@@ -54,7 +54,7 @@ namespace FuseCP.WebDav.Core.Owa
 
             var permissions = _webDavAuthorizationService.GetPermissions(ScpContext.User, token.FilePath);
 
-            var readOnly = permissions.HasFlag(WebDavPermissions.Write) == false || permissions.HasFlag(WebDavPermissions.OwaEdit) == false;
+            var readOnly = !(permissions.HasFlag(WebDavPermissions.Write)) || !(permissions.HasFlag(WebDavPermissions.OwaEdit));
 
             var cFileInfo = new CheckFileInfo
             {

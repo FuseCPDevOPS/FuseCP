@@ -235,24 +235,24 @@ namespace FuseCP.Portal.SkinControls
                         Type type = obj1.GetType();
                         BindingFlags bindingFlag = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
                         PropertyInfo property = type.GetProperty(this.DataValueField, bindingFlag);
-                        if (property != null)
-                        {
-                            value = property.GetValue(obj1, null);
-                        }
-                        else
-                        {
-                            value = null;
-                        }
+                        value = property != null ? property.GetValue(obj1, null) : null;
+
+
+
+
+
+
+
                         object obj2 = value;
                         PropertyInfo propertyInfo = type.GetProperty(this.DataTextField, bindingFlag);
-                        if (propertyInfo != null)
-                        {
-                            obj = propertyInfo.GetValue(obj1, null);
-                        }
-                        else
-                        {
-                            obj = null;
-                        }
+                        obj = propertyInfo != null ? propertyInfo.GetValue(obj1, null) : null;
+
+
+
+
+
+
+
                         object obj3 = obj;
                         if (obj2 == null || obj3 == null)
                         {

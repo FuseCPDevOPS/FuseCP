@@ -25,6 +25,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using FuseCP.EnterpriseServer;
+using System.Linq;
 
 namespace FuseCP.Portal.ProviderControls
 {
@@ -75,12 +76,9 @@ namespace FuseCP.Portal.ProviderControls
 
         private int FindAddressByText(string address)
         {
-            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId))
+            foreach (IPAddressInfo addressInfo in ES.Services.Servers.GetIPAddresses(IPAddressPool.General, PanelRequest.ServerId).Where(addressInfo => addressInfo.InternalIP == address || addressInfo.ExternalIP == address))
             {
-                if (addressInfo.InternalIP == address || addressInfo.ExternalIP == address)
-                {
                     return addressInfo.AddressId;
-                }
             }
             return 0;
         }

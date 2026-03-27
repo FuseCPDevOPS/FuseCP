@@ -206,13 +206,10 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 				{
 					// check if exists
 					bool exists = false;
-                    foreach (ExchangeAccount account in accounts)
+                    foreach (ExchangeAccount account in accounts.Where(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
 					{
-						if (String.Compare(newAccount.AccountName, account.AccountName, true) == 0)
-						{
 							exists = true;
 							break;
-						}
 					}
 
 					if (exists)

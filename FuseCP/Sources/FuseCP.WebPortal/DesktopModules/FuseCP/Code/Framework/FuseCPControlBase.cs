@@ -367,10 +367,8 @@ namespace FuseCP.Portal
 				}
 			}
 
-			if (Module != null)
+			if (Module != null && (Module.ReadOnlyRoles != null && Module.ReadOnlyRoles.Contains(role)))
 			{
-				if (Module.ReadOnlyRoles != null)
-					if (Module.ReadOnlyRoles.Contains(role))
 						DisableControls = true;
 			}
 

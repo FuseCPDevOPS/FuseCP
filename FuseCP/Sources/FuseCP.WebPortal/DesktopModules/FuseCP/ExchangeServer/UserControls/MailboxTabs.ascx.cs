@@ -48,9 +48,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             Providers.HostedSolution.ExchangeMailboxPlan plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(PanelRequest.ItemID, ES.Services.ExchangeServer.GetAccount(PanelRequest.ItemID, PanelRequest.AccountID).MailboxPlanId);
 
-            if (user != null)
+            if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
             {
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
                     hideItems = true;
             }
 

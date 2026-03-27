@@ -26,8 +26,8 @@ namespace FuseCP.Portal
         {
             bool manageAllowed = false;
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
-            if (cntx.Quotas.ContainsKey(Quotas.VPSForPC_MANAGING_ALLOWED))
-                manageAllowed = !cntx.Quotas[Quotas.VPSForPC_MANAGING_ALLOWED].QuotaExhausted;
+if (cntx.Quotas.TryGetValue(Quotas.VPSForPC_MANAGING_ALLOWED, out var _ckv))
+                manageAllowed = !_ckv.QuotaExhausted;
 
             if (PanelSecurity.EffectiveUser.Role == UserRole.Administrator)
                 manageAllowed = true;
@@ -39,7 +39,7 @@ namespace FuseCP.Portal
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
                     if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPSForPC_MANAGING_ALLOWED))
-                        manageAllowed = !cntx.Quotas[Quotas.VPSForPC_MANAGING_ALLOWED].QuotaExhausted;
+                        manageAllowed = !_ckv.QuotaExhausted;
                 }
             }
             return manageAllowed;

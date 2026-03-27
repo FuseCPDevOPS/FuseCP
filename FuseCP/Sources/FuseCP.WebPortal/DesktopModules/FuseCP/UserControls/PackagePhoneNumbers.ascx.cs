@@ -58,7 +58,7 @@ namespace FuseCP.Portal.UserControls
 
         public bool ManageAllowed
         {
-            get { return ViewState["ManageAllowed"] != null ? (bool)ViewState["ManageAllowed"] : false; }
+            get { return ViewState["ManageAllowed"] != null && (bool)ViewState["ManageAllowed"]; }
             set { ViewState["ManageAllowed"] = value; }
         }
 

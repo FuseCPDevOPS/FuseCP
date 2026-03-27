@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace FuseCP.Templates.AST
 {
@@ -66,13 +67,10 @@ namespace FuseCP.Templates.AST
             else
             {
                 // process else if statements
-                foreach (ElseIfStatement stm in ElseIfStatements)
+                foreach (ElseIfStatement stm in ElseIfStatements.Where(stm => EvalCondition(stm.Condition, context)))
                 {
-                    if (EvalCondition(stm.Condition, context))
-                    {
                         stm.Eval(context, writer);
                         return;
-                    }
                 }
 
                 // process else

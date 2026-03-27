@@ -50,10 +50,10 @@ namespace FuseCP.Portal
             {
                 var jsonSerialiser = new JavaScriptSerializer();
                 String[] aTypes = jsonSerialiser.Deserialize<String[]>(tbFilters.Text);
-                if ((aTypes != null) && (aTypes.Length > 0))
-                    m_strColTypes = "'" + String.Join("','", aTypes) + "'";
-                else
-                    m_strColTypes = "";
+                m_strColTypes = (aTypes != null) && (aTypes.Length > 0) ? "'" + String.Join("','", aTypes) + "'" : "";
+
+
+
             }
         }
 

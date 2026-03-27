@@ -40,7 +40,7 @@ namespace FuseCP.Portal
 
         public bool ValidationEnabled
         {
-            get { return (ViewState["ValidationEnabled"] != null) ? (bool)ViewState["ValidationEnabled"] : true; }
+            get { return !((ViewState["ValidationEnabled"] != null)) || (bool)ViewState["ValidationEnabled"]; }
             set { ViewState["ValidationEnabled"] = value; ToggleControls(); }
         }
 
@@ -76,7 +76,7 @@ namespace FuseCP.Portal
 
         public bool EditMode
         {
-            get { return (ViewState["EditMode"] != null) ? (bool)ViewState["EditMode"] : false; }
+            get { return (ViewState["EditMode"] != null) && (bool)ViewState["EditMode"]; }
             set { ViewState["EditMode"] = value; ToggleControls(); }
         }
 
@@ -117,7 +117,7 @@ namespace FuseCP.Portal
 
         public bool CheckPasswordLength
         {
-            get { return (ViewState["CheckPasswordLength"] != null) ? (bool)ViewState["CheckPasswordLength"] : true; }
+            get { return !((ViewState["CheckPasswordLength"] != null)) || (bool)ViewState["CheckPasswordLength"]; }
             set { ViewState["CheckPasswordLength"] = value; ToggleControls(); }
         }
 

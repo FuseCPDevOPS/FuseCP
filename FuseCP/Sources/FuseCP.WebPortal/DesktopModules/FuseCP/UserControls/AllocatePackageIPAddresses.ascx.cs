@@ -87,10 +87,10 @@ namespace FuseCP.Portal.UserControls
                 quotaName = Quotas.PROXMOX_EXTERNAL_IP_ADDRESSES_NUMBER;
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(quotaName))
+if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             {
-                int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
-                int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
+                int quotaAllocated = _ckv.QuotaAllocatedValue;
+                int quotaUsed = _ckv.QuotaUsedValue;
 
                 if (quotaAllocated != -1)
                     quotaAllowed = quotaAllocated - quotaUsed;

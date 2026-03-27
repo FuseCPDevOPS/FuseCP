@@ -230,10 +230,10 @@ namespace FuseCP.Portal.ExchangeServer
         {
             string imgName = string.Empty;
 
-            if (ItemID == PanelRequest.ItemID)
-                imgName = "admin_16.png";
-            else
-                imgName = "company24.png";
+            imgName = ItemID == PanelRequest.ItemID ? "admin_16.png" : "company24.png";
+
+
+
 
             return GetThemedImage("Exchange/" + imgName);
         }

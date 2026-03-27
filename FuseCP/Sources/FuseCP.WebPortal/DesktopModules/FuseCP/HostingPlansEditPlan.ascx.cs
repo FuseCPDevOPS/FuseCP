@@ -152,7 +152,6 @@ namespace FuseCP.Portal
             plan.Groups = hostingPlansQuotas.Groups;
             plan.Quotas = hostingPlansQuotas.Quotas;
 
-            int planId = PanelRequest.PlanID;
             if ((PanelRequest.PlanID == 0) || ShouldCopyCurrentHostingPlan())
             {
                 // new plan

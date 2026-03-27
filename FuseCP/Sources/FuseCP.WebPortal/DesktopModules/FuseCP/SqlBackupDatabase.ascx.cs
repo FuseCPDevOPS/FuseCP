@@ -49,14 +49,14 @@ namespace FuseCP.Portal
                 {
                     txtBackupName.Text = database.Name + ".sql";
                 }
-                if (database.GroupName.Contains("MariaDB"))
-                {
-                    txtBackupName.Text = database.Name + ".sql";
-                }
-                else
-                {
-                    txtBackupName.Text = database.Name + ".bak";
-                }
+                txtBackupName.Text = database.GroupName.Contains("MariaDB") ? database.Name + ".sql" : database.Name + ".bak";
+
+
+
+
+
+
+
                 fileLookup.SelectedFile = "\\";
                 fileLookup.PackageId = database.PackageId;
 

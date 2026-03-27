@@ -155,7 +155,6 @@ namespace FuseCP.Portal.ProviderControls
             //server settings
             settings[PDNSDbServer] = txtServerAddress.Text;
 
-            int port = 3306;
             if (!Int32.TryParse(txtServerPort.Text, out port))
             {
                 port = 3306;

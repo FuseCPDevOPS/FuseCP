@@ -438,12 +438,9 @@ namespace FuseCP.Providers.OS
             // ...after delete
 
             // delete files
-            foreach (FileSyncAction action in actions)
+            foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Delete))
             {
-                if (action.ActionType == SyncActionType.Delete)
-                {
                     FileUtils.DeleteFile(action.DestPath);
-                }
             }
         }
 
@@ -558,10 +555,8 @@ namespace FuseCP.Providers.OS
         public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
         {
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-            foreach (ServiceProviderItem item in items)
+            foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
             {
-                if (item is HomeFolder)
-                {
                     try
                     {
                         string path = item.Name;
@@ -580,7 +575,6 @@ namespace FuseCP.Providers.OS
                     {
                         Log.WriteError(ex);
                     }
-                }
             }
             return itemsDiskspace.ToArray();
         }
@@ -1217,10 +1211,8 @@ namespace FuseCP.Providers.OS
                 System.ServiceProcess.ServiceController[] services = System.ServiceProcess.ServiceController.GetServices();
 
                 // find required service
-                foreach (var service in services)
+                foreach (var service in services.Where(service => String.Compare(service.ServiceName, id, true) == 0))
                 {
-                    if (String.Compare(service.ServiceName, id, true) == 0)
-                    {
                         if (status == OSServiceStatus.Paused
                             && service.Status == ServiceControllerStatus.Running)
                             service.Pause();
@@ -1234,7 +1226,6 @@ namespace FuseCP.Providers.OS
                         else if (status == OSServiceStatus.ContinuePending
                             && service.Status == ServiceControllerStatus.Paused)
                             service.Continue();
-                    }
                 }
             }
             catch (Exception)

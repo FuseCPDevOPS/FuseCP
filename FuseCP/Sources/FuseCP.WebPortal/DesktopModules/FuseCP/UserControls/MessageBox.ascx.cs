@@ -171,14 +171,14 @@ namespace FuseCP.Portal
 
 			if (emailMessage != null)
 			{
-				if (obj != null)
-				{
-					return new Pair(obj, emailMessage);
-				}
-				else
-				{
-					return emailMessage;
-				}
+				return obj != null ? new Pair(obj, emailMessage) : emailMessage;
+
+
+
+
+
+
+
 			}
 			else
 			{

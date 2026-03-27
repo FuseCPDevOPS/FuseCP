@@ -36,7 +36,7 @@ namespace FuseCP.Portal
 
             if (!IsPostBack)
             {
-                PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+                PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
                 //if (Utils.CheckQouta(Quotas.WEB_ENABLEHOSTNAMESUPPORT, cntx))
                 //{

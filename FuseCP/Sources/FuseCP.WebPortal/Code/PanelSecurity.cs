@@ -21,6 +21,7 @@ using System.Web;
 
 using FuseCP.EnterpriseServer;
 using FuseCP.WebPortal;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -92,13 +93,10 @@ namespace FuseCP.Portal
 
 			// check if the user exists
 			UserInfo existUser = null;
-			foreach (UserInfo user in users)
+			foreach (UserInfo user in users.Where(user => user.UserId == userId))
 			{
-				if (user.UserId == userId)
-				{
 					existUser = user;
 					break;
-				}
 			}
 
 			if (existUser != null)

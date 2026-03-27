@@ -127,13 +127,10 @@ namespace FuseCP.Portal.RDS.UserControls
 				{
 					// check if exists
 					bool exists = false;
-                    foreach (RdsServer server in servers)
+                    foreach (RdsServer server in servers.Where(server => server.Id == newServer.Id))
 					{
-                        if (server.Id == newServer.Id)
-						{
 							exists = true;
 							break;
-						}
 					}
 
 					if (exists)
