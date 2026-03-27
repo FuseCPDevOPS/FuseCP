@@ -112,9 +112,9 @@ namespace FuseCP.Portal
             //     }
 
             //   }
-            if (cntx.Quotas.ContainsKey(Quotas.ORGANIZATIONS))
+if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
-                if ((cntx.Quotas[Quotas.ORGANIZATIONS].QuotaAllocatedValue > 0) || (cntx.Quotas[Quotas.ORGANIZATIONS].QuotaAllocatedValue == -1))
+                if ((_ckv.QuotaAllocatedValue > 0) || (_ckv.QuotaAllocatedValue == -1))
                 {
                     MenuItem rootItem = new MenuItem(locMenuTitle.Text);
                     rootItem.Value = "ORGANIZATION MENU";

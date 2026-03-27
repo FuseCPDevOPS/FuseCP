@@ -66,6 +66,7 @@ namespace FuseCP.Portal.HostedSolution
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+                _ = ex;
             }
         }
 
@@ -123,9 +124,9 @@ namespace FuseCP.Portal.HostedSolution
                 
 
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_ISCONSUMER))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
                 {
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue != 1)
+                    if (_ckv.QuotaAllocatedValue != 1)
                     {
                         locSubscriberNumber.Visible = false;
                         txtSubscriberNumber.Visible = false;
@@ -164,9 +165,9 @@ namespace FuseCP.Portal.HostedSolution
                 imgVipUser.Visible = user.IsVIP && secServiceLevels.Visible;
 
 
-                if (cntx.Quotas.ContainsKey(Quotas.ORGANIZATION_ALLOWCHANGEUPN))
+if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowChangeUpnQuota))
                 {
-                    if (cntx.Quotas[Quotas.ORGANIZATION_ALLOWCHANGEUPN].QuotaAllocatedValue != 1)
+                    if (allowChangeUpnQuota.QuotaAllocatedValue != 1)
                     {
                         lblUserPrincipalName.Text = user.UserPrincipalName;
                         upn.Visible = false;

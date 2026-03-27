@@ -22,8 +22,8 @@ namespace FuseCP.WebPortal
 {
     public class SiteStructure
     {
-        private PageCollection pages = new PageCollection();
-        private Dictionary<int, PageModule> modules = new Dictionary<int, PageModule>();
+        private readonly PageCollection pages = new PageCollection();
+        private readonly Dictionary<int, PageModule> modules = new Dictionary<int, PageModule>();
 
 		public PageCollection Pages
         {

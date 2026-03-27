@@ -171,7 +171,7 @@ namespace FuseCP.Portal.Proxmox.UserControls
 
             // time
             litStarted.Text = task.StartDate.ToString("T");
-            TimeSpan d = (TimeSpan)(DateTime.Now - task.StartDate);
+            TimeSpan d = (DateTime.Now - task.StartDate);
             litElapsed.Text = new TimeSpan(d.Hours, d.Minutes, d.Seconds).ToString();
 
             // bind records

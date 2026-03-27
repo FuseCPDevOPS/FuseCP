@@ -34,9 +34,9 @@ namespace FuseCP.Portal.Lync
                 if (PanelSecurity.LoggedUser.Role == UserRole.User)
                 {
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                    if (cntx.Quotas.ContainsKey(Quotas.LYNC_ENABLEDPLANSEDITING))
+if (cntx.Quotas.TryGetValue(Quotas.LYNC_ENABLEDPLANSEDITING, out var _ckv))
                     {
-                        if (cntx.Quotas[Quotas.LYNC_ENABLEDPLANSEDITING].QuotaAllocatedValue != 1)
+                        if (_ckv.QuotaAllocatedValue != 1)
                         {
                             gvPlans.Columns[2].Visible = false;
                             btnAddPlan.Enabled = btnAddPlan.Visible = false;

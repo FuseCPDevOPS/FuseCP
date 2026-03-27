@@ -78,12 +78,12 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_USERS, out var _ckv))
         private void OnRefreshClicked(object sender, EventArgs e)
         {           
             ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
-            var users = (List<string>)sender;
+            var local_users = (List<string>)sender;
 
-            if (users.Any())
+            if (local_users.Any())
             {
                 messageBox.Visible = true;
-                messageBox.ShowErrorMessage("RDS_USERS_NOT_DELETED", new Exception(string.Join(", ", users)));
+                messageBox.ShowErrorMessage("RDS_USERS_NOT_DELETED", new Exception(string.Join(", ", local_users)));
             }
             else
             {

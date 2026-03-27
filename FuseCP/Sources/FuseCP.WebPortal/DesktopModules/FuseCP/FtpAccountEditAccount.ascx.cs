@@ -116,23 +116,23 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            FtpAccount item = new FtpAccount();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = usernameControl.Text;
-            item.Password = passwordControl.Password;
-            item.Folder = fileLookup.SelectedFile;
+            FtpAccount local_item = new FtpAccount();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = usernameControl.Text;
+            local_item.Password = passwordControl.Password;
+            local_item.Folder = fileLookup.SelectedFile;
 
             // get other props
             IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
                 try
                 {
-                    // new item
-                    int result = ES.Services.FtpServers.AddFtpAccount(item);
+                    // new local_item
+                    int result = ES.Services.FtpServers.AddFtpAccount(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -151,8 +151,8 @@ namespace FuseCP.Portal
             {
                 try
                 {
-                    // existing item
-                    int result = ES.Services.FtpServers.UpdateFtpAccount(item);
+                    // existing local_item
+                    int result = ES.Services.FtpServers.UpdateFtpAccount(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);

@@ -243,7 +243,7 @@ namespace CSSFriendly
                             writer.Write(HtmlTextWriter.TagRightChar);
                             writer.Indent++;
 
-                            foreach (Control itemCtrl in dataList.Items[iItem].Controls)
+                            foreach (Control itemCtrl in dataList.Items[nDesiredIndex].Controls)
                             {
                                 itemCtrl.RenderControl(writer);
                             }

@@ -110,21 +110,21 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            MailGroup item = new MailGroup();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = emailAddress.Email;
+            MailGroup local_item = new MailGroup();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = emailAddress.Email;
 
             //checking if group name is different from existing e-mail accounts
             MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true);
-            foreach (MailAccount account in accounts.Where(account => item.Name == account.Name))
+            foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
             }
             //checking if group name is different from existing mail lists
             MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
-            foreach (MailList list in lists.Where(list => item.Name == list.Name))
+            foreach (MailList list in lists.Where(list => local_item.Name == list.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
@@ -132,7 +132,7 @@ namespace FuseCP.Portal
 
             //checking if group name is different from existing forwardings
             MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
-            foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
+            foreach (MailAlias forwarding in forwardings.Where(forwarding => local_item.Name == forwarding.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
@@ -140,14 +140,14 @@ namespace FuseCP.Portal
 
             // get other props
             IMailEditGroupControl ctrl = (IMailEditGroupControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new local_item
                 try
                 {
-                    int result = ES.Services.MailServers.AddMailGroup(item);
+                    int result = ES.Services.MailServers.AddMailGroup(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -163,10 +163,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing local_item
                 try
                 {
-                    int result = ES.Services.MailServers.UpdateMailGroup(item);
+                    int result = ES.Services.MailServers.UpdateMailGroup(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);

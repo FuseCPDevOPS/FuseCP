@@ -36,7 +36,7 @@ namespace CSSFriendly
 {
     public class WebControlAdapterExtender
     {
-        private WebControl _adaptedControl = null;
+        private readonly WebControl _adaptedControl = null;
         public WebControl AdaptedControl
         {
             get
@@ -579,13 +579,13 @@ namespace CSSFriendly
 
     public class ControlRestorationInfo
     {
-        private Control _ctrl = null;
+        private readonly Control _ctrl = null;
         public Control Control
         {
             get { return _ctrl; }
         }
 
-        private ControlCollection _coll = null;
+        private readonly ControlCollection _coll = null;
         public ControlCollection Collection
         {
             get { return _coll; }

@@ -23,10 +23,10 @@ namespace FuseCP.Portal.ExchangeServer
 {
     public partial class ExchangeCheckDomainName : FuseCPModuleBase
     {
-        private static string EXCHANGEACCOUNTEMAILADDRESSES = "ExchangeAccountEmailAddresses";
-        private static string EXCHANGEACCOUNTS = "ExchangeAccounts";
-        private static string LYNCUSERS = "LyncUsers";
-        private static string SFBUSERS = "SfBUsers";
+        private static readonly string EXCHANGEACCOUNTEMAILADDRESSES = "ExchangeAccountEmailAddresses";
+        private static readonly string EXCHANGEACCOUNTS = "ExchangeAccounts";
+        private static readonly string LYNCUSERS = "LyncUsers";
+        private static readonly string SFBUSERS = "SfBUsers";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -267,6 +267,7 @@ namespace FuseCP.Portal.ExchangeServer
                 }
                 catch (AmbiguousMatchException)
                 {
+                    _ = 0;
                 }
             }
         }

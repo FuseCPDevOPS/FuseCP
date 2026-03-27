@@ -214,6 +214,7 @@ namespace FuseCP.Portal
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
+					    _ = ex;
 					}
 
 					// create <empty> user
@@ -257,6 +258,7 @@ namespace FuseCP.Portal
 				}
 				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
+				    _ = ex;
 				}
 
 				if (user == null)
@@ -268,6 +270,7 @@ namespace FuseCP.Portal
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
+					    _ = ex;
 					}
 
 					if (user != null)

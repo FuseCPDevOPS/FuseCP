@@ -249,35 +249,35 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            SystemDSN item = new SystemDSN();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = dsnName.Text.Trim();
-            item.DatabasePassword = passwordControl.Password;
+            SystemDSN local_item = new SystemDSN();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = dsnName.Text.Trim();
+            local_item.DatabasePassword = passwordControl.Password;
 
             // database
             string driverName = ddlDriver.SelectedValue;
-            item.Driver = driverName;
+            local_item.Driver = driverName;
 
             if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
-                item.DatabaseName = ddlDatabaseName.SelectedValue;
+                local_item.DatabaseName = ddlDatabaseName.SelectedValue;
             else
-                item.DatabaseName = fileLookup.SelectedFile;
+                local_item.DatabaseName = fileLookup.SelectedFile;
 
             // user
             if (driverName == "MsAccess")
-                item.DatabaseUser = txtUser.Text.Trim();
+                local_item.DatabaseUser = txtUser.Text.Trim();
             if (driverName == "MsAccess2010")
-                item.DatabaseUser = txtUser.Text.Trim();
+                local_item.DatabaseUser = txtUser.Text.Trim();
             else
-                item.DatabaseUser = ddlDatabaseUser.SelectedValue;
+                local_item.DatabaseUser = ddlDatabaseUser.SelectedValue;
 
             if (PanelRequest.ItemID == 0)
             {
                 try
                 {
-                    // new item
-                    int result = ES.Services.OperatingSystems.AddOdbcSource(item);
+                    // new local_item
+                    int result = ES.Services.OperatingSystems.AddOdbcSource(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -294,8 +294,8 @@ namespace FuseCP.Portal
             {
                 try
                 {
-                    // existing item
-                    int result = ES.Services.OperatingSystems.UpdateOdbcSource(item);
+                    // existing local_item
+                    int result = ES.Services.OperatingSystems.UpdateOdbcSource(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);

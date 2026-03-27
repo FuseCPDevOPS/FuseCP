@@ -86,7 +86,7 @@ namespace FuseCP.Portal.ExchangeServer
         {
             try
             {
-                string email = null;
+                string local_email = null;
 
                 for (int i = 0; i < gvEmails.Rows.Count; i++)
                 {
@@ -94,16 +94,16 @@ namespace FuseCP.Portal.ExchangeServer
                     CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
                     if (chkSelect.Checked)
                     {
-                        email = gvEmails.DataKeys[i].Value.ToString();
+                        local_email = gvEmails.DataKeys[i].Value.ToString();
                         break;
                     }
                 }
 
-                if (email == null)
+                if (local_email == null)
                     return;
 
                 int result = ES.Services.ExchangeServer.SetPublicFolderPrimaryEmailAddress(
-                    PanelRequest.ItemID, PanelRequest.AccountID, email);
+                    PanelRequest.ItemID, PanelRequest.AccountID, local_email);
 
                 if (result < 0)
                 {

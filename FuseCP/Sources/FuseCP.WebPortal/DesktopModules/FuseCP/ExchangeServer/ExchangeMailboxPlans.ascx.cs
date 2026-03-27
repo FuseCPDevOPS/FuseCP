@@ -73,9 +73,9 @@ namespace FuseCP.Portal.ExchangeServer
 
                     if (!RetentionPolicy)
                     {
-                      if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_ENABLEDPLANSEDITING))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ENABLEDPLANSEDITING, out var _ckv))
                       {
-                        if (cntx.Quotas[Quotas.EXCHANGE2007_ENABLEDPLANSEDITING].QuotaAllocatedValue != 1)
+                        if (_ckv.QuotaAllocatedValue != 1)
                         {
                           gvMailboxPlans.Columns[3].Visible = false;
                           btnAddMailboxPlan.Enabled = btnAddMailboxPlan.Visible = false;
@@ -84,9 +84,9 @@ namespace FuseCP.Portal.ExchangeServer
                     }
                     else
                     {
-                      if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, out var _ckv))
                       {
-                        if (cntx.Quotas[Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY].QuotaAllocatedValue != 1)
+                        if (_ckv.QuotaAllocatedValue != 1)
                         {
                           gvMailboxPlans.Columns[3].Visible = false;
                           btnAddMailboxPlan.Enabled = btnAddMailboxPlan.Visible = false;

@@ -95,9 +95,9 @@ namespace FuseCP.Portal.HostedSolution
                 lblUserPrincipalName.Text = user.UserPrincipalName;
 
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_ISCONSUMER))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
                 {
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue != 1)
+                    if (_ckv.QuotaAllocatedValue != 1)
                     {
                         locSubscriberNumber.Visible = false;
                         lblSubscriberNumber.Visible = false;
@@ -120,9 +120,9 @@ namespace FuseCP.Portal.HostedSolution
                 chkVIP.Checked = user.IsVIP && secServiceLevels.Visible;
                 imgVipUser.Visible = user.IsVIP && secServiceLevels.Visible;
 
-                if (cntx.Quotas.ContainsKey(Quotas.ORGANIZATION_ALLOWCHANGEUPN))
+if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowChangeUpnQuota))
                 {
-                    if (cntx.Quotas[Quotas.ORGANIZATION_ALLOWCHANGEUPN].QuotaAllocatedValue != 1)
+                    if (allowChangeUpnQuota.QuotaAllocatedValue != 1)
                     {
                         chkInherit.Visible = false;
                     }

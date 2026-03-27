@@ -34,9 +34,9 @@ namespace FuseCP.Portal.SfB
                 if (PanelSecurity.LoggedUser.Role == UserRole.User)
                 {
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                    if (cntx.Quotas.ContainsKey(Quotas.SFB_ENABLEDPLANSEDITING))
+if (cntx.Quotas.TryGetValue(Quotas.SFB_ENABLEDPLANSEDITING, out var _ckv))
                     {
-                        if (cntx.Quotas[Quotas.SFB_ENABLEDPLANSEDITING].QuotaAllocatedValue != 1)
+                        if (_ckv.QuotaAllocatedValue != 1)
                         {
                             gvPlans.Columns[2].Visible = false;
                             btnAddPlan.Enabled = btnAddPlan.Visible = false;

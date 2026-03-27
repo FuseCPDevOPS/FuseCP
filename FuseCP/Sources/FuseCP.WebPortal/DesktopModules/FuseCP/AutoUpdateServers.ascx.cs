@@ -62,7 +62,7 @@ namespace FuseCP.Portal {
         }
 
         public int GetServiceIDFromDataView(int serverId) {
-            DataView v = new DataView(dsServers.Tables[1], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
+            using DataView v = new DataView(dsServers.Tables[1], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
             foreach(DataRow r in v.Table.Columns["ServerID"].Table.Rows) {
                 if((int)r.ItemArray[1] == serverId) {
                     return (int)r.ItemArray[0];

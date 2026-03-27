@@ -102,12 +102,12 @@ namespace FuseCP.Portal
 
 
 
-						MailAccount item = new MailAccount();
+						MailAccount local_item = new MailAccount();
                     if (settingsDictionary.ContainsKey("isDomainAdminEnabled"))
 						{
-                        item.IsDomainAdminEnabled = Convert.ToBoolean(settingsDictionary["isDomainAdminEnabled"]);
+                        local_item.IsDomainAdminEnabled = Convert.ToBoolean(settingsDictionary["isDomainAdminEnabled"]);
 						}
-						ctrl.BindItem(item);
+						ctrl.BindItem(local_item);
 					}
 				}
             }

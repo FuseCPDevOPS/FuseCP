@@ -111,10 +111,10 @@ namespace FuseCP.Portal
             GaugeContent.Text += DrawImage(rightSideSrc, 1);
         }
 
-        private string DrawImage(string src, int width)
+        private string DrawImage(string src, int local_width)
         {
-            return String.Format("<img src=\"{0}\" width=\"{1}\" height=\"11\" align=\"absmiddle\"/>",
-                src, width);
+            return String.Format("<img src=\"{0}\" local_width=\"{1}\" height=\"11\" align=\"absmiddle\"/>",
+                src, local_width);
         }
     }
 }

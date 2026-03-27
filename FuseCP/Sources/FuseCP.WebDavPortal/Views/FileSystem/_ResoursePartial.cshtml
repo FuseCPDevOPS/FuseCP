@@ -39,7 +39,7 @@
 
     Model.Properties.FirstOrDefault(x => x.Name.Name == "getcontenttype");
 
-    if (isTargetBlank == false && Model.ItemType != ItemType.Folder)
+    if (!(isTargetBlank) && Model.ItemType != ItemType.Folder)
     {
         isTargetBlank = _opener.GetIsTargetBlank(Model) && !isMobile;
     }

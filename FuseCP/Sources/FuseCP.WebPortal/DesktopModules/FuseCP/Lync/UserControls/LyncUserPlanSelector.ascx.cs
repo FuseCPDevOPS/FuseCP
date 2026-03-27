@@ -79,12 +79,12 @@ namespace FuseCP.Portal.Lync.UserControls
 		{
             FuseCP.Providers.HostedSolution.LyncUserPlan[] plans = ES.Services.Lync.GetLyncUserPlans(PanelRequest.ItemID);
 
-            foreach (FuseCP.Providers.HostedSolution.LyncUserPlan plan in plans)
+            foreach (FuseCP.Providers.HostedSolution.LyncUserPlan local_plan in plans)
 			{
 				ListItem li = new ListItem();
-                li.Text = plan.LyncUserPlanName;
-                li.Value = plan.LyncUserPlanId.ToString();
-                li.Selected = plan.IsDefault;
+                li.Text = local_plan.LyncUserPlanName;
+                li.Value = local_plan.LyncUserPlanId.ToString();
+                li.Selected = local_plan.IsDefault;
                 ddlPlan.Items.Add(li);
 			}
 

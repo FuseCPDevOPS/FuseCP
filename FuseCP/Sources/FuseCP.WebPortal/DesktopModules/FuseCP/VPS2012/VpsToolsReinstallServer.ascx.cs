@@ -57,7 +57,10 @@ namespace FuseCP.Portal.VPS2012
                     }
                 }
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) 
+            {
+                _ = ex;
+            }
 
             Session.Timeout = 10;
             VirtualMachine vm = null;

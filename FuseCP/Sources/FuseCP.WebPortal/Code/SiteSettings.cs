@@ -21,7 +21,7 @@ namespace FuseCP.WebPortal
 {
     public class SiteSettings
     {
-		private NameValueCollection _settings;
+		private readonly NameValueCollection _settings;
 
 		public string this[string settingName]
 		{

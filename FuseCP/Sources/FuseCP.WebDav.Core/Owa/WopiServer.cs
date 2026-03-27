@@ -94,7 +94,7 @@ namespace FuseCP.WebDav.Core.Owa
 
             var cobaltFile = _fileManager.Get(token.FilePath) ?? _fileManager.Create(accessTokenId);
 
-            var stream = new MemoryStream();
+            using var stream = new MemoryStream();
 
             new GenericFda(cobaltFile.CobaltEndpoint, null).GetContentStream().CopyTo(stream);
 

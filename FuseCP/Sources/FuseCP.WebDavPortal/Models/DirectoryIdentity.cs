@@ -40,7 +40,7 @@ namespace FuseCP.WebDavPortal.Models
             try
             {
                 var userName = directoryEntry.Username;
-                var ds = new DirectorySearcher(directoryEntry);
+                using var ds = new DirectorySearcher(directoryEntry);
                 if (userName.Contains("\\"))
                     userName = userName.Substring(userName.IndexOf("\\") + 1);
                 ds.Filter = "samaccountname=" + userName;

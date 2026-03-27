@@ -114,27 +114,27 @@ namespace FuseCP.Portal
 			//MailList tempitem = ES.Services.MailServers.GetMailList(PanelRequest.ItemID);
 
             // get form data
-            MailList item = new MailList();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
+            MailList local_item = new MailList();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
 			if (listName != null)
 			{
-				item.Name = listName;
+				local_item.Name = listName;
 			}
 			else
 			{
-				item.Name = emailAddress.Email;
+				local_item.Name = emailAddress.Email;
 			}
         	//checking if list name is different from existing e-mail accounts
             MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true);
-            foreach (MailAccount account in accounts.Where(account => item.Name == account.Name))
+            foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
             {
                     ShowWarningMessage("MAIL_LIST_NAME");
                     return;
             }
             //checking if list name is different from existing e-mail groups
             MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true);
-            foreach (MailGroup group in mailgroups.Where(group => item.Name == group.Name))
+            foreach (MailGroup group in mailgroups.Where(group => local_item.Name == group.Name))
             {
                     ShowWarningMessage("MAIL_LIST_NAME");
                     return;
@@ -142,7 +142,7 @@ namespace FuseCP.Portal
 
             //checking if list name is different from existing forwardings
             MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
-            foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
+            foreach (MailAlias forwarding in forwardings.Where(forwarding => local_item.Name == forwarding.Name))
             {
                     ShowWarningMessage("MAIL_LIST_NAME");
                     return;
@@ -150,14 +150,14 @@ namespace FuseCP.Portal
             
 			// get other props
             IMailEditListControl ctrl = (IMailEditListControl)providerControl.Controls[0];
-			ctrl.SaveItem(item);
+			ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new local_item
                 try
                 {
-                    int result = ES.Services.MailServers.AddMailList(item);
+                    int result = ES.Services.MailServers.AddMailList(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -173,10 +173,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing local_item
                 try
                 {
-                    int result = ES.Services.MailServers.UpdateMailList(item);
+                    int result = ES.Services.MailServers.UpdateMailList(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);

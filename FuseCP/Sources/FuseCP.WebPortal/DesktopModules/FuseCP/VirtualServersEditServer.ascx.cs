@@ -161,16 +161,16 @@ namespace FuseCP.Portal
             if (!Page.IsValid)
                 return;
 
-            ServerInfo server = new ServerInfo();
+            ServerInfo local_server = new ServerInfo();
 
             // header
-            server.ServerId = PanelRequest.ServerId;
-            server.ServerName = txtName.Text;
-            server.Comments = txtComments.Text;
-            server.PrimaryGroupId = Utils.ParseInt(ddlPrimaryGroup.SelectedValue, 0);
+            local_server.ServerId = PanelRequest.ServerId;
+            local_server.ServerName = txtName.Text;
+            local_server.Comments = txtComments.Text;
+            local_server.PrimaryGroupId = Utils.ParseInt(ddlPrimaryGroup.SelectedValue, 0);
 
             // Preview Domain
-            server.InstantDomainAlias = txtPreviewDomain.Text;
+            local_server.InstantDomainAlias = txtPreviewDomain.Text;
 
             // gather groups info
             List<VirtualGroupInfo> groups = new List<VirtualGroupInfo>();

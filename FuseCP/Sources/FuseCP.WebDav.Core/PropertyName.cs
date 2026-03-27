@@ -30,12 +30,9 @@ namespace FuseCP.WebDav.Core
 
             public override bool Equals(object obj)
             {
-                if (obj.GetType() == GetType())
+                if (obj.GetType() == GetType() && ((PropertyName) obj).Name == Name && ((PropertyName) obj).NamespaceUri == NamespaceUri)
                 {
-                    if (((PropertyName) obj).Name == Name && ((PropertyName) obj).NamespaceUri == NamespaceUri)
                     {
-                        return true;
-                    }
                 }
 
                 return false;

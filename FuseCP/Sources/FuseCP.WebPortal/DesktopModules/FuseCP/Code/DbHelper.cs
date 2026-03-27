@@ -40,11 +40,11 @@ namespace FuseCP.Portal
 			}
 		}
 
-		public static int SetUseEntityFramework(bool useEntityFramework)
+		public static int SetUseEntityFramework(bool local_useEntityFramework)
 		{
-			var result = ES.Services.System.SetUseEntityFramework(useEntityFramework);
-			DbHelper.useEntityFramework = useEntityFramework;
-			if (useEntityFramework) showUseEntityFrameworkCheckbox = true;
+			var result = ES.Services.System.SetUseEntityFramework(local_useEntityFramework);
+			DbHelper.useEntityFramework = local_useEntityFramework;
+			if (local_useEntityFramework) showUseEntityFrameworkCheckbox = true;
 			return result;
 		}
 

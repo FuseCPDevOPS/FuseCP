@@ -153,11 +153,11 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            SqlUser item = new SqlUser();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = usernameControl.Text;
-            item.Password = passwordControl.Password;
+            SqlUser local_item = new SqlUser();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = usernameControl.Text;
+            local_item.Password = passwordControl.Password;
 
             List<string> databases = new List<string>();
             foreach (ListItem li in dlDatabases.Items)
@@ -165,18 +165,18 @@ namespace FuseCP.Portal
                 if (li.Selected)
                     databases.Add(li.Value);
             }
-            item.Databases = databases.ToArray();
+            local_item.Databases = databases.ToArray();
 
             // get other props
             IDatabaseEditUserControl ctrl = (IDatabaseEditUserControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new local_item
                 try
                 {
-                    int result = ES.Services.DatabaseServers.AddSqlUser(item, SqlDatabases.GetDatabasesGroupName(Settings));
+                    int result = ES.Services.DatabaseServers.AddSqlUser(local_item, SqlDatabases.GetDatabasesGroupName(Settings));
 					// Show an error message if the operation has failed to complete
                     if (result < 0)
                     {
@@ -192,10 +192,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing local_item
                 try
                 {
-                    int result = ES.Services.DatabaseServers.UpdateSqlUser(item);
+                    int result = ES.Services.DatabaseServers.UpdateSqlUser(local_item);
 					// Show an error message if the operation has failed to complete
                     if (result < 0)
                     {

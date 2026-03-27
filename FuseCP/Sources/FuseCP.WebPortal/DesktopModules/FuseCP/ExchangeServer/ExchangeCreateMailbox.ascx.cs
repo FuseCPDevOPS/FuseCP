@@ -65,18 +65,18 @@ namespace FuseCP.Portal.ExchangeServer
 
                 bool allowResourceMailbox = false;
 
-                if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_ISCONSUMER))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
                 {
-                    if (cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue != 1)
+                    if (_ckv.QuotaAllocatedValue != 1)
                     {
                         locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
                         allowResourceMailbox = true;
                     }
                 }
 
-                if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2013_RESOURCEMAILBOXES))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_RESOURCEMAILBOXES, out var resourceMailboxQuota))
                 {
-                    if (cntx.Quotas[Quotas.EXCHANGE2013_RESOURCEMAILBOXES].QuotaAllocatedValue != 0)
+                    if (resourceMailboxQuota.QuotaAllocatedValue != 0)
                         allowResourceMailbox = true;
                 }
 
@@ -87,9 +87,9 @@ namespace FuseCP.Portal.ExchangeServer
                     rbMailboxType.Items.Add(new System.Web.UI.WebControls.ListItem(GetLocalizedString("EquipmentMailbox.Text"), "6"));
                 }
 
-                if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2013_SHAREDMAILBOXES))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedMailboxQuota))
                 {
-                    if (cntx.Quotas[Quotas.EXCHANGE2013_SHAREDMAILBOXES].QuotaAllocatedValue != 0)
+                    if (sharedMailboxQuota.QuotaAllocatedValue != 0)
                         rbMailboxType.Items.Add(new System.Web.UI.WebControls.ListItem(GetLocalizedString("SharedMailbox.Text"), "10"));
                 }
 

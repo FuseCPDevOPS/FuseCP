@@ -62,7 +62,7 @@ namespace FuseCP.Portal.ProviderControls
                 gvSEDestinations.DataSource = sed;
                 gvSEDestinations.DataBind();
 
-                bool cbAccessControlsHidden = !ES.Services.Servers.GetQuotaHidden("Mail.AllowAccessControls", 4);
+                bool local_cbAccessControlsHidden = !ES.Services.Servers.GetQuotaHidden("Mail.AllowAccessControls", 4);
             }
         }
 

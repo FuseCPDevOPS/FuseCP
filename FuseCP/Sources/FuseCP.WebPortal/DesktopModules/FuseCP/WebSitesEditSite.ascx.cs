@@ -40,7 +40,7 @@ namespace FuseCP.Portal
 		/// <summary>
 		/// Use this variable to define additional tabs to in the control
 		/// </summary>
-		private List<Tab> TabsList = new List<Tab>()
+		private readonly List<Tab> TabsList = new List<Tab>()
 		{
 			new Tab { Id = "home", ResourceKey = "Tab.HomeFolder", ViewId = "tabHomeFolder" },
 			new Tab { Id = "vdirs", ResourceKey = "Tab.VirtualDirs", Quota = Quotas.WEB_VIRTUALDIRS, ViewId = "tabVirtualDirs" },

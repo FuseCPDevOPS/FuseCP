@@ -124,6 +124,7 @@ namespace FuseCP.Portal
 				}
 				catch (System.Exception catchEx) when (!(catchEx is System.OutOfMemoryException) && !(catchEx is System.StackOverflowException) && !(catchEx is System.AccessViolationException))
 				{
+				    _ = catchEx;
 				}
 			}
 			else

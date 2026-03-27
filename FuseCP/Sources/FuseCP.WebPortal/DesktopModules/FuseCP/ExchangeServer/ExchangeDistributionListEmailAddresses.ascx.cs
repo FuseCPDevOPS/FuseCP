@@ -99,7 +99,7 @@ namespace FuseCP.Portal.ExchangeServer
         {
             try
             {
-                string email = null;
+                string local_email = null;
                 bool Checked = false;
 
                 for (int i = 0; i < gvEmails.Rows.Count; i++)
@@ -110,7 +110,7 @@ namespace FuseCP.Portal.ExchangeServer
                     if (chkSelect.Checked)
                     {
                         Checked = true;
-                        email = gvEmails.DataKeys[i].Value.ToString();
+                        local_email = gvEmails.DataKeys[i].Value.ToString();
                         break;
                     }
                 }
@@ -121,11 +121,11 @@ namespace FuseCP.Portal.ExchangeServer
                     messageBox.ShowWarningMessage("PRIMARY_EMAIL_IS_NOT_CHECKED");
                 }
 
-                if (email == null)
+                if (local_email == null)
                     return;
 
                 int result = ES.Services.ExchangeServer.SetDistributionListPrimaryEmailAddress(
-                    PanelRequest.ItemID, PanelRequest.AccountID, email);
+                    PanelRequest.ItemID, PanelRequest.AccountID, local_email);
 
                 if (result < 0)
                 {

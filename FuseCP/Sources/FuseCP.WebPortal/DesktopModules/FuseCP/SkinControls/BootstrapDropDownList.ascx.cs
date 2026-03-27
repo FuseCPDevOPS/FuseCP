@@ -34,7 +34,7 @@ namespace FuseCP.Portal.SkinControls
     [ValidationProperty("SelectedValue")]
     public partial class BootstrapDropDownList : UserControl
     {
-        private ListItemCollection items = new ListItemCollection();
+        private readonly ListItemCollection items = new ListItemCollection();
 
         public object DataSource;
 
@@ -320,7 +320,7 @@ namespace FuseCP.Portal.SkinControls
             {
                 return;
             }
-            if ((int)objArray.Length != 3)
+            if (objArray.Length != 3)
             {
                 return;
             }

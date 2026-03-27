@@ -42,7 +42,7 @@ namespace FuseCP.WebDav.Core
         {
             // IResource
             private Uri _baseUri;
-            private bool _checkedOut = false;
+            private readonly bool _checkedOut = false;
             private string _comment = "";
             private long _contentLength;
             private DateTime _creationDate = new DateTime(0);
@@ -53,7 +53,7 @@ namespace FuseCP.WebDav.Core
             private DateTime _lastModified = new DateTime(0);
             private Property[] _properties = {};
             private int _timeOut = 30000;
-            private bool _versionControlled = false;
+            private readonly bool _versionControlled = false;
 
             private string BuildBasicAuthHeader(NetworkCredential credentials)
             {
@@ -229,7 +229,7 @@ namespace FuseCP.WebDav.Core
             /// <returns>Stream to write resource content.</returns>
             public Stream GetWriteStream(string contentType, long contentLength)
             {
-                var tcpClient = new TcpClient(Href.Host, Href.Port);
+                using var tcpClient = new TcpClient(Href.Host, Href.Port);
                 if (tcpClient.Connected)
                 {
                     var credentials = (NetworkCredential) _credentials;

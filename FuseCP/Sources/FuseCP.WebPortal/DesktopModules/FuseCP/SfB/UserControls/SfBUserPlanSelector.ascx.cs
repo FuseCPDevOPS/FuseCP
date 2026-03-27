@@ -79,12 +79,12 @@ namespace FuseCP.Portal.SfB.UserControls
 		{
             FuseCP.Providers.HostedSolution.SfBUserPlan[] plans = ES.Services.SfB.GetSfBUserPlans(PanelRequest.ItemID);
 
-            foreach (FuseCP.Providers.HostedSolution.SfBUserPlan plan in plans)
+            foreach (FuseCP.Providers.HostedSolution.SfBUserPlan local_plan in plans)
 			{
 				ListItem li = new ListItem();
-                li.Text = plan.SfBUserPlanName;
-                li.Value = plan.SfBUserPlanId.ToString();
-                li.Selected = plan.IsDefault;
+                li.Text = local_plan.SfBUserPlanName;
+                li.Value = local_plan.SfBUserPlanId.ToString();
+                li.Selected = local_plan.IsDefault;
                 ddlPlan.Items.Add(li);
 			}
 

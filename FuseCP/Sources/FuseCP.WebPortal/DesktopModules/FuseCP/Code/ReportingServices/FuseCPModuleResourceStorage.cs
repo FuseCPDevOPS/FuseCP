@@ -33,7 +33,7 @@ namespace FuseCP.Portal.ReportingServices
 		/// <summary>
 		/// The module (control) currently being displayed.
 		/// </summary>
-		private FuseCPModuleBase module;
+		private readonly FuseCPModuleBase module;
 
 		/// <summary>
 		/// Cunstructs the instance.

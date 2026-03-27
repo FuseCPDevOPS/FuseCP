@@ -23,7 +23,7 @@ namespace FuseCP.WebDav.Core.Security.Authentication
 {
     public class SmsAuthenticationService : ISmsAuthenticationService
     {
-        private ISmsDistributionService _smsService;
+        private readonly ISmsDistributionService _smsService;
 
         public SmsAuthenticationService(ISmsDistributionService smsService)
         {

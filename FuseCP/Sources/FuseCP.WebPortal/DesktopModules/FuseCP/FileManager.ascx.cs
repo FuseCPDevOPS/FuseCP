@@ -150,9 +150,9 @@ function SetCreateZipFocus()
 
         public string GetDownloadLink(string fileName)
         {
-            string path = GetFullRelativePath(fileName);
+            string local_path = GetFullRelativePath(fileName);
             return NavigateURL(PortalUtils.SPACE_ID_PARAM, PanelSecurity.PackageId.ToString(),
-                    "DownloadFile=" + Server.UrlEncode(path));
+                    "DownloadFile=" + Server.UrlEncode(local_path));
         }
 
         public string GetFileIcon(object obj)
@@ -271,11 +271,11 @@ function SetCreateZipFocus()
             // upload file
             if (!String.IsNullOrEmpty(fileName))
             {
-                string path = GetFullRelativePath(Path.GetFileName(fileName));
+                string local_path = GetFullRelativePath(Path.GetFileName(fileName));
 
                 try
                 {
-                    int result = ES.Services.Files.CreateFile(PanelSecurity.PackageId, path);
+                    int result = ES.Services.Files.CreateFile(PanelSecurity.PackageId, local_path);
                     if (result < 0)
                     {
                         messageBox.ShowResultMessage(result);
@@ -300,7 +300,7 @@ function SetCreateZipFocus()
 
                     try
                     {
-                        int result = ES.Services.Files.AppendFileBinaryChunk(PanelSecurity.PackageId, path, buffer);
+                        int result = ES.Services.Files.AppendFileBinaryChunk(PanelSecurity.PackageId, local_path, buffer);
                         if (result < 0)
                         {
                             messageBox.ShowResultMessage(result);
@@ -331,10 +331,10 @@ function SetCreateZipFocus()
             }
 
             // create file
-            string path = GetFullRelativePath(txtFileName.Text.Trim());
+            string local_path = GetFullRelativePath(txtFileName.Text.Trim());
             try
             {
-                int result = ES.Services.Files.CreateFile(PanelSecurity.PackageId, path);
+                int result = ES.Services.Files.CreateFile(PanelSecurity.PackageId, local_path);
                 if (result < 0)
                 {
                     messageBox.ShowResultMessage(result);
@@ -345,7 +345,7 @@ function SetCreateZipFocus()
                 if (txtFileContent.Text != "")
                 {
                     byte[] content = Encoding.UTF8.GetBytes(txtFileContent.Text);
-                    result = ES.Services.Files.UpdateFileBinaryContent(PanelSecurity.PackageId, path, content);
+                    result = ES.Services.Files.UpdateFileBinaryContent(PanelSecurity.PackageId, local_path, content);
                     if (result < 0)
                     {
                         messageBox.ShowResultMessage(result);
@@ -374,10 +374,10 @@ function SetCreateZipFocus()
             }
 
             // create folder
-            string path = GetFullRelativePath(txtFolderName.Text.Trim());
+            string local_path = GetFullRelativePath(txtFolderName.Text.Trim());
             try
             {
-                int result = ES.Services.Files.CreateFolder(PanelSecurity.PackageId, path);
+                int result = ES.Services.Files.CreateFolder(PanelSecurity.PackageId, local_path);
                 if (result < 0)
                 {
                     messageBox.ShowResultMessage(result);
@@ -408,13 +408,13 @@ function SetCreateZipFocus()
             if (!fileName.ToLower().EndsWith(".zip"))
                 fileName = fileName + ".zip";
 
-            string path = GetFullRelativePath(fileName);
+            string local_path = GetFullRelativePath(fileName);
             string[] files = GetSelectedFiles();
             if (files.Length > 0)
             {
                 try
                 {
-                    int result = ES.Services.Files.ZipFiles(PanelSecurity.PackageId, files, path);
+                    int result = ES.Services.Files.ZipFiles(PanelSecurity.PackageId, files, local_path);
                     if (result < 0)
                     {
                         messageBox.ShowResultMessage(result);
@@ -458,13 +458,13 @@ function SetCreateZipFocus()
         protected void btnCopy_Click(object sender, EventArgs e)
         {
             // copy files
-            string path = copyDestination.SelectedFile;
+            string local_path = copyDestination.SelectedFile;
             string[] files = GetSelectedFiles();
             if (files.Length > 0)
             {
                 try
                 {
-                    int result = ES.Services.Files.CopyFiles(PanelSecurity.PackageId, files, path);
+                    int result = ES.Services.Files.CopyFiles(PanelSecurity.PackageId, files, local_path);
                     if (result < 0)
                     {
                         messageBox.ShowResultMessage(result);
@@ -486,13 +486,13 @@ function SetCreateZipFocus()
         protected void btnMove_Click(object sender, EventArgs e)
         {
             // move files
-            string path = moveDestination.SelectedFile;
+            string local_path = moveDestination.SelectedFile;
             string[] files = GetSelectedFiles();
             if (files.Length > 0)
             {
                 try
                 {
-                    int result = ES.Services.Files.MoveFiles(PanelSecurity.PackageId, files, path);
+                    int result = ES.Services.Files.MoveFiles(PanelSecurity.PackageId, files, local_path);
                     if (result < 0)
                     {
                         messageBox.ShowResultMessage(result);
@@ -513,12 +513,12 @@ function SetCreateZipFocus()
         #region Edit
         protected void btnSaveEditFile_Click(object sender, EventArgs e)
         {
-            // create file path
-            string path = (string)ViewState["EditFile"];
+            // create file local_path
+            string local_path = (string)ViewState["EditFile"];
             try
             {
                 //update file
-                int result = PutFileContents(path, ddlFileEncodings.SelectedValue, txtEditFileContent.Text);
+                int result = PutFileContents(local_path, ddlFileEncodings.SelectedValue, txtEditFileContent.Text);
                 if (result < 0)
                 {
                     messageBox.ShowResultMessage(result);
@@ -583,10 +583,10 @@ function SetCreateZipFocus()
             if (!fileName.ToLower().EndsWith(".mdb"))
                 fileName = fileName + ".mdb";
 
-            string path = GetFullRelativePath(fileName);
+            string local_path = GetFullRelativePath(fileName);
             try
             {
-                int result = ES.Services.Files.CreateAccessDatabase(PanelSecurity.PackageId, path);
+                int result = ES.Services.Files.CreateAccessDatabase(PanelSecurity.PackageId, local_path);
                 if (result < 0)
                 {
                     messageBox.ShowResultMessage(result);
@@ -634,7 +634,7 @@ function SetCreateZipFocus()
         protected void btnSetPermissions_Click(object sender, EventArgs e)
         {
             // create file
-            string path = (string)ViewState["EditPermissions"];
+            string local_path = (string)ViewState["EditPermissions"];
             try
             {
                 // update permissions
@@ -657,7 +657,7 @@ function SetCreateZipFocus()
                     }
                 }
 
-                int result = ES.Services.Files.SetFilePermissions(PanelSecurity.PackageId, path,
+                int result = ES.Services.Files.SetFilePermissions(PanelSecurity.PackageId, local_path,
                     users.ToArray(), chkReplaceChildPermissions.Checked);
                 if (result < 0)
                 {
@@ -676,7 +676,7 @@ function SetCreateZipFocus()
 		protected void btnSetPermissionsUnix_Click(object sender, EventArgs e)
 		{
 			// create file
-			string path = (string)ViewState["EditPermissions"];
+			string local_path = (string)ViewState["EditPermissions"];
 			string owner = txtOwner.Text;
 			string group = txtGroup.Text;
 			try
@@ -693,7 +693,7 @@ function SetCreateZipFocus()
 				if (chkExecuteOthers.Checked) mode |= Providers.OS.UnixFileMode.OtherExecute;
 
 				// update permissions
-				int result = ES.Services.Files.SetUnixFilePermissions(PanelSecurity.PackageId, path, owner, group, mode, chkReplaceChildPermissionsUnix.Checked);
+				int result = ES.Services.Files.SetUnixFilePermissions(PanelSecurity.PackageId, local_path, owner, group, mode, chkReplaceChildPermissionsUnix.Checked);
 
 				if (result < 0)
 				{
@@ -742,10 +742,10 @@ function SetCreateZipFocus()
             }
             else if (e.CommandName == "download")
             {
-                string path = GetFullRelativePath((string)e.CommandArgument);
+                string local_path = GetFullRelativePath((string)e.CommandArgument);
 
                 Response.Redirect(NavigateURL(PortalUtils.SPACE_ID_PARAM, PanelSecurity.PackageId.ToString(),
-                    "DownloadFile=" + Server.UrlEncode(path)));
+                    "DownloadFile=" + Server.UrlEncode(local_path)));
 
 
             }
@@ -754,10 +754,10 @@ function SetCreateZipFocus()
                 // read file content
                 try
                 {
-                    string path = GetFullRelativePath((string)e.CommandArgument);
-                    ViewState["EditFile"] = path;
+                    string local_path = GetFullRelativePath((string)e.CommandArgument);
+                    ViewState["EditFile"] = local_path;
 
-                    txtEditFileContent.Text = GetFileContent(path, ddlFileEncodings.SelectedValue);
+                    txtEditFileContent.Text = GetFileContent(local_path, ddlFileEncodings.SelectedValue);
 
                     // show edit panel
                     EditFileModal.Show();
@@ -772,15 +772,15 @@ function SetCreateZipFocus()
                 // read file content
                 try
                 {
-					string path = GetFullRelativePath((string)e.CommandArgument);
-					ViewState["EditPermissions"] = path;
+					string local_path = GetFullRelativePath((string)e.CommandArgument);
+					ViewState["EditPermissions"] = local_path;
 
 					var packageId = PanelSecurity.PackageId;
 					var package = ES.Services.Packages.GetPackage(packageId);
 					var server = ES.Services.Servers.GetServerById(package.ServerId);
 					if (server.OSPlatform == OSPlatform.Windows)
 					{
-						UserPermission[] users = ES.Services.Files.GetFilePermissions(PanelSecurity.PackageId, path);
+						UserPermission[] users = ES.Services.Files.GetFilePermissions(PanelSecurity.PackageId, local_path);
 
 						gvFilePermissions.DataSource = users;
 						gvFilePermissions.DataBind();
@@ -789,7 +789,7 @@ function SetCreateZipFocus()
 					}
 					else
 					{
-						var permissions = ES.Services.Files.GetUnixFilePermissions(PanelSecurity.PackageId, path);
+						var permissions = ES.Services.Files.GetUnixFilePermissions(PanelSecurity.PackageId, local_path);
 						txtOwner.Text = lblOwnerText.Text = permissions.Owner;
 						txtGroup.Text = lblGroupText.Text = permissions.Group;
 						chkReadOwner.Checked = permissions.Permissions.HasFlag(Providers.OS.UnixFileMode.UserRead);
@@ -828,11 +828,11 @@ function SetCreateZipFocus()
         /// <param name="path">Path to the file.</param>
         /// <param name="encoding">Encoding to use when reading file. Web Name of encoding must be specified. See <see cref="Encoding"/> for details.</param>
         /// <returns>String representing file contents.</returns>
-        private string GetFileContent(string path, string encoding)
+        private string GetFileContent(string local_path, string encoding)
         {
             Encoding currentEncoding = Encoding.GetEncoding(encoding);
 
-            byte[] content = ES.Services.Files.GetFileBinaryContentUsingEncoding(PanelSecurity.PackageId, path, currentEncoding.WebName);
+            byte[] content = ES.Services.Files.GetFileBinaryContentUsingEncoding(PanelSecurity.PackageId, local_path, currentEncoding.WebName);
 
             return currentEncoding.GetString(content);
         }
@@ -844,11 +844,11 @@ function SetCreateZipFocus()
         /// <param name="encoding">Name of encoding that will be used to store file contents.</param>
         /// <param name="fileContents">String representing file contents.</param>
         /// <returns>Error code or 0 if succeeded.</returns>
-        private int PutFileContents(string path, string encoding, string fileContents)
+        private int PutFileContents(string local_path, string encoding, string fileContents)
         {
             return ES.Services.Files.UpdateFileBinaryContentUsingEncoding(
                 PanelSecurity.PackageId
-                , path
+                , local_path
                 , Encoding.GetEncoding(encoding).GetBytes(fileContents).Clone() as byte[]
                 , encoding
                 );
@@ -858,9 +858,9 @@ function SetCreateZipFocus()
         {
             try
             {
-                string path = (string)ViewState["EditFile"];
+                string local_path = (string)ViewState["EditFile"];
 
-                txtEditFileContent.Text = GetFileContent(path, ddlFileEncodings.SelectedValue);
+                txtEditFileContent.Text = GetFileContent(local_path, ddlFileEncodings.SelectedValue);
 
                 EditFileModal.Show();
             }

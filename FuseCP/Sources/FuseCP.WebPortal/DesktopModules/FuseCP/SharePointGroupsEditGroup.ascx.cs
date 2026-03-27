@@ -79,7 +79,10 @@ namespace FuseCP.Portal
             }
 
             if (item == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             BindUsers(item.PackageId);
             usernameControl.SetPackagePolicy(item.PackageId, UserSettings.SHAREPOINT_POLICY, "GroupNamePolicy");

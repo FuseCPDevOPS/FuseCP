@@ -81,10 +81,10 @@ namespace FuseCP.Providers
 
         public virtual void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
         {
-            foreach (DictionaryEntry item in (IDictionary)this)
+            foreach (var item in this)
             {
                 if (arrayIndex >= array.Length) break;
-                var keyValuePair = new KeyValuePair<string, T>((string)item.Key, item.Value as T);
+                var keyValuePair = new KeyValuePair<string, T>(item.Key, item.Value);
                 array[arrayIndex++] = keyValuePair;
             }
         }
@@ -112,8 +112,8 @@ namespace FuseCP.Providers
 
         public new IEnumerator<KeyValuePair<string, T>> GetEnumerator()
         {
-            foreach (DictionaryEntry item in (IDictionary)this) {
-                yield return new KeyValuePair<string, T>((string)item.Key, item.Value as T);
+            foreach (var item in this) {
+                yield return new KeyValuePair<string, T>(item.Key, item.Value);
             }
         }
     }

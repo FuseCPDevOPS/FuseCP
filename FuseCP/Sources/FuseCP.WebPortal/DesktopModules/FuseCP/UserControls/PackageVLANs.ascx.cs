@@ -108,7 +108,7 @@ namespace FuseCP.Portal.UserControls
                 {
                     GridViewRow row = gvVLANs.Rows[i];
                     CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                    if (chkSelect.Checked)
+                    if (chkSelect != null && chkSelect.Checked)
                         items.Add((int)gvVLANs.DataKeys[i].Value);
                 }
 

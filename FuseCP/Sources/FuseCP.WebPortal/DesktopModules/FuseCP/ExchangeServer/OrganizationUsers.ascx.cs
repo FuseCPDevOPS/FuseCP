@@ -38,9 +38,9 @@ namespace FuseCP.Portal.HostedSolution
 
             BindServiceLevels();
 
-            if (cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_ISCONSUMER))
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
             {
-                if (cntx.Quotas[Quotas.EXCHANGE2007_ISCONSUMER].QuotaAllocatedValue != 1)
+                if (_ckv.QuotaAllocatedValue != 1)
                 {
                     gvUsers.Columns[6].Visible = false;
                 }

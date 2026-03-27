@@ -24,7 +24,7 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
 {
     public class CryptoUtils : ICryptography
     {
-        private string EnterpriseServerRegistryPath = "SOFTWARE\\FuseCP\\EnterpriseServer";
+        private readonly string EnterpriseServerRegistryPath = "SOFTWARE\\FuseCP\\EnterpriseServer";
 
         private string CryptoKey
         {
@@ -33,24 +33,15 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
                 string Key = ConfigurationManager.AppSettings["FuseCP.AltCryptoKey"];
                 string value = string.Empty;
 
-                if (!string.IsNullOrEmpty(Key))
+                if (!string.IsNullOrEmpty(Key) && OperatingSystem.IsWindows())
                 {
-                    if (OperatingSystem.IsWindows())
                     {
-                        RegistryKey root = Registry.LocalMachine;
-                        RegistryKey rk = root.OpenSubKey(EnterpriseServerRegistryPath);
-                        if (rk != null)
-                        {
-                            value = (string)rk.GetValue(Key, null);
-                            rk.Close();
-                        }
-                    }
                 }
 
-                if (!string.IsNullOrEmpty(value))
-                    return value;
-                else
-                    return ConfigurationManager.AppSettings["FuseCP.CryptoKey"];
+                return !string.IsNullOrEmpty(value) ? value : ConfigurationManager.AppSettings["FuseCP.CryptoKey"];
+
+
+
             }
         }
 

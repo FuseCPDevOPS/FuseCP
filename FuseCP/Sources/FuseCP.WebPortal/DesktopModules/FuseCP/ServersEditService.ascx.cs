@@ -55,23 +55,23 @@ namespace FuseCP.Portal
         public AsyncLock ProviderLock = new AsyncLock();
         async Task<ProviderInfo> Provider()
 		{
-			var service = await Service();
+			var local_service = await Service();
             using (var alock = await ProviderLock.LockAsync())
             {
                 if (provider == null)
-					provider = ES.Services.Servers.GetProviderAsync(service.ProviderId);
+					provider = ES.Services.Servers.GetProviderAsync(local_service.ProviderId);
 			}
 			return await provider;
 		}
         public AsyncLock ResourceLock = new AsyncLock();
         async Task<ResourceGroupInfo> ResourceGroup()
 		{
-			var provider = await Provider();
+			var local_provider = await Provider();
             using (var alock = await ResourceLock.LockAsync())
             {
                 if (resourceGroup == null)
 				{
-					resourceGroup = ES.Services.Servers.GetResourceGroupAsync(provider.GroupId);
+					resourceGroup = ES.Services.Servers.GetResourceGroupAsync(local_provider.GroupId);
 				}
 			}
 			return await resourceGroup;
@@ -115,13 +115,13 @@ namespace FuseCP.Portal
 
 		private async Task LoadService()
 		{
-			var service = await Service();
+			var local_service = await Service();
 
-			if (service == null)
+			if (local_service == null)
 				// return
 				RedirectBack();
 
-			// load provider details
+			// load local_provider details
 			await Provider();
 
 			// load resource group details
@@ -130,49 +130,49 @@ namespace FuseCP.Portal
 
 		private async Task BindService()
 		{
-			var resourceGroup = await ResourceGroup();
-			var provider = await Provider();
+			var local_resourceGroup = await ResourceGroup();
+			var local_provider = await Provider();
 
-			litGroup.Text = PanelFormatter.GetLocalizedResourceGroupName(resourceGroup.GroupName);
+			litGroup.Text = PanelFormatter.GetLocalizedResourceGroupName(local_resourceGroup.GroupName);
 
-            if (ResourceGroups.Mail == resourceGroup.GroupName && provider.ProviderName.StartsWith("SmarterMail", StringComparison.OrdinalIgnoreCase))
+            if (ResourceGroups.Mail == local_resourceGroup.GroupName && local_provider.ProviderName.StartsWith("SmarterMail", StringComparison.OrdinalIgnoreCase))
             {
 				textProvider.Visible = false;
-                var providers = await ES.Services.Servers.GetProvidersByGroupIdAsync(provider.GroupId);
+                var providers = await ES.Services.Servers.GetProvidersByGroupIdAsync(local_provider.GroupId);
                 var filteredProviders = providers
                     .Where(p => p.ProviderName != null && p.ProviderName.StartsWith("SmarterMail", StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 ddlProviders.DataSource = filteredProviders;
                 ddlProviders.DataBind();
 
-                ddlProviders.SelectedValue = provider.ProviderId.ToString();
+                ddlProviders.SelectedValue = local_provider.ProviderId.ToString();
             }
-            else if (ResourceGroups.Ftp == resourceGroup.GroupName || ResourceGroups.Mail == resourceGroup.GroupName || ResourceGroups.Dns == resourceGroup.GroupName)
+            else if (ResourceGroups.Ftp == local_resourceGroup.GroupName || ResourceGroups.Mail == local_resourceGroup.GroupName || ResourceGroups.Dns == local_resourceGroup.GroupName)
 			{
                 selectProvider.Visible = false;
-                litProvider.Text = provider.DisplayName;
+                litProvider.Text = local_provider.DisplayName;
             }
 			else
 			{
 				textProvider.Visible = false;
-				ddlProviders.DataSource = await ES.Services.Servers.GetProvidersByGroupIdAsync(provider.GroupId);
+				ddlProviders.DataSource = await ES.Services.Servers.GetProvidersByGroupIdAsync(local_provider.GroupId);
 				ddlProviders.DataBind();
-				ddlProviders.SelectedValue = provider.ProviderId.ToString();
+				ddlProviders.SelectedValue = local_provider.ProviderId.ToString();
 			}
 
-			var service = await Service();
+			var local_service = await Service();
 
-			txtServiceName.Text = service.ServiceName;
-			txtQuotaValue.Text = service.ServiceQuotaValue.ToString();
-			Utils.SelectListItem(ddlClusters, service.ClusterId);
-			txtComments.Text = service.Comments;
+			txtServiceName.Text = local_service.ServiceName;
+			txtQuotaValue.Text = local_service.ServiceQuotaValue.ToString();
+			Utils.SelectListItem(ddlClusters, local_service.ClusterId);
+			txtComments.Text = local_service.Comments;
 		}
 
 		private async Task BindServiceQuota()
 		{
-			var provider = await Provider();
+			var local_provider = await Provider();
 
-			QuotaInfo quota = await ES.Services.Servers.GetProviderServiceQuotaAsync(provider.ProviderId);
+			QuotaInfo quota = await ES.Services.Servers.GetProviderServiceQuotaAsync(local_provider.ProviderId);
 			if (quota != null)
 			{
 				lblQuotaName.Text = GetSharedLocalizedString(Utils.ModuleName, "Quota." + quota.QuotaName);
@@ -187,12 +187,12 @@ namespace FuseCP.Portal
 		{
 			try
 			{
-				var provider = await Provider();
+				var local_provider = await Provider();
 
 				// try to locate suitable control
 				string currPath = this.AppRelativeVirtualPath;
 				currPath = currPath.Substring(0, currPath.LastIndexOf("/"));
-				string ctrlPath = currPath + "/ProviderControls/" + provider.EditorControl + "_Settings.ascx";
+				string ctrlPath = currPath + "/ProviderControls/" + local_provider.EditorControl + "_Settings.ascx";
 
 				IHostingServiceProviderSettings ctrl =
 					 (IHostingServiceProviderSettings)Page.LoadControl(ctrlPath);
@@ -228,47 +228,47 @@ namespace FuseCP.Portal
 
 		private async Task ToggleGlobalDNS()
 		{
-			var resourceGroup = await ResourceGroup();
+			var local_resourceGroup = await ResourceGroup();
 
-			DnsRecrodsPanel.Visible = DnsRecrodsHeader.Visible = ((resourceGroup.GroupName == ResourceGroups.BlackBerry) |
-																				 (resourceGroup.GroupName == ResourceGroups.OCS) |
-																				 (resourceGroup.GroupName == ResourceGroups.HostedCRM) |
-																				 (resourceGroup.GroupName == ResourceGroups.Os) |
-																				 (resourceGroup.GroupName == ResourceGroups.HostedOrganizations) |
-																				 (resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) |
-																				 (resourceGroup.GroupName == ResourceGroups.SharepointEnterpriseServer) |
-																				 (resourceGroup.GroupName == ResourceGroups.Mail) |
-																				 (resourceGroup.GroupName == ResourceGroups.Lync) |
-																				 (resourceGroup.GroupName == ResourceGroups.SfB) |
-																				 (resourceGroup.GroupName == ResourceGroups.Exchange) |
-																				 (resourceGroup.GroupName == ResourceGroups.Web) |
-																				 (resourceGroup.GroupName == ResourceGroups.Dns) |
-																				 (resourceGroup.GroupName == ResourceGroups.Ftp) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2000) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2005) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2008) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2012) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2014) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2016) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2017) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2019) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2022) |
-																				 (resourceGroup.GroupName == ResourceGroups.MsSql2025) |
-																				 (resourceGroup.GroupName == ResourceGroups.MySql4) |
-																				 (resourceGroup.GroupName == ResourceGroups.MySql5) |
-																				 (resourceGroup.GroupName == ResourceGroups.MySql8) |
-																				 (resourceGroup.GroupName == ResourceGroups.MySql9) |
-																				 (resourceGroup.GroupName == ResourceGroups.MariaDB) |
-																				 (resourceGroup.GroupName == ResourceGroups.Statistics) |
-																				 (resourceGroup.GroupName == ResourceGroups.VPS) |
-																				 (resourceGroup.GroupName == ResourceGroups.VPS2012) |
-																				 (resourceGroup.GroupName == ResourceGroups.VPSForPC) |
-																				 (resourceGroup.GroupName == ResourceGroups.RDS) |
-																				 (resourceGroup.GroupName == ResourceGroups.EnterpriseStorage) |
-																				 (resourceGroup.GroupName == ResourceGroups.Filters) |
-																				 (resourceGroup.GroupName == ResourceGroups.SharePoint) |
-																				 (resourceGroup.GroupName == ResourceGroups.SharepointServer) |
-																				 (resourceGroup.GroupName == ResourceGroups.StorageSpaces)
+			DnsRecrodsPanel.Visible = DnsRecrodsHeader.Visible = ((local_resourceGroup.GroupName == ResourceGroups.BlackBerry) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.OCS) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.HostedCRM) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Os) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.HostedOrganizations) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointEnterpriseServer) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Mail) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Lync) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.SfB) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Exchange) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Web) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Dns) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Ftp) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2000) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2005) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2008) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2012) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2014) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2016) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2017) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2019) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2022) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2025) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql4) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql5) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql8) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql9) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.MariaDB) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Statistics) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPS) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPS2012) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPSForPC) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.RDS) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.EnterpriseStorage) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.Filters) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharePoint) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointServer) |
+																				 (local_resourceGroup.GroupName == ResourceGroups.StorageSpaces)
 																				 );
 		}
 
@@ -309,21 +309,21 @@ namespace FuseCP.Portal
 			if (!Page.IsValid)
 				return;
 
-			var service = new ServiceInfo();
-			service.ServiceId = PanelRequest.ServiceId;
-			service.ServiceName = txtServiceName.Text.Trim();
+			var local_service = new ServiceInfo();
+			local_service.ServiceId = PanelRequest.ServiceId;
+			local_service.ServiceName = txtServiceName.Text.Trim();
 			if (ddlProviders.Items.Count > 0)
-				service.ProviderId = Utils.ParseInt(ddlProviders.SelectedValue, 0);
+				local_service.ProviderId = Utils.ParseInt(ddlProviders.SelectedValue, 0);
 			else
-				service.ProviderId = 0; //just to be sure that here is 0
-			service.ServiceQuotaValue = Utils.ParseInt(txtQuotaValue.Text, 0);
-			service.ClusterId = Utils.ParseInt(ddlClusters.SelectedValue, 0);
-			service.Comments = txtComments.Text;
+				local_service.ProviderId = 0; //just to be sure that here is 0
+			local_service.ServiceQuotaValue = Utils.ParseInt(txtQuotaValue.Text, 0);
+			local_service.ClusterId = Utils.ParseInt(ddlClusters.SelectedValue, 0);
+			local_service.Comments = txtComments.Text;
 
-			// update service
+			// update local_service
 			try
 			{
-				int result = ES.Services.Servers.UpdateService(service);
+				int result = ES.Services.Servers.UpdateService(local_service);
 				if (result < 0)
 				{
 					ShowResultMessage(result);
@@ -339,7 +339,7 @@ namespace FuseCP.Portal
 			// save properties
 			SaveServiceProperties();
 
-			// install service
+			// install local_service
 			string[] installResults = null;
 			try
 			{

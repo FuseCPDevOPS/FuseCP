@@ -51,7 +51,7 @@ namespace CSSFriendly
         }
 
         private int _checkboxIndex = 1;
-        private HiddenField _viewState = null;
+        private readonly HiddenField _viewState = null;
         private bool _updateViewState = false;
         private string _newViewState = "";
 

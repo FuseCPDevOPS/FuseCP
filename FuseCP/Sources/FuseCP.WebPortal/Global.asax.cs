@@ -38,7 +38,7 @@ namespace FuseCP.WebPortal
 	public class Global : System.Web.HttpApplication
 	{
 		const bool Debug = false;
-		private int keepAliveMinutes = 10;
+		private readonly int keepAliveMinutes = 10;
 		private static string keepAliveUrl = "";
 		private static System.Timers.Timer timer = null;
 
@@ -189,6 +189,7 @@ namespace FuseCP.WebPortal
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
+			    _ = ex;
 			}
 		}
 	}

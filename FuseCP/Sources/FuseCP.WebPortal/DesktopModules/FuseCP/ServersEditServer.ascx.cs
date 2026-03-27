@@ -193,8 +193,8 @@ namespace FuseCP.Portal
 				if (lnkBackup != null) lnkBackup.Visible = hasBackupPage;
 				if (lnkRestore != null) lnkRestore.Visible = hasBackupPage;
 
-				var serverInfo = await ServerInfo();
-				bool isWindows = serverInfo.OSPlatform == OSPlatform.Windows;
+				var local_serverInfo = await ServerInfo();
+				bool isWindows = local_serverInfo.OSPlatform == OSPlatform.Windows;
 				if (pnTerminalPanel != null) pnTerminalPanel.Visible = isWindows;
 				if (pnWindowsServices != null) pnWindowsServices.Visible = isWindows;
 				if (pnUnixServices != null) pnUnixServices.Visible = !isWindows;

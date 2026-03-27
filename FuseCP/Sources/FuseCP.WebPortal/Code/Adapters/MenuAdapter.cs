@@ -137,7 +137,7 @@ namespace CSSFriendly
 
         private void BuildItem(MenuItem item, HtmlTextWriter writer)
         {
-            Menu menu = Control as Menu;
+            Menu menu = Control;
             if ((menu != null) && (item != null) && (writer != null))
             {
                 writer.WriteLine();

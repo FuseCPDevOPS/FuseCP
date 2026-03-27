@@ -26,10 +26,10 @@ namespace FuseCP.WebPortal
         private bool hidden;
 		private string adminSkinSrc;
         private string skinSrc;
-        private List<string> roles = new List<string>();
-        private List<PortalPage> pages = new List<PortalPage>();
+        private readonly List<string> roles = new List<string>();
+        private readonly List<PortalPage> pages = new List<PortalPage>();
         private PortalPage parentPage;
-        private Dictionary<string, ContentPane> contentPanes = new Dictionary<string, ContentPane>();
+        private readonly Dictionary<string, ContentPane> contentPanes = new Dictionary<string, ContentPane>();
 		private string url;
         private string target;
         private string align;

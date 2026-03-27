@@ -96,8 +96,8 @@ namespace FuseCP.Portal
 
             if (user != null)
             {
-                PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
+                PackageContext local_cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+                if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, local_cntx)))
                 {
                     btnViewQuotas.Visible = lnkViewDiskspaceDetails.Visible = false;
                 }

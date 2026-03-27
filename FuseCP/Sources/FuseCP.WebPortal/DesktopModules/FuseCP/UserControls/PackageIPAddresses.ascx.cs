@@ -141,7 +141,7 @@ namespace FuseCP.Portal.UserControls
                 {
                     GridViewRow row = gvAddresses.Rows[i];
                     CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                    if (chkSelect.Checked)
+                    if (chkSelect != null && chkSelect.Checked)
                         items.Add((int)gvAddresses.DataKeys[i].Value);
                 }
 

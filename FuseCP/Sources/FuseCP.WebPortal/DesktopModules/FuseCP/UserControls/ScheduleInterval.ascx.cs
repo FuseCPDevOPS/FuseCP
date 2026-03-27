@@ -55,19 +55,19 @@ namespace FuseCP.Portal
                 {
                     // days
                     ddlUnits.SelectedIndex = 0;
-                    txtInterval.Text = ((int)(s / 86400)).ToString();
+                    txtInterval.Text = ((s / 86400)).ToString();
                 }
                 else if (s % 3600 == 0)
                 {
                     // hours
                     ddlUnits.SelectedIndex = 1;
-                    txtInterval.Text = ((int)(s / 3600)).ToString();
+                    txtInterval.Text = ((s / 3600)).ToString();
                 }
                 else if (s % 60 == 0)
                 {
                     // minutes
                     ddlUnits.SelectedIndex = 2;
-                    txtInterval.Text = ((int)(s / 60)).ToString();
+                    txtInterval.Text = ((s / 60)).ToString();
                 }
                 else
                 {

@@ -106,18 +106,18 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            MailDomain item = new MailDomain();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
+            MailDomain local_item = new MailDomain();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
 
             // get other props
             IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
-            // existing item
+            // existing local_item
             try
             {
-                int result = ES.Services.MailServers.UpdateMailDomain(item);
+                int result = ES.Services.MailServers.UpdateMailDomain(local_item);
                 if (result < 0)
                 {
                     ShowResultMessage(result);

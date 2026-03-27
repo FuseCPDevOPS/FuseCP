@@ -23,7 +23,7 @@ namespace FuseCP.WebPortal
     {
         private string id;
         private ModuleControl defaultControl;
-        private Dictionary<string, ModuleControl> controls = new Dictionary<string, ModuleControl>();
+        private readonly Dictionary<string, ModuleControl> controls = new Dictionary<string, ModuleControl>();
 
         public string Id
         {

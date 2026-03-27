@@ -311,9 +311,9 @@ namespace FuseCP.Portal
             // check maximum interval
             // load context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PackageId);
-            if (cntx.Quotas.ContainsKey(Quotas.OS_MINIMUMTASKINTERVAL))
+if (cntx.Quotas.TryGetValue(Quotas.OS_MINIMUMTASKINTERVAL, out var _ckv))
             {
-                int minInterval = cntx.Quotas[Quotas.OS_MINIMUMTASKINTERVAL].QuotaAllocatedValue;
+                int minInterval = _ckv.QuotaAllocatedValue;
                 if (minInterval != -1 && sc.Interval < (minInterval * 60))
                     sc.Interval = (minInterval * 60);
             }

@@ -116,21 +116,21 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            StatsSite item = new StatsSite();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = ddlWebSites.SelectedValue;
+            StatsSite local_item = new StatsSite();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = ddlWebSites.SelectedValue;
 
             // get other props
             IStatsEditInstallationControl ctrl = (IStatsEditInstallationControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new local_item
                 try
                 {
-                    int result = ES.Services.StatisticsServers.AddSite(item);
+                    int result = ES.Services.StatisticsServers.AddSite(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -146,10 +146,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing local_item
                 try
                 {
-                    int result = ES.Services.StatisticsServers.UpdateSite(item);
+                    int result = ES.Services.StatisticsServers.UpdateSite(local_item);
                     if (result < 0)
                     {
                         ShowResultMessage(result);

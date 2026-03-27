@@ -33,7 +33,7 @@ namespace FuseCP.WebDav.Core
 
         public class WebDavResumableUpload
         {
-            private long _bytesUploaded = 0;
+            private readonly long _bytesUploaded = 0;
 
             public void CancelUpload()
             {

@@ -188,10 +188,10 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            SqlDatabase item = new SqlDatabase();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = usernameControl.Text;
+            SqlDatabase local_item = new SqlDatabase();
+            local_item.Id = PanelRequest.ItemID;
+            local_item.PackageId = PanelSecurity.PackageId;
+            local_item.Name = usernameControl.Text;
             
             List<string> users = new List<string>();
             foreach (ListItem li in dlUsers.Items)
@@ -199,18 +199,18 @@ namespace FuseCP.Portal
                 if (li.Selected)
                     users.Add(li.Value);
             }
-            item.Users = users.ToArray();
+            local_item.Users = users.ToArray();
 
             // get other props
             IDatabaseEditDatabaseControl ctrl = (IDatabaseEditDatabaseControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(local_item);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new local_item
                 try
                 {
-                    int result = ES.Services.DatabaseServers.AddSqlDatabase(item, SqlDatabases.GetDatabasesGroupName(Settings));
+                    int result = ES.Services.DatabaseServers.AddSqlDatabase(local_item, SqlDatabases.GetDatabasesGroupName(Settings));
 					// Show an error message if the operation has failed to complete
                     if (result < 0)
                     {
@@ -226,10 +226,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing local_item
                 try
                 {
-                    int result = ES.Services.DatabaseServers.UpdateSqlDatabase(item);
+                    int result = ES.Services.DatabaseServers.UpdateSqlDatabase(local_item);
 					// Show an error message if the operation has failed to complete
                     if (result < 0)
                     {

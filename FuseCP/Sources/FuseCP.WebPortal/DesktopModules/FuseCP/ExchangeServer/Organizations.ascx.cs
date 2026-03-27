@@ -39,9 +39,9 @@ namespace FuseCP.Portal.ExchangeServer
             btnSetDefaultOrganization.Enabled = !(gvOrgs.Rows.Count < 2);
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            if (cntx.Quotas.ContainsKey(Quotas.ORGANIZATIONS))
+if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
-                btnCreate.Enabled = (!(cntx.Quotas[Quotas.ORGANIZATIONS].QuotaAllocatedValue <= gvOrgs.Rows.Count) || (cntx.Quotas[Quotas.ORGANIZATIONS].QuotaAllocatedValue == -1));
+                btnCreate.Enabled = (!(_ckv.QuotaAllocatedValue <= gvOrgs.Rows.Count) || (_ckv.QuotaAllocatedValue == -1));
             }
 
             /*
@@ -159,9 +159,9 @@ namespace FuseCP.Portal.ExchangeServer
                     orgsQuota.BindQuota();
 
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-                    if (cntx.Quotas.ContainsKey(Quotas.ORGANIZATIONS))
+if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
                     {
-                        btnCreate.Enabled = !(cntx.Quotas[Quotas.ORGANIZATIONS].QuotaAllocatedValue <= gvOrgs.Rows.Count);
+                        btnCreate.Enabled = !(_ckv.QuotaAllocatedValue <= gvOrgs.Rows.Count);
                     }
 
                 }

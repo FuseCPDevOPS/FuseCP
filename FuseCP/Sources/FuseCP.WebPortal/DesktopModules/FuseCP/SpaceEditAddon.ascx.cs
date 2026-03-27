@@ -71,8 +71,11 @@ namespace FuseCP.Portal
                     addon = ES.Services.Packages.GetPackageAddon(PanelRequest.PackageAddonID);
 
                     if (addon == null)
+                    {
                         // package not found
                         RedirectBack();
+                        return;
+                    }
 
                     packageId = addon.PackageId;
                 }
@@ -80,7 +83,10 @@ namespace FuseCP.Portal
                 // load addon package
                 package = ES.Services.Packages.GetPackage(packageId);
                 if (package == null)
+                {
                     RedirectBack();
+                    return;
+                }
 
                 // bind addons list
                 BindAddons(package.UserId);

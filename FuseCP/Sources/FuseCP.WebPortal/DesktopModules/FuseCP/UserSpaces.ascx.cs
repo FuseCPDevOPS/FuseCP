@@ -199,8 +199,11 @@ namespace FuseCP.Portal
             }
 
             // add menu item
+            string packageIdParam = cntx != null
+                ? cntx.Package.PackageId.ToString()
+                : PanelSecurity.PackageId.ToString();
             string pageUrl = !String.IsNullOrEmpty(url) ? url : PortalUtils.NavigatePageURL(
-                pageId, PortalUtils.SPACE_ID_PARAM, cntx.Package.PackageId.ToString(), parameters.ToArray());
+                pageId, PortalUtils.SPACE_ID_PARAM, packageIdParam, parameters.ToArray());
             string pageName = !String.IsNullOrEmpty(title) ? title : PortalUtils.GetLocalizedPageName(pageId);
             MenuItem item = new MenuItem(pageName, pageId, "", disabled ? null : pageUrl);
             item.ImageUrl = PortalUtils.GetThemedIcon(imageUrl);

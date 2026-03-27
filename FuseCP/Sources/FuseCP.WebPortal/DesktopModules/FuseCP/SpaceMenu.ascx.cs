@@ -160,8 +160,8 @@ namespace FuseCP.Portal
                         displayValue += "| String.IsNullOrEmpty(quota): " + String.IsNullOrEmpty(quota);
                         displayValue += "| cntx.Quotas.ContainsKey(quota): " + cntx.Quotas.ContainsKey(quota);
 
-                        if (cntx.Quotas.ContainsKey(quota))
-                            displayValue += "| cntx.Quotas[quota].QuotaAllocatedValue: " + cntx.Quotas[quota].QuotaAllocatedValue;
+if (cntx.Quotas.TryGetValue(quota, out var _ckv))
+                            displayValue += "| _ckv.QuotaAllocatedValue: " + _ckv.QuotaAllocatedValue;
 
                         displayValue += "| quota: " + quota;
                     }

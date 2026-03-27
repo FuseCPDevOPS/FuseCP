@@ -62,7 +62,7 @@ namespace FuseCP.Portal
             lnkTaskName.NavigateUrl = EditUrl("TaskID", task.TaskId, "view_details");
 
             // duration
-            TimeSpan duration = (TimeSpan)(DateTime.Now - task.StartDate);
+            TimeSpan duration = (DateTime.Now - task.StartDate);
             litTaskDuration.Text = String.Format("{0}:{1}:{2}",
                 duration.Hours.ToString().PadLeft(2, '0'),
                 duration.Minutes.ToString().PadLeft(2, '0'),

@@ -45,7 +45,7 @@ namespace FuseCP.WebDav.Core.Owa
 
         public CobaltFile Create(int accessTokenId)
         {
-            var disposal = new DisposalEscrow(accessTokenId.ToString(CultureInfo.InvariantCulture));
+            using var disposal = new DisposalEscrow(accessTokenId.ToString(CultureInfo.InvariantCulture));
 
             var content = new CobaltFilePartitionConfig
             {

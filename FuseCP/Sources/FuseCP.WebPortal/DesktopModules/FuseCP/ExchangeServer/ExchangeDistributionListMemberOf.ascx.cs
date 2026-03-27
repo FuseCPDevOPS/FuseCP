@@ -85,9 +85,9 @@ namespace FuseCP.Portal.ExchangeServer
 
                 if (EnableSecurityGroups)
                 {
-                    ExchangeAccount[] secGroups = ES.Services.Organizations.GetSecurityGroupsByMember(PanelRequest.ItemID, PanelRequest.AccountID);
+                    ExchangeAccount[] local_secGroups = ES.Services.Organizations.GetSecurityGroupsByMember(PanelRequest.ItemID, PanelRequest.AccountID);
 
-                    foreach (ExchangeAccount secGroup in secGroups)
+                    foreach (ExchangeAccount secGroup in local_secGroups)
                     {
                         groupsList.Add(secGroup);
                     }

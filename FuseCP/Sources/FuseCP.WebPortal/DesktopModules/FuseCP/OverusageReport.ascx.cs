@@ -325,7 +325,7 @@ namespace FuseCP.Portal
 
 		(byte[] Bytes, string ContentType, string FileName) RenderReport(string reportName, (DataSet ReportData, DataTable HostingSpace, DataTable Overusage, DataTable OverusageDetails) reportData, DateTime startDate, DateTime endDate, string format)
 		{
-			var report = new LocalReport();
+			using var report = new LocalReport();
 			using (var reportDefinition = System.IO.File.OpenRead(GetReportFullPath(reportName)))
 			{
 				report.LoadReportDefinition(reportDefinition);

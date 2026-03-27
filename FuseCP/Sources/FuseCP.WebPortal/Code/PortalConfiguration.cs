@@ -48,7 +48,7 @@ namespace FuseCP.WebPortal
 		private const string SITE_SETTINGS_KEY = "SiteSettingsCacheKey";
 
 		static Dictionary<string, ModuleDefinition> modules = null;
-		static object ModuleDefinitionsLock = new object();
+		static readonly object ModuleDefinitionsLock = new object();
 		public static Dictionary<string, ModuleDefinition> ModuleDefinitions
 		{
 			get
@@ -73,7 +73,7 @@ namespace FuseCP.WebPortal
 		}
 
 		static SiteStructure site = null;
-		static object SiteLock = new object();
+		static readonly object SiteLock = new object();
 		public static SiteStructure Site
 		{
 			get
@@ -97,7 +97,7 @@ namespace FuseCP.WebPortal
 			}
 		}
 		static SiteSettings settings = null;
-		static object SiteSettingsLock = new object();
+		static readonly object SiteSettingsLock = new object();
 		public static SiteSettings SiteSettings
 		{
 			get
@@ -161,7 +161,7 @@ namespace FuseCP.WebPortal
 			return true;
 		}
 
-		private static void LoadModulesFromXml(Dictionary<string, ModuleDefinition> modules, string path)
+		private static void LoadModulesFromXml(Dictionary<string, ModuleDefinition> local_modules, string path)
 		{
 			// open xml document
 			XmlDocument xml = new XmlDocument();
@@ -177,7 +177,7 @@ namespace FuseCP.WebPortal
 						 path, xmlModule.OuterXml));
 
 				module.Id = xmlModule.Attributes["id"].Value.ToLower(CultureInfo.InvariantCulture);
-				modules.Add(module.Id, module);
+				local_modules.Add(module.Id, module);
 
 				// controls
 				XmlNodeList xmlControls = xmlModule.SelectNodes("Controls/Control");
@@ -213,7 +213,7 @@ namespace FuseCP.WebPortal
 			}
 		}
 
-		private static void LoadPagesFromXml(SiteStructure site, string path)
+		private static void LoadPagesFromXml(SiteStructure local_site, string path)
 		{
 			// open xml document
 			XmlDocument xml = new XmlDocument();
@@ -226,7 +226,7 @@ namespace FuseCP.WebPortal
 			ProcessXmlIncludes(xml, path);
 
 			// parse root nodes
-			ParsePagesRecursively(path, site, xmlPages, null);
+			ParsePagesRecursively(path, local_site, xmlPages, null);
 		}
 
 		private static void ProcessXmlIncludes(XmlDocument xml, string parentPath)

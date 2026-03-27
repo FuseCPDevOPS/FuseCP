@@ -29,11 +29,11 @@ namespace FuseCP.WebPortal
         private string iconFile;
         private string containerSrc;
 		private string adminContainerSrc;
-        private List<string> viewRoles = new List<string>();
-        private List<string> editRoles = new List<string>();
-        private List<string> readOnlyRoles = new List<string>();
-        private Hashtable settings = new Hashtable();
-		private XmlDocument xmlModuleData = new XmlDocument();
+        private readonly List<string> viewRoles = new List<string>();
+        private readonly List<string> editRoles = new List<string>();
+        private readonly List<string> readOnlyRoles = new List<string>();
+        private readonly Hashtable settings = new Hashtable();
+		private readonly XmlDocument xmlModuleData = new XmlDocument();
         private PortalPage page;
 
         public string ModuleDefinitionID

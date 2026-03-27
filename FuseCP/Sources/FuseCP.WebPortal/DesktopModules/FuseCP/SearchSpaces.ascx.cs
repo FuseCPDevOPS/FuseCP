@@ -39,7 +39,7 @@ namespace FuseCP.Portal
         const string type_Domain = "Domain";
         const string type_Organization = "Organization";
 
-        List<string> linkTypes = new List<string>(new string[] {type_WebSite, type_Domain, type_Organization});
+        readonly List<string> linkTypes = new List<string>(new string[] {type_WebSite, type_Domain, type_Organization});
 
         const string PID_SPACE_WEBSITES = "SpaceWebSites";
         const string PID_SPACE_DIMAINS = "SpaceDomains";
