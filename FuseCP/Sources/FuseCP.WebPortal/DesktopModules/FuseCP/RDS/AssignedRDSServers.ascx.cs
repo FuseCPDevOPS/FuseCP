@@ -157,6 +157,11 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_SERVERS, out var _ckv))
 
         private void ChangeConnectionState(string enabled, RdsServer rdsServer)
         {
+            if (!rdsServer.ItemId.HasValue)
+            {
+                return;
+            }
+
             ES.Services.RDS.SetRDServerNewConnectionAllowed(rdsServer.ItemId.Value, enabled, rdsServer.Id);
         }
 

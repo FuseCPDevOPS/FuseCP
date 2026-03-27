@@ -54,7 +54,10 @@ namespace FuseCP.Portal.VPS2012
         {
             VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineItem(PanelRequest.ItemID);
             if (vm == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             ListItem sourceItem = null;
             foreach (ListItem item in HyperVServices.Items)

@@ -61,7 +61,10 @@ namespace FuseCP.Portal
             // read group
             WebGroup group = ES.Services.WebServers.GetSecuredGroup(PanelRequest.ItemID, PanelRequest.Name);
             if (group == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             usernameControl.Text = group.Name;
             usernameControl.EditMode = true;

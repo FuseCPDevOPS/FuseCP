@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -59,13 +60,10 @@ namespace FuseCP.Portal
 
             DomainInfo[] myDomains = ES.Services.Servers.GetMyDomains(PanelSecurity.PackageId);
             bool enableSubDomains = false;
-            foreach(DomainInfo domain in myDomains)
+            foreach (DomainInfo domain in myDomains.Where(domain => !domain.IsSubDomain && !domain.IsPreviewDomain && !domain.IsDomainPointer))
             {
-                if(!domain.IsSubDomain && !domain.IsPreviewDomain && !domain.IsDomainPointer)
-                {
                     enableSubDomains = true;
                     break;
-                }
             }
             SubDomainLink.Enabled = (cntx.Quotas.ContainsKey(Quotas.OS_SUBDOMAINS) && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted
                 && enableSubDomains);

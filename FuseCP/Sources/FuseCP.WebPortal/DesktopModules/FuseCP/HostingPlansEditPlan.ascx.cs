@@ -78,8 +78,11 @@ namespace FuseCP.Portal
 
             HostingPlanInfo plan = ES.Services.Packages.GetHostingPlan(PanelRequest.PlanID);
             if (plan == null)
+            {
                 // plan not found
                 RedirectBack();
+                return;
+            }
 
 			if (ShouldCopyCurrentHostingPlan())
 			{

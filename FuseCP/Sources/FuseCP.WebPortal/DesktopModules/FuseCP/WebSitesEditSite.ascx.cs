@@ -154,7 +154,10 @@ namespace FuseCP.Portal
 			}
 
 			if (site == null)
+			{
 				RedirectToBrowsePage();
+				return;
+			}
 
 			// IIS 7.0 mode
 			IIs7 = site.IIs7;

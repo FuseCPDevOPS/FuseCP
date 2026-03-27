@@ -82,7 +82,7 @@ namespace FuseCP.Portal.SfB.UserControls
 		{
 			get
 			{
-                return this.ddlSipAddresses.Items.Count;
+                return this.ddlSipAddresses?.Items?.Count ?? 0;
 			}
 		}
 

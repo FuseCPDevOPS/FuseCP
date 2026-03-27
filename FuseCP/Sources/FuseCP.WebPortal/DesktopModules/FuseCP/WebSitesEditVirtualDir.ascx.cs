@@ -127,7 +127,10 @@ namespace FuseCP.Portal
             }
 
             if (vdir == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             // IIS 7.0 mode
             IIs7 = vdir.IIs7;

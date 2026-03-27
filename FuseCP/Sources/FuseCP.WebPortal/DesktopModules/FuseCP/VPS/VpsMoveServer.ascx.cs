@@ -50,7 +50,10 @@ namespace FuseCP.Portal.VPS
         {
             VirtualMachine vm = ES.Services.VPS.GetVirtualMachineItem(PanelRequest.ItemID);
             if (vm == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             ListItem sourceItem = null;
             foreach (ListItem item in HyperVServices.Items)

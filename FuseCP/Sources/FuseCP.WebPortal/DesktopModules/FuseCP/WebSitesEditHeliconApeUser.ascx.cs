@@ -82,7 +82,10 @@ namespace FuseCP.Portal
             // read user
             HtaccessUser user = ES.Services.WebServers.GetHeliconApeUser(PanelRequest.ItemID, PanelRequest.Name);
             if (user == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             usernameControl.Text = user.Name;
             usernameControl.EditMode = true;

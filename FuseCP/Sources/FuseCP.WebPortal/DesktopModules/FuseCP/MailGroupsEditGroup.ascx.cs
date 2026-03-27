@@ -17,6 +17,7 @@ using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -116,34 +117,25 @@ namespace FuseCP.Portal
 
             //checking if group name is different from existing e-mail accounts
             MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true);
-            foreach (MailAccount account in accounts)
+            foreach (MailAccount account in accounts.Where(account => item.Name == account.Name))
             {
-                if (item.Name == account.Name)
-                {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
-                }
             }
             //checking if group name is different from existing mail lists
             MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
-            foreach (MailList list in lists)
+            foreach (MailList list in lists.Where(list => item.Name == list.Name))
             {
-                if (item.Name == list.Name)
-                {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
-                }
             }
 
             //checking if group name is different from existing forwardings
             MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
-            foreach (MailAlias forwarding in forwardings)
+            foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
             {
-                if (item.Name == forwarding.Name)
-                {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
-                }
             }
 
             // get other props

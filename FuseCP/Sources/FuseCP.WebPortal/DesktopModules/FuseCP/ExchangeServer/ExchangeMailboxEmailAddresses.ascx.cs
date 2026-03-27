@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -161,17 +162,14 @@ namespace FuseCP.Portal.ExchangeServer
                 if (chkSelect.Checked)
                 {
                     emails.Add(gvEmails.DataKeys[i].Value.ToString());
-                    foreach (EntServer.ExchangeEmailAddress tmpEmail in tmpEmails)
+                    foreach (EntServer.ExchangeEmailAddress tmpEmail in tmpEmails.Where(tmpEmail => gvEmails.DataKeys[i].Value.ToString() == tmpEmail.EmailAddress))
                     {
-                        if (gvEmails.DataKeys[i].Value.ToString() == tmpEmail.EmailAddress)
-                        {
                             if (tmpEmail.IsUserPrincipalName)
                             {
                                 containsUPN = true;
                                 break;
                             }
 
-                        }
                     }
                 }
             }

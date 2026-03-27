@@ -44,7 +44,10 @@ namespace FuseCP.Portal
 
             BackgroundTask task = ES.Services.Tasks.GetTaskWithLogRecords(PanelRequest.TaskID, lastLogDate);
             if (task == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             // bind task details
             litTitle.Text = String.Format("{0} &quot;{1}&quot;",

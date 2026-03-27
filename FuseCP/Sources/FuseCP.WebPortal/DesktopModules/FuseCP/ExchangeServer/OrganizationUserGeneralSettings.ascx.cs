@@ -254,12 +254,9 @@ namespace FuseCP.Portal.HostedSolution
             {
                 List<ServiceLevel> enabledServiceLevels = new List<ServiceLevel>();
 
-                foreach (var serviceLevel in ES.Services.Organizations.GetSupportServiceLevels())
+                foreach (var serviceLevel in ES.Services.Organizations.GetSupportServiceLevels().Where(serviceLevel => CheckServiceLevelQuota(serviceLevel, stats.ServiceLevels)))
                 {
-                    if (CheckServiceLevelQuota(serviceLevel, stats.ServiceLevels))
-                    {
                         enabledServiceLevels.Add(serviceLevel);
-                    }
                 }
 
                 ddlServiceLevels.DataSource = enabledServiceLevels;

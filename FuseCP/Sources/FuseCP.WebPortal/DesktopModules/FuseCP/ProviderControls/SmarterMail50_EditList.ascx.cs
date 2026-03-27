@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 using FuseCP.Providers.Mail;
 using FuseCP.WebPortal.Code.Controls;
@@ -99,12 +100,9 @@ namespace FuseCP.Portal.ProviderControls
 				ddlListModerators.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectModerator"), ""));
 
 				if (moderators != null)
-					foreach (MailAccount account in moderators)
+					foreach (MailAccount account in moderators.Where(account => GetDomainName(account.Name) == domainName))
 					{
-						if (GetDomainName(account.Name) == domainName)
-						{
 							if (ddlListModerators != null) ddlListModerators.Items.Add(new ListItem(account.Name));
-						}
 					}
 
 				Utils.SelectListItem(ddlListModerators, selectedModerator);

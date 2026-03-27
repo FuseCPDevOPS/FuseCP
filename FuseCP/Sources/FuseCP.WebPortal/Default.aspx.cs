@@ -465,13 +465,10 @@ namespace FuseCP.WebPortal
                 if (ctrlPane != null && page.ContentPanes.ContainsKey(LEFT_PANE_NAME))
                 {
                     ContentPane pane = page.ContentPanes[LEFT_PANE_NAME];
-                    foreach (PageModule module in pane.Modules)
+                    foreach (PageModule module in pane.Modules.Where(module => IsAccessibleToUser(Context, module.ViewRoles)))
                     {
-                        if (IsAccessibleToUser(Context, module.ViewRoles))
-                        {
                             // add module
                             AddModuleToContentPane(ctrlPane, module, "", false);
-                        }
                     }
                 }
             }

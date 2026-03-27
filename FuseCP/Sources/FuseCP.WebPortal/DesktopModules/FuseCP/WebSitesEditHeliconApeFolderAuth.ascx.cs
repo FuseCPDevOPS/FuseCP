@@ -48,7 +48,10 @@ namespace FuseCP.Portal
             // read web site
             WebSite site = ES.Services.WebServers.GetWebSite(PanelRequest.ItemID);
             if (site == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             folderPath.RootFolder = site.ContentPath;
             folderPath.PackageId = site.PackageId;
@@ -59,7 +62,10 @@ namespace FuseCP.Portal
             // read folder
             HtaccessFolder folder = ES.Services.WebServers.GetHeliconApeFolder(PanelRequest.ItemID, PanelRequest.Name);
             if(folder == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             txtTitle.Text = folder.AuthName;
             folderPath.SelectedFile = folder.Path;

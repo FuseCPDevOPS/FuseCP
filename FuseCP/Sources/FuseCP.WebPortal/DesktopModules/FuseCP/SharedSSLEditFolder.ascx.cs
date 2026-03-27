@@ -111,7 +111,10 @@ namespace FuseCP.Portal
             }
 
             if (vdir == null)
+            {
                 RedirectSpaceHomePage();
+                return;
+            }
 
             PackageId = vdir.PackageId;
 

@@ -849,6 +849,11 @@ namespace FuseCP.Portal.ProviderControls
                 if (val != null && item != null)
                 {
                     DropDownList ddl = (item.FindControl("ddlRunAt") as DropDownList);
+                    if (ddl == null)
+                    {
+                        return 0;
+                    }
+
                     int i = 0;
                     foreach (ListItem ddlItem in ddl.Items)
                     {

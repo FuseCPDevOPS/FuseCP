@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -49,7 +50,10 @@ namespace FuseCP.Portal
                 // load domain
                 DomainInfo domain = ES.Services.Servers.GetDomain(PanelRequest.DomainID);
                 if (domain == null)
+                {
                     RedirectToBrowsePage();
+                    return;
+                }
 
 
                 // load package context
@@ -126,12 +130,9 @@ namespace FuseCP.Portal
                     if (instantAlias != null)
                     {
                         DomainInfo[] Domains = ES.Services.Servers.GetDomainsByDomainId(domain.PreviewDomainId);
-                        foreach (DomainInfo d in Domains)
+                        foreach (DomainInfo d in Domains.Where(d => d.WebSiteId > 0))
                         {
-                            if (d.WebSiteId > 0)
-                            {
                                 WebSiteAliasPanel.Visible = true;
-                            }
                         }
 
                         MailDomainAliasPanel.Visible = (instantAlias.MailDomainId > 0);
@@ -181,7 +182,10 @@ namespace FuseCP.Portal
             // load original domain
             DomainInfo domain = ES.Services.Servers.GetDomain(PanelRequest.DomainID);
             if (domain == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             // change domain
             domain.HostingAllowed = AllowSubDomains.Checked;

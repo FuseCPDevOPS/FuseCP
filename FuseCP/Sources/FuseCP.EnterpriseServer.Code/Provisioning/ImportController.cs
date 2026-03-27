@@ -115,6 +115,11 @@ namespace FuseCP.EnterpriseServer
                         importableItems = ctrl.GetImportableItems(packageId, itemTypeId, Type.GetType(itemType.TypeName), group);
                     }
 
+                    if (importableItems == null)
+                    {
+                        importableItems = new List<string>();
+                    }
+
                     foreach (string importableItem in importableItems.Where(importableItem => !ignorelist.Contains(importableItem.ToLower())))
                     {
                             var itemToImport = importableItem;

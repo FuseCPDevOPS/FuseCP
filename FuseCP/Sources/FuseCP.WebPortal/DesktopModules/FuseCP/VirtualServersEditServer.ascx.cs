@@ -59,7 +59,10 @@ namespace FuseCP.Portal
             server = ES.Services.Servers.GetServerById(PanelRequest.ServerId);
 
             if (server == null)
+            {
                 RedirectToBrowsePage();
+                return;
+            }
 
             // header
             txtName.Text = PortalAntiXSS.DecodeOld(server.ServerName);

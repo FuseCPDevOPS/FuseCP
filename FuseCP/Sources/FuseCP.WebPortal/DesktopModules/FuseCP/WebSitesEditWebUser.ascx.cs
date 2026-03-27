@@ -61,7 +61,10 @@ namespace FuseCP.Portal
             // read user
             WebUser user = ES.Services.WebServers.GetSecuredUser(PanelRequest.ItemID, PanelRequest.Name);
             if (user == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             usernameControl.Text = user.Name;
             usernameControl.EditMode = true;

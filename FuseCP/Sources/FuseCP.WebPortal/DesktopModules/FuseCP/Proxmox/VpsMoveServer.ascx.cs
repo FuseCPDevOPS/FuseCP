@@ -50,7 +50,10 @@ namespace FuseCP.Portal.Proxmox
         {
             VirtualMachine vm = ES.Services.Proxmox.GetVirtualMachineItem(PanelRequest.ItemID);
             if (vm == null)
+            {
                 ReturnBack();
+                return;
+            }
 
             ListItem sourceItem = null;
             foreach (ListItem item in HyperVServices.Items)

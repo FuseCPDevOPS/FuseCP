@@ -44,7 +44,10 @@ namespace FuseCP.Portal
             {
                 SharePointSite site = ES.Services.SharePointServers.GetSharePointSite(PanelRequest.ItemID);
                 if (site == null)
+                {
                     RedirectToBrowsePage();
+                    return;
+                }
 
                 litSiteName.Text = site.Name;
 

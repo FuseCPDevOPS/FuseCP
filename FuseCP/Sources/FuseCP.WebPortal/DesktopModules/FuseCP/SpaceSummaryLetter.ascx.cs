@@ -63,7 +63,10 @@ namespace FuseCP.Portal
             // bind user details
             PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
             if (package == null)
+            {
                 RedirectSpaceHomePage();
+                return;
+            }
 
             // load user details
             UserInfo user = ES.Services.Users.GetUserById(package.UserId);
