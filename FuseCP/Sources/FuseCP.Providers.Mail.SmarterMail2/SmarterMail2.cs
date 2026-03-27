@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Services.Protocols;
 using System.Xml.XPath;
 using FuseCP.Providers.Common;
@@ -875,7 +876,14 @@ namespace FuseCP.Providers.Mail
         public virtual void CreateAccount(MailAccount mailbox)
         {
             try
-                    exists = result.listNames.Any(member => string.Compare(member, listName, true) == 0);
+            {
+                svcUserAdmin users = new svcUserAdmin();
+                PrepareProxy(users);
+
+                GenericResult1 result = users.AddUser(AdminUsername, AdminPassword,
+                    mailbox.Name,
+                    mailbox.Password,
+                    GetDomainName(mailbox.Name),
                     mailbox.FirstName,
                     mailbox.LastName,
                     false // domain admin is false
