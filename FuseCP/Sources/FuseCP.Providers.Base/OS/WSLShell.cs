@@ -584,8 +584,7 @@ namespace FuseCP.Providers.OS
 		}
 		public string ReadTextFile(string path)
 		{
-			if (IsWindows) return Exec($"cat {path}").Output().Result;
-			else return File.ReadAllText(path);
+			return IsWindows ? Exec($"cat {path}").Output().Result : File.ReadAllText(path);
 		}
 		public void WriteTextFile(string content, string path)
 		{
@@ -638,14 +637,9 @@ namespace FuseCP.Providers.OS
 		{
 			LogCommand?.Invoke(command);
 
-			if (IsWindows)
-			{
-				return BaseShell.ExecAsync($"{ShellExe} {command}", encoding, environment);
-			}
-			else // System is already unix, do not use WSL
-			{
-				return BaseShell.ExecAsync(command, encoding, environment);
-			}
+			return IsWindows
+				? BaseShell.ExecAsync($"{ShellExe} {command}", encoding, environment)
+				: BaseShell.ExecAsync(command, encoding, environment); // System is already unix, do not use WSL
 		}
 		public override Shell ExecScriptAsync(string script, string args = null, Encoding encoding = null, Dictionary<string, string> environment = null)
 		{

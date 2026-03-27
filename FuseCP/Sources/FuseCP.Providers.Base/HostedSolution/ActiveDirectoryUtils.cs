@@ -398,8 +398,7 @@ namespace FuseCP.Providers.HostedSolution
         {
             using DirectoryEntry currentADObject = new DirectoryEntry(path);
 
-            string cn = string.Empty;
-            if (string.IsNullOrEmpty(upn)) cn = user; else cn = upn;
+            string cn = string.IsNullOrEmpty(upn) ? user : upn;
 
             DirectoryEntry newUserObject = currentADObject.Children.Add("CN=" + cn, "User");
 

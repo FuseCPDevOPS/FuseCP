@@ -1153,18 +1153,13 @@ namespace FuseCP.Providers.DNS
 		{
 
 			string query = string.Empty;
-			if ((host.Contains("._tcp")) || (host.Contains("._udp")) || (host.Contains("._tls")))
-			{
-				query = String.Format("SELECT * FROM MicrosoftDNS_SRVType " +
+			query = ((host.Contains("._tcp")) || (host.Contains("._udp")) || (host.Contains("._tls")))
+				? String.Format("SELECT * FROM MicrosoftDNS_SRVType " +
 				"WHERE ContainerName = '{0}' AND OwnerName ='{1}.{0}'",
-				zoneName, CorrectHostName(zoneName, host));
-			}
-			else
-			{
-				query = String.Format("SELECT * FROM MicrosoftDNS_SRVType " +
+				zoneName, CorrectHostName(zoneName, host))
+				: String.Format("SELECT * FROM MicrosoftDNS_SRVType " +
 				"WHERE ContainerName = '{0}' AND OwnerName ='{1}'",
 				zoneName, CorrectHostName(zoneName, host));
-			}
 
 
 
