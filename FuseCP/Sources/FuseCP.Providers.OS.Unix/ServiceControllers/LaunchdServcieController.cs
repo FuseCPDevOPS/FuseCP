@@ -74,14 +74,15 @@ public class LaunchdServiceController : ServiceController
 		var exists = Regex.IsMatch(output, @"^\s*(?<id>[^\n]*?)[ \t]*=[ \t]*{[ \t]*\r?\n", RegexOptions.Singleline);
 		if (!exists)
 		{
-			if (File.Exists(ServiceFile(serviceId))) return new OSService()
-			{
-				Id = serviceId,
-				Name = serviceId,
-				Description = "",
-				Status = OSServiceStatus.Stopped
-			};
-			else return null;
+			return File.Exists(ServiceFile(serviceId))
+				? new OSService()
+				{
+					Id = serviceId,
+					Name = serviceId,
+					Description = "",
+					Status = OSServiceStatus.Stopped
+				}
+				: null;
 		}
 		var match = Regex.Match(output, @"^\s*state\s*=\s*(?<state>.+?)\s*?$", RegexOptions.Multiline);
 		string status = match.Success ? match.Groups["state"].Value : null;

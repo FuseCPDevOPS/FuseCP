@@ -28,8 +28,8 @@ public class @(Class.Identifier): @(OldNamespace).@Class.Identifier, I@(Class.Id
 					})
 					.Select(par =>
 					{
-						var arg = par.Argument;
-						return par.Parameter.Modifiers.Where(mod => mod.Text != "params").Select(mod => arg = arg.WithRefKindKeyword(mod)).LastOrDefault() ?? arg;
+						var refKind = par.Parameter.Modifiers.FirstOrDefault(mod => mod.Text != "params");
+						return refKind != default ? par.Argument.WithRefKindKeyword(refKind) : par.Argument;
 					})));
 
 			var callStatement = method.Modifiers.Any(mod => mod.IsKind(SyntaxKind.AsyncKeyword)) ?

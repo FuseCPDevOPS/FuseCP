@@ -297,14 +297,7 @@ if (Processes.TryGetValue(u.Url, out var _ckv))
 				Scheme.NetTcp => "net.tcp",
 				_ => throw new ArgumentOutOfRangeException(nameof(type.Protocol), type.Protocol, null)
 			};
-			if (type.Os == Os.Windows) return $"{scheme}://localhost:{port}";
-			else
-			{
-				/*var wsl = new WSLShell(WslDistro(type.Os));
-				var ip = wsl.Exec("hostname -I").Output().Result.Trim();
-				return $"{scheme}://{ip}:{port}";*/
-				return $"{scheme}://localhost:{port}";
-			}
+			return $"{scheme}://localhost:{port}";
 		}
 	}
 }

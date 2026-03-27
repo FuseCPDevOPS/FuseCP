@@ -63,11 +63,10 @@ namespace FuseCP.Providers.FTP
                 foreach (string s in names)
                 {
                     RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                    if (subkey != null)
-                        if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                        {
-                            productName = (string)subkey.GetValue("DisplayName");
-                        }
+                    if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+                    {
+                        productName = (string)subkey.GetValue("DisplayName");
+                    }
                     if (productName != null && productName.Equals("Cerberus FTP Server"))
                     {
                         if (subkey != null)
@@ -95,17 +94,15 @@ namespace FuseCP.Providers.FTP
             foreach (string s in names)
             {
                 RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                if (subkey != null)
-                    if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                    {
-                        productName = (string)subkey.GetValue("DisplayName");
-                    }
-                if (productName != null)
-                    if (productName.Equals("Cerberus FTP Server"))
-                    {
-                        if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-                        break;
-                    }
+                if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+                {
+                    productName = (string)subkey.GetValue("DisplayName");
+                }
+                if (productName != null && productName.Equals("Cerberus FTP Server"))
+                {
+                    if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+                    break;
+                }
             }
 
             if (!String.IsNullOrEmpty(productVersion))

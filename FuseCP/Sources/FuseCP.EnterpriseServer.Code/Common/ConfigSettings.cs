@@ -86,14 +86,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				if (encryptionEnabled == null)
 				{
-					if (OSInfo.IsNetFX)
-					{
-						encryptionEnabled = (ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] != null)
-						? bool.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"]) : true;
-					} else
-					{
-						encryptionEnabled = Web.Services.Configuration.EncryptionEnabled;
-					}
+					encryptionEnabled = OSInfo.IsNetFX
+						? (ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] != null
+							? bool.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"])
+							: true)
+						: Web.Services.Configuration.EncryptionEnabled;
 				}
 				return encryptionEnabled.Value;
 			}

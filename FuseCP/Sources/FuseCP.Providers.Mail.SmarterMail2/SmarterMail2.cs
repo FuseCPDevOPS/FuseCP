@@ -536,12 +536,7 @@ namespace FuseCP.Providers.Mail
             try
             {
                 string[] aliases = GetDomainAliases(domainName);
-                foreach (string alias in aliases)
-                {
-                    if (String.Compare(alias, aliasName, true) == 0)
-                        return true;
-                }
-                return false;
+                return aliases.Any(alias => String.Compare(alias, aliasName, true) == 0);
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
@@ -785,20 +780,14 @@ namespace FuseCP.Providers.Mail
                 if (!result.Result)
                     throw new Exception(result.Message);
 
-				List<MailAccount> accounts = new List<MailAccount>();
-                
-                
-                foreach (UserInfo user in result.Users)
-                {
-                    if (user.IsDomainAdmin && !ImportDomainAdmin)
-                        continue;
-                                        
-                    MailAccount account = new MailAccount();
-					account.Name = user.UserName;
-					account.Password = user.Password;
-					accounts.Add(account);
-                }
-				return accounts.ToArray();
+				return result.Users
+					.Where(user => ImportDomainAdmin || !user.IsDomainAdmin)
+					.Select(user => new MailAccount
+					{
+						Name = user.UserName,
+						Password = user.Password
+					})
+					.ToArray();
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
@@ -859,13 +848,10 @@ namespace FuseCP.Providers.Mail
 
                 string[] forwAddresses = forwResult.ForwardingAddress.Split(';', ',');
                 List<string> listForAddresses = new List<string>();
-                foreach (string forwAddress in forwAddresses)
-                {
-                    if (!String.IsNullOrEmpty(forwAddress.Trim()))
-                        listForAddresses.Add(forwAddress.Trim());
-                }
-
-                mailbox.ForwardingAddresses = listForAddresses.ToArray();
+                mailbox.ForwardingAddresses = forwAddresses
+                    .Select(forwAddress => forwAddress.Trim())
+                    .Where(forwAddress => !String.IsNullOrEmpty(forwAddress))
+                    .ToArray();
                 mailbox.DeleteOnForward = forwResult.DeleteOnForward;
 
                 // get autoresponder info
@@ -889,14 +875,7 @@ namespace FuseCP.Providers.Mail
         public virtual void CreateAccount(MailAccount mailbox)
         {
             try
-            {
-                svcUserAdmin users = new svcUserAdmin();
-                PrepareProxy(users);
-
-                GenericResult1 result = users.AddUser(AdminUsername, AdminPassword,
-                    mailbox.Name,
-                    mailbox.Password,
-                    GetDomainName(mailbox.Name),
+                    exists = result.listNames.Any(member => string.Compare(member, listName, true) == 0);
                     mailbox.FirstName,
                     mailbox.LastName,
                     false // domain admin is false
@@ -1589,17 +1568,15 @@ namespace FuseCP.Providers.Mail
                 foreach (string s in names)
                 {
                     RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                    if (subkey != null)
-                        if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                        {
-                            productName = (string)subkey.GetValue("DisplayName");
-                        }
-                    if (productName != null)
-                        if (productName.Equals("SmarterMail"))
-                        {
-                            if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-                            break;
-                        }
+                    if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+                    {
+                        productName = (string)subkey.GetValue("DisplayName");
+                    }
+                    if (productName != null && productName.Equals("SmarterMail"))
+                    {
+                        if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+                        break;
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(productVersion))
@@ -1622,17 +1599,15 @@ namespace FuseCP.Providers.Mail
                 foreach (string s in names)
                 {
                     RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                    if (subkey != null)
-                        if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                        {
-                            productName = (string)subkey.GetValue("DisplayName");
-                        }
-                    if (productName != null)
-                        if (productName.Equals("SmarterMail"))
-                        {
-                            if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-                            break;
-                        }
+                    if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+                    {
+                        productName = (string)subkey.GetValue("DisplayName");
+                    }
+                    if (productName != null && productName.Equals("SmarterMail"))
+                    {
+                        if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+                        break;
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(productVersion))

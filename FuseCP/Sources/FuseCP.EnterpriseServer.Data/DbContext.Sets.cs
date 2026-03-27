@@ -308,10 +308,9 @@ namespace FuseCP.EnterpriseServer.Data
 		public virtual IQueryable<UsersDetailed> UsersDetailed
 		{
 			get {
-				if (IsSqlServer) return UsersDetailedView;
-				else
-				{
-					return Users
+				return IsSqlServer
+					? UsersDetailedView
+					: Users
 						.GroupJoin(Users, u => u.OwnerId, o => o.UserId, (u, o) => new
 						{
 							User = u,
@@ -351,7 +350,6 @@ namespace FuseCP.EnterpriseServer.Data
 							EcommerceEnabled = g.User.EcommerceEnabled,
 							PackagesNumber = Packages.Count(p => p.UserId == g.User.UserId)
 						});
-				}
 			}
 		}
 

@@ -553,11 +553,11 @@ if (quotas.TryGetValue(fullName, out var _ckv))
 
             if (webDavSettings.Count == 0)
                 return new WebDavSetting[] { GetWebDavSetting(new WebDavSetting()) };
-            else
-                // 06.09.2015 roland.breitschaft@x-company.de
-                // Problem: Parts of settings are empty. But the Method returns the wrong Settings-Object
-                // Fix: Return the Cleaned Settings-Object    
-                return webDavSettings.ToArray();
+
+            // 06.09.2015 roland.breitschaft@x-company.de
+            // Problem: Parts of settings are empty. But the Method returns the wrong Settings-Object
+            // Fix: Return the Cleaned Settings-Object
+            return webDavSettings.ToArray();
 
             // return settings;
             

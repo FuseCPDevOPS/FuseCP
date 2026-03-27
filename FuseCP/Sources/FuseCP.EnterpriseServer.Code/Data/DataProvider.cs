@@ -642,30 +642,21 @@ namespace FuseCP.EnterpriseServer
 							.Where(u => u.UserId != userId && !u.IsPeer &&
 								(statusId == 0 || statusId > 0 && statusId == u.StatusId) &&
 								(roleId == 0 || roleId > 0 && roleId == u.RoleId));
-						if (recursive)
-						{
-							users = users
-								.Join(childUsers, u => u.UserId, ch => ch, (u, ch) => u);
-						}
-						else
-						{
-							users = users
-								.Where(u => u.OwnerId == userId);
-						}
+						users = recursive
+							? users.Join(childUsers, u => u.UserId, ch => ch, (u, ch) => u)
+							: users.Where(u => u.OwnerId == userId);
 					}
 					else
 					{
 						users = users.Where(u => false);
 					}
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn))
-						{
-							users = users.Where(DynamicFunctions.ColumnLike(users, filterColumn, filterValue));
-						}
-						else
-						{
+						users = users.Where(DynamicFunctions.ColumnLike(users, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							users = users.Where(u => DbFunctions.Like(u.Username, filterValue) ||
 								DbFunctions.Like(u.FullName, filterValue) ||
@@ -675,7 +666,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(u.FullName, filterValue) ||
 								EF.Functions.Like(u.Email, filterValue));
 #endif
-						}
 					}
 
 					if (!string.IsNullOrEmpty(sortColumn))
@@ -1460,9 +1450,9 @@ namespace FuseCP.EnterpriseServer
 
 					if (string.IsNullOrEmpty(sortColumn)) sortColumn = "TextSearch";
 
-					if (string.IsNullOrEmpty(colType) || colType == "AccountHome")
+					if ((string.IsNullOrEmpty(colType) || colType == "AccountHome") && !string.IsNullOrEmpty(fullType))
 					{
-						if (!string.IsNullOrEmpty(fullType)) userItems = userItems.Where(x => x.FullType == fullType);
+						userItems = userItems.Where(x => x.FullType == fullType);
 					}
 
 					// bug: Needs a call to Take for subquery ordering taking effect in EF6
@@ -4431,17 +4421,14 @@ namespace FuseCP.EnterpriseServer
 						u.Username
 					});
 
-				if (!string.IsNullOrEmpty(filterValue))
+				if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 				{
-					if (!string.IsNullOrEmpty(filterColumn))
-					{
-						vlans = vlans.Where(DynamicFunctions.ColumnLike(vlans, filterColumn, filterValue));
-					}
-					else
-					{
+					vlans = vlans.Where(DynamicFunctions.ColumnLike(vlans, filterColumn, filterValue));
+				}
+				else if (!string.IsNullOrEmpty(filterValue))
+				{
 						vlans = vlans.Where(v => v.Vlan.ToString() == filterValue || v.ServerName == filterValue ||
 							v.Username == filterValue);
-					}
 				}
 
 				if (string.IsNullOrEmpty(sortColumn)) sortColumn = "Vlan";
@@ -5420,8 +5407,7 @@ namespace FuseCP.EnterpriseServer
 
 			if (!string.IsNullOrEmpty(internalIp))
 			{
-				if (ip == string.Empty) ip = internalIp;
-				else ip = $"{ip} ({internalIp})";
+				ip = ip == string.Empty ? internalIp : $"{ip} ({internalIp})";
 			}
 
 			/// <summary>TODO</summary>
@@ -6196,14 +6182,12 @@ namespace FuseCP.EnterpriseServer
 							d.Package.User.Email
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn))
-						{
-							domains = domains.Where(DynamicFunctions.ColumnLike(domains, filterColumn, filterValue));
-						}
-						else
-						{
+						domains = domains.Where(DynamicFunctions.ColumnLike(domains, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							domains = domains.Where(d => DbFunctions.Like(d.DomainName, filterValue) ||
 								DbFunctions.Like(d.Username, filterValue) ||
@@ -6215,7 +6199,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(d.ServerName, filterValue) ||
 								EF.Functions.Like(d.PackageName, filterValue));
 #endif
-						}
 					}
 
 					var count = domains.Count();
@@ -6484,11 +6467,12 @@ namespace FuseCP.EnterpriseServer
 			{
 				var mailDomain = $"@{domainName}";
 
-				if (ExchangeAccounts.Any(a => a.UserPrincipalName.EndsWith(mailDomain) && a.AccountType != ExchangeAccountType.Contact) ||
+				return ExchangeAccounts.Any(a => a.UserPrincipalName.EndsWith(mailDomain) && a.AccountType != ExchangeAccountType.Contact) ||
 					ExchangeAccountEmailAddresses.Any(e => e.EmailAddress.EndsWith(mailDomain)) ||
 					LyncUsers.Any(u => u.SipAddress.EndsWith(mailDomain)) ||
-					SfBUsers.Any(u => u.SipAddress.EndsWith(mailDomain))) return 1;
-				else return 0;
+					SfBUsers.Any(u => u.SipAddress.EndsWith(mailDomain))
+					? 1
+					: 0;
 
 			}
 			else
@@ -8785,10 +8769,8 @@ namespace FuseCP.EnterpriseServer
 					.Select(p => p.ProviderId)
 					.FirstOrDefault();
 				/// <summary>TODO</summary>
-				int serviceId;
-				if (isVirtualServer)
-				{
-					serviceId = Services
+				var serviceId = isVirtualServer
+					? Services
 						.Join(VirtualServices, s => s.ServiceId, v => v.ServiceId, (s, v) => new
 						{
 							Service = s,
@@ -8796,15 +8778,11 @@ namespace FuseCP.EnterpriseServer
 						})
 						.Where(s => s.VirtualService.ServerId == serverId && s.Service.ProviderId == providerId)
 						.Select(s => s.Service.ServiceId)
-						.FirstOrDefault();
-				}
-				else
-				{
-					serviceId = Services
+						.FirstOrDefault()
+					: Services
 						.Where(s => s.ServerId == serverId && s.ProviderId == providerId)
 						.Select(s => s.ServiceId)
 						.FirstOrDefault();
-				}
 				var filterUrl = ServiceProperties
 					.Where(p => p.ServiceId == serviceId && p.PropertyName == "apiurl")
 					.Select(p => p.PropertyValue)
@@ -9380,8 +9358,7 @@ namespace FuseCP.EnterpriseServer
 				.Select(q => q.QuotaTypeId)
 				.FirstOrDefault();
 
-			if (quotaTypeId == 1) result = 1; // enabled
-			else result = -1; // unlimited
+			result = quotaTypeId == 1 ? 1 : -1; // enabled/unlimited
 
 			int? pid = packageId;
 
@@ -9410,22 +9387,17 @@ namespace FuseCP.EnterpriseServer
 				else
 				{
 					// check the current package
-					if (package.OverrideQuotas)
-					{
-						quotaValue = PackageQuotas
+					quotaValue = package.OverrideQuotas
+						? PackageQuotas
 							.Where(q => q.QuotaId == quotaId && q.PackageId == pid)
 							.Select(q => q.QuotaValue)
-							.FirstOrDefault();
-					}
-					else
-					{
-						quotaValue = Packages
+							.FirstOrDefault()
+						: Packages
 							.Where(p => p.PackageId == pid)
 							.Join(HostingPlanQuotas, p => p.PlanId, hq => hq.PlanId, (p, hq) => hq)
 							.Where(q => q.QuotaId == quotaId)
 							.Select(q => q.QuotaValue)
 							.FirstOrDefault();
-					}
 
 					if (quotaValue == null) quotaValue = 0;
 
@@ -10764,8 +10736,9 @@ namespace FuseCP.EnterpriseServer
 							p.Property.PropertyValue
 						})
 						.Where(p => p.PropertyName == "RamSize" && p.ParentPackageId == packageId);
-					if (isCore) result = ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0;
-					else result = ps
+					result = isCore
+						? ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0
+						: ps
 							.Select(p => p.PropertyValue)
 							.Cast<int?>()
 							.Sum() ?? 0;
@@ -10787,8 +10760,9 @@ namespace FuseCP.EnterpriseServer
 							p.Property.PropertyValue
 						})
 						.Where(p => p.PropertyName == "CpuCores" && p.ParentPackageId == packageId);
-					if (isCore) result = ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0;
-					else result = ps
+					result = isCore
+						? ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0
+						: ps
 							.Select(p => p.PropertyValue)
 							.Cast<int?>()
 							.Sum() ?? 0;
@@ -10848,8 +10822,9 @@ namespace FuseCP.EnterpriseServer
 							p.Property.PropertyValue
 						})
 						.Where(p => p.PropertyName == "RamSize" && p.ParentPackageId == packageId);
-					if (isCore) fixedMem = ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0;
-					else fixedMem = ps
+					fixedMem = isCore
+						? ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0
+						: ps
 							.Select(p => p.PropertyValue)
 							.Cast<int?>()
 							.Sum() ?? 0;
@@ -10869,8 +10844,9 @@ namespace FuseCP.EnterpriseServer
 							p.Property.PropertyValue
 						})
 						.Where(p => p.PropertyName == "DynamicMemory.Maximum" && p.ParentPackageId == packageId);
-					if (isCore) dynamicMem = ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0;
-					else dynamicMem = ps
+					dynamicMem = isCore
+						? ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0
+						: ps
 							.Select(p => p.PropertyValue)
 							.Cast<int?>()
 							.Sum() ?? 0;
@@ -10928,8 +10904,9 @@ namespace FuseCP.EnterpriseServer
 							p.Property.PropertyValue
 						})
 						.Where(p => p.PropertyName == "Memory" && p.ParentPackageId == packageId);
-					if (isCore) result = ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0;
-					else result = ps
+					result = isCore
+						? ps.Sum(p => (int?)Convert.ToInt32(p.PropertyValue)) ?? 0
+						: ps
 							.Select(p => p.PropertyValue)
 							.Cast<int?>()
 							.Sum() ?? 0;
@@ -11200,9 +11177,8 @@ namespace FuseCP.EnterpriseServer
 							.Where(l => l.LevelName == levelName)
 							.Select(l => (int?)l.LevelId)
 							.FirstOrDefault();
-						if (levelId != null)
-						{
-							result = ExchangeAccounts
+						result = levelId != null
+							? ExchangeAccounts
 								.Join(ServiceItems, ea => ea.ItemId, si => si.ItemId, (ea, si) => new
 								{
 									Exchange = ea,
@@ -11215,9 +11191,8 @@ namespace FuseCP.EnterpriseServer
 									Tree = t
 								})
 								.Where(t => t.Tree.ParentPackageId == packageId && t.Exchange.LevelId == levelId)
-								.Count();
-						}
-						else result = 0;
+								.Count()
+							: 0;
 					}
 					else
 					{
@@ -11715,13 +11690,11 @@ namespace FuseCP.EnterpriseServer
 						/// <summary>TODO</summary>
 						ExceedingQuota[] exceedingQuotas;
 
-						if (oldPlanId != planId || overrideQuotas)
-						{
-							exceedingQuotas = GetPackageExceedingQuotas(parentPackageId)
+						exceedingQuotas = oldPlanId != planId || overrideQuotas
+							? GetPackageExceedingQuotas(parentPackageId)
 								.Where(q => q.QuotaValue > 0)
-								.ToArray();
-						}
-						else exceedingQuotas = Array.Empty<ExceedingQuota>();
+								.ToArray()
+							: Array.Empty<ExceedingQuota>();
 
 						if (exceedingQuotas.Any()) transaction.Rollback();
 						else transaction.Commit();
@@ -13169,31 +13142,17 @@ namespace FuseCP.EnterpriseServer
 				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("PackagesNumber"))
 				{
-					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
-					{
-						packagesSelected = packagesSelected
-							.OrderByDescending(p => p.PackagesNumber);
-					}
-					else
-					{
-						packagesSelected = packagesSelected
-							.OrderBy(p => p.PackagesNumber);
-					}
+					packagesSelected = sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase)
+						? packagesSelected.OrderByDescending(p => p.PackagesNumber)
+						: packagesSelected.OrderBy(p => p.PackagesNumber);
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 				/// <summary>TODO</summary>
 				else if (sortColumn.StartsWith("QuotaValue"))
 				{
-					if (sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase))
-					{
-						packagesSelected = packagesSelected
-							.OrderByDescending(p => p.QuotaValue);
-					}
-					else
-					{
-						packagesSelected = packagesSelected
-							.OrderBy(p => p.QuotaValue);
-					}
+					packagesSelected = sortColumn.EndsWith(" desc", StringComparison.OrdinalIgnoreCase)
+						? packagesSelected.OrderByDescending(p => p.QuotaValue)
+						: packagesSelected.OrderBy(p => p.QuotaValue);
 					packagesSelected = packagesSelected.Skip(startRow).Take(maximumRows);
 				}
 
@@ -14212,14 +14171,12 @@ namespace FuseCP.EnterpriseServer
 							u.Email
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn))
-						{
-							schedules = schedules.Where(DynamicFunctions.ColumnLike(schedules, filterColumn, filterValue));
-						}
-						else
-						{
+						schedules = schedules.Where(DynamicFunctions.ColumnLike(schedules, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							schedules = schedules.Where(s => DbFunctions.Like(s.ScheduleName, filterValue) ||
 								DbFunctions.Like(s.Username, filterValue) ||
@@ -14231,7 +14188,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(s.FullName, filterValue) ||
 								EF.Functions.Like(s.Email, filterValue));
 #endif
-						}
 					}
 
 					var count = schedules.Count();
@@ -18131,14 +18087,9 @@ namespace FuseCP.EnterpriseServer
 						a.SamAccountName
 					});
 
-				if (sortDirection == "ASC")
-				{
-					accounts = sortColumn == "DisplayName" ? accounts.OrderBy(a => a.DisplayName) : accounts.OrderBy(a => a.PrimaryEmailAddress);
-				}
-				else
-				{
-					accounts = sortColumn == "DisplayName" ? accounts.OrderByDescending(a => a.DisplayName) : accounts.OrderByDescending(a => a.PrimaryEmailAddress);
-				}
+				accounts = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
+					? (sortColumn == "DisplayName" ? accounts.OrderBy(a => a.DisplayName) : accounts.OrderBy(a => a.PrimaryEmailAddress))
+					: (sortColumn == "DisplayName" ? accounts.OrderByDescending(a => a.DisplayName) : accounts.OrderByDescending(a => a.PrimaryEmailAddress));
 				accounts = accounts.Skip(startRow).Take(count);
 				/// <summary>TODO</summary>
 				return EntityDataReader(accounts);
@@ -18372,11 +18323,12 @@ namespace FuseCP.EnterpriseServer
 							ExternalIp = eip != null ? eip.ExternalIp : null
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn)) items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
-						else
-						{
+						items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							items = items.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
 								DbFunctions.Like(i.Username, filterValue) || DbFunctions.Like(i.ExternalIp, filterValue) ||
@@ -18386,7 +18338,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(i.Username, filterValue) || EF.Functions.Like(i.ExternalIp, filterValue) ||
 								EF.Functions.Like(i.IpAddress, filterValue));
 #endif
-						}
 					}
 
 					var count = items.Count();
@@ -18508,11 +18459,12 @@ namespace FuseCP.EnterpriseServer
 							p.DmzIp
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn)) items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
-						else
-						{
+						items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							items = items.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
 								DbFunctions.Like(i.Username, filterValue) || DbFunctions.Like(i.ExternalIp, filterValue) ||
@@ -18522,7 +18474,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(i.Username, filterValue) || EF.Functions.Like(i.ExternalIp, filterValue) ||
 								EF.Functions.Like(i.IpAddress, filterValue));
 #endif
-						}
 					}
 
 					var count = items.Count();
@@ -18628,11 +18579,12 @@ namespace FuseCP.EnterpriseServer
 							p.IpAddress
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn)) items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
-						else
-						{
+						items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							items = items.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
 								DbFunctions.Like(i.Username, filterValue) || DbFunctions.Like(i.ExternalIp, filterValue) ||
@@ -18642,7 +18594,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(i.Username, filterValue) || EF.Functions.Like(i.ExternalIp, filterValue) ||
 								EF.Functions.Like(i.IpAddress, filterValue));
 #endif
-						}
 					}
 
 					var count = items.Count();
@@ -18750,11 +18701,12 @@ namespace FuseCP.EnterpriseServer
 							p.IpAddress
 						});
 
-					if (!string.IsNullOrEmpty(filterValue))
+					if (!string.IsNullOrEmpty(filterValue) && !string.IsNullOrEmpty(filterColumn))
 					{
-						if (!string.IsNullOrEmpty(filterColumn)) items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
-						else
-						{
+						items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
+					}
+					else if (!string.IsNullOrEmpty(filterValue))
+					{
 #if NETFRAMEWORK
 							items = items.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
 								DbFunctions.Like(i.Username, filterValue) || DbFunctions.Like(i.ExternalIp, filterValue) ||
@@ -18764,7 +18716,6 @@ namespace FuseCP.EnterpriseServer
 								EF.Functions.Like(i.Username, filterValue) || EF.Functions.Like(i.ExternalIp, filterValue) ||
 								EF.Functions.Like(i.IpAddress, filterValue));
 #endif
-						}
 					}
 
 					var count = items.Count();
@@ -20612,20 +20563,12 @@ namespace FuseCP.EnterpriseServer
 		/// <summary>Auto-generated member.</summary>
 		public IDataReader GetSiteCert(int actorId, int siteID)
 		{
-			if (UseEntityFramework)
-			{
-				/// <summary>TODO</summary>
-				return GetSSLCertificateByID(actorId, siteID);
-			}
-			else
-			{
-				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
+			return UseEntityFramework
+				? GetSSLCertificateByID(actorId, siteID)
+				: SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSSLCertificateByID",
-					/// <summary>TODO</summary>
 					new SqlParameter("@ActorId", actorId),
-					/// <summary>TODO</summary>
 					new SqlParameter("@ID", siteID));
-			}
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -22577,16 +22520,10 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 		public IDataReader GetSupportServiceLevels()
 		{
-			if (UseEntityFramework)
-			{
-				/// <summary>TODO</summary>
-				return EntityDataReader(SupportServiceLevels);
-			}
-			else
-			{
-				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
+			return UseEntityFramework
+				? EntityDataReader(SupportServiceLevels)
+				: SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "GetSupportServiceLevels");
-			}
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -22753,20 +22690,13 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 		public IDataReader GetSupportServiceLevel(int levelID)
 		{
-			if (UseEntityFramework)
-			{
-				/// <summary>TODO</summary>
-				return EntityDataReader(SupportServiceLevels.Where(l => l.LevelId == levelID));
-			}
-			else
-			{
-				return SqlHelper.ExecuteReader(
+			return UseEntityFramework
+				? EntityDataReader(SupportServiceLevels.Where(l => l.LevelId == levelID))
+				: SqlHelper.ExecuteReader(
 					NativeConnectionString,
 					CommandType.StoredProcedure,
 					"GetSupportServiceLevel",
-					/// <summary>TODO</summary>
 					new SqlParameter("@LevelID", levelID));
-			}
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -24545,11 +24475,10 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 		public void UpdateRDSServer(int id, int? itemId, string name, string fqdName, string description, int? rdsCollectionId, string connectionEnabled)
 		{
-			byte connEnabled = 1;
-			if (!String.IsNullOrEmpty(connectionEnabled))
-			{
-				if (connectionEnabled.Equals("false") || connectionEnabled.Equals("no") || connectionEnabled.Equals("0")) connEnabled = 0;
-			}
+			byte connEnabled = !String.IsNullOrEmpty(connectionEnabled) &&
+				(connectionEnabled.Equals("false") || connectionEnabled.Equals("no") || connectionEnabled.Equals("0"))
+				? (byte)0
+				: (byte)1;
 
 			if (UseEntityFramework)
 			{

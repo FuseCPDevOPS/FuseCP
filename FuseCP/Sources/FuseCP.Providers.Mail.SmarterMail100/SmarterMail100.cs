@@ -620,12 +620,7 @@ HttpClient client = CreateHttpClient();
 			try
 			{
 				string[] aliases = GetDomainAliases(domainName);
-				foreach (string alias in aliases)
-				{
-					if (String.Compare(alias, aliasName, true) == 0)
-						return true;
-				}
-				return false;
+				return aliases.Any(alias => String.Compare(alias, aliasName, true) == 0);
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -830,48 +825,42 @@ HttpClient client = CreateHttpClient();
 			}
 		}
 
-        public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
-        {
-            foreach (ServiceProviderItem item in items)
-            {
-                if (item is MailDomain)
-                {
-                    try
-                    {
-                        // enable/disable mail domain
-                        if (DomainExists(item.Name))
-                        {
-                            MailDomain mailDomain = GetDomain(item.Name);
-                            mailDomain.Enabled = enabled;
-                            UpdateDomain(mailDomain);
-                        }
-                    }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-                    {
-                        Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
-                    }
-                }
-            }
-        }
+		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
+		{
+			foreach (MailDomain item in items.OfType<MailDomain>())
+			{
+				try
+				{
+					// enable/disable mail domain
+					if (DomainExists(item.Name))
+					{
+						MailDomain mailDomain = GetDomain(item.Name);
+						mailDomain.Enabled = enabled;
+						UpdateDomain(mailDomain);
+					}
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
+				}
+			}
+		}
 
-        public override void DeleteServiceItems(ServiceProviderItem[] items)
-        {
-            foreach (ServiceProviderItem item in items)
-            {
-                if (item is MailDomain)
-                {
-                    try
-                    {
-                        // delete mail domain
-                        DeleteDomain(item.Name);
-                    }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-                    {
-                        Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
-                    }
-                }
-            }
-        }
+		public override void DeleteServiceItems(ServiceProviderItem[] items)
+		{
+			foreach (MailDomain item in items.OfType<MailDomain>())
+			{
+				try
+				{
+					// delete mail domain
+					DeleteDomain(item.Name);
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
+				}
+			}
+		}
 
 		public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
 		{
@@ -884,12 +873,10 @@ HttpClient client = CreateHttpClient();
             DateTime date = DateTime.Now;
 
             // update items with diskspace
-            foreach (ServiceProviderItem item in items)
+            foreach (MailAccount item in items.OfType<MailAccount>())
 			{
-				if (item is MailAccount)
+				try
 				{
-					try
-					{
                         var userstatsPram = new
                         {
                             email = item.Name
@@ -909,11 +896,10 @@ HttpClient client = CreateHttpClient();
 						diskspace.DiskSpace = result.bytesSize;
 						itemsDiskspace.Add(diskspace);
 						Log.WriteEnd(String.Format("Calculating mail account '{0}' size", item.Name));
-					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(ex);
-					}
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(ex);
 				}
 			}
 			return itemsDiskspace.ToArray();
@@ -2415,11 +2401,10 @@ HttpClient client = CreateHttpClient();
                 foreach (string s in names)
                 {
                     RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                    if (subkey != null)
-                        if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                        {
-                            productName = (string)subkey.GetValue("DisplayName");
-                        }
+					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+					{
+						productName = (string)subkey.GetValue("DisplayName");
+					}
                     if (productName != null && productName.Contains("SmarterMail"))
                     {
                         if (subkey != null)
@@ -2455,17 +2440,15 @@ HttpClient client = CreateHttpClient();
             foreach (string s in names)
             {
                 RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                if (subkey != null)
-                    if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                    {
-                        productName = (string)subkey.GetValue("DisplayName");
-                    }
-                if (productName != null)
-                    if (productName.Contains("SmarterMail"))
-                    {
-                        if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-                        break;
-                    }
+				if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+				{
+					productName = (string)subkey.GetValue("DisplayName");
+				}
+				if (productName != null && productName.Contains("SmarterMail"))
+				{
+					if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+					break;
+				}
             }
 
             if (!String.IsNullOrEmpty(productVersion))
@@ -2493,25 +2476,22 @@ HttpClient client = CreateHttpClient();
                     .Concat(new string[] { Shell.Default.Find("MailService") })
                     .Where(exe => exe != null)
                     .Distinct();
-                foreach (var exe in processes)
+                foreach (var exe in processes.Where(File.Exists))
                 {
-                    if (File.Exists(exe))
-                    {
-						try
-						{
-							var dir = Path.GetDirectoryName(exe);
-							var dll = Path.ChangeExtension(exe, ".dll");
-							if (!File.Exists(dll)) continue;
+					try
+					{
+						var dir = Path.GetDirectoryName(exe);
+						var dll = Path.ChangeExtension(exe, ".dll");
+						if (!File.Exists(dll)) continue;
 
-							var files = Directory.GetFiles(dir, "*.*", SearchOption.TopDirectoryOnly);
-							if (!files.Any(f => f.Contains("SmarterMail"))) continue;
+						var files = Directory.GetFiles(dir, "*.*", SearchOption.TopDirectoryOnly);
+						if (!files.Any(f => f.Contains("SmarterMail"))) continue;
 
-							var assemblyName = AssemblyName.GetAssemblyName(dll);
-							return assemblyName?.Version != null && assemblyName.Version.Major == 100;
+						var assemblyName = AssemblyName.GetAssemblyName(dll);
+						return assemblyName?.Version != null && assemblyName.Version.Major == 100;
 
-						}
-						catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-                    }
+					}
+					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
                 }
             }
             return false;

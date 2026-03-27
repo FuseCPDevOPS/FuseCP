@@ -47,12 +47,11 @@ namespace FuseCP.Providers.Statistics
                         {
                             productName = (string)subkey.GetValue("DisplayName");
                         }
-                        if (productName != null)
-                            if (productName.Equals("SmarterStats") || productName.Equals("SmarterStats Service"))
-                            {
-                                productVersion = (string)subkey.GetValue("DisplayVersion");
-                                break;
-                            }
+                        if (productName != null && (productName.Equals("SmarterStats") || productName.Equals("SmarterStats Service")))
+                        {
+                            productVersion = (string)subkey.GetValue("DisplayVersion");
+                            break;
+                        }
                     }
                 }
 
@@ -81,12 +80,11 @@ namespace FuseCP.Providers.Statistics
                             {
                                 productName = (string)subkey.GetValue("DisplayName");
                             }
-                            if (productName != null)
-                                if (productName.Equals("SmarterStats") || productName.Equals("SmarterStats Service"))
-                                {
-                                    productVersion = (string)subkey.GetValue("DisplayVersion");
-                                    break;
-                                }
+                            if (productName != null && (productName.Equals("SmarterStats") || productName.Equals("SmarterStats Service")))
+                            {
+                                productVersion = (string)subkey.GetValue("DisplayVersion");
+                                break;
+                            }
                         }
                     }
 

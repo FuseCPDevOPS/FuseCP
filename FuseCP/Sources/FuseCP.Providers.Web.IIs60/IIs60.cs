@@ -22,6 +22,7 @@ using System.Reflection;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Security.Policy;
 using System.Xml;
@@ -1269,10 +1270,10 @@ namespace FuseCP.Providers.Web
 			// remove unnecessary permissions
 			// if original folder has been changed
 			if (!String.IsNullOrEmpty(sharedToolsFolder) &&
-				!origPath.ToLower().StartsWith(sharedToolsFolder.ToLower()))
+				!origPath.ToLower().StartsWith(sharedToolsFolder.ToLower()) &&
+				String.Compare(origPath, directory.ContentPath, true) != 0)
 			{
-				if (String.Compare(origPath, directory.ContentPath, true) != 0)
-					RemoveWebFolderPermissions(origPath, directory.AnonymousUsername);
+				RemoveWebFolderPermissions(origPath, directory.AnonymousUsername);
 			}
 
 
@@ -1489,10 +1490,10 @@ namespace FuseCP.Providers.Web
 			// remove unnecessary permissions
 			// if original folder has been changed
 			if (!String.IsNullOrEmpty(sharedToolsFolder) &&
-				!origPath.ToLower().StartsWith(sharedToolsFolder.ToLower()))
+				!origPath.ToLower().StartsWith(sharedToolsFolder.ToLower()) &&
+				String.Compare(origPath, directory.ContentPath, true) != 0)
 			{
-				if (String.Compare(origPath, directory.ContentPath, true) != 0)
-					RemoveWebFolderPermissions(origPath, directory.AnonymousUsername);
+				RemoveWebFolderPermissions(origPath, directory.AnonymousUsername);
 			}
 
 			// set folder permissions
@@ -1883,11 +1884,7 @@ namespace FuseCP.Providers.Web
 			string[] subKeys = keyFrontPage.GetSubKeyNames();
 			if (subKeys != null && subKeys.Length > 0)
 			{
-				foreach (string key in subKeys)
-				{
-					if (key == FRONTPAGE_2002_INSTALLED || key == SHAREPOINT_INSTALLED)
-						return true;
-				}
+				return subKeys.Any(key => key == FRONTPAGE_2002_INSTALLED || key == SHAREPOINT_INSTALLED);
 			}
 
 			return false;
@@ -2186,9 +2183,8 @@ namespace FuseCP.Providers.Web
 				String.Format("SELECT * FROM IIsFilterSetting WHERE Name='{0}'",
 				GetFilterPath(siteId, IIS_PASSWORD_FILTER)));
 
-			if (objFilters.Count > 0)
-				foreach (ManagementObject objFilter in objFilters)
-					objFilter.Delete();
+			foreach (ManagementObject objFilter in objFilters)
+				objFilter.Delete();
 
 			// change filters order
 			ChangeFiltersOrder(siteId, IIS_PASSWORD_FILTER, true);
@@ -2462,13 +2458,9 @@ namespace FuseCP.Providers.Web
 					string[] groupMembers = groupLine.Substring(colonIdx + 1).Split(' ');
 
 					// check group members
-					for (int j = 0; j < groupMembers.Length; j++)
+					if (groupMembers.Any(groupMember => String.Compare(groupMember, user.Name, true) == 0))
 					{
-						if (String.Compare(groupMembers[j], user.Name, true) == 0)
-						{
-							userGroups.Add(groupName);
-							break;
-						}
+						userGroups.Add(groupName);
 					}
 				}
 			} // end iterating groups
@@ -2556,27 +2548,12 @@ namespace FuseCP.Providers.Web
 					string[] groupMembers = groupLine.Substring(colonIdx + 1).Split(' ');
 
 					// check if user is assigned to this group
-					bool assigned = false;
-					for (int j = 0; j < user.Groups.Length; j++)
-					{
-						if (String.Compare(user.Groups[j], groupName, true) == 0)
-						{
-							assigned = true;
-							break;
-						}
-					}
+					bool assigned = user.Groups.Any(group => String.Compare(group, groupName, true) == 0);
 
 					// remove current user
-					List<string> updatedMembers = new List<string>();
-					for (int j = 0; j < groupMembers.Length; j++)
-					{
-						// user exists in the members
-						// check if he should be really added to this group
-						if (String.Compare(groupMembers[j], user.Name, true) == 0)
-							continue;
-
-						updatedMembers.Add(groupMembers[j]);
-					}
+					List<string> updatedMembers = groupMembers
+						.Where(groupMember => String.Compare(groupMember, user.Name, true) != 0)
+						.ToList();
 
 					if (assigned)
 						updatedMembers.Add(user.Name);
@@ -3475,11 +3452,9 @@ namespace FuseCP.Providers.Web
 			AddExtensions(allExtensions, PYTHON_EXTENSIONS);
 			AddExtensions(allExtensions, COLDFUSION_EXTENSIONS);
 
-			foreach (ManagementBaseObject objScriptMap in objScriptMaps)
+			foreach (ManagementBaseObject objScriptMap in objScriptMaps.Where(objScriptMap =>
+				!allExtensions.Contains(objScriptMap.Properties["Extensions"].Value.ToString().ToLower())))
 			{
-				if (allExtensions.Contains(objScriptMap.Properties["Extensions"].Value.ToString().ToLower()))
-					continue;
-
 				scriptMaps.Add(objScriptMap);
 			}
 
@@ -3727,26 +3702,17 @@ namespace FuseCP.Providers.Web
 					{
 						if (skipInherited)
 						{
-							//
-							bool inherited = false;
-							// Loop thru iherited definitions
-							foreach (ManagementBaseObject objErrorB in objHttpErrorsB)
+							bool inherited = objHttpErrorsB.Any(objErrorB =>
 							{
-								//
 								string errorCodeB = (string)objErrorB.Properties["HttpErrorCode"].Value;
 								string errorSubcodeB = (string)objErrorB.Properties["HttpErrorSubcode"].Value;
 								string handlerB = (string)objErrorB.Properties["HandlerType"].Value;
 								string contentB = (string)objErrorB.Properties["HandlerLocation"].Value;
-								// compare
-								if (String.Equals(errorCodeA, errorCodeB)
+								return String.Equals(errorCodeA, errorCodeB)
 									&& String.Equals(errorSubcodeA, errorSubcodeB)
 									&& String.Equals(handlerA, handlerB)
-									&& String.Equals(contentA, contentB))
-								{
-									inherited = true;
-									break;
-								}
-							}
+									&& String.Equals(contentA, contentB);
+							});
 							// Skip inherited records
 							if (inherited)
 								continue;

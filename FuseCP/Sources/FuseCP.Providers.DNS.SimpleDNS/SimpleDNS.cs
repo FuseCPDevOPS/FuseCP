@@ -19,6 +19,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Runtime.Versioning;
 
@@ -88,15 +89,10 @@ namespace FuseCP.Providers.DNS
 			string response = ExecuteDnsQuery("zonelist", null);
 			string[] lines = response.Split('\r', '\n');
 
-			List<string> zones = new List<string>();
-			foreach (string line in lines)
-			{
-				// prepare line
-				if (line.Trim() != "")
-					zones.Add(RemoveTrailingDot(line));
-			}
-
-			return zones.ToArray();
+			return lines
+				.Where(line => line.Trim() != "")
+				.Select(RemoveTrailingDot)
+				.ToArray();
 		}
 
 		public virtual void AddPrimaryZone(string zoneName, string[] secondaryServers)
@@ -110,11 +106,9 @@ namespace FuseCP.Providers.DNS
 				DnsRecord zt = new DnsRecord();
 				zt.RecordType = DnsRecordType.Other;
 				zt.RecordName = "";
-				if (secondaryServers.Length == 1 &&
-					secondaryServers[0] == "*")
-					zt.RecordText = ";$AllowZT *";
-				else
-					zt.RecordText = ";$AllowZT " + String.Join(" ", secondaryServers);
+				zt.RecordText = secondaryServers.Length == 1 && secondaryServers[0] == "*"
+					? ";$AllowZT *"
+					: ";$AllowZT " + String.Join(" ", secondaryServers);
 
 				records.Add(zt);
 			}
@@ -146,14 +140,9 @@ namespace FuseCP.Providers.DNS
 		public virtual DnsRecord[] GetZoneRecords(string zoneName)
 		{
 			List<DnsRecord> records = GetZoneRecordsArrayList(zoneName);
-			List<DnsRecord> filteredRecords = new List<DnsRecord>();
-			foreach (DnsRecord record in records)
-			{
-				if (record.RecordType != DnsRecordType.SOA
-					&& record.RecordType != DnsRecordType.Other)
-					filteredRecords.Add(record);
-			}
-			return filteredRecords.ToArray();
+			return records
+				.Where(record => record.RecordType != DnsRecordType.SOA && record.RecordType != DnsRecordType.Other)
+				.ToArray();
 		}
 
 		private List<DnsRecord> GetZoneRecordsArrayList(string zoneName)
@@ -311,14 +300,11 @@ namespace FuseCP.Providers.DNS
 			//DeleteARecordInternal(records, zoneName, host);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                    && (String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0)
-                    )
-
-
-                    return;
+                return;
             }
 
 			// add new A record
@@ -340,13 +326,11 @@ namespace FuseCP.Providers.DNS
 			//DeleteARecordInternal(records, zoneName, host);
 
 			//check if user tries to add existent zone record
-			foreach (DnsRecord dnsRecord in records) {
-				if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                    && (String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0)
-					)
-
-
-					return;
+			if (records.Any(dnsRecord =>
+				String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0))
+			{
+				return;
 			}
 
 			// add new AAAA record
@@ -403,11 +387,11 @@ namespace FuseCP.Providers.DNS
 			//DeleteNsRecordInternal(records, zoneName, nameServer);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, nameServer, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                    && (String.Compare(dnsRecord.RecordData, nameServer, StringComparison.OrdinalIgnoreCase) == 0))
-                    return;
+                return;
             }
 
 			// add new NS record
@@ -433,13 +417,13 @@ namespace FuseCP.Providers.DNS
 			//DeleteMXRecordInternal(records, zoneName, mailServer);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                dnsRecord.RecordType == DnsRecordType.MX
+                && String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, mailServer, StringComparison.OrdinalIgnoreCase) == 0
+                && dnsRecord.MxPriority == mailServerPriority))
             {
-                if ((dnsRecord.RecordType == DnsRecordType.MX) &&
-                    (String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (String.Compare(dnsRecord.RecordData, mailServer, StringComparison.OrdinalIgnoreCase) == 0) 
-                    && dnsRecord.MxPriority == mailServerPriority)
-                    return;
+                return;
             }
 
 			// add new MX record
@@ -505,11 +489,11 @@ namespace FuseCP.Providers.DNS
 			//DeleteTxtRecordInternal(records, zoneName, text);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, text, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                    && (String.Compare(dnsRecord.RecordData, text, StringComparison.OrdinalIgnoreCase) == 0))  
-                    return;
+                return;
             }
 
 			// add new TXT record
@@ -556,27 +540,24 @@ namespace FuseCP.Providers.DNS
 		#region IHostingServiceProvier methods
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (DnsZone item in items.OfType<DnsZone>())
 			{
-				if (item is DnsZone)
+				try
 				{
-					try
-					{
-						// delete DNS zone
-						DeleteZone(item.Name);
-					}
-					catch (WebException ex)
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
-					}
-					catch (InvalidOperationException ex)
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
-					}
-					catch (ArgumentException ex)
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
-					}
+					// delete DNS zone
+					DeleteZone(item.Name);
+				}
+				catch (WebException ex)
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
+				}
+				catch (InvalidOperationException ex)
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
+				}
+				catch (ArgumentException ex)
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' SimpleDNS zone", item.Name), ex);
 				}
 			}
 		}
@@ -1075,17 +1056,15 @@ namespace FuseCP.Providers.DNS
 				foreach (string s in names)
 				{
 					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-					if (subkey != null)
-						if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-						{
-							productName = (string)subkey.GetValue("DisplayName");
-						}
-					if (productName != null)
-						if (productName.Equals("Simple DNS Plus"))
-						{
-							if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-							break;
-						}
+					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+					{
+						productName = (string)subkey.GetValue("DisplayName");
+					}
+					if (productName != null && productName.Equals("Simple DNS Plus"))
+					{
+						if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+						break;
+					}
 				}
 
 				if (!String.IsNullOrEmpty(productVersion))
@@ -1107,17 +1086,15 @@ namespace FuseCP.Providers.DNS
 				foreach (string s in names)
 				{
 					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-					if (subkey != null)
-						if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-						{
-							productName = (string)subkey.GetValue("DisplayName");
-						}
-					if (productName != null)
-						if (productName.Equals("Simple DNS Plus"))
-						{
-							if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-							break;
-						}
+					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+					{
+						productName = (string)subkey.GetValue("DisplayName");
+					}
+					if (productName != null && productName.Equals("Simple DNS Plus"))
+					{
+						if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+						break;
+					}
 				}
 
 				if (!String.IsNullOrEmpty(productVersion))

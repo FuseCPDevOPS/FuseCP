@@ -2225,11 +2225,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 {
                     // unlimited
                     //number = maxAvailableVLANs; // assign max available server VLANs
-                    if (maxAvailableVLANs > 0)
-                    {
-                        number = 1;//assign 1 VLAN or the entire free pool if unlimited. What is better???
-                    }
-                    else number = 0;
+					number = maxAvailableVLANs > 0
+						? 1 // assign 1 VLAN or the entire free pool if unlimited. What is better???
+						: 0;
                 }
                 else
                 {
@@ -2913,15 +2911,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				if (wildcardOnly)
 				{
-					List<GlobalDnsRecord> temp = new List<GlobalDnsRecord>();
-					foreach (GlobalDnsRecord d in dnsRecords)
-					{
-						if ((d.RecordName == "*") ||
-							(d.RecordName == "@"))
-							temp.Add(d);
-					}
-
-					dnsRecords = temp;
+					dnsRecords = dnsRecords
+						.Where(d => d.RecordName == "*" || d.RecordName == "@")
+						.ToList();
 				}
 
 				DnsZone zone = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
@@ -2963,15 +2955,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 				List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(serviceId);
 				if (wildcardOnly)
 				{
-					List<GlobalDnsRecord> temp = new List<GlobalDnsRecord>();
-					foreach (GlobalDnsRecord d in dnsRecords)
-					{
-						if ((d.RecordName == "*") ||
-							(d.RecordName == "@"))
-							temp.Add(d);
-					}
-
-					dnsRecords = temp;
+					dnsRecords = dnsRecords
+						.Where(d => d.RecordName == "*" || d.RecordName == "@")
+						.ToList();
 				}
 
 				DnsZone zone = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
@@ -3073,13 +3059,10 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 
 				List<DomainInfo> domains = GetDomainsByDomainItemId(domain.DomainId);
-				foreach (DomainInfo d in domains)
+				if (domains.Any(d => d.WebSiteId > 0))
 				{
-					if (d.WebSiteId > 0)
-					{
-						TaskManager.WriteError("Domain points to the existing web site");
-						return BusinessErrorCodes.ERROR_DOMAIN_POINTS_TO_WEB_SITE;
-					}
+					TaskManager.WriteError("Domain points to the existing web site");
+					return BusinessErrorCodes.ERROR_DOMAIN_POINTS_TO_WEB_SITE;
 				}
 
 				// Find and delete all zone items for this domain
@@ -3155,13 +3138,10 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 				if (!domain.IsDomainPointer)
 				{
 					List<DomainInfo> domains = GetDomainsByDomainItemId(domain.DomainId);
-					foreach (DomainInfo d in domains)
+					if (domains.Any(d => d.WebSiteId > 0))
 					{
-						if (d.WebSiteId > 0)
-						{
-							TaskManager.WriteError("Domain points to the existing web site");
-							return BusinessErrorCodes.ERROR_DOMAIN_POINTS_TO_WEB_SITE;
-						}
+						TaskManager.WriteError("Domain points to the existing web site");
+						return BusinessErrorCodes.ERROR_DOMAIN_POINTS_TO_WEB_SITE;
 					}
 				}
 
@@ -3345,31 +3325,14 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 								break;
 							case ResourceGroups.Mail:
 								List<DomainInfo> myDomains = ServerController.GetMyDomains(domain.PackageId);
-								foreach (DomainInfo mailDomain in myDomains)
-								{
-									if ((mailDomain.MailDomainId != 0) && (domain.DomainName.ToLower() == mailDomain.DomainName.ToLower()))
-									{
-										bFound = true;
-										break;
-									}
-								}
+								bFound = myDomains.Any(mailDomain => mailDomain.MailDomainId != 0 &&
+									string.Equals(domain.DomainName, mailDomain.DomainName, StringComparison.OrdinalIgnoreCase));
 								if (bFound) ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Mail, domain, "");
 								break;
 							case ResourceGroups.Exchange:
 								List<Organization> orgs = OrganizationController.GetOrganizations(domain.PackageId, false);
-								foreach (Organization o in orgs)
-								{
-									List<OrganizationDomainName> names = OrganizationController.GetOrganizationDomains(o.Id);
-									foreach (OrganizationDomainName name in names)
-									{
-										if (domain.DomainName.ToLower() == name.DomainName.ToLower())
-										{
-											bFound = true;
-											break;
-										}
-									}
-									if (bFound) break;
-								}
+								bFound = orgs.Any(o => OrganizationController.GetOrganizationDomains(o.Id)
+									.Any(name => string.Equals(domain.DomainName, name.DomainName, StringComparison.OrdinalIgnoreCase)));
 								if (bFound)
 								{
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Exchange, domain, "");
@@ -3379,15 +3342,8 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 								break;
 							case ResourceGroups.Lync:
 								List<Organization> orgsLync = OrganizationController.GetOrganizations(domain.PackageId, false);
-								foreach (Organization o in orgsLync)
-								{
-									if ((o.DefaultDomain.ToLower() == domain.DomainName.ToLower()) &&
-										 (o.LyncTenantId != null))
-									{
-										bFound = true;
-										break;
-									}
-								}
+								bFound = orgsLync.Any(o => o.LyncTenantId != null &&
+									string.Equals(o.DefaultDomain, domain.DomainName, StringComparison.OrdinalIgnoreCase));
 								if (bFound)
 								{
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Lync, domain, "");
@@ -3395,15 +3351,8 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 								break;
 							case ResourceGroups.SfB:
 								List<Organization> orgsSfB = OrganizationController.GetOrganizations(domain.PackageId, false);
-								foreach (Organization o in orgsSfB)
-								{
-									if ((o.DefaultDomain.ToLower() == domain.DomainName.ToLower()) &&
-										 (o.SfBTenantId != null))
-									{
-										bFound = true;
-										break;
-									}
-								}
+								bFound = orgsSfB.Any(o => o.SfBTenantId != null &&
+									string.Equals(o.DefaultDomain, domain.DomainName, StringComparison.OrdinalIgnoreCase));
 								if (bFound)
 								{
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.SfB, domain, "");
@@ -3532,17 +3481,13 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				// add web site pointer if required
 				List<DomainInfo> domains = GetDomainsByDomainItemId(domain.DomainId);
-				foreach (DomainInfo d in domains)
+				foreach (DomainInfo d in domains.Where(d => d.WebSiteId > 0))
 				{
-
-					if (d.WebSiteId > 0)
-					{
-						WebServerController.AddWebSitePointer(d.WebSiteId,
-																((d.DomainName.Replace("." + parentZone, "") == parentZone) ||
-																(d.DomainName == parentZone))
-																? "" : d.DomainName.Replace("." + parentZone, ""),
-																previewDomain.DomainId);
-					}
+					WebServerController.AddWebSitePointer(d.WebSiteId,
+															((d.DomainName.Replace("." + parentZone, "") == parentZone) ||
+															(d.DomainName == parentZone))
+															? "" : d.DomainName.Replace("." + parentZone, ""),
+															previewDomain.DomainId);
 				}
 
 				// add mail domain pointer
@@ -3596,12 +3541,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				List<DomainInfo> domains = GetDomainsByDomainItemId(previewDomain.DomainId);
 
-				foreach (DomainInfo d in domains)
+				foreach (DomainInfo d in domains.Where(d => d.WebSiteId > 0))
 				{
-					if (d.WebSiteId > 0)
-					{
-						WebServerController.DeleteWebSitePointer(d.WebSiteId, d.DomainId);
-					}
+					WebServerController.DeleteWebSitePointer(d.WebSiteId, d.DomainId);
 				}
 
 				// remove from mail domain pointers

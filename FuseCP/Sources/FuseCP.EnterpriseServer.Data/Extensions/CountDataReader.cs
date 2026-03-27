@@ -42,7 +42,7 @@ namespace FuseCP.EnterpriseServer.Data
 				if (count == -1)
 				{
 #if NETCOREAPP
-					if (!Set.TryGetNonEnumeratedCount(out count)) count = Set.Count();
+					count = Set.TryGetNonEnumeratedCount(out count) ? count : Set.Count();
 #else
 					count = Set.Count();
 #endif

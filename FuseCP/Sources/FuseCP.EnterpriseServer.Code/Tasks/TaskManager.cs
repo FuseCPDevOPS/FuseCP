@@ -674,15 +674,12 @@ namespace FuseCP.EnterpriseServer
         {
 if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                 {
-                    if (_ckv != null && _ckv.IsAlive)
-                        {
-                            if (!task.Completed)
+                    if (_ckv != null && _ckv.IsAlive && !task.Completed)
 #if NETFRAMEWORK
                                 _ckv.Abort();
 #else
                                 _ckv.Interrupt();
 #endif
-                        }
                     Thread deleted;
                     _taskThreadsDictionary.TryRemove(task.Id, out deleted);
                 }

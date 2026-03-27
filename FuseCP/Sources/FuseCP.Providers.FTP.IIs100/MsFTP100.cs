@@ -588,15 +588,8 @@ namespace FuseCP.Providers.FTP
 
             // Update authorization rules.
             IIs100.Authorization.AuthorizationRuleCollection authRulesCollection = this.ftpSitesService.GetAuthorizationRuleCollection(String.Format("{0}/{1}", this.SiteId, ftpAccount.Name));
-            IIs100.Authorization.AuthorizationRule realtedRule = null;
-            foreach (IIs100.Authorization.AuthorizationRule rule in authRulesCollection)
-            {
-                IList<string> users = rule.Users.Split(',');
-                if (users.Contains(ftpAccount.Name))
-                {
-                    realtedRule = rule;
-                }
-            }
+            IIs100.Authorization.AuthorizationRule realtedRule = authRulesCollection
+                .FirstOrDefault(rule => rule.Users.Split(',').Contains(ftpAccount.Name));
             if (realtedRule != null)
             {
                 PermissionsFlags permissions = 0;
@@ -629,19 +622,15 @@ namespace FuseCP.Providers.FTP
             IIs100.Authorization.AuthorizationRuleCollection authRulesCollection = this.ftpSitesService.GetAuthorizationRuleCollection(String.Format("{0}/{1}", this.SiteId, ftpAccount.Name));
             ftpAccount.CanRead = false;
             ftpAccount.CanWrite = false;
-            foreach (IIs100.Authorization.AuthorizationRule rule in authRulesCollection)
+            var matchingRule = authRulesCollection
+                .FirstOrDefault(rule =>
+                    rule.AccessType == AuthorizationRuleAccessType.Allow
+                    && rule.Users.Split(',').Any(userName => String.Compare(userName, ftpAccount.Name, true) == 0));
+
+            if (matchingRule != null)
             {
-                if (rule.AccessType == AuthorizationRuleAccessType.Allow)
-                {
-                    foreach (string userName in rule.Users.Split(','))
-                    {
-                        if (String.Compare(userName, ftpAccount.Name, true) == 0)
-                        {
-                            ftpAccount.CanWrite = (rule.Permissions & PermissionsFlags.Write) == PermissionsFlags.Write;
-                            ftpAccount.CanRead = (rule.Permissions & PermissionsFlags.Read) == PermissionsFlags.Read;
-                        }
-                    }
-                }
+                ftpAccount.CanWrite = (matchingRule.Permissions & PermissionsFlags.Write) == PermissionsFlags.Write;
+                ftpAccount.CanRead = (matchingRule.Permissions & PermissionsFlags.Read) == PermissionsFlags.Read;
             }
 
             // Load user account.
@@ -872,10 +861,9 @@ namespace FuseCP.Providers.FTP
             // set default logging fields
             site[FtpSite.MSFTP7_LOG_EXT_FILE_FIELDS] = DEFAULT_LOG_EXT_FILE_FIELDS;
 
-            if (!String.IsNullOrEmpty(this.SharedIP))
-                site.Bindings[0] = new ServerBinding(this.SharedIP, "21", String.Empty);
-            else
-                site.Bindings[0] = new ServerBinding("*", "21", "*");
+            site.Bindings[0] = !String.IsNullOrEmpty(this.SharedIP)
+                ? new ServerBinding(this.SharedIP, "21", String.Empty)
+                : new ServerBinding("*", "21", "*");
                 //// Get information on local server.
                 //IPHostEntry localServerHostEntry = Dns.GetHostEntry(Dns.GetHostName());
                 //foreach (IPAddress address in localServerHostEntry.AddressList)
@@ -966,40 +954,34 @@ namespace FuseCP.Providers.FTP
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (FtpAccount item in items.OfType<FtpAccount>())
             {
-                if (item is FtpAccount)
+                try
                 {
-                    try
-                    {
-                        // make FTP account read-only
-                        FtpAccount account = GetAccount(item.Name);
-                        account.Enabled = enabled;
-                        UpdateAccount(account);
-                    }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-                    {
-                        Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
-                    }
+                    // make FTP account read-only
+                    FtpAccount account = GetAccount(item.Name);
+                    account.Enabled = enabled;
+                    UpdateAccount(account);
+                }
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                {
+                    Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
             }
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (FtpAccount item in items.OfType<FtpAccount>())
             {
-                if (item is FtpAccount)
+                try
                 {
-                    try
-                    {
-                        // delete FTP account from default FTP site
-                        DeleteAccount(item.Name);
-                    }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-                    {
-                        Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
-                    }
+                    // delete FTP account from default FTP site
+                    DeleteAccount(item.Name);
+                }
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                {
+                    Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
             }
         }

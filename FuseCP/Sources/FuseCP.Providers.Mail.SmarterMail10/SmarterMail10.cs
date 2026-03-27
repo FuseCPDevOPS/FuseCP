@@ -136,43 +136,37 @@ namespace FuseCP.Providers.Mail
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (MailDomain item in items.OfType<MailDomain>())
 			{
-				if (item is MailDomain)
+				try
 				{
-					try
+					// enable/disable mail domain
+					if (DomainExists(item.Name))
 					{
-						// enable/disable mail domain
-						if (DomainExists(item.Name))
-						{
-							MailDomain mailDomain = GetDomain(item.Name);
-							mailDomain.Enabled = enabled;
-							UpdateDomain(mailDomain);
-						}
+						MailDomain mailDomain = GetDomain(item.Name);
+						mailDomain.Enabled = enabled;
+						UpdateDomain(mailDomain);
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
-					}
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
 				}
 			}
 		}
 
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (MailDomain item in items.OfType<MailDomain>())
 			{
-				if (item is MailDomain)
+				try
 				{
-					try
-					{
-						// delete mail domain
-						DeleteDomain(item.Name);
-					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
-					}
+					// delete mail domain
+					DeleteDomain(item.Name);
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
 				}
 			}
 		}
@@ -182,12 +176,10 @@ namespace FuseCP.Providers.Mail
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items)
+			foreach (MailAccount item in items.OfType<MailAccount>())
 			{
-				if (item is MailAccount)
+				try
 				{
-					try
-					{
                         svcUserAdmin users = new svcUserAdmin();
                         PrepareProxy(users);
 
@@ -205,11 +197,10 @@ namespace FuseCP.Providers.Mail
                         diskspace.DiskSpace = userStats.BytesSize;
                         itemsDiskspace.Add(diskspace);
                         Log.WriteEnd(String.Format("Calculating mail account '{0}' size", item.Name));
-					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-					{
-						Log.WriteError(ex);
-					}
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Log.WriteError(ex);
 				}
 			}
 			return itemsDiskspace.ToArray();
@@ -706,12 +697,7 @@ namespace FuseCP.Providers.Mail
 			try
 			{
 				string[] aliases = GetDomainAliases(domainName);
-				foreach (string alias in aliases)
-				{
-					if (String.Compare(alias, aliasName, true) == 0)
-						return true;
-				}
-				return false;
+				return aliases.Any(alias => String.Compare(alias, aliasName, true) == 0);
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -1040,20 +1026,14 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 
-				List<MailAccount> accounts = new List<MailAccount>();
-
-
-				foreach (UserInfo user in result.Users)
-				{
-					if (user.IsDomainAdmin && !ImportDomainAdmin)
-						continue;
-
-					MailAccount account = new MailAccount();
-					account.Name = user.UserName;
-					account.Password = user.Password;
-					accounts.Add(account);
-				}
-				return accounts.ToArray();
+				return result.Users
+					.Where(user => ImportDomainAdmin || !user.IsDomainAdmin)
+					.Select(user => new MailAccount
+					{
+						Name = user.UserName,
+						Password = user.Password
+					})
+					.ToArray();
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -1114,15 +1094,11 @@ namespace FuseCP.Providers.Mail
 				if (!forwResult.Result)
 					throw new Exception(forwResult.Message);
 
-				string[] forwAddresses = forwResult.ForwardingAddress.Split(';', ',');
-				List<string> listForAddresses = new List<string>();
-				foreach (string forwAddress in forwAddresses)
-				{
-					if (!String.IsNullOrEmpty(forwAddress.Trim()))
-						listForAddresses.Add(forwAddress.Trim());
-				}
-
-				mailbox.ForwardingAddresses = listForAddresses.ToArray();
+				mailbox.ForwardingAddresses = forwResult.ForwardingAddress
+					.Split(';', ',')
+					.Select(forwAddress => forwAddress.Trim())
+					.Where(forwAddress => !String.IsNullOrEmpty(forwAddress))
+					.ToArray();
 				mailbox.DeleteOnForward = forwResult.DeleteOnForward;
 
 				// get autoresponder info
@@ -1330,20 +1306,14 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 
-				List<MailAlias> aliasesList = new List<MailAlias>();
-
-
-				foreach (AliasInfo alias in result.AliasInfos)
-				{
-					if (alias.Addresses.Length == 1)
+				return result.AliasInfos
+					.Where(alias => alias.Addresses.Length == 1)
+					.Select(alias => new MailAlias
 					{
-						MailAlias mailAlias = new MailAlias();
-						mailAlias.Name = alias.Name + "@" + domainName;
-						mailAlias.ForwardTo = alias.Addresses[0];
-						aliasesList.Add(mailAlias);
-					}
-				}
-				return aliasesList.ToArray();
+						Name = alias.Name + "@" + domainName,
+						ForwardTo = alias.Addresses[0]
+					})
+					.ToArray();
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -1499,21 +1469,14 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
 
-				List<MailGroup> groups = new List<MailGroup>();
-
-				foreach (AliasInfo alias in result.AliasInfos)
-				{
-					//group - alias with more than one forwarding address
-					if (alias.Addresses.Length > 1)
+				return result.AliasInfos
+					.Where(alias => alias.Addresses.Length > 1)
+					.Select(alias => new MailGroup
 					{
-						MailGroup mailGroup = new MailGroup();
-						mailGroup.Name = alias.Name + "@" + domainName;
-						mailGroup.Members = alias.Addresses;
-						groups.Add(mailGroup);
-					}
-				}
-
-				return groups.ToArray();
+						Name = alias.Name + "@" + domainName,
+						Members = alias.Addresses
+					})
+					.ToArray();
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
@@ -1623,14 +1586,7 @@ namespace FuseCP.Providers.Mail
 
 				if (result.Result)
 				{
-					foreach (string member in result.listNames)
-					{
-						if (string.Compare(member, listName, true) == 0)
-						{
-							exists = true;
-							break;
-						}
-					}
+					exists = result.listNames.Any(member => string.Compare(member, listName, true) == 0);
 				}
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -2110,11 +2066,10 @@ namespace FuseCP.Providers.Mail
                 foreach (string s in names)
                 {
                     RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                    if (subkey != null)
-                        if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                        {
-                            productName = (string)subkey.GetValue("DisplayName");
-                        }
+					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+					{
+						productName = (string)subkey.GetValue("DisplayName");
+					}
                     if (productName != null && productName.Contains("SmarterMail"))
                     {
                         if (subkey != null)
@@ -2150,17 +2105,15 @@ namespace FuseCP.Providers.Mail
             foreach (string s in names)
             {
                 RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
-                if (subkey != null)
-                    if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
-                    {
-                        productName = (string)subkey.GetValue("DisplayName");
-                    }
-                if (productName != null)
-                    if (productName.Contains("SmarterMail"))
-                    {
-                        if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
-                        break;
-                    }
+				if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
+				{
+					productName = (string)subkey.GetValue("DisplayName");
+				}
+				if (productName != null && productName.Contains("SmarterMail"))
+				{
+					if (subkey != null) productVersion = (string)subkey.GetValue("DisplayVersion");
+					break;
+				}
             }
 
             if (!String.IsNullOrEmpty(productVersion))

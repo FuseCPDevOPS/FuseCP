@@ -726,15 +726,8 @@ namespace FuseCP.Providers.OS
                     if (ip == default) throw new IOException($"Could not resolve host {Uri.Host}");
 
                     var port = Uri.Port;
-
-                    if (port != 0)
-                    {
-                        await ConnectAsync(ip, port, protocol);
-                    }
-                    else
-                    {
-                        await ListenAsync(ip, protocol);
-                    }
+                    if (port != 0) await ConnectAsync(ip, port, protocol);
+                    else await ListenAsync(ip, protocol);
                 }
                 else if (IsWebSocket)
                 {

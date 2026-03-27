@@ -85,8 +85,9 @@ public class FilesController: ControllerBase
 		{
 			string homeFolder = GetHomeFolder(packageId);
 			string correctedPath = CorrectRelativePath(path);
-			if (homeFolder.Contains("/")) return @$"{homeFolder}/{correctedPath.Replace('\\', '/')}".Replace("//", "/");
-			else return @$"{homeFolder}\{correctedPath}".Replace("\\\\", "\\");
+            return homeFolder.Contains("/")
+                ? @$"{homeFolder}/{correctedPath.Replace('\\', '/')}".Replace("//", "/")
+                : @$"{homeFolder}\{correctedPath}".Replace("\\\\", "\\");
 		}
 
 		public string GetFullUncPackagePath(int packageId, int serviceId, string path)

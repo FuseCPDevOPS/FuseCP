@@ -76,15 +76,15 @@ namespace FuseCP.Build
 			{
 				var generic = (GenericNameSyntax)type;
 				var typeName = ((INamedTypeSymbol)model.GetTypeInfo(type).Type).GetFullTypeName();
-				if (typeName.StartsWith("System.Collections.Generic.List")) // change List to array
-					return ArrayType(generic.TypeArgumentList.Arguments.FirstOrDefault().Globalized(model))
+				return typeName.StartsWith("System.Collections.Generic.List") // change List to array
+					? ArrayType(generic.TypeArgumentList.Arguments.FirstOrDefault().Globalized(model))
 						.WithRankSpecifiers(SingletonList<ArrayRankSpecifierSyntax>(
 							ArrayRankSpecifier(
 								SingletonSeparatedList<ExpressionSyntax>(OmittedArraySizeExpression()))))
-						.WithTrailingTrivia(TriviaList(Comment("/*List*/")));
-				else return GenericName(Identifier(typeName),
-					TypeArgumentList(SeparatedList(generic.TypeArgumentList.Arguments
-						.Select(arg => arg.Globalized(model)))));
+						.WithTrailingTrivia(TriviaList(Comment("/*List*/")))
+					: GenericName(Identifier(typeName),
+						TypeArgumentList(SeparatedList(generic.TypeArgumentList.Arguments
+							.Select(arg => arg.Globalized(model)))));
 			}
 			else if (type is NullableTypeSyntax) return NullableType(((NullableTypeSyntax)type).ElementType.Globalized(model));
 			return ParseTypeName(((INamedTypeSymbol)model.GetTypeInfo(type).Type).GetFullTypeName());

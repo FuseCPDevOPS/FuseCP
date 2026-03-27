@@ -265,10 +265,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     foreach (GlobalDnsRecord d in dnsRecords)
                     {
-                        if (!string.IsNullOrEmpty(d.ExternalIP))
-                        {
-                            if (!IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
-                        }
+                        if (!string.IsNullOrEmpty(d.ExternalIP) && !IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
                 else
@@ -819,10 +816,7 @@ namespace FuseCP.EnterpriseServer
 
             foreach (GlobalDnsRecord d in dnsRecords)
             {
-                if (!string.IsNullOrEmpty(d.ExternalIP))
-                {
-                    if (!IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
-                }
+                if (!string.IsNullOrEmpty(d.ExternalIP) && !IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
             }
 
             // place log record
@@ -1170,30 +1164,28 @@ namespace FuseCP.EnterpriseServer
         // TODO test if IPv6 works
         {
             int bindingsCount = bindings.Count;
-            foreach (GlobalDnsRecord dnsRecord in dnsRecords)
+            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord =>
+                (dnsRecord.RecordType == "A" || dnsRecord.RecordType == "AAAA" || dnsRecord.RecordType == "CNAME" || dnsRecord.RecordType == "PTR") &&
+                dnsRecord.RecordName != "*"))
             {
-				if ((dnsRecord.RecordType == "A" || dnsRecord.RecordType == "AAAA" || dnsRecord.RecordType == "CNAME" || dnsRecord.RecordType == "PTR") &&
-                    dnsRecord.RecordName != "*")
-                {
-                    string recordData = Utils.ReplaceStringVariable(dnsRecord.RecordName, "host_name", hostName, true);
+                string recordData = Utils.ReplaceStringVariable(dnsRecord.RecordName, "host_name", hostName, true);
 
                     if (!string.IsNullOrEmpty(domainName))
                         recordData = recordData + ((string.IsNullOrEmpty(recordData)) ? "" : ".") + domainName;
                     //otherwise full recordData is supplied by hostName
                     
-                    if (ignoreGlobalDNSRecords)
-                    {
-                        //only look for the host_nanme record, ignore all others
-                        if (dnsRecord.RecordName == "[host_name]")
-                        {
-                            AddBinding(bindings, new ServerBinding(ipAddr, "80", recordData));
-                            break;
-                        }
-                    }
-                    else
+                if (ignoreGlobalDNSRecords)
+                {
+                    //only look for the host_nanme record, ignore all others
+                    if (dnsRecord.RecordName == "[host_name]")
                     {
                         AddBinding(bindings, new ServerBinding(ipAddr, "80", recordData));
+                        break;
                     }
+                }
+                else
+                {
+                    AddBinding(bindings, new ServerBinding(ipAddr, "80", recordData));
                 }
             }
             
@@ -1290,13 +1282,10 @@ namespace FuseCP.EnterpriseServer
             // get the list of all domains
             List<DomainInfo> myDomains = ServerController.GetMyDomains(siteItem.PackageId);
 
-            foreach (DomainInfo domain in myDomains)
-            {
+            pointers.AddRange(myDomains.Where(domain =>
                 // se bugfix domain.DomainName can differ to siteItem.Name
-                if (domain.WebSiteId == siteItemId &&
-                    String.Compare(domain.DomainName, siteItem.Name, true) != 0)
-                    pointers.Add(domain);
-            }
+                domain.WebSiteId == siteItemId &&
+                String.Compare(domain.DomainName, siteItem.Name, true) != 0));
 
             return pointers;
         }
@@ -1372,13 +1361,10 @@ namespace FuseCP.EnterpriseServer
                     if (ignoreGlobalDNSRecords)
                     {
                         //ignore all other except the host_name record
-                        foreach (GlobalDnsRecord r in dnsRecords)
+                        var hostRecord = dnsRecords.FirstOrDefault(r => r.RecordName == "[host_name]");
+                        if (hostRecord != null)
                         {
-                            if (r.RecordName == "[host_name]")
-                            {
-                                tmpDnsRecords.Add(r);
-                                break;
-                            }
+                            tmpDnsRecords.Add(hostRecord);
                         }
                     }
                     else
@@ -4187,21 +4173,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         private bool DoesHeaderExistInDomains(string header, List<DomainInfo> domains)
         {
-            bool bExist = false;
-
-            if (!string.IsNullOrEmpty(header))
-            {
-                foreach (DomainInfo d in domains)
-                {
-                    if ((header == d.DomainName.ToLower()) &&
-                        (d.IsDomainPointer))
-                    {
-                        bExist = true;
-                        break;
-                    }
-                }
-            }
-            return bExist;
+            return !string.IsNullOrEmpty(header) &&
+                domains.Any(d => header == d.DomainName.ToLower() && d.IsDomainPointer);
         }
 
 

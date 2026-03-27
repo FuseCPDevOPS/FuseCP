@@ -52,18 +52,13 @@ namespace FuseCP.EnterpriseServer.Data
 			Scope = scope;
 			Context = context;
 
-			if (level == 0)
-			{
-				Query = context.TempIds
+			Query = level == 0
+				? context.TempIds
 					.Where(id => id.Scope == scope)
-					.Select(id => id.Id);
-			}
-			else
-			{
-				Query = context.TempIds
+					.Select(id => id.Id)
+				: context.TempIds
 					.Where(id => id.Scope == scope && id.Level == level)
 					.Select(id => id.Id);
-			}
 		}
 
 		public TempIdSet(DbContext context, IEnumerable<int> ids, Guid scope = default, int level = 0):
@@ -216,18 +211,13 @@ namespace FuseCP.EnterpriseServer.Data
 			Scope = scope;
 			Context = context;
 
-			if (level == 0)
-			{
-				Query = context.TempIds
+			Query = level == 0
+				? context.TempIds
 					.Where(id => id.Scope == scope)
-					.Select(id => new DatedId { Id = id.Id, Date = id.Date });
-			}
-			else
-			{
-				Query = context.TempIds
+					.Select(id => new DatedId { Id = id.Id, Date = id.Date })
+				: context.TempIds
 					.Where(id => id.Scope == scope && id.Level == level)
 					.Select(id => new DatedId { Id = id.Id, Date = id.Date });
-			}
 		}
 
 		public TempDatedIdSet(DbContext context, IEnumerable<DatedId> ids, Guid scope = default(Guid), int level = 0) :

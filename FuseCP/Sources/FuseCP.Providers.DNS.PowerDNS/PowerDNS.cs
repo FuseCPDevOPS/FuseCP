@@ -416,8 +416,7 @@ namespace FuseCP.Providers.DNS
                     record.RecordTTL = int.Parse(reader["ttl"].ToString());
 
                     int mxPriority = 0;
-                    if (!string.IsNullOrEmpty(reader["prio"].ToString()))
-                    if (Int32.TryParse(reader["prio"].ToString(), out mxPriority))
+                    if (!string.IsNullOrEmpty(reader["prio"].ToString()) && Int32.TryParse(reader["prio"].ToString(), out mxPriority))
                     {
                         record.MxPriority = mxPriority;
                         record.SrvPriority = mxPriority;
