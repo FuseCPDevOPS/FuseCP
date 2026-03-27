@@ -2437,19 +2437,14 @@ namespace FuseCP.Providers.Web
 			string version = GetHeliconApeVersion(siteId, installDir);
 
 			if (version.Equals(HELICON_APE_NOT_REGISTERED))
-			{
 				// Ape installed for site
 				return "Helicon.Ape.ApeModule";
-			}
-			else
-			{
-				// Ape installed globally in GAC
-				// return full type with version
-				return
-					 string.Format(
-						  "Helicon.Ape.ApeModule, Helicon.Ape, Version={0}, Culture=neutral, PublicKeyToken=95bfbfd1a38437eb",
-						  version);
-			}
+
+			// Ape installed globally in GAC
+			// return full type with version
+			return string.Format(
+				"Helicon.Ape.ApeModule, Helicon.Ape, Version={0}, Culture=neutral, PublicKeyToken=95bfbfd1a38437eb",
+				version);
 		}
 
 		private string GetHeliconApeHandlerType(string siteId)
@@ -2458,19 +2453,14 @@ namespace FuseCP.Providers.Web
 			string version = GetHeliconApeVersion(siteId, installDir);
 
 			if (version.Equals(HELICON_APE_NOT_REGISTERED))
-			{
 				// Ape installed for site
 				return "Helicon.Ape.Handler";
-			}
-			else
-			{
-				// Ape installed globally in GAC
-				// return full type with version
-				return
-					 string.Format(
-						  "Helicon.Ape.Handler, Helicon.Ape, Version={0}, Culture=neutral, PublicKeyToken=95bfbfd1a38437eb",
-						  version);
-			}
+
+			// Ape installed globally in GAC
+			// return full type with version
+			return string.Format(
+				"Helicon.Ape.Handler, Helicon.Ape, Version={0}, Culture=neutral, PublicKeyToken=95bfbfd1a38437eb",
+				version);
 		}
 
 		private string FindregistrationInfo(string path)

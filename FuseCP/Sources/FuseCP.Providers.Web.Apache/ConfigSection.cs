@@ -73,8 +73,7 @@ namespace FuseCP.Providers.Web.Apache
 			{
 				if (ident == null)
 				{
-					if (Parent == null) ident = "";
-					else ident = $"{Parent.Ident}   ";
+					ident = Parent == null ? "" : $"{Parent.Ident}   ";
 				}
 				return ident;
 			}

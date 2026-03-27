@@ -2793,9 +2793,9 @@ namespace FuseCP.EnterpriseServer
                 return login + strCounter;
             else
             {
-                if (login.Length - (fullLen - maxLogin) > 0)
-                    return login.Substring(0, login.Length - (fullLen - maxLogin)) + strCounter;
-                else return strCounter; // ????
+                return login.Length - (fullLen - maxLogin) > 0
+                    ? login.Substring(0, login.Length - (fullLen - maxLogin)) + strCounter
+                    : strCounter; // ????
             }
 
         }

@@ -1538,16 +1538,9 @@ namespace FuseCP.Providers.Virtualization
             using (CimInstance objVM = Mi.GetCimInstance("Msvm_ComputerSystem", "Name = '{0}'", vmId))
             using (CimInstance objVMSystemSettings = Mi.GetAssociatedCimInstance(objVM, "Msvm_VirtualSystemSettingData", "Msvm_SettingsDefineState"))
             {
-                CimInstance objSynEthernerSettingsData = null;
-
-                if (string.IsNullOrEmpty(guestNetworkAdapterConfiguration.MAC)) //If dont have we just take first an adapter from VM.
-                {
-                    objSynEthernerSettingsData = Mi.GetAssociatedCimInstance(objVMSystemSettings, "Msvm_SyntheticEthernetPortSettingData");
-                }
-                else
-                {
-                    objSynEthernerSettingsData = //search for network adapter with MAC address in VM settings.
-                        Mi.EnumerateAssociatedInstances(objVMSystemSettings, null, "Msvm_SyntheticEthernetPortSettingData")
+                CimInstance objSynEthernerSettingsData = string.IsNullOrEmpty(guestNetworkAdapterConfiguration.MAC)
+                    ? Mi.GetAssociatedCimInstance(objVMSystemSettings, "Msvm_SyntheticEthernetPortSettingData")
+                    : Mi.EnumerateAssociatedInstances(objVMSystemSettings, null, "Msvm_SyntheticEthernetPortSettingData")
                         .FirstOrDefault(
                             a => string.Equals(
                                     a.CimInstanceProperties["Address"]?.Value?.ToString(),
@@ -1555,7 +1548,6 @@ namespace FuseCP.Providers.Virtualization
                                     StringComparison.OrdinalIgnoreCase
                             )
                         );
-                }
 
                 if (objSynEthernerSettingsData == null)
                     throw new InvalidOperationException($"Could not find network adapter for VM '{vmId}' with MAC '{guestNetworkAdapterConfiguration.MAC}' or no adapter found.");

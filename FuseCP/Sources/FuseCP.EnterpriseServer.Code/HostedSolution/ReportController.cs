@@ -658,7 +658,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     try
                     {
                         stats.SipAddress = lyncUser.SipAddress;
-                        if (string.IsNullOrEmpty(lyncUser.LineUri)) stats.PhoneNumber = string.Empty; else stats.PhoneNumber = lyncUser.LineUri;
+                        stats.PhoneNumber = string.IsNullOrEmpty(lyncUser.LineUri) ? string.Empty : lyncUser.LineUri;
                         
                         LyncUserPlan plan = LyncController.GetLyncUserPlan(org.Id, lyncUser.LyncUserPlanId);
                         stats.Conferencing = plan.Conferencing;
@@ -723,7 +723,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     try
                     {
                         stats.SipAddress = sfbUser.SipAddress;
-                        if (string.IsNullOrEmpty(sfbUser.LineUri)) stats.PhoneNumber = string.Empty; else stats.PhoneNumber = sfbUser.LineUri;
+                        stats.PhoneNumber = string.IsNullOrEmpty(sfbUser.LineUri) ? string.Empty : sfbUser.LineUri;
 
                         SfBUserPlan plan = SfBController.GetSfBUserPlan(org.Id, sfbUser.SfBUserPlanId);
                         stats.Conferencing = plan.Conferencing;

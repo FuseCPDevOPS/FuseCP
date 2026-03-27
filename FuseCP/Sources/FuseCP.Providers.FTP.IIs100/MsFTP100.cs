@@ -873,11 +873,8 @@ namespace FuseCP.Providers.FTP
             site[FtpSite.MSFTP7_LOG_EXT_FILE_FIELDS] = DEFAULT_LOG_EXT_FILE_FIELDS;
 
             if (!String.IsNullOrEmpty(this.SharedIP))
-            {
                 site.Bindings[0] = new ServerBinding(this.SharedIP, "21", String.Empty);
-            }
             else
-            {
                 site.Bindings[0] = new ServerBinding("*", "21", "*");
                 //// Get information on local server.
                 //IPHostEntry localServerHostEntry = Dns.GetHostEntry(Dns.GetHostName());
@@ -888,7 +885,7 @@ namespace FuseCP.Providers.FTP
                 //        site.Bindings[0] = new ServerBinding(address.ToString(), "21", String.Empty);
                 //    }
                 //}
-            }
+
 
             if (this.IsFtpServerBindingsInUse(site))
             {

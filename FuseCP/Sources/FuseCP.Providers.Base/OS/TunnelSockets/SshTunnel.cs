@@ -90,14 +90,9 @@ namespace FuseCP.Providers.OS
             }
             var sshhost = sshhostip.ToString();
 
-            if (string.IsNullOrEmpty(Uri.Password))
-            {
-                Client = new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Keys);
-            }
-            else
-            {
-                Client = new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Password);
-            }
+            Client = string.IsNullOrEmpty(Uri.Password)
+                ? new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Keys)
+                : new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Password);
 
             ForwardedPort = Uri.LocalForwardPort == 0 ? new ForwardedPortLocal(Loopback.ToString(), remotehost, Uri.RemoteForwardPort) : new ForwardedPortLocal(Loopback.ToString(), Uri.LocalForwardPort, remotehost, Uri.RemoteForwardPort);
 
@@ -130,14 +125,9 @@ namespace FuseCP.Providers.OS
                 }
             }
 
-            if (string.IsNullOrEmpty(Uri.Password))
-            {
-                Client = new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Keys);
-            }
-            else
-            {
-                Client = new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Password);
-            }
+            Client = string.IsNullOrEmpty(Uri.Password)
+                ? new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Keys)
+                : new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Password);
 
             ForwardedPort = Uri.LocalForwardPort == 0 ? new ForwardedPortLocal(Loopback.ToString(), remotehost, Uri.RemoteForwardPort) : new ForwardedPortLocal(Loopback.ToString(), Uri.LocalForwardPort, remotehost, Uri.RemoteForwardPort);
 

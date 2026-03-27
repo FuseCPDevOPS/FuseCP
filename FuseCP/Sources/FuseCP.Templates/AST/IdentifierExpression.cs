@@ -203,10 +203,7 @@ if (lookupContext.Variables.TryGetValue(variable.Name, out var _ckv))
             for (int i = 0; i < prms.Length; i++)
             {
                 prms[i] = method.MethodParameters[i].Eval(context);
-                if (prms[i] != null)
-                    prmTypes[i] = prms[i].GetType();
-                else
-                    prmTypes[i] = typeof(object); // "null" parameter was specified
+                prmTypes[i] = prms[i] != null ? prms[i].GetType() : typeof(object); // "null" parameter was specified
             }
 
             // find method

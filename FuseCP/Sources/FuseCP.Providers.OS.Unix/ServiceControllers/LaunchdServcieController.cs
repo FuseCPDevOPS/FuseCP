@@ -84,11 +84,7 @@ public class LaunchdServiceController : ServiceController
 			else return null;
 		}
 		var match = Regex.Match(output, @"^\s*state\s*=\s*(?<state>.+?)\s*?$", RegexOptions.Multiline);
-		string status = null;
-		if (match.Success)
-		{
-			status = match.Groups["state"].Value;
-		}
+		string status = match.Success ? match.Groups["state"].Value : null;
 
 		return new OSService()
 		{

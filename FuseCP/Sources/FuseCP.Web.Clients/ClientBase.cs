@@ -353,8 +353,7 @@ namespace FuseCP.Web.Clients
 			if (url[url.Length - 1] == '/') url = url.Substring(0, url.Length - 1);
 			url = Regex.Replace(url, "(/(?:net|ws|basic|ssl|tcp|pipe|tcp/ssl|pipe/ssl|grpc|grpc/web))(?=(?:/[a-zA-Z0-9_]+)?$)|((?<!/(?:net|ws|basic|ssl|tcp|pipe|tcp/ssl|pipe/ssl|grpc|grpc/web)(?:/[a-zA-Z0-9_]+)?)$)", $"/{api}");
 
-			if (parts.Length > 1) return $"{url}?{parts[1]}";
-			else return url;
+			return parts.Length > 1 ? $"{url}?{parts[1]}" : url;
 		}
 
 		public static bool HasApi(this string url, string api) => Regex.IsMatch(url, $"/{api}(?:/|$|\\?)");

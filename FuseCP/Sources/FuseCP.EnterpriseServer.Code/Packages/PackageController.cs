@@ -1053,13 +1053,9 @@ namespace FuseCP.EnterpriseServer
             if (!String.IsNullOrEmpty(packageSettings["ChildSpacesFolder"]))
             {
                 var packagePath = FilesController.GetFullPackagePath(resellerPackageId, packageSettings["ChildSpacesFolder"]);
-                if (packagePath.Contains("\\"))
-                {
-                    initialPath = $"{packagePath}\\{user.Username}";
-                } else
-                {
-                    initialPath = $"{packagePath}/{user.Username}";
-                }
+                initialPath = packagePath.Contains("\\")
+                    ? $"{packagePath}\\{user.Username}"
+                    : $"{packagePath}/{user.Username}";
 
             }
             else
@@ -1070,12 +1066,9 @@ namespace FuseCP.EnterpriseServer
                 // build initial path
                 string usersHome = osSesstings["UsersHome"];
                 if (usersHome.Contains("\\"))
-                {
-                    if (!usersHome.EndsWith("\\")) usersHome += '\\';
-                } else
-                {
-                    if (!usersHome.EndsWith("/")) usersHome += '/';
-                }
+                    usersHome = usersHome.EndsWith("\\") ? usersHome : usersHome + '\\';
+                else
+                    usersHome = usersHome.EndsWith("/") ? usersHome : usersHome + '/';
                 initialPath = usersHome + user.Username;
             }
 

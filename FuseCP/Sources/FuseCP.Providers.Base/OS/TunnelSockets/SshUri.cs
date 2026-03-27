@@ -112,13 +112,11 @@ namespace FuseCP.Providers.OS
 
 
                             var keys = Query["keyfiles"];
-                            if (keys != null)
-                            {
-                                Keys = keys.Split(',')
+                            Keys = keys != null
+                                ? keys.Split(',')
                                     .Select(file => new PrivateKeyFile(file))
-                                    .ToArray();
-                            }
-                            else Keys = null;
+                                    .ToArray()
+                                : null;
                         }
                         else throw new ArgumentException("This url is not a valid ssh url.");
 

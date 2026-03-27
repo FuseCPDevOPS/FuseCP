@@ -170,8 +170,9 @@ WantedBy=multi-user.target
 					cmd = Shell.Find(cmd);
 					if (cmd != null)
 					{
-						if (cmd.Contains(' ')) exe = @$"""{cmd}"" {exe.Substring(indexOfQuote + 1)}";
-						else exe = $@"{cmd} {exe.Substring(indexOfQuote + 1)}";
+						exe = cmd.Contains(' ')
+							? @$"""{cmd}"" {exe.Substring(indexOfQuote + 1)}"
+							: $@"{cmd} {exe.Substring(indexOfQuote + 1)}";
 					}
 				}
 			}
@@ -187,8 +188,9 @@ WantedBy=multi-user.target
 					cmd = Shell.Find(cmd);
 					if (cmd != null)
 					{
-						if (cmd.Contains(' ')) exe = $@"""{cmd}"" {exe.Substring(indexOfSpace + 1)}";
-						else exe = $@"{cmd} {exe.Substring(indexOfSpace + 1)}";
+						exe = cmd.Contains(' ')
+							? $@"""{cmd}"" {exe.Substring(indexOfSpace + 1)}"
+							: $@"{cmd} {exe.Substring(indexOfSpace + 1)}";
 					}
 				}
 			}

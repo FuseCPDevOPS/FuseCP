@@ -90,11 +90,7 @@ namespace FuseCP.Providers.Virtualization
                         HostedSolutionLog.LogError(new Exception($"GetSummaryInformation returned error code: {retVal}"));
 
                     object summaryObj = result.OutParameters["SummaryInformation"].Value;
-                    if (summaryObj is CimInstance[] summaryArray) {
-                        return summaryArray.FirstOrDefault();
-                    } else {
-                        return null;
-                    }
+                    return summaryObj is CimInstance[] summaryArray ? summaryArray.FirstOrDefault() : null;
                 }                
             }            
         }
