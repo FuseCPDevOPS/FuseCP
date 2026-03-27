@@ -166,14 +166,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                             TaskManager.Write(String.Format("The VM files were deleted."));
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         TaskManager.WriteError(ex, VirtualizationErrorCodes.DELETE_VM_FILES_ERROR + ":");
                     }
                 }
                 #endregion                
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, VirtualizationErrorCodes.DELETE_ERROR);
                 //return;
@@ -206,5 +206,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
         }
     }
 }
+
 
 

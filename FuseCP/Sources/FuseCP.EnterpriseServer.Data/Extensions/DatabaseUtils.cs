@@ -222,7 +222,7 @@ namespace FuseCP.EnterpriseServer.Data
 			{
 				conn.Open();
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return false;
 			}
@@ -241,7 +241,7 @@ namespace FuseCP.EnterpriseServer.Data
 			{
 				conn.Open();
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return false;
 			}
@@ -1524,7 +1524,7 @@ SELECT DatabaseVersion FROM Version");
 					})
 					.Max() ?? default;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return default;
 			}
@@ -1574,7 +1574,7 @@ SELECT DatabaseVersion FROM Version");
 							{
 								command.ExecuteNonQuery();
 							}
-							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								throw new Exception("Error executing SQL command: " + sql, ex);
 							}
@@ -1593,7 +1593,7 @@ SELECT DatabaseVersion FROM Version");
 					ProcessMySqlScript(connection, connectionString, script, commandCount, OnProgressChange, ProcessInstallVariables);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Can't run SQL script " + script.File, ex);
 			}
@@ -1736,7 +1736,7 @@ SELECT DatabaseVersion FROM Version");
 						commandCount++;
 					}
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					throw new Exception("Can't read SQL script " + script.File, ex);
 				}
@@ -1750,5 +1750,6 @@ SELECT DatabaseVersion FROM Version");
 		}
 	}
 }
+
 
 

@@ -39,7 +39,9 @@ namespace FuseCP.EnterpriseServer
                 {
                     passwordLength = Utils.ParseInt(passwordPolicy.Split(';')[2].Trim(), passwordLength);
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
             }
 
             // generate password
@@ -56,3 +58,4 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+

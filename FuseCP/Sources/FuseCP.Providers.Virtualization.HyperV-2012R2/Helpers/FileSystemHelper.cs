@@ -110,7 +110,9 @@ namespace FuseCP.Providers.Virtualization
                 {
                     FileUtils.DeleteFile(path);
                 }
-                catch { /* just skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
                 FileUtils.DeleteFile(path);
             }
             else

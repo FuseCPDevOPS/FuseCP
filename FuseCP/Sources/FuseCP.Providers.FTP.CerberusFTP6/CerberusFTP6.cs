@@ -409,7 +409,7 @@ namespace FuseCP.Providers.FTP
                         // get daily statistics
                         itemsBandwidth[i].Days = Calculate(item.Name, since.AddDays(-1));
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -464,5 +464,6 @@ namespace FuseCP.Providers.FTP
 
     }
 }
+
 
 

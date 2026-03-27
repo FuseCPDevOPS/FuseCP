@@ -568,7 +568,7 @@ namespace FuseCP.EnterpriseServer
                                 ServerController.CreateDomainPreviewDomain("", domainId);
 
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             // error while adding domain
                             DeletePackage(packageId);
@@ -589,7 +589,7 @@ namespace FuseCP.EnterpriseServer
                                 return result;
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             // error while creating web site
                             DeletePackage(packageId);
@@ -618,7 +618,7 @@ namespace FuseCP.EnterpriseServer
                                 return result;
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             // error while creating ftp account
                             DeletePackage(packageId);
@@ -684,7 +684,7 @@ namespace FuseCP.EnterpriseServer
                             if (!String.IsNullOrEmpty(previewDomain))
                                 MailServerController.AddMailDomainPointer(mailDomainId, instantDomain.DomainId);
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             // error while creating mail account
                             DeletePackage(packageId);
@@ -702,7 +702,7 @@ namespace FuseCP.EnterpriseServer
 
                 return result;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1947,7 +1947,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //record.RecordType = LogRecordType.Error;
                 //record.Description["Error"] = ex.ToString();
@@ -2773,5 +2773,6 @@ if (orderedItems.TryGetValue(serviceId, out var _ckv))
         #endregion
     }
 }
+
 
 

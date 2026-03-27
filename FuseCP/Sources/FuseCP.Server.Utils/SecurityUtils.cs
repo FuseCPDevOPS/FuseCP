@@ -514,7 +514,7 @@ namespace FuseCP.Providers.Utils
                     {
                         user = computer.Children.Find(username, "user");
                     }
-                    catch
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         return userInfo; // user doesn't exist
                     }
@@ -548,7 +548,7 @@ namespace FuseCP.Providers.Utils
                     return userInfo;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not get system user properties", ex);
             }
@@ -671,7 +671,7 @@ namespace FuseCP.Providers.Utils
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not create system user", ex);
             }
@@ -787,7 +787,7 @@ namespace FuseCP.Providers.Utils
                         objUser.Invoke("SetPassword", new object[] { user.Password });
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not update system user", ex);
             }
@@ -825,7 +825,7 @@ namespace FuseCP.Providers.Utils
                     objUser.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not change user password", ex);
             }
@@ -857,7 +857,7 @@ namespace FuseCP.Providers.Utils
                     machine.Children.Remove(objUser);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not delete system user", ex);
             }
@@ -909,7 +909,7 @@ namespace FuseCP.Providers.Utils
                         break;
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     throw new Exception("Could not get account sid", ex);
                 }
@@ -1057,7 +1057,7 @@ namespace FuseCP.Providers.Utils
                     {
                         group.Invoke("Add", new object[] { userObjPath });
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError("SecurityUtils.GrantLocalGroupMembership has failed to succeed", ex);
                     }
@@ -1110,7 +1110,7 @@ namespace FuseCP.Providers.Utils
                                 }
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             Log.WriteError("SecurityUtils.HasLocalGroupMembership has failed to succeed", ex);
                         }
@@ -1151,7 +1151,7 @@ namespace FuseCP.Providers.Utils
                     {
                         group.Invoke("Remove", new object[] { userObjPath });
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError("SecurityUtils.RevokeLocalGroupMembership has failed to succeed", ex);
                     }
@@ -1260,7 +1260,7 @@ namespace FuseCP.Providers.Utils
                     return groupInfo;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not get system group properties", ex);
             }
@@ -1317,14 +1317,16 @@ namespace FuseCP.Providers.Utils
                         {
                             objGroup.Invoke("Add", new object[] { String.Format("WinNT://{0}/{1},user", Environment.MachineName, user) });
                         }
-                        catch { /* skip */ }
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        {
+                        }
                     }
 
                     // save group
                     objGroup.CommitChanges();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not create system group", ex);
             }
@@ -1404,14 +1406,16 @@ namespace FuseCP.Providers.Utils
                         {
                             objGroup.Invoke("Add", new object[] { String.Format("WinNT://{0}/{1},user", Environment.MachineName, user) });
                         }
-                        catch { /* skip */ }
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        {
+                        }
                     }
 
                     // save group
                     objGroup.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not update system group", ex);
             }
@@ -1442,7 +1446,7 @@ namespace FuseCP.Providers.Utils
                     machine.Children.Remove(objGroup);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not delete system group", ex);
             }
@@ -1476,7 +1480,7 @@ namespace FuseCP.Providers.Utils
                 //
                 return GetGroupObject(srchRoot, groupName, serverSettings);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // TO-DO: Add log actions here
             }
@@ -1493,7 +1497,7 @@ namespace FuseCP.Providers.Utils
             {
                 result = GetGroupObject(objRoot, groupName, serverSettings);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 objRoot = GetUsersRoot(serverSettings, groupsOU);
                 result = GetGroupObject(objRoot, groupName, serverSettings);
@@ -1729,7 +1733,7 @@ namespace FuseCP.Providers.Utils
                     strSid.Append(iSubAuth);
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return "";
             }

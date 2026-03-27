@@ -95,7 +95,7 @@ namespace FuseCP.Providers.Mail
 					throw new Exception(result.Message);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not create mailbox", ex);
 			}
@@ -166,7 +166,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not update mailbox", ex);
 			}
@@ -189,7 +189,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't create domain alias.", ex);
 			}
@@ -212,7 +212,7 @@ namespace FuseCP.Providers.Mail
 				if (!result.Result)
 					throw new Exception(result.Message);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't delete domain alias.", ex);
 			}
@@ -244,7 +244,7 @@ namespace FuseCP.Providers.Mail
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -324,7 +324,7 @@ namespace FuseCP.Providers.Mail
 						throw new Exception(result.Message);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't create mail list.", ex);
 			}
@@ -369,7 +369,7 @@ namespace FuseCP.Providers.Mail
 
 				return list;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -424,7 +424,7 @@ namespace FuseCP.Providers.Mail
 
 				return mailLists.ToArray();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain domain mail lists.", ex);
 			}
@@ -450,7 +450,7 @@ namespace FuseCP.Providers.Mail
 				if (!gResult.Result)
 					throw new Exception(gResult.Message);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't delete a mail list.", ex);
 			}
@@ -521,7 +521,7 @@ namespace FuseCP.Providers.Mail
 						throw new Exception(result.Message);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't update mail list.", ex);
 			}

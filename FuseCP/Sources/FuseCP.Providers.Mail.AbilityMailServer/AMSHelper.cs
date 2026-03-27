@@ -119,7 +119,7 @@ namespace FuseCP.Providers.Mail
                         }
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(ex);
                 }
@@ -224,7 +224,7 @@ namespace FuseCP.Providers.Mail
 				Directory.Delete(accountDir, true);
 				succeed = true;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
                 Log.WriteError(ex);
 			}
@@ -242,7 +242,7 @@ namespace FuseCP.Providers.Mail
 				Directory.Delete(domainFolder, true);
 				succeed = true;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
                 Log.WriteError(ex.Message, ex);
 			}
@@ -262,7 +262,7 @@ namespace FuseCP.Providers.Mail
 				File.Delete(maillistConfig);
 				succeed = true;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
                 Log.WriteError(ex.Message, ex);
 			}

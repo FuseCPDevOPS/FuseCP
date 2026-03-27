@@ -144,7 +144,7 @@ namespace FuseCP.Web.Clients
                             File.Delete(files[i]);
                             directories.Add(Path.GetDirectoryName(files[i]));
                         }
-                        catch
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             // remove extension
                             var file = Regex.Replace(files[i], @"\.[^.]*$", "", RegexOptions.Singleline);
@@ -386,7 +386,7 @@ namespace FuseCP.Web.Clients
                             if (File.Exists(pdb)) File.Copy(pdb, Path.ChangeExtension(temp, $".pdb"), true);
                             file = temp;
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             throw new Exception($"Cannot load assembly {temp} because it's used by another process: {ex}");
                         }

@@ -281,6 +281,8 @@ namespace FuseCP.WebDav.Core.Managers
             }
 #pragma warning disable 0168
             catch (InvalidOperationException exception)
+            {
+            }
 #pragma warning restore 0168
             {
                 return false;

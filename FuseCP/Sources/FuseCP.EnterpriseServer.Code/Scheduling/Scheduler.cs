@@ -100,7 +100,7 @@ namespace FuseCP.EnterpriseServer
 
                 objTask.DoWork();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, "Error executing scheduled task");
             }
@@ -177,7 +177,7 @@ namespace FuseCP.EnterpriseServer
                     schedule.Run();
                 }
             }
-            catch (Exception Ex) when (!(Ex is OutOfMemoryException) && !(Ex is StackOverflowException) && !(Ex is AccessViolationException))
+            catch (System.Exception Ex) when (!(Ex is System.OutOfMemoryException) && !(Ex is System.StackOverflowException) && !(Ex is System.AccessViolationException))
             {
                 try
                 {
@@ -191,5 +191,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

@@ -301,7 +301,7 @@ namespace FuseCP.EnterpriseServer
                 Organizations orgProxy = GetOrganizationProxy(serviceId);
                 orgProxy.DeleteOrganization(organizationId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -419,7 +419,9 @@ namespace FuseCP.EnterpriseServer
                     // parse settings
                     enableAdditionalGroup = Utils.ParseBool(settings["OrgPolicy"], false);
                 }
-                catch { /* skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 if (enableAdditionalGroup)
                 {
@@ -461,7 +463,7 @@ namespace FuseCP.EnterpriseServer
                 ExchangeServerController.CreateOrganizationRootPublicFolder(itemId);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //rollback organization
                 try
@@ -539,7 +541,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -583,7 +585,7 @@ namespace FuseCP.EnterpriseServer
                                 throw new ApplicationException(sb.ToString());
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             successful = false;
                             TaskManager.WriteError(ex);
@@ -602,7 +604,7 @@ namespace FuseCP.EnterpriseServer
                     throw new ApplicationException(sb.ToString());
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 successful = false;
                 TaskManager.WriteError(ex);
@@ -638,7 +640,7 @@ namespace FuseCP.EnterpriseServer
                                 throw new ApplicationException(sb.ToString());
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             successful = false;
                             TaskManager.WriteError(ex);
@@ -659,7 +661,7 @@ namespace FuseCP.EnterpriseServer
                     throw new ApplicationException(sb.ToString());
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 successful = false;
                 TaskManager.WriteError(ex);
@@ -696,7 +698,7 @@ namespace FuseCP.EnterpriseServer
                                 throw new ApplicationException(sb.ToString());
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             successful = false;
                             TaskManager.WriteError(ex);
@@ -717,7 +719,7 @@ namespace FuseCP.EnterpriseServer
                     throw new ApplicationException(sb.ToString());
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 successful = false;
                 TaskManager.WriteError(ex);
@@ -744,7 +746,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     HostedSharePointServerController.DeleteSiteCollections(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -754,7 +756,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     HostedSharePointServerEntController.DeleteSiteCollections(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -770,7 +772,7 @@ namespace FuseCP.EnterpriseServer
                     if (org.CrmOrganizationId != Guid.Empty)
                         CRMController.DeleteOrganization(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -799,7 +801,7 @@ namespace FuseCP.EnterpriseServer
                                     throw new ApplicationException(sb.ToString());
                                 }
                             }
-                            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                             {
                                 successful = false;
                                 TaskManager.WriteError(ex);
@@ -818,7 +820,7 @@ namespace FuseCP.EnterpriseServer
                         throw new ApplicationException(sb.ToString());
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -830,7 +832,7 @@ namespace FuseCP.EnterpriseServer
                     if (!string.IsNullOrEmpty(org.LyncTenantId) && DeleteLyncUsers(itemId))
                             LyncController.DeleteOrganization(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -842,7 +844,7 @@ namespace FuseCP.EnterpriseServer
                     if (!string.IsNullOrEmpty(org.SfBTenantId) && DeleteSfBUsers(itemId))
                             SfBController.DeleteOrganization(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -868,7 +870,7 @@ namespace FuseCP.EnterpriseServer
                     if (!string.IsNullOrEmpty(org.GlobalAddressList))
                         ExchangeServerController.DeleteOrganization(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -882,7 +884,7 @@ namespace FuseCP.EnterpriseServer
                         successful = false;
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -895,7 +897,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     orgProxy.DeleteOrganization(org.OrganizationId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     successful = false;
                     TaskManager.WriteError(ex);
@@ -909,7 +911,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         DeleteOrganizationDomain(itemId, domain.DomainId);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         successful = false;
                         TaskManager.WriteError(ex);
@@ -924,7 +926,7 @@ namespace FuseCP.EnterpriseServer
 
                 return successful ? 0 : BusinessErrorCodes.ERROR_ORGANIZATION_DELETE_SOME_PROBLEMS;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1349,7 +1351,7 @@ namespace FuseCP.EnterpriseServer
 
                 return stats;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1397,7 +1399,7 @@ namespace FuseCP.EnterpriseServer
 
                 return checkResult;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1509,7 +1511,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1571,7 +1573,7 @@ namespace FuseCP.EnterpriseServer
                 // save changes
                 PackageController.UpdatePackageItem(newDefaultOrg);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1784,7 +1786,7 @@ namespace FuseCP.EnterpriseServer
 
                 SetAccessTokenResponse(token, pincode);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 TaskManager.CompleteResultTask(result);
@@ -1851,7 +1853,7 @@ namespace FuseCP.EnterpriseServer
 
                 SetAccessTokenResponse(token, pincode);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 TaskManager.CompleteResultTask(result);
@@ -1918,7 +1920,7 @@ namespace FuseCP.EnterpriseServer
 
                 SetAccessTokenResponse(token, pincode);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 TaskManager.CompleteResultTask(result);
@@ -2002,7 +2004,7 @@ namespace FuseCP.EnterpriseServer
                 // send mail message
                 MailHelper.SendMessage(from, mailTo, null, subject, body, priority, isHtml);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 TaskManager.CompleteResultTask(result);
@@ -2172,7 +2174,7 @@ namespace FuseCP.EnterpriseServer
                 // send mail message
                 MailHelper.SendMessage(from, mailTo, null, subject, body, priority, isHtml);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -2314,7 +2316,7 @@ namespace FuseCP.EnterpriseServer
                 // Log Extension
                 LogExtension.WriteVariable("Password Settings", xml);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -2423,7 +2425,7 @@ namespace FuseCP.EnterpriseServer
                 // Log Extension
                 LogExtension.WriteVariable("General Settings", xml);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -2564,7 +2566,7 @@ namespace FuseCP.EnterpriseServer
                     TaskManager.WriteError("Failed to create user");
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -2685,7 +2687,7 @@ namespace FuseCP.EnterpriseServer
                 AddAccountEmailAddress(userId, email);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -2951,7 +2953,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3197,7 +3199,7 @@ namespace FuseCP.EnterpriseServer
                 }
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3292,7 +3294,7 @@ namespace FuseCP.EnterpriseServer
                 // load account
                 account = GetAccount(itemId, accountId, false);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
 
             try
             {
@@ -3318,7 +3320,9 @@ namespace FuseCP.EnterpriseServer
 
                 return retUser;
             }
-            catch { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             finally
             {
                 //TaskManager.CompleteTask();
@@ -3342,7 +3346,7 @@ namespace FuseCP.EnterpriseServer
                 // load account
                 account = GetAccount(itemId, accountId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // Swallow non-critical exceptions during org/account load; next try block handles the main operation
                 System.Diagnostics.Trace.TraceWarning("Exception loading org/account: " + ex.Message);
@@ -3372,7 +3376,9 @@ namespace FuseCP.EnterpriseServer
 
                 return retUser;
             }
-            catch { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
 
             return (account);
         }
@@ -3474,7 +3480,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3578,7 +3584,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3632,7 +3638,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3745,7 +3751,7 @@ namespace FuseCP.EnterpriseServer
 
                 return accounId;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -3844,7 +3850,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     orgProxy = GetOrganizationProxy(org.ServiceId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.IsSuccess = false;
                     res.ErrorCodes.Add(ErrorCodes.CANNOT_GET_ORGANIZATION_PROXY);
@@ -3862,7 +3868,7 @@ namespace FuseCP.EnterpriseServer
 
                 res.Value = policyRes.Value;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 res.IsSuccess = false;
@@ -3992,7 +3998,7 @@ namespace FuseCP.EnterpriseServer
                     TaskManager.WriteError("Failed to create securitygroup");
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -4055,7 +4061,7 @@ namespace FuseCP.EnterpriseServer
                     accounts[i].Notes = notes[i];
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -4125,7 +4131,7 @@ namespace FuseCP.EnterpriseServer
 
                 return securityGroup;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4165,7 +4171,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4229,7 +4235,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4317,7 +4323,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4358,7 +4364,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4417,7 +4423,7 @@ namespace FuseCP.EnterpriseServer
 
                 return ret.ToArray();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4626,7 +4632,7 @@ namespace FuseCP.EnterpriseServer
                 ExchangeAccount[] ret1 = ret.ToArray();
                 return ret1;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4653,7 +4659,7 @@ namespace FuseCP.EnterpriseServer
             {
                 levelID = Database.AddSupportServiceLevel(levelName, levelDescription);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -4676,7 +4682,7 @@ namespace FuseCP.EnterpriseServer
                 if (res.IsSuccess)
                 Database.DeleteSupportServiceLevel(levelId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 TaskManager.CompleteResultTask(res);
@@ -4700,7 +4706,7 @@ namespace FuseCP.EnterpriseServer
                 
                 Database.UpdateSupportServiceLevel(levelID, levelName, levelDescription);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4719,7 +4725,7 @@ namespace FuseCP.EnterpriseServer
             {
                 return ObjectUtils.CreateListFromDataReader<ServiceLevel>(Database.GetSupportServiceLevels()).ToArray();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4739,7 +4745,7 @@ namespace FuseCP.EnterpriseServer
                 return ObjectUtils.FillObjectFromDataReader<ServiceLevel>(
                     Database.GetSupportServiceLevel(levelID));
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -4785,5 +4791,6 @@ namespace FuseCP.EnterpriseServer
         AppendOrgId,
     }
 }
+
 
 

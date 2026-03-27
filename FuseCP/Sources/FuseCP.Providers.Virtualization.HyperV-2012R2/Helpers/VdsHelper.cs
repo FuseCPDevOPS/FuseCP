@@ -333,7 +333,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 File.Delete(remotePath);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // TODO
             }

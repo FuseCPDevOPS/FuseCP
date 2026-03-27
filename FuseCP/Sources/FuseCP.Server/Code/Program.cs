@@ -74,7 +74,7 @@ namespace FuseCP.Server
 					{
 						version = AssemblyName.GetAssemblyName(file).Version ?? new Version(0, 0, 0, 0);
 					}
-					catch
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						continue;
 					}

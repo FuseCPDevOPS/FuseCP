@@ -68,7 +68,7 @@ namespace FuseCP.Providers.HostedSolution
                     return languages.ToArray();
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -150,7 +150,7 @@ namespace FuseCP.Providers.HostedSolution
                     return siteCollections.ToArray();
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -181,7 +181,7 @@ namespace FuseCP.Providers.HostedSolution
                     return null;
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -352,7 +352,7 @@ namespace FuseCP.Providers.HostedSolution
                         }
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError(ex);
 
@@ -455,7 +455,7 @@ namespace FuseCP.Providers.HostedSolution
                             }
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError(ex);
 
@@ -464,7 +464,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to delete site collection.", ex);
             }
@@ -510,7 +510,7 @@ namespace FuseCP.Providers.HostedSolution
                     return backupFileName;
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to backup site collection.", ex);
             }
@@ -557,7 +557,7 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         owner = web.SiteUsers[siteCollection.OwnerLogin];
                     }
-                    catch
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // Ignore this error.
                     }
@@ -576,7 +576,7 @@ namespace FuseCP.Providers.HostedSolution
                     FileUtils.DeleteFile(expandedFile);
                 });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to restore site collection.", ex);
             }

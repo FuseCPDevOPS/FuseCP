@@ -226,7 +226,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
 
                 return sw.SwitchId;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_CREATE_PRIVATE_VIRTUAL_SWITCH_ERROR");
                 return null;
@@ -264,7 +264,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
 
                 return sw.SwitchId;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_CREATE_DMZ_VIRTUAL_SWITCH_ERROR");
                 return null;
@@ -272,5 +272,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
         }
     }
 }
+
 
 

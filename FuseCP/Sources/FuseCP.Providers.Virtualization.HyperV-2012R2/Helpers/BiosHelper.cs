@@ -79,7 +79,7 @@ namespace FuseCP.Providers.Virtualization
                     {
                         info.SecureBootTemplate = result[0].GetString("SecureBootTemplate");
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         info.SecureBootTemplate = "";//catch error on Hyper-V 2012 R2 (No Secure Boot Templates)
                     }

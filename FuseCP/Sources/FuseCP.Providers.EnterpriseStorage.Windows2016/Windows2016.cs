@@ -460,7 +460,7 @@ if (quotas.TryGetValue(fullName, out var _ckv))
                     FileUtils.CreateDirectory(UsersHome);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messages.Add(String.Format("Folder '{0}' could not be created: {1}",
                     UsersHome, ex.Message));
@@ -478,7 +478,7 @@ if (quotas.TryGetValue(fullName, out var _ckv))
                         // delete home folder
                         FileUtils.DeleteFile(item.Name);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -506,7 +506,7 @@ if (quotas.TryGetValue(fullName, out var _ckv))
 
                         Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -565,5 +565,6 @@ if (quotas.TryGetValue(fullName, out var _ckv))
         }
     }
 }
+
 
 

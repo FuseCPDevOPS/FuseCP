@@ -111,7 +111,7 @@ namespace FuseCP.EnterpriseServer
                 // delete local_user from database
                 Database.DeleteUser(SecurityContext.User.UserId, userId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -123,5 +123,6 @@ namespace FuseCP.EnterpriseServer
         #endregion
     }
 }
+
 
 

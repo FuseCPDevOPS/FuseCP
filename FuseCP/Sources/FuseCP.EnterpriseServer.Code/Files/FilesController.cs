@@ -188,7 +188,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -222,7 +222,7 @@ public class FilesController: ControllerBase
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -284,7 +284,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -329,7 +329,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -379,7 +379,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -441,7 +441,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -503,7 +503,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -536,7 +536,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -583,7 +583,7 @@ public class FilesController: ControllerBase
 
             return unzippedFiles.ToArray();
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -632,7 +632,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -691,7 +691,7 @@ public class FilesController: ControllerBase
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -725,7 +725,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -758,7 +758,7 @@ public class FilesController: ControllerBase
             return 0;
 
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -782,7 +782,7 @@ public class FilesController: ControllerBase
             CalculatePackagesDiskspaceTask calc = new CalculatePackagesDiskspaceTask();
             calc.CalculatePackage(packageId);
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             // write to audit log
             TaskManager.WriteError(ex);
@@ -806,7 +806,7 @@ public class FilesController: ControllerBase
 
             return users;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -828,7 +828,7 @@ public class FilesController: ControllerBase
 
 				return permissions;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -854,7 +854,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -886,7 +886,7 @@ public class FilesController: ControllerBase
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -1013,7 +1013,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -1078,7 +1078,7 @@ public class FilesController: ControllerBase
                 FilesController.SetFolderQuota(childPackage.PackageId, homeFolder, driveName, Quotas.OS_DISKSPACE);
             }
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             throw TaskManager.WriteError(ex);
         }
@@ -1112,7 +1112,7 @@ public class FilesController: ControllerBase
 
             return 0;
         }
-        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
         {
             //Log and return a generic error rather than throwing an exception
             TaskManager.WriteError(ex);
@@ -1126,5 +1126,6 @@ public class FilesController: ControllerBase
 
     }
 }
+
 
 

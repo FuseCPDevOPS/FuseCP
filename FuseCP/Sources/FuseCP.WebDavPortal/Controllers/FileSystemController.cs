@@ -119,6 +119,8 @@ namespace FuseCP.WebDavPortal.Controllers
             }
 #pragma warning disable 0168
             catch (UnauthorizedException e)
+            {
+            }
 #pragma warning restore 0168
             {
                 return NotFound();
@@ -151,6 +153,8 @@ namespace FuseCP.WebDavPortal.Controllers
             }
 #pragma warning disable 0168
             catch (UnauthorizedException e)
+            {
+            }
 #pragma warning disable 0168
             {
                 return NotFound();

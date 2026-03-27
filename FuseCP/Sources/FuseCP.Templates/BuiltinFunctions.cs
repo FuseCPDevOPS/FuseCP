@@ -54,7 +54,7 @@ namespace FuseCP.Templates
                 Int32 num = Convert.ToInt32(number);
                 return num % 2 == 0;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new ParserException("Cannot convert IsEven() function parameter to integer", Line, Column);
             }
@@ -67,7 +67,7 @@ namespace FuseCP.Templates
                 Int32 num = Convert.ToInt32(number);
                 return num % 2 == 1;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new ParserException("Cannot convert IsOdd() function parameter to integer", Line, Column);
             }
@@ -90,7 +90,7 @@ namespace FuseCP.Templates
                 Convert.ToInt32(val);
                 return true;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return false;
             }
@@ -202,7 +202,7 @@ namespace FuseCP.Templates
             {
                 return Convert.ToInt32(val);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new ParserException("Value cannot be converted to Int32", Line, Column);
             }
@@ -214,7 +214,7 @@ namespace FuseCP.Templates
             {
                 return Convert.ToDouble(val);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new ParserException("Value cannot be converted to Double", Line, Column);
             }
@@ -226,7 +226,7 @@ namespace FuseCP.Templates
             {
                 return Convert.ToDateTime(val);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new ParserException("Value cannot be converted to DateTime", Line, Column);
             }

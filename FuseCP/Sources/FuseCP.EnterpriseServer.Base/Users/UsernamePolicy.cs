@@ -45,7 +45,9 @@ namespace FuseCP.EnterpriseServer
                 prefix = parts[4];
                 suffix = parts[5];
             }
-            catch { /* skip */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
         public bool Enabled
@@ -85,3 +87,4 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+

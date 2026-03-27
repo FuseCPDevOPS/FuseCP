@@ -154,7 +154,7 @@ namespace FuseCP.EnterpriseServer.Data
 							// try implicit type conversion
 							props[i].SetValue(obj, propVal, null);
 						}
-						catch
+						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 						{
 							// convert to string and then set property value
 							try
@@ -162,7 +162,7 @@ namespace FuseCP.EnterpriseServer.Data
 								string strVal = propVal.ToString();
 								props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
 							}
-							catch
+							catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
 							{
 								// skip property init
 							}
@@ -216,7 +216,7 @@ namespace FuseCP.EnterpriseServer.Data
 									// try implicit type conversion
 									prop.Property.SetValue(obj, propVal, null);
 								}
-								catch
+								catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 								{
 									// convert to string and then set property value
 									try
@@ -224,7 +224,7 @@ namespace FuseCP.EnterpriseServer.Data
 										string strVal = propVal.ToString();
 										prop.Property.SetValue(obj, Cast(strVal, prop.Property.PropertyType), null);
 									}
-									catch
+									catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
 									{
 										// skip property init
 									}
@@ -317,7 +317,7 @@ namespace FuseCP.EnterpriseServer.Data
 										// try implicit type conversion
 										props[i].SetValue(obj, propVal, null);
 									}
-									catch
+									catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 									{
 										// convert to string and then set property value
 										try
@@ -325,11 +325,15 @@ namespace FuseCP.EnterpriseServer.Data
 											string strVal = propVal.ToString();
 											props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
 										}
-										catch { }
+										catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
+										{
+										}
 									}
 								}
 							}
-							catch { } // just skip
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+							{
+							}
 						} // for properties
 					}
 				}
@@ -392,13 +396,15 @@ namespace FuseCP.EnterpriseServer.Data
 									props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
 								}
 							}
-							catch
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								// skip property init 
 							}
 						}
 					}
-					catch { } // just skip
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+					{
+					}
 				} // for properties
 			}
 
@@ -458,13 +464,15 @@ namespace FuseCP.EnterpriseServer.Data
 								prop.Property.SetValue(obj, Cast(strVal, prop.Property.PropertyType), null);
 							}
 						}
-						catch
+						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 						{
 							// skip property init 
 						}
 					}
 				}
-				catch { } // just skip
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+				}
 			} // for properties
 
 			return obj;
@@ -592,7 +600,7 @@ namespace FuseCP.EnterpriseServer.Data
 										props[i].SetValue(obj, propVal, null);
 									}
 								}
-								catch
+								catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 								{
 									// convert to string and then set property value
 									try
@@ -600,14 +608,16 @@ namespace FuseCP.EnterpriseServer.Data
 										string strVal = propVal.ToString();
 										props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
 									}
-									catch
+									catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
 									{
 										// skip property init
 									}
 								}
 							}
 						}
-						catch { } // just skip
+						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+						{
+						}
 					} // for properties
 				}
 			}
@@ -1103,3 +1113,4 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 	}
 }
+

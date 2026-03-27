@@ -1007,7 +1007,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 objKvpExchange = wmi.GetRelatedWmiObject(objVm, "msvm_KvpExchangeComponent");
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetKVPItems", new Exception("msvm_KvpExchangeComponent"));
 
@@ -1573,7 +1573,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error {0} Virtual Machine '{1}'",
                     started ? "starting" : "turning off",
@@ -1642,7 +1642,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     DeleteFile(vm.RootFolderPath);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(String.Format("Cannot delete virtual machine folder '{0}'",
                         vm.RootFolderPath), ex);
@@ -1650,7 +1650,7 @@ namespace FuseCP.Providers.Virtualization
                 #endregion
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -1663,7 +1663,7 @@ namespace FuseCP.Providers.Virtualization
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }
@@ -1698,7 +1698,9 @@ namespace FuseCP.Providers.Virtualization
                     result.Job = CreateJobFromWmiObject(objJob);
                 }
             }
-            catch { /* dumb */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
 
             return result;
         }
@@ -1934,7 +1936,9 @@ namespace FuseCP.Providers.Virtualization
                 {
                     FileUtils.DeleteFile(path);
                 }
-                catch { /* just skip */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
                 FileUtils.DeleteFile(path);
             }
             else

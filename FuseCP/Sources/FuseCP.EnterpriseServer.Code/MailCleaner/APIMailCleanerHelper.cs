@@ -183,7 +183,7 @@ namespace FuseCP.EnterpriseServer
                 if (Convert.ToBoolean(cntx.Quotas["Filters.Enable"].QuotaAllocatedValue))
                     APICall("domain/add/name/" + f_stDomain, packageId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -203,7 +203,7 @@ namespace FuseCP.EnterpriseServer
                 if (Convert.ToBoolean(cntx.Quotas["Filters.Enable"].QuotaAllocatedValue))
                     APICall("domain/remove/name/" + f_stDomain, packageId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -214,5 +214,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

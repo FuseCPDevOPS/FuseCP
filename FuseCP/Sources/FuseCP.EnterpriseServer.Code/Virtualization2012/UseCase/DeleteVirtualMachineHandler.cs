@@ -164,7 +164,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                             //not necessarily, we are guaranteed to delete files using DeleteVirtualMachineExtended, left only for deleting folder :)
                             vs.DeleteRemoteFile(vm.RootFolderPath);//TODO: replace by powershell ???
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         res.ErrorCodes.Add(VirtualizationErrorCodes.DELETE_VM_FILES_ERROR + ": " + ex.Message);
                     }
@@ -174,7 +174,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 // delete meta item
                 PackageController.DeletePackageItem(itemId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_ERROR, ex);
                 return res;
@@ -241,14 +241,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     };
                     worker.DeleteVPSAsync();
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CREATE_TASK_START_ERROR, ex);
                     return res;
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.DELETE_ERROR, ex);
                 return res;
@@ -259,5 +259,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
 
 

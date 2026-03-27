@@ -93,7 +93,7 @@ namespace FuseCP.EnterpriseServer
                         task.TaskType));      
                // Thread.Sleep(40000);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // log error
                 TaskManager.WriteError(ex, "Error executing scheduled task");
@@ -113,5 +113,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

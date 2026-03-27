@@ -438,7 +438,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                         }
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetVirtualMachines VMList", ex);
                     }
@@ -466,7 +466,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             {
                 image = (SKImage)Api.GetScreenshot(vmId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var svgName = assembly.GetManifestResourceNames()
@@ -934,7 +934,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             {
                 await tunnel.ConnectAsync();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new IOException(ex.Message, ex);
             }
@@ -1000,7 +1000,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                         }
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetVirtualMachineSnapshots", ex);
                     }
@@ -1010,7 +1010,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 {
                     snapshots.Find(x => x.Id.Equals(current_snapshot)).IsCurrent = true;
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     //no current snapshot found - no snapshots
                     HostedSolutionLog.LogInfo("GetVirtualMachineSnapshots no Snapshots found", ex.Message);
@@ -1050,7 +1050,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                     if (snapshot.Data.snaptime > 0)
                         proxmoxsnapshot.Created = ConvertFromUnixTimestamp(snapshot.Data.snaptime.ToString());
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogWarning("GetSnapshot unable to set snapshot values", ex);
                 }
@@ -1303,14 +1303,14 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                         }
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogWarning("GetDVDISOs - unable to add DVD to List", ex.Message);
                     }
                 }
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogWarning("GetDVDISOs - unable to Get DVD ISO List", ex.Message);
             }
@@ -2046,7 +2046,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                         }
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError("GetProcessorCoresNumber", ex);
                     }
@@ -2196,7 +2196,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error {0} Virtual Machine '{1}'",
                      started ? "starting" : "turning off",
@@ -2261,7 +2261,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 #endregion
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2274,7 +2274,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }

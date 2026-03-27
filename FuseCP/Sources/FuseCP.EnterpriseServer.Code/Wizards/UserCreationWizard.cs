@@ -169,7 +169,7 @@ namespace FuseCP.EnterpriseServer
                             return domainId;
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -195,7 +195,7 @@ namespace FuseCP.EnterpriseServer
                             return webSiteId;
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -228,7 +228,7 @@ namespace FuseCP.EnterpriseServer
                             return ftpAccountId;
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -287,7 +287,7 @@ namespace FuseCP.EnterpriseServer
                         MailServerController.UpdateMailDomain(mailDomain);
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // rollback wizard
                         Rollback();
@@ -357,5 +357,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

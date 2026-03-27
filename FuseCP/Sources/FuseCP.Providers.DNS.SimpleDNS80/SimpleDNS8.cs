@@ -341,7 +341,7 @@ namespace FuseCP.Providers.DNS
             {
                 statisticsResponse = StatisticsResponse.FromJson(response);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //If the JSON cannot be deserialized then there is a problem with the API, so we return false
                 return false;
@@ -563,3 +563,4 @@ namespace FuseCP.Providers.DNS
         }
     }
 }
+

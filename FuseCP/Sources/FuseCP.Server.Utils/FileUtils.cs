@@ -886,7 +886,7 @@ namespace FuseCP.Providers.Utils
                 br.Close();
             }
             //use Exception e as it can handle any exception 
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //code if u like 
             }
@@ -1113,7 +1113,9 @@ namespace FuseCP.Providers.Utils
 
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             { }
         }
        #region Advanced Delete

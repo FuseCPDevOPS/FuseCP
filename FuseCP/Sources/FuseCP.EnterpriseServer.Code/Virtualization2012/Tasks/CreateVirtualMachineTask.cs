@@ -135,7 +135,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         TaskManager.Write("VPS_CREATE_SETUP_EXTERNAL_NETWORK_SKIP");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_SETUP_EXTERNAL_NETWORK_ERROR");
                     return;
@@ -196,7 +196,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         TaskManager.Write("VPS_CREATE_SETUP_MANAGEMENT_NETWORK_SKIP");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_SETUP_MANAGEMENT_NETWORK_ERROR");
                     return;
@@ -236,7 +236,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         TaskManager.Write("VPS_CREATE_SETUP_PRIVATE_NETWORK_SKIP");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_SETUP_PRIVATE_NETWORK_ERROR");
                     return;
@@ -276,7 +276,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         TaskManager.Write("VPS_CREATE_SETUP_DMZ_NETWORK_SKIP");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_SETUP_DMZ_NETWORK_ERROR");
                     return;
@@ -337,7 +337,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
 
                     isDiskConverted = true; //We are sure that the disc was copied.
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_CONVERT_VHD_ERROR");
                     return;
@@ -353,7 +353,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                 {
                     vhdInfo = vs.GetVirtualHardDiskInfo(vm.VirtualHardDrivePath[0]);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_GET_VHD_INFO");
                     return;
@@ -385,7 +385,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                     {
                         result = vs.ExpandVirtualHardDisk(vm.VirtualHardDrivePath[0], (ulong)vm.HddSize[0]);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "VPS_CREATE_EXPAND_VHD_ERROR");
                         return;
@@ -459,7 +459,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                             {
                                 vs.ExpandDiskVolume(mountedInfo.DiskAddress, mountedInfo.DiskVolumes[osTemplate.ProcessVolume]);
                             }
-                            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                             {
                                 TaskManager.WriteError(ex, "VPS_CREATE_DISKPART_ERROR");
                             }
@@ -505,7 +505,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
 
                                     TaskManager.Write("OS Time Zone: {0}", osTemplate.TimeZoneId);
                                 }
-                                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                                 {
                                     TaskManager.WriteError("VPS_CREATE_SYSPREP_FILE_ERROR", ex.Message);
                                 }
@@ -524,14 +524,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                                 return;
                             }
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             TaskManager.WriteError(ex, "VPS_CREATE_UNMOUNT_ERROR");
                             return;
                         }
                         #endregion
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         // error mounting
                         TaskManager.WriteError(ex, "VPS_CREATE_MOUNT_VHD");
@@ -568,7 +568,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         Thread.Sleep(2000 * attempt);
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "VPS_CREATE_CREATE_VM_ERROR");
                         return;
@@ -674,7 +674,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                         TaskManager.WriteWarning("VPS_CREATE_START_VPS_ERROR_JOB_START", result.ReturnValue.ToString());
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteWarning("VPS_CREATE_START_VPS_ERROR", ex.Message);
                 }
@@ -690,7 +690,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                 #endregion
                 TaskManager.IndicatorCurrent = 99; //CompleteTask make it to 100
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, VirtualizationErrorCodes.CREATE_ERROR);
                 return;
@@ -725,5 +725,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
         #endregion
     }
 }
+
 
 

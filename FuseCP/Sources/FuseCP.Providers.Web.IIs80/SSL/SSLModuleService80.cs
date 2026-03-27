@@ -120,7 +120,7 @@ namespace FuseCP.Providers.Web.Iis
                     AddBinding(x509Cert, website);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Error adding SSL certificate", ex);
                 cert.Success = false;
@@ -168,7 +168,7 @@ namespace FuseCP.Providers.Web.Iis
                 CloseRunspace(runSpace);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Error adding Lets Encrypt certificate IIS80", ex);
                 return ex.ToString();
@@ -193,7 +193,7 @@ namespace FuseCP.Providers.Web.Iis
             {
                 certificate = GetCurrentSiteCertificate(website);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 certificate = new SSLCertificate
                 {
@@ -497,7 +497,7 @@ namespace FuseCP.Providers.Web.Iis
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError(String.Format("Unable to delete certificate for website {0}", website.Name), ex);
                 result.IsSuccess = false;
@@ -598,7 +598,7 @@ namespace FuseCP.Providers.Web.Iis
                 var bindings = srvman.Sites[website.SiteId].Bindings;
                 return bindings.Any(b => string.IsNullOrEmpty(b.Host) && b.BindingInformation.Split(':')[1] != "*");
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return false;
             }
@@ -702,7 +702,7 @@ namespace FuseCP.Providers.Web.Iis
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }

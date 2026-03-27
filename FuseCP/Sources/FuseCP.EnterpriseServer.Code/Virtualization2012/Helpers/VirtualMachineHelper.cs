@@ -225,7 +225,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
                         break;
                     }
             }
-            catch { }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             items["os_template"] = osTemplate;
 
             // load service settings
@@ -244,3 +246,4 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
 
     }
 }
+

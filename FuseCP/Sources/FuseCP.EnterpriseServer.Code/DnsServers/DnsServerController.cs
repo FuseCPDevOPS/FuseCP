@@ -168,7 +168,7 @@ namespace FuseCP.EnterpriseServer
                         secDns.AddSecondaryZone(zoneName, primaryIPAddresses);
                         RegisterZoneItems(packageId, secondaryId, zoneName, false);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "Error adding secondary zone (service ID = " + secondaryId + ")");
                     }
@@ -181,7 +181,7 @@ namespace FuseCP.EnterpriseServer
                 //
                 TaskManager.ItemId = zoneItemId;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
             }
@@ -268,7 +268,7 @@ namespace FuseCP.EnterpriseServer
                         PackageController.DeletePackageItem(item.Id);
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex);
                 }
@@ -377,7 +377,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         return idn.GetUnicode(z);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         return null;
                     }
@@ -447,7 +447,7 @@ namespace FuseCP.EnterpriseServer
                     }
 
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "Error importing secondary zone(s)");
                 }
@@ -500,7 +500,7 @@ namespace FuseCP.EnterpriseServer
                 foreach (DnsRecord record in records)
                     serializer.Serialize(writer, record);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex, "Could not read zone records");
             }
@@ -577,5 +577,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

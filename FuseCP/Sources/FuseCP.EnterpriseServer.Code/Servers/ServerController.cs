@@ -267,7 +267,7 @@ namespace FuseCP.EnterpriseServer
 				}
 				return null;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				try
 				{
@@ -348,7 +348,7 @@ namespace FuseCP.EnterpriseServer
 				}
 				return;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				if (ex.Message.Contains("The signature or decryption was invalid"))
 				{
@@ -377,7 +377,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					providers = GetProviders();
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					TaskManager.WriteError(ex);
 					throw new ApplicationException("Could not get providers list.");
@@ -422,7 +422,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new ApplicationException("Could not find services. General error has occurred.", ex);
 			}
@@ -449,7 +449,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				DiscoverServices(server);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.WriteError(ex);
 			}
@@ -507,7 +507,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					DiscoverServices(server);
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					TaskManager.WriteError(ex);
 				}
@@ -958,7 +958,7 @@ namespace FuseCP.EnterpriseServer
 					UpdateServiceSettings(serviceId, bareSettings);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.WriteError(ex, "Error reading default provider settings");
 			}
@@ -1252,7 +1252,7 @@ namespace FuseCP.EnterpriseServer
 
 				res = ad.IsInstalled(provider.ProviderType);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_CHECK_IF_PROVIDER_SOFTWARE_INSTALLED, ex);
 
@@ -1273,7 +1273,7 @@ namespace FuseCP.EnterpriseServer
 
 				res = ad.IsInstalled(provider.ProviderType);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_CHECK_IF_PROVIDER_SOFTWARE_INSTALLED, ex);
 
@@ -1294,7 +1294,7 @@ namespace FuseCP.EnterpriseServer
 
 				res = ad.IsInstalled(provider.ProviderType);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, ErrorCodes.CANNOT_CHECK_IF_PROVIDER_SOFTWARE_INSTALLED, ex);
 
@@ -1377,7 +1377,7 @@ namespace FuseCP.EnterpriseServer
 				res.Value = Database.AddPrivateNetworkVLAN(serverId, vlan, comments);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "VLAN_ADD_ERROR", ex);
 				return res;
@@ -1412,7 +1412,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "VLAN_DELETE_RANGE_ERROR", ex);
 				return res;
@@ -1436,7 +1436,7 @@ namespace FuseCP.EnterpriseServer
 					return res;
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "VLAN_DELETE_ERROR", ex);
 				return res;
@@ -1469,7 +1469,7 @@ namespace FuseCP.EnterpriseServer
 					Database.AddPrivateNetworkVLAN(serverId, i, comments);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "VLAN_ADD_RANGE_ERROR", ex);
 				return res;
@@ -1502,7 +1502,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				Database.UpdatePrivateNetworVLAN(vlanId, serverId, vlan, comments);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "VLAN_UPDATE_ERROR", ex);
 				return res;
@@ -1572,7 +1572,7 @@ namespace FuseCP.EnterpriseServer
 					Database.DeallocatePackageVLAN(id);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "DEALLOCATE_PACKAGE_VLAN_ERROR", ex);
 				return res;
@@ -1692,13 +1692,13 @@ namespace FuseCP.EnterpriseServer
                 {
                     Database.AllocatePackageVLANs(packageId, isDmz, xml);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.CompleteResultTask(res, "VPS_CANNOT_ADD_VLANS_TO_DATABASE", ex);
                     return res;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, "VPS_ALLOCATE_PRIVATE_VLANS_GENERAL_ERROR", ex);
                 return res;
@@ -1770,7 +1770,7 @@ namespace FuseCP.EnterpriseServer
 											subnetMask, defaultGateway, comments, VLAN);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESS_ADD_ERROR", ex);
 				return res;
@@ -1865,7 +1865,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESS_ADD_RANGE_ERROR", ex);
 				return res;
@@ -1893,7 +1893,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				Database.UpdateIPAddress(addressId, (int)pool, serverId, externalIP, internalIP, subnetMask, defaultGateway, comments, VLAN);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESS_UPDATE_ERROR", ex);
 				return res;
@@ -1922,7 +1922,7 @@ namespace FuseCP.EnterpriseServer
 				string xmlIds = PrepareXML(addresses);
 				Database.UpdateIPAddresses(xmlIds, (int)pool, serverId, subnetMask, defaultGateway, comments, VLAN);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESSES_UPDATE_ERROR", ex);
 				return res;
@@ -1957,7 +1957,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESS_DELETE_RANGE_ERROR", ex);
 				return res;
@@ -1994,7 +1994,7 @@ namespace FuseCP.EnterpriseServer
 					return res;
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, "IP_ADDRESS_DELETE_ERROR", ex);
 				return res;
@@ -2151,13 +2151,13 @@ namespace FuseCP.EnterpriseServer
 				{
 					Database.AllocatePackageIPAddresses(packageId, orgId, xml);
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CANNOT_ADD_IP_ADDRESSES_TO_DATABASE, ex);
 					return res;
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ALLOCATE_EXTERNAL_ADDRESSES_GENERAL_ERROR, ex);
 				return res;
@@ -2264,7 +2264,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 					Database.DeallocatePackageIPAddress(id);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CANNOT_DELLOCATE_EXTERNAL_ADDRESSES, ex);
 				return res;
@@ -2873,7 +2873,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 						return zoneItemId;
 					}
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					throw TaskManager.WriteError(ex);
 				}
@@ -3012,7 +3012,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3079,7 +3079,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3163,7 +3163,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3209,7 +3209,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3267,7 +3267,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3403,7 +3403,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 								break;
 						}
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						TaskManager.WriteError(ex);
 					}
@@ -3500,7 +3500,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3561,7 +3561,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3588,7 +3588,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				Database.UpdateWhoisDomainInfo(domain.DomainId, domain.CreationDate, domain.ExpirationDate, DateTime.Now, domain.RegistrarName);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				//wrong domain 
 			}
@@ -3790,7 +3790,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3819,7 +3819,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3862,7 +3862,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 				return 0;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw TaskManager.WriteError(ex);
 			}
@@ -3949,5 +3949,6 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 		#endregion
 	}
 }
+
 
 

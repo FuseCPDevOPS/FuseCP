@@ -150,7 +150,7 @@ namespace FuseCP.Providers.OS
 
                 return argsWithCredentials.Skip(3).ToArray();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new SerializationException(ex.Message, ex);
             }
@@ -228,5 +228,6 @@ namespace FuseCP.Providers.OS
         public abstract Task<TunnelSocket> GetPveVncWebSocketAsync(int serviceItemId, VncCredentials credentials);
     }
 }
+
 
 

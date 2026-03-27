@@ -442,7 +442,7 @@ namespace FuseCP.Providers.HostedSolution
                 command = new Command("Update-CsUserDatabase");
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ret = false;
                 HostedSolutionLog.LogError("SetLyncUserGeneralSettingsInternal", ex);

@@ -82,7 +82,7 @@ namespace FuseCP.Providers.Virtualization
                     RunSpace = null;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }
@@ -264,7 +264,7 @@ namespace FuseCP.Providers.Virtualization
 
                 ExecuteFromStaticObj(cmd, false, true);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("ClearOldJobs", ex);
             }

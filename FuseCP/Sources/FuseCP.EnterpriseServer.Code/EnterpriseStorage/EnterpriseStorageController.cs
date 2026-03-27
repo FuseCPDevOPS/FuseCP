@@ -343,7 +343,7 @@ namespace FuseCP.EnterpriseServer
                     Database.UpdateEnterpriseFolder(itemId, folder.Name, folder.Name, quota);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // log error
                 TaskManager.WriteError(ex, "Error executing cloud folders background task");
@@ -383,7 +383,7 @@ namespace FuseCP.EnterpriseServer
                         StorageSpacesController.SetFolderNtfsPermissions(esFolder.StorageSpaceId, esFolder.Path, ConvertToUserPermissions(itemId, permissions.ToArray()), true, false);
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     // log error
                     TaskManager.WriteError(ex, "Error executing Cloud Folders background task");
@@ -418,7 +418,7 @@ namespace FuseCP.EnterpriseServer
                     EnterpriseStorageController.SetFRSMQuotaOnFolder(itemId, folder.Name, quota, quotaType);
                     EnterpriseStorageController.SetFolderPermission(itemId, folder.Name, permissions);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     // log error
                     TaskManager.WriteError(ex, "Error executing Cloud Folders background task");
@@ -531,7 +531,7 @@ namespace FuseCP.EnterpriseServer
                     EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, org.OrganizationId, Path.Join(homePath, org.OrganizationId));
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CREATE_FOLDER", ex);
             }
@@ -569,7 +569,7 @@ namespace FuseCP.EnterpriseServer
                     EnterpriseStorageController.AddWebDavDirectory(packageId, usersDomain, Path.Join(org.OrganizationId, folderName), uncPath);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CREATE_FOLDER", ex);
             }
@@ -616,7 +616,7 @@ namespace FuseCP.EnterpriseServer
                     EnterpriseStorageController.DeleteMappedDrivesGPO(itemId);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CLEANUP", ex);
             }
@@ -933,7 +933,7 @@ namespace FuseCP.EnterpriseServer
 
                 es.CreateFolder(org.OrganizationId, folderPath, webDavSetting);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CREATE_SUB_FOLDER", ex);
             }
@@ -1067,7 +1067,7 @@ namespace FuseCP.EnterpriseServer
                     return result;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CREATE_FOLDER", ex);
             }
@@ -1147,7 +1147,7 @@ namespace FuseCP.EnterpriseServer
                     Database.UpdateEnterpriseFolder(itemId, folderName, folderName, quota);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_SET_FRSM_QUOTA", ex);
             }
@@ -1196,7 +1196,7 @@ namespace FuseCP.EnterpriseServer
 
                 Database.DeleteEnterpriseFolder(itemId, folderName);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_DELETE_FOLDER", ex);
             }
@@ -1300,7 +1300,9 @@ namespace FuseCP.EnterpriseServer
                     result.PageItems = folders.ToArray();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) 
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) 
+            {
+            }
             { /*skip exception*/}
 
             return result;
@@ -1539,7 +1541,7 @@ namespace FuseCP.EnterpriseServer
                 return 0;
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1574,7 +1576,7 @@ namespace FuseCP.EnterpriseServer
 
                 return 0;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -1610,7 +1612,7 @@ namespace FuseCP.EnterpriseServer
 
                 EnterpriseStorageController.SetDriveMapsTargetingFilter(org, permission, path);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_SET_WEBDAV_FOLDER_RULES", ex);
             }
@@ -1939,7 +1941,7 @@ namespace FuseCP.EnterpriseServer
 
                         os.SetQuotaLimitOnFolder(orgFolder, curSetting.LocationDrive, quotaType, quotaSize + unit, 0, String.Empty, String.Empty);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         TaskManager.WriteError(ex);
                     }
@@ -1993,7 +1995,9 @@ namespace FuseCP.EnterpriseServer
                     }
                 }
             }
-            catch { /*something wrong*/ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
 
             return null;
         }
@@ -2214,7 +2218,7 @@ namespace FuseCP.EnterpriseServer
 
                 return stats;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw TaskManager.WriteError(ex);
             }
@@ -2271,7 +2275,7 @@ namespace FuseCP.EnterpriseServer
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_CREATE_MAPPED_DRIVE", ex);
             }
@@ -2325,7 +2329,7 @@ namespace FuseCP.EnterpriseServer
 
                 orgProxy.DeleteMappedDriveByPath(org.OrganizationId, path);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_DELETE_MAPPED_DRIVE", ex);
             }
@@ -2496,7 +2500,7 @@ namespace FuseCP.EnterpriseServer
 
                 orgProxy.SetDriveMapsTargetingFilter(org.OrganizationId, accounts.ToArray(), folderName);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_SET_MAPPED_DRIVE_TARGETING_FILTER", ex);
             }
@@ -2534,7 +2538,7 @@ namespace FuseCP.EnterpriseServer
 
                 orgProxy.DeleteMappedDrivesGPO(org.OrganizationId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result.AddError("ENTERPRISE_STORAGE_DELETE_MAPPED_DRIVES_GPO", ex);
             }
@@ -2598,5 +2602,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

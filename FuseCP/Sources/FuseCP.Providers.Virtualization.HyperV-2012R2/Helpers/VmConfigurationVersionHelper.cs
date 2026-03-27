@@ -39,7 +39,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 _build = ConvertNullableToInt32(Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", ""));
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 /* if error then Windows is too old, or MS made BC changes, or Adminstrator broke Windows Registry*/
                 HostedSolutionLog.LogWarning("VmConfigurationVersionHelper", ex); //log error, but continue, cause it's not critical
@@ -60,7 +60,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 result = _powerShell.Execute(cmd, true, true);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogWarning("VmConfigurationVersionHelper.GetSupportedVerions", ex); //log error, but continue, because it's not critical and we return 0 collection
             }

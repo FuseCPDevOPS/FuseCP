@@ -72,7 +72,7 @@ namespace FuseCP.Server.Utils
 								if (PInvoke.RegQueryValueEx(hSubKey, keyValue, 0, out type, keyBuffer, ref size) == 0)
 									valueStr = keyBuffer.ToString();
 							}
-							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								Log.WriteError(ex);
 							}
@@ -108,7 +108,7 @@ namespace FuseCP.Server.Utils
 								if (PInvoke.RegQueryValueEx(hSubKey, keyValue, 0, ref type, ref valueInt, ref size) == 0)
 									return valueInt;
 							}
-							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								Log.WriteError(ex);
 							}

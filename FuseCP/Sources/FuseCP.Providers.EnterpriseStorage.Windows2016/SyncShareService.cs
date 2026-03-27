@@ -87,7 +87,7 @@ namespace FuseCP.Providers.EnterpriseStorage
 
                 ExecuteShellCommand(runSpace, cmd);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError(string.Format("InstallWindowsFeature  {0}", featureName), ex);
 
@@ -133,7 +133,7 @@ namespace FuseCP.Providers.EnterpriseStorage
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }
@@ -285,5 +285,6 @@ namespace FuseCP.Providers.EnterpriseStorage
         #endregion
     }
 }
+
 
 

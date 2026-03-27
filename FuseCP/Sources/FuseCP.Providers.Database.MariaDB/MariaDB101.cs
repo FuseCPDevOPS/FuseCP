@@ -183,7 +183,7 @@ namespace FuseCP.Providers.Database
 			{
 				conn.Open();
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return false;
 			}
@@ -769,7 +769,7 @@ namespace FuseCP.Providers.Database
 				{
 					ExecuteNonQuery(cmdText);
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError("Cannot drop MariaDB connection: " + cmdText, ex);
 				}
@@ -824,7 +824,7 @@ namespace FuseCP.Providers.Database
 			{
 				conn.Open();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messages.Add("Could not connect to the specified MariaDB Server: " + ex.Message);
 			}
@@ -855,7 +855,7 @@ namespace FuseCP.Providers.Database
 						// delete database
 						DeleteDatabase(item.Name);
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MariaDB Database", item.Name), ex);
 					}
@@ -867,7 +867,7 @@ namespace FuseCP.Providers.Database
 						// delete user
 						DeleteUser(item.Name, null);
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' MariaDB User", item.Name), ex);
 					}
@@ -898,7 +898,7 @@ namespace FuseCP.Providers.Database
 
 						Log.WriteEnd(String.Format("Calculating '{0}' database size", item.Name));
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error calculating '{0}' MariaDB database size", item.Name), ex);
 					}
@@ -958,5 +958,6 @@ namespace FuseCP.Providers.Database
 		public override bool IsInstalled() => IsInstalled("10.1");
 	}
 }
+
 
 

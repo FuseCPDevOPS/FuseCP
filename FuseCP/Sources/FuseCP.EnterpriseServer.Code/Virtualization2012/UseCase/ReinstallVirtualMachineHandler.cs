@@ -117,7 +117,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 TaskManager.CompleteResultTask(res, null, null, ex.Message);
                 return res;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, null, ex);
                 return res;
@@ -161,14 +161,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     };
                     worker.ReinstallVPSAsync();
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CREATE_TASK_START_ERROR, ex);
                     return res;
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.DELETE_ERROR, ex);
                 return res;
@@ -180,5 +180,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
 
 

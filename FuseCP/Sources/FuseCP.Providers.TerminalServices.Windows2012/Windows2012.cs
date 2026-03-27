@@ -819,7 +819,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     Log.WriteInfo(string.Format("{0} users added successfully", remoteApp.DisplayName));
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 result = false;
             }
@@ -2296,7 +2296,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     strSid.Append(iSubAuth);
                 }
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return "";
             }

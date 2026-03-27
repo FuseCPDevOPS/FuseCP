@@ -46,7 +46,7 @@ namespace FuseCP.Providers.Utils
                 // Serialze the sourceObject
                 return JsonConvert.SerializeObject(source, settings);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return JsonConvert.SerializeObject($"[{method}] ConvertToJson failed. Error: {ex.Message}");
             }

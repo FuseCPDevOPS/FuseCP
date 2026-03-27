@@ -268,7 +268,7 @@ namespace FuseCP.Providers.FTP
             {
                 this.ChangeSiteState(site.Name, ServerState.Started);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // Ignore the error if happened.
             }
@@ -818,7 +818,7 @@ namespace FuseCP.Providers.FTP
                 Domain objDomain = Domain.GetDomain(objContext);
                 domainName = objDomain.Name;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Get domain name error", ex);
             }
@@ -885,7 +885,7 @@ namespace FuseCP.Providers.FTP
             {
                 SecurityUtils.EnsureOrganizationalUnitsExist(ServerSettings, UsersOU, GroupsOU);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messages.Add(String.Format("Could not check/create Organizational Units: {0}", ex.Message));
                 return messages.ToArray();
@@ -918,7 +918,7 @@ namespace FuseCP.Providers.FTP
                             SecurityUtils.CreateGroup(group, ServerSettings, UsersOU, GroupsOU);
                         }
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         messages.Add(String.Format("There was an error while adding '{0}' group: {1}",
                             FtpGroupName, ex.Message));
@@ -942,7 +942,7 @@ namespace FuseCP.Providers.FTP
                         NTFSPermission.Read, true, true, ServerSettings,
                         UsersOU, GroupsOU);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     messages.Add(String.Format("Can not set permissions on '{0}' folder: {1}",
                         site.ContentPath, ex.Message));
@@ -963,7 +963,7 @@ namespace FuseCP.Providers.FTP
                     account.Enabled = enabled;
                     UpdateAccount(account);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -979,7 +979,7 @@ namespace FuseCP.Providers.FTP
                     // delete FTP account from default FTP site
                     DeleteAccount(item.Name);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -1022,7 +1022,7 @@ namespace FuseCP.Providers.FTP
                         // get daily statistics
                         itemsBandwidth[i].Days = parser.GetDailyStatistics(since, new string[] { siteId, item.Name });
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }

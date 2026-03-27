@@ -732,7 +732,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("TryToUpdateVirtualMachineWithoutReboot", ex);
                 isSuccess = false;
@@ -789,7 +789,7 @@ namespace FuseCP.Providers.Virtualization
                     System.Threading.Thread.Sleep(1000);
                     loop = false;
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     attempt++;
                     if (attempts >= attempt)
@@ -836,7 +836,9 @@ namespace FuseCP.Providers.Virtualization
                             try {
                                 freeMemory = Convert.ToInt32(GetSystemMemoryInfoInternal(hvHost).FreePhysicalKB);
                             }
-                            catch { /* this should never happen, just repeats old PowerShell way */ }
+                            catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
+                            {
+                            }
 
                             if (freeMemory > maxMemory)
                             {
@@ -940,7 +942,7 @@ namespace FuseCP.Providers.Virtualization
                 {
                     PowerShell.ExecuteOnVm(cmd, vmData, true);
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogWarning(String.Format("Oops, something happend with VM state!"));
                     bool startVM = false;
@@ -1414,7 +1416,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetSecureBootTemplates", ex);
             }
@@ -1620,7 +1622,7 @@ namespace FuseCP.Providers.Virtualization
                     xmlPairs = (string[])cimInstKvpExchange.CimInstanceProperties[exchangeItemsName].Value;
                 }                
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 //there is no point in spamming the error, if this method does not work, we have a spare method "GetHddUsagesFromKVPHyperV"
                 //HostedSolutionLog.LogError("GetKVPItems", new Exception("msvm_KvpExchangeComponent"));
@@ -2279,7 +2281,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error {0} Virtual Machine '{1}'",
                     started ? "starting" : "turning off",
@@ -2354,7 +2356,7 @@ namespace FuseCP.Providers.Virtualization
                         HostedSolutionLog.LogWarning(String.Format("Cannot delete virtual machine folder '{0}' it is not Empty!",
                         vm.RootFolderPath));
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(String.Format("Cannot delete virtual machine folder '{0}'",
                         vm.RootFolderPath), ex);
@@ -2362,7 +2364,7 @@ namespace FuseCP.Providers.Virtualization
                 #endregion
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2375,7 +2377,7 @@ namespace FuseCP.Providers.Virtualization
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }

@@ -97,7 +97,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.CHANGE_ADMIN_PASSWORD_ERROR, ex);
                 return res;
@@ -110,5 +110,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
 
 

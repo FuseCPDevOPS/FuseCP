@@ -271,7 +271,9 @@ namespace FuseCP.Providers.OS
                     ExecuteShellCommand(runSpace, cmd, false);
                 }
             }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
         public new void ChangeQuotaOnFolder(Runspace runSpace, string command, string path, QuotaType quotaType, UInt64 quota)
@@ -303,7 +305,7 @@ namespace FuseCP.Providers.OS
 
                 ExecuteShellCommand(runSpace, cmd, false);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("InstallFsrmService", ex);
 
@@ -349,7 +351,7 @@ namespace FuseCP.Providers.OS
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }

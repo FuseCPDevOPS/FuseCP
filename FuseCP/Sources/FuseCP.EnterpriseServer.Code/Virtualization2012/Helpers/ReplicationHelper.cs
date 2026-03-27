@@ -47,7 +47,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
                     replicaServer.DeleteVirtualMachine(replicaVm.VirtualMachineId, null);
                 }
             }
-            catch { /* skip */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
         public ReplicationServerInfo GetReplicaInfoForService(int serviceId, ref ResultObject result)
@@ -105,3 +107,4 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
         }
     }
 }
+

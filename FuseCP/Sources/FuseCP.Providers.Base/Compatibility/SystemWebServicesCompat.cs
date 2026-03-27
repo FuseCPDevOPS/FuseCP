@@ -219,7 +219,7 @@ namespace System.Web.Services.Protocols
                     var results = Invoke(methodName, parameters);
                     callback?.Invoke(new InvokeCompletedEventArgs(results, null, false, userState));
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     callback?.Invoke(new InvokeCompletedEventArgs(Array.Empty<object>(), ex, false, userState));
                 }
@@ -306,5 +306,6 @@ namespace System.Web.Services.Protocols
         }
     }
 }
+
 
 

@@ -75,7 +75,7 @@ namespace FuseCP.EnterpriseServer.Tasks
                     CheckSmtpResult(sendResult);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteWarning(ex.StackTrace);
             }
@@ -102,7 +102,7 @@ namespace FuseCP.EnterpriseServer.Tasks
                     CheckSmtpResult(smtpResult);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteWarning(ex.StackTrace);
             }
@@ -128,12 +128,13 @@ namespace FuseCP.EnterpriseServer.Tasks
                     CheckSmtpResult(smtpResult);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteWarning(ex.StackTrace);
             }
         }
     }
 }
+
 
 

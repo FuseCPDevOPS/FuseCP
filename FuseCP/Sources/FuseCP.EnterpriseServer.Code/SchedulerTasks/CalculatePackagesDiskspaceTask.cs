@@ -88,7 +88,7 @@ namespace FuseCP.EnterpriseServer
                         PackageController.ChangePackageStatus(null, packageId, PackageStatus.Suspended, false);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // load package details
                 PackageInfo package = PackageController.GetPackage(packageId);
@@ -216,7 +216,7 @@ namespace FuseCP.EnterpriseServer
                     
                     return organizationDiskSpaces.ToArray();
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     TaskManager.WriteError(ex.ToString());
                 }
@@ -244,5 +244,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

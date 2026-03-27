@@ -47,7 +47,7 @@ namespace FuseCP.EnterpriseServer
 				storeServerFolder = (string)topTask.GetParamValue("STORE_SERVER_FOLDER");
 				deleteTempBackup = Convert.ToBoolean(topTask.GetParamValue("DELETE_TEMP_BACKUP"));
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.WriteError(ex, "Some parameters are absent or have incorrect value.");
 				return;
@@ -60,12 +60,13 @@ namespace FuseCP.EnterpriseServer
 				BackupController.Backup(false, "BackupTask", package.UserId, package.PackageId, 0, 0,
                     backupFileName, storePackageId, storePackageFolder, storeServerFolder, deleteTempBackup);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				TaskManager.WriteError(ex, "Failed to do backup.");
 			}
 		}
 	}
 }
+
 
 

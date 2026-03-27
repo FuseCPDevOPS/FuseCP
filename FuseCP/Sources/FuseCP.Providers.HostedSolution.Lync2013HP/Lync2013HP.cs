@@ -696,7 +696,7 @@ namespace FuseCP.Providers.HostedSolution
                 ExecuteShellCommand(runSpace, cmd, false);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ret = false;
                 HostedSolutionLog.LogError("SetLyncUserGeneralSettingsInternal", ex);
@@ -1340,7 +1340,7 @@ namespace FuseCP.Providers.HostedSolution
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }
@@ -1484,13 +1484,13 @@ namespace FuseCP.Providers.HostedSolution
                     {
                         RollbackAction(transaction.Actions[i], runSpace);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         HostedSolutionLog.LogError("Rollback error", ex);
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("Rollback error", ex);
             }

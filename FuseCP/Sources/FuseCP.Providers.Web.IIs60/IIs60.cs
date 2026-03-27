@@ -365,7 +365,7 @@ namespace FuseCP.Providers.Web
 						String.Format("IIsWebVirtualDirSetting='{0}'", GetAppVirtualDirectoryPath(siteIds[i], "")));
 					accounts.Add(GetNonQualifiedAccountName((string)objVirtDir.Properties["AnonymousUserName"].Value));
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(String.Format("Web site {0} is either deleted or doesn't exist", siteIds[i]), ex);
 				}
@@ -660,7 +660,7 @@ namespace FuseCP.Providers.Web
 			{
 				ChangeSiteState(siteId, ServerState.Started);
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				// just skip an error
 			}
@@ -1578,7 +1578,7 @@ namespace FuseCP.Providers.Web
 						sharedToolsFolder = sharedFilesDir.ToLower();
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError("GetMicrosoftSharedFolderPath: Could not read SharedTools registry key location", ex);
 			}
@@ -1781,7 +1781,7 @@ namespace FuseCP.Providers.Web
 			{
 				FileUtils.ExecuteCmdCommand(enableCF);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError(ex);
 			}
@@ -1837,7 +1837,7 @@ namespace FuseCP.Providers.Web
 				{
 					FileUtils.ExecuteCmdCommand(command);
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(ex);
 				}
@@ -1861,7 +1861,7 @@ namespace FuseCP.Providers.Web
 					FRONTPAGE_PATH));
 				return true;
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				return false;
 			}
@@ -2988,7 +2988,7 @@ namespace FuseCP.Providers.Web
 			{
 				action();
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				// Ignore any exceptions thrown. This means execute ignorantly.
 			}
@@ -3651,7 +3651,7 @@ namespace FuseCP.Providers.Web
 				Domain objDomain = Domain.GetDomain(objContext);
 				domainName = objDomain.Name;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError("Get domain name error", ex);
 			}
@@ -3742,7 +3742,7 @@ namespace FuseCP.Providers.Web
 			{
 				SecurityUtils.EnsureOrganizationalUnitsExist(ServerSettings, UsersOU, GroupsOU);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError(ex);
 				messages.Add(String.Format("Could not check/create Organizational Units: {0}", ex.Message));
@@ -3769,7 +3769,7 @@ namespace FuseCP.Providers.Web
 						SecurityUtils.CreateGroup(group, ServerSettings, UsersOU, GroupsOU);
 					}
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(ex);
 					messages.Add(String.Format("There was an error while adding '{0}' group: {1}",
@@ -3783,7 +3783,7 @@ namespace FuseCP.Providers.Web
 				if (!ApplicationPoolExists(Asp11Pool))
 					CreateApplicationPool(Asp11Pool, "", "");
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messages.Add(String.Format("There was an error while creating '{0}' pool: {1}",
 					Asp11Pool, ex.Message));
@@ -3794,7 +3794,7 @@ namespace FuseCP.Providers.Web
 				if (!ApplicationPoolExists(Asp20Pool))
 					CreateApplicationPool(Asp20Pool, "", "");
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messages.Add(String.Format("There was an error while creating '{0}' pool: {1}",
 					Asp20Pool, ex.Message));
@@ -3805,7 +3805,7 @@ namespace FuseCP.Providers.Web
 				if (!ApplicationPoolExists(Asp40Pool))
 					CreateApplicationPool(Asp40Pool, "", "");
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				messages.Add(String.Format("There was an error while creating '{0}' pool: {1}",
 					Asp40Pool, ex.Message));
@@ -3878,7 +3878,7 @@ namespace FuseCP.Providers.Web
 						ChangeSiteState(((WebSite)item).SiteId,
 							(enabled ? ServerState.Started : ServerState.Stopped));
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -3897,7 +3897,7 @@ namespace FuseCP.Providers.Web
 						// delete web site
 						DeleteSite(((WebSite)item).SiteId);
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -3919,7 +3919,7 @@ namespace FuseCP.Providers.Web
 							DeleteVirtualDirectory(siteId, vdirName);
 						}
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 					}
@@ -3953,7 +3953,7 @@ namespace FuseCP.Providers.Web
 
 						Log.WriteEnd(String.Format("Calculating '{0}' site logs size", item.Name));
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}
@@ -3995,7 +3995,7 @@ namespace FuseCP.Providers.Web
 						// get daily statistics
 						itemsBandwidth[i].Days = parser.GetDailyStatistics(since, new string[] { siteId });
 					}
-					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						Log.WriteError(ex);
 					}

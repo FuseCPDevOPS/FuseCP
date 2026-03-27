@@ -144,7 +144,7 @@ namespace FuseCP.EnterpriseServer
 					TryRecordServerAuthAttempt(encryptedServerUrl, serverId, succeeded: true);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				try
 				{
@@ -181,7 +181,7 @@ namespace FuseCP.EnterpriseServer
 				var bruteForce = new BruteForceProtectionService(this);
 				bruteForce.RecordAttempt(remoteAddress, $"server:{serverId}", BruteForceProtectionService.Layers.Server, succeeded);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				// Best-effort logging only.
 			}
@@ -215,5 +215,6 @@ namespace FuseCP.EnterpriseServer
 		}
 	}
 }
+
 
 

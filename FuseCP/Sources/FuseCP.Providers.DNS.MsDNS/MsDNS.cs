@@ -396,7 +396,7 @@ namespace FuseCP.Providers.DNS
 									objZone.InvokeMethod("ResetSecondaries", inParams2, null);
 								}
 							}
-							catch
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								Log.WriteWarning("Error resetting/notifying secondary name servers");
 							}
@@ -1344,3 +1344,4 @@ namespace FuseCP.Providers.DNS
 		#endregion
 	}
 }
+

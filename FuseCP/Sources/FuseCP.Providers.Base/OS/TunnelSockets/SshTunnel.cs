@@ -73,22 +73,25 @@ namespace FuseCP.Providers.OS
 
         private async Task<SshUri> InitAsync()
         {
+            var sshhost = Uri.DnsSafeHost;
             var remotehost = Uri.RemoteForwardHost;
             var sshhostip = await DnsService.GetFirstIPAddressAsync(Uri.DnsSafeHost);
-            if (uri.RemoteForwardHost == null)
+            if (Uri.RemoteForwardHost == null)
             {
                 if (sshhostip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     remotehost = IPAddress.Loopback.ToString();
                     Loopback = IPAddress.Loopback;
+                    sshhost = sshhostip.ToString();
                 }
                 else
                 {
                     remotehost = IPAddress.IPv6Loopback.ToString();
                     Loopback = IPAddress.IPv6Loopback;
+                    sshhost = sshhostip.ToString();
                 }
             }
-            var sshhost = sshhostip.ToString();
+            sshhostip.ToString();
 
             Client = string.IsNullOrEmpty(Uri.Password)
                 ? new SshClient(sshhost, Uri.Port != -1 ? Uri.Port : 22, Uri.Username, Uri.Keys)
@@ -97,7 +100,7 @@ namespace FuseCP.Providers.OS
             ForwardedPort = Uri.LocalForwardPort == 0 ? new ForwardedPortLocal(Loopback.ToString(), remotehost, Uri.RemoteForwardPort) : new ForwardedPortLocal(Loopback.ToString(), Uri.LocalForwardPort, remotehost, Uri.RemoteForwardPort);
 
 
-            return uri;
+            return Uri;
         }
 
         private SshUri Init()
@@ -152,7 +155,7 @@ namespace FuseCP.Providers.OS
                 Trace.TraceInformation($"SSH Tunnel on {SanitizeForLog(Url)} started.");
                 return true;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ConnectException = ex;
                 IsConnecting = false;
@@ -182,7 +185,7 @@ namespace FuseCP.Providers.OS
                 ForwardedPort.Exception += Restart;
                 Trace.TraceInformation($"SSH Tunnel on {SanitizeForLog(Url)} started.");
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 ConnectException = ex;
                 IsConnecting = false;
@@ -214,7 +217,7 @@ namespace FuseCP.Providers.OS
                     Client.Connect();
                     ForwardedPort.Start();
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     ConnectException = ex;
                     isRestarting = false;
@@ -266,5 +269,6 @@ namespace FuseCP.Providers.OS
         }
     }
 }
+
 
 

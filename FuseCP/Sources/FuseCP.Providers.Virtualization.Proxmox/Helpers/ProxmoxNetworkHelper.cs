@@ -46,7 +46,7 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 					}
 				}
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				adapters = null;
 			}
@@ -79,7 +79,7 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 
 				}
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				adapter = null;
 			}

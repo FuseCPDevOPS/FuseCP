@@ -527,7 +527,7 @@ namespace FuseCP.Providers.OS
                     FileUtils.CreateDirectory(UsersHome);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 messages.Add(String.Format("Folder '{0}' could not be created: {1}",
                      UsersHome, ex.Message));
@@ -548,7 +548,7 @@ namespace FuseCP.Providers.OS
                         // delete DSN
                         DeleteDSN(item.Name);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -576,7 +576,7 @@ namespace FuseCP.Providers.OS
 
                         Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError(ex);
                     }
@@ -1289,7 +1289,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("GetHypervisorLogicalProcessorTotalRunTime", ex);
                 //ignore error, return default value
@@ -1726,7 +1726,9 @@ namespace FuseCP.Providers.OS
                     ExecuteShellCommand(runSpace, local_cmd, false);
                 }
             }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
         }
 
         public void ChangeQuotaOnFolder(Runspace runSpace, string command, string path, QuotaType quotaType, UInt64 quota)
@@ -1758,7 +1760,7 @@ namespace FuseCP.Providers.OS
 
                 ExecuteShellCommand(runSpace, local_cmd, false);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("InstallFsrmService", ex);
 
@@ -1804,7 +1806,7 @@ namespace FuseCP.Providers.OS
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }

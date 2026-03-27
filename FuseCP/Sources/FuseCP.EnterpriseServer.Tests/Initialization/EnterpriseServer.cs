@@ -54,7 +54,7 @@ public class EnterpriseServer : IDisposable
 		{
 			eserver = Assembly.Load("FuseCP.EnterpriseServer");
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			eserver = Assembly.Load("FuseCP.EnterpriseServer.Code");
 		}
@@ -170,7 +170,7 @@ public class EnterpriseServer : IDisposable
 				localDbAvailable = 1;
 				localDbUnavailableReason = null;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				localDbAvailable = 0;
 				localDbUnavailableReason = ex.Message;
@@ -209,7 +209,7 @@ public class EnterpriseServer : IDisposable
 			localDbUnavailableReason = null;
 			return true;
 		}
-		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			localDbAvailable = 0;
 			localDbUnavailableReason = ex.Message;
@@ -326,5 +326,6 @@ public class EnterpriseServer : IDisposable
 		FuseCP.Web.Clients.AssemblyLoader.ProbingPaths = @"..\FuseCP.EnterpriseServer\bin;..\FuseCP.EnterpriseServer\bin\Code;..\FuseCP.EnterpriseServer\bin\netstandard";
 	}
 }
+
 
 

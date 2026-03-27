@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2025 FuseCP
+// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -435,7 +435,7 @@ namespace FuseCP.Providers.HostedSolution
                         ChangeOrganizationState(org, enabled);
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(
                         String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
@@ -476,7 +476,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
 
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -512,7 +512,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 ActiveDirectoryUtils.DeleteADObject(groupPath);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 /* skip */
             }
@@ -589,7 +589,7 @@ namespace FuseCP.Providers.HostedSolution
                     if (userCreated)
                         ActiveDirectoryUtils.DeleteADObject(userPath);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(ex);
                 }
@@ -709,7 +709,7 @@ namespace FuseCP.Providers.HostedSolution
                             return TimeSpan.FromTicks((long)sr.Properties["maxPwdAge"][0]).Duration();
 
                         }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {
                             return TimeSpan.MaxValue;
                         }
@@ -846,7 +846,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 ExecuteShellCommand(runspace, cmd);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return false;
             }
@@ -970,7 +970,7 @@ namespace FuseCP.Providers.HostedSolution
                 };
                 res.Value = ret;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 res.IsSuccess = false;
@@ -1517,7 +1517,7 @@ namespace FuseCP.Providers.HostedSolution
                     if (groupCreated)
                         ActiveDirectoryUtils.DeleteADObject(groupPath);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     HostedSolutionLog.LogError(ex);
                 }
@@ -2592,7 +2592,7 @@ namespace FuseCP.Providers.HostedSolution
                     runspaceConfiguration = null;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }

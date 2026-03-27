@@ -231,7 +231,7 @@ namespace FuseCP.Providers.Mail
 
                 return obj;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Unable to create COM interface", ex);
             }
@@ -330,7 +330,7 @@ namespace FuseCP.Providers.Mail
             {
                 return new MailAddress(email).User;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return email.Contains('@') ? email.Substring(0, email.IndexOf('@')) : string.Empty;
             }
@@ -347,7 +347,7 @@ namespace FuseCP.Providers.Mail
             {
                 return new MailAddress(email).Host;
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return email.Contains('@') ? email.Substring(email.IndexOf('@') + 1) : string.Empty;
             }
@@ -442,7 +442,7 @@ namespace FuseCP.Providers.Mail
                         UpdateDomain(mailDomain);
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error switching '{0}' IceWarp domain", item.Name), ex);
                 }
@@ -458,7 +458,7 @@ namespace FuseCP.Providers.Mail
                     // delete mail domain
                     DeleteDomain(item.Name);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error deleting '{0}' IceWarp domain", item.Name), ex);
                 }
@@ -486,7 +486,7 @@ namespace FuseCP.Providers.Mail
 
                     Log.WriteEnd(String.Format("Calculating mail account '{0}' size", item.Name));
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(ex);
                 }
@@ -520,7 +520,7 @@ namespace FuseCP.Providers.Mail
                     // get daily statistics
                     itemsBandwidth[i].Days = GetDailyStatistics(since, item.Name);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     Log.WriteError(ex);
                     System.Diagnostics.Debug.WriteLine(ex);
@@ -580,7 +580,7 @@ namespace FuseCP.Providers.Mail
                     ms.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Could not get IceWarp domain statistics", ex);
             }

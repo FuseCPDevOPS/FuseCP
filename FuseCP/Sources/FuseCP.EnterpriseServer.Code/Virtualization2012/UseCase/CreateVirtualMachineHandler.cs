@@ -258,7 +258,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
 						return res;
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CANNOT_CHECK_HOST_EXISTS, ex);
                     return res;
@@ -328,7 +328,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         throw new Exception("The template " + osTemplateFile + " was not found in the HyperV Service Template Library.");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.GET_OS_TEMPLATES_ERROR, ex);
                     return res;
@@ -364,7 +364,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         }
 
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         res.AddError(VirtualizationErrorCodes.RAM_VM_RAM_RESERVE_ERROR, ex);
                         return res;
@@ -381,7 +381,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                             throw new Exception(virtualHardDrivePath + " is already present in the system");
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.HDD_VM_FILE_EXIST_ERROR, ex);
                     return res;
@@ -395,7 +395,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     else
                         PackageController.UpdatePackageItem(vm);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     res.AddError(VirtualizationErrorCodes.CREATE_META_ITEM_ERROR, ex);
                     return res;
@@ -430,7 +430,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
 
                     worker.CreateAsync();
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     // delete meta item
                     PackageController.DeletePackageItem(vm.Id);
@@ -441,7 +441,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 }
                 #endregion
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 if (!createMetaItem)
                 {
@@ -458,5 +458,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
         }
     }
 }
+
 
 

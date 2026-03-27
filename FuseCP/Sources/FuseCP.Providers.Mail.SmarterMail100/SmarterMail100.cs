@@ -368,7 +368,7 @@ HttpClient client = CreateHttpClient();
 
 				return false;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain exists", ex);
 			}
@@ -397,7 +397,7 @@ HttpClient client = CreateHttpClient();
 
 				return domainNameString;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domains", ex);
 			}
@@ -518,7 +518,7 @@ HttpClient client = CreateHttpClient();
 
 				return domain;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get mail domain", ex);
 			}
@@ -587,7 +587,7 @@ HttpClient client = CreateHttpClient();
                     throw new Exception(updateresult["message"]);
 
             }
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				if (DomainExists(domain.Name))
 				{
@@ -609,7 +609,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain", ex);
 			}
@@ -622,7 +622,7 @@ HttpClient client = CreateHttpClient();
 				string[] aliases = GetDomainAliases(domainName);
 				return aliases.Any(alias => String.Compare(alias, aliasName, true) == 0);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain alias exists", ex);
 			}
@@ -652,7 +652,7 @@ HttpClient client = CreateHttpClient();
 
                 return domainAliasNames.ToArray();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domain aliases", ex);
 			}
@@ -672,7 +672,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not add mail domain alias", ex);
 			}
@@ -693,7 +693,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain alias", ex);
 			}
@@ -819,7 +819,7 @@ HttpClient client = CreateHttpClient();
 					throw new Exception(result["message"]);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not update mail domain", ex);
 			}
@@ -839,7 +839,7 @@ HttpClient client = CreateHttpClient();
 						UpdateDomain(mailDomain);
 					}
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(String.Format("Error switching '{0}' SmarterMail domain", item.Name), ex);
 				}
@@ -855,7 +855,7 @@ HttpClient client = CreateHttpClient();
 					// delete mail domain
 					DeleteDomain(item.Name);
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(String.Format("Error deleting '{0}' SmarterMail domain", item.Name), ex);
 				}
@@ -897,7 +897,7 @@ HttpClient client = CreateHttpClient();
 						itemsDiskspace.Add(diskspace);
 						Log.WriteEnd(String.Format("Calculating mail account '{0}' size", item.Name));
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(ex);
 				}
@@ -927,7 +927,7 @@ HttpClient client = CreateHttpClient();
                         Log.WriteInfo("[Smartermail100] Calculating Bandwidth for domain {0}", item.Name);
                         itemsBandwidth[i].Days = GetDomainStatistics(since, item.Name);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         Log.WriteError(ex);
                         System.Diagnostics.Debug.WriteLine(ex);
@@ -975,7 +975,7 @@ HttpClient client = CreateHttpClient();
                     date = date.AddDays(1);
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Could not get SmarterMail domain statistics", ex);
             }
@@ -1024,7 +1024,7 @@ HttpClient client = CreateHttpClient();
 				}
 				return accounts.ToArray();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get the list of domain mailboxes", ex);
 			}
@@ -1142,7 +1142,7 @@ HttpClient client = CreateHttpClient();
 				}
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				if (AccountExists(mailbox.Name))
 				{
@@ -1235,7 +1235,7 @@ HttpClient client = CreateHttpClient();
 
 				return mailbox;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Could not get mailbox", ex);
             }
@@ -1252,7 +1252,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not delete mailbox", ex);
 			}
@@ -1444,7 +1444,7 @@ HttpClient client = CreateHttpClient();
 
 
             }
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not update mailbox", ex);
 			}
@@ -1481,7 +1481,7 @@ HttpClient client = CreateHttpClient();
 
 				return false;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail alias exists", ex);
 			}
@@ -1527,7 +1527,7 @@ HttpClient client = CreateHttpClient();
 				}
 				return aliasesList.ToArray();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail aliases", ex);
 			}
@@ -1558,7 +1558,7 @@ HttpClient client = CreateHttpClient();
 
 			}
 
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				if (MailAliasExists(mailAlias.Name))
 				{
@@ -1609,7 +1609,7 @@ HttpClient client = CreateHttpClient();
 					throw new Exception(result["message"]);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not delete mailAlias", ex);
 			}
@@ -1637,7 +1637,7 @@ HttpClient client = CreateHttpClient();
 					throw new Exception(result["message"]);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not update mailAlias", ex);
 			}
@@ -1676,7 +1676,7 @@ HttpClient client = CreateHttpClient();
 
 				return false;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not check whether mail domain group exists", ex);
 			}
@@ -1720,7 +1720,7 @@ HttpClient client = CreateHttpClient();
 
 				return groups.ToArray();
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get the list of mail domain groups", ex);
 			}
@@ -1761,7 +1761,7 @@ HttpClient client = CreateHttpClient();
 
                 return group;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not get mail domain group", ex);
 			}
@@ -1794,7 +1794,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not create mail domain group", ex);
 			}
@@ -1815,7 +1815,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not delete mail domain group", ex);
 			}
@@ -1848,7 +1848,7 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Could not update mail domain group", ex);
 			}
@@ -1878,7 +1878,7 @@ HttpClient client = CreateHttpClient();
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -1941,7 +1941,7 @@ HttpClient client = CreateHttpClient();
 						throw new Exception(memberaddresult["message"]);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				if (ListExists(list.Name))
 				{
@@ -2031,7 +2031,7 @@ HttpClient client = CreateHttpClient();
 
 				return list;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain mail list.", ex);
 			}
@@ -2112,7 +2112,7 @@ HttpClient client = CreateHttpClient();
 				return mailLists.ToArray();
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't obtain domain mail lists.", ex);
 			}
@@ -2145,7 +2145,7 @@ HttpClient client = CreateHttpClient();
 					}
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't delete a mail list.", ex);
 			}
@@ -2375,7 +2375,7 @@ HttpClient client = CreateHttpClient();
 						throw new Exception(SetSubscriberListresult["message"]);
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				throw new Exception("Couldn't update mail list.", ex);
 			}

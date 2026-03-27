@@ -115,7 +115,7 @@ namespace FuseCP.Providers.Web.Iis
 				cert.CSR = enroll.CreateRequest(EncodingType.XCN_CRYPT_STRING_BASE64REQUESTHEADER);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError("Error creating CSR", ex);
 			}
@@ -152,7 +152,7 @@ namespace FuseCP.Providers.Web.Iis
 				AddBinding(cert, website);
 
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 
 
@@ -207,7 +207,7 @@ namespace FuseCP.Providers.Web.Iis
 
                 if (result.Contains("Create certificate failed")) throw new Exception($"Error creating Let's Encrypt certificate:{Environment.NewLine}{result}");
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Error adding Lets Encrypt certificate IIS70", ex);
                 return ex.ToString();
@@ -451,7 +451,7 @@ namespace FuseCP.Providers.Web.Iis
 
 				result.IsSuccess = true;
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				result.IsSuccess = false;
 				result.AddError("", ex);
@@ -498,7 +498,7 @@ namespace FuseCP.Providers.Web.Iis
 					certificate.Success = true;
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				certificate.Success = false;
 				certificate.Certificate = ex.ToString();
@@ -584,7 +584,7 @@ namespace FuseCP.Providers.Web.Iis
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError("Runspace error", ex);
             }

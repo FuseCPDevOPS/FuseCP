@@ -42,7 +42,9 @@ namespace Common.Utils
 		{
 			int result = defaultValue;
 			try { result = Int32.Parse(val); }
-			catch { /* do nothing */ }
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+			}
 			return result;
 		}
 
@@ -50,7 +52,9 @@ namespace Common.Utils
 		{
 			decimal result = defaultValue;
 			try { result = Decimal.Parse(val); }
-			catch { /* do nothing */ }
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+			}
 			return result;
 		}
 
@@ -88,3 +92,4 @@ namespace Common.Utils
 		}
 	}
 }
+

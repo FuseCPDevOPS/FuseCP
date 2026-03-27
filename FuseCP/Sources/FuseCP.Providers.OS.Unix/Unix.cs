@@ -418,7 +418,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 				FileUtils.CreateDirectory(UsersHome);
 			}
 		}
-		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			messages.Add(String.Format("Folder '{0}' could not be created: {1}",
 				 UsersHome, ex.Message));
@@ -436,7 +436,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 					// delete home folder
 					DeleteFile(item.Name);
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 			}
@@ -464,7 +464,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 					Log.WriteEnd(String.Format("Calculating '{0}' folder size", path));
 				}
-				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					Log.WriteError(ex);
 				}
@@ -491,7 +491,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 		{
 			files = Directory.EnumerateFiles(path, "*.*").ToArray();
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			files = new string[0];
 		}
@@ -509,7 +509,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 		{
 			dirs = Directory.EnumerateDirectories(path, "*.*", SearchOption.TopDirectoryOnly).ToArray();
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			dirs = new string[0];
 		}
@@ -549,7 +549,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 				{
 					file = new FileStream(log, FileMode.Open, FileAccess.Read);
 				}
-				catch
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
 					yield break;
 				}

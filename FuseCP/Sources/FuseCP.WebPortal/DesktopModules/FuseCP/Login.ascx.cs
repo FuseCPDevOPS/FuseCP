@@ -323,6 +323,8 @@ namespace FuseCP.Portal
 					}
 				}
 				catch (Exception)
+				{
+				}
 				{ }
 				if (!l_Mach)
 				{

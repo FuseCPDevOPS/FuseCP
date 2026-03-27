@@ -87,7 +87,7 @@ namespace FuseCP.EnterpriseServer
 					return ret;
 				}
 			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				CompleteTask(ret, CrmErrorCodes.CANNOT_CREATE_DNS_ZONE, ex);
 				return ret;
@@ -144,7 +144,7 @@ namespace FuseCP.EnterpriseServer
                 ret.ErrorCodes.AddRange(resAddDnsZoneRecord.ErrorCodes);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CREATE_CRM_ORGANIZATION_DOMAIN_GENERAL_ERROR, ex);
                 return ret;
@@ -249,7 +249,7 @@ namespace FuseCP.EnterpriseServer
                         return res;
                     }
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, CrmErrorCodes.CANNOT_CHECK_QUOTAS, ex);
                     return res;
@@ -339,7 +339,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         Database.CreateCRMUser(userId, crmUser.Value.CRMUserId, crmUser.Value.BusinessUnitId, 0);
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
                         CompleteTask(res, CrmErrorCodes.CANNOT_ADD_ORGANIZATION_OWNER_TO_ORGANIZATIO_USER, ex, "Cannot add organization owner to organization users");                        
                     }
@@ -347,7 +347,7 @@ namespace FuseCP.EnterpriseServer
 
                 res.Value = org;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CREATE_CRM_ORGANIZATION_GENERAL_ERROR, ex);
                 return res;
@@ -367,7 +367,7 @@ namespace FuseCP.EnterpriseServer
                 ServiceProviderProxy.Init(crm, serviceId);
                 ret.Value = crm.GetSupportedCollationNames();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CANNOT_GET_COLLATION_NAMES, ex);
                 return ret;
@@ -392,7 +392,7 @@ namespace FuseCP.EnterpriseServer
                 ret.Value = crm.GetSupportedCollationNames();
             
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CANNOT_GET_COLLATION_NAMES, ex);
                 return ret;
@@ -412,7 +412,7 @@ namespace FuseCP.EnterpriseServer
                 ServiceProviderProxy.Init(crm, serviceId);
                 ret.Value = crm.GetCurrencyList();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CANNOT_GET_CURRENCY_LIST, ex);
                 return ret;
@@ -437,7 +437,7 @@ namespace FuseCP.EnterpriseServer
                 ret.Value = crm.GetCurrencyList();
                             
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CANNOT_GET_CURRENCY_LIST, ex);
                 return ret;
@@ -466,7 +466,7 @@ namespace FuseCP.EnterpriseServer
                     return ret;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CANNOT_DELETE_DNS_RECORD, ex);
                 return ret;                
@@ -525,7 +525,7 @@ namespace FuseCP.EnterpriseServer
                     return ret;
                 }*/
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.DELETE_CRM_ORGANIZATION_DOMAIN_GENERAL_ERROR, ex);
                 return ret;
@@ -548,7 +548,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     Database.DeleteCrmOrganization(organizationId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, CrmErrorCodes.CANNOT_DELETE_CRM_ORGANIZATION_METADATA, ex);
                     return res;
@@ -575,7 +575,7 @@ namespace FuseCP.EnterpriseServer
                 
                 PackageController.UpdatePackageItem(org);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.DELETE_CRM_ORGANIZATION_GENERAL_ERROR, ex);
                 return res;
@@ -605,7 +605,7 @@ namespace FuseCP.EnterpriseServer
                 return (cntx.Quotas[quotaName] != null && !cntx.Quotas[quotaName].QuotaExhausted);
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 res = false;
@@ -626,7 +626,7 @@ namespace FuseCP.EnterpriseServer
             {
                 res.Value = Database.GetCRMUsersCount(itemId, name, email, CALType);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.GET_CRM_USER_COUNT, ex);
                 return res;
@@ -663,7 +663,7 @@ namespace FuseCP.EnterpriseServer
                 res.Value.PageUsers = accounts.ToArray();                                
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.GET_CRM_USERS, ex);
                 return res;
@@ -758,7 +758,7 @@ namespace FuseCP.EnterpriseServer
                     }
                     crmId = res.Value.CrmUserId;
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(ret, CrmErrorCodes.CANNOT_CREATE_CRM_USER_GENERAL_ERROR, ex);
                     return ret;
@@ -768,13 +768,13 @@ namespace FuseCP.EnterpriseServer
                 {
                     Database.CreateCRMUser(user.AccountId, crmId, businessUnitId, CALType);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(ret, CrmErrorCodes.CANNOT_CREATE_CRM_USER_IN_DATABASE, ex);
                     return ret;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(ret, CrmErrorCodes.CREATE_CRM_USER_GENERAL_ERROR, ex);
                 return ret;
@@ -800,7 +800,7 @@ namespace FuseCP.EnterpriseServer
                         throw new ApplicationException("Current organization is not CRM organization.");
 
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, CrmErrorCodes.CANNOT_GET_CRM_ORGANIZATION, ex);
                     return res;
@@ -818,7 +818,7 @@ namespace FuseCP.EnterpriseServer
                 res.Value = providerRes.Value;
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_GET_BUSINESS_UNITS_GENERAL_ERROR, ex);
                 return res;
@@ -881,7 +881,7 @@ namespace FuseCP.EnterpriseServer
 
                 res.Value = crmRoles.Value;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                   CompleteTask(res, CrmErrorCodes.CANNOT_GET_CRM_ROLES_GENERAL_ERROR, ex);    
                   return res;
@@ -914,7 +914,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     org = OrganizationController.GetOrganization(itemId);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return res;
@@ -938,13 +938,13 @@ namespace FuseCP.EnterpriseServer
                     }
                     res.Value = user.Value;
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, CrmErrorCodes.CANONT_GET_CRM_USER_BY_ID, ex);
                     return res;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANONT_GET_CRM_USER_GENERAL_ERROR, ex);
                 return res;
@@ -977,7 +977,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return res;
@@ -993,7 +993,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_SET_CRM_USER_ROLES_GENERAL_ERROR, ex);
                 return res;
@@ -1032,7 +1032,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return res;
@@ -1070,7 +1070,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_SET_CRM_USER_ROLES_GENERAL_ERROR, ex);
                 return res;
@@ -1093,7 +1093,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return res;
@@ -1116,7 +1116,7 @@ namespace FuseCP.EnterpriseServer
                 res.ErrorCodes.AddRange(changeStateRes.ErrorCodes);                
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CHANGE_USER_STATE_GENERAL_ERROR, ex);
                 return res;
@@ -1179,7 +1179,7 @@ namespace FuseCP.EnterpriseServer
                 res.Value = allocatedCrmUsers == -1 || allocatedCrmUsers > tmp.Value;
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                  CompleteTask(res, CrmErrorCodes.CHECK_QUOTA, ex);
                  return res;               
@@ -1212,7 +1212,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return res;
@@ -1242,7 +1242,7 @@ namespace FuseCP.EnterpriseServer
                     return res;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CONFIGURE_CRM_ORGANIZATION, ex);
                 return res;
@@ -1275,7 +1275,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return -1;
@@ -1284,7 +1284,7 @@ namespace FuseCP.EnterpriseServer
                 size = crm.GetDBSize(org.CrmOrganizationId);
                 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CONFIGURE_CRM_ORGANIZATION, ex);
                 return -1;
@@ -1316,7 +1316,7 @@ namespace FuseCP.EnterpriseServer
                     if (org == null)
                         throw new ApplicationException("Org is null.");
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     CompleteTask(res, ErrorCodes.CANNOT_GET_ORGANIZATION_BY_ITEM_ID, ex);
                     return -1;
@@ -1325,7 +1325,7 @@ namespace FuseCP.EnterpriseServer
                 size = crm.GetMaxDBSize(org.CrmOrganizationId);
 
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CONFIGURE_CRM_ORGANIZATION, ex);
                 return -1;
@@ -1351,7 +1351,7 @@ namespace FuseCP.EnterpriseServer
 
                 ret = crm.GetInstalledLanguagePacks();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CONFIGURE_CRM_ORGANIZATION, ex);
                 return null;
@@ -1372,7 +1372,7 @@ namespace FuseCP.EnterpriseServer
 
                 ret = crm.GetInstalledLanguagePacks();
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 CompleteTask(res, CrmErrorCodes.CANNOT_CONFIGURE_CRM_ORGANIZATION, ex);
                 return null;
@@ -1383,5 +1383,6 @@ namespace FuseCP.EnterpriseServer
 
     }
 }
+
 
 

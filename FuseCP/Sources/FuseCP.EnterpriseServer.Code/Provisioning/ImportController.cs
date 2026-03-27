@@ -131,7 +131,9 @@ namespace FuseCP.EnterpriseServer
                     }
 
                 }
-                catch { /* do nothing */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
             }
             else
                 return GetImportableCustomItems(packageId, itemTypeId);
@@ -233,7 +235,7 @@ namespace FuseCP.EnterpriseServer
 								ctrl.ImportItem(packageId, itemTypeId,
 									Type.GetType(itemType.TypeName), group, itemName);
 							}
-							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								TaskManager.WriteError(ex, "Can't import item");
 							}
@@ -242,7 +244,9 @@ namespace FuseCP.EnterpriseServer
 						}
                     }
                 }
-                catch { /* do nothing */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
             }
 
             foreach (string s in customItems)
@@ -263,7 +267,9 @@ namespace FuseCP.EnterpriseServer
                         break;
                     }
                 }
-                catch { /* do nothing */ }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
 
                 TaskManager.IndicatorCurrent++;
             }
@@ -306,5 +312,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

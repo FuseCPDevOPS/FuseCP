@@ -115,7 +115,7 @@ namespace FuseCP.Providers.DNS
                 {
                     Directory.CreateDirectory(ZonesFolderPath);
                 }
-                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     return new string[] { String.Format("Failed to create BIND zones folder: {0}", ZonesFolderPath) };
                 }
@@ -1137,5 +1137,6 @@ namespace FuseCP.Providers.DNS
         public override bool IsInstalled() => IsInstalled("9.;8.");
     }
 }
+
 
 

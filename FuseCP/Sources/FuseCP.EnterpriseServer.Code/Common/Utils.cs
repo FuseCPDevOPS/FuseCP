@@ -35,7 +35,9 @@ namespace FuseCP.EnterpriseServer
         {
             int result = defaultValue;
             try { result = Int32.Parse(val); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -43,7 +45,9 @@ namespace FuseCP.EnterpriseServer
         {
             double result = defaultValue;
             try { result = Double.Parse(val); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -51,7 +55,9 @@ namespace FuseCP.EnterpriseServer
         {
             bool result = defaultValue;
             try { result = Boolean.Parse(val.ToString()); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -60,7 +66,9 @@ namespace FuseCP.EnterpriseServer
         {
             bool result = defaultValue;
             try { result = Boolean.Parse(val); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -68,7 +76,9 @@ namespace FuseCP.EnterpriseServer
         {
             decimal result = defaultValue;
             try { result = Decimal.Parse(val); }
-            catch { /* do nothing */ }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
             return result;
         }
 
@@ -162,12 +172,13 @@ namespace FuseCP.EnterpriseServer
             {
                 return (DateTime) value;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return DateTime.MinValue;
             }
         }
     }
 }
+
 
 

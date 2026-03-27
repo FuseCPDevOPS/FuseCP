@@ -1,2 +1,0 @@
-#!/bin/sh
-exec dotnet /usr/share/fusecp/Installer/FuseCP.Installer.dll

@@ -58,7 +58,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
 
 
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return "";
             }
@@ -89,7 +89,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
                 string urlstring = UrlEncodeBase64(Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(String.Format("{0}", cryptedcookie))));
                 return String.Format("{0}?e={1}&Resolution=", guacaserverurl, urlstring);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 return "";
             }
@@ -130,3 +130,4 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
         }
     }
 }
+

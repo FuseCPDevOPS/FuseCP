@@ -70,7 +70,7 @@ namespace FuseCP.Providers.HostedSolution
                 WindowsIdentity.RunImpersonated(WindowsIdentity.GetCurrent().AccessToken,
                     () => { languages.AddRange(from SPLanguage lang in SPRegionalSettings.GlobalInstalledLanguages select lang.LCID); });
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to create site collection.", ex);
             }
@@ -339,7 +339,7 @@ namespace FuseCP.Providers.HostedSolution
                 DeleteSiteCollection(runspace, siteCollectionUrl, false);
                 RemoveHostsRecord(siteCollection);
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to delete site collection.", ex);
             }
@@ -402,7 +402,7 @@ namespace FuseCP.Providers.HostedSolution
                     HostedSolutionLog.LogEnd("BackupSiteCollection");
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to backup site collection.", ex);
             }
@@ -465,7 +465,7 @@ namespace FuseCP.Providers.HostedSolution
                     HostedSolutionLog.LogEnd("RestoreSiteCollection");
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new InvalidOperationException("Failed to restore site collection.", ex);
             }
@@ -598,7 +598,7 @@ namespace FuseCP.Providers.HostedSolution
                     runspace.Close();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError("Runspace error", ex);
             }
@@ -756,7 +756,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
             }
@@ -821,7 +821,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
             }

@@ -65,7 +65,7 @@ namespace FuseCP.Server.Utils
                     RunSpace = null;
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 throw new Exception("Error while disposing PowerShellManager", ex);
             }

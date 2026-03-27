@@ -167,7 +167,7 @@ namespace FuseCP.EnterpriseServer
                         TaskManager.WriteError(ex);
                         Thread.Sleep(5000 * attempt); //wait, if we get a deadlock exception
                     }
-                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) //Normally that Exception should never appears
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) //Normally that Exception should never appears
                     {
                         exception = ex;
                         TaskManager.WriteError(ex);
@@ -291,7 +291,7 @@ namespace FuseCP.EnterpriseServer
                                 success = true;
                                 break;
                             }
-                            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                             {
                                 TaskManager.WriteWarning(ex.ToString());
                             }
@@ -306,7 +306,7 @@ namespace FuseCP.EnterpriseServer
                     }
                 } // end for items
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // log exception
                 TaskManager.WriteWarning(ex.ToString());
@@ -317,5 +317,6 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
+
 
 

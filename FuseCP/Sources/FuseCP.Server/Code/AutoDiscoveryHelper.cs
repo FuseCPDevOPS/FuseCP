@@ -59,7 +59,7 @@ namespace FuseCP.Server.Code
                     res.Value = provider.IsInstalled();
                 }
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 res.IsSuccess = false;
                 res.ErrorCodes.Add(ErrorCodes.CANNOT_CREATE_PROVIDER_INSTANCE);

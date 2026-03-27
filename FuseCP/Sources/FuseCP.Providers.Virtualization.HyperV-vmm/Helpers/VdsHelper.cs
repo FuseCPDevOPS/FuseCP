@@ -219,7 +219,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
             {
                 File.Delete(remotePath);
             }
-            catch
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 // TODO
             }
@@ -289,7 +289,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                     // wait untill next process finish
                     e = watcher.WaitForNextEvent();
                 }
-                catch
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
                     // nothing has been finished in timeout period
                     return; // exit

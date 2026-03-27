@@ -56,7 +56,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // send KVP config items
                 NetworkHelper.InjectIPadresses(itemId, "External");
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.RESTORE_VIRTUAL_MACHINE_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -164,7 +164,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 //if (provisionKvp)
                 //    SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.ADD_VIRTUAL_MACHINE_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -208,7 +208,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 if (provisionKvp)
                     KvpExchangeHelper.SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.SET_VIRTUAL_MACHINE_PRIMARY_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -291,7 +291,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 //if(provisionKvp)
                 //    SendNetworkAdapterKVP(itemId, "External");
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.CompleteResultTask(res, VirtualizationErrorCodes.DELETE_VIRTUAL_MACHINE_EXTERNAL_IP_ADDRESS_ERROR, ex);
                 return res;
@@ -303,5 +303,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
 
     }
 }
+
 
 

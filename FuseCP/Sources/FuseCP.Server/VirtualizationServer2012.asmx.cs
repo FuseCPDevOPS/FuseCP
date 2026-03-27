@@ -1317,7 +1317,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' ExecuteCustomPsScript", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ExecuteCustomPsScript", ProviderSettings.ProviderName), ex);
                 var jobResult = new JobResult();
