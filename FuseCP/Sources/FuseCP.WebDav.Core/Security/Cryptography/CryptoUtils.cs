@@ -35,7 +35,10 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
 
                 if (!string.IsNullOrEmpty(Key) && OperatingSystem.IsWindows())
                 {
+                    using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(EnterpriseServerRegistryPath))
                     {
+                        value = Convert.ToString(registryKey?.GetValue(Key)) ?? string.Empty;
+                    }
                 }
 
                 return !string.IsNullOrEmpty(value) ? value : ConfigurationManager.AppSettings["FuseCP.CryptoKey"];
