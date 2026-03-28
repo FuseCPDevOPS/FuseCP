@@ -74,8 +74,8 @@ namespace FuseCP.Portal
             UserInfo user = UsersHelper.GetUser(PanelRequest.PeerID);
             if (user != null)
             {
-                if ((PanelSecurity.SelectedUser.RoleId == (int)UserRole.Administrator)|
-                    (PanelSecurity.SelectedUser.RoleId == (int)UserRole.PlatformCSR)|
+                if ((PanelSecurity.SelectedUser.RoleId == (int)UserRole.Administrator)||
+                    (PanelSecurity.SelectedUser.RoleId == (int)UserRole.PlatformCSR)||
                     (PanelSecurity.SelectedUser.RoleId == (int)UserRole.PlatformHelpdesk))
                 {
                     role.Items.Add("CSR");
@@ -83,8 +83,8 @@ namespace FuseCP.Portal
                     role.Items.Add("Administrator");
                 }
                 else
-                    if ((PanelSecurity.SelectedUser.RoleId == (int)UserRole.Reseller)|
-                        (PanelSecurity.SelectedUser.RoleId == (int)UserRole.ResellerCSR)|
+                    if ((PanelSecurity.SelectedUser.RoleId == (int)UserRole.Reseller)||
+                        (PanelSecurity.SelectedUser.RoleId == (int)UserRole.ResellerCSR)||
                         (PanelSecurity.SelectedUser.RoleId == (int)UserRole.ResellerHelpdesk))
                     {
                         role.Items.Add("CSR");

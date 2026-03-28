@@ -495,13 +495,13 @@ namespace FuseCP.Portal
                 SetCurrentTheme();
             }
 
-            Response.Redirect(Request.Url.ToString());
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void ddlTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetCurrentTheme();
-            Response.Redirect(Request.Url.ToString());
+            Response.Redirect(Request.RawUrl);
 
         }
 
@@ -771,7 +771,7 @@ namespace FuseCP.Portal
         protected void cmdResetDisplay_Click(object sender, EventArgs e)
         {
             RemoveThemeOptions();
-            Response.Redirect(Request.Url.ToString());
+            Response.Redirect(Request.RawUrl);
         }
 
         private void ApplySelectedThemeMode()

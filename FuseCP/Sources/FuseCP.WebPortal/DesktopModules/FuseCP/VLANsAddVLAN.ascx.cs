@@ -125,7 +125,8 @@ namespace FuseCP.Portal
         {
             var returnUrl = Request["ReturnUrl"];
 
-            if (string.IsNullOrEmpty(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl)
+                || !(returnUrl.StartsWith("/", StringComparison.Ordinal) && !returnUrl.StartsWith("//", StringComparison.Ordinal)))
             {
                 returnUrl = NavigateURL("ServerID", ddlServer.SelectedValue);
             }

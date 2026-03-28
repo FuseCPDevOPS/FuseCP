@@ -4,7 +4,7 @@
 }
 <br/>
 <h4 id="errorMessage">
-    @Html.Raw(Model.Message)
+    @Model.Message
 
-    @Html.Raw(Model.Exception)
+    @Model.Exception?.Message
 </h4>

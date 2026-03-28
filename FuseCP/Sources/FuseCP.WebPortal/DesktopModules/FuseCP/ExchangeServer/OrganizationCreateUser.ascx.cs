@@ -108,7 +108,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
                 }
                 else
                 {
-                    if ((!string.IsNullOrEmpty(txtFirstName.Text)) | (!string.IsNullOrEmpty(txtLastName.Text)) | (!string.IsNullOrEmpty(txtInitials.Text)))
+                    if ((!string.IsNullOrEmpty(txtFirstName.Text)) || (!string.IsNullOrEmpty(txtLastName.Text)) || (!string.IsNullOrEmpty(txtInitials.Text)))
                     {
                         SetUserAttributes(accountId);
                     }

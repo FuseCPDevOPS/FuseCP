@@ -52,7 +52,7 @@ namespace FuseCP.Portal.VPSForPC
 
             // load package context
             QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPSForPC_CPU_NUMBER];
-            if (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue | cpuQuota2.QuotaAllocatedValue == -1)
+            if (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue || cpuQuota2.QuotaAllocatedValue == -1)
             {
                 wizard.Visible = true;
 

@@ -52,35 +52,17 @@ namespace FuseCP.WebPortal
 
 				if (authTicket == null)
 				{
-					HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-					if (authCookie != null)
+					// Use the server-validated FormsIdentity from the authentication pipeline
+					// (already decrypted and verified by FormsAuthenticationModule).
+					if (User.Identity is System.Web.Security.FormsIdentity formsId)
 					{
-						try
-						{
-							authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-							Context.Items[FormsAuthentication.FormsCookieName] = authTicket;
+						authTicket = formsId.Ticket;
+						Context.Items[FormsAuthentication.FormsCookieName] = authTicket;
 
-							int index = authTicket.UserData.IndexOf(Environment.NewLine);
+						int index = authTicket.UserData.IndexOf(Environment.NewLine);
 
-							if (index > -1)
-								roleName = authTicket.UserData.Substring(index + Environment.NewLine.Length);
-						}
-						catch (CryptographicException)
-						{
-							// Stale/tampered cookie (e.g. machine key rotation): clear and continue as anonymous.
-							PortalUtils.InvalidateAuthCookieSafe();
-							return;
-						}
-						catch (ArgumentException)
-						{
-							PortalUtils.InvalidateAuthCookieSafe();
-							return;
-						}
-						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-						{
-							PortalUtils.InvalidateAuthCookieSafe();
-							return;
-						}
+						if (index > -1)
+							roleName = authTicket.UserData.Substring(index + Environment.NewLine.Length);
 					}
 				}
 

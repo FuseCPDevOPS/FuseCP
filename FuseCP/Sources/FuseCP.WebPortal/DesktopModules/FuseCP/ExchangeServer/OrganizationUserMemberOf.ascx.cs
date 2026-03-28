@@ -43,7 +43,7 @@ namespace FuseCP.Portal.HostedSolution
         {
             get
             {
-                return Cntx.Groups.ContainsKey(ResourceGroups.Exchange) & Utils.CheckQouta(Quotas.EXCHANGE2007_DISTRIBUTIONLISTS, Cntx);
+                return Cntx.Groups.ContainsKey(ResourceGroups.Exchange) && Utils.CheckQouta(Quotas.EXCHANGE2007_DISTRIBUTIONLISTS, Cntx);
             }
         }
 

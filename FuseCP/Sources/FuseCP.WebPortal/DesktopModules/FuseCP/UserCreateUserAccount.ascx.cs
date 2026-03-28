@@ -62,7 +62,7 @@ namespace FuseCP.Portal
             if (user.Role == UserRole.User)
                 role.Items.Remove("Reseller");
 
-            if ((PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) |
+            if ((PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) ||
                 (PanelSecurity.LoggedUser.Role == UserRole.ResellerHelpdesk))
                 role.Items.Remove("Reseller");
         }

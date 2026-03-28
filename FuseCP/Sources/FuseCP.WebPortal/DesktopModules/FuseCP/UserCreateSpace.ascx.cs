@@ -86,11 +86,11 @@ namespace FuseCP.Portal
 
             chkCreateResources.Visible = (planId > 0);
             bool createResources = chkCreateResources.Checked;
-            ResourcesPanel.Visible = createResources & chkCreateResources.Visible;
+            ResourcesPanel.Visible = createResources && chkCreateResources.Visible;
             if (!createResources)
                 return;
 
-            if ((PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) |
+            if ((PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) ||
                 (PanelSecurity.LoggedUser.Role == UserRole.ResellerHelpdesk))
                 this.chkCreateResources.Enabled = this.chkIntegratedOUProvisioning.Enabled = false;
 

@@ -230,44 +230,44 @@ namespace FuseCP.Portal
 		{
 			var local_resourceGroup = await ResourceGroup();
 
-			DnsRecrodsPanel.Visible = DnsRecrodsHeader.Visible = ((local_resourceGroup.GroupName == ResourceGroups.BlackBerry) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.OCS) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.HostedCRM) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Os) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.HostedOrganizations) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointEnterpriseServer) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Mail) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Lync) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.SfB) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Exchange) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Web) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Dns) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Ftp) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2000) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2005) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2008) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2012) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2014) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2016) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2017) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2019) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2022) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2025) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MySql4) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MySql5) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MySql8) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MySql9) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.MariaDB) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Statistics) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.VPS) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.VPS2012) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.VPSForPC) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.RDS) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.EnterpriseStorage) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.Filters) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.SharePoint) |
-																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointServer) |
+			DnsRecrodsPanel.Visible = DnsRecrodsHeader.Visible = ((local_resourceGroup.GroupName == ResourceGroups.BlackBerry) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.OCS) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.HostedCRM) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Os) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.HostedOrganizations) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointEnterpriseServer) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Mail) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Lync) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.SfB) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Exchange) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Web) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Dns) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Ftp) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2000) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2005) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2008) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2012) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2014) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2016) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2017) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2019) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2022) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MsSql2025) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql4) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql5) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql8) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MySql9) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.MariaDB) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Statistics) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPS) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPS2012) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.VPSForPC) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.RDS) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.EnterpriseStorage) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.Filters) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharePoint) ||
+																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointServer) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.StorageSpaces)
 																				 );
 		}

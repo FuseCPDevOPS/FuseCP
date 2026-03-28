@@ -397,7 +397,10 @@ namespace FuseCP.Portal
 				ShortcutRedirect();
 
 				// standard redirect
-				Response.Redirect(RedirectUrl, true);
+				string safeRedirectUrl = RedirectUrl;
+				if (!IsLocalUrl(safeRedirectUrl))
+					safeRedirectUrl = PortalUtils.LoginRedirectUrl;
+				Response.Redirect(safeRedirectUrl, true);
 			}
 		}
 
@@ -518,13 +521,13 @@ namespace FuseCP.Portal
 			SetCurrentLanguage();
 			SetCurrentTheme();
 
-			Response.Redirect(Request.Url.ToString());
+			Response.Redirect(Request.RawUrl);
 		}
 
 		protected void ddlTheme_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			SetCurrentTheme();
-			Response.Redirect(Request.Url.ToString());
+			Response.Redirect(Request.RawUrl);
 		}
 
 		protected void btnResendPin_Click(object sender, EventArgs e)

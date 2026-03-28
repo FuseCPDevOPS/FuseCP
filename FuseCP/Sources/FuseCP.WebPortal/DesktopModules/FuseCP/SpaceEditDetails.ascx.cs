@@ -39,10 +39,10 @@ namespace FuseCP.Portal
 
             if (user != null)
             {
-                if ((user.Role == UserRole.User) | 
-                    (PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) |
-                    (PanelSecurity.LoggedUser.Role == UserRole.ResellerHelpdesk) | 
-                    (PanelSecurity.LoggedUser.Role == UserRole.PlatformCSR) |
+                if ((user.Role == UserRole.User) || 
+                    (PanelSecurity.LoggedUser.Role == UserRole.ResellerCSR) ||
+                    (PanelSecurity.LoggedUser.Role == UserRole.ResellerHelpdesk) || 
+                    (PanelSecurity.LoggedUser.Role == UserRole.PlatformCSR) ||
                     (PanelSecurity.LoggedUser.Role == UserRole.PlatformHelpdesk))
                     this.rbPackageQuotas.Enabled = this.rbPlanQuotas.Enabled = false;
             }

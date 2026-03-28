@@ -176,7 +176,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedM
                 }
                 else
                 {
-                    if ((!string.IsNullOrEmpty(txtFirstName.Text)) | (!string.IsNullOrEmpty(txtLastName.Text)) | (!string.IsNullOrEmpty(txtInitials.Text)))
+                    if ((!string.IsNullOrEmpty(txtFirstName.Text)) || (!string.IsNullOrEmpty(txtLastName.Text)) || (!string.IsNullOrEmpty(txtInitials.Text)))
                     {
                         SetUserAttributes(accountId);
                     }

@@ -340,32 +340,37 @@ public class PortalUtils
 
 			if (authTicket == null)
 			{
-				// original code
-				HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-				// workaround for cases when AuthTicket is required before round-trip
-				if (authCookie == null || String.IsNullOrEmpty(authCookie.Value))
-					authCookie = HttpContext.Current.Response.Cookies[FormsAuthentication.FormsCookieName];
-				//
-				if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
+				// Prefer the server-validated FormsIdentity from the authentication pipeline.
+				if (HttpContext.Current.User?.Identity is System.Web.Security.FormsIdentity formsId)
 				{
-					try
+					authTicket = formsId.Ticket;
+					HttpContext.Current.Items[FormsAuthentication.FormsCookieName] = authTicket;
+				}
+				else
+				{
+					// Fallback: server-set response cookie for same-request scenarios (e.g. just after SetAuthTicket).
+					HttpCookie authCookie = HttpContext.Current.Response.Cookies[FormsAuthentication.FormsCookieName];
+					if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
 					{
-						authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-						HttpContext.Current.Items[FormsAuthentication.FormsCookieName] = authTicket;
-					}
-					catch (CryptographicException)
-					{
-						// Stale/tampered cookie (e.g. machine key rotation): clear and continue as anonymous.
-						UserSignOutOnly();
-					}
-					catch (ArgumentException)
-					{
-						// Malformed cookie payload should not break the request pipeline.
-						InvalidateAuthCookieSafe();
-					}
-					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-					{
-						InvalidateAuthCookieSafe();
+						try
+						{
+							authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+							HttpContext.Current.Items[FormsAuthentication.FormsCookieName] = authTicket;
+						}
+						catch (CryptographicException)
+						{
+							// Stale/tampered cookie (e.g. machine key rotation): clear and continue as anonymous.
+							UserSignOutOnly();
+						}
+						catch (ArgumentException)
+						{
+							// Malformed cookie payload should not break the request pipeline.
+							InvalidateAuthCookieSafe();
+						}
+						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+						{
+							InvalidateAuthCookieSafe();
+						}
 					}
 				}
 			}
@@ -978,7 +983,7 @@ public class PortalUtils
 					if (list.Items.Count > 0 && list.Items[0] != null)
 					{
 						SetCurrentLanguage(list.Items[0].Value);
-						HttpContext.Current.Response.Redirect(HttpContext.Current.Request.Url.ToString());
+						HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 					}
 				}
 			}
@@ -1190,6 +1195,10 @@ public class PortalUtils
 			{
 				XmlDocument xmlDoc = new XmlDocument();
 				xmlDoc.Load(xmlFilePath);
+
+				// Restrict controlKey to safe identifier characters to prevent XPath injection.
+				if (!string.IsNullOrEmpty(controlKey) && !System.Text.RegularExpressions.Regex.IsMatch(controlKey, @"^[A-Za-z0-9._\-]+$"))
+					return generalControlKey;
 
 				XmlElement xmlNode = (XmlElement)xmlDoc.SelectSingleNode("/Controls/Control[@key=" + ToXPathLiteral(controlKey) + "]");
 

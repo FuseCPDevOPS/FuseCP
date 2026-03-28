@@ -847,8 +847,7 @@ namespace FuseCP.Providers.Mail
                 if (!forwResult.Result)
                     throw new Exception(forwResult.Message);
 
-                string[] forwAddresses = forwResult.ForwardingAddress.Split(';', ',');
-                mailbox.ForwardingAddresses = forwAddresses
+                mailbox.ForwardingAddresses = forwResult.ForwardingAddress.Split(';', ',')
                     .Select(forwAddress => forwAddress.Trim())
                     .Where(forwAddress => !String.IsNullOrEmpty(forwAddress))
                     .ToArray();

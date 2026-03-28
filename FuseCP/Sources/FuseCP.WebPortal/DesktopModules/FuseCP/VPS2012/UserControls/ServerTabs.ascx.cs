@@ -91,7 +91,7 @@ namespace FuseCP.Portal.VPS2012.UserControls
             }
 
             if (TaskTable.Visible)
-                Response.Redirect(Request.Url.ToString()); // refresh screen
+                Response.Redirect(Request.RawUrl); // refresh screen
 
             // show tabs
             TabsTable.Visible = true;
