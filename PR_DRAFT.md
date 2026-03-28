@@ -96,3 +96,73 @@
 - No behavioral changes to features, APIs, or configuration
 - Build validated with full dependency chain (database workflow, provider DLLs, portal modules)
 - No generated files modified; install.mysql.sql restored to keep diffs clean
+
+---
+
+### Commit: 461b1a60c
+**Message**: fix: add null-dereference guards in WebPortal edit pages
+
+**Scope**: 5 files modified — WebPortal edit page controls with defensive coding improvements
+
+#### Files Modified
+**Portal Edit Pages** (5 files):
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs` — null check before ColdFusionVersion property chain (.Equals() calls)
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/DomainsEditDomain.ascx.cs` — array normalization for GetDomainsByDomainId result before .Where() call
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SqlEditDatabase.ascx.cs` — null guard on DatabaseBrowserConfiguration config before Method property access
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/MailDomainsEditDomain.ascx.cs` — bounds check for providerControl.Controls[0] array access
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SqlEditUser.ascx.cs` — bounds check for providerControl.Controls[0] with proper variable scoping
+
+#### Remediation Patterns Applied
+
+1. **Nullable Property Null-Check** (WebSitesEditSite)
+   - Pattern: `if (!String.IsNullOrEmpty(property)) { property.Equals(...) }`
+   - Rationale: ColdFusionVersion could be null; prevents null-reference when calling Equals()
+   - Impact: ~3–5 alerts (multiple Equals calls in chain)
+
+2. **Array Normalization** (DomainsEditDomain)
+   - Pattern: `array ??= Array.Empty<T>()`
+   - Rationale: GetDomainsByDomainId may return null; prevents null-dereference in .Where() LINQ call
+   - Impact: ~2 alerts (null-ref on Where + enumeration)
+
+3. **Null Guard Before Property Access** (SqlEditDatabase)
+   - Pattern: `if (config != null && String.Compare(config.Method, ...))`
+   - Rationale: DatabaseBrowserConfiguration result never null-checked before accessing Method property
+   - Impact: ~1 alert (single NullReferenceException risk point)
+
+4. **Bounds Check Before Array Access** (MailDomainsEditDomain, SqlEditUser)
+   - Pattern: `if (providerControl.Controls.Count > 0) { ctrl = providerControl.Controls[0]; }`
+   - Rationale: Direct array access without verifying collection has items; prevents IndexOutOfRangeException
+   - Impact: ~2 alerts per file (index access + cast + dereference)
+
+#### Validation Summary
+- **Portal Module Build**: ✅ Succeeded (0 errors, 0 warnings)
+- **Scope**: 5 files tested with direct msbuild
+- **Compile Errors**: 0
+- **Analyzer Suppression**: None (zero pragmas, zero [SuppressMessage] attributes)
+- **Regression Risk**: Low — all fixes are pure null/bounds guards with no logic changes
+
+#### Risk Assessment
+- ✅ **Backward Compatible**: Fixes add guards, do not change APIs or behavior
+- ✅ **UI Safety**: Edit page controls handle missing provider controls and null properties gracefully
+- ⚠️ **Expected Alert Reduction**: ~10–15 CodeQL alerts from property/array access patterns
+
+#### Testing Guidance
+1. **Edit Page Loading**:
+   - Edit website with/without ColdFusion installed
+   - Edit domain with/without preview alias
+   - Load SQL/Mail edit pages with proper/missing provider controls
+
+2. **Collection Safety**:
+   - Verify controls bind correctly when provider nesting complete
+   - Confirm graceful handling if provider control containers are empty
+
+3. **Property Access**:
+   - Domain edit preview domain operations
+   - Database browser logon script retrieval
+   - Site coldfusion version checks
+
+#### Notes
+- Batch 5 focuses on WebPortal UI edit pages with specific null-check opportunities
+- No provider-specific changes; affects only core portal modules
+- All fixes follow existing defensive patterns in adjacent code
+- Variable scoping preserved to maintain upstream BindItem() calls (SqlEditUser)
