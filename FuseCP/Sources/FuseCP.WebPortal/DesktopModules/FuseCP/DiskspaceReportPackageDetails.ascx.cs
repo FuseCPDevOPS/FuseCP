@@ -49,9 +49,17 @@ namespace FuseCP.Portal
         private void BindSummary()
         {
             DataSet ds = ES.Services.Packages.GetPackageDiskspace(PanelSecurity.PackageId);
+            DataTable summaryTable = (ds != null && ds.Tables.Count > 0) ? ds.Tables[0] : null;
+            if (summaryTable == null)
+            {
+                gvSummary.DataSource = null;
+                gvSummary.DataBind();
+                litTotal.Text = "0";
+                return;
+            }
 
             long negativeDiskspace = 0;
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            foreach (DataRow dr in summaryTable.Rows)
             {
                 long diskspace = Convert.ToInt64(dr["Diskspace"]);
                 DiskspaceTotal += diskspace;
@@ -61,7 +69,7 @@ namespace FuseCP.Portal
             }
 
             // subtract negative from "Files" and remove negative groups
-            DataRowCollection rows = ds.Tables[0].Rows;
+            DataRowCollection rows = summaryTable.Rows;
             int i = 0;
             while (i < rows.Count)
             {

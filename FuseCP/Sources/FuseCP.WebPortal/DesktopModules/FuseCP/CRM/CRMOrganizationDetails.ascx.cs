@@ -58,7 +58,7 @@ namespace FuseCP.Portal.CRM
                 {
                     int serviceId = si[0].ServiceId;
                     string[] settings = ES.Services.Servers.GetServiceSettings(serviceId);
-                    serviceSettings = ConvertArrayToDictionary(settings);
+                    serviceSettings = ConvertArrayToDictionary(settings ?? Array.Empty<string>());
                 }
                 else
                     serviceSettings = new StringDictionary();

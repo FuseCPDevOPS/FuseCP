@@ -41,7 +41,7 @@ namespace FuseCP.Portal.VPS2012
         {
             int adaptervlan = ES.Services.VPS2012.GetExternalNetworkVLAN(PanelRequest.ItemID);
 
-            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
             foreach (PackageIPAddress ip in ips.Where(ip => ip.VLAN == adaptervlan))
             {
                     string txt = ip.ExternalIP;

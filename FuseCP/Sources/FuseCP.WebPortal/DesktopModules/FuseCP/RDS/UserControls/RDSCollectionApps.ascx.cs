@@ -96,10 +96,18 @@ namespace FuseCP.Portal.RDS.UserControls
         protected void BindPopupApps()
 		{
             RdsCollection collection = ES.Services.RDS.GetRdsCollection(PanelRequest.CollectionID, false);
-            List<StartMenuApp> apps = ES.Services.RDS.GetAvailableRemoteApplications(PanelRequest.ItemID, collection.Name).ToList();
-            var sessionHosts = ES.Services.RDS.GetRdsCollectionSessionHosts(PanelRequest.CollectionID);            
+            if (collection == null)
+            {
+                gvPopupApps.DataSource = Array.Empty<StartMenuApp>();
+                gvPopupApps.DataBind();
+                return;
+            }
 
-            var addedApplications = GetApps();
+            StartMenuApp[] availableApps = ES.Services.RDS.GetAvailableRemoteApplications(PanelRequest.ItemID, collection.Name) ?? Array.Empty<StartMenuApp>();
+            List<StartMenuApp> apps = availableApps.ToList();
+            string[] sessionHosts = ES.Services.RDS.GetRdsCollectionSessionHosts(PanelRequest.CollectionID) ?? Array.Empty<string>();
+
+            RemoteApplication[] addedApplications = GetApps() ?? Array.Empty<RemoteApplication>();
             var aliases = addedApplications.Select(p => p.Alias);
             apps = apps.Where(x => !aliases.Contains(x.Alias)).ToList();          
 
@@ -114,7 +122,7 @@ namespace FuseCP.Portal.RDS.UserControls
                 Direction = SortDirection.Ascending;
             }
 
-            var requiredParams = addedApplications.Select(a => a.RequiredCommandLine.ToLower());
+            var requiredParams = addedApplications.Select(a => (a.RequiredCommandLine ?? string.Empty).ToLower());
 
             foreach (var host in sessionHosts.Where(host => !requiredParams.Contains(string.Format("/v:{0}", host.ToLower()))))
             {
@@ -125,7 +133,9 @@ namespace FuseCP.Portal.RDS.UserControls
                         RequiredCommandLine = string.Format("/admin /v:{0}", host.ToLower())
                     };
 
-                    var sessionHost = collection.Servers.Where(s => s.FqdName.Equals(host, StringComparison.CurrentCultureIgnoreCase)).First();
+                    var sessionHost = (collection.Servers ?? new List<RdsServer>())
+                        .Where(s => s.FqdName.Equals(host, StringComparison.CurrentCultureIgnoreCase))
+                        .FirstOrDefault();
 
                     if (sessionHost != null)
                     {
@@ -189,8 +199,13 @@ namespace FuseCP.Portal.RDS.UserControls
                 if (chkSelect == null)
                     continue;
 
+                DataKey dataKey = gvApps.DataKeys[i];
+                string appAlias = dataKey?.Value as string;
+                if (string.IsNullOrEmpty(appAlias))
+                    continue;
+
                 RemoteApplication app = new RemoteApplication();
-                app.Alias = (string)gvApps.DataKeys[i][0];
+                app.Alias = appAlias;
                 app.DisplayName = ((LinkButton)row.FindControl("lnkDisplayName")).Text;
                 app.FilePath = ((HiddenField)row.FindControl("hfFilePath")).Value;
                 app.RequiredCommandLine = ((HiddenField)row.FindControl("hfRequiredCommandLine")).Value;
@@ -223,9 +238,14 @@ namespace FuseCP.Portal.RDS.UserControls
 
                 if (chkSelect.Checked)
                 {
+                    DataKey dataKey = gvPopupApps.DataKeys[i];
+                    string appAlias = dataKey?.Value as string;
+                    if (string.IsNullOrEmpty(appAlias))
+                        continue;
+
                     apps.Add(new RemoteApplication
                     {
-                        Alias = (string)gvPopupApps.DataKeys[i][0],
+                        Alias = appAlias,
                         DisplayName = ((Literal)row.FindControl("litName")).Text,
                         FilePath = ((HiddenField)row.FindControl("hfFilePathPopup")).Value,
                         RequiredCommandLine = ((HiddenField)row.FindControl("hfRequiredCommandLinePopup")).Value

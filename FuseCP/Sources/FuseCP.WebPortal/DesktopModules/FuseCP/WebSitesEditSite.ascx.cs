@@ -172,7 +172,7 @@ namespace FuseCP.Portal
 
 			// bind unassigned IP addresses
 			ddlIpAddresses.Items.Clear();
-			PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(site.PackageId, 0, IPAddressPool.WebSites);
+			PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(site.PackageId, 0, IPAddressPool.WebSites) ?? Array.Empty<PackageIPAddress>();
 			foreach (PackageIPAddress ip in ips)
 			{
 				string fullIP = ip.ExternalIP;
@@ -192,7 +192,7 @@ namespace FuseCP.Portal
 			{
                     //The line below was not showing the correct Public Shared IP Address for websites.
                     //lblSharedIP.Text = string.Format("({0})", ipsGeneral[0].ExternalIP);
-                    StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(site.ServiceId));
+					StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(site.ServiceId) ?? Array.Empty<string>());
                     if (settings["PublicSharedIP"] != null)
                         lblSharedIP.Text = settings["PublicSharedIP"].ToString();
             }

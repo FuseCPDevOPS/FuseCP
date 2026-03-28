@@ -238,6 +238,13 @@ namespace FuseCP.Portal
                             orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
                         }
 
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("SFB_DELETE_PLAN");
+                            BindPlans();
+                            return;
+                        }
+
                         plan = ES.Services.SfB.GetSfBUserPlan(orgs[0].Id, planId);
 
                         if (plan.ItemId != orgs[0].Id)
@@ -288,6 +295,13 @@ namespace FuseCP.Portal
                         else
                         {
                             orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
+                        }
+
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("SFB_UPDATEPLANS");
+                            BindPlans();
+                            return;
                         }
 
                         plan = ES.Services.SfB.GetSfBUserPlan(orgs[0].Id, planId);
@@ -398,6 +412,13 @@ namespace FuseCP.Portal
             else
             {
                 orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
+            }
+
+            if ((orgs == null) || (orgs.GetLength(0) == 0))
+            {
+                messageBox.ShowErrorMessage("SFB_UPDATEPLANS");
+                BindPlans();
+                return;
             }
 
             plan = ES.Services.SfB.GetSfBUserPlan(orgs[0].Id, planId);

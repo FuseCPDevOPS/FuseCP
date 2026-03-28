@@ -98,8 +98,11 @@ namespace FuseCP.Portal
                         fileLookup.SelectedFile = item.Folder;
 
                         // other controls
-                        IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
                     }
                 }
             }
@@ -124,6 +127,11 @@ namespace FuseCP.Portal
             local_item.Folder = fileLookup.SelectedFile;
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

@@ -185,8 +185,13 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 if (chkSelect == null)
                     continue;
 
+                DataKey dataKey = gvPermissions.DataKeys[i];
+                string accountName = dataKey?.Value as string;
+                if (string.IsNullOrEmpty(accountName))
+                    continue;
+
                 ESPermission permission = new ESPermission();
-                permission.Account = (string)gvPermissions.DataKeys[i][0];
+                permission.Account = accountName;
                 permission.Access = ((Literal)row.FindControl("litAccess")).Text;
                 permission.DisplayName = ((Literal)row.FindControl("litAccount")).Text;
 
@@ -211,9 +216,14 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
                 if (chkSelect.Checked)
                 {
+                    DataKey dataKey = gvPopupAccounts.DataKeys[i];
+                    string accountName = dataKey?.Value as string;
+                    if (string.IsNullOrEmpty(accountName))
+                        continue;
+
                     accounts.Add(new ExchangeAccount
                     {
-                        AccountName = (string)gvPopupAccounts.DataKeys[i][0],
+                        AccountName = accountName,
                         DisplayName = ((Literal)row.FindControl("litDisplayName")).Text
                     });
                 }

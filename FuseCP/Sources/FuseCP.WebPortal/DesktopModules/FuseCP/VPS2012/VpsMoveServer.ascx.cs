@@ -43,7 +43,9 @@ namespace FuseCP.Portal.VPS2012
         public void BindHyperVServices()
         {
             // bind
-            HyperVServices.DataSource = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS2012).Tables[0].DefaultView;
+            DataSet services = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS2012);
+            DataTable table = (services != null && services.Tables.Count > 0) ? services.Tables[0] : null;
+            HyperVServices.DataSource = table != null ? table.DefaultView : null;
             HyperVServices.DataBind();
 
             // add select value

@@ -172,6 +172,11 @@ namespace FuseCP.Portal
             local_item.Databases = databases.ToArray();
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IDatabaseEditUserControl ctrl = (IDatabaseEditUserControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

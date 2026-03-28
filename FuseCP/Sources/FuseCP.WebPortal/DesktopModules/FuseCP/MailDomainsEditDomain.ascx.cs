@@ -114,6 +114,11 @@ namespace FuseCP.Portal
             local_item.PackageId = PanelSecurity.PackageId;
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowErrorMessage("MAIL_INIT_DOMAIN_FORM");
+                return;
+            }
             IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

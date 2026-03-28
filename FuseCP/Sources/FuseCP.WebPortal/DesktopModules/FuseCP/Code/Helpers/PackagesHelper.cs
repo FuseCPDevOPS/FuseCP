@@ -32,6 +32,26 @@ namespace FuseCP.Portal
     /// </summary>
     public class PackagesHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         private const int PACKAGE_CACHE_TIMEOUT = 30; // minutes
 
         public static PackageInfo GetCachedPackage(int packageId)
@@ -156,8 +176,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         {
             Hashtable ret = new Hashtable();
 
-            DataTable table = ES.Services.Packages.GetRawMyPackages(PanelSecurity.SelectedUserId).Tables[0];
-            if(table.Rows.Count > 0) {
+            DataSet myPackages = ES.Services.Packages.GetRawMyPackages(PanelSecurity.SelectedUserId);
+            DataTable table = (myPackages != null && myPackages.Tables.Count > 0) ? myPackages.Tables[0] : null;
+            if(table != null && table.Rows.Count > 0) {
                 System.Collections.Generic.IEnumerable<DataRow> dr = table.AsEnumerable().Skip(PackagesPerPage * index - PackagesPerPage).Take(PackagesPerPage);
             
                 DataSet set = new DataSet();
@@ -171,8 +192,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
         public DataSet GetMyPackage(int packageid) {
             DataSet ret = new DataSet();
-            DataTable table = ES.Services.Packages.GetRawMyPackages(PanelSecurity.SelectedUserId).Tables[0];
-            if (table.Rows.Count > 0)
+            DataSet myPackages = ES.Services.Packages.GetRawMyPackages(PanelSecurity.SelectedUserId);
+            DataTable table = (myPackages != null && myPackages.Tables.Count > 0) ? myPackages.Tables[0] : null;
+            if (table != null && table.Rows.Count > 0)
             {
                 var exists = table.Select("PackageID = " + packageid);
                 if (exists.Length != 0)
@@ -189,7 +211,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
         public int GetPackagesPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsPackagesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsPackagesPaged);
         }
 
         public DataTable GetPackagesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -197,7 +219,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         {
             dsPackagesPaged = ES.Services.Packages.GetPackagesPaged(PanelSecurity.SelectedUserId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
-            return dsPackagesPaged.Tables[1];
+            return GetPagedTable(dsPackagesPaged, 1);
         }
         #endregion
 
@@ -207,7 +229,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         public int GetNestedPackagesPagedCount(int packageId, string filterColumn, string filterValue,
             int statusId, int planId, int serverId)
         {
-            return (int)dsNestedPackagesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsNestedPackagesPaged);
         }
 
         public DataTable GetNestedPackagesPaged(int packageId, string filterColumn, string filterValue,
@@ -217,7 +239,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             dsNestedPackagesPaged = ES.Services.Packages.GetNestedPackagesPaged(
                 packageId, filterColumn, filterValue, statusId, planId, serverId,
                 sortColumn, startRowIndex, maximumRows);
-            return dsNestedPackagesPaged.Tables[1];
+            return GetPagedTable(dsNestedPackagesPaged, 1);
         }
         #endregion
 
@@ -226,7 +248,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
         public int SearchServiceItemsPagedCount(int itemTypeId, string filterValue)
         {
-            return (int)dsServiceItemsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsServiceItemsPaged);
         }
 
         public DataTable SearchServiceItemsPaged(int itemTypeId, string filterValue,
@@ -234,7 +256,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
         {
             dsServiceItemsPaged = ES.Services.Packages.SearchServiceItemsPaged(PanelSecurity.EffectiveUserId,
                 itemTypeId, "%" + filterValue + "%", sortColumn, startRowIndex, maximumRows);
-            return dsServiceItemsPaged.Tables[1];
+            return GetPagedTable(dsServiceItemsPaged, 1);
         }
         #endregion
 
@@ -244,7 +266,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
         public int SearchObjectItemsPagedCount(string filterColumn, string filterValue, string fullType, string colType)
         {
-            return (int)dsObjectItemsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsObjectItemsPaged);
         }
 
         public DataTable SearchObjectItemsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -253,7 +275,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             dsObjectItemsPaged = ES.Services.Packages.GetSearchObject(PanelSecurity.EffectiveUserId, filterColumn,
                 String.Format("%{0}%", filterValue),
                 0, 0, sortColumn, startRowIndex, maximumRows, colType, fullType);
-            return dsObjectItemsPaged.Tables[2];
+            return GetPagedTable(dsObjectItemsPaged, 2);
         }
 
         public DataTable SearchObjectTypes(string filterColumn, string filterValue, string fullType, string sortColumn)
@@ -261,7 +283,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             dsObjectItemsPaged = ES.Services.Packages.GetSearchObject(PanelSecurity.EffectiveUserId, filterColumn,
                 String.Format("%{0}%", filterValue),
                 0, 0, sortColumn, 0, 0, "",fullType);
-            return dsObjectItemsPaged.Tables[1];
+            return GetPagedTable(dsObjectItemsPaged, 1);
         }
         //TODO END
         #endregion

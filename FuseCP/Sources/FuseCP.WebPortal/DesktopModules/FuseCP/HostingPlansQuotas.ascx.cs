@@ -48,7 +48,8 @@ namespace FuseCP.Portal
             try
             {
                 dsQuotas = ES.Services.Packages.GetPackageQuotasForEdit(packageId);
-                dlGroups.DataSource = dsQuotas.Tables[0];
+                DataTable groupTable = (dsQuotas != null && dsQuotas.Tables.Count > 0) ? dsQuotas.Tables[0] : null;
+                dlGroups.DataSource = groupTable;
                 dlGroups.DataBind();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -64,8 +65,11 @@ namespace FuseCP.Portal
             try
             {
                 dsQuotas = ES.Services.Packages.GetHostingPlanQuotas(packageId, planId, serverId);
-                dsQuotas.Tables[0].DefaultView.RowFilter = "ParentEnabled =True";
-                dlGroups.DataSource = dsQuotas.Tables[0].DefaultView;
+                DataTable groupTable = (dsQuotas != null && dsQuotas.Tables.Count > 0) ? dsQuotas.Tables[0] : null;
+                if (groupTable != null)
+                    groupTable.DefaultView.RowFilter = "ParentEnabled =True";
+
+                dlGroups.DataSource = groupTable != null ? groupTable.DefaultView : null;
                 dlGroups.DataBind();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

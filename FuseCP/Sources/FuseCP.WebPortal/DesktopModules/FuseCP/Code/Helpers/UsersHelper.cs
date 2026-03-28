@@ -28,6 +28,26 @@ namespace FuseCP.Portal
     /// </summary>
     public class UsersHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         private const int USER_CACHE_TIMEOUT = 30; // minutes
         private const int USER_SETTINGS_CACHE_TIMEOUT = 1; // minutes
 
@@ -42,7 +62,7 @@ namespace FuseCP.Portal
         public int GetUsersPagedCount(int userId, string filterColumn, string filterValue,
             int statusId, int roleId)
         {
-            return (int)dsUsersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsUsersPaged);
         }
 
         public DataTable GetUsersPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -50,12 +70,12 @@ namespace FuseCP.Portal
         {
             dsUsersPaged = ES.Services.Users.GetUsersPaged(userId, filterColumn, filterValue,
                 statusId, roleId, sortColumn, startRowIndex, maximumRows);
-            return dsUsersPaged.Tables[1];
+            return GetPagedTable(dsUsersPaged, 1);
         }
 
         public int GetUsersPagedRecursiveCount(string filterColumn, string filterValue)
         {
-            return (int)dsUsersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsUsersPaged);
         }
 
         public DataTable GetUsersPagedRecursive(int maximumRows, int startRowIndex, string sortColumn,
@@ -64,7 +84,7 @@ namespace FuseCP.Portal
             dsUsersPaged = ES.Services.Users.GetUsersPagedRecursive(PanelSecurity.EffectiveUserId,
                 filterColumn, "%" + filterValue + "%",
                 0, 0, sortColumn, startRowIndex, maximumRows);
-            return dsUsersPaged.Tables[1];
+            return GetPagedTable(dsUsersPaged, 1);
         }
         #endregion
 
@@ -73,7 +93,7 @@ namespace FuseCP.Portal
 
         public int GetLoggedUsersPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsLoggedUsersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsLoggedUsersPaged);
         }
 
         public DataTable GetLoggedUsersPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -81,7 +101,7 @@ namespace FuseCP.Portal
         {
             dsLoggedUsersPaged = ES.Services.Users.GetUsersPagedRecursive(PanelSecurity.EffectiveUserId, filterColumn, filterValue,
                 0, 0, sortColumn, startRowIndex, maximumRows);
-            return dsLoggedUsersPaged.Tables[1];
+            return GetPagedTable(dsLoggedUsersPaged, 1);
         }
         #endregion
 
@@ -183,6 +203,9 @@ namespace FuseCP.Portal
         public static DataSet GetUsers(int ownerId, bool recursive)
         {
             DataSet dsUsers = ES.Services.Users.GetRawUsers(ownerId, recursive);
+            if (dsUsers == null || dsUsers.Tables.Count == 0 || dsUsers.Tables[0] == null)
+                return dsUsers;
+
             DataTable dtUsers = dsUsers.Tables[0];
 
             // add "RoleName", "StatusName" columns

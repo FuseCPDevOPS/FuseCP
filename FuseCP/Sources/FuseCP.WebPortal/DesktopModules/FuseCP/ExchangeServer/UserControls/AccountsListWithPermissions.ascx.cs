@@ -276,10 +276,15 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 				CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
 						if (chkSelect == null)
 						continue;			
+
+				DataKey dataKey = gv.DataKeys[i];
+				string accountName = dataKey?.Value as string;
+				if (string.IsNullOrEmpty(accountName))
+					continue;
 				
 				ExchangeAccount account = new ExchangeAccount();
 				account.AccountType = (ExchangeAccountType)Enum.Parse(typeof(ExchangeAccountType), ((Literal)row.FindControl("litAccountType")).Text);
-				account.AccountName = (string)gv.DataKeys[i][0];
+				account.AccountName = accountName;
 				account.DisplayName = ((Literal)row.FindControl("litDisplayName")).Text;
 				account.PrimaryEmailAddress = ((Literal)row.FindControl("litPrimaryEmailAddress")).Text;
                 if (gv != gvPopupAccounts)

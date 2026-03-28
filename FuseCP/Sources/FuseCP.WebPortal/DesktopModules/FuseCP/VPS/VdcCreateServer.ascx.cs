@@ -56,8 +56,8 @@ namespace FuseCP.Portal.VPS
             //KD FSJ
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPS_CPU_NUMBER];
-            if (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue | cpuQuota2.QuotaAllocatedValue == -1)
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_CPU_NUMBER, out QuotaValueInfo cpuQuota2)
+                && (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue || cpuQuota2.QuotaAllocatedValue == -1))
             {
                 wizard.Visible = true;
 
@@ -105,16 +105,14 @@ namespace FuseCP.Portal.VPS
             // bind CPU cores
             int maxCores = ES.Services.VPS.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
 
-            QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPS_CPU_NUMBER];
-
-            if (cpuQuota2.QuotaAllocatedValue == -1)
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_CPU_NUMBER, out QuotaValueInfo cpuQuota2) && cpuQuota2.QuotaAllocatedValue == -1)
             {
                 for (int i = 1; i < maxCores + 1; i++)
                     ddlCpu.Items.Add(i.ToString());
 
                 ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
             }
-            else if (cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
+            else if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_CPU_NUMBER, out cpuQuota2) && cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
             {
                 if ((cpuQuota2.QuotaAllocatedValue + 1 - cpuQuota2.QuotaUsedValue) > maxCores)
                 {
@@ -141,7 +139,7 @@ namespace FuseCP.Portal.VPS
             if (PackagesHelper.IsQuotaEnabled(PanelSecurity.PackageId, Quotas.VPS_EXTERNAL_NETWORK_ENABLED))
             {
                 // bind list
-                PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+                PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
                 foreach (PackageIPAddress ip in ips)
                 {
                     string txt = ip.ExternalIP;
@@ -165,8 +163,9 @@ namespace FuseCP.Portal.VPS
                 litPrivateSubnetMask.Text = nic.SubnetMask;
 
                 // set max number
-                QuotaValueInfo privQuota = cntx.Quotas[Quotas.VPS_PRIVATE_IP_ADDRESSES_NUMBER];
-                int maxPrivate = privQuota.QuotaAllocatedValue;
+                int maxPrivate = 0;
+                if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_PRIVATE_IP_ADDRESSES_NUMBER, out QuotaValueInfo privQuota))
+                    maxPrivate = privQuota.QuotaAllocatedValue;
                 if (maxPrivate == -1)
                     maxPrivate = 10;
 
@@ -182,7 +181,7 @@ namespace FuseCP.Portal.VPS
             }
 
             // RAM size
-          if (cntx.Quotas.TryGetValue(Quotas.VPS_RAM, out QuotaValueInfo ramQuota))
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_RAM, out QuotaValueInfo ramQuota))
             {
                 if (ramQuota.QuotaAllocatedValue == -1)
                 {
@@ -197,7 +196,7 @@ namespace FuseCP.Portal.VPS
             }
 
             // HDD size
-          if (cntx.Quotas.TryGetValue(Quotas.VPS_HDD, out QuotaValueInfo hddQuota))
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_HDD, out QuotaValueInfo hddQuota))
             {
                 if (hddQuota.QuotaAllocatedValue == -1)
                 {
@@ -212,7 +211,7 @@ namespace FuseCP.Portal.VPS
             }
 
             // snapshots number
-            if (cntx.Quotas.TryGetValue(Quotas.VPS_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
             {
                 int snapsNumber = snapsQuota.QuotaAllocatedValue;
                 txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";

@@ -60,7 +60,9 @@ namespace FuseCP.Portal.VPSForPC
         public void BindHyperVServices()
         {
             // bind
-            HyperVServices.DataSource = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS).Tables[0].DefaultView;
+            DataSet services = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS);
+            DataTable table = (services != null && services.Tables.Count > 0) ? services.Tables[0] : null;
+            HyperVServices.DataSource = table != null ? table.DefaultView : null;
             HyperVServices.DataBind();
 
             // add select value
@@ -110,8 +112,10 @@ namespace FuseCP.Portal.VPSForPC
                     // bind VM
                     CpuCores.Text = vm.CpuCores.ToString();
                     RamSize.Text = vm.RamSize.ToString();
-                    HddSize.Text = vm.HddSize[0].ToString();
-                    VhdPath.Text = vm.VirtualHardDrivePath[0];
+                    int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
+                    HddSize.Text = firstHddSize.ToString();
+                    string firstVhdPath = (vm.VirtualHardDrivePath != null && vm.VirtualHardDrivePath.Length > 0) ? vm.VirtualHardDrivePath[0] : string.Empty;
+                    VhdPath.Text = firstVhdPath;
 
                     // other settings
                     NumLockEnabled.Value = vm.NumLockEnabled;
@@ -142,7 +146,7 @@ namespace FuseCP.Portal.VPSForPC
 
         public void BindAddresses(ListBox list, IPAddressPool pool)
         {
-            IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS, pool);
+            IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS, pool) ?? Array.Empty<IPAddressInfo>();
             foreach (IPAddressInfo ip in ips)
             {
                 string txt = ip.ExternalIP;

@@ -168,8 +168,11 @@ namespace FuseCP.Portal
                         }
 
                         // other controls
-                        IDatabaseEditDatabaseControl ctrl = (IDatabaseEditDatabaseControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IDatabaseEditDatabaseControl ctrl = (IDatabaseEditDatabaseControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
                     }
                 }
             }
@@ -202,6 +205,11 @@ namespace FuseCP.Portal
             local_item.Users = users.ToArray();
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowErrorMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IDatabaseEditDatabaseControl ctrl = (IDatabaseEditDatabaseControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

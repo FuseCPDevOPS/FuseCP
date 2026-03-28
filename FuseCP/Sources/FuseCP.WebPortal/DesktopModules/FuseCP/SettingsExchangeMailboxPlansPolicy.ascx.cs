@@ -197,6 +197,13 @@ namespace FuseCP.Portal
                     {
                         orgs = GetOrganizations();
 
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("EXCHANGE_DELETE_MAILBOXPLAN");
+                            BindMailboxPlans();
+                            return;
+                        }
+
                         plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(orgs[0].Id, mailboxPlanId);
 
                         if (plan.ItemId != orgs[0].Id)
@@ -261,6 +268,13 @@ namespace FuseCP.Portal
                         ViewState["MailboxPlanID"] = mailboxPlanId;
 
                         orgs = GetOrganizations();
+
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("EXCHANGE_UPDATEPLANS");
+                            BindMailboxPlans();
+                            return;
+                        }
 
                         plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(orgs[0].Id, mailboxPlanId);
                         txtMailboxPlan.Text = plan.MailboxPlan;
@@ -363,6 +377,13 @@ namespace FuseCP.Portal
             int mailboxPlanId = (int)ViewState["MailboxPlanID"];
             Providers.HostedSolution.Organization[] orgs = GetOrganizations();
             Providers.HostedSolution.ExchangeMailboxPlan plan;
+
+            if ((orgs == null) || (orgs.GetLength(0) == 0))
+            {
+                messageBox.ShowErrorMessage("EXCHANGE_UPDATEPLANS");
+                BindMailboxPlans();
+                return;
+            }
 
             plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(orgs[0].Id, mailboxPlanId);
 

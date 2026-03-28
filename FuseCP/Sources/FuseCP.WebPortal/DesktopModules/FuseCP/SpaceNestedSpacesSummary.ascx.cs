@@ -44,12 +44,17 @@ namespace FuseCP.Portal
         private void BindGroupings()
         {
             DataSet dsSpaces = ES.Services.Packages.GetNestedPackagesSummary(PanelSecurity.PackageId);
+            DataTable allSpacesTable = (dsSpaces != null && dsSpaces.Tables.Count > 0) ? dsSpaces.Tables[0] : null;
+            DataTable statusTable = (dsSpaces != null && dsSpaces.Tables.Count > 1) ? dsSpaces.Tables[1] : null;
 
             // all customers
-            lnkAllSpaces.Text = String.Format("All Spaces ({0})", dsSpaces.Tables[0].Rows[0]["PackagesNumber"]);
+            object packagesNumber = (allSpacesTable != null && allSpacesTable.Rows.Count > 0)
+                ? allSpacesTable.Rows[0]["PackagesNumber"]
+                : 0;
+            lnkAllSpaces.Text = String.Format("All Spaces ({0})", packagesNumber);
 
             // by status
-            repSpaceStatuses.DataSource = dsSpaces.Tables[1];
+            repSpaceStatuses.DataSource = statusTable;
             repSpaceStatuses.DataBind();
         }
 

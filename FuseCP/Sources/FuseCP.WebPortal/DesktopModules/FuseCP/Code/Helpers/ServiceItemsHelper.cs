@@ -23,13 +23,33 @@ namespace FuseCP.Portal
     /// </summary>
     public class ServiceItemsHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         #region Web Sites
         DataSet dsItemsPaged;
 
         public int GetServiceItemsPagedCount(int packageId, string groupName, string typeName,
             int serverId, bool recursive, string filterColumn, string filterValue)
         {
-            return (int)dsItemsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsItemsPaged);
         }
 
         public DataTable GetServiceItemsPaged(int packageId, string groupName, string typeName,
@@ -39,7 +59,7 @@ namespace FuseCP.Portal
             dsItemsPaged = ES.Services.Packages.GetRawPackageItemsPaged(packageId, groupName, typeName, serverId,
                 recursive, filterColumn, filterValue, sortColumn, startRowIndex, maximumRows);
 
-            return dsItemsPaged.Tables[1];
+            return GetPagedTable(dsItemsPaged, 1);
         }
         #endregion
 
@@ -48,7 +68,7 @@ namespace FuseCP.Portal
 
         public int GetWebSitesPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsWebSitesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsWebSitesPaged);
         }
 
         public DataTable GetWebSitesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -57,7 +77,7 @@ namespace FuseCP.Portal
             dsWebSitesPaged = ES.Services.WebServers.GetRawWebSitesPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsWebSitesPaged.Tables[1];
+            return GetPagedTable(dsWebSitesPaged, 1);
         }
         #endregion
 
@@ -66,7 +86,7 @@ namespace FuseCP.Portal
 
         public int GetFtpAccountsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsFtpAccountsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsFtpAccountsPaged);
         }
 
         public DataTable GetFtpAccountsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -75,7 +95,7 @@ namespace FuseCP.Portal
             dsFtpAccountsPaged = ES.Services.FtpServers.GetRawFtpAccountsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsFtpAccountsPaged.Tables[1];
+            return GetPagedTable(dsFtpAccountsPaged, 1);
         }
         #endregion
 
@@ -84,7 +104,7 @@ namespace FuseCP.Portal
 
         public int GetMailAccountsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsMailAccountsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsMailAccountsPaged);
         }
 
         public DataTable GetMailAccountsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -93,7 +113,7 @@ namespace FuseCP.Portal
             dsMailAccountsPaged = ES.Services.MailServers.GetRawMailAccountsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsMailAccountsPaged.Tables[1];
+            return GetPagedTable(dsMailAccountsPaged, 1);
         }
         #endregion
 
@@ -102,7 +122,7 @@ namespace FuseCP.Portal
 
         public int GetMailForwardingsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsMailForwardingsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsMailForwardingsPaged);
         }
 
         public DataTable GetMailForwardingsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -111,7 +131,7 @@ namespace FuseCP.Portal
             dsMailForwardingsPaged = ES.Services.MailServers.GetRawMailForwardingsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsMailForwardingsPaged.Tables[1];
+            return GetPagedTable(dsMailForwardingsPaged, 1);
         }
         #endregion
 
@@ -120,7 +140,7 @@ namespace FuseCP.Portal
 
         public int GetMailGroupsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsMailGroupsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsMailGroupsPaged);
         }
 
         public DataTable GetMailGroupsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -129,7 +149,7 @@ namespace FuseCP.Portal
             dsMailGroupsPaged = ES.Services.MailServers.GetRawMailGroupsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsMailGroupsPaged.Tables[1];
+            return GetPagedTable(dsMailGroupsPaged, 1);
         }
         #endregion
 
@@ -138,7 +158,7 @@ namespace FuseCP.Portal
 
         public int GetMailListsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsMailListsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsMailListsPaged);
         }
 
         public DataTable GetMailListsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -147,7 +167,7 @@ namespace FuseCP.Portal
             dsMailListsPaged = ES.Services.MailServers.GetRawMailListsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsMailListsPaged.Tables[1];
+            return GetPagedTable(dsMailListsPaged, 1);
         }
         #endregion
 
@@ -156,7 +176,7 @@ namespace FuseCP.Portal
 
         public int GetMailDomainsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsMailDomainsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsMailDomainsPaged);
         }
 
         public DataTable GetMailDomainsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -165,7 +185,7 @@ namespace FuseCP.Portal
             dsMailDomainsPaged = ES.Services.MailServers.GetRawMailDomainsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsMailDomainsPaged.Tables[1];
+            return GetPagedTable(dsMailDomainsPaged, 1);
         }
         #endregion
 
@@ -174,7 +194,7 @@ namespace FuseCP.Portal
 
         public int GetSqlDatabasesPagedCount(string groupName, string filterColumn, string filterValue)
         {
-            return (int)dsSqlDatabasesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSqlDatabasesPaged);
         }
 
         public DataTable GetSqlDatabasesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -183,7 +203,7 @@ namespace FuseCP.Portal
             dsSqlDatabasesPaged = ES.Services.DatabaseServers.GetRawSqlDatabasesPaged(PanelSecurity.PackageId,
                 groupName, filterColumn, filterValue, sortColumn, startRowIndex, maximumRows);
 
-            return dsSqlDatabasesPaged.Tables[1];
+            return GetPagedTable(dsSqlDatabasesPaged, 1);
         }
         #endregion
 
@@ -192,7 +212,7 @@ namespace FuseCP.Portal
 
         public int GetSqlUsersPagedCount(string groupName, string filterColumn, string filterValue)
         {
-            return (int)dsSqlUsersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSqlUsersPaged);
         }
 
         public DataTable GetSqlUsersPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -201,7 +221,7 @@ namespace FuseCP.Portal
             dsSqlUsersPaged = ES.Services.DatabaseServers.GetRawSqlUsersPaged(PanelSecurity.PackageId,
                 groupName, filterColumn, filterValue, sortColumn, startRowIndex, maximumRows);
 
-            return dsSqlUsersPaged.Tables[1];
+            return GetPagedTable(dsSqlUsersPaged, 1);
         }
         #endregion
 
@@ -210,7 +230,7 @@ namespace FuseCP.Portal
 
         public int GetSharePointUsersPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsSharePointUsersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSharePointUsersPaged);
         }
 
         public DataTable GetSharePointUsersPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -219,7 +239,7 @@ namespace FuseCP.Portal
             dsSharePointUsersPaged = ES.Services.SharePointServers.GetRawSharePointUsersPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsSharePointUsersPaged.Tables[1];
+            return GetPagedTable(dsSharePointUsersPaged, 1);
         }
         #endregion
 
@@ -228,7 +248,7 @@ namespace FuseCP.Portal
 
         public int GetSharePointGroupsPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsSharePointGroupsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSharePointGroupsPaged);
         }
 
         public DataTable GetSharePointGroupsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -237,7 +257,7 @@ namespace FuseCP.Portal
             dsSharePointGroupsPaged = ES.Services.SharePointServers.GetRawSharePointGroupsPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsSharePointGroupsPaged.Tables[1];
+            return GetPagedTable(dsSharePointGroupsPaged, 1);
         }
         #endregion
 
@@ -246,7 +266,7 @@ namespace FuseCP.Portal
 
         public int GetStatisticsSitesPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsStatisticsItemsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsStatisticsItemsPaged);
         }
 
         public DataTable GetStatisticsSitesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -255,7 +275,7 @@ namespace FuseCP.Portal
             dsStatisticsItemsPaged = ES.Services.StatisticsServers.GetRawStatisticsSitesPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsStatisticsItemsPaged.Tables[1];
+            return GetPagedTable(dsStatisticsItemsPaged, 1);
         }
         #endregion
 
@@ -264,7 +284,7 @@ namespace FuseCP.Portal
 
         public int GetSharePointSitesPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsSharePointSitesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSharePointSitesPaged);
         }
 
         public DataTable GetSharePointSitesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -273,7 +293,7 @@ namespace FuseCP.Portal
             dsSharePointSitesPaged = ES.Services.SharePointServers.GetRawSharePointSitesPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsSharePointSitesPaged.Tables[1];
+            return GetPagedTable(dsSharePointSitesPaged, 1);
         }
         #endregion
 
@@ -282,7 +302,7 @@ namespace FuseCP.Portal
 
         public int GetOdbcSourcesPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsOdbcSourcesPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsOdbcSourcesPaged);
         }
 
         public DataTable GetOdbcSourcesPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -291,7 +311,7 @@ namespace FuseCP.Portal
             dsOdbcSourcesPaged = ES.Services.OperatingSystems.GetRawOdbcSourcesPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsOdbcSourcesPaged.Tables[1];
+            return GetPagedTable(dsOdbcSourcesPaged, 1);
         }
         #endregion
 
@@ -300,7 +320,7 @@ namespace FuseCP.Portal
 
         public int GetSharedSSLFoldersPagedCount(string filterColumn, string filterValue)
         {
-            return (int)dsSharedSSLFoldersPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsSharedSSLFoldersPaged);
         }
 
         public DataTable GetSharedSSLFoldersPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -309,7 +329,7 @@ namespace FuseCP.Portal
             dsSharedSSLFoldersPaged = ES.Services.WebServers.GetRawSSLFoldersPaged(PanelSecurity.PackageId, filterColumn, filterValue,
                 sortColumn, startRowIndex, maximumRows);
 
-            return dsSharedSSLFoldersPaged.Tables[1];
+            return GetPagedTable(dsSharedSSLFoldersPaged, 1);
         }
         #endregion
     }

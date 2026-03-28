@@ -93,8 +93,11 @@ namespace FuseCP.Portal
                         txtForwardTo.Text = item.ForwardTo;
 
                         // other controls
-                        IMailEditForwardingControl ctrl = (IMailEditForwardingControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IMailEditForwardingControl ctrl = (IMailEditForwardingControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
                     }
                 }
             }
@@ -118,8 +121,8 @@ namespace FuseCP.Portal
             local_item.Name = emailAddress.Email;
             local_item.ForwardTo = txtForwardTo.Text.Trim();
 
-            //checking if forwarding name is different from existing e-mail accounts
-            MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true);
+                //checking if forwarding name is different from existing e-mail accounts
+                MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true) ?? Array.Empty<MailAccount>();
             foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
             {
                     ShowWarningMessage("MAIL_FORW_NAME");
@@ -127,7 +130,7 @@ namespace FuseCP.Portal
             }
 
             //checking if forwarding name is different from existing e-mail lists
-            MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
+                MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true) ?? Array.Empty<MailList>();
             foreach (MailList list in lists.Where(list => local_item.Name == list.Name))
             {
                     ShowWarningMessage("MAIL_FORW_NAME");
@@ -135,7 +138,7 @@ namespace FuseCP.Portal
             }
 
             //checking if forwarding name is different from existing e-mail groups
-            MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true);
+                MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true) ?? Array.Empty<MailGroup>();
             foreach (MailGroup group in mailgroups.Where(group => local_item.Name == group.Name))
             {
                     ShowWarningMessage("MAIL_FORW_NAME");
@@ -143,6 +146,11 @@ namespace FuseCP.Portal
             }
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IMailEditForwardingControl ctrl = (IMailEditForwardingControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

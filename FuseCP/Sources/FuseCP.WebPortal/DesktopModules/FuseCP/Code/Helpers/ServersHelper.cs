@@ -25,6 +25,26 @@ namespace FuseCP.Portal
     /// </summary>
     public class ServersHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         public DataSet GetRawServers()
         {
             return ES.Services.Servers.GetRawServers();
@@ -40,7 +60,7 @@ namespace FuseCP.Portal
 
         public int GetDomainsPagedCount(int packageId, int serverId, bool recursive, string filterColumn, string filterValue)
         {
-            return (int)dsDomainsPaged.Tables[0].Rows[0][0];
+            return GetPagedCount(dsDomainsPaged);
         }
 
         public DataTable GetDomainsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -50,7 +70,7 @@ namespace FuseCP.Portal
             dsDomainsPaged = ES.Services.Servers.GetDomainsPaged(packageId, serverId, recursive,
                 filterColumn, filterValue, sortColumn, startRowIndex, maximumRows);
 
-            return dsDomainsPaged.Tables[1];
+            return GetPagedTable(dsDomainsPaged, 1);
         }
         #endregion
 

@@ -37,7 +37,7 @@ namespace FuseCP.Portal.VPS2012
             secHddQOS.Visible = QOSManag.Visible = PanelSecurity.EffectiveUser.Role != UserRole.User;
 
             // check snapshots
-            VirtualMachineSnapshot[] snapshots = ES.Services.VPS2012.GetVirtualMachineSnapshots(PanelRequest.ItemID);
+            VirtualMachineSnapshot[] snapshots = ES.Services.VPS2012.GetVirtualMachineSnapshots(PanelRequest.ItemID) ?? Array.Empty<VirtualMachineSnapshot>();
             if (snapshots.Length > 0)
             {
                 messageBox.ShowWarningMessage("VPS_CHANGE_VM_CONFIGURATION_SNAPSHOT");
@@ -73,28 +73,37 @@ namespace FuseCP.Portal.VPS2012
                 int maxCores = ES.Services.VPS2012.GetMaximumCpuCoresNumber(vm.PackageId);
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-                QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPS2012_CPU_NUMBER];
-                int cpuQuotausable = (cpuQuota2.QuotaAllocatedValue - cpuQuota2.QuotaUsedValue) + vm.CpuCores;
-
-                if (cpuQuota2.QuotaAllocatedValue == -1)
+                if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out QuotaValueInfo cpuQuota2))
                 {
-                    for (int i = 1; i < maxCores + 1; i++)
-                        ddlCpu.Items.Add(i.ToString());
+                    int cpuQuotausable = (cpuQuota2.QuotaAllocatedValue - cpuQuota2.QuotaUsedValue) + vm.CpuCores;
 
-                    ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
-                }
-                else if (cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
-                {
-                    if (cpuQuotausable > maxCores)
+                    if (cpuQuota2.QuotaAllocatedValue == -1)
                     {
                         for (int i = 1; i < maxCores + 1; i++)
                             ddlCpu.Items.Add(i.ToString());
 
                         ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
                     }
+                    else if (cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
+                    {
+                        if (cpuQuotausable > maxCores)
+                        {
+                            for (int i = 1; i < maxCores + 1; i++)
+                                ddlCpu.Items.Add(i.ToString());
+
+                            ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
+                        }
+                        else
+                        {
+                            for (int i = 1; i < cpuQuotausable + 1; i++)
+                                ddlCpu.Items.Add(i.ToString());
+
+                            ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
+                        }
+                    }
                     else
                     {
-                        for (int i = 1; i < cpuQuotausable + 1; i++)
+                        for (int i = 1; i < vm.CpuCores + 1; i++)
                             ddlCpu.Items.Add(i.ToString());
 
                         ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
@@ -102,18 +111,18 @@ namespace FuseCP.Portal.VPS2012
                 }
                 else
                 {
-                    for (int i = 1; i < vm.CpuCores + 1; i++)
+                    for (int i = 1; i < maxCores + 1; i++)
                         ddlCpu.Items.Add(i.ToString());
 
                     ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
-
                 }
 
                 // bind item
                 ddlCpu.SelectedValue = vm.CpuCores.ToString();
                 txtRam.Text = vm.RamSize.ToString();
-                txtHdd.Text = vm.HddSize[0].ToString();
-                hiddenTxtValHdd.Value = vm.HddSize[0].ToString();
+                int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
+                txtHdd.Text = firstHddSize.ToString();
+                hiddenTxtValHdd.Value = firstHddSize.ToString();
                 BindAdditionalHdd(vm);
                 txtHddMinIOPS.Text = vm.HddMinimumIOPS.ToString();
                 txtHddMaxIOPS.Text = vm.HddMaximumIOPS.ToString();
@@ -154,7 +163,7 @@ namespace FuseCP.Portal.VPS2012
                 BindCheckboxOption(chkExternalNetworkEnabled, Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED);
                 if (chkExternalNetworkEnabled.Enabled && !chkExternalNetworkEnabled.Checked)
                 {
-                    PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+                    PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
                     if (ips.Length == 0)
                     {
                         chkExternalNetworkEnabled.Enabled = false;
@@ -204,7 +213,7 @@ namespace FuseCP.Portal.VPS2012
                 }
 
                 // check snapshots
-                VirtualMachineSnapshot[] snapshots = ES.Services.VPS2012.GetVirtualMachineSnapshots(PanelRequest.ItemID);
+                VirtualMachineSnapshot[] snapshots = ES.Services.VPS2012.GetVirtualMachineSnapshots(PanelRequest.ItemID) ?? Array.Empty<VirtualMachineSnapshot>();
                 if (snapshots.Length > 0)
                 {
                     return;
@@ -212,6 +221,11 @@ namespace FuseCP.Portal.VPS2012
 
                 VirtualMachine virtualMachine = new VirtualMachine();
                 VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineItem(PanelRequest.ItemID);
+                if (vm == null)
+                {
+                    messageBox.ShowErrorMessage("VPS_LOAD_VM_META_ITEM");
+                    return;
+                }
 
                 if (!chkIgnoreHddWarning.Checked || PanelSecurity.EffectiveUser.Role == UserRole.User)
                 {
@@ -223,10 +237,13 @@ namespace FuseCP.Portal.VPS2012
                     List<AdditionalHdd> hdds = GetAdditionalHdd();
                     foreach (AdditionalHdd hdd in hdds)
                     {
-                        for (int i = 0; i < vm.VirtualHardDrivePath.Length; i++)
+                        string[] vmHddPaths = vm.VirtualHardDrivePath ?? Array.Empty<string>();
+                        int[] vmHddSizes = vm.HddSize ?? Array.Empty<int>();
+                        int vmHddCount = Math.Min(vmHddPaths.Length, vmHddSizes.Length);
+                        for (int i = 0; i < vmHddCount; i++)
                         {
-                            if (String.IsNullOrEmpty(vm.VirtualHardDrivePath[i])) continue;
-                            if (Path.GetFileName(vm.VirtualHardDrivePath[i]).ToLower().Equals(Path.GetFileName(hdd.DiskPath).ToLower()) && hdd.DiskSize < vm.HddSize[i])
+                            if (String.IsNullOrEmpty(vmHddPaths[i])) continue;
+                            if (Path.GetFileName(vmHddPaths[i]).ToLower().Equals(Path.GetFileName(hdd.DiskPath).ToLower()) && hdd.DiskSize < vmHddSizes[i])
                             {
                                 messageBox.ShowWarningMessage("VPS_CHANGE_HDD_SIZE");
                                 return;
@@ -242,7 +259,8 @@ namespace FuseCP.Portal.VPS2012
                 List<int> hddSize = new List<int>();
                 List<String> hddPath = new List<String>();
                 hddSize.Add(Utils.ParseInt(txtHdd.Text.Trim()));
-                hddPath.Add(vm.VirtualHardDrivePath[0]);
+                string firstVmHddPath = (vm.VirtualHardDrivePath != null && vm.VirtualHardDrivePath.Length > 0) ? vm.VirtualHardDrivePath[0] : string.Empty;
+                hddPath.Add(firstVmHddPath);
                 List<AdditionalHdd> additionalHdd = GetAdditionalHdd();
                 foreach (AdditionalHdd hdd in additionalHdd)
                 {
@@ -284,7 +302,7 @@ namespace FuseCP.Portal.VPS2012
 
                 if (setupExternalNetwork)
                 {
-                    PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+                    PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
                     if (ips.Length > 0)
                     {
                         virtualMachine.defaultaccessvlan = ips[0].VLAN;
@@ -295,14 +313,14 @@ namespace FuseCP.Portal.VPS2012
                 if (setupPrivateNetwork)
                 {
                     PackageVLANsPaged vlans = ES.Services.Servers.GetPackagePrivateNetworkVLANs(PanelSecurity.PackageId, "", 0, Int32.MaxValue);
-                    if (vlans.Count > 0)
+                    if (vlans != null && vlans.Items != null && vlans.Count > 0)
                     {
                         virtualMachine.PrivateNetworkVlan = vlans.Items[0].Vlan;
                     }
 
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out var _ckv))
                     {
                         QuotaValueInfo privQuota = _ckv;
                         if (privQuota.QuotaAllocatedValue > 0 || privQuota.QuotaAllocatedValue == -1) privAdrCount = 1;
@@ -312,14 +330,14 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out var 
                 if (setupDmzNetwork)
                 {
                     PackageVLANsPaged vlans = ES.Services.Servers.GetPackageDmzNetworkVLANs(PanelSecurity.PackageId, "", 0, Int32.MaxValue);
-                    if (vlans.Count > 0)
+                    if (vlans != null && vlans.Items != null && vlans.Count > 0)
                     {
                         virtualMachine.DmzNetworkVlan = vlans.Items[0].Vlan;
                     }
 
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out var _ckv))
                     {
                         QuotaValueInfo dmzQuota = _ckv;
                         if (dmzQuota.QuotaAllocatedValue > 0 || dmzQuota.QuotaAllocatedValue == -1) dmzAdrCount = 1;
@@ -365,7 +383,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out var _ckv
             var hdds = GetAdditionalHdd();
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
             int freeHddGb = 0;
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             {
                 QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue != -1)
@@ -391,14 +409,17 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
 
         private void BindAdditionalHdd(VirtualMachine vm)
         {
-            CheckAdditionalHddQuota(vm.HddSize.Length - 1);
+            int[] vmHddSizes = vm.HddSize ?? Array.Empty<int>();
+            string[] vmHddPaths = vm.VirtualHardDrivePath ?? Array.Empty<string>();
+            CheckAdditionalHddQuota(vmHddSizes.Length - 1);
             List<AdditionalHdd> result = new List<AdditionalHdd>();
-            if (vm.HddSize.Length > 1)
+            if (vmHddSizes.Length > 1)
             {
-                for (int i = 1; i < vm.HddSize.Length; i++)
+                int vmHddCount = Math.Min(vmHddSizes.Length, vmHddPaths.Length);
+                for (int i = 1; i < vmHddCount; i++)
                 {
-                    if (vm.HddSize[i] == 0 || String.IsNullOrEmpty(vm.VirtualHardDrivePath[i])) continue;
-                    AdditionalHdd hdd = new AdditionalHdd(vm.HddSize[i], vm.VirtualHardDrivePath[i]);
+                    if (vmHddSizes[i] == 0 || String.IsNullOrEmpty(vmHddPaths[i])) continue;
+                    AdditionalHdd hdd = new AdditionalHdd(vmHddSizes[i], vmHddPaths[i]);
                     result.Add(hdd);
                 }
             }
@@ -416,7 +437,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
         private void CheckAdditionalHddQuota(int currCount)
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             {
                 QuotaValueInfo additionalHddQuota = _ckv;
                 int quotaHddCount = additionalHddQuota.QuotaAllocatedValue;

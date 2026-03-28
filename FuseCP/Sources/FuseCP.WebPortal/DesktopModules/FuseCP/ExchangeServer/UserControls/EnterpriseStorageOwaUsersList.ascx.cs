@@ -169,8 +169,13 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 if (chkSelect == null)
                     continue;
 
+                DataKey dataKey = gvUsers.DataKeys[i];
+                string accountName = dataKey?.Value as string;
+                if (string.IsNullOrEmpty(accountName))
+                    continue;
+
                 OrganizationUser user = new OrganizationUser();
-                user.AccountName = (string)gvUsers.DataKeys[i][0];
+                user.AccountName = accountName;
                 user.DisplayName = ((Literal)row.FindControl("litAccount")).Text;
                 user.AccountId = Convert.ToInt32(((HiddenField)row.FindControl("hdnAccountId")).Value);
 
@@ -195,9 +200,14 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
                 if (chkSelect.Checked)
                 {
+                    DataKey dataKey = gvPopupAccounts.DataKeys[i];
+                    string accountName = dataKey?.Value as string;
+                    if (string.IsNullOrEmpty(accountName))
+                        continue;
+
                     accounts.Add(new OrganizationUser
                     {
-                        AccountName = (string)gvPopupAccounts.DataKeys[i][0],
+                        AccountName = accountName,
                         DisplayName = ((Literal)row.FindControl("litDisplayName")).Text,
                         AccountId = Convert.ToInt32(((HiddenField)row.FindControl("hdnAccountId")).Value)
                     });

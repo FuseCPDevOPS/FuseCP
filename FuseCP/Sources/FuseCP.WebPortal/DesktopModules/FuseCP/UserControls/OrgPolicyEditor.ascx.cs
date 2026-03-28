@@ -74,8 +74,12 @@ namespace FuseCP.Portal.UserControls
                 if (cmdEdit == null)
                     continue;
 
+                DataKey dataKey = gvAdditionalGroups.DataKeys[i];
+                if (dataKey?.Value == null)
+                    continue;
+
                 AdditionalGroup group = new AdditionalGroup();
-                group.GroupId = (int)gvAdditionalGroups.DataKeys[i][0];
+                group.GroupId = (int)dataKey.Value;
                 group.GroupName = ((Literal)row.FindControl("litDisplayAdditionalGroup")).Text;
 
                 additionalGroups.Add(group);

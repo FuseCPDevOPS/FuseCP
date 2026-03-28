@@ -112,7 +112,14 @@ namespace FuseCP.Portal.ProviderControls
             ddl.Items.Clear();
 
             ServiceInfo serviceInfo = ES.Services.Servers.GetServiceInfo(PanelRequest.ServiceId);
-            DataView dvServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Lync).Tables[0].DefaultView;
+            if (serviceInfo == null)
+                return;
+
+            DataSet lyncServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Lync);
+            DataTable lyncServiceTable = (lyncServices != null && lyncServices.Tables.Count > 0) ? lyncServices.Tables[0] : null;
+            DataView dvServices = lyncServiceTable != null ? lyncServiceTable.DefaultView : null;
+            if (dvServices == null)
+                return;
 
             foreach (DataRowView dr in dvServices)
             {

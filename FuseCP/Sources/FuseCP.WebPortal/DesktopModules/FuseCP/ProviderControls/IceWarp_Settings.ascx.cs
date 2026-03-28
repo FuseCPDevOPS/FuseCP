@@ -59,7 +59,7 @@ namespace FuseCP.Portal.ProviderControls
             {
                 sed = new List<string>();
 
-                StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(PanelRequest.ServiceId));
+                StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(PanelRequest.ServiceId) ?? Array.Empty<string>());
                 string strList = settings[MailFilterDestinations];
                 if (strList != null)
                 {

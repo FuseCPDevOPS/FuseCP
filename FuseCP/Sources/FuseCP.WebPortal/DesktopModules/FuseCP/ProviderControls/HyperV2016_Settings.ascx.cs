@@ -249,7 +249,7 @@ namespace FuseCP.Portal.ProviderControls
                 if (currentServiceInfo == null || currentServiceInfo.ProviderId != serviceInfo.ProviderId)
                     continue;
 
-                var currentServiceSettings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(serviceId));
+                var currentServiceSettings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(serviceId) ?? Array.Empty<string>());
                 if (currentServiceSettings["ReplicaMode"] != ReplicaMode.IsReplicaServer.ToString())
                     continue;
 

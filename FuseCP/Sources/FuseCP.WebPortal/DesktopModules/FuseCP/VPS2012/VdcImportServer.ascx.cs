@@ -68,7 +68,9 @@ namespace FuseCP.Portal.VPS2012
         private void BindHyperVServices()
         {
             // bind
-            HyperVServices.DataSource = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS2012).Tables[0].DefaultView;
+            DataSet services = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.VPS2012);
+            DataTable table = (services != null && services.Tables.Count > 0) ? services.Tables[0] : null;
+            HyperVServices.DataSource = table != null ? table.DefaultView : null;
             HyperVServices.DataBind();
 
             // add select value
@@ -121,8 +123,10 @@ namespace FuseCP.Portal.VPS2012
                     // bind VM
                     CpuCores.Text = vm.CpuCores.ToString();
                     RamSize.Text = vm.RamSize.ToString();
-                    HddSize.Text = vm.HddSize[0].ToString();
-                    VhdPath.Text = vm.VirtualHardDrivePath[0];
+                    int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
+                    HddSize.Text = firstHddSize.ToString();
+                    string firstVhdPath = (vm.VirtualHardDrivePath != null && vm.VirtualHardDrivePath.Length > 0) ? vm.VirtualHardDrivePath[0] : string.Empty;
+                    VhdPath.Text = firstVhdPath;
 
                     BindAdditionalHddInfo(vm);
 
@@ -185,7 +189,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out var _ckv))
                 VirtualMachine vm = ES.Services.VPS2012.GetVirtualMachineExtendedInfo(serviceId, vmId);
                 if (vm != null)
                 {
-                    foreach (VirtualMachineNetworkAdapter adapter in vm.Adapters.Where(adapter => adapter.MacAddress == selectedmac))
+                    VirtualMachineNetworkAdapter[] adapters = vm.Adapters ?? Array.Empty<VirtualMachineNetworkAdapter>();
+                    foreach (VirtualMachineNetworkAdapter adapter in adapters.Where(adapter => adapter.MacAddress == selectedmac))
                     {
                             adaptervlan = adapter.vlan;
                     }
@@ -193,6 +198,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out var _ckv))
             }
             list.Items.Clear();
             IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS2012, pool);
+            ips ??= Array.Empty<IPAddressInfo>();
             //IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(-1, serviceId.ToString(), pool); //??? why do we do that??
             foreach (IPAddressInfo ip in ips.Where(ip => ip.VLAN == adaptervlan))
             {

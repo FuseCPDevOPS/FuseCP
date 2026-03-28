@@ -38,7 +38,12 @@ namespace FuseCP.Portal.ProviderControls
         public void BindSettings(StringDictionary settings)
         {
             // bind DNS services
-            DataView dvServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Dns).Tables[0].DefaultView;
+            DataSet dnsServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Dns);
+            DataTable dnsServiceTable = (dnsServices != null && dnsServices.Tables.Count > 0) ? dnsServices.Tables[0] : null;
+            DataView dvServices = dnsServiceTable != null ? dnsServiceTable.DefaultView : null;
+            if (dvServices == null)
+                return;
+
             foreach (DataRowView dr in dvServices)
             {
                 int serviceId = (int)dr["ServiceID"];

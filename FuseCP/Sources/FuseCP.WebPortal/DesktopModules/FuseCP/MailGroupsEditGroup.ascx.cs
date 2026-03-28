@@ -91,8 +91,11 @@ namespace FuseCP.Portal
                         emailAddress.EditMode = true;
 
                         // other controls
-                        IMailEditGroupControl ctrl = (IMailEditGroupControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IMailEditGroupControl ctrl = (IMailEditGroupControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
                     }
                 }
             }
@@ -115,15 +118,15 @@ namespace FuseCP.Portal
             local_item.PackageId = PanelSecurity.PackageId;
             local_item.Name = emailAddress.Email;
 
-            //checking if group name is different from existing e-mail accounts
-            MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true);
+                //checking if group name is different from existing e-mail accounts
+                MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true) ?? Array.Empty<MailAccount>();
             foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
                     return;
             }
             //checking if group name is different from existing mail lists
-            MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
+                MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true) ?? Array.Empty<MailList>();
             foreach (MailList list in lists.Where(list => local_item.Name == list.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
@@ -131,7 +134,7 @@ namespace FuseCP.Portal
             }
 
             //checking if group name is different from existing forwardings
-            MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
+                MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true) ?? Array.Empty<MailAlias>();
             foreach (MailAlias forwarding in forwardings.Where(forwarding => local_item.Name == forwarding.Name))
             {
                     ShowWarningMessage("MAIL_GROUP_NAME");
@@ -139,6 +142,11 @@ namespace FuseCP.Portal
             }
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IMailEditGroupControl ctrl = (IMailEditGroupControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

@@ -59,10 +59,11 @@ namespace FuseCP.Portal.Proxmox
 
                 // bind item
                 litOperatingSystem.Text = vm.OperatingSystemTemplate;
+                int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
 
                 litCpu.Text = String.Format(GetLocalizedString("CpuCores.Text"), vm.CpuCores);
                 litRam.Text = String.Format(GetLocalizedString("Ram.Text"), vm.RamSize);
-                litHdd.Text = String.Format(GetLocalizedString("Hdd.Text"), vm.HddSize[0]);
+                litHdd.Text = String.Format(GetLocalizedString("Hdd.Text"), firstHddSize);
                 litSnapshots.Text = vm.SnapshotsNumber.ToString();
 
                 optionDvdInstalled.Value = vm.DvdDriveInstalled;

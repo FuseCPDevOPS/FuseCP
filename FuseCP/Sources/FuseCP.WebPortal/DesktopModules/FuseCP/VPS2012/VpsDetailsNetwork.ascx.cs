@@ -44,6 +44,19 @@ namespace FuseCP.Portal.VPS2012
         private void BindVirtualMachine()
         {
             vm = ES.Services.VPS2012.GetVirtualMachineItem(PanelRequest.ItemID);
+            if (vm == null)
+            {
+                secExternalNetwork.Visible = false;
+                ExternalNetworkPanel.Visible = false;
+                secPrivateNetwork.Visible = false;
+                PrivateNetworkPanel.Visible = false;
+                secDmzNetwork.Visible = false;
+                DmzNetworkPanel.Visible = false;
+                btnRestoreExternalAddress.Visible = false;
+                btnRestorePrivateAddress.Visible = false;
+                btnRestoreDmzAddress.Visible = false;
+                return;
+            }
 
             // external network
             if (vm.ExternalNetworkEnabled)
@@ -112,6 +125,7 @@ namespace FuseCP.Portal.VPS2012
 
         private void CheckIfPossibleToDoIpInjection(VirtualMachineNetworkAdapter[] Adapters)
         {
+            Adapters ??= Array.Empty<VirtualMachineNetworkAdapter>();
             btnDeletePrivateByInject.Visible = 
                 btnDeleteExternalByInject.Visible =
                 btnDeleteDmzByInject.Visible =
@@ -132,17 +146,22 @@ namespace FuseCP.Portal.VPS2012
 
         private void BindGridViewOfVmIPs(VirtualMachineNetworkAdapter[] Adapters)
         {
+            Adapters ??= Array.Empty<VirtualMachineNetworkAdapter>();
             int i = 0;
             foreach (RepeaterItem item in repVMNetwork.Items)
             {
+                if (i >= Adapters.Length)
+                    break;
+
                 DataTable dt = new DataTable();
                 dt.Columns.Add("N", typeof(int));
                 dt.Columns.Add("IP", typeof(string));
-                for (int j = 0; j < Adapters[i].IPAddresses.Length; j++)
+                string[] adapterIPs = Adapters[i].IPAddresses ?? Array.Empty<string>();
+                for (int j = 0; j < adapterIPs.Length; j++)
                 {
                     DataRow NewRow = dt.NewRow();
                     NewRow["N"] = j + 1;
-                    NewRow["IP"] = Adapters[i].IPAddresses[j];
+                    NewRow["IP"] = adapterIPs[j];
                     dt.Rows.Add(NewRow);
                 }
                 (item.FindControl("gvVMNetwork") as GridView).DataSource = dt;
@@ -155,22 +174,23 @@ namespace FuseCP.Portal.VPS2012
         {
             // load details
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetExternalNetworkAdapterDetails(PanelRequest.ItemID);
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
+            foreach (NetworkAdapterIPAddress ip in ipAddresses.Where(ip => ip.IsPrimary))
             {
                     litExtAddress.Text = ip.IPAddress;
                     litExtSubnet.Text = ip.SubnetMask;
                     litExtGateway.Text = ip.DefaultGateway;
                     break;
             }
-            litExtVLAN.Text = nic.VLAN.ToString();
-            locExtVLAN.Visible = nic.VLAN > 0;
+            litExtVLAN.Text = nic != null ? nic.VLAN.ToString() : string.Empty;
+            locExtVLAN.Visible = nic != null && nic.VLAN > 0;
             litExtVLAN.Visible = locExtVLAN.Visible;
-            lblTotalExternal.Text = nic.IPAddresses.Length.ToString();
+            lblTotalExternal.Text = ipAddresses.Length.ToString();
 
             // bind IP addresses
-            gvExternalAddresses.DataSource = nic.IPAddresses;
+            gvExternalAddresses.DataSource = ipAddresses;
             gvExternalAddresses.DataBind();
         }
 
@@ -185,25 +205,26 @@ namespace FuseCP.Portal.VPS2012
         {
             // load details
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetPrivateNetworkAdapterDetails(PanelRequest.ItemID);
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
+            foreach (NetworkAdapterIPAddress ip in ipAddresses.Where(ip => ip.IsPrimary))
             {
                     litPrivAddress.Text = ip.IPAddress;
                     break;
             }
-            litPrivSubnet.Text = nic.SubnetMask;
-            litPrivGateway.Text = nic.DefaultGateway;
-            litPrivVLAN.Text = nic.VLAN.ToString();
-            locPrivVLAN.Visible = nic.VLAN > 0;
+            litPrivSubnet.Text = nic != null ? nic.SubnetMask : string.Empty;
+            litPrivGateway.Text = nic != null ? nic.DefaultGateway : string.Empty;
+            litPrivVLAN.Text = nic != null ? nic.VLAN.ToString() : string.Empty;
+            locPrivVLAN.Visible = nic != null && nic.VLAN > 0;
             litPrivVLAN.Visible = locPrivVLAN.Visible;
-            lblTotalPrivate.Text = nic.IPAddresses.Length.ToString();
+            lblTotalPrivate.Text = ipAddresses.Length.ToString();
 
             // bind IP addresses
-            gvPrivateAddresses.DataSource = nic.IPAddresses;
+            gvPrivateAddresses.DataSource = ipAddresses;
             gvPrivateAddresses.DataBind();
 
-            if (nic.IsDHCP)
+            if (nic != null && nic.IsDHCP)
             {
                 PrivateAddressesPanel.Visible = false;
                 litPrivAddress.Text = GetLocalizedString("Automatic.Text");
@@ -214,25 +235,26 @@ namespace FuseCP.Portal.VPS2012
         {
             // load details
             NetworkAdapterDetails nic = ES.Services.VPS2012.GetDmzNetworkAdapterDetails(PanelRequest.ItemID);
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
+            foreach (NetworkAdapterIPAddress ip in ipAddresses.Where(ip => ip.IsPrimary))
             {
                     litDmzAddress.Text = ip.IPAddress;
                     break;
             }
-            litDmzSubnet.Text = nic.SubnetMask;
-            litDmzGateway.Text = nic.DefaultGateway;
-            litDmzVLAN.Text = nic.VLAN.ToString();
-            locDmzVLAN.Visible = nic.VLAN > 0;
+            litDmzSubnet.Text = nic != null ? nic.SubnetMask : string.Empty;
+            litDmzGateway.Text = nic != null ? nic.DefaultGateway : string.Empty;
+            litDmzVLAN.Text = nic != null ? nic.VLAN.ToString() : string.Empty;
+            locDmzVLAN.Visible = nic != null && nic.VLAN > 0;
             litDmzVLAN.Visible = locDmzVLAN.Visible;
-            lblTotalDmz.Text = nic.IPAddresses.Length.ToString();
+            lblTotalDmz.Text = ipAddresses.Length.ToString();
 
             // bind IP addresses
-            gvDmzAddresses.DataSource = nic.IPAddresses;
+            gvDmzAddresses.DataSource = ipAddresses;
             gvDmzAddresses.DataBind();
 
-            if (nic.IsDHCP)
+            if (nic != null && nic.IsDHCP)
             {
                 DmzAddressesPanel.Visible = false;
                 litDmzAddress.Text = GetLocalizedString("Automatic.Text");
@@ -246,17 +268,20 @@ namespace FuseCP.Portal.VPS2012
             btnAddExternalAddress.Visible = manageAllowed;
             btnSetPrimaryExternal.Visible = manageAllowed;
             btnDeleteExternal.Visible = manageAllowed;
-            gvExternalAddresses.Columns[0].Visible = manageAllowed;
+            if (gvExternalAddresses.Columns.Count > 0)
+                gvExternalAddresses.Columns[0].Visible = manageAllowed;
 
             btnAddPrivateAddress.Visible = manageAllowed;
             btnSetPrimaryPrivate.Visible = manageAllowed;
             btnDeletePrivate.Visible = manageAllowed;
-            gvPrivateAddresses.Columns[0].Visible = manageAllowed;
+            if (gvPrivateAddresses.Columns.Count > 0)
+                gvPrivateAddresses.Columns[0].Visible = manageAllowed;
 
             btnAddDmzAddress.Visible = manageAllowed;
             btnSetPrimaryDmz.Visible = manageAllowed;
             btnDeleteDmz.Visible = manageAllowed;
-            gvDmzAddresses.Columns[0].Visible = manageAllowed;
+            if (gvDmzAddresses.Columns.Count > 0)
+                gvDmzAddresses.Columns[0].Visible = manageAllowed;
         }
 
         protected void btnRestoreExternalAddress_Click(object sender, EventArgs e)
@@ -582,13 +607,21 @@ namespace FuseCP.Portal.VPS2012
         private int[] GetSelectedItems(GridView gv)
         {
             List<int> items = new List<int>();
+            if (gv == null || gv.DataKeys == null)
+                return items.ToArray();
 
             for (int i = 0; i < gv.Rows.Count; i++)
             {
                 GridViewRow row = gv.Rows[i];
                 CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                if (chkSelect.Checked)
-                    items.Add((int)gv.DataKeys[i].Value);
+                if (chkSelect == null || !chkSelect.Checked)
+                    continue;
+
+                DataKey dataKey = gv.DataKeys[i];
+                if (dataKey?.Value == null)
+                    continue;
+
+                items.Add((int)dataKey.Value);
             }
 
             return items.ToArray();

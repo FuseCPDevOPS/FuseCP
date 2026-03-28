@@ -71,7 +71,8 @@ if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out var _ckv))
                 // bind item
                 ddlCpu.SelectedValue = vm.CpuCores.ToString();
                 txtRam.Text = vm.RamSize.ToString();
-                txtHdd.Text = vm.HddSize[0].ToString();
+                int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
+                txtHdd.Text = firstHddSize.ToString();
                 txtSnapshots.Text = vm.SnapshotsNumber.ToString();
 
                 chkDvdInstalled.Checked = vm.DvdDriveInstalled;

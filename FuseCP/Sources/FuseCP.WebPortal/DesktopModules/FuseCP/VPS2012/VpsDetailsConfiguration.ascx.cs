@@ -61,10 +61,11 @@ namespace FuseCP.Portal.VPS2012
 
                 // bind item
                 litOperatingSystem.Text = vm.OperatingSystemTemplate;
+                int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
 
                 litCpu.Text = String.Format(GetLocalizedString("CpuCores.Text"), vm.CpuCores);
                 litRam.Text = String.Format(GetLocalizedString("Ram.Text"), vm.RamSize);
-                litHdd.Text = String.Format(GetLocalizedString("Hdd.Text"), vm.HddSize[0]);
+                litHdd.Text = String.Format(GetLocalizedString("Hdd.Text"), firstHddSize);
                 BindAdditionalHddInfo(vm);
                 litHddMinIOPS.Text = String.Format(GetLocalizedString("HddMinIOPS.Text"), vm.HddMinimumIOPS);
                 litHddMaxIOPS.Text = String.Format(GetLocalizedString("HddMaxIOPS.Text"), vm.HddMaximumIOPS);               

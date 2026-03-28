@@ -419,12 +419,12 @@ namespace FuseCP.Portal
 				{
 					int packageId = package.PackageId;
 					PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
-					if (cntx.Groups.ContainsKey(ResourceGroups.VPS))
+					if (cntx != null && cntx.Groups != null && cntx.Groups.ContainsKey(ResourceGroups.VPS))
 					{
 						// VPS resource found
 						// check created VPS
 						VirtualMachineMetaItemsPaged vms = ES.Services.VPS.GetVirtualMachines(packageId, "", "", "", 0, Int32.MaxValue, false);
-						if (vms.Items.Length == 1)
+						if (vms != null && vms.Items != null && vms.Items.Length == 1)
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPS", "SpaceID", packageId.ToString(),
@@ -439,12 +439,12 @@ namespace FuseCP.Portal
 					}
 
 
-					if (cntx.Groups.ContainsKey(ResourceGroups.VPS2012))
+					if (cntx != null && cntx.Groups != null && cntx.Groups.ContainsKey(ResourceGroups.VPS2012))
 					{
 						// VPS resource found
 						// check created VPS
 						VirtualMachineMetaItemsPaged vms = ES.Services.VPS2012.GetVirtualMachines(packageId, "", "", "", 0, Int32.MaxValue, false);
-						if (vms.Items.Length == 1)
+						if (vms != null && vms.Items != null && vms.Items.Length == 1)
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPS2012", "SpaceID", packageId.ToString(),
@@ -459,12 +459,12 @@ namespace FuseCP.Portal
 					}
 
 
-					if (cntx.Groups.ContainsKey(ResourceGroups.VPSForPC))
+					if (cntx != null && cntx.Groups != null && cntx.Groups.ContainsKey(ResourceGroups.VPSForPC))
 					{
 						// VPS resource found
 						// check created VPS
 						VirtualMachineMetaItemsPaged vms = ES.Services.VPSPC.GetVirtualMachines(packageId, "", "", "", 0, Int32.MaxValue, false);
-						if (vms.Items.Length == 1)
+						if (vms != null && vms.Items != null && vms.Items.Length == 1)
 						{
 							// one VPS - redirect to its properties screen
 							Response.Redirect(PortalUtils.NavigatePageURL("SpaceVPSForPC", "SpaceID", packageId.ToString(),

@@ -41,10 +41,17 @@ namespace FuseCP.Portal
             try
             {
                 dsQuotas = ES.Services.Packages.GetPackageQuotas(packageId);
-                dsQuotas.Tables[1].Columns.Add("QuotaAvailable", typeof(int));
-                foreach (DataRow r in dsQuotas.Tables[1].Rows) r["QuotaAvailable"] = -1;
+                DataTable groupTable = (dsQuotas != null && dsQuotas.Tables.Count > 0) ? dsQuotas.Tables[0] : null;
+                DataTable quotaTable = (dsQuotas != null && dsQuotas.Tables.Count > 1) ? dsQuotas.Tables[1] : null;
+                if (quotaTable != null)
+                {
+                    if (!quotaTable.Columns.Contains("QuotaAvailable"))
+                        quotaTable.Columns.Add("QuotaAvailable", typeof(int));
 
-                dlGroups.DataSource = dsQuotas.Tables[0];
+                    foreach (DataRow r in quotaTable.Rows) r["QuotaAvailable"] = -1;
+                }
+
+                dlGroups.DataSource = groupTable;
                 dlGroups.DataBind();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -55,12 +62,20 @@ namespace FuseCP.Portal
 
         public bool IsGroupVisible(int groupId)
         {
-            return new DataView(dsQuotas.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows).Count > 0;
+            DataTable quotaTable = (dsQuotas != null && dsQuotas.Tables.Count > 1) ? dsQuotas.Tables[1] : null;
+            if (quotaTable == null)
+                return false;
+
+            return new DataView(quotaTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows).Count > 0;
         }
 
         public DataView GetGroupQuotas(int groupId)
         {
-            return new DataView(dsQuotas.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
+            DataTable quotaTable = (dsQuotas != null && dsQuotas.Tables.Count > 1) ? dsQuotas.Tables[1] : null;
+            if (quotaTable == null)
+                return new DataView(new DataTable());
+
+            return new DataView(quotaTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         public string GetQuotaTitle(string quotaName, object quotaDescription)

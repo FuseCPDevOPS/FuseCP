@@ -72,7 +72,7 @@ namespace FuseCP.Portal.VPS2012
 
                 var packageVm = ES.Services.VPS2012.GetVirtualMachineItem(PanelRequest.ItemID);
                 var vm = ES.Services.VPS2012.GetVirtualMachineExtendedInfo(packageVm.ServiceId, packageVm.VirtualMachineId);
-                var serviceSettings = VirtualMachines2012Helper.ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(packageVm.ServiceId));
+                var serviceSettings = VirtualMachines2012Helper.ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(packageVm.ServiceId) ?? Array.Empty<string>());
 
                 //var replicaMode = Enum.Parse(typeof(ReplicaMode), serviceSettings["ReplicaMode"]);
                 var computerName = serviceSettings["ServerName"];

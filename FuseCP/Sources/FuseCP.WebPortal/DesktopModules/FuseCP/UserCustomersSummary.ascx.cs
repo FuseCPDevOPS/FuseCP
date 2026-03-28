@@ -45,17 +45,23 @@ namespace FuseCP.Portal
         private void BindGroupings()
         {
             DataSet dsUsers = ES.Services.Users.GetUsersSummary(PanelSecurity.SelectedUserId);
+            DataTable allUsersTable = (dsUsers != null && dsUsers.Tables.Count > 0) ? dsUsers.Tables[0] : null;
+            DataTable statusTable = (dsUsers != null && dsUsers.Tables.Count > 1) ? dsUsers.Tables[1] : null;
+            DataTable roleTable = (dsUsers != null && dsUsers.Tables.Count > 2) ? dsUsers.Tables[2] : null;
 
             // all customers
+			object usersNumber = (allUsersTable != null && allUsersTable.Rows.Count > 0)
+				? allUsersTable.Rows[0]["UsersNumber"]
+				: 0;
 			lnkAllCustomers.Text = PortalAntiXSS.Encode(String.Format(GetLocalizedString("AllCustomers.Text"),
-				dsUsers.Tables[0].Rows[0]["UsersNumber"]));
+				usersNumber));
 
             // by status
-            repUserStatuses.DataSource = dsUsers.Tables[1];
+            repUserStatuses.DataSource = statusTable;
             repUserStatuses.DataBind();
 
             // by role
-            repUserRoles.DataSource = dsUsers.Tables[2];
+            repUserRoles.DataSource = roleTable;
             repUserRoles.DataBind();
         }
 

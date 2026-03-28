@@ -46,7 +46,7 @@ namespace FuseCP.Portal.ExchangeServer
         protected void Page_Load(object sender, EventArgs e)
         {
             int serviceId = ES.Services.ExchangeServer.GetExchangeServiceID(PanelRequest.ItemID);
-            StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId));
+            StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
             var AllowSentItems = Utils.ParseBool(settings["ex2016cu6orhigher"], false);
             if (!AllowSentItems)
             {

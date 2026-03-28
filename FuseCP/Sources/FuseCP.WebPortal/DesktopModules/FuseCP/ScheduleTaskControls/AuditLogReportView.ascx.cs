@@ -128,7 +128,11 @@ namespace FuseCP.Portal.ScheduleTaskControls
 
             ddlAuditLogTask.Items.Clear();
             ddlAuditLogTask.Items.Add(new ListItem(GetLocalizedString("All.Text"), ""));
-            DataTable dt = ES.Services.AuditLog.GetAuditLogTasks(sourceName).Tables[0];
+            DataSet taskSet = ES.Services.AuditLog.GetAuditLogTasks(sourceName);
+            DataTable dt = (taskSet != null && taskSet.Tables.Count > 0) ? taskSet.Tables[0] : null;
+            if (dt == null)
+                return;
+
             foreach (DataRow dr in dt.Rows)
             {
                 string taskName = dr["TaskName"].ToString();
@@ -140,7 +144,11 @@ namespace FuseCP.Portal.ScheduleTaskControls
         {
             ddlAuditLogSource.Items.Clear();
             ddlAuditLogSource.Items.Add(new ListItem(GetLocalizedString("All.Text"), ""));
-            DataTable dt = ES.Services.AuditLog.GetAuditLogSources().Tables[0];
+            DataSet sourceSet = ES.Services.AuditLog.GetAuditLogSources();
+            DataTable dt = (sourceSet != null && sourceSet.Tables.Count > 0) ? sourceSet.Tables[0] : null;
+            if (dt == null)
+                return;
+
             foreach (DataRow dr in dt.Rows)
             {
                 string sourceName = dr["SourceName"].ToString();

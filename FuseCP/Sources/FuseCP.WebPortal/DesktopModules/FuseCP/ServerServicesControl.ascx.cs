@@ -51,14 +51,19 @@ namespace FuseCP.Portal
         {
             ServicesLoaded = true;
             dsServices = ES.Services.Servers.GetRawServicesByServerId(PanelRequest.ServerId);
-            dlServiceGroups.DataSource = dsServices.Tables[0];
+            DataTable groupTable = (dsServices != null && dsServices.Tables.Count > 0) ? dsServices.Tables[0] : null;
+            dlServiceGroups.DataSource = groupTable;
             dlServiceGroups.DataBind();
             UpdateServicesVisibility();
         }
 
         public DataView GetGroupServices(int groupId)
         {
-            return new DataView(dsServices.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
+            DataTable serviceTable = (dsServices != null && dsServices.Tables.Count > 1) ? dsServices.Tables[1] : null;
+            if (serviceTable == null)
+                return new DataView(new DataTable());
+
+            return new DataView(serviceTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         public string EditServiceUrl(string key, string keyVal, string ctrlKey)

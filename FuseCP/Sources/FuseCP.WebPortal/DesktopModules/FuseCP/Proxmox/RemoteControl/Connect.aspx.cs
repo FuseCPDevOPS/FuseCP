@@ -33,15 +33,21 @@ namespace FuseCP.Portal.Proxmox.RemoteDesktop
 
             // load server info
             VirtualMachine vm = VirtualMachinesProxmoxHelper.GetCachedVirtualMachine(PanelRequest.ItemID);
+            if (vm == null)
+            {
+                return;
+            }
+
             litServerName.Text = vm.Name + " - ";
             username.Text = "Administrator";
             password.Text = vm.AdministratorPassword;
             
             // load external network parameters
             NetworkAdapterDetails nic = ES.Services.Proxmox.GetExternalNetworkAdapterDetails(PanelRequest.ItemID);
-            if (nic.IPAddresses.Length > 0)
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
+            if (ipAddresses.Length > 0)
             {
-                NetworkAdapterIPAddress ip = nic.IPAddresses[0];
+                NetworkAdapterIPAddress ip = ipAddresses[0];
                 serverName.Text = !String.IsNullOrEmpty(ip.NATAddress) ? ip.NATAddress : ip.IPAddress;
             }
         }

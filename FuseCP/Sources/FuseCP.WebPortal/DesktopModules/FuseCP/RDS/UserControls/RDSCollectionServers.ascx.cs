@@ -154,8 +154,12 @@ namespace FuseCP.Portal.RDS.UserControls
                 if (chkSelect == null)
                     continue;
 
+                DataKey dataKey = gvServers.DataKeys[i];
+                if (dataKey?.Value == null)
+                    continue;
+
                 RdsServer server = new RdsServer();
-                server.Id = (int)gvServers.DataKeys[i][0];
+                server.Id = (int)dataKey.Value;
                 server.FqdName = ((Literal)row.FindControl("litFqdName")).Text;
                 server.Status = ((Literal)row.FindControl("litStatus")).Text;
                 var rdsCollectionId = ((HiddenField)row.FindControl("hdnRdsCollectionId")).Value;
@@ -186,9 +190,13 @@ namespace FuseCP.Portal.RDS.UserControls
 
                 if (chkSelect.Checked)
                 {
+                    DataKey dataKey = gvPopupServers.DataKeys[i];
+                    if (dataKey?.Value == null)
+                        continue;
+
                     servers.Add(new RdsServer
                     {
-                        Id = (int)gvPopupServers.DataKeys[i][0],
+                        Id = (int)dataKey.Value,
                         FqdName = ((Literal)row.FindControl("litName")).Text
                     });
                 }

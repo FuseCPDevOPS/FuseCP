@@ -59,9 +59,17 @@ namespace FuseCP.Portal
 
             // get summary
             DataSet ds = ES.Services.Packages.GetPackageBandwidth(PanelSecurity.PackageId, startDate, endDate);
+            DataTable summaryTable = (ds != null && ds.Tables.Count > 0) ? ds.Tables[0] : null;
+            if (summaryTable == null)
+            {
+                gvSummary.DataSource = null;
+                gvSummary.DataBind();
+                litTotal.Text = "0";
+                return;
+            }
 
             // calculate total
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            foreach (DataRow dr in summaryTable.Rows)
                 BandwidthTotal += Convert.ToInt32(dr["MegaBytesTotal"]);
 
             litTotal.Text = BandwidthTotal.ToString();

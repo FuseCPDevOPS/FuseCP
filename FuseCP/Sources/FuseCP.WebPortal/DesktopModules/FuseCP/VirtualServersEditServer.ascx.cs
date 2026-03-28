@@ -78,19 +78,23 @@ namespace FuseCP.Portal
         {
             // load services
             dsServices = ES.Services.Servers.GetVirtualServices(PanelRequest.ServerId);
+            DataTable groupTable = (dsServices != null && dsServices.Tables.Count > 0) ? dsServices.Tables[0] : null;
 
             // bind primary groups
             ddlPrimaryGroup.Items.Clear();
             ddlPrimaryGroup.Items.Add(new ListItem("<Select Group>", ""));
-            DataView dvGroups = dsServices.Tables[0].DefaultView;
-            foreach (DataRowView dr in dvGroups)
+            DataView dvGroups = groupTable != null ? groupTable.DefaultView : null;
+            if (dvGroups != null)
             {
-                int groupId = (int)dr["GroupID"];
-                DataView dvServices = GetGroupServices(groupId);
-
-                if (dvServices.Count > 1)
+                foreach (DataRowView dr in dvGroups)
                 {
-                    ddlPrimaryGroup.Items.Add(new ListItem(dr["GroupName"].ToString(), groupId.ToString()));
+                    int groupId = (int)dr["GroupID"];
+                    DataView dvServices = GetGroupServices(groupId);
+
+                    if (dvServices.Count > 1)
+                    {
+                        ddlPrimaryGroup.Items.Add(new ListItem(dr["GroupName"].ToString(), groupId.ToString()));
+                    }
                 }
             }
 
@@ -108,7 +112,7 @@ namespace FuseCP.Portal
             // bind services
             try
             {
-                dlServiceGroups.DataSource = dsServices.Tables[0];
+                dlServiceGroups.DataSource = groupTable;
                 dlServiceGroups.DataBind();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -139,7 +143,11 @@ namespace FuseCP.Portal
 
         public DataView GetGroupServices(int groupId)
         {
-            return new DataView(dsServices.Tables[1], "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
+            DataTable serviceTable = (dsServices != null && dsServices.Tables.Count > 1) ? dsServices.Tables[1] : null;
+            if (serviceTable == null)
+                return new DataView(new DataTable());
+
+            return new DataView(serviceTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
         }
 
         protected void dlServiceGroups_ItemDataBound(object sender, DataListItemEventArgs e)

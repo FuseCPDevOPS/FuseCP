@@ -141,7 +141,8 @@ namespace FuseCP.Portal.VPS2012
             //show summary
             litCpu.Text = vm.CpuCores.ToString();
             litRam.Text = vm.RamSize.ToString();
-            litHdd.Text = vm.HddSize[0].ToString();
+            int firstHddSize = (vm.HddSize != null && vm.HddSize.Length > 0) ? vm.HddSize[0] : 0;
+            litHdd.Text = firstHddSize.ToString();
 
             BindAdditionalHddInfo(vm);
 

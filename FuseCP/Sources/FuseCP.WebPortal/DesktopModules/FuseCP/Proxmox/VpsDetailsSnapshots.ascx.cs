@@ -36,7 +36,7 @@ namespace FuseCP.Portal.Proxmox
 
         private void BindSnapshotsTree()
         {
-            VirtualMachineSnapshot[] snapshots = ES.Services.Proxmox.GetVirtualMachineSnapshots(PanelRequest.ItemID);
+            VirtualMachineSnapshot[] snapshots = ES.Services.Proxmox.GetVirtualMachineSnapshots(PanelRequest.ItemID) ?? Array.Empty<VirtualMachineSnapshot>();
 
             // clear tree
             SnapshotsTree.Nodes.Clear();
@@ -56,8 +56,8 @@ namespace FuseCP.Portal.Proxmox
             // quotas
             VirtualMachine vm = ES.Services.Proxmox.GetVirtualMachineItem(PanelRequest.ItemID);
             snapshotsQuota.QuotaUsedValue = snapshots.Length;
-            snapshotsQuota.QuotaValue = vm.SnapshotsNumber;
-            btnTakeSnapshot.Enabled = snapshots.Length < vm.SnapshotsNumber;
+            snapshotsQuota.QuotaValue = vm != null ? vm.SnapshotsNumber : 0;
+            btnTakeSnapshot.Enabled = vm != null && snapshots.Length < vm.SnapshotsNumber;
         }
 
         private void BindSelectedNode()
@@ -93,6 +93,7 @@ namespace FuseCP.Portal.Proxmox
 
         private void AddChildNodes(TreeNodeCollection parent, string parentId, VirtualMachineSnapshot[] snapshots)
         {
+            snapshots ??= Array.Empty<VirtualMachineSnapshot>();
             foreach (VirtualMachineSnapshot snapshot in snapshots.Where(snapshot => snapshot.ParentId == parentId))
             {
                     // add node

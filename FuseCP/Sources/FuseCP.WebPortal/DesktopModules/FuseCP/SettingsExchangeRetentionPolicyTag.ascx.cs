@@ -173,6 +173,13 @@ namespace FuseCP.Portal
                             orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
                         }
 
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("EXCHANGE_DELETE_RETENTIONPOLICY");
+                            BindRetentionPolicy();
+                            return;
+                        }
+
                         tag = ES.Services.ExchangeServer.GetExchangeRetentionPolicyTag(orgs[0].Id, mailboxPlanId);
 
                         if (tag.ItemID != orgs[0].Id)
@@ -227,6 +234,13 @@ namespace FuseCP.Portal
                             orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
                         }
 
+                        if ((orgs == null) || (orgs.GetLength(0) == 0))
+                        {
+                            messageBox.ShowErrorMessage("EXCHANGE_UPDATEPLANS");
+                            BindRetentionPolicy();
+                            return;
+                        }
+
 
                         tag = ES.Services.ExchangeServer.GetExchangeRetentionPolicyTag(orgs[0].Id, mailboxPlanId);
 
@@ -275,6 +289,13 @@ namespace FuseCP.Portal
             else
             {
                 orgs = ES.Services.ExchangeServer.GetExchangeOrganizations(1, false);
+            }
+
+            if ((orgs == null) || (orgs.GetLength(0) == 0))
+            {
+                messageBox.ShowErrorMessage("EXCHANGE_UPDATEPLANS");
+                BindRetentionPolicy();
+                return;
             }
 
             tag = ES.Services.ExchangeServer.GetExchangeRetentionPolicyTag(orgs[0].Id, mailboxPlanId);

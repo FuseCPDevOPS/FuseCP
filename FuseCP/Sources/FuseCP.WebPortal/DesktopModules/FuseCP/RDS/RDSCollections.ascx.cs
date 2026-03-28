@@ -45,7 +45,7 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_COLLECTIONS, out var _ckv))
             }
 
             var serviceId = ES.Services.RDS.GetRemoteDesktopServiceId(PanelRequest.ItemID);
-            var settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId));
+            var settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
             
             var allowImport = Convert.ToBoolean(settings[RdsServerSettings.ALLOWCOLLECTIONSIMPORT]);
 
@@ -75,7 +75,7 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_COLLECTIONS, out var _ckv))
 
             RdsServer[] servers =  ES.Services.RDS.GetCollectionRdsServers(id);
 
-            return servers.FirstOrDefault().FqdName;
+            return servers?.FirstOrDefault()?.FqdName ?? string.Empty;
         }
 
         protected void btnAddCollection_Click(object sender, EventArgs e)

@@ -104,7 +104,14 @@ namespace FuseCP.Portal.ProviderControls
             ddl.Items.Clear();
 
             ServiceInfo serviceInfo = ES.Services.Servers.GetServiceInfo(PanelRequest.ServiceId);
-            DataView dvServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Filters).Tables[0].DefaultView;
+            if (serviceInfo == null)
+                return;
+
+            DataSet filterServices = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Filters);
+            DataTable filterServiceTable = (filterServices != null && filterServices.Tables.Count > 0) ? filterServices.Tables[0] : null;
+            DataView dvServices = filterServiceTable != null ? filterServiceTable.DefaultView : null;
+            if (dvServices == null)
+                return;
 
             foreach (DataRowView dr in dvServices)
             {

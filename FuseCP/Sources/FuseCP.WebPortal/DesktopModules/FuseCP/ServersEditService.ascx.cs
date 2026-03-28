@@ -278,6 +278,9 @@ namespace FuseCP.Portal
 			// find control
 			try
 			{
+				if (serviceProps.Controls.Count == 0)
+					return;
+
 				IHostingServiceProviderSettings ctrl = serviceProps.Controls[0] as IHostingServiceProviderSettings;
 				if (ctrl == null)
 					return;

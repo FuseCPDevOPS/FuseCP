@@ -33,10 +33,13 @@ namespace FuseCP.Portal
 			if(theme == "" | theme == null)
 			{
 				DataSet themedata = ES.Services.Authentication.GetLoginThemes();
+                DataTable themeTable = (themedata != null && themedata.Tables.Count > 0) ? themedata.Tables[0] : null;
+                if (themeTable == null || themeTable.Rows.Count == 0)
+                    return theme;
 
-				if (HttpContext.Current.Response.Cookies["UserRTL"].Value == "1")
+				if (HttpContext.Current.Response.Cookies["UserRTL"] != null && HttpContext.Current.Response.Cookies["UserRTL"].Value == "1")
 				{
-					theme = themedata.Tables[0].Rows[0]["RTLName"].ToString();
+					theme = themeTable.Rows[0]["RTLName"].ToString();
 	
 					HttpCookie cookieTheme = new HttpCookie("UserTheme", theme);
 					cookieTheme.Expires = DateTime.Now.AddMonths(2);
@@ -44,7 +47,7 @@ namespace FuseCP.Portal
 				}
 				else
                 {
-					theme = themedata.Tables[0].Rows[0]["LTRName"].ToString();
+					theme = themeTable.Rows[0]["LTRName"].ToString();
 				}
 			}
 

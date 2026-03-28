@@ -44,8 +44,9 @@ namespace FuseCP.Portal
             if (PanelSecurity.PackageId == 0)
             {
                 myPackages = new PackagesHelper().GetMyPackages();
+                DataTable packageTable = (myPackages != null && myPackages.Tables.Count > 0) ? myPackages.Tables[0] : null;
                 //For selectedUser have Packages or not then HIDE Menu
-                if (myPackages.Tables[0].Rows.Count == 0)
+                if (packageTable == null || packageTable.Rows.Count == 0)
                 {
                     orgMenu.Visible = false;
                     return;
@@ -53,9 +54,9 @@ namespace FuseCP.Portal
 
                 if (Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId)
                 {
-                    if (myPackages.Tables[0].Rows.Count > 0)
+                    if (packageTable.Rows.Count > 0)
                     {
-                        Session["currentPackage"] = myPackages.Tables[0].Rows[0][0].ToString();
+                        Session["currentPackage"] = packageTable.Rows[0][0].ToString();
                         Session["currentUser"] = PanelSecurity.SelectedUserId;
                     }
                 }
@@ -112,7 +113,7 @@ namespace FuseCP.Portal
             //     }
 
             //   }
-if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
                 if ((_ckv.QuotaAllocatedValue > 0) || (_ckv.QuotaAllocatedValue == -1))
                 {

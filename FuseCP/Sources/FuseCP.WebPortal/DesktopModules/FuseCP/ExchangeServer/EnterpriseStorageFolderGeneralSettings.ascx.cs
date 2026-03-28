@@ -93,7 +93,7 @@ namespace FuseCP.Portal.ExchangeServer
 
                 var serviceId = ES.Services.EnterpriseStorage.GetEnterpriseStorageServiceId(PanelRequest.ItemID);
 
-                StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId));
+                StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
 
                 btnMigrate.Visible = folder.StorageSpaceFolderId == null
                     && Utils.ParseBool(settings[EnterpriseStorage_Settings.UseStorageSpaces], false);

@@ -50,7 +50,11 @@ namespace FuseCP.Portal
             if (!IsPostBack)
             {
                 // bind item types
-                DataTable dtItemTypes = ES.Services.Packages.GetSearchableServiceItemTypes().Tables[0];
+                DataSet itemTypes = ES.Services.Packages.GetSearchableServiceItemTypes();
+                DataTable dtItemTypes = (itemTypes != null && itemTypes.Tables.Count > 0) ? itemTypes.Tables[0] : null;
+                if (dtItemTypes == null)
+                    return;
+
                 foreach (DataRow dr in dtItemTypes.Rows)
                 {
                     string displayName = dr["DisplayName"].ToString();

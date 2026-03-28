@@ -111,10 +111,12 @@ namespace FuseCP.Portal
 
             // RDS
             var services = ES.Services.RDS.GetRdsServices();
-
-            foreach (var service in services)
+            if (services != null)
             {
-                ddlRdsController.Items.Add(new ListItem(service.ServiceName, service.ServiceId.ToString()));
+                foreach (var service in services)
+                {
+                    ddlRdsController.Items.Add(new ListItem(service.ServiceName, service.ServiceId.ToString()));
+                }
             }
 
             settings = ES.Services.System.GetSystemSettings(FCP.SystemSettings.RDS_SETTINGS);

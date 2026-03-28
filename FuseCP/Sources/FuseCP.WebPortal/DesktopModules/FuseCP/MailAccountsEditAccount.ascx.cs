@@ -90,14 +90,22 @@ namespace FuseCP.Portal
 						// Display currently set max mailbox size limit
 						SetMaxMailboxSizeLimit(item.MaxMailboxSize);
 						// other controls
-						IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
-						ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
 					}
 					else
 					{
-						IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
+                        if (providerControl.Controls.Count == 0)
+                        {
+                            return;
+                        }
 
-						string[] settings = ES.Services.Servers.GetMailServiceSettingsByPackage((int)ViewState["PackageId"]);
+                        IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
+
+                        string[] settings = ES.Services.Servers.GetMailServiceSettingsByPackage((int)ViewState["PackageId"]) ?? Array.Empty<string>();
 						StringDictionary settingsDictionary = ConvertArrayToDictionary(settings);
 
 
@@ -198,7 +206,7 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
             if (PanelRequest.ItemID == 0)
             {
                 //checking if account name is different from existing e-mail lists
-                MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true);
+                MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true) ?? Array.Empty<MailList>();
                 foreach (MailList list in lists.Where(list => item.Name == list.Name))
                 {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
@@ -206,7 +214,7 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
                 }
 
                 //checking if account name is different from existing e-mail groups
-                MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true);
+                MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true) ?? Array.Empty<MailGroup>();
                 foreach (MailGroup group in mailgroups.Where(group => item.Name == group.Name))
                 {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
@@ -214,7 +222,7 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
                 }
 
                 //checking if account name is different from existing forwardings
-                MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true);
+                MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true) ?? Array.Empty<MailAlias>();
                 foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
                 {
                         ShowWarningMessage("MAIL_ACCOUNT_NAME");
@@ -223,6 +231,11 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
             }
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
             ctrl.SaveItem(item);
 

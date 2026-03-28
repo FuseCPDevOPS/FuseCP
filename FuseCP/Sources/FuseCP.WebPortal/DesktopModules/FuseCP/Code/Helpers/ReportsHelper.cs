@@ -23,12 +23,32 @@ namespace FuseCP.Portal
     /// </summary>
     public class ReportsHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         #region Bandwidth Report
         DataSet dsBandwidthReport;
 
         public int GetPackagesBandwidthPagedCount(int packageId, string sStartDate, string sEndDate)
         {
-            return (int)dsBandwidthReport.Tables[0].Rows[0][0];
+            return GetPagedCount(dsBandwidthReport);
         }
 
         public DataTable GetPackagesBandwidthPaged(int packageId, int maximumRows, int startRowIndex, string sortColumn,
@@ -38,7 +58,7 @@ namespace FuseCP.Portal
             dsBandwidthReport = ES.Services.Packages.GetPackagesBandwidthPaged(PanelSecurity.SelectedUserId,
                 packageId, DateTime.Parse(sStartDate), DateTime.Parse(sEndDate),
                 sortColumn, startRowIndex, maximumRows);
-            return dsBandwidthReport.Tables[1];
+            return GetPagedTable(dsBandwidthReport, 1);
         }
         #endregion
 
@@ -47,7 +67,7 @@ namespace FuseCP.Portal
 
         public int GetPackagesDiskspacePagedCount(int packageId)
         {
-            return (int)dsDiskspaceReport.Tables[0].Rows[0][0];
+            return GetPagedCount(dsDiskspaceReport);
         }
 
         public DataTable GetPackagesDiskspacePaged(int packageId, int maximumRows, int startRowIndex, string sortColumn)
@@ -56,7 +76,7 @@ namespace FuseCP.Portal
             dsDiskspaceReport = ES.Services.Packages.GetPackagesDiskspacePaged(
                 PanelSecurity.SelectedUserId, packageId,
                 sortColumn, startRowIndex, maximumRows);
-            return dsDiskspaceReport.Tables[1];
+            return GetPagedTable(dsDiskspaceReport, 1);
         }
         #endregion
     }

@@ -89,8 +89,11 @@ namespace FuseCP.Portal
 						}
 
                         // other controls
-                        IStatsEditInstallationControl ctrl = (IStatsEditInstallationControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IStatsEditInstallationControl ctrl = (IStatsEditInstallationControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
                     }
                 }
 
@@ -122,6 +125,11 @@ namespace FuseCP.Portal
             local_item.Name = ddlWebSites.SelectedValue;
 
             // get other props
+            if (providerControl.Controls.Count == 0)
+            {
+                ShowWarningMessage("INIT_SERVICE_ITEM_FORM");
+                return;
+            }
             IStatsEditInstallationControl ctrl = (IStatsEditInstallationControl)providerControl.Controls[0];
             ctrl.SaveItem(local_item);
 

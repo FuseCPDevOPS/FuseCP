@@ -39,7 +39,9 @@ namespace FuseCP.Portal.Proxmox
         public void BindHyperVServices()
         {
             // bind
-            HyperVServices.DataSource = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Proxmox).Tables[0].DefaultView;
+            DataSet services = ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.Proxmox);
+            DataTable table = (services != null && services.Tables.Count > 0) ? services.Tables[0] : null;
+            HyperVServices.DataSource = table != null ? table.DefaultView : null;
             HyperVServices.DataBind();
 
             // add select value

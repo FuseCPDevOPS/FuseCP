@@ -62,8 +62,8 @@ namespace FuseCP.Portal.VPS2012
             //KD FSJ
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-            QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPS2012_CPU_NUMBER];
-            if (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue | cpuQuota2.QuotaAllocatedValue == -1)
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out QuotaValueInfo cpuQuota2)
+                && (cpuQuota2.QuotaAllocatedValue > cpuQuota2.QuotaUsedValue || cpuQuota2.QuotaAllocatedValue == -1))
             {
                 wizard.Visible = true;
 
@@ -141,16 +141,14 @@ namespace FuseCP.Portal.VPS2012
             // bind CPU cores
             int maxCores = ES.Services.VPS2012.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
 
-            QuotaValueInfo cpuQuota2 = cntx.Quotas[Quotas.VPS2012_CPU_NUMBER];
-
-            if (cpuQuota2.QuotaAllocatedValue == -1)
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out QuotaValueInfo cpuQuota2) && cpuQuota2.QuotaAllocatedValue == -1)
             {
                 for (int i = 1; i < maxCores + 1; i++)
                     ddlCpu.Items.Add(i.ToString());
 
                 ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
             }
-            else if (cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
+            else if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out cpuQuota2) && cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
             {
                 if ((cpuQuota2.QuotaAllocatedValue + 1 - cpuQuota2.QuotaUsedValue) > maxCores)
                 {
@@ -181,7 +179,7 @@ namespace FuseCP.Portal.VPS2012
 
                 bool isUnassignedPackageIPs = false;
                 // bind vlan list
-                PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+                PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
                 if (ips.Length > 0)
                 {
                     foreach (PackageIPAddress ip in ips)
@@ -250,8 +248,9 @@ namespace FuseCP.Portal.VPS2012
                 }
 
                 // set max number
-                QuotaValueInfo privQuota = cntx.Quotas[Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER];
-                int maxPrivate = privQuota.QuotaAllocatedValue;
+                int maxPrivate = 0;
+                if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out QuotaValueInfo privQuota))
+                    maxPrivate = privQuota.QuotaAllocatedValue;
                 if (maxPrivate == -1)
                     maxPrivate = 10;
 
@@ -302,8 +301,9 @@ namespace FuseCP.Portal.VPS2012
                 }
 
                 // set max number
-                QuotaValueInfo dmzQuota = cntx.Quotas[Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER];
-                int maxDmz = dmzQuota.QuotaAllocatedValue;
+                int maxDmz = 0;
+                if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out QuotaValueInfo dmzQuota))
+                    maxDmz = dmzQuota.QuotaAllocatedValue;
                 if (maxDmz == -1)
                     maxDmz = 10;
 
@@ -330,7 +330,7 @@ namespace FuseCP.Portal.VPS2012
 
 
             // RAM size
-          if (cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out QuotaValueInfo ramQuota))
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_RAM, out QuotaValueInfo ramQuota))
             {
                 if (ramQuota.QuotaAllocatedValue == -1)
                 {
@@ -351,7 +351,7 @@ namespace FuseCP.Portal.VPS2012
             }
 
             // HDD size
-            if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out QuotaValueInfo hddQuota))
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out QuotaValueInfo hddQuota))
             {
                 if (hddQuota.QuotaAllocatedValue == -1)
                 {
@@ -365,8 +365,7 @@ namespace FuseCP.Portal.VPS2012
                 }
             }
 
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
-              if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out QuotaValueInfo additionalHddQuota))
+                        if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out QuotaValueInfo additionalHddQuota))
             {
                 if (additionalHddQuota.QuotaAllocatedValue == -1 || additionalHddQuota.QuotaAllocatedValue > 0) btnAddHdd.Visible = true;
             }
@@ -377,7 +376,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             txtHddMaxIOPS.Text = "0";
 
             // snapshots number
-            if (cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
             {
                 int snapsNumber = snapsQuota.QuotaAllocatedValue;
                 txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
@@ -465,7 +464,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
         private void BindExternalIps()
         {
             // bind list
-            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
 
             listExternalAddresses.Items.Clear();
             foreach (PackageIPAddress ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
@@ -486,7 +485,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
         private void BindExternalUnallottedIps()
         {
             // bind list
-            IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS2012, IPAddressPool.VpsExternalNetwork);
+            IPAddressInfo[] ips = ES.Services.Servers.GetUnallottedIPAddresses(PanelSecurity.PackageId, ResourceGroups.VPS2012, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<IPAddressInfo>();
 
             listExternalAddresses.Items.Clear();
             foreach (IPAddressInfo ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
@@ -721,7 +720,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
 
         protected void VlanLists_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
             if (ips.Length > 0)
                 BindExternalIps();
             else
@@ -741,7 +740,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             var hdds = GetAdditionalHdd();
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
             int freeHddGb = 0;
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
             {
                 QuotaValueInfo hddQuota = _ckv;
                 if (hddQuota.QuotaAllocatedValue != -1)
@@ -769,7 +768,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
         private void RebindAdditionalHdd(List<AdditionalHdd> hdd)
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
+if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out var _ckv))
             {
                 QuotaValueInfo additionalHddQuota = _ckv;
                 int quotaHddCount = additionalHddQuota.QuotaAllocatedValue;

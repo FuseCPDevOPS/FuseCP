@@ -44,7 +44,7 @@ namespace FuseCP.Portal.Proxmox
 
             int adaptervlan = ES.Services.Proxmox.GetExternalNetworkVLAN(PanelRequest.ItemID);
 
-            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+            PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
             foreach (PackageIPAddress ip in ips.Where(ip => ip.VLAN == adaptervlan))
             {
                     string txt = ip.ExternalIP;

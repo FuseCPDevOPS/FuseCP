@@ -43,6 +43,14 @@ namespace FuseCP.Portal.VPS
         private void BindVirtualMachine()
         {
             vm = ES.Services.VPS.GetVirtualMachineItem(PanelRequest.ItemID);
+            if (vm == null)
+            {
+                secExternalNetwork.Visible = false;
+                ExternalNetworkPanel.Visible = false;
+                secPrivateNetwork.Visible = false;
+                PrivateNetworkPanel.Visible = false;
+                return;
+            }
 
             // external network
             if (!vm.ExternalNetworkEnabled)
@@ -63,19 +71,20 @@ namespace FuseCP.Portal.VPS
         {
             // load details
             NetworkAdapterDetails nic = ES.Services.VPS.GetExternalNetworkAdapterDetails(PanelRequest.ItemID);
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
+            foreach (NetworkAdapterIPAddress ip in ipAddresses.Where(ip => ip.IsPrimary))
             {
                     litExtAddress.Text = ip.IPAddress;
                     litExtSubnet.Text = ip.SubnetMask;
                     litExtGateway.Text = ip.DefaultGateway;
                     break;
             }
-            lblTotalExternal.Text = nic.IPAddresses.Length.ToString();
+            lblTotalExternal.Text = ipAddresses.Length.ToString();
 
             // bind IP addresses
-            gvExternalAddresses.DataSource = nic.IPAddresses;
+            gvExternalAddresses.DataSource = ipAddresses;
             gvExternalAddresses.DataBind();
         }
 
@@ -83,22 +92,23 @@ namespace FuseCP.Portal.VPS
         {
             // load details
             NetworkAdapterDetails nic = ES.Services.VPS.GetPrivateNetworkAdapterDetails(PanelRequest.ItemID);
+            NetworkAdapterIPAddress[] ipAddresses = nic?.IPAddresses ?? Array.Empty<NetworkAdapterIPAddress>();
 
             // bind details
-            foreach (NetworkAdapterIPAddress ip in nic.IPAddresses.Where(ip => ip.IsPrimary))
+            foreach (NetworkAdapterIPAddress ip in ipAddresses.Where(ip => ip.IsPrimary))
             {
                     litPrivAddress.Text = ip.IPAddress;
                     break;
             }
-            litPrivSubnet.Text = nic.SubnetMask;
-            litPrivFormat.Text = nic.NetworkFormat;
-            lblTotalPrivate.Text = nic.IPAddresses.Length.ToString();
+            litPrivSubnet.Text = nic != null ? nic.SubnetMask : string.Empty;
+            litPrivFormat.Text = nic != null ? nic.NetworkFormat : string.Empty;
+            lblTotalPrivate.Text = ipAddresses.Length.ToString();
 
             // bind IP addresses
-            gvPrivateAddresses.DataSource = nic.IPAddresses;
+            gvPrivateAddresses.DataSource = ipAddresses;
             gvPrivateAddresses.DataBind();
 
-            if (nic.IsDHCP)
+            if (nic != null && nic.IsDHCP)
             {
                 PrivateAddressesPanel.Visible = false;
                 litPrivAddress.Text = GetLocalizedString("Automatic.Text");
@@ -112,12 +122,14 @@ namespace FuseCP.Portal.VPS
             btnAddExternalAddress.Visible = manageAllowed;
             btnSetPrimaryExternal.Visible = manageAllowed;
             btnDeleteExternal.Visible = manageAllowed;
-            gvExternalAddresses.Columns[0].Visible = manageAllowed;
+            if (gvExternalAddresses.Columns.Count > 0)
+                gvExternalAddresses.Columns[0].Visible = manageAllowed;
 
             btnAddPrivateAddress.Visible = manageAllowed;
             btnSetPrimaryPrivate.Visible = manageAllowed;
             btnDeletePrivate.Visible = manageAllowed;
-            gvPrivateAddresses.Columns[0].Visible = manageAllowed;
+            if (gvPrivateAddresses.Columns.Count > 0)
+                gvPrivateAddresses.Columns[0].Visible = manageAllowed;
         }
 
         protected void btnAddExternalAddress_Click(object sender, EventArgs e)
@@ -263,13 +275,21 @@ namespace FuseCP.Portal.VPS
         private int[] GetSelectedItems(GridView gv)
         {
             List<int> items = new List<int>();
+            if (gv == null || gv.DataKeys == null)
+                return items.ToArray();
 
             for (int i = 0; i < gv.Rows.Count; i++)
             {
                 GridViewRow row = gv.Rows[i];
                 CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                if (chkSelect.Checked)
-                    items.Add((int)gv.DataKeys[i].Value);
+                if (chkSelect == null || !chkSelect.Checked)
+                    continue;
+
+                DataKey dataKey = gv.DataKeys[i];
+                if (dataKey?.Value == null)
+                    continue;
+
+                items.Add((int)dataKey.Value);
             }
 
             return items.ToArray();

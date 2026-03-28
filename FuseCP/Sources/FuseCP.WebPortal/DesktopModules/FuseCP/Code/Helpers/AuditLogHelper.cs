@@ -23,12 +23,32 @@ namespace FuseCP.Portal
     /// </summary>
     public class AuditLogHelper
     {
+        private static int GetPagedCount(DataSet dataSet)
+        {
+            if (dataSet == null || dataSet.Tables.Count == 0)
+                return 0;
+
+            DataTable countTable = dataSet.Tables[0];
+            if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+                return 0;
+
+            return Utils.ParseInt(countTable.Rows[0][0], 0);
+        }
+
+        private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+        {
+            if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+                return new DataTable();
+
+            return dataSet.Tables[tableIndex] ?? new DataTable();
+        }
+
         DataSet dsLog;
 
         public int GetAuditLogRecordsPagedCount(string sStartDate, string sEndDate, int packageId, int itemId, string itemName,
             int severityId, string sourceName, string taskName)
         {
-            return (int)dsLog.Tables[0].Rows[0][0];
+            return GetPagedCount(dsLog);
         }
 
         public DataTable GetAuditLogRecordsPaged(int maximumRows, int startRowIndex, string sortColumn,
@@ -37,7 +57,7 @@ namespace FuseCP.Portal
             dsLog = ES.Services.AuditLog.GetAuditLogRecordsPaged(
                 PanelSecurity.SelectedUserId, packageId, itemId, itemName, DateTime.Parse(sStartDate), DateTime.Parse(sEndDate),
                 severityId, sourceName, taskName, sortColumn, startRowIndex, maximumRows);
-            return dsLog.Tables[1];
+            return GetPagedTable(dsLog, 1);
         }
     }
 }

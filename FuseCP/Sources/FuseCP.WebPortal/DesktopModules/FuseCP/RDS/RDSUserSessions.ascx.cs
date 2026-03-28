@@ -35,6 +35,12 @@ namespace FuseCP.Portal.RDS
             if (!IsPostBack)
             {
                 var collection = ES.Services.RDS.GetRdsCollection(PanelRequest.CollectionID, true);
+                if (collection == null)
+                {
+                    ShowWarningMessage("REMOTE_DESKTOP_SERVICES_USER_SESSIONS");
+                    return;
+                }
+
                 litCollectionName.Text = collection.DisplayName;
                 BindGrid();
             }
@@ -44,7 +50,14 @@ namespace FuseCP.Portal.RDS
         {
             if (e.CommandName == "LogOff")
             {
-                var arguments = e.CommandArgument.ToString().Split(';');
+                string commandArgument = e.CommandArgument as string;
+                if (string.IsNullOrEmpty(commandArgument))
+                    return;
+
+                var arguments = commandArgument.Split(';');
+                if (arguments.Length < 2)
+                    return;
+
                 string unifiedSessionId = arguments[0];
                 string hostServer = arguments[1];
 
@@ -63,7 +76,14 @@ namespace FuseCP.Portal.RDS
             {
                 try
                 {
-                    string[] args = e.CommandArgument.ToString().Split(';');
+                    string commandArgument = e.CommandArgument as string;
+                    if (string.IsNullOrEmpty(commandArgument))
+                        return;
+
+                    string[] args = commandArgument.Split(';');
+                    if (args.Length < 2)
+                        return;
+
                     ES.Services.RDS.ShadowSession(PanelRequest.ItemID, args[0], false, args[1]);
                     ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 }
@@ -76,7 +96,14 @@ namespace FuseCP.Portal.RDS
             {
                 try
                 {
-                    string[] args = e.CommandArgument.ToString().Split(';');
+                    string commandArgument = e.CommandArgument as string;
+                    if (string.IsNullOrEmpty(commandArgument))
+                        return;
+
+                    string[] args = commandArgument.Split(';');
+                    if (args.Length < 2)
+                        return;
+
                     ES.Services.RDS.ShadowSession(PanelRequest.ItemID, args[0], true, args[1]);
                     ((ModalPopupExtender)asyncTasks.FindControl("ModalPopupProperties")).Hide();
                 }
@@ -87,14 +114,28 @@ namespace FuseCP.Portal.RDS
             }
             else if (e.CommandName == "SendMessage")
             {
-                ViewState["SendMessageUsers"] = e.CommandArgument;
+                string commandArgument = e.CommandArgument as string;
+                if (string.IsNullOrEmpty(commandArgument))
+                    return;
+
+                ViewState["SendMessageUsers"] = commandArgument;
                 ShowMessageEditor();
             }
         }
 
         protected void btnAddMessage_Click(object sender, EventArgs e)
         {            
-            string[] sendMessageInfo = ViewState["SendMessageUsers"].ToString().Split(':');
+            if (ViewState["SendMessageUsers"] == null)
+                return;
+
+            string sendMessageUsers = ViewState["SendMessageUsers"] as string;
+            if (string.IsNullOrEmpty(sendMessageUsers))
+                return;
+
+            string[] sendMessageInfo = sendMessageUsers.Split(':');
+            if (sendMessageInfo.Length < 3)
+                return;
+
             string serverName = sendMessageInfo[0];
             string userName = sendMessageInfo[1];
             string sessionId = sendMessageInfo[2];
@@ -112,7 +153,8 @@ namespace FuseCP.Portal.RDS
             }
             else
             {
-                var userSessions = ES.Services.RDS.GetRdsUserSessions(PanelRequest.CollectionID).ToList();
+                RdsUserSession[] sessions = ES.Services.RDS.GetRdsUserSessions(PanelRequest.CollectionID) ?? Array.Empty<RdsUserSession>();
+                var userSessions = sessions.ToList();
 
                 foreach(var userSession in userSessions)
                 {
@@ -185,7 +227,8 @@ namespace FuseCP.Portal.RDS
 
             try
             {
-                userSessions = ES.Services.RDS.GetRdsUserSessions(PanelRequest.CollectionID).ToList();
+                RdsUserSession[] sessions = ES.Services.RDS.GetRdsUserSessions(PanelRequest.CollectionID) ?? Array.Empty<RdsUserSession>();
+                userSessions = sessions.ToList();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -194,7 +237,8 @@ namespace FuseCP.Portal.RDS
 
             foreach(var userSession in userSessions)
             {
-                var states = userSession.SessionState.Split('_');
+                string sessionState = userSession.SessionState ?? string.Empty;
+                var states = sessionState.Split('_');
 
                 if (states.Length == 2)
                 {

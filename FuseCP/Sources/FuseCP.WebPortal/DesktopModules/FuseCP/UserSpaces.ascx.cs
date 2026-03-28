@@ -54,11 +54,15 @@ namespace FuseCP.Portal
                 if(!IsPostBack) 
                 {
                     myPackages = new PackagesHelper().GetMyPackages();
-                    myPackages.Tables[0].DefaultView.Sort = "DefaultTopPackage DESC, PackageName ASC";//"DefaultTopPackage DESC, PackageId ASC";
-                    ddlPackageSelect.DataSource = myPackages.Tables[0].DefaultView;
-                    ddlPackageSelect.DataTextField = myPackages.Tables[0].Columns[2].ColumnName;
-                    ddlPackageSelect.DataValueField = myPackages.Tables[0].Columns[0].ColumnName;
-                    ddlPackageSelect.DataBind();
+                    DataTable packageTable = (myPackages != null && myPackages.Tables.Count > 0) ? myPackages.Tables[0] : null;
+                    if (packageTable != null)
+                    {
+                        packageTable.DefaultView.Sort = "DefaultTopPackage DESC, PackageName ASC";//"DefaultTopPackage DESC, PackageId ASC";
+                        ddlPackageSelect.DataSource = packageTable.DefaultView;
+                        ddlPackageSelect.DataTextField = packageTable.Columns[2].ColumnName;
+                        ddlPackageSelect.DataValueField = packageTable.Columns[0].ColumnName;
+                        ddlPackageSelect.DataBind();
+                    }
                     if(Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId) {
                         if(ddlPackageSelect.Items.Count > 0) {
                             Session["currentPackage"] = ddlPackageSelect.Items[0].Value;
@@ -78,6 +82,13 @@ namespace FuseCP.Portal
                         EmptyPackagesList.Visible = true;
                     } else {
                         ddlPackageSelect.Visible = true;
+                        if (Session["currentPackage"] == null)
+                        {
+                            litEmptyList.Text = GetLocalizedString("gvPackages.Empty");
+                            EmptyPackagesList.Visible = true;
+                            return;
+                        }
+
                         myPackages = new PackagesHelper().GetMyPackage(int.Parse(Session["currentPackage"].ToString()));
                         if (myPackages.Tables.Count != 0)
                         {

@@ -96,7 +96,11 @@ namespace FuseCP.Portal.UserControls
         {
             ddlSource.Items.Clear();
             ddlSource.Items.Add(new ListItem(GetLocalizedString("All.Text"), ""));
-            DataTable dt = ES.Services.AuditLog.GetAuditLogSources().Tables[0];
+            DataSet sourceSet = ES.Services.AuditLog.GetAuditLogSources();
+            DataTable dt = (sourceSet != null && sourceSet.Tables.Count > 0) ? sourceSet.Tables[0] : null;
+            if (dt == null)
+                return;
+
             foreach (DataRow dr in dt.Rows)
             {
                 string sourceName = dr["SourceName"].ToString();
@@ -110,7 +114,11 @@ namespace FuseCP.Portal.UserControls
 
             ddlTask.Items.Clear();
             ddlTask.Items.Add(new ListItem(GetLocalizedString("All.Text"), ""));
-            DataTable dt = ES.Services.AuditLog.GetAuditLogTasks(sourceName).Tables[0];
+            DataSet taskSet = ES.Services.AuditLog.GetAuditLogTasks(sourceName);
+            DataTable dt = (taskSet != null && taskSet.Tables.Count > 0) ? taskSet.Tables[0] : null;
+            if (dt == null)
+                return;
+
             foreach (DataRow dr in dt.Rows)
             {
                 string taskName = dr["TaskName"].ToString();
@@ -141,13 +149,16 @@ namespace FuseCP.Portal.UserControls
         private void ExportLog()
         {
             // build HTML
-            DataTable dtRecords = ES.Services.AuditLog.GetAuditLogRecordsPaged(PanelSecurity.SelectedUserId,
+            DataSet recordsSet = ES.Services.AuditLog.GetAuditLogRecordsPaged(PanelSecurity.SelectedUserId,
                 PanelSecurity.PackageId, PanelRequest.ItemID, txtItemName.Text.Trim(),
                 DateTime.Parse(litStartDate.Text),
                 DateTime.Parse(litEndDate.Text),
                 Utils.ParseInt(ddlSeverity.SelectedValue, 0),
                 ddlSource.SelectedValue, ddlTask.SelectedValue,
-                "StartDate ASC", 0, Int32.MaxValue).Tables[1];
+                "StartDate ASC", 0, Int32.MaxValue);
+            DataTable dtRecords = (recordsSet != null && recordsSet.Tables.Count > 1) ? recordsSet.Tables[1] : null;
+            if (dtRecords == null)
+                return;
 
             StringBuilder sb = new StringBuilder();
 

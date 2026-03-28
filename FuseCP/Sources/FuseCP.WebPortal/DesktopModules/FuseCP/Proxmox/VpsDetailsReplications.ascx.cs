@@ -72,7 +72,7 @@ namespace FuseCP.Portal.Proxmox
 
                 var packageVm = ES.Services.Proxmox.GetVirtualMachineItem(PanelRequest.ItemID);
                 var vm = ES.Services.Proxmox.GetVirtualMachineExtendedInfo(packageVm.ServiceId, packageVm.VirtualMachineId);
-                var serviceSettings = VirtualMachinesProxmoxHelper.ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(packageVm.ServiceId));
+                var serviceSettings = VirtualMachinesProxmoxHelper.ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettings(packageVm.ServiceId) ?? Array.Empty<string>());
 
                 //var replicaMode = Enum.Parse(typeof(ReplicaMode), serviceSettings["ReplicaMode"]);
                 var computerName = serviceSettings["ServerName"];

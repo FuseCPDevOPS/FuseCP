@@ -25,13 +25,33 @@ namespace FuseCP.Portal
 {
 	public class ExchangeHelper
 	{
+		private static int GetPagedCount(DataSet dataSet)
+		{
+			if (dataSet == null || dataSet.Tables.Count == 0)
+				return 0;
+
+			DataTable countTable = dataSet.Tables[0];
+			if (countTable == null || countTable.Rows.Count == 0 || countTable.Columns.Count == 0)
+				return 0;
+
+			return Utils.ParseInt(countTable.Rows[0][0], 0);
+		}
+
+		private static DataTable GetPagedTable(DataSet dataSet, int tableIndex)
+		{
+			if (dataSet == null || dataSet.Tables.Count <= tableIndex)
+				return new DataTable();
+
+			return dataSet.Tables[tableIndex] ?? new DataTable();
+		}
+
 		#region Exchange Organizations
 		DataSet orgs;
 
 		public int GetExchangeOrganizationsPagedCount(int packageId,
 			bool recursive, string filterColumn, string filterValue)
 		{
-			return (int)orgs.Tables[0].Rows[0][0];
+			return GetPagedCount(orgs);
 		}
 
 		public DataTable GetExchangeOrganizationsPaged(int packageId,
@@ -44,7 +64,7 @@ namespace FuseCP.Portal
 			orgs = ES.Services.ExchangeServer.GetRawExchangeOrganizationsPaged(packageId,
 				recursive, filterColumn, filterValue, sortColumn, startRowIndex, maximumRows);
 
-			return orgs.Tables[1];
+			return GetPagedTable(orgs, 1);
 		}
 		#endregion
 

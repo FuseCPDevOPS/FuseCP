@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -31,8 +32,9 @@ namespace FuseCP.Portal.StorageSpaces
             if (!Page.IsPostBack)
             {
                 var services = ES.Services.Servers.GetRawServicesByGroupId(EnterpriseServer.ServiceGroupIds.StorageSpace);
+                DataTable serviceTable = (services != null && services.Tables.Count > 0) ? services.Tables[0] : null;
 
-                ddlStorageService.DataSource = services.Tables[0];
+                ddlStorageService.DataSource = serviceTable;
                 ddlStorageService.DataTextField = "ServiceName";
                 ddlStorageService.DataValueField = "ServiceID";
                 ddlStorageService.DataBind();

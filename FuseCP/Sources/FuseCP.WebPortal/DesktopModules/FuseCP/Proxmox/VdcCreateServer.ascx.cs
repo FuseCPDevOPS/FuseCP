@@ -96,7 +96,7 @@ namespace FuseCP.Portal.Proxmox
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			int maxCores = ES.Services.Proxmox.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
 
-			if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out QuotaValueInfo cpuQuota))
+			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out QuotaValueInfo cpuQuota))
 			{
 
 				if (cpuQuota.QuotaAllocatedValue != -1
@@ -116,7 +116,7 @@ namespace FuseCP.Portal.Proxmox
 
 
 				// bind vlan list
-				PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+				PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
 
 				List<int> dupevlans = new List<int>();
 				List<int> vlans = new List<int>();
@@ -149,8 +149,9 @@ namespace FuseCP.Portal.Proxmox
 				litPrivateSubnetMask.Text = nic.SubnetMask;
 
 				// set max number
-				QuotaValueInfo privQuota = cntx.Quotas[Quotas.PROXMOX_PRIVATE_IP_ADDRESSES_NUMBER];
-				int maxPrivate = privQuota.QuotaAllocatedValue;
+				int maxPrivate = 0;
+				if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_PRIVATE_IP_ADDRESSES_NUMBER, out QuotaValueInfo privQuota))
+					maxPrivate = privQuota.QuotaAllocatedValue;
 				if (maxPrivate == -1)
 					maxPrivate = 10;
 
@@ -166,7 +167,7 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// RAM size
-				if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_RAM, out QuotaValueInfo ramQuota))
+				if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_RAM, out QuotaValueInfo ramQuota))
 			{
 				if (ramQuota.QuotaAllocatedValue == -1)
 				{
@@ -187,7 +188,7 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// HDD size
-			if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_HDD, out QuotaValueInfo hddQuota))
+			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_HDD, out QuotaValueInfo hddQuota))
 			{
 				if (hddQuota.QuotaAllocatedValue == -1)
 				{
@@ -202,7 +203,7 @@ namespace FuseCP.Portal.Proxmox
 			}
 
 			// snapshots number
-			if (cntx.Quotas.TryGetValue(Quotas.PROXMOX_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
+			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_SNAPSHOTS_NUMBER, out QuotaValueInfo snapsQuota))
 			{
 				int snapsNumber = snapsQuota.QuotaAllocatedValue;
 				txtSnapshots.Text = (snapsNumber != -1) ? snapsNumber.ToString() : "";
@@ -257,7 +258,7 @@ namespace FuseCP.Portal.Proxmox
 			//{
 
 			// bind list
-			PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
+			PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
 
 			listExternalAddresses.Items.Clear();
 			foreach (PackageIPAddress ip in ips.Where(ip => (listVlanLists.SelectedValue == "-1") || ip.VLAN.ToString() == listVlanLists.SelectedValue))
