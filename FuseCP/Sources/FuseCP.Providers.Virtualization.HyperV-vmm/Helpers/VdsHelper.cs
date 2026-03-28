@@ -289,7 +289,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                     // wait untill next process finish
                     e = watcher.WaitForNextEvent();
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (ManagementException)
                 {
                     // nothing has been finished in timeout period
                     return; // exit

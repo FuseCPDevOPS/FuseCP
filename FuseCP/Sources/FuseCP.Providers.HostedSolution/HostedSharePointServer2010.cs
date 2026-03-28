@@ -40,7 +40,7 @@ namespace FuseCP.Providers.HostedSolution
         }
 
         #region PowerShell integration
-        private static RunspaceConfiguration runspaceConfiguration = null;
+        private RunspaceConfiguration runspaceConfiguration = null;
 
         internal virtual string SharepointSnapInName
         {

@@ -5990,7 +5990,7 @@ namespace FuseCP.Providers.HostedSolution
 		 return results;
 	 }*/
 
-		private static RunspaceConfiguration runspaceConfiguration = null;
+		private RunspaceConfiguration runspaceConfiguration = null;
 		private static string ExchangePath = null;
 
 		internal static string GetExchangePath()

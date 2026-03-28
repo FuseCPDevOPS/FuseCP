@@ -45,12 +45,13 @@ namespace FuseCP.EnterpriseServer.Data
 			DT dobj = (DT)Activator.CreateInstance(typeof(DT));
 
 			// copy properties
-			foreach (string propName in sProps.Keys.Where(propName => (dProps.ContainsKey(propName) && sProps[propName].Name != "Item") && sProps[propName].CanRead))
+			foreach (string propName in sProps.Keys.Where(propName => sProps[propName].Name != "Item" && sProps[propName].CanRead))
 			{
-					object val = sProps[propName].GetValue(so, null);
-					if (dProps[propName] != null && (val != null && dProps[propName].CanWrite))
+					if (!dProps.TryGetValue(propName, out var dProp) || dProp == null) continue;
+					var val = sProps[propName].GetValue(so, null);
+					if (val != null && dProp.CanWrite)
 					{
-						dProps[propName].SetValue(dobj, val, null);
+						dProp.SetValue(dobj, val, null);
 					}
 			}
 			return dobj;
@@ -146,24 +147,7 @@ namespace FuseCP.EnterpriseServer.Data
 						props[i].SetValue(obj, GetNull(props[i].PropertyType), null);
 					else
 					{
-						try
-						{
-							// try implicit type conversion
-							props[i].SetValue(obj, propVal, null);
-						}
-						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-						{
-							// convert to string and then set property value
-							try
-							{
-								string strVal = propVal.ToString();
-								props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
-							}
-							catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
-							{
-								// skip property init
-							}
-						}
+						SetPropertyValueWithFallback(props[i], obj, propVal);
 					}
 				} // for properties
 			} // for rows
@@ -208,24 +192,7 @@ namespace FuseCP.EnterpriseServer.Data
 								prop.Property.SetValue(obj, GetNull(prop.Property.PropertyType), null);
 							else
 							{
-								try
-								{
-									// try implicit type conversion
-									prop.Property.SetValue(obj, propVal, null);
-								}
-								catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-								{
-									// convert to string and then set property value
-									try
-									{
-										string strVal = propVal.ToString();
-										prop.Property.SetValue(obj, Cast(strVal, prop.Property.PropertyType), null);
-									}
-									catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
-									{
-										// skip property init
-									}
-								}
+								SetPropertyValueWithFallback(prop.Property, obj, propVal);
 							}
 						} // for properties
 					} // for rows
@@ -309,29 +276,14 @@ namespace FuseCP.EnterpriseServer.Data
 									props[i].SetValue(obj, GetNull(props[i].PropertyType), null);
 								else
 								{
-									try
-									{
-										// try implicit type conversion
-										props[i].SetValue(obj, propVal, null);
-									}
-									catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-									{
-										// convert to string and then set property value
-										try
-										{
-											string strVal = propVal.ToString();
-											props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
-										}
-										catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
-										{
-										_ = innerEx;
-										}
-									}
+									SetPropertyValueWithFallback(props[i], obj, propVal);
 								}
 							}
-							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+							catch (ArgumentException)
 							{
-							_ = ex;
+							}
+							catch (InvalidOperationException)
+							{
 							}
 						} // for properties
 					}
@@ -395,15 +347,25 @@ namespace FuseCP.EnterpriseServer.Data
 									props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
 								}
 							}
-							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+							catch (ArgumentException)
+							{
+								// skip property init 
+							}
+							catch (FormatException)
+							{
+								// skip property init 
+							}
+							catch (InvalidCastException)
 							{
 								// skip property init 
 							}
 						}
 					}
-					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+					catch (ArgumentException)
 					{
-					_ = ex;
+					}
+					catch (InvalidOperationException)
+					{
 					}
 				} // for properties
 			}
@@ -464,16 +426,29 @@ namespace FuseCP.EnterpriseServer.Data
 								prop.Property.SetValue(obj, Cast(strVal, prop.Property.PropertyType), null);
 							}
 						}
-						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+						catch (ArgumentException)
 						{
-						    _ = ex;
+						    // skip property init 
+						}
+						catch (FormatException)
+						{
+						    // skip property init 
+						}
+						catch (InvalidCastException)
+						{
+						    // skip property init 
+						}
+						catch (TargetInvocationException)
+						{
 							// skip property init 
 						}
 					}
 				}
-				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				catch (ArgumentException)
 				{
-				_ = ex;
+				}
+				catch (TargetInvocationException)
+				{
 				}
 			} // for properties
 
@@ -589,38 +564,14 @@ namespace FuseCP.EnterpriseServer.Data
 								props[i].SetValue(obj, GetNull(props[i].PropertyType), null);
 							else
 							{
-								try
-								{
-									//try string first
-									if (props[i].PropertyType.UnderlyingSystemType.FullName == typeof(String).FullName)
-									{
-										props[i].SetValue(obj, propVal.ToString(), null);
-									}
-									else
-									{
-										// then, try implicit type conversion
-										props[i].SetValue(obj, propVal, null);
-									}
-								}
-								catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-								{
-									// convert to string and then set property value
-									try
-									{
-										string strVal = propVal.ToString();
-										props[i].SetValue(obj, Cast(strVal, props[i].PropertyType), null);
-									}
-									catch (System.Exception innerEx) when (!(innerEx is System.OutOfMemoryException) && !(innerEx is System.StackOverflowException) && !(innerEx is System.AccessViolationException))
-									{
-									    _ = innerEx;
-										// skip property init
-									}
-								}
+								SetPropertyValueWithFallback(props[i], obj, propVal);
 							}
 						}
-						catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+						catch (ArgumentException)
 						{
-						_ = ex;
+						}
+						catch (InvalidOperationException)
+						{
 						}
 					} // for properties
 				}
@@ -631,6 +582,61 @@ namespace FuseCP.EnterpriseServer.Data
 			}
 
 			return obj;
+		}
+
+		private static void SetPropertyValueWithFallback(PropertyInfo property, object obj, object propVal)
+		{
+			try
+			{
+				if (property.PropertyType.UnderlyingSystemType.FullName == typeof(String).FullName)
+				{
+					property.SetValue(obj, propVal.ToString(), null);
+				}
+				else
+				{
+					property.SetValue(obj, propVal, null);
+				}
+			}
+			catch (ArgumentException)
+			{
+				TrySetPropertyValueFromString(property, obj, propVal);
+			}
+			catch (InvalidCastException)
+			{
+				TrySetPropertyValueFromString(property, obj, propVal);
+			}
+			catch (FormatException)
+			{
+				TrySetPropertyValueFromString(property, obj, propVal);
+			}
+			catch (TargetInvocationException)
+			{
+				TrySetPropertyValueFromString(property, obj, propVal);
+			}
+		}
+
+		private static void TrySetPropertyValueFromString(PropertyInfo property, object obj, object propVal)
+		{
+			try
+			{
+				string strVal = propVal.ToString();
+				property.SetValue(obj, Cast(strVal, property.PropertyType), null);
+			}
+			catch (ArgumentException)
+			{
+			}
+			catch (FormatException)
+			{
+			}
+			catch (InvalidCastException)
+			{
+			}
+			catch (OverflowException)
+			{
+			}
+			catch (TargetInvocationException)
+			{
+			}
 		}
 
 		private static readonly Hashtable propertiesCache = new Hashtable();

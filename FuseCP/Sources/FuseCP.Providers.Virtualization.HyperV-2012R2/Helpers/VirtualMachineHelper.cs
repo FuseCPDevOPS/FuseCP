@@ -115,7 +115,7 @@ namespace FuseCP.Providers.Virtualization
                 var statusString = TryToGetStatusString(result, "PrimaryOperationalStatus");
                 status = (OperationalStatus)Enum.Parse(typeof(OperationalStatus), statusString);
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ArgumentException)
             {
                 HostedSolution.HostedSolutionLog.LogWarning("GetVMHeartBeatStatus: can not get OperationalStatus from Get-VM result");
                 status = GetVMHeartBeatStatus(vmId); //try to get it again, but from CIM/Mi
@@ -136,7 +136,7 @@ namespace FuseCP.Providers.Virtualization
                     status = (OperationalStatus)Convert.ToInt32(cimSummary.CimInstanceProperties["Heartbeat"].Value);
                 }
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (CimException)
             {
                 //Nothing to do here � the panel works so fast that we can even get an exception while fetching the VM Heartbeat :D
             }
@@ -153,7 +153,7 @@ namespace FuseCP.Providers.Virtualization
                 if (statusString != null)
                     status = statusString.ToString();
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (RuntimeException)
             {
                 if(!isLast)
                     status = ConvertToOperationalStatusTypeString(TryToGetStatusString(result, "PrimaryStatusDescription", true));
@@ -256,7 +256,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 _powerShell.ExecuteOnVm(cmd, vmData, true);
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (RuntimeException)
             {
                 cmd = new Command("Stop-VM");
                 cmd.Parameters.Add("TurnOff");

@@ -17,6 +17,7 @@
 using System;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Xml.Linq;
@@ -97,7 +98,12 @@ namespace FuseCP.EnterpriseServer
 											.Select(p => p.PropertyValue)
 											.FirstOrDefaultAsync()
 											.ConfigureAwait(false))?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false; 
-									} catch (Exception swallowedEx)
+									}
+									catch (DbException swallowedEx)
+									{
+									    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
+									}
+									catch (InvalidOperationException swallowedEx)
 									{
 									    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
 									}

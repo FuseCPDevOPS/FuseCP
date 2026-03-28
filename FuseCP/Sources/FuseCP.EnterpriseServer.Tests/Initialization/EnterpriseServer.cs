@@ -54,7 +54,15 @@ public class EnterpriseServer : IDisposable
 		{
 			eserver = Assembly.Load("FuseCP.EnterpriseServer");
 		}
-		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+		catch (FileNotFoundException)
+		{
+			eserver = Assembly.Load("FuseCP.EnterpriseServer.Code");
+		}
+		catch (FileLoadException)
+		{
+			eserver = Assembly.Load("FuseCP.EnterpriseServer.Code");
+		}
+		catch (BadImageFormatException)
 		{
 			eserver = Assembly.Load("FuseCP.EnterpriseServer.Code");
 		}

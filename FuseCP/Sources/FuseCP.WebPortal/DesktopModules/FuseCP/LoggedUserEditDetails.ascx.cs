@@ -253,7 +253,6 @@ namespace FuseCP.Portal
                 
                 txtItemsPerPage.Text = UsersHelper.GetDisplayItemsPerPage().ToString();
 
-                string UserThemeStyle = "";
                 DataSet UserThemeSettingsData = ES.Services.Users.GetUserThemeSettings(PanelSecurity.LoggedUserId);
                 if (UserThemeSettingsData != null && UserThemeSettingsData.Tables.Count > 0)
                 {

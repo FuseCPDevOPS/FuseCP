@@ -1066,10 +1066,9 @@ namespace FuseCP.EnterpriseServer
 
                 // build initial path
                 string usersHome = osSesstings["UsersHome"];
-                if (usersHome.Contains("\\"))
-                    usersHome = usersHome.EndsWith("\\") ? usersHome : usersHome + '\\';
-                else
-                    usersHome = usersHome.EndsWith("/") ? usersHome : usersHome + '/';
+                usersHome = usersHome.Contains("\\")
+                    ? (usersHome.EndsWith("\\") ? usersHome : usersHome + '\\')
+                    : (usersHome.EndsWith("/") ? usersHome : usersHome + '/');
                 initialPath = usersHome + user.Username;
             }
 

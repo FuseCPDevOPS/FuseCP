@@ -591,7 +591,7 @@ namespace FuseCP.Providers.Web.Iis
                 var bindings = srvman.Sites[website.SiteId].Bindings;
                 return bindings.Any(b => string.IsNullOrEmpty(b.Host) && b.BindingInformation.Split(':')[1] != "*");
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (InvalidOperationException)
             {
                 return false;
             }

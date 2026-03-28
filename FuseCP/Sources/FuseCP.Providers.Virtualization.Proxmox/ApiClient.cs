@@ -89,14 +89,20 @@ namespace FuseCP.Providers.Virtualization
 			//HostedSolutionLog.DebugInfo("Login - apiTicket: {0}", apiTicket.ticket);
 			return response; */
 
+			var authUser = $"{user.Username}@{(string.IsNullOrEmpty(user.Realm) ? "pam" : user.Realm)}";
+			bool loggedIn;
 			try
 			{
-				if (!LoginAsync($"{user.Username}@{(string.IsNullOrEmpty(user.Realm) ? "pam" : user.Realm)}", user.Password).Result)
-					throw new Exception($"Proxmox Server API Service at {baseUrl} unavaliable.\n{LastResult.ReasonPhrase}");
-			} catch (Exception ex)
-			{
-				throw new AuthenticationException(ex.Message, ex);
+				loggedIn = LoginAsync(authUser, user.Password).GetAwaiter().GetResult();
 			}
+			catch (AggregateException ex)
+			{
+				var root = ex.GetBaseException();
+				throw new AuthenticationException(root?.Message ?? ex.Message, root ?? ex);
+			}
+
+			if (!loggedIn)
+				throw new AuthenticationException($"Proxmox Server API Service at {baseUrl} unavaliable.\n{LastResult.ReasonPhrase}");
 			ApiTicket apiTicketdata = new ApiTicket();
 			dynamic data = LastResult.ToData();
 			apiTicketdata.ticket = data.ticket;

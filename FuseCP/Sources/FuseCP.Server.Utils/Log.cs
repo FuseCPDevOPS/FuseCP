@@ -28,6 +28,20 @@ namespace FuseCP.Server.Utils
     {
         private static readonly TraceSwitch logSeverity = new TraceSwitch("Log", "General trace switch");
         private static readonly Regex SensitivePairRegex = new Regex("(?i)(password|pwd|token|apikey|secret|connectionstring)\\s*[=:]\\s*([^;\\s]+)", RegexOptions.Compiled);
+
+        private static void TraceSwallowedException(Exception ex)
+        {
+            if (ex == null)
+            {
+                System.Diagnostics.Trace.TraceWarning("Exception swallowed.");
+                return;
+            }
+
+            System.Diagnostics.Trace.TraceWarning(
+                "Exception swallowed: {0}",
+                SanitizeLogText(ex.GetType().FullName));
+        }
+
         private Log()
         {
         }
@@ -52,7 +66,7 @@ namespace FuseCP.Server.Utils
                     txt.Append($"[{DateTime.Now:G}] ERROR: ");
                     txt.AppendLine(SanitizeLogText(message));
                     while (ex != null) {
-                        txt.AppendLine(SanitizeLogText(ex.ToString()));
+                        txt.AppendLine("[" + ex.GetType().FullName + "] " + SanitizeLogText(ex.Message));
                         ex = ex.InnerException;
                         if (ex != null)
                         {
@@ -62,7 +76,7 @@ namespace FuseCP.Server.Utils
                     Trace.TraceError(txt.ToString());
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         /// <summary>
@@ -79,7 +93,7 @@ namespace FuseCP.Server.Utils
                     WriteError(ex.Message, ex);
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         /// <summary>
@@ -95,7 +109,7 @@ namespace FuseCP.Server.Utils
                     Trace.TraceInformation(FormatIncomingMessage(message, "INFO", args));
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         /// <summary>
@@ -111,7 +125,7 @@ namespace FuseCP.Server.Utils
                     System.Diagnostics.Trace.TraceWarning(FormatIncomingMessage(message, "WARNING", args));
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         /// <summary>
@@ -127,7 +141,7 @@ namespace FuseCP.Server.Utils
                     Trace.TraceInformation(FormatIncomingMessage(message, "START", args));
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         /// <summary>
@@ -143,7 +157,7 @@ namespace FuseCP.Server.Utils
                     Trace.TraceInformation(FormatIncomingMessage(message, "END", args));
                 }
             }
-            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+            catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
         }
 
         private static string FormatIncomingMessage(string message, string tag, params object[] args)

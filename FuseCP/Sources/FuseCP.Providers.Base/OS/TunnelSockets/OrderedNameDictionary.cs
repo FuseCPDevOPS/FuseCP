@@ -84,8 +84,7 @@ namespace FuseCP.Providers
             foreach (var item in this)
             {
                 if (arrayIndex >= array.Length) break;
-                var keyValuePair = new KeyValuePair<string, T>(item.Key, item.Value);
-                array[arrayIndex++] = keyValuePair;
+                array[arrayIndex++] = item;
             }
         }
 
@@ -112,9 +111,8 @@ namespace FuseCP.Providers
 
         public new IEnumerator<KeyValuePair<string, T>> GetEnumerator()
         {
-            foreach (var item in this) {
-                yield return new KeyValuePair<string, T>(item.Key, item.Value);
-            }
+            foreach (string key in base.Keys)
+                yield return new KeyValuePair<string, T>(key, base[key] as T);
         }
     }
 }

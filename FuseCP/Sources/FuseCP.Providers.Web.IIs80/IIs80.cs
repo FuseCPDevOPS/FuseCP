@@ -53,7 +53,11 @@ namespace FuseCP.Providers.Web
 				{
 					return Convert.ToBoolean(ProviderSettings["SSLUseSNI"]);
 				}
-				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				catch (FormatException)
+				{
+					return false;
+				}
+				catch (InvalidCastException)
 				{
 					return false;
 				}
@@ -68,7 +72,11 @@ namespace FuseCP.Providers.Web
 				{
 					return Convert.ToBoolean(ProviderSettings["SSLUseCCS"]);
 				}
-				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				catch (FormatException)
+				{
+					return false;
+				}
+				catch (InvalidCastException)
 				{
 					return false;
 				}

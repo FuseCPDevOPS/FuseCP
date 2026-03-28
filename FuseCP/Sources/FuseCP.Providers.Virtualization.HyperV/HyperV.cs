@@ -1293,7 +1293,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 objKvpExchange = wmi.GetRelatedWmiObject(objVm, "msvm_KvpExchangeComponent");
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ManagementException)
             {
                 // TODO
                 // add logging...
@@ -1787,7 +1787,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
             {
                 File.Delete(remotePath);
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (IOException)
             {
                 // TODO
             }
@@ -2009,7 +2009,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 }
                 #endregion
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ManagementException ex)
             {
                 Log.WriteError(String.Format("Error {0} Virtual Machine '{1}'",
                     started ? "starting" : "turning off",
@@ -2078,7 +2078,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 {
                     DeleteFile(vm.RootFolderPath);
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (IOException ex)
                 {
                     Log.WriteError(String.Format("Cannot delete virtual machine folder '{0}'",
                         vm.RootFolderPath), ex);
@@ -2086,7 +2086,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 #endregion
 
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ManagementException ex)
             {
                 Log.WriteError(String.Format("Error deleting Virtual Machine '{0}'", vm.Name), ex);
             }
@@ -2099,7 +2099,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 // delete virtual switch
                 DeleteSwitch(vs.SwitchId);
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ManagementException ex)
             {
                 Log.WriteError(String.Format("Error deleting Virtual Switch '{0}'", vs.Name), ex);
             }
@@ -2123,9 +2123,8 @@ exit", Convert.ToInt32(objDisk["Index"])));
                     result.Job = CreateJobFromWmiObject(objJob);
                 }
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (ManagementException)
             {
-            _ = ex;
             }
 
             return result;
@@ -2374,9 +2373,8 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 {
                     FileUtils.DeleteFile(path);
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (IOException)
                 {
-                _ = ex;
                 }
                 FileUtils.DeleteFile(path);
             }
@@ -2451,7 +2449,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                     // wait untill next process finish
                     e = watcher.WaitForNextEvent();
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (ManagementException)
                 {
                     // nothing has been finished in timeout period
                     return; // exit

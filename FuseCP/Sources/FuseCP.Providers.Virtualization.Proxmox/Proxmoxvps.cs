@@ -105,7 +105,7 @@ namespace FuseCP.Providers.Virtualization
             }
         }
 
-        static string node = null;
+        string node = null;
         public virtual string ProxmoxClusterNode
         {
             get
@@ -904,7 +904,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 try
                 {
                     return await opencon.Tunnel;
-                } catch (Exception ex) {
+                } catch (IOException ex) {
                     throw new IOException(ex.Message, ex);
                 }
             }

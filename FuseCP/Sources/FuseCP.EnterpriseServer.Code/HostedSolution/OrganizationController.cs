@@ -2602,17 +2602,18 @@ namespace FuseCP.EnterpriseServer
         /// <returns> True - if organization id should be appended. </returns>
         private UserFormatType GetUserFormatType(StringDictionary serviceSettings)
         {
-            if (serviceSettings == null || !serviceSettings.ContainsKey("usernameformat"))
+            var usernameFormat = serviceSettings == null ? null : serviceSettings["usernameformat"];
+            if (string.IsNullOrEmpty(usernameFormat))
             {
                 return UserFormatType.AppendLongCounter;
             }
 
-            if (serviceSettings["usernameformat"].Equals("Append OrgId", StringComparison.CurrentCultureIgnoreCase)) //todo: does this work in other languages / German??
+            if (usernameFormat.Equals("Append OrgId", StringComparison.CurrentCultureIgnoreCase)) //todo: does this work in other languages / German??
             {
                 return UserFormatType.AppendOrgId;
             }
 
-            if (serviceSettings["usernameformat"].Equals("Append Counter if needed", StringComparison.CurrentCultureIgnoreCase)) //todo: does this work in languages / German??
+            if (usernameFormat.Equals("Append Counter if needed", StringComparison.CurrentCultureIgnoreCase)) //todo: does this work in languages / German??
             {
                 return UserFormatType.AppendCounter;
             }
@@ -2792,15 +2793,11 @@ namespace FuseCP.EnterpriseServer
         {
             int maxLogin = 20;
             int fullLen = login.Length + strCounter.Length;
-            if (fullLen <= maxLogin)
-                return login + strCounter;
-            else
-            {
-                return login.Length - (fullLen - maxLogin) > 0
+            return fullLen <= maxLogin
+                ? login + strCounter
+                : login.Length - (fullLen - maxLogin) > 0
                     ? login.Substring(0, login.Length - (fullLen - maxLogin)) + strCounter
-                    : strCounter; // ????
-            }
-
+                    : strCounter;
         }
 
 

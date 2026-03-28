@@ -1747,18 +1747,16 @@ namespace FuseCP.Providers.Mail
                             list.ListToAddress = bunch[1];
                         break;
                     case "listfromaddress":
-                        if (string.Compare(bunch[1], "LISTADDRESS", true) == 0)
-                            list.ListFromAddress = "LISTADDRESS";
-                        else
-                            list.ListFromAddress = string.Compare(bunch[1], "POSTERADDRESS", true) == 0
+                        list.ListFromAddress = string.Compare(bunch[1], "LISTADDRESS", true) == 0
+                            ? "LISTADDRESS"
+                            : string.Compare(bunch[1], "POSTERADDRESS", true) == 0
                                 ? "POSTERADDRESS"
                                 : bunch[1];
                         break;
                     case "listreplytoaddress":
-                        if (string.Compare(bunch[1], "LISTADDRESS", true) == 0)
-                            list.ListReplyToAddress = "LISTADDRESS";
-                        else
-                            list.ListReplyToAddress = string.Compare(bunch[1], "POSTERADDRESS", true) == 0
+                        list.ListReplyToAddress = string.Compare(bunch[1], "LISTADDRESS", true) == 0
+                            ? "LISTADDRESS"
+                            : string.Compare(bunch[1], "POSTERADDRESS", true) == 0
                                 ? "POSTERADDRESS"
                                 : bunch[1];
                         break;

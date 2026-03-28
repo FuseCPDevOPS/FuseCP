@@ -1760,7 +1760,9 @@ namespace FuseCP.Providers.HostedSolution
 
             using PrincipalContext ctx = new PrincipalContext(ContextType.Domain, RootDomain);
 
-            principalgroups = UserPrincipal.FindByIdentity(ctx, userName).GetGroups();
+            var userPrincipal = UserPrincipal.FindByIdentity(ctx, userName);
+            if (userPrincipal == null) return ret.ToArray();
+            principalgroups = userPrincipal.GetGroups();
             HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups?.GetType().Name ?? "null");
 
             foreach (Principal principalgroup in principalgroups)
@@ -2556,7 +2558,7 @@ namespace FuseCP.Providers.HostedSolution
             ExecuteShellCommand(runSpace, cmd);
         }
 
-        private static RunspaceConfiguration runspaceConfiguration = null;
+        private RunspaceConfiguration runspaceConfiguration = null;
 
         internal virtual Runspace OpenRunspace()
         {

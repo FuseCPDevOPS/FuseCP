@@ -660,7 +660,7 @@ namespace FuseCP.Providers.Web
 			{
 				ChangeSiteState(siteId, ServerState.Started);
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			catch (ManagementException)
 			{
 				// just skip an error
 			}
@@ -1861,7 +1861,7 @@ namespace FuseCP.Providers.Web
 					FRONTPAGE_PATH));
 				return true;
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			catch (ManagementException)
 			{
 				return false;
 			}
@@ -2988,9 +2988,9 @@ namespace FuseCP.Providers.Web
 			{
 				action();
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			catch (ManagementException)
 			{
-				// Ignore any exceptions thrown. This means execute ignorantly.
+				// Ignore ManagementException thrown by WMI property operations.
 			}
 		}
 

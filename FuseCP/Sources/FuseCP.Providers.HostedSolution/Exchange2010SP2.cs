@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -685,17 +686,7 @@ namespace FuseCP.Providers.HostedSolution
 								{
 									string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
 
-									bool bAdd = true;
-									foreach (string s in lstDatabase)
-									{
-										if (s.ToLower() == db.ToLower())
-										{
-											bAdd = false;
-											break;
-										}
-									}
-
-									if (bAdd)
+									if (!lstDatabase.Any(s => s.Equals(db, StringComparison.OrdinalIgnoreCase)))
 									{
 										lstDatabase.Add(db);
 										ExchangeLog.LogInfo("AddDatabase: " + db);

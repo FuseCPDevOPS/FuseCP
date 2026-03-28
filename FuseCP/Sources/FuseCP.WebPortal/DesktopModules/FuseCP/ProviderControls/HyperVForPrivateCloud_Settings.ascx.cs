@@ -39,7 +39,7 @@ namespace FuseCP.Portal.ProviderControls
         }
 
         private StringDictionary localsettings;
-        private static LibraryItem[] hosts;
+        private LibraryItem[] hosts;
         private LibraryItem[] Hosts
         {
             get

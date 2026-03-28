@@ -1317,9 +1317,8 @@ namespace FuseCP.Providers.Utils
                         {
                             objGroup.Invoke("Add", new object[] { String.Format("WinNT://{0}/{1},user", Environment.MachineName, user) });
                         }
-                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        catch (System.Runtime.InteropServices.COMException)
                         {
-                        _ = ex;
                         }
                     }
 
@@ -1407,9 +1406,8 @@ namespace FuseCP.Providers.Utils
                         {
                             objGroup.Invoke("Add", new object[] { String.Format("WinNT://{0}/{1},user", Environment.MachineName, user) });
                         }
-                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        catch (System.Runtime.InteropServices.COMException)
                         {
-                        _ = ex;
                         }
                     }
 

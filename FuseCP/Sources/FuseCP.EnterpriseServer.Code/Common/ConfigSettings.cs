@@ -69,10 +69,9 @@ namespace FuseCP.EnterpriseServer
 
 					string value = OSInfo.IsWindows ? GetKeyFromRegistry(key) : string.Empty;
 
-					if (!string.IsNullOrEmpty(value))
-						cryptoKey = value;
-					else
-						cryptoKey = OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.CryptoKey"] : Web.Services.Configuration.CryptoKey;
+					cryptoKey = !string.IsNullOrEmpty(value)
+						? value
+						: (OSInfo.IsNetFX ? ConfigurationManager.AppSettings["FuseCP.CryptoKey"] : Web.Services.Configuration.CryptoKey);
 				}
 				return cryptoKey;
 			}
@@ -87,9 +86,8 @@ namespace FuseCP.EnterpriseServer
 				if (encryptionEnabled == null)
 				{
 					encryptionEnabled = OSInfo.IsNetFX
-						? (ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] != null
-							? bool.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"])
-							: true)
+						? ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] == null
+							|| bool.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"])
 						: Web.Services.Configuration.EncryptionEnabled;
 				}
 				return encryptionEnabled.Value;

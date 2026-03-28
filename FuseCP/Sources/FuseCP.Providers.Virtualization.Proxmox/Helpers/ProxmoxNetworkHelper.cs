@@ -30,59 +30,74 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 
 		public static VirtualMachineNetworkAdapter[] Get(String Content)
 		{
-			List<VirtualMachineNetworkAdapter> adapters = new List<VirtualMachineNetworkAdapter>();
+			if (string.IsNullOrWhiteSpace(Content))
+				return Array.Empty<VirtualMachineNetworkAdapter>();
+
+			JObject configvalue;
 			try
 			{
 				JToken jsonResponse = JToken.Parse(Content);
-				JObject configvalue = (JObject)jsonResponse["data"];
-				foreach (var property in configvalue)
+				configvalue = jsonResponse["data"] as JObject;
+			}
+			catch (JsonException)
+			{
+				return Array.Empty<VirtualMachineNetworkAdapter>();
+			}
+
+			if (configvalue == null)
+				return Array.Empty<VirtualMachineNetworkAdapter>();
+
+			List<VirtualMachineNetworkAdapter> adapters = new List<VirtualMachineNetworkAdapter>();
+			foreach (var property in configvalue)
+			{
+				string val = (string)property.Value;
+				if (property.Key.Contains("net"))
 				{
-					string val = (string)property.Value;
-					if (property.Key.Contains("net"))
-					{
-						VirtualMachineNetworkAdapter adapter = CreateAdapter(val);
-						adapter.Name = String.Format("{0} {1} VLAN {2}", property.Key, adapter.Name, adapter.vlan);
-						adapters.Add(adapter);
-					}
+					VirtualMachineNetworkAdapter adapter = CreateAdapter(val);
+					if (adapter == null)
+						continue;
+
+					adapter.Name = String.Format("{0} {1} VLAN {2}", property.Key, adapter.Name, adapter.vlan);
+					adapters.Add(adapter);
 				}
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-			{
-				adapters = null;
-			}
+
 			return adapters.ToArray();
 		}
 
 		private static VirtualMachineNetworkAdapter CreateAdapter(String adapterinfo)
 		{
-			VirtualMachineNetworkAdapter adapter = new VirtualMachineNetworkAdapter();
-			try
-			{
-				adapter.vlan = defaultvlan;
-				Array adapterarray = adapterinfo.Split(',');
-				foreach (String adapterval in adapterarray)
-				{
-					if (adapterval.Contains(":"))
-					{
-						adapter.MacAddress = adapterval.Split('=')[1];
-						adapter.MacAddress = adapter.MacAddress.Replace(":", "");
-						adapter.Name = adapterinfo.Split('=')[0];
-					}
-					else if (adapterval.Contains("bridge"))
-					{
-						adapter.SwitchName = adapterval.Split('=')[1];
-					}
-					else if (adapterval.Contains("tag"))
-					{
-						adapter.vlan = Convert.ToInt32(adapterval.Split('=')[1]);
-					}
+			if (string.IsNullOrEmpty(adapterinfo))
+				return null;
 
+			VirtualMachineNetworkAdapter adapter = new VirtualMachineNetworkAdapter();
+			adapter.vlan = defaultvlan;
+			Array adapterarray = adapterinfo.Split(',');
+			foreach (String adapterval in adapterarray)
+			{
+				if (adapterval.Contains(":"))
+				{
+					var parts = adapterval.Split('=');
+					if (parts.Length > 1)
+					{
+						adapter.MacAddress = parts[1].Replace(":", "");
+						adapter.Name = parts[0];
+					}
+				}
+				else if (adapterval.Contains("bridge"))
+				{
+					var parts = adapterval.Split('=');
+					if (parts.Length > 1)
+						adapter.SwitchName = parts[1];
+				}
+				else if (adapterval.Contains("tag"))
+				{
+					var parts = adapterval.Split('=');
+					if (parts.Length > 1 && Int32.TryParse(parts[1], out var vlan))
+						adapter.vlan = vlan;
 				}
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-			{
-				adapter = null;
-			}
+
 			return adapter;
 		}
 	}

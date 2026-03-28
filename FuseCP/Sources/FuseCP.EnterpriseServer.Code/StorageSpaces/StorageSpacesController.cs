@@ -51,7 +51,7 @@ namespace FuseCP.EnterpriseServer
                 throw new ArgumentException("Path contains traversal segments.", parameterName);
             }
 
-            return path;
+            return normalized;
         }
 
         #region Storage Spaces Levels

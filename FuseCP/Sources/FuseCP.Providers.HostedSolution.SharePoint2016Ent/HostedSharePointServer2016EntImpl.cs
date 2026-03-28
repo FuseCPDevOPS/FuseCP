@@ -715,7 +715,7 @@ namespace FuseCP.Providers.HostedSolution
                         {
                             if (s != string.Empty)
                             {
-                                string hostName = string.Empty;
+                                var hostNameBuilder = new StringBuilder();
 
                                 if (s[0] != '#')
                                 {
@@ -727,7 +727,7 @@ namespace FuseCP.Providers.HostedSolution
                                         {
                                             if (bSeperator)
                                             {
-                                                hostName += c;
+                                                hostNameBuilder.Append(c);
                                             }
                                         }
                                         else
@@ -736,7 +736,7 @@ namespace FuseCP.Providers.HostedSolution
                                         }
                                     }
 
-                                    if (hostName.ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
+                                    if (hostNameBuilder.ToString().ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
                                     {
                                         bRecordExist = true;
                                         break;
@@ -782,7 +782,7 @@ namespace FuseCP.Providers.HostedSolution
 
                         foreach (string s in contentArr.Where(s => s != string.Empty))
                         {
-                                string hostName = string.Empty;
+                                var hostNameBuilder = new StringBuilder();
 
                                 if (s[0] != '#')
                                 {
@@ -794,7 +794,7 @@ namespace FuseCP.Providers.HostedSolution
                                         {
                                             if (bSeperator)
                                             {
-                                                hostName += c;
+                                                hostNameBuilder.Append(c);
                                             }
                                         }
                                         else
@@ -803,7 +803,7 @@ namespace FuseCP.Providers.HostedSolution
                                         }
                                     }
 
-                                    if (hostName.ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
+                                    if (hostNameBuilder.ToString().ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                     {
                                         outPutBuilder.Append(s).Append("\r\n");
                                     }

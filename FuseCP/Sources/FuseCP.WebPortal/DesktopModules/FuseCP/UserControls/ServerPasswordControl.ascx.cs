@@ -208,7 +208,6 @@ namespace FuseCP.Portal
                 bool enabled = false;
                 int minLength = 1;
                 int maxLength = 50;
-                bool notEqualToUsername = false;
 
                 try
                 {

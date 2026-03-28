@@ -1611,7 +1611,7 @@ SELECT DatabaseVersion FROM Version");
 			var csb = new ConnectionStringBuilder(masterConnectionString);
 			var server = csb.ContainsKey("server") ? csb["server"] as string :
 				csb.ContainsKey("data source") ? csb["data source"] as string : null;
-			var localDb = server.ToLower().Contains("localdb");
+			var localDb = server?.ToLower().Contains("localdb") ?? false;
 			csb.Remove("AttachDbFilename");
 			csb.Remove("Database");
 			csb.Remove("Initial Catalog");

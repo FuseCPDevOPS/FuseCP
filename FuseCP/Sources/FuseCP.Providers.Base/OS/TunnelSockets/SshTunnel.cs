@@ -195,10 +195,11 @@ namespace FuseCP.Providers.OS
             }
         }
 
+        private readonly object _lockObj = new object();
         bool isRestarting = false;
         public void Restart(object sender, ExceptionEventArgs args)
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (isRestarting || Exception == args.Exception || ConnectException != null) return;
                 Exception = args.Exception;
@@ -238,7 +239,7 @@ namespace FuseCP.Providers.OS
         bool isDisposed = false;
         public void Disconnect()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (ForwardedPort.IsStarted)
                 {

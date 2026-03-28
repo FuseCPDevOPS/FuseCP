@@ -153,7 +153,7 @@ namespace FuseCP.Build
 			foreach (var ws in classesWithModel)
 			{
 				var tree = ws.Class.SyntaxTree;
-				var oldTree = tree.GetRoot() as CompilationUnitSyntax;
+				var oldTree = (CompilationUnitSyntax)tree.GetRoot();
 				CompilationUnitSyntax serverTree;
 				CompilationUnitSyntax clientTree;
 				var methods = ws.Class.WebMethods(ws.Model);

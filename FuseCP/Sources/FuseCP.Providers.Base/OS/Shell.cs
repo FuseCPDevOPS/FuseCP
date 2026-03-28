@@ -177,16 +177,8 @@ namespace FuseCP.Providers.OS
 
 		static void ApplyArguments(ProcessStartInfo startInfo, string arguments)
 		{
-			var tokens = TokenizeArguments(arguments).ToList();
-			var argumentListProperty = typeof(ProcessStartInfo).GetProperty("ArgumentList");
-			if (argumentListProperty != null && argumentListProperty.GetValue(startInfo) is IList argumentList)
-			{
-				foreach (var token in tokens)
-					argumentList.Add(token);
-				return;
-			}
-
-			startInfo.Arguments = string.Join(" ", tokens.Select(QuoteArgument));
+			foreach (var token in TokenizeArguments(arguments))
+				startInfo.ArgumentList.Add(token);
 		}
 
 		protected virtual string ToTempFile(string script)

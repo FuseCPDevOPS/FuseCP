@@ -125,6 +125,7 @@ namespace FuseCP.Tests
 				: $"\"{exe}\" \"{dll}\" --urls \"{HttpUrl};{HttpsUrl}\"";
 
 			process = shell.ExecAsync(launchCommand).Process;
+			if (process == null) throw new InvalidOperationException($"Could not start Kestrel: executable not found at '{exe}'");
 
 			try
 			{

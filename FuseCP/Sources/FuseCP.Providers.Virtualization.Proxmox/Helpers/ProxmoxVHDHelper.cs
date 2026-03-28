@@ -29,39 +29,40 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 
 		public static VirtualHardDiskInfo[] Get(String Content)
 		{
-			List<VirtualHardDiskInfo> disks = new List<VirtualHardDiskInfo>();
+			if (string.IsNullOrWhiteSpace(Content))
+				return Array.Empty<VirtualHardDiskInfo>();
 
+			JObject configvalue;
 			try
 			{
 				JToken jsonResponse = JToken.Parse(Content);
-				JObject configvalue = (JObject)jsonResponse["data"];
-
-				foreach (var property in configvalue)
-				{
-					string val = (string)property.Value;
-					if ((property.Key.Contains("ide") || property.Key.Contains("sata") || property.Key.Contains("virtio") || property.Key.Contains("scsi")) && val.Contains(":"))
-					{
-						VirtualHardDiskInfo disk = new VirtualHardDiskInfo();
-						disk.ControllerNumber = 1;
-						disk.ControllerLocation = 1;
-						disk.VHDControllerType = property.Key.Contains("ide") || property.Key.Contains("virtio") ? ControllerType.IDE : ControllerType.SCSI;
-
-
-
-
-
-
-
-						disk.Path = parsepath(val);
-						disk.Name = property.Key;
-						disks.Add(disk);
-					}
-				}
-
+				configvalue = jsonResponse["data"] as JObject;
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			catch (JsonException)
 			{
-				disks = null;
+				return Array.Empty<VirtualHardDiskInfo>();
+			}
+
+			if (configvalue == null)
+				return Array.Empty<VirtualHardDiskInfo>();
+
+			List<VirtualHardDiskInfo> disks = new List<VirtualHardDiskInfo>();
+			foreach (var property in configvalue)
+			{
+				string val = (string)property.Value;
+				if (string.IsNullOrEmpty(val))
+					continue;
+
+				if ((property.Key.Contains("ide") || property.Key.Contains("sata") || property.Key.Contains("virtio") || property.Key.Contains("scsi")) && val.Contains(":"))
+				{
+					VirtualHardDiskInfo disk = new VirtualHardDiskInfo();
+					disk.ControllerNumber = 1;
+					disk.ControllerLocation = 1;
+					disk.VHDControllerType = property.Key.Contains("ide") || property.Key.Contains("virtio") ? ControllerType.IDE : ControllerType.SCSI;
+					disk.Path = parsepath(val);
+					disk.Name = property.Key;
+					disks.Add(disk);
+				}
 			}
 
 			return disks.ToArray();
@@ -70,21 +71,17 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 
 		static String parsepath(String io)
 		{
-			String Path = "";
-			try
+			if (io == null)
+				return io;
+
+			String path = "";
+			foreach (String ioval in io.Split(','))
 			{
-				Array ioarray = io.Split(',');
-				foreach (String ioval in ioarray)
-				{
-					if (ioval.Contains(':'))
-						Path = ioval;
-				}
+				if (ioval.Contains(':'))
+					path = ioval;
 			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-			{
-				Path = io;
-			}
-			return Path;
+
+			return path;
 		}
 	}
 }

@@ -307,8 +307,8 @@ namespace FuseCP.Providers.HostedSolution
                             {
                                 if (s != string.Empty)
                                 {
-                                    string IPAddr = string.Empty;
-                                    string hostName = string.Empty;
+                                    var ipAddrBuilder = new StringBuilder();
+                                    var hostNameBuilder = new StringBuilder();
                                     if (s[0] != '#')
                                     {
                                         bool bSeperator = false;
@@ -317,15 +317,15 @@ namespace FuseCP.Providers.HostedSolution
                                             if ((c != ' ') && (c != '\t'))
                                             {
                                                 if (bSeperator)
-                                                    hostName += c;
+                                                    hostNameBuilder.Append(c);
                                                 else
-                                                    IPAddr += c;
+                                                    ipAddrBuilder.Append(c);
                                             }
                                             else
                                                 bSeperator = true;
                                         }
 
-                                        if (hostName.ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
+                                        if (hostNameBuilder.ToString().ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
                                         {
                                             bRecordExist = true;
                                             break;
@@ -421,8 +421,8 @@ namespace FuseCP.Providers.HostedSolution
                                 var outPutBuilder = new StringBuilder();
                                 foreach (string s in contentArr.Where(s => s != string.Empty))
                                 {
-                                        string IPAddr = string.Empty;
-                                        string hostName = string.Empty;
+                                        var ipAddrBuilder = new StringBuilder();
+                                        var hostNameBuilder = new StringBuilder();
                                         if (s[0] != '#')
                                         {
                                             bool bSeperator = false;
@@ -431,15 +431,15 @@ namespace FuseCP.Providers.HostedSolution
                                                 if ((c != ' ') && (c != '\t'))
                                                 {
                                                     if (bSeperator)
-                                                        hostName += c;
+                                                        hostNameBuilder.Append(c);
                                                     else
-                                                        IPAddr += c;
+                                                        ipAddrBuilder.Append(c);
                                                 }
                                                 else
                                                     bSeperator = true;
                                             }
 
-                                            if (hostName.ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
+                                            if (hostNameBuilder.ToString().ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                             {
                                                 outPutBuilder.Append(s).Append("\r\n");
                                             }

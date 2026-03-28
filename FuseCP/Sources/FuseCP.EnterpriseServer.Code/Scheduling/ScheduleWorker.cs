@@ -66,7 +66,7 @@ public class ScheduleWorker: BackgroundService
 				if (Collect && ++runs >= 10)
 				{
 					runs = 0;
-					GC.Collect();
+					// Leave collection to runtime heuristics; explicit full collections hurt throughput.
 				}
 			}
 			catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
