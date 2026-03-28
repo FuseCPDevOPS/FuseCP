@@ -260,6 +260,8 @@ public class FilesController: ControllerBase
 
     public int DeleteFiles(int packageId, string[] files)
     {
+        files ??= Array.Empty<string>();
+
         // check account
         int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
         if (accountCheck < 0) return accountCheck;
@@ -393,6 +395,8 @@ public class FilesController: ControllerBase
 
     public int CopyFiles(int packageId, string[] files, string destFolder)
     {
+        files ??= Array.Empty<string>();
+
         // check account
         int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
         if (accountCheck < 0) return accountCheck;
@@ -455,6 +459,8 @@ public class FilesController: ControllerBase
 
     public int MoveFiles(int packageId, string[] files, string destFolder)
     {
+        files ??= Array.Empty<string>();
+
         // check account
         int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
         if (accountCheck < 0) return accountCheck;
@@ -550,6 +556,8 @@ public class FilesController: ControllerBase
 
     public string[] UnzipFiles(int packageId, string[] files)
     {
+        files ??= Array.Empty<string>();
+
         // check account
         int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
         if (accountCheck < 0) return null;
@@ -595,6 +603,8 @@ public class FilesController: ControllerBase
 
     public int ZipFiles(int packageId, string[] files, string archivePath)
     {
+        files ??= Array.Empty<string>();
+
         // check account
         int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
         if (accountCheck < 0) return accountCheck;
@@ -646,6 +656,8 @@ public class FilesController: ControllerBase
 
 		public int ZipRemoteFiles(int packageId, string rootFolder, string[] files, string archivePath)
 		{
+            files ??= Array.Empty<string>();
+
 			// check account
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;

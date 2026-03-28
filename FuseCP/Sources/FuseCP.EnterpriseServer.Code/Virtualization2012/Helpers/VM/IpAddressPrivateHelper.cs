@@ -176,6 +176,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // load network adapter
                 NetworkAdapterDetails nic = NetworkAdapterDetailsHelper.GetPrivateNetworkAdapterDetails(itemId);
 
+                addresses ??= Array.Empty<string>();
+
                 bool wasEmptyList = (nic.IPAddresses.Length == 0);
 
                 if (wasEmptyList)
@@ -329,6 +331,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
             {
                 // load network adapter
                 NetworkAdapterDetails nic = NetworkAdapterDetailsHelper.GetDmzNetworkAdapterDetails(itemId);
+
+                addresses ??= Array.Empty<string>();
 
                 bool wasEmptyList = (nic.IPAddresses.Length == 0);
 

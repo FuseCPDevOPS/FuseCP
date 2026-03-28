@@ -68,12 +68,12 @@ namespace FuseCP.EnterpriseServer
                 EnterpriseSolutionStatisticsReport report =
                 ReportController.GetEnterpriseSolutionStatisticsReport(user.UserId, isExchange, isSharePoint, isCRM,isOrganization, isLync, isSfB);
 
-                TaskManager.WriteParameter("report.ExchangeReport.Items.Count", report.ExchangeReport.Items.Count);
-                TaskManager.WriteParameter("report.SharePointReport.Items.Count", report.SharePointReport.Items.Count);
-                TaskManager.WriteParameter("report.CRMReport.Items.Count", report.CRMReport.Items.Count);
-                TaskManager.WriteParameter("report.OrganizationReport.Items.Count", report.OrganizationReport.Items.Count);
-                TaskManager.WriteParameter("report.LyncReport.Items.Count", report.LyncReport.Items.Count);
-                TaskManager.WriteParameter("report.SfBReport.Items.Count", report.SfBReport.Items.Count);
+                TaskManager.WriteParameter("report.ExchangeReport.Items.Count", report.ExchangeReport?.Items?.Count ?? 0);
+                TaskManager.WriteParameter("report.SharePointReport.Items.Count", report.SharePointReport?.Items?.Count ?? 0);
+                TaskManager.WriteParameter("report.CRMReport.Items.Count", report.CRMReport?.Items?.Count ?? 0);
+                TaskManager.WriteParameter("report.OrganizationReport.Items.Count", report.OrganizationReport?.Items?.Count ?? 0);
+                TaskManager.WriteParameter("report.LyncReport.Items.Count", report.LyncReport?.Items?.Count ?? 0);
+                TaskManager.WriteParameter("report.SfBReport.Items.Count", report.SfBReport?.Items?.Count ?? 0);
 
                 SendMessage(user, email, isExchange && report.ExchangeReport != null ? report.ExchangeReport.ToCSV() : string.Empty,
                             isSharePoint && report.SharePointReport != null ? report.SharePointReport.ToCSV() : string.Empty,

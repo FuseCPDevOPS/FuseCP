@@ -1,0 +1,224 @@
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SfB/UserControls/SfBUserSettings.ascx.cs:34|Variable this.ddlSipAddresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Lync/UserControls/LyncUserSettings.ascx.cs:34|Variable this.ddlSipAddresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Provisioning/ImportController.cs:118|Variable importableItems may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SharePointWebPartPackages.ascx.cs:49|Variable site may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/HyperV2012R2_Settings.ascx.cs:853|Variable ddl may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebsitesSSL.ascx.cs:723|Variable result may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditWebUser.ascx.cs:66|Variable user may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditWebGroup.ascx.cs:66|Variable group may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditWebFolder.ascx.cs:64|Variable folder may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditWebFolder.ascx.cs:53|Variable site may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditVirtualDir.ascx.cs:133|Variable vdir may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs:160|Variable site may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditVirtualApps.ascx.cs:132|Variable vdir may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditHeliconApeUser.ascx.cs:87|Variable user may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditHeliconApeGroup.ascx.cs:66|Variable group may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditHeliconApeFolderAuth.ascx.cs:64|Variable folder may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditHeliconApeFolderAuth.ascx.cs:53|Variable site may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VirtualServersEditServer.ascx.cs:65|Variable this.server may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VPSForPC/VpsMoveServer.ascx.cs:58|Variable vm may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VPS2012/VpsMoveServer.ascx.cs:62|Variable vm may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VPS/VpsMoveServer.ascx.cs:58|Variable vm may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserSpaces.ascx.cs:203|Variable cntx may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/PackageVLANs.ascx.cs:98|Variable chkSelect may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/PackagePhoneNumbers.ascx.cs:121|Variable chkSelect may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/PackageIPAddresses.ascx.cs:129|Variable chkSelect may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/TasksTaskDetails.ascx.cs:51|Variable task may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SpaceSummaryLetter.ascx.cs:69|Variable package may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SpaceEditAddon.ascx.cs:94|Variable addon may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SpaceEditAddon.ascx.cs:86|Variable package may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SpaceEditAddon.ascx.cs:77|Variable addon may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SharedSSLEditFolder.ascx.cs:116|Variable vdir may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SharePointUsersEditUser.ascx.cs:84|Variable item may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SharePointGroupsEditGroup.ascx.cs:84|Variable item may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SfB/UserControls/SfBUserSettings.ascx.cs:50|Variable this.ddlSipAddresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsSfBUserPlansPolicy.ascx.cs:403|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsSfBUserPlansPolicy.ascx.cs:293|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsSfBUserPlansPolicy.ascx.cs:241|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsLyncUserPlansPolicy.ascx.cs:403|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsLyncUserPlansPolicy.ascx.cs:293|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsLyncUserPlansPolicy.ascx.cs:241|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsExchangeRetentionPolicyTag.ascx.cs:280|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsExchangeRetentionPolicyTag.ascx.cs:231|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsExchangeRetentionPolicyTag.ascx.cs:176|Variable orgs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SettingsExchangeMailboxPlansPolicy.ascx.cs:367|Variable orgs may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ServersEditServer.ascx.cs:216|Variable server may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/RDS/AssignedRDSServers.ascx.cs:160|Variable rdsServer.ItemId may be null at this access because it has a nullable type.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Proxmox/VpsMoveServer.ascx.cs:58|Variable vm may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterStats_EditSite.ascx.cs:163|Variable cmdDelete may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail_EditList.ascx.cs:115|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail_EditList.ascx.cs:97|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail60_EditList.ascx.cs:150|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail60_EditList.ascx.cs:122|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail50_EditList.ascx.cs:116|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail50_EditList.ascx.cs:98|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100x_EditList.ascx.cs:150|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100x_EditList.ascx.cs:122|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100_EditList.ascx.cs:150|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100_EditList.ascx.cs:122|Variable this.ddlListModerators may be null at this access as suggested by this null check.
+Variable this.ddlListModerators may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Lync/UserControls/LyncUserSettings.ascx.cs:50|Variable this.ddlSipAddresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Login.ascx.cs:318|Variable arAccessIps may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/HostingPlansEditPlan.ascx.cs:91|Variable plan may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/HostingPlansEditPlan.ascx.cs:86|Variable plan may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/HostingAddonsEditAddon.ascx.cs:68|Variable plan may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/HostingAddonsEditAddon.ascx.cs:63|Variable plan may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/FileManager.ascx.cs:85|Variable this.gvFiles may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ExchangeServer/UserControls/AccountsListWithPermissions.ascx.cs:319|Variable dRow may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ExchangeServer/ExchangeMailboxSetupInstructions.ascx.cs:50|Variable package may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/DomainsEditDomain.ascx.cs:187|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/DomainsEditDomain.ascx.cs:56|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Domains.ascx.cs:266|Variable btn may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Helpers/VirtualMachinesForPCHelper.cs:66|Variable vm may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:226|Variable rbl may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:217|Variable ddl may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:208|Variable menu may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:192|Variable btn may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:181|Variable lbl may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Code/Framework/FuseCPControlBase.cs:170|Variable btn may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/PasswordRecoveryAdapter.cs:523|Variable textBox may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/PasswordRecoveryAdapter.cs:444|Variable textBox may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/DataListAdapter.cs:140|Variable literalControl may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs:686|Variable instantDomain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Data/Extensions/DatabaseUtils.cs:1614|Variable server may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.HostedSolution/OrganizationProvider.cs:1766|Variable principalgroups may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Tests/Initialization/Kestrel.cs:131|Variable this.process may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Tests/Initialization/Kestrel.cs:140|Variable this.process may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Build/WebServices.cs:221|Variable oldTree may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Build/WebServices.cs:182|Variable oldTree may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Base/OS/SkiaSharp.cs:77|Variable runtimeIdentifier may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Data/Extensions/DatabaseUtils.cs:1714|Variable context may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Data/Extensions/DatabaseUtils.cs:979|Variable server may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/WebServers/WebServerController.cs:4206|Variable itemSite may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/VirtualizationProxmox/VirtualizationServerControllerProxmox.cs:3110|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/WebServers/WebServerController.cs:1006|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/WebServers/WebServerController.cs:831|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/WebServers/WebServerController.cs:735|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/VirtualizationProxmox/VirtualizationServerControllerProxmox.cs:3118|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/UseCase/CreateVirtualMachineHandler.cs:210|Variable externalAddresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/UseCase/CreateVirtualMachineHandler.cs:445|Variable vm may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Tasks/ReinstallVirtualMachineTask.cs:118|Variable dmzIps may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Tasks/ReinstallVirtualMachineTask.cs:99|Variable privIps may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Helpers/VirtualizationHelper.cs:63|Variable settings may be null at this access because of this null argument.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Helpers/VM/IpAddressPrivateHelper.cs:368|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Helpers/VM/IpAddressPrivateHelper.cs:214|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization/VirtualizationServerController.cs:3021|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Helpers/VM/IpAddressPrivateHelper.cs:376|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization2012/Helpers/VM/IpAddressPrivateHelper.cs:222|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Virtualization/VirtualizationServerController.cs:3029|Variable addresses may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:76|Variable report.SfBReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:75|Variable report.LyncReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:74|Variable report.OrganizationReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:73|Variable report.CRMReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:72|Variable report.SharePointReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/HostedSolutionReport.cs:71|Variable report.ExchangeReport may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/RemoteDesktopServices/RemoteDesktopServicesController.cs:723|Variable org may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/OperatingSystems/OperatingSystemController.cs:711|Variable itemDsn may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/MailServers/MailServerController.cs:1132|Variable domain may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/MailServers/MailServerController.cs:326|Variable cntx.Package may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Data/DataProvider.cs:19105|Variable parentPackageId may be null at this access because it has a nullable type.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs:3361|Variable account may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs:3360|Variable org may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs:3305|Variable account may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs:3304|Variable org may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:577|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:480|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:421|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:279|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:674|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Files/FilesController.cs:623|Variable files may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs:3569|Variable defaultPlanId may be null at this access because it has a nullable type.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs:6761|Variable disclaimer may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs:2126|Variable primSettings may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/Data/DataProvider.cs:8375|Variable item may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.EnterpriseServer.Code/DatabaseServers/DatabaseServerController.cs:879|Variable userItem may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Web.Clients/ClientBase.cs:619|Variable binding may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Server.Utils/SecurityUtils.cs:781|Variable group may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/WebObjects/WebObjectsModuleService.cs:563|Variable bindings may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/WebObjects/WebObjectsModuleService.cs:575|Variable bindings may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:208|Variable result may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:130|Variable response may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:111|Variable enroll may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:102|Variable dn may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:97|Variable x509ExtensionEnhancedKeyUsage may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:96|Variable objectIds may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:95|Variable objectId may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:84|Variable extensionKeyUsage may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:80|Variable pkcs10 may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:60|Variable privateKey may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:57|Variable csPs may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs:55|Variable csp may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Virtualization.Proxmox/Proxmoxvps.cs:874|Variable data may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Virtualization.Proxmox/Helpers/ProxmoxVHDHelper.cs:67|Variable disks may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Virtualization.Proxmox/Helpers/ProxmoxNetworkHelper.cs:53|Variable adapters may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Virtualization.Proxmox/Helpers/ProxmoxDvdDriveHelper.cs:40|Variable result may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2012R2/Helpers/VdsHelper.cs:219|Variable diskPack may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2012R2/Helpers/VirtualMachineHelper.cs:73|Variable requestedInformation may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2012R2/Helpers/VdsHelper.cs:63|Variable diskPack may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.TerminalServices.Windows2012/Windows2012.cs:1748|Variable collection may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2012R2/Extensions/PSObjectExtension.cs:35|Variable obj may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.OS.Windows2016/Windows2016.cs:1365|Variable hosting may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.OS.Unix/SyslogTraceListener.cs:38|Variable clone may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.OS.Unix/SyslogTraceListener.cs:61|Variable this.Severity may be null at this access because it has a nullable type.
+FuseCP/Sources/FuseCP.Providers.Mail.IceWarp/IceWarp.cs:1102|Variable aliases may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2019/HostedSharePointServer2019Impl.cs:670|Variable scripts may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016Ent/HostedSharePointServer2016EntImpl.cs:670|Variable scripts may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2019/HostedSharePointServer2019.cs:277|Variable spKey may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016Ent/HostedSharePointServer2016Ent.cs:277|Variable spKey may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016/HostedSharePointServer2016Impl.cs:670|Variable scripts may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2013Ent/HostedSharePointServer2013EntImpl.cs:670|Variable scripts may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016/HostedSharePointServer2016.cs:277|Variable spKey may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2013Ent/HostedSharePointServer2013Ent.cs:277|Variable spKey may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2013/HostedSharePointServer2013Impl.cs:670|Variable scripts may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2013/HostedSharePointServer2013.cs:277|Variable spKey may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.HostedSolution/BlackBerryProvider.cs:190|Variable proc may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.FTP.IIs100/SitesModuleService.cs:271|Variable store may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.FTP.Gene6/Gene6FTP.cs:621|Variable reader may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.FTP.Gene6/Gene6FTP.cs:522|Variable reader may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS90/Models/Response/ZoneRecordsResponse.cs:110|Variable record.RecordData may be null at this access as suggested by this null check.
+Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS90/Models/Response/ZoneRecordsResponse.cs:102|Variable record.RecordData may be null at this access as suggested by this null check.
+Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS90/Models/Response/ZoneRecordsResponse.cs:92|Variable record.RecordData may be null at this access as suggested by this null check.
+Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS90/Models/Response/ZoneRecordsResponse.cs:84|Variable record.RecordData may be null at this access as suggested by this null check.
+Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS80/Models/Response/ZoneRecordsResponse.cs:97|Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS80/Models/Response/ZoneRecordsResponse.cs:88|Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS80/Models/Response/ZoneRecordsResponse.cs:80|Variable record.RecordData may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.DNS.SimpleDNS/SimpleDNS.cs:620|Variable soa may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.DNS.MsDNS2016/RecordConverter.cs:31|Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.DNS.MsDNS2012/RecordConverter.cs:31|Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+Variable str may be null at this access because of this potential null argument.
+FuseCP/Sources/FuseCP.Providers.DNS.Bind/IscBind.cs:1092|Variable shell may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.DNS.Bind/IscBind.cs:748|Variable soa may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Providers.Base/OS/TunnelSockets/SshTunnel.cs:113|Variable sshhostip may be null at this access as suggested by this null check.
+FuseCP/Sources/FuseCP.Providers.Base/OS/Shell.cs:375|Variable clone may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Build/WebServices.cs:267|Variable oldNS may be null at this access because of this assignment.
+FuseCP/Sources/FuseCP.Build/ServiceInterface.cshtml:63|Variable tm may be null at this access because of this assignment.

@@ -2983,6 +2983,8 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // load network adapter
                 NetworkAdapterDetails nic = GetPrivateNetworkAdapterDetails(itemId);
 
+                addresses ??= Array.Empty<string>();
+
                 bool wasEmptyList = (nic.IPAddresses.Length == 0);
 
                 if(wasEmptyList)

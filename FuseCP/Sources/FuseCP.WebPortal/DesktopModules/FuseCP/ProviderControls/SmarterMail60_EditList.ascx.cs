@@ -78,6 +78,9 @@ namespace FuseCP.Portal.ProviderControls
 
         public void SaveItem(MailList item)
         {
+			if (ddlListModerators == null)
+				return;
+
             item.Description = txtDescription.Text;
             if (ddlListModerators.SelectedValue == GetLocalizedString("Text.SelectModerator"))
             {
@@ -112,6 +115,9 @@ namespace FuseCP.Portal.ProviderControls
 
         public void BindListModerators()
         {
+			if (ddlListModerators == null)
+				return;
+
 
             string domainName = null;
             if (!String.IsNullOrEmpty(itemName))

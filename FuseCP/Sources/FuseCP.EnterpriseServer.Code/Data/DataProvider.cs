@@ -8369,6 +8369,9 @@ namespace FuseCP.EnterpriseServer
 			{
 				var item = ServiceItems
 					.FirstOrDefault(s => s.ItemId == itemId);
+				if (item == null)
+					throw new InvalidOperationException($"Service item with id '{itemId}' was not found");
+
 				var packageId = item?.PackageId;
 
 				if (!CheckActorPackageRights(actorId, packageId))
@@ -19096,6 +19099,9 @@ namespace FuseCP.EnterpriseServer
 					.Where(pa => pa.PackageAddressId == id)
 					.Select(pa => pa.Package.ParentPackageId)
 					.FirstOrDefault();
+				if (!parentPackageId.HasValue)
+					return;
+
 				if (parentPackageId == 1) // System space
 				{
 					PackageIpAddresses

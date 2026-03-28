@@ -3294,6 +3294,9 @@ namespace FuseCP.EnterpriseServer
                 _ = ex;
             }
 
+			if (org == null || account == null)
+				return account;
+
             try
             {
 
@@ -3350,6 +3353,9 @@ namespace FuseCP.EnterpriseServer
                 // Swallow non-critical exceptions during org/account load; next try block handles the main operation
                 System.Diagnostics.Trace.TraceWarning("Exception loading org/account: " + ex.Message);
             }
+
+			if (org == null || account == null)
+				return account;
 
             try
             {

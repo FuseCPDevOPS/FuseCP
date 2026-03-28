@@ -732,8 +732,8 @@ namespace FuseCP.EnterpriseServer
 				if(domain != null)
 					DeleteWebSitePointer(siteItemId, domain.DomainId, false, true, true);
 
-                List<WebSite> sites = WebServerController.GetWebSites(domain.PackageId, false);
-                bool oneSiteOnly = (sites.Count == 1);
+                List<WebSite> sites = domain != null ? WebServerController.GetWebSites(domain.PackageId, false) : new List<WebSite>();
+                bool oneSiteOnly = domain != null && (sites.Count == 1);
 
                 if (oneSiteOnly)
                 {
@@ -828,6 +828,9 @@ namespace FuseCP.EnterpriseServer
 
                 // remove all web site pointers
                 DomainInfo domain = ServerController.GetDomain(siteItem.Name);
+                if (domain == null)
+                    return BusinessErrorCodes.ERROR_DOMAIN_PACKAGE_ITEM_NOT_FOUND;
+
                 DomainInfo ZoneInfo = ServerController.GetDomain(domain.DomainItemId);
 
                 if (ZoneInfo == null)
@@ -1003,6 +1006,9 @@ namespace FuseCP.EnterpriseServer
                 IPAddressInfo ip;
 
                 DomainInfo domain = ServerController.GetDomain(siteItem.Name);
+                if (domain == null)
+                    return BusinessErrorCodes.ERROR_DOMAIN_PACKAGE_ITEM_NOT_FOUND;
+
                 DomainInfo ZoneInfo = ServerController.GetDomain(domain.DomainItemId);
 
                 if (ZoneInfo == null)

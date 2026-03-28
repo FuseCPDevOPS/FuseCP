@@ -323,7 +323,8 @@ namespace FuseCP.EnterpriseServer
 			}
 			else if (item.MaxMailboxSize != 0 && !(maxMailboxSizeChangeable))
 			{
-                maxSize = GetParentMaxMailBoxSize(cntx.Package.ParentPackageId, item);
+				if (cntx != null && cntx.Package != null)
+                    maxSize = GetParentMaxMailBoxSize(cntx.Package.ParentPackageId, item);
 			}
 			else if (item.MaxMailboxSize != 0)
 			{
@@ -1125,18 +1126,21 @@ namespace FuseCP.EnterpriseServer
 					ServerController.UpdateDomain(domain);
 
                     domain = ServerController.GetDomain(domain.DomainId);
-                    ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Mail, domain, "");
-				}
+                    if (domain != null)
+                    {
+                        ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Mail, domain, "");
 
-				// check if Preview Domain must be added
-				if (!String.IsNullOrEmpty(domain.PreviewDomainName))
-				{
-					// load Preview Domain
-					DomainInfo previewDomain = ServerController.GetDomain(domain.PreviewDomainId);
-					if (previewDomain != null)
-					{
-						AddMailDomainPointer(itemId, previewDomain.DomainId);
-					}
+						// check if Preview Domain must be added
+						if (!String.IsNullOrEmpty(domain.PreviewDomainName))
+						{
+							// load Preview Domain
+							DomainInfo previewDomain = ServerController.GetDomain(domain.PreviewDomainId);
+							if (previewDomain != null)
+							{
+								AddMailDomainPointer(itemId, previewDomain.DomainId);
+							}
+						}
+                    }
 				}
                 
 

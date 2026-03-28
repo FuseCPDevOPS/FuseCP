@@ -164,9 +164,8 @@ namespace FuseCP.Portal
 		public void LocalizeModuleControls(Control ctrl)
 		{
 			// localize control
-			if (ctrl is Button)
+			if (ctrl is Button btn)
 			{
-				Button btn = ctrl as Button;
 				string key = btn.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{
@@ -175,9 +174,8 @@ namespace FuseCP.Portal
 						btn.OnClientClick = localizedOnClientClick;
 				}
 			}
-			else if (ctrl is Label)
+			else if (ctrl is Label lbl)
 			{
-				Label lbl = ctrl as Label;
 				string key = lbl.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{
@@ -186,43 +184,38 @@ namespace FuseCP.Portal
 						lbl.Text = localizedText;
 				}
 			}
-			else if (ctrl is ImageButton)
+			else if (ctrl is ImageButton imgBtn)
 			{
-				ImageButton btn = ctrl as ImageButton;
-				string key = btn.Attributes["resourcekey"];
+				string key = imgBtn.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{
 					string localizedOnClientClick = GetLocalizedString(key + ".OnClientClick");
 					if (localizedOnClientClick != null)
-						btn.OnClientClick = localizedOnClientClick;
+						imgBtn.OnClientClick = localizedOnClientClick;
 
 					string localizedAlternateText = GetLocalizedString(key + ".AlternateText");
 					if (localizedAlternateText != null)
-						btn.AlternateText = localizedAlternateText;
+						imgBtn.AlternateText = localizedAlternateText;
 				}
 			}
-			else if (ctrl is Menu)
+			else if (ctrl is Menu menu)
 			{
-				Menu menu = ctrl as Menu;
-
 				string key = menu.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{
 					LocalizeMenuItems(key, menu.Items);
 				}
 			}
-			else if (ctrl is DropDownList)
+			else if (ctrl is DropDownList ddl)
 			{
-				DropDownList ddl = ctrl as DropDownList;
 				string key = ddl.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{
 					LocalizeListItems(key, ddl.Items);
 				}
 			}
-			else if (ctrl is RadioButtonList)
+			else if (ctrl is RadioButtonList rbl)
 			{
-				RadioButtonList rbl = ctrl as RadioButtonList;
 				string key = rbl.Attributes["resourcekey"];
 				if (key != null && key != "")
 				{

@@ -2120,10 +2120,11 @@ namespace FuseCP.EnterpriseServer
                 //GetServiceSettings
                 StringDictionary primSettings = ServerController.GetServiceSettings(exchangeServiceId);
                 PackageContext cntx = PackageController.GetPackageContext(org.PackageId);
+                string mailboxDatabase = primSettings != null ? primSettings["mailboxdatabase"] : null;
 
                 string samAccountName = exchange.CreateMailEnableUser(email, org.OrganizationId, org.DistinguishedName,
                                                 org.SecurityGroup, org.DefaultDomain,
-                                                accountType, primSettings["mailboxdatabase"],
+                                                accountType, mailboxDatabase,
                                                 org.OfflineAddressBook,
                                                 org.AddressBookPolicy,
                                                 retUser.SamAccountName,
@@ -3566,7 +3567,8 @@ namespace FuseCP.EnterpriseServer
 
                 if (defaultPlanId.HasValue)
                 {
-                    mailboxPlans.ForEach(p => p.IsDefault = (p.MailboxPlanId == defaultPlanId.Value));
+                    int planId = defaultPlanId.GetValueOrDefault();
+                    mailboxPlans.ForEach(p => p.IsDefault = (p.MailboxPlanId == planId));
                 }
 
                 return mailboxPlans;
@@ -6745,13 +6747,12 @@ namespace FuseCP.EnterpriseServer
             {
                 ExchangeDisclaimer disclaimer = null;
                 if (exchangeDisclaimerId != -1) disclaimer = GetExchangeDisclaimer(itemId, exchangeDisclaimerId);
+                if (disclaimer == null)
+                    return -1;
 
                 // Log Extension
-                if (disclaimer != null)
-                {
-                    LogExtension.SetItemName(disclaimer.DisclaimerName);
-                    LogExtension.WriteObject(disclaimer);
-                }
+                LogExtension.SetItemName(disclaimer.DisclaimerName);
+                LogExtension.WriteObject(disclaimer);
 
                 Organization org = GetOrganization(itemId);
                 if (org == null) return -1;

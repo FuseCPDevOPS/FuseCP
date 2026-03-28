@@ -867,12 +867,10 @@ namespace FuseCP.EnterpriseServer
 				XmlSerializer serializer = new XmlSerializer(typeof(SqlDatabase));
 				serializer.Serialize(writer, database);
 			}
-			else if (item is SqlUser)
+            else if (item is SqlUser userItem)
 			{
 				// backup user
 				DatabaseServer sql = GetDatabaseServer(item.ServiceId);
-
-				SqlUser userItem = item as SqlUser;
 
 				// store user info
 				SqlUser user = sql.GetUser(item.Name, GetSqlDatabasesArray(item.PackageId, item.GroupName));

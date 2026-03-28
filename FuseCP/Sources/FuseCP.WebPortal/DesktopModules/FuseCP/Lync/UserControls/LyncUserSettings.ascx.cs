@@ -31,7 +31,7 @@ namespace FuseCP.Portal.Lync.UserControls
                         
             get 
             {
-                if (ddlSipAddresses.Visible)
+                if (ddlSipAddresses != null && ddlSipAddresses.Visible)
                 {
                     return (ddlSipAddresses != null) && (ddlSipAddresses.SelectedItem != null) ? ddlSipAddresses.SelectedItem.Value : string.Empty;
 
@@ -47,7 +47,7 @@ namespace FuseCP.Portal.Lync.UserControls
             {
                 sipAddressToSelect = value;
 
-                if (ddlSipAddresses.Visible)
+                if (ddlSipAddresses != null && ddlSipAddresses.Visible)
                 {
                     if ((ddlSipAddresses != null) && (ddlSipAddresses.Items != null))
                     {
