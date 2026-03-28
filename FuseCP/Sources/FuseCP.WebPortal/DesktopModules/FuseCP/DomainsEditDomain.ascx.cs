@@ -130,6 +130,7 @@ namespace FuseCP.Portal
                     if (instantAlias != null)
                     {
                         DomainInfo[] Domains = ES.Services.Servers.GetDomainsByDomainId(domain.PreviewDomainId);
+                        Domains ??= Array.Empty<DomainInfo>();
                         foreach (DomainInfo d in Domains.Where(d => d.WebSiteId > 0))
                         {
                                 WebSiteAliasPanel.Visible = true;

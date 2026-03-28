@@ -223,7 +223,7 @@ namespace FuseCP.Portal
                 rowVirtDir.Visible = false;
 
             }
-            else
+            else if (!String.IsNullOrEmpty(site.ColdFusionVersion))
             {
                 if (site.ColdFusionVersion.Equals("7"))
                 {

@@ -80,8 +80,11 @@ namespace FuseCP.Portal
                         litDomainName.Text = item.Name;
 
                         // other controls
-                        IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
-                        ctrl.BindItem(item);
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
 
                         BindPointers();
                     }

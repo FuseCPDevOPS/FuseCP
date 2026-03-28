@@ -50,7 +50,7 @@ namespace FuseCP.Portal
 						DatabaseBrowserConfiguration config = ES.Services.DatabaseServers.GetDatabaseBrowserLogonScript(
 							PanelSecurity.PackageId, item.GroupName, item.Users[0]);
 
-						if (String.Compare(config.Method, "get", true) == 0)
+						if (config != null && String.Compare(config.Method, "get", true) == 0)
 						{
 							Response.Redirect(config.GetData, true);
 						}

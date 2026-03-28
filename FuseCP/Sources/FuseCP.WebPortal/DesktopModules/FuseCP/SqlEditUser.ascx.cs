@@ -109,8 +109,12 @@ namespace FuseCP.Portal
                 LoadProviderControl((int)ViewState["PackageId"], SqlDatabases.GetDatabasesGroupName(Settings),
                     providerControl, "EditUser.ascx");
 
-                IDatabaseEditUserControl ctrl = (IDatabaseEditUserControl)providerControl.Controls[0];
-                ctrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
+                IDatabaseEditUserControl ctrl = null;
+                if (providerControl.Controls.Count > 0)
+                {
+                    ctrl = (IDatabaseEditUserControl)providerControl.Controls[0];
+                    ctrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
+                }
 
                 if (!IsPostBack)
                 {
