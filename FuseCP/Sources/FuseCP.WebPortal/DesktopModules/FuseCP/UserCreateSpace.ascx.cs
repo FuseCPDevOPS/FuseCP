@@ -231,7 +231,7 @@ namespace FuseCP.Portal
                     addon.StatusId = Utils.ParseInt(ddlStatus.SelectedValue, 0);
                     addon.PurchaseDate = DateTime.Now;
                     addon.Quantity = Utils.ParseInt(GetTextBoxText(item, "txtQuantity"), 1);
-                    PackageResult addonResult = ES.Services.Packages.AddPackageAddon(addon);
+                    ES.Services.Packages.AddPackageAddon(addon);
                 }
 
                 if (rbPackageQuotas.Checked)

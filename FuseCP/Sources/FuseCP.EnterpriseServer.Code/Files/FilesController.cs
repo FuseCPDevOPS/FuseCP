@@ -135,7 +135,7 @@ public class FilesController: ControllerBase
         foreach (SystemFile file in files)
         {
             if (file.IsDirectory || includeFiles)
-                filteredFiles.Add(file);
+            filteredFiles.Add(file);
         }
         
         return filteredFiles;

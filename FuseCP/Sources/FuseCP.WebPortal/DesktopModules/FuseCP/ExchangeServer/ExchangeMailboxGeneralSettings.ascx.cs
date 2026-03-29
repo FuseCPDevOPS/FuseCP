@@ -142,14 +142,14 @@ namespace FuseCP.Portal.ExchangeServer
                     mailboxPlanSelector.MailboxPlanId = account.MailboxPlanId.ToString();
                 }
 
-                if (account.ArchivingMailboxPlanId<1)
-                {
-                    mailboxRetentionPolicySelector.MailboxPlanId = "-1";
-                }
-                else
-                {
-                    mailboxRetentionPolicySelector.MailboxPlanId = account.ArchivingMailboxPlanId.ToString();
-                }
+                mailboxRetentionPolicySelector.MailboxPlanId = account.ArchivingMailboxPlanId<1 ? "-1" : account.ArchivingMailboxPlanId.ToString();
+
+
+
+
+
+
+
 
                 mailboxSize.QuotaUsedValue = Convert.ToInt32(stats.TotalSize / 1024 / 1024);
                 mailboxSize.QuotaValue = (stats.MaxSize == -1) ? -1 : (int)Math.Round((double)(stats.MaxSize / 1024 / 1024));
@@ -172,14 +172,14 @@ namespace FuseCP.Portal.ExchangeServer
                     else
                     {
                         rblBookingRequests.Items.FindByValue(bookingRequestCustom).Attributes.Add("hidden", "hidden");
-                        if (resourceSettings.AllBookInPolicy)
-                        {
-                            rblBookingRequests.SelectedValue = bookingRequestAuto;
-                        }
-                        else
-                        {
-                            rblBookingRequests.SelectedValue = bookingRequestDelegates;
-                        }
+                        rblBookingRequests.SelectedValue = resourceSettings.AllBookInPolicy ? bookingRequestAuto : bookingRequestDelegates;
+
+
+
+
+
+
+
                     }
 
                     msDelegates.Visible = bookingRequestDelegates.Equals(rblBookingRequests.SelectedValue);

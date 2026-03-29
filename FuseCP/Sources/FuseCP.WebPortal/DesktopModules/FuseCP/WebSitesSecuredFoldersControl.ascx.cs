@@ -32,7 +32,7 @@ namespace FuseCP.Portal
     {
         private bool IsSecuredFoldersInstalled
         {
-            get { return ViewState["IsSecuredFoldersInstalled"] != null ? (bool)ViewState["IsSecuredFoldersInstalled"] : false; }
+            get { return ViewState["IsSecuredFoldersInstalled"] != null && (bool)ViewState["IsSecuredFoldersInstalled"]; }
             set { ViewState["IsSecuredFoldersInstalled"] = value; }
         }
 
@@ -101,16 +101,16 @@ namespace FuseCP.Portal
             try
             {
                 int result = 0;
-                if (IsSecuredFoldersInstalled)
-                {
-                    // uninstall folders
-                    result = ES.Services.WebServers.UninstallSecuredFolders(PanelRequest.ItemID);
-                }
-                else
-                {
-                    // install folders
-                    result = ES.Services.WebServers.InstallSecuredFolders(PanelRequest.ItemID);
-                }
+                result = IsSecuredFoldersInstalled ? ES.Services.WebServers.UninstallSecuredFolders(PanelRequest.ItemID) : ES.Services.WebServers.InstallSecuredFolders(PanelRequest.ItemID);
+
+
+
+
+
+
+
+
+
 
                 if (result < 0)
                 {

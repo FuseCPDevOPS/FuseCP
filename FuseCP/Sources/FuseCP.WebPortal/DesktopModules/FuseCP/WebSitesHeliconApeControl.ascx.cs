@@ -34,7 +34,7 @@ namespace FuseCP.Portal
 
         private bool IsSecuredFoldersInstalled
         {
-            get { return ViewState["IsSecuredFoldersInstalled"] != null ? (bool)ViewState["IsSecuredFoldersInstalled"] : false; }
+            get { return ViewState["IsSecuredFoldersInstalled"] != null && (bool)ViewState["IsSecuredFoldersInstalled"]; }
             set { ViewState["IsSecuredFoldersInstalled"] = value; }
         }
 
@@ -123,14 +123,14 @@ namespace FuseCP.Portal
                 bool IsHeliconApeEnabled = HeliconApeStatus.IsEnabled;
 
                 // toggle button
-                if (IsHeliconApeEnabled)
-                {
-                    btnToggleHeliconApe.Text = GetLocalizedString("DisableHeliconApe.Text");
-                }
-                else
-                {
-                    btnToggleHeliconApe.Text = GetLocalizedString("EnableHeliconApe.Text");
-                }
+                btnToggleHeliconApe.Text = IsHeliconApeEnabled ? GetLocalizedString("DisableHeliconApe.Text") : GetLocalizedString("EnableHeliconApe.Text");
+
+
+
+
+
+
+
                 
              
 
@@ -180,16 +180,16 @@ namespace FuseCP.Portal
             try
             {
                 int result = 0;
-                if (HeliconApeStatus.IsEnabled)
-                {
-                    // uninstall folders
-                    result = ES.Services.WebServers.DisableHeliconApe(PanelRequest.ItemID);
-                }
-                else
-                {
-                    // install folders
-                    result = ES.Services.WebServers.EnableHeliconApe(PanelRequest.ItemID);
-                }
+                result = HeliconApeStatus.IsEnabled ? ES.Services.WebServers.DisableHeliconApe(PanelRequest.ItemID) : ES.Services.WebServers.EnableHeliconApe(PanelRequest.ItemID);
+
+
+
+
+
+
+
+
+
 
                 if (result < 0)
                 {

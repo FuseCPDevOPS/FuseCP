@@ -745,13 +745,13 @@ if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out var _ckv))
 
             string modeClass = String.Empty;
             HttpCookie modeCookie = Request.Cookies[THEME_MODE_COOKIE];
-                if (modeCookie != null)
+            if (modeCookie != null)
             {
-                    string requestedMode = (modeCookie.Value ?? String.Empty).Trim();
-                    if (requestedMode == "dark-theme" || requestedMode == "light-theme")
-                    {
+                string requestedMode = (modeCookie.Value ?? String.Empty).Trim();
+                if (requestedMode == "dark-theme" || requestedMode == "light-theme")
+                {
                     modeClass = requestedMode;
-                    }
+                }
             }
 
             if (String.IsNullOrWhiteSpace(styleClass))

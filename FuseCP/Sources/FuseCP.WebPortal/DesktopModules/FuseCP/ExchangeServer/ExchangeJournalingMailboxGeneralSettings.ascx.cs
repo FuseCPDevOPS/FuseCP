@@ -120,7 +120,7 @@ namespace FuseCP.Portal.ExchangeServer
                 ExchangeAccount account = ES.Services.ExchangeServer.GetAccount(PanelRequest.ItemID, PanelRequest.AccountID);
 
                 // get mailbox plan
-                ExchangeMailboxPlan plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(PanelRequest.ItemID, account.MailboxPlanId);
+                ES.Services.ExchangeServer.GetExchangeMailboxPlan(PanelRequest.ItemID, account.MailboxPlanId);
 
                 ExchangeJournalRule rule = ES.Services.ExchangeServer.GetJournalRule(PanelRequest.ItemID, account.PrimaryEmailAddress);
 

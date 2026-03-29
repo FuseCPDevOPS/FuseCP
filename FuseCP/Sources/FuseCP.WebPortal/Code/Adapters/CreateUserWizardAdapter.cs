@@ -104,14 +104,14 @@ namespace CSSFriendly
                 TemplatedWizardStep activeStep = wizard.ActiveStep as TemplatedWizardStep;
                 if (activeStep != null)
                 {
-                    if ((activeStep.ContentTemplate != null) && (activeStep.Controls.Count == 1))
+                    if ((activeStep.ContentTemplate != null) &&
+                        (activeStep.Controls.Count == 1))
                     {
                         Control container = activeStep.ContentTemplateContainer;
                         if (container != null)
                         {
                             container.Controls.Clear();
-                            activeStep.ContentTemplate.InstantiateIn(container);
-                            container.DataBind();
+                            activeStep.Controls.Add(container);
                         }
                     }
                 }

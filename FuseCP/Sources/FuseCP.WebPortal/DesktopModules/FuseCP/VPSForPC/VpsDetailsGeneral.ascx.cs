@@ -29,16 +29,14 @@ namespace FuseCP.Portal.VPSForPC
 			//
 			var result = String.Empty;
 			//
-			if (!(String.IsNullOrEmpty(computerName)))
-			{
-				//
-				var indexOf = computerName.IndexOf(".");
-				//
-				if (indexOf > -1)
-				{
-					result = computerName.Substring(indexOf + 1);
-				}
-			}
+            if (!(String.IsNullOrEmpty(computerName)))
+            {
+                var indexOf = computerName.IndexOf(".");
+                if (indexOf > -1)
+                {
+                    result = computerName.Substring(indexOf + 1);
+                }
+            }
 			//
 			return result;
 		}

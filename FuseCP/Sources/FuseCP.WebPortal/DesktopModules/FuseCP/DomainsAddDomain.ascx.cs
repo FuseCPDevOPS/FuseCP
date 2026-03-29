@@ -214,7 +214,7 @@ namespace FuseCP.Portal
 			int pointMailDomainId = 0;
 
 			// load package context
-			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+			PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
 			if (type == DomainType.DomainPointer || (type == DomainType.Domain))
 			{
@@ -276,26 +276,17 @@ namespace FuseCP.Portal
 			DomainType type = GetDomainType(Request["DomainType"]);
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			
-		    if (type == DomainType.Domain && !cntx.Quotas[Quotas.OS_DOMAINS].QuotaExhausted)
-            {
-                    if (CheckForCorrectIdnDomainUsage(DomainName.Text))
-					{
+		    if (type == DomainType.Domain && !cntx.Quotas[Quotas.OS_DOMAINS].QuotaExhausted && CheckForCorrectIdnDomainUsage(DomainName.Text))
+		    {
 						AddDomain();
-					}
+		    }
+            if (type == DomainType.SubDomain && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted && CheckForCorrectIdnDomainUsage(DomainName.Text))
+            {
+						AddDomain();
             }
-            if (type == DomainType.SubDomain && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted)
+            if (type == DomainType.ProviderSubDomain && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted && CheckForCorrectIdnDomainUsage(DomainName.Text))
             {
-                    if (CheckForCorrectIdnDomainUsage(DomainName.Text))
-					{
-						AddDomain();
-					}
-			}
-            if (type == DomainType.ProviderSubDomain && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted)
-            {
-                if (CheckForCorrectIdnDomainUsage(DomainName.Text))
-                {
                     AddDomain();
-                }
             }
         }
 
