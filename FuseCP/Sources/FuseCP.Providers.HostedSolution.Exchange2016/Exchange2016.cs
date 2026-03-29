@@ -1749,13 +1749,10 @@ namespace FuseCP.Providers.HostedSolution
             command.Parameters.Add("FolderScope", "Calendar");
             command.Parameters.Add("Identity", accountId);
             Collection<PSObject> pSObjects = ExecuteShellCommand(runspace, command);
-            if (pSObjects.Count > 0)
+            string calendarName = (pSObjects.Count > 0) ? GetPSObjectProperty(pSObjects[0], "Name").ToString() : null;
+            if (pSObjects.Count > 0 && !string.IsNullOrEmpty(calendarName))
             {
-                string calendarName = GetPSObjectProperty(pSObjects[0], "Name").ToString();
-                if (!string.IsNullOrEmpty(calendarName))
-                {
                     calendarFolderName = calendarName;
-                }
             }
             return string.Concat(accountId, ":\\", calendarFolderName);
         }
@@ -1766,13 +1763,10 @@ namespace FuseCP.Providers.HostedSolution
             command.Parameters.Add("FolderScope", "Contacts");
             command.Parameters.Add("Identity", accountId);
             Collection<PSObject> pSObjects = ExecuteShellCommand(runspace, command);
-            if (pSObjects.Count > 0)
+            string contactsName = (pSObjects.Count > 0) ? GetPSObjectProperty(pSObjects[0], "Name").ToString() : null;
+            if (pSObjects.Count > 0 && !string.IsNullOrEmpty(contactsName))
             {
-                string contactsName = GetPSObjectProperty(pSObjects[0], "Name").ToString();
-                if (!string.IsNullOrEmpty(contactsName))
-                {
                     contactsFolderName = contactsName;
-                }
             }
             return string.Concat(accountId, ":\\", contactsFolderName);
         }
@@ -7077,14 +7071,11 @@ namespace FuseCP.Providers.HostedSolution
         {
             ExchangeLog.LogStart("ExecuteShellCommand");
             List<object> errorList = new List<object>();
+            CommandParameter dc = new CommandParameter("DomainController", PrimaryDomainController);
 
-            if (useDomainController)
+            if (useDomainController && !cmd.Parameters.Contains(dc))
             {
-                CommandParameter dc = new CommandParameter("DomainController", PrimaryDomainController);
-                if (!cmd.Parameters.Contains(dc))
-                {
                     cmd.Parameters.Add(dc);
-                }
             }
 
             ExchangeLog.DebugCommand(cmd);
@@ -7142,14 +7133,11 @@ namespace FuseCP.Providers.HostedSolution
         {
             ExchangeLog.LogStart("ExecuteShellCommandEx");
             List<object> errorList = new List<object>();
+            CommandParameter dc = new CommandParameter("DomainController", PrimaryDomainController);
 
-            if (useDomainController)
+            if (useDomainController && !cmd.Parameters.Contains(dc))
             {
-                CommandParameter dc = new CommandParameter("DomainController", PrimaryDomainController);
-                if (!cmd.Parameters.Contains(dc))
-                {
                     cmd.Parameters.Add(dc);
-                }
             }
 
             ExchangeLog.DebugCommand(cmd);

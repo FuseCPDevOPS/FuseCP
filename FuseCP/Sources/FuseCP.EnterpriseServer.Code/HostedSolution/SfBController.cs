@@ -291,9 +291,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             {
                 string[] ids = settings[settingName].Split(',');
 
-                int res;
                 foreach (string id in ids)
                 {
+                    int res;
                     if (int.TryParse(id, out res))
                         retIds.Add(res);
                 }

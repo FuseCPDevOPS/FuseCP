@@ -50,12 +50,9 @@ namespace FuseCP.Portal.VPS2012
             try
             {
                 VirtualMachine realVm = ES.Services.VPS2012.GetVirtualMachineGeneralDetails(PanelRequest.ItemID);
-                if (realVm != null)
+                if (realVm != null && realVm.State == VirtualMachineState.Unknown)
                 {
-                    if (realVm.State == VirtualMachineState.Unknown)// VPS was moved
-                    {
                         ES.Services.VPS2012.DiscoverVirtualMachine(PanelRequest.ItemID);
-                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) 

@@ -180,13 +180,9 @@ namespace FuseCP.Portal
             ddlTheme.DataSource = ThemeData;
             ddlTheme.DataBind();
 
-            if (ddlTheme.Items.Count > 0)
+            if (ddlTheme.Items.Count > 0 && ddlTheme.SelectedIndex < 0)
             {
-                Utils.SelectListItem(ddlTheme, PortalUtils.CurrentTheme);
-                if (ddlTheme.SelectedIndex < 0)
-                {
                     ddlTheme.SelectedIndex = 0;
-                }
             }
 
             BindThemeSettings(ThemeData);

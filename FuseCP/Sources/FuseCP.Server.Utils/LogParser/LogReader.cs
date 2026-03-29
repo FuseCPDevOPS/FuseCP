@@ -18,6 +18,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Linq;
 using FuseCP.Server.Utils;
 
 namespace FuseCP.Providers.Utils.LogParser
@@ -125,11 +126,10 @@ namespace FuseCP.Providers.Utils.LogParser
                 if (fields == null || fields.Length == 0)
                     return false;
                 //
-                foreach (string keyField in keyFields)
+                foreach (string keyField in keyFields.Where(keyField => Array.IndexOf(fields, keyField) == -1))
                 {
                     //
-                    if (Array.IndexOf(fields, keyField) == -1)
-                        return false;
+                    return false;
                 }
                 //
             }

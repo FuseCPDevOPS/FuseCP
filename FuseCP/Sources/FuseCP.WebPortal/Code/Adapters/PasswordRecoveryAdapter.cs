@@ -136,13 +136,9 @@ namespace CSSFriendly
         {
             _state = State.AnswerLookupError;
             PasswordRecovery passwordRecovery = Control as PasswordRecovery;
-            if (passwordRecovery != null)
+            if (passwordRecovery != null && !String.IsNullOrEmpty(passwordRecovery.QuestionFailureText))
             {
-                _currentErrorText = passwordRecovery.GeneralFailureText;
-                if (!String.IsNullOrEmpty(passwordRecovery.QuestionFailureText))
-                {
                     _currentErrorText = passwordRecovery.QuestionFailureText;
-                }
             }
         }
 
@@ -159,13 +155,9 @@ namespace CSSFriendly
         {
             _state = State.UserLookupError;
             PasswordRecovery passwordRecovery = Control as PasswordRecovery;
-            if (passwordRecovery != null)
+            if (passwordRecovery != null && !String.IsNullOrEmpty(passwordRecovery.UserNameFailureText))
             {
-                _currentErrorText = passwordRecovery.GeneralFailureText;
-                if (!String.IsNullOrEmpty(passwordRecovery.UserNameFailureText))
-                {
                     _currentErrorText = passwordRecovery.UserNameFailureText;
-                }
             }
         }
 

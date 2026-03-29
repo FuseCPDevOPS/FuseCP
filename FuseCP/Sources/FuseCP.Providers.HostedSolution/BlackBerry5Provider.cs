@@ -16,6 +16,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using FuseCP.Providers.Common;
@@ -336,10 +337,9 @@ namespace FuseCP.Providers.HostedSolution
 
                 int[] inds = new int[] { 3, 4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 25 };
 
-                foreach (int i in inds)
+                foreach (int i in inds.Where(i => keys.Length > i && values.Length > i))
                 {                   
-                    if (keys.Length > i && values.Length > i)
-                        items.Add(new BlackBerryStatsItem() { Name = keys[i], Value = values[i] });
+                    items.Add(new BlackBerryStatsItem() { Name = keys[i], Value = values[i] });
                 }
 
 

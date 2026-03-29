@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace FuseCP.Providers.Mail
@@ -68,10 +69,9 @@ namespace FuseCP.Providers.Mail
 
 			Tree usersConfig = AMSHelper.GetUsersConfig();
 			List<TreeNode> nodesToDelete = new List<TreeNode>();
-			foreach (TreeNode node in usersConfig.ChildNodes)
+			foreach (TreeNode node in usersConfig.ChildNodes.Where(node => string.Compare(node["domain"], domainName, true) == 0))
 			{
-				if (string.Compare(node["domain"], domainName, true) == 0)
-					nodesToDelete.Add(node);
+				nodesToDelete.Add(node);
 			}
 
 			while (nodesToDelete.Count > 0)
@@ -81,10 +81,9 @@ namespace FuseCP.Providers.Mail
 			}
 
 			Tree listsConfig = AMSHelper.GetMailListsConfig();
-			foreach (TreeNode node in listsConfig.ChildNodes)
+			foreach (TreeNode node in listsConfig.ChildNodes.Where(node => string.Compare(node["domain"], domainName, true) == 0))
 			{
-				if (string.Compare(node["domain"], domainName, true) == 0)
-					nodesToDelete.Add(node);
+				nodesToDelete.Add(node);
 			}
 
 			while (nodesToDelete.Count > 0)
@@ -106,10 +105,9 @@ namespace FuseCP.Providers.Mail
 
 			Tree usersConfig = AMSHelper.GetUsersConfig();
 			List<TreeNode> nodesToDelete = new List<TreeNode>();
-			foreach (TreeNode node in usersConfig.ChildNodes)
+			foreach (TreeNode node in usersConfig.ChildNodes.Where(node => string.Compare(node["domain"], domainName, true) == 0))
 			{
-				if (string.Compare(node["domain"], domainName, true) == 0)
-					nodesToDelete.Add(node);
+				nodesToDelete.Add(node);
 			}
 
 			while (nodesToDelete.Count > 0)
@@ -119,10 +117,9 @@ namespace FuseCP.Providers.Mail
 			}
 
 			Tree listsConfig = AMSHelper.GetMailListsConfig();
-			foreach (TreeNode node in listsConfig.ChildNodes)
+			foreach (TreeNode node in listsConfig.ChildNodes.Where(node => string.Compare(node["domain"], domainName, true) == 0))
 			{
-				if (string.Compare(node["domain"], domainName, true) == 0)
-					nodesToDelete.Add(node);
+				nodesToDelete.Add(node);
 			}
 
 			while (nodesToDelete.Count > 0)

@@ -914,18 +914,16 @@ namespace FuseCP.Providers.Database
 
 			// users to add
 			List<string> addedUsers = new List<string>();
-			foreach (string user in users)
+			foreach (string user in users.Where(user => currentUsers[user] == null))
 			{
-				if (currentUsers[user] == null)
-					addedUsers.Add(user);
+				addedUsers.Add(user);
 			}
 
 			// users to remove
 			List<string> removedUsers = new List<string>();
-			foreach (string user in arrCurrentUsers)
+			foreach (string user in arrCurrentUsers.Where(user => newUsers[user] == null))
 			{
-				if (newUsers[user] == null)
-					removedUsers.Add(user);
+				removedUsers.Add(user);
 			}
 
 			// grant/revoke DB access
@@ -948,18 +946,16 @@ namespace FuseCP.Providers.Database
 
 			// databases to add
 			StringCollection addedDatabases = new StringCollection();
-			foreach (string database in databases)
+			foreach (string database in databases.Where(database => currentDatabases[database] == null))
 			{
-				if (currentDatabases[database] == null)
-					addedDatabases.Add(database);
+				addedDatabases.Add(database);
 			}
 
 			// databases to remove
 			StringCollection removedDatabases = new StringCollection();
-			foreach (string database in arrCurrentDatabases)
+			foreach (string database in arrCurrentDatabases.Where(database => newDatabases[database] == null))
 			{
-				if (newDatabases[database] == null)
-					removedDatabases.Add(database);
+				removedDatabases.Add(database);
 			}
 
 			// grant/revoke DB access

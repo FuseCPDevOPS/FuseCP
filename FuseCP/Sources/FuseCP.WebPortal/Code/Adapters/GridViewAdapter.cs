@@ -239,22 +239,14 @@ namespace CSSFriendly
         {
             string className = "";
 
-            if ((row.RowState & DataControlRowState.Alternate) == DataControlRowState.Alternate)
+            if ((row.RowState & DataControlRowState.Alternate) == DataControlRowState.Alternate && gridView.AlternatingRowStyle != null)
             {
-                className += " AspNet-GridView-Alternate ";
-                if (gridView.AlternatingRowStyle != null)
-                {
                     className += gridView.AlternatingRowStyle.CssClass;
-                }
             }
 
-            if ((row.RowState & DataControlRowState.Edit) == DataControlRowState.Edit)
+            if ((row.RowState & DataControlRowState.Edit) == DataControlRowState.Edit && gridView.EditRowStyle != null)
             {
-                className += " AspNet-GridView-Edit ";
-                if (gridView.EditRowStyle != null)
-                {
                     className += gridView.EditRowStyle.CssClass;
-                }
             }
 
             if ((row.RowState & DataControlRowState.Insert) == DataControlRowState.Insert)
@@ -262,13 +254,9 @@ namespace CSSFriendly
                 className += " AspNet-GridView-Insert ";
             }
 
-            if ((row.RowState & DataControlRowState.Selected) == DataControlRowState.Selected)
+            if ((row.RowState & DataControlRowState.Selected) == DataControlRowState.Selected && gridView.SelectedRowStyle != null)
             {
-                className += " AspNet-GridView-Selected ";
-                if (gridView.SelectedRowStyle != null)
-                {
                     className += gridView.SelectedRowStyle.CssClass;
-                }
             }
 
             return className.Trim();

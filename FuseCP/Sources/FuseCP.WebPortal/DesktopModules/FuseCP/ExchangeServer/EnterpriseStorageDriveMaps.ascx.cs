@@ -27,14 +27,11 @@ namespace FuseCP.Portal.ExchangeServer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack && !ES.Services.EnterpriseStorage.CheckUsersDomainExists(PanelRequest.ItemID))
             {
-                if (!ES.Services.EnterpriseStorage.CheckUsersDomainExists(PanelRequest.ItemID))
-                {
                     btnAddDriveMap.Enabled = false;
 
                     messageBox.ShowWarningMessage("WEB_SITE_IS_NOT_CREATED");
-                }
             }
         }
 

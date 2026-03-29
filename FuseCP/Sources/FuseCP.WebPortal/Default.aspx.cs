@@ -234,12 +234,9 @@ namespace FuseCP.WebPortal
         {
             //Set RTL
             HttpCookie UserRTLCrub = Request.Cookies["UserRTL"];
-            if (UserRTLCrub != null)
+            if (UserRTLCrub != null && HttpContext.Current.Response.Cookies["UserRTL"].Value == "1")
             {
-                if (HttpContext.Current.Response.Cookies["UserRTL"].Value == "1")
-                {
                     htmltheme.Attributes.Add("dir", "RTL");
-                }
             }
 
             string sethtmlclassTheme = BuildThemeClassValue();
@@ -748,13 +745,13 @@ if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out var _ckv))
 
             string modeClass = String.Empty;
             HttpCookie modeCookie = Request.Cookies[THEME_MODE_COOKIE];
-            if (modeCookie != null)
+                if (modeCookie != null)
             {
-                string requestedMode = (modeCookie.Value ?? String.Empty).Trim().ToLowerInvariant();
-                if (requestedMode == "dark-theme" || requestedMode == "light-theme")
-                {
+                    string requestedMode = (modeCookie.Value ?? String.Empty).Trim();
+                    if (requestedMode == "dark-theme" || requestedMode == "light-theme")
+                    {
                     modeClass = requestedMode;
-                }
+                    }
             }
 
             if (String.IsNullOrWhiteSpace(styleClass))

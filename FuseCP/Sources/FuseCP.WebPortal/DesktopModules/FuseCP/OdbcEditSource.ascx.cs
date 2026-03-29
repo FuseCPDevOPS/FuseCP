@@ -90,10 +90,12 @@ namespace FuseCP.Portal
                         PackageInfo pack = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
                         HostingPlanContext cont = ES.Services.Packages.GetHostingPlanContext(pack.PlanId);
                         HostingPlanGroupInfo[] groups = cont.GroupsArray;
-                        foreach (HostingPlanGroupInfo info in (groups))
+                        foreach (HostingPlanGroupInfo info in groups)
                         {
                             if (info.GroupName.Contains("MsSQL"))
+                            {
                                 isMsSQLavailable = true;
+                            }
                         }
                         drivers = new ArrayList(supportedDrivers);
                         if (!isMsSQLavailable)

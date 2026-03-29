@@ -136,13 +136,10 @@ namespace FuseCP.Portal
                     foreach (Control control in settingsPlace.Controls)
                     {
                         string[] parts;
-                        if (control is SettingsFuseCPPolicy)
+                        if (control is SettingsFuseCPPolicy && !PasswordPolicyValidation(settings["PasswordPolicy"]))
                         {
-                            if (!PasswordPolicyValidation(settings["PasswordPolicy"]))
-                            {
                                 ShowWarningMessage("WRONG_POLICIES_VALUES");
                                 return;
-                            }
                         }
                         if (control is SettingsWebPolicy)
                         {
@@ -316,22 +313,16 @@ namespace FuseCP.Portal
                             }
                         }
 
-                        if (control is SettingsOperatingSystemPolicy)
+                        if (control is SettingsOperatingSystemPolicy && !UserNamePolicyValidation(settings["DsnNamePolicy"]))
                         {
-                            if (!UserNamePolicyValidation(settings["DsnNamePolicy"]))
-                            {
                                 ShowWarningMessage("WRONG_POLICIES_VALUES");
                                 return;
-                            }
                         }
 
-                        if (control is SettingsExchangePolicy)
+                        if (control is SettingsExchangePolicy && !PasswordPolicyValidation(settings["MailboxPasswordPolicy"]))
                         {
-                            if (!PasswordPolicyValidation(settings["MailboxPasswordPolicy"]))
-                            {
                                 ShowWarningMessage("WRONG_POLICIES_VALUES");
                                 return;
-                            }
                         }
                     }
                 } // end if overriden

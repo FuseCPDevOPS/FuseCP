@@ -568,12 +568,9 @@ namespace CSSFriendly
                     }
                 }
 
-                if ((String.IsNullOrEmpty(imgSrc)) && (treeView.LevelStyles != null) && (treeView.LevelStyles.Count > item.Depth))
+                if ((String.IsNullOrEmpty(imgSrc)) && (treeView.LevelStyles != null) && (treeView.LevelStyles.Count > item.Depth) && !String.IsNullOrEmpty(treeView.LevelStyles[item.Depth].ImageUrl))
                 {
-                    if (!String.IsNullOrEmpty(treeView.LevelStyles[item.Depth].ImageUrl))
-                    {
                         imgSrc = treeView.LevelStyles[item.Depth].ImageUrl;
-                    }
                 }
             }
 
@@ -645,7 +642,7 @@ namespace CSSFriendly
 
             if ((item != null) && (item.Parent != null))
             {
-                bRet = item.Parent.Selected ? true : IsParentNodeSelected(item.Parent);
+                bRet = (item.Parent.Selected == true) ? true : IsParentNodeSelected(item.Parent);
 
 
 

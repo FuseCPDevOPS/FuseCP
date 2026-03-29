@@ -338,10 +338,9 @@ namespace FuseCP.Providers.HostedSolution
                             if (!bRecordExist)
                             {
                 var outPutBuilder = new StringBuilder();
-                                foreach (string o in contentArr)
+                                foreach (string o in contentArr.Where(o => o != string.Empty))
                                 {
-                                    if (o != string.Empty)
-                                        outPutBuilder.Append(o).Append("\r\n");
+                                    outPutBuilder.Append(o).Append("\r\n");
                                 }
 
                                 outPutBuilder.Append(siteCollection.RootWebApplicationInteralIpAddress).Append('\t').Append(siteCollection.RootWebApplicationFQDN).Append("\r\n");

@@ -168,10 +168,7 @@ namespace FuseCP.Portal
 /*
 			var ip = args.Value;
 			System.Net.IPAddress ipaddr;
-            if (string.IsNullOrEmpty(args.Value))
-                args.IsValid = true;
-            else
-			    args.IsValid = System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) && 
+            args.IsValid = string.IsNullOrEmpty(args.Value) ? true : System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) &&;
                     ((ddlRecordType.SelectedValue == "A" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) ||
                     (ddlRecordType.SelectedValue == "AAAA" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6));
 */

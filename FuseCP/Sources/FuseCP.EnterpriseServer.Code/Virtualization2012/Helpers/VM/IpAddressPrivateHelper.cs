@@ -516,10 +516,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // load network adapter
                 NetworkAdapterDetails nic = NetworkAdapterDetailsHelper.GetPrivateNetworkDetails(packageId);
 
-                foreach (string address in addresses)
+                foreach (string address in addresses.Where(address => !CheckPrivateIPAddress(nic.SubnetMask, address)))
                 {
-                    if (!CheckPrivateIPAddress(nic.SubnetMask, address))
-                        codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
+                    codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
                 }
             }
 
@@ -545,10 +544,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
                 // load network adapter
                 NetworkAdapterDetails nic = NetworkAdapterDetailsHelper.GetDmzNetworkDetails(packageId);
 
-                foreach (string address in addresses)
+                foreach (string address in addresses.Where(address => !CheckDmzIPAddress(nic.SubnetMask, address)))
                 {
-                    if (!CheckDmzIPAddress(nic.SubnetMask, address))
-                        codes.Add(VirtualizationErrorCodes.WRONG_DMZ_IP_ADDRESS_FORMAT + ":" + address);
+                    codes.Add(VirtualizationErrorCodes.WRONG_DMZ_IP_ADDRESS_FORMAT + ":" + address);
                 }
             }
 

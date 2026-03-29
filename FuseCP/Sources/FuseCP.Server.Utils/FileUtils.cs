@@ -621,10 +621,9 @@ namespace FuseCP.Providers.Utils
             // iterate through child folders
             bool empty = true;
             string[] dirs = Directory.GetDirectories(directory);
-            foreach (string dir in dirs)
+            foreach (string dir in dirs.Where(dir => !DeleteEmptyDirectoryRecursive(dir)))
             {
-                if (!DeleteEmptyDirectoryRecursive(dir))
-                    empty = false;
+                empty = false;
             }
 
             string[] files = Directory.GetFiles(directory);

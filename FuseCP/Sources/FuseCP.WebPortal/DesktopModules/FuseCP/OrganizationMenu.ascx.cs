@@ -52,13 +52,10 @@ namespace FuseCP.Portal
                     return;
                 }
 
-                if (Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId)
+                if ((Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId) && packageTable.Rows.Count > 0)
                 {
-                    if (packageTable.Rows.Count > 0)
-                    {
                         Session["currentPackage"] = packageTable.Rows[0][0].ToString();
                         Session["currentUser"] = PanelSecurity.SelectedUserId;
-                    }
                 }
                 currentPackage = Convert.ToInt32(Session["currentPackage"]);
             }

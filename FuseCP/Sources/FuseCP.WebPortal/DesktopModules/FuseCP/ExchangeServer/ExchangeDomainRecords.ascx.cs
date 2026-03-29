@@ -49,13 +49,10 @@ namespace FuseCP.Portal.ExchangeServer
             }
 
             
-            if (PanelSecurity.LoggedUser.Role == UserRole.User)
+            if (PanelSecurity.LoggedUser.Role == UserRole.User && !PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR))
             {
-                if (!PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR))
-                {
                     this.ExcludeDisableControls.Add(btnBack);
                     this.DisableControls = true;
-                }
             }
 
 

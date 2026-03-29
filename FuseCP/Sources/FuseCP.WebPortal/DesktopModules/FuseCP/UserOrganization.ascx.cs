@@ -72,13 +72,10 @@ namespace FuseCP.Portal
                         itemID = iId;
 
                     object isDefault = org["IsDefault"];
-                    if (isDefault is bool)
+                    if (isDefault is bool && (bool)isDefault)
                     {
-                        if ((bool)isDefault)
-                        {
                             itemID = iId;
                             break;
-                        }
                     }
                 }
 
@@ -133,10 +130,7 @@ namespace FuseCP.Portal
                 PortalUtils.SPACE_ID_PARAM + "=" + PackageId, DefaultPage.CONTROL_ID_PARAM + "=" + key,
                 "moduleDefId=exchangeserver");
 
-            if (img == null)
-                item.ImageUrl = PortalUtils.GetThemedIcon("Icons/tool_48.png");
-            else
-                item.ImageUrl = PortalUtils.GetThemedIcon(img);
+            item.ImageUrl = img == null ? PortalUtils.GetThemedIcon("Icons/tool_48.png") : PortalUtils.GetThemedIcon(img);
 
             return item;
         }

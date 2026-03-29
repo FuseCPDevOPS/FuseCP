@@ -124,14 +124,11 @@ namespace FuseCP.Portal.HostedSolution
                 
 
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
-                {
-                    if (_ckv.QuotaAllocatedValue != 1)
-                    {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                         locSubscriberNumber.Visible = false;
                         txtSubscriberNumber.Visible = false;
-                    }
-                }
+}
 
                 if (user.LevelId > 0 && secServiceLevels.Visible)
                 {
@@ -225,10 +222,7 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
                     }
                 }
 
-                if (user.Locked)
-                    chkLocked.Enabled = true;
-                else
-                    chkLocked.Enabled = false;
+                chkLocked.Enabled = user.Locked ? true : false;
 
                 chkLocked.Checked = user.Locked;
 

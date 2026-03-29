@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using System.Web;
+using System.Linq;
 using FuseCP.Server.Utils;
 
 namespace FuseCP.Providers.Utils.LogParser
@@ -218,10 +219,9 @@ namespace FuseCP.Providers.Utils.LogParser
 			DirectoryInfo dir = new DirectoryInfo(logsPath);
 			FileInfo[] files = dir.GetFiles();
 			DateTime minDate = DateTime.Now;
-			foreach (FileInfo file in files)
+			foreach (FileInfo file in files.Where(file => file.CreationTime < minDate))
 			{
-				if (file.CreationTime < minDate)
-					minDate = file.CreationTime;
+				minDate = file.CreationTime;
 			}
 			return minDate;
 		}

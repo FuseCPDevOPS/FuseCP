@@ -286,10 +286,9 @@ namespace FuseCP.EnterpriseServer
                 FillWebServerBindings(bindings, dnsRecords, ipAddr, hostName, domain.DomainName, ignoreGlobalDNSRecords);
 
                 //double check all bindings
-                foreach (ServerBinding b in bindings)
+                foreach (ServerBinding b in bindings.Where(b => Database.CheckDomain(domain.PackageId, b.Host, true) != 0))
                 {
-                    if (Database.CheckDomain(domain.PackageId, b.Host, true) != 0)
-                        return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
+                    return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
                 }
 
                 if (dedicatedIp)
@@ -1203,10 +1202,9 @@ namespace FuseCP.EnterpriseServer
 
         private void AddBinding(List<ServerBinding> bindings, ServerBinding binding)
         {
-            foreach (ServerBinding b in bindings)
+            foreach (ServerBinding b in bindings.Where(b => string.Compare(b.Host, binding.Host, true) == 0))
             {
-                if (string.Compare(b.Host, binding.Host, true) == 0)
-                    return;
+                return;
             }
 
             bindings.Add(binding);
@@ -1549,10 +1547,9 @@ namespace FuseCP.EnterpriseServer
 
                     if (ignoreGlobalDNSRecords)
                     {
-                        foreach (GlobalDnsRecord r in dnsRecords)
+                        foreach (GlobalDnsRecord r in dnsRecords.Where(r => (r.RecordName == "[host_name]") || ((r.RecordName + (string.IsNullOrEmpty(r.RecordName) ? domain.ZoneName : "." + domain.ZoneName)) == domain.DomainName)))
                         {
-                            if ((r.RecordName == "[host_name]") || ((r.RecordName + (string.IsNullOrEmpty(r.RecordName) ? domain.ZoneName : "." + domain.ZoneName)) == domain.DomainName))
-                                tmpDnsRecords.Add(r);
+                            tmpDnsRecords.Add(r);
                         }
                     }
                     else tmpDnsRecords = dnsRecords;

@@ -827,10 +827,9 @@ namespace FuseCP.Providers.OS
             // get driver path
             string[] keyDrivers = Registry.LocalMachine.OpenSubKey(ODBC_INST_KEY).GetSubKeyNames();
 
-            foreach (string keyDriver in keyDrivers)
+            foreach (string keyDriver in keyDrivers.Where(keyDriver => keyDriver.ToLower().StartsWith(driverName.ToLower())))
             {
-                if (keyDriver.ToLower().StartsWith(driverName.ToLower()))
-                    return keyDriver;
+                return keyDriver;
             }
             return null;
         }
@@ -840,10 +839,9 @@ namespace FuseCP.Providers.OS
             // get driver path
             string[] keyDrivers = Registry.LocalMachine.OpenSubKey(ODBC_INST_KEY).GetSubKeyNames();
 
-            foreach (string keyDriver in keyDrivers)
+            foreach (string keyDriver in keyDrivers.Where(keyDriver => keyDriver.ToLower().StartsWith(driverName.ToLower())))
             {
-                if (keyDriver.ToLower().StartsWith(driverName.ToLower()))
-                    return (string)Registry.LocalMachine.OpenSubKey(ODBC_INST_KEY + keyDriver).GetValue("Driver");
+                return (string)Registry.LocalMachine.OpenSubKey(ODBC_INST_KEY + keyDriver).GetValue("Driver");
             }
 
             throw new Exception(String.Format("'{0}' driver is not installed on the system", driverName));
@@ -1149,10 +1147,9 @@ namespace FuseCP.Providers.OS
             try
             {
                 Process[] processes = Process.GetProcesses();
-                foreach (Process process in processes)
+                foreach (Process process in processes.Where(process => process.Id == pid))
                 {
-                    if (process.Id == pid)
-                        process.Kill();
+                    process.Kill();
                 }
             }
             catch (Exception)

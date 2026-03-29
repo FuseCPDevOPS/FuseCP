@@ -139,10 +139,9 @@ namespace FuseCP.Providers.Statistics
             if (result.Sites == null)
                 return null;
 
-            foreach (SiteInfo site in result.Sites)
+            foreach (SiteInfo site in result.Sites.Where(site => String.Compare(siteName, site.DomainName, 0) == 0))
             {
-                if (String.Compare(siteName, site.DomainName, 0) == 0)
-                    return site.SiteID.ToString();
+                return site.SiteID.ToString();
             }
 
             return null;

@@ -315,10 +315,7 @@ namespace FuseCP.Portal
 			var local_service = new ServiceInfo();
 			local_service.ServiceId = PanelRequest.ServiceId;
 			local_service.ServiceName = txtServiceName.Text.Trim();
-			if (ddlProviders.Items.Count > 0)
-				local_service.ProviderId = Utils.ParseInt(ddlProviders.SelectedValue, 0);
-			else
-				local_service.ProviderId = 0; //just to be sure that here is 0
+			local_service.ProviderId = ddlProviders.Items.Count > 0 ? Utils.ParseInt(ddlProviders.SelectedValue, 0) : 0; //just to be sure that here is 0;
 			local_service.ServiceQuotaValue = Utils.ParseInt(txtQuotaValue.Text, 0);
 			local_service.ClusterId = Utils.ParseInt(ddlClusters.SelectedValue, 0);
 			local_service.Comments = txtComments.Text;

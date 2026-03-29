@@ -157,8 +157,51 @@ foreach ($group in ($locations | Group-Object Path)) {
             }
         }
         if ($ifOpenLine -lt 0) {
-            # Braceless if with a single-statement body — different pattern, skip
-            $skippedReason['braceless-if']++; continue
+            # Braceless if: find single-statement body
+            $bodyIdx = -1
+            for ($k = $firstLine + 1; $k -lt $bounds.CloseLine; $k++) {
+                $bt = $lines[$k].Trim()
+                if ($bt -eq '' -or $bt.StartsWith('//')) { continue }
+                $bodyIdx = $k; break
+            }
+            if ($bodyIdx -lt 0) { $skippedReason['braceless-nobody']++; continue }
+            # No else after body
+            for ($k = $bodyIdx + 1; $k -lt $bounds.CloseLine; $k++) {
+                $bt = $lines[$k].Trim()
+                if ($bt -eq '' -or $bt.StartsWith('//')) { continue }
+                if ($bt -match '^else\b') { $skippedReason['braceless-has-else']++; $bodyIdx = -1 }
+                break
+            }
+            if ($bodyIdx -lt 0) { continue }
+            # No extra code before the if
+            $extraBefore = $false
+            for ($k = $bounds.OpenLine + 1; $k -lt $firstLine; $k++) {
+                $bt = $lines[$k].Trim()
+                if ($bt -ne '' -and -not $bt.StartsWith('//')) { $extraBefore = $true; break }
+            }
+            if ($extraBefore) { $skippedReason['braceless-extra-before']++; continue }
+            # No extra code after body (to loop close)
+            $extraAfter = $false
+            for ($k = $bodyIdx + 1; $k -lt $bounds.CloseLine; $k++) {
+                $bt = $lines[$k].Trim()
+                if ($bt -ne '' -and -not $bt.StartsWith('//')) { $extraAfter = $true; break }
+            }
+            if ($extraAfter) { $skippedReason['braceless-extra-after']++; continue }
+            # De-indent the body by one level (remove leading 4 spaces or 1 tab)
+            $ifIndent = $lines[$firstLine].Substring(0, $lines[$firstLine].Length - $lines[$firstLine].TrimStart().Length)
+            $bodyLine = $lines[$bodyIdx]
+            if ($bodyLine.StartsWith($ifIndent + "    ")) {
+                $lines[$bodyIdx] = $ifIndent + $bodyLine.Substring($ifIndent.Length + 4)
+            } elseif ($bodyLine.StartsWith($ifIndent + "`t")) {
+                $lines[$bodyIdx] = $ifIndent + $bodyLine.Substring($ifIndent.Length + 1)
+            }
+            # Update foreach, remove the if line
+            $newForeach = "${indent}foreach ($iterType $iter in $src.Where($iter => $cond))"
+            $lines[$i] = $newForeach
+            $lines.RemoveAt($firstLine)
+            $changed = $true; $totalFixed++
+            Write-Host "FIXED(braceless): $($group.Name.Split('/')[-1]):$($loc.Line) [$cond]"
+            continue
         }
 
         # ── 6. find if-body close brace ────────────────────────────────────

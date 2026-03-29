@@ -169,7 +169,7 @@ namespace FuseCP.WebDavPortal.Controllers
             var dtRequest = BuildDataTableRequest();
             IEnumerable<WebDavResource> folderItems;
 
-            folderItems = string.IsNullOrEmpty(dtRequest.Search.Value) == false ? _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, dtRequest.Search.Value, ScpContext.User.Login, true).Cast<WebDavResource>() : _webdavManager.OpenFolder(pathPart).Cast<WebDavResource>();
+            folderItems = !string.IsNullOrEmpty(dtRequest.Search.Value) ? _webdavManager.SearchFiles(ScpContext.User.ItemId, pathPart, dtRequest.Search.Value, ScpContext.User.Login, true).Cast<WebDavResource>() : _webdavManager.OpenFolder(pathPart).Cast<WebDavResource>();
 
 
 

@@ -113,13 +113,10 @@ namespace FuseCP.Portal.StorageSpaces
                     function client_OnTreeNodeChecked(event)
                     {
                      var treeNode = event.srcElement || event.target ;
-                     if (treeNode.tagName == 'INPUT' && treeNode.type == 'checkbox')
-                      {
-                       if(treeNode.checked)
-                        {
+                     if (treeNode.tagName == 'INPUT' && treeNode.type == 'checkbox' && treeNode.checked)
+                     {
                          uncheckOthers(treeNode.id);
-                        }
-                      }
+                     }
                     }
 
                     function uncheckOthers(id)
@@ -128,12 +125,9 @@ namespace FuseCP.Portal.StorageSpaces
                       // loop through all input elements in form
                       for(var i = 0; i < elements.length; i++)
                        {
-                        if(elements.item(i).type == 'checkbox')
+                        if (elements.item(i).type == 'checkbox' && elements.item(i).id!=id)
                         {
-                         if(elements.item(i).id!=id)
-                         {
                           elements.item(i).checked=false;
-                         }
                         }
                        }
                       }

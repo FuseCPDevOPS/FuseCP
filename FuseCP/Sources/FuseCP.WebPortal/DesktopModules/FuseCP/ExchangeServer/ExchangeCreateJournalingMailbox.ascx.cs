@@ -45,13 +45,10 @@ namespace FuseCP.Portal.ExchangeServer
                 if (plans.Length == 0)
                     btnCreate.Enabled = false;
 
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
-                {
-                    if (_ckv.QuotaAllocatedValue != 1)
-                    {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                         locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
-                    }
-                }
+}
 
                 BindJournalingRecipients();
             }

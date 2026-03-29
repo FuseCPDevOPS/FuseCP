@@ -304,7 +304,7 @@ namespace FuseCP.Portal.VPSForPC
 					chkPrivateNetworkEnabled.Checked, null, null, string.Empty, (String.IsNullOrEmpty(ddlPrivateVLanID.SelectedValue) ? ((ushort)0) : ushort.Parse(ddlPrivateVLanID.SelectedValue)));
 
 
-				if (res.IsSuccess == false)
+				if (!res.IsSuccess)
 				{
 					messageBox.ShowMessage(res, "VPS_ERROR_CREATE", "VPS");
 					//

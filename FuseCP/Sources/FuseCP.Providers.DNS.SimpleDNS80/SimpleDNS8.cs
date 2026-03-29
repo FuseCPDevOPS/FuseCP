@@ -479,10 +479,9 @@ namespace FuseCP.Providers.DNS
             //Return the resulting array without SOA and DNSSEC records
             List<string> dnsTypes = new List<string> { "A","AAAA","CAA","MX", "NS", "TXT", "CNAME", "SRV" };
             List<ZoneRecordsResponse> recordlist = new List<ZoneRecordsResponse>();
-            foreach (ZoneRecordsResponse rec in records)
+            foreach (ZoneRecordsResponse rec in records.Where(rec => dnsTypes.Contains(rec.Type)))
             {
-                if (dnsTypes.Contains(rec.Type))
-                    recordlist.Add(rec);
+                recordlist.Add(rec);
             }
             return recordlist.ToDnsRecordArray();
         }

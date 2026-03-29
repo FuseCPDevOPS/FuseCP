@@ -50,13 +50,10 @@ namespace FuseCP.Portal.HostedSolution
 
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
-            {
-                if (_ckv.QuotaAllocatedValue != 1)
-                {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                     locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
-                }
-            }
+}
 
         }
 

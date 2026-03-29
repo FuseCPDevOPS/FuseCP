@@ -151,7 +151,7 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
 					lblMaxMailboxSizeLimit.Visible = false;
 					txtMailBoxSizeLimit.Visible = true;
 				}
-				else // this is the cue for the fallback clause: if (maxMailboxSizeLimit >= 0 && maxMailboxSizeChangeable == true)
+				else // this is the cue for the fallback clause: if (maxMailboxSizeLimit >= 0 && maxMailboxSizeChangeable)
 				{
 					lblMaxMailboxSizeLimit.Visible = false;
 					txtMailBoxSizeLimit.Visible = true;

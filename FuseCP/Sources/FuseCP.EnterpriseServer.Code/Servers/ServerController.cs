@@ -2927,10 +2927,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 					DnsRecord[] domainRecords = dns.GetZoneRecords(domain.DomainName);
 
 					List<DnsRecord> zoneRecords = new List<DnsRecord>();
-					foreach (DnsRecord t in tmpZoneRecords)
+					foreach (DnsRecord t in tmpZoneRecords.Where(t => !RecordDoesExist(t, domainRecords)))
 					{
-						if (!RecordDoesExist(t, domainRecords))
-							zoneRecords.Add(t);
+						zoneRecords.Add(t);
 					}
 
 

@@ -139,13 +139,10 @@ namespace FuseCP.Portal.ProviderControls
 
 			string moderator = ddlListModerators.SelectedValue;
 
-			if (ctrl != null)
+			if (ctrl != null && String.Equals(GetDomainName(moderator), GetDomainName(ctrl.Email), StringComparison.InvariantCultureIgnoreCase))
 			{
-				if (String.Equals(GetDomainName(moderator), GetDomainName(ctrl.Email), StringComparison.InvariantCultureIgnoreCase))
-				{
 					e.ContextIsValid = true;
 					return;
-				}
 			}
 			e.ContextIsValid = false;
 		}

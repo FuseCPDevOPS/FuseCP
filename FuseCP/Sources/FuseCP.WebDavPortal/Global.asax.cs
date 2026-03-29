@@ -72,10 +72,7 @@ namespace FuseCP.WebDavPortal
 
             int statusCode;
 
-            if (lastError.GetType() == typeof (HttpException))
-                statusCode = ((HttpException) lastError).GetHttpCode();
-            else
-                statusCode = 500;
+            statusCode = lastError.GetType() == typeof (HttpException) ? ((HttpException) lastError).GetHttpCode() : 500;
 
             var contextWrapper = new HttpContextWrapper(Context);
 

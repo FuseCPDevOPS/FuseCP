@@ -158,10 +158,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 if (VMSettings.HddSize.Length == 0) //if we pass the empty array of HddSize it broke everything.
                     quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
 
-                foreach (var hddSize in VMSettings.HddSize)
+                foreach (var hddSize in VMSettings.HddSize.Where(hddSize => hddSize <= 0))
                 {
-                    if (hddSize <= 0)
-                        quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
+                    quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
                 }
                 if (VMSettings.SnapshotsNumber < 0)
                     quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_SNAPSHOTS);
@@ -372,10 +371,9 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 try
                 {
                     VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
-                    foreach (var virtualHardDrivePath in vm.VirtualHardDrivePath)
+                    foreach (var virtualHardDrivePath in vm.VirtualHardDrivePath.Where(virtualHardDrivePath => vs.FileExists(virtualHardDrivePath)))
                     {
-                        if (vs.FileExists(virtualHardDrivePath))
-                            throw new Exception(virtualHardDrivePath + " is already present in the system");
+                        throw new Exception(virtualHardDrivePath + " is already present in the system");
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

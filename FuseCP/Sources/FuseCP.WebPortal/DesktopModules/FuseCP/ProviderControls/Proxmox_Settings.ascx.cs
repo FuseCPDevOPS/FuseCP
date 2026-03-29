@@ -105,11 +105,11 @@ namespace FuseCP.Portal.ProviderControls
 			settings["DeploySSHServerPort"] = txtDeploySSHServerPort.Text.Trim();
 			settings["DeploySSHUser"] = txtDeploySSHUser.Text.Trim();
 			settings["DeploySSHPass"] = (txtDeploySSHPass.Text.Length > 0) ? txtDeploySSHPass.Text : (string)ViewState["SSHPWD"];
-			if (chkdelsshpass.Checked == true)
+			if (chkdelsshpass.Checked)
 				settings["DeploySSHPass"] = "";
 			settings["DeploySSHKey"] = txtDeploySSHKey.Text.Trim();
 			settings["DeploySSHKeyPass"] = (txtDeploySSHKeyPass.Text.Length > 0) ? txtDeploySSHKeyPass.Text : (string)ViewState["SSHKEYPWD"];
-			if (chkdelsshkeypass.Checked == true)
+			if (chkdelsshkeypass.Checked)
 				settings["DeploySSHKeyPass"] = "";
 			settings["DeploySSHScript"] = txtDeploySSHScript.Text.Trim();
 			settings["DeploySSHScriptParams"] = txtDeploySSHScriptParams.Text.Trim();

@@ -2167,10 +2167,9 @@ namespace FuseCP.EnterpriseServer
             LibraryItem[] disks = GetLibraryDisks(itemId);
 
             // find required disk
-            foreach (LibraryItem disk in disks)
+            foreach (LibraryItem disk in disks.Where(disk => String.Compare(isoPath, disk.Path, true) == 0))
             {
-                if (String.Compare(isoPath, disk.Path, true) == 0)
-                    return disk;
+                return disk;
             }
             return null;
         }
@@ -3152,10 +3151,9 @@ namespace FuseCP.EnterpriseServer
                 // load network adapter
                 NetworkAdapterDetails nic = GetPrivateNetworkDetails(packageId);
 
-                foreach (string address in addresses)
+                foreach (string address in addresses.Where(address => !CheckPrivateIPAddress(nic.SubnetMask, address)))
                 {
-                    if (!CheckPrivateIPAddress(nic.SubnetMask, address))
-                        codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
+                    codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
                 }
             }
 

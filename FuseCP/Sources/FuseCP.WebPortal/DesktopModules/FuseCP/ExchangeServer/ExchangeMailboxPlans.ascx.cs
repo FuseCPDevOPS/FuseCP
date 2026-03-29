@@ -73,25 +73,19 @@ namespace FuseCP.Portal.ExchangeServer
 
                     if (!RetentionPolicy)
                     {
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ENABLEDPLANSEDITING, out var _ckv))
-                      {
-                        if (_ckv.QuotaAllocatedValue != 1)
-                        {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ENABLEDPLANSEDITING, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                           gvMailboxPlans.Columns[3].Visible = false;
                           btnAddMailboxPlan.Enabled = btnAddMailboxPlan.Visible = false;
-                        }
-                      }
+}
                     }
                     else
                     {
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, out var _ckv))
-                      {
-                        if (_ckv.QuotaAllocatedValue != 1)
-                        {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                           gvMailboxPlans.Columns[3].Visible = false;
                           btnAddMailboxPlan.Enabled = btnAddMailboxPlan.Visible = false;
-                        }
-                      }
+}
                     }
                 }
 

@@ -1352,10 +1352,9 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             LibraryItem[] disks = GetDVDISOs(vmId);
 
             // find required disk
-            foreach (LibraryItem disk in disks)
+            foreach (LibraryItem disk in disks.Where(disk => string.Compare(isoPath, disk.Path, true) == 0))
             {
-                if (string.Compare(isoPath, disk.Path, true) == 0)
-                    disksize = disk.DiskSize;
+                disksize = disk.DiskSize;
             }
 
             try

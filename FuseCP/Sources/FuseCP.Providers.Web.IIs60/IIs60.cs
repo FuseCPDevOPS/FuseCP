@@ -2202,10 +2202,9 @@ namespace FuseCP.Providers.Web
 			if (!String.IsNullOrEmpty(filtersOrder))
 			{
 				string[] existingFilters = filtersOrder.Split(',');
-				foreach (string existingFilter in existingFilters)
+				foreach (string existingFilter in existingFilters.Where(existingFilter => String.Compare(filterName, existingFilter, true) != 0))
 				{
-					if (String.Compare(filterName, existingFilter, true) != 0)
-						updatedFilters.Add(existingFilter);
+					updatedFilters.Add(existingFilter);
 				}
 			}
 

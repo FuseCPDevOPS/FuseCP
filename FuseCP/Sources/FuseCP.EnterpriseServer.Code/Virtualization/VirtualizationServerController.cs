@@ -1434,10 +1434,9 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // delete completed task definitions
                 List<string> completedTasks = new List<string>();
                 KvpExchangeDataItem[] vmKvps = vs.GetKVPItems(vm.VirtualMachineId);
-                foreach (KvpExchangeDataItem vmKvp in vmKvps)
+                foreach (KvpExchangeDataItem vmKvp in vmKvps.Where(vmKvp => vmKvp.Name.StartsWith(TASK_PREFIX)))
                 {
-                    if (vmKvp.Name.StartsWith(TASK_PREFIX))
-                        completedTasks.Add(vmKvp.Name);
+                    completedTasks.Add(vmKvp.Name);
                 }
 
                 // delete completed items
@@ -2141,10 +2140,9 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
             // find required disk
             isoPath = Path.GetFileName(isoPath);
-            foreach (LibraryItem disk in disks)
+            foreach (LibraryItem disk in disks.Where(disk => String.Compare(isoPath, disk.Path, true) == 0))
             {
-                if (String.Compare(isoPath, disk.Path, true) == 0)
-                    return disk;
+                return disk;
             }
             return null;
         }
@@ -3063,10 +3061,9 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
                 // load network adapter
                 NetworkAdapterDetails nic = GetPrivateNetworkDetails(packageId);
 
-                foreach (string address in addresses)
+                foreach (string address in addresses.Where(address => !CheckPrivateIPAddress(nic.SubnetMask, address)))
                 {
-                    if (!CheckPrivateIPAddress(nic.SubnetMask, address))
-                        codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
+                    codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
                 }
             }
 

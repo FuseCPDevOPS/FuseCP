@@ -608,9 +608,9 @@ namespace FuseCP.EnterpriseServer
             {
                 string[] ids = settings[settingName].Split(',');
 
-                int res;
                 foreach (string id in ids)
                 {
+                    int res;
                     if (int.TryParse(id, out res))
                         retIds.Add(res);
                 }
@@ -5221,10 +5221,9 @@ namespace FuseCP.EnterpriseServer
 
                 // delete e-mail addresses
                 List<string> toDelete = new List<string>();
-                foreach (string emailAddress in emailAddresses)
+                foreach (string emailAddress in emailAddresses.Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0))
                 {
-                    if (String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0)
-                        toDelete.Add(emailAddress);
+                    toDelete.Add(emailAddress);
                 }
                 var emailAddressesDeleted = toDelete.ToArray();
 
@@ -5705,10 +5704,9 @@ namespace FuseCP.EnterpriseServer
 
                 // delete all nested folder meta-items
                 List<ExchangeAccount> folders = GetAccounts(itemId, ExchangeAccountType.PublicFolder);
-                foreach (ExchangeAccount folder in folders)
+                foreach (ExchangeAccount folder in folders.Where(folder => folder.DisplayName.ToLower().StartsWith(account.DisplayName.ToLower() + "\\")))
                 {
-                    if (folder.DisplayName.ToLower().StartsWith(account.DisplayName.ToLower() + "\\"))
-                        DeleteAccount(itemId, folder.AccountId);
+                    DeleteAccount(itemId, folder.AccountId);
                 }
 
                 return 0;
@@ -6232,10 +6230,9 @@ namespace FuseCP.EnterpriseServer
 
                 // delete e-mail addresses
                 List<string> toDelete = new List<string>();
-                foreach (string emailAddress in emailAddresses)
+                foreach (string emailAddress in emailAddresses.Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0))
                 {
-                    if (String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0)
-                        toDelete.Add(emailAddress);
+                    toDelete.Add(emailAddress);
                 }
                 var emailAddressesDeleted = toDelete.ToArray();
 

@@ -60,13 +60,10 @@ namespace FuseCP.Portal.ExchangeServer
 
             BindServiceLevels();
 
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
-            {
-                if (_ckv.QuotaAllocatedValue != 1)
-                {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                     gvMailboxes.Columns[6].Visible = false;
-                }
-            }
+}
 
             gvMailboxes.Columns[4].Visible = cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels);
         }
@@ -239,8 +236,8 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
 
             bool enable = !string.IsNullOrEmpty(serviceLevel.LevelName);
 
-            enable = enable ? cntx.Quotas.ContainsKey(Quotas.SERVICE_LEVELS + serviceLevel.LevelName) : false;
-            enable = enable ? cntx.Quotas[Quotas.SERVICE_LEVELS + serviceLevel.LevelName].QuotaAllocatedValue != 0 : false;
+            enable = enable && cntx.Quotas.ContainsKey(Quotas.SERVICE_LEVELS + serviceLevel.LevelName);
+            enable = enable && cntx.Quotas[Quotas.SERVICE_LEVELS + serviceLevel.LevelName].QuotaAllocatedValue != 0;
 
             if (!enable)
             {

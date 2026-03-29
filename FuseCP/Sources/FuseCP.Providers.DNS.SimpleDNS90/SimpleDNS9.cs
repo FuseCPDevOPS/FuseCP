@@ -522,10 +522,9 @@ namespace FuseCP.Providers.DNS
             if (records.Length == 0 || records[0] == null)
                 return;
 
-            foreach (DnsRecord record in records)
+            foreach (DnsRecord record in records.Where(record => record.RecordTTL == 0))
             {
-                if (record.RecordTTL == 0)
-                    record.RecordTTL = RecordDefaultTTL;
+                record.RecordTTL = RecordDefaultTTL;
             }
 
             //Declare content to be patched

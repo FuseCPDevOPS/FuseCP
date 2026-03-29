@@ -82,20 +82,14 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
                 List<string> referrers = GetPossibleUrlRefferers();
 
-                if (PanelSecurity.SelectedUser.Role == UserRole.User)
+                if (PanelSecurity.SelectedUser.Role == UserRole.User && Request.UrlReferrer.Query.Equals(referrers[0]))
                 {
-                    if (Request.UrlReferrer.Query.Equals(referrers[0]))
-                    {
                         RedirectToOrgHomePage();
-                    }
                 }
 
-                if (PanelSecurity.LoggedUser.Role == UserRole.User)
+                if (PanelSecurity.LoggedUser.Role == UserRole.User && referrers.Contains(Request.UrlReferrer.Query))
                 {
-                    if (referrers.Contains(Request.UrlReferrer.Query))
-                    {
                         RedirectToOrgHomePage();
-                    }
                 }
             }
         }

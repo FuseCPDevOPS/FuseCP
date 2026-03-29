@@ -65,14 +65,11 @@ namespace FuseCP.Portal.ExchangeServer
 
                 bool allowResourceMailbox = false;
 
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv))
-                {
-                    if (_ckv.QuotaAllocatedValue != 1)
-                    {
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+{
                         locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
                         allowResourceMailbox = true;
-                    }
-                }
+}
 
 if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_RESOURCEMAILBOXES, out var resourceMailboxQuota))
                 {

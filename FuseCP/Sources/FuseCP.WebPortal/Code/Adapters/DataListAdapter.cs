@@ -222,9 +222,9 @@ namespace CSSFriendly
                         int nItemsInColumn = (int)Math.Ceiling(((Double)dataList.Items.Count) / ((Double)RepeatColumns));
                         for (int iItem = 0; iItem < dataList.Items.Count; iItem++)
                         {
+                            int nDesiredIndex = iItem;
                             int nRow = iItem / RepeatColumns;
                             int nCol = iItem % RepeatColumns;
-                            int nDesiredIndex = iItem;
                             if (dataList.RepeatDirection == RepeatDirection.Vertical)
                             {
                                 nDesiredIndex = (nCol * nItemsInColumn) + nRow;

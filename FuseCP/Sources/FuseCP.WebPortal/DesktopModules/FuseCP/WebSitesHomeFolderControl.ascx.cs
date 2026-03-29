@@ -120,7 +120,7 @@ namespace FuseCP.Portal
             pnlDefaultDocuments.Visible = PackagesHelper.CheckGroupQuotaEnabled(packageId, ResourceGroups.Web, Quotas.WEB_DEFAULTDOCS);
 
             UserSettings settings = ES.Services.Users.GetUserSettings(PanelSecurity.SelectedUserId, "WebPolicy");
-            if (Utils.ParseBool(settings["EnableDedicatedPool"], false) == true)
+            if (Utils.ParseBool(settings["EnableDedicatedPool"], false))
                 chkDedicatedPool.Checked = true;
 
             chkDedicatedPool.Enabled = !(Utils.ParseBool(settings["EnableDedicatedPool"], false));

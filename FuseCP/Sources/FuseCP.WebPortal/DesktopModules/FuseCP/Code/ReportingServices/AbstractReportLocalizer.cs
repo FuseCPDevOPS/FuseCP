@@ -115,13 +115,10 @@ namespace FuseCP.Portal.ReportingServices
 						)
 				{
 					//test if LocID is not null and it's value is not empty
-					if (node.Attributes["rd:LocID"] != null)
+					if (node.Attributes["rd:LocID"] != null && !String.IsNullOrEmpty(node.Attributes["rd:LocID"].Value))
 					{
-						if (!String.IsNullOrEmpty(node.Attributes["rd:LocID"].Value))
-						{
 							//replace nodes' text value with localization string from resources
 							node.InnerText = GetLocalizedResourceString(node.Attributes["rd:LocID"].Value);
-						}
 					}
 				}
 			}

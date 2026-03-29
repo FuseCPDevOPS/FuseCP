@@ -3433,10 +3433,9 @@ namespace FuseCP.Providers.Web
 			string[] subKeys = keyFrontPage.GetSubKeyNames();
 			if (subKeys != null && subKeys.Length > 0)
 			{
-				foreach (string key in subKeys)
+				foreach (string key in subKeys.Where(key => key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED))
 				{
-					if (key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED)
-						return true;
+					return true;
 				}
 			}
 

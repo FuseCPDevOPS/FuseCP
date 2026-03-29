@@ -75,10 +75,9 @@ namespace FuseCP.Providers.Virtualization.Proxmox
 				return io;
 
 			String path = "";
-			foreach (String ioval in io.Split(','))
+			foreach (String ioval in io.Split(',').Where(ioval => ioval.Contains(':')))
 			{
-				if (ioval.Contains(':'))
-					path = ioval;
+				path = ioval;
 			}
 
 			return path;

@@ -447,13 +447,9 @@ namespace CSSFriendly
                             }
                         }
 
-                        if ((cmdArgs != null) && (cmdArgs.CommandName == ChangePassword.ChangePasswordButtonCommandName))
+                        if ((cmdArgs != null) && (cmdArgs.CommandName == ChangePassword.ChangePasswordButtonCommandName) && !Page.IsValid)
                         {
-                            Page.Validate();
-                            if (!Page.IsValid)
-                            {
                                 cmdArgs = null;
-                            }
                         }
 
                         if (cmdArgs != null)
