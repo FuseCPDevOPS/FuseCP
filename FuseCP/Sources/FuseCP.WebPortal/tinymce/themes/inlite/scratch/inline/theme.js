@@ -112,7 +112,7 @@ define("e", [
 			while (i--) {
 				nodeName = args.parents[i].nodeName;
 				if (nodeName == 'OL' || nodeName == 'UL') {
-					void break;
+					break;
 				}
 			}
 
@@ -419,7 +419,7 @@ define("o", [
 			}
 
 			if (node === endNode) {
-				void break;
+				break;
 			}
 		}
 

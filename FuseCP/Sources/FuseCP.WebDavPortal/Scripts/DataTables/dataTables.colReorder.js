@@ -984,7 +984,7 @@ $.extend( ColReorder.prototype, {
 				this.dom.pointer.css( 'left', this.s.aoTargets[i-1].x );
 				this.s.mouse.toIndex = this.s.aoTargets[i-1].to;
 				bSet = true;
-				void break;
+				break;
 			}
 		}
 

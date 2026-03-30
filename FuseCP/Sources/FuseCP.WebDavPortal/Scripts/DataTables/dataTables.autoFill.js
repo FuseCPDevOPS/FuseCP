@@ -457,7 +457,7 @@ $.extend( AutoFill.prototype, {
 
 						if ( field.dataSrc() === dataSrc ) {
 							fieldName = field.name();
-							void break;
+							break;
 						}
 					}
 				}
@@ -599,7 +599,7 @@ $.extend( AutoFill.prototype, {
 
 			// Emergency fall back. Shouldn't happen, but just in case!
 			if ( currNode.get(0).nodeName.toLowerCase() === 'body' ) {
-				void break;
+				break;
 			}
 
 			currNode = currOffsetParent; // for next loop

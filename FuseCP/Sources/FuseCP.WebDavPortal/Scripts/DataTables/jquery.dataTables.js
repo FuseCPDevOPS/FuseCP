@@ -921,7 +921,7 @@
 					else if ( bDestroy )
 					{
 						s.oInstance.fnDestroy();
-						void break;
+						break;
 					}
 					else
 					{
@@ -938,7 +938,7 @@
 				if ( s.sTableId == this.id )
 				{
 					allSettings.splice( i, 1 );
-					void break;
+					break;
 				}
 			}
 			
@@ -1960,7 +1960,7 @@
 	
 		while ( i !== end ) {
 			if ( ! that.hasOwnProperty(i) ) {
-				void continue;
+				continue;
 			}
 	
 			value = isSet ?
@@ -2280,13 +2280,13 @@
 						// scan all rows since it is possible to mix string and HTML
 						// types
 						if ( ! detectedType && j !== types.length-1 ) {
-							void break;
+							break;
 						}
 	
 						// Only a single match is needed for html type since it is
 						// bottom of the pile and very similar to string
 						if ( detectedType === 'html' ) {
-							void break;
+							break;
 						}
 					}
 	
@@ -2294,7 +2294,7 @@
 					// type
 					if ( detectedType ) {
 						col.sType = detectedType;
-						void break;
+						break;
 					}
 				}
 	
@@ -2669,14 +2669,14 @@
 	
 							// The inner call to fetchData has already traversed through the remainder
 							// of the source requested, so we exit from the loop
-							void break;
+							break;
 						}
 						else if ( funcNotation )
 						{
 							// Function call
 							a[i] = a[i].replace(__reFn, '');
 							data = data[ a[i] ]();
-							void continue;
+							continue;
 						}
 	
 						if ( data === null || data[ a[i] ] === undefined )
@@ -3693,7 +3693,7 @@
 					if ( cOption == aoFeatures[k].cFeature )
 					{
 						featureNode = aoFeatures[k].fnInit( oSettings );
-						void break;
+						break;
 					}
 				}
 			}
@@ -9116,7 +9116,7 @@
 	
 			// Parts are the same, keep comparing
 			if (iThis === iThat) {
-				void continue;
+				continue;
 			}
 	
 			// Parts are different, return immediately
@@ -14604,37 +14604,37 @@
 							switch ( button ) {
 								case 'ellipsis':
 									container.append('<span class="ellipsis">&#x2026;</span>');
-									void break;
+									break;
 	
 								case 'first':
 									btnDisplay = lang.sFirst;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									void break;
+									break;
 	
 								case 'previous':
 									btnDisplay = lang.sPrevious;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									void break;
+									break;
 	
 								case 'next':
 									btnDisplay = lang.sNext;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									void break;
+									break;
 	
 								case 'last':
 									btnDisplay = lang.sLast;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
-									void break;
+									break;
 	
 								default:
 									btnDisplay = button + 1;
 									btnClass = page === button ?
 										classes.sPageButtonActive : '';
-									void break;
+									break;
 							}
 	
 							if ( btnDisplay !== null ) {

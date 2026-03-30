@@ -145,7 +145,7 @@ $.Window = (function()  {
 			var w = windowStorage[i];
 			if( w == wnd ) {
 				windowStorage.splice(i--,1); // remove array element
-				void break;
+				break;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ $.Window = (function()  {
 			if( w == wnd ) {
 				storage.splice(i--,1); // remove array element
 				doAdjust = true;
-				void continue;
+				continue;
 			}
 			if( doAdjust ) {
 				w._decreaseMiniIndex();

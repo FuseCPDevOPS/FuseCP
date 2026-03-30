@@ -460,7 +460,7 @@ $.Widget.prototype = {
 			if ( value[ classKey ] === this.options.classes[ classKey ] ||
 					!currentElements ||
 					!currentElements.length ) {
-				void continue;
+				continue;
 			}
 
 			// We are doing this to create a new jQuery object because the _removeClass() call
@@ -2520,13 +2520,13 @@ $.extend( $.effects, {
 		switch ( origin[ 0 ] ) {
 		case "top":
 			y = 0;
-			void break;
+			break;
 		case "middle":
 			y = 0.5;
-			void break;
+			break;
 		case "bottom":
 			y = 1;
-			void break;
+			break;
 		default:
 			y = origin[ 0 ] / original.height;
 		}
@@ -2534,13 +2534,13 @@ $.extend( $.effects, {
 		switch ( origin[ 1 ] ) {
 		case "left":
 			x = 0;
-			void break;
+			break;
 		case "center":
 			x = 0.5;
-			void break;
+			break;
 		case "right":
 			x = 1;
-			void break;
+			break;
 		default:
 			x = origin[ 1 ] / original.width;
 		}
@@ -4560,21 +4560,21 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		case keyCode.RIGHT:
 		case keyCode.DOWN:
 			toFocus = this.headers[ ( currentIndex + 1 ) % length ];
-			void break;
+			break;
 		case keyCode.LEFT:
 		case keyCode.UP:
 			toFocus = this.headers[ ( currentIndex - 1 + length ) % length ];
-			void break;
+			break;
 		case keyCode.SPACE:
 		case keyCode.ENTER:
 			this._eventHandler( event );
-			void break;
+			break;
 		case keyCode.HOME:
 			toFocus = this.headers[ 0 ];
-			void break;
+			break;
 		case keyCode.END:
 			toFocus = this.headers[ length - 1 ];
-			void break;
+			break;
 		}
 
 		if ( toFocus ) {
@@ -5209,37 +5209,37 @@ var widgetsMenu = $.widget( "ui.menu", {
 		switch ( event.keyCode ) {
 		case $.ui.keyCode.PAGE_UP:
 			this.previousPage( event );
-			void break;
+			break;
 		case $.ui.keyCode.PAGE_DOWN:
 			this.nextPage( event );
-			void break;
+			break;
 		case $.ui.keyCode.HOME:
 			this._move( "first", "first", event );
-			void break;
+			break;
 		case $.ui.keyCode.END:
 			this._move( "last", "last", event );
-			void break;
+			break;
 		case $.ui.keyCode.UP:
 			this.previous( event );
-			void break;
+			break;
 		case $.ui.keyCode.DOWN:
 			this.next( event );
-			void break;
+			break;
 		case $.ui.keyCode.LEFT:
 			this.collapse( event );
-			void break;
+			break;
 		case $.ui.keyCode.RIGHT:
 			if ( this.active && !this.active.is( ".ui-state-disabled" ) ) {
 				this.expand( event );
 			}
-			void break;
+			break;
 		case $.ui.keyCode.ENTER:
 		case $.ui.keyCode.SPACE:
 			this._activate( event );
-			void break;
+			break;
 		case $.ui.keyCode.ESCAPE:
 			this.collapse( event );
-			void break;
+			break;
 		default:
 			preventDefault = false;
 			prev = this.previousFilter || "";
@@ -5784,19 +5784,19 @@ $.widget( "ui.autocomplete", {
 				case keyCode.PAGE_UP:
 					suppressKeyPress = true;
 					this._move( "previousPage", event );
-					void break;
+					break;
 				case keyCode.PAGE_DOWN:
 					suppressKeyPress = true;
 					this._move( "nextPage", event );
-					void break;
+					break;
 				case keyCode.UP:
 					suppressKeyPress = true;
 					this._keyEvent( "previous", event );
-					void break;
+					break;
 				case keyCode.DOWN:
 					suppressKeyPress = true;
 					this._keyEvent( "next", event );
-					void break;
+					break;
 				case keyCode.ENTER:
 
 					// when menu is open and has focus
@@ -5808,12 +5808,12 @@ $.widget( "ui.autocomplete", {
 						event.preventDefault();
 						this.menu.select( event );
 					}
-					void break;
+					break;
 				case keyCode.TAB:
 					if ( this.menu.active ) {
 						this.menu.select( event );
 					}
-					void break;
+					break;
 				case keyCode.ESCAPE:
 					if ( this.menu.element.is( ":visible" ) ) {
 						if ( !this.isMultiLine ) {
@@ -5826,13 +5826,13 @@ $.widget( "ui.autocomplete", {
 						// Double press in IE means clear the whole form
 						event.preventDefault();
 					}
-					void break;
+					break;
 				default:
 					suppressKeyPressRepeat = true;
 
 					// search timeout should be triggered before the input value is changed
 					this._searchTimeout( event );
-					void break;
+					break;
 				}
 			},
 			keypress: function( event ) {
@@ -5852,16 +5852,16 @@ $.widget( "ui.autocomplete", {
 				switch ( event.keyCode ) {
 				case keyCode.PAGE_UP:
 					this._move( "previousPage", event );
-					void break;
+					break;
 				case keyCode.PAGE_DOWN:
 					this._move( "nextPage", event );
-					void break;
+					break;
 				case keyCode.UP:
 					this._keyEvent( "previous", event );
-					void break;
+					break;
 				case keyCode.DOWN:
 					this._keyEvent( "next", event );
-					void break;
+					break;
 				}
 			},
 			input: function( event ) {
@@ -8018,7 +8018,7 @@ $.extend( Datepicker.prototype, {
 						}
 
 						// next month/year on alt +left on Mac
-						void break;
+						break;
 				case 38: if ( event.ctrlKey || event.metaKey ) {
 							$.datepicker._adjustDate( event.target, -7, "D" );
 						}
@@ -8037,7 +8037,7 @@ $.extend( Datepicker.prototype, {
 						}
 
 						// next month/year on alt +right
-						void break;
+						break;
 				case 40: if ( event.ctrlKey || event.metaKey ) {
 							$.datepicker._adjustDate( event.target, +7, "D" );
 						}
@@ -8587,41 +8587,41 @@ $.extend( Datepicker.prototype, {
 				switch ( format.charAt( iFormat ) ) {
 					case "d":
 						day = getNumber( "d" );
-						void break;
+						break;
 					case "D":
 						getName( "D", dayNamesShort, dayNames );
-						void break;
+						break;
 					case "o":
 						doy = getNumber( "o" );
-						void break;
+						break;
 					case "m":
 						month = getNumber( "m" );
-						void break;
+						break;
 					case "M":
 						month = getName( "M", monthNamesShort, monthNames );
-						void break;
+						break;
 					case "y":
 						year = getNumber( "y" );
-						void break;
+						break;
 					case "@":
 						date = new Date( getNumber( "@" ) );
 						year = date.getFullYear();
 						month = date.getMonth() + 1;
 						day = date.getDate();
-						void break;
+						break;
 					case "!":
 						date = new Date( ( getNumber( "!" ) - this._ticksTo1970 ) / 10000 );
 						year = date.getFullYear();
 						month = date.getMonth() + 1;
 						day = date.getDate();
-						void break;
+						break;
 					case "'":
 						if ( lookAhead( "'" ) ) {
 							checkLiteral();
 						} else {
 							literal = true;
 						}
-						void break;
+						break;
 					default:
 						checkLiteral();
 				}
@@ -8648,7 +8648,7 @@ $.extend( Datepicker.prototype, {
 			do {
 				dim = this._getDaysInMonth( year, month - 1 );
 				if ( day <= dim ) {
-					void break;
+					break;
 				}
 				month++;
 				day -= dim;
@@ -8757,37 +8757,37 @@ $.extend( Datepicker.prototype, {
 					switch ( format.charAt( iFormat ) ) {
 						case "d":
 							output += formatNumber( "d", date.getDate(), 2 );
-							void break;
+							break;
 						case "D":
 							output += formatName( "D", date.getDay(), dayNamesShort, dayNames );
-							void break;
+							break;
 						case "o":
 							output += formatNumber( "o",
 								Math.round( ( new Date( date.getFullYear(), date.getMonth(), date.getDate() ).getTime() - new Date( date.getFullYear(), 0, 0 ).getTime() ) / 86400000 ), 3 );
-							void break;
+							break;
 						case "m":
 							output += formatNumber( "m", date.getMonth() + 1, 2 );
-							void break;
+							break;
 						case "M":
 							output += formatName( "M", date.getMonth(), monthNamesShort, monthNames );
-							void break;
+							break;
 						case "y":
 							output += ( lookAhead( "y" ) ? date.getFullYear() :
 								( date.getFullYear() % 100 < 10 ? "0" : "" ) + date.getFullYear() % 100 );
-							void break;
+							break;
 						case "@":
 							output += date.getTime();
-							void break;
+							break;
 						case "!":
 							output += date.getTime() * 10000 + this._ticksTo1970;
-							void break;
+							break;
 						case "'":
 							if ( lookAhead( "'" ) ) {
 								output += "'";
 							} else {
 								literal = true;
 							}
-							void break;
+							break;
 						default:
 							output += format.charAt( iFormat );
 					}
@@ -8823,7 +8823,7 @@ $.extend( Datepicker.prototype, {
 				switch ( format.charAt( iFormat ) ) {
 					case "d": case "m": case "y": case "@":
 						chars += "0123456789";
-						void break;
+						break;
 					case "D": case "M":
 						return null; // Accept anything
 					case "'":
@@ -8832,7 +8832,7 @@ $.extend( Datepicker.prototype, {
 						} else {
 							literal = true;
 						}
-						void break;
+						break;
 					default:
 						chars += format.charAt( iFormat );
 				}
@@ -8912,11 +8912,11 @@ $.extend( Datepicker.prototype, {
 						case "m" : case "M" :
 							month += parseInt( matches[ 1 ], 10 );
 							day = Math.min( day, $.datepicker._getDaysInMonth( year, month ) );
-							void break;
+							break;
 						case "y": case "Y" :
 							year += parseInt( matches[ 1 ], 10 );
 							day = Math.min( day, $.datepicker._getDaysInMonth( year, month ) );
-							void break;
+							break;
 					}
 					matches = pattern.exec( offset );
 				}
@@ -10935,7 +10935,7 @@ $.ui.plugin.add( "draggable", "snap", {
 					}
 				}
 				inst.snapElements[ i ].snapping = false;
-				void continue;
+				continue;
 			}
 
 			if ( o.snapMode !== "inner" ) {
@@ -11278,12 +11278,12 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		case "handles":
 			this._removeHandles();
 			this._setupHandles();
-			void break;
+			break;
 		case "aspectRatio":
 			this._aspectRatio = !!value;
-			void break;
+			break;
 		default:
-			void break;
+			break;
 		}
 	},
 
@@ -13502,7 +13502,7 @@ $.ui.ddmanager = {
 			// No disabled and non-accepted
 			if ( m[ i ].options.disabled || ( t && !m[ i ].accept.call( m[ i ].element[ 0 ],
 					( t.currentItem || t.element ) ) ) ) {
-				void continue;
+				continue;
 			}
 
 			// Filter out elements in the current dragged item
@@ -13515,7 +13515,7 @@ $.ui.ddmanager = {
 
 			m[ i ].visible = m[ i ].element.css( "display" ) !== "none";
 			if ( !m[ i ].visible ) {
-				void continue;
+				continue;
 			}
 
 			// Activate the droppable if used directly from draggables
@@ -14588,47 +14588,47 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 			case $.ui.keyCode.ESCAPE:
 				this.close( event );
 				preventDefault = false;
-				void break;
+				break;
 			case $.ui.keyCode.ENTER:
 				if ( this.isOpen ) {
 					this._selectFocusedItem( event );
 				}
-				void break;
+				break;
 			case $.ui.keyCode.UP:
 				if ( event.altKey ) {
 					this._toggle( event );
 				} else {
 					this._move( "prev", event );
 				}
-				void break;
+				break;
 			case $.ui.keyCode.DOWN:
 				if ( event.altKey ) {
 					this._toggle( event );
 				} else {
 					this._move( "next", event );
 				}
-				void break;
+				break;
 			case $.ui.keyCode.SPACE:
 				if ( this.isOpen ) {
 					this._selectFocusedItem( event );
 				} else {
 					this._toggle( event );
 				}
-				void break;
+				break;
 			case $.ui.keyCode.LEFT:
 				this._move( "prev", event );
-				void break;
+				break;
 			case $.ui.keyCode.RIGHT:
 				this._move( "next", event );
-				void break;
+				break;
 			case $.ui.keyCode.HOME:
 			case $.ui.keyCode.PAGE_UP:
 				this._move( "first", event );
-				void break;
+				break;
 			case $.ui.keyCode.END:
 			case $.ui.keyCode.PAGE_DOWN:
 				this._move( "last", event );
-				void break;
+				break;
 			default:
 				this.menu.trigger( event );
 				preventDefault = false;
@@ -15246,13 +15246,13 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 
 				// Reset positioning from previous orientation
 				this.handles.css( value === "horizontal" ? "bottom" : "left", "" );
-				void break;
+				break;
 			case "value":
 				this._animateOff = true;
 				this._refreshValue();
 				this._change( null, 0 );
 				this._animateOff = false;
-				void break;
+				break;
 			case "values":
 				this._animateOff = true;
 				this._refreshValue();
@@ -15262,7 +15262,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 					this._change( null, i );
 				}
 				this._animateOff = false;
-				void break;
+				break;
 			case "step":
 			case "min":
 			case "max":
@@ -15270,12 +15270,12 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 				this._calculateNewMax();
 				this._refreshValue();
 				this._animateOff = false;
-				void break;
+				break;
 			case "range":
 				this._animateOff = true;
 				this._refresh();
 				this._animateOff = false;
-				void break;
+				break;
 		}
 	},
 
@@ -15491,7 +15491,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 							return;
 						}
 					}
-					void break;
+					break;
 			}
 
 			step = this.options.step;
@@ -15504,33 +15504,33 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 			switch ( event.keyCode ) {
 				case $.ui.keyCode.HOME:
 					newVal = this._valueMin();
-					void break;
+					break;
 				case $.ui.keyCode.END:
 					newVal = this._valueMax();
-					void break;
+					break;
 				case $.ui.keyCode.PAGE_UP:
 					newVal = this._trimAlignValue(
 						curVal + ( ( this._valueMax() - this._valueMin() ) / this.numPages )
 					);
-					void break;
+					break;
 				case $.ui.keyCode.PAGE_DOWN:
 					newVal = this._trimAlignValue(
 						curVal - ( ( this._valueMax() - this._valueMin() ) / this.numPages ) );
-					void break;
+					break;
 				case $.ui.keyCode.UP:
 				case $.ui.keyCode.RIGHT:
 					if ( curVal === this._valueMax() ) {
 						return;
 					}
 					newVal = this._trimAlignValue( curVal + step );
-					void break;
+					break;
 				case $.ui.keyCode.DOWN:
 				case $.ui.keyCode.LEFT:
 					if ( curVal === this._valueMin() ) {
 						return;
 					}
 					newVal = this._trimAlignValue( curVal - step );
-					void break;
+					break;
 			}
 
 			this._slide( event, index, newVal );
@@ -15977,7 +15977,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			itemElement = item.item[ 0 ];
 			intersection = this._intersectsWithPointer( item );
 			if ( !intersection ) {
-				void continue;
+				continue;
 			}
 
 			// Only put the placeholder inside the current Container, skip all
@@ -15988,7 +15988,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			// Without this, moving items in "sub-sortables" can cause
 			// the placeholder to jitter between the outer and inner container.
 			if ( item.instance !== this.currentContainer ) {
-				void continue;
+				continue;
 			}
 
 			// Cannot intersect with itself
@@ -16010,11 +16010,11 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 						this._intersectsWithSides( item ) ) {
 					this._rearrange( event, item );
 				} else {
-					void break;
+					break;
 				}
 
 				this._trigger( "change", event, this._uiHash() );
-				void break;
+				break;
 			}
 		}
 
@@ -16390,7 +16390,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			//We ignore calculating positions of all connected containers when we're not over them
 			if ( this.currentContainer && item.instance !== this.currentContainer &&
 					item.item[ 0 ] !== this.currentItem[ 0 ] ) {
-				void continue;
+				continue;
 			}
 
 			t = this.options.toleranceElement ?
@@ -16542,7 +16542,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 			// Never consider a container that's located within the item itself
 			if ( $.contains( this.currentItem[ 0 ], this.containers[ i ].element[ 0 ] ) ) {
-				void continue;
+				continue;
 			}
 
 			if ( this._intersectsWith( this.containers[ i ].containerCache ) ) {
@@ -16552,7 +16552,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 						$.contains(
 							this.containers[ i ].element[ 0 ],
 							innermostContainer.element[ 0 ] ) ) {
-					void continue;
+					continue;
 				}
 
 				innermostContainer = this.containers[ i ];
@@ -16595,10 +16595,10 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				if ( !$.contains(
 						this.containers[ innermostIndex ].element[ 0 ], this.items[ j ].item[ 0 ] )
 				) {
-					void continue;
+					continue;
 				}
 				if ( this.items[ j ].item[ 0 ] === this.currentItem[ 0 ] ) {
-					void continue;
+					continue;
 				}
 
 				cur = this.items[ j ].item.offset()[ posProperty ];
@@ -17869,18 +17869,18 @@ $.widget( "ui.tabs", {
 		case $.ui.keyCode.RIGHT:
 		case $.ui.keyCode.DOWN:
 			selectedIndex++;
-			void break;
+			break;
 		case $.ui.keyCode.UP:
 		case $.ui.keyCode.LEFT:
 			goingForward = false;
 			selectedIndex--;
-			void break;
+			break;
 		case $.ui.keyCode.END:
 			selectedIndex = this.anchors.length - 1;
-			void break;
+			break;
 		case $.ui.keyCode.HOME:
 			selectedIndex = 0;
-			void break;
+			break;
 		case $.ui.keyCode.SPACE:
 
 			// Activate only, no collapsing

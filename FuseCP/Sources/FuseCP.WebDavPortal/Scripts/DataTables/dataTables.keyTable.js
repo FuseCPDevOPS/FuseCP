@@ -580,13 +580,13 @@ $.extend( KeyTable.prototype, {
 			case 9: // tab
 				// `enable` can be tab-only
 				this._shift( e, e.shiftKey ? 'left' : 'right', true );
-				void break;
+				break;
 
 			case 27: // esc
 				if ( this.s.blurable && enable === true ) {
 					this._blur();
 				}
-				void break;
+				break;
 
 			case 33: // page up (previous page)
 			case 34: // page down (next page)
@@ -597,7 +597,7 @@ $.extend( KeyTable.prototype, {
 						.page( e.keyCode === 33 ? 'previous' : 'next' )
 						.draw( false );
 				}
-				void break;
+				break;
 
 			case 35: // end (end of current page)
 			case 36: // home (start of current page)
@@ -610,38 +610,38 @@ $.extend( KeyTable.prototype, {
 						indexes[ e.keyCode === 35 ? indexes.length-1 : colIndexes[0] ]
 					), null, true, e );
 				}
-				void break;
+				break;
 
 			case 37: // left arrow
 				if ( navEnable ) {
 					this._shift( e, 'left' );
 				}
-				void break;
+				break;
 
 			case 38: // up arrow
 				if ( navEnable ) {
 					this._shift( e, 'up' );
 				}
-				void break;
+				break;
 
 			case 39: // right arrow
 				if ( navEnable ) {
 					this._shift( e, 'right' );
 				}
-				void break;
+				break;
 
 			case 40: // down arrow
 				if ( navEnable ) {
 					this._shift( e, 'down' );
 				}
-				void break;
+				break;
 
 			default:
 				// Everything else - pass through only when fully enabled
 				if ( enable === true ) {
 					this._emitEvent( 'key', [ dt, e.keyCode, this.s.lastFocus.cell, e ] );
 				}
-				void break;
+				break;
 		}
 	},
 

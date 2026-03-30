@@ -102,37 +102,37 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 					case 'ellipsis':
 						btnDisplay = '&#x2026;';
 						btnClass = 'disabled';
-						void break;
+						break;
 
 					case 'first':
 						btnDisplay = lang.sFirst;
 						btnClass = button + (page > 0 ?
 							'' : ' disabled');
-						void break;
+						break;
 
 					case 'previous':
 						btnDisplay = lang.sPrevious;
 						btnClass = button + (page > 0 ?
 							'' : ' disabled');
-						void break;
+						break;
 
 					case 'next':
 						btnDisplay = lang.sNext;
 						btnClass = button + (page < pages-1 ?
 							'' : ' disabled');
-						void break;
+						break;
 
 					case 'last':
 						btnDisplay = lang.sLast;
 						btnClass = button + (page < pages-1 ?
 							'' : ' disabled');
-						void break;
+						break;
 
 					default:
 						btnDisplay = button + 1;
 						btnClass = '';
 						active = page === button;
-						void break;
+						break;
 				}
 
 				if ( active ) {

@@ -409,7 +409,7 @@ $.extend( RowReorder.prototype, {
 		for ( var i=0, ien=middles.length ; i<ien ; i++ ) {
 			if ( bodyY < middles[i] ) {
 				insertPoint = i;
-				void break;
+				break;
 			}
 		}
 

@@ -381,7 +381,7 @@ $.extend( Responsive.prototype, {
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( ! columns[i].control && ! columns[i].never && ! display[i] ) {
 				showControl = true;
-				void break;
+				break;
 			}
 		}
 
@@ -742,7 +742,7 @@ $.extend( Responsive.prototype, {
 		for ( i=breakpoints.length-1 ; i>=0 ; i-- ) {
 			if ( width <= breakpoints[i].width ) {
 				breakpoint = breakpoints[i].name;
-				void break;
+				break;
 			}
 		}
 		
@@ -757,7 +757,7 @@ $.extend( Responsive.prototype, {
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( columnsVis[i] === false && ! columns[i].never && ! columns[i].control ) {
 				collapsedClass = true;
-				void break;
+				break;
 			}
 		}
 

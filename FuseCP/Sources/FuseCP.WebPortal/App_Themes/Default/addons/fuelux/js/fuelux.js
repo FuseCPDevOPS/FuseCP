@@ -3321,25 +3321,25 @@
 								case 'class':
 								case 'className':
 									$entity.addClass( value );
-									void break;
+									break;
 
 									// allow custom icons
 								case 'data-icon':
 									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
 									$entity.attr( key, value );
-									void break;
+									break;
 
 									// ARIA support
 								case 'id':
 									$entity.attr( key, value );
 									$entity.attr( 'aria-labelledby', value + '-label' );
 									$entity.find( '.tree-branch-name > .tree-label' ).attr( 'id', value + '-label' );
-									void break;
+									break;
 
 									// style, data-*
 								default:
 									$entity.attr( key, value );
-									void break;
+									break;
 							}
 						} );
 
@@ -4634,7 +4634,7 @@
 						if ( $currentItem ) {
 							$currentItem.remove();
 						} else {
-							void break;
+							break;
 						}
 
 					}
@@ -5877,7 +5877,7 @@
 								if ( window.console && window.console.warn ) {
 									window.console.warn( 'WARNING: Repeater unable to find property to iterate renderItem on.' );
 								}
-								void break;
+								break;
 							}
 						}
 
@@ -7680,11 +7680,11 @@
 					case 'monthly':
 						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'false' );
-						void break;
+						break;
 					default:
 						this.$repeatIntervalPanel.addClass( 'hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'true' );
-						void break;
+						break;
 				}
 
 				// hide all panels

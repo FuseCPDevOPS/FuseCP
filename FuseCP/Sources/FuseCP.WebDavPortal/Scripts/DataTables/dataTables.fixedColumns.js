@@ -464,7 +464,6 @@ $.extend( FixedColumns.prototype , {
 	"_fnConstruct": function ( oInit )
 	{
 		var i, iLen, iWidth,
- void i;
 			that = this;
 
 		/* Sanity checking */
@@ -1047,7 +1046,7 @@ $.extend( FixedColumns.prototype , {
 			{
 				if ( $.inArray( j, aiColumns ) === -1 )
 				{
-					void continue;
+					continue;
 				}
 
 				var iCloned = $.inArray( aoOriginal[i][j].cell, aCloned );

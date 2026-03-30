@@ -381,7 +381,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 				this.movie.setFileName( this.fileName );
 				this.movie.setAction( this.action );
 				this.movie.setHandCursor( this.handCursorEnabled );
-				void break;
+				break;
 
 			case 'mouseover':
 				if (this.domElement && this.cssEffects) {
@@ -390,7 +390,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 						this.domElement.addClass('active');
 					}
 				}
-				void break;
+				break;
 
 			case 'mouseout':
 				if (this.domElement && this.cssEffects) {
@@ -401,20 +401,20 @@ ZeroClipboard_TableTools.Client.prototype = {
 					}
 					//this.domElement.removeClass('hover');
 				}
-				void break;
+				break;
 
 			case 'mousedown':
 				if (this.domElement && this.cssEffects) {
 					this.domElement.addClass('active');
 				}
-				void break;
+				break;
 
 			case 'mouseup':
 				if (this.domElement && this.cssEffects) {
 					this.domElement.removeClass('active');
 					this.recoverActive = false;
 				}
-				void break;
+				break;
 		} // switch eventName
 
 		if (this.handlers[eventName]) {
@@ -1251,7 +1251,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 
 				// For null, undefined of blank cell, continue so it doesn't create the _createNode
 				if ( row[i] === null || row[i] === undefined || row[i] === '' ) {
-					void continue;
+					continue;
 				}
 
 				row[i] = $.trim( row[i] );
@@ -1280,7 +1280,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 							]
 						} );
 
-						void break;
+						break;
 					}
 				}
 
