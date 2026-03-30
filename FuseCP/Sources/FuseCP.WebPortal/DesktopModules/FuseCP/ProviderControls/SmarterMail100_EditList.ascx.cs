@@ -82,14 +82,14 @@ namespace FuseCP.Portal.ProviderControls
 				return;
 
             item.Description = txtDescription.Text;
-            if (ddlListModerators.SelectedValue == GetLocalizedString("Text.SelectModerator"))
-            {
-                item.ModeratorAddress = null;
-            }
-            else
-            {
-                item.ModeratorAddress = ddlListModerators.SelectedValue;
-            }
+            item.ModeratorAddress = ddlListModerators.SelectedValue == GetLocalizedString("Text.SelectModerator") ? null : ddlListModerators.SelectedValue;
+
+
+
+
+
+
+
 
             item.ReplyToMode = chkReplyToList.Checked ? ReplyTo.RepliesToList : ReplyTo.RepliesToSender;
             item.PostingMode = (PostingMode)Enum.Parse(typeof(PostingMode), ddlPostingMode.SelectedValue, true);

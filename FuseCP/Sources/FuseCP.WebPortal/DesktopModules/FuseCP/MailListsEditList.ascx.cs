@@ -120,14 +120,14 @@ namespace FuseCP.Portal
             MailList local_item = new MailList();
             local_item.Id = PanelRequest.ItemID;
             local_item.PackageId = PanelSecurity.PackageId;
-			if (listName != null)
-			{
-				local_item.Name = listName;
-			}
-			else
-			{
-				local_item.Name = emailAddress.Email;
-			}
+			local_item.Name = listName != null ? listName : emailAddress.Email;
+
+
+
+
+
+
+
 			//checking if list name is different from existing e-mail accounts
         MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true) ?? Array.Empty<MailAccount>();
             foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
