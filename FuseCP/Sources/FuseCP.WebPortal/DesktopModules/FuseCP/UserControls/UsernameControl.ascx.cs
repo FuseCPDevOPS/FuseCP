@@ -50,7 +50,7 @@ namespace FuseCP.Portal
 
         public bool RequiredField
         {
-            get { return !((ViewState["RequiredField"] != null)) || (bool)ViewState["RequiredField"]; }
+            get { return ViewState["RequiredField"] == null || (bool)ViewState["RequiredField"]; }
             set { ViewState["RequiredField"] = value; ToggleControls(); }
         }
 
@@ -62,13 +62,13 @@ namespace FuseCP.Portal
 
         private UserInfo PolicyUser
         {
-            get { return (ViewState["PolicyUser"] != null) ? (UserInfo)ViewState["PolicyUser"] : null; }
+            get { return ViewState["PolicyUser"] as UserInfo; }
             set { ViewState["PolicyUser"] = value; }
         }
 
         private string PolicyValue
         {
-            get { return (ViewState["PolicyValue"] != null) ? (string)ViewState["PolicyValue"] : null; }
+            get { return ViewState["PolicyValue"] as string; }
             set { ViewState["PolicyValue"] = value; }
         }
 

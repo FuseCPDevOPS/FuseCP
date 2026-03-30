@@ -33,7 +33,7 @@ namespace FuseCP.Portal
             get
             {
                 // get item id from view state
-                int itemId = (ViewState["ItemId"] != null) ? (int)ViewState["ItemId"] : -1;
+                int itemId = ViewState["ItemId"] is int viewStateItemId ? viewStateItemId : -1;
                 if (itemId == -1 && RequestItemId != null)
                 {
                         itemId = Utils.ParseInt(Request[RequestItemId], -1);
@@ -46,13 +46,13 @@ namespace FuseCP.Portal
 
         public string ItemTypeId
         {
-            get { return (ViewState["ItemTypeId"] != null) ? (string)ViewState["ItemTypeId"] : ""; }
+            get { return ViewState["ItemTypeId"] as string ?? ""; }
             set { ViewState["ItemTypeId"] = value; }
         }
 
         public string RequestItemId
         {
-            get { return (ViewState["RequestItemId"] != null) ? (string)ViewState["RequestItemId"] : null; }
+            get { return ViewState["RequestItemId"] as string; }
             set { ViewState["RequestItemId"] = value; }
         }
 

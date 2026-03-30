@@ -297,7 +297,7 @@ namespace FuseCP.Portal
         }
         private void ShowPanels(bool editMode)
         {
-            bool newRecord = !((ViewState["NewRecord"] != null)) || (bool)ViewState["NewRecord"];
+            bool newRecord = ViewState["NewRecord"] == null || (bool)ViewState["NewRecord"];
             pnlEdit.Visible = editMode;
             litRecordType.Visible = !newRecord;
             ddlRecordType.Visible = newRecord;

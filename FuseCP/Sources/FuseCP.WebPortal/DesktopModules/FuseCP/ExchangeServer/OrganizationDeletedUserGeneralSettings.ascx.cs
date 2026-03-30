@@ -119,7 +119,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
 if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowChangeUpnQuota))
                 {
-                    chkInherit.Visible = allowChangeUpnQuota.QuotaAllocatedValue != 1 ? false : true;
+                    chkInherit.Visible = allowChangeUpnQuota.QuotaAllocatedValue == 1;
 
 
 

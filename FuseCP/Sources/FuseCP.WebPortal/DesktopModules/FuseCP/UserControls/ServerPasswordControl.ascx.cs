@@ -41,7 +41,7 @@ namespace FuseCP.Portal
 
         public bool ValidationEnabled
         {
-            get { return !((ViewState["ValidationEnabled"] != null)) || (bool)ViewState["ValidationEnabled"]; }
+            get { return ViewState["ValidationEnabled"] == null || (bool)ViewState["ValidationEnabled"]; }
             set { ViewState["ValidationEnabled"] = value; ToggleControls(); }
         }
 
@@ -103,19 +103,19 @@ namespace FuseCP.Portal
 
         public bool CheckPasswordLength
         {
-            get { return !((ViewState["CheckPasswordLength"] != null)) || (bool)ViewState["CheckPasswordLength"]; }
+            get { return ViewState["CheckPasswordLength"] == null || (bool)ViewState["CheckPasswordLength"]; }
             set { ViewState["CheckPasswordLength"] = value; ToggleControls(); }
         }
 
         public int MinimumLength
         {
-            get { return (ViewState["MinimumLength"] != null) ? (int)ViewState["MinimumLength"] : 0; }
+            get { return ViewState["MinimumLength"] is int minimumLength ? minimumLength : 0; }
             set { ViewState["MinimumLength"] = value; }
         }
 
         public int MaximumLength
         {
-            get { return (ViewState["MaximumLength"] != null) ? (int)ViewState["MaximumLength"] : 0; }
+            get { return ViewState["MaximumLength"] is int maximumLength ? maximumLength : 0; }
             set
             {
                 {
@@ -127,13 +127,13 @@ namespace FuseCP.Portal
 
         private UserInfo PolicyUser
         {
-            get { return (ViewState["PolicyUser"] != null) ? (UserInfo)ViewState["PolicyUser"] : null; }
+            get { return ViewState["PolicyUser"] as UserInfo; }
             set { ViewState["PolicyUser"] = value; }
         }
 
         private string PolicyValue
         {
-            get { return (ViewState["PolicyValue"] != null) ? (string)ViewState["PolicyValue"] : null; }
+            get { return ViewState["PolicyValue"] as string; }
             set { ViewState["PolicyValue"] = value; }
         }
 

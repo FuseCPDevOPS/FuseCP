@@ -41,7 +41,7 @@ namespace FuseCP.Portal
 
         public int PackageId
         {
-            get { return (ViewState["PackageId"] != null) ? (int)ViewState["PackageId"] : PanelSecurity.PackageId; }
+            get { return ViewState["PackageId"] is int packageId ? packageId : PanelSecurity.PackageId; }
             set { ViewState["PackageId"] = value; InitTree(); }
         }
 
@@ -53,7 +53,7 @@ namespace FuseCP.Portal
 
         public string RootFolder
         {
-            get { return (ViewState["RootFolder"] != null) ? (string)ViewState["RootFolder"] : ""; }
+            get { return ViewState["RootFolder"] as string ?? ""; }
             set { ViewState["RootFolder"] = value; }
         }
 

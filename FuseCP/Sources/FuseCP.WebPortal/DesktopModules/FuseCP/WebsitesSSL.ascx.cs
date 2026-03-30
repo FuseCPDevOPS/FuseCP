@@ -609,7 +609,7 @@ namespace FuseCP.Portal
                     SetInstalledTabText(GetLocalizedString("tabInstalled.Text"));
 
                     InstalledCert = (from c in certificates
-                                     where c.Installed == true
+                                     where c.Installed
                                      select c).SingleOrDefault();
                     //
                     BindCertificateFields();

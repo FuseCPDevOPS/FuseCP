@@ -36,7 +36,7 @@ namespace FuseCP.Portal
 
         public int QuotaTypeId
         {
-            get { return (ViewState["QuotaTypeId"] != null) ? (int)ViewState["QuotaTypeId"] : 2; }
+            get { return ViewState["QuotaTypeId"] is int quotaTypeId ? quotaTypeId : 2; }
             set { ViewState["QuotaTypeId"] = value; UpdateControl(); }
         }
 

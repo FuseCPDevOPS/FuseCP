@@ -98,7 +98,7 @@ namespace FuseCP.Portal
                 lnkEditSpaceDetails.Visible = (PanelSecurity.PackageId > 1 && !ownSpace);
 
                 lnkDelete.NavigateUrl = EditUrl(PortalUtils.SPACE_ID_PARAM, PanelSecurity.PackageId.ToString(), "delete");
-                lnkDelete.Visible = !((PanelSecurity.LoggedUser.Role == UserRole.Reseller) || (PanelSecurity.LoggedUser.Role == UserRole.Administrator)) ? false : ((PanelSecurity.SelectedUserId != PanelSecurity.EffectiveUserId) && (PanelSecurity.PackageId > 1));
+                lnkDelete.Visible = ((PanelSecurity.LoggedUser.Role == UserRole.Reseller) || (PanelSecurity.LoggedUser.Role == UserRole.Administrator)) && ((PanelSecurity.SelectedUserId != PanelSecurity.EffectiveUserId) && (PanelSecurity.PackageId > 1));
 
 
 

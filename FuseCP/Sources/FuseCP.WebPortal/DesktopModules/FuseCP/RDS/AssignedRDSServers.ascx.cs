@@ -44,7 +44,8 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_SERVERS, out var _ckv))
                 if (PanelSecurity.LoggedUser.Role != UserRole.Administrator )
                 {
                     // Check if User is allowed to add server
-                    btnAddServerToOrg.Enabled = !Utils.CheckQouta("RDS.DisableUserAddServer", cntx) ? (!(_ckv.QuotaAllocatedValue <= gvRDSAssignedServers.Rows.Count) || (_ckv.QuotaAllocatedValue == -1)) : false;
+                    btnAddServerToOrg.Enabled = !Utils.CheckQouta("RDS.DisableUserAddServer", cntx)
+                        && (_ckv.QuotaAllocatedValue == -1 || _ckv.QuotaAllocatedValue > gvRDSAssignedServers.Rows.Count);
 
 
 
@@ -65,7 +66,8 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_SERVERS, out var _ckv))
                 }
                 else
                 {
-                    btnAddServerToOrg.Enabled = (!(cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue <= gvRDSAssignedServers.Rows.Count) || (cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue == -1));
+                    btnAddServerToOrg.Enabled = cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue == -1
+                        || cntx.Quotas[Quotas.RDS_SERVERS].QuotaAllocatedValue > gvRDSAssignedServers.Rows.Count;
                     VisableDeleteServer = true;
                 }
             }

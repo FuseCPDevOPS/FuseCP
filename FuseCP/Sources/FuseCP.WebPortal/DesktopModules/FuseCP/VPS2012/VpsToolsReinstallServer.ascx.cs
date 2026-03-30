@@ -84,7 +84,7 @@ namespace FuseCP.Portal.VPS2012
             vm.CreationTime = string.IsNullOrEmpty(vm.CreationTime) ? DateTime.Now.ToString() : vm.CreationTime;
             DateTime.TryParse(vm.CreationTime, out DateTime dateTimePlusHours);
             dateTimePlusHours = dateTimePlusHours.AddHours(9);
-            bool IsNotReinstallPossible = !(dateTimePlusHours <= DateTime.Now); //TODO: add possible to change that check.
+            bool IsNotReinstallPossible = dateTimePlusHours > DateTime.Now; //TODO: add possible to change that check.
             if (IsNotReinstallPossible && !manageAllowed)
             {
                 messageBox.ShowWarningMessage("VPS_REINSTALL_LIMIT", 

@@ -41,7 +41,7 @@ namespace FuseCP.Portal.ExchangeServer
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
-                btnCreate.Enabled = (!(_ckv.QuotaAllocatedValue <= gvOrgs.Rows.Count) || (_ckv.QuotaAllocatedValue == -1));
+                btnCreate.Enabled = _ckv.QuotaAllocatedValue == -1 || _ckv.QuotaAllocatedValue > gvOrgs.Rows.Count;
             }
 
             /*
@@ -155,7 +155,7 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
                     PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
                     {
-                        btnCreate.Enabled = !(_ckv.QuotaAllocatedValue <= gvOrgs.Rows.Count);
+                        btnCreate.Enabled = _ckv.QuotaAllocatedValue > gvOrgs.Rows.Count;
                     }
 
                 }

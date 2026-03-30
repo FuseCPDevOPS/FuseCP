@@ -40,7 +40,7 @@ namespace FuseCP.Portal
 
         public int UserId
         {
-            get { return (ViewState["UserId"] != null) ? (int)ViewState["UserId"] : 0; }
+            get { return ViewState["UserId"] is int userId ? userId : 0; }
             set { ViewState["UserId"] = value; }
         }
 

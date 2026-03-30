@@ -32,7 +32,7 @@ namespace FuseCP.Portal
     {
         public string QuotaName
         {
-            get { return (ViewState["QuotaName"] != null) ? (string)ViewState["QuotaName"] : ""; }
+            get { return ViewState["QuotaName"] as string ?? ""; }
             set { ViewState["QuotaName"] = value; }
         }
 

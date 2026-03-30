@@ -51,7 +51,7 @@ namespace FuseCP.Portal.RDS
             if (quota != null)
             {
                 int rdsUsersCount = ES.Services.RDS.GetOrganizationRdsUsersCount(PanelRequest.ItemID);
-                users.ButtonAddEnabled = (!(quota.QuotaAllocatedValue <= rdsUsersCount) || (quota.QuotaAllocatedValue == -1));
+                users.ButtonAddEnabled = quota.QuotaAllocatedValue == -1 || quota.QuotaAllocatedValue > rdsUsersCount;
             }
         }
 

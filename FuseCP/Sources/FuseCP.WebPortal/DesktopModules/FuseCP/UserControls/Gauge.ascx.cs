@@ -33,31 +33,31 @@ namespace FuseCP.Portal
 
         public bool DisplayGauge
         {
-            get { return !((ViewState["DisplayGauge"] != null)) || (bool)ViewState["DisplayGauge"]; }
+            get { return ViewState["DisplayGauge"] == null || (bool)ViewState["DisplayGauge"]; }
             set { ViewState["DisplayGauge"] = value; }
         }
 
         public bool DisplayText
         {
-            get { return !((ViewState["DisplayText"] != null)) || (bool)ViewState["DisplayText"]; }
+            get { return ViewState["DisplayText"] == null || (bool)ViewState["DisplayText"]; }
             set { ViewState["DisplayText"] = value; }
         }
 
         public int Progress
         {
-            get { return (ViewState["Progress"] != null) ? (int)ViewState["Progress"] : 0; }
+            get { return ViewState["Progress"] is int progress ? progress : 0; }
             set { ViewState["Progress"] = value; }
         }
 
         public int Total
         {
-            get { return (ViewState["Total"] != null) ? (int)ViewState["Total"] : 0; }
+            get { return ViewState["Total"] is int total ? total : 0; }
             set { ViewState["Total"] = value; }
         }
 
         public int Available
         {
-            get { return (ViewState["Available"] != null) ? (int)ViewState["Available"] : -1; }
+            get { return ViewState["Available"] is int available ? available : -1; }
             set { ViewState["Available"] = value; }
         }
         

@@ -637,21 +637,12 @@ namespace CSSFriendly
 
         private bool IsParentNodeSelected(TreeNode item)
         {
-            bool bRet = false;
-
             if ((item != null) && (item.Parent != null))
             {
-                bRet = item.Parent.Selected || IsParentNodeSelected(item.Parent);
-
-
-
-
-
-
-
+                return item.Parent.Selected || IsParentNodeSelected(item.Parent);
             }
 
-            return bRet;
+            return false;
         }
 
         private string ComposeViewState(TreeNodeCollection nodes, string state)
@@ -660,7 +651,7 @@ namespace CSSFriendly
             {
                 foreach (TreeNode node in nodes)
                 {
-                    state += node.Expanded is true ? "e" : "n";
+                    state += node.Expanded == true ? "e" : "n";
                     state = ComposeViewState(node.ChildNodes, state);
                 }
             }

@@ -31,13 +31,13 @@ namespace FuseCP.Portal
     {
         public bool AllowEmptySelection
         {
-            get { return !((ViewState["AllowEmptySelection"] != null)) || (bool)ViewState["AllowEmptySelection"]; }
+            get { return ViewState["AllowEmptySelection"] == null || (bool)ViewState["AllowEmptySelection"]; }
             set { ViewState["AllowEmptySelection"] = value; }
         }
 
         public int SelectedUserId
         {
-            get { return (ViewState["SelectedUserId"] != null) ? (int)ViewState["SelectedUserId"] : 0; }
+            get { return ViewState["SelectedUserId"] is int selectedUserId ? selectedUserId : 0; }
             set { ViewState["SelectedUserId"] = value; }
         }
 
