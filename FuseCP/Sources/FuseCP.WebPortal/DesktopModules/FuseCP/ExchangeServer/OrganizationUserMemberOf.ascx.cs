@@ -150,11 +150,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 foreach (ExchangeAccount oldGroup in oldGroups)
                 {
-                    if (newGroups.ContainsKey(oldGroup.AccountName))
-                    {
-                        newGroups.Remove(oldGroup.AccountName);
-                    }
-                    else
+                    if (!newGroups.Remove(oldGroup.AccountName))
                     {
                         switch (oldGroup.AccountType)
                         {

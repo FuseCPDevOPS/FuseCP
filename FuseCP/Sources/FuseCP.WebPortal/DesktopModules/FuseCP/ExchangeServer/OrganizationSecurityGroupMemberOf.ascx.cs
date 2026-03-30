@@ -140,11 +140,7 @@ namespace FuseCP.Portal.HostedSolution
 
                 foreach (ExchangeAccount oldGroup in oldGroups)
                 {
-                    if (newGroups.ContainsKey(oldGroup.AccountName))
-                    {
-                        newGroups.Remove(oldGroup.AccountName);
-                    }
-                    else
+                    if (!newGroups.Remove(oldGroup.AccountName))
                     {
                         ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
                     }

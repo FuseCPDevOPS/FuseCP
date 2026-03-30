@@ -132,11 +132,7 @@ namespace FuseCP.Portal.ExchangeServer
                 IDictionary<string, ExchangeAccountType> newGroups = groups.GetFullAccounts();
                 foreach (ExchangeAccount oldGroup in oldGroups)
                 {
-                    if (newGroups.ContainsKey(oldGroup.AccountName))
-                    {
-                        newGroups.Remove(oldGroup.AccountName);
-                    }
-                    else
+                    if (!newGroups.Remove(oldGroup.AccountName))
                     {
                         switch (oldGroup.AccountType)
                         {
