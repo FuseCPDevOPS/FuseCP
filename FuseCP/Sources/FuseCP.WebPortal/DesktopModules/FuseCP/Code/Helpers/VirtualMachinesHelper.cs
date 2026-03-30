@@ -83,8 +83,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS_MANAGING_ALLOWED, out var _ckv))
                 if (package.UserId != PanelSecurity.EffectiveUserId)
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
-                    if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPS_MANAGING_ALLOWED))
-                        manageAllowed = !_ckv.QuotaExhausted;
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS_MANAGING_ALLOWED, out var parentQuota))
+                        manageAllowed = !parentQuota.QuotaExhausted;
                 }
             }
             return manageAllowed;

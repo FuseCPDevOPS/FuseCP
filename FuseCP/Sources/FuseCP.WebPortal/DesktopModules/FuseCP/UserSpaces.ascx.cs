@@ -227,11 +227,15 @@ namespace FuseCP.Portal
             bool display = true;
             if (cntx != null)
             {
+                bool quotaEnabled = String.IsNullOrEmpty(quota);
+                if (!quotaEnabled)
+                {
+                    quotaEnabled = cntx.Quotas.TryGetValue(quota, out var quotaValue) && quotaValue.QuotaAllocatedValue != 0;
+                }
+
                 display = (String.IsNullOrEmpty(resourceGroup)
                     || cntx.Groups.ContainsKey(resourceGroup)) &&
-                    (String.IsNullOrEmpty(quota)
-                    || (cntx.Quotas.ContainsKey(quota) &&
-                        cntx.Quotas[quota].QuotaAllocatedValue != 0));
+                    quotaEnabled;
             }
 
             // process nested menu items

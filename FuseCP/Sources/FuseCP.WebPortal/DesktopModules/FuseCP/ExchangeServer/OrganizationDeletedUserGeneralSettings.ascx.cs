@@ -129,7 +129,7 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
 
                 }
 
-                chkLocked.Enabled = user.Locked ? true : false;
+                chkLocked.Enabled = user.Locked;
 
                 chkLocked.Checked = user.Locked;
             }
@@ -143,7 +143,7 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            secServiceLevels.Visible = cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels) ? true : false;
+            secServiceLevels.Visible = cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels);
 
 
 

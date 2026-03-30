@@ -222,8 +222,8 @@ namespace FuseCP.Portal
             // load context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
 
-            bool intervalTasksAllowed = (cntx.Quotas.ContainsKey(Quotas.OS_SCHEDULEDINTERVALTASKS)
-                && cntx.Quotas[Quotas.OS_SCHEDULEDINTERVALTASKS].QuotaAllocatedValue != 0);
+            bool intervalTasksAllowed = cntx.Quotas.TryGetValue(Quotas.OS_SCHEDULEDINTERVALTASKS, out var intervalTasksQuota)
+                && intervalTasksQuota.QuotaAllocatedValue != 0;
             if (!intervalTasksAllowed)
                 ddlSchedule.Items.Remove(ddlSchedule.Items.FindByValue("Interval"));
 

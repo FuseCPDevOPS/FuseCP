@@ -97,8 +97,8 @@ namespace FuseCP.Portal.ExchangeServer
         private void MailEnablePublicFolder()
         {
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-			chkMailEnabledFolder.Visible = cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS)
-				&& !cntx.Quotas[Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS].QuotaExhausted;
+            chkMailEnabledFolder.Visible = cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS, out var mailEnabledPublicFoldersQuota)
+                && !mailEnabledPublicFoldersQuota.QuotaExhausted;
 
             EmailRow.Visible = chkMailEnabledFolder.Checked;
         }

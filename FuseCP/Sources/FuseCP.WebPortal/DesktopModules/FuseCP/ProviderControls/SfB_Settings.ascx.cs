@@ -123,13 +123,7 @@ namespace FuseCP.Portal.ProviderControls
                     continue;
 
                 List<ServiceInfo> services = GetServices(SfBServers);
-                bool exists = false;
-                if (services != null)
-                    foreach (ServiceInfo current in services.Where(current => current != null && current.ServiceId == serviceId))
-                    {
-                            exists = true;
-                            break;
-                    }
+                bool exists = services != null && services.Any(current => current != null && current.ServiceId == serviceId);
 
                 if (!exists)
                     ddl.Items.Add(new ListItem(dr["FullServiceName"].ToString(), serviceId.ToString()));

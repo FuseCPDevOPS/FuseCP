@@ -138,8 +138,8 @@ namespace FuseCP.Portal.SkinControls
 
                 ModuleDefinition definition = PortalConfiguration.ModuleDefinitions[EXCHANGE_SERVER_MODULE_DEFINTION_ID];
                 ModuleControl control = null;
-                if (!String.IsNullOrEmpty(ctrlKey) && definition.Controls.ContainsKey(ctrlKey))
-                    control = definition.Controls[ctrlKey];
+                if (!String.IsNullOrEmpty(ctrlKey))
+                    definition.Controls.TryGetValue(ctrlKey, out control);
 
                 if (control != null)
                 {

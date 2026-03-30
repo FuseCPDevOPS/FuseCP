@@ -43,7 +43,7 @@ namespace FuseCP.Portal
 		public AsyncLock ServiceLock = new AsyncLock();
 		async Task<ServiceInfo> Service()
 		{
-			using (var alock = await ServiceLock.LockAsync())
+			using (await ServiceLock.LockAsync())
 			{
 				if (service == null)
 				{
@@ -56,7 +56,7 @@ namespace FuseCP.Portal
         async Task<ProviderInfo> Provider()
 		{
 			var local_service = await Service();
-            using (var alock = await ProviderLock.LockAsync())
+            using (await ProviderLock.LockAsync())
             {
                 if (provider == null)
 					provider = ES.Services.Servers.GetProviderAsync(local_service.ProviderId);
@@ -67,7 +67,7 @@ namespace FuseCP.Portal
         async Task<ResourceGroupInfo> ResourceGroup()
 		{
 			var local_provider = await Provider();
-            using (var alock = await ResourceLock.LockAsync())
+            using (await ResourceLock.LockAsync())
             {
                 if (resourceGroup == null)
 				{

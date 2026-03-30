@@ -141,31 +141,17 @@ namespace FuseCP.Portal
 
                 // check groups/quotas
                 bool display = true;
-                String displayValue = String.Empty;
                 if (cntx != null)
                 {
+                    bool quotaEnabled = String.IsNullOrEmpty(quota);
+                    if (!quotaEnabled)
+                    {
+                        quotaEnabled = cntx.Quotas.TryGetValue(quota, out var quotaValue) && quotaValue.QuotaAllocatedValue != 0;
+                    }
+
                     display = (String.IsNullOrEmpty(resourceGroup)
                         || cntx.Groups.ContainsKey(resourceGroup)) &&
-                        (String.IsNullOrEmpty(quota)
-                        || (cntx.Quotas.ContainsKey(quota) &&
-                            cntx.Quotas[quota].QuotaAllocatedValue != 0));
-
-                    if (!String.IsNullOrEmpty(resourceGroup))
-                    {
-                        displayValue = "String.IsNullOrEmpty(resourceGroup): " + String.IsNullOrEmpty(resourceGroup);
-                        displayValue += "| cntx.Groups.ContainsKey(resourceGroup): " + cntx.Groups.ContainsKey(resourceGroup);
-                        displayValue += "| resourceGroup: " + resourceGroup;
-                    }
-                    if (!String.IsNullOrEmpty(quota))
-                    {
-                        displayValue += "| String.IsNullOrEmpty(quota): " + String.IsNullOrEmpty(quota);
-                        displayValue += "| cntx.Quotas.ContainsKey(quota): " + cntx.Quotas.ContainsKey(quota);
-
-if (cntx.Quotas.TryGetValue(quota, out var _ckv))
-                            displayValue += "| _ckv.QuotaAllocatedValue: " + _ckv.QuotaAllocatedValue;
-
-                        displayValue += "| quota: " + quota;
-                    }
+                        quotaEnabled;
                 }
 
                 if (display)

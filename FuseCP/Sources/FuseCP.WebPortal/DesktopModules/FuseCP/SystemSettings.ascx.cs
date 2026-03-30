@@ -211,10 +211,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
-
                 // BACKUP
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
                 settings[BACKUPS_PATH] = txtBackupsPath.Text.Trim();
 
                 int result = ES.Services.System.SetSystemSettings(
@@ -238,9 +236,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
                 // FILE MANAGER
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
                 settings[FILE_MANAGER_EDITABLE_EXTENSIONS] = Regex.Replace(txtFileManagerEditableExtensions.Text, @"[\r\n]+", ",");
 
 
@@ -265,9 +262,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
                 // RDS Server
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
                 settings[RDS_MAIN_CONTROLLER] = ddlRdsController.SelectedValue;
                 ES.Services.System.SetSystemSettings(FCP.SystemSettings.RDS_SETTINGS, settings);
             }
@@ -283,9 +279,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
                 // OWA Portal
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
 
                 settings[FCP.SystemSettings.WEBDAV_OWA_ENABLED_KEY] = chkEnableOwa.Checked.ToString();
                 settings[FCP.SystemSettings.WEBDAV_OWA_URL] = txtOwaUrl.Text;
@@ -335,10 +330,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
-
                 // Twilio portal
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
                 settings[FCP.SystemSettings.TWILIO_ACCOUNTSID_KEY] = txtAccountSid.Text;
                 settings[FCP.SystemSettings.TWILIO_AUTHTOKEN_KEY] = txtAuthToken.Text;
                 settings[FCP.SystemSettings.TWILIO_PHONEFROM_KEY] = txtPhoneFrom.Text;
@@ -370,10 +363,8 @@ namespace FuseCP.Portal
         {
             try
             {
-                FCP.SystemSettings settings = new FCP.SystemSettings();
-
                 //AccessIPs
-                settings = new FCP.SystemSettings();
+                FCP.SystemSettings settings = new FCP.SystemSettings();
                 settings[FCP.SystemSettings.ACCESS_IPs] = txtIPAddress.Text;
 
                 int result = ES.Services.System.SetSystemSettings(FCP.SystemSettings.ACCESS_IP_SETTINGS, settings);

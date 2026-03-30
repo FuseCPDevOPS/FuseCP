@@ -55,9 +55,9 @@ namespace FuseCP.Portal.ProviderControls
             string backupQuotaName = item.GroupName + ".Backup";
             string restoreQuotaName = item.GroupName + ".Restore";
             string truncateQuotaName = item.GroupName + ".Truncate";
-            btnBackup.Enabled = cntx.Quotas.ContainsKey(backupQuotaName) && !cntx.Quotas[backupQuotaName].QuotaExhausted;
-            btnRestore.Enabled = cntx.Quotas.ContainsKey(restoreQuotaName) && !cntx.Quotas[restoreQuotaName].QuotaExhausted;
-            btnTruncate.Enabled = cntx.Quotas.ContainsKey(truncateQuotaName) && !cntx.Quotas[truncateQuotaName].QuotaExhausted;
+            btnBackup.Enabled = cntx.Quotas.TryGetValue(backupQuotaName, out var backupQuota) && !backupQuota.QuotaExhausted;
+            btnRestore.Enabled = cntx.Quotas.TryGetValue(restoreQuotaName, out var restoreQuota) && !restoreQuota.QuotaExhausted;
+            btnTruncate.Enabled = cntx.Quotas.TryGetValue(truncateQuotaName, out var truncateQuota) && !truncateQuota.QuotaExhausted;
 
             ViewState["ControlsToggled"] = true;
         }

@@ -45,9 +45,10 @@ namespace FuseCP.WebPortal
                 string pid = GetCurrentPageID();
 
                 // find page by id
-                if (PortalConfiguration.Site.Pages.ContainsKey(pid))
+                PortalPage page = PortalConfiguration.Site.Pages[pid];
+                if (page != null)
                 {
-                    return CreateNodeFromPage(PortalConfiguration.Site.Pages[pid]);
+                    return CreateNodeFromPage(page);
                 }
                 return null;
             }
@@ -99,9 +100,10 @@ namespace FuseCP.WebPortal
             pid = (ampIdx == -1) ? rawUrl.Substring(idx + 5) : rawUrl.Substring(idx + 5, ampIdx - idx - 5);
 
             // find page by id
-            if (PortalConfiguration.Site.Pages.ContainsKey(pid))
+            PortalPage page = PortalConfiguration.Site.Pages[pid];
+            if (page != null)
             {
-                return CreateNodeFromPage(PortalConfiguration.Site.Pages[pid]);
+                return CreateNodeFromPage(page);
             }
             return null;
         }
@@ -114,10 +116,11 @@ namespace FuseCP.WebPortal
 
             SiteMapNodeCollection children = new SiteMapNodeCollection();
 
-            if (PortalConfiguration.Site.Pages.ContainsKey(pid))
+            PortalPage parentPage = PortalConfiguration.Site.Pages[pid];
+            if (parentPage != null)
             {
                 // fill collection
-                foreach (PortalPage page in PortalConfiguration.Site.Pages[pid].Pages)
+                foreach (PortalPage page in parentPage.Pages)
                 {
                     if (page.Hidden)
                         continue;
@@ -156,9 +159,9 @@ namespace FuseCP.WebPortal
                 return null;
 
             // find page
-            if (PortalConfiguration.Site.Pages.ContainsKey(pid))
+            PortalPage page = PortalConfiguration.Site.Pages[pid];
+            if (page != null)
             {
-                PortalPage page = PortalConfiguration.Site.Pages[pid];
                 if (page.ParentPage != null)
                     return CreateNodeFromPage(page.ParentPage);
             }

@@ -61,20 +61,22 @@ namespace FuseCP.Portal.VPS2012.UserControls
             List<MenuItem> items = new List<MenuItem>();
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+            bool externalNetworkEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED, out var externalNetworkQuota)
+                && !externalNetworkQuota.QuotaExhausted;
+            bool privateNetworkEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_NETWORK_ENABLED, out var privateNetworkQuota)
+                && !privateNetworkQuota.QuotaExhausted;
+            bool dmzNetworkEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_NETWORK_ENABLED, out var dmzNetworkQuota)
+                && !dmzNetworkQuota.QuotaExhausted;
 
             // add items
             items.Add(CreateMenuItem("Vps", ""));
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED].QuotaExhausted
-                || (PanelSecurity.PackageId == 1 && isAdmin))
+            if (externalNetworkEnabled || (PanelSecurity.PackageId == 1 && isAdmin))
                 items.Add(CreateMenuItem("ExternalNetwork", "vdc_external_network"));
             if (isAdmin)
                 items.Add(CreateMenuItem("ManagementNetwork", "vdc_management_network"));
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_PRIVATE_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_PRIVATE_NETWORK_ENABLED].QuotaExhausted)
+            if (privateNetworkEnabled)
                 items.Add(CreateMenuItem("PrivateNetwork", "vdc_private_network"));
-            if (cntx.Quotas.ContainsKey(Quotas.VPS2012_DMZ_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_DMZ_NETWORK_ENABLED].QuotaExhausted)
+            if (dmzNetworkEnabled)
                 items.Add(CreateMenuItem("DmzNetwork", "vdc_dmz_network"));
             //items.Add(CreateMenuItem("UserPermissions", "vdc_permissions"));
             items.Add(CreateMenuItem("AuditLog", "vdc_audit_log"));

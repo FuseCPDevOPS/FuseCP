@@ -274,7 +274,7 @@ namespace FuseCP.WebPortal
 				if (xmlPage.Attributes["selectedUserContext"] != null)
 					page.Roles.AddRange(xmlPage.Attributes["selectedUserContext"].Value.Split(ROLES_DELIMITERS.ToCharArray()));
 
-				page.Enabled = !((xmlPage.Attributes["enabled"] != null)) || Boolean.Parse(xmlPage.Attributes["enabled"].Value);
+				page.Enabled = xmlPage.Attributes["enabled"] == null || Boolean.Parse(xmlPage.Attributes["enabled"].Value);
 				page.Hidden = (xmlPage.Attributes["hidden"] != null) && Boolean.Parse(xmlPage.Attributes["hidden"].Value);
 				page.Align = (xmlPage.Attributes["align"] != null) ? xmlPage.Attributes["align"].Value : null;
 				page.SkinSrc = (xmlPage.Attributes["skin"] != null) ? xmlPage.Attributes["skin"].Value : null;

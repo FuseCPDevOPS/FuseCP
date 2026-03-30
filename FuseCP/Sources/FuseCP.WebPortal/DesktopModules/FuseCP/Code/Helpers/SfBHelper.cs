@@ -33,15 +33,6 @@ namespace FuseCP.Portal
                 maximumRows = Int32.MaxValue;
             }
 
-            string name = string.Empty;
-            string email = string.Empty;
-
-            if (filterColumn == "DisplayName")
-                name = filterValue;
-            else
-                email = filterValue;
-
-
             string[] data = sortColumn.Split(' ');
             string direction = data.Length > 1 ? "DESC" : "ASC";
             SfBUsersPagedResult res =
@@ -53,16 +44,8 @@ namespace FuseCP.Portal
 
         public int GetSfBUsersPagedCount(int itemId, string filterColumn, string filterValue)
         {
-            string name = string.Empty;
-            string email = string.Empty;
-
             if (!string.IsNullOrEmpty(filterValue))
                 filterValue = filterValue + "%";
-
-            if (filterColumn == "DisplayName")
-                name = filterValue;
-            else
-                email = filterValue;
 
             IntResult res = ES.Services.SfB.GetSfBUserCount(itemId);
             return res.Value;

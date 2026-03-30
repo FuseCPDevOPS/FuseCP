@@ -484,14 +484,7 @@ namespace FuseCP.Portal
 
         private bool PlanExists(LyncUserPlan plan, LyncUserPlan[] plans)
         {
-            bool result = false;
-
-            foreach (LyncUserPlan p in plans.Where(p => p.LyncUserPlanName.ToLower() == plan.LyncUserPlanName.ToLower()))
-            {
-                    result = true;
-                    break;
-            }
-            return result;
+            return plans.Any(p => p.LyncUserPlanName.ToLower() == plan.LyncUserPlanName.ToLower());
         }
 
         protected void txtMailboxPlan_TextChanged(object sender, EventArgs e)

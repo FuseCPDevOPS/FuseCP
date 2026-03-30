@@ -111,9 +111,10 @@ namespace FuseCP.Portal
 
 
 						MailAccount local_item = new MailAccount();
-                    if (settingsDictionary.ContainsKey("isDomainAdminEnabled"))
+                        string isDomainAdminEnabled = settingsDictionary["isDomainAdminEnabled"];
+                        if (isDomainAdminEnabled != null)
 						{
-                        local_item.IsDomainAdminEnabled = Convert.ToBoolean(settingsDictionary["isDomainAdminEnabled"]);
+                            local_item.IsDomainAdminEnabled = Convert.ToBoolean(isDomainAdminEnabled);
 						}
 						ctrl.BindItem(local_item);
 					}
@@ -207,26 +208,26 @@ if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
             {
                 //checking if account name is different from existing e-mail lists
                 MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true) ?? Array.Empty<MailList>();
-                foreach (MailList list in lists.Where(list => item.Name == list.Name))
+                if (lists.Any(list => item.Name == list.Name))
                 {
-                        ShowWarningMessage("MAIL_ACCOUNT_NAME");
-                        return;
+                    ShowWarningMessage("MAIL_ACCOUNT_NAME");
+                    return;
                 }
 
                 //checking if account name is different from existing e-mail groups
                 MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true) ?? Array.Empty<MailGroup>();
-                foreach (MailGroup group in mailgroups.Where(group => item.Name == group.Name))
+                if (mailgroups.Any(group => item.Name == group.Name))
                 {
-                        ShowWarningMessage("MAIL_ACCOUNT_NAME");
-                        return;
+                    ShowWarningMessage("MAIL_ACCOUNT_NAME");
+                    return;
                 }
 
                 //checking if account name is different from existing forwardings
                 MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true) ?? Array.Empty<MailAlias>();
-                foreach (MailAlias forwarding in forwardings.Where(forwarding => item.Name == forwarding.Name))
+                if (forwardings.Any(forwarding => item.Name == forwarding.Name))
                 {
-                        ShowWarningMessage("MAIL_ACCOUNT_NAME");
-                        return;
+                    ShowWarningMessage("MAIL_ACCOUNT_NAME");
+                    return;
                 }
             }
 

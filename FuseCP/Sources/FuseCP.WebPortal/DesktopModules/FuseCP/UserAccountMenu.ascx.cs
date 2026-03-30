@@ -91,11 +91,7 @@ namespace FuseCP.Portal
                     display = false;
                     string[] arrRoles = selectedUserContext.Split(',');
                     string userRole = PanelSecurity.SelectedUser.Role.ToString();
-                    foreach (string role in arrRoles.Where(role => String.Compare(userRole, role, true) == 0))
-                    {
-                            display = true;
-                            break;
-                    }
+                    display = arrRoles.Any(role => String.Compare(userRole, role, true) == 0);
                 }
 
                 if ((!String.IsNullOrEmpty(roles)) && display)
@@ -103,11 +99,7 @@ namespace FuseCP.Portal
                     display = false;
                     string[] arrRoles = roles.Split(',');
                     string userRole = PanelSecurity.LoggedUser.Role.ToString();
-                    foreach (string role in arrRoles.Where(role => String.Compare(userRole, role, true) == 0))
-                    {
-                            display = true;
-                            break;
-                    }
+                    display = arrRoles.Any(role => String.Compare(userRole, role, true) == 0);
                 }
                 
                 //Audit Log functionality is disabled when user is in Demo mode

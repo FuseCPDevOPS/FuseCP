@@ -148,7 +148,6 @@ namespace CSSFriendly
             if ((treeView != null) && (oldViewState != null) && (oldViewState.Split('|').Length == 2))
             {
                 string hiddenInputName = oldViewState.Split('|')[0];
-                string oldExpansionState = oldViewState.Split('|')[1];
                 if (!String.IsNullOrEmpty(Page.Request.Form[hiddenInputName]))
                 {
                     _newViewState = Page.Request.Form[hiddenInputName];
@@ -310,7 +309,7 @@ namespace CSSFriendly
 
                 if (HasChildren(item))
                 {
-                    BuildItems(item.ChildNodes, false, (item.Expanded == true), writer);
+                    BuildItems(item.ChildNodes, false, item.Expanded is true, writer);
                 }
 
                 writer.Indent--;
@@ -322,7 +321,7 @@ namespace CSSFriendly
         private void WriteNodeExpander(TreeView treeView, TreeNode item, HtmlTextWriter writer)
         {
             writer.WriteBeginTag("span");
-            writer.WriteAttribute("class", ((item.Expanded == true) ? "AspNet-TreeView-Collapse" : "AspNet-TreeView-Expand"));
+            writer.WriteAttribute("class", item.Expanded is true ? "AspNet-TreeView-Collapse" : "AspNet-TreeView-Expand");
             if (HasChildren(item))
             {
                 writer.WriteAttribute("onclick", "ExpandCollapse__AspNetTreeView(this)");
@@ -642,7 +641,7 @@ namespace CSSFriendly
 
             if ((item != null) && (item.Parent != null))
             {
-                bRet = (item.Parent.Selected == true) ? true : IsParentNodeSelected(item.Parent);
+                bRet = item.Parent.Selected || IsParentNodeSelected(item.Parent);
 
 
 
@@ -661,7 +660,7 @@ namespace CSSFriendly
             {
                 foreach (TreeNode node in nodes)
                 {
-                    state += (node.Expanded == true) ? "e" : "n";
+                    state += node.Expanded is true ? "e" : "n";
                     state = ComposeViewState(node.ChildNodes, state);
                 }
             }

@@ -61,8 +61,6 @@ namespace FuseCP.Portal.ProviderControls
                 ViewState[MailFilterDestinations] = sed;
                 gvSEDestinations.DataSource = sed;
                 gvSEDestinations.DataBind();
-
-                bool local_cbAccessControlsHidden = !ES.Services.Servers.GetQuotaHidden("Mail.AllowAccessControls", 4);
             }
         }
 
@@ -145,8 +143,9 @@ namespace FuseCP.Portal.ProviderControls
             StringDictionary settings = new StringDictionary();
             settings.Add(MailFilterDestinations, string.Join(",", res.ToArray()));
 
-            int result = ES.Services.Servers.UpdateServiceSettings(PanelRequest.ServiceId,
+            ES.Services.Servers.UpdateServiceSettings(PanelRequest.ServiceId,
                         ConvertDictionaryToArray(settings));
         }
     }
 }
+

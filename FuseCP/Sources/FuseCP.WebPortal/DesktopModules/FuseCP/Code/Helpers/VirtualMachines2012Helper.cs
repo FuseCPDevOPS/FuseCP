@@ -39,8 +39,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_MANAGING_ALLOWED, out var _ckv))
                 if (package.UserId != PanelSecurity.EffectiveUserId)
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
-                    if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPS2012_MANAGING_ALLOWED))
-                        manageAllowed = !_ckv.QuotaExhausted;
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_MANAGING_ALLOWED, out var parentQuota))
+                        manageAllowed = !parentQuota.QuotaExhausted;
                 }
             }
             return manageAllowed;
@@ -61,8 +61,8 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_REINSTALL_ALLOWED, out var _ckv))
                 if (package.UserId != PanelSecurity.EffectiveUserId)
                 {
                     cntx = PackagesHelper.GetCachedPackageContext(package.ParentPackageId);
-                    if (cntx != null && cntx.Quotas.ContainsKey(Quotas.VPS2012_REINSTALL_ALLOWED))
-                        reinstallAllowed = !_ckv.QuotaExhausted;
+                    if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_REINSTALL_ALLOWED, out var parentQuota))
+                        reinstallAllowed = !parentQuota.QuotaExhausted;
                 }
             }
             return reinstallAllowed;

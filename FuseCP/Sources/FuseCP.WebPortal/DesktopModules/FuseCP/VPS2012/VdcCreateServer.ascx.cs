@@ -175,7 +175,6 @@ namespace FuseCP.Portal.VPS2012
             if (PackagesHelper.IsQuotaEnabled(PanelSecurity.PackageId, Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED))
             {
                 List<int> dupevlans = new List<int>();
-                List<int> vlans = new List<int>();
 
                 bool isUnassignedPackageIPs = false;
                 // bind vlan list
@@ -201,7 +200,7 @@ namespace FuseCP.Portal.VPS2012
                 }
 
                 // return vlan list without dupes
-                vlans = dupevlans.Distinct().ToList();
+                List<int> vlans = dupevlans.Distinct().ToList();
 
                 //List<int> vlans = ES.Services.VPS2012.GetAvailableVLANs(PanelSecurity.PackageId).vlans;
                 listVlanLists.Items.Clear();

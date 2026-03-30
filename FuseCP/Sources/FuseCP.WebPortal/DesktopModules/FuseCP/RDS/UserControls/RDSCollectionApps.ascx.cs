@@ -171,14 +171,7 @@ namespace FuseCP.Portal.RDS.UserControls
                 foreach (RemoteApplication newApp in newApps)
 				{
 					// check if exists
-					bool exists = false;
-                    foreach (RemoteApplication app in apps.Where(app => app.DisplayName == newApp.DisplayName))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (apps.Any(app => app.DisplayName == newApp.DisplayName))
 						continue;
 
                     apps.Add(newApp);

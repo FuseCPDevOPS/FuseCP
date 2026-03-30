@@ -484,14 +484,7 @@ namespace FuseCP.Portal
 
         private bool PlanExists(SfBUserPlan plan, SfBUserPlan[] plans)
         {
-            bool result = false;
-
-            foreach (SfBUserPlan p in plans.Where(p => p.SfBUserPlanName.ToLower() == plan.SfBUserPlanName.ToLower()))
-            {
-                    result = true;
-                    break;
-            }
-            return result;
+            return plans.Any(p => p.SfBUserPlanName.ToLower() == plan.SfBUserPlanName.ToLower());
         }
 
         protected void txtMailboxPlan_TextChanged(object sender, EventArgs e)

@@ -134,8 +134,9 @@ namespace FuseCP.Portal.ProviderControls
             StringDictionary settings = new StringDictionary();
             settings.Add(MailFilterDestinations, string.Join(",", res.ToArray()));
 
-            int result = ES.Services.Servers.UpdateServiceSettings(PanelRequest.ServiceId,
+            ES.Services.Servers.UpdateServiceSettings(PanelRequest.ServiceId,
                         ConvertDictionaryToArray(settings));
         }
     }
 }
+

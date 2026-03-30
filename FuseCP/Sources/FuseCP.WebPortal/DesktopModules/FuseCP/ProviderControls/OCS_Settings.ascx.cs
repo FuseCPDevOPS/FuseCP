@@ -92,12 +92,7 @@ namespace FuseCP.Portal.ProviderControls
 
                 int serviceId = (int) dr["ServiceID"];
                 ServiceInfo[] services = GetEDGEServices();
-                bool exists = false;
-                foreach (ServiceInfo current in services.Where(current => current.ServiceId == serviceId))
-                {
-                        exists = true;
-                        break;
-                }
+                bool exists = services != null && services.Any(current => current.ServiceId == serviceId);
                 if (!exists)
                     ddl.Items.Add(new ListItem(dr["FullServiceName"].ToString(), serviceId.ToString()));
             }

@@ -453,15 +453,14 @@ namespace FuseCP.WebPortal
                 if (ctrlPane != null)
                 {
                     // add "edit" module
-                    if (PortalConfiguration.Site.Modules.ContainsKey(ModuleID))
-                        AddModuleToContentPane(ctrlPane, PortalConfiguration.Site.Modules[ModuleID],
+                    if (PortalConfiguration.Site.Modules.TryGetValue(ModuleID, out PageModule editModule))
+                        AddModuleToContentPane(ctrlPane, editModule,
                             ModuleControlID, editMode);
                 }
                 // find LeftPane
                 ctrlPane = ctrlSkin.FindControl(LEFT_PANE_NAME);
-                if (ctrlPane != null && page.ContentPanes.ContainsKey(LEFT_PANE_NAME))
+                if (ctrlPane != null && page.ContentPanes.TryGetValue(LEFT_PANE_NAME, out ContentPane pane))
                 {
-                    ContentPane pane = page.ContentPanes[LEFT_PANE_NAME];
                     foreach (PageModule module in pane.Modules.Where(module => IsAccessibleToUser(Context, module.ViewRoles)))
                     {
                             // add module

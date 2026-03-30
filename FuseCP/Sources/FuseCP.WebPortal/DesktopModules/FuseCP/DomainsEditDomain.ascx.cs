@@ -97,18 +97,18 @@ namespace FuseCP.Portal
                     DnsDisabledPanel.Visible = !DnsEnabledPanel.Visible;
 
                     // dns editor
-                    EditDnsRecords.Visible = (cntx.Quotas.ContainsKey(Quotas.DNS_EDITOR)
-                        && cntx.Quotas[Quotas.DNS_EDITOR].QuotaAllocatedValue != 0)
+                    bool dnsEditorEnabled = cntx.Quotas.TryGetValue(Quotas.DNS_EDITOR, out var dnsEditorQuota)
+                        && dnsEditorQuota.QuotaAllocatedValue != 0;
+
+                    EditDnsRecords.Visible = dnsEditorEnabled
                         || PanelSecurity.LoggedUser.Role == UserRole.Administrator;
 
                     //DNS Export
-                    ExportDnsRecords.Visible = (cntx.Quotas.ContainsKey(Quotas.DNS_EDITOR)
-                                                && cntx.Quotas[Quotas.DNS_EDITOR].QuotaAllocatedValue != 0)
+                    ExportDnsRecords.Visible = dnsEditorEnabled
                                                || PanelSecurity.LoggedUser.Role == UserRole.Administrator;
 
                     //DNS Import
-                    ImportDnsRecords.Visible = (cntx.Quotas.ContainsKey(Quotas.DNS_EDITOR)
-                                                && cntx.Quotas[Quotas.DNS_EDITOR].QuotaAllocatedValue != 0)
+                    ImportDnsRecords.Visible = dnsEditorEnabled
                                                || PanelSecurity.LoggedUser.Role == UserRole.Administrator;
                 }
 
@@ -131,10 +131,7 @@ namespace FuseCP.Portal
                     {
                         DomainInfo[] Domains = ES.Services.Servers.GetDomainsByDomainId(domain.PreviewDomainId);
                         Domains ??= Array.Empty<DomainInfo>();
-                        foreach (DomainInfo d in Domains.Where(d => d.WebSiteId > 0))
-                        {
-                                WebSiteAliasPanel.Visible = true;
-                        }
+                        WebSiteAliasPanel.Visible = Domains.Any(d => d.WebSiteId > 0);
 
                         MailDomainAliasPanel.Visible = (instantAlias.MailDomainId > 0);
                     }

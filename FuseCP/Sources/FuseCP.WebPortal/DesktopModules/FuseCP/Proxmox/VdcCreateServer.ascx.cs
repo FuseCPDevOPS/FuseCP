@@ -119,14 +119,14 @@ namespace FuseCP.Portal.Proxmox
 				PackageIPAddress[] ips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork) ?? Array.Empty<PackageIPAddress>();
 
 				List<int> dupevlans = new List<int>();
-				List<int> vlans = new List<int>();
+
 				foreach (PackageIPAddress ip in ips)
 				{
 					dupevlans.Add(ip.VLAN);
 				}
 
 				// return vlan list without dupes
-				vlans = dupevlans.Distinct().ToList();
+				List<int> vlans = dupevlans.Distinct().ToList();
 
 				//List<int> vlans = ES.Services.Proxmox.GetAvailableVLANs(PanelSecurity.PackageId).vlans;
 				listVlanLists.Items.Clear();

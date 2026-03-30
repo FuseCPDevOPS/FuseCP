@@ -68,7 +68,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
 		public string GetAccountImage(int accountTypeId)
 		{
-			ExchangeAccountType accountType = (ExchangeAccountType)accountTypeId;
             string imgName = "dlist_16.gif";
 
 			return GetThemedImage("Exchange/" + imgName);
@@ -125,14 +124,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 				foreach (ExchangeAccount newAccount in newAccounts)
 				{
 					// check if exists
-					bool exists = false;
-					foreach (ExchangeAccount account in accounts.Where(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
 						continue;
 
 					accounts.Add(newAccount);

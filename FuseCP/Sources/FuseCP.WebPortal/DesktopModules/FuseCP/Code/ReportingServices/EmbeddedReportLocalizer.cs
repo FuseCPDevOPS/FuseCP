@@ -80,15 +80,7 @@ namespace FuseCP.Portal.ReportingServices
 		/// <returns>True, if file exists. False, if not.</returns>
 		public override bool IsReportExists()
 		{
-			bool result = false;
-
-			foreach (string resourceName in this.assembly.GetManifestResourceNames().Where(resourceName => String.Compare(resourceName, this.reportName, StringComparison.OrdinalIgnoreCase) == 0))
-			{
-					result = true;
-					break;
-			}
-
-			return result;
+			return this.assembly.GetManifestResourceNames().Any(resourceName => String.Compare(resourceName, this.reportName, StringComparison.OrdinalIgnoreCase) == 0);
 		}
 
 		/// <summary>

@@ -157,14 +157,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 foreach (ESPermission newPermission in newPermissions)
 				{
 					// check if exists
-					bool exists = false;
-                    foreach (ESPermission permission in permissions.Where(permission => String.Compare(newPermission.Account, permission.Account, true) == 0))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (permissions.Any(permission => String.Compare(newPermission.Account, permission.Account, true) == 0))
 						continue;
 
                     permissions.Add(newPermission);

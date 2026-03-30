@@ -165,9 +165,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			ExchangeAccount[] accounts = ES.Services.Organizations.SearchOrganizationAccounts(PanelRequest.ItemID,
 				ddlSearchColumn.SelectedValue, txtSearchValue.Text + "%", "", false);
 
-            List<ExchangeAccount> newAccounts = new List<ExchangeAccount>();
-
-            accounts = accounts.Where(x => !GetAccounts().Contains(x.AccountName)).ToArray();
+                accounts = accounts.Where(x => !GetAccounts().Contains(x.AccountName)).ToArray();
 
 			if (ExcludeAccountId > 0)
 			{
@@ -205,14 +203,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 foreach (ExchangeAccount newAccount in newAccounts)
 				{
 					// check if exists
-					bool exists = false;
-                    foreach (ExchangeAccount account in accounts.Where(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
 						continue;
 
 					accounts.Add(newAccount);

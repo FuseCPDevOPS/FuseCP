@@ -242,23 +242,21 @@ namespace FuseCP.Portal.ExchangeServer
 
                     ExchangeAccountType accountType = (ExchangeAccountType)accountTypeID;
 
-                    int result;
-
                     switch(accountType)
                     {
                         case ExchangeAccountType.Room:
                         case ExchangeAccountType.Equipment:
                         case ExchangeAccountType.SharedMailbox:
                         case ExchangeAccountType.Mailbox:
-                            result = ES.Services.ExchangeServer.DeleteMailboxEmailAddresses(
+                            ES.Services.ExchangeServer.DeleteMailboxEmailAddresses(
                                 PanelRequest.ItemID, accountID, emails);
                             break;
                         case ExchangeAccountType.DistributionList:
-                            result = ES.Services.ExchangeServer.DeleteDistributionListEmailAddresses(
+                            ES.Services.ExchangeServer.DeleteDistributionListEmailAddresses(
                                 PanelRequest.ItemID, accountID, emails);
                             break;
                         case ExchangeAccountType.PublicFolder:
-                            result = ES.Services.ExchangeServer.DeletePublicFolderEmailAddresses(
+                            ES.Services.ExchangeServer.DeletePublicFolderEmailAddresses(
                                 PanelRequest.ItemID, accountID, emails);
                             break;
                     }

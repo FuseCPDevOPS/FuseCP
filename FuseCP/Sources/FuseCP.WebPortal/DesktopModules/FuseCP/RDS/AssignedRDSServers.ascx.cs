@@ -54,7 +54,7 @@ if (cntx.Quotas.TryGetValue(Quotas.RDS_SERVERS, out var _ckv))
 
 
                     // Check if User is allowed to add server
-                    VisableDeleteServer = !Utils.CheckQouta("RDS.DisableUserDeleteServer", cntx) ? true : false;
+                    VisableDeleteServer = !Utils.CheckQouta("RDS.DisableUserDeleteServer", cntx);
 
 
 

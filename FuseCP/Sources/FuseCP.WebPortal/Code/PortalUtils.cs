@@ -1117,7 +1117,7 @@ public class PortalUtils
 				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values.Where(md => String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)))
 				{
 						// 2. Lookup for module control
-						foreach (ModuleControl mc in md.Controls.Values.Where(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase)))
+						if (md.Controls.Values.Any(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase)))
 						{
 							// 3. Compare against ctl parameter value
 								// 4. Lookup for module id

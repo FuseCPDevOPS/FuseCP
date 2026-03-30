@@ -41,7 +41,11 @@ namespace FuseCP.Portal
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            DomainLink.Enabled = (cntx.Quotas.ContainsKey(Quotas.OS_DOMAINS) && !cntx.Quotas[Quotas.OS_DOMAINS].QuotaExhausted);
+            bool domainsEnabled = cntx.Quotas.TryGetValue(Quotas.OS_DOMAINS, out var domainsQuota) && !domainsQuota.QuotaExhausted;
+            bool subDomainsEnabled = cntx.Quotas.TryGetValue(Quotas.OS_SUBDOMAINS, out var subDomainsQuota) && !subDomainsQuota.QuotaExhausted;
+            bool domainPointersEnabled = cntx.Quotas.TryGetValue(Quotas.OS_DOMAINPOINTERS, out var domainPointersQuota) && !domainPointersQuota.QuotaExhausted;
+
+            DomainLink.Enabled = domainsEnabled;
 
             if (DomainLink.Enabled)
             {
@@ -59,19 +63,13 @@ namespace FuseCP.Portal
             
 
             DomainInfo[] myDomains = ES.Services.Servers.GetMyDomains(PanelSecurity.PackageId);
-            bool enableSubDomains = false;
-            foreach (DomainInfo domain in myDomains.Where(domain => !domain.IsSubDomain && !domain.IsPreviewDomain && !domain.IsDomainPointer))
-            {
-                    enableSubDomains = true;
-                    break;
-            }
-            SubDomainLink.Enabled = (cntx.Quotas.ContainsKey(Quotas.OS_SUBDOMAINS) && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted
-                && enableSubDomains);
+            bool enableSubDomains = myDomains.Any(domain => !domain.IsSubDomain && !domain.IsPreviewDomain && !domain.IsDomainPointer);
+            SubDomainLink.Enabled = subDomainsEnabled && enableSubDomains;
 
-            ProviderSubDomainPanel.Visible = (cntx.Quotas.ContainsKey(Quotas.OS_SUBDOMAINS) && !cntx.Quotas[Quotas.OS_SUBDOMAINS].QuotaExhausted
-                && ES.Services.Servers.GetResellerDomains(PanelSecurity.PackageId).Length > 0);
+            ProviderSubDomainPanel.Visible = subDomainsEnabled
+                && ES.Services.Servers.GetResellerDomains(PanelSecurity.PackageId).Length > 0;
 
-            DomainPointerLink.Enabled = (cntx.Quotas.ContainsKey(Quotas.OS_DOMAINPOINTERS) && !cntx.Quotas[Quotas.OS_DOMAINPOINTERS].QuotaExhausted);
+            DomainPointerLink.Enabled = domainPointersEnabled;
         }
 
         private string GetAddDomainLink(string domainType)

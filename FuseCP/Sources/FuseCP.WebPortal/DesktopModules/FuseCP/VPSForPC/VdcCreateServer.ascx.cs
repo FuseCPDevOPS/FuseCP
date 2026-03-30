@@ -338,9 +338,8 @@ namespace FuseCP.Portal.VPSForPC
 				cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
 			if ((wizard.ActiveStepIndex == 1)
-			 && (cntx.Quotas.ContainsKey(Quotas.VPSForPC_HDD)))
+			 && cntx.Quotas.TryGetValue(Quotas.VPSForPC_HDD, out var hddQuota))
 			{
-				QuotaValueInfo hddQuota = cntx.Quotas[Quotas.VPSForPC_HDD];
 				if (hddQuota.QuotaAllocatedValue == -1)
 				{
 					// unlimited HDD

@@ -71,23 +71,27 @@ namespace FuseCP.Portal
         private void PrepareVPS2012Menu(MenuItemCollection vpsItems)
         {
             bool isAdmin = (PanelSecurity.EffectiveUser.Role == UserRole.Administrator);
+            bool vps2012ExternalEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED, out var vps2012ExternalQuota)
+                && !vps2012ExternalQuota.QuotaExhausted;
+            bool proxmoxExternalEnabled = cntx.Quotas.TryGetValue(Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED, out var proxmoxExternalQuota)
+                && !proxmoxExternalQuota.QuotaExhausted;
+            bool vps2012PrivateEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_NETWORK_ENABLED, out var vps2012PrivateQuota)
+                && !vps2012PrivateQuota.QuotaExhausted;
+            bool proxmoxPrivateEnabled = cntx.Quotas.TryGetValue(Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED, out var proxmoxPrivateQuota)
+                && !proxmoxPrivateQuota.QuotaExhausted;
+            bool vps2012DmzEnabled = cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_NETWORK_ENABLED, out var vps2012DmzQuota)
+                && !vps2012DmzQuota.QuotaExhausted;
+
             // add items
             vpsItems.Add(CreateMenuItem("VPSHome", ""));
-            if (((cntx.Quotas.ContainsKey(Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED].QuotaExhausted)
-                || (cntx.Quotas.ContainsKey(Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED].QuotaExhausted))
+            if ((vps2012ExternalEnabled || proxmoxExternalEnabled)
                 || (PanelSecurity.PackageId == 1 && isAdmin))
                 vpsItems.Add(CreateMenuItem("ExternalNetwork", "vdc_external_network"));
             if (isAdmin)
                 vpsItems.Add(CreateMenuItem("ManagementNetwork", "vdc_management_network"));
-            if ((cntx.Quotas.ContainsKey(Quotas.VPS2012_PRIVATE_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_PRIVATE_NETWORK_ENABLED].QuotaExhausted)
-                || (cntx.Quotas.ContainsKey(Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED].QuotaExhausted))
+            if (vps2012PrivateEnabled || proxmoxPrivateEnabled)
                 vpsItems.Add(CreateMenuItem("PrivateNetwork", "vdc_private_network"));
-            if ((cntx.Quotas.ContainsKey(Quotas.VPS2012_DMZ_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.VPS2012_DMZ_NETWORK_ENABLED].QuotaExhausted))
+            if (vps2012DmzEnabled)
                 vpsItems.Add(CreateMenuItem("DmzNetwork", "vdc_dmz_network"));
             vpsItems.Add(CreateMenuItem("AuditLog", "vdc_audit_log"));
         }

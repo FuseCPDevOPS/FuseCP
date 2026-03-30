@@ -174,7 +174,7 @@ namespace FuseCP.Portal.RDS.UserControls
 
             foreach (var user in collectionUsers)
             {
-                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName) ? true : false;
+                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName);
 
 
 
@@ -204,7 +204,7 @@ namespace FuseCP.Portal.RDS.UserControls
 
             foreach (var user in accounts)
             {
-                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName) ? true : false;
+                user.IsVIP = LocalAdmins.Select(l => l.AccountName).Contains(user.AccountName);
 
 
 
@@ -234,14 +234,7 @@ namespace FuseCP.Portal.RDS.UserControls
                 foreach (OrganizationUser newUser in newUsers)
 				{
 					// check if exists
-					bool exists = false;
-                    foreach (OrganizationUser user in users.Where(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
 						continue;
 
                     users.Add(newUser);

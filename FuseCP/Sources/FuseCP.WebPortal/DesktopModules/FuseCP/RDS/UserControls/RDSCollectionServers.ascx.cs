@@ -126,14 +126,7 @@ namespace FuseCP.Portal.RDS.UserControls
                 foreach (RdsServer newServer in newServers)
 				{
 					// check if exists
-					bool exists = false;
-                    foreach (RdsServer server in servers.Where(server => server.Id == newServer.Id))
-					{
-							exists = true;
-							break;
-					}
-
-					if (exists)
+					if (servers.Any(server => server.Id == newServer.Id))
 						continue;
 
                     servers.Add(newServer);

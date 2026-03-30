@@ -119,14 +119,7 @@ namespace FuseCP.Portal.StorageSpaces.UserControls
                 foreach (ResourceGroupInfo newGroup in newGroups)
                 {
                     // check if exists
-                    bool exists = false;
-                    foreach (ResourceGroupInfo group in groups.Where(group => group.GroupId == newGroup.GroupId))
-                    {
-                            exists = true;
-                            break;
-                    }
-
-                    if (exists)
+                    if (groups.Any(group => group.GroupId == newGroup.GroupId))
                         continue;
 
                     groups.Add(newGroup);

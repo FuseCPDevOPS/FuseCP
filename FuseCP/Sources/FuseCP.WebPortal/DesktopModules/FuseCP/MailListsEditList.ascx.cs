@@ -130,25 +130,25 @@ namespace FuseCP.Portal
 
 			//checking if list name is different from existing e-mail accounts
         MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true) ?? Array.Empty<MailAccount>();
-            foreach (MailAccount account in accounts.Where(account => local_item.Name == account.Name))
+            if (accounts.Any(account => local_item.Name == account.Name))
             {
-                    ShowWarningMessage("MAIL_LIST_NAME");
-                    return;
+                ShowWarningMessage("MAIL_LIST_NAME");
+                return;
             }
             //checking if list name is different from existing e-mail groups
         MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true) ?? Array.Empty<MailGroup>();
-            foreach (MailGroup group in mailgroups.Where(group => local_item.Name == group.Name))
+            if (mailgroups.Any(group => local_item.Name == group.Name))
             {
-                    ShowWarningMessage("MAIL_LIST_NAME");
-                    return;
+                ShowWarningMessage("MAIL_LIST_NAME");
+                return;
             }
 
             //checking if list name is different from existing forwardings
         MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true) ?? Array.Empty<MailAlias>();
-            foreach (MailAlias forwarding in forwardings.Where(forwarding => local_item.Name == forwarding.Name))
+            if (forwardings.Any(forwarding => local_item.Name == forwarding.Name))
             {
-                    ShowWarningMessage("MAIL_LIST_NAME");
-                    return;
+                ShowWarningMessage("MAIL_LIST_NAME");
+                return;
             }
             
 			// get other props

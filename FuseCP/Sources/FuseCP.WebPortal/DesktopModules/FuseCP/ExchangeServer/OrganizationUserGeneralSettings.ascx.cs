@@ -55,10 +55,6 @@ namespace FuseCP.Portal.HostedSolution
         {
             try
             {
-                // get settings
-                OrganizationUser user = ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID,
-                    PanelRequest.AccountID);
-
                     imgThumbnailphoto.Visible = true;
                     imgThumbnailphoto.ImageUrl = "~/DesktopModules/FuseCP/ThumbnailPhoto.ashx" + "?" + "ItemID=" + PanelRequest.ItemID +
                         "&AccountID=" + PanelRequest.AccountID;
@@ -141,8 +137,15 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
                     litServiceLevel.ToolTip = serviceLevel.LevelDescription;
 
                     bool addLevel = ddlServiceLevels.Items.FindByValue(serviceLevel.LevelId.ToString()) == null;
-                    addLevel = addLevel && cntx.Quotas.ContainsKey(Quotas.SERVICE_LEVELS + serviceLevel.LevelName);
-                    addLevel = addLevel ? cntx.Quotas[Quotas.SERVICE_LEVELS + serviceLevel.LevelName].QuotaAllocatedValue != 0 : addLevel;
+                    string quotaKey = Quotas.SERVICE_LEVELS + serviceLevel.LevelName;
+                    if (addLevel && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota))
+                    {
+                        addLevel = serviceLevelQuota.QuotaAllocatedValue != 0;
+                    }
+                    else
+                    {
+                        addLevel = false;
+                    }
                     if (addLevel)
                     {
                         ddlServiceLevels.Items.Add(new ListItem(serviceLevel.LevelName, serviceLevel.LevelId.ToString()));
@@ -222,15 +225,12 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
                     }
                 }
 
-                chkLocked.Enabled = user.Locked ? true : false;
+                chkLocked.Enabled = user.Locked;
 
                 chkLocked.Checked = user.Locked;
 
                 password.ValidationEnabled = true;
                 password.Password = string.Empty;
-
-                var settings = ES.Services.Organizations.GetWebDavSystemSettings();
-
 
                 chkUserMustChangePassword.Checked = user.UserMustChangePassword;
             }

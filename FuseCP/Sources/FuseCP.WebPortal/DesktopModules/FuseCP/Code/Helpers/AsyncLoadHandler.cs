@@ -304,7 +304,7 @@ namespace FuseCP.Portal
                 if (certificatesForSite.Length != 0)
                 {
                     DateTime expiryDate = certificatesForSite[0].ExpiryDate;
-                    DateTime dateTime = new DateTime();
+                    DateTime dateTime;
                     TimeSpan ts = expiryDate - DateTime.Now;
                     int diffInDays = ts.Days;
                     var SSLgood = (expiryDate - DateTime.Now).TotalDays > 30;

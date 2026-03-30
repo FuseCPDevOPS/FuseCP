@@ -97,7 +97,7 @@ namespace FuseCP.Portal.ExchangeServer
 
         private void BindSettings()
         {
-            string currentStep = "mailbox general settings";
+            string currentStep = string.Empty;
 
             try
             {

@@ -32,7 +32,8 @@ namespace FuseCP.Portal
     {
         public static string GetDatabasesGroupName(Hashtable hash)
         {
-            return hash.ContainsKey("GroupName") ? (string)hash["GroupName"] : "MsSQL";
+            object groupName = hash["GroupName"];
+            return groupName != null ? (string)groupName : "MsSQL";
         }
 
         protected void Page_Load(object sender, EventArgs e)

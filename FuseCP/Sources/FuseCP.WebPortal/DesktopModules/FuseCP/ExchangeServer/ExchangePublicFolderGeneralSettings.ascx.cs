@@ -37,8 +37,8 @@ namespace FuseCP.Portal.ExchangeServer
             try
             {
 				PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-				bool mailFoldersAllowed = cntx.Quotas.ContainsKey(Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS)
-					&& !cntx.Quotas[Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS].QuotaExhausted;
+				bool mailFoldersAllowed = cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_MAILENABLEDPUBLICFOLDERS, out var mailEnabledPublicFoldersQuota)
+					&& !mailEnabledPublicFoldersQuota.QuotaExhausted;
 
                 // get settings
                 ExchangePublicFolder folder = ES.Services.ExchangeServer.GetPublicFolderGeneralSettings(

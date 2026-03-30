@@ -132,7 +132,7 @@ namespace FuseCP.Portal.VPS2012
                 btnRestoreExternalAddress.Visible = 
                 btnRestorePrivateAddress.Visible =
                 btnRestoreDmzAddress.Visible = false;
-            foreach (VirtualMachineNetworkAdapter adapter in Adapters.Where(adapter => adapter.IPAddresses != null && adapter.IPAddresses.Length > 0))
+            if (Adapters.Any(adapter => adapter.IPAddresses != null && adapter.IPAddresses.Length > 0))
             {
                     btnDeletePrivateByInject.Visible =
                         btnDeleteExternalByInject.Visible =
@@ -140,7 +140,6 @@ namespace FuseCP.Portal.VPS2012
                         btnRestoreExternalAddress.Visible =
                         btnRestorePrivateAddress.Visible =
                         btnRestoreDmzAddress.Visible = true;
-                    break;
             }
         }
 

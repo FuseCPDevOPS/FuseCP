@@ -61,8 +61,6 @@ namespace FuseCP.Portal
 
         public void SwitchPackage(object arg)
         {
-            string[] args = arg.ToString().Split(',');
-
             //PanelSecurity.SelectedUserId = Utils.ParseInt(args[0], PanelSecurity.EffectiveUserId);
             //PanelSecurity.PackageId = Utils.ParseInt(args[1], 0);
             RedirectToBrowsePage();

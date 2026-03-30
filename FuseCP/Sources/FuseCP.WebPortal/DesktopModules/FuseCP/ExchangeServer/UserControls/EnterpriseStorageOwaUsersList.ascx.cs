@@ -141,14 +141,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 foreach (OrganizationUser newUser in newUsers)
                 {
                     // check if exists
-                    bool exists = false;
-                    foreach (OrganizationUser user in users.Where(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
-                    {
-                            exists = true;
-                            break;
-                    }
-
-                    if (exists)
+                    if (users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
                         continue;
 
                     users.Add(newUser);

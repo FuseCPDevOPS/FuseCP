@@ -85,7 +85,7 @@ namespace FuseCP.Portal
 
         protected void gvEntries_DataBound(object sender, EventArgs e)
         {
-            btnClearLog.Enabled = gvEntries.Rows.Count > 0 ? true : false;
+            btnClearLog.Enabled = gvEntries.Rows.Count > 0;
 
 
 

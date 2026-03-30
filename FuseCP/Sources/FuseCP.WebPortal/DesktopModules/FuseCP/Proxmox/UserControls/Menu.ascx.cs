@@ -70,20 +70,21 @@ namespace FuseCP.Portal.Proxmox.UserControls
 
             // load package context
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+            bool externalNetworkEnabled = cntx.Quotas.TryGetValue(Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED, out var externalNetworkQuota)
+                && !externalNetworkQuota.QuotaExhausted;
+            bool privateNetworkEnabled = cntx.Quotas.TryGetValue(Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED, out var privateNetworkQuota)
+                && !privateNetworkQuota.QuotaExhausted;
             
             // add items
             items.Add(CreateMenuItem("Vps", ""));
 
-            if(cntx.Quotas.ContainsKey(Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.PROXMOX_EXTERNAL_NETWORK_ENABLED].QuotaExhausted
-                || (PanelSecurity.PackageId == 1 && isAdmin))
+            if (externalNetworkEnabled || (PanelSecurity.PackageId == 1 && isAdmin))
                 items.Add(CreateMenuItem("ExternalNetwork", "vdc_external_network"));
 
             if (isAdmin)
                 items.Add(CreateMenuItem("ManagementNetwork", "vdc_management_network"));
 
-            if (cntx.Quotas.ContainsKey(Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED)
-                && !cntx.Quotas[Quotas.PROXMOX_PRIVATE_NETWORK_ENABLED].QuotaExhausted)
+            if (privateNetworkEnabled)
                 items.Add(CreateMenuItem("PrivateNetwork", "vdc_private_network"));
 
             //items.Add(CreateMenuItem("UserPermissions", "vdc_permissions"));

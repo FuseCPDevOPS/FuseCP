@@ -353,17 +353,21 @@ namespace FuseCP.Portal
 
         public static bool CheckQouta(string key, PackageContext cntx)
         {
-            return cntx.Quotas.ContainsKey(key) &&
-                   ((cntx.Quotas[key].QuotaAllocatedValue == 1 && cntx.Quotas[key].QuotaTypeId == 1) ||
-                    (cntx.Quotas[key].QuotaTypeId != 1 && (cntx.Quotas[key].QuotaAllocatedValue > 0 || cntx.Quotas[key].QuotaAllocatedValue == -1)));
+            if (!cntx.Quotas.TryGetValue(key, out var quota))
+                return false;
+
+            return (quota.QuotaAllocatedValue == 1 && quota.QuotaTypeId == 1) ||
+                   (quota.QuotaTypeId != 1 && (quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1));
         }
 
 
         public static bool CheckQouta(string key, HostingPlanContext cntx)
         {
-            return cntx.Quotas.ContainsKey(key) &&
-                   ((cntx.Quotas[key].QuotaAllocatedValue == 1 && cntx.Quotas[key].QuotaTypeId == 1) ||
-                    (cntx.Quotas[key].QuotaTypeId != 1 && (cntx.Quotas[key].QuotaAllocatedValue > 0 || cntx.Quotas[key].QuotaAllocatedValue == -1)));
+            if (!cntx.Quotas.TryGetValue(key, out var quota))
+                return false;
+
+            return (quota.QuotaAllocatedValue == 1 && quota.QuotaTypeId == 1) ||
+                   (quota.QuotaTypeId != 1 && (quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1));
         }
 
         public static bool IsIdnDomain(string domainName)

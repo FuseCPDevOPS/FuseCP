@@ -132,8 +132,6 @@ namespace FuseCP.Portal.UserControls
 
         protected void btnDeallocateAddresses_Click(object sender, EventArgs e)
         {
-            List<int> ids = new List<int>();
-
             try
             {
                 List<int> items = new List<int>();

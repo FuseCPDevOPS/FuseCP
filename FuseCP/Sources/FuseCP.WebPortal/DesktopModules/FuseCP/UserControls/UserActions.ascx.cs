@@ -128,7 +128,7 @@ namespace FuseCP.Portal
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            if (!cntx.Quotas.ContainsKey(quotaName))
+            if (!cntx.Quotas.TryGetValue(quotaName, out _))
                 return 0;
 
             OrganizationStatistics stats = ES.Services.Organizations.GetOrganizationStatisticsByOrganization(PanelRequest.ItemID);

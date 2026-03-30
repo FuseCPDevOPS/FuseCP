@@ -81,7 +81,7 @@ namespace FuseCP.Portal.ExchangeServer
                 accessAccounts.SetAccounts(mailbox.SendOnBehalfAccounts);
 
 
-                chkSaveSentItems.Checked = mailbox.SaveSentItems == 1 ? true : false;
+                chkSaveSentItems.Checked = mailbox.SaveSentItems == 1;
 
 
 

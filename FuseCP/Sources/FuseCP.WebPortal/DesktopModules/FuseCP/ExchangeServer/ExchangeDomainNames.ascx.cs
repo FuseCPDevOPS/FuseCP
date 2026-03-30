@@ -93,9 +93,6 @@ namespace FuseCP.Portal.ExchangeServer
                 // delete domain
                 int domainId = Utils.ParseInt(e.CommandArgument.ToString(), 0);
 
-                // domain name
-                DomainInfo domain = ES.Services.Servers.GetDomain(domainId);
-
                 try
                 {
                     int result = ES.Services.Organizations.DeleteOrganizationDomain(PanelRequest.ItemID, domainId);

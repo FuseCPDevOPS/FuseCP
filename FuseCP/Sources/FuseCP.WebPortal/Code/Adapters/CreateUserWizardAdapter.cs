@@ -102,17 +102,15 @@ namespace CSSFriendly
             if (wizard != null)
             {
                 TemplatedWizardStep activeStep = wizard.ActiveStep as TemplatedWizardStep;
-                if (activeStep != null)
+                if ((activeStep != null) &&
+                    (activeStep.ContentTemplate != null) &&
+                    (activeStep.Controls.Count == 1))
                 {
-                    if ((activeStep.ContentTemplate != null) &&
-                        (activeStep.Controls.Count == 1))
+                    Control container = activeStep.ContentTemplateContainer;
+                    if (container != null)
                     {
-                        Control container = activeStep.ContentTemplateContainer;
-                        if (container != null)
-                        {
-                            container.Controls.Clear();
-                            activeStep.Controls.Add(container);
-                        }
+                        container.Controls.Clear();
+                        activeStep.Controls.Add(container);
                     }
                 }
             }

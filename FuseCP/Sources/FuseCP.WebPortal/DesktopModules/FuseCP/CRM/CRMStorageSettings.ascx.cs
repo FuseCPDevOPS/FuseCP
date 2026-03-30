@@ -61,8 +61,10 @@ namespace FuseCP.Portal
             long maxDBSize = ES.Services.CRM.GetMaxDBSize(PanelRequest.ItemID, PanelSecurity.PackageId);
             long DBSize = ES.Services.CRM.GetDBSize(PanelRequest.ItemID, PanelSecurity.PackageId);
 
-            DBSize = DBSize > 0 ? DBSize = DBSize / (1024 * 1024) : DBSize;
-            maxDBSize = maxDBSize > 0 ? maxDBSize = maxDBSize / (1024 * 1024) : maxDBSize;
+            if (DBSize > 0)
+                DBSize /= (1024 * 1024);
+            if (maxDBSize > 0)
+                maxDBSize /= (1024 * 1024);
 
             maxStorageSettingsValue.QuotaValue = Convert.ToInt32(maxDBSize);
 

@@ -81,8 +81,6 @@ namespace FuseCP.Portal
             if (!Page.IsValid)
                 return;
 
-            ServiceLevel serviceLevel = new ServiceLevel();
-
             int res = ES.Services.Organizations.AddSupportServiceLevel(txtServiceLevelName.Text, txtServiceLevelDescr.Text);
 
             if (res < 0)

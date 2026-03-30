@@ -477,14 +477,7 @@ namespace FuseCP.Portal
 
         private bool PlanExists(ExchangeMailboxPlan plan, ExchangeMailboxPlan[] plans)
         {
-            bool result = false;
-
-            foreach (ExchangeMailboxPlan p in plans.Where(p => p.MailboxPlan.ToLower() == plan.MailboxPlan.ToLower()))
-            {
-                    result = true;
-                    break;
-            }
-            return result;
+            return plans.Any(p => p.MailboxPlan.ToLower() == plan.MailboxPlan.ToLower());
         }
 
         protected void txtMailboxPlan_TextChanged(object sender, EventArgs e)

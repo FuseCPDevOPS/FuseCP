@@ -74,7 +74,7 @@ namespace FuseCP.Portal
         public static bool IsQuotaEnabled(int packageId, string quotaName)
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
-            return cntx.Quotas.ContainsKey(quotaName) && !cntx.Quotas[quotaName].QuotaExhausted;
+            return cntx.Quotas.TryGetValue(quotaName, out var quota) && !quota.QuotaExhausted;
         }
 
         public static PackageContext GetCachedPackageContext(int packageId)

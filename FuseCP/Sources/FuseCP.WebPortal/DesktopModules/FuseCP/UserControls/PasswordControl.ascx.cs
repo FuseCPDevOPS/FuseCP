@@ -340,7 +340,6 @@ namespace FuseCP.Portal
                 bool enabled = false;
                 int minLength = -1;
                 int maxLength = -1;
-                bool notEqualToUsername = false;
 
                 try
                 {
@@ -352,7 +351,6 @@ namespace FuseCP.Portal
                     MinimumUppercase = (parts.Length > 3) ? Math.Max(Utils.ParseInt(parts[3], 0), MinimumUppercase) : MinimumUppercase;
                     MinimumNumbers = (parts.Length > 4) ? Math.Max(Utils.ParseInt(parts[4], 0), MinimumNumbers) : MinimumNumbers;
                     MinimumSymbols = (parts.Length > 5) ? Math.Max(Utils.ParseInt(parts[5], 0), MinimumSymbols) : MinimumSymbols;
-                    notEqualToUsername = (parts.Length > 6) && Utils.ParseBool(parts[6], false);
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
