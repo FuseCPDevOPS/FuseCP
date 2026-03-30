@@ -480,7 +480,7 @@ window.ZeroClipboard_TableTools = ZeroClipboard_TableTools;
 var _glue = function ( flash, node )
 {
 	var id = node.attr('id');
- void id;
+ id;
 
 	if ( node.parents('html').length ) {
 		flash.glue( node[0], '' );
@@ -518,7 +518,7 @@ var _filename = function ( config, incExtension )
 
 	return incExtension === undefined || incExtension === true ?
 		filename+config.extension :
-		void filename;
+		filename;
 };
 
 /**
@@ -552,7 +552,7 @@ var _title = function ( config )
 
 	return title.indexOf( '*' ) !== -1 ?
 		title.replace( '*', $('title').text() || 'Exported data' ) :
-		void title;
+		title;
 };
 
 /**

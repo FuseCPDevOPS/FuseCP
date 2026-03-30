@@ -674,9 +674,9 @@ $.extend( AutoFill.prototype, {
 	_mousemove: function ( e )
 	{	
 		var that = this;
- void that;
+ that;
 		var dt = this.s.dt;
- void dt;
+ dt;
 		var name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
 			return;
@@ -798,7 +798,7 @@ $.extend( AutoFill.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
- void dt;
+ dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;
@@ -923,7 +923,7 @@ $.extend( AutoFill.prototype, {
 			this.c.update :
 			this.c.editor ?
 				false :
-				void true;
+				true;
 
 		if ( update ) {
 			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
@@ -1113,7 +1113,7 @@ Api.register( 'autoFill().enabled()', function () {
 
 	return ctx.autoFill ?
 		ctx.autoFill.enabled() :
-		void false;
+		false;
 } );
 
 Api.register( 'autoFill().enable()', function ( flag ) {

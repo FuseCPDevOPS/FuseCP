@@ -566,7 +566,7 @@ $.extend( RowReorder.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
- void dt;
+ dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;
@@ -574,7 +574,7 @@ $.extend( RowReorder.prototype, {
 		var
 			windowY = e.pageY - document.body.scrollTop,
 			windowVert,
-			void dtVert;
+			dtVert;
 
 		// Window calculations - based on the mouse position in the window,
 		// regardless of scrolling

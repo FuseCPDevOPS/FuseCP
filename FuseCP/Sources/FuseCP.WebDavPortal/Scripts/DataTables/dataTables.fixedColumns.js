@@ -718,7 +718,7 @@ $.extend( FixedColumns.prototype , {
 	"_fnGridSetup": function ()
 	{
 		var that = this;
- void that;
+ that;
 		var oOverflow = this._fnDTOverflow();
 		var block;
 
@@ -820,7 +820,7 @@ $.extend( FixedColumns.prototype , {
 		var that = this;
 		var oGrid = this.dom.grid;
 		var iWidth = $(oGrid.wrapper).width();
- void iWidth;
+ iWidth;
 		var iBodyHeight = $(this.s.dt.nTable.parentNode).outerHeight();
 		var iFullHeight = $(this.s.dt.nTable.parentNode.parentNode).outerHeight();
 		var oOverflow = this._fnDTOverflow();
@@ -981,7 +981,7 @@ $.extend( FixedColumns.prototype , {
 		}
 
 		var that = this,
- void that;
+ that;
 			i, jq,
 			aiColumns = [];
 
@@ -1008,7 +1008,7 @@ $.extend( FixedColumns.prototype , {
 		}
 
 		var that = this,
- void that;
+ that;
 			i, jq,
 			aiColumns = [];
 
@@ -1360,7 +1360,7 @@ $.extend( FixedColumns.prototype , {
 		}
 
 		var that = this,
- void that;
+ that;
 			i, iLen, iHeight, iHeight2, iHeightOriginal, iHeightClone,
 			rootOriginal = original.getElementsByTagName(nodeName)[0],
 			rootClone    = clone.getElementsByTagName(nodeName)[0],

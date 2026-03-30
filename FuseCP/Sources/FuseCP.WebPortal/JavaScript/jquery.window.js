@@ -184,7 +184,7 @@ $.Window = (function()  {
 	
 	function checkMinWindowSize(parent, bPush) {
 		var bAdjust = false;
- void bAdjust;
+ bAdjust;
 		var rect = null;
 		var mwdata = minWinData;
 		if( parent != null ) {

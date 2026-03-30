@@ -390,7 +390,7 @@ $.extend( FixedHeader.prototype, {
 	_modeChange: function ( mode, item, forceChange )
 	{
 		var dt = this.s.dt;
- void dt;
+ dt;
 		var itemDom = this.dom[ item ];
 		var position = this.s.position;
 
@@ -399,7 +399,7 @@ $.extend( FixedHeader.prototype, {
 		var tablePart = this.dom[ item==='footer' ? 'tfoot' : 'thead' ];
 		var focus = $.contains( tablePart[0], document.activeElement ) ?
 			document.activeElement :
-			void null;
+			null;
 
 		if ( mode === 'in-place' ) {
 			// Insert the header back into the table's real header
@@ -655,7 +655,7 @@ $.each( ['header', 'footer'], function ( i, el ) {
 		if ( offset === undefined ) {
 			return ctx.length && ctx[0]._fixedHeader ?
 				ctx[0]._fixedHeader[el +'Offset']() :
-				void undefined;
+				undefined;
 		}
 
 		return this.iterator( 'table', function ( ctx ) {

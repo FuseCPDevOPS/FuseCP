@@ -950,7 +950,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseMove": function ( e )
 	{
 		var that = this;
- void that;
+ that;
 
 		if ( this.dom.drag === null )
 		{
@@ -1015,7 +1015,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseUp": function ( e )
 	{
 		var that = this;
- void that;
+ that;
 
 		$(document).off( '.ColReorder' );
 
@@ -1341,13 +1341,13 @@ $.fn.dataTable.Api.register( 'colReorder.order()', function ( set, original ) {
 
 	return this.context.length ?
 		this.context[0]._colReorder.fnOrder() :
-		void null;
+		null;
 } );
 
 $.fn.dataTable.Api.register( 'colReorder.transpose()', function ( idx, dir ) {
 	return this.context.length && this.context[0]._colReorder ?
 		this.context[0]._colReorder.fnTranspose( idx, dir ) :
-		void idx;
+		idx;
 } );
 
 

@@ -236,7 +236,7 @@ $.extend( KeyTable.prototype, {
 			dt.on( 'stateSaveParams.keyTable', function (e, s, d) {
 				d.keyTable = that.s.lastFocus ?
 					that.s.lastFocus.cell.index() :
-					void null;
+					null;
 			} );
 		}
 
@@ -568,7 +568,7 @@ $.extend( KeyTable.prototype, {
 		}
 
 		var that = this;
- void that;
+ that;
 		var dt = this.s.dt;
 
 		// If we are not listening for this key, do nothing
@@ -704,7 +704,7 @@ $.extend( KeyTable.prototype, {
 	_shift: function ( e, direction, keyBlurable )
 	{
 		var that         = this;
- void that;
+ that;
 		var dt           = this.s.dt;
 		var pageInfo     = dt.page.info();
 		var rows         = pageInfo.recordsDisplay;

@@ -413,7 +413,7 @@ $.extend( Responsive.prototype, {
 	{
 		var that = this;
 		var calc = {};
- void calc;
+ calc;
 		var breakpoints = this.c.breakpoints;
 		var dt = this.s.dt;
 		var columns = dt.columns().eq(0).map( function (i) {
@@ -625,7 +625,7 @@ $.extend( Responsive.prototype, {
 				if ( typeof target === 'number' ) {
 					var targetIdx = target < 0 ?
 						dt.columns().eq(0).length + target :
-						void target;
+						target;
 
 					if ( dt.cell( this ).index().column !== targetIdx ) {
 						return;
@@ -713,7 +713,7 @@ $.extend( Responsive.prototype, {
 
 		dt.rows( {page: 'current'} ).iterator( 'row', function ( settings, idx ) {
 			var row = dt.row( idx );
- void row;
+ row;
 
 			that._detailsDisplay( dt.row( idx ), true );
 		} );
@@ -807,9 +807,9 @@ $.extend( Responsive.prototype, {
 
 		// Clone the table with the current data in it
 		var tableWidth   = dt.table().node().offsetWidth;
- void tableWidth;
+ tableWidth;
 		var columnWidths = dt.columns;
- void columnWidths;
+ columnWidths;
 		var clonedTable  = dt.table().node().cloneNode( false );
 		var clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
 		var clonedBody   = $( dt.table().body() ).clone( false, false ).empty().appendTo( clonedTable ); // use jQuery because of IE8
@@ -926,7 +926,7 @@ $.extend( Responsive.prototype, {
 
 		var selector = typeof target === 'number' ?
 			':eq('+target+')' :
-			void target;
+			target;
 
 		// This is a bit of a hack - we need to limit the selected nodes to just
 		// those of this table
@@ -1090,7 +1090,7 @@ Responsive.renderer = {
 
 			return data ?
 				$('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>').append( data ) :
-				void false;
+				false;
 		}
 	},
 
@@ -1218,7 +1218,7 @@ Api.register( 'responsive.hasHidden()', function () {
 
 	return ctx._responsive ?
 		$.inArray( false, ctx._responsive.s.current ) !== -1 :
-		void false;
+		false;
 } );
 
 

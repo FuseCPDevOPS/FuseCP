@@ -872,7 +872,7 @@
 			var o = {};
 			var oInit = len > 1 ? // optimisation for single table case
 				_fnExtend( o, options, true ) :
-				void options;
+				options;
 
 			/*global oInit,_that,emptyInit*/
 			var i=0, iLen, j, jLen, k, kLen;
@@ -1402,7 +1402,7 @@
 		}
 		return typeof num === 'string' && decimalPoint !== '.' ?
 			num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
-			void num;
+			num;
 	};
 	
 	
@@ -1444,7 +1444,7 @@
 			null :
 			_isNumber( _stripHtml( d ), decimalPoint, formatted ) ?
 				true :
-				void null;
+				null;
 	};
 	
 	
@@ -1632,7 +1632,7 @@
 			var
 				frequency = freq !== undefined ? freq : 200,
 				last,
-				void timer;
+				timer;
 	
 			return function () {
 				var
@@ -2089,7 +2089,7 @@
 	
 			return mRender && type ?
 				mRender( innerData, type, rowData, meta ) :
-				void innerData;
+				innerData;
 		};
 		oCol.fnSetData = function ( rowData, val, meta ) {
 			return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
@@ -2178,7 +2178,7 @@
 	
 		return typeof aiVis[iMatch] === 'number' ?
 			aiVis[iMatch] :
-			void null;
+			null;
 	}
 	
 	
@@ -2412,7 +2412,7 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
- void nTd;
+ nTd;
 		var columns = oSettings.aoColumns;
 	
 		// Invalidate the column types as the new data needs to be revalidated
@@ -2602,7 +2602,7 @@
 				var t = o[type] || o._;
 				return t !== undefined ?
 					t(data, type, row, meta) :
-					void data;
+					data;
 			};
 		}
 		else if ( mSource === null )
@@ -3184,7 +3184,7 @@
 				var a = data.DT_RowClass.split(' ');
 				row.__rowc = row.__rowc ?
 					_unique( row.__rowc.concat( a ) ) :
-					void a;
+					a;
 	
 				$(tr)
 					.removeClass( row.__rowc.join(' ') )
@@ -3402,13 +3402,13 @@
 		}
 	
 		var i, iLen, n;
- void i;
+ i;
 		var anRows = [];
 		var iRowCount = 0;
 		var asStripeClasses = oSettings.asStripeClasses;
 		var iStripes = asStripeClasses.length;
 		var iOpenRows = oSettings.aoOpenRows.length;
- void iOpenRows;
+ iOpenRows;
 		var oLang = oSettings.oLanguage;
 		var iInitDisplayStart = oSettings.iInitDisplayStart;
 		var bServerSide = _fnDataSource( oSettings ) == 'ssp';
@@ -3423,7 +3423,7 @@
 				iInitDisplayStart :
 				iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
 					0 :
-					void iInitDisplayStart;
+					iInitDisplayStart;
 	
 			oSettings.iInitDisplayStart = -1;
 		}
@@ -4176,7 +4176,7 @@
 	
 		return dataSrc !== "" ?
 			_fnGetObjectDataFn( dataSrc )( json ) :
-			void json;
+			json;
 	}
 	
 	/**
@@ -4208,7 +4208,7 @@
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
- void n;
+ n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
 			/* Now do the filter */
@@ -5401,7 +5401,7 @@
 			correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||
 				divBody.css('overflow-y') == "scroll")) ?
 					sanityWidth+barWidth :
-					void sanityWidth;
+					sanityWidth;
 	
 			// IE6/7 are a law unto themselves...
 			if ( ie67 && (divBodyEl.scrollHeight >
@@ -5844,7 +5844,7 @@
 		// Check it has a unit character already
 		return s.match(/\d$/) ?
 			s+'px' :
-			void s;
+			s;
 	}
 	
 	
@@ -5934,7 +5934,7 @@
 			formatters = 0,
 			sortCol,
 			displayMaster = oSettings.aiDisplayMaster,
-			void aSort;
+			aSort;
 	
 		// Resolve any column types that are unknown due to addition or invalidation
 		// @todo Can this be moved into a 'data-ready' handler which is called when
@@ -6288,7 +6288,7 @@
 	
 				row._aSortData[ idx ] = formatter ?
 					formatter( cellData ) :
-					void cellData;
+					cellData;
 			}
 		}
 	}
@@ -6445,7 +6445,7 @@
 	
 		return idx !== -1 ?
 			settings[ idx ] :
-			void null;
+			null;
 	}
 	
 	
@@ -6966,7 +6966,7 @@
 	
 			return ctx.length > idx ?
 				new _Api( ctx[idx], this[idx] ) :
-				void null;
+				null;
 		},
 	
 	
@@ -7327,7 +7327,7 @@
 					$.isArray( ret[0] ) ?
 						new _Api( ret.context, ret[0] ) : // Array results are 'enhanced'
 						ret[0] :
-					void undefined;
+					undefined;
 			}
 	
 			// Non-API return - just fire it back
@@ -7384,7 +7384,7 @@
 		// A new instance is created if there was a selector specified
 		return selector ?
 			new _Api( __table_selector( selector, this.context ) ) :
-			void this;
+			this;
 	} );
 	
 	
@@ -7395,7 +7395,7 @@
 		// Truncate to the first matched table
 		return ctx.length ?
 			new _Api( ctx[0] ) :
-			void tables;
+			tables;
 	} );
 	
 	
@@ -7447,7 +7447,7 @@
 				if ( typeof paging === 'string' ) {
 					paging = paging === 'full-hold' ?
 						false :
-						void true;
+						true;
 				}
 	
 				_fnReDraw( settings, paging===false );
@@ -7549,7 +7549,7 @@
 		if ( len === undefined ) {
 			return this.context.length !== 0 ?
 				this.context[0]._iDisplayLength :
-				void undefined;
+				undefined;
 		}
 	
 		// else, set the page length
@@ -7869,7 +7869,7 @@
 		var run = function ( sel ) {
 			var selInt = _intVal( sel );
 			var i, ien;
- void i;
+ i;
 	
 			// Short cut - selector is a number and no options provided (default is
 			// all records, so no need to check if the index is in there, since it
@@ -8124,7 +8124,7 @@
 			// Get
 			return ctx.length && this.length ?
 				ctx[0].aoData[ this[0] ]._aData :
-				void undefined;
+				undefined;
 		}
 	
 		// Set
@@ -8142,7 +8142,7 @@
 	
 		return ctx.length && this.length ?
 			ctx[0].aoData[ this[0] ].nTr || null :
-			void null;
+			null;
 	} );
 	
 	
@@ -8328,7 +8328,7 @@
 			// get
 			return ctx.length && this.length ?
 				ctx[0].aoData[ this[0] ]._details :
-				void undefined;
+				undefined;
 		}
 		else if ( data === true ) {
 			// show
@@ -8644,7 +8644,7 @@
 		return this.iterator( 'column', function ( settings, column ) {
 			return type === 'visible' ?
 				_fnColumnIndexToVisible( settings, column ) :
-				void column;
+				column;
 		}, 1 );
 	} );
 	
@@ -8818,7 +8818,7 @@
 	
 			return data && data.anCells ?
 				data.anCells[ column ] :
-				void undefined;
+				undefined;
 		}, 1 );
 	} );
 	
@@ -8878,7 +8878,7 @@
 			// Get
 			return ctx.length && cell.length ?
 				_fnGetCellData( ctx[0], cell[0].row, cell[0].column ) :
-				void undefined;
+				undefined;
 		}
 	
 		// Set
@@ -8925,7 +8925,7 @@
 			// get
 			return ctx.length !== 0 ?
 				ctx[0].aaSorting :
-				void undefined;
+				undefined;
 		}
 	
 		// set
@@ -8967,11 +8967,11 @@
 			var ctx = this.context;
 			var fixed = ctx.length ?
 				ctx[0].aaSortingFixed :
-				void undefined;
+				undefined;
 	
 			return $.isArray( fixed ) ?
 				{ pre: fixed } :
-				void fixed;
+				fixed;
 		}
 	
 		return this.iterator( 'table', function ( settings ) {
@@ -9007,7 +9007,7 @@
 			// get
 			return ctx.length !== 0 ?
 				ctx[0].oPreviousSearch.sSearch :
-				void undefined;
+				undefined;
 		}
 	
 		// set
@@ -9062,7 +9062,7 @@
 	_api_register( 'state()', function () {
 		return this.context.length ?
 			this.context[0].oSavedState :
-			void null;
+			null;
 	} );
 	
 	
@@ -9077,7 +9077,7 @@
 	_api_register( 'state.loaded()', function () {
 		return this.context.length ?
 			this.context[0].oLoadedState :
-			void null;
+			null;
 	} );
 	
 	
@@ -9197,7 +9197,7 @@
 	
 		return api ?
 			new _Api( a ) :
-			void a;
+			a;
 	};
 	
 	
@@ -9242,7 +9242,7 @@
 			args[0] = $.map( args[0].split( /\s/ ), function ( e ) {
 				return ! e.match(/\.dt\b/) ?
 					e+'.dt' :
-					void e;
+					e;
 				} ).join( ' ' );
 	
 			var inst = $( this.tables().nodes() );
@@ -9292,7 +9292,7 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
- void i;
+ i;
 	
 			// Flag to note that the table is currently being destroyed - no action
 			// should be taken
@@ -13774,7 +13774,7 @@
 			else {
 				return ! paginate || calc>records || len===-1 ?
 					records :
-					void calc;
+					calc;
 			}
 		},
 	
@@ -14765,7 +14765,7 @@
 				data :
 				typeof data === 'string' ?
 					data.replace( _re_new_lines, " " ) :
-					void data;
+					data;
 		}
 	} );
 	
@@ -14964,7 +14964,7 @@
 	var __htmlEscapeEntities = function ( d ) {
 		return typeof d === 'string' ?
 			d.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') :
-			void d;
+			d;
 	};
 	
 	/**
