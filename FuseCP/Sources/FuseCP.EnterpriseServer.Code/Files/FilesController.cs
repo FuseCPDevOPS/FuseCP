@@ -132,10 +132,9 @@ public class FilesController: ControllerBase
         List<SystemFile> filteredFiles = new List<SystemFile>();
         SystemFile[] files = os.GetFiles(fullPath);
 
-        foreach (SystemFile file in files)
+        foreach (SystemFile file in files.Where(file => file.IsDirectory || includeFiles))
         {
-            if (file.IsDirectory || includeFiles)
-                filteredFiles.Add(file);
+            filteredFiles.Add(file);
         }
         
         return filteredFiles;

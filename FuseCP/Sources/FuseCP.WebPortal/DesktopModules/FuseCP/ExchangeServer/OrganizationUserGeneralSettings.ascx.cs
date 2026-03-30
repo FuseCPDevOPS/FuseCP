@@ -406,7 +406,7 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
                 userPrincipalName = upn.Email;
             else
                 if (ddlEmailAddresses.Visible)
-                    userPrincipalName = (string)ddlEmailAddresses.SelectedValue;
+                    userPrincipalName = ddlEmailAddresses.SelectedValue;
 
             if (string.IsNullOrEmpty(userPrincipalName)) return;
 

@@ -361,16 +361,13 @@ namespace CSSFriendly
                     WebControlAdapterExtender.WriteEndDiv(writer);
                 }
             }
-            else if ((_state == State.Question) || (_state == State.AnswerLookupError))
+            if (((_state == State.Question) || (_state == State.AnswerLookupError)) && !String.IsNullOrEmpty(passwordRecovery.QuestionTitleText))
             {
-                if (!String.IsNullOrEmpty(passwordRecovery.QuestionTitleText))
-                {
-                    string className = (passwordRecovery.TitleTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.TitleTextStyle.CssClass)) ? passwordRecovery.TitleTextStyle.CssClass + " " : "";
-                    className += "AspNet-PasswordRecovery-Question-TitlePanel";
-                    WebControlAdapterExtender.WriteBeginDiv(writer, className);
-                    WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.QuestionTitleText);
-                    WebControlAdapterExtender.WriteEndDiv(writer);
-                }
+                string className = (passwordRecovery.TitleTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.TitleTextStyle.CssClass)) ? passwordRecovery.TitleTextStyle.CssClass + " " : "";
+                className += "AspNet-PasswordRecovery-Question-TitlePanel";
+                WebControlAdapterExtender.WriteBeginDiv(writer, className);
+                WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.QuestionTitleText);
+                WebControlAdapterExtender.WriteEndDiv(writer);
             }
         }
 
@@ -387,16 +384,13 @@ namespace CSSFriendly
                     WebControlAdapterExtender.WriteEndDiv(writer);
                 }
             }
-            else if ((_state == State.Question) || (_state == State.AnswerLookupError))
+            if (((_state == State.Question) || (_state == State.AnswerLookupError)) && !String.IsNullOrEmpty(passwordRecovery.QuestionInstructionText))
             {
-                if (!String.IsNullOrEmpty(passwordRecovery.QuestionInstructionText))
-                {
-                    string className = (passwordRecovery.InstructionTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.InstructionTextStyle.CssClass)) ? passwordRecovery.InstructionTextStyle.CssClass + " " : "";
-                    className += "AspNet-PasswordRecovery-Question-InstructionPanel";
-                    WebControlAdapterExtender.WriteBeginDiv(writer, className);
-                    WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.QuestionInstructionText);
-                    WebControlAdapterExtender.WriteEndDiv(writer);
-                }
+                string className = (passwordRecovery.InstructionTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.InstructionTextStyle.CssClass)) ? passwordRecovery.InstructionTextStyle.CssClass + " " : "";
+                className += "AspNet-PasswordRecovery-Question-InstructionPanel";
+                WebControlAdapterExtender.WriteBeginDiv(writer, className);
+                WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.QuestionInstructionText);
+                WebControlAdapterExtender.WriteEndDiv(writer);
             }
         }
 

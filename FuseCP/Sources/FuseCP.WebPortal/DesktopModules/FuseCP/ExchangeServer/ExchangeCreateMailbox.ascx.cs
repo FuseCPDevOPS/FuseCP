@@ -71,11 +71,10 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
                         allowResourceMailbox = true;
 }
 
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_RESOURCEMAILBOXES, out var resourceMailboxQuota))
-                {
-                    if (resourceMailboxQuota.QuotaAllocatedValue != 0)
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_RESOURCEMAILBOXES, out var resourceMailboxQuota) && resourceMailboxQuota.QuotaAllocatedValue != 0)
+{
                         allowResourceMailbox = true;
-                }
+}
 
 
                 if (allowResourceMailbox)
@@ -84,11 +83,10 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_RESOURCEMAILBOXES, out var resou
                     rbMailboxType.Items.Add(new System.Web.UI.WebControls.ListItem(GetLocalizedString("EquipmentMailbox.Text"), "6"));
                 }
 
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedMailboxQuota))
-                {
-                    if (sharedMailboxQuota.QuotaAllocatedValue != 0)
+if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedMailboxQuota) && sharedMailboxQuota.QuotaAllocatedValue != 0)
+{
                         rbMailboxType.Items.Add(new System.Web.UI.WebControls.ListItem(GetLocalizedString("SharedMailbox.Text"), "10"));
-                }
+}
 
 
                 divRetentionPolicy.Visible = Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, cntx);

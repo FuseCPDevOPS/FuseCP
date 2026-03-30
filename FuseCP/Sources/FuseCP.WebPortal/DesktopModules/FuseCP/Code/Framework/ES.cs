@@ -57,7 +57,7 @@ namespace FuseCP.WebPortal
 		public ES() { }
 
 		static ES services = null;
-		static object Lock = new object();
+		static readonly object Lock = new object();
 		public static ES Services
 		{
 			get
@@ -278,7 +278,7 @@ namespace FuseCP.WebPortal
 			return GetCachedProxy<T>(true);
 		}
 
-		static ConcurrentDictionary<Type, Web.Clients.ClientBase> cache = new ConcurrentDictionary<Type, Web.Clients.ClientBase>();
+		static readonly ConcurrentDictionary<Type, Web.Clients.ClientBase> cache = new ConcurrentDictionary<Type, Web.Clients.ClientBase>();
 		protected virtual T GetCachedProxy<T>(bool secureCalls)
 			where T: Web.Clients.ClientBase
 		{

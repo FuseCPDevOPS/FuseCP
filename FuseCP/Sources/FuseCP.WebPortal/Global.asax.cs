@@ -50,20 +50,14 @@ namespace FuseCP.WebPortal
 
 				string roleName = String.Empty;
 
-				if (authTicket == null)
+				if (authTicket == null && User.Identity is System.Web.Security.FormsIdentity formsId)
 				{
-					// Use the server-validated FormsIdentity from the authentication pipeline
-					// (already decrypted and verified by FormsAuthenticationModule).
-					if (User.Identity is System.Web.Security.FormsIdentity formsId)
-					{
-						authTicket = formsId.Ticket;
-						Context.Items[FormsAuthentication.FormsCookieName] = authTicket;
+					authTicket = formsId.Ticket;
+				}
 
-						int index = authTicket.UserData.IndexOf(Environment.NewLine);
-
-						if (index > -1)
-							roleName = authTicket.UserData.Substring(index + Environment.NewLine.Length);
-					}
+				if (authTicket != null)
+				{
+					roleName = authTicket.UserData;
 				}
 
 				string[] roles = null;

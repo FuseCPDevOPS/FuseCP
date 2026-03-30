@@ -2125,6 +2125,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
             }
             catch (ManagementException)
             {
+                _ = 0;
             }
 
             return result;
@@ -2375,6 +2376,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 }
                 catch (IOException)
                 {
+                    _ = 0;
                 }
                 FileUtils.DeleteFile(path);
             }

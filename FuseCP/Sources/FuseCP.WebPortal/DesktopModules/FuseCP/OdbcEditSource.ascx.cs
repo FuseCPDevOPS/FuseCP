@@ -263,10 +263,7 @@ namespace FuseCP.Portal
             // user
             if (driverName == "MsAccess")
                 local_item.DatabaseUser = txtUser.Text.Trim();
-            if (driverName == "MsAccess2010")
-                local_item.DatabaseUser = txtUser.Text.Trim();
-            else
-                local_item.DatabaseUser = ddlDatabaseUser.SelectedValue;
+            local_item.DatabaseUser = driverName == "MsAccess2010" ? txtUser.Text.Trim() : ddlDatabaseUser.SelectedValue;
 
             if (PanelRequest.ItemID == 0)
             {

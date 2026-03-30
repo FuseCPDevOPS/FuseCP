@@ -124,7 +124,7 @@ namespace FuseCP.Portal.ReportingServices
 			}
 
 			// 4. return TextReader
-			return new StringReader(reportXml.DocumentElement.OuterXml) as TextReader;
+			return new StringReader(reportXml.DocumentElement.OuterXml);
 		}
 
 		#region Vistual Members - optional to override

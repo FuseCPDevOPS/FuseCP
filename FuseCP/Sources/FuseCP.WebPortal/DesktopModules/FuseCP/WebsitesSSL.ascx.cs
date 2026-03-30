@@ -639,7 +639,7 @@ namespace FuseCP.Portal
                     SSLNotInstalled.Visible = false;
                     pnlInstallCertificate.Visible = true;
                     SSLCertificate pending = (from c in certificates
-                                              where c.Installed == false
+                                              where !(c.Installed)
                                               select c).Single();
                     ViewState["CSRID"] = pending.id;
                     txtCSR.Text = pending.CSR;

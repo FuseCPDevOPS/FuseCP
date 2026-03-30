@@ -232,7 +232,7 @@ public class PortalUtils
 			}
 
 			// create message
-			var message = new MimeMessage();
+			using var message = new MimeMessage();
 			message.From.Add(MailboxAddress.Parse(from));
 			message.To.Add(MailboxAddress.Parse(to));
 			if (!String.IsNullOrEmpty(bcc))
@@ -441,7 +441,7 @@ public class PortalUtils
 		// Convert plain text into a byte array.
 		byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
-		HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
+		using HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
 
 		// Compute hash value of our plain text with appended salt.
 		byte[] hashBytes = hash.ComputeHash(plainTextBytes);
@@ -568,7 +568,7 @@ public class PortalUtils
 
 		if (tmp == null) tmp = string.Empty;
 
-		string roleKey = ((UserRole)role).ToString();
+		string roleKey = (role).ToString();
 
 		return !tmp.Contains(roleKey);
 	}

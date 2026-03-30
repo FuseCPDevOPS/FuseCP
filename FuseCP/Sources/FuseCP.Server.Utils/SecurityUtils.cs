@@ -1319,6 +1319,7 @@ namespace FuseCP.Providers.Utils
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
+                            _ = 0;
                         }
                     }
 
@@ -1408,6 +1409,7 @@ namespace FuseCP.Providers.Utils
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
+                            _ = 0;
                         }
                     }
 

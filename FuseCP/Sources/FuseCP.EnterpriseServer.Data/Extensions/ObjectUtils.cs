@@ -281,9 +281,11 @@ namespace FuseCP.EnterpriseServer.Data
 							}
 							catch (ArgumentException)
 							{
+							    _ = 0;
 							}
 							catch (InvalidOperationException)
 							{
+							    _ = 0;
 							}
 						} // for properties
 					}
@@ -363,9 +365,11 @@ namespace FuseCP.EnterpriseServer.Data
 					}
 					catch (ArgumentException)
 					{
+					    _ = 0;
 					}
 					catch (InvalidOperationException)
 					{
+					    _ = 0;
 					}
 				} // for properties
 			}
@@ -446,9 +450,11 @@ namespace FuseCP.EnterpriseServer.Data
 				}
 				catch (ArgumentException)
 				{
+				    _ = 0;
 				}
 				catch (TargetInvocationException)
 				{
+				    _ = 0;
 				}
 			} // for properties
 
@@ -569,9 +575,11 @@ namespace FuseCP.EnterpriseServer.Data
 						}
 						catch (ArgumentException)
 						{
+						    _ = 0;
 						}
 						catch (InvalidOperationException)
 						{
+						    _ = 0;
 						}
 					} // for properties
 				}
@@ -624,18 +632,23 @@ namespace FuseCP.EnterpriseServer.Data
 			}
 			catch (ArgumentException)
 			{
+			    _ = 0;
 			}
 			catch (FormatException)
 			{
+			    _ = 0;
 			}
 			catch (InvalidCastException)
 			{
+			    _ = 0;
 			}
 			catch (OverflowException)
 			{
+			    _ = 0;
 			}
 			catch (TargetInvocationException)
 			{
+			    _ = 0;
 			}
 		}
 

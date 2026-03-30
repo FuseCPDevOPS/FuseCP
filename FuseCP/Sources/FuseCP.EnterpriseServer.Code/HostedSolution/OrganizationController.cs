@@ -2993,7 +2993,7 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-                if (!settings.ContainsKey(UseStorageSpaces))
+if (!settings.TryGetValue(UseStorageSpaces, out var _ckv))
             {
                 return false;
             }

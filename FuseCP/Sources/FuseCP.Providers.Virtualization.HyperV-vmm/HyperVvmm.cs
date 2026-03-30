@@ -1697,6 +1697,7 @@ namespace FuseCP.Providers.Virtualization
             }
             catch (ManagementException)
             {
+                _ = 0;
             }
 
             return result;
@@ -1935,6 +1936,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 catch (IOException)
                 {
+                    _ = 0;
                 }
                 FileUtils.DeleteFile(path);
             }

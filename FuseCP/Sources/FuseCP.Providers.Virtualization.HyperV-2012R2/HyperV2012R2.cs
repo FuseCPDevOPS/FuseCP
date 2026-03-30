@@ -838,6 +838,7 @@ namespace FuseCP.Providers.Virtualization
                             }
                             catch (RuntimeException)
                             {
+                                _ = 0;
                             }
 
                             if (freeMemory > maxMemory)

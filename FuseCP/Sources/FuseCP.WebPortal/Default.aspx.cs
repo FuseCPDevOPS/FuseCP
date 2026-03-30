@@ -450,12 +450,9 @@ namespace FuseCP.WebPortal
                 // edit mode
                 // find ContentPane
                 Control ctrlPane = ctrlSkin.FindControl(CONTENT_PANE_NAME);
-                if (ctrlPane != null)
+                if (ctrlPane != null && PortalConfiguration.Site.Modules.TryGetValue(ModuleID, out PageModule editModule))
                 {
-                    // add "edit" module
-                    if (PortalConfiguration.Site.Modules.TryGetValue(ModuleID, out PageModule editModule))
-                        AddModuleToContentPane(ctrlPane, editModule,
-                            ModuleControlID, editMode);
+                    AddModuleToContentPane(ctrlPane, editModule, ModuleControlID, editMode);
                 }
                 // find LeftPane
                 ctrlPane = ctrlSkin.FindControl(LEFT_PANE_NAME);
@@ -482,7 +479,7 @@ namespace FuseCP.WebPortal
         private void AddModuleToContentPane(Control pane, PageModule module, string ctrlKey, bool editMode)
         {
             string defId = module.ModuleDefinitionID;
-if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out var _ckv))
+            if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out _))
             {
                 ShowError(pane, String.Format("Module definition '{0}' could not be found", defId));
                 return;
@@ -744,13 +741,10 @@ if (!PortalConfiguration.ModuleDefinitions.TryGetValue(defId, out var _ckv))
 
             string modeClass = String.Empty;
             HttpCookie modeCookie = Request.Cookies[THEME_MODE_COOKIE];
-            if (modeCookie != null)
+                string requestedMode = (modeCookie?.Value ?? String.Empty).Trim();
+            if (modeCookie != null && (requestedMode == "dark-theme" || requestedMode == "light-theme"))
             {
-                string requestedMode = (modeCookie.Value ?? String.Empty).Trim();
-                if (requestedMode == "dark-theme" || requestedMode == "light-theme")
-                {
                     modeClass = requestedMode;
-                }
             }
 
             if (String.IsNullOrWhiteSpace(styleClass))

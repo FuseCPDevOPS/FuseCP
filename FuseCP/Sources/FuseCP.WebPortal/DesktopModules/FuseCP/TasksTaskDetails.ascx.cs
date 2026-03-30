@@ -105,7 +105,7 @@ namespace FuseCP.Portal
 
         private string GetDurationText(DateTime startDate, DateTime endDate)
         {
-            TimeSpan duration = (TimeSpan)(endDate - startDate);
+            TimeSpan duration = (endDate - startDate);
             return String.Format("{0}:{1}:{2}",
                 duration.Hours.ToString().PadLeft(2, '0'),
                 duration.Minutes.ToString().PadLeft(2, '0'),

@@ -78,7 +78,7 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
 
             // The (Secret Key) will be generated from the specified 
             // password and salt.
-            PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
+            using PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
 
 
             // Create an encryptor from the existing SecretKey bytes.
@@ -137,7 +137,7 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
                 byte[] Salt = Encoding.ASCII.GetBytes(Password.Length.ToString());
 
 
-                PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
+                using PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
                 byte[] key = SecretKey.GetBytes(32);
                 byte[] iv = SecretKey.GetBytes(16);
                 byte[] PlainText = new byte[EncryptedData.Length];
