@@ -287,7 +287,7 @@ namespace FuseCP.Providers.OS
 					}
 				}
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				MessageBox.Show(GetLastError.ToString);
 				return string.Empty;

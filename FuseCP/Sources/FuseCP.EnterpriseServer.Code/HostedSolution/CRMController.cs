@@ -517,7 +517,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     ServerController.DeleteDomain(domainInfo.DomainId);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     CompleteTask(ret, CrmErrorCodes.CANNOT_DELETE_CRM_ORGANIZATIO_DOMAIN, ex);
                     return ret;

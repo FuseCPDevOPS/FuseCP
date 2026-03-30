@@ -62,7 +62,7 @@ namespace FuseCP.Portal
                     btnInstall.Enabled = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ShowErrorMessage("GET_GALLERY_APPLIACTION_DETAILS", ex);
             }
@@ -101,7 +101,7 @@ namespace FuseCP.Portal
 
 				}
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 isSuccess = false;
                 ShowErrorMessage("GET_GALLERY_APPLICATION_STATUS", ex);                

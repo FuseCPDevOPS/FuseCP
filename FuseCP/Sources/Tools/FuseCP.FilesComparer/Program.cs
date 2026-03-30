@@ -42,7 +42,7 @@ namespace FuseCP.FilesComparer
                 //
                 CreateComparison(args[0], args[1], args[2]);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Console.WriteLine(ex.ToString());
             }

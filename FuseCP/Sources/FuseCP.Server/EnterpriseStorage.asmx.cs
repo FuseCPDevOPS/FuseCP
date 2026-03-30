@@ -53,7 +53,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetFolders", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetFolders", ProviderSettings.ProviderName), ex);
                 throw;
@@ -70,7 +70,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetFolders", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetFolders", ProviderSettings.ProviderName), ex);
                 throw;
@@ -87,7 +87,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetFolder", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetFolder", ProviderSettings.ProviderName), ex);
                 throw;
@@ -103,7 +103,7 @@ namespace FuseCP.Server
                 EnterpriseStorageProvider.CreateFolder(organizationId, folder, setting);
                 Log.WriteEnd("'{0}' CreateFolder", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateFolder", ProviderSettings.ProviderName), ex);
                 throw;
@@ -119,7 +119,7 @@ namespace FuseCP.Server
                 EnterpriseStorageProvider.DeleteFolder(organizationId, folder, setting);
                 Log.WriteEnd("'{0}' DeleteFolder", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteFolder", ProviderSettings.ProviderName), ex);
                 throw;
@@ -136,7 +136,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' SetFolderWebDavRules", ProviderSettings.ProviderName);
                 return bResult;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SetFolderWebDavRules", ProviderSettings.ProviderName), ex);
                 throw;
@@ -153,7 +153,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetFolderWebDavRules", ProviderSettings.ProviderName);
                 return webDavFolderRule;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetFolderWebDavRules", ProviderSettings.ProviderName), ex);
                 throw;
@@ -170,7 +170,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CheckFileServicesInstallation", ProviderSettings.ProviderName);
                 return bResult;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CheckFileServicesInstallation", ProviderSettings.ProviderName), ex);
                 throw;
@@ -187,7 +187,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' Search", ProviderSettings.ProviderName);
                 return searchResults;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' Search", ProviderSettings.ProviderName), ex);
                 throw;
@@ -204,7 +204,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' RenameFolder", ProviderSettings.ProviderName);
                 return systemFile;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RenameFolder", ProviderSettings.ProviderName), ex);
                 throw;
@@ -221,7 +221,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetQuotasForOrganization", ProviderSettings.ProviderName);
                 return newFolders;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetQuotasForOrganization", ProviderSettings.ProviderName), ex);
                 throw;
@@ -237,7 +237,7 @@ namespace FuseCP.Server
                 EnterpriseStorageProvider.MoveFolder(oldPath, newPath);
                 Log.WriteEnd("'{0}' MoveFolder", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' MoveFolder", ProviderSettings.ProviderName), ex);
                 throw;

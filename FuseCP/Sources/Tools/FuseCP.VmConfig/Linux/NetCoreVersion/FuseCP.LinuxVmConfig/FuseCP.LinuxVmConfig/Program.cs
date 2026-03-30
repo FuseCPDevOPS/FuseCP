@@ -311,7 +311,7 @@ namespace FuseCP.LinuxVmConfig
                         {
                             taskId = Int64.Parse(strTaskId);
                         }
-                        catch
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             continue; // wrong task format
                         }
@@ -396,7 +396,7 @@ namespace FuseCP.LinuxVmConfig
                         context.Progress = 100;
                         ServiceLog.WriteEnd(string.Format("'{0}' module finished.", context.ActivityName));
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         ServiceLog.WriteError("Unhandled exception:", ex);
                         res = new ExecutionResult();
@@ -500,7 +500,7 @@ namespace FuseCP.LinuxVmConfig
                 ShellHelper.RunCmd("reboot");
                 ServiceLog.WriteEnd("RebootSystem");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ServiceLog.WriteError("Reboot System error:", ex);
             }

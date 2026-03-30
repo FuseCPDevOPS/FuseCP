@@ -50,7 +50,7 @@ namespace FuseCP.Server
                 FtpProvider.ChangeSiteState(siteId, state);
                 Log.WriteEnd("'{0}' ChangeSiteState", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ChangeSiteState", ProviderSettings.ProviderName), ex);
                 throw;
@@ -67,7 +67,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSiteState", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSiteState", ProviderSettings.ProviderName), ex);
                 throw;
@@ -84,7 +84,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' SiteIdExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SiteIdExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -101,7 +101,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSites", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSites", ProviderSettings.ProviderName), ex);
                 throw;
@@ -118,7 +118,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSite", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -135,7 +135,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CreateSite", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -151,7 +151,7 @@ namespace FuseCP.Server
                 FtpProvider.UpdateSite(site);
                 Log.WriteEnd("'{0}' UpdateSite", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -167,7 +167,7 @@ namespace FuseCP.Server
                 FtpProvider.DeleteSite(siteId);
                 Log.WriteEnd("'{0}' DeleteSite", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -187,7 +187,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AccountExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AccountExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -204,7 +204,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetAccounts", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetAccounts", ProviderSettings.ProviderName), ex);
                 throw;
@@ -221,7 +221,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetAccount", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -237,7 +237,7 @@ namespace FuseCP.Server
                 FtpProvider.CreateAccount(account);
                 Log.WriteEnd("'{0}' CreateAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -253,7 +253,7 @@ namespace FuseCP.Server
                 FtpProvider.UpdateAccount(account);
                 Log.WriteEnd("'{0}' UpdateAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -269,7 +269,7 @@ namespace FuseCP.Server
                 FtpProvider.DeleteAccount(accountName);
                 Log.WriteEnd("'{0}' DeleteAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteAccount", ProviderSettings.ProviderName), ex);
                 throw;

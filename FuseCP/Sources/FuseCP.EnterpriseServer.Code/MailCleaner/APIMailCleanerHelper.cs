@@ -118,7 +118,7 @@ namespace FuseCP.EnterpriseServer
 
 
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
                 //throw( new Exception("MAILCLEANER_API_404"));

@@ -55,7 +55,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' ZoneExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ZoneExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -72,7 +72,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetZones", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetZones", ProviderSettings.ProviderName), ex);
                 throw;
@@ -88,7 +88,7 @@ namespace FuseCP.Server
                 DnsProvider.AddPrimaryZone(GetAsciiZoneName(zoneName), secondaryServers);
                 Log.WriteEnd("'{0}' AddPrimaryZone", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddPrimaryZone", ProviderSettings.ProviderName), ex);
                 throw;
@@ -104,7 +104,7 @@ namespace FuseCP.Server
                 DnsProvider.AddSecondaryZone(GetAsciiZoneName(zoneName), masterServers);
                 Log.WriteEnd("'{0}' AddSecondaryZone", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddSecondaryZone", ProviderSettings.ProviderName), ex);
                 throw;
@@ -120,7 +120,7 @@ namespace FuseCP.Server
                 DnsProvider.DeleteZone(GetAsciiZoneName(zoneName));
                 Log.WriteEnd("'{0}' DeleteZone", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteZone", ProviderSettings.ProviderName), ex);
                 throw;
@@ -136,7 +136,7 @@ namespace FuseCP.Server
                 DnsProvider.UpdateSoaRecord(GetAsciiZoneName(zoneName), host, primaryNsServer, primaryPerson);
                 Log.WriteEnd("'{0}' UpdateSoaRecord", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateSoaRecord", ProviderSettings.ProviderName), ex);
                 throw;
@@ -155,7 +155,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetZoneRecords", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetZoneRecords", ProviderSettings.ProviderName), ex);
                 throw;
@@ -171,7 +171,7 @@ namespace FuseCP.Server
                 DnsProvider.AddZoneRecord(GetAsciiZoneName(zoneName), record);
                 Log.WriteEnd("'{0}' AddZoneRecord", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddZoneRecord", ProviderSettings.ProviderName), ex);
                 throw;
@@ -187,7 +187,7 @@ namespace FuseCP.Server
                 DnsProvider.DeleteZoneRecord(GetAsciiZoneName(zoneName), record);
                 Log.WriteEnd("'{0}' DeleteZoneRecord", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteZoneRecord", ProviderSettings.ProviderName), ex);
                 throw;
@@ -203,7 +203,7 @@ namespace FuseCP.Server
                 DnsProvider.AddZoneRecords(GetAsciiZoneName(zoneName), records);
                 Log.WriteEnd("'{0}' AddZoneRecords", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddZoneRecords", ProviderSettings.ProviderName), ex);
                 throw;
@@ -219,7 +219,7 @@ namespace FuseCP.Server
                 DnsProvider.DeleteZoneRecords(GetAsciiZoneName(zoneName), records);
                 Log.WriteEnd("'{0}' DeleteZoneRecords", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteZoneRecords", ProviderSettings.ProviderName), ex);
                 throw;

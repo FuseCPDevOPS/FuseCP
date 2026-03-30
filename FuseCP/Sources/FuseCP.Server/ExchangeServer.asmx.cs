@@ -49,7 +49,7 @@ namespace FuseCP.Server
 				LogEnd("CheckAccountCredentials");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("CheckAccountCredentials", ex);
 				throw;
@@ -68,7 +68,7 @@ namespace FuseCP.Server
                 LogEnd("ExtendToExchangeOrganization");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("ExtendToExchangeOrganization", ex);
                 throw;
@@ -100,7 +100,7 @@ namespace FuseCP.Server
                 LogEnd("CreateMailEnableUser");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("ExtendToExchangeOrganization", ex);
                 throw;
@@ -124,7 +124,7 @@ namespace FuseCP.Server
                 LogEnd("CreateOrganizationOfflineAddressBook");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CreateOrganizationOfflineAddressBook", ex);
                 throw;
@@ -144,7 +144,7 @@ namespace FuseCP.Server
                 ES.UpdateOrganizationOfflineAddressBook(id);
                 LogEnd("UpdateOrganizationOfflineAddressBook");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("UpdateOrganizationOfflineAddressBook", ex);
                 throw;
@@ -162,7 +162,7 @@ namespace FuseCP.Server
                 LogEnd("GetOABVirtualDirectory");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetOABVirtualDirectory", ex);
                 throw;
@@ -179,7 +179,7 @@ namespace FuseCP.Server
                 LogEnd("CreateOrganizationAddressBookPolicy");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CreateOrganizationAddressBookPolicy", ex);
                 throw;
@@ -197,7 +197,7 @@ namespace FuseCP.Server
                 LogEnd("DeleteOrganization");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DeleteOrganization", ex);
                 throw;
@@ -215,7 +215,7 @@ namespace FuseCP.Server
                 ES.SetOrganizationStorageLimits(organizationDistinguishedName, issueWarningKB, prohibitSendKB, prohibitSendReceiveKB, keepDeletedItemsDays);
                 LogEnd("SetOrganizationStorageLimits");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetOrganizationStorageLimits", ex);
                 throw;
@@ -232,7 +232,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxesStatistics");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxesStatistics", ex);
                 throw;
@@ -250,7 +250,7 @@ namespace FuseCP.Server
                 ES.AddAuthoritativeDomain(domain);
                 LogEnd("AddAuthoritativeDomain");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("AddAuthoritativeDomain", ex);
                 throw;
@@ -266,7 +266,7 @@ namespace FuseCP.Server
                 ES.ChangeAcceptedDomainType(domain, domainType);
                 LogEnd("ChangeAcceptedDomainType");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("ChangeAcceptedDomainType", ex);
                 throw;
@@ -283,7 +283,7 @@ namespace FuseCP.Server
                 LogEnd("GetAuthoritativeDomains");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetAuthoritativeDomain", ex);
                 throw;
@@ -299,7 +299,7 @@ namespace FuseCP.Server
                 ES.DeleteAuthoritativeDomain(domain);
                 LogEnd("DeleteAuthoritativeDomain");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DeleteAuthoritativeDomain", ex);
                 throw;
@@ -317,7 +317,7 @@ namespace FuseCP.Server
                 ES.DeleteMailbox(accountName);
                 LogEnd("DeleteMailbox");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DeleteMailbox", ex);
                 throw;
@@ -334,7 +334,7 @@ namespace FuseCP.Server
                 ES.DisableMailbox(accountName);
                 LogEnd("DisableMailbox");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DisableMailbox", ex);
                 throw;
@@ -351,7 +351,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxAutoReplySettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxAutoReplySettings", ex);
                 throw;
@@ -367,7 +367,7 @@ namespace FuseCP.Server
                 ES.SetMailboxAutoReplySettings(accountName, local_settings);
                 LogEnd("SetMailboxAutoReplySettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxAutoReplySettings", ex);
                 throw;
@@ -384,7 +384,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxGeneralSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxGeneralSettings", ex);
                 throw;
@@ -400,7 +400,7 @@ namespace FuseCP.Server
                 ES.SetMailboxGeneralSettings(accountName, hideFromAddressBook, disabled);
                 LogEnd("SetMailboxGeneralSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxGeneralSettings", ex);
                 throw;
@@ -417,7 +417,7 @@ namespace FuseCP.Server
                 LogEnd("GetResourceMailboxSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetResourceMailboxSettings", ex);
                 throw;
@@ -433,7 +433,7 @@ namespace FuseCP.Server
                 ES.SetResourceMailboxSettings(accountName, resourceSettings);
                 LogEnd("SetResourceMailboxSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetResourceMailboxSettings", ex);
                 throw;
@@ -450,7 +450,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxMailFlowSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxMailFlowSettings", ex);
                 throw;
@@ -466,7 +466,7 @@ namespace FuseCP.Server
                 ES.SetMailboxMailFlowSettings(accountName, enableForwarding, saveSentItems, forwardingAccountName, forwardToBoth, sendOnBehalfAccounts, acceptAccounts, rejectAccounts, requireSenderAuthentication);
                 LogEnd("SetMailboxMailFlowSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxMailFlowSettings", ex);
                 throw;
@@ -483,7 +483,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxAdvancedSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxAdvancedSettings", ex);
                 throw;
@@ -503,7 +503,7 @@ namespace FuseCP.Server
                     enabledLitigationHold, recoverabelItemsSpace, recoverabelItemsWarning, litigationHoldUrl, litigationHoldMsg);
                 LogEnd("SetMailboxAdvancedSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxAdvancedSettings", ex);
                 throw;
@@ -520,7 +520,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxEmailAddresses");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxEmailAddresses", ex);
                 throw;
@@ -536,7 +536,7 @@ namespace FuseCP.Server
                 ES.SetMailboxEmailAddresses(accountName, emailAddresses);
                 LogEnd("SetMailboxEmailAddresses");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxEmailAddresses", ex);
                 throw;
@@ -552,7 +552,7 @@ namespace FuseCP.Server
                 ES.SetMailboxPrimaryEmailAddress(accountName, emailAddress);
                 LogEnd("SetMailboxPrimaryEmailAddress");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxPrimaryEmailAddress", ex);
                 throw;
@@ -569,7 +569,7 @@ namespace FuseCP.Server
                 ES.SetMailboxPermissions(organizationId, accountName, sendAsAccounts, fullAccessAccounts, onBehalfOfAccounts, calendarAccounts, contactAccounts);
                 LogEnd("SetMailboxPermissions");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailboxPermissions", ex);
                 throw;
@@ -588,7 +588,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxPermissions");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMailboxPermissions", ex);
                 throw;
@@ -605,7 +605,7 @@ namespace FuseCP.Server
                 LogEnd("GetMailboxStatistics");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetMailboxStatistics", ex);
                 throw;
@@ -622,7 +622,7 @@ namespace FuseCP.Server
                 LogEnd("SetDefaultPublicFolderMailbox");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("SetDefaultPublicFolderMailbox", ex);
                 throw;
@@ -639,7 +639,7 @@ namespace FuseCP.Server
                 LogEnd("CreateJournalRule");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("CreateJournalRule", ex);
                 throw;
@@ -656,7 +656,7 @@ namespace FuseCP.Server
                 LogEnd("GetJournalRule");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetJournalRule", ex);
                 throw;
@@ -672,7 +672,7 @@ namespace FuseCP.Server
                 ES.SetJournalRule(rule);
                 LogEnd("SetJournalRule");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("SetJournalRule", ex);
                 throw;
@@ -706,7 +706,7 @@ namespace FuseCP.Server
                 ES.CreateContact(organizationId, organizationDistinguishedName, contactDisplayName, contactAccountName, contactEmail, defaultOrganizationDomain);
                 LogEnd("CreateContact");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CreateContact", ex);
                 throw;
@@ -722,7 +722,7 @@ namespace FuseCP.Server
                 ES.DeleteContact(accountName);
                 LogEnd("DeleteContact");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DeleteContact", ex);
                 throw;
@@ -739,7 +739,7 @@ namespace FuseCP.Server
                 LogEnd("GetContactGeneralSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetContactGeneralSettings", ex);
                 throw;
@@ -755,7 +755,7 @@ namespace FuseCP.Server
                 ES.SetContactGeneralSettings(accountName, displayName, email, hideFromAddressBook, firstName, initials, lastName, address, city, state, zip, country, jobTitle, company, department, office, managerAccountName, businessPhone, fax, homePhone, mobilePhone, pager, webPage, notes, useMapiRichTextFormat, defaultDomain);
                 LogEnd("SetContactGeneralSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetContactGeneralSettings", ex);
                 throw;
@@ -772,7 +772,7 @@ namespace FuseCP.Server
                 LogEnd("GetContactMailFlowSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetContactMailFlowSettings", ex);
                 throw;
@@ -788,7 +788,7 @@ namespace FuseCP.Server
                 ES.SetContactMailFlowSettings(accountName, acceptAccounts, rejectAccounts, requireSenderAuthentication);
                 LogEnd("SetContactMailFlowSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetContactMailFlowSettings", ex);
                 throw;
@@ -806,7 +806,7 @@ namespace FuseCP.Server
                 ES.CreateDistributionList(organizationId, organizationDistinguishedName, displayName, accountName, name, domain, managedBy, addressLists);
                 LogEnd("CreateDistributionList");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CreateDistributionList", ex);
                 throw;
@@ -822,7 +822,7 @@ namespace FuseCP.Server
                 ES.DeleteDistributionList(accountName);
                 LogEnd("DeleteDistributionList");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("DeleteDistributionList", ex);
                 throw;
@@ -839,7 +839,7 @@ namespace FuseCP.Server
                 LogEnd("GetDistributionListGeneralSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetDistributionListGeneralSettings", ex);
                 throw;
@@ -855,7 +855,7 @@ namespace FuseCP.Server
                 ES.SetDistributionListGeneralSettings(accountName, displayName, hideFromAddressBook, managedBy, members, notes, addressLists);
                 LogEnd("SetDistributionListGeneralSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetDistributionListGeneralSettings", ex);
                 throw;
@@ -872,7 +872,7 @@ namespace FuseCP.Server
                 LogEnd("GetDistributionListMailFlowSettings");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetDistributionListMailFlowSettings", ex);
                 throw;
@@ -888,7 +888,7 @@ namespace FuseCP.Server
                 ES.SetDistributionListMailFlowSettings(accountName, acceptAccounts, rejectAccounts, requireSenderAuthentication, addressLists);
                 LogEnd("SetDistributionListMailFlowSettings");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetDistributionListMailFlowSettings", ex);
                 throw;
@@ -905,7 +905,7 @@ namespace FuseCP.Server
                 LogEnd("GetDistributionListEmailAddresses");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetDistributionListEmailAddresses", ex);
                 throw;
@@ -921,7 +921,7 @@ namespace FuseCP.Server
                 ES.SetDistributionListEmailAddresses(accountName, emailAddresses, addressLists);
                 LogEnd("SetDistributionListEmailAddresses");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetDistributionListEmailAddresses", ex);
                 throw;
@@ -937,7 +937,7 @@ namespace FuseCP.Server
                 ES.SetDistributionListPrimaryEmailAddress(accountName, emailAddress, addressLists);
                 LogEnd("SetDistributionListPrimaryEmailAddress");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetDistributionListPrimaryEmailAddress", ex);
                 throw;
@@ -999,7 +999,7 @@ namespace FuseCP.Server
 
 				LogEnd("CreatePublicFolder");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("CreatePublicFolder", ex);
 				throw;
@@ -1015,7 +1015,7 @@ namespace FuseCP.Server
 				ES.DeletePublicFolder(organizationId, folder);
 				LogEnd("DeletePublicFolder");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("DeletePublicFolder", ex);
 				throw;
@@ -1032,7 +1032,7 @@ namespace FuseCP.Server
 				ES.EnableMailPublicFolder(organizationId, folder, accountName, name, domain);
 				LogEnd("EnableMailPublicFolder");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("EnableMailPublicFolder", ex);
 				throw;
@@ -1048,7 +1048,7 @@ namespace FuseCP.Server
 				ES.DisableMailPublicFolder(organizationId, folder);
 				LogEnd("DisableMailPublicFolder");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("DisableMailPublicFolder", ex);
 				throw;
@@ -1065,7 +1065,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFolderGeneralSettings");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("GetPublicFolderGeneralSettings", ex);
 				throw;
@@ -1082,7 +1082,7 @@ namespace FuseCP.Server
 				ES.SetPublicFolderGeneralSettings(organizationId, folder, newFolderName, hideFromAddressBook,  accounts);
 				LogEnd("SetPublicFolderGeneralSettings");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("SetPublicFolderGeneralSettings", ex);
 				throw;
@@ -1099,7 +1099,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFolderMailFlowSettings");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("GetPublicFolderMailFlowSettings", ex);
 				throw;
@@ -1116,7 +1116,7 @@ namespace FuseCP.Server
 				ES.SetPublicFolderMailFlowSettings(organizationId, folder, acceptAccounts, rejectAccounts, requireSenderAuthentication);
 				LogEnd("SetPublicFolderMailFlowSettings");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("SetPublicFolderMailFlowSettings", ex);
 				throw;
@@ -1133,7 +1133,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFolderEmailAddresses");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("GetPublicFolderEmailAddresses", ex);
 				throw;
@@ -1149,7 +1149,7 @@ namespace FuseCP.Server
 				ES.SetPublicFolderEmailAddresses(organizationId, folder, emailAddresses);
 				LogEnd("SetPublicFolderEmailAddresses");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("SetPublicFolderEmailAddresses", ex);
 				throw;
@@ -1165,7 +1165,7 @@ namespace FuseCP.Server
 				ES.SetPublicFolderPrimaryEmailAddress(organizationId, folder, emailAddress);
 				LogEnd("SetPublicFolderPrimaryEmailAddress");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("SetPublicFolderPrimaryEmailAddress", ex);
 				throw;
@@ -1182,7 +1182,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFoldersStatistics");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("GetPublicFoldersStatistics", ex);
 				throw;
@@ -1199,7 +1199,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFoldersRecursive");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				LogError("GetPublicFoldersRecursive", ex);
 				throw;
@@ -1216,7 +1216,7 @@ namespace FuseCP.Server
 				LogEnd("GetPublicFolderSize");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("GetPublicFolderSize", ex);
 				throw;
@@ -1233,7 +1233,7 @@ namespace FuseCP.Server
                 LogEnd("CreateOrganizationRootPublicFolder");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("CreateOrganizationRootPublicFolder", ex);
                 throw;
@@ -1253,7 +1253,7 @@ namespace FuseCP.Server
                 ES.CreateOrganizationActiveSyncPolicy(organizationId);
                 LogEnd("CreateOrganizationActiveSyncPolicy");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CreateOrganizationActiveSyncPolicy", ex);
                 throw;
@@ -1270,7 +1270,7 @@ namespace FuseCP.Server
                 LogEnd("GetActiveSyncPolicy");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetActiveSyncPolicy", ex);
                 throw;
@@ -1293,7 +1293,7 @@ namespace FuseCP.Server
                     minPasswordLength, inactivityLockMin, passwordExpirationDays, passwordHistory, refreshInterval);
                 LogEnd("SetActiveSyncPolicy");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetActiveSyncPolicy", ex);
                 throw;
@@ -1312,7 +1312,7 @@ namespace FuseCP.Server
                 LogEnd("GetMobileDevices");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMobileDevices", ex);
                 throw;
@@ -1329,7 +1329,7 @@ namespace FuseCP.Server
                 LogEnd("GetMobileDevice");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetMobileDevice", ex);
                 throw;
@@ -1345,7 +1345,7 @@ namespace FuseCP.Server
                 ES.WipeDataFromDevice(id);
                 LogEnd("WipeDataFromDevice");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("WipeDataFromDevice", ex);
                 throw;
@@ -1361,7 +1361,7 @@ namespace FuseCP.Server
                 ES.CancelRemoteWipeRequest(id);
                 LogEnd("CancelRemoteWipeRequest");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("CancelRemoteWipeRequest", ex);
                 throw;
@@ -1378,7 +1378,7 @@ namespace FuseCP.Server
                 ES.RemoveDevice(id);
                 LogEnd("RemoveDevice");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("RemoveDevice", ex);
                 throw;
@@ -1400,7 +1400,7 @@ namespace FuseCP.Server
                 
                 LogEnd("ExportMailBox");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("ExportMailBox", ex);
                 throw;
@@ -1419,7 +1419,7 @@ namespace FuseCP.Server
                 res = ES.SetMailBoxArchiving(organizationId, accountName, archive, archiveQuotaKB, archiveWarningQuotaKB, RetentionPolicy);
                 LogEnd("SetMailBoxArchiving");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetMailBoxArchiving", ex);
                 throw;
@@ -1441,7 +1441,7 @@ namespace FuseCP.Server
                 res = ES.SetRetentionPolicyTag(Identity, Type, AgeLimitForRetention, RetentionAction);
                 LogEnd("SetRetentionPolicyTag");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetRetentionPolicyTag", ex);
                 throw;
@@ -1459,7 +1459,7 @@ namespace FuseCP.Server
                 res = ES.RemoveRetentionPolicyTag(Identity);
                 LogEnd("RemoveRetentionPolicyTag");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("RemoveRetentionPolicyTag", ex);
                 throw;
@@ -1477,7 +1477,7 @@ namespace FuseCP.Server
                 res = ES.SetRetentionPolicy(Identity, RetentionPolicyTagLinks);
                 LogEnd("SetRetentionPolicy");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetRetentionPolicy", ex);
                 throw;
@@ -1495,7 +1495,7 @@ namespace FuseCP.Server
                 res = ES.RemoveRetentionPolicy(Identity);
                 LogEnd("RemoveRetentionPolicy");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("RemoveRetentionPolicy", ex);
                 throw;
@@ -1517,7 +1517,7 @@ namespace FuseCP.Server
                 res = ES.SetPicture(accountName, picture);
                 LogEnd("SetPicture");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("SetPicture", ex);
                 throw;
@@ -1535,7 +1535,7 @@ namespace FuseCP.Server
                 res = ES.GetPicture(accountName);
                 LogEnd("SetPicture");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 LogError("GetPicture", ex);
                 throw;

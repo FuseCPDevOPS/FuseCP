@@ -748,7 +748,7 @@ namespace FuseCP.Providers.OS
                             using var connectTimeout = new CancellationTokenSource(ConnectTimeout);
                             await clientWebSocket.ConnectAsync(new System.Uri(local_url), connectTimeout.Token);
                         }
-                        catch (Exception)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             throw;
                         }

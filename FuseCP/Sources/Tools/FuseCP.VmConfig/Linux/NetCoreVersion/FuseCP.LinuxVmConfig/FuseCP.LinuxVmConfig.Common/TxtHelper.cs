@@ -34,7 +34,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 File.WriteAllLines(filePath, list);
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("ReplaceStr error: " + ex.ToString());
             }
         }
@@ -61,7 +61,7 @@ namespace FuseCP.LinuxVmConfig
                 if (pos == -1) list.Add(newStr);
                 File.WriteAllLines(filePath, list);
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("ReplaceStr error: " + ex.ToString());
             }
         }
@@ -80,7 +80,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 File.WriteAllLines(filePath, list);
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("DelStr error: " + ex.ToString());
             }
         }
@@ -102,7 +102,7 @@ namespace FuseCP.LinuxVmConfig
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("GetStrPos error: " + ex.ToString());
             }
             return -1;
@@ -125,7 +125,7 @@ namespace FuseCP.LinuxVmConfig
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("GetStr error: " + ex.ToString());
             }
             return null;
@@ -160,7 +160,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 File.WriteAllLines(filePath, newList);
             }
-            catch (Exception ex) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 Log.WriteError("ReplaceAllStr error: " + ex.ToString());
             }
         }

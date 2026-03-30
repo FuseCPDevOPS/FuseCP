@@ -41,7 +41,7 @@ namespace FuseCP.Server
                 Log.WriteStart("'{0}' Install", ProviderSettings.ProviderName);
                 return Provider.Install();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't Install '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -60,7 +60,7 @@ namespace FuseCP.Server
                 Log.WriteStart("'{0}' GetProviderDefaultSettings", ProviderSettings.ProviderName);
                 return Provider.GetProviderDefaultSettings();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
 				Log.WriteError(String.Format("Can't GetProviderDefaultSettings '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -80,7 +80,7 @@ namespace FuseCP.Server
                 Provider.Uninstall();
                 Log.WriteEnd("'{0}' Uninstall", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't Uninstall '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -95,7 +95,7 @@ namespace FuseCP.Server
                 Log.WriteStart("'{0}' IsInstalled", ProviderSettings.ProviderName);
                 return Provider.IsInstalled();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't check '{0}' provider IsInstalled", ProviderSettings.ProviderName), ex);
                 throw;
@@ -115,7 +115,7 @@ namespace FuseCP.Server
                 Provider.ChangeServiceItemsState(UnwrapServiceProviderItems(items), enabled);
                 Log.WriteEnd("'{0}' ChangeServiceItemsState", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error on ChangeServiceItemsState() in '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -131,7 +131,7 @@ namespace FuseCP.Server
                 Provider.DeleteServiceItems(UnwrapServiceProviderItems(items));
                 Log.WriteEnd("'{0}' DeleteServiceItems", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error on DeleteServiceItems() in '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -148,7 +148,7 @@ namespace FuseCP.Server
                 if (items.Length == 0) return new ServiceProviderItemDiskSpace[] {};
                 return Provider.GetServiceItemsDiskSpace(UnwrapServiceProviderItems(items));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error on GetServiceItemsDiskSpace() in '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -167,7 +167,7 @@ namespace FuseCP.Server
                 Log.WriteStart("'{0}' GetServiceItemsBandwidth", ProviderSettings.ProviderName);
                 return Provider.GetServiceItemsBandwidth(UnwrapServiceProviderItems(items), since);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error on GetServiceItemsBandwidth() in '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;

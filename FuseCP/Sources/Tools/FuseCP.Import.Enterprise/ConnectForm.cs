@@ -92,7 +92,7 @@ namespace FuseCP.Import.Enterprise
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Authentication error", ex);
 				status = -1;

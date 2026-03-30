@@ -1010,7 +1010,7 @@ namespace FuseCP.Providers.OS
                 Log.WriteEnd("GetTerminalServicesSessions");
                 return sessions.ToArray();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetTerminalServicesSessions", ex);
                 throw;
@@ -1025,7 +1025,7 @@ namespace FuseCP.Providers.OS
                 OS.Shell.Default.Exec($"rwinsta {sessionId}");
                 Log.WriteEnd("CloseTerminalServicesSession");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("CloseTerminalServicesSession", ex);
                 throw;
@@ -1136,7 +1136,7 @@ namespace FuseCP.Providers.OS
                     .OrderBy(p => p.Name)
                     .ToArray();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1152,7 +1152,7 @@ namespace FuseCP.Providers.OS
                     process.Kill();
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1194,7 +1194,7 @@ namespace FuseCP.Providers.OS
 
                 return winServices.ToArray();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1225,7 +1225,7 @@ namespace FuseCP.Providers.OS
                             service.Continue();
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1245,7 +1245,7 @@ namespace FuseCP.Providers.OS
                 };
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetSystemResourceUsageInfo", ex);
                 throw;
@@ -1305,7 +1305,7 @@ namespace FuseCP.Providers.OS
                 Log.WriteEnd("GetSystemMemoryInfo");
                 return memory;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetSystemMemoryInfo", ex);
                 throw;
@@ -1324,7 +1324,7 @@ namespace FuseCP.Providers.OS
                 string result = FileUtils.ExecuteSystemCommand(user, password, path, args);
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1395,7 +1395,7 @@ namespace FuseCP.Providers.OS
                     objOs.InvokeMethod("Reboot", null);
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1551,7 +1551,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("SetQuotaLimitOnFolder", ex);
                 throw;
@@ -1591,7 +1591,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetQuotaLimitOnFolder", ex);
                 throw;
@@ -1641,7 +1641,7 @@ namespace FuseCP.Providers.OS
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetQuotasLimitsForOrganization", ex);
                 throw;

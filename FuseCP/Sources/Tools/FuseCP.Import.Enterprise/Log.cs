@@ -63,7 +63,7 @@ namespace FuseCP.Import.Enterprise
 				Trace.WriteLine(line);
 				Trace.WriteLine(ex);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] ERROR: {1}", DateTime.Now, message);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] {1}", DateTime.Now, message);
 				Trace.Write(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
  
@@ -106,7 +106,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] {1}", DateTime.Now, message);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		/// <summary>
@@ -120,7 +120,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] INFO: {1}", DateTime.Now, message);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		/// <summary>
@@ -134,7 +134,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] START: {1}", DateTime.Now, message);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 		
 		/// <summary>
@@ -148,7 +148,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] END: {1}", DateTime.Now, message);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		internal static void WriteApplicationStart()
@@ -161,7 +161,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] {1} {2} Started", DateTime.Now, name, version);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		internal static void WriteApplicationEnd()
@@ -173,7 +173,7 @@ namespace FuseCP.Import.Enterprise
 				string line = string.Format("[{0:G}] {1} Ended", DateTime.Now, name);
 				Trace.WriteLine(line);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 
 		/// <summary>
@@ -186,7 +186,7 @@ namespace FuseCP.Import.Enterprise
 				string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, logFile);
 				Process.Start("notepad.exe", path);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 		}
 	}
 }

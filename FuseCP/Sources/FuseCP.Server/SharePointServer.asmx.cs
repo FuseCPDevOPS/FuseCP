@@ -50,7 +50,7 @@ namespace FuseCP.Server
                 SPS.ExtendVirtualServer(site);
                 Log.WriteEnd("'{0}' ExtendVirtualServer", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't ExtendVirtualServer '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -66,7 +66,7 @@ namespace FuseCP.Server
                 SPS.UnextendVirtualServer(url, deleteContent);
                 Log.WriteEnd("'{0}' GetProviderProperties", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't GetProviderProperties '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -85,7 +85,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' BackupVirtualServer", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't BackupVirtualServer '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -101,7 +101,7 @@ namespace FuseCP.Server
                 SPS.RestoreVirtualServer(url, fileName);
                 Log.WriteEnd("'{0}' RestoreVirtualServer", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't RestoreVirtualServer '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -118,7 +118,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetTempFileBinaryChunk", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't GetTempFileBinaryChunk '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -135,7 +135,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AppendTempFileBinaryChunk", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't AppendTempFileBinaryChunk '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -154,7 +154,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetInstalledWebParts", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't GetInstalledWebParts '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -170,7 +170,7 @@ namespace FuseCP.Server
                 SPS.InstallWebPartsPackage(url, packageName);
                 Log.WriteEnd("'{0}' InstallWebPartsPackage", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't InstallWebPartsPackage '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -186,7 +186,7 @@ namespace FuseCP.Server
                 SPS.DeleteWebPartsPackage(url, packageName);
                 Log.WriteEnd("'{0}' DeleteWebPartsPackage", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't DeleteWebPartsPackage '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -205,7 +205,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' UserExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UserExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -222,7 +222,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetUsers", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetUsers", ProviderSettings.ProviderName), ex);
                 throw;
@@ -239,7 +239,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetUser", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -255,7 +255,7 @@ namespace FuseCP.Server
                 SPS.CreateUser(user);
                 Log.WriteEnd("'{0}' CreateUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -271,7 +271,7 @@ namespace FuseCP.Server
                 SPS.UpdateUser(user);
                 Log.WriteEnd("'{0}' UpdateUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -287,7 +287,7 @@ namespace FuseCP.Server
                 SPS.ChangeUserPassword(username, password);
                 Log.WriteEnd("'{0}' ChangeUserPassword", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ChangeUserPassword", ProviderSettings.ProviderName), ex);
                 throw;
@@ -303,7 +303,7 @@ namespace FuseCP.Server
                 SPS.DeleteUser(username);
                 Log.WriteEnd("'{0}' DeleteUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -322,7 +322,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GroupExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GroupExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -339,7 +339,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetGroups", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetGroups", ProviderSettings.ProviderName), ex);
                 throw;
@@ -356,7 +356,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetGroup", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -372,7 +372,7 @@ namespace FuseCP.Server
                 SPS.CreateGroup(group);
                 Log.WriteEnd("'{0}' CreateGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -388,7 +388,7 @@ namespace FuseCP.Server
                 SPS.UpdateGroup(group);
                 Log.WriteEnd("'{0}' UpdateGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -404,7 +404,7 @@ namespace FuseCP.Server
                 SPS.DeleteGroup(groupName);
                 Log.WriteEnd("'{0}' DeleteGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteGroup", ProviderSettings.ProviderName), ex);
                 throw;

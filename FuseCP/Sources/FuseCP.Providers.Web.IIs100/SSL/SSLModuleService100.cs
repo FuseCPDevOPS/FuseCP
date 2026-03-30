@@ -245,7 +245,7 @@ namespace FuseCP.Providers.Web.Iis
                     writer.Close();
                     // Certificate saved
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // Log error
                     Log.WriteError("SSLModuleService could not save certificate to Centralized Certificate Store", ex);
@@ -267,7 +267,7 @@ namespace FuseCP.Providers.Web.Iis
                     store.Open(OpenFlags.ReadWrite);
                     store.Add(x509Cert);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("SSLModuleService could not import PFX into X509Store('{0}', '{1}')", store.Name, store.Location), ex);
                     // Re-throw error
@@ -545,7 +545,7 @@ namespace FuseCP.Providers.Web.Iis
                 store.Open(OpenFlags.ReadOnly);
                 certificates = store.Certificates.Cast<X509Certificate2>().Select(GetSSLCertificateFromX509Certificate2).ToList();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(
                     String.Format("SSLModuleService is unable to get certificates from X509Store('{0}', '{1}') and complete GetServerCertificates call", store.Name, store.Location), ex);

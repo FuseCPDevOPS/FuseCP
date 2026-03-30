@@ -90,7 +90,7 @@ namespace FuseCP.Providers.HostedSolution
 				if (result.Count == 0) return null;
 				return ObjToString(GetPSObjectProperty(result[0], "Name"));
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateJournalRule", ex);
 				throw;
@@ -125,7 +125,7 @@ namespace FuseCP.Providers.HostedSolution
 				ret.Enabled = ObjToBoolean(GetPSObjectProperty(result[0], "Enabled"));
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("GetJournalRule", ex);
 				throw;
@@ -166,7 +166,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd);
 				ExchangeLog.LogEnd("SetJournalRule");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("SetJournalRule", ex);
 				throw;
@@ -192,7 +192,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExecuteShellCommand(runSpace, cmd);
 				ExchangeLog.LogEnd("RemoveJournalRule");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("RemoveJournalRule", ex);
 				throw;
@@ -666,7 +666,7 @@ namespace FuseCP.Providers.HostedSolution
 			{
 				SetMailboxFolderPermissions(runSpace, folderPath, existingAccounts, accounts, transaction);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				RollbackTransaction(transaction);
 				throw;

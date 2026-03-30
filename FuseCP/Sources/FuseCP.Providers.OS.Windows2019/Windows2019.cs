@@ -108,7 +108,7 @@ namespace FuseCP.Providers.OS
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("SetQuotaLimitOnFolder", ex);
 				throw;
@@ -148,7 +148,7 @@ namespace FuseCP.Providers.OS
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("GetQuotaLimitOnFolder", ex);
 				throw;
@@ -198,7 +198,7 @@ namespace FuseCP.Providers.OS
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("GetQuotasLimitsForOrganization", ex);
 				throw;

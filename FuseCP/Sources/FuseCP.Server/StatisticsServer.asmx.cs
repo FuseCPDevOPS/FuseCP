@@ -51,7 +51,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetServers", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetServers", ProviderSettings.ProviderName), ex);
                 throw;
@@ -68,7 +68,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSiteId", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSiteId", ProviderSettings.ProviderName), ex);
                 throw;
@@ -85,7 +85,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSites", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSites", ProviderSettings.ProviderName), ex);
                 throw;
@@ -102,7 +102,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetSite", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -119,7 +119,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AddSite", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -135,7 +135,7 @@ namespace FuseCP.Server
                 StatsProvider.UpdateSite(site);
                 Log.WriteEnd("'{0}' UpdateSite", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateSite", ProviderSettings.ProviderName), ex);
                 throw;
@@ -151,7 +151,7 @@ namespace FuseCP.Server
                 StatsProvider.DeleteSite(siteId);
                 Log.WriteEnd("'{0}' DeleteSite", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteSite", ProviderSettings.ProviderName), ex);
                 throw;

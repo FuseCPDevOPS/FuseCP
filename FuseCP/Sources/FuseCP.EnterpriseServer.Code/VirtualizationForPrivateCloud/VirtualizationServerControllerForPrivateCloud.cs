@@ -279,7 +279,7 @@ namespace FuseCP.EnterpriseServer
             {
                 vmTemplate.Id = PackageController.AddPackageItem(vmTemplate);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 res.AddError(VirtualizationErrorCodes.CREATE_META_ITEM_ERROR, ex);
                 TaskManager.CompleteResultTask(res);
@@ -296,7 +296,7 @@ namespace FuseCP.EnterpriseServer
 
 //                    CreateAsyncVMfromVM.Run(templateName, vmTemplate);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // delete meta item
                 PackageController.DeletePackageItem(vmTemplate.Id);
@@ -563,7 +563,7 @@ namespace FuseCP.EnterpriseServer
                 vm = vs.CreateVirtualMachine(vm);
                 PackageController.UpdatePackageItem(vm);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // return from method
                 taskInfo.AddError(VirtualizationErrorCodes.CREATE_TASK_START_ERROR, ex);

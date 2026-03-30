@@ -77,7 +77,7 @@ namespace FuseCP.Tools.ServerCredentialRecovery.Cli
 				PrintUsage();
 				return 2;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Console.Error.WriteLine(ex);
 				return 1;

@@ -63,7 +63,7 @@ namespace FuseCP.LocalizationToolkit
 			{
 				LoadLocales();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError(ex);
 			}
@@ -196,7 +196,7 @@ namespace FuseCP.LocalizationToolkit
 					grdResources.DataMember = this.dsResources.Tables[0].TableName;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError(ex);
 			}
@@ -247,7 +247,7 @@ namespace FuseCP.LocalizationToolkit
 					SetCurrentLocale(locale);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError(ex);
 			}
@@ -275,7 +275,7 @@ namespace FuseCP.LocalizationToolkit
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError(ex);
 			}
@@ -325,7 +325,7 @@ namespace FuseCP.LocalizationToolkit
 					LoadLocales();
 					BindResourcesGrid();
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ShowError(ex);
 				}
@@ -359,7 +359,7 @@ namespace FuseCP.LocalizationToolkit
 				thread = new Thread(threadDelegate);
 				thread.Start();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				FinishProgress();
 				ShowError(ex);
@@ -449,7 +449,7 @@ namespace FuseCP.LocalizationToolkit
 				string message = string.Format("{0} language pack compiled successfully to\n\"{1}\"", cbSupportedLocales.Text, zipFile);
 				MessageBox.Show(this, message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (IsThreadAbortException(ex))
 					return;
@@ -464,7 +464,7 @@ namespace FuseCP.LocalizationToolkit
 				if (!Directory.Exists(this.TmpDirectory))
 					Directory.CreateDirectory(this.TmpDirectory);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { }
 		}
 
 		private void DeleteTmpDir()
@@ -474,7 +474,7 @@ namespace FuseCP.LocalizationToolkit
 				if ( Directory.Exists(this.TmpDirectory))
 					Directory.Delete(this.TmpDirectory, true);
 			}
-			catch { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { }
 		}
 
 		private string GetApplicationVersion()
@@ -676,7 +676,7 @@ namespace FuseCP.LocalizationToolkit
 				thread = new Thread(threadDelegate);
 				thread.Start();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				FinishProgress();
 				ShowError(ex);
@@ -717,7 +717,7 @@ namespace FuseCP.LocalizationToolkit
 				string message = string.Format("{0} record(s) imported successfully.", count);
 				MessageBox.Show(this, message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (IsThreadAbortException(ex))
 					return;

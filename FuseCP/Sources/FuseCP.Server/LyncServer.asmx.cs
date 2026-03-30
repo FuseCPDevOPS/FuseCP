@@ -48,7 +48,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.CreateOrganization", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.CreateOrganization", ProviderSettings.ProviderName), ex);
                 throw;
@@ -65,7 +65,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.GetOrganizationTenantId", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.GetOrganizationTenantId", ProviderSettings.ProviderName), ex);
                 throw;
@@ -82,7 +82,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.DeleteOrganization", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.DeleteOrganization", ProviderSettings.ProviderName), ex);
                 throw;
@@ -102,7 +102,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.CreateUser", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.CreateUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -119,7 +119,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.GetLyncUserGeneralSettings", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.GetLyncUserGeneralSettings", ProviderSettings.ProviderName), ex);
                 throw;
@@ -136,7 +136,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.SetLyncUserGeneralSettings", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.SetLyncUserGeneralSettings", ProviderSettings.ProviderName), ex);
                 throw;
@@ -154,7 +154,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.SetLyncUserPlan", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.SetLyncUserPlan", ProviderSettings.ProviderName), ex);
                 throw;
@@ -171,7 +171,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.DeleteUser", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.DeleteUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -191,7 +191,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.GetFederationDomains", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.GetFederationDomains", ProviderSettings.ProviderName), ex);
                 throw;
@@ -208,7 +208,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.AddFederationDomain", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.AddFederationDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -225,7 +225,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("{0}.RemoveFederationDomain", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.RemoveFederationDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -242,7 +242,7 @@ namespace FuseCP.Server
                 Lync.ReloadConfiguration();
                 Log.WriteEnd("{0}.ReloadConfiguration", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.ReloadConfiguration", ProviderSettings.ProviderName), ex);
                 throw;
@@ -260,7 +260,7 @@ namespace FuseCP.Server
                 ret = Lync.GetPolicyList(type, name);
                 Log.WriteEnd("{0}.GetPolicyList", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Error: {0}.GetPolicyList", ProviderSettings.ProviderName), ex);
                 throw;

@@ -6941,7 +6941,7 @@ namespace FuseCP.EnterpriseServer
 
                 return destBitmap;
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return null;
             }

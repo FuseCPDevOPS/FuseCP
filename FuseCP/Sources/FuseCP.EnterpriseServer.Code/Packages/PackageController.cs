@@ -506,7 +506,7 @@ namespace FuseCP.EnterpriseServer
                     result = AddPackage(
                         userId, planId, packageName, "", statusId, DateTime.Now, false);
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // error while adding package
                     throw;

@@ -107,7 +107,7 @@ namespace FuseCP.Providers.StorageSpaces
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("SetQuotaLimitOnFolder", ex);
                 throw;
@@ -147,7 +147,7 @@ namespace FuseCP.Providers.StorageSpaces
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetQuotaLimitOnFolder", ex);
                 throw;
@@ -197,7 +197,7 @@ namespace FuseCP.Providers.StorageSpaces
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("GetQuotasLimitsForOrganization", ex);
                 throw;
@@ -620,7 +620,7 @@ namespace FuseCP.Providers.StorageSpaces
                     RemoveShare(fullPath, runSpace);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("ClearStorageSettings", ex);
                 throw;
@@ -672,7 +672,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 SecurityUtils.GrantGroupNtfsPermissions(fullPath, permissions, false, new RemoteServerSettings(), null, null, isProtected, preserveInheritance);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -717,7 +717,7 @@ namespace FuseCP.Providers.StorageSpaces
 
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				throw;
@@ -739,7 +739,7 @@ namespace FuseCP.Providers.StorageSpaces
                 FileSystemObject fso = new FileSystemObject();
                 fso.DeleteFolder(@"\\?\" + fullPath, true);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -759,7 +759,7 @@ namespace FuseCP.Providers.StorageSpaces
             {
                 return (Directory.Exists(fullPath) || System.IO.File.Exists(fullPath));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -782,7 +782,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 FileUtils.MoveFile(originalPath, newPath);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -842,7 +842,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return GetShare(shareName, runspace);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -882,7 +882,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return result.Any();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -925,7 +925,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return CreateShareEntity(result[0]);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -968,7 +968,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return CreateShareEntity(result[0]);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -1006,7 +1006,7 @@ namespace FuseCP.Providers.StorageSpaces
                 object[] errors = null;
                 ExecuteLocalScript(runspace, scripts, out errors);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -1059,7 +1059,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 ExecuteShellCommand(runspace, cmd, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -1102,7 +1102,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return GetPSObjectProperty(result, "FolderEnumerationMode").ToString() == "0";
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -1140,7 +1140,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 ExecuteShellCommand(runspace, cmd, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;
@@ -1183,7 +1183,7 @@ namespace FuseCP.Providers.StorageSpaces
 
                 return (bool)GetPSObjectProperty(result, "EncryptData");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
                 throw;

@@ -119,14 +119,14 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
 if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowChangeUpnQuota))
                 {
-                    if (allowChangeUpnQuota.QuotaAllocatedValue != 1)
-                    {
-                        chkInherit.Visible = false;
-                    }
-                    else
-                    {
-                        chkInherit.Visible = true;
-                    }
+                    chkInherit.Visible = allowChangeUpnQuota.QuotaAllocatedValue != 1 ? false : true;
+
+
+
+
+
+
+
                 }
 
                 chkLocked.Enabled = user.Locked ? true : false;
@@ -143,14 +143,14 @@ if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATION_ALLOWCHANGEUPN, out var allowCha
         {
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            if (cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels))
-            {
-                secServiceLevels.Visible = true;
-            }
-            else
-            {
-                secServiceLevels.Visible = false;
-            }
+            secServiceLevels.Visible = cntx.Groups.ContainsKey(ResourceGroups.ServiceLevels) ? true : false;
+
+
+
+
+
+
+
         }
 
         private bool CheckServiceLevelQuota(QuotaValueInfo quota)

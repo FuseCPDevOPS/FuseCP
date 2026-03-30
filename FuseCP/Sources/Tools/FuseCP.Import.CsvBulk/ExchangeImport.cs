@@ -116,7 +116,7 @@ namespace FuseCP.Import.CsvBulk
 				}
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Unexpected error occured", ex);
 			}
@@ -150,7 +150,7 @@ namespace FuseCP.Import.CsvBulk
 					id = (int)obj;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("SQL error occured", ex);
 			}
@@ -197,7 +197,7 @@ namespace FuseCP.Import.CsvBulk
 				}
 				ShowSummary();
 			}
-			catch (Exception e)
+			catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
 			{
 				// Let the user know what went wrong.
 				Log.WriteError("Unexpected error occured", e);
@@ -649,7 +649,7 @@ namespace FuseCP.Import.CsvBulk
                     mailbox.ExternalEmail, mailbox.SubscriberNumber,mailbox.LevelId, mailbox.IsVIP, false);
                 ret = true;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(string.Format("Error at line {0}: Unable to create mailbox", index + 1), ex);
 			}
@@ -738,7 +738,7 @@ namespace FuseCP.Import.CsvBulk
 
 				ret = true;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(string.Format("Error at line {0}: Unable to create contact", index + 1), ex);
 			}
@@ -793,7 +793,7 @@ namespace FuseCP.Import.CsvBulk
 					user.Fax, user.HomePhone, user.MobilePhone, user.Pager, user.WebPage, user.Notes, user.ExternalEmail, user.SubscriberNumber, user.LevelId, user.IsVIP, false);
 				ret = true;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(string.Format("Error at line {0}: Unable to create user", index + 1), ex);
 			}
@@ -813,7 +813,7 @@ namespace FuseCP.Import.CsvBulk
 			{
 				status = ES.Services.Authentication.AuthenticateUser(serverContext.Username, serverContext.Password, null);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Authentication error", ex);
 				return false;

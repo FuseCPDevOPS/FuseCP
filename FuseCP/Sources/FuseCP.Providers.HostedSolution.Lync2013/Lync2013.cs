@@ -115,7 +115,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 tenantId = id.ToString();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateOrganizationInternal", ex);
                 RollbackTransaction(transaction);
@@ -193,7 +193,7 @@ namespace FuseCP.Providers.HostedSolution
                 var command = new Command("Invoke-CsManagementStoreReplication");
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteOrganizationInternal", ex);
                 throw;
@@ -286,7 +286,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateUserInternal", ex);
                 RollbackTransaction(transaction);
@@ -331,7 +331,7 @@ namespace FuseCP.Providers.HostedSolution
                 lyncUser.LineUri = lyncUser.LineUri.ToLower().Replace("tel:+", "");
                 lyncUser.LineUri = lyncUser.LineUri.ToLower().Replace("tel:", "");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetLyncUserGeneralSettingsInternal", ex);
                 throw;
@@ -531,7 +531,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 ret = false;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("SetLyncUserPlanInternal", ex);
                 throw;
@@ -573,7 +573,7 @@ namespace FuseCP.Providers.HostedSolution
                 command = new Command("Update-CsUserDatabase");
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteUserInternal", ex);
                 throw;
@@ -604,7 +604,7 @@ namespace FuseCP.Providers.HostedSolution
                 var command = new Command("Enable-CsComputer");
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ReloadConfigurationInternal", ex);
                 throw;
@@ -635,7 +635,7 @@ namespace FuseCP.Providers.HostedSolution
                 runspace = OpenRunspace();
                 domains = GetFederationDomainsInternal(runspace);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetFederationDomainsInternal", ex);
                 throw;
@@ -696,7 +696,7 @@ namespace FuseCP.Providers.HostedSolution
                     ExecuteShellCommand(runspace, command, false);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("AddFederationDomainInternal", ex);
                 throw;
@@ -729,7 +729,7 @@ namespace FuseCP.Providers.HostedSolution
                 command.Parameters.Add("Identity", domainName);
                 ExecuteShellCommand(runspace, command, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("RemoveFederationDomainInternal", ex);
                 throw;

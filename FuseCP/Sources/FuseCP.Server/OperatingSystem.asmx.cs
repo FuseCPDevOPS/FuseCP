@@ -113,7 +113,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' PathCombine", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' PathCombine", ProviderSettings.ProviderName), ex);
 				throw;
@@ -130,7 +130,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' CreatePackageFolder", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreatePackageFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -147,7 +147,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' FileExists", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' FileExists", ProviderSettings.ProviderName), ex);
 				throw;
@@ -164,7 +164,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' DirectoryExists", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DirectoryExists", ProviderSettings.ProviderName), ex);
 				throw;
@@ -181,7 +181,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFile", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFile", ProviderSettings.ProviderName), ex);
 				throw;
@@ -198,7 +198,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFiles", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFiles", ProviderSettings.ProviderName), ex);
 				throw;
@@ -215,7 +215,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetDirectoriesRecursive", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetDirectoriesRecursive", ProviderSettings.ProviderName), ex);
 				throw;
@@ -232,7 +232,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFilesRecursive", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFilesRecursive", ProviderSettings.ProviderName), ex);
 				throw;
@@ -249,7 +249,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFilesRecursiveByPattern", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFilesRecursiveByPattern", ProviderSettings.ProviderName), ex);
 				throw;
@@ -266,7 +266,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFileBinaryContent", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFileBinaryContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -283,7 +283,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFileBinaryContentUsingEncoding", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFileBinaryContentUsingEncoding", ProviderSettings.ProviderName), ex);
 				throw;
@@ -300,7 +300,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFileBinaryChunk", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFileBinaryContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -317,7 +317,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFileTextContent", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFileTextContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -333,7 +333,7 @@ namespace FuseCP.Server
 				OSProvider.CreateFile(path);
 				Log.WriteEnd("'{0}' CreateFile", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateFile", ProviderSettings.ProviderName), ex);
 				throw;
@@ -349,7 +349,7 @@ namespace FuseCP.Server
 				OSProvider.CreateDirectory(path);
 				Log.WriteEnd("'{0}' CreateDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -365,7 +365,7 @@ namespace FuseCP.Server
 				OSProvider.ChangeFileAttributes(path, createdTime, changedTime);
 				Log.WriteEnd("'{0}' ChangeFileAttributes", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeFileAttributes", ProviderSettings.ProviderName), ex);
 				throw;
@@ -381,7 +381,7 @@ namespace FuseCP.Server
 				OSProvider.DeleteFile(path);
 				Log.WriteEnd("'{0}' DeleteFile", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteFile", ProviderSettings.ProviderName), ex);
 				throw;
@@ -397,7 +397,7 @@ namespace FuseCP.Server
 				OSProvider.DeleteFiles(files);
 				Log.WriteEnd("'{0}' DeleteFiles", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteFiles", ProviderSettings.ProviderName), ex);
 				throw;
@@ -413,7 +413,7 @@ namespace FuseCP.Server
 				OSProvider.DeleteEmptyDirectories(directories);
 				Log.WriteEnd("'{0}' DeleteEmptyDirectories", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteEmptyDirectories", ProviderSettings.ProviderName), ex);
 				throw;
@@ -429,7 +429,7 @@ namespace FuseCP.Server
 				OSProvider.UpdateFileBinaryContent(path, content);
 				Log.WriteEnd("'{0}' UpdateFileBinaryContent", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateFileBinaryContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -445,7 +445,7 @@ namespace FuseCP.Server
 				OSProvider.UpdateFileBinaryContentUsingEncoding(path, content, encoding);
 				Log.WriteEnd("'{0}' UpdateFileBinaryContentUsingEncoding", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateFileBinaryContentUsingEncoding", ProviderSettings.ProviderName), ex);
 				throw;
@@ -461,7 +461,7 @@ namespace FuseCP.Server
 				OSProvider.AppendFileBinaryContent(path, chunk);
 				Log.WriteEnd("'{0}' AppendFileBinaryContent", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' AppendFileBinaryContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -477,7 +477,7 @@ namespace FuseCP.Server
 				OSProvider.UpdateFileTextContent(path, content);
 				Log.WriteEnd("'{0}' UpdateFileTextContent", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateFileTextContent", ProviderSettings.ProviderName), ex);
 				throw;
@@ -493,7 +493,7 @@ namespace FuseCP.Server
 				OSProvider.MoveFile(sourcePath, destinationPath);
 				Log.WriteEnd("'{0}' MoveFile", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' MoveFile", ProviderSettings.ProviderName), ex);
 				throw;
@@ -509,7 +509,7 @@ namespace FuseCP.Server
 				OSProvider.CopyFile(sourcePath, destinationPath);
 				Log.WriteEnd("'{0}' CopyFile", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CopyFile", ProviderSettings.ProviderName), ex);
 				throw;
@@ -526,7 +526,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' OSPlatform", ProviderSettings.ProviderName);
 				return res;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' OSPlatform", ProviderSettings.ProviderName), ex);
 				throw;
@@ -542,7 +542,7 @@ namespace FuseCP.Server
 				OSProvider.ZipFiles(zipFile, rootPath, files);
 				Log.WriteEnd("'{0}' ZipFiles", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ZipFiles", ProviderSettings.ProviderName), ex);
 				throw;
@@ -559,7 +559,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' UnzipFiles", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UnzipFiles", ProviderSettings.ProviderName), ex);
 				throw;
@@ -575,7 +575,7 @@ namespace FuseCP.Server
 				OSProvider.CreateBackupZip(zipFile, rootPath);
 				Log.WriteEnd("'{0}' ZipFiles", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ZipFiles", ProviderSettings.ProviderName), ex);
 				throw;
@@ -591,7 +591,7 @@ namespace FuseCP.Server
 				WinProvider.CreateAccessDatabase(databasePath);
 				Log.WriteEnd("'{0}' CreateAccessDatabase", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateAccessDatabase", ProviderSettings.ProviderName), ex);
 				throw;
@@ -608,7 +608,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetGroupNtfsPermissions", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetGroupNtfsPermissions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -624,7 +624,7 @@ namespace FuseCP.Server
 				WinProvider.GrantGroupNtfsPermissions(path, users, usersOU, resetChildPermissions);
 				Log.WriteEnd("'{0}' GrantGroupNtfsPermissions", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GrantGroupNtfsPermissions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -641,7 +641,7 @@ namespace FuseCP.Server
 				OSProvider.SetQuotaLimitOnFolder(folderPath, shareNameDrive, quotaType, quotaLimit, mode, wmiUserName, wmiPassword);
 				Log.WriteEnd("'{0}' SetQuotaLimitOnFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' SetQuotaLimitOnFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -658,7 +658,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetQuotaOnFolder", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetQuotaOnFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -674,7 +674,7 @@ namespace FuseCP.Server
 				OSProvider.DeleteDirectoryRecursive(rootPath);
 				Log.WriteEnd("'{0}' DeleteDirectoryRecursive", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteDirectoryRecursive", ProviderSettings.ProviderName), ex);
 				throw;
@@ -691,7 +691,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' CheckFileServicesInstallation", ProviderSettings.ProviderName);
 				return bResult;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CheckFileServicesInstallation", ProviderSettings.ProviderName), ex);
 				throw;
@@ -708,7 +708,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' InstallFsrmService", ProviderSettings.ProviderName);
 				return bResult;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' InstallFsrmService", ProviderSettings.ProviderName), ex);
 				throw;
@@ -727,7 +727,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFolderGraph", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFolderGraph", ProviderSettings.ProviderName), ex);
 				throw;
@@ -743,7 +743,7 @@ namespace FuseCP.Server
 				OSProvider.ExecuteSyncActions(actions);
 				Log.WriteEnd("'{0}' ExecuteSyncActions", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ExecuteSyncActions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -762,7 +762,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetInstalledOdbcDrivers", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetInstalledOdbcDrivers", ProviderSettings.ProviderName), ex);
 				throw;
@@ -779,7 +779,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetDSNNames", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetDSNNames", ProviderSettings.ProviderName), ex);
 				throw;
@@ -796,7 +796,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetDSN", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetDSN", ProviderSettings.ProviderName), ex);
 				throw;
@@ -812,7 +812,7 @@ namespace FuseCP.Server
 				WinProvider.CreateDSN(dsn);
 				Log.WriteEnd("'{0}' CreateDSN", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateDSN", ProviderSettings.ProviderName), ex);
 				throw;
@@ -828,7 +828,7 @@ namespace FuseCP.Server
 				WinProvider.UpdateDSN(dsn);
 				Log.WriteEnd("'{0}' UpdateDSN", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateDSN", ProviderSettings.ProviderName), ex);
 				throw;
@@ -844,7 +844,7 @@ namespace FuseCP.Server
 				WinProvider.DeleteDSN(dsnName);
 				Log.WriteEnd("'{0}' DeleteDSN", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteDSN", ProviderSettings.ProviderName), ex);
 				throw;
@@ -863,7 +863,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetUnixPermissions", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetUnixPermissions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -879,7 +879,7 @@ namespace FuseCP.Server
 				UnixProvider.GrantUnixPermissions(path, mode, resetChildPermissions);
 				Log.WriteEnd("'{0}' GrantUnixPermissions", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GrantUnixPermissions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -895,7 +895,7 @@ namespace FuseCP.Server
 				UnixProvider.ChangeUnixFileOwner(path, owner, group, applyToChildren);
 				Log.WriteEnd("'{0}' ChangeUnixFileOwner", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeUnixFileOwner", ProviderSettings.ProviderName), ex);
 				throw;
@@ -911,7 +911,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetUnixFileOwner", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetUnixFileOwner", ProviderSettings.ProviderName), ex);
 				throw;
@@ -930,7 +930,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetTerminalServicesSessions", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetTerminalServicesSessions", ProviderSettings.ProviderName), ex);
 				throw;
@@ -946,7 +946,7 @@ namespace FuseCP.Server
 				WinProvider.CloseTerminalServicesSession(sessionId);
 				Log.WriteEnd("'{0}' CloseTerminalServicesSession", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CloseTerminalServicesSession", ProviderSettings.ProviderName), ex);
 				throw;
@@ -965,7 +965,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetLogNames", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetLogNames", ProviderSettings.ProviderName), ex);
 				throw;
@@ -983,7 +983,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetLogEntries", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetLogEntries", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1000,7 +1000,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetLogEntriesPaged", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetLogEntriesPaged", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1016,7 +1016,7 @@ namespace FuseCP.Server
 				OSProvider.ClearLog(logName);
 				Log.WriteEnd("'{0}' ClearLog", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ClearLog", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1035,7 +1035,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetOSProcesses", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetOSProcesses", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1051,7 +1051,7 @@ namespace FuseCP.Server
 				OSProvider.TerminateOSProcess(pid);
 				Log.WriteEnd("'{0}' TerminateOSProcess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' TerminateOSProcess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1068,7 +1068,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetOSServices", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetOSServices", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1084,7 +1084,7 @@ namespace FuseCP.Server
 				OSProvider.ChangeOSServiceStatus(id, status);
 				Log.WriteEnd("'{0}' ChangeOSServiceStatus", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeOSServiceStatus", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1100,7 +1100,7 @@ namespace FuseCP.Server
 				OSProvider.RebootSystem();
 				Log.WriteEnd("'{0}' RebootSystem", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' RebootSystem", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1119,7 +1119,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSystemMemoryInfo", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSystemMemoryInfo", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1135,7 +1135,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSystemResourceUsageInfo", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSystemResourceUsageInfo", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1153,7 +1153,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' ExecuteSystemCommand", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ExecuteSystemCommand", ProviderSettings.ProviderName), ex);
 				throw;

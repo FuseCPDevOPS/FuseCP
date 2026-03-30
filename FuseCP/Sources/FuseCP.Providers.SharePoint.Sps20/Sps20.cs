@@ -312,7 +312,7 @@ namespace FuseCP.Providers.SharePoint
             {
                 SecurityUtils.EnsureOrganizationalUnitsExist(ServerSettings, UsersOU, GroupsOU);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 messages.Add(String.Format("Could not check/create Organizational Units: {0}", ex.Message));
                 return messages.ToArray();
@@ -344,7 +344,7 @@ namespace FuseCP.Providers.SharePoint
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError(String.Format("Error switching '{0}' {1}", item.Name, item.GetType().Name), ex);
                 }
@@ -362,7 +362,7 @@ namespace FuseCP.Providers.SharePoint
                     {
                         UnextendVirtualServer(item.Name, true);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
@@ -374,7 +374,7 @@ namespace FuseCP.Providers.SharePoint
                     {
                         DeleteUser(item.Name);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }
@@ -386,7 +386,7 @@ namespace FuseCP.Providers.SharePoint
                     {
                         DeleteGroup(item.Name);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
                     }

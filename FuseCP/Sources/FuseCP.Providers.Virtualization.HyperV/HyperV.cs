@@ -1602,7 +1602,7 @@ exit", Convert.ToInt32(objDisk["Index"])));
                 info.DiskVolumes = volumes.ToArray();
                 return info;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // unmount disk
                 UnmountVirtualHardDisk(vhdPath);

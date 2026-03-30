@@ -50,7 +50,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CheckConnectivity", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CheckConnectivity", ProviderSettings.ProviderName), ex);
                 throw;
@@ -67,7 +67,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' ExecuteSqlQuery", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ExecuteSqlQuery", ProviderSettings.ProviderName), ex);
                 throw;
@@ -83,7 +83,7 @@ namespace FuseCP.Server
                 DatabaseProvider.ExecuteSqlNonQuery(databaseName, commandText);
                 Log.WriteEnd("'{0}' ExecuteSqlNonQuery", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ExecuteSqlNonQuery", ProviderSettings.ProviderName), ex);
                 throw;
@@ -100,7 +100,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' ExecuteSqlQuerySafe", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ExecuteSqlQuerySafe", ProviderSettings.ProviderName), ex);
                 throw;
@@ -116,7 +116,7 @@ namespace FuseCP.Server
                 DatabaseProvider.ExecuteSqlNonQuerySafe(databaseName, username, password, commandText);
                 Log.WriteEnd("'{0}' ExecuteSqlNonQuerySafe", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ExecuteSqlNonQuerySafe", ProviderSettings.ProviderName), ex);
                 throw;
@@ -135,7 +135,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' DatabaseExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DatabaseExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -152,7 +152,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetDatabases", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetDatabases", ProviderSettings.ProviderName), ex);
                 throw;
@@ -169,7 +169,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetDatabase", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -185,7 +185,7 @@ namespace FuseCP.Server
                 DatabaseProvider.CreateDatabase(database);
                 Log.WriteEnd("'{0}' CreateDatabase", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -201,7 +201,7 @@ namespace FuseCP.Server
                 DatabaseProvider.UpdateDatabase(database);
                 Log.WriteEnd("'{0}' UpdateDatabase", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -217,7 +217,7 @@ namespace FuseCP.Server
                 DatabaseProvider.DeleteDatabase(databaseName);
                 Log.WriteEnd("'{0}' DeleteDatabase", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -233,7 +233,7 @@ namespace FuseCP.Server
                 DatabaseProvider.TruncateDatabase(databaseName);
                 Log.WriteEnd("'{0}' TruncateDatabase", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' TruncateDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -250,7 +250,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetTempFileBinaryChunk", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetTempFileBinaryChunk", ProviderSettings.ProviderName), ex);
                 throw;
@@ -267,7 +267,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AppendTempFileBinaryChunk", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AppendTempFileBinaryChunk", ProviderSettings.ProviderName), ex);
                 throw;
@@ -284,7 +284,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' BackupDatabase", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' BackupDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -300,7 +300,7 @@ namespace FuseCP.Server
                 DatabaseProvider.RestoreDatabase(databaseName, fileNames);
                 Log.WriteEnd("'{0}' RestoreDatabase", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RestoreDatabase", ProviderSettings.ProviderName), ex);
                 throw;
@@ -319,7 +319,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' UserExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UserExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -336,7 +336,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetUsers", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetUsers", ProviderSettings.ProviderName), ex);
                 throw;
@@ -353,7 +353,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetUser", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -369,7 +369,7 @@ namespace FuseCP.Server
                 DatabaseProvider.CreateUser(user, password);
                 Log.WriteEnd("'{0}' CreateUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -385,7 +385,7 @@ namespace FuseCP.Server
                 DatabaseProvider.UpdateUser(user, databases);
                 Log.WriteEnd("'{0}' UpdateUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -401,7 +401,7 @@ namespace FuseCP.Server
                 DatabaseProvider.DeleteUser(username, databases);
                 Log.WriteEnd("'{0}' DeleteUser", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -417,7 +417,7 @@ namespace FuseCP.Server
                 DatabaseProvider.ChangeUserPassword(username, password);
                 Log.WriteEnd("'{0}' ChangeUserPassword", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ChangeUserPassword", ProviderSettings.ProviderName), ex);
                 throw;

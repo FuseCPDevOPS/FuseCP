@@ -178,7 +178,7 @@ namespace FuseCP.EnterpriseServer
                 return itemId;
                 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 TaskManager.WriteError(ex);
                 throw;

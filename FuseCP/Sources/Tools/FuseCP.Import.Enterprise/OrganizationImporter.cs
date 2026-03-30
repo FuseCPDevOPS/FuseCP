@@ -54,7 +54,7 @@ namespace FuseCP.Import.Enterprise
 				UserInfo info = UserController.GetUser(username);
 				SecurityContext.SetThreadPrincipal(info);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to authenticate user", ex);
 				Cancel();
@@ -154,7 +154,7 @@ namespace FuseCP.Import.Enterprise
 				this.progressBar.Value = 100;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (Utils.IsThreadAbortException(ex))
 					return;
@@ -359,7 +359,7 @@ namespace FuseCP.Import.Enterprise
                 {
                     addressListsContainer = ADUtils.GetAddressListsContainer();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Log.WriteError("Cannot load Exchange 2007 Address Lists Container", ex);
                     return EXCHANGE_CONTAINER_ERROR;
@@ -585,7 +585,7 @@ namespace FuseCP.Import.Enterprise
 					Global.HasErrors = true;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (Utils.IsThreadAbortException(ex))
 					return;
@@ -674,7 +674,7 @@ namespace FuseCP.Import.Enterprise
 					Global.HasErrors = true;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (Utils.IsThreadAbortException(ex))
 					return;
@@ -698,7 +698,7 @@ namespace FuseCP.Import.Enterprise
 					Global.HasErrors = true;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (Utils.IsThreadAbortException(ex))
 					return;
@@ -722,7 +722,7 @@ namespace FuseCP.Import.Enterprise
 					Global.HasErrors = true;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (Utils.IsThreadAbortException(ex))
 					return;
@@ -784,7 +784,7 @@ namespace FuseCP.Import.Enterprise
                         object adsLargeInteger = typeDetails.Value;
                         mailboxTypeDetails = (Int32)adsLargeInteger.GetType().InvokeMember("LowPart", System.Reflection.BindingFlags.GetProperty, null, adsLargeInteger, null);
                     }
-                    catch { } // just skip
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 
                 }
             }

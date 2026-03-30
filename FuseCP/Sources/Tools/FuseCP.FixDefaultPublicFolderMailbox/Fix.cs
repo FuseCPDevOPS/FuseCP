@@ -45,7 +45,7 @@ namespace FuseCP.FixDefaultPublicFolderMailbox
             {
                 status = ES.Services.Authentication.AuthenticateUser(serverContext.Username, serverContext.Password, null);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("Authentication error", ex);
                 return false;
@@ -111,7 +111,7 @@ namespace FuseCP.FixDefaultPublicFolderMailbox
             {
                 res = ES.Services.ExchangeServer.SetDefaultPublicFolderMailbox(organization.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex.ToString());
             }

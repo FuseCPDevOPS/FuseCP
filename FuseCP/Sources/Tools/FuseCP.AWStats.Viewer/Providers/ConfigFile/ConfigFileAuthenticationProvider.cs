@@ -73,7 +73,7 @@ namespace FuseCP.AWStats.Viewer
 					}
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Console.Error.WriteLine(ex.ToString());
 			}

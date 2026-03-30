@@ -97,7 +97,7 @@ namespace FuseCP.Server.WPIService
                 {
                     break;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     Debug.WriteLine(ex.ToString());
                 }

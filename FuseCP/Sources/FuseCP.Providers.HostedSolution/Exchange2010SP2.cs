@@ -113,7 +113,7 @@ namespace FuseCP.Providers.HostedSolution
 				info.RoomsAddressList = ralId;
 				info.OrganizationId = organizationId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateOrganizationInternal", ex);
 				RollbackTransaction(transaction);
@@ -158,7 +158,7 @@ namespace FuseCP.Providers.HostedSolution
 				info.AddressBookPolicy = GetResultObjectDN(result);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateOrganizationAddressBookPolicyInternal", ex);
 				RollbackTransaction(transaction);
@@ -282,7 +282,7 @@ namespace FuseCP.Providers.HostedSolution
 				if (!DeleteOrganizationAcceptedDomains(runSpace, acceptedDomains))
 					ret = false;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret = false;
 				ExchangeLog.LogError("DeleteOrganizationInternal", ex);
@@ -455,7 +455,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExchangeLog.LogEnd("CreateMailEnableUserInternal");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateMailEnableUserInternal", ex);
 				RollbackTransaction(transaction);

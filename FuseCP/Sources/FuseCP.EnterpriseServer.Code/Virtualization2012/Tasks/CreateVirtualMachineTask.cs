@@ -433,7 +433,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                                 mountedInfo = vs.MountVirtualHardDisk(vm.VirtualHardDrivePath[0]);
                                 attemps = 0;
                             }
-                            catch (Exception)
+                            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                             {
                                 attemps--;
                                 if (attemps == 0)

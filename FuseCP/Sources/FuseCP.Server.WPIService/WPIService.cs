@@ -247,7 +247,7 @@ namespace FuseCP.Server.WPIService
                     Debug.Write("WPIService: iisreset /start returns "+exeProcess.ExitCode);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Debug.Write("WPIService: iisreset /start exception: "+ex.ToString());
             }

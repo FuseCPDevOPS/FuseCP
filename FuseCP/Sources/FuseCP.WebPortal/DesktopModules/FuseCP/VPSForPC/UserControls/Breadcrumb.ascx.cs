@@ -26,15 +26,10 @@ namespace FuseCP.Portal.VPSForPC.UserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
+            if (!IsPostBack && package != null)
             {
-                // bind package name
-                PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
-
-                if (package != null)
-                {
                     litSpaceName.Text = package.PackageName;
-                }
             }
         }
     }

@@ -54,7 +54,7 @@ namespace FuseCP.Portal
 				}
 				return await serverInfo;
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 
@@ -199,7 +199,7 @@ namespace FuseCP.Portal
 				if (pnWindowsServices != null) pnWindowsServices.Visible = isWindows;
 				if (pnUnixServices != null) pnUnixServices.Visible = !isWindows;
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 			}

@@ -55,7 +55,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CreateCollection", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -71,7 +71,7 @@ namespace FuseCP.Server
                 RDSProvider.EditRdsCollectionSettings(collection);
                 Log.WriteEnd("'{0}' EditRdsCollectionSettings", ProviderSettings.ProviderName);                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' EditRdsCollectionSettings", ProviderSettings.ProviderName), ex);
                 throw;
@@ -89,7 +89,7 @@ namespace FuseCP.Server
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetRdsUserSessions", ProviderSettings.ProviderName), ex);
                 throw;
@@ -106,7 +106,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AddRdsServersToDeployment", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddRdsServersToDeployment", ProviderSettings.ProviderName), ex);
                 throw;
@@ -123,7 +123,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetCollection", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -140,7 +140,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' RemoveCollection", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RemoveCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -157,7 +157,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' UpdateUsersInCollection", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateUsersInCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -173,7 +173,7 @@ namespace FuseCP.Server
                 RDSProvider.AddSessionHostServerToCollection(organizationId, collectionName, server);
                 Log.WriteEnd("'{0}' AddSessionHostServersToCollection", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddSessionHostServersToCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -189,7 +189,7 @@ namespace FuseCP.Server
                 RDSProvider.AddSessionHostServersToCollection(organizationId, collectionName, servers);
                 Log.WriteEnd("'{0}' AddSessionHostServersToCollection", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddSessionHostServersToCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -205,7 +205,7 @@ namespace FuseCP.Server
                 RDSProvider.RemoveSessionHostServerFromCollection(organizationId, collectionName, server);
                 Log.WriteEnd("'{0}' RemoveSessionHostServerFromCollection", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RemoveSessionHostServerFromCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -221,7 +221,7 @@ namespace FuseCP.Server
                 RDSProvider.RemoveSessionHostServersFromCollection(organizationId, collectionName, servers);
                 Log.WriteEnd("'{0}' RemoveSessionHostServersFromCollection", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RemoveSessionHostServersFromCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -237,7 +237,7 @@ namespace FuseCP.Server
                 RDSProvider.SetRDServerNewConnectionAllowed(newConnectionAllowed, server);
                 Log.WriteEnd("'{0}' SetRDServerNewConnectionAllowed", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SetRDServerNewConnectionAllowed", ProviderSettings.ProviderName), ex);
                 throw;
@@ -254,7 +254,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetAvailableRemoteApplications", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateUsersInCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -271,7 +271,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetCollectionRemoteApplications", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetCollectionRemoteApplications", ProviderSettings.ProviderName), ex);
                 throw;
@@ -288,7 +288,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AddRemoteApplication", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddRemoteApplication", ProviderSettings.ProviderName), ex);
                 throw;
@@ -305,7 +305,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AddRemoteApplications", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddRemoteApplications", ProviderSettings.ProviderName), ex);
                 throw;
@@ -322,7 +322,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' RemoveRemoteApplication", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RemoveRemoteApplication", ProviderSettings.ProviderName), ex);
                 throw;
@@ -339,7 +339,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AddSessionHostFeatureToServer", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddSessionHostServersToCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -356,7 +356,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CheckSessionHostFeatureInstallation", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CheckSessionHostFeatureInstallation", ProviderSettings.ProviderName), ex);
                 throw;
@@ -373,7 +373,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CheckServerAvailability", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CheckServerAvailability", ProviderSettings.ProviderName), ex);
                 throw;
@@ -390,7 +390,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetApplicationUsers", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetApplicationUsers", ProviderSettings.ProviderName), ex);
                 throw;
@@ -407,7 +407,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' SetApplicationUsers", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SetApplicationUsers", ProviderSettings.ProviderName), ex);
                 throw;
@@ -424,7 +424,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CheckRDSServerAvaliable", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CheckRDSServerAvaliable", ProviderSettings.ProviderName), ex);
                 throw;
@@ -441,7 +441,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetServersExistingInCollections", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetServersExistingInCollections", ProviderSettings.ProviderName), ex);
                 throw;
@@ -457,7 +457,7 @@ namespace FuseCP.Server
                 RDSProvider.LogOffRdsUser(unifiedSessionId, hostServer);
                 Log.WriteEnd("'{0}' LogOffRdsUser", ProviderSettings.ProviderName);                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' LogOffRdsUser", ProviderSettings.ProviderName), ex);
                 throw;
@@ -475,7 +475,7 @@ namespace FuseCP.Server
 
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetRdsCollectionSessionHosts", ProviderSettings.ProviderName), ex);
                 throw;
@@ -493,7 +493,7 @@ namespace FuseCP.Server
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetRdsServerInfo", ProviderSettings.ProviderName), ex);
                 throw;
@@ -511,7 +511,7 @@ namespace FuseCP.Server
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetRdsServerStatus", ProviderSettings.ProviderName), ex);
                 throw;
@@ -527,7 +527,7 @@ namespace FuseCP.Server
                 RDSProvider.ShutDownRdsServer(serverName);
                 Log.WriteEnd("'{0}' ShutDownRdsServer", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ShutDownRdsServer", ProviderSettings.ProviderName), ex);
                 throw;
@@ -543,7 +543,7 @@ namespace FuseCP.Server
                 RDSProvider.RestartRdsServer(serverName);
                 Log.WriteEnd("'{0}' RestartRdsServer", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RestartRdsServer", ProviderSettings.ProviderName), ex);
                 throw;
@@ -559,7 +559,7 @@ namespace FuseCP.Server
                 RDSProvider.SaveRdsCollectionLocalAdmins(users, hosts, collectionName, organizationId);
                 Log.WriteEnd("'{0}' SaveRdsCollectionLocalAdmins", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SaveRdsCollectionLocalAdmins", ProviderSettings.ProviderName), ex);
                 throw;
@@ -577,7 +577,7 @@ namespace FuseCP.Server
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetRdsCollectionLocalAdmins", ProviderSettings.ProviderName), ex);
                 throw;
@@ -593,7 +593,7 @@ namespace FuseCP.Server
                 RDSProvider.MoveRdsServerToTenantOU(hostName, organizationId);
                 Log.WriteEnd("'{0}' MoveRdsServerToTenantOU", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' MoveRdsServerToTenantOU", ProviderSettings.ProviderName), ex);
                 throw;
@@ -609,7 +609,7 @@ namespace FuseCP.Server
                 RDSProvider.RemoveRdsServerFromTenantOU(hostName, organizationId);
                 Log.WriteEnd("'{0}' RemoveRdsServerFromTenantOU", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' RemoveRdsServerFromTenantOU", ProviderSettings.ProviderName), ex);
                 throw;
@@ -625,7 +625,7 @@ namespace FuseCP.Server
                 RDSProvider.InstallCertificate(certificate, password, hostNames);
                 Log.WriteEnd("'{0}' InstallCertificate", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' InstallCertificate", ProviderSettings.ProviderName), ex);
                 throw;
@@ -641,7 +641,7 @@ namespace FuseCP.Server
                 RDSProvider.MoveSessionHostToRdsOU(hostName);
                 Log.WriteEnd("'{0}' MoveSessionHostToRdsOU", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' MoveSessionHostToRdsOU", ProviderSettings.ProviderName), ex);
                 throw;
@@ -657,7 +657,7 @@ namespace FuseCP.Server
                 RDSProvider.ApplyGPO(organizationId, collectionName, serverSettings);
                 Log.WriteEnd("'{0}' ApplyGPO", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ApplyGPO", ProviderSettings.ProviderName), ex);
                 throw;
@@ -673,7 +673,7 @@ namespace FuseCP.Server
                 RDSProvider.ShadowSession(sessionId, fqdName, control);
                 Log.WriteEnd("'{0}' ShadowSession", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ShadowSession", ProviderSettings.ProviderName), ex);
                 throw;
@@ -689,7 +689,7 @@ namespace FuseCP.Server
                 RDSProvider.MoveSessionHostsToCollectionOU(servers, collectionName, organizationId);
                 Log.WriteEnd("'{0}' MoveSessionHostsToCollectionOU", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' MoveSessionHostsToCollectionOU", ProviderSettings.ProviderName), ex);
                 throw;
@@ -706,7 +706,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetExistingCollection", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetExistingCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -722,7 +722,7 @@ namespace FuseCP.Server
                 RDSProvider.ImportCollection(organizationId, collection, users);
                 Log.WriteEnd("'{0}' ImportCollection", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ImportCollection", ProviderSettings.ProviderName), ex);
                 throw;
@@ -738,7 +738,7 @@ namespace FuseCP.Server
                 RDSProvider.SendMessage(recipients, text);
                 Log.WriteEnd("'{0}' SendMessage", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' SendMessage", ProviderSettings.ProviderName), ex);
                 throw;

@@ -1130,7 +1130,7 @@ namespace FuseCP.Providers.Utils
 					DeleteFileInternal(fileName);
 					break;
 				}
-				catch (Exception)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					if (attempts > 2)
 						throw;
@@ -1200,7 +1200,7 @@ namespace FuseCP.Providers.Utils
 					DeleteDirectoryInternal(directory);
 					break;
 				}
-				catch (Exception)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					if (attempts > 2)
 						throw;

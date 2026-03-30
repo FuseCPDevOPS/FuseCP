@@ -818,7 +818,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 			};
 
 		}
-		catch (Exception ex)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			Log.WriteError("GetSystemResourceUsageInfo", ex);
 			throw;
@@ -836,7 +836,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 			string result = FileUtils.ExecuteSystemCommand(user, password, path, args);
 			return result;
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}

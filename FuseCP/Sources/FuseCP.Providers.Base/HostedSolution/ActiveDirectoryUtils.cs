@@ -452,7 +452,7 @@ namespace FuseCP.Providers.HostedSolution
             {
                 return DirectoryEntry.Exists(path);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (ex.Message == "Unknown error (0x80005000)")
                 {

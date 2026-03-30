@@ -1490,7 +1490,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 runspace.ExecuteRemoteShellCommand(PrimaryDomainController, cmd, PrimaryDomainController);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1515,7 +1515,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                     gpoId = ((Guid)RdsRunspaceExtensions.GetPSObjectProperty(gpo, "Id")).ToString("B");
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }

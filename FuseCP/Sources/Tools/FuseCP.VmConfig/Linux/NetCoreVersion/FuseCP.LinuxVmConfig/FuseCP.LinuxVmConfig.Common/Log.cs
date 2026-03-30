@@ -60,7 +60,7 @@ namespace FuseCP.LinuxVmConfig
                 Trace.WriteLine(line);
                 Trace.WriteLine(ex);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] ERROR: {1}", DateTime.Now, message);
                 Trace.WriteLine(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] {1}", DateTime.Now, message);
                 Trace.Write(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
 
@@ -103,7 +103,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] {1}", DateTime.Now, message);
                 Trace.WriteLine(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] INFO: {1}", DateTime.Now, message);
                 Trace.WriteLine(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] START: {1}", DateTime.Now, message);
                 Trace.WriteLine(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace FuseCP.LinuxVmConfig
                 string line = string.Format("[{0:G}] END: {1}", DateTime.Now, message);
                 Trace.WriteLine(line);
             }
-            catch { }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
         }
 
 

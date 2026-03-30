@@ -240,7 +240,7 @@ namespace FuseCP.Providers.Web.Iis
 
 								}).ToList();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(
 					String.Format("SSLModuleService is unable to get certificates from X509Store('{0}', '{1}') and complete GetServerCertificates call", store.Name, store.Location), ex);
@@ -274,7 +274,7 @@ namespace FuseCP.Providers.Web.Iis
                 //
                 store.Add(x509Cert);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("SSLModuleService could not import PFX into X509Store('{0}', '{1}')", store.Name, store.Location), ex);
                 // Re-throw error
@@ -305,7 +305,7 @@ namespace FuseCP.Providers.Web.Iis
                     ValidFrom = DateTime.Parse(x509Cert.GetEffectiveDateString()),
                 };
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // Rollback X.509 store changes
                 store.Remove(x509Cert);
@@ -328,7 +328,7 @@ namespace FuseCP.Providers.Web.Iis
                 if (oldcert != null)
                     DeleteCertificate(oldcert, website);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // Rollback X.509 store changes
                 store.Remove(x509Cert);
@@ -351,7 +351,7 @@ namespace FuseCP.Providers.Web.Iis
                 //
                 AddBinding(newcert, website);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // Install old certificate back if any
                 if (oldcert != null)

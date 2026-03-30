@@ -970,7 +970,7 @@ namespace FuseCP.Providers.Utils
 				//
 				return GetUserObject(srchRoot, userName, serverSettings);
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// TO-DO: Add log actions here
 			}

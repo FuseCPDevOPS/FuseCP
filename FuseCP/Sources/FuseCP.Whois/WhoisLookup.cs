@@ -61,7 +61,7 @@ namespace FuseCP.Ecommerce.EnterpriseServer
 				response.ResultException = ex;
 				response.ErrorMessage = ex.Message;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				response.Success = false;
 				response.ErrorMessage = ex.Message;
@@ -167,7 +167,7 @@ namespace FuseCP.Ecommerce.EnterpriseServer
 				// fill string reader
 				sr = new StringReader(builder.ToString());
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 			}

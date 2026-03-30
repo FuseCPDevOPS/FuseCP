@@ -65,7 +65,7 @@ public class Tests
 			{
 				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 				Assert.Fail($"Exception {ex}");
@@ -110,7 +110,7 @@ public class Tests
 				var res = client.DirectoryExists(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
 				Assert.Fail();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 
 			}
@@ -125,7 +125,7 @@ public class Tests
 			{
 				var path = await client.GetServerFilePathAsync();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 				Assert.Fail();
@@ -169,7 +169,7 @@ public class Tests
 			{
 				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 				Assert.Fail($"Exception {ex}");
@@ -218,7 +218,7 @@ public class Tests
 				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
 				Assert.Fail($"Exception {fex}");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 				Assert.Fail($"Exception {ex}");
@@ -243,7 +243,7 @@ public class Tests
 			{
 				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 				Assert.Fail("Exception", ex);
@@ -296,7 +296,7 @@ public class Tests
 				Assert.AreEqual(header.Settings[0], settings);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
 			}
@@ -363,7 +363,7 @@ public class Tests
 				Assert.Fail($"WrongPassword expected a SOAP auth fault but endpoint '{client.Url}' was unreachable. " +
 					$"Ensure server test host is started and listening before tests run. Details: {cex.Message}");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Assert.Fail($"WrongPassword failed with unexpected exception at '{client.Url}': {ex}");
 			}

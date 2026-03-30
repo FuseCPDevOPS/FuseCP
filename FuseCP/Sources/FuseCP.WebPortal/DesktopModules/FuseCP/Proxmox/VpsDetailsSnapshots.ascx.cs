@@ -232,7 +232,7 @@ namespace FuseCP.Portal.Proxmox
                     messageBox.ShowMessage(res, "VPS_ERROR_DELETE_SNAPSHOT_SUBTREE", "VPS");
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 messageBox.ShowErrorMessage("VPS_ERROR_DELETE_SNAPSHOT_SUBTREE", ex);
             }

@@ -42,7 +42,7 @@ namespace Common.Utils
 		{
 			int result = defaultValue;
 			try { result = Int32.Parse(val); }
-			catch { /* do nothing */ }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 			return result;
 		}
 
@@ -50,7 +50,7 @@ namespace Common.Utils
 		{
 			decimal result = defaultValue;
 			try { result = Decimal.Parse(val); }
-			catch { /* do nothing */ }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 			return result;
 		}
 

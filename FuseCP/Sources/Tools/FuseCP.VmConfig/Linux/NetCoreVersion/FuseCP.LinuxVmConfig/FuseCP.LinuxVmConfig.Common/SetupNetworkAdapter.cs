@@ -72,7 +72,7 @@ namespace FuseCP.LinuxVmConfig
                     return ret;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ProcessError(context, ret, ex, 2, "Network adapter configuration error: ");
                 return ret;
@@ -84,7 +84,7 @@ namespace FuseCP.LinuxVmConfig
                 {
                     EnableDHCP(adapterName, ret);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ProcessError(context, ret, ex, 2, "DHCP error: ");
                     return ret;
@@ -112,7 +112,7 @@ namespace FuseCP.LinuxVmConfig
                 {
                     DisableDHCP(context, adapterName, ret);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ProcessError(context, ret, ex, 2, "Network adapter configuration error: ");
                     return ret;

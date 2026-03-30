@@ -760,7 +760,7 @@ namespace FuseCP.Providers.HostedSolution
 				info.Database = databaseId;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateOrganizationInternal", ex);
 				RollbackTransaction(transaction);
@@ -845,7 +845,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				info.OfflineAddressBook = oabId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateOrganizationOfflineAddressBookInternal", ex);
 				RollbackTransaction(transaction);
@@ -1007,7 +1007,7 @@ namespace FuseCP.Providers.HostedSolution
 				if (!DeleteOrganizationAcceptedDomains(runSpace, acceptedDomains))
 					ret = false;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret = false;
 				ExchangeLog.LogError("DeleteOrganizationInternal", ex);
@@ -1632,7 +1632,7 @@ namespace FuseCP.Providers.HostedSolution
 				exchangeMailbox.CalendarAccounts = GetMailboxCalendarAccounts(runspace, organizationId, accountName);
 				exchangeMailbox.ContactAccounts = GetMailboxContactAccounts(runspace, organizationId, accountName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError(ex);
 				throw;
@@ -1671,7 +1671,7 @@ namespace FuseCP.Providers.HostedSolution
 				}
 
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				RollbackTransaction(transaction);
 				throw;
@@ -1711,7 +1711,7 @@ namespace FuseCP.Providers.HostedSolution
 				var contactsFolderPath = GetMailboxFolderPath(accountName, ExchangeFolders.Contacts);
 				SetMailboxFolderPermissions(runSpace, mailbox.ContactAccounts, contactsFolderPath, contactAccounts);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError(ex);
 
@@ -1816,7 +1816,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				SetMailboxOnBehalfPermissions(runSpace, accountName, accounts);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				RollbackTransaction(transaction);
 				throw;
@@ -1855,7 +1855,7 @@ namespace FuseCP.Providers.HostedSolution
 					transaction.AddMailBoxFullAccessPermission(accountName, id);
 				}
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				RollbackTransaction(transaction);
 				throw;
@@ -2126,7 +2126,7 @@ namespace FuseCP.Providers.HostedSolution
 				ExchangeLog.LogEnd("CreateMailEnableUserInternal");
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateMailEnableUserInternal", ex);
 				RollbackTransaction(transaction);
@@ -2262,7 +2262,7 @@ namespace FuseCP.Providers.HostedSolution
 			 ExchangeLog.LogEnd("CreateMailboxInternal");
 			 return ret;
 		 }
-		 catch (Exception ex)
+		 catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		 {
 			 ExchangeLog.LogError("CreateMailboxInternal", ex);
 			 RollbackTransaction(transaction);
@@ -3318,7 +3318,7 @@ namespace FuseCP.Providers.HostedSolution
 				SetContactEmail(id, contactEmail);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateContactInternal", ex);
 				RollbackTransaction(transaction);
@@ -3749,7 +3749,7 @@ namespace FuseCP.Providers.HostedSolution
 					FixShowInAddressBook(runSpace, email, addressLists, false);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateDistributionListInternal", ex);
 				RollbackTransaction(transaction);
@@ -4364,7 +4364,7 @@ namespace FuseCP.Providers.HostedSolution
 				exchangeDistributionList.SendOnBehalfAccounts = GetSendOnBehalfAccounts(runspace, distributionGroup);
 				exchangeDistributionList.SendAsAccounts = GetSendAsAccounts(runspace, organizationId, cn);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError(ex);
 				throw;
@@ -4413,7 +4413,7 @@ namespace FuseCP.Providers.HostedSolution
 				}
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError(ex);
 				throw;
@@ -4482,7 +4482,7 @@ namespace FuseCP.Providers.HostedSolution
 				}
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreatePublicFolderInternal", ex);
 				RollbackTransaction(transaction);
@@ -4510,7 +4510,7 @@ namespace FuseCP.Providers.HostedSolution
 					transaction.RegisterNewPublicFolder(string.Empty, rootId);
 					SetPublicFolderPermissions(runSpace, rootId, user);
 				}
-				catch
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					RollbackTransaction(transaction);
 					throw;
@@ -4865,7 +4865,7 @@ namespace FuseCP.Providers.HostedSolution
 																		existingAccount.AccountName,
 																		existingAccount.PublicFolderPermission);
 					}
-					catch (Exception)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						throw;
 					}
@@ -4881,7 +4881,7 @@ namespace FuseCP.Providers.HostedSolution
 																  newAccount.AccountName.Contains("@") ? newAccount.AccountName : @"\" + newAccount.AccountName,
 																  newAccount.PublicFolderPermission);
 					}
-					catch (Exception)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						throw;
 					}
@@ -6328,7 +6328,7 @@ namespace FuseCP.Providers.HostedSolution
 				}
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("GetAuthoritativeDomainsInternal", ex);
 				throw;
@@ -6360,7 +6360,7 @@ namespace FuseCP.Providers.HostedSolution
 				runSpace = OpenRunspace();
 				CreateAcceptedDomain(runSpace, domain);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("CreateAuthoritativeDomainInternal", ex);
 				throw;
@@ -6383,7 +6383,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				SetAcceptedDomainType(runSpace, domainName, domainType);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("ChangeAcceptedDomainType", ex);
 				throw;
@@ -6413,7 +6413,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				RemoveAcceptedDomain(runSpace, domainName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ExchangeLog.LogError("DeleteAcceptedDomain", ex);
 				throw;

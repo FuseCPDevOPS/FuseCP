@@ -54,7 +54,7 @@ namespace FuseCP.Import.Enterprise
 			{
 				root = ADUtils.GetRootOU();
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load root OU.", ex);
 			}
@@ -87,7 +87,7 @@ namespace FuseCP.Import.Enterprise
 					AddTreeNode(node, child);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load Active Directory data.", ex);
 			}

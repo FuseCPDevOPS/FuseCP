@@ -44,7 +44,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 return (T) Enum.Parse(typeof (T), GetProperty(obj, name).ToString());
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (defaultValue.HasValue && suppressErrors) return defaultValue.Value;
                 throw;

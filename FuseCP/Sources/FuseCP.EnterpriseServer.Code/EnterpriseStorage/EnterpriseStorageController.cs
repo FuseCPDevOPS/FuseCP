@@ -258,7 +258,7 @@ namespace FuseCP.EnterpriseServer
 
                 return tasks.SelectMany(x=>x.Result).ToArray();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -667,7 +667,7 @@ namespace FuseCP.EnterpriseServer
 
                 return es.GetFolders(org.OrganizationId, webDavSettings);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -718,7 +718,7 @@ namespace FuseCP.EnterpriseServer
 
                 return rootFolders.ToArray();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -814,7 +814,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -883,7 +883,7 @@ namespace FuseCP.EnterpriseServer
 
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -1650,7 +1650,7 @@ namespace FuseCP.EnterpriseServer
 
                 return es.GetFolderWebDavRules(org.OrganizationId, folder, webDavSetting);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -2050,7 +2050,7 @@ namespace FuseCP.EnterpriseServer
 
                 return users.ToArray();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -2069,7 +2069,7 @@ namespace FuseCP.EnterpriseServer
                     Database.AddEnterpriseFolderOwaUser(itemId, folderId, user.AccountId);
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -2090,7 +2090,7 @@ namespace FuseCP.EnterpriseServer
 
                 return -1;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -2115,7 +2115,7 @@ namespace FuseCP.EnterpriseServer
 
                 return result.Distinct().ToList();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -2403,7 +2403,7 @@ namespace FuseCP.EnterpriseServer
                 result.PageItems = mappedDrives.Skip(startRow).Take(maximumRows).ToArray();
 
             }
-            catch (Exception) { throw; }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { throw; }
 
             return result;
         }
@@ -2447,7 +2447,7 @@ namespace FuseCP.EnterpriseServer
                 List<string> driveLetters = orgProxy.GetDriveMaps(org.OrganizationId).Select(x => x.DriveLetter).ToList();
                 return driveLetters.ToArray();
             }
-            catch (Exception) { throw; }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { throw; }
 
         }
 
@@ -2480,7 +2480,7 @@ namespace FuseCP.EnterpriseServer
                     folders = folders.Where(x => GetFolderMappedDrive(drives, x) == null).ToList();
                 }
             }
-            catch (Exception) { throw; }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { throw; }
 
             return folders.ToArray();
         }

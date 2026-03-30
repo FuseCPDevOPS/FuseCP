@@ -73,7 +73,7 @@ namespace FuseCP.WebDav.Core.Owa
                 return requestBatch.SerializeOutputToProtocol(protocolVersion);
             }
 
-            catch (Exception e)
+            catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 Server.Utils.Log.WriteError("Cobalt manager Process request", e);
 
@@ -95,7 +95,7 @@ namespace FuseCP.WebDav.Core.Owa
 
                     break;
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     //unable to read update - save failed
                     if (i == tries - 1)

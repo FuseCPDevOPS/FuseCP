@@ -191,7 +191,7 @@ namespace FuseCP.AWStats.Viewer
             {
                 Response.Write("Error while opening '" + url + "': " + ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Response.Write(ex.ToString());
             }

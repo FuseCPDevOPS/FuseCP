@@ -50,7 +50,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' OrganizationExists", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't CreateOrganization '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;
@@ -68,7 +68,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' CreateOrganization", ProviderSettings.ProviderName);
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't CreateOrganization '{0}' provider", ProviderSettings.ProviderName), ex);
                 throw;

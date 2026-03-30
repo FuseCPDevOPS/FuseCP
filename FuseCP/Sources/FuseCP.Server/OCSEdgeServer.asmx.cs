@@ -47,7 +47,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.AddDomain", ProviderSettings.ProviderName);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.AddDomain", ProviderSettings.ProviderName), ex);
 				throw;
@@ -63,7 +63,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.DeleteDomain", ProviderSettings.ProviderName);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.DeleteDomain", ProviderSettings.ProviderName), ex);
 				throw;

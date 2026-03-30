@@ -79,7 +79,7 @@ public class Global : System.Web.HttpApplication
 		{
 			using (HttpWebRequest.Create(keepAliveUrl).GetResponse()) { }
 		}
-		catch { }
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 	}
 }
 #endif

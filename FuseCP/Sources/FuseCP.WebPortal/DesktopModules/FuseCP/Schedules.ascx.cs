@@ -74,7 +74,7 @@ namespace FuseCP.Portal
             {
                 litServerTime.Text = ES.Scheduler.GetSchedulerTime().ToString();
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // skip
             }

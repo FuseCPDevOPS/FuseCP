@@ -157,7 +157,7 @@ namespace FuseCP.Tests
 					throw new TimeoutException($"Kestrel endpoint readiness timed out for component '{component}' and protocol '{readinessProtocol}'. Probed URLs: {string.Join(", ", readinessUrls)}");
 				}
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (process != null && !process.HasExited)
 				{

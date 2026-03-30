@@ -151,7 +151,7 @@ namespace FuseCP.Providers.Virtualization
                 cmd.Parameters.Add("asJob");
                 results = ExecuteFromStaticObj(cmd, addComputerNameParameter, true);
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 //TODO: Add the packing of the command as "asJob"?
                 //HostedSolutionLog.LogWarning("This command doesn't support native Async, try it in another way (asJobScript)");     

@@ -116,7 +116,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 				//
 				return results;
 			}
-			catch (Exception e)
+			catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
 			{
 				Log.WriteError(e);
 				// Re-throw exception
@@ -147,13 +147,13 @@ namespace FuseCP.Providers.VirtualizationForPC
 						//
 						Log.WriteInfo(sb.ToString());
 					}
-					catch
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						// Proceed silently...
 					}
 				}
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// Proceed silently...
 			}
@@ -648,7 +648,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					{
 						imgData = client.GetVirtualSystemThumbnailImage(width, height, vmName, hostInfo.ComputerName);
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						imgData = null;
 						//
@@ -717,7 +717,7 @@ namespace FuseCP.Providers.VirtualizationForPC
                             hostInfo = client.GetHostByName(IsNullOrWhiteSpaceString(ServerNameSettings)
 								? selTemplate.HostName : ServerNameSettings);
 						}
-						catch (Exception ex)
+						catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 						{
 							hostInfo = null;
 							//
@@ -830,7 +830,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				vm.ProvisioningStatus = VirtualMachineProvisioningStatus.Error;
 				// TODO: Possibly we should avoid exposing such detailed exceptions to the end-user
@@ -992,7 +992,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 			{
 				vmTemplate.ProvisioningStatus = VirtualMachineProvisioningStatus.InProgress;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				vmTemplate.ProvisioningStatus = VirtualMachineProvisioningStatus.Error;
 				// TO-DO: Possibly we should avoid exposing such detailed exceptions to the end-user
@@ -1084,7 +1084,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					steps.AppendLine("Done Move VM (MoveVirtualMachine)");
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// TO-DO: Possibly we should avoid exposing such detailed exceptions to the end-user
 				vmForMove.exMessage = vmForMove.exMessage + "\n MoveVM \n" + ex.Message;
@@ -1232,7 +1232,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					ret.ReturnValue = ReturnCode.JobStarted;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Could not change virtual machine state", ex);
 				//
@@ -1259,7 +1259,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					ret = ReturnCode.OK;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("Could not shut down virtual machine", ex);
 				//
@@ -1311,7 +1311,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 						ret.ReturnValue = ReturnCode.JobStarted;
 					}
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					ret.Job.Caption = ex.Message;
 					ret.Job.Description = ex.StackTrace;
@@ -1410,7 +1410,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 			{
 				ret.ReturnValue = ReturnCode.JobStarted;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret.Job.ErrorDescription = ex.Message;
 				ret.Job.JobState = ConcreteJobState.Exception;
@@ -1441,7 +1441,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 				error = true;
 				ret.ReturnValue = ReturnCode.JobStarted;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				error = true;
 				ret.Job.ErrorDescription = ex.Message;
@@ -1475,7 +1475,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 					client.DeleteVirtualMachineCheckpoint(snapshotId);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ret.Job.ErrorDescription = ex.Message;
 				ret.Job.JobState = ConcreteJobState.Exception;
@@ -1595,7 +1595,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 				{
 					ti = client.GetHosts();
 				}
-				catch (Exception ex)
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					throw new Exception("GetHost Failed", ex);
 				}
@@ -1711,7 +1711,7 @@ namespace FuseCP.Providers.VirtualizationForPC
 						}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				//
 				Log.WriteError("Could not check server state", ex);

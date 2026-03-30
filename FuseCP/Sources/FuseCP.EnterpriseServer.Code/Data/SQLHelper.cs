@@ -835,7 +835,7 @@ namespace Microsoft.ApplicationBlocks.Data
 
 				return dataReader;
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if( mustCloseConnection )
 					connection.Close();
@@ -886,7 +886,7 @@ namespace Microsoft.ApplicationBlocks.Data
                 // Call the private overload that takes an internally owned connection in place of the connection string
                 return ExecuteReader(connection, null, commandType, commandText, commandParameters, SqlConnectionOwnership.Internal);
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // If we fail to return the SqlDatReader, we need to close the connection ourselves
                 if( connection != null ) connection.Close();
@@ -1397,7 +1397,7 @@ namespace Microsoft.ApplicationBlocks.Data
 
 				return retval;
 			}
-			catch
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{	
 				if( mustCloseConnection )
 					connection.Close();

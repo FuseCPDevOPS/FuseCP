@@ -58,7 +58,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret.ResultCode = 1;
                 ret.ErrorMessage = "ShellHelper error: " + ex.ToString();
@@ -110,7 +110,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret.ResultCode = 1;
                 ret.ErrorMessage = "ShellHelper error: " + ex.ToString();

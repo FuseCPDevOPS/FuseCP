@@ -474,7 +474,7 @@ public class PortalUtils
 		{
 			return usersService.UpdateUserMfa(username, activate);
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -555,7 +555,7 @@ public class PortalUtils
 			return authResult;
 
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -692,7 +692,7 @@ public class PortalUtils
 			}
 			return result;
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -713,7 +713,7 @@ public class PortalUtils
 			// update user in FuseCP
 			return usersService.UpdateUserTask(taskId, user);
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -730,7 +730,7 @@ public class PortalUtils
 			// TODO correct value for prameter notes (instead of null).
 			return usersService.AddUser(user, sendLetter, password, null);
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -746,7 +746,7 @@ public class PortalUtils
 			// add user to FuseCP server
 			return usersService.DeleteUser(userId);
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}
@@ -762,7 +762,7 @@ public class PortalUtils
 			// add user to FuseCP server
 			return usersService.ChangeUserStatus(userId, status);
 		}
-		catch (Exception)
+		catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw;
 		}

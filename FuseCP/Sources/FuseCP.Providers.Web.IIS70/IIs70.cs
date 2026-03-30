@@ -585,7 +585,7 @@ namespace FuseCP.Providers.Web
 			{
 				SecurityUtils.CreateUser(user, ServerSettings, UsersOU, GroupsOU);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// the possible reason the account already exists
 				// check this
@@ -835,7 +835,7 @@ namespace FuseCP.Providers.Web
 				// Assign the result of assesement
 				vdir.AspNetInstalled = aspNetVersion;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Failed to read ASP.NET settings from {0}.", vdir.Name), ex);
 				// Re-throw
@@ -870,7 +870,7 @@ namespace FuseCP.Providers.Web
 					srvman.CommitChanges();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(ex);
 				throw;

@@ -526,7 +526,7 @@ namespace FuseCP.Providers.Web
 			{
 				SecurityUtils.CreateUser(user, ServerSettings, UsersOU, GroupsOU);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// the possible reason the account already exists
 				// check this

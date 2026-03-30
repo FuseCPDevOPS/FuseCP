@@ -66,7 +66,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 return lKeys.ToArray();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ServiceLog.WriteError("GetKvpKeys error: ", ex);
                 return null;
@@ -136,7 +136,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 return sValue;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ServiceLog.WriteError("GetKvpStringValue error: ", ex);
                 return null;
@@ -151,7 +151,7 @@ namespace FuseCP.LinuxVmConfig
                 Array.Copy(data, 0, fBytes, offset, data.Length);
                 File.WriteAllBytes(pool, fBytes);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ServiceLog.WriteError("EditKvpValue error: ", ex);
             }
@@ -172,7 +172,7 @@ namespace FuseCP.LinuxVmConfig
                     fs.Write(data, 0, dataLength);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("AddKvp error:", ex);
             }
@@ -189,7 +189,7 @@ namespace FuseCP.LinuxVmConfig
                 if (resArray.Length - offset > 0) Array.Copy(fBytes, offset + delLength, resArray, offset, resArray.Length - offset);
                 File.WriteAllBytes(pool, resArray);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ServiceLog.WriteError("DeleteKvp error: ", ex);
             }
@@ -256,7 +256,7 @@ namespace FuseCP.LinuxVmConfig
                     AddKvp(pool, key, value);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("SetKvpStringValue error:", ex);
             }
@@ -307,7 +307,7 @@ namespace FuseCP.LinuxVmConfig
                 }
                 if (offset != -1) DeleteKvp(pool, (int)offset);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError("DeleteKvpKey error:", ex);
             }

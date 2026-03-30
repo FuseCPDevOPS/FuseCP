@@ -93,7 +93,7 @@ namespace FusecpCP.LocalizationToolkit
 				string fileName = Path.Combine(destination, "Resources.xml");
 				dsResources.WriteXml(fileName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError(ex);
 			}

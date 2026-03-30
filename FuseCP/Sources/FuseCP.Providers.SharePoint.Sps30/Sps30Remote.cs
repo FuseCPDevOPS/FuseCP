@@ -88,7 +88,7 @@ namespace FuseCP.Providers.SharePoint
 					app.Provision();
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				try
 				{
@@ -97,7 +97,7 @@ namespace FuseCP.Providers.SharePoint
 					if (app != null)
 						app.Delete();
 				}
-				catch { /* nop */ }
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 
 				throw new Exception("Error creating SharePoint site", ex);
 			}
@@ -120,7 +120,7 @@ namespace FuseCP.Providers.SharePoint
 					app.Delete();
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not uninstall SharePoint from the web site", ex);
 			}
@@ -157,7 +157,7 @@ namespace FuseCP.Providers.SharePoint
 					return bakFile;
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not backup SharePoint site", ex);
 			}
@@ -189,7 +189,7 @@ namespace FuseCP.Providers.SharePoint
 					FileUtils.DeleteFile(expandedFile);
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not restore SharePoint site", ex);
 			}
@@ -222,7 +222,7 @@ namespace FuseCP.Providers.SharePoint
 					return list.ToArray();
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Error reading web parts packages", ex);
 			}
@@ -254,7 +254,7 @@ namespace FuseCP.Providers.SharePoint
 				});
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not install web parts package", ex);
 			}
@@ -274,7 +274,7 @@ namespace FuseCP.Providers.SharePoint
 						throw new Exception("Error uninstalling web parts package: " + errors.ToString());
 				});
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw new Exception("Could not uninstall web parts package", ex);
 			}

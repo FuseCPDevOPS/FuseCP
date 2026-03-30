@@ -41,7 +41,7 @@ namespace FuseCP.Tests
 					init.Invoke(null, new object[0]);
 				}
 			}
-			catch (Exception ex) { }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
 
 		}
 	}

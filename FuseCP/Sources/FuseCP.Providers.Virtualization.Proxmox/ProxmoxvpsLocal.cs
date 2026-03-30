@@ -77,7 +77,7 @@ namespace FuseCP.Providers.Virtualization
 				// Update common settings
 				UpdateVirtualMachine(vm);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError(error, ex);
 				throw;

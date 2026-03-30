@@ -323,7 +323,7 @@ namespace FuseCP.Providers.Mail
 					parent = isLeaf ? node : parent;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex);
 				throw;
@@ -358,7 +358,7 @@ namespace FuseCP.Providers.Mail
 				File.WriteAllText(amsConfig, builder.ToString());
 				succeed = true;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
                 Log.WriteError(ex);
 				throw;

@@ -90,7 +90,7 @@ namespace FuseCP.Providers.Web.HeliconZoo
                 {
                     heliconZooServer = appConfig.GetSection("system.webServer/heliconZooServer");
                 }
-                catch(Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // heliconZooServer is not found
                     // looks like zoo is not installed
@@ -325,7 +325,7 @@ namespace FuseCP.Providers.Web.HeliconZoo
                 {
                     zooServer = appConfig.GetSection("system.webServer/heliconZooServer", siteId);
                 }
-                catch(Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // heliconZooServer is not found
                     // looks like zoo is not installed

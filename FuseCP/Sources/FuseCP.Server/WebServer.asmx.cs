@@ -51,7 +51,7 @@ namespace FuseCP.Server
 				WebProvider.ChangeSiteState(siteId, state);
 				Log.WriteEnd("'{0}' ChangeSiteState", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeSiteState", ProviderSettings.ProviderName), ex);
 				throw;
@@ -68,7 +68,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSiteState", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSiteState", ProviderSettings.ProviderName), ex);
 				throw;
@@ -85,7 +85,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSiteId", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSiteId", ProviderSettings.ProviderName), ex);
 				throw;
@@ -102,7 +102,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSitesAccounts", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSitesAccounts", ProviderSettings.ProviderName), ex);
 				throw;
@@ -119,7 +119,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' SiteIdExists", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' SiteIdExists", ProviderSettings.ProviderName), ex);
 				throw;
@@ -136,7 +136,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSites", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSites", ProviderSettings.ProviderName), ex);
 				throw;
@@ -153,7 +153,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSite", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSite", ProviderSettings.ProviderName), ex);
 				throw;
@@ -170,7 +170,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetSiteBindings", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetSiteBindings", ProviderSettings.ProviderName), ex);
 				throw;
@@ -187,7 +187,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' CreateSite", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateSite", ProviderSettings.ProviderName), ex);
 				throw;
@@ -203,7 +203,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateSite(site);
 				Log.WriteEnd("'{0}' UpdateSite", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateSite", ProviderSettings.ProviderName), ex);
 				throw;
@@ -219,7 +219,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateSiteBindings(siteId, bindings, emptyBindingsAllowed);
 				Log.WriteEnd("'{0}' UpdateSiteBindings", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateSiteBindings", ProviderSettings.ProviderName), ex);
 				throw;
@@ -235,7 +235,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteSite(siteId);
 				Log.WriteEnd("'{0}' DeleteSite", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteSite", ProviderSettings.ProviderName), ex);
 				throw;
@@ -252,7 +252,7 @@ namespace FuseCP.Server
 				WebProvider.ChangeAppPoolState(siteId, state);
 				Log.WriteEnd("'{0}' ChangeAppPoolState", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeAppPoolState", ProviderSettings.ProviderName), ex);
 				throw;
@@ -269,7 +269,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetAppPoolState", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetAppPoolState", ProviderSettings.ProviderName), ex);
 				throw;
@@ -289,7 +289,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' VirtualDirectoryExists", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' VirtualDirectoryExists", ProviderSettings.ProviderName), ex);
 				throw;
@@ -306,7 +306,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetVirtualDirectories", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetVirtualDirectories", ProviderSettings.ProviderName), ex);
 				throw;
@@ -323,7 +323,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetVirtualDirectory", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -339,7 +339,7 @@ namespace FuseCP.Server
 				WebProvider.CreateVirtualDirectory(siteId, directory);
 				Log.WriteEnd("'{0}' CreateVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -357,7 +357,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateVirtualDirectory(siteId, directory);
 				Log.WriteEnd("'{0}' UpdateVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -373,7 +373,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteVirtualDirectory(siteId, directoryName);
 				Log.WriteEnd("'{0}' DeleteVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -395,7 +395,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' AppVirtualDirectoryExists", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' AppVirtualDirectoryExists", ProviderSettings.ProviderName), ex);
 				throw;
@@ -412,7 +412,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetAppVirtualDirectories", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetAppVirtualDirectories", ProviderSettings.ProviderName), ex);
 				throw;
@@ -429,7 +429,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetAppVirtualDirectory", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetAppVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -445,7 +445,7 @@ namespace FuseCP.Server
 				WebProvider.CreateAppVirtualDirectory(siteId, directory);
 				Log.WriteEnd("'{0}' CreateAppVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateAppVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -461,7 +461,7 @@ namespace FuseCP.Server
 				WebProvider.CreateEnterpriseStorageAppVirtualDirectory(siteId, directory);
 				Log.WriteEnd("'{0}' CreateEnterpriseStorageAppVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CreateEnterpriseStorageAppVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -477,7 +477,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateAppVirtualDirectory(siteId, directory);
 				Log.WriteEnd("'{0}' UpdateAppVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateAppVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -493,7 +493,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteAppVirtualDirectory(siteId, directoryName);
 				Log.WriteEnd("'{0}' DeleteAppVirtualDirectory", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteAppVirtualDirectory", ProviderSettings.ProviderName), ex);
 				throw;
@@ -512,7 +512,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' IsFrontPageSystemInstalled", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' IsFrontPageSystemInstalled", ProviderSettings.ProviderName), ex);
 				throw;
@@ -529,7 +529,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' IsFrontPageInstalled", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' IsFrontPageInstalled", ProviderSettings.ProviderName), ex);
 				throw;
@@ -546,7 +546,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' InstallFrontPage", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' InstallFrontPage", ProviderSettings.ProviderName), ex);
 				throw;
@@ -562,7 +562,7 @@ namespace FuseCP.Server
 				WebProvider.UninstallFrontPage(siteId, username);
 				Log.WriteEnd("'{0}' UninstallFrontPage", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UninstallFrontPage", ProviderSettings.ProviderName), ex);
 				throw;
@@ -578,7 +578,7 @@ namespace FuseCP.Server
 				WebProvider.ChangeFrontPagePassword(username, password);
 				Log.WriteEnd("'{0}' ChangeFrontPagePassword", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeFrontPagePassword", ProviderSettings.ProviderName), ex);
 				throw;
@@ -597,7 +597,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' IsColdFusionSystemInstalled", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' IsColdFusionSystemInstalled", ProviderSettings.ProviderName), ex);
 				throw;
@@ -615,7 +615,7 @@ namespace FuseCP.Server
 				WebProvider.GrantWebSiteAccess(path, siteId, permission);
 				Log.WriteEnd("'{0}' GrantWebSiteAccess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GrantWebSiteAccess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -633,7 +633,7 @@ namespace FuseCP.Server
 				WebProvider.InstallSecuredFolders(siteId);
 				Log.WriteEnd("'{0}' InstallSecuredFolders", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' InstallSecuredFolders", ProviderSettings.ProviderName), ex);
 				throw;
@@ -649,7 +649,7 @@ namespace FuseCP.Server
 				WebProvider.UninstallSecuredFolders(siteId);
 				Log.WriteEnd("'{0}' UninstallSecuredFolders", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UninstallSecuredFolders", ProviderSettings.ProviderName), ex);
 				throw;
@@ -666,7 +666,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFolders", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFolders", ProviderSettings.ProviderName), ex);
 				throw;
@@ -683,7 +683,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetFolder", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -699,7 +699,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateFolder(siteId, folder);
 				Log.WriteEnd("'{0}' UpdateFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -715,7 +715,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteFolder(siteId, folderPath);
 				Log.WriteEnd("'{0}' DeleteFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -734,7 +734,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetUsers", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetUsers", ProviderSettings.ProviderName), ex);
 				throw;
@@ -751,7 +751,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetUser", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -767,7 +767,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateUser(siteId, user);
 				Log.WriteEnd("'{0}' UpdateUser", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -783,7 +783,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteUser(siteId, userName);
 				Log.WriteEnd("'{0}' DeleteUser", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -802,7 +802,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetGroups", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetGroups", ProviderSettings.ProviderName), ex);
 				throw;
@@ -819,7 +819,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetGroup", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -835,7 +835,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateGroup(siteId, group);
 				Log.WriteEnd("'{0}' UpdateGroup", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -851,7 +851,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteGroup(siteId, groupName);
 				Log.WriteEnd("'{0}' DeleteGroup", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -871,7 +871,7 @@ namespace FuseCP.Server
 				status = WebProvider.GetHeliconApeStatus(siteId);
 				Log.WriteEnd("'{0}' GetHeliconApeStatus", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeStatus", ProviderSettings.ProviderName), ex);
 				throw;
@@ -890,7 +890,7 @@ namespace FuseCP.Server
 				WebProvider.InstallHeliconApe(ServiceId);
 				Log.WriteEnd("'{0}' InstallHeliconApe", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' InstallHeliconApe", ProviderSettings.ProviderName), ex);
 				throw;
@@ -907,7 +907,7 @@ namespace FuseCP.Server
 				WebProvider.EnableHeliconApe(siteId);
 				Log.WriteEnd("'{0}' EnableHeliconApe", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' EnableHeliconApe", ProviderSettings.ProviderName), ex);
 				throw;
@@ -923,7 +923,7 @@ namespace FuseCP.Server
 				WebProvider.DisableHeliconApe(siteId);
 				Log.WriteEnd("'{0}' DisableHeliconApe", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DisableHeliconApe", ProviderSettings.ProviderName), ex);
 				throw;
@@ -940,7 +940,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeFolders", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeFolders", ProviderSettings.ProviderName), ex);
 				throw;
@@ -957,7 +957,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeFolder", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -975,7 +975,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeFolder", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -991,7 +991,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateHeliconApeFolder(siteId, folder);
 				Log.WriteEnd("'{0}' UpdateHeliconApeFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateHeliconApeFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1007,7 +1007,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateHeliconApeHttpdFolder(folder);
 				Log.WriteEnd("'{0}' UpdateHeliconApeHttpdFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateHeliconApeHttpdFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1023,7 +1023,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteHeliconApeFolder(siteId, folderPath);
 				Log.WriteEnd("'{0}' DeleteHeliconApeFolder", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteHeliconApeFolder", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1042,7 +1042,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeUsers", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GeHeliconApetUsers", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1059,7 +1059,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeUser", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1075,7 +1075,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateHeliconApeUser(siteId, user);
 				Log.WriteEnd("'{0}' UpdateHeliconApeUser", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateHeliconApeUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1091,7 +1091,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteHeliconApeUser(siteId, userName);
 				Log.WriteEnd("'{0}' DeleteHeliconApeUser", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteHeliconApeUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1110,7 +1110,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeGroups", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeGroups", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1127,7 +1127,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetHeliconApeGroup", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetHeliconApeGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1143,7 +1143,7 @@ namespace FuseCP.Server
 				WebProvider.UpdateHeliconApeGroup(siteId, group);
 				Log.WriteEnd("'{0}' UpdateHeliconApeGroup", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' UpdateHeliconApeGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1159,7 +1159,7 @@ namespace FuseCP.Server
 				WebProvider.GrantWebDeployPublishingAccess(siteId, accountName, accountPassword);
 				Log.WriteEnd("'{0}' GrantWebDeployPublishingAccess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GrantWebDeployPublishingAccess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1175,7 +1175,7 @@ namespace FuseCP.Server
 				WebProvider.RevokeWebDeployPublishingAccess(siteId, accountName);
 				Log.WriteEnd("'{0}' RevokeWebDeployPublishingAccess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' RevokeWebDeployPublishingAccess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1191,7 +1191,7 @@ namespace FuseCP.Server
 				WebProvider.DeleteHeliconApeGroup(siteId, groupName);
 				Log.WriteEnd("'{0}' DeleteHeliconApeGroup", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' DeleteHeliconApeGroup", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1215,7 +1215,7 @@ namespace FuseCP.Server
 
 				return bResult;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("CheckLoadUserProfile", ex);
 				throw;
@@ -1233,7 +1233,7 @@ namespace FuseCP.Server
 
 				Log.WriteEnd("EnableLoadUserProfile");
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError("EnableLoadUserProfile", ex);
 				throw;
@@ -1257,7 +1257,7 @@ namespace FuseCP.Server
 				//
 				return accountExists;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CheckWebManagementAccountExtsts", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1279,7 +1279,7 @@ namespace FuseCP.Server
 				//
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' CheckWebManagementPasswordComplexity", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1295,7 +1295,7 @@ namespace FuseCP.Server
 				WebProvider.GrantWebManagementAccess(siteId, accountName, accountPassword);
 				Log.WriteEnd("'{0}' GrantWebManagementAccess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GrantWebManagementAccess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1311,7 +1311,7 @@ namespace FuseCP.Server
 				WebProvider.RevokeWebManagementAccess(siteId, accountName);
 				Log.WriteEnd("'{0}' RevokeWebManagementAccess", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' RevokeWebManagementAccess", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1327,7 +1327,7 @@ namespace FuseCP.Server
 				WebProvider.ChangeWebManagementAccessPassword(accountName, accountPassword);
 				Log.WriteEnd("'{0}' ChangeWebManagementAccessPassword", ProviderSettings.ProviderName);
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' ChangeWebManagementAccessPassword", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1348,7 +1348,7 @@ namespace FuseCP.Server
 				return certificate;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GenerateCSR", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1365,7 +1365,7 @@ namespace FuseCP.Server
 				return certificate;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GenerateRenewalCSR", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1383,7 +1383,7 @@ namespace FuseCP.Server
 				return result;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetCertificate", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1401,7 +1401,7 @@ namespace FuseCP.Server
 				return result;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' InstallCertificate", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1419,7 +1419,7 @@ namespace FuseCP.Server
 				return result;
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' LEinstallCertificate", ProviderSettings.ProviderName), ex);
 				throw;
@@ -1444,7 +1444,7 @@ namespace FuseCP.Server
 				}
 				return response;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' installPFX", ProviderSettings.ProviderName), ex);
 				throw;

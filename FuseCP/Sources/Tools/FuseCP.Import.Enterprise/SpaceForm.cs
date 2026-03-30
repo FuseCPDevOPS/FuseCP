@@ -62,7 +62,7 @@ namespace FuseCP.Import.Enterprise
 					ES.SecurityContext.SetThreadPrincipal(info);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load user.", ex);
 			}
@@ -115,7 +115,7 @@ namespace FuseCP.Import.Enterprise
 					ds = ES.PackageController.GetRawMyPackages(info.UserId);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load spaces.", ex);
 			}
@@ -144,7 +144,7 @@ namespace FuseCP.Import.Enterprise
 					ds = ES.UserController.GetRawUsers(info.UserId, false);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load users.", ex);
 			}
@@ -226,7 +226,7 @@ namespace FuseCP.Import.Enterprise
 					cntx = ES.PackageController.GetPackageContext(data.PackageId);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				ShowError("Unable to load space data", ex);
 				return;

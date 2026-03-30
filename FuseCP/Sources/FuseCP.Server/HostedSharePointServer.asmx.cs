@@ -239,7 +239,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' {1}", ProviderSettings.ProviderName, actionName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("Can't {1} '{0}' provider", ProviderSettings.ProviderName, actionName), ex);
                 throw;

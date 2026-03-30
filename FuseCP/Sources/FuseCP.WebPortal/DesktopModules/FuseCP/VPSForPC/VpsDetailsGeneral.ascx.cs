@@ -26,16 +26,13 @@ namespace FuseCP.Portal.VPSForPC
 		public static string GetDomainName(this VMInfo vm)
 		{
 			var computerName = vm.ComputerName;
+            var indexOf = computerName.IndexOf(".");
 			//
 			var result = String.Empty;
 			//
-            if (!(String.IsNullOrEmpty(computerName)))
+            if (!(String.IsNullOrEmpty(computerName)) && indexOf > -1)
             {
-                var indexOf = computerName.IndexOf(".");
-                if (indexOf > -1)
-                {
                     result = computerName.Substring(indexOf + 1);
-                }
             }
 			//
 			return result;

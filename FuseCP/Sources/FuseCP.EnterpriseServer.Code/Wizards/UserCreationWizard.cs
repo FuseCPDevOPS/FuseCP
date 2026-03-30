@@ -130,7 +130,7 @@ namespace FuseCP.EnterpriseServer
                         createdUserId, planId, plan.PlanName, "", (int)PackageStatus.Active, DateTime.Now, false);
                     createdPackageId = packageResult.Result;
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     // error while adding package
 

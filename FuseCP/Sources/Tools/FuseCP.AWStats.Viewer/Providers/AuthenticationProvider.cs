@@ -40,7 +40,7 @@ namespace FuseCP.AWStats.Viewer
 						// instantiate provider
 						objProvider = (AuthenticationProvider)Activator.CreateInstance(Type.GetType(providerType));
 					}
-					catch (Exception ex)
+					catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 					{
 						throw new Exception(String.Format("Can not instantiate '{0}' authentication provider",
 							providerType), ex);

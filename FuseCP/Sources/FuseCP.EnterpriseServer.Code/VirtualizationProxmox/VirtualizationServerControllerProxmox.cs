@@ -810,7 +810,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     vhdInfo = vs.GetVirtualHardDiskInfo(vm.VirtualHardDrivePath);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "VPS_CREATE_GET_VHD_INFO");
                     return;
@@ -844,7 +844,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         result = vs.ExpandVirtualHardDisk(vm.VirtualHardDrivePath, (ulong)vm.HddSize);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         TaskManager.WriteError(ex, "VPS_CREATE_EXPAND_VHD_ERROR");
                         return;
@@ -900,7 +900,7 @@ namespace FuseCP.EnterpriseServer
                             {
                                 vs.ExpandDiskVolume(mountedInfo.DiskAddress, mountedInfo.DiskVolumes[osTemplate.ProcessVolume]);
                             }
-                            catch (Exception ex)
+                            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                             {
                                 TaskManager.WriteError(ex, "VPS_CREATE_DISKPART_ERROR");
                             }
@@ -943,7 +943,7 @@ namespace FuseCP.EnterpriseServer
                                     // write remote file
                                     vs.WriteRemoteFile(path, contents);
                                 }
-                                catch (Exception ex)
+                                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                                 {
                                     TaskManager.WriteError("VPS_CREATE_SYSPREP_FILE_ERROR", ex.Message);
                                 }
@@ -962,14 +962,14 @@ namespace FuseCP.EnterpriseServer
                                 return;
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             TaskManager.WriteError(ex, "VPS_CREATE_UNMOUNT_ERROR");
                             return;
                         }
                         #endregion
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         // error mounting
                         TaskManager.WriteError(ex, "VPS_CREATE_MOUNT_VHD");
@@ -1434,7 +1434,7 @@ namespace FuseCP.EnterpriseServer
                 // delete completed items
                 vs.RemoveKVPItems(vm.VirtualMachineId, completedTasks.ToArray());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error deleting KVP items: {0}", ex.Message));
@@ -1469,7 +1469,7 @@ namespace FuseCP.EnterpriseServer
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // log error
                 TaskManager.WriteWarning(String.Format("Error setting KVP items '{0}': {1}", kvp[0].Data, ex.Message));

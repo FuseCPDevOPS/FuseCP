@@ -445,7 +445,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     orgProxy.SetOUAclPermissions(org.OrganizationId);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     TaskManager.WriteError(ex, "SetAclPermissions");
                     throw;

@@ -398,7 +398,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachine", ex);
                 throw;
@@ -449,7 +449,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachines", ex);
                 throw;
@@ -553,7 +553,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 SshClient ssh = new SshClient(Conninfo);
                 return ssh;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -593,7 +593,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 {
                     ssh.Connect();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostedSolutionLog.LogError("Error creating virtual machine SSH connection error", ex);
                     throw;
@@ -625,7 +625,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 // Update common settings
                 UpdateVirtualMachine(vm);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(error, ex);
                 throw;
@@ -655,7 +655,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 Api.UpdateConfig(vm.VirtualMachineId, configuration);
                 ProxmoxDvdDriveHelper.Update(Api, realVm, vm.DvdDriveInstalled);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("UpdateVirtualMachine", ex);
                 throw;
@@ -713,7 +713,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ChangeVirtualMachineState", ex);
                 throw;
@@ -1016,7 +1016,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                     HostedSolutionLog.LogInfo("GetVirtualMachineSnapshots no Snapshots found", ex.Message);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachineSnapshots", ex);
                 throw;
@@ -1056,7 +1056,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 }
                 return proxmoxsnapshot;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetSnapshot Error", ex);
                 throw;
@@ -1104,7 +1104,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateSnapshot", ex);
                 throw;
@@ -1127,7 +1127,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("RenameSnapshot", ex);
                 throw;
@@ -1149,7 +1149,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ApplySnapshot", ex);
                 throw;
@@ -1182,7 +1182,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                 return jobResult;
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteSnapshot", ex);
                 throw;
@@ -1195,7 +1195,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                 return DeleteSnapshot(vmId, snapshotId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteSnapshot", ex);
                 throw;
@@ -1327,7 +1327,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                 dvdInfo = ProxmoxDvdDriveHelper.Get(Api, vmId);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetInsertedDVD", ex);
                 throw;
@@ -1361,7 +1361,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                 ProxmoxDvdDriveHelper.Set(Api, vmId, isoPath, disksize);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("InsertDVD", ex);
                 throw;
@@ -1381,7 +1381,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                 ProxmoxDvdDriveHelper.Set(Api, vmId, null, 0);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("InsertDVD", ex);
                 throw;
@@ -1433,7 +1433,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                       switches.Add(sw);
                  }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("GetSwitches", ex);
                  throw;
@@ -1476,7 +1476,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                       virtualSwitch.SwitchType = result[0].GetString("SwitchType");
                  }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("CreateSwitch", ex);
                  throw;
@@ -1502,7 +1502,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                  cmd.Parameters.Add("Force");
                  PowerShell.Execute(cmd, true, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("DeleteSwitch", ex);
                  throw;
@@ -1542,7 +1542,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             {
                  objKvpExchange = wmi.GetRelatedWmiObject(objVm, "msvm_KvpExchangeComponent");
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("GetKVPItems", new Exception("msvm_KvpExchangeComponent"));
 
@@ -1748,7 +1748,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                  HardDriveHelper.GetVirtualHardDiskDetail(PowerShell, vhdPath, ref hardDiskInfo);
                  return hardDiskInfo;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("GetVirtualHardDiskInfo", ex);
                  throw;
@@ -1782,7 +1782,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
                  return diskInfo;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  // unmount disk
                  UnmountVirtualHardDisk(vhdPath);
@@ -1847,7 +1847,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                  PowerShell.Execute(cmd, true, true);
                  return ProxmoxJobHelper.CreateSuccessResult(ReturnCode.JobStarted);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                  HostedSolutionLog.LogError("ConvertVirtualHardDisk", ex);
                  throw;
@@ -2056,7 +2056,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetProcessorCoresNumber", ex);
                 throw;

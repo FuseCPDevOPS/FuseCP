@@ -812,7 +812,7 @@ namespace FuseCP.Providers.HostedSolution
                 info.RoomsAddressList = ralId;
                 info.OrganizationId = organizationId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateOrganizationInternal", ex);
                 RollbackTransaction(transaction);
@@ -897,7 +897,7 @@ namespace FuseCP.Providers.HostedSolution
                 
                 info.OfflineAddressBook = oabId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateOrganizationOfflineAddressBookInternal", ex);
                 RollbackTransaction(transaction);
@@ -973,7 +973,7 @@ namespace FuseCP.Providers.HostedSolution
                 info.AddressBookPolicy = GetResultObjectDN(result);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateOrganizationAddressBookPolicyInternal", ex);
                 RollbackTransaction(transaction);
@@ -1103,7 +1103,7 @@ namespace FuseCP.Providers.HostedSolution
                 if (!DeleteOrganizationAcceptedDomains(runSpace, acceptedDomains))
                     ret = false;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ret = false;
                 ExchangeLog.LogError("DeleteOrganizationInternal", ex);
@@ -1895,7 +1895,7 @@ namespace FuseCP.Providers.HostedSolution
                 exchangeMailbox.CalendarAccounts = GetMailboxCalendarAccounts(runspace, organizationId, accountName);
                 exchangeMailbox.ContactAccounts = GetMailboxContactAccounts(runspace, organizationId, accountName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError(ex);
                 throw;
@@ -1934,7 +1934,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 RollbackTransaction(transaction);
                 throw;
@@ -1982,7 +1982,7 @@ namespace FuseCP.Providers.HostedSolution
                     //var contactsFolderPath = GetMailboxFolderPath(accountName, ExchangeFolders.Contacts);
                     SetMailboxFolderPermissions(runspace, mailbox.ContactAccounts, contactsFolderPath, contactAccounts);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError(ex);
 
@@ -2059,7 +2059,7 @@ namespace FuseCP.Providers.HostedSolution
                     transaction.AddMailBoxFullAccessPermission(accountName, id);
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 RollbackTransaction(transaction);
                 throw;
@@ -2087,7 +2087,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 SetMailboxOnBehalfPermissions(runSpace, accountName, accounts);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 RollbackTransaction(transaction);
                 throw;
@@ -2112,7 +2112,7 @@ namespace FuseCP.Providers.HostedSolution
             {
                 SetMailboxFolderPermissions(runSpace, folderPath, existingAccounts, accounts, transaction);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 RollbackTransaction(transaction);
                 throw;
@@ -2207,7 +2207,7 @@ namespace FuseCP.Providers.HostedSolution
                 if (result.Count == 0) return null;
                 return ObjToString(GetPSObjectProperty(result[0], "Name"));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateJournalRule", ex);
                 throw;
@@ -2242,7 +2242,7 @@ namespace FuseCP.Providers.HostedSolution
                 ret.Enabled = ObjToBoolean(GetPSObjectProperty(result[0], "Enabled"));
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("GetJournalRule", ex);
                 throw;
@@ -2283,7 +2283,7 @@ namespace FuseCP.Providers.HostedSolution
                 ExecuteShellCommand(runSpace, cmd);
                 ExchangeLog.LogEnd("SetJournalRule");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("SetJournalRule", ex);
                 throw;
@@ -2309,7 +2309,7 @@ namespace FuseCP.Providers.HostedSolution
                 ExecuteShellCommand(runSpace, cmd);
                 ExchangeLog.LogEnd("RemoveJournalRule");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("RemoveJournalRule", ex);
                 throw;
@@ -2524,7 +2524,7 @@ namespace FuseCP.Providers.HostedSolution
                 ExchangeLog.LogEnd("CreateMailEnableUserInternal");
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateMailEnableUserInternal", ex);
                 RollbackTransaction(transaction);
@@ -3126,7 +3126,7 @@ namespace FuseCP.Providers.HostedSolution
                         info.DoNotDeleteOnForward = ObjToBoolean(deliverObj);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during forwarding settings", ex);
                     throw;
@@ -3149,7 +3149,7 @@ namespace FuseCP.Providers.HostedSolution
                     int rejectCount = info.RejectAccounts != null ? info.RejectAccounts.Length : 0;
                     ExchangeLog.DebugInfo("RejectAccounts count: {0}", rejectCount);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during delivery restriction accounts", ex);
                     throw;
@@ -3164,7 +3164,7 @@ namespace FuseCP.Providers.HostedSolution
                     info.MaxRecipients = ConvertUnlimitedIntPropertyToInt32(recipientLimitsObj);
                     ExchangeLog.DebugInfo("RecipientLimits converted: {0}", info.MaxRecipients);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during RecipientLimits conversion", ex);
                     throw;
@@ -3179,7 +3179,7 @@ namespace FuseCP.Providers.HostedSolution
                     info.MaxSendMessageSizeKB = ConvertByteSizePropertyToKB(maxSendSizeObj);
                     ExchangeLog.DebugInfo("MaxSendSize converted: {0} KB", info.MaxSendMessageSizeKB);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during MaxSendSize conversion", ex);
                     throw;
@@ -3194,7 +3194,7 @@ namespace FuseCP.Providers.HostedSolution
                     info.MaxReceiveMessageSizeKB = ConvertByteSizePropertyToKB(maxReceiveSizeObj);
                     ExchangeLog.DebugInfo("MaxReceiveSize converted: {0} KB", info.MaxReceiveMessageSizeKB);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during MaxReceiveSize conversion", ex);
                     throw;
@@ -3208,7 +3208,7 @@ namespace FuseCP.Providers.HostedSolution
                     ExchangeLog.DebugInfo("RequireSenderAuthenticationEnabled raw value: {0} (type: {1})", requireAuthObj, requireAuthType);
                     info.RequireSenderAuthentication = ObjToBoolean(requireAuthObj);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ExchangeLog.LogError("Error during RequireSenderAuthenticationEnabled conversion", ex);
                     throw;
@@ -3916,7 +3916,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (IsNoLanguageScriptInvocationError(ex))
                 {
@@ -4051,7 +4051,7 @@ namespace FuseCP.Providers.HostedSolution
                 SetContactEmail(id, contactEmail);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateContactInternal", ex);
                 RollbackTransaction(transaction);
@@ -4482,7 +4482,7 @@ namespace FuseCP.Providers.HostedSolution
                     FixShowInAddressBook(runSpace, email, addressLists, false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateDistributionListInternal", ex);
                 RollbackTransaction(transaction);
@@ -5108,7 +5108,7 @@ namespace FuseCP.Providers.HostedSolution
                 exchangeDistributionList.SendOnBehalfAccounts = GetSendOnBehalfAccounts(runspace, distributionGroup);
                 exchangeDistributionList.SendAsAccounts = GetSendAsAccounts(runspace, organizationId, cn);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError(ex);
                 throw;
@@ -5157,7 +5157,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError(ex);
                 throw;
@@ -5231,7 +5231,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreatePublicFolderInternal", ex);
                 RollbackTransaction(transaction);
@@ -5258,7 +5258,7 @@ namespace FuseCP.Providers.HostedSolution
                     AddPublicFolderMailbox(runSpace, orgCanonicalName, GetPublicFolderMailboxName(organizationId), domain, GetAddressBookPolicyName(organizationId));
                     transaction.RegisterNewPublicFolderMailbox(orgCanonicalName + "/" + GetPublicFolderMailboxName(organizationId));
                 }
-                catch
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     RollbackTransaction(transaction);
                     throw;
@@ -5285,7 +5285,7 @@ namespace FuseCP.Providers.HostedSolution
 
                     SetPublicFolderPermissions(runSpace, rootId, user);
                 }
-                catch
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     RollbackTransaction(transaction);
                     throw;
@@ -5764,7 +5764,7 @@ namespace FuseCP.Providers.HostedSolution
                                                             existingAccount.AccountName,
                                                             existingAccount.PublicFolderPermission);
                     }
-                    catch (Exception)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         throw;
                     }
@@ -5780,7 +5780,7 @@ namespace FuseCP.Providers.HostedSolution
                                                         newAccount.AccountName.Contains("@") ? newAccount.AccountName : @"\" + newAccount.AccountName,
                                                         newAccount.PublicFolderPermission);
                     }
-                    catch (Exception)
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
                         throw;
                     }
@@ -6901,7 +6901,7 @@ namespace FuseCP.Providers.HostedSolution
             {
                 runSpace.SessionStateProxy.SetVariable("ConfirmPreference", "none");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (IsNoLanguageScriptInvocationError(ex))
                 {
@@ -7318,7 +7318,7 @@ namespace FuseCP.Providers.HostedSolution
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("GetAuthoritativeDomainsInternal", ex);
                 throw;
@@ -7350,7 +7350,7 @@ namespace FuseCP.Providers.HostedSolution
                 runSpace = OpenRunspace();
                 CreateAcceptedDomain(runSpace, domain);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("CreateAuthoritativeDomainInternal", ex);
                 throw;
@@ -7373,7 +7373,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 SetAcceptedDomainType(runSpace, domainName, domainType);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("ChangeAcceptedDomainType", ex);
                 throw;
@@ -7403,7 +7403,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 RemoveAcceptedDomain(runSpace, domainName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ExchangeLog.LogError("DeleteAcceptedDomain", ex);
                 throw;

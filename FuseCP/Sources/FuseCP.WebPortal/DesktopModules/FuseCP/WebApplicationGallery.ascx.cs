@@ -53,7 +53,7 @@ namespace FuseCP.Portal
                     ViewState["IsSearchResults"] = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ShowErrorMessage("GET_WEB_GALLERY_CATEGORIES", ex);             
             }

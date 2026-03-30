@@ -91,7 +91,7 @@ namespace FuseCP.Providers.HostedSolution
                     return site.Usage.Storage;
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;
@@ -118,7 +118,7 @@ namespace FuseCP.Providers.HostedSolution
                     return ret.ToArray();
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;
@@ -222,7 +222,7 @@ namespace FuseCP.Providers.HostedSolution
                     rootWebApplication.Sites[url].Quota = quota;
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;
@@ -270,7 +270,7 @@ namespace FuseCP.Providers.HostedSolution
                         spQuota.StorageWarningLevel = Math.Min(siteCollection.WarningStorage, siteCollection.MaxSiteStorage) * 1024 * 1024;
 
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     rootWebApplication.Sites.Delete(siteCollectionUrl);
                     throw;
@@ -281,7 +281,7 @@ namespace FuseCP.Providers.HostedSolution
                     rootWebApplication.GrantAccessToProcessIdentity(WindowsIdentity.GetCurrent().Name);
                     spSite.Quota = spQuota;
                 }
-                catch (Exception)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     rootWebApplication.Sites.Delete(siteCollectionUrl);
                     DeleteQuotaTemplate(siteCollection.Title);
@@ -359,7 +359,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;

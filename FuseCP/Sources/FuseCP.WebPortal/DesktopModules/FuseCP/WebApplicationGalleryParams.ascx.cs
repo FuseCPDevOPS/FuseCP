@@ -79,7 +79,7 @@ namespace FuseCP.Portal
                 BindWebSites();
                 BindDatabaseEngines(parameters);                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 ShowErrorMessage("WAG_NOT_AVAILABLE", ex);
                 DisableForm();
@@ -306,7 +306,7 @@ namespace FuseCP.Portal
                     }
                 }
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 /* skip */
             }
@@ -606,7 +606,7 @@ namespace FuseCP.Portal
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     ShowErrorMessage("GET_GALLERY_APPLIACTION_DETAILS", ex);
                 }

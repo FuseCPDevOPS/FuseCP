@@ -34,7 +34,7 @@ namespace FuseCP.Providers.OS
                 {
                     _task();
                 }
-                catch
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     _undoTask();
                     throw;

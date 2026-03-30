@@ -208,7 +208,7 @@ namespace FuseCP.Providers.Virtualization
 
                 return vmData.VM;
             }
-            catch(Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachine", ex);
                 throw;
@@ -265,7 +265,7 @@ namespace FuseCP.Providers.Virtualization
                     vm.DynamicMemory = MemoryHelper.GetDynamicMemory(vmData);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachineDataGeneral", ex);
                 throw;
@@ -327,7 +327,7 @@ namespace FuseCP.Providers.Virtualization
                         vmData.VM.PrivateNetworkEnabled = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachineExtendedInfo", ex);
                 throw;
@@ -358,7 +358,7 @@ namespace FuseCP.Providers.Virtualization
                     vm.State = (VirtualMachineState)Convert.ToInt32(cimObj.CimInstanceProperties["EnabledState"].Value);
                 }                
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachinesByID", ex);
                 throw;
@@ -399,7 +399,7 @@ namespace FuseCP.Providers.Virtualization
                     adapter.vlan = vlan;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachinesNetwordAdapterSettings", ex);
                 throw;
@@ -441,7 +441,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 HostedSolutionLog.LogInfo("Finish");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachines", ex);
                 throw;
@@ -586,7 +586,7 @@ namespace FuseCP.Providers.Virtualization
                 // Update common settings
                 UpdateVirtualMachineInternal(vm);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateVirtualMachine", ex);
                 throw;
@@ -606,7 +606,7 @@ namespace FuseCP.Providers.Virtualization
                 }
                 vm = UpdateVirtualMachineInternal(vm);
             }
-            catch (Exception) {
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 throw;
             }
             return vm;
@@ -629,7 +629,7 @@ namespace FuseCP.Providers.Virtualization
                 HardDriveHelper.Update(realVmData, vm);
                 HardDriveHelper.SetIOPS(realVmData.VM, vm.HddMinimumIOPS, vm.HddMaximumIOPS);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("UpdateVirtualMachineInternal", ex);
                 throw;
@@ -818,7 +818,7 @@ namespace FuseCP.Providers.Virtualization
                 PowerShell.Execute(cmd, true, true);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 if (ex.Message.Contains("0x8007000E")) // Not enough memory on Hyper-V host
                 {
@@ -982,7 +982,7 @@ namespace FuseCP.Providers.Virtualization
                 
                 jobResult = JobHelper.CreateSuccessResult(ReturnCode.JobStarted);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ChangeVirtualMachineState", ex);
                 throw;
@@ -1133,7 +1133,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualMachineSnapshots", ex);
                 throw;
@@ -1155,7 +1155,7 @@ namespace FuseCP.Providers.Virtualization
                     return SnapshotHelper.GetFromPS(result[0]);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetSnapshot", ex);
                 throw;
@@ -1176,7 +1176,7 @@ namespace FuseCP.Providers.Virtualization
                 System.Threading.Thread.Sleep(3500);
                 return JobHelper.CreateSuccessResult(ReturnCode.JobStarted);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateSnapshot", ex);
                 throw;
@@ -1197,7 +1197,7 @@ namespace FuseCP.Providers.Virtualization
                 PowerShell.ExecuteOnVm(cmd, vmData);
                 return JobHelper.CreateSuccessResult();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("RenameSnapshot", ex);
                 throw;
@@ -1217,7 +1217,7 @@ namespace FuseCP.Providers.Virtualization
                 PowerShell.ExecuteOnVm(cmd, vmData);
                 return JobHelper.CreateSuccessResult();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ApplySnapshot", ex);
                 throw;
@@ -1233,7 +1233,7 @@ namespace FuseCP.Providers.Virtualization
                 System.Threading.Thread.Sleep(3000);
                 return JobHelper.CreateSuccessResult(ReturnCode.JobStarted);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteSnapshot", ex);
                 throw;
@@ -1249,7 +1249,7 @@ namespace FuseCP.Providers.Virtualization
                 System.Threading.Thread.Sleep(3000);
                 return JobHelper.CreateSuccessResult(ReturnCode.JobStarted);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteSnapshot", ex);
                 throw;
@@ -1279,7 +1279,7 @@ namespace FuseCP.Providers.Virtualization
                 var vmData = GetVirtualMachineDataGeneral(vmId, true);
                 dvdInfo = DvdDriveHelper.Get(vmData);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetInsertedDVD", ex);
                 throw;
@@ -1303,7 +1303,7 @@ namespace FuseCP.Providers.Virtualization
                 var vmData = GetVirtualMachineDataGeneral(vmId, true);
                 DvdDriveHelper.Set(vmData, isoPath);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("InsertDVD", ex);
                 throw;
@@ -1323,7 +1323,7 @@ namespace FuseCP.Providers.Virtualization
                 var vmData = GetVirtualMachineDataGeneral(vmId, true);
                 DvdDriveHelper.Set(vmData, null);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("InsertDVD", ex);
                 throw;
@@ -1373,7 +1373,7 @@ namespace FuseCP.Providers.Virtualization
                     switches.Add(sw);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetSwitches", ex);
                 throw;
@@ -1455,7 +1455,7 @@ namespace FuseCP.Providers.Virtualization
                     virtualSwitch.SwitchType = result[0].GetString("SwitchType");
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateSwitch", ex);
                 throw;
@@ -1477,7 +1477,7 @@ namespace FuseCP.Providers.Virtualization
                 cmd.Parameters.Add("Force");
                 PowerShell.Execute(cmd, true, false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("DeleteSwitch", ex);
                 throw;
@@ -1773,7 +1773,7 @@ namespace FuseCP.Providers.Virtualization
                 HardDriveHelper.GetVirtualHardDiskDetail(vhdPath, ref hardDiskInfo);
                 return hardDiskInfo;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetVirtualHardDiskInfo", ex);
                 throw;
@@ -1827,7 +1827,7 @@ namespace FuseCP.Providers.Virtualization
                 
                 return diskInfo;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // unmount disk
                 UnmountVirtualHardDisk(vhdPath);
@@ -1915,7 +1915,7 @@ namespace FuseCP.Providers.Virtualization
                     }
                 } 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("ConvertVirtualHardDisk", ex);
                 throw;
@@ -1930,7 +1930,7 @@ namespace FuseCP.Providers.Virtualization
 
                 return JobHelper.CreateJobResultFromCimResults(Mi, result);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("CreateVirtualHardDisk", ex);
                 throw;
@@ -1992,7 +1992,7 @@ namespace FuseCP.Providers.Virtualization
                     job = JobHelper.CreateFromCimObject(result);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetJob", ex);
                 throw;
@@ -2019,7 +2019,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 job = JobHelper.CreateFromPSObject(PowerShellWithJobs.GetJob(jobId));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError("GetPowerShellJob", ex);
                 throw;

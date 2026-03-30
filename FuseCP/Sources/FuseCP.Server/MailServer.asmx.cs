@@ -50,7 +50,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' DomainExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DomainExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -67,7 +67,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetDomain", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -84,7 +84,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("'{0}' GetDomains", ProviderSettings.ProviderName);
 				return result;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("'{0}' GetDomain", ProviderSettings.ProviderName), ex);
 				throw;
@@ -100,7 +100,7 @@ namespace FuseCP.Server
                 MailProvider.CreateDomain(domain);
                 Log.WriteEnd("'{0}' CreateDomain", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -116,7 +116,7 @@ namespace FuseCP.Server
                 MailProvider.UpdateDomain(domain);
                 Log.WriteEnd("'{0}' UpdateDomain", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -132,7 +132,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteDomain(domainName);
                 Log.WriteEnd("'{0}' DeleteDomain", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteDomain", ProviderSettings.ProviderName), ex);
                 throw;
@@ -151,7 +151,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' DomainAliasExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DomainAliasExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -168,7 +168,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetDomainAliases", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DomainAliasExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -184,7 +184,7 @@ namespace FuseCP.Server
                 MailProvider.AddDomainAlias(domainName, aliasName);
                 Log.WriteEnd("'{0}' AddDomainAlias", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AddDomainAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -200,7 +200,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteDomainAlias(domainName, aliasName);
                 Log.WriteEnd("'{0}' DeleteDomainAlias", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteDomainAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -219,7 +219,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' AccountExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' AccountExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -236,7 +236,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetAccounts", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetAccounts", ProviderSettings.ProviderName), ex);
                 throw;
@@ -253,7 +253,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetAccount", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -269,7 +269,7 @@ namespace FuseCP.Server
                 MailProvider.CreateAccount(account);
                 Log.WriteEnd("'{0}' CreateAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -285,7 +285,7 @@ namespace FuseCP.Server
                 MailProvider.UpdateAccount(account);
                 Log.WriteEnd("'{0}' UpdateAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -301,7 +301,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteAccount(accountName);
                 Log.WriteEnd("'{0}' DeleteAccount", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteAccount", ProviderSettings.ProviderName), ex);
                 throw;
@@ -321,7 +321,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' MailAliasExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' MailAliasExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -338,7 +338,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetMailAliases", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetMailAliases", ProviderSettings.ProviderName), ex);
                 throw;
@@ -355,7 +355,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetMailAlias", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetMailAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -371,7 +371,7 @@ namespace FuseCP.Server
                 MailProvider.CreateMailAlias(mailAlias);
                 Log.WriteEnd("'{0}' CreateMailAlias", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateMailAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -387,7 +387,7 @@ namespace FuseCP.Server
                 MailProvider.UpdateMailAlias(mailAlias);
                 Log.WriteEnd("'{0}' UpdateMailAlias", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateMailAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -403,7 +403,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteMailAlias(mailAliasName);
                 Log.WriteEnd("'{0}' DeleteMailAlias", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteMailAlias", ProviderSettings.ProviderName), ex);
                 throw;
@@ -423,7 +423,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GroupExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GroupExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -440,7 +440,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetGroups", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetGroups", ProviderSettings.ProviderName), ex);
                 throw;
@@ -457,7 +457,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetGroup", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -473,7 +473,7 @@ namespace FuseCP.Server
                 MailProvider.CreateGroup(group);
                 Log.WriteEnd("'{0}' CreateGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -489,7 +489,7 @@ namespace FuseCP.Server
                 MailProvider.UpdateGroup(group);
                 Log.WriteEnd("'{0}' UpdateGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -505,7 +505,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteGroup(groupName);
                 Log.WriteEnd("'{0}' DeleteGroup", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteGroup", ProviderSettings.ProviderName), ex);
                 throw;
@@ -524,7 +524,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' ListExists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' ListExists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -541,7 +541,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetLists", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetLists", ProviderSettings.ProviderName), ex);
                 throw;
@@ -558,7 +558,7 @@ namespace FuseCP.Server
                 Log.WriteEnd("'{0}' GetList", ProviderSettings.ProviderName);
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' GetList", ProviderSettings.ProviderName), ex);
                 throw;
@@ -574,7 +574,7 @@ namespace FuseCP.Server
                 MailProvider.CreateList(list);
                 Log.WriteEnd("'{0}' CreateList", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' CreateList", ProviderSettings.ProviderName), ex);
                 throw;
@@ -590,7 +590,7 @@ namespace FuseCP.Server
                 MailProvider.UpdateList(list);
                 Log.WriteEnd("'{0}' UpdateList", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' UpdateList", ProviderSettings.ProviderName), ex);
                 throw;
@@ -606,7 +606,7 @@ namespace FuseCP.Server
                 MailProvider.DeleteList(listName);
                 Log.WriteEnd("'{0}' DeleteList", ProviderSettings.ProviderName);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(String.Format("'{0}' DeleteList", ProviderSettings.ProviderName), ex);
                 throw;

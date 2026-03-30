@@ -288,7 +288,7 @@ namespace FuseCP.Providers.HostedSolution
                 rootWebApplication.Sites.Add(siteCollectionUrl, siteCollection.Title, siteCollection.Description, (uint) siteCollection.LocaleId, String.Empty, siteCollection.OwnerLogin, siteCollection.OwnerName, siteCollection.OwnerEmail, null, null, null, true);
                 rootWebApplication.Update();
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 DeleteSiteCollection(runspace, siteCollectionUrl, true);
                 throw;
@@ -312,7 +312,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 ExecuteShellCommand(runspace, command);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 DeleteQuotaTemplate(siteCollection.Title);
                 DeleteSiteCollection(runspace, siteCollectionUrl, true);
@@ -549,7 +549,7 @@ namespace FuseCP.Providers.HostedSolution
                     throw new ApplicationException(string.Format("SiteCollection {0} does not exist", url));
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;

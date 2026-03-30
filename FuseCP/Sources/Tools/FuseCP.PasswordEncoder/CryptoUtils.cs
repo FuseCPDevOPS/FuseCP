@@ -147,7 +147,7 @@ namespace FuseCP.PasswordEncoder
                 // Return decrypted string.   
                 return DecryptedData;
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return "";
             }

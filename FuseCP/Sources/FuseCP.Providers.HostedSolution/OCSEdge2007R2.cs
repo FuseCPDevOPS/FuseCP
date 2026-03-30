@@ -84,7 +84,7 @@ namespace FuseCP.Providers.HostedSolution
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("AddDomainInternal", ex);
 				throw;
@@ -109,7 +109,7 @@ namespace FuseCP.Providers.HostedSolution
 						domainObj.Delete();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("DeleteDomainInternal", ex);
 				throw;

@@ -385,7 +385,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 org.GroupName = organizationId;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 try
@@ -657,7 +657,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 throw;
             }
@@ -802,7 +802,7 @@ namespace FuseCP.Providers.HostedSolution
                     SetPasswordNeverExpiresInFineGrainedPasswordPolicy(runspace, psoName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;
@@ -2008,7 +2008,7 @@ namespace FuseCP.Providers.HostedSolution
 
                 ExecuteShellCommand(runSpace, cmd);
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 CloseRunspace(runSpace);
 
@@ -2093,7 +2093,7 @@ namespace FuseCP.Providers.HostedSolution
                      IncrementGPOVersion(organizationId, gpoId);
                  }
              }
-             catch (Exception)
+             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
              {
                  throw;
              }
@@ -2154,7 +2154,7 @@ namespace FuseCP.Providers.HostedSolution
                      IncrementGPOVersion(organizationId, gpoId);
                  }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 CloseRunspace(runSpace);
 
@@ -2205,7 +2205,7 @@ namespace FuseCP.Providers.HostedSolution
                 //create empty drives.xml file for for gpo drives mapping
                 CreateDrivesXmlEmpty(string.Format(GROUP_POLICY_MAPPED_DRIVES_FILE_PATH_TEMPLATE, PrimaryDomainController, RootDomain, gpoId), "Drives.xml");
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 gpoId = null;
                 CloseRunspace(runSpace);
@@ -2241,7 +2241,7 @@ namespace FuseCP.Providers.HostedSolution
                     gpoId = ((Guid)GetPSObjectProperty(gpo, "Id")).ToString("B");
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 gpoId = null;
                 CloseRunspace(runSpace);
@@ -2535,7 +2535,7 @@ namespace FuseCP.Providers.HostedSolution
             {
                  ADPermission.SetOUAclPermissions(this, organizationId, RootDomain, GetDomainOU(), ParentDomain);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostedSolutionLog.LogError(ex);
                 throw;

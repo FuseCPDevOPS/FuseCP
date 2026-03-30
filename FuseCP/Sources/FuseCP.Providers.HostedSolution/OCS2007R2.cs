@@ -100,7 +100,7 @@ namespace FuseCP.Providers.HostedSolution
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("DeleteUserInternal", ex);
 				throw;
@@ -133,7 +133,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("SetUserGeneralSettingsInternal", ex);
 				throw;
@@ -163,7 +163,7 @@ namespace FuseCP.Providers.HostedSolution
 					userObject.Put();
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("SetUserPrimaryUriInternal", ex);
 				throw;
@@ -202,7 +202,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				}
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("GetUserGeneralSettingsInternal", ex);
 				throw;
@@ -272,7 +272,7 @@ namespace FuseCP.Providers.HostedSolution
 
 				return instanceId;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				HostedSolutionLog.LogError("CreateUserInternal", ex);
 				throw;

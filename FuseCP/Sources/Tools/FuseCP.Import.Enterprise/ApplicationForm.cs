@@ -203,7 +203,7 @@ namespace FuseCP.Import.Enterprise
                             object adsLargeInteger = typeDetailsProp.Value;
                             typeDetails = (Int32)adsLargeInteger.GetType().InvokeMember("LowPart", System.Reflection.BindingFlags.GetProperty, null, adsLargeInteger, null);
                         }
-                        catch { } // just skip
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                     }
                 }
 

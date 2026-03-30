@@ -50,7 +50,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.CreateUser", ProviderSettings.ProviderName);
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.CreateUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -67,7 +67,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.GetUserGeneralSettings", ProviderSettings.ProviderName);
 				return ret;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.GetUserGeneralSettings", ProviderSettings.ProviderName), ex);
 				throw;
@@ -84,7 +84,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.SetUserGeneralSettings", ProviderSettings.ProviderName);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.SetUserGeneralSettings", ProviderSettings.ProviderName), ex);
 				throw;
@@ -101,7 +101,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.DeleteUser", ProviderSettings.ProviderName);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.DeleteUser", ProviderSettings.ProviderName), ex);
 				throw;
@@ -118,7 +118,7 @@ namespace FuseCP.Server
 				Log.WriteEnd("{0}.SetUserPrimaryUri", ProviderSettings.ProviderName);
 
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				Log.WriteError(String.Format("Error: {0}.SetUserPrimaryUri", ProviderSettings.ProviderName), ex);
 				throw;

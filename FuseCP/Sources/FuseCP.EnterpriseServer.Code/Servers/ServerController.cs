@@ -205,7 +205,7 @@ namespace FuseCP.EnterpriseServer
 				}
 				return BusinessErrorCodes.ERROR_ADD_SERVER_APPLICATION_ERROR;
 			}
-			catch (Exception ex)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				if (ex.Message.Contains("The signature or decryption was invalid"))
 				{
@@ -403,7 +403,7 @@ namespace FuseCP.EnterpriseServer
 								service.ServiceName = provider.DisplayName;
 								using (var clone = AsAsync<ServerController>()) clone.AddService(service);
 							}
-							catch (Exception ex)
+							catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 							{
 								TaskManager.WriteError(ex);
 								throw;
