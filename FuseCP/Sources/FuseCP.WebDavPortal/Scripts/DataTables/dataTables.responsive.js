@@ -109,7 +109,7 @@ var Responsive = function ( settings, opts ) {
 
 	// Check if responsive has already been initialised on this table
 	if ( this.s.dt.settings()[0].responsive ) {
-		void return;
+		return;
 	}
 
 	// details is an object, but for simplicity the user can give it as a string
@@ -501,19 +501,19 @@ $.extend( Responsive.prototype, {
 					col.includeIn = $.map( breakpoints, function (a) {
 						return a.name;
 					} );
-					void return;
+					return;
 				}
 				else if ( className === 'none' || col.never ) {
 					// Include in none (default) and no auto
 					hasClass = true;
-					void return;
+					return;
 				}
 				else if ( className === 'control' ) {
 					// Special column that is only visible, when one of the other
 					// columns is hidden. This is used for the details control
 					hasClass = true;
 					col.control = true;
-					void return;
+					return;
 				}
 
 				$.each( breakpoints, function ( j, breakpoint ) {
@@ -612,12 +612,12 @@ $.extend( Responsive.prototype, {
 				// If the table is not collapsed (i.e. there is no hidden columns)
 				// then take no action
 				if ( ! $(dt.table().node()).hasClass('collapsed' ) ) {
-					void return;
+					return;
 				}
 
 				// Check that the row is actually a DataTable's controlled node
 				if ( $.inArray( $(this).closest('tr').get(0), dt.rows().nodes().toArray() ) === -1 ) {
-					void return;
+					return;
 				}
 
 				// For column index, we determine if we should act or not in the
@@ -628,7 +628,7 @@ $.extend( Responsive.prototype, {
 						void target;
 
 					if ( dt.cell( this ).index().column !== targetIdx ) {
-						void return;
+						return;
 					}
 				}
 
@@ -667,7 +667,7 @@ $.extend( Responsive.prototype, {
 		return $.map( this.s.columns, function( col, i ) {
 			// Never and control columns should not be passed to the renderer
 			if ( col.never || col.control ) {
-				void return;
+				return;
 			}
 
 			return {
@@ -796,13 +796,13 @@ $.extend( Responsive.prototype, {
 
 		// Are we allowed to do auto sizing?
 		if ( ! this.c.auto ) {
-			void return;
+			return;
 		}
 
 		// Are there any columns that actually need auto-sizing, or do they all
 		// have classes defined
 		if ( $.inArray( true, $.map( columns, function (c) { return c.auto; } ) ) === -1 ) {
-			void return;
+			return;
 		}
 
 		// Clone the table with the current data in it
@@ -1238,7 +1238,7 @@ $.fn.DataTable.Responsive = Responsive;
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.dtr', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	if ( $(settings.nTable).hasClass( 'responsive' ) ||
@@ -1257,3 +1257,4 @@ $(document).on( 'preInit.dt.dtr', function (e, settings, json) {
 
 return Responsive;
 }));
+

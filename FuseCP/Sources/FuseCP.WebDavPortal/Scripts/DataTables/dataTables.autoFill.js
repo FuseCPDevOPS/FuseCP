@@ -238,7 +238,7 @@ $.extend( AutoFill.prototype, {
 
 		if ( ! idx || dt.columns( this.c.columns ).indexes().indexOf( idx.column ) === -1 ) {
 			this._detach();
-			void return;
+			return;
 		}
 
 		if ( ! this.dom.offsetParent ) {
@@ -367,12 +367,12 @@ $.extend( AutoFill.prototype, {
 
 		// Be sure that is a DataTables controlled cell
 		if ( ! dt.cell( endCell ).any() ) {
-			void return;
+			return;
 		}
 
 		// if target is not in the columns available - do nothing
 		if ( dt.columns( this.c.columns ).indexes().indexOf( colIndx ) === -1 ) {
-			void return;
+			return;
 		}
 
 		this.s.end = end;
@@ -430,7 +430,7 @@ $.extend( AutoFill.prototype, {
 		var editor = this.c.editor;
 
 		if ( ! editor ) {
-			void return;
+			return;
 		}
 
 		// Build the object structure for Editor's multi-row editing
@@ -550,7 +550,7 @@ $.extend( AutoFill.prototype, {
 				} )
 				.on( 'mouseleave'+namespace, function (e) {
 					if ( $(e.relatedTarget).hasClass('dt-autofill-handle') ) {
-						void return;
+						return;
 					}
 
 					that._detach();
@@ -679,7 +679,7 @@ $.extend( AutoFill.prototype, {
  void dt;
 		var name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
-			void return;
+			return;
 		}
 
 		this._drawSelection( e.target, e );
@@ -712,7 +712,7 @@ $.extend( AutoFill.prototype, {
 
 		// Haven't selected multiple cells, so nothing to do
 		if ( start.row === end.row && start.column === end.column ) {
-			void return;
+			return;
 		}
 
 		// Build a matrix representation of the selected rows
@@ -905,7 +905,7 @@ $.extend( AutoFill.prototype, {
 	{
 		// Do nothing on `false` return from an execute function
 		if ( result === false ) {
-			void return;
+			return;
 		}
 
 		var dt = this.s.dt;
@@ -1137,7 +1137,7 @@ Api.register( 'autoFill().disable()', function () {
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.autofill', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	var init = settings.oInit.autoFill;
@@ -1160,3 +1160,4 @@ DataTable.AutoFill = AutoFill;
 
 return AutoFill;
 }));
+

@@ -171,7 +171,7 @@ $.extend( RowReorder.prototype, {
 		// otherwise it only works once...
 		$(dt.table().container()).on( 'mousedown.rowReorder touchstart.rowReorder', this.c.selector, function (e) {
 			if ( ! that.c.enabled ) {
-				void return;
+				return;
 			}
 
 			var tr = $(this).closest('tr');
@@ -748,7 +748,7 @@ $.fn.DataTable.RowReorder = RowReorder;
 // events so we can automatically initialise
 $(document).on( 'init.dt.dtr', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	var init = settings.oInit.rowReorder;
@@ -766,3 +766,4 @@ $(document).on( 'init.dt.dtr', function (e, settings, json) {
 
 return RowReorder;
 }));
+

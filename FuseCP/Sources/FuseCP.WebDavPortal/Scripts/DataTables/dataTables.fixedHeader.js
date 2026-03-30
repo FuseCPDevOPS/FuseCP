@@ -525,7 +525,7 @@ $.extend( FixedHeader.prototype, {
 		var headerMode, footerMode;
 
 		if ( ! this.s.enable ) {
-			void return;
+			return;
 		}
 
 		if ( this.c.header ) {
@@ -600,7 +600,7 @@ $.fn.DataTable.FixedHeader = FixedHeader;
 // table and if so, initialise
 $(document).on( 'init.dt.dtfh', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	var init = settings.oInit.fixedHeader;
@@ -671,3 +671,4 @@ $.each( ['header', 'footer'], function ( i, el ) {
 
 return FixedHeader;
 }));
+

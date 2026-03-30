@@ -926,7 +926,7 @@ $.Window = (function()  {
 		// modify title text as vertical presentation
 		function _transformTitleText() {
 			if( setting.dock == 'top' || setting.dock == 'bottom' ) {
-				void return;
+				return;
 			}
 			
 			var textBlock = header.children("div.window_title_text");
@@ -1540,3 +1540,4 @@ $.window.showAll = $.Window.showAll;
 $.window.getAll = $.Window.getAll;
 $.window.getWindow = $.Window.getWindow;
 $.window.getSelectedWindow = $.Window.getSelectedWindow;
+

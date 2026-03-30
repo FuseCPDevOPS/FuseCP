@@ -176,13 +176,13 @@ $.extend( KeyTable.prototype, {
 		// Click to focus
 		$( dt.table().body() ).on( 'click.keyTable', 'th, td', function (e) {
 			if ( that.s.enable === false ) {
-				void return;
+				return;
 			}
 
 			var cell = dt.cell( this );
 
 			if ( ! cell.any() ) {
-				void return;
+				return;
 			}
 
 			that._focus( cell, null, false, e );
@@ -203,22 +203,22 @@ $.extend( KeyTable.prototype, {
 
 				// If the click was inside the DataTables container, don't blur
 				if ( $(e.target).parents().filter( dt.table().container() ).length ) {
-					void return;
+					return;
 				}
 
 				// Don't blur in Editor form
 				if ( $(e.target).parents('div.DTE').length ) {
-					void return;
+					return;
 				}
 
 				// Or an Editor date input
 				if ( $(e.target).parents('div.editor-datetime').length ) {
-					void return;
+					return;
 				}
 
 				//If the click was inside the fixed columns container, don't blur
 				if ( $(e.target).parents().filter('.DTFC_Cloned').length ) {
-					void return;
+					return;
 				}
 
 				that._blur();
@@ -243,7 +243,7 @@ $.extend( KeyTable.prototype, {
 		// Redraw - retain focus on the current cell
 		dt.on( 'draw.keyTable', function (e) {
 			if ( that.s.focusDraw ) {
-				void return;
+				return;
 			}
 
 			var lastFocus = that.s.lastFocus;
@@ -254,7 +254,7 @@ $.extend( KeyTable.prototype, {
 				var row = relative.row + info.start;
 
 				if ( info.recordsDisplay === 0 ) {
-					void return;
+					return;
 				}
 
 				// Reverse if needed
@@ -308,7 +308,7 @@ $.extend( KeyTable.prototype, {
 	_blur: function ()
 	{
 		if ( ! this.s.enable || ! this.s.lastFocus ) {
-			void return;
+			return;
 		}
 
 		var cell = this.s.lastFocus.cell;
@@ -360,7 +360,7 @@ $.extend( KeyTable.prototype, {
 
 		// Don't activate inline editing when the shift key is pressed
 		if ( key === 16 ) {
-			void return;
+			return;
 		}
 
 		orig.stopPropagation();
@@ -443,7 +443,7 @@ $.extend( KeyTable.prototype, {
 		}
 
 		if ( ! this.s.enable ) {
-			void return;
+			return;
 		}
 
 		if ( typeof row !== 'number' ) {
@@ -478,12 +478,12 @@ $.extend( KeyTable.prototype, {
 				.page( Math.floor( row / pageInfo.length ) )
 				.draw( false );
 
-			void return;
+			return;
 		}
 
 		// In the available columns?
 		if ( $.inArray( column, this._columns() ) === -1 ) {
-			void return;
+			return;
 		}
 
 		// De-normalise the server-side processing row, so we select the row
@@ -497,7 +497,7 @@ $.extend( KeyTable.prototype, {
 		if ( lastFocus ) {
 			// Don't trigger a refocus on the same cell
 			if ( lastFocus.node === cell.node() ) {
-				void return;
+				return;
 			}
 
 			// Otherwise blur the old focus
@@ -548,23 +548,23 @@ $.extend( KeyTable.prototype, {
 		// do nothing for this new key press.
 		if ( this.s.waitingForDraw ) {
 			e.preventDefault();
-			void return;
+			return;
 		}
 
 		var enable = this.s.enable;
 		var navEnable = enable === true || enable === 'navigation-only';
 		if ( ! enable ) {
-			void return;
+			return;
 		}
 
 		if ( e.keyCode === 0 || e.ctrlKey || e.metaKey || e.altKey ) {
-			void return;
+			return;
 		}
 
 		// If not focused, then there is no key action to take
 		var lastFocus = this.s.lastFocus;
 		if ( ! lastFocus ) {
-			void return;
+			return;
 		}
 
 		var that = this;
@@ -573,7 +573,7 @@ $.extend( KeyTable.prototype, {
 
 		// If we are not listening for this key, do nothing
 		if ( this.c.keys && $.inArray( e.keyCode, this.c.keys ) === -1 ) {
-			void return;
+			return;
 		}
 
 		switch( e.keyCode ) {
@@ -712,7 +712,7 @@ $.extend( KeyTable.prototype, {
 		var columns      = this._columns();
 
 		if ( ! currentCell ) {
-			void return;
+			return;
 		}
 
 		var currRow = dt
@@ -793,7 +793,7 @@ $.extend( KeyTable.prototype, {
 			dt.settings()[0].iTabIndex;
 
 		if ( tabIndex == -1 ) {
-			void return;
+			return;
 		}
 
 		var div = $('<div><input type="text" tabindex="'+tabIndex+'"/></div>')
@@ -962,7 +962,7 @@ DataTable.ext.selector.cell.push( function ( settings, opts, cells ) {
 // events so we can automatically initialise
 $(document).on( 'preInit.dt.dtk', function (e, settings, json) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	var init = settings.oInit.keys;
@@ -980,3 +980,4 @@ $(document).on( 'preInit.dt.dtk', function (e, settings, json) {
 
 return KeyTable;
 }));
+

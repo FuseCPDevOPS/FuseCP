@@ -886,7 +886,7 @@
 			if ( this.nodeName.toLowerCase() != 'table' )
 			{
 				_fnLog( null, 0, 'Non-table node initialisation ('+this.nodeName+')', 2 );
-				void return;
+				return;
 			}
 			
 			/* Backwards compatibility for the defaults */
@@ -926,7 +926,7 @@
 					else
 					{
 						_fnLog( s, 0, 'Cannot reinitialise DataTable', 3 );
-						void return;
+						return;
 					}
 				}
 			
@@ -2778,7 +2778,7 @@
 	
 						// The inner call to setData has already traversed through the remainder
 						// of the source and has set the data, thus we can exit here
-						void return;
+						return;
 					}
 					else if ( funcNotation )
 					{
@@ -3303,7 +3303,7 @@
 	
 		if ( ! aoSource )
 		{
-			void return;
+			return;
 		}
 	
 		if (  bIncludeHidden === undefined )
@@ -3398,7 +3398,7 @@
 		if ( $.inArray( false, aPreDraw ) !== -1 )
 		{
 			_fnProcessingDisplay( oSettings, false );
-			void return;
+			return;
 		}
 	
 		var i, iLen, n;
@@ -3444,7 +3444,7 @@
 		}
 		else if ( !oSettings.bDestroying && !_fnAjaxUpdate( oSettings ) )
 		{
-			void return;
+			return;
 		}
 	
 		if ( aiDisplay.length !== 0 )
@@ -4128,7 +4128,7 @@
 		if ( draw ) {
 			// Protect against out of sequence returns
 			if ( draw*1 < settings.iDraw ) {
-				void return;
+				return;
 			}
 			settings.iDraw = draw * 1;
 		}
@@ -4367,7 +4367,7 @@
 	function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
 	{
 		if ( searchStr === '' ) {
-			void return;
+			return;
 		}
 	
 		var data;
@@ -4641,7 +4641,7 @@
 		/* Show information about the table */
 		var nodes = settings.aanFeatures.i;
 		if ( nodes.length === 0 ) {
-			void return;
+			return;
 		}
 	
 		var
@@ -4711,7 +4711,7 @@
 		/* Ensure that the table data is fully initialised */
 		if ( ! settings.bInitialised ) {
 			setTimeout( function(){ _fnInitialise( settings ); }, 200 );
-			void return;
+			return;
 		}
 	
 		/* Show the display HTML options */
@@ -6193,7 +6193,7 @@
 		_fnBindAction( attachTo, {}, function (e) {
 			/* If the column is not sortable - don't to anything */
 			if ( col.bSortable === false ) {
-				void return;
+				return;
 			}
 	
 			// If processing is enabled use a timeout to allow the processing
@@ -6304,7 +6304,7 @@
 	{
 		if ( !settings.oFeatures.bStateSave || settings.bDestroying )
 		{
-			void return;
+			return;
 		}
 	
 		/* Store the interesting variables */
@@ -6343,7 +6343,7 @@
 		var loaded = function ( s ) {
 			if ( ! s || ! s.time ) {
 				callback();
-				void return;
+				return;
 			}
 	
 			// Allow custom and plug-in manipulation functions to alter the saved data set and
@@ -6351,20 +6351,20 @@
 			var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 			if ( $.inArray( false, abStateLoad ) !== -1 ) {
 				callback();
-				void return;
+				return;
 			}
 	
 			// Reject old data
 			var duration = settings.iStateDuration;
 			if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
 				callback();
-				void return;
+				return;
 			}
 	
 			// Number of columns have changed - all bets are off, no restore of settings
 			if ( s.columns && columns.length !== s.columns.length ) {
 				callback();
-				void return;
+				return;
 			}
 	
 			// Store the saved state so it might be accessed at any time
@@ -6420,7 +6420,7 @@
 	
 		if ( ! settings.oFeatures.bStateSave ) {
 			callback();
-			void return;
+			return;
 		}
 	
 		var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
@@ -6512,7 +6512,7 @@
 				}
 			} );
 	
-			void return;
+			return;
 		}
 	
 		if ( mappedName === undefined ) {
@@ -7189,7 +7189,7 @@
 	{
 		// Only extend API instances and static properties of the API
 		if ( ! ext.length || ! obj || ( ! (obj instanceof _Api) && ! obj.__dt_wrapper ) ) {
-			void return;
+			return;
 		}
 	
 		var
@@ -7263,7 +7263,7 @@
 			for ( var j=0, jen=name.length ; j<jen ; j++ ) {
 				_Api.register( name[j], val );
 			}
-			void return;
+			return;
 		}
 	
 		var
@@ -8176,7 +8176,7 @@
 				for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 					addRow( r[i], k );
 				}
-				void return;
+				return;
 			}
 	
 			// If we get a TR element, then just add it directly - up to the dev
@@ -8265,7 +8265,7 @@
 			// On each draw, insert the required elements into the document
 			api.on( drawEvent, function ( e, ctx ) {
 				if ( settings !== ctx ) {
-					void return;
+					return;
 				}
 	
 				api.rows( {page:'current'} ).eq(0).each( function (idx) {
@@ -8281,7 +8281,7 @@
 			// Column visibility change - update the colspan
 			api.on( colvisEvent, function ( e, ctx, idx, vis ) {
 				if ( settings !== ctx ) {
-					void return;
+					return;
 				}
 	
 				// Update the colspan for the details rows (note, only if it already has
@@ -8300,7 +8300,7 @@
 			// Table destroyed - nuke any child rows
 			api.on( destroyEvent, function ( e, ctx ) {
 				if ( settings !== ctx ) {
-					void return;
+					return;
 				}
 	
 				for ( var i=0, ien=data.length ; i<ien ; i++ ) {
@@ -8526,7 +8526,7 @@
 		// Set
 		// No change
 		if ( col.bVisible === vis ) {
-			void return;
+			return;
 		}
 	
 		if ( vis ) {
@@ -9013,7 +9013,7 @@
 		// set
 		return this.iterator( 'table', function ( settings ) {
 			if ( ! settings.oFeatures.bFilter ) {
-				void return;
+				return;
 			}
 	
 			_fnFilterComplete( settings, $.extend( {}, settings.oPreviousSearch, {
@@ -9040,7 +9040,7 @@
 	
 				// set
 				if ( ! settings.oFeatures.bFilter ) {
-					void return;
+					return;
 				}
 	
 				$.extend( preSearch[ column ], {
@@ -14922,7 +14922,7 @@
 				// Attach a sort listener to update on sort
 				$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
 					if ( settings !== ctx ) {
-						void return;
+						return;
 					}
 	
 					var colIdx = column.idx;
@@ -15349,3 +15349,4 @@
 
 	return $.fn.dataTable;
 }));
+

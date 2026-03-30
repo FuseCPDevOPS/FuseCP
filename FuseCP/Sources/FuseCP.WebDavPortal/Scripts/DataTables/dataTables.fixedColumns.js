@@ -86,7 +86,7 @@ var FixedColumns = function ( dt, init ) {
 	/* Sanity check - you just know it will happen */
 	if ( ! ( this instanceof FixedColumns ) ) {
 		alert( "FixedColumns warning: FixedColumns must be initialised with the 'new' keyword." );
-		void return;
+		return;
 	}
 
 	if ( init === undefined || init === true ) {
@@ -473,7 +473,7 @@ $.extend( FixedColumns.prototype , {
 		{
 			alert( "FixedColumns "+FixedColumns.VERSION+" required DataTables 1.8.0 or later. "+
 				"Please upgrade your DataTables installation" );
-			void return;
+			return;
 		}
 
 		if ( this.s.dt.oScroll.sX === "" )
@@ -481,7 +481,7 @@ $.extend( FixedColumns.prototype , {
 			this.s.dt.oInstance.oApi._fnLog( this.s.dt, 1, "FixedColumns is not needed (no "+
 				"x-scrolling in DataTables enabled), so no action will be taken. Use 'FixedHeader' for "+
 				"column fixing when scrolling is not enabled" );
-			void return;
+			return;
 		}
 
 		/* Apply the settings from the user / defaults */
@@ -978,7 +978,7 @@ $.extend( FixedColumns.prototype , {
 	"_fnCloneRight": function ( bAll )
 	{
 		if ( this.s.iRightColumns <= 0 ) {
-			void return;
+			return;
 		}
 
 		var that = this,
@@ -1005,7 +1005,7 @@ $.extend( FixedColumns.prototype , {
 	"_fnCloneLeft": function ( bAll )
 	{
 		if ( this.s.iLeftColumns <= 0 ) {
-			void return;
+			return;
 		}
 
 		var that = this,
@@ -1357,7 +1357,7 @@ $.extend( FixedColumns.prototype , {
 	{
 		if ( this.s.sHeightMatch == 'none' && nodeName !== 'thead' && nodeName !== 'tfoot' )
 		{
-			void return;
+			return;
 		}
 
 		var that = this,
@@ -1604,7 +1604,7 @@ DataTable.Api.register( 'fixedColumns().cellIndex()', function ( cell ) {
 // events so we can automatically initialise
 $(document).on( 'init.dt.fixedColumns', function (e, settings) {
 	if ( e.namespace !== 'dt' ) {
-		void return;
+		return;
 	}
 
 	var init = settings.oInit.fixedColumns;
@@ -1627,3 +1627,4 @@ $.fn.DataTable.FixedColumns = FixedColumns;
 
 return FixedColumns;
 }));
+

@@ -45,7 +45,7 @@
 
 			if ( element.tagName.toLowerCase() !== 'label' ) {
 				//console.log('initialize checkbox on the label that wraps the checkbox');
-				void return;
+				return;
 			}
 
 			// cache elements
@@ -502,7 +502,7 @@
 				// to avoid double processing
 				if ( extra && extra.synthetic ) {
 					this.selectByText( val );
-					void return;
+					return;
 				}
 				this.selectByText( val );
 
@@ -773,7 +773,7 @@
 				var date;
 
 				if ( $td.hasClass( 'restricted' ) ) {
-					void return;
+					return;
 				}
 
 				this.$days.find( 'td.selected' ).removeClass( 'selected' );
@@ -933,7 +933,7 @@
 				month++;
 				if ( month > 11 ) {
 					if ( this.sameYearOnly ) {
-						void return;
+						return;
 					}
 
 					month = 0;
@@ -945,7 +945,7 @@
 
 			onYearScroll: function( e ) {
 				if ( this.artificialScrolling ) {
-					void return;
+					return;
 				}
 
 				var $yearUl = $( e.currentTarget );
@@ -1052,7 +1052,7 @@
 				month--;
 				if ( month < 0 ) {
 					if ( this.sameYearOnly ) {
-						void return;
+						return;
 					}
 
 					month = 11;
@@ -1399,7 +1399,7 @@
 			$( '[data-initialize=datepicker]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'datepicker' ) ) {
-					void return;
+					return;
 				}
 
 				$this.datepicker( $this.data() );
@@ -1883,7 +1883,7 @@
 
 			hide: function hide() {
 				if ( !this.$element.hasClass( 'showing' ) ) {
-					void return;
+					return;
 				}
 
 				this.$element.removeClass( 'showing' );
@@ -1945,10 +1945,10 @@
 
 			show: function show() {
 				if ( _isShown( this ) ) {
-					void return;
+					return;
 				}
 				if ( !_closeOtherPlacards() ) {
-					void return;
+					return;
 				}
 
 				this.previousValue = ( this.isContentEditableDiv ) ? this.$field.html() : this.$field.val();
@@ -2066,7 +2066,7 @@
 
 			if ( element.tagName.toLowerCase() !== 'label' ) {
 				//console.log('initialize radio on the label that wraps the radio');
-				void return;
+				return;
 			}
 
 			// cache elements
@@ -2566,7 +2566,7 @@
 				e.preventDefault();
 				// ignore if a disabled item is clicked
 				if ( $( e.currentTarget ).parent( 'li' ).is( '.disabled, :disabled' ) ) {
-					void return;
+					return;
 				}
 
 				// is clicked element different from currently selected element?
@@ -2615,7 +2615,7 @@
 				} );
 
 				if ( width <= 1 ) {
-					void return;
+					return;
 				}
 
 				this.$button.css( 'width', width );
@@ -3040,7 +3040,7 @@
 				value = ( typeof value === "undefined" ) ? this.getValue() : value;
 				// if there still isn't a number, abort
 				if ( typeof value === "undefined" ) {
-					void return;
+					return;
 				}
 
 				if ( typeof value === 'string' ) {
@@ -3565,7 +3565,7 @@
 						 *    });
 						 */
 						if ( !self.$element.data( 'ignore-disclosures-limit' ) ) {
-							void return;
+							return;
 						}
 
 					}
@@ -4009,14 +4009,14 @@
 				var index = this.$element.find( '.steps li' ).index( li );
 
 				if ( index < this.currentStep && this.options.disablePreviousStep ) { //enforce restrictions
-					void return;
+					return;
 				} else {
 					var evt = $.Event( 'stepclicked.fu.wizard' );
 					this.$element.trigger( evt, {
 						step: index + 1
 					} );
 					if ( evt.isDefaultPrevented() ) {
-						void return;
+						return;
 					}
 
 					this.currentStep = ( index + 1 );
@@ -4046,7 +4046,7 @@
 
 			previous: function() {
 				if ( this.options.disablePreviousStep || this.currentStep === 1 ) {
-					void return;
+					return;
 				}
 
 				var e = $.Event( 'actionclicked.fu.wizard' );
@@ -4055,7 +4055,7 @@
 					direction: 'previous'
 				} );
 				if ( e.isDefaultPrevented() ) {
-					void return;
+					return;
 				} // don't increment ...what? Why?
 
 				this.currentStep -= 1;
@@ -4083,7 +4083,7 @@
 					direction: 'next'
 				} );
 				if ( e.isDefaultPrevented() ) {
-					void return;
+					return;
 				} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
 				if ( this.currentStep < this.numSteps ) {
@@ -8187,7 +8187,7 @@
 
 			hide: function hide() {
 				if ( !this.$element.hasClass( 'showing' ) ) {
-					void return;
+					return;
 				}
 
 				this.$element.removeClass( 'showing' );
@@ -8227,7 +8227,7 @@
 				other = $( document ).find( '.picker.showing' );
 				if ( other.length > 0 ) {
 					if ( other.data( 'fu.picker' ) && other.data( 'fu.picker' ).options.explicit ) {
-						void return;
+						return;
 					}
 
 					other.picker( 'externalClickListener', {}, true );
@@ -8308,3 +8308,4 @@
 
 
 } ) );
+

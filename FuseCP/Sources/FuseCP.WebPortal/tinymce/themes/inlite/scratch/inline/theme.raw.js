@@ -168,7 +168,7 @@ define('tinymce/inlite/ui/Toolbar', [
 		var toolbarItems = [], buttonGroup;
 
 		if (!items) {
-			void return;
+			return;
 		}
 
 		Tools.each(items.split(/[ ,]/), function(item) {
@@ -350,7 +350,7 @@ define('tinymce/inlite/alien/Bookmark', [
 			offset = bookmark[start ? 'startOffset' : 'endOffset'];
 
 			if (!container) {
-				void return;
+				return;
 			}
 
 			if (container.nodeType == 1) {
@@ -1675,3 +1675,4 @@ define('tinymce/inlite/Theme', [
 
 dem('tinymce/inlite/Theme')();
 })();
+

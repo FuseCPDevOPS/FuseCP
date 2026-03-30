@@ -208,7 +208,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 		if ( box.width !== 0 && box.height !== 0 ) {
 			this.sized = true;
 		} else {
-			void return;
+			return;
 		}
 
 		var flash = this.div.childNodes[0];
@@ -364,7 +364,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 				if (!this.movie) {
 					self = this;
 					setTimeout( function() { self.receiveEvent('load', null); }, 1 );
-					void return;
+					return;
 				}
 
 				// firefox on pc needs a "kick" in order to set these in certain cases
@@ -372,7 +372,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 					self = this;
 					setTimeout( function() { self.receiveEvent('load', null); }, 100 );
 					this.ready = true;
-					void return;
+					return;
 				}
 
 				this.ready = true;
@@ -1149,7 +1149,7 @@ DataTable.ext.buttons.copyFlash = $.extend( {}, flashButton, {
 	action: function ( e, dt, button, config ) {
 		// Check that the trigger did actually occur due to a Flash activation
 		if ( ! config._fromFlash ) {
-			void return;
+			return;
 		}
 
 		this.processing( true );
@@ -1440,3 +1440,4 @@ DataTable.ext.buttons.pdfFlash = $.extend( {}, flashButton, {
 
 return DataTable.Buttons;
 }));
+

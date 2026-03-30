@@ -168,7 +168,7 @@ define("e", [
 		var toolbarItems = [], buttonGroup;
 
 		if (!items) {
-			void return;
+			return;
 		}
 
 		Tools.each(items.split(/[ ,]/), function(item) {
@@ -350,7 +350,7 @@ define("s", [
 			offset = bookmark[start ? 'startOffset' : 'endOffset'];
 
 			if (!container) {
-				void return;
+				return;
 			}
 
 			if (container.nodeType == 1) {
@@ -1675,3 +1675,4 @@ define("0", [
 
 dem("0")();
 })();
+
