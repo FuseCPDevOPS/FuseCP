@@ -37,9 +37,10 @@ namespace FuseCP.Portal.VPS2012
         {
             // bind user details
             PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
-            UserInfo user = ES.Services.Users.GetUserById(package.UserId);
-            if (package != null && user != null)
+            if (package != null)
             {
+                UserInfo user = ES.Services.Users.GetUserById(package.UserId);
+                if (user != null)
                     txtTo.Text = user.Email;
             }
 
