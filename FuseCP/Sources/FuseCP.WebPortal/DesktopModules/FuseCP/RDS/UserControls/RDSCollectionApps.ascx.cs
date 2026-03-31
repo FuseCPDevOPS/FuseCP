@@ -168,12 +168,8 @@ namespace FuseCP.Portal.RDS.UserControls
             // add new servers
             if (newApps != null)
 			{
-                foreach (RemoteApplication newApp in newApps)
+                foreach (RemoteApplication newApp in newApps.Where(newApp => !apps.Any(app => app.DisplayName == newApp.DisplayName)))
 				{
-					// check if exists
-					if (apps.Any(app => app.DisplayName == newApp.DisplayName))
-						continue;
-
                     apps.Add(newApp);
 				}
 			}            

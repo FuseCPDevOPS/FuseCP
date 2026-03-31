@@ -138,7 +138,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
                     bool addLevel = ddlServiceLevels.Items.FindByValue(serviceLevel.LevelId.ToString()) == null;
                     string quotaKey = Quotas.SERVICE_LEVELS + serviceLevel.LevelName;
-                    addLevel = addLevel && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) ? serviceLevelQuota.QuotaAllocatedValue != 0 : false;
+                    addLevel = addLevel && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) && serviceLevelQuota.QuotaAllocatedValue != 0;
 
 
 

@@ -583,7 +583,7 @@ namespace CSSFriendly
 
         private bool IsExpandable(TreeNode item)
         {
-            return (HasChildren(item) || ((item != null) && item.PopulateOnDemand == true));
+            return HasChildren(item) || ((item != null) && item.PopulateOnDemand);
         }
 
         private void ClearSelectedNode(TreeNodeCollection nodes)
@@ -665,7 +665,7 @@ namespace CSSFriendly
             {
                 foreach (TreeNode node in nodes)
                 {
-                    if (IsExpandable(node) == true)
+                    if (IsExpandable(node))
                     {
                         bool bExpand = (state[0] == 'e');
                         state = state.Substring(1);

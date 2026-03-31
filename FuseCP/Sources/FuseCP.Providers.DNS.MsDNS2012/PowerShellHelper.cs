@@ -88,8 +88,7 @@ namespace FuseCP.Providers.DNS
 				{
 					foreach( object item in pipeLine.Error.ReadToEnd() )
 					{
-						string errorMessage = string.Format( "Invoke error: {0}", item );
-						Log.WriteWarning( errorMessage );
+						Log.WriteWarning( string.Format( "Invoke error: {0}", item ) );
 					}
 				}
 			}

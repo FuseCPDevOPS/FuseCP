@@ -16,7 +16,6 @@
 using System;
 using System.Web;
 using System.Web.Security;
-using System.Collections.Concurrent;
 using FuseCP.EnterpriseServer.Client;
 using FuseCP.EnterpriseServer;
 //using FuseCP.Providers.HostedSolution;
@@ -278,7 +277,6 @@ namespace FuseCP.WebPortal
 			return GetCachedProxy<T>(true);
 		}
 
-		static readonly ConcurrentDictionary<Type, Web.Clients.ClientBase> cache = new ConcurrentDictionary<Type, Web.Clients.ClientBase>();
 		protected virtual T GetCachedProxy<T>(bool secureCalls)
 			where T: Web.Clients.ClientBase
 		{

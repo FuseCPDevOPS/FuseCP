@@ -314,7 +314,7 @@ namespace FuseCP.Portal.HostedSolution
             bool enable = !string.IsNullOrEmpty(serviceLevel.LevelName);
             string quotaKey = Quotas.SERVICE_LEVELS + serviceLevel.LevelName;
 
-            enable = enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) ? serviceLevelQuota.QuotaAllocatedValue != 0 : false;
+            enable = enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) && serviceLevelQuota.QuotaAllocatedValue != 0;
 
 
 

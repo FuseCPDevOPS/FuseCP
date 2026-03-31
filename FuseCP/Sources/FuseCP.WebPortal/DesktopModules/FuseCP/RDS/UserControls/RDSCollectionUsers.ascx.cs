@@ -231,12 +231,8 @@ namespace FuseCP.Portal.RDS.UserControls
 			// add new accounts
             if (newUsers != null)
 			{
-                foreach (OrganizationUser newUser in newUsers)
+                foreach (OrganizationUser newUser in newUsers.Where(newUser => !users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0)))
 				{
-					// check if exists
-					if (users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0))
-						continue;
-
                     users.Add(newUser);
 				}
 			}

@@ -154,12 +154,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			// add new accounts
             if (newPermissions != null)
 			{
-                foreach (ESPermission newPermission in newPermissions)
+                foreach (ESPermission newPermission in newPermissions.Where(newPermission => !permissions.Any(permission => String.Compare(newPermission.Account, permission.Account, true) == 0)))
 				{
-					// check if exists
-					if (permissions.Any(permission => String.Compare(newPermission.Account, permission.Account, true) == 0))
-						continue;
-
                     permissions.Add(newPermission);
 				}
 			}

@@ -33,7 +33,7 @@ namespace FuseCP.Portal.Lync.UserControls
             {
                 if (ddlSipAddresses != null && ddlSipAddresses.Visible)
                 {
-                    return ddlSipAddresses.SelectedItem != null ? ddlSipAddresses.SelectedItem.Value : string.Empty;     
+                    return (ddlSipAddresses.SelectedItem == null) ? string.Empty : ddlSipAddresses.SelectedItem.Value;
 
 
 

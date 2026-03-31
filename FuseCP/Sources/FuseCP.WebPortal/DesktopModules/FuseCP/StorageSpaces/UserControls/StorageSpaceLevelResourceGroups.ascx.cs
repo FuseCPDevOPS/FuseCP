@@ -116,12 +116,8 @@ namespace FuseCP.Portal.StorageSpaces.UserControls
             // add new accounts
             if (newGroups != null)
             {
-                foreach (ResourceGroupInfo newGroup in newGroups)
+                foreach (ResourceGroupInfo newGroup in newGroups.Where(newGroup => !groups.Any(group => group.GroupId == newGroup.GroupId)))
                 {
-                    // check if exists
-                    if (groups.Any(group => group.GroupId == newGroup.GroupId))
-                        continue;
-
                     groups.Add(newGroup);
                 }
             }
