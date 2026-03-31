@@ -158,9 +158,12 @@ namespace FuseCP.Portal
                 {
                     UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-                    if (user != null && user.Role == UserRole.User)
+                    if (user != null)
                     {
+                        if (user.Role == UserRole.User)
                         {
+                            btnDelete.Enabled = !Utils.CheckQouta(Quotas.OS_NOTALLOWTENANTDELETEDOMAINS, cntx);
+                        }
                     }
                 }
 

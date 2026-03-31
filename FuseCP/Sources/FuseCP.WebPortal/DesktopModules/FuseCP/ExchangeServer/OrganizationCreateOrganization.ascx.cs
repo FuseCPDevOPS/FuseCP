@@ -117,6 +117,7 @@ namespace FuseCP.Portal.ExchangeServer
         public void SetOrgIdPolicy(int userId, string settingsName, string key)
         {
             UserInfo user = UsersHelper.GetCachedUser(userId);
+            UserSettings settings = ES.Services.Users.GetUserSettings(userId, settingsName);
 
             if (user != null && settings != null && settings["OrgIdPolicy"] != null)
             {

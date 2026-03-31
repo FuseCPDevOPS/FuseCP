@@ -37,6 +37,7 @@ namespace FuseCP.Portal.Proxmox
         {
             // bind user details
             PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
+            UserInfo user = package != null ? ES.Services.Users.GetUserById(package.UserId) : null;
             if (package != null && user != null)
             {
                     txtTo.Text = user.Email;

@@ -225,9 +225,22 @@ namespace FuseCP.Portal
             {
                 WebSite site = GetWebSite();
 
-                if (null != site && site.Bindings.Length > 0)
+                if ( null != site)
                 {
+                    if (site.Bindings.Length > 0)
                     {
+                        ServerBinding serverBinding = site.Bindings[0];
+                        DebuggerUrl = string.Format(
+                            "{0}://{1}:{2}{3}/_ape_start_developer_session?ape_debug=secure-key-{4}_{5}", 
+                            serverBinding.Protocol,
+                            serverBinding.Host ?? serverBinding.IP,
+                            serverBinding.Port,
+                            folderPath.SelectedFile.Replace('\\', '/'),
+                            DebuggerSecureKey,
+                            DebuggerSessionId
+                        );
+                        DebuggerUrlField.Value = DebuggerUrl;
+                    }
                 }
             }
 
@@ -252,9 +265,22 @@ namespace FuseCP.Portal
             {
                 WebSite site = GetWebSite();
 
-                if (null != site && site.Bindings.Length > 0)
+                if (null != site)
                 {
+                    if (site.Bindings.Length > 0)
                     {
+                        ServerBinding serverBinding = site.Bindings[0];
+
+                        DebuggingPageUrl = string.Format(
+                            "{0}://{1}:{2}{3}/?ape_debug=secure-key-{4}_{5}",
+                            serverBinding.Protocol,
+                            serverBinding.Host ?? serverBinding.IP,
+                            serverBinding.Port,
+                            folderPath.SelectedFile.Replace('\\', '/'),
+                            DebuggerSecureKey,
+                            DebuggerSessionId
+                        );
+                    }
                 }
             }
 

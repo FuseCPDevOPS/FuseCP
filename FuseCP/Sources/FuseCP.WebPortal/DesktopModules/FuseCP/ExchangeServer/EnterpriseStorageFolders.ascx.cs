@@ -127,6 +127,8 @@ namespace FuseCP.Portal.ExchangeServer
             spaceAvailableQuota.QuotaValue = organizationStats.AllocatedEnterpriseStorageSpace;
 
             spaceQuota.QuotaValue = (int)Math.Round(ConvertMBytesToGB(organizationStats.UsedEnterpriseStorageSpace), 0);
+            int folderAvailable = foldersQuota.QuotaAvailable = organizationStats.AllocatedEnterpriseStorageFolders - organizationStats.CreatedEnterpriseStorageFolders;
+            int spaceAvailable = spaceAvailableQuota.QuotaAvailable = organizationStats.AllocatedEnterpriseStorageSpace - organizationStats.UsedEnterpriseStorageSpace;
 
             if (organizationStats.AllocatedEnterpriseStorageFolders != -1 && folderAvailable <= 0)
             {

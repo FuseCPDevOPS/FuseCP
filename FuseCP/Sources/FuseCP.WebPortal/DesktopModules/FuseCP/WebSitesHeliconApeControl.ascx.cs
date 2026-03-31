@@ -63,9 +63,26 @@ namespace FuseCP.Portal
             ClientScriptManager cs = Page.ClientScript;
             cs.RegisterClientScriptInclude("jquery", ResolveUrl("~/JavaScript/jquery-1.4.4.min.js"));
 
-            if (HeliconApeStatus.IsInstalled && !IsPostBack)
+            if (HeliconApeStatus.IsInstalled)
             {
+                if (!IsPostBack)
                 {
+                    WebSite site = null;
+                    try
+                    {
+                        site = ES.Services.WebServers.GetWebSite(PanelRequest.ItemID);
+                    }
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                    {
+                        HostModule.ShowErrorMessage("WEB_GET_SITE", ex);
+                        return;
+                    }
+
+                    if (site == null)
+                        RedirectToBrowsePage();
+
+                    BindHeliconApe(site);
+                }
             }
         }
 
@@ -77,10 +94,27 @@ namespace FuseCP.Portal
 
            
             // Render a warning message about the automatic site's settings change
-            if (site.IIs7 && (!HeliconApeStatus.IsEnabled && (site.EnableWindowsAuthentication || !site.AspNetInstalled.EndsWith("I") || site.SecuredFoldersInstalled)))
+            if (site.IIs7)
             {
+                if (!HeliconApeStatus.IsEnabled)
                 {
+                    // Ensure the message is displayed only when neccessary
+                    if (site.EnableWindowsAuthentication || !site.AspNetInstalled.EndsWith("I") || site.SecuredFoldersInstalled)
+                    {
+                        // TODO: show warning, do not force to enable integrated pool
+                        string warningStr = GetLocalizedString("EnableFoldersIIs7Warning.Text");
+                        // Render a warning only if specified
+                        if (!String.IsNullOrEmpty(warningStr))
+                            btnToggleHeliconApe.OnClientClick = String.Format("return confirm('{0}')", warningStr);
+                    }
+                   
+
+                }
+
             }
+            // toggle
+            ToggleControls();
+        }
 
         private void ToggleControls()
         {

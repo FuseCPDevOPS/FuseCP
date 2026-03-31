@@ -62,9 +62,15 @@ namespace FuseCP.Portal.ExchangeServer
 
                 UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-                if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
+                if (user != null)
                 {
+                    
+                    if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
                     {
+                        chkHideAddressBook.Visible = false;
+                        chkDisable.Visible = false;
+                    }
+
                 }
 
                 secRetentionPolicy.Visible = Utils.CheckQouta(Quotas.EXCHANGE2013_ALLOWRETENTIONPOLICY, Cntx);

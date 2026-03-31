@@ -244,7 +244,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
         protected void btn_UpdateAccess(object sender, EventArgs e)
         {
-            if (gvPermissions.HeaderRow != null && chkAllSelect != null)
+            CheckBox chkAllSelect = gvPermissions.HeaderRow != null ? (CheckBox)gvPermissions.HeaderRow.FindControl("chkSelectAll") : null;
+            if (chkAllSelect != null)
             {
                     chkAllSelect.Checked = false;
             }

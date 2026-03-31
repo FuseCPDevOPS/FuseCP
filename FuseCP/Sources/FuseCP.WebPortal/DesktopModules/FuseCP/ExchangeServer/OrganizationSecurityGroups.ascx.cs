@@ -48,6 +48,7 @@ namespace FuseCP.Portal.ExchangeServer
             OrganizationStatistics stats = ES.Services.Organizations.GetOrganizationStatisticsByOrganization(PanelRequest.ItemID);
             groupsQuota.QuotaUsedValue = stats.CreatedGroups;
             groupsQuota.QuotaValue = stats.AllocatedGroups;
+            int groupsAvailable = groupsQuota.QuotaAvailable = stats.AllocatedGroups - stats.CreatedGroups;
 
             if (stats.AllocatedGroups != -1 && groupsAvailable <= 0)
             {

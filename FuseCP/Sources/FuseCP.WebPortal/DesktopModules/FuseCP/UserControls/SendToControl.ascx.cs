@@ -76,7 +76,8 @@ namespace FuseCP.Portal.UserControls
         {
             SendToBody.Visible = chkSendPasswordResetEmail.Checked;
 
-            if (!string.IsNullOrEmpty(ControlToHide) && control != null)
+            var control = !string.IsNullOrEmpty(ControlToHide) ? Parent.FindControl(ControlToHide) : null;
+            if (control != null)
             {
                     control.Visible = !chkSendPasswordResetEmail.Checked;
             }

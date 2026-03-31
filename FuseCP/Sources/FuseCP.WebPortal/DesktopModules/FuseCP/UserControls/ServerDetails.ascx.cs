@@ -53,6 +53,7 @@ namespace FuseCP.Portal
 
         private void BindServer()
         {
+            ServerInfo server = ES.Services.Servers.GetServerShortDetails(ServerId);
             if (ServerName == null && server != null)
             {
                     ServerName = server.ServerName;

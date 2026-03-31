@@ -79,7 +79,8 @@ namespace FuseCP.Portal.SkinControls
                 e.Item.Target = target;
 
             //for Selected == added kuldeep 
-            if (Request.QueryString.Get("pid") != null && e.Item.DataPath == pid)
+            string pid = Request.QueryString.Get("pid");
+            if (pid != null && e.Item.DataPath == pid)
             {
                     e.Item.Selected = true;
             }

@@ -81,9 +81,22 @@ namespace FuseCP.Portal
                 // load provider control
                 LoadProviderControl((int)ViewState["PackageId"], "Mail", providerControl, "EditGroup.ascx");
 
-                if (!IsPostBack && item != null)
+                if (!IsPostBack)
                 {
+                    // bind item to controls
+                    if (item != null)
                     {
+                        // bind item to controls
+                        emailAddress.Email = item.Name;
+                        emailAddress.EditMode = true;
+
+                        // other controls
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IMailEditGroupControl ctrl = (IMailEditGroupControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
+                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
