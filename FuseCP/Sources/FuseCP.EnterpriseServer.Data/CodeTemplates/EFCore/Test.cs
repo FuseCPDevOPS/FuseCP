@@ -132,9 +132,10 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		static readonly ConcurrentDictionary<string, ServerVersion> serverVersions = new ConcurrentDictionary<string, ServerVersion>();
-		public void Setup(DbContextOptionsBuilder builder)
+		public void Setup(DbContextOptionsBuilder builder, DbContext context)
 		{
-			DbContext context = null;
+			if (context == null)
+				throw new ArgumentNullException(nameof(context));
 			switch (context.DbType)
 			{
 				case DbType.SqlServer:

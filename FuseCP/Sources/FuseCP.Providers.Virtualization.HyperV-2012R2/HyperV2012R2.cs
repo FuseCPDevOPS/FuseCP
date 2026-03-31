@@ -2155,11 +2155,9 @@ namespace FuseCP.Providers.Virtualization
         #region IHostingServiceProvier methods
         public override string[] Install()
         {
-            List<string> messages = new List<string>();
-
             // TODO
 
-            return messages.ToArray();
+            return Array.Empty<string>();
         }
 
         public override bool IsInstalled()
@@ -2237,7 +2235,7 @@ namespace FuseCP.Providers.Virtualization
                     // wait for completion
                     if (!JobCompleted(result.Job))
                     {
-                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {1}",
+                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {2}",
                             state, vm.Name, result.Job.ErrorDescription));
                         return;
                     }
@@ -2272,7 +2270,7 @@ namespace FuseCP.Providers.Virtualization
                     // wait for completion
                     if (!JobCompleted(result.Job))
                     {
-                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {1}",
+                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {2}",
                             state, vm.Name, result.Job.ErrorDescription));
                         return;
                     }

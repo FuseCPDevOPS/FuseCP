@@ -1071,7 +1071,7 @@ namespace FuseCP.EnterpriseServer
                 // return vlan list without dupes
                 vlanlist.vlans = vlans.Distinct().ToList();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not (OutOfMemoryException or StackOverflowException or AccessViolationException))
             {
                 TaskManager.WriteError(ex, "VPS_GET_VLAN_ERROR");
             }

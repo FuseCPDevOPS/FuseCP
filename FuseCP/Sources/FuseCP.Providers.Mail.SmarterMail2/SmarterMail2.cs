@@ -1198,6 +1198,7 @@ namespace FuseCP.Providers.Mail
                     MailList item = new MailList();
                     item.Name = listInfo.Name;
                     item.Description = listInfo.Description;
+                    items.Add(item);
                 }
 
                 return items.ToArray();

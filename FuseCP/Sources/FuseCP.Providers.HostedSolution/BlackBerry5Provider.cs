@@ -115,7 +115,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
 
                     throw new ApplicationException(
-                        string.Format("Exit code is not 0. {0}, ExitCode = {1}", arguments2, output, exitCode));
+                        string.Format("Exit code is not 0. {0}, Output = {1}, ExitCode = {2}", arguments2, output, exitCode));
                 }
             }
 

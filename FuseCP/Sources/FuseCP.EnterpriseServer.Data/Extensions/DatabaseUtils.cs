@@ -501,12 +501,11 @@ namespace FuseCP.EnterpriseServer.Data
 		private static string EnsureSqlServerEncryption(string connectionString)
 		{
 			var builder = new SqlConnectionStringBuilder(connectionString);
-			if (!builder.ContainsKey("Encrypt") || !(bool)builder["Encrypt"])
-			{
-				builder.Encrypt = true;
-				if (!builder.TrustServerCertificate)
-					builder.TrustServerCertificate = true;
-			}
+			// Always enforce encryption on SQL Server connections; also trust the certificate
+			// to preserve connectivity with self-signed certs used by typical deployments.
+			builder.Encrypt = true;
+			if (!builder.TrustServerCertificate)
+				builder.TrustServerCertificate = true;
 			return builder.ConnectionString;
 		}
 		public static DataSet ExecuteQuery(string connectionString, string commandText)

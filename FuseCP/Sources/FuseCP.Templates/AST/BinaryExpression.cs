@@ -91,9 +91,9 @@ namespace FuseCP.Templates.AST
                 bool dec = lv is Decimal || rv is Decimal;
                 object val = null;
                 if(op == TokenType.Mult)
-                    val = dec ? (Decimal)lv * (Decimal)rv : (Int32)lv * (Int32)rv;
+                    val = dec ? (Decimal)lv * (Decimal)rv : (Decimal)(Int32)lv * (Decimal)(Int32)rv;
                 else if (op == TokenType.Div)
-                    val = dec ? (Decimal)lv / (Decimal)rv : (Int32)lv / (Int32)rv;
+                    val = dec ? (Decimal)lv / (Decimal)rv : (Decimal)(Int32)lv / (Decimal)(Int32)rv;
                 else if (op == TokenType.Mod)
                     val = dec ? (Decimal)lv % (Decimal)rv : (Int32)lv % (Int32)rv;
                 else if (op == TokenType.Plus)

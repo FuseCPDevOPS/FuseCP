@@ -88,7 +88,6 @@ namespace FuseCP.Portal
 				// set user role visibility second
                 if (!String.IsNullOrEmpty(selectedUserContext))
                 {
-                    display = false;
                     string[] arrRoles = selectedUserContext.Split(',');
                     string userRole = PanelSecurity.SelectedUser.Role.ToString();
                     display = arrRoles.Any(role => String.Compare(userRole, role, true) == 0);
@@ -96,7 +95,6 @@ namespace FuseCP.Portal
 
                 if ((!String.IsNullOrEmpty(roles)) && display)
                 {
-                    display = false;
                     string[] arrRoles = roles.Split(',');
                     string userRole = PanelSecurity.LoggedUser.Role.ToString();
                     display = arrRoles.Any(role => String.Compare(userRole, role, true) == 0);

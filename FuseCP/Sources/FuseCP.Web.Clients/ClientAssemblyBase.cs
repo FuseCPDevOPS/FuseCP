@@ -140,7 +140,7 @@ namespace FuseCP.Web.Clients
 		protected T Invoke<T, TItem>(string typeName, string methodName, object[] parameters)
 		{
 			var result = Invoke<object>(typeName, methodName, parameters);
-			if (result is IEnumerable<TItem> list) return (T)(object)list.ToArray();
+			       if (result is IEnumerable<TItem> list) return (T)(object)list.ToArray();
 			throw new NotSupportedException();
 		}
 

@@ -54,6 +54,7 @@ namespace FuseCP.EnterpriseServer
             
             // Verfiy user has access to service 
             var user = UserController.GetUser(Username);
+            if (user == null) throw new AccessViolationException("User not found.");
             if (package.UserId != user.UserId && user.Role != UserRole.Administrator) throw new AccessViolationException("The current user has no access to this service.");
 
             var vmId = serviceItem.VirtualMachineId;
@@ -63,7 +64,7 @@ namespace FuseCP.EnterpriseServer
         private async Task<TunnelSocket> GetPveVNCWebSocket(string vmId, VncCredentials credentials, ServiceInfo service)
         {
             if (service == null)
-                throw new Exception($"Service with ID {service.ServiceId} was not found");
+                throw new Exception("Service was not found");
 
             var providerSettings = new ServiceProviderSettings();
             // set service settings

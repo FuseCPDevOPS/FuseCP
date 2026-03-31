@@ -146,7 +146,7 @@ namespace CryptSharp
                 case LdapCrypterVariant.Crypt:
                     Crypter crypter;
                     if (!_environment.TryGetCrypter(saltString, out crypter)) { goto default; }
-                    if (crypter is LdapCrypter) { throw Exceptions.Argument("salt", "LDAP {CRYPT} tried to use an LDAP scheme."); }
+                    if (crypter is LdapCrypter) { throw Exceptions.Argument("salt", "LDAP {{CRYPT}} tried to use an LDAP scheme."); }
                     return prefixString + crypter.Crypt(password, saltString);
 
                 case LdapCrypterVariant.SSha512:

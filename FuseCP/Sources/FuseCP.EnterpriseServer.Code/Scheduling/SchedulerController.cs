@@ -322,10 +322,9 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
-            // load original schedule
-            GetScheduleInternal(schedule.ScheduleId);
-
-            schedule.LastRun = schedule.LastRun;
+            // load original schedule to preserve server-managed fields
+            ScheduleInfo original = GetScheduleInternal(schedule.ScheduleId);
+            schedule.LastRun = original?.LastRun ?? schedule.LastRun;
             CalculateNextStartTime(schedule);
 
             string xmlParameters = BuildParametersXml(schedule.Parameters);

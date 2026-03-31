@@ -825,9 +825,13 @@ namespace FuseCP.EnterpriseServer
 
 		#region IBackupController Members
 
-		public int BackupItem(string tempFolder, XmlWriter writer, ServiceProviderItem item, ResourceGroupInfo group)
-		{
-			if (item is SqlDatabase)
+        public int BackupItem(string tempFolder, XmlWriter writer, ServiceProviderItem item, ResourceGroupInfo group)
+        {
+            if (String.IsNullOrWhiteSpace(tempFolder))
+                throw new ArgumentException("Temp folder cannot be null or empty.", nameof(tempFolder));
+            tempFolder = Path.GetFullPath(tempFolder);
+
+            if (item is SqlDatabase)
 			{
 				// backup database
 				DatabaseServer sql = GetDatabaseServer(item.ServiceId);

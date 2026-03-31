@@ -18,6 +18,7 @@ using System.IO;
 using System.Data;
 using System.Text;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Security.Cryptography;
@@ -955,7 +956,12 @@ namespace FuseCP.EnterpriseServer
         public string GetTempBackupFolder()
         {
             string timeStamp = DateTime.Now.Ticks.ToString();
-            string tempFolder = Path.Join(ConfigSettings.BackupsPath, GetLoggedUsername() + "_" + timeStamp);
+			// Sanitize username to only alphanumeric, hyphen, underscore to prevent path traversal
+			string rawUsername = GetLoggedUsername() ?? String.Empty;
+			string safeUsername = Regex.Replace(rawUsername, @"[^a-zA-Z0-9_\-]", "");
+			if (String.IsNullOrEmpty(safeUsername))
+				safeUsername = "backup";
+			string tempFolder = Path.Join(ConfigSettings.BackupsPath, safeUsername + "_" + timeStamp);
 
             // create folder
             if (!Directory.Exists(tempFolder))

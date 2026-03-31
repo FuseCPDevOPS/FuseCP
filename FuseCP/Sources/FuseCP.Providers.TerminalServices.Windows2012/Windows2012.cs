@@ -2871,8 +2871,6 @@ namespace FuseCP.Providers.RemoteDesktopServices
         internal List<RdsUserSession> GetRdsUserSessionsInternal(string collectionName, Runspace runSpace)
         {
             var result = new List<RdsUserSession>();
-            var scripts = new List<string>();
-            scripts.Add(string.Format("Get-RDUserSession -ConnectionBroker {0} - CollectionName {1} | ft CollectionName, Username, UnifiedSessionId, SessionState, HostServer", ConnectionBroker, collectionName));            
             object[] errors;
             Command cmd = new Command("Get-RDUserSession");
             cmd.Parameters.Add("CollectionName", collectionName);

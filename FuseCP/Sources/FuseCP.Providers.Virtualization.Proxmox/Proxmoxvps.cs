@@ -837,8 +837,13 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
         {
             public ApiVM Vm { get; set; }
             public string Password { get; set; }
-            public bool Equals(VncConnection other) => Vm.Equals(other.Vm) && Password == other.Password;
-            public override int GetHashCode() => Vm.GetHashCode() ^ Password.GetHashCode();
+            public bool Equals(VncConnection other)
+                => other != null
+                && Equals(Vm, other.Vm)
+                && String.Equals(Password, other.Password, StringComparison.Ordinal);
+            public override bool Equals(object obj) => Equals(obj as VncConnection);
+            public override int GetHashCode()
+                => (Vm?.GetHashCode() ?? 0) ^ (Password ?? String.Empty).GetHashCode();
             public virtual void Dispose() { }
         }
 
@@ -2071,11 +2076,9 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
         #region IHostingServiceProvier methods
         public override string[] Install()
         {
-            List<string> messages = new List<string>();
-
             // TODO
 
-            return messages.ToArray();
+            return Array.Empty<string>();
         }
 
         public override bool IsInstalled()
@@ -2150,7 +2153,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                     // wait for completion
                     if (!JobCompleted(result.Job))
                     {
-                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {1}",
+                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {2}",
                              state, vm.Name, result.Job.ErrorDescription));
                         return;
                     }
@@ -2185,7 +2188,7 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
                     // wait for completion
                     if (!JobCompleted(result.Job))
                     {
-                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {1}",
+                        HostedSolutionLog.LogWarning(String.Format("Cannot complete {0} '{1}' of virtual machine: {2}",
                              state, vm.Name, result.Job.ErrorDescription));
                         return;
                     }

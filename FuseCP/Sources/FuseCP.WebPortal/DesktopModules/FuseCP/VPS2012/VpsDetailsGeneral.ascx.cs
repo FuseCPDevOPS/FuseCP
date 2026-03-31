@@ -312,7 +312,7 @@ namespace FuseCP.Portal.VPS2012
                     {
                         // go to snapshots screen
                         Response.Redirect(EditUrl("ItemID", PanelRequest.ItemID.ToString(), "vps_snapshots",
-                            "SpaceID=" + PanelSecurity.PackageId.ToString()));
+                            "SpaceID=" + PanelSecurity.PackageId));
                     }
                     else
                     {

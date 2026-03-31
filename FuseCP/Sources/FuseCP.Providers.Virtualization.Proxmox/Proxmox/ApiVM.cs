@@ -26,8 +26,12 @@ namespace FuseCP.Providers.Virtualization.Proxmox
         public string Node { get; set; }
         public string Id { get; set; }
 
-        public bool Equals(ApiVM other) => Node == other.Node && Id == other.Id;
+        public bool Equals(ApiVM other)
+            => other != null && String.Equals(Node, other.Node, StringComparison.Ordinal) && String.Equals(Id, other.Id, StringComparison.Ordinal);
 
-        public override int GetHashCode() => Node.GetHashCode() ^ Id.GetHashCode();
+        public override bool Equals(object obj) => Equals(obj as ApiVM);
+
+        public override int GetHashCode()
+            => (Node ?? String.Empty).GetHashCode() ^ (Id ?? String.Empty).GetHashCode();
     }
 }

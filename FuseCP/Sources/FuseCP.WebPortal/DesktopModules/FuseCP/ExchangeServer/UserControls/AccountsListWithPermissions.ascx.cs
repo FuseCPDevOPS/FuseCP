@@ -312,7 +312,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 DropDownList ddlPermissions = (DropDownList)e.Row.FindControl("ddlPermissions");
                 HiddenField PermissionLabel = (HiddenField)e.Row.FindControl("PermissionLabel");
 
-                ExchangeAccount dRow = (ExchangeAccount)e.Row.DataItem as ExchangeAccount;
+                ExchangeAccount dRow = e.Row.DataItem as ExchangeAccount;
                 ListItem itm = new ListItem(dRow.PublicFolderPermission, dRow.PublicFolderPermission);
 
                 if (ddlPermissions.Items.Contains(itm))
@@ -336,7 +336,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             DropDownList ddlCurrentDropDownList = (DropDownList)sender;
             GridViewRow grdrDropDownRow = ((GridViewRow)ddlCurrentDropDownList.Parent.Parent);
             
-            ExchangeAccount ex = (ExchangeAccount)grdrDropDownRow.DataItem as ExchangeAccount;
+            ExchangeAccount ex = grdrDropDownRow.DataItem as ExchangeAccount;
             if (ex != null)
                 ex.PublicFolderPermission = ddlCurrentDropDownList.SelectedValue;
         }					

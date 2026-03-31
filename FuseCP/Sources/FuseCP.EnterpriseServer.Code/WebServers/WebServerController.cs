@@ -1047,11 +1047,10 @@ namespace FuseCP.EnterpriseServer
                 // clear binding left overs
                 WebServer web = new WebServer();
                 ServiceProviderProxy.Init(web, siteItem.ServiceId);
-                List<ServerBinding> newBindings = new List<ServerBinding>();
 
                 try
                 {
-                    web.UpdateSiteBindings(siteItem.SiteId, newBindings.ToArray(), true);
+                    web.UpdateSiteBindings(siteItem.SiteId, Array.Empty<ServerBinding>(), true);
                 }
                 catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
                 {

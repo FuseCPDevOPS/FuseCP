@@ -71,7 +71,6 @@ namespace FuseCP.Providers.DNS
 		public Collection<PSObject> RunPipeline( params Command[] pipelineCommands )
 		{
 			Log.WriteStart( "ExecuteShellCommand" );
-			List<object> errorList = new List<object>();
 
 			Collection<PSObject> results = null;
 			using( Pipeline pipeLine = runSpace.CreatePipeline() )
@@ -89,7 +88,6 @@ namespace FuseCP.Providers.DNS
 				{
 					foreach( object item in pipeLine.Error.ReadToEnd() )
 					{
-						errorList.Add( item );
 						string errorMessage = string.Format( "Invoke error: {0}", item );
 						Log.WriteWarning( errorMessage );
 					}

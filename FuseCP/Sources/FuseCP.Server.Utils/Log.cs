@@ -27,7 +27,12 @@ namespace FuseCP.Server.Utils
     public sealed class Log
     {
         private static readonly TraceSwitch logSeverity = new TraceSwitch("Log", "General trace switch");
-        private static readonly Regex SensitivePairRegex = new Regex("(?i)(password|pwd|token|apikey|secret|connectionstring)\\s*[=:]\\s*([^;\\s]+)", RegexOptions.Compiled);
+        private static readonly Regex SensitivePairRegex = new Regex(
+            @"(?i)(password|pwd|token|apikey|secret|connectionstring)\s*[=:]\s*([^;\s]+)",
+            RegexOptions.Compiled);
+        private static readonly Regex EmailRegex = new Regex(
+            @"\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b",
+            RegexOptions.Compiled);
 
         private static void TraceSwallowedException(Exception ex)
         {
@@ -190,7 +195,9 @@ namespace FuseCP.Server.Utils
             }
 
             string sanitized = input.Replace("\r", String.Empty).Replace("\n", " ");
-            return SensitivePairRegex.Replace(sanitized, "$1=[REDACTED]");
+            sanitized = SensitivePairRegex.Replace(sanitized, "$1=[REDACTED]");
+            sanitized = EmailRegex.Replace(sanitized, "[email]");
+            return sanitized;
         }
 
 

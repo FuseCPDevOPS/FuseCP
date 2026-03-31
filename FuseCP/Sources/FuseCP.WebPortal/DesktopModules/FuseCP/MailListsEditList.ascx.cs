@@ -32,7 +32,7 @@ namespace FuseCP.Portal
     public partial class MailListsEditList : FuseCPModuleBase
     {
         MailList item = null;
-    	private string listName = null;
+    	private readonly string listName = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {

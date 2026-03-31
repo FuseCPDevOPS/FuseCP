@@ -98,13 +98,11 @@ namespace FuseCP.Templates
 
         private static void TestLexer(string data)
         {
-            List<Token> tokens = new List<Token>();
             Lexer lex = new Lexer(data);
 
             while (true)
             {
                 Token token = lex.Next();
-                tokens.Add(token);
 
                 Debug.WriteLine(String.Format("{0} [{1},{2}]: {3}", token.TokenType, token.Line, token.Column, token.Data));
 

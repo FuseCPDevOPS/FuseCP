@@ -638,6 +638,10 @@ namespace FuseCP.EnterpriseServer
 
         public int BackupItem(string tempFolder, System.Xml.XmlWriter writer, ServiceProviderItem item, ResourceGroupInfo group)
         {
+            if (String.IsNullOrWhiteSpace(tempFolder))
+                throw new ArgumentException("Temp folder cannot be null or empty.", nameof(tempFolder));
+            tempFolder = Path.GetFullPath(tempFolder);
+
             if (item is HomeFolder)
             {
                 // backup home folder files

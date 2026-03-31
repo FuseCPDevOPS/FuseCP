@@ -140,18 +140,6 @@ namespace FuseCP.EnterpriseServer
         [WebMethod]
         public int DeleteOrganization(int itemId)
         {
-            // domain
-            List<string> domainsList = new List<string>();
-            List<OrganizationDomainName> domains = OrganizationController.GetOrganizationDomains(itemId);
-            foreach (OrganizationDomainName domain in domains)
-                domainsList.Add(domain.DomainName);
-
-            // users
-            List<string> usersList = new List<string>();
-            OrganizationUsersPaged users = OrganizationController.GetOrganizationUsersPaged(itemId, null, null, null, 0, 100000000);
-            foreach (OrganizationUser user in users.PageUsers)
-                usersList.Add(user.PrimaryEmailAddress);
-
             int res = OrganizationController.DeleteOrganization(itemId);
 
             return res;
