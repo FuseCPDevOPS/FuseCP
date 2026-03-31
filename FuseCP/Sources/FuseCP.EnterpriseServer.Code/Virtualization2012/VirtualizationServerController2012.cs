@@ -589,9 +589,10 @@ namespace FuseCP.EnterpriseServer
 
             // find required disk
             isoPath = Path.GetFileName(isoPath);
-            foreach (LibraryItem disk in disks.Where(disk => String.Compare(isoPath, disk.Path, true) == 0))
+            foreach (LibraryItem disk in disks)
             {
-                return disk;
+                if (String.Compare(isoPath, disk.Path, true) == 0)
+                    return disk;
             }
             return null;
         }
