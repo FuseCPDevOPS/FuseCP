@@ -27,7 +27,7 @@ namespace FuseCP.Portal.VPS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && Request["action"] == "inserted")
+            if (!IsPostBack && Request.QueryString["action"] == "inserted")
                 messageBox.ShowSuccessMessage("VPS_DVD_INSERTED");
 
             if (!IsPostBack)

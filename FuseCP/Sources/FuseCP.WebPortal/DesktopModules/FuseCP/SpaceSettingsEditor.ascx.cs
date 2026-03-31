@@ -32,7 +32,7 @@ namespace FuseCP.Portal
     {
         private string SettingsName
         {
-            get { return Request["SettingsName"]; }
+            get { return Request.QueryString["SettingsName"]; }
         }
 
         IPackageSettingsEditorControl ctlSettings;
@@ -142,7 +142,7 @@ namespace FuseCP.Portal
 
         private void LoadSettingsControl()
         {
-            string controlName = Request["SettingsControl"];
+            string controlName = Request.QueryString["SettingsControl"];
             if (!String.IsNullOrEmpty(controlName))
             {
                 string currPath = this.AppRelativeVirtualPath;

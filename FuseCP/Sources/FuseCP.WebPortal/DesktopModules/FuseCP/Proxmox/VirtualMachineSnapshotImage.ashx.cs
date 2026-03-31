@@ -33,8 +33,8 @@ namespace FuseCP.Portal.Proxmox
 		{
 			HttpRequest req = context.Request;
 
-			int itemId = Utils.ParseInt(req["ItemID"]);
-			string snapshotId = req["SnapshotID"];
+			int itemId = Utils.ParseInt(req.QueryString["ItemID"]);
+			string snapshotId = req.QueryString["SnapshotID"];
 
 			var image = ES.Services.Proxmox.GetSnapshotThumbnail(itemId, snapshotId,
 				 FuseCP.Providers.Virtualization.ThumbnailSize.Medium160x120);

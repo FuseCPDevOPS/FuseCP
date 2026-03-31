@@ -42,12 +42,12 @@ namespace FuseCP.Portal
                 searchBox.AddCriteria("Email", GetLocalizedString("SearchField.EMail"));
 
                 // set inital controls state from request
-                if (Request["FilterColumn"] != null)
-                    searchBox.FilterColumn = Request["FilterColumn"];
-                if (Request["FilterValue"] != null)
-                    searchBox.FilterValue = Request["FilterValue"];
-                if (Request["StatusID"] != null)
-                    Utils.SelectListItem(ddlStatus, Request["StatusID"]);
+                if (Request.QueryString["FilterColumn"] != null)
+                    searchBox.FilterColumn = Request.QueryString["FilterColumn"];
+                if (Request.QueryString["FilterValue"] != null)
+                    searchBox.FilterValue = Request.QueryString["FilterValue"];
+                if (Request.QueryString["StatusID"] != null)
+                    Utils.SelectListItem(ddlStatus, Request.QueryString["StatusID"]);
             }
             gvPackages.Columns[columChangedDate].Visible = false;
             //if (ddlStatus.SelectedValue != "1")
@@ -90,16 +90,16 @@ namespace FuseCP.Portal
             res.Append("PagedStored: 'NestedPackages'");
             res.Append(", RedirectUrl: '" + NavigateURL(PortalUtils.SPACE_ID_PARAM, "{0}").Substring(2) + "'");
 
-            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request["SpaceID"]) ? "0" : Request["SpaceID"]));
+            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request.QueryString["SpaceID"]) ? "0" : Request.QueryString["SpaceID"]));
             res.Append(", StatusID: $('#" + ddlStatus.ClientID + "').val()");
-            res.Append(", PlanID: " + (String.IsNullOrEmpty(Request["PlanID"]) ? "0" : Request["PlanID"]));
-            res.Append(", ServerID: " + (String.IsNullOrEmpty(Request["ServerID"]) ? "0" : Request["ServerID"]));
+            res.Append(", PlanID: " + (String.IsNullOrEmpty(Request.QueryString["PlanID"]) ? "0" : Request.QueryString["PlanID"]));
+            res.Append(", ServerID: " + (String.IsNullOrEmpty(Request.QueryString["ServerID"]) ? "0" : Request.QueryString["ServerID"]));
             return res.ToString();
         }
 
         protected void gvPackages_DataBound(object sender, EventArgs e)
         {
-            if (Request["StatusID"] == "1")
+            if (Request.QueryString["StatusID"] == "1")
             {
                 gvPackages.Columns[columChangedDate].Visible = false;
             }                

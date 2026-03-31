@@ -62,13 +62,13 @@ namespace FuseCP.Portal
                         GetSharedLocalizedString("ServiceItemType." + displayName),
                         dr["ItemTypeID"].ToString()));
 
-                    if (Request["ItemTypeID"] == dr["ItemTypeID"].ToString())
+                    if (Request.QueryString["ItemTypeID"] == dr["ItemTypeID"].ToString())
                         ItemTypeName = displayName;
                 }
 
                 // bind filter
-                Utils.SelectListItem(ddlItemType, Request["ItemTypeID"]);
-                tbSearch.Text = Request["Query"];
+                Utils.SelectListItem(ddlItemType, Request.QueryString["ItemTypeID"]);
+                tbSearch.Text = Request.QueryString["Query"];
             }
         }
 

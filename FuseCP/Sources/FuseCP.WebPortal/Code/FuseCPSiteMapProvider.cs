@@ -160,9 +160,8 @@ namespace FuseCP.WebPortal
 
             // find page
             PortalPage page = PortalConfiguration.Site.Pages[pid];
-            if (page != null)
+            if (page != null && page.ParentPage != null)
             {
-                if (page.ParentPage != null)
                     return CreateNodeFromPage(page.ParentPage);
             }
             return null;
@@ -235,7 +234,7 @@ namespace FuseCP.WebPortal
                 HttpContext currentContext = HttpContext.Current;
                 if (currentContext != null)
                 {
-                    return (currentContext.Request[PAGE_ID_PARAM] != null) ? currentContext.Request[PAGE_ID_PARAM] : "";
+                    return currentContext.Request.QueryString[PAGE_ID_PARAM] ?? "";
                 }
                 else
                 {

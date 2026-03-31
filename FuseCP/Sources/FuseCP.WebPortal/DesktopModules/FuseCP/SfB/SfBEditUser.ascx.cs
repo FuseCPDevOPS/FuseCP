@@ -77,17 +77,9 @@ namespace FuseCP.Portal.SfB
             if (enterpriseVoice)
             {
                 string[] pinPolicy = ES.Services.SfB.GetPolicyList(PanelRequest.ItemID, SfBPolicyType.Pin, "MinPasswordLength");
-                if (pinPolicy != null)
+                if (pinPolicy != null && pinPolicy.Length > 0)
                 {
-                    if (pinPolicy.Length > 0)
                     {
-                        int MinPasswordLength = -1;
-                        if (int.TryParse(pinPolicy[0], out MinPasswordLength))
-                        {
-                            PinRegularExpressionValidator.ValidationExpression = "^([0-9]){" + MinPasswordLength + ",}$";
-                            PinRegularExpressionValidator.ErrorMessage = "Must contain only numbers. Min. length " + MinPasswordLength;
-                        }
-                    }
                 }
             }
 

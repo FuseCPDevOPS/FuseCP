@@ -126,10 +126,8 @@ namespace FuseCP.Portal.ExchangeServer
                 }
 
                 IDictionary<string, ExchangeAccountType> newGroups = groups.GetFullAccounts();
-                foreach (ExchangeAccount oldGroup in oldGroups)
+                foreach (ExchangeAccount oldGroup in oldGroups.Where(oldGroup => !newGroups.Remove(oldGroup.AccountName)))
                 {
-                    if (!newGroups.Remove(oldGroup.AccountName))
-                    {
                         switch (oldGroup.AccountType)
                         {
                             case ExchangeAccountType.DistributionList:
@@ -139,7 +137,6 @@ namespace FuseCP.Portal.ExchangeServer
                                 ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
                                 break;
                         }
-                    }
                 }
 
                 foreach (KeyValuePair<string, ExchangeAccountType> newGroup in newGroups)

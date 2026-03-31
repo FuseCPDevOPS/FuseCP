@@ -78,14 +78,9 @@ namespace FuseCP.Portal.ProviderControls
             listHosts.DataBind();
             listHosts.Items.Insert(0, new ListItem(GetLocalizedString("listHosts.Text"), ""));
 
-            if (!String.IsNullOrEmpty(selectedItem))
+            if (!String.IsNullOrEmpty(selectedItem) && selItem != null)
             {
-                ListItem selItem = listHosts.Items.FindByText(selectedItem);
-
-                if (selItem != null)
-                {
                     selItem.Selected = true;
-                }
             }
         }
 

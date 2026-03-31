@@ -29,7 +29,7 @@ namespace FuseCP.Portal.VPS.RemoteDesktop
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            resolution.Text = Request["Resolution"];
+            resolution.Text = Request.QueryString["Resolution"];
 
             // load server info
             VirtualMachine vm = VirtualMachinesHelper.GetCachedVirtualMachine(PanelRequest.ItemID);

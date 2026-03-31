@@ -31,7 +31,7 @@ namespace FuseCP.Portal.HostedSolution
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string downloadFile = Request["DownloadFile"];
+            string downloadFile = Request.QueryString["DownloadFile"];
             if (downloadFile != null)
             {
                 // download file
@@ -314,14 +314,14 @@ namespace FuseCP.Portal.HostedSolution
             bool enable = !string.IsNullOrEmpty(serviceLevel.LevelName);
             string quotaKey = Quotas.SERVICE_LEVELS + serviceLevel.LevelName;
 
-            if (enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota))
-            {
-                enable = serviceLevelQuota.QuotaAllocatedValue != 0;
-            }
-            else
-            {
-                enable = false;
-            }
+            enable = enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) ? serviceLevelQuota.QuotaAllocatedValue != 0 : false;
+
+
+
+
+
+
+
 
             if (!enable)
             {

@@ -48,7 +48,7 @@ namespace FuseCP.Portal
                 gvFilesID.Text = gvFiles.ClientID;
             }
 
-            string downloadFile = Request["DownloadFile"];
+            string downloadFile = Request.QueryString["DownloadFile"];
             if (downloadFile != null)
             {
                 // download file

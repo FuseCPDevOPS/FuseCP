@@ -247,13 +247,9 @@ namespace FuseCP.Portal
                 tr.Controls.Add(col2);
                 tblQuotas.Controls.Add(tr);
 
-                if (stats != null)
+                if (stats != null && serviceLevel != null)
                 {
-                    var serviceLevel = stats.ServiceLevels.FirstOrDefault(q => q.QuotaName == quota.QuotaName);
-                    if (serviceLevel != null)
-                    {
                         quotaControl.QuotaAllocatedValue = serviceLevel.QuotaAllocatedValue;
-                    }
                 }
             }
         }

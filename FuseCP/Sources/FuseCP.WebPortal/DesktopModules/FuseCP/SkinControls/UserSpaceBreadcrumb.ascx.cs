@@ -110,7 +110,7 @@ namespace FuseCP.Portal.SkinControls
             }
 
             // organization
-            bool orgVisible = (PanelRequest.ItemID > 0 && Request[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_EXCHANGE_SERVER, StringComparison.InvariantCultureIgnoreCase));
+            bool orgVisible = (PanelRequest.ItemID > 0 && Request.QueryString[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_EXCHANGE_SERVER, StringComparison.InvariantCultureIgnoreCase));
 
             spanOrgn.Visible = orgVisible;
 
@@ -125,7 +125,7 @@ namespace FuseCP.Portal.SkinControls
                 lnkOrgn.Text = org.Name;
 
                 string curCtrlKey = PanelRequest.Ctl.ToLower();
-                string ctrlKey = PortalUtils.GetGeneralESControlKey(Request[DefaultPage.CONTROL_ID_PARAM].ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                string ctrlKey = PortalUtils.GetGeneralESControlKey(Request.QueryString[DefaultPage.CONTROL_ID_PARAM].ToLower(System.Globalization.CultureInfo.InvariantCulture));
 
                 if (curCtrlKey == "edit_user")
                 {
@@ -141,15 +141,9 @@ namespace FuseCP.Portal.SkinControls
                 if (!String.IsNullOrEmpty(ctrlKey))
                     definition.Controls.TryGetValue(ctrlKey, out control);
 
-                if (control != null)
+                if (control != null && !String.IsNullOrEmpty(control.Src))
                 {
-                    if (!String.IsNullOrEmpty(control.Src))
                     {
-                        lnkOrgCurPage.Text = PortalUtils.GetLocalizedString(DM_FOLDER_VIRTUAL_PATH + control.Src, PAGE_NANE_KEY);
-                        lnkOrgCurPage.NavigateUrl = PortalUtils.EditUrl(
-                            "ItemID", PanelRequest.ItemID.ToString(), ctrlKey,
-                            "SpaceID=" + PanelSecurity.PackageId);
-                    }
                 }
             }
         }

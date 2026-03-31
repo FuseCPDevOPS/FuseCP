@@ -81,24 +81,9 @@ namespace FuseCP.Portal
                 // load provider control
                 LoadProviderControl((int)ViewState["PackageId"], "Mail", providerControl, "EditForwarding.ascx");
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
-                    // bind item to controls
-                    if (item != null)
                     {
-                        // bind item to controls
-                        emailAddress.Email = item.Name;
-                        emailAddress.EditMode = true;
-
-                        txtForwardTo.Text = item.ForwardTo;
-
-                        // other controls
-                        if (providerControl.Controls.Count > 0)
-                        {
-                            IMailEditForwardingControl ctrl = (IMailEditForwardingControl)providerControl.Controls[0];
-                            ctrl.BindItem(item);
-                        }
-                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

@@ -237,14 +237,14 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
             bool enable = !string.IsNullOrEmpty(serviceLevel.LevelName);
             string quotaKey = Quotas.SERVICE_LEVELS + serviceLevel.LevelName;
 
-            if (enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota))
-            {
-                enable = serviceLevelQuota.QuotaAllocatedValue != 0;
-            }
-            else
-            {
-                enable = false;
-            }
+            enable = enable && cntx.Quotas.TryGetValue(quotaKey, out var serviceLevelQuota) ? serviceLevelQuota.QuotaAllocatedValue != 0 : false;
+
+
+
+
+
+
+
 
             if (!enable)
             {

@@ -51,12 +51,9 @@ namespace FuseCP.Portal
             {
                 UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-                if (user != null)
+                if (user != null && user.Role == UserRole.User)
                 {
-                    if (user.Role == UserRole.User)
                     {
-                        DomainLink.Enabled = !Utils.CheckQouta(Quotas.OS_NOTALLOWTENANTCREATEDOMAINS, cntx);
-                    }
                 }
             }
 

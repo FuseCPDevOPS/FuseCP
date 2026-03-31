@@ -8372,7 +8372,7 @@ namespace FuseCP.EnterpriseServer
 				if (item == null)
 					throw new InvalidOperationException($"Service item with id '{itemId}' was not found");
 
-				var packageId = item?.PackageId;
+				var packageId = item.PackageId;
 
 				if (!CheckActorPackageRights(actorId, packageId))
 					/// <summary>TODO</summary>

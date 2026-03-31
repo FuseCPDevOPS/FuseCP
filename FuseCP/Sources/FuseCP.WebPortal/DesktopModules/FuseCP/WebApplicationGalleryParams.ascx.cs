@@ -118,7 +118,7 @@ namespace FuseCP.Portal
             ddlWebSite.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectWebSite"), ""));
 
             // select site from query string parameter
-            string targetSite = HttpContext.Current.Request["SiteId"];
+            string targetSite = HttpContext.Current.Request.QueryString["SiteId"];
             if (!string.IsNullOrEmpty(targetSite))
             {
                 foreach (ListItem item in ddlWebSite.Items)
@@ -636,7 +636,7 @@ namespace FuseCP.Portal
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            string returnUrl = HttpContext.Current.Request["ReturnUrl"];
+            string returnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"];
             if (!string.IsNullOrEmpty(returnUrl))
             {
                 string redirectUrl = HttpUtility.UrlDecode(returnUrl);
@@ -651,7 +651,7 @@ namespace FuseCP.Portal
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
-            string returnUrl = HttpContext.Current.Request["ReturnUrl"];
+            string returnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"];
             if (!string.IsNullOrEmpty(returnUrl))
             {
                 string redirectUrl = HttpUtility.UrlDecode(returnUrl);

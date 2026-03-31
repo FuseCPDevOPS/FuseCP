@@ -82,11 +82,11 @@ namespace FuseCP.Portal
             DataSet ds = null;
 
             if (ServiceIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(Request[ServiceIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(Request.QueryString[ServiceIdParam], 0));
             else if (ServerIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(Request[ServerIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(Request.QueryString[ServerIdParam], 0));
             else if (PackageIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(Request[PackageIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(Request.QueryString[PackageIdParam], 0));
 
             if (ds != null)
             {
@@ -192,11 +192,11 @@ namespace FuseCP.Portal
             record.IpAddressId = ipAddress.AddressId;
 
             if (ServiceIdParam != null)
-                record.ServiceId = Utils.ParseInt(Request[ServiceIdParam], 0);
+                record.ServiceId = Utils.ParseInt(Request.QueryString[ServiceIdParam], 0);
             else if (ServerIdParam != null)
-                record.ServerId = Utils.ParseInt(Request[ServerIdParam], 0);
+                record.ServerId = Utils.ParseInt(Request.QueryString[ServerIdParam], 0);
             else if (PackageIdParam != null)
-                record.PackageId = Utils.ParseInt(Request[PackageIdParam], 0);
+                record.PackageId = Utils.ParseInt(Request.QueryString[PackageIdParam], 0);
 
             if (record.RecordId == 0)
             {

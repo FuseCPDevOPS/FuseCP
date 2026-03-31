@@ -36,8 +36,8 @@ namespace FuseCP.Portal.VPS
 
             HttpRequest req = context.Request;
 
-            int itemId = Utils.ParseInt(req["ItemID"]);
-            string snapshotId = req["SnapshotID"];
+            int itemId = Utils.ParseInt(req.QueryString["ItemID"]);
+            string snapshotId = req.QueryString["SnapshotID"];
 
             byte[] res = ES.Services.VPS.GetSnapshotThumbnail(itemId, snapshotId,
                 FuseCP.Providers.Virtualization.ThumbnailSize.Medium160x120);

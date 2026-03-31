@@ -53,7 +53,7 @@ namespace FuseCP.Portal
 			get
 			{
 				HttpRequest request = HttpContext.Current.Request;
-				string sSpaceId = request[PortalUtils.SPACE_ID_PARAM];
+				string sSpaceId = request.QueryString[PortalUtils.SPACE_ID_PARAM];
 				if (!String.IsNullOrEmpty(sSpaceId))
 				{
 					return ParseInt(sSpaceId, 0);
@@ -161,7 +161,7 @@ namespace FuseCP.Portal
 			get
 			{
 				HttpRequest request = HttpContext.Current.Request;
-				string sUserId = request[PortalUtils.USER_ID_PARAM];
+				string sUserId = request.QueryString[PortalUtils.USER_ID_PARAM];
 				if (!String.IsNullOrEmpty(sUserId))
 				{
 					return ParseInt(sUserId, 0);

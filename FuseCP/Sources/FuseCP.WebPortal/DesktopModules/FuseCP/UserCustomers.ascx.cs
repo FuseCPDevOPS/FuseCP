@@ -45,14 +45,14 @@ namespace FuseCP.Portal
 				searchBox.AddCriteria("CompanyName", GetLocalizedString("SearchField.CompanyName"));
 
 				// set inital controls state from request
-				if (Request["FilterColumn"] != null)
-					searchBox.FilterColumn = Request["FilterColumn"];
-				if (Request["FilterValue"] != null)
-					searchBox.FilterValue = Request["FilterValue"];
-				if (Request["StatusID"] != null)
-					Utils.SelectListItem(ddlStatus, Request["StatusID"]);
-				if (Request["RoleID"] != null)
-					Utils.SelectListItem(ddlRole, Request["RoleID"]);
+				if (Request.QueryString["FilterColumn"] != null)
+					searchBox.FilterColumn = Request.QueryString["FilterColumn"];
+				if (Request.QueryString["FilterValue"] != null)
+					searchBox.FilterValue = Request.QueryString["FilterValue"];
+				if (Request.QueryString["StatusID"] != null)
+					Utils.SelectListItem(ddlStatus, Request.QueryString["StatusID"]);
+				if (Request.QueryString["RoleID"] != null)
+					Utils.SelectListItem(ddlRole, Request.QueryString["RoleID"]);
 
 
                 gvUsers.Sort("Username", System.Web.UI.WebControls.SortDirection.Ascending);
@@ -121,7 +121,7 @@ namespace FuseCP.Portal
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'Users'");
             res.Append(", RedirectUrl: '" + NavigatePageURL(userHomePageId, PortalUtils.USER_ID_PARAM, "{0}").Substring(2) + "'");
-            res.Append(", UserID: " + (String.IsNullOrEmpty(Request["UserID"]) ? "0" : Request["UserID"]));
+            res.Append(", UserID: " + (String.IsNullOrEmpty(Request.QueryString["UserID"]) ? "0" : Request.QueryString["UserID"]));
             res.Append(", StatusID: $('#" + ddlStatus.ClientID + "').val()");
             res.Append(", RoleID: $('#" + ddlRole.ClientID + "').val()");
             res.Append(", Recursive: false");

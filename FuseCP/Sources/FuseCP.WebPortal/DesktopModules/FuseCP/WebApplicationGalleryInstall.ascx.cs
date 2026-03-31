@@ -113,12 +113,12 @@ namespace FuseCP.Portal
                 string url = EditUrl("ApplicationID", PanelRequest.ApplicationID, "editParams",
                                      "SpaceID=" + PanelSecurity.PackageId);
                 
-                string targetSite = HttpContext.Current.Request["SiteId"];
+                string targetSite = HttpContext.Current.Request.QueryString["SiteId"];
                 if (!string.IsNullOrEmpty(targetSite))
                 {
                     url += "&SiteId=" + targetSite;
                 }
-                string returnUrl = HttpContext.Current.Request["ReturnUrl"];
+                string returnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"];
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
                     url += "&ReturnUrl=" + Server.UrlEncode(returnUrl);
@@ -130,7 +130,7 @@ namespace FuseCP.Portal
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            string returnUrl = HttpContext.Current.Request["ReturnUrl"];
+            string returnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"];
             if (!string.IsNullOrEmpty(returnUrl))
             {
                 string redirectUrl = HttpUtility.UrlDecode(returnUrl);

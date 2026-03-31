@@ -49,14 +49,9 @@ namespace FuseCP.Portal.ExchangeServer
             groupsQuota.QuotaUsedValue = stats.CreatedGroups;
             groupsQuota.QuotaValue = stats.AllocatedGroups;
 
-            if (stats.AllocatedGroups != -1)
+            if (stats.AllocatedGroups != -1 && groupsAvailable <= 0)
             {
-                int groupsAvailable = groupsQuota.QuotaAvailable = stats.AllocatedGroups - stats.CreatedGroups;
-
-                if (groupsAvailable <= 0)
-                {
                     btnCreateGroup.Enabled = false;
-                }
             }
         }
 

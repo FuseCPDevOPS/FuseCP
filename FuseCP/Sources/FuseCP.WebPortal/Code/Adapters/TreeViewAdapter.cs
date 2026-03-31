@@ -128,7 +128,7 @@ namespace CSSFriendly
             TreeView treeView = Control as TreeView;
             if ((treeView != null) && (_viewState != null))
             {
-                if ((_viewState != null) && (Page != null) && (Page.Form != null) && (!Page.Form.Controls.Contains(_viewState)))
+                if ((Page != null) && (Page.Form != null) && (!Page.Form.Controls.Contains(_viewState)))
                 {
                     Panel panel = new Panel();
                     panel.Controls.Add(_viewState);

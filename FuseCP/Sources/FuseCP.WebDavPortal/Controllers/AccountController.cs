@@ -348,7 +348,7 @@ namespace FuseCP.WebDavPortal.Controllers
             }
 
 
-            if (accessToken != null && !(accessToken.IsSmsSent))
+            if (!(accessToken.IsSmsSent))
             {
                 return RedirectToRoute(AccountRouteNames.PasswordResetPincodeSendOptions);
             }

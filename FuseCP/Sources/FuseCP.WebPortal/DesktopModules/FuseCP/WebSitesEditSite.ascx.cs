@@ -109,10 +109,10 @@ namespace FuseCP.Portal
 
 			if (dlTabs.SelectedIndex == -1)
 			{
-				if (!IsPostBack && !(String.IsNullOrEmpty(Request["MenuID"])))
+				if (!IsPostBack && !(String.IsNullOrEmpty(Request.QueryString["MenuID"])))
 				{
 					// Find menu item requested
-					var st = filteredTabs.SingleOrDefault(x => x.Id.Equals(Request["MenuID"]));
+					var st = filteredTabs.SingleOrDefault(x => x.Id.Equals(Request.QueryString["MenuID"]));
 					//
 					if (st != null)
 					{
@@ -595,10 +595,8 @@ namespace FuseCP.Portal
 				// Enable empty publishing password confirmation for stylistic purposes
 				WDeployPublishingConfirmPasswordTextBox.Text = PasswordControl.EMPTY_PASSWORD;
 				WDeployPublishingConfirmPasswordTextBox.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
-			}
-			// Step 4: Publishing has been enabled and publishing profile has been built
-			if (item.WebDeploySitePublishingEnabled)
-			{
+
+				// Step 4: Publishing has been enabled and publishing profile has been built
 				// Enable controls
 				EnableControlsInBulk(PanelWDeployManagePublishingProfile);
 				// Save web site name as a command argument for the link

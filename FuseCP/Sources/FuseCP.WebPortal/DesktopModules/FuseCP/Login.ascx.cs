@@ -63,11 +63,11 @@ namespace FuseCP.Portal
 			get
 			{
 				string redirectUrl = "";
-				if (Request["returnurl"] != null)
+				if (Request.QueryString["returnurl"] != null)
 				{
 					// return to the url passed to signin
 					// redirectUrl = HttpUtility.UrlDecode(Request["returnurl"]);
-					redirectUrl = Request["ReturnUrl"];
+					redirectUrl = Request.QueryString["ReturnUrl"];
 					if (!IsLocalUrl(redirectUrl))
 					{
 						redirectUrl = PortalUtils.LoginRedirectUrl;
@@ -104,15 +104,15 @@ namespace FuseCP.Portal
 			txtPassword.Attributes["value"] = txtPassword.Text;
 
 			// autologin
-			string usr = Request["u"];
+			string usr = Request.QueryString["u"];
 			if (String.IsNullOrEmpty(usr))
-				usr = Request["user"];
+				usr = Request.QueryString["user"];
 
-			string psw = Request["p"];
+			string psw = Request.QueryString["p"];
 			if (String.IsNullOrEmpty(psw))
-				psw = Request["pwd"];
+				psw = Request.QueryString["pwd"];
 			if (String.IsNullOrEmpty(psw))
-				psw = Request["password"];
+				psw = Request.QueryString["password"];
 
 			if (!String.IsNullOrEmpty(usr) && !String.IsNullOrEmpty(psw))
 			{
@@ -409,7 +409,7 @@ namespace FuseCP.Portal
 			if (PanelSecurity.EffectiveUser.Role == UserRole.Administrator)
 				return; // not for administrators
 
-			string shortcut = Request["shortcut"];
+			string shortcut = Request.QueryString["shortcut"];
 			if ("vps".Equals(shortcut, StringComparison.InvariantCultureIgnoreCase))
 			{
 				// load hosting spaces

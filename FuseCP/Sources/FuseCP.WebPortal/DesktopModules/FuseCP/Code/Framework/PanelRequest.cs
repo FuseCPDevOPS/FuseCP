@@ -31,7 +31,7 @@ namespace FuseCP.Portal
         public static int GetInt(string key, int defaultValue)
         {
             int result = defaultValue;
-            try { result = Int32.Parse(HttpContext.Current.Request[key]); }
+            try { result = Int32.Parse(HttpContext.Current.Request.QueryString[key]); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 _ = ex;
@@ -47,7 +47,7 @@ namespace FuseCP.Portal
         public static bool GetBool(string key, bool defaultValue)
         {
             bool result = defaultValue;
-            try { result = bool.Parse(HttpContext.Current.Request[key]); }
+            try { result = bool.Parse(HttpContext.Current.Request.QueryString[key]); }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 _ = ex;
@@ -77,12 +77,12 @@ namespace FuseCP.Portal
 
         public static string PoolId
         {
-            get { return HttpContext.Current.Request["PoolID"]; }
+            get { return HttpContext.Current.Request.QueryString["PoolID"]; }
         }
 
         public static string DeviceId
         {
-            get { return HttpContext.Current.Request["DeviceID"]; }
+            get { return HttpContext.Current.Request.QueryString["DeviceID"]; }
         }
 
         public static int ServiceId
@@ -92,7 +92,7 @@ namespace FuseCP.Portal
 
         public static string TaskID
         {
-            get { return HttpContext.Current.Request["TaskID"]; }
+            get { return HttpContext.Current.Request.QueryString["TaskID"]; }
         }
 
         public static int GroupID
@@ -112,7 +112,7 @@ namespace FuseCP.Portal
 
         public static string Addresses
         {
-            get { return HttpContext.Current.Request["Addresses"]; }
+            get { return HttpContext.Current.Request.QueryString["Addresses"]; }
         }
 
         public static int ResourceID
@@ -167,49 +167,49 @@ namespace FuseCP.Portal
 
         public static string RecordID
         {
-            get { return HttpContext.Current.Request["RecordID"]; }
+            get { return HttpContext.Current.Request.QueryString["RecordID"]; }
         }
 
         public static string InstanceID
         {
-            get { return HttpContext.Current.Request["InstanceID"]; }
+            get { return HttpContext.Current.Request.QueryString["InstanceID"]; }
         }
 
 
         public static string VirtDir
         {
-            get { return HttpContext.Current.Request["VirtDir"] != null ? HttpContext.Current.Request["VirtDir"].Trim().Replace("__DOT__", ".") : ""; }
+            get { return HttpContext.Current.Request.QueryString["VirtDir"] != null ? HttpContext.Current.Request.QueryString["VirtDir"].Trim().Replace("__DOT__", ".") : ""; }
         }
 
         public static string Path
         {
-            get { return HttpContext.Current.Request["Path"] != null ? HttpContext.Current.Request["Path"] : ""; }
+            get { return HttpContext.Current.Request.QueryString["Path"] != null ? HttpContext.Current.Request.QueryString["Path"] : ""; }
         }
 
         public static string ApplicationID
         {
-            get { return HttpContext.Current.Request["ApplicationID"] != null ? HttpContext.Current.Request["ApplicationID"].Trim() : ""; }
+            get { return HttpContext.Current.Request.QueryString["ApplicationID"] != null ? HttpContext.Current.Request.QueryString["ApplicationID"].Trim() : ""; }
         }
 
         public static string Name
         {
-            get { return HttpContext.Current.Request["Name"] != null
-                ? HttpContext.Current.Request["Name"].Trim() : ""; }
+            get { return HttpContext.Current.Request.QueryString["Name"] != null
+                ? HttpContext.Current.Request.QueryString["Name"].Trim() : ""; }
         }
 
         public static string Context
         {
-            get { return HttpContext.Current.Request["Context"]; }
+            get { return HttpContext.Current.Request.QueryString["Context"]; }
         }
 
         public static string FolderID
         {
-            get { return HttpContext.Current.Request["FolderID"] ?? ""; }
+            get { return HttpContext.Current.Request.QueryString["FolderID"] ?? ""; }
         }
 
         public static string Ctl
         {
-            get { return HttpContext.Current.Request["ctl"] ?? ""; }
+            get { return HttpContext.Current.Request.QueryString["ctl"] ?? ""; }
         }
 
         public static int CollectionID

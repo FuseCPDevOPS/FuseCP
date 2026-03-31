@@ -128,24 +128,14 @@ namespace FuseCP.Portal.ExchangeServer
 
             spaceQuota.QuotaValue = (int)Math.Round(ConvertMBytesToGB(organizationStats.UsedEnterpriseStorageSpace), 0);
 
-            if (organizationStats.AllocatedEnterpriseStorageFolders != -1)
+            if (organizationStats.AllocatedEnterpriseStorageFolders != -1 && folderAvailable <= 0)
             {
-                int folderAvailable = foldersQuota.QuotaAvailable = organizationStats.AllocatedEnterpriseStorageFolders - organizationStats.CreatedEnterpriseStorageFolders;
-
-                if (folderAvailable <= 0)
-                {
                     btnAddFolder.Enabled = false;
-                }
             }
 
-            if (organizationStats.AllocatedEnterpriseStorageSpace != -1)
+            if (organizationStats.AllocatedEnterpriseStorageSpace != -1 && spaceAvailable <= 0)
             {
-                int spaceAvailable = spaceAvailableQuota.QuotaAvailable = organizationStats.AllocatedEnterpriseStorageSpace - organizationStats.UsedEnterpriseStorageSpace;
-
-                if (spaceAvailable <= 0)
-                {
                     btnAddFolder.Enabled = false;
-                }
             }
         }
 

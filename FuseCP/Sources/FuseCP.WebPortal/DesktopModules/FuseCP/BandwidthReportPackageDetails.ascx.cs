@@ -51,8 +51,8 @@ namespace FuseCP.Portal
             if (package == null)
                 RedirectToBrowsePage();
 
-            DateTime startDate = new DateTime(Int64.Parse(Request["StartDate"]));
-            DateTime endDate = new DateTime(Int64.Parse(Request["EndDate"]));
+            DateTime startDate = new DateTime(Int64.Parse(Request.QueryString["StartDate"]));
+            DateTime endDate = new DateTime(Int64.Parse(Request.QueryString["EndDate"]));
 
             litPeriod.Text = startDate.ToString("MMM dd, yyyy") +
                 " - " + endDate.ToString("MMM dd, yyyy");

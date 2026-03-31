@@ -108,7 +108,7 @@ namespace FuseCP.Portal.ProviderControls
 				if (moderators != null)
 					foreach (MailAccount account in moderators.Where(account => GetDomainName(account.Name) == domainName))
 					{
-							if (ddlListModerators != null) ddlListModerators.Items.Add(new ListItem(account.Name));
+							ddlListModerators.Items.Add(new ListItem(account.Name));
 					}
 
 				Utils.SelectListItem(ddlListModerators, selectedModerator);
@@ -123,7 +123,7 @@ namespace FuseCP.Portal.ProviderControls
 				if (moderators != null)
 					foreach (MailAccount account in moderators)
 					{
-						if (ddlListModerators != null) ddlListModerators.Items.Add(new ListItem(account.Name));
+						ddlListModerators.Items.Add(new ListItem(account.Name));
 					}
 
 				Utils.SelectListItem(ddlListModerators, selectedModerator);

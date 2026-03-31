@@ -109,52 +109,9 @@ namespace FuseCP.Portal
                     ToggleDriverControls(ddlDriver.SelectedValue);
                 }
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
-                    // bind item to controls
-                    if (item != null)
                     {
-                        // bind item to controls
-                        passwordControl.EditMode = true;
-                        fileLookup.PackageId = item.PackageId;
-                        dsnName.Text = item.Name;
-                        dsnName.EditMode = true;
-                        Utils.SelectListItem(ddlDriver, item.Driver);
-                        ddlDriver.Enabled = false;
-                        ddlDatabaseName.Enabled = false;
-                        ddlDatabaseUser.Enabled = false;
-
-                        ToggleDriverControls(ddlDriver.SelectedValue);
-
-                        // database
-                        string driverName = item.Driver;
-
-                        if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
-                        {
-                            // unselect currently selected item
-                            if (ddlDatabaseName.SelectedIndex != -1)
-                                ddlDatabaseName.SelectedItem.Selected = false;
-
-                            foreach (ListItem li in ddlDatabaseName.Items)
-                            {
-                                if (li.Value.StartsWith(item.DatabaseName + "|"))
-                                {
-                                    li.Selected = true;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                            fileLookup.SelectedFile = item.DatabaseName;
-
-                        // user
-                        if (driverName == "MsAccess")
-                            txtUser.Text = item.DatabaseUser;
-                        if (driverName == "MsAccess2010")
-                            txtUser.Text = item.DatabaseUser;
-                        else
-                            Utils.SelectListItem(ddlDatabaseUser, item.DatabaseUser);
-                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -255,10 +212,10 @@ namespace FuseCP.Portal
             string driverName = ddlDriver.SelectedValue;
             local_item.Driver = driverName;
 
-            if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
-                local_item.DatabaseName = ddlDatabaseName.SelectedValue;
-            else
-                local_item.DatabaseName = fileLookup.SelectedFile;
+            local_item.DatabaseName = driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB" ? ddlDatabaseName.SelectedValue : fileLookup.SelectedFile;
+
+
+
 
             // user
             if (driverName == "MsAccess")

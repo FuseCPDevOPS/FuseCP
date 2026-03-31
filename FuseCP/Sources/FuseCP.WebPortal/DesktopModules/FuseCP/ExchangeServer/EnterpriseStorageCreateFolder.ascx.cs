@@ -50,14 +50,9 @@ namespace FuseCP.Portal.ExchangeServer
                     rangeFolderSize.ErrorMessage = string.Format("The quota you've entered exceeds the available quota for organization ({0}Gb)", rangeFolderSize.MaximumValue);
                 }
 
-                if (organizationStats.AllocatedGroups != -1)
+                if (organizationStats.AllocatedGroups != -1 && groupsAvailable <= 0)
                 {
-                    int groupsAvailable = organizationStats.AllocatedGroups - organizationStats.CreatedGroups;
-
-                    if (groupsAvailable <= 0)
-                    {
                         chkAddDefaultGroup.Enabled = false;
-                    }
                 }
             }
         }

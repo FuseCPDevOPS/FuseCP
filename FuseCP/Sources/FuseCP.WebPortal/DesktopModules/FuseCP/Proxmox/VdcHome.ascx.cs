@@ -176,7 +176,7 @@ namespace FuseCP.Portal.Proxmox
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'VirtualMachines'");
             res.Append(", RedirectUrl: '" + GetServerEditUrl("{0}").Substring(2) + "'");
-            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request["SpaceID"]) ? "0" : Request["SpaceID"]));
+            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request.QueryString["SpaceID"]) ? "0" : Request.QueryString["SpaceID"]));
             res.Append(", Recursive: true");
             res.Append(", VPSTypeID: 'Proxmox'");
             return res.ToString();

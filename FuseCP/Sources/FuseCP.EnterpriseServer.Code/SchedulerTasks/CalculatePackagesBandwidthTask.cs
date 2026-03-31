@@ -151,8 +151,6 @@ namespace FuseCP.EnterpriseServer
 			{
 				CultureInfo culture = CultureInfo.InvariantCulture;
 
-				if (itemsBandwidth != null)
-				{
                     foreach (ServiceProviderItemBandwidth item in itemsBandwidth.Where(item => item != null && item.Days != null))
                     {
                             foreach (DailyStatistics day in item.Days)
@@ -164,7 +162,6 @@ namespace FuseCP.EnterpriseServer
                                     .Append(" received=\"").Append(day.BytesReceived).Append("\"")
                                     .Append("></item>\n");
                             }
-                    }
 				}
 			}
 

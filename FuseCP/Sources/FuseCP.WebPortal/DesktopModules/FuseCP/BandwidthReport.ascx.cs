@@ -46,10 +46,10 @@ namespace FuseCP.Portal
             if (!IsPostBack)
             {                
                 // set start date
-                if (Request["StartDate"] != null)
+                if (Request.QueryString["StartDate"] != null)
                 {
-                    calStartDate.SelectedDate = new DateTime(Int64.Parse(Request["StartDate"]));
-                    calEndDate.SelectedDate = new DateTime(Int64.Parse(Request["EndDate"]));
+                    calStartDate.SelectedDate = new DateTime(Int64.Parse(Request.QueryString["StartDate"]));
+                    calEndDate.SelectedDate = new DateTime(Int64.Parse(Request.QueryString["EndDate"]));
                 }
                 else
                 {

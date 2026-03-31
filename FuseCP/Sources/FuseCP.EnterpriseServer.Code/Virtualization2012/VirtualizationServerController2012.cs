@@ -20,6 +20,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using FuseCP.Server.Client;
@@ -589,10 +590,9 @@ namespace FuseCP.EnterpriseServer
 
             // find required disk
             isoPath = Path.GetFileName(isoPath);
-            foreach (LibraryItem disk in disks)
+            foreach (LibraryItem disk in disks.Where(disk => String.Compare(isoPath, disk.Path, true) == 0))
             {
-                if (String.Compare(isoPath, disk.Path, true) == 0)
-                    return disk;
+                return disk;
             }
             return null;
         }

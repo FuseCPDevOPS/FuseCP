@@ -430,7 +430,7 @@ namespace FuseCP.Portal.VPS2012
             listVlanLists.Visible = !emptyIps && (listVlanLists.Items.Count > 2); //First is fake ("Select Vlan")
             if (!emptyIps && (listVlanLists.Items.Count > 2))
             {
-                tableExternalNetwork.Visible = !emptyIps && (Convert.ToInt32(listVlanLists.SelectedValue) >= 0);
+                tableExternalNetwork.Visible = Convert.ToInt32(listVlanLists.SelectedValue) >= 0;
                 //TODO: set the first possible VLAN?
             }
             else

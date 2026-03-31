@@ -60,7 +60,7 @@ namespace FuseCP.WebPortal
 
 		public string EditUrl(string keyName, string keyValue, string controlKey, params string[] additionalParams)
 		{
-            return EditUrlStat(Request[DefaultPage.PAGE_ID_PARAM], ModuleID, keyName, keyValue, controlKey, additionalParams);
+            return EditUrlStat(Request.QueryString[DefaultPage.PAGE_ID_PARAM], ModuleID, keyName, keyValue, controlKey, additionalParams);
 		}
 
         public static string EditUrlStat(string pageId, int ModuleID, string keyName, string keyValue, string controlKey, string[] additionalParams)

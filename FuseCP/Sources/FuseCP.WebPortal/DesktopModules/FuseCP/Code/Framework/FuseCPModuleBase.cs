@@ -248,16 +248,9 @@ namespace FuseCP.Portal
             {
                 string exceptionKey = null;
                 //
-                if (ex != null)
+                if (ex != null && (!String.IsNullOrEmpty(ex.Message) && ex.Message.Contains("FuseCP_ERROR")))
                 {
-                    if (!String.IsNullOrEmpty(ex.Message) && ex.Message.Contains("FuseCP_ERROR"))
                     {
-                        string[] messageParts = ex.Message.Split(new char[] { '@' });
-                        if (messageParts.Length > 1)
-                        {
-                            exceptionKey = messageParts[1].TrimStart(new char[] { ' ' });
-                        }
-                    }
                 }
                 string localizedMessage = GetSharedLocalizedString(moduleName, "Error." + exceptionKey);
                 string localizedDescription = GetSharedLocalizedString(moduleName, "ErrorDescription." + exceptionKey);

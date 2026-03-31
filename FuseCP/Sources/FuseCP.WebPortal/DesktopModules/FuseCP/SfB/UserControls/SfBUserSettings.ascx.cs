@@ -33,7 +33,7 @@ namespace FuseCP.Portal.SfB.UserControls
             {
                 if (ddlSipAddresses != null && ddlSipAddresses.Visible)
                 {
-                    return (ddlSipAddresses != null) && (ddlSipAddresses.SelectedItem != null) ? ddlSipAddresses.SelectedItem.Value : string.Empty;
+                    return ddlSipAddresses.SelectedItem != null ? ddlSipAddresses.SelectedItem.Value : string.Empty;     
 
 
 
@@ -49,7 +49,7 @@ namespace FuseCP.Portal.SfB.UserControls
 
                 if (ddlSipAddresses != null && ddlSipAddresses.Visible)
                 {
-                    if ((ddlSipAddresses != null) && (ddlSipAddresses.Items != null))
+                    if (ddlSipAddresses.Items != null)
                     {
                         foreach (ListItem li in ddlSipAddresses.Items)
                         {

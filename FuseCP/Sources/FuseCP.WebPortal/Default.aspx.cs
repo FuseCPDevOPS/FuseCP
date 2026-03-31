@@ -174,7 +174,7 @@ namespace FuseCP.WebPortal
         {
             get
             {
-                string pid = Request[PAGE_ID_PARAM];
+                string pid = Request.QueryString[PAGE_ID_PARAM];
                 if (pid == null)
                 {
                     // get default page
@@ -188,7 +188,7 @@ namespace FuseCP.WebPortal
         {
             get
             {
-                string ctl = Request[CONTROL_ID_PARAM];
+                string ctl = Request.QueryString[CONTROL_ID_PARAM];
                 if (ctl == null)
                 {
                     ctl = "";
@@ -201,7 +201,7 @@ namespace FuseCP.WebPortal
         {
             get
             {
-                string smid = Request[MODULE_ID_PARAM];
+                string smid = Request.QueryString[MODULE_ID_PARAM];
                 if (smid == null)
                 {
                     smid = "0";

@@ -21,6 +21,7 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Linq;
 #if NETFRAMEWORK
 using System.Web;
 #endif
@@ -132,10 +133,9 @@ public class FilesController: ControllerBase
         List<SystemFile> filteredFiles = new List<SystemFile>();
         SystemFile[] files = os.GetFiles(fullPath);
 
-        foreach (SystemFile file in files)
+        foreach (SystemFile file in files.Where(file => file.IsDirectory || includeFiles))
         {
-            if (file.IsDirectory || includeFiles)
-                filteredFiles.Add(file);
+            filteredFiles.Add(file);
         }
         
         return filteredFiles;

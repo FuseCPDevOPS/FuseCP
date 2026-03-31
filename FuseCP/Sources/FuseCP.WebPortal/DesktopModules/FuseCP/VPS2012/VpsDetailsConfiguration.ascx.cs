@@ -29,7 +29,7 @@ namespace FuseCP.Portal.VPS2012
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && Request["action"] == "changed")
+            if (!IsPostBack && Request.QueryString["action"] == "changed")
                 messageBox.ShowSuccessMessage("VPS_CHANGE_VM_CONFIGURATION");
 
             secHddQOS.Visible = QOSManag.Visible = PanelSecurity.EffectiveUser.Role != UserRole.User;

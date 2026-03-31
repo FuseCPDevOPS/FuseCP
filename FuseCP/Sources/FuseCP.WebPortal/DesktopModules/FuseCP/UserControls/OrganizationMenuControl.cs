@@ -220,13 +220,9 @@ namespace FuseCP.Portal.UserControls
                 PackageId = Convert.ToInt32(Session["currentPackage"]);
             }
             System.Data.DataTable l_OrgTable;
-            if (PackageId > 0 && ItemID == 0)
+            if (PackageId > 0 && ItemID == 0 && l_OrgTable.Rows.Count > 0)
             {
-                l_OrgTable = new OrganizationsHelper().GetOrganizations(PackageId, false);
-                if (l_OrgTable.Rows.Count > 0)
-                {
                     ItemID = Convert.ToInt32(l_OrgTable.Rows[0]["ItemID"]);
-                }
             }
             if ((PackageId <= 0) || (ItemID <= 0))
                 return;

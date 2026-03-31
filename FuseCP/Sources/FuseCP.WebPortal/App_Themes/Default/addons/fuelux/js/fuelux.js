@@ -7434,6 +7434,7 @@
 				var timeSplit = time.split( ':' );
 
 				function z( n ) {
+				void z;
 					return ( n < 10 ? '0' : '' ) + n;
 				}
 

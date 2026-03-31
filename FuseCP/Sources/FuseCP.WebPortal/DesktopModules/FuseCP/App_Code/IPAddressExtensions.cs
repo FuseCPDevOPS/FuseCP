@@ -78,7 +78,7 @@ namespace Knom.Helpers.Net
         public static string ReturnSubnetmask(String ipaddress)
         {
             uint firstOctet = ReturnFirtsOctet(ipaddress);
-            if (firstOctet >= 0 && firstOctet <= 127)
+            if (firstOctet <= 127)
                 return "255.0.0.0";
             else if (firstOctet >= 128 && firstOctet <= 191)
                 return "255.255.0.0";

@@ -36,7 +36,7 @@ namespace FuseCP.Portal
                 int itemId = ViewState["ItemId"] is int viewStateItemId ? viewStateItemId : -1;
                 if (itemId == -1 && RequestItemId != null)
                 {
-                        itemId = Utils.ParseInt(Request[RequestItemId], -1);
+                        itemId = Utils.ParseInt(Request.QueryString[RequestItemId], -1);
                 }
 
                 return itemId;

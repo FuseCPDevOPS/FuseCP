@@ -76,25 +76,15 @@ namespace FuseCP.Portal
             }
 
             string selectedTaskId = HttpContext.Current.Request.Params[this.ddlTaskType.UniqueID];
-            if (!IsPostBack)
+            if (!IsPostBack && PanelRequest.ScheduleID != 0)
             {
-                if (PanelRequest.ScheduleID != 0)
                 {
-                    ScheduleInfo sc = ES.Services.Scheduler.GetSchedule(PanelRequest.ScheduleID);
-                    if (sc != null)
-                    {
-                        selectedTaskId = sc.TaskId;
-                    }
-                }
             }
 
             List<string> tasksListToLoad = new List<string>(taskIdsToLoad.Split(new char[] { ';' }));
-            if (!String.IsNullOrEmpty(selectedTaskId))
+            if (!String.IsNullOrEmpty(selectedTaskId) && !tasksListToLoad.Contains(selectedTaskId))
             {
-                if (!tasksListToLoad.Contains(selectedTaskId))
                 {
-                    tasksListToLoad.Add(selectedTaskId);
-                }
             }
 
             foreach (string taskId in tasksListToLoad)

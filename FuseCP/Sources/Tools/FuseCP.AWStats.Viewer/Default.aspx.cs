@@ -34,18 +34,18 @@ namespace FuseCP.AWStats.Viewer
     {
         private void Page_Load(object sender, EventArgs e)
         {
-            string username = Request["username"];
-            string password = Request["password"];
+            string username = Request.Form["username"] ?? Request.QueryString["username"];
+            string password = Request.Form["password"] ?? Request.QueryString["password"];
 
             if (Request.IsAuthenticated)
             {
                 string identity = Context.User.Identity.Name;
                 string domain = identity.Split('=')[0];
                 
-                if (String.Compare(Request["config"], domain, true) != 0)
+                if (String.Compare(Request.QueryString["config"], domain, true) != 0)
                 {
                     FormsAuthentication.SignOut();
-                    domain = Request["domain"];
+                    domain = Request.QueryString["domain"];
                     if (!String.IsNullOrEmpty(domain)
                         && !String.IsNullOrEmpty(username)
                         && !String.IsNullOrEmpty(password))
@@ -86,10 +86,10 @@ namespace FuseCP.AWStats.Viewer
             
                 if (!IsPostBack)
                 {
-                    string domain = Request["domain"];
+                    string domain = Request.QueryString["domain"];
 
                     if (String.IsNullOrEmpty(domain))
-                        domain = Request["config"];
+                        domain = Request.QueryString["config"];
 
                     txtDomain.Text = domain;
 

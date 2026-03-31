@@ -247,9 +247,9 @@ if (dnsRecords.TryGetValue(domainId, out var _ckv))
         {
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'Domains'");
-            res.Append(", RedirectUrl: '" + GetItemEditUrl(Request["SpaceID"] ?? "-1", "{0}").Substring(2) + "'");
-            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request["SpaceID"]) ? "-1" : Request["SpaceID"]));
-            res.Append(", ServerID: " + (String.IsNullOrEmpty(Request["ServerID"]) ? "0" : Request["ServerID"]));
+            res.Append(", RedirectUrl: '" + GetItemEditUrl(Request.QueryString["SpaceID"] ?? "-1", "{0}").Substring(2) + "'");
+            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request.QueryString["SpaceID"]) ? "-1" : Request.QueryString["SpaceID"]));
+            res.Append(", ServerID: " + (String.IsNullOrEmpty(Request.QueryString["ServerID"]) ? "0" : Request.QueryString["ServerID"]));
             res.Append(", Recursive: ($('#" + chkRecursive.ClientID + "').val() == 'on')");
             return res.ToString();
         }

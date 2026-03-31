@@ -32,8 +32,8 @@ namespace FuseCP.Portal
         {
             if (!IsPostBack)
             {
-                Utils.SelectListItem(ddlFilterColumn, Request["Criteria"]);
-                tbSearch.Text = Request["Query"];
+                Utils.SelectListItem(ddlFilterColumn, Request.QueryString["Criteria"]);
+                tbSearch.Text = Request.QueryString["Query"];
             }
         }
 

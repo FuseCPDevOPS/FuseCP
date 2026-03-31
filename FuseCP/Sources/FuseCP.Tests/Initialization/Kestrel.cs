@@ -159,7 +159,7 @@ namespace FuseCP.Tests
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
-				if (process != null && !process.HasExited)
+				if (!process.HasExited)
 				{
 					process.Kill();
 				}

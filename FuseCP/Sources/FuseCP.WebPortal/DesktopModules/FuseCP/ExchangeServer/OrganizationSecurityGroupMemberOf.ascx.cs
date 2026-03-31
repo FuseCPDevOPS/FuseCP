@@ -138,12 +138,9 @@ namespace FuseCP.Portal.HostedSolution
 
                 IDictionary<string, ExchangeAccountType> newGroups = groups.GetFullAccounts();
 
-                foreach (ExchangeAccount oldGroup in oldGroups)
+                foreach (ExchangeAccount oldGroup in oldGroups.Where(oldGroup => !newGroups.Remove(oldGroup.AccountName)))
                 {
-                    if (!newGroups.Remove(oldGroup.AccountName))
-                    {
                         ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
-                    }
                 }
 
                 foreach (KeyValuePair<string, ExchangeAccountType> newGroup in newGroups)

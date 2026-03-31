@@ -57,7 +57,7 @@ namespace FuseCP.Portal.VPSForPC
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'PackagePrivateIPAddresses'");
             res.Append(", RedirectUrl: '" + GetServerEditUrl("{0}").Substring(2) + "'");
-            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request["SpaceID"]) ? "0" : Request["SpaceID"]));
+            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request.QueryString["SpaceID"]) ? "0" : Request.QueryString["SpaceID"]));
             res.Append(", VPSTypeID: 'VPSForPC'");
             return res.ToString();
         }

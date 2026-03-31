@@ -45,7 +45,7 @@ namespace FuseCP.Portal
         {
             get
             {
-                return Request["SettingsName"].ToLower().Contains("retentionpolicy");
+                return Request.QueryString["SettingsName"].ToLower().Contains("retentionpolicy");
             }
         }
 

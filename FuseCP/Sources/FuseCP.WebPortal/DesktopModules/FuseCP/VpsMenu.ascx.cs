@@ -29,8 +29,8 @@ namespace FuseCP.Portal
         protected void Page_Load(object sender, EventArgs e)
         {
             // organization
-            bool vpsVisible = (Request[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_VPS, StringComparison.InvariantCultureIgnoreCase) ||
-                                Request[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_PROXMOX, StringComparison.InvariantCultureIgnoreCase));
+            bool vpsVisible = (Request.QueryString[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_VPS, StringComparison.InvariantCultureIgnoreCase) ||
+                                Request.QueryString[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_PROXMOX, StringComparison.InvariantCultureIgnoreCase));
 
             vpsMenu.Visible = vpsVisible;
             if (vpsVisible)

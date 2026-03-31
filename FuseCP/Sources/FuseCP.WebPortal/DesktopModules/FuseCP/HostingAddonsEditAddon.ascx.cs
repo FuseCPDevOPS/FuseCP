@@ -23,7 +23,7 @@ namespace FuseCP.Portal
     {
 		protected bool ShouldCopyCurrentHostingAddon()
 		{
-			return (HttpContext.Current.Request["TargetAction"] == "Copy");
+			return (HttpContext.Current.Request.QueryString["TargetAction"] == "Copy");
 		}
 
         protected void Page_Load(object sender, EventArgs e)

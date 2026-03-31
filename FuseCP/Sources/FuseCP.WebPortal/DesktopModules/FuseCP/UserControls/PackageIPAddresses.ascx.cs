@@ -176,7 +176,7 @@ namespace FuseCP.Portal.UserControls
             StringBuilder res = new StringBuilder();
             res.Append("PagedStored: 'PackageIPAddresses'");
             res.Append(", RedirectUrl: '" + GetItemEditUrl("{0}").Substring(2) + "'");
-            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request["SpaceID"]) ? "0" : Request["SpaceID"]));
+            res.Append(", PackageID: " + (String.IsNullOrEmpty(Request.QueryString["SpaceID"]) ? "0" : Request.QueryString["SpaceID"]));
             res.Append(", OrgID: 0");
             res.Append(", PoolID: " + Pool != null ? Pool.ToString() : "0");
             res.Append(", Recursive: true");

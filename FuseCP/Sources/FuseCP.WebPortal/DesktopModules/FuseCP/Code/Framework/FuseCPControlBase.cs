@@ -234,10 +234,9 @@ namespace FuseCP.Portal
 		{
 			if (excludeControls != null)
 			{
-				foreach (Control exCtrl in excludeControls)
+				foreach (Control exCtrl in excludeControls.Where(exCtrl => ctrl == exCtrl))
 				{
-					if (ctrl == exCtrl)
-						return;
+					return;
 				}
 			}
 

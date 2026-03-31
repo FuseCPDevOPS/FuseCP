@@ -423,7 +423,7 @@ public class PortalUtils
 
 	public static string GetCurrentPageId()
 	{
-		return HttpContext.Current.Request["pid"];
+		return HttpContext.Current.Request.QueryString["pid"];
 	}
 
 	public static bool PageExists(string pageId)
@@ -1064,7 +1064,7 @@ public class PortalUtils
 
 	public static string NavigateURL(string keyName, string keyValue, params string[] additionalParams)
 	{
-		return NavigatePageURL(HttpContext.Current.Request[DefaultPage.PAGE_ID_PARAM], keyName, keyValue, additionalParams);
+		return NavigatePageURL(HttpContext.Current.Request.QueryString[DefaultPage.PAGE_ID_PARAM], keyName, keyValue, additionalParams);
 	}
 
 	public static string NavigatePageURL(string pageId, string keyName, string keyValue, params string[] additionalParams)
@@ -1148,7 +1148,7 @@ public class PortalUtils
 	{
 		List<string> url = new List<string>();
 
-		string pageId = HttpContext.Current.Request[DefaultPage.PAGE_ID_PARAM];
+		string pageId = HttpContext.Current.Request.QueryString[DefaultPage.PAGE_ID_PARAM];
 
 		if (!String.IsNullOrEmpty(pageId))
 			url.Add(String.Concat(DefaultPage.PAGE_ID_PARAM, "=", pageId));

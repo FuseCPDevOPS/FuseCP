@@ -53,14 +53,9 @@ namespace FuseCP.Portal
 
         private void BindServer()
         {
-            if (ServerName == null)
+            if (ServerName == null && server != null)
             {
-                // try to load server by server id
-                ServerInfo server = ES.Services.Servers.GetServerShortDetails(ServerId);
-                if (server != null)
-                {
                     ServerName = server.ServerName;
-                }
             }
 
             // load server details

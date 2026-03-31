@@ -120,7 +120,7 @@ namespace FuseCP.Portal
             {
                 // get addresses by Server
                 if (serverIdParam != null)
-                    serverId = Utils.ParseInt(Request[serverIdParam], 0);
+                    serverId = Utils.ParseInt(Request.QueryString[serverIdParam], 0);
 
                 ips = ES.Services.Servers.GetIPAddresses(IPAddressPool.General, serverId);
             }
