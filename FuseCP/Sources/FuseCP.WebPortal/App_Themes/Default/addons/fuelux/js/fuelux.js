@@ -71,6 +71,7 @@
 			setInitialState: function() {
 				var $chk = this.$chk;
 				var $lbl = this.$label;
+				void $lbl;
  // removed useless expression (CodeQL): $lbl;
 
 				// get current state of input
@@ -86,6 +87,7 @@
 				var $chk = element;
 				var $lbl = this.$label;
 				var $container = this.$container;
+				void $container;
  // removed useless expression (CodeQL): $container;
 				var $containerToggle = this.$toggleContainer;
 
@@ -111,6 +113,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $chk = element;
+				void $chk;
  // removed useless expression (CodeQL): $chk;
 				var $lbl = this.$label;
 
@@ -2092,6 +2095,7 @@
 			setInitialState: function() {
 				var $radio = this.$radio;
 				var $lbl = this.$label;
+				void $lbl;
  // removed useless expression (CodeQL): $lbl;
 
 				// get current state of input
@@ -2144,6 +2148,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $radio = element;
+				void $radio;
  // removed useless expression (CodeQL): $radio;
 				var $lbl = this.$label;
 
@@ -3678,6 +3683,7 @@
 			// element is not currently selected
 			if ( selected.$elements[ 0 ] !== clicked.$element[ 0 ] ) {
 				var clearedElements = self.deselectAll( self.$element );
+				void clearedElements;
  // removed useless expression (CodeQL): clearedElements;
 				styleNodeSelected( clicked.$element, clicked.$icon );
 				// set event data
@@ -4455,6 +4461,7 @@
 
 			items: function() {
 				var self = this;
+				void self;
  // removed useless expression (CodeQL): self;
 
 				return this.$pillGroup.children( '.pill' ).map( function() {
@@ -4464,6 +4471,7 @@
 
 			itemClicked: function( e ) {
 				var self = this;
+				void self;
  // removed useless expression (CodeQL): self;
 				var $target = $( e.target );
 				var $item;
@@ -4667,6 +4675,7 @@
 					$.each( items, function( i, item ) {
 						var $item = $( item.el );
 						var $neighbor;
+						void $neighbor;
  // removed useless expression (CodeQL): $neighbor;
 
 						$item.attr( 'data-value', item.value );
@@ -4996,6 +5005,7 @@
 
 			_openSuggestions: function( e, data ) {
 				var markup = '';
+				void markup;
  // removed useless expression (CodeQL): markup;
 				var $suggestionList = $( '<ul>' );
 
@@ -7845,6 +7855,7 @@
 			_parseStartDateTime: function( startTimeISO8601 ) {
 				var startTime = {};
 				var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
+				void startDate;
  // removed useless expression (CodeQL): startDate;
 
 				startTime.time24HourFormat = startTimeISO8601.split( '+' )[ 0 ].split( '-' )[ 0 ];

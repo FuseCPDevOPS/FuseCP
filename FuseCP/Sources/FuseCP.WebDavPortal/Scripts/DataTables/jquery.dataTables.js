@@ -2412,6 +2412,7 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
+		void nTd;
  // removed useless expression (CodeQL): nTd;
 		var columns = oSettings.aoColumns;
 	
@@ -3402,12 +3403,14 @@
 		}
 	
 		var i, iLen, n;
+		void i;
  // removed useless expression (CodeQL): i;
 		var anRows = [];
 		var iRowCount = 0;
 		var asStripeClasses = oSettings.asStripeClasses;
 		var iStripes = asStripeClasses.length;
 		var iOpenRows = oSettings.aoOpenRows.length;
+		void iOpenRows;
  // removed useless expression (CodeQL): iOpenRows;
 		var oLang = oSettings.oLanguage;
 		var iInitDisplayStart = oSettings.iInitDisplayStart;
@@ -4208,6 +4211,7 @@
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
+			void n;
  // removed useless expression (CodeQL): n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
@@ -7869,6 +7873,7 @@
 		var run = function ( sel ) {
 			var selInt = _intVal( sel );
 			var i, ien;
+			void i;
  // removed useless expression (CodeQL): i;
 	
 			// Short cut - selector is a number and no options provided (default is
@@ -9292,6 +9297,7 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
+			void i;
  // removed useless expression (CodeQL): i;
 	
 			// Flag to note that the table is currently being destroyed - no action

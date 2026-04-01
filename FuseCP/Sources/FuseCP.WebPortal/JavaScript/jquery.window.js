@@ -184,6 +184,7 @@ $.Window = (function()  {
 	
 	function checkMinWindowSize(parent, bPush) {
 		var bAdjust = false;
+		void bAdjust;
  // removed useless expression (CodeQL): bAdjust;
 		var rect = null;
 		var mwdata = minWinData;

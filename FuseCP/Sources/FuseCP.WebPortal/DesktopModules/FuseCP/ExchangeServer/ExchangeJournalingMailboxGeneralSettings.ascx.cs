@@ -45,15 +45,9 @@ namespace FuseCP.Portal.ExchangeServer
 
                 UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
 
-                if (user != null)
+                if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
                 {
-                    
-                    if ((user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, Cntx)))
                     {
-                        chkHideAddressBook.Visible = false;
-                        chkDisable.Visible = false;
-                    }
-
                 }
 
                 if (GetLocalizedString("buttonPanel.OnSaveClientClick") != null)

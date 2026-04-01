@@ -74,6 +74,7 @@ $.extend( DataTable.ext.classes, {
 DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, buttons, page, pages ) {
 	var api     = new DataTable.Api( settings );
 	var classes = settings.oClasses;
+	void classes;
  // removed useless expression (CodeQL): classes;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};

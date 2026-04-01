@@ -3420,9 +3420,8 @@ namespace FuseCP.Providers.Web
 				return false;
 
 			string[] subKeys = keyFrontPage.GetSubKeyNames();
-			if (subKeys != null && subKeys.Length > 0)
+			if ((subKeys != null && subKeys.Length > 0) && (subKeys.Any(key => key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED)))
 			{
-				if (subKeys.Any(key => key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED))
 					return true;
 			}
 

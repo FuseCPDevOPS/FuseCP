@@ -151,29 +151,9 @@ namespace FuseCP.Portal
                 LoadProviderControl((int)ViewState["PackageId"], SqlDatabases.GetDatabasesGroupName(Settings),
                     providerControl, "EditDatabase.ascx");
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
-                    // bind item to controls
-                    if (item != null)
                     {
-                        // bind item to controls
-                        usernameControl.Text = item.Name;
-                        usernameControl.EditMode = true;
-
-                        foreach (string user in item.Users)
-                        {
-                            ListItem li = dlUsers.Items.FindByValue(user);
-                            if (li != null)
-                                li.Selected = true;
-                        }
-
-                        // other controls
-                        if (providerControl.Controls.Count > 0)
-                        {
-                            IDatabaseEditDatabaseControl ctrl = (IDatabaseEditDatabaseControl)providerControl.Controls[0];
-                            ctrl.BindItem(item);
-                        }
-                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

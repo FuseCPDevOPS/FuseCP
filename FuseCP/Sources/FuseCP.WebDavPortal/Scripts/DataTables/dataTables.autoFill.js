@@ -674,8 +674,10 @@ $.extend( AutoFill.prototype, {
 	_mousemove: function ( e )
 	{	
 		var that = this;
+		void that;
  // removed useless expression (CodeQL): that;
 		var dt = this.s.dt;
+		void dt;
  // removed useless expression (CodeQL): dt;
 		var name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
@@ -798,6 +800,7 @@ $.extend( AutoFill.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+		void dt;
  // removed useless expression (CodeQL): dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;

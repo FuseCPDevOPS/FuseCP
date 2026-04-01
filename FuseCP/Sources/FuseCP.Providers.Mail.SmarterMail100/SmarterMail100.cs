@@ -1654,13 +1654,9 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 
-				if (result["gridInfo"].Count > 0)
+				if (result["gridInfo"].Count > 0 && ((IEnumerable<dynamic>)result["gridInfo"]).Any(gridinfo => gridinfo.name == groupNameUser))
 				{
-					if (((IEnumerable<dynamic>)result["gridInfo"]).Any(gridinfo => gridinfo.name == groupNameUser))
-					{
-						Log.WriteInfo("GroupExists - Found group: {0}", groupName);
-						return true;
-					}
+					return true;
 				}
 
 				Log.WriteInfo("GroupExists - Could not find group: {0}", groupName);
