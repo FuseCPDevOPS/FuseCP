@@ -712,10 +712,8 @@ namespace FuseCP.Providers.HostedSolution
                         bool bRecordExist = false;
                         var hostNameBuilder = new StringBuilder();
 
-                        foreach (string s in contentArr)
+                        foreach (string s in contentArr.Where(s => s != string.Empty))
                         {
-                            if (s != string.Empty)
-                            {
                                 hostNameBuilder.Clear();
 
                                 if (s[0] != '#')
@@ -730,7 +728,6 @@ namespace FuseCP.Providers.HostedSolution
                                         break;
                                     }
                                 }
-                            }
                         }
 
                         if (!bRecordExist)
