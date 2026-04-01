@@ -68,7 +68,7 @@ namespace FuseCP.EnterpriseServer.Data
 			{
 				// check for persistent attribute
 				object[] attrs = prop.GetCustomAttributes(typeof(PersistentAttribute), false);
-				if (!persistentOnly || (persistentOnly && attrs.Length > 0) && !hash.ContainsKey(prop.Name))
+				if (!persistentOnly || (attrs.Length > 0) && !hash.ContainsKey(prop.Name))
 				{
 					object val = prop.GetValue(obj, null);
 					string s = "";
@@ -798,7 +798,7 @@ namespace FuseCP.EnterpriseServer.Data
 			{
 				// check for persistent attribute
 				object[] attrs = prop.GetCustomAttributes(typeof(PersistentAttribute), false);
-				if (!persistentOnly || (persistentOnly && attrs.Length > 0) && !props.ContainsKey(prop.Name))
+				if (!persistentOnly || (attrs.Length > 0) && !props.ContainsKey(prop.Name))
 				{
 					// when property is custom class with Persistent attribute
 					if (prop.PropertyType.GetCustomAttributes(typeof(PersistentAttribute), false).Length > 0)

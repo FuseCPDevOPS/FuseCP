@@ -124,7 +124,7 @@ if (hash.TryGetValue(name, out var _ckv))
             {
                 // check for persistent attribute
                 object[] attrs = prop.GetCustomAttributes(typeof(PersistentAttribute), false);
-                if (!persistentOnly || (persistentOnly && attrs.Length > 0))
+                if (!persistentOnly || (attrs.Length > 0))
                 {
                     object val = prop.GetValue(obj, null);
                     string s = "";

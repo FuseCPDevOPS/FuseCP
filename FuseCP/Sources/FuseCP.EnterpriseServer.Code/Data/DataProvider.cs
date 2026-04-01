@@ -4899,8 +4899,8 @@ namespace FuseCP.EnterpriseServer
 
                 var addresses = IpAddresses
                     .Where(ip => isAdmin &&
-                        (poolId == 0 || (poolId != 0 && poolId == ip.PoolId)) &&
-                        (serverId == 0 || (serverId != 0 && serverId == ip.ServerId)))
+						(poolId == 0 || poolId == ip.PoolId) &&
+                        (serverId == 0 || serverId == ip.ServerId))
                     .GroupJoin(Servers, ip => ip.ServerId, s => s.ServerId, (ip, ss) => new { Ip = ip, Servers = ss })
                     .SelectMany(ip => ip.Servers.DefaultIfEmpty(), (ip, ss) => new { ip.Ip, Server = ss })
                     .GroupJoin(PackageIpAddresses, g => g.Ip.AddressId, p => p.AddressId, (g, ps) => new
@@ -5002,8 +5002,8 @@ namespace FuseCP.EnterpriseServer
 
                 var addresses = IpAddresses
                     .Where(ip => isAdmin &&
-                        (poolId == 0 || (poolId != 0 && poolId == ip.PoolId)) &&
-                        (serverId == 0 || (serverId != 0 && serverId == ip.ServerId)))
+						(poolId == 0 || poolId == ip.PoolId) &&
+                        (serverId == 0 || serverId == ip.ServerId))
                     .GroupJoin(Servers, ip => ip.ServerId, s => s.ServerId, (ip, ss) => new { Ip = ip, Servers = ss })
                     .SelectMany(ip => ip.Servers.DefaultIfEmpty(), (ip, ss) => new
                     {
@@ -7274,7 +7274,7 @@ namespace FuseCP.EnterpriseServer
                             ResourceGroup = r
                         })
                         .Where(s => s.Type.TypeName == itemTypeName &&
-                            (groupName == null || groupName != null && groupName == s.ResourceGroup.GroupName))
+                            (groupName == null || groupName == s.ResourceGroup.GroupName))
                         .Select(s => s.Item.ItemId)
                         .ToTempIdSet(this))
                 {
@@ -7385,7 +7385,7 @@ namespace FuseCP.EnterpriseServer
 
 				var itemTypeId = ServiceItemTypes
 					.Where(t => t.TypeName == itemTypeName &&
-						(groupId == null || groupId != null && t.GroupId == groupId))
+						(groupId == null || t.GroupId == groupId))
 					.Select(t => t.ItemTypeId)
 					.FirstOrDefault();
 
@@ -7416,7 +7416,7 @@ namespace FuseCP.EnterpriseServer
 							i.Package,
 							Type = t
 						})
-						.Where(i => groupId == null || groupId != null && i.Type.GroupId == groupId)
+						.Where(i => groupId == null || i.Type.GroupId == groupId)
 						.Join(UsersDetailed, i => i.Package.UserId, u => u.UserId, (i, u) => new
 						{
 							i.Item,
@@ -7666,7 +7666,7 @@ namespace FuseCP.EnterpriseServer
 					})
 					.Where(s => s.Type.TypeName == typeName)
 					.Join(ResourceGroups, s => s.Type.GroupId, r => r.GroupId, (s, r) => r)
-					.Where(r => groupName == null || groupName != null && r.GroupName == groupName)
+					.Where(r => groupName == null || r.GroupName == groupName)
 					.Count();
 			}
 			else
@@ -8001,7 +8001,7 @@ namespace FuseCP.EnterpriseServer
 						i.Provider,
 						ResourceGroup = r
 					})
-					.Where(s => groupName == null || groupName != null && s.ResourceGroup.GroupName == groupName)
+					.Where(s => groupName == null || s.ResourceGroup.GroupName == groupName)
 					.Any();
 			}
 			else
@@ -8090,7 +8090,7 @@ namespace FuseCP.EnterpriseServer
 						UserFullName = i.User.FirstName + " " + i.User.LastName,
 						i.Item.CreatedDate
 					})
-					.Where(i => groupName == null || groupName != null && i.GroupName == groupName);
+					.Where(i => groupName == null || i.GroupName == groupName);
 
 				// select item properties, get corresponding item properties
 				var properties = ServiceItemProperties
@@ -8233,7 +8233,7 @@ namespace FuseCP.EnterpriseServer
 					})
 					.Where(s => s.Type.TypeName == itemTypeName)
 					.Join(ResourceGroups, i => i.Type.GroupId, r => r.GroupId, (i, r) => r)
-					.Where(r => groupName == null || groupName != null && r.GroupName == groupName)
+					.Where(r => groupName == null || r.GroupName == groupName)
 					.Count();
 			}
 			else
@@ -8277,7 +8277,7 @@ namespace FuseCP.EnterpriseServer
 
 				var itemTypeId = ServiceItemTypes
 					.Where(t => t.TypeName == itemTypeName &&
-						(groupId == null || groupId != null && t.GroupId == groupId))
+						(groupId == null || t.GroupId == groupId))
 					.Select(t => (int?)t.ItemTypeId)
 					.FirstOrDefault();
 
