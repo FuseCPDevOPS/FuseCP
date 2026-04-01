@@ -161,7 +161,8 @@ namespace FuseCP.Portal
                 //Response.Write("DisplayValue :[" + displayValue + "] ");
 
                 //for Selected == added kuldeep 
-                if (Request.QueryString.Get("pid") != null && item.NavigateUrl.IndexOf(pid) >= 0)
+                string pid = Request.QueryString.Get("pid");
+                if (pid != null && item.NavigateUrl.IndexOf(pid) >= 0)
                 {
                         item.Selected = true;
                 }

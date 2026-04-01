@@ -247,10 +247,13 @@ namespace FuseCP.Portal
             lock (this)
             {
                 string exceptionKey = null;
+                string[] messageParts = null;
                 //
-                if (ex != null && !String.IsNullOrEmpty(ex.Message) && ex.Message.Contains("FuseCP_ERROR") && messageParts.Length > 1)
+                if (ex != null && !String.IsNullOrEmpty(ex.Message) && ex.Message.Contains("FuseCP_ERROR"))
                 {
-                            exceptionKey = messageParts[1].TrimStart(new char[] { ' ' });
+                    messageParts = ex.Message.Split(':');
+                    if (messageParts.Length > 1)
+                        exceptionKey = messageParts[1].TrimStart(new char[] { ' ' });
                 }
                 string localizedMessage = GetSharedLocalizedString(moduleName, "Error." + exceptionKey);
                 string localizedDescription = GetSharedLocalizedString(moduleName, "ErrorDescription." + exceptionKey);

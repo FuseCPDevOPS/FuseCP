@@ -154,6 +154,7 @@ namespace FuseCP.Portal
                     ResellersPanel.Visible = true;
                 }
 
+                UserInfo user = PanelSecurity.EffectiveUser;
                 if ((!(domain.IsDomainPointer || domain.IsSubDomain || domain.IsPreviewDomain)) && user != null && user.Role == UserRole.User)
                 {
                             btnDelete.Enabled = !Utils.CheckQouta(Quotas.OS_NOTALLOWTENANTDELETEDOMAINS, cntx);

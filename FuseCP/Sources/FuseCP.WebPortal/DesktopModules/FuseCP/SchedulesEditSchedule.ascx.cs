@@ -76,6 +76,9 @@ namespace FuseCP.Portal
             }
 
             string selectedTaskId = HttpContext.Current.Request.Params[this.ddlTaskType.UniqueID];
+            ScheduleInfo sc = (PanelRequest.ScheduleID != 0)
+                ? ES.Services.Scheduler.GetSchedule(PanelRequest.ScheduleID)
+                : null;
             if (!IsPostBack && PanelRequest.ScheduleID != 0 && sc != null)
             {
                         selectedTaskId = sc.TaskId;

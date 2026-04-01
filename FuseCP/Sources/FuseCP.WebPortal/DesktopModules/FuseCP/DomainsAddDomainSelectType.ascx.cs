@@ -47,6 +47,7 @@ namespace FuseCP.Portal
 
             DomainLink.Enabled = domainsEnabled;
 
+            UserInfo user = PanelSecurity.EffectiveUser;
             if (DomainLink.Enabled && user != null && user.Role == UserRole.User)
             {
                         DomainLink.Enabled = !Utils.CheckQouta(Quotas.OS_NOTALLOWTENANTCREATEDOMAINS, cntx);
