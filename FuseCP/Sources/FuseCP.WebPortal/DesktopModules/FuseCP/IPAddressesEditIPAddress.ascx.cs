@@ -124,9 +124,14 @@ namespace FuseCP.Portal
                     {
                         vlantag = 0;
                     }
-                    if (vps && (vlantag > 4096 || vlantag < 0))
+                    if (vps)
                     {
+                        if (vlantag > 4096 || vlantag < 0)
                         {
+                            ShowErrorMessage("Error updating IP address - Invalid VLAN TAG", "VLANTAG");
+                            return;
+                        }
+
                     }
 
                     ResultObject res = null;

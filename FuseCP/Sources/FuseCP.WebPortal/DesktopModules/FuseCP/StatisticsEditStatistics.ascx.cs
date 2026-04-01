@@ -73,9 +73,28 @@ namespace FuseCP.Portal
                 // load provider control
                 LoadProviderControl((int)ViewState["PackageId"], "Statistics", providerControl, "EditSite.ascx");
 
-                if (!IsPostBack && item != null)
+                if (!IsPostBack)
                 {
+                    // bind item to controls
+                    if (item != null)
                     {
+                        // bind item to controls
+                        lblDomainName.Text = item.Name;
+
+						if (String.Compare(Request["Mode"], "view", true) == 0
+							&& !String.IsNullOrEmpty(item.StatisticsUrl))
+						{
+							// view mode
+							Response.Redirect(item.StatisticsUrl);
+						}
+
+                        // other controls
+                        if (providerControl.Controls.Count > 0)
+                        {
+                            IStatsEditInstallationControl ctrl = (IStatsEditInstallationControl)providerControl.Controls[0];
+                            ctrl.BindItem(item);
+                        }
+                    }
                 }
 
             }

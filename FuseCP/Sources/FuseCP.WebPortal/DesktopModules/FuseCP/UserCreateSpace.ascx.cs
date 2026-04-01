@@ -187,9 +187,26 @@ namespace FuseCP.Portal
                     {
                         UserInfo user = UsersHelper.GetUser(PanelSecurity.SelectedUserId);
 
-                        if (user != null && user.Role != UserRole.Reseller)
+                        if (user != null)
                         {
+                            if (user.Role != UserRole.Reseller)
                             {
+                                UserSettings settings = ES.Services.Users.GetUserSettings(user.UserId, UserSettings.EXCHANGE_POLICY);
+                                string orgId = domainName.ToLower();
+
+                                if (settings != null && settings["OrgIdPolicy"] != null)
+                                {
+                                    orgId = GetOrgId(settings["OrgIdPolicy"], domainName, result.Result);
+                                }
+
+                                ES.Services.Organizations.CreateOrganization(result.Result, orgId, domainName.ToLower(), domainName.ToLower());
+
+                                if (result.Result < 0)
+                                {
+                                    ShowErrorMessage("USERWIZARD_CREATE_ACCOUNT");
+                                    return;
+                                }
+                            }
                         }
                     }
                 }

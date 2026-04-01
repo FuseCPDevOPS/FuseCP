@@ -99,9 +99,19 @@ namespace FuseCP.Portal
                     }
                 }
 
-                if (!IsPostBack && item != null)
+                if (!IsPostBack)
                 {
+                    // bind item to controls
+                    if (item != null)
                     {
+                        // bind item to controls
+                        litWebSite.Text = item.Name;
+                        litLocaleID.Text = (item.LocaleID == 0) ? "1033" : item.LocaleID.ToString();
+                        litSiteOwner.Text = item.OwnerLogin;
+                        litOwnerEmail.Text = item.OwnerEmail;
+                        litDatabaseName.Text = item.DatabaseName;
+                        litDatabaseUser.Text = item.DatabaseUser;
+                    }
                 }
 
             }

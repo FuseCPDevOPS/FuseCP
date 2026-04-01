@@ -116,9 +116,31 @@ namespace FuseCP.Portal
                     ctrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
                 }
 
-                if (!IsPostBack && item != null)
+                if (!IsPostBack)
                 {
+                    // bind item to controls
+                    if (item != null)
                     {
+                        // bind item to controls
+                        usernameControl.Text = item.Name;
+                        usernameControl.EditMode = true;
+                        passwordControl.EditMode = true;
+
+                        foreach (string database in item.Databases)
+                        {
+							foreach (ListItem li in dlDatabases.Items)
+							{
+								if (String.Compare(database, li.Value, true) == 0)
+								{
+									li.Selected = true;
+									break;
+								}
+							}
+                        }
+
+                        // other controls
+                        ctrl.BindItem(item);
+                    }
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

@@ -58,10 +58,14 @@ namespace FuseCP.Portal
                     txtHostName.Text = "";
                 }
 
-				if ((PanelSecurity.LoggedUser.Role == UserRole.User) && (type != DomainType.SubDomain) && (cntx.Groups.ContainsKey(ResourceGroups.Dns) && !PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR)))
-				{
+				if ((PanelSecurity.LoggedUser.Role == UserRole.User) && (type != DomainType.SubDomain))
+                {
+                    if (cntx.Groups.ContainsKey(ResourceGroups.Dns))
                     {
-				}
+                        if (!PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR))
+                            this.DisableControls = true;
+                    }
+                }
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
@@ -212,13 +216,16 @@ namespace FuseCP.Portal
 			// load package context
 			PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-			if ((type == DomainType.DomainPointer || (type == DomainType.Domain)) && (PointWebSite.Checked && WebSitesList.Items.Count > 0))
+			if (type == DomainType.DomainPointer || (type == DomainType.Domain))
 			{
+
+                if (PointWebSite.Checked && WebSitesList.Items.Count > 0)
                     pointWebSiteId = Utils.ParseInt(WebSitesList.SelectedValue, 0);
 			}
 
-            if ((type == DomainType.DomainPointer || (type == DomainType.Domain)) && (PointMailDomain.Checked && MailDomainsList.Items.Count > 0))
+            if (type == DomainType.DomainPointer || (type == DomainType.Domain))
             {
+                if (PointMailDomain.Checked && MailDomainsList.Items.Count > 0)
                     pointMailDomainId = Utils.ParseInt(MailDomainsList.SelectedValue, 0);
             }
 
