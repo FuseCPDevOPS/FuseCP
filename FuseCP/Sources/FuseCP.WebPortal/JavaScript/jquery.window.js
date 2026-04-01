@@ -65,7 +65,7 @@ $.window = function(options) {
 // create window on caller element
 $.fn.window = function(options) {
 	return $.Window.getInstance($(this), options);
-}
+};
 
 // Creating Window Dialog Module
 $.Window = (function()  {
@@ -184,7 +184,7 @@ $.Window = (function()  {
 	
 	function checkMinWindowSize(parent, bPush) {
 		var bAdjust = false;
- bAdjust;
+ // removed useless expression (CodeQL): bAdjust;
 		var rect = null;
 		var mwdata = minWinData;
 		if( parent != null ) {
@@ -569,7 +569,7 @@ $.Window = (function()  {
 							var msg = options.iframeRedirectCheckMsg.replace("{url}", options.url);
 							return msg;
 						}
-					}
+					};
 				}
 	
 				// show loading image
@@ -1528,7 +1528,7 @@ $.Window = (function()  {
 				}
 			}
 		}
-	}
+	};
 })();
 
 // alias methods

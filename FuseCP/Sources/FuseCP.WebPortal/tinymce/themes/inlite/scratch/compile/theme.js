@@ -964,7 +964,7 @@ define('tinymce/inlite/ui/Panel', [
 
 			togglePositionClass(panel, result.position);
 		} else {
-			hide(panel);
+			hide();
 		}
 	};
 

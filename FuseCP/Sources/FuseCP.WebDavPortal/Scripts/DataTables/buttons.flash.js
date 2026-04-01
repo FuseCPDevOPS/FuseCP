@@ -480,7 +480,7 @@ window.ZeroClipboard_TableTools = ZeroClipboard_TableTools;
 var _glue = function ( flash, node )
 {
 	var id = node.attr('id');
- id;
+ // removed useless expression (CodeQL): id;
 
 	if ( node.parents('html').length ) {
 		flash.glue( node[0], '' );

@@ -47,10 +47,10 @@ var _link = document.createElement( 'a' );
  */
 var _styleToAbs = function( el ) {
 	var url;
- url;
+ // removed useless expression (CodeQL): url;
 	var clone = $(el).clone()[0];
 	var linkHost;
- linkHost;
+ // removed useless expression (CodeQL): linkHost;
 
 	if ( clone.nodeName.toLowerCase() === 'link' ) {
 		clone.href = _relToAbs( clone.href );

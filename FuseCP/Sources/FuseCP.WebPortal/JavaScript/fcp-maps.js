@@ -345,7 +345,7 @@ $(document).ready(function(){
 				}
 			},
 		}
-	} // end data source
+	}; // end data source
 
 	// map with data visualization
 	if($('.data-visualization-map').length > 0 ) {

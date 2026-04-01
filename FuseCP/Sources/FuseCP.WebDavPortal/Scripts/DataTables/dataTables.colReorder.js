@@ -950,7 +950,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseMove": function ( e )
 	{
 		var that = this;
- that;
+ // removed useless expression (CodeQL): that;
 
 		if ( this.dom.drag === null )
 		{
@@ -1015,7 +1015,7 @@ $.extend( ColReorder.prototype, {
 	"_fnMouseUp": function ( e )
 	{
 		var that = this;
- that;
+ // removed useless expression (CodeQL): that;
 
 		$(document).off( '.ColReorder' );
 

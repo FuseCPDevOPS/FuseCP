@@ -568,7 +568,7 @@ $.extend( KeyTable.prototype, {
 		}
 
 		var that = this;
- that;
+ // removed useless expression (CodeQL): that;
 		var dt = this.s.dt;
 
 		// If we are not listening for this key, do nothing
@@ -704,7 +704,7 @@ $.extend( KeyTable.prototype, {
 	_shift: function ( e, direction, keyBlurable )
 	{
 		var that         = this;
- that;
+ // removed useless expression (CodeQL): that;
 		var dt           = this.s.dt;
 		var pageInfo     = dt.page.info();
 		var rows         = pageInfo.recordsDisplay;

@@ -2412,7 +2412,7 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
- nTd;
+ // removed useless expression (CodeQL): nTd;
 		var columns = oSettings.aoColumns;
 	
 		// Invalidate the column types as the new data needs to be revalidated
@@ -3402,13 +3402,13 @@
 		}
 	
 		var i, iLen, n;
- i;
+ // removed useless expression (CodeQL): i;
 		var anRows = [];
 		var iRowCount = 0;
 		var asStripeClasses = oSettings.asStripeClasses;
 		var iStripes = asStripeClasses.length;
 		var iOpenRows = oSettings.aoOpenRows.length;
- iOpenRows;
+ // removed useless expression (CodeQL): iOpenRows;
 		var oLang = oSettings.oLanguage;
 		var iInitDisplayStart = oSettings.iInitDisplayStart;
 		var bServerSide = _fnDataSource( oSettings ) == 'ssp';
@@ -4208,7 +4208,7 @@
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
- n;
+ // removed useless expression (CodeQL): n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
 			/* Now do the filter */
@@ -7869,7 +7869,7 @@
 		var run = function ( sel ) {
 			var selInt = _intVal( sel );
 			var i, ien;
- i;
+ // removed useless expression (CodeQL): i;
 	
 			// Short cut - selector is a number and no options provided (default is
 			// all records, so no need to check if the index is in there, since it
@@ -9292,7 +9292,7 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
- i;
+ // removed useless expression (CodeQL): i;
 	
 			// Flag to note that the table is currently being destroyed - no action
 			// should be taken

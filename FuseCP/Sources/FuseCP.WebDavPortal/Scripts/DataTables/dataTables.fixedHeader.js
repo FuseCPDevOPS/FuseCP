@@ -390,7 +390,7 @@ $.extend( FixedHeader.prototype, {
 	_modeChange: function ( mode, item, forceChange )
 	{
 		var dt = this.s.dt;
- dt;
+ // removed useless expression (CodeQL): dt;
 		var itemDom = this.dom[ item ];
 		var position = this.s.position;
 

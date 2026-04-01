@@ -163,7 +163,7 @@ $(document).ready(function(){
 
 		var sliderChanged = function() {
 			$('.label-slider').text( theSlider.getValue() );
-		}
+		};
 
 		var theSlider = $('.bootstrap-slider')
 			.slider({

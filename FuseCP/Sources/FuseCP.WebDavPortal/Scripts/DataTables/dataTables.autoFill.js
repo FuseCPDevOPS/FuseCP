@@ -604,7 +604,7 @@ $.extend( AutoFill.prototype, {
 
 			currNode = currOffsetParent; // for next loop
 		}
-		while ( currOffsetParent.get(0) !== targetParent.get(0) )
+		while ( currOffsetParent.get(0) !== targetParent.get(0) );
 
 		return {
 			top: top,
@@ -674,9 +674,9 @@ $.extend( AutoFill.prototype, {
 	_mousemove: function ( e )
 	{	
 		var that = this;
- that;
+ // removed useless expression (CodeQL): that;
 		var dt = this.s.dt;
- dt;
+ // removed useless expression (CodeQL): dt;
 		var name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
 			return;
@@ -798,7 +798,7 @@ $.extend( AutoFill.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
- dt;
+ // removed useless expression (CodeQL): dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;

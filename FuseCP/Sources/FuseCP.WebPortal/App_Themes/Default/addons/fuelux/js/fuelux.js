@@ -15,11 +15,11 @@
 }( function( jQuery ) {
 
 	if ( typeof jQuery === 'undefined' ) {
-		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' )
+		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' );
 	}
 
 	if ( typeof jQuery.fn.dropdown === 'undefined' || typeof jQuery.fn.collapse === 'undefined' ) {
-		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' )
+		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' );
 	}
 
 	( function( $ ) {
@@ -71,7 +71,7 @@
 			setInitialState: function() {
 				var $chk = this.$chk;
 				var $lbl = this.$label;
- $lbl;
+ // removed useless expression (CodeQL): $lbl;
 
 				// get current state of input
 				var checked = $chk.prop( 'checked' );
@@ -86,7 +86,7 @@
 				var $chk = element;
 				var $lbl = this.$label;
 				var $container = this.$container;
- $container;
+ // removed useless expression (CodeQL): $container;
 				var $containerToggle = this.$toggleContainer;
 
 				// set class on outer container too...to support highlighting
@@ -111,7 +111,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $chk = element;
- $chk;
+ // removed useless expression (CodeQL): $chk;
 				var $lbl = this.$label;
 
 				if ( disabled ) {
@@ -2092,7 +2092,7 @@
 			setInitialState: function() {
 				var $radio = this.$radio;
 				var $lbl = this.$label;
- $lbl;
+ // removed useless expression (CodeQL): $lbl;
 
 				// get current state of input
 				var checked = $radio.prop( 'checked' );
@@ -2119,7 +2119,7 @@
 
 			setCheckedState: function( element, checked ) {
 				var $radio = element;
- $radio;
+ // removed useless expression (CodeQL): $radio;
 				var $lbl = $radio.parent();
 				var containerSelector = $radio.attr( 'data-bs-toggle' );
 				var $containerToggle = $( containerSelector );
@@ -2144,7 +2144,7 @@
 
 			setDisabledState: function( element, disabled ) {
 				var $radio = element;
- $radio;
+ // removed useless expression (CodeQL): $radio;
 				var $lbl = this.$label;
 
 				if ( disabled ) {
@@ -3047,7 +3047,7 @@
 					value = this.parseInput( value );
 				}
 
-				value = parseFloat( value, 10 );
+				value = parseFloat( value );
 
 				return value;
 			},
@@ -3678,7 +3678,7 @@
 			// element is not currently selected
 			if ( selected.$elements[ 0 ] !== clicked.$element[ 0 ] ) {
 				var clearedElements = self.deselectAll( self.$element );
- clearedElements;
+ // removed useless expression (CodeQL): clearedElements;
 				styleNodeSelected( clicked.$element, clicked.$icon );
 				// set event data
 				selected.eventType = 'selected';
@@ -4455,7 +4455,7 @@
 
 			items: function() {
 				var self = this;
- self;
+ // removed useless expression (CodeQL): self;
 
 				return this.$pillGroup.children( '.pill' ).map( function() {
 					return self.getItemData( $( this ) );
@@ -4464,7 +4464,7 @@
 
 			itemClicked: function( e ) {
 				var self = this;
- self;
+ // removed useless expression (CodeQL): self;
 				var $target = $( e.target );
 				var $item;
 
@@ -4648,7 +4648,7 @@
 				var items;
 				var index;
 				var $neighbor;
- $neighbor;
+ // removed useless expression (CodeQL): $neighbor;
 				var isInternal;
 
 				if ( isFinite( String( arguments[ 0 ] ) ) && !( arguments[ 0 ] instanceof Array ) ) {
@@ -4667,7 +4667,7 @@
 					$.each( items, function( i, item ) {
 						var $item = $( item.el );
 						var $neighbor;
- $neighbor;
+ // removed useless expression (CodeQL): $neighbor;
 
 						$item.attr( 'data-value', item.value );
 						$item.find( 'span:first' ).html( item.text );
@@ -4996,7 +4996,7 @@
 
 			_openSuggestions: function( e, data ) {
 				var markup = '';
- markup;
+ // removed useless expression (CodeQL): markup;
 				var $suggestionList = $( '<ul>' );
 
 				if ( this.callbackId !== e.timeStamp ) {
@@ -5006,7 +5006,7 @@
 				if ( data.data && data.data.length ) {
 					$.each( data.data, function( index, value ) {
 						var val = value.value ? value.value : value.text;
- val;
+ // removed useless expression (CodeQL): val;
 
 						// markup concatentation is 10x faster, but does not allow data store
 						var $suggestion = $( '<li data-value="' + val + '">' + value.text + '</li>' );
@@ -7845,7 +7845,7 @@
 			_parseStartDateTime: function( startTimeISO8601 ) {
 				var startTime = {};
 				var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
- startDate;
+ // removed useless expression (CodeQL): startDate;
 
 				startTime.time24HourFormat = startTimeISO8601.split( '+' )[ 0 ].split( '-' )[ 0 ];
 

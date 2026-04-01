@@ -5,7 +5,7 @@ var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)
 // Used when there is no 'main' module.
 // The name is probably (hopefully) unique so minification removes for releases.
 var register_3795 = function (id) {
- register_3795;
+ // removed useless expression (CodeQL): register_3795;
   var module = dem(id);
   var fragments = id.split('.');
   var target = Function('return this;')();
@@ -76,9 +76,9 @@ ephox.bolt = {
 
 var define = def;
 var require = req;
- require;
+ // removed useless expression (CodeQL): require;
 var demand = dem;
- demand;
+ // removed useless expression (CodeQL): demand;
 // this helps with minificiation when using a lot of global references
 var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
@@ -1049,7 +1049,7 @@ define("3", [
 
 			togglePositionClass(panel, result.position);
 		} else {
-			hide(panel);
+			hide();
 		}
 	};
 
