@@ -80,8 +80,7 @@ public static class MigrationBuilderExtension
 			if (identifier.Count > 0 || i >= query.Length)
 			{
 				var ident = new string(identifier.ToArray());
-				bool isgo;
-				if (isgo = ident.Equals("GO", StringComparison.OrdinalIgnoreCase) || i >= query.Length)
+				if (ident.Equals("GO", StringComparison.OrdinalIgnoreCase) || i >= query.Length)
 				{
 					int end;
 					end = query.LastIndexOf('\n', i - 3);

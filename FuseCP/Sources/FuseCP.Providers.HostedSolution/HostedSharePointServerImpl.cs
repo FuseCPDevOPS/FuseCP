@@ -303,29 +303,17 @@ namespace FuseCP.Providers.HostedSolution
                             content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                             string[] contentArr = content.Split(new char[] { '\n' });
                             bool bRecordExist = false;
-                            var ipAddrBuilder = new StringBuilder();
                             var hostNameBuilder = new StringBuilder();
                             foreach (string s in contentArr)
                             {
                                 if (s != string.Empty)
                                 {
-                                    ipAddrBuilder.Clear();
                                     hostNameBuilder.Clear();
                                     if (s[0] != '#')
                                     {
-                                        bool bSeperator = false;
-                                        foreach (char c in s)
-                                        {
-                                            if ((c != ' ') && (c != '\t'))
-                                            {
-                                                if (bSeperator)
-                                                    hostNameBuilder.Append(c);
-                                                else
-                                                    ipAddrBuilder.Append(c);
-                                            }
-                                            else
-                                                bSeperator = true;
-                                        }
+                                        var parts = s.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                                        if (parts.Length > 1)
+                                            hostNameBuilder.Append(parts[1]);
 
                                         if (hostNameBuilder.ToString().ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
                                         {
@@ -420,27 +408,15 @@ namespace FuseCP.Providers.HostedSolution
                                 content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                                 string[] contentArr = content.Split(new char[] { '\n' });
                                 var outPutBuilder = new StringBuilder();
-                                var ipAddrBuilder = new StringBuilder();
                                 var hostNameBuilder = new StringBuilder();
                                 foreach (string s in contentArr.Where(s => s != string.Empty))
                                 {
-                                    ipAddrBuilder.Clear();
                                     hostNameBuilder.Clear();
                                         if (s[0] != '#')
                                         {
-                                            bool bSeperator = false;
-                                            foreach (char c in s)
-                                            {
-                                                if ((c != ' ') && (c != '\t'))
-                                                {
-                                                    if (bSeperator)
-                                                        hostNameBuilder.Append(c);
-                                                    else
-                                                        ipAddrBuilder.Append(c);
-                                                }
-                                                else
-                                                    bSeperator = true;
-                                            }
+                                            var parts = s.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                                            if (parts.Length > 1)
+                                                hostNameBuilder.Append(parts[1]);
 
                                             if (hostNameBuilder.ToString().ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                             {

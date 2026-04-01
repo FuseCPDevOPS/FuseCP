@@ -720,7 +720,7 @@ namespace FuseCP.Portal
                 messageBox.ShowErrorMessage(WEB_SSL_DELETE, ex);
             }
             //
-            if (!result.IsSuccess)
+            if (result == null || !result.IsSuccess)
             {
                 messageBox.ShowErrorMessage(WEB_SSL_DELETE);
                 return;

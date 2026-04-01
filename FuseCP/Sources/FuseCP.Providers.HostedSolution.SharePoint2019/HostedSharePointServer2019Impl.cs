@@ -720,22 +720,9 @@ namespace FuseCP.Providers.HostedSolution
 
                                 if (s[0] != '#')
                                 {
-                                    bool bSeperator = false;
-
-                                    foreach (char c in s)
-                                    {
-                                        if ((c != ' ') && (c != '\t'))
-                                        {
-                                            if (bSeperator)
-                                            {
-                                                hostNameBuilder.Append(c);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            bSeperator = true;
-                                        }
-                                    }
+                                    var parts = s.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                                    if (parts.Length > 1)
+                                        hostNameBuilder.Append(parts[1]);
 
                                     if (hostNameBuilder.ToString().ToLower() == siteCollection.RootWebApplicationFQDN.ToLower())
                                     {
@@ -788,22 +775,9 @@ namespace FuseCP.Providers.HostedSolution
 
                                 if (s[0] != '#')
                                 {
-                                    bool bSeperator = false;
-
-                                    foreach (char c in s)
-                                    {
-                                        if ((c != ' ') && (c != '\t'))
-                                        {
-                                            if (bSeperator)
-                                            {
-                                                hostNameBuilder.Append(c);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            bSeperator = true;
-                                        }
-                                    }
+                                    var parts = s.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                                    if (parts.Length > 1)
+                                        hostNameBuilder.Append(parts[1]);
 
                                     if (hostNameBuilder.ToString().ToLower() != siteCollection.RootWebApplicationFQDN.ToLower())
                                     {

@@ -2678,18 +2678,16 @@ namespace FuseCP.Providers.HostedSolution
                             cmd.Parameters.Add("Server", ObjToString(objServer));
                             databases = ExecuteShellCommand(runSpace, cmd);
 
-                            foreach (PSObject objDatabase in databases)
+                            foreach (PSObject objDatabase in databases.Where(objDatabase =>
+                                !((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning")) &&
+                                !((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning"))))
                             {
-                                if ((!((bool)GetPSObjectProperty(objDatabase, "IsExcludedFromProvisioning"))) &&
-                                    (!((bool)GetPSObjectProperty(objDatabase, "IsSuspendedFromProvisioning"))))
-                                {
-                                    string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
+                                string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
 
-                                    if (!lstDatabase.Any(s => s.Equals(db, StringComparison.OrdinalIgnoreCase)))
-                                    {
-                                        lstDatabase.Add(db);
-                                        ExchangeLog.LogInfo("AddDatabase: " + db);
-                                    }
+                                if (!lstDatabase.Any(s => s.Equals(db, StringComparison.OrdinalIgnoreCase)))
+                                {
+                                    lstDatabase.Add(db);
+                                    ExchangeLog.LogInfo("AddDatabase: " + db);
                                 }
                             }
                         }

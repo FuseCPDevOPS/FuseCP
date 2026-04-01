@@ -162,14 +162,11 @@ namespace FuseCP.Portal.ExchangeServer
                 if (chkSelect.Checked)
                 {
                     emails.Add(gvEmails.DataKeys[i].Value.ToString());
-                    foreach (EntServer.ExchangeEmailAddress tmpEmail in tmpEmails.Where(tmpEmail => gvEmails.DataKeys[i].Value.ToString() == tmpEmail.EmailAddress))
+                    if (tmpEmails.Any(tmpEmail =>
+                        gvEmails.DataKeys[i].Value.ToString() == tmpEmail.EmailAddress &&
+                        tmpEmail.IsUserPrincipalName))
                     {
-                            if (tmpEmail.IsUserPrincipalName)
-                            {
-                                containsUPN = true;
-                                break;
-                            }
-
+                        containsUPN = true;
                     }
                 }
             }
