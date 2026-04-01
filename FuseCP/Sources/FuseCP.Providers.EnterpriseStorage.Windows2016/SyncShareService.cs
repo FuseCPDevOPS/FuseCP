@@ -247,7 +247,7 @@ namespace FuseCP.Providers.EnterpriseStorage
                 cmd.Parameters.Add("Name", name);
                 cmd.Parameters.Add("Path", path);
                 cmd.Parameters.Add("user", user);
-                var result = ExecuteShellCommand(runSpace, cmd);
+                ExecuteShellCommand(runSpace, cmd);
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {

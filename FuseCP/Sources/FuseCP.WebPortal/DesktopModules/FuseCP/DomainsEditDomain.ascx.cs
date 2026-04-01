@@ -154,17 +154,9 @@ namespace FuseCP.Portal
                     ResellersPanel.Visible = true;
                 }
 
-                if (!(domain.IsDomainPointer || domain.IsSubDomain || domain.IsPreviewDomain))
+                if ((!(domain.IsDomainPointer || domain.IsSubDomain || domain.IsPreviewDomain)) && user != null && user.Role == UserRole.User)
                 {
-                    UserInfo user = UsersHelper.GetUser(PanelSecurity.EffectiveUserId);
-
-                    if (user != null)
-                    {
-                        if (user.Role == UserRole.User)
-                        {
                             btnDelete.Enabled = !Utils.CheckQouta(Quotas.OS_NOTALLOWTENANTDELETEDOMAINS, cntx);
-                        }
-                    }
                 }
 
             }

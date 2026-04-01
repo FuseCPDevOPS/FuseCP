@@ -255,10 +255,10 @@ namespace FuseCP.Portal
             string driverName = ddlDriver.SelectedValue;
             local_item.Driver = driverName;
 
-            if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
-                local_item.DatabaseName = ddlDatabaseName.SelectedValue;
-            else
-                local_item.DatabaseName = fileLookup.SelectedFile;
+            local_item.DatabaseName = driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB" ? ddlDatabaseName.SelectedValue : fileLookup.SelectedFile;
+
+
+
 
             // user
             local_item.DatabaseUser = (driverName == "MsAccess" || driverName == "MsAccess2010")

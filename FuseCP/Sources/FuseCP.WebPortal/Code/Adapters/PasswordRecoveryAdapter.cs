@@ -187,7 +187,6 @@ namespace CSSFriendly
         {
             base.OnPreRender(e);
 
-            PasswordRecovery passwordRecovery = Control as PasswordRecovery;
 
             //  By this time we have finished doing our event processing.  That means that if errors have
             //  occurred, the event handlers (OnAnswerLookupError, OnSendMailError or 

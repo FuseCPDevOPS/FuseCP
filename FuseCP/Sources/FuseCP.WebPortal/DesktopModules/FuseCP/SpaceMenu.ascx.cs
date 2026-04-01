@@ -58,13 +58,10 @@ namespace FuseCP.Portal
                     Visible = false;
                 }
 
-                if (Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId)
+                if ((Session["currentPackage"] == null || ((int)Session["currentUser"]) != PanelSecurity.SelectedUserId) && packageTable != null && packageTable.Rows.Count > 0)
                 {
-                    if (packageTable != null && packageTable.Rows.Count > 0)
-                    {
                         Session["currentPackage"] = packageTable.Rows[0][0].ToString();
                         Session["currentUser"] = PanelSecurity.SelectedUserId;
-                    }
                 }
                 currentPackage = Convert.ToInt32(Session["currentPackage"]);
             }
@@ -164,15 +161,9 @@ namespace FuseCP.Portal
                 //Response.Write("DisplayValue :[" + displayValue + "] ");
 
                 //for Selected == added kuldeep 
-                if (Request.QueryString.Get("pid") != null)
+                if (Request.QueryString.Get("pid") != null && item.NavigateUrl.IndexOf(pid) >= 0)
                 {
-                    string pid = Request.QueryString.Get("pid").ToString();
-                  
-
-                    if (item.NavigateUrl.IndexOf(pid) >= 0)
-                    {
                         item.Selected = true;
-                    }
                 }
 
                 if (display && !(disabled && item.ChildItems.Count == 0))
