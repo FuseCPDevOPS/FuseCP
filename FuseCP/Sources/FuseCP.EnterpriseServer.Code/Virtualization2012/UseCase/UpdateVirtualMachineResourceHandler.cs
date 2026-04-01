@@ -115,10 +115,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
             // check acceptable values
             if (vmSettings.RamSize < 32)
                 quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_RAM_HV);
-            foreach (var hddSize in vmSettings.HddSize.Where(hddSize => hddSize <= 0))
-            {
+            if (vmSettings.HddSize.Any(hddSize => hddSize <= 0))
                 quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
-            }
             if (vmSettings.SnapshotsNumber < 0)
                 quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_SNAPSHOTS);
 

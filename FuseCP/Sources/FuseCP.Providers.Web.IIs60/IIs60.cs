@@ -2202,10 +2202,7 @@ namespace FuseCP.Providers.Web
 			if (!String.IsNullOrEmpty(filtersOrder))
 			{
 				string[] existingFilters = filtersOrder.Split(',');
-				foreach (string existingFilter in existingFilters.Where(existingFilter => String.Compare(filterName, existingFilter, true) != 0))
-				{
-					updatedFilters.Add(existingFilter);
-				}
+				updatedFilters.AddRange(existingFilters.Where(existingFilter => String.Compare(filterName, existingFilter, true) != 0));
 			}
 
 			if (!remove)
@@ -3365,15 +3362,8 @@ namespace FuseCP.Providers.Web
 			// merge both inherited and customized records
 			if (virtDir.HttpErrors != null)
 			{
-				foreach (HttpError errorA in virtDir.HttpErrors)
+				foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA => !String.IsNullOrEmpty(errorA.ErrorContent)))
 				{
-					// skip empty entries
-					if (String.IsNullOrEmpty(errorA.ErrorContent))
-					{
-						continue;
-					}
-
-
 					// if error is not within list of Custom Errors in IIS 6.0 - just skip it
 					if (GetCustomErrorType(errorA.ErrorCode, errorA.ErrorSubcode) == 0)
 					{
@@ -3867,12 +3857,12 @@ namespace FuseCP.Providers.Web
 
 		public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
 		{
-			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
+			foreach (WebSite item in items.OfType<WebSite>())
 			{
 					try
 					{
 						// start/stop web site
-						ChangeSiteState(((WebSite)item).SiteId,
+						ChangeSiteState(item.SiteId,
 							(enabled ? ServerState.Started : ServerState.Stopped));
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -3884,41 +3874,39 @@ namespace FuseCP.Providers.Web
 
 		public override void DeleteServiceItems(ServiceProviderItem[] items)
 		{
-			foreach (ServiceProviderItem item in items)
+			foreach (WebSite item in items.OfType<WebSite>())
 			{
-				if (item is WebSite)
+				try
 				{
-					try
+					// delete web site
+					DeleteSite(item.SiteId);
+				}
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+					Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
+				}
+			}
+
+			foreach (SharedSSLFolder item in items.OfType<SharedSSLFolder>())
+			{
+				try
+				{
+					// delete shared SSL folder
+					int idx = item.Name.LastIndexOf("/");
+					string domainName = item.Name.Substring(0, idx);
+					string vdirName = item.Name.Substring(idx + 1);
+
+					string siteId = GetSiteId(domainName);
+					if (siteId != null)
 					{
-						// delete web site
-						DeleteSite(((WebSite)item).SiteId);
-					}
-					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
+						// delete directory
+						DeleteAppVirtualDirectory(siteId, vdirName);
+						DeleteVirtualDirectory(siteId, vdirName);
 					}
 				}
-				else if (item is SharedSSLFolder)
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 				{
-					try
-					{
-						// delete shared SSL folder
-						int idx = item.Name.LastIndexOf("/");
-						string domainName = item.Name.Substring(0, idx);
-						string vdirName = item.Name.Substring(idx + 1);
-
-						string siteId = GetSiteId(domainName);
-						if (siteId != null)
-						{
-							// delete directory
-							DeleteAppVirtualDirectory(siteId, vdirName);
-							DeleteVirtualDirectory(siteId, vdirName);
-						}
-					}
-					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-					{
-						Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
-					}
+					Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
 				}
 			}
 		}
@@ -3928,15 +3916,15 @@ namespace FuseCP.Providers.Web
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
+			foreach (WebSite item in items.OfType<WebSite>())
 			{
 					try
 					{
 						Log.WriteStart(String.Format("Calculating '{0}' site logs size", item.Name));
 
-						WebSite site = GetSite(((WebSite)item).SiteId);
+						WebSite site = GetSite(item.SiteId);
 						//string sitePath = site.ContentPath;
-						string siteId = ((WebSite)item).SiteId.Replace("/", "");
+						string siteId = item.SiteId.Replace("/", "");
 						string logsPath = Path.Join(site.LogsPath, siteId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 						// calculate disk space

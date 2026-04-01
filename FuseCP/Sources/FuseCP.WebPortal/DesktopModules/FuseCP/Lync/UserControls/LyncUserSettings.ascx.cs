@@ -31,17 +31,9 @@ namespace FuseCP.Portal.Lync.UserControls
                         
             get 
             {
-                if (ddlSipAddresses != null && ddlSipAddresses.Visible)
-                {
-                    return (ddlSipAddresses.SelectedItem == null) ? string.Empty : ddlSipAddresses.SelectedItem.Value;
-
-
-
-                }
-                else
-                {
-                    return email.Email;
-                }
+                return (ddlSipAddresses != null && ddlSipAddresses.Visible)
+                    ? ((ddlSipAddresses.SelectedItem == null) ? string.Empty : ddlSipAddresses.SelectedItem.Value)
+                    : email.Email;
             }
             set
             {

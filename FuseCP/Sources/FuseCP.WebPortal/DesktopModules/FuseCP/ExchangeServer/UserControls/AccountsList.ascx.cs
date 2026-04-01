@@ -299,12 +299,9 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			// add new accounts
 			if (newAccounts != null)
 			{
-				foreach (ExchangeAccount newAccount in newAccounts)
-				{
-					// check if exists
-					if (accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0))
-						continue;
-
+                foreach (ExchangeAccount newAccount in newAccounts.Where(newAccount =>
+                    !accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0)))
+                {
 					accounts.Add(newAccount);
 				}
 			}

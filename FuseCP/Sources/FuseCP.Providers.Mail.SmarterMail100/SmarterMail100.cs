@@ -1010,11 +1010,8 @@ HttpClient client = CreateHttpClient();
 				List<MailAccount> accounts = new List<MailAccount>();
 
 
-				foreach (dynamic user in result["userData"])
+				foreach (dynamic user in ((IEnumerable<dynamic>)result["userData"]).Where(user => ImportDomainAdmin || !Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"])))
 				{
-					if (Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"]) && !ImportDomainAdmin)
-						continue;
-
 					Log.WriteInfo("GetAccounts - Account: {0} \n\n DomainAdmin: {1} \n\n ImportDomainAdmin: {2}", user["emailAddress"].ToString(), Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"]), ImportDomainAdmin);
 
 					MailAccount account = new MailAccount();
@@ -1190,15 +1187,12 @@ HttpClient client = CreateHttpClient();
 				if (!userSignaturessuccess)
 					throw new Exception(userSignaturesresult["message"]);
 
-				foreach (dynamic userSignature in userSignaturesresult["userSignatures"])
+				foreach (dynamic userSignature in ((IEnumerable<dynamic>)userSignaturesresult["userSignatures"]).Where(userSignature => Convert.ToBoolean(userSignature["isDefault"])))
 				{
-					if (Convert.ToBoolean(userSignature["isDefault"]))
-					{
-						mailbox.Signature = userSignature["text"].ToString();
-						mailbox.SignatureGuid = userSignature["guid"].ToString();
-						mailbox.SignatureName = userSignature["name"].ToString();
-						mailbox.SignatureiD = Convert.ToInt64(userSignature["id"]);
-					}
+					mailbox.Signature = userSignature["text"].ToString();
+					mailbox.SignatureGuid = userSignature["guid"].ToString();
+					mailbox.SignatureName = userSignature["name"].ToString();
+					mailbox.SignatureiD = Convert.ToInt64(userSignature["id"]);
                 }
 
 				dynamic mailboxForwardListresult = ExecGetCommand("settings/domain/mailbox-forward-list/" + mailboxName).Result;
@@ -1662,13 +1656,10 @@ HttpClient client = CreateHttpClient();
 
 				if (result["gridInfo"].Count > 0)
 				{
-					foreach (dynamic gridinfo in (result["gridInfo"]))
+					if (((IEnumerable<dynamic>)result["gridInfo"]).Any(gridinfo => gridinfo.name == groupNameUser))
 					{
-                        if (gridinfo.name == groupNameUser)
-						{
-							Log.WriteInfo("GroupExists - Found group: {0}", groupName);
-							return true;
-						}
+						Log.WriteInfo("GroupExists - Found group: {0}", groupName);
+						return true;
 					}
 				}
 

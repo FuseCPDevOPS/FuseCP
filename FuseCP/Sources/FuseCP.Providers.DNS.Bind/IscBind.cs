@@ -127,11 +127,7 @@ namespace FuseCP.Providers.DNS
 		#region Zones
 		public virtual bool ZoneExists(string zoneName)
         {
-            foreach (string name in GetZones().Where(name => String.Compare(zoneName, name, true) == 0))
-            {
-                return true;
-            }
-            return false;
+            return GetZones().Any(name => String.Compare(zoneName, name, true) == 0);
         }
 
         public virtual string[] GetZones()

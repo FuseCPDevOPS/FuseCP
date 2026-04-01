@@ -24,6 +24,7 @@ namespace FuseCP.Providers.Web.Iis.DefaultDocuments
 	using System.Text;
 	using System.Collections.Generic;
 	using System.Collections;
+	using System.Linq;
 	using FuseCP.Providers.Web.Iis.Utility;
 
 	internal sealed class DefaultDocsModuleService : ConfigurationModuleService
@@ -104,12 +105,8 @@ namespace FuseCP.Providers.Web.Iis.DefaultDocuments
 				// The only solution to override inherited default documents is to use <clear/> element
 				filesCollection.Clear();
 				//
-				foreach (var item in docs2Add)
+				foreach (var item in docs2Add.Where(item => FindDefaultDocument(filesCollection, item) <= -1))
 				{
-					// The default document specified exists
-					if (FindDefaultDocument(filesCollection, item) > -1)
-						continue;
-					//
 					var item2Add = CreateDefaultDocument(filesCollection, item);
 					//
 					if (item2Add == null)

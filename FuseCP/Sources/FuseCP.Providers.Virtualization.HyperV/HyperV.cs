@@ -1736,11 +1736,8 @@ exit", Convert.ToInt32(objDisk["Index"])));
             // determine maximum available space
             ulong oneMegabyte = 1048576;
             ulong freeSpace = 0;
-            foreach (Vds.DiskExtent extent in advancedDisk.Extents)
+            foreach (Vds.DiskExtent extent in advancedDisk.Extents.Where(extent => extent.Type == Microsoft.Storage.Vds.DiskExtentType.Free))
             {
-                if (extent.Type != Microsoft.Storage.Vds.DiskExtentType.Free)
-                    continue;
-
                 if (extent.Size > oneMegabyte)
                     freeSpace += extent.Size;
             }
@@ -1901,30 +1898,25 @@ exit", Convert.ToInt32(objDisk["Index"])));
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is VirtualMachine))
+            foreach (VirtualMachine item in items.OfType<VirtualMachine>())
             {
                     // start/stop virtual machine
-                    VirtualMachine vm = item as VirtualMachine;
-                    ChangeVirtualMachineServiceItemState(vm, enabled);
+                ChangeVirtualMachineServiceItemState(item, enabled);
             }
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (VirtualMachine item in items.OfType<VirtualMachine>())
             {
-                if (item is VirtualMachine)
-                {
-                    // delete virtual machine
-                    VirtualMachine vm = item as VirtualMachine;
-                    DeleteVirtualMachineServiceItem(vm);
-                }
-                else if (item is VirtualSwitch)
-                {
-                    // delete switch
-                    VirtualSwitch vs = item as VirtualSwitch;
-                    DeleteVirtualSwitchServiceItem(vs);
-                }
+                // delete virtual machine
+                DeleteVirtualMachineServiceItem(item);
+            }
+
+            foreach (VirtualSwitch item in items.OfType<VirtualSwitch>())
+            {
+                // delete switch
+                DeleteVirtualSwitchServiceItem(item);
             }
         }
 

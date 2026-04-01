@@ -549,13 +549,12 @@ namespace FuseCP.Providers.StorageSpaces
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (HomeFolder item in items.OfType<HomeFolder>())
             {
                 try
                 {
-                    if (item is HomeFolder)
-                        // delete home folder
-                        FileUtils.DeleteFile(item.Name);
+                    // delete home folder
+                    FileUtils.DeleteFile(item.Name);
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
@@ -567,7 +566,7 @@ namespace FuseCP.Providers.StorageSpaces
         public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
         {
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-            foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
+            foreach (HomeFolder item in items.OfType<HomeFolder>())
             {
                     try
                     {

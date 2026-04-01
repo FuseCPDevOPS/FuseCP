@@ -286,10 +286,8 @@ namespace FuseCP.EnterpriseServer
                 FillWebServerBindings(bindings, dnsRecords, ipAddr, hostName, domain.DomainName, ignoreGlobalDNSRecords);
 
                 //double check all bindings
-                foreach (ServerBinding b in bindings.Where(b => Database.CheckDomain(domain.PackageId, b.Host, true) != 0))
-                {
+                if (bindings.Any(b => Database.CheckDomain(domain.PackageId, b.Host, true) != 0))
                     return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
-                }
 
                 if (dedicatedIp)
                 {
@@ -853,8 +851,7 @@ namespace FuseCP.EnterpriseServer
                     DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
 
                 // remove web site main pointer
-                if (domain != null)
-                    DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
+                DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
 
                 // clear binding left overs
                 List<ServerBinding> newBindings = new List<ServerBinding>();
@@ -1041,8 +1038,7 @@ namespace FuseCP.EnterpriseServer
                     DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
 
                 // remove web site main pointer
-                if (domain != null)
-                    DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
+                DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
 
                 // clear binding left overs
                 WebServer web = new WebServer();
@@ -1201,10 +1197,8 @@ namespace FuseCP.EnterpriseServer
 
         private void AddBinding(List<ServerBinding> bindings, ServerBinding binding)
         {
-            foreach (ServerBinding b in bindings.Where(b => string.Compare(b.Host, binding.Host, true) == 0))
-            {
+            if (bindings.Any(b => string.Compare(b.Host, binding.Host, true) == 0))
                 return;
-            }
 
             bindings.Add(binding);
         }

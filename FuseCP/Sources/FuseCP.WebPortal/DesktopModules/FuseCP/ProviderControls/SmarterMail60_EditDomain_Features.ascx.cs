@@ -34,10 +34,10 @@ namespace FuseCP.Portal.ProviderControls
             item[MailDomain.SMARTERMAIL5_SHOW_DOMAIN_REPORTS] = cbShowDomainReports.Checked.ToString();
             item[MailDomain.SMARTERMAIL5_POP_RETREIVAL_ENABLED] = cbEnablePopRetreival.Checked.ToString();
             item[MailDomain.SMARTERMAIL5_CATCHALLS_ENABLED] = cbEnableCatchAlls.Checked.ToString();
-            item[MailDomain.SMARTERMAIL6_IMAP_RETREIVAL_ENABLED] = cbEnableIMAPRetreival.ToString();
-            item[MailDomain.SMARTERMAIL6_MAIL_SIGNING_ENABLED] = cbEnableEmailSigning.ToString();
-            item[MailDomain.SMARTERMAIL6_EMAIL_REPORTS_ENABLED] = cbEnableEmailReports.ToString();
-            item[MailDomain.SMARTERMAIL6_SYNCML_ENABLED] = cbEnableSyncML.ToString();
+            item[MailDomain.SMARTERMAIL6_IMAP_RETREIVAL_ENABLED] = cbEnableIMAPRetreival.Checked.ToString();
+            item[MailDomain.SMARTERMAIL6_MAIL_SIGNING_ENABLED] = cbEnableEmailSigning.Checked.ToString();
+            item[MailDomain.SMARTERMAIL6_EMAIL_REPORTS_ENABLED] = cbEnableEmailReports.Checked.ToString();
+            item[MailDomain.SMARTERMAIL6_SYNCML_ENABLED] = cbEnableSyncML.Checked.ToString();
         }
 
         public void BindItem(MailDomain item)

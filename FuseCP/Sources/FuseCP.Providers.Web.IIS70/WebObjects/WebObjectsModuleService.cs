@@ -671,11 +671,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                 if (application != null)
                 {
                     // Make sure we grab only virtual directories, Not apps
-                    foreach (VirtualDirectory directory in application.VirtualDirectories)
+                    foreach (VirtualDirectory directory in application.VirtualDirectories.Where(directory => directory.Path != "/"))
                     {
-                        // Do not show Website it self as Virtual Directory
-                        if (directory.Path == "/")
-                            continue;
                         // Grab directory Information
                         vdirs.Add(new WebVirtualDirectory
                         {
@@ -804,14 +801,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             var vdirs = new List<WebAppVirtualDirectory>();
             var iisObject = srvman.Sites[siteId];
             //
-            foreach (var item in iisObject.Applications)
+            foreach (var item in iisObject.Applications.Where(item => item.Path != "/" && item.ApplicationPoolName != "Null"))
             {
-                // Skip root application which is web site itself
-                if (item.Path == "/")
-                    continue;
-                if (item.ApplicationPoolName == "Null")
-                    continue;
-                //
                 vdirs.Add(new WebAppVirtualDirectory
                 {
                     Name = ConfigurationUtility.GetNonQualifiedVirtualPath(item.Path),

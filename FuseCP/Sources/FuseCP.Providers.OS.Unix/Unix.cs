@@ -219,19 +219,19 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 	public void ExecuteSyncActions(FileSyncAction[] actions)
 	{
-		// perform all operations but not delete ones
-		foreach (FileSyncAction action in actions)
+		foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Create))
 		{
-			if (action.ActionType == SyncActionType.Create)
-			{
-				FileUtils.CreateDirectory(UnixPath(action.DestPath));
-				continue;
-			}
-			else if (action.ActionType == SyncActionType.Copy)
+			FileUtils.CreateDirectory(UnixPath(action.DestPath));
+		}
+
+		// perform copy/move operations
+		foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Copy || action.ActionType == SyncActionType.Move))
+		{
+			if (action.ActionType == SyncActionType.Copy)
 			{
 				FileUtils.CopyFile(UnixPath(action.SrcPath), UnixPath(action.DestPath));
 			}
-			else if (action.ActionType == SyncActionType.Move)
+			else
 			{
 				FileUtils.MoveFile(UnixPath(action.SrcPath), UnixPath(action.DestPath));
 			}
@@ -425,13 +425,12 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 
 	public override void DeleteServiceItems(ServiceProviderItem[] items)
 	{
-		foreach (ServiceProviderItem item in items)
+		foreach (HomeFolder item in items.OfType<HomeFolder>())
 		{
 			try
 			{
-				if (item is HomeFolder)
-					// delete home folder
-					DeleteFile(item.Name);
+				// delete home folder
+				DeleteFile(item.Name);
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
@@ -443,7 +442,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
 	{
 		List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-		foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
+		foreach (HomeFolder item in items.OfType<HomeFolder>())
 		{
 				try
 				{
@@ -783,11 +782,10 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	private (ulong idle, ulong total) ReadCpuStats()
 	{
 		string[] fields = null;
-
-		foreach (var line in File.ReadLines("/proc/stat").Where(line => line.StartsWith("cpu ")))
+		var line = File.ReadLines("/proc/stat").FirstOrDefault(item => item.StartsWith("cpu "));
+		if (line != null)
 		{
-				fields = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-				break;
+			fields = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		if (fields == null || fields.Length < 5)

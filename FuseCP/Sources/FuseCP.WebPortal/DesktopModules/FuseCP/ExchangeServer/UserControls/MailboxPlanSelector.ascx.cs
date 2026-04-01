@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace FuseCP.Portal.ExchangeServer.UserControls
@@ -106,9 +107,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 ddlMailboxPlan.Items.Add(li);
             }
 
-            foreach (FuseCP.Providers.HostedSolution.ExchangeMailboxPlan plan in plans)
+            foreach (FuseCP.Providers.HostedSolution.ExchangeMailboxPlan plan in plans.Where(plan => archiving || plan.IsForJournaling == isForJournaling))
             {
-                if (!archiving && plan.IsForJournaling != isForJournaling) continue;
                 ListItem li = new ListItem();
                 li.Text = plan.MailboxPlan;
                 li.Value = plan.MailboxPlanId.ToString();

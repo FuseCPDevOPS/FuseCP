@@ -27,10 +27,6 @@ namespace FuseCP.Portal.ProviderControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-               
-            }
         }
 
         public void BindSettings(StringDictionary settings)

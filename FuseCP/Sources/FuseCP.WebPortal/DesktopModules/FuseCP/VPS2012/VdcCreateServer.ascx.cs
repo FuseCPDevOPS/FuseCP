@@ -364,9 +364,11 @@ namespace FuseCP.Portal.VPS2012
                 }
             }
 
-                        if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out QuotaValueInfo additionalHddQuota))
+            if (cntx != null &&
+                cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT, out QuotaValueInfo additionalHddQuota) &&
+                (additionalHddQuota.QuotaAllocatedValue == -1 || additionalHddQuota.QuotaAllocatedValue > 0))
             {
-                if (additionalHddQuota.QuotaAllocatedValue == -1 || additionalHddQuota.QuotaAllocatedValue > 0) btnAddHdd.Visible = true;
+                btnAddHdd.Visible = true;
             }
 
             // IOPS number

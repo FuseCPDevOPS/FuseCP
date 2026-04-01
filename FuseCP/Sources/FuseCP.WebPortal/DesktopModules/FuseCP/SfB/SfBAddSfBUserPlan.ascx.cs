@@ -21,6 +21,7 @@ using FuseCP.Providers;
 using FuseCP.Providers.Web;
 using FuseCP.Providers.Common;
 using FuseCP.Portal.Code.Helpers;
+using System.Linq;
 
 
 namespace FuseCP.Portal.SfB
@@ -36,9 +37,8 @@ namespace FuseCP.Portal.SfB
                 string[] archivePolicy = ES.Services.SfB.GetPolicyList(PanelRequest.ItemID, SfBPolicyType.Archiving, null);
                 if (archivePolicy != null)
                 {
-                    foreach (string policy in archivePolicy)
+                    foreach (string policy in archivePolicy.Where(policy => !policy.Equals("global", StringComparison.OrdinalIgnoreCase)))
                     {
-                        if (policy.ToLower()=="global") continue;
                         string txt = policy.Replace("Tag:","");
                         ddArchivingPolicy.Items.Add( new System.Web.UI.WebControls.ListItem( txt, policy) );
                     }
@@ -170,9 +170,8 @@ namespace FuseCP.Portal.SfB
             string[] dialPlan = ES.Services.SfB.GetPolicyList(PanelRequest.ItemID, SfBPolicyType.DialPlan, name);
             if (dialPlan != null)
             {
-                foreach (string policy in dialPlan)
+                foreach (string policy in dialPlan.Where(policy => !policy.Equals("global", StringComparison.OrdinalIgnoreCase)))
                 {
-                    if (policy.ToLower() == "global") continue;
                     string txt = policy.Replace("Tag:", "");
                     ddTelephonyDialPlanPolicy.Items.Add(new System.Web.UI.WebControls.ListItem(txt, policy));
                 }
@@ -182,9 +181,8 @@ namespace FuseCP.Portal.SfB
             string[] voicePolicy = ES.Services.SfB.GetPolicyList(PanelRequest.ItemID, SfBPolicyType.Voice, name);
             if (voicePolicy != null)
             {
-                foreach (string policy in voicePolicy)
+                foreach (string policy in voicePolicy.Where(policy => !policy.Equals("global", StringComparison.OrdinalIgnoreCase)))
                 {
-                    if (policy.ToLower() == "global") continue;
                     string txt = policy.Replace("Tag:", "");
                     ddTelephonyVoicePolicy.Items.Add(new System.Web.UI.WebControls.ListItem(txt, policy));
                 }

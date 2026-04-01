@@ -416,19 +416,19 @@ namespace FuseCP.Providers.OS
 
         public void ExecuteSyncActions(FileSyncAction[] actions)
         {
-            // perform all operations but not delete ones
-            foreach (FileSyncAction action in actions)
+            foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Create))
             {
-                if (action.ActionType == SyncActionType.Create)
-                {
-                    FileUtils.CreateDirectory(action.DestPath);
-                    continue;
-                }
-                else if (action.ActionType == SyncActionType.Copy)
+                FileUtils.CreateDirectory(action.DestPath);
+            }
+
+            // perform copy/move operations
+            foreach (FileSyncAction action in actions.Where(action => action.ActionType == SyncActionType.Copy || action.ActionType == SyncActionType.Move))
+            {
+                if (action.ActionType == SyncActionType.Copy)
                 {
                     FileUtils.CopyFile(action.SrcPath, action.DestPath);
                 }
-                else if (action.ActionType == SyncActionType.Move)
+                else
                 {
                     FileUtils.MoveFile(action.SrcPath, action.DestPath);
                 }
@@ -534,16 +534,25 @@ namespace FuseCP.Providers.OS
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (HomeFolder item in items.OfType<HomeFolder>())
             {
                 try
                 {
-                    if (item is HomeFolder)
-                        // delete home folder
-                        DeleteFile(item.Name);
-                    else if (item is SystemDSN)
-                        // delete DSN
-                        DeleteDSN(item.Name);
+                    // delete home folder
+                    DeleteFile(item.Name);
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    Log.WriteError(String.Format("Error deleting '{0}' {1}", item.Name, item.GetType().Name), ex);
+                }
+            }
+
+            foreach (SystemDSN item in items.OfType<SystemDSN>())
+            {
+                try
+                {
+                    // delete DSN
+                    DeleteDSN(item.Name);
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
@@ -555,7 +564,7 @@ namespace FuseCP.Providers.OS
         public override ServiceProviderItemDiskSpace[] GetServiceItemsDiskSpace(ServiceProviderItem[] items)
         {
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-            foreach (ServiceProviderItem item in items.Where(item => item is HomeFolder))
+            foreach (HomeFolder item in items.OfType<HomeFolder>())
             {
                     try
                     {
@@ -1457,13 +1466,8 @@ namespace FuseCP.Providers.OS
 
             var regex = new Regex(recordTypePattern, RegexOptions.IgnoreCase);
 
-            foreach (Match match in regex.Matches(raw))
+            foreach (Match match in regex.Matches(raw).Cast<Match>().Where(match => match.Groups.Count == 2))
             {
-                if (match.Groups.Count != 2)
-                {
-                    continue;
-                }
-
                 var dnsRecord = new DnsRecordInfo
                 {
                     Value = match.Groups[1].Value != null ? match.Groups[1].Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").ToLowerInvariant().Trim() : null,

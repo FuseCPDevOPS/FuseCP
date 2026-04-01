@@ -410,12 +410,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             foreach (string item in groups)
             {
-                bool res = false;
-                foreach (string ugItem in ug.Where(ugItem => ugItem.ToLower().Contains(item.ToLower())))
-                {
-                        res = true;
-                        break;
-                }
+                bool res = ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower()));
                 if (!res) return false;
             }
 

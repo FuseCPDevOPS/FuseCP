@@ -1608,8 +1608,13 @@ SELECT DatabaseVersion FROM Version");
 			DbType dbType;
 			string nativeConnectionString;
 			var csb = new ConnectionStringBuilder(masterConnectionString);
-			var server = csb.ContainsKey("server") ? csb["server"] as string :
-				csb.ContainsKey("data source") ? csb["data source"] as string : null;
+			csb.TryGetValue("server", out var serverObj);
+			var server = serverObj as string;
+			if (server == null)
+			{
+				csb.TryGetValue("data source", out var dataSourceObj);
+				server = dataSourceObj as string;
+			}
 			var localDb = server?.ToLower().Contains("localdb") ?? false;
 			csb.Remove("AttachDbFilename");
 			csb.Remove("Database");

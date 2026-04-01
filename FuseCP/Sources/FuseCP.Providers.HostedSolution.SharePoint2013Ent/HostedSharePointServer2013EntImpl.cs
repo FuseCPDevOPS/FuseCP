@@ -710,12 +710,13 @@ namespace FuseCP.Providers.HostedSolution
                         content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                         string[] contentArr = content.Split(new[] {'\n'});
                         bool bRecordExist = false;
+                        var hostNameBuilder = new StringBuilder();
 
                         foreach (string s in contentArr)
                         {
                             if (s != string.Empty)
                             {
-                                var hostNameBuilder = new StringBuilder();
+                                hostNameBuilder.Clear();
 
                                 if (s[0] != '#')
                                 {
@@ -779,10 +780,11 @@ namespace FuseCP.Providers.HostedSolution
                         content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                         string[] contentArr = content.Split(new[] {'\n'});
                         var outPutBuilder = new StringBuilder();
+                        var hostNameBuilder = new StringBuilder();
 
                         foreach (string s in contentArr.Where(s => s != string.Empty))
                         {
-                                var hostNameBuilder = new StringBuilder();
+                            hostNameBuilder.Clear();
 
                                 if (s[0] != '#')
                                 {

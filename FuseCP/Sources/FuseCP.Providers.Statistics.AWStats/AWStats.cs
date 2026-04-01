@@ -189,15 +189,7 @@ namespace FuseCP.Providers.Statistics
                 List<string> lines = LoadBatchFile(batchFilePath);
 
                 // check if the record is already added
-                bool exists = false;
-                foreach (string line in lines)
-                {
-                    if (line.IndexOf("=" + site.Name) != -1)
-                    {
-                        exists = true;
-                        break;
-                    }
-                }
+                bool exists = lines.Any(line => line.IndexOf("=" + site.Name) != -1);
 
                 if (!exists)
                 {
@@ -289,11 +281,11 @@ namespace FuseCP.Providers.Statistics
         #region IHostingServiceProvider methods
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is StatsSite))
+            foreach (StatsSite item in items.OfType<StatsSite>())
             {
                     try
                     {
-                        DeleteSite(((StatsSite)item).SiteId);
+                        DeleteSite(item.SiteId);
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {

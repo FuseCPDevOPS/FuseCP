@@ -1121,16 +1121,13 @@ public class PortalUtils
 						{
 							// 3. Compare against ctl parameter value
 								// 4. Lookup for module id
-								foreach (int pmKey in PortalConfiguration.Site.Modules.Keys)
+								foreach (int pmKey in PortalConfiguration.Site.Modules.Keys.Where(pmKey =>
+									String.Equals(PortalConfiguration.Site.Modules[pmKey].ModuleDefinitionID, md.Id,
+										StringComparison.InvariantCultureIgnoreCase)))
 								{
-									PageModule pm = PortalConfiguration.Site.Modules[pmKey];
-									if (String.Equals(pm.ModuleDefinitionID, md.Id,
-										 StringComparison.InvariantCultureIgnoreCase))
-									{
-										// 5. Append module id parameter
-										urlBuilder.Add("mid=" + pmKey);
-										goto End;
-									}
+									// 5. Append module id parameter
+									urlBuilder.Add("mid=" + pmKey);
+									goto End;
 								}
 						}
 				}

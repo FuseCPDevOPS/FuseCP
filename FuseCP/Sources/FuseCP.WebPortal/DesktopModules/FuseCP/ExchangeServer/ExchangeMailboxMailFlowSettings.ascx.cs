@@ -47,11 +47,12 @@ namespace FuseCP.Portal.ExchangeServer
         {
             int serviceId = ES.Services.ExchangeServer.GetExchangeServiceID(PanelRequest.ItemID);
             StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
-            var AllowSentItems = Utils.ParseBool(settings["ex2016cu6orhigher"], false);
-            if (!AllowSentItems)
+            var allowSentItems = Utils.ParseBool(settings["ex2016cu6orhigher"], false);
+            if (!allowSentItems)
             {
                 tablesavesentitems.Visible = false;
             }
+
             if (!IsPostBack)
             {
                 BindSettings();
@@ -59,7 +60,6 @@ namespace FuseCP.Portal.ExchangeServer
                 if (GetLocalizedString("buttonPanel.OnSaveClientClick") != null)
                     buttonPanel.OnSaveClientClick = GetLocalizedString("buttonPanel.OnSaveClientClick");
             }
-
         }
 
         private void BindSettings()

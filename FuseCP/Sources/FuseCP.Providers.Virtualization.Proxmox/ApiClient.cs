@@ -320,10 +320,8 @@ namespace FuseCP.Providers.Virtualization
 			for (var i = 0; i < seconds * oneSecond;)
 			{
 				var logs = TaskLog(upid).Data;
-				foreach (var log in logs.Where(log => log.t == TaskOk))
-				{
-						return true;
-				}
+				if (logs.Any(log => log.t == TaskOk))
+					return true;
 				i += oneSecond;
 				Thread.Sleep(oneSecond);
 			}

@@ -163,9 +163,7 @@ namespace FuseCP.Portal.VPSForPC
 
             #region Network
             // external network details
-            if (PackagesHelper.IsQuotaEnabled(PanelSecurity.PackageId, Quotas.VPSForPC_EXTERNAL_NETWORK_ENABLED))
-			{
-			}
+
 
 			// private network
 			if (PackagesHelper.IsQuotaEnabled(PanelSecurity.PackageId, Quotas.VPSForPC_PRIVATE_NETWORK_ENABLED))

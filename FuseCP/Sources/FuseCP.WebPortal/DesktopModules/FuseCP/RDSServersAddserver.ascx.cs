@@ -29,10 +29,6 @@ namespace FuseCP.Portal
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-            }
-
             // Load Servers
             var services = ES.Services.RDS.GetRdsServices();
 

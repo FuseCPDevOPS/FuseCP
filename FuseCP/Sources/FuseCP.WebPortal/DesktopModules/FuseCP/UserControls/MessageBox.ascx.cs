@@ -169,22 +169,9 @@ namespace FuseCP.Portal
 		protected override object SaveControlState()
 		{
 			object obj = base.SaveControlState();
-
-			if (emailMessage != null)
-			{
-				return obj != null ? new Pair(obj, emailMessage) : emailMessage;
-
-
-
-
-
-
-
-			}
-			else
-			{
-				return obj;
-			}
+			return emailMessage != null
+				? (obj != null ? new Pair(obj, emailMessage) : emailMessage)
+				: obj;
 		}
 
 		protected override void LoadControlState(object state)

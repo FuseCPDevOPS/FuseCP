@@ -424,10 +424,8 @@ namespace FuseCP.Web.Clients
 
         public static new void StartAllSshTunnels(IEnumerable<string> urls)
 		{
-			foreach (var url in urls.Take(50)) // only pre start the first 50 servers due to performance reasons
+			foreach (var url in urls.Take(50).Where(url => url.StartsWith("ssh://"))) // only pre start the first 50 servers due to performance reasons
 			{
-				if (!url.StartsWith("ssh://")) continue;
-
 				lock (SshLock) SshTunnels.GetOrAdd(url, StartSshTunnel);
 			}
 		}

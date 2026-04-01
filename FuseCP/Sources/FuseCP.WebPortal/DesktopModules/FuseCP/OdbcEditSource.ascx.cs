@@ -261,9 +261,9 @@ namespace FuseCP.Portal
                 local_item.DatabaseName = fileLookup.SelectedFile;
 
             // user
-            if (driverName == "MsAccess")
-                local_item.DatabaseUser = txtUser.Text.Trim();
-            local_item.DatabaseUser = driverName == "MsAccess2010" ? txtUser.Text.Trim() : ddlDatabaseUser.SelectedValue;
+            local_item.DatabaseUser = (driverName == "MsAccess" || driverName == "MsAccess2010")
+                ? txtUser.Text.Trim()
+                : ddlDatabaseUser.SelectedValue;
 
             if (PanelRequest.ItemID == 0)
             {

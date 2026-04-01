@@ -110,25 +110,24 @@ namespace FuseCP.Portal
             //     }
 
             //   }
-if (cntx != null && cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
+            if (cntx != null &&
+                cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv) &&
+                ((_ckv.QuotaAllocatedValue > 0) || (_ckv.QuotaAllocatedValue == -1)))
             {
-                if ((_ckv.QuotaAllocatedValue > 0) || (_ckv.QuotaAllocatedValue == -1))
-                {
-                    MenuItem rootItem = new MenuItem(locMenuTitle.Text);
-                    rootItem.Value = "ORGANIZATION MENU";
-                    rootItem.Selectable = false;
+                MenuItem rootItem = new MenuItem(locMenuTitle.Text);
+                rootItem.Value = "ORGANIZATION MENU";
+                rootItem.Selectable = false;
 
-                    menu.Items.Add(rootItem);
-                    MenuItem item = new MenuItem(
-                       "Hosted Organizations",
-                       "",
-                       "",
-                      "~/Default.aspx?pid=SpaceExchangeServer&SpaceID=" + currentPackage);
-                    makeSelectedMenu(item);
-                    rootItem.ChildItems.Add(item);
-                    this.PackageId = currentPackage;
-                    BindMenu(rootItem.ChildItems);
-                }
+                menu.Items.Add(rootItem);
+                MenuItem item = new MenuItem(
+                   "Hosted Organizations",
+                   "",
+                   "",
+                  "~/Default.aspx?pid=SpaceExchangeServer&SpaceID=" + currentPackage);
+                makeSelectedMenu(item);
+                rootItem.ChildItems.Add(item);
+                this.PackageId = currentPackage;
+                BindMenu(rootItem.ChildItems);
             }
         }
     }

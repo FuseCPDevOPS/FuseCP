@@ -172,12 +172,14 @@ namespace FuseCP.WebDavPortal.Controllers.Api
 
             var newFilePath = string.Empty;
 
-            var target = Request.Headers.ContainsKey("X-WOPI-RelativeTarget")
-                ? Request.Headers["X-WOPI-RelativeTarget"].FirstOrDefault()
+            Request.Headers.TryGetValue("X-WOPI-RelativeTarget", out var relativeTargetHeader);
+            var target = relativeTargetHeader.Any()
+                ? relativeTargetHeader.FirstOrDefault()
                 : Request.Headers["X-WOPI-SuggestedTarget"].FirstOrDefault();
 
-            bool overwrite = Request.Headers.ContainsKey("X-WOPI-RelativeTarget")
-                && Convert.ToBoolean(Request.Headers["X-WOPI-OverwriteRelativeTarget"].FirstOrDefault());
+            Request.Headers.TryGetValue("X-WOPI-OverwriteRelativeTarget", out var overwriteRelativeTargetHeader);
+            bool overwrite = relativeTargetHeader.Any()
+                && Convert.ToBoolean(overwriteRelativeTargetHeader.FirstOrDefault());
 
             if (string.IsNullOrEmpty(target))
             {

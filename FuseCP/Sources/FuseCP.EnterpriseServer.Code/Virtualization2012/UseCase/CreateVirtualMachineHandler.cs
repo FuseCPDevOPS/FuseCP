@@ -158,10 +158,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 if (VMSettings.HddSize.Length == 0) //if we pass the empty array of HddSize it broke everything.
                     quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
 
-                foreach (var hddSize in VMSettings.HddSize.Where(hddSize => hddSize <= 0))
-                {
+                if (VMSettings.HddSize.Any(hddSize => hddSize <= 0))
                     quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_HDD);
-                }
                 if (VMSettings.SnapshotsNumber < 0)
                     quotaResults.Add(VirtualizationErrorCodes.QUOTA_WRONG_SNAPSHOTS);
 

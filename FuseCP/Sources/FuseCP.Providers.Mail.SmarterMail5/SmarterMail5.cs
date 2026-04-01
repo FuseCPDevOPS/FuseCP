@@ -1478,16 +1478,15 @@ namespace FuseCP.Providers.Mail
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
+            foreach (MailDomain item in items.OfType<MailDomain>())
             {
                     try
                     {
                         // enable/disable mail domain
                         if (DomainExists(item.Name))
                         {
-                            MailDomain mailDomain = GetDomain(item.Name);
-                            mailDomain.Enabled = enabled;
-                            UpdateDomain(mailDomain);
+                            item.Enabled = enabled;
+                            UpdateDomain(item);
                         }
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -1499,7 +1498,7 @@ namespace FuseCP.Providers.Mail
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is MailDomain))
+            foreach (MailDomain item in items.OfType<MailDomain>())
             {
                     try
                     {
@@ -1518,7 +1517,7 @@ namespace FuseCP.Providers.Mail
             List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
             // update items with diskspace
-            foreach (ServiceProviderItem item in items.Where(item => item is MailAccount))
+            foreach (MailAccount item in items.OfType<MailAccount>())
             {
                     try
                     {

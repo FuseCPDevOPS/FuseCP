@@ -42,36 +42,29 @@ namespace FuseCP.Providers.Web.Delegation
                 var delegationSection = adminConfig.GetSection("system.webServer/management/delegation");
 				//
 				var rulesCollection = delegationSection.GetCollection();
-				// Update rule if exists
-				foreach (var rule in rulesCollection.Where(rule => rulePredicate.Invoke(rule)))
+				var rule = rulesCollection.FirstOrDefault(ruleCandidate => rulePredicate.Invoke(ruleCandidate));
+				if (rule != null)
 				{
-						var permissions = rule.GetCollection("permissions");
+					var permissions = rule.GetCollection("permissions");
+					//
+					var user = permissions.FirstOrDefault(item => userPredicate.Invoke(item));
+					//
+					if (user == null)
+					{
+						user = permissions.CreateElement("user");
 						//
-						var user = default(ConfigurationElement);
+						user.SetAttributeValue("name", accountName);
+						user.SetAttributeValue("isRole", false);
 						//
-						foreach (var item in permissions.Where(item => userPredicate.Invoke(item)))
-						{
-								user = item;
-								//
-								break;
-						}
+						permissions.Add(user);
+					}
+					//
+					if (user != null)
+					{
+						user.SetAttributeValue("accessType", "Deny");
 						//
-						if (user == null)
-						{
-							user = permissions.CreateElement("user");
-							//
-							user.SetAttributeValue("name", accountName);
-							user.SetAttributeValue("isRole", false);
-							//
-							permissions.Add(user);
-						}
-						//
-						if (user != null)
-						{
-							user.SetAttributeValue("accessType", "Deny");
-							//
-							srvman.CommitChanges();
-						}
+						srvman.CommitChanges();
+					}
 				}
 			}
 		}
@@ -98,27 +91,24 @@ namespace FuseCP.Providers.Web.Delegation
                 var delegationSection = adminConfig.GetSection("system.webServer/management/delegation");
 				//
 				var rulesCollection = delegationSection.GetCollection();
-				// Update rule if exists
-				foreach (var rule in rulesCollection.Where(rule => rulePredicate.Invoke(rule)))
+				var rule = rulesCollection.FirstOrDefault(ruleCandidate => rulePredicate.Invoke(ruleCandidate));
+				if (rule != null)
 				{
-						var permissions = rule.GetCollection("permissions");
+					var permissions = rule.GetCollection("permissions");
+					//
+					var user = permissions.FirstOrDefault(userCandidate => userPredicate.Invoke(userCandidate));
+					if (user != null)
+					{
+						permissions.Remove(user);
 						//
-						foreach (var user in permissions.Where(user => userPredicate.Invoke(user)))
-						{
-								permissions.Remove(user);
-								//
-								srvman.CommitChanges();
-								//
-								break;
-						}
+						srvman.CommitChanges();
+					}
 				}
 			}
 		}
 
 		public bool DelegationRuleExists(string providers, string path)
 		{
-			var exists = false;
-			//
 			var predicate = new Predicate<ConfigurationElement>(x =>
 			{
 				return x.Attributes["providers"].Value.Equals(providers) && x.Attributes["path"].Value.Equals(path);
@@ -135,16 +125,9 @@ namespace FuseCP.Providers.Web.Delegation
                 var delegationSection = adminConfig.GetSection("system.webServer/management/delegation");
 				//
 				var rulesCollection = delegationSection.GetCollection();
-				// Update rule if exists
-				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
-				{
-						exists = true;
-						//
-						break;
-				}
+				return rulesCollection.Any(rule => predicate.Invoke(rule));
 			}
 			//
-			return exists;
 		}
 
 		public void AddDelegationRule(string providers, string path, string pathType, string identityType, string userName, string userPassword)
@@ -165,26 +148,25 @@ namespace FuseCP.Providers.Web.Delegation
                 var delegationSection = adminConfig.GetSection("system.webServer/management/delegation");
 				//
 				var rulesCollection = delegationSection.GetCollection();
-				// Update rule if exists
-				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
+				var rule = rulesCollection.FirstOrDefault(ruleCandidate => predicate.Invoke(ruleCandidate));
+				if (rule != null)
 				{
-					//
-						if (identityType.Equals("SpecificUser"))
+					if (identityType.Equals("SpecificUser"))
+					{
+						var runAsElement = rule.ChildElements["runAs"];
+						//
+						runAsElement.SetAttributeValue("userName", userName);
+						runAsElement.SetAttributeValue("password", userPassword);
+						// Ensure the rules is enabled
+						if (rule.Attributes["enabled"].Equals(false))
 						{
-							var runAsElement = rule.ChildElements["runAs"];
-							//
-							runAsElement.SetAttributeValue("userName", userName);
-							runAsElement.SetAttributeValue("password", userPassword);
-							// Ensure the rules is enabled
-							if (rule.Attributes["enabled"].Equals(false))
-							{
-								rule.SetAttributeValue("enabled", true);
-							}
-							//
-							srvman.CommitChanges();
+							rule.SetAttributeValue("enabled", true);
 						}
 						//
-						return; // Exit
+						srvman.CommitChanges();
+					}
+					//
+					return; // Exit
 				}
 				// Create new rule if none exists
 				var newRule = rulesCollection.CreateElement("rule");
@@ -240,15 +222,15 @@ namespace FuseCP.Providers.Web.Delegation
                 var delegationSection = adminConfig.GetSection("system.webServer/management/delegation");
 				//
 				var rulesCollection = delegationSection.GetCollection();
-				// Remove rule if exists
-				foreach (var rule in rulesCollection.Where(rule => predicate.Invoke(rule)))
+				var rule = rulesCollection.FirstOrDefault(ruleCandidate => predicate.Invoke(ruleCandidate));
+				if (rule != null)
 				{
 					// Match rule against predicate
-						rulesCollection.Remove(rule);
-						//
-						srvman.CommitChanges();
-						//
-						return; // Exit
+					rulesCollection.Remove(rule);
+					//
+					srvman.CommitChanges();
+					//
+					return; // Exit
 				}
 			}
 		}

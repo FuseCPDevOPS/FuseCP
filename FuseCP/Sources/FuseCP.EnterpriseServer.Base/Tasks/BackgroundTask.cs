@@ -122,12 +122,7 @@ namespace FuseCP.EnterpriseServer
 
         public Object GetParamValue(String name)
         {
-            foreach (BackgroundTaskParameter param in Params.Where(param => param.Name == name))
-            {
-                return param.Value;
-            }
-
-            return null;
+            return Params.FirstOrDefault(param => param.Name == name)?.Value;
         }
 
         public void UpdateParamValue(String name, object value)
@@ -145,12 +140,7 @@ namespace FuseCP.EnterpriseServer
 
         public bool ContainsParam(String name)
         {
-            foreach (BackgroundTaskParameter param in Params.Where(param => param.Name == name))
-            {
-                return true;
-            }
-
-            return false;
+            return Params.Any(param => param.Name == name);
         }
 
         #endregion

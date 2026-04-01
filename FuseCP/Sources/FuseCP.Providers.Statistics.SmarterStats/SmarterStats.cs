@@ -139,12 +139,8 @@ namespace FuseCP.Providers.Statistics
             if (result.Sites == null)
                 return null;
 
-            foreach (SiteInfo site in result.Sites.Where(site => String.Compare(siteName, site.DomainName, 0) == 0))
-            {
-                return site.SiteID.ToString();
-            }
-
-            return null;
+            var site = result.Sites.FirstOrDefault(item => String.Compare(siteName, item.DomainName, 0) == 0);
+            return site != null ? site.SiteID.ToString() : null;
         }
 
         public virtual string[] GetSites()
@@ -341,11 +337,11 @@ namespace FuseCP.Providers.Statistics
         #region IHostingServiceProvider methods
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is StatsSite))
+            foreach (StatsSite item in items.OfType<StatsSite>())
             {
                     try
                     {
-                        DeleteSite(((StatsSite)item).SiteId);
+                        DeleteSite(item.SiteId);
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {

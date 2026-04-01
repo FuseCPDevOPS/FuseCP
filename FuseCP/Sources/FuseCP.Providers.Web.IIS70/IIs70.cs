@@ -1703,12 +1703,9 @@ namespace FuseCP.Providers.Web
 			// filter
 			string sharedToolsFolder = GetMicrosoftSharedFolderPath();
 			List<WebVirtualDirectory> result = new List<WebVirtualDirectory>();
-			foreach (WebVirtualDirectory dir in virtDirs)
+			foreach (WebVirtualDirectory dir in virtDirs.Where(dir => String.IsNullOrEmpty(sharedToolsFolder)
+				|| !dir.ContentPath.ToLower().StartsWith(sharedToolsFolder.ToLower())))
 			{
-				// check if this is a system (FrontPage or SharePoint) virtual iisDirObject
-				if (!String.IsNullOrEmpty(sharedToolsFolder)
-					 && dir.ContentPath.ToLower().StartsWith(sharedToolsFolder.ToLower()))
-					continue;
 				result.Add(dir);
 			}
 			return result.ToArray();
@@ -1857,12 +1854,9 @@ namespace FuseCP.Providers.Web
 			// filter
 			string sharedToolsFolder = GetMicrosoftSharedFolderPath();
 			List<WebAppVirtualDirectory> result = new List<WebAppVirtualDirectory>();
-			foreach (WebAppVirtualDirectory dir in virtDirs)
+			foreach (WebAppVirtualDirectory dir in virtDirs.Where(dir => String.IsNullOrEmpty(sharedToolsFolder)
+				|| !dir.ContentPath.ToLower().StartsWith(sharedToolsFolder.ToLower())))
 			{
-				// check if this is a system (FrontPage or SharePoint) virtual iisDirObject
-				if (!String.IsNullOrEmpty(sharedToolsFolder)
-					 && dir.ContentPath.ToLower().StartsWith(sharedToolsFolder.ToLower()))
-					continue;
 				result.Add(dir);
 			}
 			return result.ToArray();
@@ -2191,18 +2185,13 @@ namespace FuseCP.Providers.Web
 				//
 				ConfigurationElementCollection modulesCollection = modulesSection.GetCollection();
 				//
-				foreach (ConfigurationElement moduleEntry in modulesCollection.Where(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase)))
-				{
-						modulesCollection.Remove(moduleEntry);
-						break;
+				var fusecpModule = modulesCollection.FirstOrDefault(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase));
+				if (fusecpModule != null)
+					modulesCollection.Remove(fusecpModule);
 
-				}
-
-				foreach (ConfigurationElement moduleEntry in modulesCollection.Where(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase)))
-				{
-						modulesCollection.Remove(moduleEntry);
-						break;
-				}
+				var dotnetpanelModule = modulesCollection.FirstOrDefault(moduleEntry => String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase));
+				if (dotnetpanelModule != null)
+					modulesCollection.Remove(dotnetpanelModule);
 
 				srvman.CommitChanges();
 
@@ -3433,10 +3422,8 @@ namespace FuseCP.Providers.Web
 			string[] subKeys = keyFrontPage.GetSubKeyNames();
 			if (subKeys != null && subKeys.Length > 0)
 			{
-				foreach (string key in subKeys.Where(key => key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED))
-				{
+				if (subKeys.Any(key => key == IIs60.FRONTPAGE_2002_INSTALLED || key == IIs60.SHAREPOINT_INSTALLED))
 					return true;
-				}
 			}
 
 			return false;
@@ -3973,7 +3960,7 @@ namespace FuseCP.Providers.Web
 			List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
 
 			// update items with diskspace
-			foreach (ServiceProviderItem item in items.Where(item => item is WebSite))
+			foreach (WebSite item in items.OfType<WebSite>())
 			{
 					try
 					{
@@ -4405,29 +4392,26 @@ namespace FuseCP.Providers.Web
 
 		protected ConfigurationElement FindElement(ConfigurationElementCollection collection, string elementTagName, params string[] keyValues)
 		{
-			foreach (ConfigurationElement element in collection)
+			foreach (ConfigurationElement element in collection.Where(element => String.Equals(element.ElementTagName, elementTagName, StringComparison.OrdinalIgnoreCase)))
 			{
-				if (String.Equals(element.ElementTagName, elementTagName, StringComparison.OrdinalIgnoreCase))
+				bool matches = true;
+				for (int i = 0; i < keyValues.Length; i += 2)
 				{
-					bool matches = true;
-					for (int i = 0; i < keyValues.Length; i += 2)
+					object o = element.GetAttributeValue(keyValues[i]);
+					string value = null;
+					if (o != null)
 					{
-						object o = element.GetAttributeValue(keyValues[i]);
-						string value = null;
-						if (o != null)
-						{
-							value = o.ToString();
-						}
-						if (!String.Equals(value, keyValues[i + 1], StringComparison.OrdinalIgnoreCase))
-						{
-							matches = false;
-							break;
-						}
+						value = o.ToString();
 					}
-					if (matches)
+					if (!String.Equals(value, keyValues[i + 1], StringComparison.OrdinalIgnoreCase))
 					{
-						return element;
+						matches = false;
+						break;
 					}
+				}
+				if (matches)
+				{
+					return element;
 				}
 			}
 			return null;

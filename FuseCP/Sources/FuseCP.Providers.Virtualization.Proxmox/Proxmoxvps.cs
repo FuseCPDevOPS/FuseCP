@@ -841,7 +841,8 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 => other != null
                 && Equals(Vm, other.Vm)
                 && String.Equals(Password, other.Password, StringComparison.Ordinal);
-            public override bool Equals(object obj) => Equals(obj as VncConnection);
+            public override bool Equals(object obj) =>
+                obj != null && obj.GetType() == typeof(VncConnection) && Equals((VncConnection)obj);
             public override int GetHashCode()
                 => (Vm?.GetHashCode() ?? 0) ^ (Password ?? String.Empty).GetHashCode();
             public virtual void Dispose() { }
@@ -1357,10 +1358,9 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             LibraryItem[] disks = GetDVDISOs(vmId);
 
             // find required disk
-            foreach (LibraryItem disk in disks.Where(disk => string.Compare(isoPath, disk.Path, true) == 0))
-            {
+            var disk = disks.FirstOrDefault(item => string.Compare(isoPath, item.Path, true) == 0);
+            if (disk != null)
                 disksize = disk.DiskSize;
-            }
 
             try
             {
@@ -1901,11 +1901,8 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
             // determine maximum available space
             ulong oneMegabyte = 1048576;
             ulong freeSpace = 0;
-            foreach (Vds.DiskExtent extent in advancedDisk.Extents)
+            foreach (Vds.DiskExtent extent in advancedDisk.Extents.Where(extent => extent.Type == Microsoft.Storage.Vds.DiskExtentType.Free))
             {
-                 if (extent.Type != Microsoft.Storage.Vds.DiskExtentType.Free)
-                      continue;
-
                  if (extent.Size > oneMegabyte)
                       freeSpace += extent.Size;
             }
@@ -2089,30 +2086,25 @@ if (snapshot.TryGetValue("snaptime", out var snapTimeValue))
 
         public override void ChangeServiceItemsState(ServiceProviderItem[] items, bool enabled)
         {
-            foreach (ServiceProviderItem item in items.Where(item => item is VirtualMachine))
+            foreach (VirtualMachine item in items.OfType<VirtualMachine>())
             {
                     // start/stop virtual machine
-                    VirtualMachine vm = item as VirtualMachine;
-                    ChangeVirtualMachineServiceItemState(vm, enabled);
+                ChangeVirtualMachineServiceItemState(item, enabled);
             }
         }
 
         public override void DeleteServiceItems(ServiceProviderItem[] items)
         {
-            foreach (ServiceProviderItem item in items)
+            foreach (VirtualMachine item in items.OfType<VirtualMachine>())
             {
-                if (item is VirtualMachine)
-                {
-                    // delete virtual machine
-                    VirtualMachine vm = item as VirtualMachine;
-                    DeleteVirtualMachineServiceItem(vm);
-                }
-                else if (item is VirtualSwitch)
-                {
-                    // delete switch
-                    VirtualSwitch vs = item as VirtualSwitch;
-                    DeleteVirtualSwitchServiceItem(vs);
-                }
+                // delete virtual machine
+                DeleteVirtualMachineServiceItem(item);
+            }
+
+            foreach (VirtualSwitch item in items.OfType<VirtualSwitch>())
+            {
+                // delete switch
+                DeleteVirtualSwitchServiceItem(item);
             }
         }
 

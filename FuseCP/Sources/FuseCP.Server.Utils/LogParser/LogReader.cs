@@ -126,11 +126,8 @@ namespace FuseCP.Providers.Utils.LogParser
                 if (fields == null || fields.Length == 0)
                     return false;
                 //
-                foreach (string keyField in keyFields.Where(keyField => Array.IndexOf(fields, keyField) == -1))
-                {
-                    //
+				if (keyFields.Any(keyField => Array.IndexOf(fields, keyField) == -1))
                     return false;
-                }
                 //
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

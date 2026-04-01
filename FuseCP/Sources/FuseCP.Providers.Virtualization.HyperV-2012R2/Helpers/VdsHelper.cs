@@ -76,11 +76,8 @@ namespace FuseCP.Providers.Virtualization
             // determine maximum available space
             ulong oneMegabyte = 1048576;
             ulong freeSpace = 0;
-            foreach (DiskExtent extent in advancedDisk.Extents)
+            foreach (DiskExtent extent in advancedDisk.Extents.Where(extent => extent.Type == Microsoft.Storage.Vds.DiskExtentType.Free))
             {
-                if (extent.Type != Microsoft.Storage.Vds.DiskExtentType.Free)
-                    continue;
-
                 if (extent.Size > oneMegabyte)
                     freeSpace += extent.Size;
             }
@@ -216,11 +213,9 @@ namespace FuseCP.Providers.Virtualization
                 // find volumes using VDS
                 List<string> volumes = new List<string>();
                 HostedSolutionLog.LogInfo("Querying disk volumes with VDS");
-                foreach (Volume volume in diskPack.Volumes)
+                foreach (Volume volume in diskPack.Volumes.Cast<Volume>().Where(volume => volume.DriveLetter.ToString() != ""))
                 {
-                    string letter = volume.DriveLetter.ToString();
-                    if (letter != "")
-                        volumes.Add(letter);
+                    volumes.Add(volume.DriveLetter.ToString());
                 }
 
                 // find volumes using WMI

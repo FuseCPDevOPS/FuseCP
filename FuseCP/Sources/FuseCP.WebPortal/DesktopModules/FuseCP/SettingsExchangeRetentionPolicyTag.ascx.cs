@@ -313,7 +313,7 @@ namespace FuseCP.Portal
             tag.AgeLimitForRetention = ageLimitForRetention.QuotaValue;
             tag.RetentionAction = Convert.ToInt32(ddRetentionAction.SelectedValue);
 
-            if ((orgs != null) && (orgs.GetLength(0) > 0))
+            if (orgs.GetLength(0) > 0)
             {
                 ResultObject result = ES.Services.ExchangeServer.UpdateExchangeRetentionPolicyTag(orgs[0].Id, tag);
 

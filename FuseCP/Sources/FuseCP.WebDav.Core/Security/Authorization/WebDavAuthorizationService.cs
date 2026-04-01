@@ -109,9 +109,8 @@ namespace FuseCP.WebDav.Core.Security.Authorization
 
         private IEnumerable<ESPermission> GetFolderEsPermissions(ScpPrincipal principal, string rootFolderName)
         {
-            var dictionary = CurrentSession.ContainsKey(WebDavAppConfigManager.Instance.SessionKeys.WebDavRootFoldersPermissions)
-                ? CurrentSession[WebDavAppConfigManager.Instance.SessionKeys.WebDavRootFoldersPermissions] as Dictionary<string, IEnumerable<ESPermission>>
-                : null;
+            CurrentSession.TryGetValue(WebDavAppConfigManager.Instance.SessionKeys.WebDavRootFoldersPermissions, out var permissionsObj);
+            var dictionary = permissionsObj as Dictionary<string, IEnumerable<ESPermission>>;
 
             if (dictionary == null)
             {
@@ -134,9 +133,8 @@ namespace FuseCP.WebDav.Core.Security.Authorization
 
         public IEnumerable<ExchangeAccount> GetUserSecurityGroups(ScpPrincipal principal)
         {
-            var groups = CurrentSession.ContainsKey(WebDavAppConfigManager.Instance.SessionKeys.UserGroupsKey)
-                ? CurrentSession[WebDavAppConfigManager.Instance.SessionKeys.UserGroupsKey] as IEnumerable<ExchangeAccount>
-                : null;
+            CurrentSession.TryGetValue(WebDavAppConfigManager.Instance.SessionKeys.UserGroupsKey, out var groupsObj);
+            var groups = groupsObj as IEnumerable<ExchangeAccount>;
 
             if (groups == null)
             {
@@ -150,9 +148,8 @@ namespace FuseCP.WebDav.Core.Security.Authorization
 
         private IEnumerable<string> GetOwaFoldersWithEditPermission(ScpPrincipal principal)
         {
-            var folders = CurrentSession.ContainsKey(WebDavAppConfigManager.Instance.SessionKeys.OwaEditFoldersSessionKey)
-                ? CurrentSession[WebDavAppConfigManager.Instance.SessionKeys.OwaEditFoldersSessionKey] as IEnumerable<string>
-                : null;
+            CurrentSession.TryGetValue(WebDavAppConfigManager.Instance.SessionKeys.OwaEditFoldersSessionKey, out var foldersObj);
+            var folders = foldersObj as IEnumerable<string>;
 
             if (folders != null)
             {

@@ -235,11 +235,7 @@ namespace FuseCP.Providers.Mail
 
 				if (result.Result)
 				{
-					foreach (string member in result.listNames.Where(member => string.Compare(member, listName, true) == 0))
-					{
-							exists = true;
-							break;
-					}
+					exists = result.listNames.Any(member => string.Compare(member, listName, true) == 0);
 				}
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

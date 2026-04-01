@@ -450,7 +450,7 @@ namespace FuseCP.Portal
                     plan.MailboxPlanType = (int)ExchangeMailboxPlanType.Reseller;
 
 
-            if ((orgs != null) && (orgs.GetLength(0) > 0))
+            if (orgs.GetLength(0) > 0)
             {
                 int result = ES.Services.ExchangeServer.UpdateExchangeMailboxPlan(orgs[0].Id, plan);
 

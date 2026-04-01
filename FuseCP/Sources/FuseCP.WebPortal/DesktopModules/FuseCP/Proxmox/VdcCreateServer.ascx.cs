@@ -96,12 +96,12 @@ namespace FuseCP.Portal.Proxmox
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			int maxCores = ES.Services.Proxmox.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
 
-			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out QuotaValueInfo cpuQuota))
+			if (cntx != null &&
+				cntx.Quotas.TryGetValue(Quotas.PROXMOX_CPU_NUMBER, out QuotaValueInfo cpuQuota) &&
+				cpuQuota.QuotaAllocatedValue != -1 &&
+				maxCores > cpuQuota.QuotaAllocatedValue)
 			{
-
-				if (cpuQuota.QuotaAllocatedValue != -1
-					 && maxCores > cpuQuota.QuotaAllocatedValue)
-					maxCores = cpuQuota.QuotaAllocatedValue;
+				maxCores = cpuQuota.QuotaAllocatedValue;
 			}
 
 			for (int i = 1; i < maxCores + 1; i++)

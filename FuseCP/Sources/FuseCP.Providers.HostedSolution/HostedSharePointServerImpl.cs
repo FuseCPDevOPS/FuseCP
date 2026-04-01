@@ -303,12 +303,14 @@ namespace FuseCP.Providers.HostedSolution
                             content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                             string[] contentArr = content.Split(new char[] { '\n' });
                             bool bRecordExist = false;
+                            var ipAddrBuilder = new StringBuilder();
+                            var hostNameBuilder = new StringBuilder();
                             foreach (string s in contentArr)
                             {
                                 if (s != string.Empty)
                                 {
-                                    var ipAddrBuilder = new StringBuilder();
-                                    var hostNameBuilder = new StringBuilder();
+                                    ipAddrBuilder.Clear();
+                                    hostNameBuilder.Clear();
                                     if (s[0] != '#')
                                     {
                                         bool bSeperator = false;
@@ -418,10 +420,12 @@ namespace FuseCP.Providers.HostedSolution
                                 content = content.Replace("\r\n", "\n").Replace("\n\r", "\n");
                                 string[] contentArr = content.Split(new char[] { '\n' });
                                 var outPutBuilder = new StringBuilder();
+                                var ipAddrBuilder = new StringBuilder();
+                                var hostNameBuilder = new StringBuilder();
                                 foreach (string s in contentArr.Where(s => s != string.Empty))
                                 {
-                                        var ipAddrBuilder = new StringBuilder();
-                                        var hostNameBuilder = new StringBuilder();
+                                    ipAddrBuilder.Clear();
+                                    hostNameBuilder.Clear();
                                         if (s[0] != '#')
                                         {
                                             bool bSeperator = false;

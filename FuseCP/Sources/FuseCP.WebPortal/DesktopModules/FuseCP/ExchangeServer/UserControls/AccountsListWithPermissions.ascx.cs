@@ -220,13 +220,10 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			if (ExcludeAccountId > 0)
 			{
 				List<ExchangeAccount> updatedAccounts = new List<ExchangeAccount>();
-                foreach (ExchangeAccount account in accounts)
+				foreach (ExchangeAccount account in accounts.Where(account => account.AccountId != ExcludeAccountId))
                 {
-                    if (account.AccountId != ExcludeAccountId)
-					{
-                        account.PublicFolderPermission = "Reviewer";
-                        updatedAccounts.Add(account);
-					}
+					account.PublicFolderPermission = "Reviewer";
+					updatedAccounts.Add(account);
                 }
 				accounts = updatedAccounts.ToArray();
 			}

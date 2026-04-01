@@ -120,11 +120,8 @@ namespace FuseCP.WebPortal
             if (parentPage != null)
             {
                 // fill collection
-                foreach (PortalPage page in parentPage.Pages)
+                foreach (PortalPage page in parentPage.Pages.Where(page => !page.Hidden))
                 {
-                    if (page.Hidden)
-                        continue;
-
                     SiteMapNode childNode = CreateNodeFromPage(page);
                     if (childNode != null)
                         children.Add(childNode);

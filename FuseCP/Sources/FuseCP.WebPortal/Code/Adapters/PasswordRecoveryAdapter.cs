@@ -188,9 +188,6 @@ namespace CSSFriendly
             base.OnPreRender(e);
 
             PasswordRecovery passwordRecovery = Control as PasswordRecovery;
-            if (passwordRecovery != null)
-            {
-            }
 
             //  By this time we have finished doing our event processing.  That means that if errors have
             //  occurred, the event handlers (OnAnswerLookupError, OnSendMailError or 
@@ -350,16 +347,13 @@ namespace CSSFriendly
 
         private void WriteTitlePanel(HtmlTextWriter writer, PasswordRecovery passwordRecovery)
         {
-            if ((_state == State.UserName) || (_state == State.UserLookupError))
+            if (((_state == State.UserName) || (_state == State.UserLookupError)) && !String.IsNullOrEmpty(passwordRecovery.UserNameTitleText))
             {
-                if (!String.IsNullOrEmpty(passwordRecovery.UserNameTitleText))
-                {
-                    string className = (passwordRecovery.TitleTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.TitleTextStyle.CssClass)) ? passwordRecovery.TitleTextStyle.CssClass + " " : "";
-                    className += "AspNet-PasswordRecovery-UserName-TitlePanel";
-                    WebControlAdapterExtender.WriteBeginDiv(writer, className);
-                    WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.UserNameTitleText);
-                    WebControlAdapterExtender.WriteEndDiv(writer);
-                }
+                string className = (passwordRecovery.TitleTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.TitleTextStyle.CssClass)) ? passwordRecovery.TitleTextStyle.CssClass + " " : "";
+                className += "AspNet-PasswordRecovery-UserName-TitlePanel";
+                WebControlAdapterExtender.WriteBeginDiv(writer, className);
+                WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.UserNameTitleText);
+                WebControlAdapterExtender.WriteEndDiv(writer);
             }
             if (((_state == State.Question) || (_state == State.AnswerLookupError)) && !String.IsNullOrEmpty(passwordRecovery.QuestionTitleText))
             {
@@ -373,16 +367,13 @@ namespace CSSFriendly
 
         private void WriteInstructionPanel(HtmlTextWriter writer, PasswordRecovery passwordRecovery)
         {
-            if ((_state == State.UserName) || (_state == State.UserLookupError))
+            if (((_state == State.UserName) || (_state == State.UserLookupError)) && !String.IsNullOrEmpty(passwordRecovery.UserNameInstructionText))
             {
-                if (!String.IsNullOrEmpty(passwordRecovery.UserNameInstructionText))
-                {
-                    string className = (passwordRecovery.InstructionTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.InstructionTextStyle.CssClass)) ? passwordRecovery.InstructionTextStyle.CssClass + " " : "";
-                    className += "AspNet-PasswordRecovery-UserName-InstructionPanel";
-                    WebControlAdapterExtender.WriteBeginDiv(writer, className);
-                    WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.UserNameInstructionText);
-                    WebControlAdapterExtender.WriteEndDiv(writer);
-                }
+                string className = (passwordRecovery.InstructionTextStyle != null) && (!String.IsNullOrEmpty(passwordRecovery.InstructionTextStyle.CssClass)) ? passwordRecovery.InstructionTextStyle.CssClass + " " : "";
+                className += "AspNet-PasswordRecovery-UserName-InstructionPanel";
+                WebControlAdapterExtender.WriteBeginDiv(writer, className);
+                WebControlAdapterExtender.WriteSpan(writer, "", passwordRecovery.UserNameInstructionText);
+                WebControlAdapterExtender.WriteEndDiv(writer);
             }
             if (((_state == State.Question) || (_state == State.AnswerLookupError)) && !String.IsNullOrEmpty(passwordRecovery.QuestionInstructionText))
             {
