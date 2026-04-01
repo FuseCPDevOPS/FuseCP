@@ -1010,8 +1010,11 @@ HttpClient client = CreateHttpClient();
 				List<MailAccount> accounts = new List<MailAccount>();
 
 
-				foreach (dynamic user in ((IEnumerable<dynamic>)result["userData"]).Where(user => ImportDomainAdmin || !Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"])))
+				foreach (dynamic user in result["userData"])
 				{
+					if (!ImportDomainAdmin && Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"]))
+						continue;
+
 					Log.WriteInfo("GetAccounts - Account: {0} \n\n DomainAdmin: {1} \n\n ImportDomainAdmin: {2}", user["emailAddress"].ToString(), Convert.ToBoolean(user["securityFlags"]["isDomainAdmin"]), ImportDomainAdmin);
 
 					MailAccount account = new MailAccount();
@@ -1187,8 +1190,11 @@ HttpClient client = CreateHttpClient();
 				if (!userSignaturessuccess)
 					throw new Exception(userSignaturesresult["message"]);
 
-				foreach (dynamic userSignature in ((IEnumerable<dynamic>)userSignaturesresult["userSignatures"]).Where(userSignature => Convert.ToBoolean(userSignature["isDefault"])))
+				foreach (dynamic userSignature in userSignaturesresult["userSignatures"])
 				{
+					if (!Convert.ToBoolean(userSignature["isDefault"]))
+						continue;
+
 					mailbox.Signature = userSignature["text"].ToString();
 					mailbox.SignatureGuid = userSignature["guid"].ToString();
 					mailbox.SignatureName = userSignature["name"].ToString();
@@ -1654,9 +1660,13 @@ HttpClient client = CreateHttpClient();
 				if (!success)
 					throw new Exception(result["message"]);
 
-				if (result["gridInfo"].Count > 0 && ((IEnumerable<dynamic>)result["gridInfo"]).Any(gridinfo => gridinfo.name == groupNameUser))
+				if (result["gridInfo"].Count > 0)
 				{
-					return true;
+					foreach (dynamic gridinfo in result["gridInfo"])
+					{
+						if (gridinfo.name == groupNameUser)
+							return true;
+					}
 				}
 
 				Log.WriteInfo("GroupExists - Could not find group: {0}", groupName);

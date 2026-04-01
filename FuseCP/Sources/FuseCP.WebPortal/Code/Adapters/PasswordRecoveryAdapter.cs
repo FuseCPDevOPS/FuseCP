@@ -440,7 +440,7 @@ namespace CSSFriendly
                 string id = (container != null) ? container.ID + "_Submit" : "Submit";
 
                 string idWithType = WebControlAdapterExtender.MakeIdWithButtonType("Submit", passwordRecovery.SubmitButtonType);
-                Control btn = (container != null) ? container.FindControl(idWithType) as Control : null;
+                Control btn = (container != null) ? container.FindControl(idWithType) : null;
 
                 if (btn != null)
                 {
@@ -460,7 +460,7 @@ namespace CSSFriendly
                 Control container = passwordRecovery.QuestionTemplateContainer;
                 string id = (container != null) ? container.ID + "_Submit" : "Submit";
                 string idWithType = WebControlAdapterExtender.MakeIdWithButtonType("Submit", passwordRecovery.SubmitButtonType);
-                Control btn = (container != null) ? container.FindControl(idWithType) as Control : null;
+                Control btn = (container != null) ? container.FindControl(idWithType) : null;
 
                 if (btn != null)
                 {

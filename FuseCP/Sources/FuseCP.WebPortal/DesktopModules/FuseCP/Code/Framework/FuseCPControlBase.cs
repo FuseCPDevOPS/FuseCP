@@ -236,10 +236,10 @@ namespace FuseCP.Portal
 			{
 				foreach (Control exCtrl in excludeControls)
 				{
-					if (exCtrl == ctrl)
-					{
-						return;
-					}
+					if (exCtrl != ctrl)
+						continue;
+
+					return;
 				}
 			}
 
