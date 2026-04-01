@@ -293,6 +293,7 @@ namespace FuseCP.Portal
 
             // create cookie
             HttpCookie cookie = new HttpCookie(ctrl.UniqueID, cookieVal);
+            cookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
             response.Cookies.Add(cookie);
         }
 

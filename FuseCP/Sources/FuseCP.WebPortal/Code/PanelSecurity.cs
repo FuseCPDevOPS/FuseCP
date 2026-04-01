@@ -136,6 +136,7 @@ namespace FuseCP.Portal
 			HttpCookie cookie = new HttpCookie(key, s);
 			cookie.HttpOnly = true;
 			HttpContext.Current.Response.Cookies.Remove(key);
+			cookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(cookie);
 		}
 

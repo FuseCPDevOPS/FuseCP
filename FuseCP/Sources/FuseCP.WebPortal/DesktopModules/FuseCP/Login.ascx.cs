@@ -359,6 +359,8 @@ namespace FuseCP.Portal
 
 							HttpCookie UserThemeStyleCrumb = new HttpCookie("UserThemeStyle", UserThemeStyle);
 							UserThemeStyleCrumb.Expires = DateTime.Now.AddMonths(2);
+							UserThemeStyleCrumb.HttpOnly = true;
+							UserThemeStyleCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(UserThemeStyleCrumb);
 
 						}
@@ -367,6 +369,8 @@ namespace FuseCP.Portal
 						{
 							HttpCookie paletteLightCookie = new HttpCookie("UserThemePaletteLight", RowPropertyValue ?? string.Empty);
 							paletteLightCookie.Expires = DateTime.Now.AddMonths(2);
+							paletteLightCookie.HttpOnly = true;
+							paletteLightCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(paletteLightCookie);
 						}
 
@@ -374,6 +378,8 @@ namespace FuseCP.Portal
 						{
 							HttpCookie paletteDarkCookie = new HttpCookie("UserThemePaletteDark", RowPropertyValue ?? string.Empty);
 							paletteDarkCookie.Expires = DateTime.Now.AddMonths(2);
+							paletteDarkCookie.HttpOnly = true;
+							paletteDarkCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(paletteDarkCookie);
 						}
 
@@ -381,6 +387,8 @@ namespace FuseCP.Portal
 						{
 							HttpCookie buttonsLightCookie = new HttpCookie("UserThemeButtonsLight", RowPropertyValue ?? string.Empty);
 							buttonsLightCookie.Expires = DateTime.Now.AddMonths(2);
+							buttonsLightCookie.HttpOnly = true;
+							buttonsLightCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(buttonsLightCookie);
 						}
 
@@ -388,6 +396,8 @@ namespace FuseCP.Portal
 						{
 							HttpCookie buttonsDarkCookie = new HttpCookie("UserThemeButtonsDark", RowPropertyValue ?? string.Empty);
 							buttonsDarkCookie.Expires = DateTime.Now.AddMonths(2);
+							buttonsDarkCookie.HttpOnly = true;
+							buttonsDarkCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(buttonsDarkCookie);
 						}
 					}
@@ -502,6 +512,8 @@ namespace FuseCP.Portal
 			{
 				HttpCookie resetModeCookie = new HttpCookie(ThemeModeCookieName, String.Empty);
 				resetModeCookie.Expires = DateTime.Now.AddMonths(-1);
+				resetModeCookie.HttpOnly = true;
+				resetModeCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 				HttpContext.Current.Response.Cookies.Add(resetModeCookie);
 				return;
 			}
@@ -513,6 +525,8 @@ namespace FuseCP.Portal
 
 			HttpCookie modeCookie = new HttpCookie(ThemeModeCookieName, selectedMode);
 			modeCookie.Expires = DateTime.Now.AddMonths(2);
+			modeCookie.HttpOnly = true;
+			modeCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(modeCookie);
 		}
 

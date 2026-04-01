@@ -116,6 +116,7 @@ public class PortalUtils
 
 			HttpCookie cookieTheme = new HttpCookie(ThemeCookieName, theme);
 			cookieTheme.Expires = DateTime.Now.AddMonths(2);
+			cookieTheme.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(cookieTheme);
 		}
 	}
@@ -271,11 +272,14 @@ public class PortalUtils
 		// Clear authentication cookie 
 		HttpCookie rFormsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
 		rFormsCookie.Expires = DateTime.Now.AddYears(-1);
+		rFormsCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 		HttpContext.Current.Response.Cookies.Add(rFormsCookie);
 
 		// Clear session cookie  
 		HttpCookie rSessionCookie = new HttpCookie("ASP.NET_SessionId", "");
 		rSessionCookie.Expires = DateTime.Now.AddYears(-1);
+		rSessionCookie.HttpOnly = true;
+		rSessionCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 		HttpContext.Current.Response.Cookies.Add(rSessionCookie);
 
 		HttpContext.Current.Response.Redirect(LoginRedirectUrl);
@@ -293,11 +297,14 @@ public class PortalUtils
 		// Clear authentication cookie 
 		HttpCookie rFormsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
 		rFormsCookie.Expires = DateTime.Now.AddYears(-1);
+		rFormsCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 		HttpContext.Current.Response.Cookies.Add(rFormsCookie);
 
 		// Clear session cookie  
 		HttpCookie rSessionCookie = new HttpCookie("ASP.NET_SessionId", "");
 		rSessionCookie.Expires = DateTime.Now.AddYears(-1);
+		rSessionCookie.HttpOnly = true;
+		rSessionCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 		HttpContext.Current.Response.Cookies.Add(rSessionCookie);
 	}
 
@@ -309,6 +316,7 @@ public class PortalUtils
 
 			HttpCookie rFormsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
 			rFormsCookie.Expires = DateTime.Now.AddYears(-1);
+			rFormsCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(rFormsCookie);
 		}
 		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -810,6 +818,7 @@ public class PortalUtils
 		{
 			HttpCookie localeCrumb = new HttpCookie(CultureCookieName, preferredLocale);
 			localeCrumb.Expires = DateTime.Now.AddMonths(2);
+			localeCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(localeCrumb);
 		}
 	}

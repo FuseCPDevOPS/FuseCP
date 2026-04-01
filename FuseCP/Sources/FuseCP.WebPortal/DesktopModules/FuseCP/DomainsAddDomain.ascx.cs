@@ -252,6 +252,7 @@ namespace FuseCP.Portal
 
 			// put created domain to the cookie
 			HttpCookie domainCookie = new HttpCookie("CreatedDomainId", domainId.ToString());
+			domainCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			Response.Cookies.Add(domainCookie);
 
 			// return

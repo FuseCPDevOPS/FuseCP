@@ -608,6 +608,8 @@ namespace FuseCP.WebPortal
                     {
                         HttpCookie UserRTL = new HttpCookie("UserRTL", "1");
                         UserRTL.Expires = DateTime.Now.AddMonths(2);
+                        UserRTL.HttpOnly = true;
+                        UserRTL.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
                         HttpContext.Current.Response.Cookies.Add(UserRTL);
                     }
                     else
