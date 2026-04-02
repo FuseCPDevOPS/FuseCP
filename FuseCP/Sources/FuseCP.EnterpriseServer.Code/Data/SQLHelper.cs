@@ -425,10 +425,7 @@ namespace Microsoft.ApplicationBlocks.Data
 		public static int ExecuteNonQuery(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
 		{
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
-
-			// Create a command and prepare it for execution
-			using SqlCommand cmd = new SqlCommand();
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			bool mustCloseConnection = false;
 			PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters, out mustCloseConnection );
     			
@@ -458,7 +455,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static int ExecuteNonQuery(SqlTransaction transaction, string spName, params object[] parameterValues)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
 			// If we receive parameter values, we need to figure out where they go
@@ -698,7 +695,7 @@ namespace Microsoft.ApplicationBlocks.Data
 		public static DataSet ExecuteDataset(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
 		{
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 
 			// Create a command and prepare it for execution
 			SqlCommand cmd = new SqlCommand();
@@ -1036,10 +1033,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static SqlDataReader ExecuteReader(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
-
-			// Pass through to private overload, indicating that the connection is owned by the caller
-            return ExecuteReader(transaction.Connection, transaction, commandType, commandText, commandParameters, SqlConnectionOwnership.External);
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
         }
 
         /// <summary>
@@ -1290,7 +1284,7 @@ namespace Microsoft.ApplicationBlocks.Data
 		public static object ExecuteScalar(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
 		{
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 
 			// Create a command and prepare it for execution
 			using SqlCommand cmd = new SqlCommand();
@@ -1477,7 +1471,7 @@ namespace Microsoft.ApplicationBlocks.Data
 		public static XmlReader ExecuteXmlReader(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
 		{
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 
 			// Create a command and prepare it for execution
 			using SqlCommand cmd = new SqlCommand();
