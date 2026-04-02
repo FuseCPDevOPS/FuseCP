@@ -5416,11 +5416,9 @@ namespace FuseCP.EnterpriseServer
                 {
                     ExchangeDistributionList DistributionList = exchange.GetDistributionListGeneralSettings(DistributionAccount.AccountName);
 
-                    foreach (ExchangeAccount member in DistributionList.MembersAccounts.Where(member => member.AccountName == account.AccountName))
+                    if (DistributionList.MembersAccounts.Any(member => member.AccountName == account.AccountName))
                     {
-                            ret.Add(DistributionAccount);
-                            break;
-
+                        ret.Add(DistributionAccount);
                     }
                 }
 

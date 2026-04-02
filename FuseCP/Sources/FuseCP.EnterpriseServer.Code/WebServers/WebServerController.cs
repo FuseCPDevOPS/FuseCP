@@ -1372,9 +1372,16 @@ namespace FuseCP.EnterpriseServer
 
                     if (!rebuild)
                     {
-                        foreach (DnsRecord r in resourceRecords.Where(r => r.RecordName != "*" && Database.CheckDomain(domain.PackageId, string.IsNullOrEmpty(r.RecordName) ? domain.DomainName : r.RecordName + "." + domain.DomainName, true) != 0))
+                        bool hasExistingDomain = resourceRecords.Any(r =>
+                            r.RecordName != "*" &&
+                            Database.CheckDomain(
+                                domain.PackageId,
+                                string.IsNullOrEmpty(r.RecordName) ? domain.DomainName : r.RecordName + "." + domain.DomainName,
+                                true) != 0);
+
+                        if (hasExistingDomain)
                         {
-                                    return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
+                            return BusinessErrorCodes.ERROR_WEB_SITE_ALREADY_EXISTS;
                         }
                     }
 

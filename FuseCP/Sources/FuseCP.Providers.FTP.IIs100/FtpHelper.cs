@@ -161,11 +161,7 @@ using System.Linq;
 
         public static bool IsFtpSite(Site site)
         {
-            foreach (Binding binding in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)))
-            {
-                    return true;
-            }
-            return false;
+            return site.Bindings.Any(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

@@ -1669,11 +1669,7 @@ namespace FuseCP.EnterpriseServer
 			// Get OS domains that are already in Hosting Space
 			List<DomainInfo> spaceDomains = ServerController.GetDomains(packageId);
 			// Step #1 - do not count mail domain as OS domain if OS domain with such name as mail domain already present in Hosting Space
-			foreach (DomainInfo domain in spaceDomains.Where(domain => domain.DomainName.Equals(domainName)))
-			{
-					skipOsDomains = true;
-					break;
-			}
+			skipOsDomains = spaceDomains.Any(domain => domain.DomainName.Equals(domainName));
 
 			// in current scenario of importing we import domains until the quota exceeded
 			// in other words let's examine whether quota will be exeeded if we will add +1 domain.

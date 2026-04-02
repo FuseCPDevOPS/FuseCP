@@ -1656,14 +1656,11 @@ namespace FuseCP.EnterpriseServer
 			int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
 			int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
 
-			// check the maximum allowed number
-			if (quotaAllocated != -1) // check only if not unlimited 
+			// check the maximum allowed number (only when quota is limited)
+			if (quotaAllocated != -1 && vlansNumber > (quotaAllocated - quotaUsed))
 			{
-				if (vlansNumber > (quotaAllocated - quotaUsed))
-				{
-					res.ErrorCodes.Add("VLANS_QUOTA_LIMIT_REACHED");
-					return res;
-				}
+				res.ErrorCodes.Add("VLANS_QUOTA_LIMIT_REACHED");
+				return res;
 			}
 
 			// check if requested more than available
@@ -2110,14 +2107,11 @@ namespace FuseCP.EnterpriseServer
 			if (pool == IPAddressPool.PhoneNumbers)
 				quotaUsed = ServerController.GetPackageIPAddressesCount(packageId, orgId, pool);
 
-			// check the maximum allowed number
-			if (quotaAllocated != -1) // check only if not unlimited 
+			// check the maximum allowed number (only when quota is limited)
+			if (quotaAllocated != -1 && addressesNumber > (quotaAllocated - quotaUsed))
 			{
-				if (addressesNumber > (quotaAllocated - quotaUsed))
-				{
-					res.ErrorCodes.Add("IP_ADDRESSES_QUOTA_LIMIT_REACHED");
-					return res;
-				}
+				res.ErrorCodes.Add("IP_ADDRESSES_QUOTA_LIMIT_REACHED");
+				return res;
 			}
 
 			// check if requested more than available
@@ -3631,9 +3625,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 			var result = DateTime.MinValue;
 
-			foreach (var datePattern in _datePatterns.Where(datePattern => DateTime.TryParseExact(dateString, datePattern, CultureInfo.InvariantCulture, DateTimeStyles.None, out result)))
+			if (_datePatterns.Any(datePattern => DateTime.TryParseExact(dateString, datePattern, CultureInfo.InvariantCulture, DateTimeStyles.None, out result)))
 			{
-					return result;
+				return result;
 			}
 
 			return DateTime.Parse(dateString);

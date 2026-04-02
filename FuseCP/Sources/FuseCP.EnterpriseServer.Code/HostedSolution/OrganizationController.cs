@@ -3012,12 +3012,7 @@ namespace FuseCP.EnterpriseServer
 
             ObjectUtils.FillCollectionFromDataSet(schedules, SchedulerController.GetSchedules(packageId));
 
-            foreach (var schedule in schedules.Where(schedule => schedule.TaskId == taskId))
-            {
-                    return true;
-            }
-
-            return false;
+            return schedules.Any(schedule => schedule.TaskId == taskId);
         }
 
         private int AddScheduleTask(int packageId, string taskId, string taskName)
@@ -3530,18 +3525,12 @@ namespace FuseCP.EnterpriseServer
 
                 if (user.UserPrincipalName != userPrincipalName)
                 {
-                    bool userPrincipalNameOwned = false;
                     ExchangeEmailAddress[] emails = ExchangeServerController.GetMailboxEmailAddresses(itemId, accountId);
-
-                    foreach (ExchangeEmailAddress mail in emails.Where(mail => mail.EmailAddress == userPrincipalName))
-                    {
-                            userPrincipalNameOwned = true;
-                            break;
-                    }
+                    bool userPrincipalNameOwned = emails.Any(mail => mail.EmailAddress == userPrincipalName);
 
                     if (!userPrincipalNameOwned && EmailAddressExists(userPrincipalName, false))
                     {
-                            return BusinessErrorCodes.ERROR_EXCHANGE_EMAIL_EXISTS;
+                        return BusinessErrorCodes.ERROR_EXCHANGE_EMAIL_EXISTS;
                     }
                 }
 
@@ -4410,11 +4399,9 @@ namespace FuseCP.EnterpriseServer
                 {
                     OrganizationSecurityGroup securityGroup = GetSecurityGroupGeneralSettings(itemId, securityGroupAccount.AccountId);
 
-                    foreach (ExchangeAccount member in securityGroup.MembersAccounts.Where(member => member.AccountName == account.AccountName))
+                    if (securityGroup.MembersAccounts.Any(member => member.AccountName == account.AccountName))
                     {
-                            ret.Add(securityGroupAccount);
-                            break;
-
+                        ret.Add(securityGroupAccount);
                     }
                 }
 

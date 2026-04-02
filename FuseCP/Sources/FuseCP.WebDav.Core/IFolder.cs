@@ -458,19 +458,8 @@ namespace FuseCP.WebDav.Core
                         }
                     }
 
-                    int childrenCount = 0;
-                    foreach (IHierarchyItem item in children.Where(item => item != null))
-                    {
-                            childrenCount++;
-                    }
-                    _children = new IHierarchyItem[childrenCount];
-
-                    counter = 0;
-                    foreach (IHierarchyItem item in children.Where(item => item != null))
-                    {
-                            _children[counter] = item;
-                            counter++;
-                    }
+                        var filteredChildren = children.Where(item => item != null).ToArray();
+                        _children = filteredChildren;
                 }
                 catch (AmbiguousMatchException)
                 {

@@ -949,14 +949,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
                 lync = GetLyncServer(lyncServiceId, org.ServiceId);
 
-                bool bDomainExists = false;
                 LyncFederationDomain[] domains = GetFederationDomains(itemId);
-                foreach (LyncFederationDomain d in domains.Where(d => d.DomainName.ToLower() == domainName.ToLower()))
-                {
-                        bDomainExists = true;
-                        break;
-
-                }
+                bool bDomainExists = domains.Any(d => d.DomainName.ToLower() == domainName.ToLower());
                 
                 if (!bDomainExists)
                     lync.AddFederationDomain(org.OrganizationId, domainName.ToLower(), proxyFqdn);

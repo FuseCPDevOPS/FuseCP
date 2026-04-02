@@ -177,8 +177,8 @@ namespace FuseCP.Portal
 
         private void SaveRecord()
         {
-            if (!string.IsNullOrEmpty(txtRecordData.Text))
-			    if (!Page.IsValid) return;
+            if (!string.IsNullOrEmpty(txtRecordData.Text) && !Page.IsValid)
+			    return;
 
             GlobalDnsRecord record = new GlobalDnsRecord();
             record.RecordId = (int)ViewState["RecordID"];

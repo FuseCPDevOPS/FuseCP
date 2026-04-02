@@ -214,18 +214,17 @@ namespace FuseCP.Portal
 			// load package context
 			PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-			if (type == DomainType.DomainPointer || (type == DomainType.Domain))
+			if ((type == DomainType.DomainPointer || type == DomainType.Domain)
+				&& PointWebSite.Checked && WebSitesList.Items.Count > 0)
 			{
-
-                if (PointWebSite.Checked && WebSitesList.Items.Count > 0)
-                    pointWebSiteId = Utils.ParseInt(WebSitesList.SelectedValue, 0);
+				pointWebSiteId = Utils.ParseInt(WebSitesList.SelectedValue, 0);
 			}
 
-            if (type == DomainType.DomainPointer || (type == DomainType.Domain))
-            {
-                if (PointMailDomain.Checked && MailDomainsList.Items.Count > 0)
-                    pointMailDomainId = Utils.ParseInt(MailDomainsList.SelectedValue, 0);
-            }
+			if ((type == DomainType.DomainPointer || type == DomainType.Domain)
+				&& PointMailDomain.Checked && MailDomainsList.Items.Count > 0)
+			{
+				pointMailDomainId = Utils.ParseInt(MailDomainsList.SelectedValue, 0);
+			}
 
 
 			// add domain

@@ -774,17 +774,10 @@ namespace FuseCP.Providers.FTP
             }
 
             // check for server bindings
-            foreach (FtpSite existentSite in this.GetSites().Where(existentSite => existentSite.Name != site.Name))
-            {
-                    foreach (ServerBinding usedBinding in existentSite.Bindings)
-                    {
-                        foreach (ServerBinding requestedBinding in site.Bindings.Where(requestedBinding => usedBinding.IP == requestedBinding.IP && usedBinding.Port == usedBinding.Port))
-                        {
-                                return true;
-                        }
-                    }
-            }
-            return false;
+            return this.GetSites()
+                .Where(existentSite => existentSite.Name != site.Name)
+                .SelectMany(existentSite => existentSite.Bindings)
+                .Any(usedBinding => site.Bindings.Any(requestedBinding => usedBinding.IP == requestedBinding.IP && usedBinding.Port == requestedBinding.Port));
         }
 
         /// <summary>
