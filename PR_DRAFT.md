@@ -2,6 +2,34 @@
 
 ## Commits Included
 
+### Commit: 08f90b115
+**Message**: fix: continue controller query-flow cleanups
+
+**Scope**: 3 files modified with focused CodeQL query-flow refactors in enterprise controllers
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/MailServers/MailServerController.cs` — simplified pointer retrieval flow to direct filtered list assignment and removed redundant null-check branch
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs` — refined quota access to use `TryGetValue` results directly, plus range-delete/filter cleanup consistency
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/WebServers/WebServerController.cs` — removed impossible null-check on `ToArray()` result and normalized targeted loop/filter structures
+
+#### Validation Summary
+- **Broad Build**: ✅ `FuseCP/build-debug.bat` succeeded (single pre-commit run, per batching workflow)
+- **Editor Diagnostics**: ✅ clean in all three touched files
+- **Compile Errors**: 0
+- **Analyzer Suppression**: None
+
+#### Risk Assessment
+- ✅ **Backward Compatible**: mechanical query-shape and redundant-condition refactors only
+- ✅ **Scope Controlled**: limited to 3 controller files; no contract or schema changes
+- ⚠️ **Primary Risk Area**: controller flow branching, mitigated by full broad build pass
+
+#### Testing Guidance
+1. Exercise mail-domain pointer retrieval and update flows.
+2. Exercise VLAN/IP allocation and deallocation paths in server controller.
+3. Exercise web DNS duplicate-record handling and pointer checks.
+
+---
+
 ### Commit: da3f9f382
 **Message**: fix: add null-dereference guards in server controllers and UI patterns
 
