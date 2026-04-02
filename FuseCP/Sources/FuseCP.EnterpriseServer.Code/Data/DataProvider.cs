@@ -935,7 +935,7 @@ namespace FuseCP.EnterpriseServer
 
 					var spaceItemsServices = itemsService
 						.Join(ServiceItems
-							.Where(si => si.ItemType.Searchable == true && si.ItemTypeId != 200 && si.ItemTypeId != 201),
+							.Where(si => si.ItemType.Searchable && si.ItemTypeId != 200 && si.ItemTypeId != 201),
 							it => it.ItemId, si => si.ItemId, (it, si) => new SearchItem()
 							{
 								ItemId = si.ItemId,
@@ -1972,7 +1972,7 @@ namespace FuseCP.EnterpriseServer
 								throw new AccessViolationException("You are not allowed to access this package");
 
 							var packageIps = PackageIpAddresses
-								.Where(p => p.IsPrimary == true)
+								.Where(p => p.IsPrimary)
 								.Join(IpAddresses
 									.Where(ip => ip.PoolId == 3), // external ip address
 									p => p.AddressId, ip => ip.AddressId, (p, ip) => new
@@ -3121,7 +3121,7 @@ namespace FuseCP.EnterpriseServer
 					// delete user comments
 					Comments.Where(c => c.ItemId == userId && c.ItemTypeId == "USER").ExecuteDelete();
 					// delete reseller addon
-					HostingPlans.Where(h => h.UserId == userId && h.IsAddon == true).ExecuteDelete();
+					HostingPlans.Where(h => h.UserId == userId && h.IsAddon).ExecuteDelete();
 					// delete user peers
 					Users.Where(u => u.IsPeer && u.OwnerId == userId).ExecuteDelete();
 					// delete user
@@ -3969,7 +3969,7 @@ namespace FuseCP.EnterpriseServer
 
 				// virtual groups
 				var virtGroups = ResourceGroups
-					.Where(g => (isAdmin || forAutodiscover) && g.ShowGroup == true)
+					.Where(g => (isAdmin || forAutodiscover) && g.ShowGroup)
 					.SelectMany(g => g.VirtualGroups
 						.Where(vg => vg.ServerId == serverId)
 						.DefaultIfEmpty(),
@@ -4296,7 +4296,7 @@ namespace FuseCP.EnterpriseServer
 					new SqlParameter("@GroupID", groupID),
 					prmHideQuota);
 
-				return (prmHideQuota.Value as bool?) == true;
+				return (prmHideQuota.Value as bool?) ?? false;
 			}
 		}
 		/// <summary>Auto-generated member.</summary>
