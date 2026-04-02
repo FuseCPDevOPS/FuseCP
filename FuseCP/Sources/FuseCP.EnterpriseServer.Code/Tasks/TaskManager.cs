@@ -411,10 +411,8 @@ namespace FuseCP.EnterpriseServer
             if (topTask == null)
                 return;
 
-            foreach (string key in parameters.Keys)
-            {
-                topTask.UpdateParamValue(key, parameters[key]);
-            }
+            foreach (DictionaryEntry entry in parameters)
+                topTask.UpdateParamValue((string)entry.Key, entry.Value);
 
             TaskController.UpdateTaskWithParams(topTask);
         }

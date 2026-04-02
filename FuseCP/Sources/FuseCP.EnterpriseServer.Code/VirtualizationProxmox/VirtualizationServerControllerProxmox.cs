@@ -3630,8 +3630,8 @@ namespace FuseCP.EnterpriseServer
             // load service settings
             StringDictionary settings = ServerController.GetServiceSettings(vm.ServiceId);
 
-            foreach (string key in settings.Keys)
-                items[key] = settings[key];
+            foreach (DictionaryEntry entry in settings)
+                items[(string)entry.Key] = entry.Value;
 
             // service items
             items["email"] = emailMode;

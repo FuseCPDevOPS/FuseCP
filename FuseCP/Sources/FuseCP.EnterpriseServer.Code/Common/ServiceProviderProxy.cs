@@ -59,15 +59,13 @@ namespace FuseCP.EnterpriseServer
 
 			// set service settings
 			StringDictionary serviceSettings = ServerController.GetServiceSettings(serviceId);
-			foreach (string key in serviceSettings.Keys)
-				cnfg.ProviderSettings.Settings[key] = serviceSettings[key];
+			foreach (DictionaryEntry entry in serviceSettings)
+				cnfg.ProviderSettings.Settings[(string)entry.Key] = (string)entry.Value;
 			// RB ADDED EMAIL SECURITY SE
 			if (additionalSettings != null)
 			{
-				foreach (string str in additionalSettings.Keys)
-				{
-					cnfg.ProviderSettings.Settings[str] = additionalSettings[str];
-				}
+				foreach (DictionaryEntry entry in additionalSettings)
+					cnfg.ProviderSettings.Settings[(string)entry.Key] = (string)entry.Value;
 			}
 			// get provider
 			ProviderInfo provider = ServerController.GetProvider(service.ProviderId);
