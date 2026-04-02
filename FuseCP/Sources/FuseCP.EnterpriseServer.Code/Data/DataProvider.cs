@@ -4037,18 +4037,17 @@ namespace FuseCP.EnterpriseServer
 					.ToHashSet();
 
 				bool addedAny = false;
-				foreach (var serviceId in services.Elements().Select(service => (int)service.Attribute("id")))
+				foreach (var serviceId in services.Elements()
+					.Select(service => (int)service.Attribute("id"))
+					.Where(serviceId => !existingServices.Contains(serviceId)))
 				{
-					if (!existingServices.Contains(serviceId))
+					var virtualService = new Data.Entities.VirtualService()
 					{
-						var virtualService = new Data.Entities.VirtualService()
-						{
-							ServerId = serverId,
-							ServiceId = serviceId
-						};
-						VirtualServices.Add(virtualService);
-						addedAny = true;
-					}
+						ServerId = serverId,
+						ServiceId = serviceId
+					};
+					VirtualServices.Add(virtualService);
+					addedAny = true;
 				}
 
 				if (addedAny) SaveChanges();
@@ -8608,7 +8607,7 @@ namespace FuseCP.EnterpriseServer
 			}
 
 			/// <summary>TODO</summary>
-			return false;
+			return groupEnabled;
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -9277,7 +9276,7 @@ namespace FuseCP.EnterpriseServer
 
 			// check user
 			/// <summary>TODO</summary>
-			return CanGetUserDetails(actorId, userId ?? -1);
+			return CanGetUserDetails(actorId, userId.Value);
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -9352,7 +9351,7 @@ namespace FuseCP.EnterpriseServer
 			}
 
 			/// <summary>TODO</summary>
-			return false;
+			return groupEnabled;
 		}
 		/// <summary>Auto-generated member.</summary>
 
@@ -10337,7 +10336,9 @@ namespace FuseCP.EnterpriseServer
 
 					var count = packages.Count();
 
-					if (!string.IsNullOrEmpty(sortColumn)) packages = packages.OrderBy(ColumnName(sortColumn));
+					packages = !string.IsNullOrEmpty(sortColumn)
+						? packages.OrderBy(ColumnName(sortColumn))
+						: packages;
 
 					packages = packages.Skip(startRow).Take(maximumRows);
 
@@ -16193,10 +16194,9 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 
-				if (archiving)
-				{
-					accounts = accounts.Where(a => a.ArchivingMailboxPlanId > 0);
-				}
+				accounts = archiving
+					? accounts.Where(a => a.ArchivingMailboxPlanId > 0)
+					: accounts;
 
 				var count = accounts.Count();
 
@@ -19946,22 +19946,13 @@ namespace FuseCP.EnterpriseServer
 
 				users.Count();
 
-				if (sortColumn == "DisplayName")
-				{
-					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.DisplayName) : users.OrderByDescending(ea => ea.DisplayName);
-
-
-
-
-				}
-				else
-				{
-					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.PrimaryEmailAddress) : users.OrderByDescending(ea => ea.PrimaryEmailAddress);
-
-
-
-
-				}
+				users = sortColumn == "DisplayName"
+					? (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
+						? users.OrderBy(ea => ea.DisplayName)
+						: users.OrderByDescending(ea => ea.DisplayName))
+					: (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
+						? users.OrderBy(ea => ea.PrimaryEmailAddress)
+						: users.OrderByDescending(ea => ea.PrimaryEmailAddress));
 
 				users = users.Skip(startRow).Take(count);
 
@@ -20123,22 +20114,13 @@ namespace FuseCP.EnterpriseServer
 
 				users.Count();
 
-				if (sortColumn == "DisplayName")
-				{
-					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.DisplayName) : users.OrderByDescending(ea => ea.DisplayName);
-
-
-
-
-				}
-				else
-				{
-					users = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase) ? users.OrderBy(ea => ea.PrimaryEmailAddress) : users.OrderByDescending(ea => ea.PrimaryEmailAddress);
-
-
-
-
-				}
+				users = sortColumn == "DisplayName"
+					? (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
+						? users.OrderBy(ea => ea.DisplayName)
+						: users.OrderByDescending(ea => ea.DisplayName))
+					: (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
+						? users.OrderBy(ea => ea.PrimaryEmailAddress)
+						: users.OrderByDescending(ea => ea.PrimaryEmailAddress));
 
 				users = users.Skip(startRow).Take(count);
 
@@ -22221,10 +22203,9 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				var count = folders.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn))
-				{
-					folders = folders.OrderBy(ColumnName(sortColumn));
-				}
+				folders = !string.IsNullOrEmpty(sortColumn)
+					? folders.OrderBy(ColumnName(sortColumn))
+					: folders;
 
 				folders = folders.Skip(startRow).Take(maximumRows);
 
@@ -22746,10 +22727,9 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				var count = levels.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn))
-				{
-					levels = levels.OrderBy(ColumnName(sortColumn));
-				}
+				levels = !string.IsNullOrEmpty(sortColumn)
+					? levels.OrderBy(ColumnName(sortColumn))
+					: levels;
 
 				levels = levels.Skip(startRow).Take(maximumRows);
 
@@ -22986,10 +22966,9 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				var count = spaces.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn))
-				{
-					spaces = spaces.OrderBy(ColumnName(sortColumn));
-				}
+				spaces = !string.IsNullOrEmpty(sortColumn)
+					? spaces.OrderBy(ColumnName(sortColumn))
+					: spaces;
 
 				spaces = spaces.Skip(startRow).Take(maximumRows);
 
@@ -23989,7 +23968,9 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 
 				var count = collections.Count();
 
-				if (!string.IsNullOrEmpty(sortColumn)) collections = collections.OrderBy(ColumnName(sortColumn));
+				collections = !string.IsNullOrEmpty(sortColumn)
+					? collections.OrderBy(ColumnName(sortColumn))
+					: collections;
 
 				collections = collections.Skip(startRow).Take(maximumRows);
 

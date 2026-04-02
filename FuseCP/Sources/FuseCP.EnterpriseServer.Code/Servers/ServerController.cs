@@ -1402,9 +1402,8 @@ namespace FuseCP.EnterpriseServer
 
 			try
 			{
-				foreach (int vlanId in vlans)
+				foreach (ResultObject vlanRes in vlans.Select(DeletePrivateNetworkVLAN))
 				{
-					ResultObject vlanRes = DeletePrivateNetworkVLAN(vlanId);
 					if (!vlanRes.IsSuccess && vlanRes.ErrorCodes.Count > 0)
 					{
 						res.ErrorCodes.AddRange(vlanRes.ErrorCodes);
@@ -1944,9 +1943,8 @@ namespace FuseCP.EnterpriseServer
 
 			try
 			{
-				foreach (int addressId in addresses)
+				foreach (ResultObject addrRes in addresses.Select(DeleteIPAddress))
 				{
-					ResultObject addrRes = DeleteIPAddress(addressId);
 					if (!addrRes.IsSuccess && addrRes.ErrorCodes.Count > 0)
 					{
 						res.ErrorCodes.AddRange(addrRes.ErrorCodes);
@@ -2215,19 +2213,11 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
 if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             {
-                if (_ckv.QuotaAllocatedValue == -1)
-                {
-                    // unlimited
-                    //number = maxAvailableVLANs; // assign max available server VLANs
-					number = maxAvailableVLANs > 0
+				number = _ckv.QuotaAllocatedValue == -1
+					? (maxAvailableVLANs > 0
 						? 1 // assign 1 VLAN or the entire free pool if unlimited. What is better???
-						: 0;
-                }
-                else
-                {
-                    // quota
-                    number = cntx.Quotas[quotaName].QuotaAllocatedValue - cntx.Quotas[quotaName].QuotaUsedValue;
-                }
+						: 0)
+					: cntx.Quotas[quotaName].QuotaAllocatedValue - cntx.Quotas[quotaName].QuotaUsedValue;
             }
 
             // allocate
@@ -2974,16 +2964,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 		private bool RecordDoesExist(DnsRecord record, DnsRecord[] domainRecords)
 		{
-			foreach (DnsRecord d in domainRecords)
-			{
-				if ((record.RecordName.ToLower() == d.RecordName.ToLower()) &&
-					(record.RecordType == d.RecordType))
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return domainRecords.Any(d =>
+				record.RecordName.ToLower() == d.RecordName.ToLower() &&
+				record.RecordType == d.RecordType);
 		}
 
 
@@ -3364,15 +3347,13 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 									}
 
 									List<DomainInfo> pointers = WebServerController.GetWebSitePointers(w.Id);
-									foreach (DomainInfo pointer in pointers)
+									foreach (DomainInfo pointer in pointers.Where(pointer =>
+										(pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), "").IndexOf('.') == -1) ||
+										(pointer.DomainName.ToLower() == domain.DomainName.ToLower())))
 									{
-										if ((pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), "").IndexOf('.') == -1) ||
-											 (pointer.DomainName.ToLower() == domain.DomainName.ToLower()))
-										{
-											WebServerController.AddWebSitePointer(w.Id,
-												(pointer.DomainName.ToLower() == domain.DomainName.ToLower()) ? "" : pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), ""),
-												domain.DomainId, false, true, true);
-										}
+										WebServerController.AddWebSitePointer(w.Id,
+											(pointer.DomainName.ToLower() == domain.DomainName.ToLower()) ? "" : pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), ""),
+											domain.DomainId, false, true, true);
 									}
 								}
 
@@ -3607,9 +3588,12 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			{
 				var regex = new Regex(createdRegex, RegexOptions.IgnoreCase);
 
-				foreach (Match match in regex.Matches(raw).Where(match => match.Success && match.Groups.Count == 2))
+				foreach (string value in regex.Matches(raw)
+					.Cast<Match>()
+					.Where(match => match.Success && match.Groups.Count == 2)
+					.Select(match => match.Groups[1].Value.Trim()))
 				{
-						return match.Groups[1].ToString().Trim();
+						return value;
 				}
 			}
 
@@ -3686,14 +3670,10 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 		{
 			// get all zone records
 			DnsRecord[] records = GetDnsZoneRecords(domainId);
-			foreach (DnsRecord record in records)
-			{
-				if (String.Compare(recordName, record.RecordName, true) == 0
-					&& String.Compare(recordData, record.RecordData, true) == 0
-					&& recordType == record.RecordType)
-					return record;
-			}
-			return null;
+			return records.FirstOrDefault(record =>
+				String.Compare(recordName, record.RecordName, true) == 0
+				&& String.Compare(recordData, record.RecordData, true) == 0
+				&& recordType == record.RecordType);
 		}
 
 		public int AddDnsZoneRecord(int domainId, string recordName, DnsRecordType recordType,
@@ -3732,7 +3712,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 			{
 				recordTTL = domain.MinimumTTL;
 			}
-			else if (EditTTL == 1 && recordType != DnsRecordType.SOA)
+			else if (EditTTL == 1)
 			{
 				// Make sure quota meets minimum
 				if (recordTTL == 0)

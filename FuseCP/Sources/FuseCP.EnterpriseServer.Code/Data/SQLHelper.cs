@@ -737,7 +737,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static DataSet ExecuteDataset(SqlTransaction transaction, string spName, params object[] parameterValues)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 			
 			// If we receive parameter values, we need to figure out where they go
@@ -1058,7 +1058,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static SqlDataReader ExecuteReader(SqlTransaction transaction, string spName, params object[] parameterValues)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If we receive parameter values, we need to figure out where they go
@@ -1321,7 +1321,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static object ExecuteScalar(SqlTransaction transaction, string spName, params object[] parameterValues)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If we receive parameter values, we need to figure out where they go
@@ -1508,7 +1508,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static XmlReader ExecuteXmlReader(SqlTransaction transaction, string spName, params object[] parameterValues)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If we receive parameter values, we need to figure out where they go
@@ -1783,7 +1783,7 @@ namespace Microsoft.ApplicationBlocks.Data
             params object[] parameterValues) 
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( dataSet == null ) throw new ArgumentNullException( "dataSet" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
@@ -2018,7 +2018,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static int ExecuteNonQueryTypedParams(SqlTransaction transaction, String spName, DataRow dataRow)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // Sf the row has values, the store procedure parameters must be initialized
@@ -2117,7 +2117,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static DataSet ExecuteDatasetTypedParams(SqlTransaction transaction, String spName, DataRow dataRow)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If the row has values, the store procedure parameters must be initialized
@@ -2218,7 +2218,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static SqlDataReader ExecuteReaderTypedParams(SqlTransaction transaction, String spName, DataRow dataRow)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If the row has values, the store procedure parameters must be initialized
@@ -2317,7 +2317,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static object ExecuteScalarTypedParams(SqlTransaction transaction, String spName, DataRow dataRow)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If the row has values, the store procedure parameters must be initialized
@@ -2384,7 +2384,7 @@ namespace Microsoft.ApplicationBlocks.Data
         public static XmlReader ExecuteXmlReaderTypedParams(SqlTransaction transaction, String spName, DataRow dataRow)
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
-			if( transaction != null && transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
 			if( spName == null || spName.Length == 0 ) throw new ArgumentNullException( "spName" );
 
             // If the row has values, the store procedure parameters must be initialized

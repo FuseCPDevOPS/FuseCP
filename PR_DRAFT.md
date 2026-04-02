@@ -166,3 +166,57 @@
 - No provider-specific changes; affects only core portal modules
 - All fixes follow existing defensive patterns in adjacent code
 - Variable scoping preserved to maintain upstream BindItem() calls (SqlEditUser)
+
+---
+
+### Commit: pending
+**Message**: fix: refactor CodeQL query flows in enterprise and Exchange providers
+
+**Scope**: 6 files modified with real CodeQL-driven refactors, validated by full broad build
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Data/DataProvider.cs` — filtered iteration for virtual services, direct nullable-safe user check, query branch-to-expression refactors, direct `groupEnabled` returns
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Data/SQLHelper.cs` — removed redundant transaction null checks after explicit guard in transaction overloads
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs` — projected range-delete loops, DNS/domain LINQ refactors, quota ternary cleanup, TTL constant-condition cleanup
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2013/Exchange2013.cs` — provider parity refactors for mailbox/public-folder enumeration, address projection, and logging
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2016/Exchange2016.cs` — same parity refactors as Exchange2013
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2019/Exchange2019.cs` — same parity refactors as Exchange2013
+
+#### Remediation Patterns Applied
+1. **Redundant condition removal**
+   - Pattern: removed checks such as `transaction != null && transaction.Connection == null` after explicit `transaction == null` guards
+   - Impact: cleared repeated `cs/constant-condition` findings in SQL helper transaction overloads
+
+2. **Loop projection/filter refactors**
+   - Pattern: moved `Select(...)` and `Where(...)` into the enumerable before `foreach`
+   - Impact: cleared `cs/linq/missed-select` and `cs/linq/missed-where` findings in ServerController, DataProvider, and Exchange provider methods
+
+3. **Branch-to-expression refactors**
+   - Pattern: replaced simple `if/else` query-shape branches with conditional assignments and ternaries
+   - Impact: reduced `cs/missed-ternary-operator` findings in DataProvider and ServerController without changing behavior
+
+4. **Exchange provider parity cleanup**
+   - Pattern: applied identical method-structure refactors to Exchange 2013/2016/2019 providers in the same batch
+   - Impact: maintained provider parity while clearing repeated CodeQL patterns across all three implementations
+
+#### Validation Summary
+- **Broad Build**: ✅ `FuseCP/build-debug.bat` succeeded
+- **Duration**: ~453.5 seconds
+- **Editor Diagnostics**: ✅ clean in all 6 touched files before build
+- **Compile Errors**: 0
+- **Analyzer Suppression**: None
+
+#### Risk Assessment
+- ✅ **Backward Compatible**: changes are refactors of query structure and redundant conditions only
+- ✅ **Exchange Provider Parity Preserved**: 2013/2016/2019 kept in sync
+- ✅ **Broad Build Validated**: enterprise, portal, and Exchange provider projects all compiled successfully
+- ⚠️ **Primary Risk Area**: LINQ query translation differences, mitigated by successful full build and minimal structural changes
+
+#### Testing Guidance
+1. Exercise Exchange account/address listing and ActiveSync device cleanup paths.
+2. Exercise package resource/service lookup flows touched in DataProvider.
+3. Exercise VLAN/IP bulk delete and DNS record flows touched in ServerController.
+
+#### Notes
+- This batch contains only real code remediation; no CodeQL dismissals or suppressions were used.
+- Broad build validation included `FuseCP.EnterpriseServer.Code`, `FuseCP.WebPortal`, and all three Exchange providers.

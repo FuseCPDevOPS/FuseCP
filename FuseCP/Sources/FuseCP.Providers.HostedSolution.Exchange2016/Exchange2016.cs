@@ -1320,7 +1320,7 @@ namespace FuseCP.Providers.HostedSolution
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
-                        ExchangeLog.LogError(string.Format("Failed to delete accepted domain {0}", domain), ex);
+                        ExchangeLog.LogError(string.Format("Failed to delete accepted domain {0}", domain.DomainName), ex);
                         ret = false;
                     }
                 }
@@ -1353,9 +1353,8 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", org);
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-                foreach (PSObject obj in result)
+                foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
                 {
-                    string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                     cmd = new Command("Set-Mailbox");
                     cmd.Parameters.Add("Identity", id);
                     cmd.Parameters.Add("IssueWarningQuota", issueWarningQuota);
@@ -1392,10 +1391,8 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", org);
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-                foreach (PSObject obj in result)
+                foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
                 {
-                    string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
-
                     cmd = new Command("Get-MailboxStatistics");
                     cmd.Parameters.Add("Identity", id);
                     result = ExecuteShellCommand(runSpace, cmd);
@@ -1439,9 +1436,8 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", ouName);
                 cmd.Parameters.Add("Filter", "CustomAttribute2 -ne 'disabled'");
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-                foreach (PSObject obj in result)
+                foreach (string id in result.Select(obj => (string)GetPSObjectProperty(obj, "DistinguishedName")))
                 {
-                    string id = (string)GetPSObjectProperty(obj, "DistinguishedName");
                     ChangeMailboxState(id, enabled);
                 }
             }
@@ -1491,9 +1487,8 @@ namespace FuseCP.Providers.HostedSolution
             cmd.Parameters.Add("OrganizationalUnit", org);
             Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-            foreach (PSObject obj in result)
+            foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
             {
-                string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                 cmd = new Command("Get-MailboxStatistics");
                 cmd.Parameters.Add("Identity", id);
                 result = ExecuteShellCommand(runSpace, cmd);
@@ -3495,14 +3490,12 @@ namespace FuseCP.Providers.HostedSolution
                 windowsEmail = ObjToString(GetPSObjectProperty(mailbox, "CustomAttribute3"));
 
                 ProxyAddressCollection emails = (ProxyAddressCollection)GetPSObjectProperty(mailbox, "EmailAddresses");
-                foreach (ProxyAddress email in emails)
+                foreach (string emailAddress in emails
+                    .Select(email => email.AddressString)
+                    .Where(emailAddress => !string.Equals(emailAddress, windowsEmail, StringComparison.OrdinalIgnoreCase)))
                 {
-                    //skip windows email
-                    if (string.Equals(email.AddressString, windowsEmail, StringComparison.OrdinalIgnoreCase))
-                        continue;
-
                     ExchangeEmailAddress item = new ExchangeEmailAddress();
-                    item.Email = email.AddressString;
+                    item.Email = emailAddress;
                     item.Primary = string.Equals(item.Email, primaryEmail, StringComparison.OrdinalIgnoreCase);
                     list.Add(item);
                 }
@@ -4991,14 +4984,12 @@ namespace FuseCP.Providers.HostedSolution
 
 
                 ProxyAddressCollection emails = (ProxyAddressCollection)GetPSObjectProperty(group, "EmailAddresses");
-                foreach (ProxyAddress email in emails)
+                foreach (string emailAddress in emails
+                    .Select(email => email.AddressString)
+                    .Where(emailAddress => !string.Equals(emailAddress, windowsEmail, StringComparison.OrdinalIgnoreCase)))
                 {
-                    //skip windows email
-                    if (string.Equals(email.AddressString, windowsEmail, StringComparison.OrdinalIgnoreCase))
-                        continue;
-
                     ExchangeEmailAddress item = new ExchangeEmailAddress();
-                    item.Email = email.AddressString;
+                    item.Email = emailAddress;
                     item.Primary = string.Equals(item.Email, primaryEmail, StringComparison.OrdinalIgnoreCase);
                     list.Add(item);
                 }
@@ -5942,14 +5933,12 @@ namespace FuseCP.Providers.HostedSolution
 
 
                 ProxyAddressCollection emails = (ProxyAddressCollection)GetPSObjectProperty(publicFolder, "EmailAddresses");
-                foreach (ProxyAddress email in emails)
+                foreach (string emailAddress in emails
+                    .Select(email => email.AddressString)
+                    .Where(emailAddress => !string.Equals(emailAddress, windowsEmail, StringComparison.OrdinalIgnoreCase)))
                 {
-                    //skip windows email
-                    if (string.Equals(email.AddressString, windowsEmail, StringComparison.OrdinalIgnoreCase))
-                        continue;
-
                     ExchangeEmailAddress item = new ExchangeEmailAddress();
-                    item.Email = email.AddressString;
+                    item.Email = emailAddress;
                     item.Primary = string.Equals(item.Email, primaryEmail, StringComparison.OrdinalIgnoreCase);
                     list.Add(item);
                 }
@@ -7833,10 +7822,8 @@ namespace FuseCP.Providers.HostedSolution
 
                 if (result != null)
                 {
-                    foreach (PSObject obj in result)
+                    foreach (ExchangeMobileDevice device in result.Select(GetMobileDeviceObject))
                     {
-                        ExchangeMobileDevice device = GetMobileDeviceObject(obj);
-
                         cmd = new Command("Remove-ActiveSyncDevice");
                         cmd.Parameters.Add("Identity", device.DeviceID);
                         cmd.Parameters.Add("Confirm", new SwitchParameter(false));
