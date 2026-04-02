@@ -664,10 +664,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
             HostedSharePointServerEnt hostedSharePointServer = GetHostedSharePointServer(serviceId);
             if (itemType == typeof(SharePointEnterpriseSiteCollection))
             {
-                foreach (SharePointEnterpriseSiteCollection siteCollection in hostedSharePointServer.Enterprise_GetSiteCollections())
-                {
-                    items.Add(siteCollection.Url);
-                }
+                items.AddRange(hostedSharePointServer.Enterprise_GetSiteCollections().Select(siteCollection => siteCollection.Url));
             }
 
             return items;

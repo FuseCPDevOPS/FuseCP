@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Data;
 using System.Collections.Specialized;
 using System.Collections.Generic;
@@ -156,10 +157,7 @@ namespace FuseCP.EnterpriseServer
                 WebSite site = web.GetSite(siteItem.SiteId);
 
                 List<DomainInfo> pointers = WebServerController.GetWebSitePointers(siteItem.Id);
-                List<string> aliases = new List<string>();
-
-                foreach(DomainInfo pointer in pointers)
-                    aliases.Add(pointer.DomainName);
+                List<string> aliases = pointers.Select(pointer => pointer.DomainName).ToList();
 
                 StatisticsServer stats = new StatisticsServer();
                 ServiceProviderProxy.Init(stats, serviceId);

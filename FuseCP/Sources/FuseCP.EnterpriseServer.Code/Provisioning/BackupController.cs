@@ -622,9 +622,7 @@ namespace FuseCP.EnterpriseServer
 					List<PackageInfo> packages = new List<PackageInfo>();
 					packages.AddRange(PackageController.GetMyPackages(userId));
 					packages.AddRange(PackageController.GetPackages(userId));
-					List<string> parts = new List<string>();
-					foreach (PackageInfo package in packages)
-						parts.Add("@packageId = " + package.PackageId);
+					List<string> parts = packages.ConvertAll(package => "@packageId = " + package.PackageId);
 					condition = "[" + String.Join(" or ", parts.ToArray()) + "]";
 				}
 				else if (packageId > 0)
@@ -639,9 +637,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					// get server services
 					List<ServiceInfo> services = ServerController.GetServicesByServerId(serverId);
-					List<string> parts = new List<string>();
-					foreach (ServiceInfo service in services)
-						parts.Add("@serviceId = " + service.ServiceId);
+					List<string> parts = services.ConvertAll(service => "@serviceId = " + service.ServiceId);
 					condition = "[" + String.Join(" or ", parts.ToArray()) + "]";
 				}
 

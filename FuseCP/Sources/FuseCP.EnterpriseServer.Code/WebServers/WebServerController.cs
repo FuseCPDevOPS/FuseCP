@@ -1581,9 +1581,7 @@ namespace FuseCP.EnterpriseServer
                 FillWebServerBindings(domainBindings, dnsRecords, "", domain.DomainName, "", ignoreGlobalDNSRecords);
 
                 // fill to remove list
-                List<string> headersToRemove = new List<string>();
-                foreach (ServerBinding domainBinding in domainBindings)
-                    headersToRemove.Add(domainBinding.Host);
+                List<string> headersToRemove = domainBindings.Select(domainBinding => domainBinding.Host).ToList();
 
                 // remove bndings
                 bindings.RemoveAll(b => { return headersToRemove.Contains(b.Host) && b.Port == "80"; } );

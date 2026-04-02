@@ -336,20 +336,17 @@ namespace FuseCP.EnterpriseServer
 
         public string[] GetExternalIPAddressesFromString(string str)
         {
-            List<string> ips = new List<string>();
-
             if (str != null && str.Trim() != "")
             {
                 string[] sips = str.Split(',');
-                foreach (string sip in sips)
-                {
-                    IPAddressInfo ip = ServerController.GetIPAddress(Int32.Parse(sip));
-                    if (ip != null)
-                        ips.Add(ip.ExternalIP);
-                }
+                return sips
+                    .Select(sip => ServerController.GetIPAddress(Int32.Parse(sip)))
+                    .Where(ip => ip != null)
+                    .Select(ip => ip.ExternalIP)
+                    .ToArray();
             }
 
-            return ips.ToArray();
+            return new string[0];
         }
 
         #region IImportController Members

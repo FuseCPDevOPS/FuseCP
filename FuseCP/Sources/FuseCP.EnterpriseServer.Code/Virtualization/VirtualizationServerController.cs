@@ -1449,9 +1449,7 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             }
 
             // build items array
-            List<string> items = new List<string>();
-            foreach (string propName in taskProps.Keys)
-                items.Add(propName + "=" + taskProps[propName]);
+            var items = taskProps.Keys.Select(propName => propName + "=" + taskProps[propName]).ToList();
 
             taskName = String.Format("{0}{1}-{2}", TASK_PREFIX, taskName, DateTime.Now.Ticks);
             string taskData = String.Join("|", items.ToArray());
@@ -3053,21 +3051,18 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
         private List<string> CheckPrivateIPAddresses(int packageId, string[] addresses)
         {
-            List<string> codes = new List<string>();
-
             // check IP addresses if they are specified
             if (addresses != null && addresses.Length > 0)
             {
                 // load network adapter
                 NetworkAdapterDetails nic = GetPrivateNetworkDetails(packageId);
-
-                foreach (string address in addresses.Where(address => !CheckPrivateIPAddress(nic.SubnetMask, address)))
-                {
-                    codes.Add(VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address);
-                }
+                return addresses
+                    .Where(address => !CheckPrivateIPAddress(nic.SubnetMask, address))
+                    .Select(address => VirtualizationErrorCodes.WRONG_PRIVATE_IP_ADDRESS_FORMAT + ":" + address)
+                    .ToList();
             }
 
-            return codes;
+            return new List<string>();
         }
 
         public ResultObject SetVirtualMachinePrimaryPrivateIPAddress(int itemId, int addressId, bool provisionKvp)
