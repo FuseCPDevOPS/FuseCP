@@ -45,16 +45,13 @@ namespace FuseCP.Portal
             // save initial state
             IsSecuredFoldersInstalled = site.SecuredFoldersInstalled;
 			// Render a warning message about the automatic site's settings change
-			if (!IsSecuredFoldersInstalled && site.IIs7)
+            if (!IsSecuredFoldersInstalled && site.IIs7
+                && (site.EnableWindowsAuthentication || !site.AspNetInstalled.EndsWith("I")))
 			{
-				// Ensure the message is displayed only when neccessary
-				if (site.EnableWindowsAuthentication || !site.AspNetInstalled.EndsWith("I"))
-				{
-					string warningStr = GetLocalizedString("EnableFoldersIIs7Warning.Text");
-					// Render a warning only if specified
-					if (!String.IsNullOrEmpty(warningStr))
-						btnToggleSecuredFolders.OnClientClick = String.Format("return confirm('{0}')", warningStr);
-				}
+                string warningStr = GetLocalizedString("EnableFoldersIIs7Warning.Text");
+                // Render a warning only if specified
+                if (!String.IsNullOrEmpty(warningStr))
+                    btnToggleSecuredFolders.OnClientClick = String.Format("return confirm('{0}')", warningStr);
 			}
             // toggle
             ToggleControls();

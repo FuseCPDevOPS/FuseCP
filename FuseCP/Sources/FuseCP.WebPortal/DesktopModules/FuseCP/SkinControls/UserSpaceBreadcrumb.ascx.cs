@@ -141,15 +141,12 @@ namespace FuseCP.Portal.SkinControls
                 if (!String.IsNullOrEmpty(ctrlKey))
                     definition.Controls.TryGetValue(ctrlKey, out control);
 
-                if (control != null)
+                if (control != null && !String.IsNullOrEmpty(control.Src))
                 {
-                    if (!String.IsNullOrEmpty(control.Src))
-                    {
-                        lnkOrgCurPage.Text = PortalUtils.GetLocalizedString(DM_FOLDER_VIRTUAL_PATH + control.Src, PAGE_NANE_KEY);
-                        lnkOrgCurPage.NavigateUrl = PortalUtils.EditUrl(
-                            "ItemID", PanelRequest.ItemID.ToString(), ctrlKey,
-                            "SpaceID=" + PanelSecurity.PackageId);
-                    }
+                    lnkOrgCurPage.Text = PortalUtils.GetLocalizedString(DM_FOLDER_VIRTUAL_PATH + control.Src, PAGE_NANE_KEY);
+                    lnkOrgCurPage.NavigateUrl = PortalUtils.EditUrl(
+                        "ItemID", PanelRequest.ItemID.ToString(), ctrlKey,
+                        "SpaceID=" + PanelSecurity.PackageId);
                 }
             }
         }

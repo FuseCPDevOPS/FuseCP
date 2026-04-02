@@ -141,9 +141,9 @@ namespace FuseCP.Portal
             {
                 ViewState["QuotaMinValue"] = value;
 
-                if (QuotaMinValue > 0)
+                if (QuotaMinValue > 0 && QuotaValue < QuotaMinValue)
                 {
-                    if (QuotaValue < QuotaMinValue) QuotaValue = QuotaMinValue;
+                    QuotaValue = QuotaMinValue;
                 }
             }
 
@@ -205,9 +205,9 @@ namespace FuseCP.Portal
                         var unlimited = document.getElementById(chkId).checked;
                         document.getElementById(txtId).style.display = unlimited ? 'none' : 'inline';
                         document.getElementById(txtId).value = unlimited ? '-1' : '0';
-                        if (minValue > 0) 
+                        if (minValue > 0 && document.getElementById(txtId).value < minValue) 
                         {
-                            if (document.getElementById(txtId).value < minValue) document.getElementById(txtId).value = minValue;
+                            document.getElementById(txtId).value = minValue;
                         }
                     }
                     </script>");

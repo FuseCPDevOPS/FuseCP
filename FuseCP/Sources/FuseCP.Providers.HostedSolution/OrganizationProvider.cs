@@ -2258,15 +2258,8 @@ namespace FuseCP.Providers.HostedSolution
 
         private bool CheckMappedDriveExists(string organizationId, string path, bool newDrive)
         {
-            bool exists = false;
-
             MappedDrive[] drives = GetDriveMapsInternal(organizationId, newDrive);
-
-            foreach (var item in drives.Where(item => item.Path == path))
-            {
-                    exists = true;
-                    break;
-            }
+            bool exists = drives.Any(item => item.Path == path);
 
             if (drives.Length == 0 && newDrive)
             {
