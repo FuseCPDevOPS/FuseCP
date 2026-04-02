@@ -426,6 +426,7 @@ namespace Microsoft.ApplicationBlocks.Data
 		{
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
 			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+            SqlCommand cmd = new SqlCommand();
 			bool mustCloseConnection = false;
 			PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters, out mustCloseConnection );
     			
@@ -1034,6 +1035,9 @@ namespace Microsoft.ApplicationBlocks.Data
         {
 			if( transaction == null ) throw new ArgumentNullException( "transaction" );
 			if( transaction.Connection == null ) throw new ArgumentException( "The transaction was rollbacked or commited, please provide an open transaction.", "transaction" );
+
+            // Pass through the call to the private overload using the provided transaction.
+            return ExecuteReader(transaction.Connection, transaction, commandType, commandText, commandParameters, SqlConnectionOwnership.External);
         }
 
         /// <summary>

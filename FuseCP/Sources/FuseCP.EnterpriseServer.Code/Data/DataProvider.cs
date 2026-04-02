@@ -935,7 +935,7 @@ namespace FuseCP.EnterpriseServer
 
 					var spaceItemsServices = itemsService
 						.Join(ServiceItems
-							.Where(si => si.ItemType.Searchable && si.ItemTypeId != 200 && si.ItemTypeId != 201),
+							.Where(si => si.ItemType.Searchable == true && si.ItemTypeId != 200 && si.ItemTypeId != 201),
 							it => it.ItemId, si => si.ItemId, (it, si) => new SearchItem()
 							{
 								ItemId = si.ItemId,
@@ -1972,7 +1972,7 @@ namespace FuseCP.EnterpriseServer
 								throw new AccessViolationException("You are not allowed to access this package");
 
 							var packageIps = PackageIpAddresses
-								.Where(p => p.IsPrimary)
+								.Where(p => p.IsPrimary == true)
 								.Join(IpAddresses
 									.Where(ip => ip.PoolId == 3), // external ip address
 									p => p.AddressId, ip => ip.AddressId, (p, ip) => new
@@ -3121,7 +3121,7 @@ namespace FuseCP.EnterpriseServer
 					// delete user comments
 					Comments.Where(c => c.ItemId == userId && c.ItemTypeId == "USER").ExecuteDelete();
 					// delete reseller addon
-					HostingPlans.Where(h => h.UserId == userId && h.IsAddon).ExecuteDelete();
+					HostingPlans.Where(h => h.UserId == userId && h.IsAddon == true).ExecuteDelete();
 					// delete user peers
 					Users.Where(u => u.IsPeer && u.OwnerId == userId).ExecuteDelete();
 					// delete user
@@ -3969,7 +3969,7 @@ namespace FuseCP.EnterpriseServer
 
 				// virtual groups
 				var virtGroups = ResourceGroups
-					.Where(g => (isAdmin || forAutodiscover) && g.ShowGroup)
+					.Where(g => (isAdmin || forAutodiscover) && g.ShowGroup == true)
 					.SelectMany(g => g.VirtualGroups
 						.Where(vg => vg.ServerId == serverId)
 						.DefaultIfEmpty(),
@@ -7703,10 +7703,10 @@ namespace FuseCP.EnterpriseServer
 						Item = s,
 						Type = t
 					})
-.Where(s => (!calculateDiskspace || s.Type.CalculateDiskspace) &&
-					(!calculateBandwidth || s.Type.CalculateBandwidth) &&
-					(!suspendable || s.Type.Suspendable) &&
-					(!disposable || s.Type.Disposable));
+					.Where(s => (!calculateDiskspace || s.Type.CalculateDiskspace == true) &&
+						(!calculateBandwidth || s.Type.CalculateBandwidth == true) &&
+						(!suspendable || s.Type.Suspendable == true) &&
+						(!disposable || s.Type.Disposable == true));
 
 				var serviceItems = items
 					.Join(ResourceGroups, s => s.Type.GroupId, r => r.GroupId, (s, r) => new
