@@ -29,20 +29,14 @@ namespace FuseCP.EnterpriseServer
 
         public List<StorageSpaceFolder> GetFolders(int itemId, string type)
         {
-            var folders = new List<StorageSpaceFolder>();
-
-            ObjectUtils.FillCollectionFromDataReader(folders, Database.GetOrganizationStoragSpacesFolderByType(itemId, type));
-
-            return folders;
+            return ObjectUtils.CreateListFromDataReader<StorageSpaceFolder>(
+                Database.GetOrganizationStoragSpacesFolderByType(itemId, type));
         }
 
         public StorageSpaceFolder GetFolder(int itemId, string type)
         {
-            var folders = new List<StorageSpaceFolder>();
-
-            ObjectUtils.FillCollectionFromDataReader(folders, Database.GetOrganizationStoragSpacesFolderByType(itemId, type));
-
-            return folders.FirstOrDefault();
+            return ObjectUtils.CreateListFromDataReader<StorageSpaceFolder>(
+                Database.GetOrganizationStoragSpacesFolderByType(itemId, type)).FirstOrDefault();
         }
 
         public StorageSpaceFolder CreateFolder(string organizationId, int itemId, string type, long quotaInBytes, QuotaType qoutaType)

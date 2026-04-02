@@ -3007,11 +3007,8 @@ namespace FuseCP.EnterpriseServer
 
         private bool CheckScheduleTaskRun(int packageId, string taskId)
         {
-            var schedules = new List<ScheduleInfo>();
-
-            ObjectUtils.FillCollectionFromDataSet(schedules, SchedulerController.GetSchedules(packageId));
-
-            return schedules.Any(schedule => schedule.TaskId == taskId);
+            return ObjectUtils.CreateListFromDataSet<ScheduleInfo>(SchedulerController.GetSchedules(packageId))
+                .Any(schedule => schedule.TaskId == taskId);
         }
 
         private int AddScheduleTask(int packageId, string taskId, string taskName)

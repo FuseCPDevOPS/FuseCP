@@ -98,12 +98,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ServerInfo> GetServers()
 		{
-			// create servers list
-			List<ServerInfo> servers = new List<ServerInfo>();
-
-			// fill collection
-			ObjectUtils.FillCollectionFromDataSet<ServerInfo>(
-				servers, Database.GetServers(SecurityContext.User.UserId));
+			var servers = ObjectUtils.CreateListFromDataSet<ServerInfo>(
+				Database.GetServers(SecurityContext.User.UserId));
 
 			foreach (var server in servers) DecryptServerUrl(server);
 
@@ -867,19 +863,15 @@ namespace FuseCP.EnterpriseServer
 		}
 		public List<ServiceInfo> GetServicesByServerId(int serverId)
 		{
-			List<ServiceInfo> services = new List<ServiceInfo>();
-			ObjectUtils.FillCollectionFromDataReader<ServiceInfo>(services,
+			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerId(SecurityContext.User.UserId, serverId));
-			return services;
 		}
 
 		public List<ServiceInfo> GetServicesByServerIdGroupName(int serverId, string groupName)
 		{
-			List<ServiceInfo> services = new List<ServiceInfo>();
-			ObjectUtils.FillCollectionFromDataReader<ServiceInfo>(services,
+			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerIdGroupName(SecurityContext.User.UserId,
 				serverId, groupName));
-			return services;
 		}
 
 		public DataSet GetRawServicesByGroupId(int groupId)
@@ -1154,18 +1146,14 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ProviderInfo> GetInstalledProviders(int groupId)
 		{
-			List<ProviderInfo> provs = new List<ProviderInfo>();
-			ObjectUtils.FillCollectionFromDataSet<ProviderInfo>(provs,
+			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(
 				Database.GetGroupProviders(groupId));
-			return provs;
 		}
 
 		public List<ResourceGroupInfo> GetResourceGroups()
 		{
-			List<ResourceGroupInfo> groups = new List<ResourceGroupInfo>();
-			ObjectUtils.FillCollectionFromDataSet<ResourceGroupInfo>(groups,
+			return ObjectUtils.CreateListFromDataSet<ResourceGroupInfo>(
 				Database.GetResourceGroups());
-			return groups;
 		}
 
 		public ResourceGroupInfo GetResourceGroup(int groupId)
@@ -1188,18 +1176,13 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ProviderInfo> GetProviders()
 		{
-			List<ProviderInfo> provs = new List<ProviderInfo>();
-			ObjectUtils.FillCollectionFromDataSet<ProviderInfo>(
-				provs, Database.GetProviders());
-			return provs;
+			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(Database.GetProviders());
 		}
 
 		public List<ProviderInfo> GetProvidersByGroupID(int groupId)
 		{
-			List<ProviderInfo> provs = new List<ProviderInfo>();
-			ObjectUtils.FillCollectionFromDataSet<ProviderInfo>(
-				provs, Database.GetGroupProviders(groupId));
-			return provs;
+			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(
+				Database.GetGroupProviders(groupId));
 		}
 
 		public String GetMailFilterUrl(int packageId, string groupName)
@@ -2340,10 +2323,8 @@ namespace FuseCP.EnterpriseServer
 		#region Clusters
 		public List<ClusterInfo> GetClusters()
 		{
-			List<ClusterInfo> list = new List<ClusterInfo>();
-			ObjectUtils.FillCollectionFromDataReader<ClusterInfo>(list,
+			return ObjectUtils.CreateListFromDataReader<ClusterInfo>(
 				Database.GetClusters(SecurityContext.User.UserId));
-			return list;
 		}
 
 		public int AddCluster(ClusterInfo cluster)

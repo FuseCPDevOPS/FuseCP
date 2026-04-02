@@ -641,13 +641,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<OrganizationUser> GetCRMOrganizationUsers(int itemId)
         {
-            IDataReader reader =
-                Database.GetCRMOrganizationUsers(itemId);
-            List<OrganizationUser> accounts = new List<OrganizationUser>();
-            ObjectUtils.FillCollectionFromDataReader(accounts, reader);
-
-
-            return accounts;
+            return ObjectUtils.CreateListFromDataReader<OrganizationUser>(
+                Database.GetCRMOrganizationUsers(itemId));
         }
 
 
@@ -657,10 +652,8 @@ namespace FuseCP.EnterpriseServer
             
             try
             {
-                IDataReader reader =
-                    Database.GetCrmUsers(itemId, sortColumn, sortDirection, name, email, startRow, count);
-                List<OrganizationUser> accounts = new List<OrganizationUser>();
-                ObjectUtils.FillCollectionFromDataReader(accounts, reader);
+                List<OrganizationUser> accounts = ObjectUtils.CreateListFromDataReader<OrganizationUser>(
+                    Database.GetCrmUsers(itemId, sortColumn, sortDirection, name, email, startRow, count));
                 res.Value = new OrganizationUsersPaged();
                 res.Value.PageUsers = accounts.ToArray();                                
                 

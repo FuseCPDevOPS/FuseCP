@@ -609,24 +609,14 @@ namespace FuseCP.EnterpriseServer
 
 		public List<UserInfo> GetUserParents(int userId)
 		{
-			// get users from database
-			DataSet dsUsers = Database.GetUserParents(SecurityContext.User.UserId, userId);
-
-			// convert to arraylist
-			List<UserInfo> users = new List<UserInfo>();
-			ObjectUtils.FillCollectionFromDataSet<UserInfo>(users, dsUsers);
-			return users;
+			return ObjectUtils.CreateListFromDataSet<UserInfo>(
+				Database.GetUserParents(SecurityContext.User.UserId, userId));
 		}
 
 		public List<UserInfo> GetUsers(int userId, bool recursive)
 		{
-			// get users from database
-			DataSet dsUsers = Database.GetUsers(SecurityContext.User.UserId, userId, recursive);
-
-			// convert to arraylist
-			List<UserInfo> users = new List<UserInfo>();
-			ObjectUtils.FillCollectionFromDataSet<UserInfo>(users, dsUsers);
-			return users;
+			return ObjectUtils.CreateListFromDataSet<UserInfo>(
+				Database.GetUsers(SecurityContext.User.UserId, userId, recursive));
 		}
 
 		public DataSet GetUsersPaged(int userId, string filterColumn, string filterValue,
@@ -1076,9 +1066,7 @@ namespace FuseCP.EnterpriseServer
 
 		public IEnumerable<string> GetUserPackagesServerUrls(int userId)
 		{
-			var urlbags = new List<ServerUrlBag>();
-			ObjectUtils.FillCollectionFromDataReader<ServerUrlBag>(urlbags, Database.GetUserPackagesServerUrls(userId));
-			return urlbags
+			return ObjectUtils.CreateListFromDataReader<ServerUrlBag>(Database.GetUserPackagesServerUrls(userId))
 				.Select(bag => CryptoUtils.DecryptServerUrl(bag.ServerUrl));
 		}
 
