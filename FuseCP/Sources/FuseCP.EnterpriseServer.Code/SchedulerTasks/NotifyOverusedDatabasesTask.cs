@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Data;
 
@@ -115,70 +116,41 @@ namespace FuseCP.EnterpriseServer
                     List<string> formatItems = new List<string>();
                     List<string> formatWarningThreshold = new List<string>();
                     List<string> formatOverusedThreshold = new List<string>();
+
+                    Action<List<DatabaseQuota>> appendQuotaNotifications = quotaList =>
+                    {
+                        formatItems.AddRange(quotaList
+                            .Where(q => !q.BelowWarningThreshold || !q.BelowUsageThreshold)
+                            .Select(q => String.Format(DISKSPACE_FORMAT_STRING, q.ProviderName, q.SpaceUsed, q.SpaceUsed * 100 / q.SpaceAllocated)));
+
+                        formatWarningThreshold.AddRange(quotaList
+                            .Where(q => !q.BelowWarningThreshold)
+                            .Select(q => String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated)));
+
+                        formatOverusedThreshold.AddRange(quotaList
+                            .Where(q => !q.BelowUsageThreshold)
+                            .Select(q => String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated)));
+
+                        notifyWarningByMail |= quotaList.Any(q => !q.BelowWarningThreshold);
+                        notifyOverusedByMail |= quotaList.Any(q => !q.BelowUsageThreshold);
+                    };
+
                     // add Microsoft SQL usage if enabled
                     if (checkMSSQL)
                     {
-                        foreach (DatabaseQuota q in quotaMSSQL)
-                        {
-                            if (!q.BelowWarningThreshold || !q.BelowUsageThreshold)
-                            {
-                                formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, q.ProviderName, q.SpaceUsed, q.SpaceUsed * 100 / q.SpaceAllocated));
-                            }
-                            if (!q.BelowWarningThreshold)
-                            {
-                                formatWarningThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyWarningByMail = true;
-                            }
-                            if (!q.BelowUsageThreshold)
-                            {
-                                formatOverusedThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyOverusedByMail = true;
-                            }
-                        }
+                        appendQuotaNotifications(quotaMSSQL);
                     }
                        
                     // add MySQL usage if enabled
                     if (checkMySQL)
                     {
-                        foreach (DatabaseQuota q in quotaMYSQL)
-                        {
-                            if (!q.BelowWarningThreshold || !q.BelowUsageThreshold)
-                            {
-                                formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, q.ProviderName, q.SpaceUsed, (q.SpaceUsed * 100) / q.SpaceAllocated));
-                            }
-                            if (!q.BelowWarningThreshold)
-                            {
-                                formatWarningThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyWarningByMail = true;
-                            }
-                            if (!q.BelowUsageThreshold)
-                            {
-                                formatOverusedThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyOverusedByMail = true;
-                            }
-                        }
+                        appendQuotaNotifications(quotaMYSQL);
                     }
 
                     // add MariaDB usage if enabled
                     if (checkMariaDB)
                     {
-                        foreach (DatabaseQuota q in quotaMARIADB)
-                        {
-                            if (!q.BelowWarningThreshold || !q.BelowUsageThreshold)
-                            {
-                                formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, q.ProviderName, q.SpaceUsed, (q.SpaceUsed * 100) / q.SpaceAllocated));
-                            }
-                            if (!q.BelowWarningThreshold)
-                            {
-                                formatWarningThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyWarningByMail = true;
-                            }
-                            if (!q.BelowUsageThreshold)
-                            {
-                                formatOverusedThreshold.Add(String.Format(ALLOC_FORMAT_STRING, q.ProviderName, q.SpaceAllocated));
-                                notifyOverusedByMail = true;
-                            }
-                        }
+                        appendQuotaNotifications(quotaMARIADB);
                     }
 
                     // build usage strings

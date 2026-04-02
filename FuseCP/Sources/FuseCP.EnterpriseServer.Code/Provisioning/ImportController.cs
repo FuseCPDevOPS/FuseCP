@@ -37,19 +37,10 @@ namespace FuseCP.EnterpriseServer
             // load package context
             PackageContext cntx = PackageController.GetPackageContext(packageId);
 
-            // build importable items list
-            List<ServiceProviderItemType> importableTypes = new List<ServiceProviderItemType>();
-            foreach (ServiceProviderItemType itemType in itemTypes)
-            {
-                if (!itemType.Importable)
-                    continue;
-
-                // load group
-                ResourceGroupInfo group = ServerController.GetResourceGroup(itemType.GroupId);
-                if (cntx.Groups.ContainsKey(group.GroupName))
-                    importableTypes.Add(itemType);
-            }
-            return importableTypes;
+            return itemTypes
+                .Where(itemType => itemType.Importable)
+                .Where(itemType => cntx.Groups.ContainsKey(ServerController.GetResourceGroup(itemType.GroupId).GroupName))
+                .ToList();
         }
 
         public List<string> GetImportableItems(int packageId, int itemTypeId)
@@ -213,8 +204,9 @@ namespace FuseCP.EnterpriseServer
             }
 
             // import each group
-            foreach (int itemTypeId in groupedItems.Keys)
+            foreach (KeyValuePair<int, List<string>> groupedItem in groupedItems)
             {
+                int itemTypeId = groupedItem.Key;
                 // load item type
                 ServiceProviderItemType itemType = PackageController.GetServiceItemType(itemTypeId);
 
@@ -228,7 +220,7 @@ namespace FuseCP.EnterpriseServer
                     ctrl = Activator.CreateInstance(Type.GetType(group.GroupController)) as IImportController;
                     if (ctrl != null)
                     {
-						foreach (string itemName in groupedItems[itemTypeId])
+                        foreach (string itemName in groupedItem.Value)
 						{
 							TaskManager.Write(String.Format("Import {0} '{1}'",
 								itemType.DisplayName, itemName));

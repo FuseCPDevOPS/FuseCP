@@ -23,6 +23,7 @@ using System.Threading;
 using System.Xml;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
+using System.Linq;
 
 using FuseCP.Providers;
 using OS = FuseCP.Server.Client;
@@ -417,8 +418,7 @@ namespace FuseCP.EnterpriseServer
 			{
 				// get server services
 				List<ServiceInfo> services = ServerController.GetServicesByServerId(serverId);
-				foreach (ServiceInfo service in services)
-					items.AddRange(PackageController.GetServiceItems(service.ServiceId));
+				items.AddRange(services.SelectMany(service => PackageController.GetServiceItems(service.ServiceId)));
 			}
 			else if (userId > 0)
 			{
@@ -430,9 +430,7 @@ namespace FuseCP.EnterpriseServer
 				// get user spaces
 				packages.AddRange(PackageController.GetPackages(userId));
 
-				// build collection
-				foreach (PackageInfo package in packages)
-					items.AddRange(PackageController.GetPackageItems(package.PackageId));
+				items.AddRange(packages.SelectMany(package => PackageController.GetPackageItems(package.PackageId)));
 			}
 			return items;
 		}
@@ -440,31 +438,21 @@ namespace FuseCP.EnterpriseServer
 		public KeyValueBunch GetBackupContentSummary(int userId, int packageId,
 			int serviceId, int serverId)
 		{
-			Dictionary<string, List<string>> summary = new Dictionary<string, List<string>>();
-			// Get backup items
+			Dictionary<int, string> backupableTypeNames = PackageController.GetServiceItemTypes()
+				.Where(itemType => itemType.Backupable)
+				.GroupBy(itemType => itemType.ItemTypeId)
+				.ToDictionary(group => group.Key, group => group.First().DisplayName);
+
 			List<ServiceProviderItem> items = GetBackupItems(userId, packageId, serviceId, serverId);
-			// Prepare filter for in-loop sort
-			ServiceProviderItemType[] itemTypes = PackageController.GetServiceItemTypes().ToArray();
-			// Group service items by type id
-			foreach (ServiceProviderItem si in items)
-			{
-				ServiceProviderItemType itemType = Array.Find<ServiceProviderItemType>(itemTypes, 
-					x => x.ItemTypeId == si.TypeId && x.Backupable);
-				// Sort out item types without backup capabilities
-				if (itemType != null)
-				{
-					// Mimic a grouping sort
-					if (!summary.ContainsKey(itemType.DisplayName))
-						summary.Add(itemType.DisplayName, new List<string>());
-					//
-					summary[itemType.DisplayName].Add(si.Name);
-				}
-			}
-			//
+			Dictionary<string, List<string>> summary = items
+				.Where(item => backupableTypeNames.ContainsKey(item.TypeId))
+				.GroupBy(item => backupableTypeNames[item.TypeId])
+				.ToDictionary(group => group.Key, group => group.Select(item => item.Name).ToList());
+
 			KeyValueBunch result = new KeyValueBunch();
 			// Convert grouped data into serializable format
-			foreach (string groupName in summary.Keys)
-				result[groupName] = String.Join(",", summary[groupName].ToArray());
+			foreach (KeyValuePair<string, List<string>> group in summary)
+				result[group.Key] = String.Join(",", group.Value.ToArray());
 			//
 			return result;
 		}

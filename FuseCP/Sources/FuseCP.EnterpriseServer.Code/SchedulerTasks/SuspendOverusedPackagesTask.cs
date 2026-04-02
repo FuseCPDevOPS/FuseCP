@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FuseCP.EnterpriseServer
@@ -92,32 +93,24 @@ namespace FuseCP.EnterpriseServer
                 }
 
             	string userName = String.Format("{0} {1} ({2})/{3}", userInfo.FirstName, userInfo.LastName, userInfo.Username, userInfo.Email);
-                //
-                List<string> formatItems = new List<string>();
-                // add diskspace usage if enabled
-                if (checkDiskspace) formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, diskSpaceUsage));
-                // add bandwidth usage if enabled
-                if (checkBandwidth) formatItems.Add(String.Format(BANDWIDTH_FORMAT_STRING, bandwidthUsage));
-                // build usage string
-                string usage = String.Join(", ", formatItems.ToArray());
 
-                // cleanup items
-                formatItems.Clear();
-                // add diskspace warning max usage
-                if (checkDiskspace) formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, warningUsageThreshold));
-                // add bandwidth warning max usage
-                if (checkBandwidth) formatItems.Add(String.Format(BANDWIDTH_FORMAT_STRING, warningUsageThreshold));
-                // build warning max usage string
-                string warningMaxUsage = String.Join(", ", formatItems.ToArray());
+				string usage = String.Join(", ", new string[]
+				{
+					checkDiskspace ? String.Format(DISKSPACE_FORMAT_STRING, diskSpaceUsage) : null,
+					checkBandwidth ? String.Format(BANDWIDTH_FORMAT_STRING, bandwidthUsage) : null
+				}.Where(item => item != null));
 
-                // cleanup items
-                formatItems.Clear();
-                // add diskspace suspension max usage
-                if (checkDiskspace) formatItems.Add(String.Format(DISKSPACE_FORMAT_STRING, suspensionUsageThreshold));
-                // add bandwidth suspension max usage
-                if (checkBandwidth) formatItems.Add(String.Format(BANDWIDTH_FORMAT_STRING, suspensionUsageThreshold));
-                // build suspension max usage string
-                string suspensionMaxUsage = String.Join(", ", formatItems.ToArray());
+				string warningMaxUsage = String.Join(", ", new string[]
+				{
+					checkDiskspace ? String.Format(DISKSPACE_FORMAT_STRING, warningUsageThreshold) : null,
+					checkBandwidth ? String.Format(BANDWIDTH_FORMAT_STRING, warningUsageThreshold) : null
+				}.Where(item => item != null));
+
+				string suspensionMaxUsage = String.Join(", ", new string[]
+				{
+					checkDiskspace ? String.Format(DISKSPACE_FORMAT_STRING, suspensionUsageThreshold) : null,
+					checkBandwidth ? String.Format(BANDWIDTH_FORMAT_STRING, suspensionUsageThreshold) : null
+				}.Where(item => item != null));
 
 				string warningMailSubjectProcessed = ReplaceVariables(warningMailSubject, warningMaxUsage, usage, package.PackageName, userName);
 				string warningMailBodyProcessed = ReplaceVariables(warningMailBody, warningMaxUsage, usage, package.PackageName, userName);
