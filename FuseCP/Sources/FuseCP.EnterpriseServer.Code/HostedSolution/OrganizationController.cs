@@ -1690,15 +1690,10 @@ namespace FuseCP.EnterpriseServer
             ObjectUtils.FillCollectionFromDataView(Tmpaccounts, ds.Tables[1].DefaultView);
             result.PageUsers = Tmpaccounts.ToArray();
 
-            List<OrganizationUser> accounts = new List<OrganizationUser>();
-
-            foreach (OrganizationUser user in Tmpaccounts.ToArray())
-            {
-                OrganizationUser tmpUser = GetUserGeneralSettings(itemId, user.AccountId);
-
-                if (tmpUser != null)
-                    accounts.Add(tmpUser);
-            }
+            var accounts = Tmpaccounts
+                .Select(user => GetUserGeneralSettings(itemId, user.AccountId))
+                .Where(tmpUser => tmpUser != null)
+                .ToList();
 
             result.PageUsers = accounts.ToArray();
             return result;

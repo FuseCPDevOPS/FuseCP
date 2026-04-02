@@ -916,11 +916,7 @@ namespace FuseCP.EnterpriseServer.Code.SharePoint
                 List<SharePointEnterpriseSiteCollection> currentOrgSiteCollection =
                     GetOrganizationSharePointEnterpriseSiteCollections(org.Id);
 
-                List<string> urls = new List<string>();
-                foreach (SharePointEnterpriseSiteCollection siteCollection in currentOrgSiteCollection)
-                {
-                    urls.Add(siteCollection.PhysicalAddress);
-                }
+                var urls = currentOrgSiteCollection.Select(sc => sc.PhysicalAddress).ToList();
                 if (urls.Count > 0)
                     retDiskSpace = hostedSharePointServer.Enterprise_CalculateSiteCollectionsDiskSpace(urls.ToArray());
                 else

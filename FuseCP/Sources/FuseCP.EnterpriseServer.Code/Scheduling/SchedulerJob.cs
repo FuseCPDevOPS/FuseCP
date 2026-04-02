@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 using System.Text;
@@ -70,11 +71,9 @@ namespace FuseCP.EnterpriseServer
             UserInfo user = PackageController.GetPackageOwner(scheduleInfo.PackageId);
             SecurityContext.SetThreadPrincipal(user.UserId);
 
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            foreach (ScheduleTaskParameterInfo prm in scheduleInfo.Parameters)
-            {
-                parameters.Add(new BackgroundTaskParameter(prm.ParameterId, prm.ParameterValue));
-            }
+            var parameters = scheduleInfo.Parameters
+                .Select(prm => new BackgroundTaskParameter(prm.ParameterId, prm.ParameterValue))
+                .ToList();
 
             TaskManager.StartTask("SCHEDULER", "RUN_SCHEDULE", scheduleInfo.ScheduleName, scheduleInfo.ScheduleId,
                                   scheduleInfo.ScheduleId, scheduleInfo.PackageId, scheduleInfo.MaxExecutionTime,

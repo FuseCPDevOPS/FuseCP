@@ -958,9 +958,7 @@ public class FilesController: ControllerBase
         int webServiceId = PackageController.GetPackageServiceId(packageId, ResourceGroups.Web);
         if (webServiceId > 0)
         {
-            List<string> siteIds = new List<string>();
-            foreach (WebSite site in sites)
-                siteIds.Add(site.SiteId);
+            List<string> siteIds = sites.Select(site => site.SiteId).ToList();
 
             WebServer web = WebServerController.GetWebServer(webServiceId);
             string[] siteAccounts = web.GetSitesAccounts(siteIds.ToArray());

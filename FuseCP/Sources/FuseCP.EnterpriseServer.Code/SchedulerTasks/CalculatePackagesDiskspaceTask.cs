@@ -16,6 +16,7 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using FuseCP.EnterpriseServer.Code.SharePoint;
 using FuseCP.Providers;
@@ -65,13 +66,11 @@ namespace FuseCP.EnterpriseServer
                     PackageController.OrderServiceItemsByServices(items);
 
                 // calculate statistics for each service set
-                List<ServiceProviderItemDiskSpace> itemsDiskspace = new List<ServiceProviderItemDiskSpace>();
-                foreach (int serviceId in orderedItems.Keys)
-                {
-                    ServiceProviderItemDiskSpace[] serviceDiskspace = CalculateItems(serviceId, orderedItems[serviceId]);
-                    if (serviceDiskspace != null)
-                        itemsDiskspace.AddRange(serviceDiskspace);
-                }
+                var itemsDiskspace = orderedItems.Keys
+                    .Select(serviceId => CalculateItems(serviceId, orderedItems[serviceId]))
+                    .Where(ds => ds != null)
+                    .SelectMany(ds => ds)
+                    .ToList();
 
                 // update info in the database
                 string xml = BuildDiskSpaceStatisticsXml(itemsDiskspace.ToArray());
@@ -160,12 +159,7 @@ namespace FuseCP.EnterpriseServer
                         SharePointSiteDiskSpace[] sharePointSiteDiskSpaces =
                             HostedSharePointServerController.CalculateSharePointSitesDiskSpace(org.Id, out res);
                         if (res == 0)
-                        {
-                            foreach (SharePointSiteDiskSpace currecnt in sharePointSiteDiskSpaces)
-                            {
-                                size += currecnt.DiskSpace;
-                            }
-                        }
+                            size += sharePointSiteDiskSpaces.Sum(s => s.DiskSpace);
                     }
 
                     if (cntx.Groups.ContainsKey(ResourceGroups.SharepointEnterpriseServer))
@@ -173,12 +167,7 @@ namespace FuseCP.EnterpriseServer
                         SharePointSiteDiskSpace[] sharePointSiteDiskSpaces =
                             HostedSharePointServerEntController.CalculateSharePointSitesDiskSpace(org.Id, out res);
                         if (res == 0)
-                        {
-                            foreach (SharePointSiteDiskSpace currecnt in sharePointSiteDiskSpaces)
-                            {
-                                size += currecnt.DiskSpace;
-                            }
-                        }
+                            size += sharePointSiteDiskSpaces.Sum(s => s.DiskSpace);
                     }
 
                     ServiceProviderItemDiskSpace tmp = new ServiceProviderItemDiskSpace();

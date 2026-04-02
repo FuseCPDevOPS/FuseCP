@@ -66,14 +66,11 @@ namespace FuseCP.EnterpriseServer
                     PackageController.OrderServiceItemsByServices(items);
 
                 // calculate statistics for each service set
-                List<ServiceProviderItemBandwidth> itemsBandwidth = new List<ServiceProviderItemBandwidth>();
-                foreach (int serviceId in orderedItems.Keys)
-                {
-                    ServiceProviderItemBandwidth[] serviceBandwidth = CalculateItems(serviceId,
-                        orderedItems[serviceId], since);
-                    if (serviceBandwidth != null)
-                        itemsBandwidth.AddRange(serviceBandwidth);
-                }
+                var itemsBandwidth = orderedItems.Keys
+                    .Select(serviceId => CalculateItems(serviceId, orderedItems[serviceId], since))
+                    .Where(bw => bw != null)
+                    .SelectMany(bw => bw)
+                    .ToList();
 
                 // update info in the database
                 string xml = BuildDiskBandwidthStatisticsXml(itemsBandwidth.ToArray());
@@ -111,9 +108,7 @@ namespace FuseCP.EnterpriseServer
             DateTime since)
         {
             // convert items to SoapObjects
-            List<SoapServiceProviderItem> objItems = new List<SoapServiceProviderItem>();
-            foreach (ServiceProviderItem item in items)
-                objItems.Add(SoapServiceProviderItem.Wrap(item));
+            var objItems = items.Select(SoapServiceProviderItem.Wrap).ToList();
 
             int attempt = 0;
             int ATTEMPTS = 3;

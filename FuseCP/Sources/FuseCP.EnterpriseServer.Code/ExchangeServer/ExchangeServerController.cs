@@ -5461,9 +5461,7 @@ namespace FuseCP.EnterpriseServer
 
                 ExchangeDistributionList distributionList = exchange.GetDistributionListGeneralSettings(distributionListName);
 
-                List<string> members = new List<string>();
-                foreach (ExchangeAccount member in distributionList.MembersAccounts)
-                    members.Add(member.AccountName);
+                List<string> members = distributionList.MembersAccounts.Select(m => m.AccountName).ToList();
                 members.Add(memberAccount.AccountName);
 
                 List<string> addressLists = new List<string>();
@@ -6482,12 +6480,9 @@ namespace FuseCP.EnterpriseServer
         private string[] GetAccountSimpleEmailAddresses(int itemId, int accountId)
         {
             ExchangeEmailAddress[] emails = GetAccountEmailAddresses(itemId, accountId);
-            List<string> result = new List<string>();
-            foreach (ExchangeEmailAddress email in emails)
-            {
-                string prefix = email.IsPrimary ? "SMTP:" : "smtp:";
-                result.Add(prefix + email.EmailAddress);
-            }
+            List<string> result = emails
+                .Select(email => (email.IsPrimary ? "SMTP:" : "smtp:") + email.EmailAddress)
+                .ToList();
 
             return result.ToArray();
         }
