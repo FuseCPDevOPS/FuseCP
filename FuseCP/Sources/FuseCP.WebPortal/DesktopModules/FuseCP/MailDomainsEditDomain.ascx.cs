@@ -71,23 +71,19 @@ namespace FuseCP.Portal
                 // load provider control
                 LoadProviderControl((int)ViewState["PackageId"], "Mail", providerControl, "EditDomain.ascx");
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
                     // bind item to controls
-                    if (item != null)
+                    litDomainName.Text = item.Name;
+
+                    // other controls
+                    if (providerControl.Controls.Count > 0)
                     {
-                        // bind item to controls
-                        litDomainName.Text = item.Name;
-
-                        // other controls
-                        if (providerControl.Controls.Count > 0)
-                        {
-                            IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
-                            ctrl.BindItem(item);
-                        }
-
-                        BindPointers();
+                        IMailEditDomainControl ctrl = (IMailEditDomainControl)providerControl.Controls[0];
+                        ctrl.BindItem(item);
                     }
+
+                    BindPointers();
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

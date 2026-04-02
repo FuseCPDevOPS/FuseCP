@@ -109,52 +109,48 @@ namespace FuseCP.Portal
                     ToggleDriverControls(ddlDriver.SelectedValue);
                 }
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
                     // bind item to controls
-                    if (item != null)
+                    passwordControl.EditMode = true;
+                    fileLookup.PackageId = item.PackageId;
+                    dsnName.Text = item.Name;
+                    dsnName.EditMode = true;
+                    Utils.SelectListItem(ddlDriver, item.Driver);
+                    ddlDriver.Enabled = false;
+                    ddlDatabaseName.Enabled = false;
+                    ddlDatabaseUser.Enabled = false;
+
+                    ToggleDriverControls(ddlDriver.SelectedValue);
+
+                    // database
+                    string driverName = item.Driver;
+
+                    if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
                     {
-                        // bind item to controls
-                        passwordControl.EditMode = true;
-                        fileLookup.PackageId = item.PackageId;
-                        dsnName.Text = item.Name;
-                        dsnName.EditMode = true;
-                        Utils.SelectListItem(ddlDriver, item.Driver);
-                        ddlDriver.Enabled = false;
-                        ddlDatabaseName.Enabled = false;
-                        ddlDatabaseUser.Enabled = false;
+                        // unselect currently selected item
+                        if (ddlDatabaseName.SelectedIndex != -1)
+                            ddlDatabaseName.SelectedItem.Selected = false;
 
-                        ToggleDriverControls(ddlDriver.SelectedValue);
-
-                        // database
-                        string driverName = item.Driver;
-
-                        if (driverName == "MsSql" || driverName == "MsSqlNative" || driverName == "MySql" || driverName == "MariaDB")
+                        foreach (ListItem li in ddlDatabaseName.Items)
                         {
-                            // unselect currently selected item
-                            if (ddlDatabaseName.SelectedIndex != -1)
-                                ddlDatabaseName.SelectedItem.Selected = false;
-
-                            foreach (ListItem li in ddlDatabaseName.Items)
+                            if (li.Value.StartsWith(item.DatabaseName + "|"))
                             {
-                                if (li.Value.StartsWith(item.DatabaseName + "|"))
-                                {
-                                    li.Selected = true;
-                                    break;
-                                }
+                                li.Selected = true;
+                                break;
                             }
                         }
-                        else
-                            fileLookup.SelectedFile = item.DatabaseName;
-
-                        // user
-                        if (driverName == "MsAccess")
-                            txtUser.Text = item.DatabaseUser;
-                        if (driverName == "MsAccess2010")
-                            txtUser.Text = item.DatabaseUser;
-                        else
-                            Utils.SelectListItem(ddlDatabaseUser, item.DatabaseUser);
                     }
+                    else
+                        fileLookup.SelectedFile = item.DatabaseName;
+
+                    // user
+                    if (driverName == "MsAccess")
+                        txtUser.Text = item.DatabaseUser;
+                    if (driverName == "MsAccess2010")
+                        txtUser.Text = item.DatabaseUser;
+                    else
+                        Utils.SelectListItem(ddlDatabaseUser, item.DatabaseUser);
                 }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

@@ -58,13 +58,11 @@ namespace FuseCP.Portal
                     txtHostName.Text = "";
                 }
 
-				if ((PanelSecurity.LoggedUser.Role == UserRole.User) && (type != DomainType.SubDomain))
+				if ((PanelSecurity.LoggedUser.Role == UserRole.User) && (type != DomainType.SubDomain)
+					&& cntx.Groups.ContainsKey(ResourceGroups.Dns))
                 {
-                    if (cntx.Groups.ContainsKey(ResourceGroups.Dns))
-                    {
-                        if (!PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR))
-                            this.DisableControls = true;
-                    }
+					if (!PackagesHelper.CheckGroupQuotaEnabled(PanelSecurity.PackageId, ResourceGroups.Dns, Quotas.DNS_EDITOR))
+						this.DisableControls = true;
                 }
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
