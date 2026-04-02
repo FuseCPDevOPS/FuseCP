@@ -976,20 +976,18 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             SharePointServer sps = GetSharePoint(serviceId);
             if (itemType == typeof(SystemUser))
-                items.AddRange(sps.GetUsers());
+                return new List<string>(sps.GetUsers());
             else if (itemType == typeof(SystemGroup))
-                items.AddRange(sps.GetGroups());
+                return new List<string>(sps.GetGroups());
 
-            return items;
+            return new List<string>();
         }
 
         public void ImportItem(int packageId, int itemTypeId, Type itemType,

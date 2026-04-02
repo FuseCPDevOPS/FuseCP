@@ -599,18 +599,16 @@ namespace FuseCP.EnterpriseServer
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType,
 			ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             OS.OperatingSystem os = GetOS(serviceId);
             if (itemType == typeof(SystemDSN))
-                items.AddRange(os.GetDSNNames());
+                return os.GetDSNNames().ToList();
 
-            return items;
+            return new List<string>();
         }
 
         public void ImportItem(int packageId, int itemTypeId, Type itemType,

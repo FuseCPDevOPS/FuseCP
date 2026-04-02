@@ -1034,9 +1034,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         {
                             SfBServer sfb = GetSfBServer(service.ServiceId, -1);
                             string[] values = sfb.GetPolicyList(type, name);
-                            foreach (string val in values)
-                                if (allpolicylist.IndexOf(val) == -1)
-                                    allpolicylist.Add(val);
+                            allpolicylist.AddRange(values.Where(val => !allpolicylist.Contains(val)));
                         }
 
                     }

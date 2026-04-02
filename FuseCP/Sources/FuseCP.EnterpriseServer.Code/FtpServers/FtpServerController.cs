@@ -299,12 +299,10 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             // FTP provider
             FTPServer ftp = new FTPServer();
@@ -312,10 +310,7 @@ namespace FuseCP.EnterpriseServer
 
             FtpAccount[] accounts = ftp.GetAccounts();
 
-            foreach (FtpAccount account in accounts)
-                items.Add(account.Name);
-
-            return items;
+			return new List<string>(Array.ConvertAll(accounts, account => account.Name));
         }
 
         public void ImportItem(int packageId, int itemTypeId,

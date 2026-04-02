@@ -922,10 +922,8 @@ namespace FuseCP.EnterpriseServer
                     return null;
 
                 // get the list of all public folders
-                List<string> folderNames = new List<string>();
                 List<ExchangeAccount> folders = GetAccounts(itemId, ExchangeAccountType.PublicFolder);
-                foreach (ExchangeAccount folder in folders)
-                    folderNames.Add(folder.DisplayName);
+                var folderNames = folders.Select(folder => folder.DisplayName).ToList();
 
                 // get stats
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
@@ -5806,11 +5804,8 @@ namespace FuseCP.EnterpriseServer
 
 
                 // delete all mail accounts
-                List<string> addrs = new List<string>();
                 ExchangeEmailAddress[] emails = GetAccountEmailAddresses(itemId, accountId);
-                foreach (ExchangeEmailAddress email in emails)
-                    addrs.Add(email.EmailAddress);
-                var addressesDeleted = addrs.ToArray();
+                var addressesDeleted = emails.Select(email => email.EmailAddress).ToArray();
 
                 // Log Extension
                 LogExtension.WriteVariables(new { addressesDeleted });

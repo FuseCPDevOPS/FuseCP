@@ -774,20 +774,18 @@ namespace FuseCP.EnterpriseServer
         public List<string> GetImportableItems(int packageId, int itemTypeId,
             Type itemType, ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             DatabaseServer db = GetDatabaseServer(serviceId);
             if (itemType == typeof(SqlDatabase))
-                items.AddRange(db.GetDatabases());
+				return db.GetDatabases().ToList();
             else if (itemType == typeof(SqlUser))
-                items.AddRange(db.GetUsers());
+				return db.GetUsers().ToList();
 
-            return items;
+			return new List<string>();
         }
 
         public void ImportItem(int packageId, int itemTypeId,

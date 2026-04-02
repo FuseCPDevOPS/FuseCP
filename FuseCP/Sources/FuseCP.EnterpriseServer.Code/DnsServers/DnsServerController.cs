@@ -353,12 +353,10 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             // Mail provider
             DNSServer dns = new DNSServer();
@@ -368,7 +366,7 @@ namespace FuseCP.EnterpriseServer
             var idn = new IdnMapping();
 
             if (itemType == typeof(DnsZone))
-                items.AddRange(dns.GetZones().Select(z =>
+                return dns.GetZones().Select(z =>
                 {
                     try
                     {
@@ -378,10 +376,10 @@ namespace FuseCP.EnterpriseServer
                     {
                         return null;
                     }
-                }));
+                }).Where(z => z != null).ToList();
 
 
-            return items;
+            return new List<string>();
         }
 
         public void ImportItem(int packageId, int itemTypeId, Type itemType,

@@ -3858,18 +3858,16 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
         {
-            List<string> items = new List<string>();
-
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
-                return items;
+                return new List<string>();
 
             WebServer web = GetWebServer(serviceId);
             if (itemType == typeof(WebSite))
-                items.AddRange(web.GetSites());
+                return web.GetSites().ToList();
 
-            return items;
+            return new List<string>();
         }
 
         public void ImportItem(int packageId, int itemTypeId, Type itemType,

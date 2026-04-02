@@ -1420,21 +1420,19 @@ namespace FuseCP.EnterpriseServer
 
 		public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
 		{
-			List<string> items = new List<string>();
-
 			// get service id
 			int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
 			if (serviceId == 0)
-				return items;
+				return new List<string>();
 
 			// Mail provider
 			MailServer mail = new MailServer();
 			ServiceProviderProxy.Init(mail, serviceId);
 
 			if (itemType == typeof(MailDomain))
-				items.AddRange(mail.GetDomains());
+				return mail.GetDomains().ToList();
 
-			return items;
+			return new List<string>();
 		}
 
 		public void ImportItem(int packageId, int itemTypeId, Type itemType,

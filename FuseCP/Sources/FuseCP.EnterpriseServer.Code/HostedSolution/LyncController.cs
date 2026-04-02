@@ -1031,9 +1031,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         {
                             LyncServer lync = GetLyncServer(service.ServiceId, -1);
                             string[] values = lync.GetPolicyList(type, name);
-                            foreach (string val in values)
-                                if (allpolicylist.IndexOf(val) == -1)
-                                    allpolicylist.Add(val);
+                            allpolicylist.AddRange(values.Where(val => !allpolicylist.Contains(val)));
                         }
 
                     }
