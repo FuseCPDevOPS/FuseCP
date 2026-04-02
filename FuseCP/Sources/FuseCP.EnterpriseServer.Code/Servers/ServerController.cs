@@ -1402,13 +1402,12 @@ namespace FuseCP.EnterpriseServer
 
 			try
 			{
-				foreach (ResultObject vlanRes in vlans.Select(DeletePrivateNetworkVLAN))
+				foreach (ResultObject vlanRes in vlans
+					.Select(DeletePrivateNetworkVLAN)
+					.Where(vlanRes => !vlanRes.IsSuccess && vlanRes.ErrorCodes.Count > 0))
 				{
-					if (!vlanRes.IsSuccess && vlanRes.ErrorCodes.Count > 0)
-					{
-						res.ErrorCodes.AddRange(vlanRes.ErrorCodes);
-						res.IsSuccess = false;
-					}
+					res.ErrorCodes.AddRange(vlanRes.ErrorCodes);
+					res.IsSuccess = false;
 				}
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -1943,13 +1942,12 @@ namespace FuseCP.EnterpriseServer
 
 			try
 			{
-				foreach (ResultObject addrRes in addresses.Select(DeleteIPAddress))
+				foreach (ResultObject addrRes in addresses
+					.Select(DeleteIPAddress)
+					.Where(addrRes => !addrRes.IsSuccess && addrRes.ErrorCodes.Count > 0))
 				{
-					if (!addrRes.IsSuccess && addrRes.ErrorCodes.Count > 0)
-					{
-						res.ErrorCodes.AddRange(addrRes.ErrorCodes);
-						res.IsSuccess = false;
-					}
+					res.ErrorCodes.AddRange(addrRes.ErrorCodes);
+					res.IsSuccess = false;
 				}
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -2171,9 +2169,9 @@ namespace FuseCP.EnterpriseServer
 			int number = 0;
 
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
-if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
+			if (cntx.Quotas.TryGetValue(quotaName, out var quota))
 			{
-				number = _ckv.QuotaAllocatedValue;
+				number = quota.QuotaAllocatedValue;
 				if (number == -1)
 				{
 					// unlimited
@@ -2183,7 +2181,7 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 				else
 				{
 					// quota
-					number = number - cntx.Quotas[quotaName].QuotaUsedValue;
+					number = number - quota.QuotaUsedValue;
 				}
 			}
 
@@ -2192,37 +2190,30 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 				true, number, new int[0]);
 		}
 
-        public ResultObject AllocateMaximumPackageVLANs(int packageId, string groupName, bool isDmz)
-        {
+		public ResultObject AllocateMaximumPackageVLANs(int packageId, string groupName, bool isDmz)
+		{
 			// get maximum server VLANs
 			int maxAvailableVLANs = GetUnallottedVLANs(packageId, groupName).Count;
 
 			// get hosting plan VLANs
 			int number = 0;
 
-            string quotaName;
+			string quotaName;
 			quotaName = isDmz ? Quotas.VPS2012_DMZ_VLANS_NUMBER : Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
 
-
-
-
-
-
-
-
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
-if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
-            {
-				number = _ckv.QuotaAllocatedValue == -1
+			if (cntx.Quotas.TryGetValue(quotaName, out var quota))
+			{
+				number = quota.QuotaAllocatedValue == -1
 					? (maxAvailableVLANs > 0
 						? 1 // assign 1 VLAN or the entire free pool if unlimited. What is better???
 						: 0)
-					: cntx.Quotas[quotaName].QuotaAllocatedValue - cntx.Quotas[quotaName].QuotaUsedValue;
-            }
+					: quota.QuotaAllocatedValue - quota.QuotaUsedValue;
+			}
 
-            // allocate
-            return AllocatePackageVLANs(packageId, groupName, true, number, new int[0], isDmz);
-        }
+			// allocate
+			return AllocatePackageVLANs(packageId, groupName, true, number, new int[0], isDmz);
+		}
 
 		public ResultObject DeallocatePackageIPAddresses(int packageId, int[] addressId)
 		{

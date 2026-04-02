@@ -1290,13 +1290,9 @@ namespace FuseCP.EnterpriseServer
 
 			// get the list of all domains
 			List<DomainInfo> myDomains = ServerController.GetMyDomains(mailDomain.PackageId);
-
-			foreach (DomainInfo domain in myDomains)
-			{
-				if (domain.MailDomainId == itemId &&
-					domain.DomainName != mailDomain.Name)
-					pointers.Add(domain);
-			}
+			pointers = myDomains
+				.Where(domain => domain.MailDomainId == itemId && domain.DomainName != mailDomain.Name)
+				.ToList();
 
 			return pointers;
 		}
@@ -1330,7 +1326,7 @@ namespace FuseCP.EnterpriseServer
 				mail.AddDomainAlias(mailDomain.Name, domain.DomainName);
 
 
-				if (domain != null && domain.ZoneItemId != 0)
+				if (domain.ZoneItemId != 0)
 				{
 					ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Mail, domain, "");
 				}

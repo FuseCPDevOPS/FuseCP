@@ -263,9 +263,9 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-                        foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
+					foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
                     {
-                            if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
+						if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
                 else
@@ -1390,7 +1390,7 @@ namespace FuseCP.EnterpriseServer
                                                 where zoneRecord.RecordName == resRecord.RecordName
                                                 where zoneRecord.RecordType == resRecord.RecordType
                                                 select zoneRecord).ToArray();
-                        if (duplicateRecords != null && duplicateRecords.Count() > 0)
+                        if (duplicateRecords.Length > 0)
                         {
                             dns.DeleteZoneRecords(zone.Name, duplicateRecords);
                         }
@@ -1441,10 +1441,12 @@ namespace FuseCP.EnterpriseServer
                 {
                     domain.WebSiteId = siteItemId;
                     domain.IsDomainPointer = true;
-                    foreach (ServerBinding b in bindings.Where(b => !string.IsNullOrEmpty(b.Host)))
+                    foreach (string bindingHost in bindings
+                        .Select(b => b.Host)
+                        .Where(host => !string.IsNullOrEmpty(host)))
                     {
                         //add new domain record
-                            domain.DomainName = b.Host;
+                            domain.DomainName = bindingHost;
 
                             DomainInfo domainTmp = ServerController.GetDomain(domain.DomainName);
                             if (!((domainTmp != null) && (domainTmp.WebSiteId == siteItemId)))
