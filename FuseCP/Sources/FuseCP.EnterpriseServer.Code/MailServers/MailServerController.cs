@@ -1377,9 +1377,11 @@ namespace FuseCP.EnterpriseServer
 
 			// place log record
 
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("Domain ID", domain.DomainId));
-            parameters.Add(new BackgroundTaskParameter("Domain pointer", domain.DomainName));
+			var parameters = new List<BackgroundTaskParameter>
+			{
+				new BackgroundTaskParameter("Domain ID", domain.DomainId),
+				new BackgroundTaskParameter("Domain pointer", domain.DomainName)
+			};
 
 			TaskManager.StartTask("MAIL_DOMAIN", "DELETE_POINTER", mailDomain.Name, itemId, parameters);
 

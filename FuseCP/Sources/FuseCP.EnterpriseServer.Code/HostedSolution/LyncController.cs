@@ -283,18 +283,20 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         private int[] ParseMultiSetting(int lyncServiceId, string settingName)
         {
-            List<int> retIds = new List<int>();
+            var retIds = new List<int>();
             StringDictionary settings = ServerController.GetServiceSettings(lyncServiceId);
             if (!String.IsNullOrEmpty(settings[settingName]))
             {
-                string[] ids = settings[settingName].Split(',');
-
-                foreach (string id in ids)
-                {
-                    int res;
-                    if (int.TryParse(id, out res))
-                        retIds.Add(res);
-                }
+                retIds = settings[settingName]
+                    .Split(',')
+                    .Select(id =>
+                    {
+                        var parsed = 0;
+                        return int.TryParse(id, out parsed) ? (int?)parsed : null;
+                    })
+                    .Where(id => id.HasValue)
+                    .Select(id => id.Value)
+                    .ToList();
             }
 
             if (retIds.Count == 0)
@@ -898,9 +900,11 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public LyncUserResult AddFederationDomain(int itemId, string domainName, string proxyFqdn)
         {
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("domainName", domainName));
-            parameters.Add(new BackgroundTaskParameter("proxyFqdn", proxyFqdn));
+            var parameters = new List<BackgroundTaskParameter>
+            {
+                new BackgroundTaskParameter("domainName", domainName),
+                new BackgroundTaskParameter("proxyFqdn", proxyFqdn)
+            };
 
             LyncUserResult res = TaskManager.StartResultTask<LyncUserResult>("LYNC", "ADD_LYNC_FEDERATIONDOMAIN", itemId, parameters);
 

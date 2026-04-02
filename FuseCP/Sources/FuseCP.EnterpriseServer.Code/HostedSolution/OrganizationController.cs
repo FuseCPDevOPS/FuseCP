@@ -315,9 +315,11 @@ namespace FuseCP.EnterpriseServer
                 return errorCode;
 
             // place log record
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("Organization ID", organizationId));
-            parameters.Add(new BackgroundTaskParameter("DomainName", domainName));
+            var parameters = new List<BackgroundTaskParameter>
+            {
+                new BackgroundTaskParameter("Organization ID", organizationId),
+                new BackgroundTaskParameter("DomainName", domainName)
+            };
 
             TaskManager.StartTask("ORGANIZATION", "CREATE_ORG", organizationName, parameters);
 
@@ -1549,8 +1551,10 @@ namespace FuseCP.EnterpriseServer
         public void SetDefaultOrganization(int newDefaultOrganizationId, int currentDefaultOrganizationId)
         {
             // place log record
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("ItemID", newDefaultOrganizationId));
+            var parameters = new List<BackgroundTaskParameter>
+            {
+                new BackgroundTaskParameter("ItemID", newDefaultOrganizationId)
+            };
 
             TaskManager.StartTask("ORGANIZATION", "SET_DEFAULT_ORG", parameters);
 

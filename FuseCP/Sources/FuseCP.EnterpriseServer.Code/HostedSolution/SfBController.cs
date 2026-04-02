@@ -285,18 +285,20 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         private int[] ParseMultiSetting(int sfbServiceId, string settingName)
         {
-            List<int> retIds = new List<int>();
+            var retIds = new List<int>();
             StringDictionary settings = ServerController.GetServiceSettings(sfbServiceId);
             if (!String.IsNullOrEmpty(settings[settingName]))
             {
-                string[] ids = settings[settingName].Split(',');
-
-                foreach (string id in ids)
-                {
-                    int res;
-                    if (int.TryParse(id, out res))
-                        retIds.Add(res);
-                }
+                retIds = settings[settingName]
+                    .Split(',')
+                    .Select(id =>
+                    {
+                        var parsed = 0;
+                        return int.TryParse(id, out parsed) ? (int?)parsed : null;
+                    })
+                    .Where(id => id.HasValue)
+                    .Select(id => id.Value)
+                    .ToList();
             }
 
             if (retIds.Count == 0)
@@ -901,9 +903,11 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public SfBUserResult AddFederationDomain(int itemId, string domainName, string proxyFqdn)
         {
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("domainName", domainName));
-            parameters.Add(new BackgroundTaskParameter("proxyFqdn", proxyFqdn));
+            var parameters = new List<BackgroundTaskParameter>
+            {
+                new BackgroundTaskParameter("domainName", domainName),
+                new BackgroundTaskParameter("proxyFqdn", proxyFqdn)
+            };
 
             SfBUserResult res = TaskManager.StartResultTask<SfBUserResult>("SFB", "ADD_SFB_FEDERATIONDOMAIN", itemId, parameters);
 

@@ -599,18 +599,20 @@ namespace FuseCP.EnterpriseServer
 
         private int[] ParseMultiSetting(int mailboxServiceId, string settingName)
         {
-            List<int> retIds = new List<int>();
+            var retIds = new List<int>();
             StringDictionary settings = ServerController.GetServiceSettings(mailboxServiceId);
             if (!String.IsNullOrEmpty(settings[settingName]))
             {
-                string[] ids = settings[settingName].Split(',');
-
-                foreach (string id in ids)
-                {
-                    int res;
-                    if (int.TryParse(id, out res))
-                        retIds.Add(res);
-                }
+                retIds = settings[settingName]
+                    .Split(',')
+                    .Select(id =>
+                    {
+                        var parsed = 0;
+                        return int.TryParse(id, out parsed) ? (int?)parsed : null;
+                    })
+                    .Where(id => id.HasValue)
+                    .Select(id => id.Value)
+                    .ToList();
             }
 
             if (retIds.Count == 0)
@@ -1709,9 +1711,11 @@ namespace FuseCP.EnterpriseServer
 
             // place log record
 
-            List<BackgroundTaskParameter> parameters = new List<BackgroundTaskParameter>();
-            parameters.Add(new BackgroundTaskParameter("Domain ID", domainId));
-            parameters.Add(new BackgroundTaskParameter("Domain Type", domainType.ToString()));
+            var parameters = new List<BackgroundTaskParameter>
+            {
+                new BackgroundTaskParameter("Domain ID", domainId),
+                new BackgroundTaskParameter("Domain Type", domainType.ToString())
+            };
 
             TaskManager.StartTask("EXCHANGE", "CHANGE_DOMAIN_TYPE", itemId, parameters);
 
@@ -4767,9 +4771,7 @@ namespace FuseCP.EnterpriseServer
 
                 OrganizationUser manager = OrganizationController.GetAccount(itemId, managerId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.CreateDistributionList(
                     org.OrganizationId,
@@ -4928,9 +4930,7 @@ namespace FuseCP.EnterpriseServer
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 var oldObj = exchange.GetDistributionListGeneralSettings(account.AccountName);
 
@@ -5037,9 +5037,7 @@ namespace FuseCP.EnterpriseServer
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 var oldObj = exchange.GetDistributionListMailFlowSettings(account.AccountName);
 
@@ -5120,9 +5118,7 @@ namespace FuseCP.EnterpriseServer
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 // Log Extension
                 LogExtension.SetItemName(account.PrimaryEmailAddress);
@@ -5176,9 +5172,7 @@ namespace FuseCP.EnterpriseServer
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.SetDistributionListPrimaryEmailAddress(
                     account.AccountName,
@@ -5215,12 +5209,9 @@ namespace FuseCP.EnterpriseServer
                 ExchangeAccount account = GetAccount(itemId, accountId);
 
                 // delete e-mail addresses
-                List<string> toDelete = new List<string>();
-                foreach (string emailAddress in emailAddresses.Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0))
-                {
-                    toDelete.Add(emailAddress);
-                }
-                var emailAddressesDeleted = toDelete.ToArray();
+                var emailAddressesDeleted = emailAddresses
+                    .Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0)
+                    .ToArray();
 
                 // Log Extension
                 LogExtension.SetItemName(account.PrimaryEmailAddress);
@@ -5238,9 +5229,7 @@ namespace FuseCP.EnterpriseServer
                 int exchangeServiceId = GetExchangeServiceID(org.PackageId);
                 ExchangeServer exchange = GetExchangeServer(exchangeServiceId, org.ServiceId);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.SetDistributionListEmailAddresses(
                     account.AccountName,
@@ -5306,9 +5295,7 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.SetDistributionListPermissions(org.OrganizationId, account.AccountName, sendAsAccounts,
                                                         sendOnBehalfAccounts, addressLists.ToArray());
@@ -5464,9 +5451,7 @@ namespace FuseCP.EnterpriseServer
                 List<string> members = distributionList.MembersAccounts.Select(m => m.AccountName).ToList();
                 members.Add(memberAccount.AccountName);
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.SetDistributionListGeneralSettings(distributionListName, distributionList.DisplayName, distributionList.HideFromAddressBook, distributionList.ManagerAccount.AccountName,
                     members.ToArray(),
@@ -5521,9 +5506,7 @@ namespace FuseCP.EnterpriseServer
                     .Select(member => member.AccountName)
                     .ToList();
 
-                List<string> addressLists = new List<string>();
-                addressLists.Add(org.GlobalAddressList);
-                addressLists.Add(org.AddressList);
+                var addressLists = new List<string> { org.GlobalAddressList, org.AddressList };
 
                 exchange.SetDistributionListGeneralSettings(distributionListName, distributionList.DisplayName, distributionList.HideFromAddressBook, distributionList.ManagerAccount.AccountName,
                     members.ToArray(),
@@ -6220,12 +6203,9 @@ namespace FuseCP.EnterpriseServer
                 ExchangeAccount account = GetAccount(itemId, accountId);
 
                 // delete e-mail addresses
-                List<string> toDelete = new List<string>();
-                foreach (string emailAddress in emailAddresses.Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0))
-                {
-                    toDelete.Add(emailAddress);
-                }
-                var emailAddressesDeleted = toDelete.ToArray();
+                var emailAddressesDeleted = emailAddresses
+                    .Where(emailAddress => String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0)
+                    .ToArray();
 
                 // Log Extension
                 LogExtension.SetItemName(account.DisplayName);
