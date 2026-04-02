@@ -16072,7 +16072,7 @@ namespace FuseCP.EnterpriseServer
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
-					.Where(a => a.ItemId == itemId && accountTypes.Any(t => t == a.AccountType));
+					.Where(a => a.ItemId == itemId && accountTypes.Contains(a.AccountType));
 
 				if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterValue))
 				{
@@ -16175,7 +16175,7 @@ namespace FuseCP.EnterpriseServer
 					throw new AccessViolationException("You are not allowed to access this package");
 
 				var accounts = ExchangeAccounts
-					.Where(a => a.ItemId == itemId && accountTypes.Any(t => t == a.AccountType));
+					.Where(a => a.ItemId == itemId && accountTypes.Contains(a.AccountType));
 
 				if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterValue))
 				{
@@ -19608,8 +19608,7 @@ namespace FuseCP.EnterpriseServer
 				var address = PackageIpAddresses
 					.Where(a => a.PackageAddressId == packageAddressId)
 					.AsEnumerable()
-					.Where(a => Clone.CheckActorPackageRights(actorId, a.PackageId))
-					.FirstOrDefault();
+					.FirstOrDefault(a => Clone.CheckActorPackageRights(actorId, a.PackageId));
 				if (address != null)
 				{
 					address.ItemId = itemId;
@@ -19646,7 +19645,7 @@ namespace FuseCP.EnterpriseServer
 				foreach (var ip in PackageIpAddresses
 					.Where(a => a.ItemId == itemId && a.Address.PoolId == poolId)
 					.AsEnumerable()
-					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
+					.Where(a => CheckActorPackageRights(actorId, a.PackageId)))
 				{
 					ip.IsPrimary = ip.PackageAddressId == packageAddressId;
 				}
@@ -19674,7 +19673,7 @@ namespace FuseCP.EnterpriseServer
 				foreach (var ip in PackageIpAddresses
 					.Where(a => a.PackageAddressId == packageAddressId)
 					.AsEnumerable()
-					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
+					.Where(a => CheckActorPackageRights(actorId, a.PackageId)))
 				{
 					ip.ItemId = null;
 					ip.IsPrimary = false;
@@ -19702,8 +19701,8 @@ namespace FuseCP.EnterpriseServer
 			{
 				foreach (var ip in PackageIpAddresses
 					.Where(a => a.ItemId == itemId)
-					.ToList()
-					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
+					.AsEnumerable()
+					.Where(a => CheckActorPackageRights(actorId, a.PackageId)))
 				{
 					ip.ItemId = null;
 					ip.IsPrimary = false;
@@ -19944,8 +19943,6 @@ namespace FuseCP.EnterpriseServer
 						ea.SamAccountName
 					});
 
-				users.Count();
-
 				users = sortColumn == "DisplayName"
 					? (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
 						? users.OrderBy(ea => ea.DisplayName)
@@ -20111,8 +20108,6 @@ namespace FuseCP.EnterpriseServer
 						ea.PrimaryEmailAddress,
 						ea.SamAccountName
 					});
-
-				users.Count();
 
 				users = sortColumn == "DisplayName"
 					? (string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)

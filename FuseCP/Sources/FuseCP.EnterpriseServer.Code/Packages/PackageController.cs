@@ -148,29 +148,23 @@ namespace FuseCP.EnterpriseServer
             nodePlan.AppendChild(nodeQuotas);
 
             // groups
-            if (groups != null)
+            foreach (HostingPlanGroupInfo group in groups)
             {
-                foreach (HostingPlanGroupInfo group in groups)
-                {
-                    XmlElement nodeGroup = doc.CreateElement("group");
-                    nodeGroups.AppendChild(nodeGroup);
-                    nodeGroup.SetAttribute("id", group.GroupId.ToString());
-                    nodeGroup.SetAttribute("enabled", group.Enabled ? "1" : "0");
-                    nodeGroup.SetAttribute("calculateDiskSpace", group.CalculateDiskSpace ? "1" : "0");
-                    nodeGroup.SetAttribute("calculateBandwidth", group.CalculateBandwidth ? "1" : "0");
-                }
+                XmlElement nodeGroup = doc.CreateElement("group");
+                nodeGroups.AppendChild(nodeGroup);
+                nodeGroup.SetAttribute("id", group.GroupId.ToString());
+                nodeGroup.SetAttribute("enabled", group.Enabled ? "1" : "0");
+                nodeGroup.SetAttribute("calculateDiskSpace", group.CalculateDiskSpace ? "1" : "0");
+                nodeGroup.SetAttribute("calculateBandwidth", group.CalculateBandwidth ? "1" : "0");
             }
 
             // quotas
-            if (quotas != null)
+            foreach (HostingPlanQuotaInfo quota in quotas)
             {
-                foreach (HostingPlanQuotaInfo quota in quotas)
-                {
-                    XmlElement nodeQuota = doc.CreateElement("quota");
-                    nodeQuotas.AppendChild(nodeQuota);
-                    nodeQuota.SetAttribute("id", quota.QuotaId.ToString());
-                    nodeQuota.SetAttribute("value", quota.QuotaValue.ToString());
-                }
+                XmlElement nodeQuota = doc.CreateElement("quota");
+                nodeQuotas.AppendChild(nodeQuota);
+                nodeQuota.SetAttribute("id", quota.QuotaId.ToString());
+                nodeQuota.SetAttribute("value", quota.QuotaValue.ToString());
             }
 
             return nodePlan.OuterXml;
@@ -997,11 +991,9 @@ namespace FuseCP.EnterpriseServer
             int statusId = (int)status;
 
             List<PackageInfo> changedPackages = new List<PackageInfo>();
-            foreach (PackageInfo p in packages)
+            foreach (PackageInfo package in packages.Select(p => GetPackage(p.PackageId)).Where(package => package != null))
             {
-                // get package details
-                PackageInfo package = GetPackage(p.PackageId);
-                if (package != null && package.StatusId != statusId)
+                if (package.StatusId != statusId)
                 {
                     bool currEnabled = (package.StatusId == (int)PackageStatus.Active);
                     bool enabled = (statusId == (int)PackageStatus.Active);
@@ -1746,16 +1738,17 @@ namespace FuseCP.EnterpriseServer
 
             // add columns to the table
             PropertyInfo[] props = itemType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-            foreach (PropertyInfo prop in props)
+            foreach (PropertyInfo prop in props.Where(prop =>
+                !dtItems.Columns.Contains(prop.Name)
+                && !prop.PropertyType.IsArray
+                && (prop.PropertyType == typeof(string)
+                || prop.PropertyType == typeof(int)
+                || prop.PropertyType == typeof(long)
+                || prop.PropertyType == typeof(bool)
+                || prop.PropertyType == typeof(Guid)
+                || prop.PropertyType.IsEnum)))
             {
-                if (!dtItems.Columns.Contains(prop.Name) && !prop.PropertyType.IsArray &&
-				    (prop.PropertyType == typeof(string) ||
-				    prop.PropertyType == typeof(int) ||
-				    prop.PropertyType == typeof(long) ||
-				    prop.PropertyType == typeof(bool) ||
-				    prop.PropertyType == typeof(Guid) ||
-                    prop.PropertyType.IsEnum))
-                    dtItems.Columns.Add(prop.Name, prop.PropertyType);
+                dtItems.Columns.Add(prop.Name, prop.PropertyType);
             }
 
             foreach (DataRow drItem in dtItems.Rows)
@@ -2005,7 +1998,7 @@ namespace FuseCP.EnterpriseServer
                     mailAddresses.Add(bccAddress);
             }
             //
-            return String.Join(",", mailAddresses.ToArray());
+            return String.Join(",", mailAddresses);
         }
         #endregion
 
@@ -2321,11 +2314,11 @@ namespace FuseCP.EnterpriseServer
 
             // hosting plans
             Hashtable plans = new Hashtable();
-            foreach (PackageInfo package in packages)
+            foreach (HostingPlanInfo plan in packages
+                .Select(package => GetHostingPlan(package.PlanId))
+                .Where(plan => plan != null))
             {
-                HostingPlanInfo plan = GetHostingPlan(package.PlanId);
-
-                if (plan != null && !plans.ContainsKey(plan.PlanId))
+                if (!plans.ContainsKey(plan.PlanId))
                     plans.Add(plan.PlanId, plan);
             }
             items["Plans"] = plans;

@@ -497,67 +497,33 @@ namespace FuseCP.Providers.Mail
 
                 GenericResult result = null;
 
-                if (!InheritDomainDefaultLimits)
-                {
-                    result = domains.AddDomain(AdminUsername,
-                                               AdminPassword,
-                                               domain.Name,
-                                               Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
-                                               SYSTEM_DOMAIN_ADMIN, // admin username
-                                               Guid.NewGuid().ToString("P"), // admin password
-                                               "Domain", // admin first name
-                                               "Administrator", // admin last name
-                                               ServerIP,
-                                               defaultDomainSettings.ImapPort,
-                                               defaultDomainSettings.PopPort,
-                                               defaultDomainSettings.SmtpPort,
-                                               domain.MaxAliases,
-                                               domain.MaxDomainSizeInMB,
-                                               domain.MaxDomainUsers,
-                                               domain.MaxMailboxSizeInMB,
-                                               domain.MaxMessageSize,
-                                               domain.MaxRecipients,
-                                               domain.MaxDomainAliases,
-                                               domain.MaxLists,
-                                               defaultDomainSettings.ShowDomainAliasMenu,
-                        // ShowDomainAliasMenu
-                                               defaultDomainSettings.ShowContentFilteringMenu,
-                        // ShowContentFilteringMenu
-                                               defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
-                                               defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
-                                               defaultDomainSettings.RequireSmtpAuthentication,
-                                               defaultDomainSettings.ShowListMenu, // ShowListMenu
-                                               defaultDomainSettings.ListCommandAddress);
-                }
-                else
-                {
-                    result = domains.AddDomain(AdminUsername, AdminPassword,
-                                               domain.Name,
-                                               Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
-                                               SYSTEM_DOMAIN_ADMIN, // admin username
-                                               Guid.NewGuid().ToString("P"), // admin password
-                                               "Domain", // admin first name
-                                               "Administrator", // admin last name
-                                               ServerIP,
-                                               defaultDomainSettings.ImapPort,
-                                               defaultDomainSettings.PopPort,
-                                               defaultDomainSettings.SmtpPort,
-                                               defaultDomainSettings.MaxAliases,
-                                               defaultDomainSettings.MaxDomainSizeInMB,
-                                               defaultDomainSettings.MaxDomainUsers,
-                                               defaultDomainSettings.MaxMailboxSizeInMB,
-                                               defaultDomainSettings.MaxMessageSize,
-                                               defaultDomainSettings.MaxRecipients,
-                                               defaultDomainSettings.MaxDomainAliases,
-                                               defaultDomainSettings.MaxLists,
-                                               defaultDomainSettings.ShowDomainAliasMenu, // ShowDomainAliasMenu
-                                               defaultDomainSettings.ShowContentFilteringMenu, // ShowContentFilteringMenu
-                                               defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
-                                               defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
-                                               defaultDomainSettings.RequireSmtpAuthentication,
-                                               defaultDomainSettings.ShowListMenu, // ShowListMenu
-                                               defaultDomainSettings.ListCommandAddress);
-                }
+                result = domains.AddDomain(AdminUsername,
+                                           AdminPassword,
+                                           domain.Name,
+                                           Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                           SYSTEM_DOMAIN_ADMIN, // admin username
+                                           Guid.NewGuid().ToString("P"), // admin password
+                                           "Domain", // admin first name
+                                           "Administrator", // admin last name
+                                           ServerIP,
+                                           defaultDomainSettings.ImapPort,
+                                           defaultDomainSettings.PopPort,
+                                           defaultDomainSettings.SmtpPort,
+                                           !InheritDomainDefaultLimits ? domain.MaxAliases : defaultDomainSettings.MaxAliases,
+                                           !InheritDomainDefaultLimits ? domain.MaxDomainSizeInMB : defaultDomainSettings.MaxDomainSizeInMB,
+                                           !InheritDomainDefaultLimits ? domain.MaxDomainUsers : defaultDomainSettings.MaxDomainUsers,
+                                           !InheritDomainDefaultLimits ? domain.MaxMailboxSizeInMB : defaultDomainSettings.MaxMailboxSizeInMB,
+                                           !InheritDomainDefaultLimits ? domain.MaxMessageSize : defaultDomainSettings.MaxMessageSize,
+                                           !InheritDomainDefaultLimits ? domain.MaxRecipients : defaultDomainSettings.MaxRecipients,
+                                           !InheritDomainDefaultLimits ? domain.MaxDomainAliases : defaultDomainSettings.MaxDomainAliases,
+                                           !InheritDomainDefaultLimits ? domain.MaxLists : defaultDomainSettings.MaxLists,
+                                           defaultDomainSettings.ShowDomainAliasMenu, // ShowDomainAliasMenu
+                                           defaultDomainSettings.ShowContentFilteringMenu, // ShowContentFilteringMenu
+                                           defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
+                                           defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
+                                           defaultDomainSettings.RequireSmtpAuthentication,
+                                           defaultDomainSettings.ShowListMenu, // ShowListMenu
+                                           defaultDomainSettings.ListCommandAddress);
                 if (!result.Result)
                     throw new Exception(result.Message);
 
@@ -882,9 +848,8 @@ namespace FuseCP.Providers.Mail
 
         private static void FillMailDomainFields(MailDomain domain, SettingsRequestResult addResult)
         {
-            foreach (string pair in addResult.settingValues)
+            foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
             {
-                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "catchall":
@@ -1079,9 +1044,8 @@ namespace FuseCP.Providers.Mail
                 if (!addResult.Result)
                     throw new Exception(addResult.Message);
 
-                foreach (string pair in addResult.settingValues)
+                foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
                 {
-                    string[] parts = pair.Split('=');
                     if (parts[0] == "isenabled") mailbox.Enabled = Boolean.Parse(parts[1]);
                     else if (parts[0] == "maxsize") mailbox.MaxMailboxSize = Int32.Parse(parts[1]);
                     else if (parts[0] == "passwordlocked") mailbox.PasswordLocked = Boolean.Parse(parts[1]);
@@ -1680,12 +1644,7 @@ namespace FuseCP.Providers.Mail
 
         protected void SetMailListMembers(MailList list, string[] subscribers)
         {
-            List<string> members = new List<string>();
-
-            foreach (string subscriber in subscribers)
-                members.Add(subscriber);
-
-            list.Members = members.ToArray();
+            list.Members = subscribers.ToArray();
         }
 
 

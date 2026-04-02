@@ -227,14 +227,10 @@ namespace FuseCP.Providers.DNS
         public virtual DnsRecord[] GetZoneRecords(string zoneName)
         {
             List<DnsRecord> records = GetZoneRecordsArrayList(zoneName);
-            List<DnsRecord> filteredRecords = new List<DnsRecord>();
-            foreach (DnsRecord record in records)
-            {
-                if (record.RecordType != DnsRecordType.SOA
+            return records
+                .Where(record => record.RecordType != DnsRecordType.SOA
                     && record.RecordType != DnsRecordType.Other)
-                    filteredRecords.Add(record);
-            }
-            return filteredRecords.ToArray();
+                .ToArray();
         }
 
         private List<DnsRecord> GetZoneRecordsArrayList(string zoneName)
@@ -383,14 +379,11 @@ namespace FuseCP.Providers.DNS
             //DeleteARecordInternal(records, zoneName, host);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                     && (String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0)
-                     )
-
-
-                    return;
+                return;
             }
 
             // add new A record
@@ -447,14 +440,11 @@ namespace FuseCP.Providers.DNS
             //DeleteARecordInternal(records, zoneName, host);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                     && (String.Compare(dnsRecord.RecordData, ip, StringComparison.OrdinalIgnoreCase) == 0)
-                     )
-
-
-                    return;
+                return;
             }
 
             // add new A record
@@ -479,11 +469,11 @@ namespace FuseCP.Providers.DNS
             //DeleteNsRecordInternal(records, zoneName, nameServer);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, nameServer, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                     && (String.Compare(dnsRecord.RecordData, nameServer, StringComparison.OrdinalIgnoreCase) == 0))
-                    return;
+                return;
             }
 
             // add new NS record
@@ -509,13 +499,13 @@ namespace FuseCP.Providers.DNS
             //DeleteMXRecordInternal(records, zoneName, mailServer);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                dnsRecord.RecordType == DnsRecordType.MX
+                && String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, mailServer, StringComparison.OrdinalIgnoreCase) == 0
+                && dnsRecord.MxPriority == mailServerPriority))
             {
-                if ((dnsRecord.RecordType == DnsRecordType.MX) &&
-                     (String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0) &&
-                     (String.Compare(dnsRecord.RecordData, mailServer, StringComparison.OrdinalIgnoreCase) == 0)
-                     && dnsRecord.MxPriority == mailServerPriority)
-                    return;
+                return;
             }
 
             // add new MX record
@@ -576,11 +566,11 @@ namespace FuseCP.Providers.DNS
             //DeleteTxtRecordInternal(records, zoneName, text);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            if (records.Any(dnsRecord =>
+                String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, text, StringComparison.OrdinalIgnoreCase) == 0))
             {
-                if ((String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0)
-                     && (String.Compare(dnsRecord.RecordData, text, StringComparison.OrdinalIgnoreCase) == 0))
-                    return;
+                return;
             }
 
             // add new TXT record
@@ -606,14 +596,14 @@ namespace FuseCP.Providers.DNS
             //DeleteMXRecordInternal(records, zoneName, mailServer);
 
             //check if user tries to add existent zone record
-            foreach (DnsRecord dnsRecord in records)
+            // in SRV, I may have the same prio/weight several times, but not the same host/port combo
+            if (records.Any(dnsRecord =>
+                dnsRecord.RecordType == DnsRecordType.SRV
+                && String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0
+                && String.Compare(dnsRecord.RecordData, srvTarget, StringComparison.OrdinalIgnoreCase) == 0
+                && dnsRecord.SrvPort == srvPort))
             {
-                // in SRV, I may have the same prio/weight several times, but not the same host/port combo
-                if ((dnsRecord.RecordType == DnsRecordType.SRV) &&
-                    (String.Compare(dnsRecord.RecordName, host, StringComparison.OrdinalIgnoreCase) == 0) &&
-                    (String.Compare(dnsRecord.RecordData, srvTarget, StringComparison.OrdinalIgnoreCase) == 0)
-                    && dnsRecord.SrvPort == srvPort)
-                    return;
+                return;
             }
 
             // add new SRV record

@@ -263,9 +263,9 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-                    foreach (GlobalDnsRecord d in dnsRecords)
+                        foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
                     {
-                        if (!string.IsNullOrEmpty(d.ExternalIP) && !IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
+                            if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
                 else
@@ -811,9 +811,9 @@ namespace FuseCP.EnterpriseServer
 
             List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(siteItem.ServiceId);
 
-            foreach (GlobalDnsRecord d in dnsRecords)
+            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
             {
-                if (!string.IsNullOrEmpty(d.ExternalIP) && !IsValidIPAdddress(d.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
+                if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
             }
 
             // place log record
@@ -841,14 +841,14 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (SSLCertificate c in certificates)
+                foreach (int certificateId in certificates.Select(c => c.id))
                 {
-                    DeleteCertificateRequest(siteItemId, c.id);
+                    DeleteCertificateRequest(siteItemId, certificateId);
                 }
                 
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
-                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                    DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
 
                 // remove web site main pointer
                 DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
@@ -940,12 +940,10 @@ namespace FuseCP.EnterpriseServer
                 ServerBinding srvBinding = new ServerBinding(ipAddr, "80", "");
                 newBindings.Add(srvBinding);
 
-                foreach (ServerBinding b in web.GetSiteBindings(siteItem.SiteId))
+                foreach (ServerBinding binding in web.GetSiteBindings(siteItem.SiteId)
+                    .Where(b => b.Host != srvBinding.Host || b.IP != srvBinding.IP || b.Port != srvBinding.Port))
                 {
-                    if (!((b.Host == srvBinding.Host) &&
-                        (b.IP == srvBinding.IP) &&
-                        (b.Port == srvBinding.Port)))
-                        newBindings.Add(b);
+                    newBindings.Add(binding);
                 }
                
                 web.UpdateSiteBindings(siteItem.SiteId, newBindings.ToArray(), false);
@@ -1027,15 +1025,15 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (SSLCertificate c in certificates)
+                foreach (int certificateId in certificates.Select(c => c.id))
                 {
-                    DeleteCertificateRequest(siteItemId, c.id);
+                    DeleteCertificateRequest(siteItemId, certificateId);
                 }
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
-                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                    DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
 
                 // remove web site main pointer
                 DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
@@ -1358,11 +1356,7 @@ namespace FuseCP.EnterpriseServer
                     if (ignoreGlobalDNSRecords)
                     {
                         //ignore all other except the host_name record
-                        var hostRecord = dnsRecords.FirstOrDefault(r => r.RecordName == "[host_name]");
-                        if (hostRecord != null)
-                        {
-                            tmpDnsRecords.Add(hostRecord);
-                        }
+                        tmpDnsRecords.AddRange(dnsRecords.Where(r => r.RecordName == "[host_name]"));
                     }
                     else
                         tmpDnsRecords = dnsRecords;
@@ -1547,10 +1541,9 @@ namespace FuseCP.EnterpriseServer
 
                     if (ignoreGlobalDNSRecords)
                     {
-                        foreach (GlobalDnsRecord r in dnsRecords.Where(r => (r.RecordName == "[host_name]") || ((r.RecordName + (string.IsNullOrEmpty(r.RecordName) ? domain.ZoneName : "." + domain.ZoneName)) == domain.DomainName)))
-                        {
-                            tmpDnsRecords.Add(r);
-                        }
+                        tmpDnsRecords.AddRange(dnsRecords.Where(r =>
+                            r.RecordName == "[host_name]" ||
+                            (r.RecordName + (string.IsNullOrEmpty(r.RecordName) ? domain.ZoneName : "." + domain.ZoneName)) == domain.DomainName));
                     }
                     else tmpDnsRecords = dnsRecords;
 
@@ -4082,17 +4075,13 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
         {
             // detect all web site related domains
             List<string> domainNames = new List<string>();
-            foreach (ServerBinding binding in bindings)
+            foreach (string pointerName in bindings
+                .Select(binding => binding.Host)
+                .Where(host => !string.IsNullOrEmpty(host))
+                .Select(host => host.ToLower().StartsWith("www.") ? host.ToLower().Substring(4) : host.ToLower())
+                .Where(host => !domainNames.Contains(host)))
             {
-                string pointerName = binding.Host;
-                if (pointerName == null)
-                    continue;
-                pointerName = pointerName.ToLower();
-                if (pointerName.StartsWith("www."))
-                    pointerName = pointerName.Substring(4);
-
-                if (!domainNames.Contains(pointerName) && !String.IsNullOrEmpty(pointerName))
-                    domainNames.Add(pointerName);
+                domainNames.Add(pointerName);
             }
 
             string siteName = itemName.ToLower();
@@ -4135,15 +4124,19 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             List<DomainInfo> domains = ServerController.GetDomains(packageId);
 
             // Get hostheader
-            foreach (ServerBinding b in web.GetSiteBindings(siteItem.SiteId).Where(b => (!DoesHeaderExistInDomains(b.Host.ToLower(), domains)) && (!string.IsNullOrEmpty(b.Host))))
+            foreach (string hostName in web.GetSiteBindings(siteItem.SiteId)
+                .Select(binding => binding.Host)
+                .Where(host => !string.IsNullOrEmpty(host))
+                .Select(host => host.ToLower())
+                .Where(host => !DoesHeaderExistInDomains(host, domains)))
             {
                     // If not get domain info and add to domains
-                    int domainId = FindDomainForHeader(b.Host.ToLower(), domains);
+                    int domainId = FindDomainForHeader(hostName, domains);
                     if (domainId > 0)
                     {
                         DomainInfo domain = ServerController.GetDomain(domainId);
                         DomainInfo newDomain = new DomainInfo();
-                        newDomain.DomainName = b.Host.ToLower();
+                        newDomain.DomainName = hostName;
                         newDomain.PackageId = domain.PackageId;
                         newDomain.IsDomainPointer = true;
 
@@ -4178,11 +4171,13 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
             int counter = 0;
             while ((header.IndexOf(".") != -1) && (counter < 2))
             {
+                int matchedDomainId = domains
+                    .Where(d => header == d.DomainName.ToLower() && !d.IsDomainPointer)
+                    .Select(d => d.DomainId)
+                    .FirstOrDefault();
 
-                foreach (DomainInfo d in domains.Where(d => (header == d.DomainName.ToLower()) && (!d.IsDomainPointer)))
-                {
-                        return d.DomainId;
-                }
+                if (matchedDomainId > 0)
+                    return matchedDomainId;
 
                 header = header.Substring(header.IndexOf(".") + 1);
                 counter++;
@@ -4489,8 +4484,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
-                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, true);
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                    DeleteWebSitePointer(siteItemId, pointerId, true, true, true);
 
                 // Get certificateinfo to delete from metabase later, FCP expects only one active certificate for each site
                 var certificatesToDeleteFromMetaBase = GetCertificatesForSite(item.Id).Where(c => c.Installed).ToList();

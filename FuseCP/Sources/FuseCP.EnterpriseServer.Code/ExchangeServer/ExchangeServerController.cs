@@ -507,34 +507,31 @@ namespace FuseCP.EnterpriseServer
                         break;
                     }
 
-                    foreach (OrganizationDomainName d in domains)
+                    foreach (DomainInfo domain in domains
+                        .Select(d => ServerController.GetDomain(d.DomainId))
+                        .Where(domain => domain != null))
                     {
-                        DomainInfo domain = ServerController.GetDomain(d.DomainId);
-
                         //Add the service records
-                        if (domain != null)
+                        if (domain.ZoneItemId != 0)
                         {
-                            if (domain.ZoneItemId != 0)
-                            {
-                                ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "");
-                                ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.BlackBerry, domain, "");
-                                ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.OCS, domain, "");
-                            }
-                            // check if spamexperts filter is needed
-                            StringDictionary exSettings = ServerController.GetServiceSettings(serviceId);
-                            if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
-                            {
-
-                                SpamExpertsRoute route = new SpamExpertsRoute();
-                                route.PackageId = org.PackageId;
-                                route.DomainName = domain.DomainName;
-                                route.Route = exSettings["MailFilterDestinations"];
-                                SpamExpertsController.AddDomainFilter(route);
-                            }
-
-                            //Add to Mail Cleaner
-                            APIMailCleanerHelper.DomainAdd(domain.DomainName, domain.PackageId);
+                            ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "");
+                            ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.BlackBerry, domain, "");
+                            ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.OCS, domain, "");
                         }
+                        // check if spamexperts filter is needed
+                        StringDictionary exSettings = ServerController.GetServiceSettings(serviceId);
+                        if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
+                        {
+
+                            SpamExpertsRoute route = new SpamExpertsRoute();
+                            route.PackageId = org.PackageId;
+                            route.DomainName = domain.DomainName;
+                            route.Route = exSettings["MailFilterDestinations"];
+                            SpamExpertsController.AddDomainFilter(route);
+                        }
+
+                        //Add to Mail Cleaner
+                        APIMailCleanerHelper.DomainAdd(domain.DomainName, domain.PackageId);
                     }
 
 
@@ -2937,13 +2934,11 @@ namespace FuseCP.EnterpriseServer
                 ExchangeAccount account = GetAccount(itemId, accountId);
 
                 // delete e-mail addresses
-                List<string> toDelete = new List<string>();
-                foreach (string emailAddress in emailAddresses)
-                {
-                    if ((String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0) &&
-                        (String.Compare(account.UserPrincipalName, emailAddress, true) != 0))
-                        toDelete.Add(emailAddress);
-                }
+                List<string> toDelete = emailAddresses
+                    .Where(emailAddress =>
+                        String.Compare(account.PrimaryEmailAddress, emailAddress, true) != 0
+                        && String.Compare(account.UserPrincipalName, emailAddress, true) != 0)
+                    .ToList();
 
                 // Log Extension
                 LogExtension.SetItemName(account.UserPrincipalName);
@@ -5523,9 +5518,10 @@ namespace FuseCP.EnterpriseServer
 
                 ExchangeDistributionList distributionList = exchange.GetDistributionListGeneralSettings(distributionListName);
 
-                List<string> members = new List<string>();
-                foreach (ExchangeAccount member in distributionList.MembersAccounts)
-                    if (member.AccountName != memberAccount.AccountName) members.Add(member.AccountName);
+                List<string> members = distributionList.MembersAccounts
+                    .Where(member => member.AccountName != memberAccount.AccountName)
+                    .Select(member => member.AccountName)
+                    .ToList();
 
                 List<string> addressLists = new List<string>();
                 addressLists.Add(org.GlobalAddressList);
@@ -5660,9 +5656,8 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             if (accountIds != null)
-                foreach (int accountId in accountIds)
+                foreach (int result in accountIds.Select(accountId => DeletePublicFolder(itemId, accountId)))
                 {
-                    int result = DeletePublicFolder(itemId, accountId);
                     if (result < 0)
                         return result;
                 }
@@ -6350,10 +6345,14 @@ namespace FuseCP.EnterpriseServer
 
                 List<ExchangeAccount> mailboxes = GetExchangeMailboxes(itemId);
 
-                foreach (ExchangeAccount mailbox in mailboxes)
+                foreach (var mailboxInfo in mailboxes.Select(mailbox => new
                 {
-                    string id = mailbox.PrimaryEmailAddress;
-                    string[] defaultPublicFoldes = exchange.SetDefaultPublicFolderMailbox(id, org.OrganizationId, org.DistinguishedName);
+                    Id = mailbox.PrimaryEmailAddress,
+                    DefaultPublicFolders = exchange.SetDefaultPublicFolderMailbox(mailbox.PrimaryEmailAddress, org.OrganizationId, org.DistinguishedName)
+                }))
+                {
+                    string id = mailboxInfo.Id;
+                    string[] defaultPublicFoldes = mailboxInfo.DefaultPublicFolders;
 
                     if (defaultPublicFoldes.Length == 1)
                         res += id + " has a value \"" + defaultPublicFoldes[0] + "\"" + Environment.NewLine;

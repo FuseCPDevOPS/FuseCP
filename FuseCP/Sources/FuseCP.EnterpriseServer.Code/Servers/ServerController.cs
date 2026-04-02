@@ -2910,11 +2910,9 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 
 					DnsRecord[] domainRecords = dns.GetZoneRecords(domain.DomainName);
 
-					List<DnsRecord> zoneRecords = new List<DnsRecord>();
-					foreach (DnsRecord t in tmpZoneRecords.Where(t => !RecordDoesExist(t, domainRecords)))
-					{
-						zoneRecords.Add(t);
-					}
+					List<DnsRecord> zoneRecords = tmpZoneRecords
+						.Where(record => !RecordDoesExist(record, domainRecords))
+						.ToList();
 
 
 					// add new resource records
@@ -3351,8 +3349,12 @@ if (cntx.Quotas.TryGetValue(quotaName, out var _ckv))
 										(pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), "").IndexOf('.') == -1) ||
 										(pointer.DomainName.ToLower() == domain.DomainName.ToLower())))
 									{
+										string relativeHostName = pointer.DomainName.ToLower() == domain.DomainName.ToLower()
+											? ""
+											: pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), "");
+
 										WebServerController.AddWebSitePointer(w.Id,
-											(pointer.DomainName.ToLower() == domain.DomainName.ToLower()) ? "" : pointer.DomainName.ToLower().Replace("." + domain.DomainName.ToLower(), ""),
+											relativeHostName,
 											domain.DomainId, false, true, true);
 									}
 								}
