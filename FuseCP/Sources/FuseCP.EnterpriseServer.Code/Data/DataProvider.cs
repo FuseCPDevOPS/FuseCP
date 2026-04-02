@@ -4395,7 +4395,7 @@ namespace FuseCP.EnterpriseServer
 				var isAdmin = CheckIsUserAdmin(actorId);
 
 				var vlans = PrivateNetworkVlans
-					.Where(vlan => isAdmin && (serverId == 0 || serverId != 0 && serverId == vlan.ServerId))
+					.Where(vlan => isAdmin && (serverId == 0 || serverId == vlan.ServerId))
 					.Join(Servers, v => v.ServerId, s => s.ServerId, (v, s) => new
 					{
 						Vlan = v,
@@ -7432,7 +7432,7 @@ namespace FuseCP.EnterpriseServer
 							i.User,
 							Service = s
 						})
-						.Where(i => serverId == 0 || serverId > 0 && i.Service.ServerId == serverId)
+						.Where(i => serverId == 0 || i.Service.ServerId == serverId)
 						.Join(Servers, i => i.Service.ServerId, s => s.ServerId, (i, s) => new
 						{
 							i.Item,
@@ -7696,17 +7696,17 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				var items = ServiceItems
-					.Where(s => (serviceId == 0 || serviceId > 0 && s.ServiceId == serviceId) &&
-						(packageId == 0 || packageId != 0 && s.PackageId == packageId))
+					.Where(s => (serviceId == 0 || s.ServiceId == serviceId) &&
+						(packageId == 0 || s.PackageId == packageId))
 					.Join(ServiceItemTypes, s => s.ItemTypeId, t => t.ItemTypeId, (s, t) => new
 					{
 						Item = s,
 						Type = t
 					})
-					.Where(s => (!calculateDiskspace || s.Type.CalculateDiskspace == true) &&
-						(!calculateBandwidth || s.Type.CalculateBandwidth == true) &&
-						(!suspendable || s.Type.Suspendable == true) &&
-						(!disposable || s.Type.Disposable == true));
+.Where(s => (!calculateDiskspace || s.Type.CalculateDiskspace) &&
+					(!calculateBandwidth || s.Type.CalculateBandwidth) &&
+					(!suspendable || s.Type.Suspendable) &&
+					(!disposable || s.Type.Disposable));
 
 				var serviceItems = items
 					.Join(ResourceGroups, s => s.Type.GroupId, r => r.GroupId, (s, r) => new
@@ -10406,9 +10406,9 @@ namespace FuseCP.EnterpriseServer
 
 				var packages = Packages
 					.Where(p => p.ParentPackageId == packageId &&
-						(statusId == 0 || statusId > 0 && p.StatusId == statusId) &&
-						(planId == 0 || planId > 0 && p.PlanId == planId) &&
-						(serverId == 0 || serverId > 0 && p.ServerId == serverId))
+						(statusId == 0 || p.StatusId == statusId) &&
+						(planId == 0 || p.PlanId == planId) &&
+						(serverId == 0 || p.ServerId == serverId))
 					.Select(p => new
 					{
 						p.PackageId,

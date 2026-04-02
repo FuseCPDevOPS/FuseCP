@@ -1,0 +1,60 @@
+[
+  {
+    "Name": "LINQ Miss-Select (Simple)",
+    "Output": [
+      "MISSED_SELECT_TARGETS=140",
+      "MISSED_SELECT_FIXED=0",
+      "MISSED_SELECT_FILES_CHANGED=0"
+    ]
+  },
+  {
+    "Name": "LINQ Missed-Select (Map/Filter)",
+    "Output": [
+      "MISSED_SELECT_MAP_FILTER_TARGETS=140",
+      "MISSED_SELECT_MAP_FILTER_FIXED=0",
+      "MISSED_SELECT_MAP_FILTER_FILES_CHANGED=0"
+    ]
+  },
+  {
+    "Name": "LINQ Missed-Where (Simple)",
+    "Output": [
+      "MISSED_WHERE_TARGETS=99",
+      "MISSED_WHERE_FIXED=0",
+      "MISSED_WHERE_FILES_CHANGED=0"
+    ]
+  },
+  {
+    "Name": "LINQ Missed-Where (v2)",
+    "Output": [
+      "Fetching cs/linq/missed-where alerts from GitHub API...",
+      "Total cs/linq/missed-where alerts: 99",
+      "",
+      "MISSED_WHERE_V2_TARGETS=99",
+      "MISSED_WHERE_V2_FIXED=0",
+      "MISSED_WHERE_V2_FILES_CHANGED=0",
+      "Skipped reasons:",
+      "  braceless-extra-after: 29",
+      "  multiline-cond: 26",
+      "  no-bounds: 17",
+      "  braceless-nobody: 11",
+      "  foreach-parse: 8",
+      "  already-where: 5",
+      "  assignment-in-cond: 3"
+    ]
+  },
+  {
+    "Name": "Missed Ternary Operator",
+    "Output": [
+      "Total alerts: 47",
+      "Total fixed: 0"
+    ]
+  },
+  {
+    "Name": "Constant Condition (Safe)",
+    "Output": [
+      "CONSTANT_TARGETS=46",
+      "CONSTANT_FIXED=0",
+      "CONSTANT_FILES_CHANGED=0"
+    ]
+  }
+]
