@@ -166,19 +166,17 @@ namespace FuseCP.Portal
                     {
                         continue;
                     }
-                    else
+
+                    if (htSites != null && htSites[domain.DomainName.ToLower()] != null)
                     {
-                        if (htSites != null)
-                        {
-                            if (htSites[domain.DomainName.ToLower()] != null) continue;
-                        }
+                        continue;
                     }
                 }
 
 
-                if (HideMailDomainPointers)
+                if (HideMailDomainPointers && htMailDomainPointers[domain.DomainName.ToLower()] != null)
                 {
-                    if (htMailDomainPointers[domain.DomainName.ToLower()] != null) continue;
+                    continue;
                 }
 
                 

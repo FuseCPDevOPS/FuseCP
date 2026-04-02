@@ -89,14 +89,10 @@ namespace FuseCP.Portal
                 {
                     vlantag = 0;
                 }
-                if (vps)
+                if (vps && (vlantag > 4096 || vlantag < 0))
                 {
-                    if (vlantag > 4096 || vlantag < 0)
-                    {
-                        ShowErrorMessage("Error updating IP address - Invalid VLAN TAG", "VLANTAG");
-                        return;
-                    }
-
+                    ShowErrorMessage("Error updating IP address - Invalid VLAN TAG", "VLANTAG");
+                    return;
                 }
                 int serverId = Utils.ParseInt(ddlServer.SelectedValue, 0);
                 IPAddressPool pool = (IPAddressPool)Enum.Parse(typeof(IPAddressPool), ddlPools.SelectedValue, true);

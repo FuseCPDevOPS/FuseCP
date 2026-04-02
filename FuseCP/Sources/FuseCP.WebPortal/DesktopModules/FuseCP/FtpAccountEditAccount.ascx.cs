@@ -86,23 +86,20 @@ namespace FuseCP.Portal
                 // load provider control
                 LoadProviderControl((int)ViewState["PackageId"], "Ftp", providerControl, "EditAccount.ascx");
 
-                if (!IsPostBack)
+                if (!IsPostBack && item != null)
                 {
                     // bind item to controls
-                    if (item != null)
-                    {
-                        // bind item to controls
-                        usernameControl.Text = item.Name;
-                        usernameControl.EditMode = true;
-                        passwordControl.EditMode = true;
-                        fileLookup.SelectedFile = item.Folder;
+                    // bind item to controls
+                    usernameControl.Text = item.Name;
+                    usernameControl.EditMode = true;
+                    passwordControl.EditMode = true;
+                    fileLookup.SelectedFile = item.Folder;
 
-                        // other controls
-                        if (providerControl.Controls.Count > 0)
-                        {
-                            IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
-                            ctrl.BindItem(item);
-                        }
+                    // other controls
+                    if (providerControl.Controls.Count > 0)
+                    {
+                        IFtpAccountEditControl ctrl = (IFtpAccountEditControl)providerControl.Controls[0];
+                        ctrl.BindItem(item);
                     }
                 }
             }
