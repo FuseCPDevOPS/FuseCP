@@ -1444,7 +1444,7 @@ namespace FuseCP.EnterpriseServer
             var items = taskProps.Keys.Select(propName => propName + "=" + taskProps[propName]).ToList();
 
             taskName = String.Format("{0}{1}-{2}", TASK_PREFIX, taskName, DateTime.Now.Ticks);
-            string taskData = String.Join("|", items.ToArray());
+            string taskData = String.Join("|", items);
 
             // create KVP item
             KvpExchangeDataItem[] kvp = new KvpExchangeDataItem[1];

@@ -314,10 +314,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
             try
             {
-                IDataReader reader =
-                    Database.GetOCSUsers(itemId, sortColumn, sortDirection, name, email, startRow, count);
-                List<OCSUser> accounts = new List<OCSUser>();
-                ObjectUtils.FillCollectionFromDataReader(accounts, reader);
+                List<OCSUser> accounts = ObjectUtils.CreateListFromDataReader<OCSUser>(
+                    Database.GetOCSUsers(itemId, sortColumn, sortDirection, name, email, startRow, count));
                 res.Value = new OCSUsersPaged { PageUsers = accounts.ToArray() };
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

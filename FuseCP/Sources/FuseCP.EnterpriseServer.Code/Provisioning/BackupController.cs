@@ -452,7 +452,7 @@ namespace FuseCP.EnterpriseServer
 			KeyValueBunch result = new KeyValueBunch();
 			// Convert grouped data into serializable format
 			foreach (KeyValuePair<string, List<string>> group in summary)
-				result[group.Key] = String.Join(",", group.Value.ToArray());
+				result[group.Key] = String.Join(",", group.Value);
 			//
 			return result;
 		}
@@ -610,8 +610,7 @@ namespace FuseCP.EnterpriseServer
 					List<PackageInfo> packages = new List<PackageInfo>();
 					packages.AddRange(PackageController.GetMyPackages(userId));
 					packages.AddRange(PackageController.GetPackages(userId));
-					List<string> parts = packages.ConvertAll(package => "@packageId = " + package.PackageId);
-					condition = "[" + String.Join(" or ", parts.ToArray()) + "]";
+						condition = "[" + String.Join(" or ", packages.Select(p => "@packageId = " + p.PackageId)) + "]";
 				}
 				else if (packageId > 0)
 				{
@@ -625,8 +624,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					// get server services
 					List<ServiceInfo> services = ServerController.GetServicesByServerId(serverId);
-					List<string> parts = services.ConvertAll(service => "@serviceId = " + service.ServiceId);
-					condition = "[" + String.Join(" or ", parts.ToArray()) + "]";
+					condition = "[" + String.Join(" or ", services.Select(s => "@serviceId = " + s.ServiceId)) + "]";
 				}
 
 				XmlNodeList itemNodes = doc.SelectNodes("Backup/Items/Item" + condition);

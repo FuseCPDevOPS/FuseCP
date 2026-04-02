@@ -188,10 +188,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
             try
             {
-                IDataReader reader =
-                    Database.GetBlackBerryUsers(itemId, sortColumn, sortDirection, name, email, startRow, count);
-                List<OrganizationUser> accounts = new List<OrganizationUser>();
-                ObjectUtils.FillCollectionFromDataReader(accounts, reader);
+                List<OrganizationUser> accounts = ObjectUtils.CreateListFromDataReader<OrganizationUser>(
+                    Database.GetBlackBerryUsers(itemId, sortColumn, sortDirection, name, email, startRow, count));
                 res.Value = new OrganizationUsersPaged {PageUsers = accounts.ToArray()};
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

@@ -531,10 +531,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
             try
             {
-                IDataReader reader =
-                    Database.GetLyncUsers(itemId, sortColumn, sortDirection, startRow, count);
-                List<LyncUser> accounts = new List<LyncUser>();
-                ObjectUtils.FillCollectionFromDataReader(accounts, reader);
+                List<LyncUser> accounts = ObjectUtils.CreateListFromDataReader<LyncUser>(
+                    Database.GetLyncUsers(itemId, sortColumn, sortDirection, startRow, count));
                 res.Value = new LyncUsersPaged { PageUsers = accounts.ToArray() };
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -705,10 +703,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     List<LyncUserPlan> Plans = ObjectUtils.CreateListFromDataReader<LyncUserPlan>(Database.GetLyncUserPlans(OrgId));
 
-                    foreach (LyncUserPlan p in Plans)
-                    {
-                        plans.Add(p);
-                    }
+                    plans.AddRange(Plans);
                 }
 
                 UserInfo owner = UserController.GetUserInternally(user.OwnerId);

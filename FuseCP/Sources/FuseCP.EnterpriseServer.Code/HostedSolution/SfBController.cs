@@ -534,10 +534,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
             try
             {
-                IDataReader reader =
-                    Database.GetSfBUsers(itemId, sortColumn, sortDirection, startRow, count);
-                List<SfBUser> accounts = new List<SfBUser>();
-                ObjectUtils.FillCollectionFromDataReader(accounts, reader);
+                List<SfBUser> accounts = ObjectUtils.CreateListFromDataReader<SfBUser>(
+                    Database.GetSfBUsers(itemId, sortColumn, sortDirection, startRow, count));
                 res.Value = new SfBUsersPaged { PageUsers = accounts.ToArray() };
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -708,10 +706,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 {
                     List<SfBUserPlan> Plans = ObjectUtils.CreateListFromDataReader<SfBUserPlan>(Database.GetSfBUserPlans(OrgId));
 
-                    foreach (SfBUserPlan p in Plans)
-                    {
-                        plans.Add(p);
-                    }
+                    plans.AddRange(Plans);
                 }
 
                 UserInfo owner = UserController.GetUserInternally(user.OwnerId);

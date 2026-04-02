@@ -408,7 +408,7 @@ namespace FuseCP.EnterpriseServer
 					}
 					else
 					{
-						string errors = string.Join("\n", isInstalled.ErrorCodes.ToArray());
+						string errors = string.Join("\n", isInstalled.ErrorCodes);
 						string str =
 							string.Format(
 								"Could not check if specific software intalled for {0}. Following errors have been occured:\n{1}",

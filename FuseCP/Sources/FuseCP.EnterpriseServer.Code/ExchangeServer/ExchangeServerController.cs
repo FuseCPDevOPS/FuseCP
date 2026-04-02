@@ -468,7 +468,7 @@ namespace FuseCP.EnterpriseServer
                         oabVirtualDirs.Add(clientAccessRole.GetOABVirtualDirectory());
                     }
 
-                    Organization orgOAB = mailboxRole.CreateOrganizationOfflineAddressBook(org.OrganizationId, org.SecurityGroup, string.Join(",", oabVirtualDirs.ToArray()));
+                    Organization orgOAB = mailboxRole.CreateOrganizationOfflineAddressBook(org.OrganizationId, org.SecurityGroup, string.Join(",", oabVirtualDirs));
                     org.OfflineAddressBook = orgOAB.OfflineAddressBook;
 
 
@@ -2157,7 +2157,7 @@ namespace FuseCP.EnterpriseServer
                 SetMailBoxRetentionPolicyAndArchiving(itemId, mailboxPlanId, archivedPlanId, accountName, exchange, org.OrganizationId, resPolicy, EnableArchiving);
                 if (!resPolicy.IsSuccess)
                 {
-                    TaskManager.WriteError("Error SetMailBoxRetentionPolicy: " + string.Join(", ", resPolicy.ErrorCodes.ToArray()));
+                    TaskManager.WriteError("Error SetMailBoxRetentionPolicy: " + string.Join(", ", resPolicy.ErrorCodes));
                 }
 
 
@@ -3528,7 +3528,7 @@ namespace FuseCP.EnterpriseServer
                 SetMailBoxRetentionPolicyAndArchiving(itemId, mailboxPlanId, archivePlanId, account.UserPrincipalName, exchange, org.OrganizationId, resPolicy, EnableArchiving);
                 if (!resPolicy.IsSuccess)
                 {
-                    TaskManager.WriteError("Error SetMailBoxRetentionPolicy: " + string.Join(", ", resPolicy.ErrorCodes.ToArray()));
+                    TaskManager.WriteError("Error SetMailBoxRetentionPolicy: " + string.Join(", ", resPolicy.ErrorCodes));
                 }
 
                 Database.SetExchangeAccountMailboxPlan(accountId, mailboxPlanId, archivePlanId, EnableArchiving);
@@ -3609,10 +3609,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     List<ExchangeMailboxPlan> Plans = ObjectUtils.CreateListFromDataReader<ExchangeMailboxPlan>(Database.GetExchangeMailboxPlans(OrgId, archiving));
 
-                    foreach (ExchangeMailboxPlan p in Plans)
-                    {
-                        mailboxPlans.Add(p);
-                    }
+                    mailboxPlans.AddRange(Plans);
 
                     // Set default plan
                     ExchangeOrganization exchangeOrg = ObjectUtils.FillObjectFromDataReader<ExchangeOrganization>(Database.GetExchangeOrganization(OrgId));
@@ -3980,10 +3977,7 @@ namespace FuseCP.EnterpriseServer
                 {
                     List<ExchangeRetentionPolicyTag> RetentionPolicy = ObjectUtils.CreateListFromDataReader<ExchangeRetentionPolicyTag>(Database.GetExchangeRetentionPolicyTags(OrgId));
 
-                    foreach (ExchangeRetentionPolicyTag p in RetentionPolicy)
-                    {
-                        retentionPolicyTags.Add(p);
-                    }
+                    retentionPolicyTags.AddRange(RetentionPolicy);
                 }
 
                 UserInfo owner = UserController.GetUserInternally(user.OwnerId);

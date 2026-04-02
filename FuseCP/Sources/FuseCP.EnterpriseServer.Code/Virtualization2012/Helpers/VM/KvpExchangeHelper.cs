@@ -245,7 +245,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
             long dataNowTick = DateTime.Now.Ticks;
             taskNameArr[0] = String.Format("{0}{1}-{2}", TASK_PREFIX, taskName, dataNowTick);
             taskNameArr[1] = String.Format("{0}{1}-{2}", TASK_PREFIX_OLD, taskName, dataNowTick);
-            string taskData = String.Join("|", items.ToArray());
+            string taskData = String.Join("|", items);
 
             // create KVP item
             KvpExchangeDataItem[] kvp = new KvpExchangeDataItem[taskNameArr.Length];
