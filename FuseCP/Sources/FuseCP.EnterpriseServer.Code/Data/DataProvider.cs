@@ -4037,9 +4037,8 @@ namespace FuseCP.EnterpriseServer
 					.ToHashSet();
 
 				bool addedAny = false;
-				foreach (var service in services.Elements())
+				foreach (var serviceId in services.Elements().Select(service => (int)service.Attribute("id")))
 				{
-					var serviceId = (int)service.Attribute("id");
 					if (!existingServices.Contains(serviceId))
 					{
 						var virtualService = new Data.Entities.VirtualService()
@@ -12199,18 +12198,16 @@ namespace FuseCP.EnterpriseServer
 					using (var groupIds = new TempIdSet(this, groups.Select(g => g.GroupId)))
 					{
 						var servicesSet = services.Select(s => s.ServiceId).ToHashSet();
-                        foreach (var serviceId in Services
+						foreach (var serviceId in Services
                             .Where(s => s.ServerId == package.Package.ServerId)
-                            .Join(groupIds, s => s.Provider.GroupId, g => g, (s, g) => s.ServiceId))
+							.Join(groupIds, s => s.Provider.GroupId, g => g, (s, g) => s.ServiceId)
+							.Where(serviceId => !servicesSet.Contains(serviceId)))
                         {
-                            if (!servicesSet.Contains(serviceId))
-                            {
-                                PackageServices.Add(new Data.Entities.PackageService()
-                                {
-                                    PackageId = packageId,
-                                    ServiceId = serviceId
-                                });
-                            }
+							PackageServices.Add(new Data.Entities.PackageService()
+							{
+								PackageId = packageId,
+								ServiceId = serviceId
+							});
                         }
 					}
                 }
@@ -19647,12 +19644,11 @@ namespace FuseCP.EnterpriseServer
 					.FirstOrDefault();
 				// update all IP addresses of the specified pool
 				foreach (var ip in PackageIpAddresses
-					.Where(a => a.ItemId == itemId && a.Address.PoolId == poolId))
+					.Where(a => a.ItemId == itemId && a.Address.PoolId == poolId)
+					.AsEnumerable()
+					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
 				{
-					if (CheckActorPackageRights(actorId, ip.PackageId))
-					{
-						ip.IsPrimary = ip.PackageAddressId == packageAddressId;
-					}
+					ip.IsPrimary = ip.PackageAddressId == packageAddressId;
 				}
 				/// <summary>TODO</summary>
 				return SaveChanges();
@@ -19676,13 +19672,12 @@ namespace FuseCP.EnterpriseServer
 			if (UseEntityFramework)
 			{
 				foreach (var ip in PackageIpAddresses
-					.Where(a => a.PackageAddressId == packageAddressId))
+					.Where(a => a.PackageAddressId == packageAddressId)
+					.AsEnumerable()
+					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
 				{
-					if (CheckActorPackageRights(actorId, ip.PackageId))
-					{
-						ip.ItemId = null;
-						ip.IsPrimary = false;
-					}
+					ip.ItemId = null;
+					ip.IsPrimary = false;
 				}
 				/// <summary>TODO</summary>
 				return SaveChanges();
@@ -19707,13 +19702,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				foreach (var ip in PackageIpAddresses
 					.Where(a => a.ItemId == itemId)
-					.ToList())
+					.ToList()
+					.Where(ip => CheckActorPackageRights(actorId, ip.PackageId)))
 				{
-					if (CheckActorPackageRights(actorId, ip.PackageId))
-					{
-						ip.ItemId = null;
-						ip.IsPrimary = false;
-					}
+					ip.ItemId = null;
+					ip.IsPrimary = false;
 				}
 				/// <summary>TODO</summary>
 				return SaveChanges();
