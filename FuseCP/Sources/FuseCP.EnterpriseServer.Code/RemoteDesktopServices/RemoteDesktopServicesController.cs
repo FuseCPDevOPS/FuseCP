@@ -1589,6 +1589,7 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 var usersInDb = GetRdsCollectionUsers(collectionId);
+                var usersInDbNames = usersInDb.Select(x => x.AccountName).ToHashSet();
 
                 var accountNames = users.Select(x => x.AccountName).ToList();
 
@@ -1602,12 +1603,9 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 //Add to db
-                foreach (var user in users)
+                foreach (var user in users.Where(user => !usersInDbNames.Contains(user.AccountName)))
                 {
-                    if (!usersInDb.Select(x => x.AccountName).Contains(user.AccountName))
-                    {
-                        Database.AddRDSUserToRDSCollection(collectionId, user.AccountId);
-                    }
+                    Database.AddRDSUserToRDSCollection(collectionId, user.AccountId);
                 }
 
             }

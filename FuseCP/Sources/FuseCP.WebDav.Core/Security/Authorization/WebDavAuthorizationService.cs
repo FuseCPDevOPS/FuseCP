@@ -70,21 +70,19 @@ namespace FuseCP.WebDav.Core.Security.Authorization
 
             var permissions = GetFolderEsPermissions(principal, rootFolder);
 
-            foreach (var permission in permissions)
-            {
-                if ((!permission.IsGroup
+            foreach (var permission in permissions.Where(permission =>
+                (!permission.IsGroup
                         && (permission.DisplayName == principal.UserName || permission.DisplayName == principal.DisplayName))
-                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName)))
+                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
+            {
+                if (permission.Access.ToLowerInvariant().Contains("read"))
                 {
-                    if (permission.Access.ToLowerInvariant().Contains("read"))
-                    {
-                        resultPermissions |= WebDavPermissions.Read;
-                    }
+                    resultPermissions |= WebDavPermissions.Read;
+                }
 
-                    if (permission.Access.ToLowerInvariant().Contains("write"))
-                    {
-                        resultPermissions |= WebDavPermissions.Write;
-                    }
+                if (permission.Access.ToLowerInvariant().Contains("write"))
+                {
+                    resultPermissions |= WebDavPermissions.Write;
                 }
             }
 

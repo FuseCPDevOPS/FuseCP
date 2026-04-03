@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using FuseCP.Providers.Web.Iis.Common;
 using Microsoft.Web.Administration;
@@ -39,15 +40,7 @@ namespace FuseCP.Providers.Web.MimeTypes
 			//
 			var mappings = new List<MimeMap>();
 			//
-			foreach (var item in section.GetCollection())
-			{
-				var item2Get = GetMimeMap(item);
-				//
-				if (item2Get == null)
-					continue;
-				//
-				mappings.Add(item2Get);
-			}
+			mappings.AddRange(section.GetCollection().Cast<ConfigurationElement>().Select(GetMimeMap).Where(item2Get => item2Get != null));
 			//
 			virtualDir.MimeMaps = mappings.ToArray();
 		}

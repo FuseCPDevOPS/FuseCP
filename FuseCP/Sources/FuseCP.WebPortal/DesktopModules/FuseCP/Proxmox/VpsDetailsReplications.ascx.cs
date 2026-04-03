@@ -130,11 +130,8 @@ namespace FuseCP.Portal.Proxmox
                 {
                     // VHDs readonly
                     labVHDs.Text = "";
-                    foreach (var disk in vm.Disks)
-                    {
-                        if (vmReplica.VhdToReplicate.Any(p=>string.Equals(p, disk.Path, StringComparison.OrdinalIgnoreCase)))
-                            labVHDs.Text += disk.Path + "<br>";
-                    }
+                    foreach (var disk in vm.Disks.Where(disk => vmReplica.VhdToReplicate.Any(p => string.Equals(p, disk.Path, StringComparison.OrdinalIgnoreCase))))
+                        labVHDs.Text += disk.Path + "<br>";
                     trVHDEditable.Visible = false;
                     trVHDReadOnly.Visible = true;
 

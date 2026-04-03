@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace FuseCP.Portal.SfB.UserControls
@@ -67,9 +68,9 @@ namespace FuseCP.Portal.SfB.UserControls
             get
             {
                 FuseCP.Providers.HostedSolution.SfBUserPlan[] plans = ES.Services.SfB.GetSfBUserPlans(PanelRequest.ItemID);
-                foreach (FuseCP.Providers.HostedSolution.SfBUserPlan planitem in plans)
+                foreach (FuseCP.Providers.HostedSolution.SfBUserPlan planitem in plans.Where(planitem => planitem.SfBUserPlanId.ToString() == planId))
                 {
-                    if (planitem.SfBUserPlanId.ToString() == planId) return planitem;
+                    return planitem;
                 }
                 return null;
             }

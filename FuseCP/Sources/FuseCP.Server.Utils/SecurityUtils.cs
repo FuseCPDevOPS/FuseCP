@@ -18,6 +18,7 @@ using System.Text;
 using System.DirectoryServices;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Management;
 using System.IO;
@@ -660,14 +661,10 @@ namespace FuseCP.Providers.Utils
                     objUser.CommitChanges();
 
                     // add user to groups
-                    foreach (String groupName in user.MemberOf)
+                    foreach (var group in user.MemberOf.Select(groupName => computer.Children.Find(groupName, "group")).Where(g => g != null))
                     {
-                        DirectoryEntry group = computer.Children.Find(groupName, "group");
-                        if (group != null)
-                        {
-                            group.Invoke("Add", new object[] { objUser.Path.ToString() });
-                            group.CommitChanges();
-                        }
+                        group.Invoke("Add", new object[] { objUser.Path.ToString() });
+                        group.CommitChanges();
                     }
                 }
             }
@@ -773,13 +770,10 @@ namespace FuseCP.Providers.Utils
                     }
 
                     // add user to groups
-                    foreach (String groupName in user.MemberOf)
+                    foreach (var group in user.MemberOf.Select(groupName => computer.Children.Find(groupName, "group")).Where(g => g != null))
                     {
-                        DirectoryEntry group = computer.Children.Find(groupName, "group");
-                        if (group != null)
-                            group.Invoke("Add", new object[] { objUser.Path.ToString() });
+                        group.Invoke("Add", new object[] { objUser.Path.ToString() });
                         group.CommitChanges();
-
                     }
 
                     // change password if required

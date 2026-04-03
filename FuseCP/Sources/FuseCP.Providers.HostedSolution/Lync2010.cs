@@ -1006,11 +1006,10 @@ namespace FuseCP.Providers.HostedSolution
 						Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
 						if ((result != null) && (result.Count > 0))
 						{
-							foreach (PSObject res in result)
+							foreach (PSObject res in result
+								.Where(res => ("" + (string)GetPSObjectProperty(res, "Description")).ToLower().IndexOf(name.ToLower()) != -1))
 							{
 								string Identity = GetPSObjectProperty(res, "Identity").ToString();
-								string Description = "" + (string)GetPSObjectProperty(res, "Description");
-								if (Description.ToLower().IndexOf(name.ToLower()) == -1) continue;
 								ret.Add(Identity);
 							}
 
@@ -1025,12 +1024,10 @@ namespace FuseCP.Providers.HostedSolution
 						Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
 						if ((result != null) && (result.Count > 0))
 						{
-							foreach (PSObject res in result)
+							foreach (PSObject res in result
+								.Where(res => ("" + (string)GetPSObjectProperty(res, "Description")).ToLower().IndexOf(name.ToLower()) != -1))
 							{
 								string Identity = GetPSObjectProperty(res, "Identity").ToString();
-								string Description = "" + (string)GetPSObjectProperty(res, "Description");
-								if (Description.ToLower().IndexOf(name.ToLower()) == -1) continue;
-
 								ret.Add(Identity);
 							}
 

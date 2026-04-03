@@ -3362,21 +3362,12 @@ namespace FuseCP.Providers.Web
 			// merge both inherited and customized records
 			if (virtDir.HttpErrors != null)
 			{
-				foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA => !String.IsNullOrEmpty(errorA.ErrorContent)))
+foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
+					!String.IsNullOrEmpty(errorA.ErrorContent) &&
+					GetCustomErrorType(errorA.ErrorCode, errorA.ErrorSubcode) != 0 &&
+					!(GetCustomErrorType(errorA.ErrorCode, errorA.ErrorSubcode) == 2 &&
+					  String.Compare(errorA.HandlerType, "URL", true) == 0)))
 				{
-					// if error is not within list of Custom Errors in IIS 6.0 - just skip it
-					if (GetCustomErrorType(errorA.ErrorCode, errorA.ErrorSubcode) == 0)
-					{
-						continue;
-					}
-					else
-					{
-						//if error type is 2, it can't be with handler type "URL" - skip it
-						if ((GetCustomErrorType(errorA.ErrorCode, errorA.ErrorSubcode) == 2) && (String.Compare(errorA.HandlerType, "URL", true) == 0))
-						{
-							continue;
-						}
-					}
 
 					foreach (HttpError errorB in httpErrors)
 					{

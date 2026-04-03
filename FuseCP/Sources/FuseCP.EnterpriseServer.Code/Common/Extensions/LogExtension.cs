@@ -324,11 +324,8 @@ namespace FuseCP.EnterpriseServer.Extensions
 
             if (attributes != null && attributes.Length > 0)
             {
-                foreach (var logPropertyAttribute in attributes)
+                foreach (var logPropertyAttribute in attributes.Where(logPropertyAttribute => logPropertyAttribute != null))
                 {
-                    if (logPropertyAttribute == null)
-                        continue;
-                    
                     if (withOld)
                         TaskManager.Write(OLD_PREFIX + logPropertyAttribute.GetLogString(obj, property));
 

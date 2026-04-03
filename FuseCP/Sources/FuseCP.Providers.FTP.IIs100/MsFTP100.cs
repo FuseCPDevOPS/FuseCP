@@ -338,11 +338,9 @@ namespace FuseCP.Providers.FTP
                 default:
                     List<FtpAccount> accounts = new List<FtpAccount>();
 
-                    foreach (string directory in this.ftpSitesService.GetAppVirtualDirectoriesNames(this.SiteId))
+                    foreach (string directory in this.ftpSitesService.GetAppVirtualDirectoriesNames(this.SiteId)
+                        .Where(directory => !String.Equals(directory, "/")))
                     {
-                        // Skip root virtual directory
-                        if (String.Equals(directory, "/"))
-                            continue;
                         //
                         accounts.Add(this.GetAccount(directory.Substring(1)));
                     }

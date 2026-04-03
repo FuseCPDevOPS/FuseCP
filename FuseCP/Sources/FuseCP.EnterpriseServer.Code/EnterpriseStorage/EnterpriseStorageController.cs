@@ -306,15 +306,13 @@ namespace FuseCP.EnterpriseServer
             {
                 var permissions = GetFolderPermission(account.ItemId, folder.Name);
 
-                foreach (var permission in permissions)
+                foreach (var permission in permissions.Where(permission =>
+                    (!permission.IsGroup
+                        && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
+                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
                 {
-                    if ((!permission.IsGroup
-                            && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
-                        || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName)))
-                    {
-                        rootFolders.Add(folder);
-                        break;
-                    }
+                    rootFolders.Add(folder);
+                    break;
                 }
             }
 
@@ -704,15 +702,13 @@ namespace FuseCP.EnterpriseServer
                 {
                     var permissions = ConvertToESPermission(itemId, folder.Rules);
 
-                    foreach (var permission in permissions)
+                    foreach (var permission in permissions.Where(permission =>
+                        (!permission.IsGroup
+                            && (permission.DisplayName == userName || permission.DisplayName == displayName))
+                        || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
                     {
-                        if ((!permission.IsGroup
-                                && (permission.DisplayName == userName || permission.DisplayName == displayName))
-                            || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName)))
-                        {
-                            rootFolders.Add(folder);
-                            break;
-                        }
+                        rootFolders.Add(folder);
+                        break;
                     }
                 }
 

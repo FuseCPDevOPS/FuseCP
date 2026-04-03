@@ -2042,16 +2042,9 @@ namespace FuseCP.Providers.Web
 			//
 			var modulesCollection = modulesSection.GetCollection();
 			//
-			foreach (var moduleEntry in modulesCollection)
-			{
-				if (
-					 String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase)
-					 || String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase)
-					 )
-					return true;
-			}
-			//
-			return false;
+			return modulesCollection.Any(moduleEntry =>
+				String.Equals(moduleEntry["name"].ToString(), Constants.FuseCP_IISMODULES, StringComparison.InvariantCultureIgnoreCase)
+				|| String.Equals(moduleEntry["name"].ToString(), Constants.DOTNETPANEL_IISMODULES, StringComparison.InvariantCultureIgnoreCase));
 		}
 
 		protected override string GetSiteContentPath(string siteId)
@@ -2255,18 +2248,9 @@ namespace FuseCP.Providers.Web
 			var modulesSection = appConfig.GetSection(Constants.ModulesSection, siteId);
 			var modulesCollection = modulesSection.GetCollection();
 
-			foreach (var moduleEntry in modulesCollection)
-			{
-				if (
-					 String.Equals(moduleEntry["name"].ToString(), Constants.HeliconApeModule, StringComparison.InvariantCultureIgnoreCase)
-					 ||
-					 String.Equals(moduleEntry["name"].ToString(), Constants.HeliconApeModulePrevName, StringComparison.InvariantCultureIgnoreCase)
-				)
-					return true;
-			}
-			//
-			return false;
-
+			return modulesCollection.Any(moduleEntry =>
+				String.Equals(moduleEntry["name"].ToString(), Constants.HeliconApeModule, StringComparison.InvariantCultureIgnoreCase)
+				|| String.Equals(moduleEntry["name"].ToString(), Constants.HeliconApeModulePrevName, StringComparison.InvariantCultureIgnoreCase));
 		}
 
 		/// <summary>

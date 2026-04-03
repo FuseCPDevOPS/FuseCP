@@ -15,6 +15,7 @@
 
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using FuseCP.Providers.Web.Iis.Common;
 using FuseCP.Providers.Web.Iis.Utility;
@@ -40,15 +41,7 @@ namespace FuseCP.Providers.Web.WebObjects
 			//
 			var headers = new List<HttpHeader>();
 			//
-			foreach (var item in headersCollection)
-			{
-				var item2Get = GetCustomHttpHeader(item);
-				//
-				if (item2Get == null)
-					continue;
-				//
-				headers.Add(item2Get);
-			}
+			headers.AddRange(headersCollection.Cast<ConfigurationElement>().Select(GetCustomHttpHeader).Where(item2Get => item2Get != null));
 			//
 			virtualDir.HttpHeaders = headers.ToArray();
 		}

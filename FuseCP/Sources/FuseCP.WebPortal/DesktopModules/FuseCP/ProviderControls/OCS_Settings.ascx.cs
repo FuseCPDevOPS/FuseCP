@@ -49,12 +49,7 @@ namespace FuseCP.Portal.ProviderControls
         {
             List<ServiceInfo> list = new List<ServiceInfo>();
             string[] services = EDGEServices.Split(';');
-            foreach (string current in services)
-            {
-                string[] data = current.Split(',');
-                if (data.Length > 1)
-                    list.Add(new ServiceInfo() {ServiceId = Utils.ParseInt(data[1]), ServiceName = data[0]});
-            }
+            list.AddRange(services.Select(current => current.Split(',')).Where(data => data.Length > 1).Select(data => new ServiceInfo() { ServiceId = Utils.ParseInt(data[1]), ServiceName = data[0] }));
 
 
             return list.ToArray();
@@ -85,11 +80,8 @@ namespace FuseCP.Portal.ProviderControls
             ddl.Items.Clear();
             DataView dvServices =
                 ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.OCS).Tables[0].DefaultView;
-            foreach (DataRowView dr in dvServices)
+            foreach (DataRowView dr in dvServices.Cast<DataRowView>().Where(dr => dr["ProviderName"].ToString() == OCSConstants.ProviderName))
             {
-                if (dr["ProviderName"].ToString() != OCSConstants.ProviderName)
-                    continue;
-
                 int serviceId = (int) dr["ServiceID"];
                 ServiceInfo[] services = GetEDGEServices();
                 bool exists = services != null && services.Any(current => current.ServiceId == serviceId);
@@ -116,12 +108,8 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string str = string.Empty;
                 ServiceInfo []services = GetEDGEServices();
-                foreach(ServiceInfo current in services)
+				foreach(ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
                 {
-                    if (current.ServiceId == Utils.ParseInt(e.CommandArgument.ToString()))                                          
-                        continue;
-                                        
-
                     str += current.ServiceName + "," + current.ServiceId + ";";
                 }
 

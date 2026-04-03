@@ -42,15 +42,7 @@ namespace FuseCP.Providers.Web.Iis.DefaultDocuments
 			// Build default documents
 			var defaultDocs = new List<String>();
 			//
-			foreach (var item in filesCollection)
-			{
-				var item2Get = GetDefaultDocument(item);
-				//
-				if (String.IsNullOrEmpty(item2Get))
-					continue;
-				//
-				defaultDocs.Add(item2Get);
-			}
+			defaultDocs.AddRange(filesCollection.Select(GetDefaultDocument).Where(item2Get => !String.IsNullOrEmpty(item2Get)));
 			//
 			return String.Join(",", defaultDocs.ToArray());
 		}
@@ -105,13 +97,11 @@ namespace FuseCP.Providers.Web.Iis.DefaultDocuments
 				// The only solution to override inherited default documents is to use <clear/> element
 				filesCollection.Clear();
 				//
-				foreach (var item in docs2Add.Where(item => FindDefaultDocument(filesCollection, item) <= -1))
+				foreach (var item2Add in docs2Add
+					.Where(item => FindDefaultDocument(filesCollection, item) <= -1)
+					.Select(item => CreateDefaultDocument(filesCollection, item))
+					.Where(item2Add => item2Add != null))
 				{
-					var item2Add = CreateDefaultDocument(filesCollection, item);
-					//
-					if (item2Add == null)
-						continue;
-					//
 					filesCollection.Add(item2Add);
 				}
 				//

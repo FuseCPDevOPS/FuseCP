@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -91,12 +92,8 @@ namespace FuseCP.Portal
             usernameControl.EditMode = true;
             passwordControl.EditMode = true;
 
-            foreach (string group in item.MemberOf)
-            {
-                ListItem li = dlGroups.Items.FindByValue(group);
-                if (li != null)
-                    li.Selected = true;
-            }
+            foreach (var li in item.MemberOf.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+                li.Selected = true;
         }
 
         private void SaveItem()

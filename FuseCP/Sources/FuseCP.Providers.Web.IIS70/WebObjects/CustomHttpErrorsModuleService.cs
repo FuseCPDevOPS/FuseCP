@@ -24,6 +24,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
     using System.Text;
 	using System.Collections.Generic;
 	using System.Collections;
+	using System.Linq;
 	using FuseCP.Providers.Web.Iis.Utility;
 	using System.IO;
 	using FuseCP.Providers.Utils;
@@ -49,15 +50,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 			//
 			var errors = new List<HttpError>();
 			//
-			foreach (var item in errorsCollection)
-			{
-				var item2Get = GetHttpError(item, virtualDir);
-				//
-				if (item2Get == null)
-					continue;
-				//
-				errors.Add(item2Get);
-			}
+			errors.AddRange(errorsCollection.Cast<ConfigurationElement>().Select(item => GetHttpError(item, virtualDir)).Where(item2Get => item2Get != null));
 			//
 			virtualDir.HttpErrors = errors.ToArray();
 		}

@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace FuseCP.Portal.Lync.UserControls
@@ -67,9 +68,9 @@ namespace FuseCP.Portal.Lync.UserControls
             get
             {
                 FuseCP.Providers.HostedSolution.LyncUserPlan[] plans = ES.Services.Lync.GetLyncUserPlans(PanelRequest.ItemID);
-                foreach (FuseCP.Providers.HostedSolution.LyncUserPlan planitem in plans)
+                foreach (FuseCP.Providers.HostedSolution.LyncUserPlan planitem in plans.Where(planitem => planitem.LyncUserPlanId.ToString() == planId))
                 {
-                    if (planitem.LyncUserPlanId.ToString() == planId) return planitem;
+                    return planitem;
                 }
                 return null;
             }

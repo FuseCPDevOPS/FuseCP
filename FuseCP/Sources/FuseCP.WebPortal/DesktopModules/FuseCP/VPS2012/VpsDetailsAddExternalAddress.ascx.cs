@@ -90,10 +90,10 @@ namespace FuseCP.Portal.VPS2012
         protected void AddIP(object sender, EventArgs e, bool byNewMethod)
         {
             int number = Utils.ParseInt(txtExternalAddressesNumber.Text.Trim(), 0);
-            List<int> addressIds = new List<int>();
-            foreach (ListItem li in listExternalAddresses.Items)
-                if (li.Selected)
-                    addressIds.Add(Utils.ParseInt(li.Value, 0));
+            List<int> addressIds = listExternalAddresses.Items.Cast<ListItem>()
+                .Where(li => li.Selected)
+                .Select(li => Utils.ParseInt(li.Value, 0))
+                .ToList();
 
             try
             {

@@ -148,12 +148,8 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string str = string.Empty;
                 List<ServiceInfo> services = GetServices(LyncServers);
-                foreach (ServiceInfo current in services)
+                foreach (ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
                 {
-                    if (current.ServiceId == Utils.ParseInt(e.CommandArgument.ToString()))
-                        continue;
-
-
                     str += current.ServiceId + ",";
                 }
 

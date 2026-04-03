@@ -1123,22 +1123,19 @@ public class PortalUtils
 			if (!String.IsNullOrEmpty(moduleDefinitionId) && !String.IsNullOrEmpty(controlId))
 			{
 				// 1. Read module controls first information first
-				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values.Where(md => String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)))
+				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values.Where(md =>
+					String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)
+					&& md.Controls.Values.Any(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase))))
 				{
-						// 2. Lookup for module control
-						if (md.Controls.Values.Any(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase)))
-						{
-							// 3. Compare against ctl parameter value
-								// 4. Lookup for module id
-								foreach (int pmKey in PortalConfiguration.Site.Modules.Keys.Where(pmKey =>
-									String.Equals(PortalConfiguration.Site.Modules[pmKey].ModuleDefinitionID, md.Id,
-										StringComparison.InvariantCultureIgnoreCase)))
-								{
-									// 5. Append module id parameter
-									urlBuilder.Add("mid=" + pmKey);
-									goto End;
-								}
-						}
+					// 4. Lookup for module id
+					foreach (int pmKey in PortalConfiguration.Site.Modules.Keys.Where(pmKey =>
+						String.Equals(PortalConfiguration.Site.Modules[pmKey].ModuleDefinitionID, md.Id,
+							StringComparison.InvariantCultureIgnoreCase)))
+					{
+						// 5. Append module id parameter
+						urlBuilder.Add("mid=" + pmKey);
+						goto End;
+					}
 				}
 			}
 		}

@@ -593,11 +593,7 @@ namespace FuseCP.Portal.VPS2012
                 List<int> hddSize = new List<int>();
                 hddSize.Add(Utils.ParseInt(txtHdd.Text.Trim()));
                 List<AdditionalHdd> additionalHdd = GetAdditionalHdd();
-                foreach (AdditionalHdd hdd in additionalHdd)
-                {
-                    int size = hdd.DiskSize;
-                    if (size > 0) hddSize.Add(size);
-                }
+                hddSize.AddRange(additionalHdd.Select(hdd => hdd.DiskSize).Where(size => size > 0));
                 virtualMachine.HddSize = hddSize.ToArray();
                 virtualMachine.HddMinimumIOPS = Utils.ParseInt(txtHddMinIOPS.Text.Trim());
                 virtualMachine.HddMaximumIOPS = Utils.ParseInt(txtHddMaxIOPS.Text.Trim());
@@ -749,10 +745,7 @@ if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
                     int availSize = hddQuota.QuotaAllocatedValue - hddQuota.QuotaUsedValue;
                     freeHddGb = availSize < 0 ? 0 : availSize;
                     freeHddGb -= Utils.ParseInt(txtHdd.Text.Trim());
-                    foreach (AdditionalHdd hdd in hdds)
-                    {
-                        if (hdd.DiskSize > 0) freeHddGb -= hdd.DiskSize;
-                    }
+                    freeHddGb -= hdds.Where(hdd => hdd.DiskSize > 0).Sum(hdd => hdd.DiskSize);
                 }
             }
             hdds.Add(new AdditionalHdd(freeHddGb, ""));

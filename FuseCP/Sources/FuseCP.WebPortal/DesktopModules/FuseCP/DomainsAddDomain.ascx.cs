@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Net;
 using System.IO;
+using System.Linq;
 
 namespace FuseCP.Portal
 {
@@ -175,9 +176,7 @@ namespace FuseCP.Portal
 
 			// filter domains
 			List<DomainInfo> domains = new List<DomainInfo>();
-			foreach (DomainInfo domain in allDomains)
-				if (!domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain)
-					domains.Add(domain);
+			domains.AddRange(allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain));
 
             DomainName.DataSource = domains;
 			DomainName.DataBind();
@@ -189,9 +188,7 @@ namespace FuseCP.Portal
 
             // filter domains
             List<DomainInfo> domains = new List<DomainInfo>();
-            foreach (DomainInfo domain in allDomains)
-                if (!domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain)
-                    domains.Add(domain);
+			domains.AddRange(allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain));
 
             DomainName.DataSource = domains;
             DomainName.DataBind();

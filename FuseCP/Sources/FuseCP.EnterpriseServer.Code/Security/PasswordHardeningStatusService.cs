@@ -61,11 +61,8 @@ namespace FuseCP.EnterpriseServer.Security
 
             var results = new List<LegacyPasswordUserInfo>();
 
-            foreach (var user in users.OrderBy(u => u.Username))
+            foreach (var user in users.OrderBy(u => u.Username).Where(user => string.IsNullOrEmpty(filter) || (user.Username != null && user.Username.ToLowerInvariant().Contains(filter))))
             {
-                if (!string.IsNullOrEmpty(filter) && (user.Username == null || !user.Username.ToLowerInvariant().Contains(filter)))
-                    continue;
-
                 string storedPassword = NormalizeStoredPassword(user.Password);
                 if (string.IsNullOrWhiteSpace(storedPassword))
                 {

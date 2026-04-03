@@ -19,6 +19,7 @@ using System.Web;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Linq;
 using FuseCP.Web.Services;
 using System.ComponentModel;
 using FuseCP.EnterpriseServer.Base.Common;
@@ -137,18 +138,14 @@ namespace FuseCP.EnterpriseServer
             using(System.Net.WebClient wc = new System.Net.WebClient()) { 
                 byte[] zipFile = wc.DownloadData(downloadLink + fileName);
 
-                foreach(List<int> x in servers) {
-                    if(x.Count > 0) { 
-                        try { 
-                            Dictionary<int,string> s = ServerController.AutoUpdateServer(x[0], x[1], zipFile, fileName);
-                            foreach(KeyValuePair<int, string> i in s) { 
-                                if(i.Key != 0) {
-                                    res.Add(i.Key+"-"+i.Value);
-                                }
-                            }
-                        } catch(Exception e) {
-                            res.Add(x[0] + "-" + e.Message);
+                foreach(List<int> x in servers.Where(x => x.Count > 0)) {
+                    try {
+                        Dictionary<int,string> s = ServerController.AutoUpdateServer(x[0], x[1], zipFile, fileName);
+                        foreach(KeyValuePair<int, string> i in s.Where(i => i.Key != 0)) {
+                            res.Add(i.Key+"-"+i.Value);
                         }
+                    } catch(Exception e) {
+                        res.Add(x[0] + "-" + e.Message);
                     }
                 }
             }

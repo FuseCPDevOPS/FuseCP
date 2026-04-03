@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -114,11 +115,8 @@ namespace FuseCP.Portal
             }
 
             // groups
-            foreach (string group in user.Groups)
-            {
-                ListItem li = dlGroups.Items.FindByValue(group);
-                if (li != null) li.Selected = true;
-            }
+            foreach (var li in user.Groups.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+                li.Selected = true;
         }
 
         private void SaveUser()

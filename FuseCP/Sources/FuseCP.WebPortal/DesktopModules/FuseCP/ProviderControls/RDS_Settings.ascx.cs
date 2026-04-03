@@ -16,6 +16,7 @@
 using AjaxControlToolkit;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
@@ -182,11 +183,8 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string str = string.Empty;
                 List<GWServer> servers = GetServices(GWServers);
-                foreach (GWServer current in servers)
+                foreach (GWServer current in servers.Where(current => current.ServerName != e.CommandArgument.ToString()))
                 {
-                    if (current.ServerName == e.CommandArgument.ToString())
-                        continue;
-
                     str += current.ServerName + ";";
                 }
 

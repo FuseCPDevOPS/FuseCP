@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -70,11 +71,8 @@ namespace FuseCP.Portal
             usernameControl.EditMode = true;
 
             // users
-            foreach (string user in group.Users)
-            {
-                ListItem li = dlUsers.Items.FindByValue(user);
-                if (li != null) li.Selected = true;
-            }
+            foreach (var li in group.Users.Select(user => dlUsers.Items.FindByValue(user)).Where(li => li != null))
+                li.Selected = true;
         }
 
         private void SaveGroup()

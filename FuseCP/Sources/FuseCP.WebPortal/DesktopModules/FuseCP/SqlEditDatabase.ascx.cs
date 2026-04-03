@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -157,12 +158,8 @@ namespace FuseCP.Portal
                     usernameControl.Text = item.Name;
                     usernameControl.EditMode = true;
 
-                    foreach (string user in item.Users)
-                    {
-                        ListItem li = dlUsers.Items.FindByValue(user);
-                        if (li != null)
-                            li.Selected = true;
-                    }
+                    foreach (var li in item.Users.Select(user => dlUsers.Items.FindByValue(user)).Where(li => li != null))
+                        li.Selected = true;
 
                     // other controls
                     if (providerControl.Controls.Count > 0)

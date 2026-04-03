@@ -15,6 +15,7 @@
 
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -390,10 +391,7 @@ if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_HDD, out var _ckv))
                 {
                     int availSize = hddQuota.QuotaAllocatedValue - hddQuota.QuotaUsedValue;
                     freeHddGb = availSize < 0 ? 0 : availSize;
-                    foreach (AdditionalHdd hdd in hdds)
-                    {
-                        if (hdd.DiskSize > 0 && String.IsNullOrEmpty(hdd.DiskPath)) freeHddGb -= hdd.DiskSize;
-                    }
+                    freeHddGb -= hdds.Where(hdd => hdd.DiskSize > 0 && String.IsNullOrEmpty(hdd.DiskPath)).Sum(hdd => hdd.DiskSize);
                 }
             }
             hdds.Add(new AdditionalHdd(freeHddGb, ""));

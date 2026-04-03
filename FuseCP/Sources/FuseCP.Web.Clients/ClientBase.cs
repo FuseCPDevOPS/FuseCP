@@ -642,9 +642,9 @@ namespace FuseCP.Web.Clients
 
 					if (SoapHeader != null || Credentials != null && Credentials.Password != null && (IsSecureProtocol || IsLocal))
 					{
-						foreach (var b in factory.Endpoint.EndpointBehaviors.ToArray())
+						foreach (var b in factory.Endpoint.EndpointBehaviors.ToArray().Where(b => b is SoapHeaderClientBehavior))
 						{
-							if (b is SoapHeaderClientBehavior) factory.Endpoint.EndpointBehaviors.Remove(b);
+							factory.Endpoint.EndpointBehaviors.Remove(b);
 						}
 						factory.Endpoint.EndpointBehaviors.Add(new SoapHeaderClientBehavior() { Client = this });
 					}

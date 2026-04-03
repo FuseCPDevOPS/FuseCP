@@ -197,15 +197,13 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                 if (site == null)
                     return;
 
-                foreach (Application app in site.Applications)
+                foreach (Application app in site.Applications
+                    .Where(app => !string.IsNullOrEmpty(app.ApplicationPoolName) &&
+                        srvman.ApplicationPools[app.ApplicationPoolName] != null))
                 {
                     string AppPoolName = app.ApplicationPoolName;
 
-                    if (string.IsNullOrEmpty(AppPoolName))
-                        continue;
-
                     ApplicationPool pool = srvman.ApplicationPools[AppPoolName];
-                    if (pool == null) continue;
 
                     //
                     switch (state)

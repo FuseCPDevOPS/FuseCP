@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Cobalt;
 using FuseCP.WebDav.Core.Interfaces.Managers;
@@ -55,17 +56,14 @@ namespace FuseCP.WebDav.Core.Owa
                 cobaltFile.CobaltEndpoint.ExecuteRequestBatch(requestBatch);
 
 
-                foreach (var request in requestBatch.Requests)
+                foreach (var request in requestBatch.Requests.Where(request =>
+                    request.GetType() == typeof(PutChangesRequest) &&
+                    request.PartitionId == FilePartitionId.Content && request.CompletedSuccessfully))
                 {
-
-                    if (request.GetType() == typeof (PutChangesRequest) &&
-                        request.PartitionId == FilePartitionId.Content && request.CompletedSuccessfully)
+                    using (var saveStream = new MemoryStream())
                     {
-                        using (var saveStream = new MemoryStream())
-                        {
-                            CopyStream(cobaltFile, saveStream);
-                            _webDavManager.UploadFile(token.FilePath, saveStream.ToArray());
-                        }
+                        CopyStream(cobaltFile, saveStream);
+                        _webDavManager.UploadFile(token.FilePath, saveStream.ToArray());
                     }
                 }
 

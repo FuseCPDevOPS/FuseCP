@@ -22,6 +22,7 @@ using FuseCP.Server.Client;
 using FuseCP.Providers.HostedSolution;
 using FuseCP.Providers.ResultObjects;
 using FuseCP.Providers.SharePoint;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer.Code.HostedSolution
 {
@@ -140,9 +141,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     report.LyncReport.Items.FindAll(
                         delegate(LyncUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
 
-                foreach (LyncUserStatistics current in lyncOrganizationStatistics)
+                foreach (LyncUserStatistics current in lyncOrganizationStatistics.Where(current => current.EnterpriseVoice))
                 {
-                    if (current.EnterpriseVoice) item.TotalLyncEVUsers++;
+                    item.TotalLyncEVUsers++;
                 }
 
                 item.TotalLyncUsers = lyncOrganizationStatistics.Count;
@@ -153,9 +154,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     report.SfBReport.Items.FindAll(
                         delegate (SfBUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
 
-                foreach (SfBUserStatistics current in SfBOrganizationStatistics)
+                foreach (SfBUserStatistics current in SfBOrganizationStatistics.Where(current => current.EnterpriseVoice))
                 {
-                    if (current.EnterpriseVoice) item.TotalSfBEVUsers++;
+                    item.TotalSfBEVUsers++;
                 }
 
                 item.TotalSfBUsers = SfBOrganizationStatistics.Count;

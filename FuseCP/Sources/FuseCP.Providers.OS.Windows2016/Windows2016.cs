@@ -1493,18 +1493,14 @@ namespace FuseCP.Providers.OS
             //foreach (ManagementObject objMO in objMOC)
             //    if (objMO.Properties["Name"].Value.ToString().ToLower().Contains("file server resource manager"))
             //        return true;
-            foreach (ManagementObject objMO in objMOC)
+            return objMOC.Cast<ManagementObject>().Any(objMO =>
             {
                 var id = objMO.Properties["ID"].Value.ToString().ToLower();
                 var name = objMO.Properties["Name"].Value.ToString().ToLower();
-                if (id.Contains("72") || id.Contains("104"))
-                    return true;
-                else if (name.Contains("file server resource manager")
-                     || name.Contains("ressourcen-manager f?r dateiserver"))
-                    return true;
-            }
-
-            return false;
+                return id.Contains("72") || id.Contains("104")
+                    || name.Contains("file server resource manager")
+                    || name.Contains("ressourcen-manager f?r dateiserver");
+            });
         }
 
         public virtual void SetQuotaLimitOnFolder(string folderPath, string shareNameDrive, QuotaType quotaType, string quotaLimit, int mode, string wmiUserName, string wmiPassword)

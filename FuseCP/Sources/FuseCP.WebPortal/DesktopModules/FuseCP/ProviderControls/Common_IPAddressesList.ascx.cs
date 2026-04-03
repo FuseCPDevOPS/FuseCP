@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -43,12 +44,8 @@ namespace FuseCP.Portal.ProviderControls
                 string[] ips = sips.Split(',');
 
 
-                foreach (string ip in ips)
-                {
-                    ListItem li = CreateIPListItem(Utils.ParseInt(ip, 0));
-                    if (li != null)
-                        lbAddresses.Items.Add(li);
-                }
+                foreach (var li in ips.Select(ip => CreateIPListItem(Utils.ParseInt(ip, 0))).Where(li => li != null))
+                    lbAddresses.Items.Add(li);
             }
         }
 

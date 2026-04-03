@@ -2316,10 +2316,9 @@ namespace FuseCP.EnterpriseServer
             Hashtable plans = new Hashtable();
             foreach (HostingPlanInfo plan in packages
                 .Select(package => GetHostingPlan(package.PlanId))
-                .Where(plan => plan != null))
+                .Where(plan => plan != null && !plans.ContainsKey(plan.PlanId)))
             {
-                if (!plans.ContainsKey(plan.PlanId))
-                    plans.Add(plan.PlanId, plan);
+                plans.Add(plan.PlanId, plan);
             }
             items["Plans"] = plans;
 

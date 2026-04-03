@@ -20,6 +20,7 @@ using FuseCP.Providers.Virtualization;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -179,15 +180,8 @@ namespace FuseCP.Portal.VPS2012
             List<int> extIps = new List<int>();
             PackageIPAddress[] uips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
             List<string> ipAddresses = (List<string>)Session[sessionIpAddresses];
-            foreach (PackageIPAddress uip in uips)
-            {
-                foreach (string ip in ipAddresses)
-                    if (ip.Equals(uip.ExternalIP))
-                    {
-                        extIps.Add(uip.PackageAddressID);
-                        break;
-                    }
-            }
+            foreach (PackageIPAddress uip in uips.Where(uip => ipAddresses.Any(ip => ip.Equals(uip.ExternalIP))))
+                extIps.Add(uip.PackageAddressID);
             return extIps;
         }
 

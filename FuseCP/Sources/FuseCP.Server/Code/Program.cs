@@ -61,11 +61,8 @@ namespace FuseCP.Server
 		{
 			var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 			var versionMap = new Dictionary<string, Version>(StringComparer.OrdinalIgnoreCase);
-			foreach (var providerRoot in GetProviderProbeRoots())
+			foreach (var providerRoot in GetProviderProbeRoots().Where(Directory.Exists))
 			{
-				if (!Directory.Exists(providerRoot))
-					continue;
-
 				foreach (var file in Directory.EnumerateFiles(providerRoot, "*.dll", SearchOption.AllDirectories))
 				{
 					var name = Path.GetFileNameWithoutExtension(file);

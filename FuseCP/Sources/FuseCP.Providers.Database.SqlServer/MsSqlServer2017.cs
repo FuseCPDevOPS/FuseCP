@@ -30,21 +30,18 @@ namespace FuseCP.Providers.Database
 				.Concat(new string[] { Shell.Default.Find("sqlservr") })
 				.Where(exe => exe != null)
 				.Distinct();
-			foreach (var exe in processes) {
-				if (File.Exists(exe))
+			foreach (var exe in processes.Where(File.Exists)) {
+				try
 				{
-					try
+					var output = Shell.Default.ExecScript($"PAL_PROGRAM_INFO=1 {exe}").Output().Result;
+					var match = Regex.Match(output, @"^\s*Version\s+(?<version>[0-9][0-9.]+)", RegexOptions.Multiline);
+					if (match.Success)
 					{
-						var output = Shell.Default.ExecScript($"PAL_PROGRAM_INFO=1 {exe}").Output().Result;
-						var match = Regex.Match(output, @"^\s*Version\s+(?<version>[0-9][0-9.]+)", RegexOptions.Multiline);
-						if (match.Success)
-						{
-							var ver = match.Groups["version"].Value;
-							if (ver.StartsWith(version)) return true;
-						}
+						var ver = match.Groups["version"].Value;
+						if (ver.StartsWith(version)) return true;
 					}
-					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 				}
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 			}
 			return false;
 		}

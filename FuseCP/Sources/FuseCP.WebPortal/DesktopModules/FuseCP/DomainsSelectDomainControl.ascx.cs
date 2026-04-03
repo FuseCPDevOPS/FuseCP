@@ -158,37 +158,15 @@ namespace FuseCP.Portal
             // add "select" item
             ddlDomains.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectDomain"), ""));
 
-            foreach (DomainInfo domain in domains)
+            foreach (DomainInfo domain in domains.Where(domain =>
+                (!HideWebSites ||
+                    (domain.WebSiteId <= 0 && (htSites == null || htSites[domain.DomainName.ToLower()] == null)))
+                && (!HideMailDomainPointers || htMailDomainPointers[domain.DomainName.ToLower()] == null)
+                && (!HidePreviewDomain || !domain.IsPreviewDomain)
+                && (!HideMailDomains || domain.MailDomainId <= 0)
+                && (!HideDomainPointers || !domain.IsDomainPointer)
+                && (!HideDomainsSubDomains || domain.IsDomainPointer)))
             {
-                if (HideWebSites)
-                {
-                    if (domain.WebSiteId > 0)
-                    {
-                        continue;
-                    }
-
-                    if (htSites != null && htSites[domain.DomainName.ToLower()] != null)
-                    {
-                        continue;
-                    }
-                }
-
-
-                if (HideMailDomainPointers && htMailDomainPointers[domain.DomainName.ToLower()] != null)
-                {
-                    continue;
-                }
-
-                
-                if (HidePreviewDomain && domain.IsPreviewDomain)
-                    continue;
-                else if (HideMailDomains && domain.MailDomainId > 0)
-                    continue;
-                else if (HideDomainPointers && (domain.IsDomainPointer))
-                    continue;
-                else if (HideDomainsSubDomains && !(domain.IsDomainPointer))
-                    continue;
-
                 ddlDomains.Items.Add(new ListItem(domain.DomainName.ToLower(), domain.DomainId.ToString()));
             }
 

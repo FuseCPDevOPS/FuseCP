@@ -827,25 +827,23 @@ namespace FuseCP.Providers.Virtualization
                     Collection<PSObject> nodes = PowerShell.Execute(cmd, false, false);
                     int maxMemory = 0;
                     string maxMemoryHostName = null;
-                    foreach (PSObject node in nodes)
+                    foreach (var hvHost in nodes
+                        .Select(node => node.Members["Name"].Value.ToString())
+                        .Where(hvHost => !String.IsNullOrEmpty(hvHost)))
                     {
-                        string hvHost = node.Members["Name"].Value.ToString();
-                        if (!String.IsNullOrEmpty(hvHost))
+                        int freeMemory = 0; //TODO: potentially a future bug, because FreePhysicalMemory is int64, not int32
+                        try {
+                            freeMemory = Convert.ToInt32(GetSystemMemoryInfoInternal(hvHost).FreePhysicalKB);
+                        }
+                        catch (RuntimeException)
                         {
-                            int freeMemory = 0; //TODO: potentially a future bug, because FreePhysicalMemory is int64, not int32
-                            try {
-                                freeMemory = Convert.ToInt32(GetSystemMemoryInfoInternal(hvHost).FreePhysicalKB);
-                            }
-                            catch (RuntimeException)
-                            {
-                                _ = 0;
-                            }
+                            _ = 0;
+                        }
 
-                            if (freeMemory > maxMemory)
-                            {
-                                maxMemory = freeMemory;
-                                maxMemoryHostName = hvHost;
-                            }
+                        if (freeMemory > maxMemory)
+                        {
+                            maxMemory = freeMemory;
+                            maxMemoryHostName = hvHost;
                         }
                     }
 

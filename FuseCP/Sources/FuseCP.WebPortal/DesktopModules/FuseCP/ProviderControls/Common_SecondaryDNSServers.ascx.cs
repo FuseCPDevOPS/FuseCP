@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -57,14 +58,10 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string[] ids = sids.Split(',');
 
-                foreach (string id in ids)
+                foreach (var li in ids.Select(id => ddlService.Items.FindByValue(id)).Where(li => li != null))
                 {
-                    ListItem li = ddlService.Items.FindByValue(id);
-                    if (li != null)
-                    {
-                        ddlService.Items.Remove(li);
-                        lbServices.Items.Add(li);
-                    }
+                    ddlService.Items.Remove(li);
+                    lbServices.Items.Add(li);
                 }
             }
         }

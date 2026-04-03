@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FuseCP.Providers.HostedSolution;
@@ -193,9 +194,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             if (ExcludeAccountId > 0)
             {
                 List<OrganizationUser> updatedAccounts = new List<OrganizationUser>();
-                foreach (OrganizationUser account in accounts)
-                    if (account.AccountId != ExcludeAccountId)
-                        updatedAccounts.Add(account);
+                updatedAccounts.AddRange(accounts.Where(account => account.AccountId != ExcludeAccountId));
 
                 accounts = updatedAccounts.ToArray();
             }

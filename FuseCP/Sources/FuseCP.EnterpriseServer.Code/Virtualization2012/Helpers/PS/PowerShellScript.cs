@@ -96,9 +96,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                             VirtualMachine vmex = vs.GetVirtualMachineEx(vm.VirtualMachineId);
                             if (vmex.Adapters != null)
                             {
-                                foreach (var adapter in vmex.Adapters)
+                                foreach (var adapter in vmex.Adapters.Where(adapter => !(adapter == null || String.IsNullOrEmpty(adapter.MacAddress) || String.IsNullOrEmpty(nic.MacAddress))))
                                 {
-                                    if (adapter == null || String.IsNullOrEmpty(adapter.MacAddress) || String.IsNullOrEmpty(nic.MacAddress)) continue;
                                     string nicMac = nic.MacAddress.Replace("-", "");
                                     if (adapter.MacAddress.ToLower().Equals(nicMac.ToLower())) adapterName = "\"" + adapter.Name + "\"";
                                 }

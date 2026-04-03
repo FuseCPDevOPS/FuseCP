@@ -16,6 +16,7 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
@@ -234,13 +235,8 @@ namespace FuseCP.Portal
 		{
 			if (excludeControls != null)
 			{
-				foreach (Control exCtrl in excludeControls)
-				{
-					if (exCtrl != ctrl)
-						continue;
-
+				if (excludeControls.Any(exCtrl => exCtrl == ctrl))
 					return;
-				}
 			}
 
 			if (ctrl is ImageButton)

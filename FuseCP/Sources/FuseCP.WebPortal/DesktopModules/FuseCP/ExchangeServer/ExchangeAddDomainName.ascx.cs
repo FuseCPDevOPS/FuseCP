@@ -51,25 +51,9 @@ namespace FuseCP.Portal.ExchangeServer
                 }
             }
 
-            foreach (DomainInfo d in domains)
+            foreach (DomainInfo d in domains.Where(d => !d.IsDomainPointer && !list.Any(acceptedDomain => d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower())))
             {
-                if (!d.IsDomainPointer)
-                {
-                    bool bAdd = true;
-                    foreach (OrganizationDomainName acceptedDomain in list)
-                    {
-                        if (d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower())
-                        {
-                            bAdd = false;
-                            break;
-                        }
-
-                    }
-                    if (bAdd)
-                    {
-                        ddlDomains.Items.Add(d.DomainName.ToLower());
-                    }
-                }
+                ddlDomains.Items.Add(d.DomainName.ToLower());
             }
 
             if (ddlDomains.Items.Count == 0)

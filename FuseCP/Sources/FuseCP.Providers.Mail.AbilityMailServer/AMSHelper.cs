@@ -97,10 +97,9 @@ namespace FuseCP.Providers.Mail
                 {
 					foreach (string[] split in lines
 						.Where(line => line.StartsWith("accountpath"))
-						.Select(line => line.Split(new char[] { '=' })))
-                    {
-							if (split.Length < 2)
-								continue;
+						.Select(line => line.Split(new char[] { '=' }))
+						.Where(split => split.Length >= 2))
+                        {
                             if (Path.IsPathRooted(split[1]))
                             {
                                 if (String.Equals(split[1], "\\config\\accounts\\") && serverLocation != null)

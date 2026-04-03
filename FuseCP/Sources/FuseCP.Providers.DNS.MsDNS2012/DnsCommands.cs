@@ -226,13 +226,12 @@ namespace FuseCP.Providers.DNS
             List<DnsRecord> result = new List<DnsRecord>();
             foreach (DnsRecord record in records)
             {
-                bool add = true;
-                foreach (DnsRecord res in result)
+                if (!result.Any(res => res.RecordName.Equals(record.RecordName)
+                    && res.RecordType.Equals(record.RecordType)
+                    && res.RecordData.Equals(record.RecordData)))
                 {
-                    if (res.RecordName.Equals(record.RecordName) && res.RecordType.Equals(record.RecordType)
-                        && res.RecordData.Equals(record.RecordData)) add = false;
+                    result.Add(record);
                 }
-                if (add) result.Add(record);
             }
             return result.ToArray();
         }

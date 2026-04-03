@@ -25,6 +25,7 @@ using System.Text;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Linq;
 
 using FuseCP.EnterpriseServer;
 using FuseCP.Portal.SkinControls;
@@ -184,9 +185,8 @@ namespace FuseCP.Portal
         {
             string[] parts = str.Split(delimiter);
             ArrayList list = new ArrayList();
-            foreach (string part in parts)
-                if (part.Trim() != "" && !list.Contains(part.Trim()))
-                    list.Add(part);
+            foreach (string part in parts.Where(part => part.Trim() != "" && !list.Contains(part.Trim())))
+                list.Add(part);
             return (string[]) list.ToArray(typeof (string));
         }
 
@@ -311,11 +311,8 @@ namespace FuseCP.Portal
                 item.Selected = false;
 
             string[] vals = cookie.Value.Split(new char[] {','});
-            foreach (string val in vals)
-            {
-                ListItem item = ctrl.Items.FindByValue(val);
-                if (item != null) item.Selected = true;
-            }
+            foreach (ListItem item in vals.Select(val => ctrl.Items.FindByValue(val)).Where(item => item != null))
+                item.Selected = true;
         }
 
         public static string EllipsisString(string str, int maxLen)

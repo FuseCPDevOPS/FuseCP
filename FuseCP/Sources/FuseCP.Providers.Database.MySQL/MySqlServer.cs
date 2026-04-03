@@ -785,15 +785,8 @@ namespace FuseCP.Providers.Database
 			{
 				string[] lines = File.ReadAllLines(iniPath);
 				Regex re = new Regex(@"^datadir\s?=\s?\""?(?<path>[^\""\n]*)", RegexOptions.IgnoreCase);
-				foreach (string line in lines)
-				{
-					Match m = re.Match(line);
-					if (m.Success)
-					{
-						dataPath = m.Groups["path"].Value.Trim();
-						break;
-					}
-				}
+				var matchedDataPath = lines.Select(line => re.Match(line)).FirstOrDefault(m => m.Success);
+				if (matchedDataPath != null) dataPath = matchedDataPath.Groups["path"].Value.Trim();
 			}
 
 			if (String.IsNullOrEmpty(dataPath))

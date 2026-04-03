@@ -161,11 +161,8 @@ namespace FuseCP.Portal
             if (!string.IsNullOrWhiteSpace(exact))
                 return exact;
 
-            foreach (var key in form.AllKeys)
+            foreach (var key in form.AllKeys.Where(k => !string.IsNullOrEmpty(k)))
             {
-                if (string.IsNullOrEmpty(key))
-                    continue;
-
                 if (key.Equals(id, StringComparison.OrdinalIgnoreCase) ||
                     key.EndsWith("$" + id, StringComparison.OrdinalIgnoreCase) ||
                     key.EndsWith(":" + id, StringComparison.OrdinalIgnoreCase))

@@ -257,18 +257,11 @@ namespace FuseCP.Providers.OS
 
 		static Providers.OS.IOperatingSystem CreateOperatingSystem(params string[] typeNames)
 		{
-			foreach (var typeName in typeNames)
-			{
-				var type = Type.GetType(typeName);
-				if (type != null)
-				{
-					var instance = Activator.CreateInstance(type) as Providers.OS.IOperatingSystem;
-					if (instance != null)
-						return instance;
-				}
-			}
-
-			return null;
+			return typeNames
+				.Select(typeName => Type.GetType(typeName))
+				.Where(type => type != null)
+				.Select(type => Activator.CreateInstance(type) as Providers.OS.IOperatingSystem)
+				.FirstOrDefault(instance => instance != null);
 		}
 
 		static Providers.OS.IOperatingSystem os = null;

@@ -806,9 +806,8 @@ namespace FuseCP.EnterpriseServer
 			XDocument doc = XDocument.Parse(user.AdditionalParams ?? userAdditionalParamsTemplate);
 			XElement vlans = doc.Root.Element("VLans");
 			if (vlans != null)
-				foreach (XElement element in vlans.Elements("VLan"))
-					if (ushort.Parse(element.Attribute("VLanID").Value) == vLanId)
-						element.Remove();
+				foreach (XElement element in vlans.Elements("VLan").Where(element => ushort.Parse(element.Attribute("VLanID").Value) == vLanId).ToList())
+					element.Remove();
 
 			user.AdditionalParams = doc.ToString();
 			UpdateUser(user);

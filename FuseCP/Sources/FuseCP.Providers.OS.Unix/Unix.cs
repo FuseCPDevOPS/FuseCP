@@ -363,14 +363,12 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 		}
 		else
 		{
-			foreach (var e in Directory.EnumerateFileSystemEntries(UnixPath(path), "*.*", SearchOption.AllDirectories))
+			foreach (var info in Directory.EnumerateFileSystemEntries(UnixPath(path), "*.*", SearchOption.AllDirectories)
+				.Select(e => Mono.Unix.UnixFileSystemInfo.GetFileSystemEntry(e))
+				.Where(info => info != null && info.Exists))
 			{
-				var info = Mono.Unix.UnixFileSystemInfo.GetFileSystemEntry(e);
-				if (info != null && info.Exists)
-				{
-					info.SetOwner(owner, group);
-					info.Refresh();
-				}
+				info.SetOwner(owner, group);
+				info.Refresh();
 			}
 		}
 	}

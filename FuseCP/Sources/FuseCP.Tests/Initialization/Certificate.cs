@@ -71,17 +71,15 @@ namespace FuseCP.Tests
 			store.Open(OpenFlags.ReadWrite);
 			mystore.Open(OpenFlags.ReadWrite);
 			var certs = store.Certificates.Find(X509FindType.FindBySubjectName, "localhost", true);
-			foreach (var cert in certs)
+			foreach (var cert in certs.OfType<X509Certificate2>().Where(cert =>
+				!mystore.Certificates.OfType<X509Certificate2>()
+					.Any(c => c.Thumbprint == cert.Thumbprint)))
 			{
-				if (!mystore.Certificates.OfType<X509Certificate2>()
-					.Any(c => c.Thumbprint == cert.Thumbprint))
+				try
 				{
-					try
-					{
-						mystore.Add(cert);
-					}
-					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+					mystore.Add(cert);
 				}
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 			}
 
 			mystore.Close();
