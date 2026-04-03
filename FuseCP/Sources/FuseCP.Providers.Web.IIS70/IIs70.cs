@@ -779,7 +779,7 @@ namespace FuseCP.Providers.Web
 				virtualDir.PhpInstalled = PHP_5 + "|" + activePhp5Handler;
 				var versions = GetPhpVersions(srvman, virtualDir);
 				// This versionstring is used in UI to view and change php5 version.
-				var versionString = string.Join("|", versions.Select(v => v.HandlerName + ";" + v.Version).ToArray());
+				var versionString = string.Join("|", versions.Select(v => v.HandlerName + ";" + v.Version));
 				virtualDir.Php5VersionsInstalled = versionString;
 			}
 

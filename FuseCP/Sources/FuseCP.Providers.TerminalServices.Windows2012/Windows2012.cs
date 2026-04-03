@@ -798,7 +798,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (errors.Any())
                 {
-                    Log.WriteWarning(string.Format("{0} adding users errors: {1}", remoteApp.DisplayName, string.Join("\r\n", errors.Select(e => e.ToString()).ToArray())));
+                    Log.WriteWarning(string.Format("{0} adding users errors: {1}", remoteApp.DisplayName, string.Join("\r\n", errors.Select(e => e.ToString()))));
                 }
                 else
                 {
@@ -1061,7 +1061,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 }
                 else
                 {
-                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
                 }
             }
         }
@@ -1105,7 +1105,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 }
                 else
                 {
-                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
                 }
             }            
         }        
@@ -1641,8 +1641,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                     if (errors.Any())
                     {
-                        Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
-                        throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                        Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
+                        throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString())));
                     }
                 }
 
@@ -2974,8 +2974,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (errors.Any())
                 {
-                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
-                    throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
+                    throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString())));
                 }
             }
             finally
@@ -3000,8 +3000,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (errors.Any())
                 {
-                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
-                    throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                    Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
+                    throw new Exception(string.Join("\r\n", errors.Select(e => e.ToString())));
                 }
             }
             finally
@@ -3023,7 +3023,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (errors.Any())
             {
-                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
                 return result;
             }
 
@@ -3035,7 +3035,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (errors.Any())
             {
-                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
                 return result;
             }
 
@@ -3079,7 +3079,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (errors.Any())
             {
-                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString()).ToArray()));
+                Log.WriteWarning(string.Join("\r\n", errors.Select(e => e.ToString())));
                 return result;
             }            
 

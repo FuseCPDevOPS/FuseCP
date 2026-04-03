@@ -154,9 +154,9 @@ namespace FuseCP.EnterpriseServer
                     }
 
                     // build usage strings
-                    string usage = String.Join("\n", formatItems.ToArray());
-                    string usageWarning = String.Join("\n", formatWarningThreshold.ToArray());
-                    string usageOverused = String.Join("\n", formatOverusedThreshold.ToArray());
+                    string usage = String.Join("\n", formatItems);
+                    string usageWarning = String.Join("\n", formatWarningThreshold);
+                    string usageOverused = String.Join("\n", formatOverusedThreshold);
 
                     string warningMailSubjectProcessed = ReplaceVariables(warningMailSubject, usageWarning, usage, package.PackageName, userName);
                     string warningMailBodyProcessed = ReplaceVariables(warningMailBody, usageWarning, usage, package.PackageName, userName);

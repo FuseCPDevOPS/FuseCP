@@ -86,7 +86,7 @@ namespace FuseCP.Providers.Web
             }
             using RunspaceInvoke runspaceInvoke = new RunspaceInvoke();
             string str = (moduleImports.Any<string>() ? string.Format("import-module {0};", string.Join(",", moduleImports)) : string.Empty);
-            str = string.Format("{0};{1}", str, string.Join(";", scripts.ToArray()));
+            str = string.Format("{0};{1}", str, string.Join(";", scripts));
             ScriptBlock baseObject = runspaceInvoke.Invoke(string.Format("{{{0}}}", str))[0].BaseObject as ScriptBlock;
             command.Parameters.Add("ScriptBlock", baseObject);
             return this.ExecuteShellCommand(runSpace, command, false, out errors);

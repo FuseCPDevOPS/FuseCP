@@ -311,7 +311,7 @@ namespace FuseCP.Providers.Web
 			{
 				var hosts = b.Where(b2 => b2.Host != null);
 				var name = hosts.FirstOrDefault()?.Host;
-				var alias = string.Join(" ", hosts.Skip(1).Select(b2 => b2.Host).ToArray());
+				var alias = string.Join(" ", hosts.Skip(1).Select(b2 => b2.Host));
 				if (string.IsNullOrEmpty(alias)) alias = null;
 				var vhost = new VirtualHost()
 				{
