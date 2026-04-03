@@ -52,14 +52,9 @@ namespace FuseCP.Portal.ProviderControls
 			if (ipAddress.AddressId > 0)
 			{
 				IPAddressInfo address = ES.Services.Servers.GetIPAddress(ipAddress.AddressId);
-				if (String.IsNullOrEmpty(address.InternalIP))
-				{
-					settings["SharedIP"] = address.ExternalIP;
-				}
-				else
-				{
-					settings["SharedIP"] = address.InternalIP;
-				}
+                settings["SharedIP"] = String.IsNullOrEmpty(address.InternalIP)
+                    ? address.ExternalIP
+                    : address.InternalIP;
 			}
 			else
 			{

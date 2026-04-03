@@ -213,12 +213,11 @@ namespace FuseCP.Portal.Proxmox
             labErrorsEncountered.Text = vmReplicaInfo.Errors.ToString();
 
             var totalCycles = vmReplicaInfo.SuccessfulReplications + vmReplicaInfo.MissedReplicationCount;
-            if (totalCycles > 0)
-                labSuccessfulReplicationCycles.Text = string.Format(cyclesTemplate,
+            labSuccessfulReplicationCycles.Text = totalCycles > 0
+                ? string.Format(cyclesTemplate,
                     vmReplicaInfo.SuccessfulReplications, totalCycles,
-                    Convert.ToInt32(100*vmReplicaInfo.SuccessfulReplications/totalCycles));
-            else
-                labSuccessfulReplicationCycles.Text = na;
+                    Convert.ToInt32(100*vmReplicaInfo.SuccessfulReplications/totalCycles))
+                : na;
 
             // pending replication
             labSizeData.Text = vmReplicaInfo.PendingSize;

@@ -53,14 +53,9 @@ namespace FuseCP.Portal.ProviderControls
             if (ddlCrmIpAddress.AddressId > 0)
 			{
 				IPAddressInfo address = ES.Services.Servers.GetIPAddress(ddlCrmIpAddress.AddressId);
-                if (String.IsNullOrEmpty(address.ExternalIP))
-				{
-                    settings[Constants.CRMWebsiteIP] = address.InternalIP;
-				}
-				else
-				{
-                    settings[Constants.CRMWebsiteIP] = address.ExternalIP;
-				}
+                settings[Constants.CRMWebsiteIP] = String.IsNullOrEmpty(address.ExternalIP)
+                    ? address.InternalIP
+                    : address.ExternalIP;
 			}
 			else
 			{

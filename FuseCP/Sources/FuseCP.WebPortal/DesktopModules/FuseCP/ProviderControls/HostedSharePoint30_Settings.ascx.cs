@@ -55,14 +55,9 @@ namespace FuseCP.Portal.ProviderControls
             if (ddlRootWebApplicationIpAddress.AddressId > 0)
             {
                 IPAddressInfo address = ES.Services.Servers.GetIPAddress(ddlRootWebApplicationIpAddress.AddressId);
-                if (String.IsNullOrEmpty(address.ExternalIP))
-                {
-                    settings["RootWebApplicationIpAddress"] = address.InternalIP;
-                }
-                else
-                {
-                    settings["RootWebApplicationIpAddress"] = address.ExternalIP;
-                }
+                settings["RootWebApplicationIpAddress"] = String.IsNullOrEmpty(address.ExternalIP)
+                    ? address.InternalIP
+                    : address.ExternalIP;
 
                 if (!String.IsNullOrEmpty(address.InternalIP))
                     settings["RootWebApplicationInteralIpAddress"] = address.InternalIP;

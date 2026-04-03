@@ -156,20 +156,11 @@ namespace FuseCP.Portal.ReportingServices
 		/// </remarks>
 		public virtual string GetLocalizedResourceString(string localizationId)
 		{
-			String localizedString = String.Empty;
-
-			if (String.IsNullOrEmpty(this.reportIdentifier))
-			{
-				localizedString = this.resourceStorage.GetString(localizationId);
-			}
-			else
-			{
-				localizedString = this.resourceStorage.GetString(
+			return String.IsNullOrEmpty(this.reportIdentifier)
+				? this.resourceStorage.GetString(localizationId)
+				: this.resourceStorage.GetString(
 					String.Format("{0}.{1}", this.reportIdentifier, localizationId)
 				);
-			}
-
-			return localizedString;
 		}
 		#endregion
 
