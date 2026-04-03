@@ -1808,79 +1808,88 @@ namespace FuseCP.EnterpriseServer
 				// restore accounts
 				foreach (XmlNode accountNode in itemNode.SelectNodes("MailAccount"))
 				{
-					using var accountNodeReader = new XmlNodeReader(accountNode);
-					MailAccount account = (MailAccount)accountSerializer.Deserialize(accountNodeReader);
-
-					if (!mail.AccountExists(account.Name))
+					var accountNodeReader = new XmlNodeReader(accountNode);
+					using (accountNodeReader)
 					{
-						account.Password = CryptoUtils.Decrypt(account.Password);
-						mail.CreateAccount(account);
+						MailAccount account = (MailAccount)accountSerializer.Deserialize(accountNodeReader);
 
-						// restore password
-						account.Password = CryptoUtils.Encrypt(account.Password);
-					}
+						if (!mail.AccountExists(account.Name))
+						{
+							account.Password = CryptoUtils.Decrypt(account.Password);
+							mail.CreateAccount(account);
 
-					// add meta-item if required
-					if (account.DeleteOnForward
-						&& PackageController.GetPackageItemByName(packageId, account.Name, typeof(MailAlias)) == null)
-					{
-						MailAlias forw = new MailAlias();
-						forw.PackageId = packageId;
-						forw.ServiceId = serviceId;
-						forw.Name = account.Name;
-						PackageController.AddPackageItem(forw);
-					}
-					else if (!account.DeleteOnForward
-						&& PackageController.GetPackageItemByName(packageId, account.Name, typeof(MailAccount)) == null)
-					{
-						account.PackageId = packageId;
-						account.ServiceId = serviceId;
-						PackageController.AddPackageItem(account);
+							// restore password
+							account.Password = CryptoUtils.Encrypt(account.Password);
+						}
+
+						// add meta-item if required
+						if (account.DeleteOnForward
+							&& PackageController.GetPackageItemByName(packageId, account.Name, typeof(MailAlias)) == null)
+						{
+							MailAlias forw = new MailAlias();
+							forw.PackageId = packageId;
+							forw.ServiceId = serviceId;
+							forw.Name = account.Name;
+							PackageController.AddPackageItem(forw);
+						}
+						else if (!account.DeleteOnForward
+							&& PackageController.GetPackageItemByName(packageId, account.Name, typeof(MailAccount)) == null)
+						{
+							account.PackageId = packageId;
+							account.ServiceId = serviceId;
+							PackageController.AddPackageItem(account);
+						}
 					}
 				}
 
 				// restore groups
 				foreach (XmlNode groupNode in itemNode.SelectNodes("MailGroup"))
 				{
-					using var groupNodeReader = new XmlNodeReader(groupNode);
-					MailGroup mailGroup = (MailGroup)groupSerializer.Deserialize(groupNodeReader);
-
-					if (!mail.GroupExists(mailGroup.Name))
+					var groupNodeReader = new XmlNodeReader(groupNode);
+					using (groupNodeReader)
 					{
-						mail.CreateGroup(mailGroup);
-					}
+						MailGroup mailGroup = (MailGroup)groupSerializer.Deserialize(groupNodeReader);
 
-					// add meta-item if required
-					if (PackageController.GetPackageItemByName(packageId, mailGroup.Name, typeof(MailGroup)) == null)
-					{
-						mailGroup.PackageId = packageId;
-						mailGroup.ServiceId = serviceId;
-						PackageController.AddPackageItem(mailGroup);
+						if (!mail.GroupExists(mailGroup.Name))
+						{
+							mail.CreateGroup(mailGroup);
+						}
+
+						// add meta-item if required
+						if (PackageController.GetPackageItemByName(packageId, mailGroup.Name, typeof(MailGroup)) == null)
+						{
+							mailGroup.PackageId = packageId;
+							mailGroup.ServiceId = serviceId;
+							PackageController.AddPackageItem(mailGroup);
+						}
 					}
 				}
 
 				// restore lists
 				foreach (XmlNode listNode in itemNode.SelectNodes("MailList"))
 				{
-					using var listNodeReader = new XmlNodeReader(listNode);
-					MailList list = (MailList)listSerializer.Deserialize(listNodeReader);
-
-					if (!mail.ListExists(list.Name))
+					var listNodeReader = new XmlNodeReader(listNode);
+					using (listNodeReader)
 					{
-						list.Password = CryptoUtils.Decrypt(list.Password);
+						MailList list = (MailList)listSerializer.Deserialize(listNodeReader);
 
-						mail.CreateList(list);
+						if (!mail.ListExists(list.Name))
+						{
+							list.Password = CryptoUtils.Decrypt(list.Password);
 
-						// restore password
-						list.Password = CryptoUtils.Encrypt(list.Password);
-					}
+							mail.CreateList(list);
 
-					// add meta-item if required
-					if (PackageController.GetPackageItemByName(packageId, list.Name, typeof(MailList)) == null)
-					{
-						list.PackageId = packageId;
-						list.ServiceId = serviceId;
-						PackageController.AddPackageItem(list);
+							// restore password
+							list.Password = CryptoUtils.Encrypt(list.Password);
+						}
+
+						// add meta-item if required
+						if (PackageController.GetPackageItemByName(packageId, list.Name, typeof(MailList)) == null)
+						{
+							list.PackageId = packageId;
+							list.ServiceId = serviceId;
+							PackageController.AddPackageItem(list);
+						}
 					}
 				}
 			}

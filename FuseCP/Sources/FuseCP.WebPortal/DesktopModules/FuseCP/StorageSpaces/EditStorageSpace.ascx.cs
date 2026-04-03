@@ -208,9 +208,8 @@ namespace FuseCP.Portal.StorageSpaces
 
             var folders = ES.Services.StorageSpaces.GetSystemSubFolders(Utils.ParseInt(ddlStorageService.SelectedValue), path);
 
-            foreach (var folder in folders)
+            foreach (var newNode in folders.Select(folder => CreateNode(folder.Name.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).Last(), folder.Name, false, true, true)))
             {
-                var newNode = CreateNode(folder.Name.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).Last(), folder.Name, false, true, true);
 
                 subHeadingNode.ChildNodes.Add(newNode);
             }

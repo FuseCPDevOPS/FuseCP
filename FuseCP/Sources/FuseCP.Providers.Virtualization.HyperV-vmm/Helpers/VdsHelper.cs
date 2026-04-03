@@ -127,8 +127,9 @@ exit", Convert.ToInt32(objDisk["Index"])));
             // find volumes using VDS
             List<string> volumes = new List<string>();
             HostedSolutionLog.LogInfo("Querying disk volumes with VDS");
-            foreach (Volume volume in diskPack.Volumes)
+            foreach (object volumeObj in diskPack.Volumes)
             {
+                dynamic volume = volumeObj;
                 string letter = volume.DriveLetter.ToString();
                 if (letter != "")
                     volumes.Add(letter);

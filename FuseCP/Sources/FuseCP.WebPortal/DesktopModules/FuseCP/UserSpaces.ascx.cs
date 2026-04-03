@@ -150,8 +150,8 @@ namespace FuseCP.Portal
             // get icons list
             foreach (XmlNode xmlNode in xmlIcons)
             {
-                // create icon item
                 MenuItem iconItem = CreateMenuItem(cntx, xmlNode);
+                // create icon item
                 if (iconItem == null)
                     continue;
 

@@ -92,12 +92,7 @@ namespace FuseCP.Portal
 			List<UserInfo> users = GetRecentlySwitchedUsersInternal();
 
 			// check if the user exists
-			UserInfo existUser = null;
-			foreach (UserInfo user in users.Where(user => user.UserId == userId))
-			{
-					existUser = user;
-					break;
-			}
+			UserInfo existUser = users.FirstOrDefault(user => user.UserId == userId);
 
 			if (existUser != null)
 			{

@@ -96,11 +96,13 @@ namespace FuseCP.EnterpriseServer.Data
 				.Sum(stream => stream.Length);
 			var mem = new MemoryStream((int)length + 512);
 			using var writer = new StreamWriter(mem, Encoding.UTF8);
-			foreach (var stream in streams)
+			foreach (var reader in streams.Select(stream => new StreamReader(stream)))
 			{
-				using var reader = new StreamReader(stream);
-				var text = reader.ReadToEnd();
-				writer.WriteLine(text);
+				using (reader)
+				{
+					var text = reader.ReadToEnd();
+					writer.WriteLine(text);
+				}
 			}
 			writer.Flush();
 			mem.Position = 0;

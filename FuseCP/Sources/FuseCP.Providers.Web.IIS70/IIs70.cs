@@ -855,9 +855,8 @@ namespace FuseCP.Providers.Web
 				// cleanup app pools
 				using (var srvman = webObjectsSvc.GetServerManager())
 				{
-					foreach (var item in dedicatedPools)
+					foreach (string poolName in dedicatedPools.Select(item => WSHelper.InferAppPoolName(item.Name, siteName, item.Mode)))
 					{
-						string poolName = WSHelper.InferAppPoolName(item.Name, siteName, item.Mode);
 						//
 						ApplicationPool pool = srvman.ApplicationPools[poolName];
 						if (pool == null)
@@ -1479,11 +1478,10 @@ namespace FuseCP.Providers.Web
 			if (appPoolFlagChanged)
 			{
 				WebAppVirtualDirectory[] dirs = GetAppVirtualDirectories(site.SiteId);
-				foreach (WebAppVirtualDirectory dir in dirs)
+				foreach (WebAppVirtualDirectory vdir in dirs.Select(dir => GetAppVirtualDirectory(site.SiteId, dir.Name)))
 				{
 					// set dedicated pool flag
 					//dir.DedicatedApplicationPool = site.DedicatedApplicationPool;
-					WebAppVirtualDirectory vdir = GetAppVirtualDirectory(site.SiteId, dir.Name);
 					vdir.AspNetInstalled = site.AspNetInstalled;
 					vdir.ApplicationPool = site.ApplicationPool;
 					// update iisDirObject

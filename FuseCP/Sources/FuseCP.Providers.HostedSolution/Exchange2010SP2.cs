@@ -701,9 +701,8 @@ namespace FuseCP.Providers.HostedSolution
 						databases = ExecuteShellCommand(runSpace, cmd);
 
 						// do not check "IsExcludedFromProvisioning" or "IsSuspended", just check if it is a member of the DAG
-						foreach (PSObject objDatabase in databases)
+						foreach (string dagSetting in databases.Select(objDatabase => ObjToString(GetPSObjectProperty(objDatabase, "MasterServerOrAvailabilityGroup"))))
 						{
-							string dagSetting = ObjToString(GetPSObjectProperty(objDatabase, "MasterServerOrAvailabilityGroup"));
 							if (dagNameDAG.Equals(dagSetting, StringComparison.OrdinalIgnoreCase))
 							{
 								lstDatabase.Add(dagNameMBX);

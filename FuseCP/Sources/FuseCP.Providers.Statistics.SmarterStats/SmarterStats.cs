@@ -381,9 +381,8 @@ namespace FuseCP.Providers.Statistics
             {
                 names = key.GetSubKeyNames();
 
-                foreach (string s in names)
+                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 
                     if (subkey != null)
                     {

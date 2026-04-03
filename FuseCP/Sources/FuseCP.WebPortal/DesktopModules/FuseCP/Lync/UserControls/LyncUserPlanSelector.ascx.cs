@@ -34,14 +34,11 @@ namespace FuseCP.Portal.Lync.UserControls
             set
             {
                 planToSelect = value;
-                foreach(ListItem li in ddlPlan.Items)
+                ListItem selectedPlan = ddlPlan.Items.Cast<ListItem>().FirstOrDefault(li => li.Value == value);
+                if (selectedPlan != null)
                 {
-                    if (li.Value == value)
-                    {
-                        ddlPlan.ClearSelection();
-                        li.Selected = true;
-                        break;
-                    }
+                    ddlPlan.ClearSelection();
+                    selectedPlan.Selected = true;
                 }
             }
         }
@@ -76,23 +73,18 @@ namespace FuseCP.Portal.Lync.UserControls
 		{
             FuseCP.Providers.HostedSolution.LyncUserPlan[] plans = ES.Services.Lync.GetLyncUserPlans(PanelRequest.ItemID);
 
-            foreach (FuseCP.Providers.HostedSolution.LyncUserPlan local_plan in plans)
-			{
-				ListItem li = new ListItem();
-                li.Text = local_plan.LyncUserPlanName;
-                li.Value = local_plan.LyncUserPlanId.ToString();
-                li.Selected = local_plan.IsDefault;
-                ddlPlan.Items.Add(li);
-			}
-
-            foreach (ListItem li in ddlPlan.Items)
+            ddlPlan.Items.AddRange(plans.Select(localPlan => new ListItem
             {
-                if (li.Value == planToSelect)
-                {
-                    ddlPlan.ClearSelection();
-                    li.Selected = true;
-                    break;
-                }
+                Text = localPlan.LyncUserPlanName,
+                Value = localPlan.LyncUserPlanId.ToString(),
+                Selected = localPlan.IsDefault
+            }).ToArray());
+
+            ListItem selectedPlan = ddlPlan.Items.Cast<ListItem>().FirstOrDefault(li => li.Value == planToSelect);
+            if (selectedPlan != null)
+            {
+                ddlPlan.ClearSelection();
+                selectedPlan.Selected = true;
             }
 
 		}

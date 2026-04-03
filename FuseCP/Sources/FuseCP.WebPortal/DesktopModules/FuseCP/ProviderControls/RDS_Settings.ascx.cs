@@ -156,14 +156,10 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (string.IsNullOrEmpty(data))
                 return null;
-            List<GWServer> list = new List<GWServer>();
-            string[] serversNames = data.Split(';');
-            foreach (string current in serversNames)
-            {
-                list.Add(new GWServer { ServerName = current });
-            }
-
-            return list;
+            return data
+                .Split(';')
+                .Select(current => new GWServer { ServerName = current })
+                .ToList();
         }
 
         private void UpdateLyncServersGrid()

@@ -80,8 +80,11 @@ namespace FuseCP.Portal.ProviderControls
             ddl.Items.Clear();
             DataView dvServices =
                 ES.Services.Servers.GetRawServicesByGroupName(ResourceGroups.OCS).Tables[0].DefaultView;
-            foreach (DataRowView dr in dvServices.Cast<DataRowView>().Where(dr => dr["ProviderName"].ToString() == OCSConstants.ProviderName))
+            foreach (DataRowView dr in dvServices)
             {
+                if (dr["ProviderName"].ToString() != OCSConstants.ProviderName)
+                    continue;
+
                 int serviceId = (int) dr["ServiceID"];
                 ServiceInfo[] services = GetEDGEServices();
                 bool exists = services != null && services.Any(current => current.ServiceId == serviceId);

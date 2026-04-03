@@ -61,9 +61,8 @@ namespace FuseCP.AWStats.Viewer
 					if(key.ToLower() == "siteusers")
 					{
 						pairs = line.Substring(idx + 1).Trim().Split(';');
-						foreach(string pair in pairs)
+						foreach (string[] credentials in pairs.Select(pair => pair.Split('=')))
 						{
-							string[] credentials = pair.Split('=');
 							if(String.Compare(credentials[0], username, true) == 0)
 							{
 								// check password

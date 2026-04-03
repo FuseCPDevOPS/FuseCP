@@ -781,8 +781,9 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     }
 
                     // parse XML
-                    foreach (XmlNodeList xmlHandlers in xmlConfigs.Select(xml => xml.SelectNodes("//handler")))
+                    foreach (XmlDocument xmlConfig in xmlConfigs)
                     {
+                        XmlNodeList xmlHandlers = xmlConfig.SelectNodes("//handler");
                         foreach (XmlNode xmlHandler in xmlHandlers)
                         {
                             string keyName = xmlHandler.ParentNode.Attributes["source"].Value

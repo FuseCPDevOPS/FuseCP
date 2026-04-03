@@ -419,10 +419,19 @@ namespace CSSFriendly
                         CommandEventArgs cmdArgs = null;
                         String[] prefixes = { "ChangePassword", "Cancel", "Continue" };
                         String[] postfixes = { "PushButton", "Image", "Link" };
-                        foreach (string prefix in prefixes.Where(prefix => postfixes
-                            .Select(postfix => container.FindControl(prefix + postfix))
-                            .Any(ctrl => (ctrl != null) && (!String.IsNullOrEmpty(Page.Request.Params.Get(ctrl.UniqueID))))))
+                        foreach (string prefix in prefixes)
                         {
+                            bool hasSubmittedControl = postfixes.Any(postfix =>
+                            {
+                                Control ctrl = container.FindControl(prefix + postfix);
+                                return (ctrl != null) && (!String.IsNullOrEmpty(Page.Request.Params.Get(ctrl.UniqueID)));
+                            });
+
+                            if (!hasSubmittedControl)
+                            {
+                                continue;
+                            }
+
                             if (cmdArgs != null)
                             {
                                 break;

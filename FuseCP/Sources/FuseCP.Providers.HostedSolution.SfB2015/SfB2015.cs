@@ -831,9 +831,8 @@ namespace FuseCP.Providers.HostedSolution
                         Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
                         if ((result != null) && (result.Count > 0))
                         {
-                            foreach (PSObject res in result)
+                            foreach (string Identity in result.Select(res => GetPSObjectProperty(res, "Identity").ToString()))
                             {
-                                string Identity = GetPSObjectProperty(res, "Identity").ToString();
                                 ret.Add(Identity);
                             }
                         }

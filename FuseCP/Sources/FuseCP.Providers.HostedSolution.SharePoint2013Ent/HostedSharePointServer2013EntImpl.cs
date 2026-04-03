@@ -498,9 +498,8 @@ namespace FuseCP.Providers.HostedSolution
 
                 if (result != null)
                 {
-                    foreach (PSObject psObject in result)
+                    foreach (var spSite in result.Select(psObject => psObject.BaseObject as SPSite))
                     {
-                        var spSite = psObject.BaseObject as SPSite;
 
                         if (spSite != null)
                         {

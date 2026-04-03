@@ -38,9 +38,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                 string xml = settings["PsScript"];
                 var config = new ConfigFile(xml);
                 LibraryItem[] scripts = config.LibraryItems;
-                foreach (LibraryItem item in scripts.Where(item => !String.IsNullOrEmpty(item.Name) && !String.IsNullOrEmpty(item.Description) && item.Name.Equals(point.ToString())))
+                foreach (string script in scripts.Where(item => !String.IsNullOrEmpty(item.Name) && !String.IsNullOrEmpty(item.Description) && item.Name.Equals(point.ToString())).Select(item => PreparePsScript(item.Description, vm)))
                 {
-                        string script = PreparePsScript(item.Description, vm);
                         VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
                         if (vs != null) vs.ExecuteCustomPsScript(script);
                 }

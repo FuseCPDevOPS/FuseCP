@@ -498,9 +498,8 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 				//
 				DNSZone dnsZone = cn.GetZone(zoneName);
 				//
-				foreach (DNSRecord record in dnsZone.Records)
+				foreach (DnsRecord zoneRecord in dnsZone.Records.Select(record => ConvertToNative(record, zoneName)))
 				{
-					DnsRecord zoneRecord = ConvertToNative(record, zoneName);
 					if (zoneRecord != null && zoneRecord.RecordType != DnsRecordType.SOA
 						&& zoneRecord.RecordType != DnsRecordType.Other)
 						dnsRecords.Add(zoneRecord);
@@ -765,9 +764,8 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
             {
                 String[] names = key.GetSubKeyNames();
 
-                foreach (string s in names)
+                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -795,9 +793,8 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 
                 names = key.GetSubKeyNames();
 
-                foreach (string s in names)
+                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");

@@ -1503,9 +1503,8 @@ namespace FuseCP.Providers.Virtualization
 
                         bool hasExternalPort = false;
 
-                        foreach (CimInstance port in switchPorts)
+                        foreach (string portName in switchPorts.Select(port => port.CimInstanceProperties["ElementName"]?.Value?.ToString()))
                         {
-                            string portName = port.CimInstanceProperties["ElementName"]?.Value?.ToString();
                             if (!string.IsNullOrEmpty(portName) && portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase))
                             {
                                 hasExternalPort = true;

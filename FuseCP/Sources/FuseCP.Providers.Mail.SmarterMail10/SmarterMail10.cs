@@ -734,9 +734,8 @@ namespace FuseCP.Providers.Mail
 		{
 			List<string> settings = new List<string>();
 
-			foreach (string pair in defaultSettings)
+			foreach (string[] parts in defaultSettings.Select(pair => pair.Split('=')))
 			{
-				string[] parts = pair.Split('=');
 				switch (parts[0])
 				{
 					case "defaultaltsmtpport":
@@ -1669,9 +1668,8 @@ namespace FuseCP.Providers.Mail
 
 		private void SetMailListSettings(MailList list, string[] smSettings)
 		{
-			foreach (string setting in smSettings)
+			foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
 			{
-				string[] bunch = setting.Split(new char[] { '=' });
 
 				switch (bunch[0])
 				{
@@ -1923,9 +1921,8 @@ namespace FuseCP.Providers.Mail
 
 				SubscriberListResult subsribersResult = lists.GetSubscriberList(AdminUsername, AdminPassword, domain, account);
 
-				foreach (string member in subsribersResult.Subscribers)
+				foreach (GenericResult memberResult in subsribersResult.Subscribers.Select(member => lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member)))
 				{
-					GenericResult memberResult = lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member);
 					if (!memberResult.Result)
 					{
 						throw new Exception(memberResult.Message);
@@ -2021,9 +2018,8 @@ namespace FuseCP.Providers.Mail
             {
                 names = key.GetSubKeyNames();
 
-                foreach (string s in names)
+                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -2060,9 +2056,8 @@ namespace FuseCP.Providers.Mail
 
             names = key.GetSubKeyNames();
 
-            foreach (string s in names)
+            foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
             {
-                RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 				if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 				{
 					productName = (string)subkey.GetValue("DisplayName");

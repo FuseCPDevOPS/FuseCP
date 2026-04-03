@@ -881,9 +881,8 @@ namespace FuseCP.Providers.Virtualization
 
             if (objSnapshots != null)
             {
-                foreach (ManagementBaseObject objSnapshot in objSnapshots)
+                foreach (VirtualMachineSnapshot snapshot in objSnapshots.Select(objSnapshot => CreateSnapshotFromWmiObject(objSnapshot)))
                 {
-                    VirtualMachineSnapshot snapshot = CreateSnapshotFromWmiObject(objSnapshot);
                     snapshot.IsCurrent = (runningSnapshot.ParentId == snapshot.Id);
                     snapshots.Add(snapshot);
                 }
@@ -1574,8 +1573,9 @@ exit", Convert.ToInt32(objDisk["Index"])));
 
                 // find volumes using VDS
                 Log.WriteInfo("Querying disk volumes with VDS");
-                foreach (Vds.Volume volume in diskPack.Volumes)
+                foreach (object volumeObj in diskPack.Volumes)
                 {
+                    dynamic volume = volumeObj;
                     string letter = volume.DriveLetter.ToString();
                     if(letter != "")
                         volumes.Add(letter);

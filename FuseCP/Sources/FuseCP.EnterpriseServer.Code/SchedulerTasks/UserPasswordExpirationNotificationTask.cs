@@ -46,9 +46,8 @@ namespace FuseCP.EnterpriseServer
 
             var packages = PackageController.GetMyPackages(topTask.EffectiveUserId);
 
-            foreach (var package in packages)
+            foreach (var organizations in packages.Select(package => ExchangeServerController.GetExchangeOrganizations(package.PackageId, true)))
             {
-                var organizations = ExchangeServerController.GetExchangeOrganizations(package.PackageId, true);
                 
                 foreach (var organization in organizations)
                 {

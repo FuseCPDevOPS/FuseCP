@@ -639,7 +639,7 @@ namespace CSSFriendly
         {
             if ((item != null) && (item.Parent != null))
             {
-                return item.Parent.Selected || IsParentNodeSelected(item.Parent);
+                return item.Parent.Selected == true || IsParentNodeSelected(item.Parent);
             }
 
             return false;

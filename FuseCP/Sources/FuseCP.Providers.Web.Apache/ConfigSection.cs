@@ -604,9 +604,8 @@ namespace FuseCP.Providers.Web.Apache
 
 
 				});
-			foreach (var file in files.Where(file => File.Exists(file)))
+			foreach (var include in files.Where(file => File.Exists(file)).Select(file => new IncludeFile(file)))
 			{
-					var include = new IncludeFile(file);
 					Add(include);
 					include.Include();
 			}

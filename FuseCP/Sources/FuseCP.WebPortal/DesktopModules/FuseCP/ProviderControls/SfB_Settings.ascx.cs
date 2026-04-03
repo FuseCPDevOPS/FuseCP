@@ -88,16 +88,10 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (string.IsNullOrEmpty(data))
                 return null;
-            List<ServiceInfo> list = new List<ServiceInfo>();
-            string[] servicesIds = data.Split(',');
-            foreach (string current in servicesIds)
-            {
-                ServiceInfo serviceInfo = ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current));
-                list.Add(serviceInfo);
-            }
-
-
-            return list;
+            return data
+                .Split(',')
+                .Select(current => ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current)))
+                .ToList();
         }
 
         private void UpdateSfBServersGrid()

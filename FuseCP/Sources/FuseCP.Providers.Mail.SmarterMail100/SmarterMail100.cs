@@ -389,7 +389,7 @@ HttpClient client = CreateHttpClient();
 
 				foreach (dynamic domain in result["data"])
                 {
-					string domainName = domain["name"].ToString(); 
+					string domainName = domain["name"].ToString();
 					domainNames.Add(domainName);
 				}
 
@@ -642,7 +642,7 @@ HttpClient client = CreateHttpClient();
 
 				if (result["domainAliasData"] != null)
 				{
-                    foreach (dynamic domain in result["domainAliasData"])
+		    foreach (dynamic domain in result["domainAliasData"])
 					{
 						string domainAliasName = domain["name"].ToString();
 						domainAliasNames.Add(domainAliasName);
@@ -2005,9 +2005,9 @@ HttpClient client = CreateHttpClient();
                             if (!listSubscribersuccess)
                                 throw new Exception(listSubscriberresult["message"]);
 
-                            foreach (dynamic item in listSubscriberresult["items"])
+							foreach (dynamic item in listSubscriberresult["items"])
                             {
-								string itememail = item["emailAddress"].ToString();
+																string itememail = item["emailAddress"].ToString();
 								members.Add(itememail);
 								
 							}
@@ -2150,9 +2150,8 @@ HttpClient client = CreateHttpClient();
 
 		private void SetMailListSettings(MailList list, string[] smSettings)
 		{
-			foreach (string setting in smSettings)
+			foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
 			{
-				string[] bunch = setting.Split(new char[] { '=' });
 
 				switch (bunch[0])
 				{
@@ -2393,9 +2392,8 @@ HttpClient client = CreateHttpClient();
             {
                 names = key.GetSubKeyNames();
 
-                foreach (string s in names)
+                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -2432,9 +2430,8 @@ HttpClient client = CreateHttpClient();
 
             names = key.GetSubKeyNames();
 
-            foreach (string s in names)
+            foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
             {
-                RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 				if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 				{
 					productName = (string)subkey.GetValue("DisplayName");

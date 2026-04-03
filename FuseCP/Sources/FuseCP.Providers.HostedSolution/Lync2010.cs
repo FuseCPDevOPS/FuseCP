@@ -438,9 +438,8 @@ namespace FuseCP.Providers.HostedSolution
 					cmd = new Command("Get-CsSipDomain");
 					Collection<PSObject> sipDomains = ExecuteShellCommand(runSpace, cmd, false);
 
-					foreach (PSObject domain in sipDomains)
+					foreach (string d in sipDomains.Select(domain => (string)GetPSObjectProperty(domain, "Name")))
 					{
-						string d = (string)GetPSObjectProperty(domain, "Name");
 						if (d.ToLower() == tmp[1].ToLower())
 						{
 							bSipDomainExists = true;
@@ -619,9 +618,8 @@ namespace FuseCP.Providers.HostedSolution
 					cmd = new Command("Get-CsSipDomain");
 					Collection<PSObject> sipDomains = ExecuteShellCommand(runSpace, cmd, false);
 
-					foreach (PSObject domain in sipDomains)
+					foreach (string d in sipDomains.Select(domain => (string)GetPSObjectProperty(domain, "Name")))
 					{
-						string d = (string)GetPSObjectProperty(domain, "Name");
 						if (d.ToLower() == tmp[1].ToLower())
 						{
 							bSipDomainExists = true;
@@ -991,9 +989,8 @@ namespace FuseCP.Providers.HostedSolution
 						Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
 						if ((result != null) && (result.Count > 0))
 						{
-							foreach (PSObject res in result)
+							foreach (string Identity in result.Select(res => GetPSObjectProperty(res, "Identity").ToString()))
 							{
-								string Identity = GetPSObjectProperty(res, "Identity").ToString();
 								ret.Add(Identity);
 							}
 						}

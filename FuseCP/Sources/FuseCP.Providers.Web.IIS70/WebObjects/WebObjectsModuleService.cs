@@ -335,10 +335,9 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             using (var srvman = GetServerManager())
             {
                 //
-                foreach (var poolName in appPoolNames)
+                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])))
                 {
                     // Lookup for an app pool
-                    int indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName]);
                     // Remove app pool if it is found
                     if (indexOf > -1)
                         srvman.ApplicationPools.RemoveAt(indexOf);
@@ -352,9 +351,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
         {
             using (var srvman = GetServerManager())
             {
-                foreach (var item in appPoolNames)
+                foreach (var indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])))
                 {
-                    var indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item]);
                     //
                     if (indexOf > -1)
                         srvman.ApplicationPools.RemoveAt(indexOf);
@@ -570,9 +568,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     }
 
 					// Create HTTP bindings received
-					foreach (var serverBinding in bindings)
+					foreach (var bindingInformation in bindings.Select(serverBinding => String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host)))
                         {
-                            var bindingInformation = String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host);
                             iisObject.Bindings.Add(bindingInformation, Uri.UriSchemeHttp);
                         }
 				}

@@ -632,10 +632,9 @@ namespace FuseCP.Providers.FTP.IIs100
 			if (this.SiteExists(siteName))
 			{
 				Site site = this.GetIisSite(siteName);
-				foreach (Binding binding in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)))
+				foreach (string[] parts in site.Bindings.Where(binding => string.Equals(binding.Protocol, "ftp", StringComparison.OrdinalIgnoreCase)).Select(binding => binding.BindingInformation.Split(':')))
 				{
 					// Add only ftp bindings
-						string[] parts = binding.BindingInformation.Split(':');
 						bindings.Add(new ServerBinding(parts[0], parts[1], parts[2]));
 				}
 			}

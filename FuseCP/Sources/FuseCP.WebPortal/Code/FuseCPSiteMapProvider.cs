@@ -120,9 +120,18 @@ namespace FuseCP.WebPortal
             if (parentPage != null)
             {
                 // fill collection
-                foreach (SiteMapNode childNode in parentPage.Pages.Where(page => !page.Hidden).Select(CreateNodeFromPage).Where(childNode => childNode != null))
+                foreach (PortalPage page in parentPage.Pages)
                 {
-                    children.Add(childNode);
+                    if (page.Hidden)
+                    {
+                        continue;
+                    }
+
+                    SiteMapNode childNode = CreateNodeFromPage(page);
+                    if (childNode != null)
+                    {
+                        children.Add(childNode);
+                    }
                 }
             }
             else
@@ -130,9 +139,18 @@ namespace FuseCP.WebPortal
                 // check if this is a root node
                 if (node.Key == ROOT_NODE_KEY)
                 {
-                    foreach (SiteMapNode childNode in PortalConfiguration.Site.Pages.Values.Where(page => page.ParentPage == null && !page.Hidden).Select(CreateNodeFromPage).Where(childNode => childNode != null))
+                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values)
                     {
+                            if (page.ParentPage != null || page.Hidden)
+                            {
+                                continue;
+                            }
+
+                            SiteMapNode childNode = CreateNodeFromPage(page);
+                            if (childNode != null)
+                            {
                             children.Add(childNode);
+                            }
                     }
                 }
             }

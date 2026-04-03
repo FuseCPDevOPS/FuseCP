@@ -2325,9 +2325,8 @@ namespace FuseCP.EnterpriseServer
             //Add ons
             Hashtable addOns = new Hashtable();
             int i = 0;
-            foreach (PackageInfo package in packages)
+            foreach (List<PackageAddonInfo> lstAddOns in packages.Select(package => ObjectUtils.CreateListFromDataSet<PackageAddonInfo>(GetPackageAddons(package.PackageId))))
             {
-                List<PackageAddonInfo> lstAddOns = ObjectUtils.CreateListFromDataSet<PackageAddonInfo>(GetPackageAddons(package.PackageId));
                 foreach (PackageAddonInfo addOn in lstAddOns)
                 {
                     addOns.Add(i, addOn);

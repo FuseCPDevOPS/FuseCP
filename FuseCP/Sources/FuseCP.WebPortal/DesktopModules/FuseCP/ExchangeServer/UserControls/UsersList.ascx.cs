@@ -165,7 +165,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			ExchangeAccount[] accounts = ES.Services.Organizations.SearchOrganizationAccounts(PanelRequest.ItemID,
 				ddlSearchColumn.SelectedValue, txtSearchValue.Text + "%", "", false);
 
-                accounts = accounts.Where(x => !GetAccounts().Contains(x.AccountName)).ToArray();
+                HashSet<string> selectedAccounts = new HashSet<string>(GetAccounts(), StringComparer.OrdinalIgnoreCase);
+                accounts = accounts.Where(x => !selectedAccounts.Contains(x.AccountName)).ToArray();
 
 			if (ExcludeAccountId > 0)
 			{

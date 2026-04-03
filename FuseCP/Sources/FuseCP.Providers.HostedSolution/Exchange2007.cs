@@ -1414,9 +1414,8 @@ namespace FuseCP.Providers.HostedSolution
 				if (!string.IsNullOrEmpty(PublicFolderServer))
 					cmd.Parameters.Add("Server", PublicFolderServer);
 				result = ExecuteShellCommand(runSpace, cmd);
-				foreach (PSObject obj in result)
+				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
 				{
-					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
 					size += CalculatePublicFolderDiskSpace(runSpace, id);
 				}
 			}
@@ -1516,9 +1515,8 @@ namespace FuseCP.Providers.HostedSolution
 
 			var onBehalfs = GetPSObjectProperty(result, "GrantSendOnBehalfTo") as IEnumerable;
 
-			foreach (object current in onBehalfs ?? System.Linq.Enumerable.Empty<object>())
+			foreach (string user in onBehalfs ?? System.Linq.Enumerable.Empty<object>().Select(current => current.ToString()))
 			{
-				string user = current.ToString();
 
 				ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
 
@@ -2540,9 +2538,8 @@ namespace FuseCP.Providers.HostedSolution
 				info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
 				List<ExchangeAccount> accounts = new List<ExchangeAccount>();
 				IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-				foreach (ADObjectId id in ids)
+				foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
 				{
-					ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
 					if (account != null) accounts.Add(account);
 				}
 				info.ResourceDelegates = accounts.ToArray();
@@ -2987,9 +2984,8 @@ namespace FuseCP.Providers.HostedSolution
 			IList<ADObjectId> ids =
 				 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-			foreach (ADObjectId id in ids)
+			foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
 			{
-				ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
 				if (account != null)
 					list.Add(account);
 			}
@@ -5968,9 +5964,8 @@ namespace FuseCP.Providers.HostedSolution
 		 Collection<PSObject> results = invoker.Invoke(cmd, null, out errors);
 		 if (errors != null && errors.Count > 0)
 		 {
-			 foreach (PSObject err in errors)
+			 foreach (string errorMessage in errors.Select(err => string.Format("Invoke error: {0}", err.ToString())))
 			 {
-				 string errorMessage = string.Format("Invoke error: {0}", err.ToString());
 				 ExchangeLog.LogError(errorMessage, null);
 			 }
 		 }
