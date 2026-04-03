@@ -497,11 +497,9 @@ namespace FuseCP.Portal
 
             try
             {
-                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)))
+                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)).Where(Packages => (Packages != null) && (Packages.GetLength(0) > 0)))
                 {
 
-                    if ((Packages != null) && (Packages.GetLength(0) > 0))
-                    {
                         foreach (PackageInfo Package in Packages)
                         {
                             Providers.HostedSolution.Organization[] orgs = null;
@@ -529,7 +527,6 @@ namespace FuseCP.Portal
                                 }
                             }
                         }
-                    }
                 }
                 messageBox.ShowSuccessMessage("EXCHANGE_STAMPMAILBOXES");
             }

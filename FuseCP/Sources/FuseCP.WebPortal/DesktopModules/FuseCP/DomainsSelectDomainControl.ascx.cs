@@ -138,16 +138,13 @@ namespace FuseCP.Portal
             {
                 Providers.Mail.MailDomain[] mailDomains = ES.Services.MailServers.GetMailDomains(PackageId, false);
 
-                foreach (DomainInfo[] pointers in mailDomains.Select(mailDomain => ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id)))
+                foreach (DomainInfo[] pointers in mailDomains.Select(mailDomain => ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id)).Where(pointers => pointers != null))
                 {
-                    if (pointers != null)
-                    {
                         foreach (DomainInfo p in pointers)
                         {
                             if (htMailDomainPointers[p.DomainName.ToLower()] == null) htMailDomainPointers.Add(p.DomainName.ToLower(), 1);
 
                         }
-                    }
                 }
             }
 

@@ -2984,10 +2984,9 @@ namespace FuseCP.Providers.HostedSolution
 			IList<ADObjectId> ids =
 				 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-			foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
+			foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
 			{
-				if (account != null)
-					list.Add(account);
+				list.Add(account);
 			}
 			return list.ToArray();
 		}

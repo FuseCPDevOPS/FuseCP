@@ -2693,13 +2693,10 @@ namespace FuseCP.Providers.HostedSolution
                         databases = ExecuteShellCommand(runSpace, cmd);
 
                         // do not check "IsExcludedFromProvisioning" or "IsSuspended", just check if it is a member of the DAG
-                        foreach (string dagSetting in databases.Select(objDatabase => ObjToString(GetPSObjectProperty(objDatabase, "MasterServerOrAvailabilityGroup"))))
+                        foreach (string dagSetting in databases.Select(objDatabase => ObjToString(GetPSObjectProperty(objDatabase, "MasterServerOrAvailabilityGroup"))).Where(dagSetting => dagNameDAG.Equals(dagSetting, StringComparison.OrdinalIgnoreCase)))
                         {
-                            if (dagNameDAG.Equals(dagSetting, StringComparison.OrdinalIgnoreCase))
-                            {
                                 lstDatabase.Add(dagNameMBX);
                                 ExchangeLog.LogInfo("AddFixedDatabase: " + dagNameMBX);
-                            }
                         }
                     }
 
@@ -3599,10 +3596,9 @@ namespace FuseCP.Providers.HostedSolution
             IList<ADObjectId> ids =
                 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-            foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
+            foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
             {
-                if (account != null)
-                    list.Add(account);
+                list.Add(account);
             }
             return list.ToArray();
         }

@@ -966,13 +966,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var processingOrders = showResult.Where(x => Convert.ToString(x).ToLower().Contains("processing order")).Select(x => Convert.ToString(x));
             var count = 0;
 
-            foreach (var order in processingOrders.Select(processingOrder => Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""))))
+            foreach (var order in processingOrders.Select(processingOrder => Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""))).Where(order => order > count))
             {
 
-                if (order > count)
-                {
                     count = order;
-                }
             }
 
             var userGroupAd = ActiveDirectoryUtils.GetADObject(GetUsersGroupPath(organizationId, collectionName));
@@ -1888,13 +1885,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (serversPs != null)
             {
-                foreach (var serverName in serversPs.Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"))))
+                foreach (var serverName in serversPs.Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"))).Where(serverName => string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) == 0))
                 {
 
-                    if (string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) == 0)
-                    {
                         return true;
-                    }
                 }
             }
 

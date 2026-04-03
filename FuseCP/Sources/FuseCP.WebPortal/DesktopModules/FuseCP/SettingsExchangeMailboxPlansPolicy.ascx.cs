@@ -492,11 +492,9 @@ namespace FuseCP.Portal
 
             try
             {
-                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)))
+                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)).Where(Packages => (Packages != null) && (Packages.GetLength(0) > 0)))
                 {
 
-                    if ((Packages != null) && (Packages.GetLength(0) > 0))
-                    {
                         foreach (PackageInfo Package in Packages)
                         {
                             Providers.HostedSolution.Organization[] orgs = null;
@@ -524,7 +522,6 @@ namespace FuseCP.Portal
                                 }
                             }
                         }
-                    }
                 }
                 messageBox.ShowSuccessMessage("EXCHANGE_STAMPMAILBOXES");
             }
@@ -626,13 +623,10 @@ namespace FuseCP.Portal
         protected bool SaveTags(int ItemId, int planId)
         {
             ExchangeMailboxPlanRetentionPolicyTag[] currenttags = ES.Services.ExchangeServer.GetExchangeMailboxPlanRetentionPolicyTags(planId);
-            foreach (ResultObject res in currenttags.Select(tag => ES.Services.ExchangeServer.DeleteExchangeMailboxPlanRetentionPolicyTag(ItemId, planId, tag.PlanTagID)))
+            foreach (ResultObject res in currenttags.Select(tag => ES.Services.ExchangeServer.DeleteExchangeMailboxPlanRetentionPolicyTag(ItemId, planId, tag.PlanTagID)).Where(res => !res.IsSuccess))
             {
-                if (!res.IsSuccess)
-                {
                     messageBox.ShowMessage(res, "EXCHANGE_UPDATEPLANS", null);
                     return false;
-                }
 
             }
 

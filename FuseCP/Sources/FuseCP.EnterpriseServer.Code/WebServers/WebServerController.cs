@@ -130,13 +130,10 @@ namespace FuseCP.EnterpriseServer
 
             // check if site has dedicated IP assigned
             var siteIpAddresses = ServerController.GetItemIPAddresses(siteItemId, IPAddressPool.None);
-            foreach (var packageIpAddress in siteIpAddresses.Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID)))
+            foreach (var packageIpAddress in siteIpAddresses.Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID)).Where(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress))
             {
-                if (packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress)
-                {
                     site.IsDedicatedIP = true;
                     break;
-                }
             }
 
             // truncate home folder

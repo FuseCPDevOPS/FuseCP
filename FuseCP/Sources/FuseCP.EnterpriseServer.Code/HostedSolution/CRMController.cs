@@ -216,13 +216,10 @@ namespace FuseCP.EnterpriseServer
             string[] organizationSettings = orgProxy.Header<ServiceProviderSettingsSoapHeader>().Settings;
 
             string value = string.Empty;
-            foreach (string[] props in organizationSettings.Select(str => str.Split('=')))
+            foreach (string[] props in organizationSettings.Select(str => str.Split('=')).Where(props => props.Length == 2 && props[0].ToLower() == property))
             {
-                if (props.Length == 2 && props[0].ToLower() == property)
-                {
 					value = props[1];
 					break;
-                }
             }
 
             return value;

@@ -335,12 +335,11 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             using (var srvman = GetServerManager())
             {
                 //
-                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])))
+                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])).Where(indexOf => indexOf > -1))
                 {
                     // Lookup for an app pool
                     // Remove app pool if it is found
-                    if (indexOf > -1)
-                        srvman.ApplicationPools.RemoveAt(indexOf);
+                    srvman.ApplicationPools.RemoveAt(indexOf);
                 }
                 //
                 srvman.CommitChanges();
@@ -351,11 +350,10 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
         {
             using (var srvman = GetServerManager())
             {
-                foreach (var indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])))
+                foreach (var indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])).Where(indexOf => indexOf > -1))
                 {
                     //
-                    if (indexOf > -1)
-                        srvman.ApplicationPools.RemoveAt(indexOf);
+                    srvman.ApplicationPools.RemoveAt(indexOf);
                 }
                 //
                 srvman.CommitChanges();

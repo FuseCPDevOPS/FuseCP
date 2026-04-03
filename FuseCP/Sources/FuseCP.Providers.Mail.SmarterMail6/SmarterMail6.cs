@@ -1909,12 +1909,9 @@ namespace FuseCP.Providers.Mail
 
                  SubscriberListResult subsribersResult = lists.GetSubscriberList(AdminUsername, AdminPassword, domain, account);
 
-                foreach (GenericResult memberResult in subsribersResult.Subscribers.Select(member => lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member)))
+                foreach (GenericResult memberResult in subsribersResult.Subscribers.Select(member => lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member)).Where(memberResult => !memberResult.Result))
                 {
-                    if (!memberResult.Result)
-                    {
                         throw new Exception(memberResult.Message);
-                    }
 
                 }
 

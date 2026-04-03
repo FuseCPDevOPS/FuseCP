@@ -2371,13 +2371,10 @@ namespace FuseCP.EnterpriseServer
                 List<MappedDrive> mappedDrives = orgProxy.GetDriveMaps(org.OrganizationId).Where(x => x.LabelAs.ToLower().Contains(filterValue)).ToList();
                 var resultItems = new List<MappedDrive>();
 
-                foreach (var drive in folders.Select(folder => GetFolderMappedDrive(mappedDrives, folder)))
+                foreach (var drive in folders.Select(folder => GetFolderMappedDrive(mappedDrives, folder)).Where(drive => drive != null))
                 {
 
-                    if (drive != null)
-                    {
                         resultItems.Add(drive);
-                    }
                 }
 
                 mappedDrives = resultItems;
