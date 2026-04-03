@@ -81,14 +81,11 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_DMZ_IP_ADDRESSES_NUMBER, out var _ckv
 
             try
             {
-                ResultObject res = null;
-
-                if (byNewMethod)
-                    res = ES.Services.VPS2012.AddVirtualMachineDmzIPAddressesByInject(PanelRequest.ItemID,
-                    radioDmzRandom.Checked, number, dmzIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
-                else
-                    res = ES.Services.VPS2012.AddVirtualMachineDmzIPAddresses(PanelRequest.ItemID,
-                    radioDmzRandom.Checked, number, dmzIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
+                ResultObject res = byNewMethod
+                    ? ES.Services.VPS2012.AddVirtualMachineDmzIPAddressesByInject(PanelRequest.ItemID,
+                        radioDmzRandom.Checked, number, dmzIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text)
+                    : ES.Services.VPS2012.AddVirtualMachineDmzIPAddresses(PanelRequest.ItemID,
+                        radioDmzRandom.Checked, number, dmzIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
 
                 if (res.IsSuccess)
                 {

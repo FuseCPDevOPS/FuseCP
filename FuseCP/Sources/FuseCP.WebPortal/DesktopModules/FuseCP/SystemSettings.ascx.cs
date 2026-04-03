@@ -162,8 +162,8 @@ namespace FuseCP.Portal
             var isSqlServer = DbHelper.DbType == EnterpriseServer.Data.DbType.SqlServer;
             chkAlwaysUseEntityFramework.Enabled = isSqlServer;
             btnDebugSettings.Enabled = isSqlServer;
-			if (!isSqlServer) chkAlwaysUseEntityFramework.Checked = true;
-            else
+			chkAlwaysUseEntityFramework.Checked = !isSqlServer || DbHelper.UseEntityFramework;
+            if (isSqlServer)
             {
                 // Debug settings
                 /*settings = ES.Services.System.GetSystemSettings(FCP.SystemSettings.DEBUG_SETTINGS);
@@ -173,7 +173,6 @@ namespace FuseCP.Portal
                     chkAlwaysUseEntityFramework.Checked = settings
                         .GetValueOrDefault(FCP.SystemSettings.ALWAYS_USE_ENTITYFRAMEWORK, false);
                 }*/
-                chkAlwaysUseEntityFramework.Checked = DbHelper.UseEntityFramework;
             }
 		}
 		private void SaveSMTP()

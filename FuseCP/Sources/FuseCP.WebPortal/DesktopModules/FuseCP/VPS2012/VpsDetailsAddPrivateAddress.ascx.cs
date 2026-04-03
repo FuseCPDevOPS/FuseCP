@@ -81,14 +81,11 @@ if (cntx.Quotas.TryGetValue(Quotas.VPS2012_PRIVATE_IP_ADDRESSES_NUMBER, out var 
 
             try
             {
-                ResultObject res = null;
-
-                if (byNewMethod)
-                    res = ES.Services.VPS2012.AddVirtualMachinePrivateIPAddressesByInject(PanelRequest.ItemID,
-                    radioPrivateRandom.Checked, number, privIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
-                else
-                    res = ES.Services.VPS2012.AddVirtualMachinePrivateIPAddresses(PanelRequest.ItemID,
-                    radioPrivateRandom.Checked, number, privIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
+                ResultObject res = byNewMethod
+                    ? ES.Services.VPS2012.AddVirtualMachinePrivateIPAddressesByInject(PanelRequest.ItemID,
+                        radioPrivateRandom.Checked, number, privIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text)
+                    : ES.Services.VPS2012.AddVirtualMachinePrivateIPAddresses(PanelRequest.ItemID,
+                        radioPrivateRandom.Checked, number, privIps, chkCustomGateway.Checked, txtGateway.Text, txtDNS1.Text, txtDNS2.Text, txtMask.Text);
 
                 if (res.IsSuccess)
                 {

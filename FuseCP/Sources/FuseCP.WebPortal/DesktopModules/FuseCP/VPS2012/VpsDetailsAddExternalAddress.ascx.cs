@@ -97,13 +97,11 @@ namespace FuseCP.Portal.VPS2012
 
             try
             {
-                ResultObject res = null;
-                if (byNewMethod)
-                    res = ES.Services.VPS2012.AddVirtualMachineExternalIPAddressesByInjection(PanelRequest.ItemID,
-                            radioExternalRandom.Checked, number, addressIds.ToArray());
-                else
-                    res = ES.Services.VPS2012.AddVirtualMachineExternalIPAddresses(PanelRequest.ItemID,
-                            radioExternalRandom.Checked, number, addressIds.ToArray());
+                ResultObject res = byNewMethod
+                    ? ES.Services.VPS2012.AddVirtualMachineExternalIPAddressesByInjection(PanelRequest.ItemID,
+                        radioExternalRandom.Checked, number, addressIds.ToArray())
+                    : ES.Services.VPS2012.AddVirtualMachineExternalIPAddresses(PanelRequest.ItemID,
+                        radioExternalRandom.Checked, number, addressIds.ToArray());
 
                 if (res.IsSuccess)
                 {
