@@ -322,7 +322,7 @@ namespace FuseCP.Portal.Proxmox
 			foreach (ListItem li in listExternalAddresses.Items)
 				if (li.Selected)
 					ipAddresses.Add(li.Text);
-			litExternalAddresses.Text = PortalAntiXSS.Encode(String.Join(", ", ipAddresses.ToArray()));
+			litExternalAddresses.Text = PortalAntiXSS.Encode(String.Join(", ", ipAddresses));
 
 			// private network
 			optionPrivateNetwork.Value = chkPrivateNetworkEnabled.Checked;

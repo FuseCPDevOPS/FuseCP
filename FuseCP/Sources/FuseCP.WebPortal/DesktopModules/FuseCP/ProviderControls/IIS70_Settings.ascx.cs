@@ -111,7 +111,7 @@ namespace FuseCP.Portal.ProviderControls
                 qsParts.Add("ServerID=" + Request.QueryString["ServerID"]);
                 qsParts.Add("WPIProduct=HeliconApe");
 
-                InstallHeliconApeLink.Attributes["href"] = "Default.aspx?" + String.Join("&", qsParts.ToArray());
+                InstallHeliconApeLink.Attributes["href"] = "Default.aspx?" + String.Join("&", qsParts);
                 ViewState["HeliconApeInitiallyEnabled"] = null;
             }
 

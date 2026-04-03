@@ -1185,7 +1185,7 @@ public class PortalUtils
 			}
 		}
 
-		return "~/Default.aspx?" + String.Join("&", url.ToArray());
+		return "~/Default.aspx?" + String.Join("&", url);
 	}
 	#endregion
 

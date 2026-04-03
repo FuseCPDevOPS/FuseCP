@@ -428,7 +428,7 @@ namespace FuseCP.Portal
                     databaseNames.Add(database.Name);
 
                 databaseControl.ValidationKind |= DeploymentParameterValidationKind.Enumeration;
-                databaseControl.ValidationString = String.Join(",", databaseNames.ToArray());
+                databaseControl.ValidationString = String.Join(",", databaseNames);
 
                 // fill users list
                 WebApplicationGalleryParamControl userControl = FindParameterControlByTag(DeploymentParameterWellKnownTag.DBUserName);
@@ -446,7 +446,7 @@ namespace FuseCP.Portal
                         userNames.Add(user.Name);
 
                     userControl.ValidationKind |= DeploymentParameterValidationKind.Enumeration;
-                    userControl.ValidationString = String.Join(",", userNames.ToArray());
+                    userControl.ValidationString = String.Join(",", userNames);
 
                     // username password
                     WebApplicationGalleryParamControl userPasswordControl = FindParameterControlByTag(DeploymentParameterWellKnownTag.DBUserPassword);

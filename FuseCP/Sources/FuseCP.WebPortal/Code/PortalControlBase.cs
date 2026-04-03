@@ -84,7 +84,7 @@ namespace FuseCP.WebPortal
                     url.Add(additionalParam);
             }
 
-            return "~/Default.aspx?" + String.Join("&", url.ToArray());
+            return "~/Default.aspx?" + String.Join("&", url);
         }
     }
 }
