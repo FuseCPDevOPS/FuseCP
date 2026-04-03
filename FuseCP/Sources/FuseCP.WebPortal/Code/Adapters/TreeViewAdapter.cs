@@ -639,7 +639,7 @@ namespace CSSFriendly
         {
             if ((item != null) && (item.Parent != null))
             {
-                return item.Parent.Selected == true || IsParentNodeSelected(item.Parent);
+                return item.Parent.Selected || IsParentNodeSelected(item.Parent);
             }
 
             return false;
@@ -651,7 +651,7 @@ namespace CSSFriendly
             {
                 foreach (TreeNode node in nodes)
                 {
-                    state += node.Expanded == true ? "e" : "n";
+                    state += node.Expanded ? "e" : "n";
                     state = ComposeViewState(node.ChildNodes, state);
                 }
             }
