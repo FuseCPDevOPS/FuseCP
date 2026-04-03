@@ -90,7 +90,7 @@ namespace FuseCP.Portal
             usernameControl.Text = item.Name;
             usernameControl.EditMode = true;
 
-            foreach (var li in item.Members.Select(user => dlUsers.Items.FindByValue(user)).Where(li => li != null))
+            foreach (ListItem li in dlUsers.Items.Cast<ListItem>().Where(li => item.Members.Contains(li.Value)))
                 li.Selected = true;
         }
 

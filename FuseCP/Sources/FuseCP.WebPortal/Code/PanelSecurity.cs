@@ -74,14 +74,14 @@ namespace FuseCP.Portal
 
 			// get existing list
 			string[] pairs = GetRecentlySwitchedUsersArray();
-			foreach (string pair in pairs)
+			users.AddRange(pairs.Select(pair =>
 			{
 				string[] parts = pair.Split('=');
 				UserInfo user = new UserInfo();
 				user.UserId = ParseInt(parts[0], 0);
 				user.Username = parts[1];
-				users.Add(user);
-			}
+				return user;
+			}));
 
 			return users;
 		}

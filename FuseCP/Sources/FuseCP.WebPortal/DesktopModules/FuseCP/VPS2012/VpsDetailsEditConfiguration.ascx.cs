@@ -263,15 +263,9 @@ namespace FuseCP.Portal.VPS2012
                 string firstVmHddPath = (vm.VirtualHardDrivePath != null && vm.VirtualHardDrivePath.Length > 0) ? vm.VirtualHardDrivePath[0] : string.Empty;
                 hddPath.Add(firstVmHddPath);
                 List<AdditionalHdd> additionalHdd = GetAdditionalHdd();
-                foreach (AdditionalHdd hdd in additionalHdd)
-                {
-                    int size = hdd.DiskSize;
-                    if (size > 0)
-                    {
-                        hddSize.Add(size);
-                        hddPath.Add(hdd.DiskPath);
-                    }
-                }
+                List<AdditionalHdd> additionalHddWithSize = additionalHdd.Where(hdd => hdd.DiskSize > 0).ToList();
+                hddSize.AddRange(additionalHddWithSize.Select(hdd => hdd.DiskSize));
+                hddPath.AddRange(additionalHddWithSize.Select(hdd => hdd.DiskPath));
                 virtualMachine.HddSize = hddSize.ToArray();
                 virtualMachine.VirtualHardDrivePath = hddPath.ToArray();
                 virtualMachine.SnapshotsNumber = Utils.ParseInt(txtSnapshots.Text.Trim());
@@ -460,15 +454,9 @@ if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT,
 
         private List<AdditionalHdd> GetAdditionalHdd()
         {
-            var result = new List<AdditionalHdd>();
-
-            foreach (RepeaterItem item in repHdd.Items)
-            {
-                AdditionalHdd hdd = new AdditionalHdd(Utils.ParseInt(GetTextBoxText(item, "txtAdditionalHdd")), GetHiddenFieldValue(item, "txtAdditionalHddPath"));
-                result.Add(hdd);
-            }
-
-            return result;
+            return repHdd.Items.Cast<RepeaterItem>()
+                .Select(item => new AdditionalHdd(Utils.ParseInt(GetTextBoxText(item, "txtAdditionalHdd")), GetHiddenFieldValue(item, "txtAdditionalHddPath")))
+                .ToList();
         }
 
         private string GetTextBoxText(RepeaterItem item, string name)

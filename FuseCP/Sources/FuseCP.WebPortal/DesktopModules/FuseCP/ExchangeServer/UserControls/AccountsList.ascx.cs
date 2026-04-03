@@ -262,10 +262,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
 			if (ExcludeAccountId > 0)
             {
-                List<ExchangeAccount> updatedAccounts = new List<ExchangeAccount>();
-                updatedAccounts.AddRange(accounts.Where(account => account.AccountId != ExcludeAccountId));
-
-                accounts = updatedAccounts.ToArray();
+                accounts = accounts.Where(account => account.AccountId != ExcludeAccountId).ToArray();
             }
 
             Array.Sort(accounts, CompareAccount);
@@ -297,11 +294,8 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			// add new accounts
 			if (newAccounts != null)
 			{
-                foreach (ExchangeAccount newAccount in newAccounts.Where(newAccount =>
-                    !accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0)))
-                {
-					accounts.Add(newAccount);
-				}
+                accounts.AddRange(newAccounts.Where(newAccount =>
+                    !accounts.Any(account => String.Compare(newAccount.AccountName, account.AccountName, true) == 0)));
 			}
 
 			gvAccounts.DataSource = accounts;

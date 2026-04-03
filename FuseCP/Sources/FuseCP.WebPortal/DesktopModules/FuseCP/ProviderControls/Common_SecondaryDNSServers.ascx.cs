@@ -58,7 +58,7 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string[] ids = sids.Split(',');
 
-                foreach (var li in ids.Select(id => ddlService.Items.FindByValue(id)).Where(li => li != null))
+                foreach (ListItem li in ddlService.Items.Cast<ListItem>().Where(li => ids.Contains(li.Value)).ToList())
                 {
                     ddlService.Items.Remove(li);
                     lbServices.Items.Add(li);

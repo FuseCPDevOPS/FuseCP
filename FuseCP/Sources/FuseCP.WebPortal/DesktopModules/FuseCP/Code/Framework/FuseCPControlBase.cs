@@ -235,7 +235,7 @@ namespace FuseCP.Portal
 		{
 			if (excludeControls != null)
 			{
-				if (excludeControls.Any(exCtrl => exCtrl == ctrl))
+				if (excludeControls.Contains(ctrl))
 					return;
 			}
 

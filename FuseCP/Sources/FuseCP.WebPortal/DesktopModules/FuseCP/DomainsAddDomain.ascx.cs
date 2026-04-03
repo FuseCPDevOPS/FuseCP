@@ -175,8 +175,7 @@ namespace FuseCP.Portal
 			DomainInfo[] allDomains = ES.Services.Servers.GetMyDomains(PanelSecurity.PackageId);
 
 			// filter domains
-			List<DomainInfo> domains = new List<DomainInfo>();
-			domains.AddRange(allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain));
+			List<DomainInfo> domains = allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain).ToList();
 
             DomainName.DataSource = domains;
 			DomainName.DataBind();
@@ -187,8 +186,7 @@ namespace FuseCP.Portal
             DomainInfo[] allDomains = ES.Services.Servers.GetResellerDomains(PanelSecurity.PackageId);
 
             // filter domains
-            List<DomainInfo> domains = new List<DomainInfo>();
-			domains.AddRange(allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain));
+		List<DomainInfo> domains = allDomains.Where(domain => !domain.IsDomainPointer && !domain.IsSubDomain && !domain.IsPreviewDomain).ToList();
 
             DomainName.DataSource = domains;
             DomainName.DataBind();

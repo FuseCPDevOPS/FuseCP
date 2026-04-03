@@ -68,11 +68,7 @@ namespace FuseCP.Portal.Lync.UserControls
             get
             {
                 FuseCP.Providers.HostedSolution.LyncUserPlan[] plans = ES.Services.Lync.GetLyncUserPlans(PanelRequest.ItemID);
-                foreach (FuseCP.Providers.HostedSolution.LyncUserPlan planitem in plans.Where(planitem => planitem.LyncUserPlanId.ToString() == planId))
-                {
-                    return planitem;
-                }
-                return null;
+                return plans.FirstOrDefault(planitem => planitem.LyncUserPlanId.ToString() == planId);
             }
         }
 

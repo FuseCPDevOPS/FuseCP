@@ -181,14 +181,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (e.CommandName == "RemoveServer")
             {
-                string str = string.Empty;
                 List<GWServer> servers = GetServices(GWServers);
-                foreach (GWServer current in servers.Where(current => current.ServerName != e.CommandArgument.ToString()))
-                {
-                    str += current.ServerName + ";";
-                }
-
-                GWServers = str.TrimEnd(';');
+                string serverToRemove = e.CommandArgument.ToString();
+                GWServers = servers == null ? string.Empty : string.Join(";", servers.Where(current => current.ServerName != serverToRemove).Select(current => current.ServerName));
                 UpdateLyncServersGrid();
                 UpdateSfBServersGrid();
             }

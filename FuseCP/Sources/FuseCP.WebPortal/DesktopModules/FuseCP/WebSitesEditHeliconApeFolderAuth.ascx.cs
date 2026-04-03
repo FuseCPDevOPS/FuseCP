@@ -74,10 +74,7 @@ namespace FuseCP.Portal
 
             // AuthType
             rblAuthType.Items.Clear();
-            foreach (string authType in HtaccessFolder.AUTH_TYPES)
-            {
-                rblAuthType.Items.Add(new ListItem(authType, authType));
-            }
+            rblAuthType.Items.AddRange(HtaccessFolder.AUTH_TYPES.Select(authType => new ListItem(authType, authType)).ToArray());
 
             for (int i = 0; i < rblAuthType.Items.Count; i++)
             {
@@ -90,7 +87,7 @@ namespace FuseCP.Portal
             }
 
             // users
-            foreach (var li in folder.Users.Select(user => dlUsers.Items.FindByValue(user)).Where(li => li != null))
+            foreach (ListItem li in dlUsers.Items.Cast<ListItem>().Where(li => folder.Users.Contains(li.Value)))
                 li.Selected = true;
             if (folder.ValidUser)
             {
@@ -99,7 +96,7 @@ namespace FuseCP.Portal
             }
 
             // groups
-            foreach (var li in folder.Groups.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+            foreach (ListItem li in dlGroups.Items.Cast<ListItem>().Where(li => folder.Groups.Contains(li.Value)))
                 li.Selected = true;
         }
 

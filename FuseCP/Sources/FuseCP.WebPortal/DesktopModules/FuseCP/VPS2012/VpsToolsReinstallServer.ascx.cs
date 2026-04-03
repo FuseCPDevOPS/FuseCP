@@ -180,8 +180,7 @@ namespace FuseCP.Portal.VPS2012
             List<int> extIps = new List<int>();
             PackageIPAddress[] uips = ES.Services.Servers.GetPackageUnassignedIPAddresses(PanelSecurity.PackageId, 0, IPAddressPool.VpsExternalNetwork);
             List<string> ipAddresses = (List<string>)Session[sessionIpAddresses];
-            foreach (PackageIPAddress uip in uips.Where(uip => ipAddresses.Any(ip => ip.Equals(uip.ExternalIP))))
-                extIps.Add(uip.PackageAddressID);
+            extIps.AddRange(uips.Where(uip => ipAddresses.Any(ip => ip.Equals(uip.ExternalIP))).Select(uip => uip.PackageAddressID));
             return extIps;
         }
 

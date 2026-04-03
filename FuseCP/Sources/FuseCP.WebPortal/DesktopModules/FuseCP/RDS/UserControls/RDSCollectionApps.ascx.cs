@@ -168,10 +168,7 @@ namespace FuseCP.Portal.RDS.UserControls
             // add new servers
             if (newApps != null)
 			{
-                foreach (RemoteApplication newApp in newApps.Where(newApp => !apps.Any(app => app.DisplayName == newApp.DisplayName)))
-				{
-                    apps.Add(newApp);
-				}
+                apps.AddRange(newApps.Where(newApp => !apps.Any(app => app.DisplayName == newApp.DisplayName)));
 			}            
 
             gvApps.DataSource = apps;

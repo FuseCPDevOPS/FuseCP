@@ -161,10 +161,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             if (ExcludeAccountId > 0)
             {
-                List<ExchangeAccount> updatedAccounts = new List<ExchangeAccount>();
-                updatedAccounts.AddRange(accounts.Where(account => account.AccountId != ExcludeAccountId));
-
-                accounts = updatedAccounts.ToArray();
+                accounts = accounts.Where(account => account.AccountId != ExcludeAccountId).ToArray();
             }
 
             Array.Sort(accounts, CompareAccount);

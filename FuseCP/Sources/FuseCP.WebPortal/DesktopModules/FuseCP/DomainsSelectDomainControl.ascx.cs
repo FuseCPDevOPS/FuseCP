@@ -158,17 +158,16 @@ namespace FuseCP.Portal
             // add "select" item
             ddlDomains.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectDomain"), ""));
 
-            foreach (DomainInfo domain in domains.Where(domain =>
+            ddlDomains.Items.AddRange(domains.Where(domain =>
                 (!HideWebSites ||
                     (domain.WebSiteId <= 0 && (htSites == null || htSites[domain.DomainName.ToLower()] == null)))
                 && (!HideMailDomainPointers || htMailDomainPointers[domain.DomainName.ToLower()] == null)
                 && (!HidePreviewDomain || !domain.IsPreviewDomain)
                 && (!HideMailDomains || domain.MailDomainId <= 0)
                 && (!HideDomainPointers || !domain.IsDomainPointer)
-                && (!HideDomainsSubDomains || domain.IsDomainPointer)))
-            {
-                ddlDomains.Items.Add(new ListItem(domain.DomainName.ToLower(), domain.DomainId.ToString()));
-            }
+                && (!HideDomainsSubDomains || domain.IsDomainPointer))
+                .Select(domain => new ListItem(domain.DomainName.ToLower(), domain.DomainId.ToString()))
+                .ToArray());
 
             if (Request.Cookies["CreatedDomainId"] != null)
                 Utils.SelectListItem(ddlDomains, Request.Cookies["CreatedDomainId"].Value);

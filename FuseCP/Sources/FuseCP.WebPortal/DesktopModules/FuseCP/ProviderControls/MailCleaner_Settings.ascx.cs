@@ -138,14 +138,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (e.CommandName == "RemoveServer")
             {
-                string str = string.Empty;
                 List<ServiceInfo> services = GetServices(MailCleanerServers);
-                foreach (ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
-                {
-                    str += current.ServiceId + ",";
-                }
-
-                MailCleanerServers = str.TrimEnd(',');
+                int serviceIdToRemove = Utils.ParseInt(e.CommandArgument.ToString());
+                MailCleanerServers = services == null ? string.Empty : string.Join(",", services.Where(current => current.ServiceId != serviceIdToRemove).Select(current => current.ServiceId));
                 //UpdateMailCleanerServersGrid();
                 //BindMailCleanerServices(ddlMailCleanerServers);
             }

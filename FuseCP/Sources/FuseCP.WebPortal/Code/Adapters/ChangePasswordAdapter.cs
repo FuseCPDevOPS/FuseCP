@@ -26,6 +26,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Linq;
 
 namespace CSSFriendly
 {
@@ -418,32 +419,25 @@ namespace CSSFriendly
                         CommandEventArgs cmdArgs = null;
                         String[] prefixes = { "ChangePassword", "Cancel", "Continue" };
                         String[] postfixes = { "PushButton", "Image", "Link" };
-                        foreach (string prefix in prefixes)
+                        foreach (string prefix in prefixes.Where(prefix => postfixes
+                            .Select(postfix => container.FindControl(prefix + postfix))
+                            .Any(ctrl => (ctrl != null) && (!String.IsNullOrEmpty(Page.Request.Params.Get(ctrl.UniqueID))))))
                         {
-                            foreach (string postfix in postfixes)
-                            {
-                                string id = prefix + postfix;
-                                Control ctrl = container.FindControl(id);
-                                if ((ctrl != null) && (!String.IsNullOrEmpty(Page.Request.Params.Get(ctrl.UniqueID))))
-                                {
-                                    switch (prefix)
-                                    {
-                                        case "ChangePassword":
-                                            cmdArgs = new CommandEventArgs(ChangePassword.ChangePasswordButtonCommandName, this);
-                                            break;
-                                        case "Cancel":
-                                            cmdArgs = new CommandEventArgs(ChangePassword.CancelButtonCommandName, this);
-                                            break;
-                                        case "Continue":
-                                            cmdArgs = new CommandEventArgs(ChangePassword.ContinueButtonCommandName, this);
-                                            break;
-                                    }
-                                    break;
-                                }
-                            }
                             if (cmdArgs != null)
                             {
                                 break;
+                            }
+                            switch (prefix)
+                            {
+                                case "ChangePassword":
+                                    cmdArgs = new CommandEventArgs(ChangePassword.ChangePasswordButtonCommandName, this);
+                                    break;
+                                case "Cancel":
+                                    cmdArgs = new CommandEventArgs(ChangePassword.CancelButtonCommandName, this);
+                                    break;
+                                case "Continue":
+                                    cmdArgs = new CommandEventArgs(ChangePassword.ContinueButtonCommandName, this);
+                                    break;
                             }
                         }
 

@@ -616,8 +616,9 @@ namespace FuseCP.Portal.VPS2012
 
                 // external IPs
                 List<int> extIps = new List<int>();
-                foreach (ListItem li in listExternalAddresses.Items)
-                    if (li.Selected) extIps.Add(Utils.ParseInt(li.Value));
+                extIps.AddRange(listExternalAddresses.Items.Cast<ListItem>()
+                    .Where(li => li.Selected)
+                    .Select(li => Utils.ParseInt(li.Value)));
 
                 // private IPs
                 string[] privIps = Utils.ParseDelimitedString(txtPrivateAddressesList.Text, '\n', '\r', ' ', '\t');
@@ -768,17 +769,10 @@ if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT,
                 int quotaHddCount = additionalHddQuota.QuotaAllocatedValue;
                 int maxHddCount = 62;
                 LibraryItem[] osTemplates = ES.Services.VPS2012.GetOperatingSystemTemplates(PanelSecurity.PackageId);
-                foreach (LibraryItem item in osTemplates.Where(item => String.Compare(item.Path, listOperatingSystems.SelectedValue, true) == 0))
+                LibraryItem selectedTemplate = osTemplates.FirstOrDefault(item => String.Compare(item.Path, listOperatingSystems.SelectedValue, true) == 0);
+                if (selectedTemplate != null)
                 {
-                        maxHddCount = item.Generation > 1 ? 62 : 2;
-
-
-
-
-
-
-
-                        break;
+                    maxHddCount = selectedTemplate.Generation > 1 ? 62 : 2;
                 }
                 if (quotaHddCount == -1 || quotaHddCount > maxHddCount) quotaHddCount = maxHddCount;
                 btnAddHdd.Enabled = (hdd.Count < quotaHddCount);

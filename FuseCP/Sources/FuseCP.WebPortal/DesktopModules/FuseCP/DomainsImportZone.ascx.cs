@@ -52,20 +52,18 @@ namespace FuseCP.Portal
                     var existingRecords = ES.Services.Servers.GetDnsZoneRecords(domainId);
                     //Get the records that are new to the zone
                     var newRecords = importRecords.Except(existingRecords);
-                    //Loop through the new records
-                    foreach (var record in newRecords)
+                    //Loop through add operation results for new records
+                    foreach (var result in newRecords.Select(record => ES.Services.Servers.AddDnsZoneRecord(
+                        domainId,
+                        record.RecordName,
+                        record.RecordType,
+                        record.RecordData,
+                        record.MxPriority,
+                        record.SrvPriority,
+                        record.SrvWeight,
+                        record.SrvPort,
+                        record.RecordTTL)))
                     {
-                        //Add each record
-                        var result = ES.Services.Servers.AddDnsZoneRecord(
-                            domainId,
-                            record.RecordName,
-                            record.RecordType,
-                            record.RecordData,
-                            record.MxPriority,
-                            record.SrvPriority,
-                            record.SrvWeight,
-                            record.SrvPort,
-                            record.RecordTTL);
                         //Check if the record couldn't be added for some reason
                         if (result < 0)
                             ShowResultMessage(result);

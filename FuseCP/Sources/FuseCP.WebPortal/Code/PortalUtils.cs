@@ -1122,20 +1122,20 @@ public class PortalUtils
 			}
 			if (!String.IsNullOrEmpty(moduleDefinitionId) && !String.IsNullOrEmpty(controlId))
 			{
-				// 1. Read module controls first information first
-				foreach (ModuleDefinition md in PortalConfiguration.ModuleDefinitions.Values.Where(md =>
-					String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)
-					&& md.Controls.Values.Any(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase))))
-				{
-					// 4. Lookup for module id
-					foreach (int pmKey in PortalConfiguration.Site.Modules.Keys.Where(pmKey =>
-						String.Equals(PortalConfiguration.Site.Modules[pmKey].ModuleDefinitionID, md.Id,
+				int? pmKey = PortalConfiguration.ModuleDefinitions.Values
+					.Where(md => String.Equals(md.Id, moduleDefinitionId, StringComparison.InvariantCultureIgnoreCase)
+						&& md.Controls.Values.Any(mc => mc.Key.Equals(controlId, StringComparison.InvariantCultureIgnoreCase)))
+					.SelectMany(md => PortalConfiguration.Site.Modules.Keys.Where(moduleKey =>
+						String.Equals(PortalConfiguration.Site.Modules[moduleKey].ModuleDefinitionID, md.Id,
 							StringComparison.InvariantCultureIgnoreCase)))
-					{
-						// 5. Append module id parameter
-						urlBuilder.Add("mid=" + pmKey);
-						goto End;
-					}
+					.Select(moduleKey => (int?)moduleKey)
+					.FirstOrDefault();
+
+				if (pmKey.HasValue)
+				{
+					// 5. Append module id parameter
+					urlBuilder.Add("mid=" + pmKey.Value);
+					goto End;
 				}
 			}
 		}

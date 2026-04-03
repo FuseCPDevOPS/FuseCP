@@ -138,10 +138,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             // add new accounts
             if (newUsers != null)
             {
-                foreach (OrganizationUser newUser in newUsers.Where(newUser => !users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0)))
-                {
-                    users.Add(newUser);
-                }
+                users.AddRange(newUsers.Where(newUser => !users.Any(user => String.Compare(user.AccountName, newUser.AccountName, true) == 0)));
             }
 
             gvUsers.DataSource = users;

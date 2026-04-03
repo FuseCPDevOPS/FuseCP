@@ -106,14 +106,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (e.CommandName == "RemoveServer")
             {
-                string str = string.Empty;
                 ServiceInfo []services = GetEDGEServices();
-				foreach(ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
-                {
-                    str += current.ServiceName + "," + current.ServiceId + ";";
-                }
-
-                EDGEServices = str;
+                int serviceIdToRemove = Utils.ParseInt(e.CommandArgument.ToString());
+                EDGEServices = services == null ? string.Empty : string.Join(";", services.Where(current => current.ServiceId != serviceIdToRemove).Select(current => current.ServiceName + "," + current.ServiceId)) + (services.Any(current => current.ServiceId != serviceIdToRemove) ? ";" : string.Empty);
                 UpdateGrid();
                 BindOCSEdgeServices(ddlEdgeServers);
             }

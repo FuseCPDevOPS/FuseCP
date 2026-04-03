@@ -149,8 +149,11 @@ namespace FuseCP.Portal.HostedSolution
                 
                 IDictionary<string, ExchangeAccountType> newGroups = groups.GetFullAccounts();
 
-                foreach (ExchangeAccount oldGroup in oldGroups.Where(oldGroup => !newGroups.Remove(oldGroup.AccountName)))
+                foreach (ExchangeAccount oldGroup in oldGroups)
                 {
+                        if (newGroups.Remove(oldGroup.AccountName))
+                                continue;
+
                         switch (oldGroup.AccountType)
                         {
                             case ExchangeAccountType.DistributionList:

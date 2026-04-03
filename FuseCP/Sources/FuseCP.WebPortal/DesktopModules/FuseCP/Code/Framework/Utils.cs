@@ -184,10 +184,11 @@ namespace FuseCP.Portal
         public static string[] ParseDelimitedString(string str, params char[] delimiter)
         {
             string[] parts = str.Split(delimiter);
-            ArrayList list = new ArrayList();
-            foreach (string part in parts.Where(part => part.Trim() != "" && !list.Contains(part.Trim())))
-                list.Add(part);
-            return (string[]) list.ToArray(typeof (string));
+            return parts
+                .Select(part => part.Trim())
+                .Where(part => part != "")
+                .Distinct()
+                .ToArray();
         }
 
         public static string ReplaceStringVariable(string str, string variable, string value)
@@ -311,7 +312,7 @@ namespace FuseCP.Portal
                 item.Selected = false;
 
             string[] vals = cookie.Value.Split(new char[] {','});
-            foreach (ListItem item in vals.Select(val => ctrl.Items.FindByValue(val)).Where(item => item != null))
+            foreach (ListItem item in ctrl.Items.Cast<ListItem>().Where(item => vals.Contains(item.Value)))
                 item.Selected = true;
         }
 

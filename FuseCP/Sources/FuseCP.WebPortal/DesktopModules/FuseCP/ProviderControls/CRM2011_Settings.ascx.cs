@@ -69,19 +69,15 @@ namespace FuseCP.Portal.ProviderControls
             CurrencyArrayResultObject cres = ES.Services.CRM.GetCurrencyByServiceId(PanelRequest.ServiceId);
             if (cres.IsSuccess)
             {
-                foreach (Currency currency in cres.Value)
-                {
-                    ListItem item = new ListItem(string.Format("{0} ({1})",
-                                                               currency.RegionName, currency.CurrencyName),
-                                                 string.Join("|",
-                                                             new string[]
-                                                                 {
-                                                                     currency.CurrencyCode, currency.CurrencyName,
-                                                                     currency.CurrencySymbol, currency.RegionName
-                                                                 }));
-
-                    ddlCurrency.Items.Add(item);
-                }
+                ddlCurrency.Items.AddRange(cres.Value.Select(currency => new ListItem(
+                    string.Format("{0} ({1})", currency.RegionName, currency.CurrencyName),
+                    string.Join("|", new string[]
+                    {
+                        currency.CurrencyCode,
+                        currency.CurrencyName,
+                        currency.CurrencySymbol,
+                        currency.RegionName
+                    }))).ToArray());
                 Utils.SelectListItem(ddlCurrency, "USD|US Dollar|$|United States"); // default
             }
             Utils.SelectListItem(ddlCurrency, settings[Constants.Currency]);
@@ -91,12 +87,11 @@ namespace FuseCP.Portal.ProviderControls
             int[] langPacksId = ES.Services.CRM.GetInstalledLanguagePacksByServiceId(PanelRequest.ServiceId);
             if (langPacksId != null)
             {
-                foreach (int langId in langPacksId)
+                ddlBaseLanguage.Items.AddRange(langPacksId.Select(langId =>
                 {
                     CultureInfo ci = CultureInfo.GetCultureInfo(langId);
-                    ListItem item = new ListItem(ci.EnglishName, langId.ToString());
-                    ddlBaseLanguage.Items.Add(item);
-                }
+                    return new ListItem(ci.EnglishName, langId.ToString());
+                }).ToArray());
                 Utils.SelectListItem(ddlBaseLanguage, "1033"); // default
             }
             Utils.SelectListItem(ddlBaseLanguage, settings[Constants.BaseLanguage]);

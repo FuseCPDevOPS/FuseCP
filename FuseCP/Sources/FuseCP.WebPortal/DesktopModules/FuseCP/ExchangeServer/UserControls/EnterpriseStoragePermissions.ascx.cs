@@ -154,10 +154,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			// add new accounts
             if (newPermissions != null)
 			{
-                foreach (ESPermission newPermission in newPermissions.Where(newPermission => !permissions.Any(permission => String.Compare(newPermission.Account, permission.Account, true) == 0)))
-				{
-                    permissions.Add(newPermission);
-				}
+                permissions.AddRange(newPermissions.Where(newPermission => !permissions.Any(permission => String.Compare(newPermission.Account, permission.Account, true) == 0)));
 			}
 
             gvPermissions.DataSource = permissions;

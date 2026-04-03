@@ -30,21 +30,15 @@ namespace FuseCP.Portal.ExchangeServer
             var list = new List<OrganizationDomainName>();
             SetPolicy(PanelSecurity.PackageId, UserSettings.EXCHANGE_POLICY, "OrgIdPolicy");
 
-            foreach (Organization o in orgs)
-            {
-                OrganizationDomainName[] tmpList = ES.Services.Organizations.GetOrganizationDomains(o.Id);
-
-                foreach (OrganizationDomainName name in tmpList)
-                {
-                    list.Add(name);
-                }
-            }
+            list.AddRange(orgs.SelectMany(o => ES.Services.Organizations.GetOrganizationDomains(o.Id)));
 
             if (!IsPostBack)
             {
-                foreach (DomainInfo d in domains.Where(d => !d.IsDomainPointer && !list.Any(acceptedDomain => d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower())))
+                foreach (string domainName in domains
+                    .Where(d => !d.IsDomainPointer && !list.Any(acceptedDomain => d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower()))
+                    .Select(d => d.DomainName.ToLower()))
                 {
-                    ddlDomains.Items.Add(d.DomainName.ToLower());
+                    ddlDomains.Items.Add(domainName);
                 }
                 SetDefaultOrgId();
             }

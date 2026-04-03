@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.ResultObjects;
 using FuseCP.Providers.HostedSolution;
@@ -45,11 +46,8 @@ namespace FuseCP.Portal.SfB
             {
                 ddlPhoneNumber.Items.Add(new ListItem("<Select Phone>", ""));
 
-                foreach (PackageIPAddress ip in ips)
-                {
-                    string phone = ip.ExternalIP;
+                foreach (string phone in ips.Select(ip => ip.ExternalIP))
                     ddlPhoneNumber.Items.Add(new ListItem(phone, phone));
-                }
             }
 
         }

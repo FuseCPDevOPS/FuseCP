@@ -92,7 +92,7 @@ namespace FuseCP.Portal
             usernameControl.EditMode = true;
             passwordControl.EditMode = true;
 
-            foreach (var li in item.MemberOf.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+            foreach (ListItem li in dlGroups.Items.Cast<ListItem>().Where(li => item.MemberOf.Contains(li.Value)))
                 li.Selected = true;
         }
 

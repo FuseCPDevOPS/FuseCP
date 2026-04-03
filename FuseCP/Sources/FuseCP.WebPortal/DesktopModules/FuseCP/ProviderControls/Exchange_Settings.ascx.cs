@@ -316,14 +316,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (e.CommandName == "RemoveServer")
             {
-                string str = string.Empty;
                 List<ServiceInfo> services = GetServices(HubTransports);
-                foreach (ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
-                {
-                    str += current.ServiceId + ",";
-                }
-
-                HubTransports = str.TrimEnd(','); 
+                int serviceIdToRemove = Utils.ParseInt(e.CommandArgument.ToString());
+                HubTransports = services == null ? string.Empty : string.Join(",", services.Where(current => current.ServiceId != serviceIdToRemove).Select(current => current.ServiceId));
                 UpdateHubTransportsGrid();
                 BindExchangeServices(ddlHubTransport, true);
             }
@@ -345,14 +340,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (e.CommandName == "RemoveServer")
             {
-                string str = string.Empty;
                 List<ServiceInfo> services = GetServices(ClientAccess);
-                foreach (ServiceInfo current in services.Where(current => current.ServiceId != Utils.ParseInt(e.CommandArgument.ToString())))
-                {
-                    str += current.ServiceId + ",";
-                }
-
-                ClientAccess = str.TrimEnd(',');
+                int serviceIdToRemove = Utils.ParseInt(e.CommandArgument.ToString());
+                ClientAccess = services == null ? string.Empty : string.Join(",", services.Where(current => current.ServiceId != serviceIdToRemove).Select(current => current.ServiceId));
                 UpdateClientAccessGrid();
                 BindExchangeServices(ddlClientAccess, false);
             }

@@ -101,8 +101,7 @@ namespace FuseCP.Portal {
             }
 
             string[] response = ES.Services.Servers.AutoUpdateServer(servers, downloadLink, ddlSelectVersion.SelectedValue);
-            foreach(string x in response) {
-                string[] parts = x.Split('-');
+            foreach(string[] parts in response.Select(x => x.Split('-'))) {
                 result.Add(int.Parse(parts[0]), parts[1]);
             }
 

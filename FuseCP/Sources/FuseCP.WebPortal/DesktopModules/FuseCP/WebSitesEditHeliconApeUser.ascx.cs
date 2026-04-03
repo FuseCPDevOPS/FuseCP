@@ -54,18 +54,12 @@ namespace FuseCP.Portal
         {
             // AuthType
             rblAuthType.Items.Clear();
-            foreach (string authType in HtaccessFolder.AUTH_TYPES)
-            {
-                rblAuthType.Items.Add(new ListItem(authType, authType));
-            }
+            rblAuthType.Items.AddRange(HtaccessFolder.AUTH_TYPES.Select(authType => new ListItem(authType, authType)).ToArray());
             rblAuthType.SelectedIndex = 0;
 
             // Encoding types
             rblEncType.Items.Clear();
-            foreach (string encType in HtaccessUser.ENCODING_TYPES)
-            {
-                rblEncType.Items.Add(new ListItem(encType, encType));
-            }
+            rblEncType.Items.AddRange(HtaccessUser.ENCODING_TYPES.Select(encType => new ListItem(encType, encType)).ToArray());
             rblEncType.SelectedIndex = 0;
         }
 
@@ -115,7 +109,7 @@ namespace FuseCP.Portal
             }
 
             // groups
-            foreach (var li in user.Groups.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+            foreach (ListItem li in dlGroups.Items.Cast<ListItem>().Where(li => user.Groups.Contains(li.Value)))
                 li.Selected = true;
         }
 

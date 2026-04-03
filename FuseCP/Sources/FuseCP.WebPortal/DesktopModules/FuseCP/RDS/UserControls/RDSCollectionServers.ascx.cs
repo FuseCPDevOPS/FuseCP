@@ -123,10 +123,7 @@ namespace FuseCP.Portal.RDS.UserControls
 
             if (newServers != null)
 			{
-                foreach (RdsServer newServer in newServers.Where(newServer => !servers.Any(server => server.Id == newServer.Id)))
-				{
-                    servers.Add(newServer);
-				}
+                servers.AddRange(newServers.Where(newServer => !servers.Any(server => server.Id == newServer.Id)));
 			}
 
             gvServers.DataSource = servers;

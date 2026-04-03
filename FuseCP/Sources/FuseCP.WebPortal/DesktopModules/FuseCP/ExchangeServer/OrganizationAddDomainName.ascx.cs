@@ -34,16 +34,13 @@ namespace FuseCP.Portal.ExchangeServer
 
             List<OrganizationDomainName> list = new List<OrganizationDomainName>();
 
-            foreach (Organization o in orgs)
-            {
-                OrganizationDomainName[] tmpList = ES.Services.Organizations.GetOrganizationDomains(o.Id);
+            list.AddRange(orgs.SelectMany(o => ES.Services.Organizations.GetOrganizationDomains(o.Id)));
 
-                foreach (OrganizationDomainName name in tmpList) list.Add(name);
-            }
-
-            foreach (DomainInfo d in domains.Where(d => !d.IsDomainPointer && !list.Any(acceptedDomain => d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower())))
+            foreach (string domainName in domains
+                .Where(d => !d.IsDomainPointer && !list.Any(acceptedDomain => d.DomainName.ToLower() == acceptedDomain.DomainName.ToLower()))
+                .Select(d => d.DomainName.ToLower()))
             {
-                ddlDomains.Items.Add(d.DomainName.ToLower());
+                ddlDomains.Items.Add(domainName);
             }
 
             if (ddlDomains.Items.Count == 0)

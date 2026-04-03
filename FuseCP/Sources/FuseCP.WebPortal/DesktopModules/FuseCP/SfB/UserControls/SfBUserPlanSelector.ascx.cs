@@ -68,11 +68,7 @@ namespace FuseCP.Portal.SfB.UserControls
             get
             {
                 FuseCP.Providers.HostedSolution.SfBUserPlan[] plans = ES.Services.SfB.GetSfBUserPlans(PanelRequest.ItemID);
-                foreach (FuseCP.Providers.HostedSolution.SfBUserPlan planitem in plans.Where(planitem => planitem.SfBUserPlanId.ToString() == planId))
-                {
-                    return planitem;
-                }
-                return null;
+                return plans.FirstOrDefault(planitem => planitem.SfBUserPlanId.ToString() == planId);
             }
         }
 

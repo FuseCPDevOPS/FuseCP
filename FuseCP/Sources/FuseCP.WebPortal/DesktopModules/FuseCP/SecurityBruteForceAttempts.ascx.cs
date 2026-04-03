@@ -161,19 +161,14 @@ namespace FuseCP.Portal
             if (!string.IsNullOrWhiteSpace(exact))
                 return exact;
 
-            foreach (var key in form.AllKeys.Where(k => !string.IsNullOrEmpty(k)))
-            {
-                if (key.Equals(id, StringComparison.OrdinalIgnoreCase) ||
-                    key.EndsWith("$" + id, StringComparison.OrdinalIgnoreCase) ||
-                    key.EndsWith(":" + id, StringComparison.OrdinalIgnoreCase))
-                {
-                    var value = form[key];
-                    if (!string.IsNullOrWhiteSpace(value))
-                        return value;
-                }
-            }
+            var matchingKey = (form.AllKeys ?? Array.Empty<string>())
+                .FirstOrDefault(key => !string.IsNullOrEmpty(key)
+                    && (key.Equals(id, StringComparison.OrdinalIgnoreCase)
+                        || key.EndsWith("$" + id, StringComparison.OrdinalIgnoreCase)
+                        || key.EndsWith(":" + id, StringComparison.OrdinalIgnoreCase))
+                    && !string.IsNullOrWhiteSpace(form[key]));
 
-            return null;
+            return string.IsNullOrEmpty(matchingKey) ? null : form[matchingKey];
         }
 
         private void BindAttempts(string ipFilter, string layerFilter, bool failedOnly,

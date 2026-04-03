@@ -193,46 +193,25 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             if (ExcludeAccountId > 0)
             {
-                List<OrganizationUser> updatedAccounts = new List<OrganizationUser>();
-                updatedAccounts.AddRange(accounts.Where(account => account.AccountId != ExcludeAccountId));
-
-                accounts = updatedAccounts.ToArray();
+                accounts = accounts.Where(account => account.AccountId != ExcludeAccountId).ToArray();
             }
 
             if (IncludeMailboxesOnly)
             {
-
-                List<OrganizationUser> updatedAccounts = new List<OrganizationUser>();
-                foreach (OrganizationUser account in accounts)
-                {
-                    bool addUser = false;
-                    if (account.ExternalEmail != string.Empty) addUser = true;
-                    if ((account.IsBlackBerryUser) && (ExcludeBESUsers)) addUser = false;
-                    if ((account.IsLyncUser) && (ExcludeLyncUsers)) addUser = false;
-                    if ((account.IsSfBUser) && (ExcludeSfBUsers)) addUser = false;
-
-                    if (addUser) updatedAccounts.Add(account);
-                }
-
-                accounts = updatedAccounts.ToArray();
+                accounts = accounts.Where(account =>
+                    account.ExternalEmail != string.Empty
+                    && (!account.IsBlackBerryUser || !ExcludeBESUsers)
+                    && (!account.IsLyncUser || !ExcludeLyncUsers)
+                    && (!account.IsSfBUser || !ExcludeSfBUsers)).ToArray();
             }
             else
                 if ((ExcludeOCSUsers) | (ExcludeBESUsers) | (ExcludeLyncUsers) | (ExcludeSfBUsers))
                 {
-
-                    List<OrganizationUser> updatedAccounts = new List<OrganizationUser>();
-                    foreach (OrganizationUser account in accounts)
-                    {
-                        bool addUser = true;
-                        if ((account.IsOCSUser) && (ExcludeOCSUsers)) addUser = false;
-                        if ((account.IsLyncUser) && (ExcludeLyncUsers)) addUser = false;
-                    if ((account.IsSfBUser) && (ExcludeSfBUsers)) addUser = false;
-                    if ((account.IsBlackBerryUser) && (ExcludeBESUsers)) addUser = false;
-
-                        if (addUser) updatedAccounts.Add(account);
-                    }
-
-                    accounts = updatedAccounts.ToArray();
+                    accounts = accounts.Where(account =>
+                        (!account.IsOCSUser || !ExcludeOCSUsers)
+                        && (!account.IsLyncUser || !ExcludeLyncUsers)
+                        && (!account.IsSfBUser || !ExcludeSfBUsers)
+                        && (!account.IsBlackBerryUser || !ExcludeBESUsers)).ToArray();
                 }
 
 

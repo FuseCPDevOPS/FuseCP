@@ -43,9 +43,10 @@ namespace FuseCP.Portal.ProviderControls
             {
                 string[] ips = sips.Split(',');
 
-
-                foreach (var li in ips.Select(ip => CreateIPListItem(Utils.ParseInt(ip, 0))).Where(li => li != null))
-                    lbAddresses.Items.Add(li);
+                lbAddresses.Items.AddRange(ips
+                    .Select(ip => CreateIPListItem(Utils.ParseInt(ip, 0)))
+                    .Where(li => li != null)
+                    .ToArray());
             }
         }
 

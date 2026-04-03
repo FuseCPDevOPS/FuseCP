@@ -20,6 +20,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using FuseCP.Providers.Common;
 using FuseCP.Providers.HostedSolution;
 using FuseCP.Providers.ResultObjects;
@@ -88,19 +89,15 @@ namespace FuseCP.Portal.CRM
             CurrencyArrayResultObject res = ES.Services.CRM.GetCurrency(PanelSecurity.PackageId);
             if (res.IsSuccess)
             {
-                foreach (Currency currency in res.Value)
-                {
-                    ListItem item = new ListItem(string.Format("{0} ({1})",
-                                                               currency.RegionName, currency.CurrencyName),
-                                                 string.Join("|",
-                                                             new string[]
-                                                                 {
-                                                                     currency.CurrencyCode, currency.CurrencyName,
-                                                                     currency.CurrencySymbol, currency.RegionName
-                                                                 }));
-
-                    ddlCurrency.Items.Add(item);
-                }
+                ddlCurrency.Items.AddRange(res.Value.Select(currency => new ListItem(
+                    string.Format("{0} ({1})", currency.RegionName, currency.CurrencyName),
+                    string.Join("|", new string[]
+                    {
+                        currency.CurrencyCode,
+                        currency.CurrencyName,
+                        currency.CurrencySymbol,
+                        currency.RegionName
+                    }))).ToArray());
                 Utils.SelectListItem(ddlCurrency, "USD|US Dollar|$|United States"); // default
                 Utils.SelectListItem(ddlCurrency, ServiceSettings[Constants.Currency]);
             }
@@ -115,13 +112,11 @@ namespace FuseCP.Portal.CRM
             int[] langPacksId = ES.Services.CRM.GetInstalledLanguagePacks(PanelSecurity.PackageId);
             if (langPacksId != null)
             {
-                foreach (int langId in langPacksId)
+                ddlBaseLanguage.Items.AddRange(langPacksId.Select(langId =>
                 {
                     CultureInfo ci = CultureInfo.GetCultureInfo(langId);
-
-                    ListItem item = new ListItem(ci.EnglishName, langId.ToString());
-                    ddlBaseLanguage.Items.Add(item);
-                }
+                    return new ListItem(ci.EnglishName, langId.ToString());
+                }).ToArray());
 
                 Utils.SelectListItem(ddlBaseLanguage, "1033"); // default
                 Utils.SelectListItem(ddlBaseLanguage, ServiceSettings[Constants.BaseLanguage]);

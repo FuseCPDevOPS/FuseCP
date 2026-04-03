@@ -72,11 +72,11 @@ namespace FuseCP.Portal
             folderPath.SelectedFile = folder.Path;
 
             // users
-            foreach (var li in folder.Users.Select(user => dlUsers.Items.FindByValue(user)).Where(li => li != null))
+            foreach (ListItem li in dlUsers.Items.Cast<ListItem>().Where(li => folder.Users.Contains(li.Value)))
                 li.Selected = true;
 
             // groups
-            foreach (var li in folder.Groups.Select(group => dlGroups.Items.FindByValue(group)).Where(li => li != null))
+            foreach (ListItem li in dlGroups.Items.Cast<ListItem>().Where(li => folder.Groups.Contains(li.Value)))
                 li.Selected = true;
         }
 
