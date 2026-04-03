@@ -79,10 +79,9 @@ namespace FuseCP.Portal
                 lnkSummaryLetter.NavigateUrl = EditUrl("UserID", PanelSecurity.SelectedUserId.ToString(), "summary_letter");
                 lnkSummaryLetter.Visible = (PanelSecurity.SelectedUser.Role != UserRole.Administrator);
 
-                if (PanelSecurity.LoggedUserId == PanelSecurity.SelectedUserId)
-                    lnkEditAccountDetails.NavigateUrl = "/Default.aspx?pid=LoggedUserDetails";
-                else
-                    lnkEditAccountDetails.NavigateUrl = EditUrl("UserID", PanelSecurity.SelectedUserId.ToString(), "edit_details");
+                lnkEditAccountDetails.NavigateUrl = PanelSecurity.LoggedUserId == PanelSecurity.SelectedUserId
+                    ? "/Default.aspx?pid=LoggedUserDetails"
+                    : EditUrl("UserID", PanelSecurity.SelectedUserId.ToString(), "edit_details");
 
                 lnkChangePassword.NavigateUrl = EditUrl("UserID", PanelSecurity.SelectedUserId.ToString(), "change_password");
                 lnkChangePassword.Visible = !((PanelSecurity.SelectedUserId == PanelSecurity.EffectiveUserId) && PanelSecurity.LoggedUser.IsPeer);

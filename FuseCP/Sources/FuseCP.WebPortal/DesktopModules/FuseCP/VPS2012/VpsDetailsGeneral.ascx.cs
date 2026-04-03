@@ -36,12 +36,7 @@ namespace FuseCP.Portal.VPS2012
         {
             BindGeneralDetails();
             string guacamoleconnecturl = ES.Services.VPS2012.GetVirtualMachineGuacamoleURL(PanelRequest.ItemID);
-            if (guacamoleconnecturl != "")
-            {
-                lnkRDP.Visible = true;
-            } else {
-                lnkRDP.Visible = false;
-            }
+            lnkRDP.Visible = guacamoleconnecturl != "";
         }
 
         private void BindGeneralDetails()

@@ -42,15 +42,10 @@ namespace FuseCP.Portal.ExchangeServer
             }
             return r;
         }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            int serviceId = ES.Services.ExchangeServer.GetExchangeServiceID(PanelRequest.ItemID);
-            StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
-            var allowSentItems = Utils.ParseBool(settings["ex2016cu6orhigher"], false);
-            if (!allowSentItems)
-            {
-                tablesavesentitems.Visible = false;
+                // Not CU6 when save-sent-items controls are hidden.
+                int SaveSentItems = !tablesavesentitems.Visible
+                    ? 0
+                    : (chkSaveSentItems.Checked ? 1 : 2);
             }
 
             if (!IsPostBack)
