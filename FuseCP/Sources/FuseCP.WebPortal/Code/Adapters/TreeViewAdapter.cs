@@ -651,7 +651,7 @@ namespace CSSFriendly
             {
                 foreach (TreeNode node in nodes)
                 {
-                    state += node.Expanded ? "e" : "n";
+                    state += node.Expanded == true ? "e" : "n";
                     state = ComposeViewState(node.ChildNodes, state);
                 }
             }
