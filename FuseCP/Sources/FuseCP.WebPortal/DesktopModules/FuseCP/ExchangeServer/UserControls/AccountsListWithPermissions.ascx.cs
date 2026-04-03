@@ -34,7 +34,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
 	    public bool EnableMailboxOnly
 	    {
-            get {return ViewState["EnableMailboxOnly"] != null ? (bool)ViewState["EnableMailboxOnly"]: false; }
+            get {return ViewState["EnableMailboxOnly"] != null && (bool)ViewState["EnableMailboxOnly"]; }
             set { ViewState["EnableMailboxOnly"] = value; }
 	    }
         

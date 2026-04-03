@@ -37,7 +37,7 @@ namespace FuseCP.Portal
                 ? content.Attributes["resourcekey"].Value : null;
 
             bool template = content.Attributes["template"] != null
-                ? Utils.ParseBool(content.Attributes["template"].Value, false) : false;
+                && Utils.ParseBool(content.Attributes["template"].Value, false);
 
             string text = !String.IsNullOrEmpty(resourcekey)
                 ? GetSharedLocalizedString("ModuleContent." + resourcekey) : content.InnerText;
