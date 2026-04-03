@@ -495,15 +495,12 @@ namespace FuseCP.EnterpriseServer
 
                         var tasks = mgr.TaskController.GetProcessTasks(BackgroundTaskStatus.Run);
 
-                        foreach (BackgroundTask task in tasks)
+                        foreach (BackgroundTask task in tasks.Where(task => task.MaximumExecutionTime != -1
+                            && (DateTime.Now - task.StartDate).TotalSeconds > task.MaximumExecutionTime))
                         {
-                            if (task.MaximumExecutionTime != -1
-                                && (DateTime.Now - task.StartDate).TotalSeconds > task.MaximumExecutionTime)
-                            {
-                                task.Status = BackgroundTaskStatus.Stopping;
+                            task.Status = BackgroundTaskStatus.Stopping;
 
-                                mgr.TaskController.UpdateTask(task);
-                            }
+                            mgr.TaskController.UpdateTask(task);
                         }
                     }
                 }
@@ -609,13 +606,12 @@ namespace FuseCP.EnterpriseServer
             Dictionary<int, BackgroundTask> scheduledTasks = new Dictionary<int, BackgroundTask>();
             try
             {
-                foreach (BackgroundTask task in TaskController.GetTasks())
+                foreach (BackgroundTask task in TaskController.GetTasks().Where(task => task.ScheduleId > 0
+                    && !task.Completed
+                    && (task.Status == BackgroundTaskStatus.Run || task.Status == BackgroundTaskStatus.Starting)
+                    && !scheduledTasks.ContainsKey(task.ScheduleId)))
                 {
-                    if (task.ScheduleId > 0
-                        && !task.Completed
-                        && (task.Status == BackgroundTaskStatus.Run || task.Status == BackgroundTaskStatus.Starting)
-                        && !scheduledTasks.ContainsKey(task.ScheduleId))
-                        scheduledTasks.Add(task.ScheduleId, task);
+                    scheduledTasks.Add(task.ScheduleId, task);
                 }
             }
             catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
@@ -708,14 +704,10 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                 return list; // prohibited user
 
             // get user tasks
-            foreach (BackgroundTask task in TaskController.GetTasks(user.IsPeer ? user.OwnerId : user.UserId))
-            {
-                if (task.UserId == userId && !task.Completed
-                    && task.Status == BackgroundTaskStatus.Run)
-                {
-                    list.Add(task);
-                }
-            }
+            list.AddRange(TaskController.GetTasks(user.IsPeer ? user.OwnerId : user.UserId)
+                .Where(task => task.UserId == userId
+                    && !task.Completed
+                    && task.Status == BackgroundTaskStatus.Run));
             return list;
         }
 
@@ -789,9 +781,8 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     }
 
                     // parse XML
-                    foreach (XmlDocument xml in xmlConfigs)
+                    foreach (XmlNodeList xmlHandlers in xmlConfigs.Select(xml => xml.SelectNodes("//handler")))
                     {
-                        XmlNodeList xmlHandlers = xml.SelectNodes("//handler");
                         foreach (XmlNode xmlHandler in xmlHandlers)
                         {
                             string keyName = xmlHandler.ParentNode.Attributes["source"].Value

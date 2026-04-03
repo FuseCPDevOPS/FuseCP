@@ -20,6 +20,7 @@ using System.Data;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -124,9 +125,9 @@ namespace FuseCP.EnterpriseServer
             {
                 // get user packages
                 List<PackageInfo> packages = PackageController.GetMyPackages(topTask.EffectiveUserId);
-                foreach (PackageInfo package in packages)
+                foreach (int packageId in packages.Select(package => package.PackageId))
                 {
-                    DataSet serviceItems = PackageController.GetRawPackageItemsPaged(package.PackageId, ResourceGroups.Web, typeof(WebSite),
+                    DataSet serviceItems = PackageController.GetRawPackageItemsPaged(packageId, ResourceGroups.Web, typeof(WebSite),
                         true, "ItemName", "%%", "", 0, Int32.MaxValue);
                     checkWebsites(serviceItems);
                 }

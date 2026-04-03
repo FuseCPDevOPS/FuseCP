@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Text;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Common.Utils
 {
@@ -64,9 +65,8 @@ namespace Common.Utils
 		{
 			string[] parts = str.Split(delimiter);
 			ArrayList list = new ArrayList();
-			foreach (string part in parts)
-				if (part.Trim() != "" && !list.Contains(part.Trim()))
-					list.Add(part);
+			foreach (string part in parts.Where(part => part.Trim() != "" && !list.Contains(part.Trim())))
+				list.Add(part);
 			return (string[])list.ToArray(typeof(string));
 		}
 
