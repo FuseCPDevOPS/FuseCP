@@ -23,6 +23,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Text;
 
 namespace FuseCP.Portal
 {
@@ -81,14 +82,19 @@ namespace FuseCP.Portal
 
         public string GetCriterias()
         {
-            string res = null;
+            StringBuilder res = new StringBuilder();
+            bool isFirst = true;
             foreach (ListItem itm in ddlFilterColumn.Items)
             {
-                if (res != null)
-                    res += ", ";
-                res = res + "'" + itm.Value + "'";
+                if (!isFirst)
+                {
+                    res.Append(", ");
+                }
+
+                res.Append('\'').Append(itm.Value).Append('\'');
+                isFirst = false;
             }
-            return res;
+            return res.ToString();
         }
 
         public override void Focus()

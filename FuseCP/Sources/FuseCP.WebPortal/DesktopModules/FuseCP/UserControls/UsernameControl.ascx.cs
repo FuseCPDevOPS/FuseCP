@@ -209,6 +209,7 @@ namespace FuseCP.Portal
                     if (!String.IsNullOrEmpty(allowedSymbols))
                     {
                         StringBuilder sb = new StringBuilder(defAllowedRegexp);
+                        StringBuilder allowedTextBuilder = new StringBuilder(defAllowedText);
                         for (int i = 0; i < allowedSymbols.Length; i++)
                         {
 							// Escape characters only if required
@@ -217,9 +218,10 @@ namespace FuseCP.Portal
 							else
 								sb.Append(allowedSymbols[i]);
                             //
-                            defAllowedText += "&nbsp;&nbsp;" + allowedSymbols[i];
+                            allowedTextBuilder.Append("&nbsp;&nbsp;").Append(allowedSymbols[i]);
                         }
                         defAllowedRegexp = sb.ToString();
+                        defAllowedText = allowedTextBuilder.ToString();
                     }
 
                 } // if(enabled)

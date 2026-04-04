@@ -27,6 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Text;
 
 using System.Reflection;
 
@@ -649,11 +650,14 @@ namespace CSSFriendly
         {
             if (nodes != null)
             {
+                StringBuilder stateBuilder = new StringBuilder(state);
                 foreach (TreeNode node in nodes)
                 {
-                    state += node.Expanded == true ? "e" : "n";
-                    state = ComposeViewState(node.ChildNodes, state);
+                    stateBuilder.Append(node.Expanded == true ? "e" : "n");
+                    stateBuilder.Append(ComposeViewState(node.ChildNodes, String.Empty));
                 }
+
+                return stateBuilder.ToString();
             }
 
             return state;

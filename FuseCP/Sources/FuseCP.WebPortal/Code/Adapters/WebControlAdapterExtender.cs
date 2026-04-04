@@ -22,6 +22,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
@@ -231,7 +232,7 @@ namespace CSSFriendly
 
         static public string MakeNameFromId(string id)
         {
-            string name = "";
+            StringBuilder nameBuilder = new StringBuilder(id.Length);
             for (int i=0; i<id.Length; i++)
             {
                 char thisChar = id[i];
@@ -241,23 +242,23 @@ namespace CSSFriendly
                 {
                     if (prevChar == '_')
                     {
-                        name += "_";
+                        nameBuilder.Append("_");
                     }
                     else if (nextChar == '_')
                     {
-                        name += "$_";
+                        nameBuilder.Append("$_");
                     }
                     else
                     {
-                        name += "$";
+                        nameBuilder.Append("$");
                     }
                 }
                 else
                 {
-                    name += thisChar;
+                    nameBuilder.Append(thisChar);
                 }
             }
-            return name;
+            return nameBuilder.ToString();
         }
 
         static public string MakeIdWithButtonType(string id, ButtonType type)

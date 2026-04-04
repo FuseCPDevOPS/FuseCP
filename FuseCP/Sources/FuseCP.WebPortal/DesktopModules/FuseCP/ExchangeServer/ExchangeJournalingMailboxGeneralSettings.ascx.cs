@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Text;
 using FuseCP.Providers.HostedSolution;
 using FuseCP.EnterpriseServer;
 using System.Web.UI.WebControls;
@@ -62,11 +63,16 @@ namespace FuseCP.Portal.ExchangeServer
 
             string path = org.SecurityGroup;
             string[] parts = path.Substring(path.ToUpper().IndexOf("DC=")).Split(',');
-            string domain = "";
+            StringBuilder domainBuilder = new StringBuilder();
             for (int i = 0; i < parts.Length; i++)
             {
-                domain += parts[i].Substring(3) + (i < parts.Length - 1 ? "." : "");
+                domainBuilder.Append(parts[i].Substring(3));
+                if (i < parts.Length - 1)
+                {
+                    domainBuilder.Append('.');
+                }
             }
+            string domain = domainBuilder.ToString();
 
             ddlRecipient.Items.Clear();
             if (!String.IsNullOrEmpty(domain))
