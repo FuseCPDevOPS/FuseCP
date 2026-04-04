@@ -42,8 +42,7 @@ namespace FuseCP.Portal.ExchangeServer
             }
             return r;
         }
-                // Not CU6 when the control is hidden; otherwise map checkbox to Exchange values.
-                int SaveSentItems = !tablesavesentitems.Visible ? 0 : (chkSaveSentItems.Checked ? 1 : 2);
+
         private void BindSettings()
         {
             try
@@ -100,25 +99,8 @@ namespace FuseCP.Portal.ExchangeServer
 
             try
             {
-                int SaveSentItems = 0;
-                if (!tablesavesentitems.Visible)
-                {
-                    // Not CU6
-                    SaveSentItems = 0;
-                }
-                else
-                {
-                    SaveSentItems = chkSaveSentItems.Checked ? 1 : 2;
-
-
-
-
-
-
-
-
-
-                }
+                // Not CU6 when the control is hidden; otherwise map checkbox to Exchange values.
+                int SaveSentItems = !tablesavesentitems.Visible ? 0 : (chkSaveSentItems.Checked ? 1 : 2);
 
                 int result = ES.Services.ExchangeServer.SetMailboxMailFlowSettings(
                     PanelRequest.ItemID, PanelRequest.AccountID,
