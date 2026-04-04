@@ -355,8 +355,11 @@ namespace FuseCP.Portal
             if (!cntx.Quotas.TryGetValue(key, out var quota))
                 return false;
 
-            return (quota.QuotaAllocatedValue == 1 && quota.QuotaTypeId == 1) ||
-                   (quota.QuotaTypeId != 1 && (quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1));
+                 bool isBooleanQuota = quota.QuotaTypeId == 1;
+                 bool isEnabledBooleanQuota = isBooleanQuota && quota.QuotaAllocatedValue == 1;
+                 bool isPositiveOrUnlimitedQuota = quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1;
+
+                 return isEnabledBooleanQuota || (!isBooleanQuota && isPositiveOrUnlimitedQuota);
         }
 
 
@@ -365,8 +368,11 @@ namespace FuseCP.Portal
             if (!cntx.Quotas.TryGetValue(key, out var quota))
                 return false;
 
-            return (quota.QuotaAllocatedValue == 1 && quota.QuotaTypeId == 1) ||
-                   (quota.QuotaTypeId != 1 && (quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1));
+                 bool isBooleanQuota = quota.QuotaTypeId == 1;
+                 bool isEnabledBooleanQuota = isBooleanQuota && quota.QuotaAllocatedValue == 1;
+                 bool isPositiveOrUnlimitedQuota = quota.QuotaAllocatedValue > 0 || quota.QuotaAllocatedValue == -1;
+
+                 return isEnabledBooleanQuota || (!isBooleanQuota && isPositiveOrUnlimitedQuota);
         }
 
         public static bool IsIdnDomain(string domainName)

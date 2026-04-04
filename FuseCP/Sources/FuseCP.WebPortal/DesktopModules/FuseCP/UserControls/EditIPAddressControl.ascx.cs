@@ -101,10 +101,16 @@ namespace FuseCP.Portal.UserControls
 				}
 			}
 			System.Net.IPAddress ipaddr;
-			args.IsValid &= System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) &&
-                (((Validation & IPValidationMode.V6) != 0 && (IsV6 = ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)) ||
-				((Validation & IPValidationMode.V4) != 0 && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork));
-			args.IsValid &= ipaddr.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork || net < 32;
+            bool parsed = System.Net.IPAddress.TryParse(ip, out ipaddr);
+            bool hasExplicitAddressFormat = ip.Contains(":") || ip.Contains(".");
+            bool allowV6 = (Validation & IPValidationMode.V6) != 0;
+            bool allowV4 = (Validation & IPValidationMode.V4) != 0;
+            bool isIpv6Address = parsed && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6;
+            bool isIpv4Address = parsed && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork;
+            bool matchesAllowedFamily = (allowV6 && (IsV6 = isIpv6Address)) || (allowV4 && isIpv4Address);
+
+            args.IsValid &= parsed && hasExplicitAddressFormat && matchesAllowedFamily;
+            args.IsValid &= !parsed || ipaddr.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork || net < 32;
 		}
     }
 }

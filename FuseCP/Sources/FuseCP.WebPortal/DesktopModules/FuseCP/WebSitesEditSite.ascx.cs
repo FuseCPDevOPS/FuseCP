@@ -719,26 +719,25 @@ namespace FuseCP.Portal
 		private void ToggleWmSvcConnectionHint(WebAppVirtualDirectory item)
 		{
 			bool wmcSvcSiteEnabled = item.GetValue<bool>(WebSite.WmSvcSiteEnabled);
-			//
-			if (wmcSvcSiteEnabled)
+			if (!wmcSvcSiteEnabled)
+				return;
+
+			string wmSvcServicePort = item.GetValue<String>(WebSite.WmSvcServicePort);
+			string wmSvcServiceUrl = item.GetValue<String>(WebSite.WmSvcServiceUrl);
+
+			if (String.IsNullOrEmpty(wmSvcServiceUrl))
 			{
-				//
-				string wmSvcServicePort = item.GetValue<String>(WebSite.WmSvcServicePort);
-				string wmSvcServiceUrl = item.GetValue<String>(WebSite.WmSvcServiceUrl);
-				//
-				if (!String.IsNullOrEmpty(wmSvcServiceUrl))
-				{
-					if (!String.IsNullOrEmpty(wmSvcServicePort)
-						&& !String.Equals(wmSvcServicePort, WebSite.WmSvcDefaultPort))
-						lclWmSvcConnectionHint.Text = String.Format(
-							lclWmSvcConnectionHint.Text, String.Format("{0}:{1}", wmSvcServiceUrl, wmSvcServicePort), item.Name);
-					else
-						lclWmSvcConnectionHint.Text = String.Format(
-							lclWmSvcConnectionHint.Text, wmSvcServiceUrl, item.Name);
-				}
-				else
-					lclWmSvcConnectionHint.Visible = false;
+				lclWmSvcConnectionHint.Visible = false;
+				return;
 			}
+
+			if (!String.IsNullOrEmpty(wmSvcServicePort)
+				&& !String.Equals(wmSvcServicePort, WebSite.WmSvcDefaultPort))
+				lclWmSvcConnectionHint.Text = String.Format(
+					lclWmSvcConnectionHint.Text, String.Format("{0}:{1}", wmSvcServiceUrl, wmSvcServicePort), item.Name);
+			else
+				lclWmSvcConnectionHint.Text = String.Format(
+					lclWmSvcConnectionHint.Text, wmSvcServiceUrl, item.Name);
 		}
 
 		protected void btnWmSvcSiteEnable_Click(object sender, EventArgs e)

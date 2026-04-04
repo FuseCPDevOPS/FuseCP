@@ -37,12 +37,14 @@ namespace FuseCP.Portal
 			// space
 			if (title.IndexOf("{space}") != -1)
 			{
-				if (PanelSecurity.PackageId > 0)
+				if (PanelSecurity.PackageId <= 0)
+					return result;
+
+				// space
+				PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
+				if (package != null)
 				{
-					// space
-					PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
-					if (package != null)
-						result = result.Replace("{space}", package.PackageName);
+					result = result.Replace("{space}", package.PackageName);
 				}
 			}
 

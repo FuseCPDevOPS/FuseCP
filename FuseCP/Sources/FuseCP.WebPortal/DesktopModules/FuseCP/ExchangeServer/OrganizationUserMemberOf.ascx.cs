@@ -151,9 +151,9 @@ namespace FuseCP.Portal.HostedSolution
 
                 foreach (ExchangeAccount oldGroup in oldGroups)
                 {
-                        if (newGroups.Remove(oldGroup.AccountName))
-                                continue;
-
+                    bool accountStillAssigned = newGroups.Remove(oldGroup.AccountName);
+                    if (!accountStillAssigned)
+                    {
                         switch (oldGroup.AccountType)
                         {
                             case ExchangeAccountType.DistributionList:
@@ -163,6 +163,7 @@ namespace FuseCP.Portal.HostedSolution
                                 ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
                                 break;
                         }
+                    }
                 }
 
                 foreach (KeyValuePair<string, ExchangeAccountType> newGroup in newGroups)

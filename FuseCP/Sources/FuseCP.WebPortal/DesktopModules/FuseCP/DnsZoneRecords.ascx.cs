@@ -168,9 +168,12 @@ namespace FuseCP.Portal
 		protected void Validate(object source, ServerValidateEventArgs args) {
 			var ip = args.Value;
 			System.Net.IPAddress ipaddr;
-			args.IsValid = System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) && 
-                ((ddlRecordType.SelectedValue == "A" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) ||
-                (ddlRecordType.SelectedValue == "AAAA" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6));
+            bool parsed = System.Net.IPAddress.TryParse(ip, out ipaddr);
+            bool hasExplicitAddressFormat = ip.Contains(":") || ip.Contains(".");
+            bool isIpv4Record = parsed && ddlRecordType.SelectedValue == "A" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork;
+            bool isIpv6Record = parsed && ddlRecordType.SelectedValue == "AAAA" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6;
+
+            args.IsValid = parsed && hasExplicitAddressFormat && (isIpv4Record || isIpv6Record);
 		}
 
         private void SaveRecord()

@@ -141,10 +141,11 @@ namespace FuseCP.Portal.HostedSolution
 
                 foreach (ExchangeAccount oldGroup in oldGroups)
                 {
-                        if (newGroups.Remove(oldGroup.AccountName))
-                                continue;
-
-                        ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
+                    bool accountStillAssigned = newGroups.Remove(oldGroup.AccountName);
+                    if (!accountStillAssigned)
+                    {
+                    ES.Services.Organizations.DeleteObjectFromSecurityGroup(PanelRequest.ItemID, PanelRequest.AccountID, oldGroup.AccountName);
+                    }
                 }
 
                 foreach (KeyValuePair<string, ExchangeAccountType> newGroup in newGroups)

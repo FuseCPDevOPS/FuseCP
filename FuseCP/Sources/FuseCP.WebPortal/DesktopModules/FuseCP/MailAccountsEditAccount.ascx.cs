@@ -130,33 +130,14 @@ namespace FuseCP.Portal
 
 		private void HandleMaxMailboxSizeLimitDisplay(PackageContext cntx)
 		{
-if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
+            if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
 			{
 				// Obtain quotas from the plan assigned
 				bool maxMailboxSizeChangeable = (_ckv.QuotaAllocatedValue == 0);
 				int maxMailboxSizeLimit = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
-				// Ensure all validation controls, markup and layout is rendered consistently
-				if (maxMailboxSizeLimit == -1 && !(maxMailboxSizeChangeable))
-				{
-					lblMaxMailboxSizeLimit.Visible = true;
-					txtMailBoxSizeLimit.Visible = false;
-				}
-				// 
-				else if (maxMailboxSizeLimit >= 0 && !(maxMailboxSizeChangeable))
-				{
-					lblMaxMailboxSizeLimit.Visible = true;
-					txtMailBoxSizeLimit.Visible = false;
-				}
-				else if(maxMailboxSizeLimit == -1 && maxMailboxSizeChangeable)
-				{
-					lblMaxMailboxSizeLimit.Visible = false;
-					txtMailBoxSizeLimit.Visible = true;
-				}
-				else // this is the cue for the fallback clause: if (maxMailboxSizeLimit >= 0 && maxMailboxSizeChangeable)
-				{
-					lblMaxMailboxSizeLimit.Visible = false;
-					txtMailBoxSizeLimit.Visible = true;
-				}
+                bool showReadonlyLimit = !maxMailboxSizeChangeable;
+                lblMaxMailboxSizeLimit.Visible = showReadonlyLimit;
+                txtMailBoxSizeLimit.Visible = !showReadonlyLimit;
 				// Set the value being displayed for both controls in either case, as the logic above addresses all rendering concerns.
 				SetMaxMailboxSizeLimit(maxMailboxSizeLimit);
 				// Configure required field & range validators appropriately

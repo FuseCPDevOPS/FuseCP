@@ -42,26 +42,8 @@ namespace FuseCP.Portal.ExchangeServer
             }
             return r;
         }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            int serviceId = ES.Services.ExchangeServer.GetExchangeServiceID(PanelRequest.ItemID);
-            StringDictionary settings = ConvertArrayToDictionary(ES.Services.Servers.GetServiceSettingsRDS(serviceId) ?? Array.Empty<string>());
-            var allowSentItems = Utils.ParseBool(settings["ex2016cu6orhigher"], false);
-            if (!allowSentItems)
-            {
-                tablesavesentitems.Visible = false;
-            }
-
-            if (!IsPostBack)
-            {
-                BindSettings();
-
-                if (GetLocalizedString("buttonPanel.OnSaveClientClick") != null)
-                    buttonPanel.OnSaveClientClick = GetLocalizedString("buttonPanel.OnSaveClientClick");
-            }
-        }
-
+                // Not CU6 when the control is hidden; otherwise map checkbox to Exchange values.
+                int SaveSentItems = !tablesavesentitems.Visible ? 0 : (chkSaveSentItems.Checked ? 1 : 2);
         private void BindSettings()
         {
             try

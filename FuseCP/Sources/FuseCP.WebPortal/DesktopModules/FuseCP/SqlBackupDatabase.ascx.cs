@@ -74,18 +74,22 @@ namespace FuseCP.Portal
         {
             string backupName = Path.GetFileNameWithoutExtension(txtBackupName.Text);
             SqlDatabase database = ES.Services.DatabaseServers.GetSqlDatabase(PanelRequest.ItemID);
+            string extension;
+
             if (database.GroupName.Contains("MySQL"))
             {
-                txtBackupName.Text = backupName + (chkZipBackup.Checked ? ".zip" : ".sql");    
+                extension = chkZipBackup.Checked ? ".zip" : ".sql";
             }
-            if (database.GroupName.Contains("MariaDB"))
+            else if (database.GroupName.Contains("MariaDB"))
             {
-                txtBackupName.Text = backupName + (chkZipBackup.Checked ? ".zip" : ".sql");
+                extension = chkZipBackup.Checked ? ".zip" : ".sql";
             }
             else
             {
-                txtBackupName.Text = backupName + (chkZipBackup.Checked ? ".zip" : ".bak");
+                extension = chkZipBackup.Checked ? ".zip" : ".bak";
             }
+
+            txtBackupName.Text = backupName + extension;
         }
 
         private void ToggleControls()

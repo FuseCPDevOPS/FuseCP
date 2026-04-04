@@ -482,7 +482,13 @@ namespace CSSFriendly
 
         private bool IsLink(TreeNode item)
         {
-            return (item != null) && ((!String.IsNullOrEmpty(item.NavigateUrl)) || item.PopulateOnDemand || (item.SelectAction == TreeNodeSelectAction.Select) || (item.SelectAction == TreeNodeSelectAction.SelectExpand));
+            bool hasItem = item != null;
+            bool hasNavigateUrl = hasItem && !String.IsNullOrEmpty(item.NavigateUrl);
+            bool canPopulateOnDemand = hasItem && item.PopulateOnDemand;
+            bool selectActionEnabled = hasItem && item.SelectAction == TreeNodeSelectAction.Select;
+            bool selectExpandActionEnabled = hasItem && item.SelectAction == TreeNodeSelectAction.SelectExpand;
+
+            return hasItem && (hasNavigateUrl || canPopulateOnDemand || selectActionEnabled || selectExpandActionEnabled);
         }
 
         private bool IsCheckbox(TreeView treeView, TreeNode item)

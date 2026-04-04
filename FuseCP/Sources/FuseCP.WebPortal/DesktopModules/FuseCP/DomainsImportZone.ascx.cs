@@ -62,11 +62,9 @@ namespace FuseCP.Portal
                         record.SrvPriority,
                         record.SrvWeight,
                         record.SrvPort,
-                        record.RecordTTL)))
+                        record.RecordTTL)).Where(result => result < 0))
                     {
-                        //Check if the record couldn't be added for some reason
-                        if (result < 0)
-                            ShowResultMessage(result);
+                        ShowResultMessage(result);
                     }
                     //Show success message
                     ShowSuccessMessage("DOMAIN_IMPORT");

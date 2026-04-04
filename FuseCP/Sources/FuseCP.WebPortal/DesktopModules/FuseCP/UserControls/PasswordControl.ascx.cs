@@ -106,13 +106,21 @@ namespace FuseCP.Portal
             if (valRequireSymbols.Enabled)
                 valRequireSymbols.Validate();
 
-            return valRequirePassword.IsValid
-                && valRequireConfirmPassword.IsValid
-                && valRequireEqualPassword.IsValid
-                && (!valCorrectLength.Enabled || valCorrectLength.IsValid)
-                && (!valRequireNumbers.Enabled || valRequireNumbers.IsValid)
-                && (!valRequireUppercase.Enabled || valRequireUppercase.IsValid)
-                && (!valRequireSymbols.Enabled || valRequireSymbols.IsValid);
+            bool passwordValid = valRequirePassword.IsValid;
+            bool confirmPasswordValid = valRequireConfirmPassword.IsValid;
+            bool equalPasswordValid = valRequireEqualPassword.IsValid;
+            bool correctLengthValid = !valCorrectLength.Enabled || valCorrectLength.IsValid;
+            bool requireNumbersValid = !valRequireNumbers.Enabled || valRequireNumbers.IsValid;
+            bool requireUppercaseValid = !valRequireUppercase.Enabled || valRequireUppercase.IsValid;
+            bool requireSymbolsValid = !valRequireSymbols.Enabled || valRequireSymbols.IsValid;
+
+            return passwordValid
+                && confirmPasswordValid
+                && equalPasswordValid
+                && correctLengthValid
+                && requireNumbersValid
+                && requireUppercaseValid
+                && requireSymbolsValid;
         }
 
         public bool CheckPasswordLength

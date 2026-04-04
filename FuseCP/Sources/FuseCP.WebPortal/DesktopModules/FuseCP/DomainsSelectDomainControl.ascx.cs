@@ -138,13 +138,16 @@ namespace FuseCP.Portal
             {
                 Providers.Mail.MailDomain[] mailDomains = ES.Services.MailServers.GetMailDomains(PackageId, false);
 
-                foreach (DomainInfo[] pointers in mailDomains.Select(mailDomain => ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id)).Where(pointers => pointers != null))
+                foreach (Providers.Mail.MailDomain mailDomain in mailDomains)
                 {
-                        foreach (DomainInfo p in pointers)
-                        {
-                            if (htMailDomainPointers[p.DomainName.ToLower()] == null) htMailDomainPointers.Add(p.DomainName.ToLower(), 1);
+                    DomainInfo[] pointers = ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id);
+                    if (pointers == null)
+                        continue;
 
-                        }
+                    foreach (DomainInfo p in pointers)
+                    {
+                        if (htMailDomainPointers[p.DomainName.ToLower()] == null) htMailDomainPointers.Add(p.DomainName.ToLower(), 1);
+                    }
                 }
             }
 
@@ -155,13 +158,23 @@ namespace FuseCP.Portal
             ddlDomains.Items.Insert(0, new ListItem(GetLocalizedString("Text.SelectDomain"), ""));
 
             ddlDomains.Items.AddRange(domains.Where(domain =>
-                (!HideWebSites ||
-                    (domain.WebSiteId <= 0 && (htSites == null || htSites[domain.DomainName.ToLower()] == null)))
-                && (!HideMailDomainPointers || htMailDomainPointers[domain.DomainName.ToLower()] == null)
-                && (!HidePreviewDomain || !domain.IsPreviewDomain)
-                && (!HideMailDomains || domain.MailDomainId <= 0)
-                && (!HideDomainPointers || !domain.IsDomainPointer)
-                && (!HideDomainsSubDomains || domain.IsDomainPointer))
+                {
+                    string domainName = domain.DomainName.ToLower();
+                    bool siteIsVisible = !HideWebSites
+                        || (domain.WebSiteId <= 0 && (htSites == null || htSites[domainName] == null));
+                    bool mailPointersAreVisible = !HideMailDomainPointers || htMailDomainPointers[domainName] == null;
+                    bool previewDomainIsVisible = !HidePreviewDomain || !domain.IsPreviewDomain;
+                    bool mailDomainIsVisible = !HideMailDomains || domain.MailDomainId <= 0;
+                    bool domainPointerIsVisible = !HideDomainPointers || !domain.IsDomainPointer;
+                    bool subDomainIsVisible = !HideDomainsSubDomains || domain.IsDomainPointer;
+
+                    return siteIsVisible
+                        && mailPointersAreVisible
+                        && previewDomainIsVisible
+                        && mailDomainIsVisible
+                        && domainPointerIsVisible
+                        && subDomainIsVisible;
+                })
                 .Select(domain => new ListItem(domain.DomainName.ToLower(), domain.DomainId.ToString()))
                 .ToArray());
 

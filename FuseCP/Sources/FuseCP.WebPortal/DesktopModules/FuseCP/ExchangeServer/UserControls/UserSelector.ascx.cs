@@ -199,19 +199,27 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             if (IncludeMailboxesOnly)
             {
                 accounts = accounts.Where(account =>
-                    account.ExternalEmail != string.Empty
-                    && (!account.IsBlackBerryUser || !ExcludeBESUsers)
-                    && (!account.IsLyncUser || !ExcludeLyncUsers)
-                    && (!account.IsSfBUser || !ExcludeSfBUsers)).ToArray();
+                {
+                    bool hasMailbox = account.ExternalEmail != string.Empty;
+                    bool blackBerryAllowed = !account.IsBlackBerryUser || !ExcludeBESUsers;
+                    bool lyncAllowed = !account.IsLyncUser || !ExcludeLyncUsers;
+                    bool sfbAllowed = !account.IsSfBUser || !ExcludeSfBUsers;
+
+                    return hasMailbox && blackBerryAllowed && lyncAllowed && sfbAllowed;
+                }).ToArray();
             }
             else
                 if ((ExcludeOCSUsers) | (ExcludeBESUsers) | (ExcludeLyncUsers) | (ExcludeSfBUsers))
                 {
                     accounts = accounts.Where(account =>
-                        (!account.IsOCSUser || !ExcludeOCSUsers)
-                        && (!account.IsLyncUser || !ExcludeLyncUsers)
-                        && (!account.IsSfBUser || !ExcludeSfBUsers)
-                        && (!account.IsBlackBerryUser || !ExcludeBESUsers)).ToArray();
+                    {
+                        bool ocsAllowed = !account.IsOCSUser || !ExcludeOCSUsers;
+                        bool lyncAllowed = !account.IsLyncUser || !ExcludeLyncUsers;
+                        bool sfbAllowed = !account.IsSfBUser || !ExcludeSfBUsers;
+                        bool blackBerryAllowed = !account.IsBlackBerryUser || !ExcludeBESUsers;
+
+                        return ocsAllowed && lyncAllowed && sfbAllowed && blackBerryAllowed;
+                    }).ToArray();
                 }
 
 
