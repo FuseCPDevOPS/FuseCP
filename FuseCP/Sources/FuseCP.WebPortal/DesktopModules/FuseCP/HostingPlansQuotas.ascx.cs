@@ -161,8 +161,9 @@ namespace FuseCP.Portal
 
                 // iterate quotas
                 DataList dlQuotas = (DataList)item.FindControl("dlQuotas");
-                foreach (QuotaEditor quotaEditor in dlQuotas.Items.Select(quotaItem => (QuotaEditor)quotaItem.FindControl("quotaEditor")))
+                foreach (DataListItem quotaItem in dlQuotas.Items)
                 {
+                    QuotaEditor quotaEditor = (QuotaEditor)quotaItem.FindControl("quotaEditor");
                  
                     HostingPlanQuotaInfo quota = new HostingPlanQuotaInfo();
                     quota.QuotaId = quotaEditor.QuotaId;
