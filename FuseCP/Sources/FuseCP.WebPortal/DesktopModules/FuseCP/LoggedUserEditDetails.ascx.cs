@@ -647,9 +647,8 @@ namespace FuseCP.Portal
         {
             var values = new List<string>();
 
-            foreach (RepeaterItem item in repeater.Items)
+            foreach (var txt in repeater.Items.Select(item => item.FindControl(textBoxControlId) as TextBox))
             {
-                var txt = item.FindControl(textBoxControlId) as TextBox;
                 string normalized = NormalizeHex(txt != null ? txt.Text : String.Empty);
 
                 if (!PaletteHexColorRegex.IsMatch(normalized))

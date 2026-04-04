@@ -42,30 +42,9 @@ namespace FuseCP.Portal
         {
             try
             {
-                if (!IsPostBack)
+                if (!IsPostBack && PanelRequest.ItemID > 0)
                 {
-                    // load item if required
-                    if (PanelRequest.ItemID > 0)
                     {
-                        // existing item
-                        try
-                        {
-                            item = ES.Services.MailServers.GetMailDomain(PanelRequest.ItemID);
-                        }
-                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                        {
-                            ShowErrorMessage("MAIL_GET_DOMAIN", ex);
-                            return;
-                        }
-
-                        if (item != null)
-                        {
-                            // save package info
-                            ViewState["PackageId"] = item.PackageId;
-                        }
-                        else
-                            RedirectToBrowsePage();
-                    }
                 }
 
                 // load provider control
