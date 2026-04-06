@@ -160,8 +160,9 @@ namespace FuseCP.EnterpriseServer.Security
 
             status.TotalUserCount = users.Count;
 
-            foreach (var storedPassword in users.Select(u => NormalizeStoredPassword(u.Password)))
+            foreach (var user in users)
             {
+                var storedPassword = NormalizeStoredPassword(user.Password);
                 if (string.IsNullOrWhiteSpace(storedPassword))
                 {
                     status.EmptyUserPasswordCount++;

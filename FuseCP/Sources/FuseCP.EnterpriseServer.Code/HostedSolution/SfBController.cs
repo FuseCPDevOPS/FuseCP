@@ -1022,10 +1022,12 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     // policy list in all sfb servers
                     List<string> allpolicylist = new List<string>();
                     List<ServerInfo> servers = ServerController.GetAllServers();
-                    foreach (List<ServiceInfo> services in servers.Select(server => ServerController.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.SfB)))
+                    foreach (ServerInfo server in servers)
                     {
-                        foreach (SfBServer sfb in services.Select(service => GetSfBServer(service.ServiceId, -1)))
+                        List<ServiceInfo> services = ServerController.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.SfB);
+                        foreach (ServiceInfo service in services)
                         {
+                            SfBServer sfb = GetSfBServer(service.ServiceId, -1);
                             string[] values = sfb.GetPolicyList(type, name);
                             allpolicylist.AddRange(values.Where(val => !allpolicylist.Contains(val)));
                         }

@@ -730,8 +730,9 @@ namespace FuseCP.Providers.Mail
         {
             List<string> settings = new List<string>();
 
-            foreach (string[] parts in defaultSettings.Select(pair => pair.Split('=')))
+            foreach (string pair in defaultSettings)
             {
+                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "defaultaltsmtpport":
@@ -843,8 +844,9 @@ namespace FuseCP.Providers.Mail
 
         private static void FillMailDomainFields(MailDomain domain, SettingsRequestResult addResult)
         {
-            foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
+            foreach (string pair in addResult.settingValues)
             {
+                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "catchall":
@@ -1039,8 +1041,9 @@ namespace FuseCP.Providers.Mail
                 if (!addResult.Result)
                     throw new Exception(addResult.Message);
 
-                foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
+                foreach (string pair in addResult.settingValues)
                 {
+                    string[] parts = pair.Split('=');
                     if (parts[0] == "isenabled") mailbox.Enabled = Boolean.Parse(parts[1]);
                     else if (parts[0] == "maxsize") mailbox.MaxMailboxSize = Int32.Parse(parts[1]);
                     else if (parts[0] == "passwordlocked") mailbox.PasswordLocked = Boolean.Parse(parts[1]);
@@ -1658,8 +1661,9 @@ namespace FuseCP.Providers.Mail
 
         private void SetMailListSettings(MailList list, string[] smSettings)
         {
-            foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
+            foreach (string setting in smSettings)
             {
+                string[] bunch = setting.Split(new char[] { '=' });
 
                 switch (bunch[0])
                 {
@@ -1909,8 +1913,11 @@ namespace FuseCP.Providers.Mail
 
                  SubscriberListResult subsribersResult = lists.GetSubscriberList(AdminUsername, AdminPassword, domain, account);
 
-                foreach (GenericResult memberResult in subsribersResult.Subscribers.Select(member => lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member)).Where(memberResult => !memberResult.Result))
+                foreach (string member in subsribersResult.Subscribers)
                 {
+                    GenericResult memberResult = lists.RemoveSubscriber(AdminUsername, AdminPassword, domain, account, member);
+                    if (memberResult.Result)
+                        continue;
                         throw new Exception(memberResult.Message);
 
                 }
@@ -2010,8 +2017,9 @@ namespace FuseCP.Providers.Mail
             {
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+                foreach (string s in names)
                 {
+                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
                     if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
                     {
                         productName = (string)subkey.GetValue("DisplayName");
@@ -2041,8 +2049,9 @@ namespace FuseCP.Providers.Mail
 
             names = key.GetSubKeyNames();
 
-            foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+            foreach (string s in names)
             {
+                RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
                 if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
                 {
                     productName = (string)subkey.GetValue("DisplayName");

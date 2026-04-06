@@ -97,8 +97,11 @@ namespace FuseCP.Portal
 
         private int RestartAppPool(List<int> ids)
         {
-            foreach (int result in ids.Select(id => ES.Services.WebServers.ChangeAppPoolState(id, AppPoolState.Recycle)).Where(result => result < 0))
+            foreach (int id in ids)
             {
+                int result = ES.Services.WebServers.ChangeAppPoolState(id, AppPoolState.Recycle);
+                if (result >= 0)
+                    continue;
 
                 return result;
             }

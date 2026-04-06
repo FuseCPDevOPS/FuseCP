@@ -492,8 +492,11 @@ namespace FuseCP.Portal
 
             try
             {
-                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)).Where(Packages => (Packages != null) && (Packages.GetLength(0) > 0)))
+                foreach (UserInfo ui in UsersInfo)
                 {
+                    PackageInfo[] Packages = ES.Services.Packages.GetPackages(ui.UserId);
+                    if ((Packages == null) || (Packages.GetLength(0) <= 0))
+                        continue;
 
                         foreach (PackageInfo Package in Packages)
                         {
@@ -623,8 +626,12 @@ namespace FuseCP.Portal
         protected bool SaveTags(int ItemId, int planId)
         {
             ExchangeMailboxPlanRetentionPolicyTag[] currenttags = ES.Services.ExchangeServer.GetExchangeMailboxPlanRetentionPolicyTags(planId);
-            foreach (ResultObject res in currenttags.Select(tag => ES.Services.ExchangeServer.DeleteExchangeMailboxPlanRetentionPolicyTag(ItemId, planId, tag.PlanTagID)).Where(res => !res.IsSuccess))
+            foreach (ExchangeMailboxPlanRetentionPolicyTag tag in currenttags)
             {
+                ResultObject res = ES.Services.ExchangeServer.DeleteExchangeMailboxPlanRetentionPolicyTag(ItemId, planId, tag.PlanTagID);
+                if (res.IsSuccess)
+                continue;
+
                     messageBox.ShowMessage(res, "EXCHANGE_UPDATEPLANS", null);
                     return false;
 

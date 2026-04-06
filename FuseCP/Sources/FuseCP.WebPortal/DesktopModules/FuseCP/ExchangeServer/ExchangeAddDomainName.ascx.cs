@@ -39,8 +39,9 @@ namespace FuseCP.Portal.ExchangeServer
             bool isSEEnabled = false;
 
             List<OrganizationDomainName> list = new List<OrganizationDomainName>();
-            foreach (OrganizationDomainName[] tmpList in orgs.Select(o => ES.Services.Organizations.GetOrganizationDomains(o.Id)))
+            foreach (Organization o in orgs)
             {
+                OrganizationDomainName[] tmpList = ES.Services.Organizations.GetOrganizationDomains(o.Id);
 
                 foreach (OrganizationDomainName name in tmpList)
                 {

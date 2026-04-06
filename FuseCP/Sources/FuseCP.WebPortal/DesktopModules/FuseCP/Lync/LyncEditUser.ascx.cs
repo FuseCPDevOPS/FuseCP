@@ -46,8 +46,11 @@ namespace FuseCP.Portal.Lync
             {
                 ddlPhoneNumber.Items.Add(new ListItem("<Select Phone>", ""));
 
-                foreach (string phone in ips.Select(ip => ip.ExternalIP))
+                foreach (PackageIPAddress ip in ips)
+                {
+                    string phone = ip.ExternalIP;
                     ddlPhoneNumber.Items.Add(new ListItem(phone, phone));
+                }
             }
 
         }

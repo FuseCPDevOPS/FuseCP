@@ -429,8 +429,9 @@ namespace FuseCP.Portal
 					return; // no spaces - exit
 
 				// check if some package has VPS resource enabled
-				foreach (int packageId in packages.Select(package => package.PackageId))
+				foreach (PackageInfo package in packages)
 				{
+					int packageId = package.PackageId;
 					PackageContext cntx = PackagesHelper.GetCachedPackageContext(packageId);
 					if (cntx != null && cntx.Groups != null && cntx.Groups.ContainsKey(ResourceGroups.VPS))
 					{

@@ -461,8 +461,9 @@ namespace FuseCP.Providers.OS
                 childFiles.AddRange(Directory.GetDirectories(path));
                 childFiles.AddRange(Directory.GetFiles(path));
 
-                foreach (FileHash childHash in childFiles.Select(childFile => CalculateFileHash(rootFolder, childFile, checkSums)))
+                foreach (string childFile in childFiles)
                 {
+                    FileHash childHash = CalculateFileHash(rootFolder, childFile, checkSums);
                     folder.Files.Add(childHash);
 
                     // check sum
@@ -1465,8 +1466,11 @@ namespace FuseCP.Providers.OS
 
             var regex = new Regex(recordTypePattern, RegexOptions.IgnoreCase);
 
-            foreach (Match match in regex.Matches(raw).Cast<Match>().Where(match => match.Groups.Count == 2))
+            foreach (Match match in regex.Matches(raw).Cast<Match>())
             {
+                if (match.Groups.Count != 2)
+                    continue;
+
                 var dnsRecord = new DnsRecordInfo
                 {
                     Value = match.Groups[1].Value != null ? match.Groups[1].Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").ToLowerInvariant().Trim() : null,

@@ -335,8 +335,12 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             using (var srvman = GetServerManager())
             {
                 //
-                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])).Where(indexOf => indexOf > -1))
+                foreach (string poolName in appPoolNames)
                 {
+                    int indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName]);
+                    if (indexOf <= -1)
+                        continue;
+
                     // Lookup for an app pool
                     // Remove app pool if it is found
                     srvman.ApplicationPools.RemoveAt(indexOf);
@@ -350,8 +354,12 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
         {
             using (var srvman = GetServerManager())
             {
-                foreach (var indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])).Where(indexOf => indexOf > -1))
+                foreach (string item in appPoolNames)
                 {
+                    int indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item]);
+                    if (indexOf <= -1)
+                        continue;
+
                     //
                     srvman.ApplicationPools.RemoveAt(indexOf);
                 }
@@ -566,8 +574,9 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     }
 
 					// Create HTTP bindings received
-					foreach (var bindingInformation in bindings.Select(serverBinding => String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host)))
+                    foreach (var serverBinding in bindings)
                         {
+                        var bindingInformation = String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host);
                             iisObject.Bindings.Add(bindingInformation, Uri.UriSchemeHttp);
                         }
 				}

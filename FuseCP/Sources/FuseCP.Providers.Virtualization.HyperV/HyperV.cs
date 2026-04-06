@@ -881,8 +881,9 @@ namespace FuseCP.Providers.Virtualization
 
             if (objSnapshots != null)
             {
-                foreach (VirtualMachineSnapshot snapshot in objSnapshots.Select(objSnapshot => CreateSnapshotFromWmiObject(objSnapshot)))
+                foreach (ManagementBaseObject objSnapshot in objSnapshots)
                 {
+                    VirtualMachineSnapshot snapshot = CreateSnapshotFromWmiObject(objSnapshot);
                     snapshot.IsCurrent = (runningSnapshot.ParentId == snapshot.Id);
                     snapshots.Add(snapshot);
                 }

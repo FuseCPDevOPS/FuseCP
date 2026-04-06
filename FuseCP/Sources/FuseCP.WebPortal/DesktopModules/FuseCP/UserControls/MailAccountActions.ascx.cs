@@ -79,13 +79,14 @@ namespace FuseCP.Portal
 
         private int ChangeMailAccountState(bool enable, List<int> ids)
         {
-            foreach (int result in ids.Select(id =>
+            foreach (int id in ids)
             {
                 var mailAccount = ES.Services.MailServers.GetMailAccount(id);
                 mailAccount.Enabled = enable;
-                return ES.Services.MailServers.UpdateMailAccount(mailAccount);
-            }).Where(result => result < 0))
-                return result;
+                int result = ES.Services.MailServers.UpdateMailAccount(mailAccount);
+                if (result < 0)
+                    return result;
+            }
 
             return 0;
         }

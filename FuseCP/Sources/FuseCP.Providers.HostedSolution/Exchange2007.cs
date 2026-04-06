@@ -1232,8 +1232,12 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", org);
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+				foreach (PSObject obj in result)
 				{
+					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
+					if (string.IsNullOrEmpty(id))
+						continue;
+
 					cmd = new Command("Set-Mailbox");
 					cmd.Parameters.Add("Identity", id);
 					cmd.Parameters.Add("IssueWarningQuota", issueWarningQuota);
@@ -1270,8 +1274,12 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", org);
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+				foreach (PSObject obj in result)
 				{
+					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
+					if (string.IsNullOrEmpty(id))
+						continue;
+
 					cmd = new Command("Get-MailboxStatistics");
 					cmd.Parameters.Add("Identity", id);
 					result = ExecuteShellCommand(runSpace, cmd);
@@ -1317,8 +1325,12 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", ouName);
 				cmd.Parameters.Add("Filter", "CustomAttribute2 -ne 'disabled'");
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-				foreach (string id in result.Select(obj => (string)GetPSObjectProperty(obj, "DistinguishedName")))
+				foreach (PSObject obj in result)
 				{
+					string id = (string)GetPSObjectProperty(obj, "DistinguishedName");
+					if (string.IsNullOrEmpty(id))
+						continue;
+
 					ChangeMailboxState(id, enabled);
 				}
 			}
@@ -1368,8 +1380,12 @@ namespace FuseCP.Providers.HostedSolution
 			cmd.Parameters.Add("OrganizationalUnit", org);
 			Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-			foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+			foreach (PSObject obj in result)
 			{
+				string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
+				if (string.IsNullOrEmpty(id))
+					continue;
+
 				cmd = new Command("Get-MailboxStatistics");
 				cmd.Parameters.Add("Identity", id);
 				result = ExecuteShellCommand(runSpace, cmd);
@@ -1414,8 +1430,12 @@ namespace FuseCP.Providers.HostedSolution
 				if (!string.IsNullOrEmpty(PublicFolderServer))
 					cmd.Parameters.Add("Server", PublicFolderServer);
 				result = ExecuteShellCommand(runSpace, cmd);
-				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+				foreach (PSObject obj in result)
 				{
+					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
+					if (string.IsNullOrEmpty(id))
+						continue;
+
 					size += CalculatePublicFolderDiskSpace(runSpace, id);
 				}
 			}
@@ -1515,16 +1535,22 @@ namespace FuseCP.Providers.HostedSolution
 
 			var onBehalfs = GetPSObjectProperty(result, "GrantSendOnBehalfTo") as IEnumerable;
 
-			foreach (string user in onBehalfs ?? System.Linq.Enumerable.Empty<object>().Select(current => current.ToString()))
+			if (onBehalfs != null)
 			{
-
-				ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
-
-				if (account != null)
+				foreach (object current in onBehalfs)
 				{
-					accounts.Add(account);
-				}
+					string user = current?.ToString();
+					if (string.IsNullOrEmpty(user))
+						continue;
 
+					ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
+
+					if (account != null)
+					{
+						accounts.Add(account);
+					}
+
+				}
 			}
 
 			ExchangeLog.LogEnd("GetOnBehalfOfAccounts");
@@ -2538,8 +2564,12 @@ namespace FuseCP.Providers.HostedSolution
 				info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
 				List<ExchangeAccount> accounts = new List<ExchangeAccount>();
 				IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-				foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
+				foreach (ADObjectId id in ids)
 				{
+					ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
+					if (account == null)
+						continue;
+
 					accounts.Add(account);
 				}
 				info.ResourceDelegates = accounts.ToArray();
@@ -2984,8 +3014,12 @@ namespace FuseCP.Providers.HostedSolution
 			IList<ADObjectId> ids =
 				 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-			foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
+			foreach (ADObjectId id in ids)
 			{
+				ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
+				if (account == null)
+					continue;
+
 				list.Add(account);
 			}
 			return list.ToArray();
@@ -5963,8 +5997,9 @@ namespace FuseCP.Providers.HostedSolution
 		 Collection<PSObject> results = invoker.Invoke(cmd, null, out errors);
 		 if (errors != null && errors.Count > 0)
 		 {
-			 foreach (string errorMessage in errors.Select(err => string.Format("Invoke error: {0}", err.ToString())))
+			 foreach (var err in errors)
 			 {
+				 string errorMessage = string.Format("Invoke error: {0}", err.ToString());
 				 ExchangeLog.LogError(errorMessage, null);
 			 }
 		 }
@@ -6794,8 +6829,10 @@ namespace FuseCP.Providers.HostedSolution
 
 				if (result != null)
 				{
-					foreach (ExchangeMobileDevice device in result.Select(GetMobileDeviceObject))
+					foreach (PSObject current in result)
 					{
+						ExchangeMobileDevice device = GetMobileDeviceObject(current);
+
 						cmd = new Command("Remove-ActiveSyncDevice");
 						cmd.Parameters.Add("Identity", device.DeviceID);
 						cmd.Parameters.Add("Confirm", false);

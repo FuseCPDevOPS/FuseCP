@@ -1593,8 +1593,9 @@ namespace FuseCP.Providers.HostedSolution
                 });
             }
 
-            foreach (DirectoryEntry groupEntry in ActiveDirectoryUtils.GetGroupObjects(groupName, "group", organizationEntry).Select(groupPath => ActiveDirectoryUtils.GetADObject(groupPath)))
+            foreach (string groupPath in ActiveDirectoryUtils.GetGroupObjects(groupName, "group", organizationEntry))
             {
+                DirectoryEntry groupEntry = ActiveDirectoryUtils.GetADObject(groupPath);
 
                 string tmpSamAccountName = ActiveDirectoryUtils.GetADObjectStringProperty(groupEntry, ADAttributes.SAMAccountName);
 
@@ -1677,8 +1678,9 @@ namespace FuseCP.Providers.HostedSolution
                 ActiveDirectoryUtils.RemoveObjectFromGroup(groupPath, path);
             }
 
-            foreach (string objPath in memberAccounts.Select(obj => GetObjectPath(organizationId, obj)))
+            foreach (string obj in memberAccounts)
             {
+                string objPath = GetObjectPath(organizationId, obj);
                 ActiveDirectoryUtils.AddObjectToGroup(objPath, path);
             }   
         }

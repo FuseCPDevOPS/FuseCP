@@ -88,8 +88,9 @@ namespace FuseCP.Portal.ProviderControls
         {
             var sites = ES.Services.FtpServers.GetFtpSites(PanelRequest.ServiceId);
 
-            foreach (var item in sites.Select(site => new ListItem(site.Name + " (User Isolation Mode: " + site["UserIsolationMode"] + ")", site.Name)))
+            foreach (var site in sites)
             {
+                var item = new ListItem(site.Name + " (User Isolation Mode: " + site["UserIsolationMode"] + ")", site.Name);
 
                 if (item.Value == settings["SiteId"])
                 {

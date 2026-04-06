@@ -413,8 +413,9 @@ namespace FuseCP.Portal.ProviderControls
                 return null;
             List<ServiceInfo> list = new List<ServiceInfo>();
             string[] servicesIds = data.Split(',');
-            foreach (ServiceInfo serviceInfo in servicesIds.Select(current => ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current))))
+            foreach (string current in servicesIds)
             {
+                ServiceInfo serviceInfo = ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current));
                 list.Add(serviceInfo);
             }
 

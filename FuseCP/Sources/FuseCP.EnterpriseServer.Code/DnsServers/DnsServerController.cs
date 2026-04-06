@@ -79,8 +79,12 @@ namespace FuseCP.EnterpriseServer
                 if (!String.IsNullOrEmpty(strSecondaryServices))
                 {
                     string[] secondaryServices = strSecondaryServices.Split(',');
-                    foreach (int secondaryId in secondaryServices.Select(strSecondaryId => Utils.ParseInt(strSecondaryId, 0)).Where(id => id != 0))
+                    foreach (string strSecondaryId in secondaryServices)
                     {
+                        int secondaryId = Utils.ParseInt(strSecondaryId, 0);
+                        if (secondaryId == 0)
+                            continue;
+
                         secondaryServiceIds.Add(secondaryId);
                         StringDictionary secondarySettings = ServerController.GetServiceSettings(secondaryId);
 

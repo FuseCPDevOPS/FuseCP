@@ -27,8 +27,9 @@ namespace FuseCP.LinuxVmConfig
             {
                 System.Collections.Generic.IEnumerable<string> listIE = File.ReadLines(filePath);
                 List<string> list = new List<string>();
-                foreach (string res in listIE.Select(str => str.Replace(findStr, replaceStr, StringComparison.Ordinal)))
+                foreach (string str in listIE)
                 {
+                    string res = str.Replace(findStr, replaceStr, StringComparison.Ordinal);
                     list.Add(res);
                 }
                 File.WriteAllLines(filePath, list);

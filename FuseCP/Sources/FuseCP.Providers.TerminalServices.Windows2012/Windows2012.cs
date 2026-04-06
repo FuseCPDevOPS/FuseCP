@@ -408,8 +408,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (ug.Count != groups.Count) return false;
 
-            foreach (bool res in groups.Select(item => ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower()))))
+            foreach (string item in groups)
             {
+                bool res = ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower()));
                 if (!res) return false;
             }
 
@@ -966,8 +967,11 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var processingOrders = showResult.Where(x => Convert.ToString(x).ToLower().Contains("processing order")).Select(x => Convert.ToString(x));
             var count = 0;
 
-            foreach (var order in processingOrders.Select(processingOrder => Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""))).Where(order => order > count))
+                foreach (var processingOrder in processingOrders)
             {
+                    var order = Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""));
+                    if (order <= count)
+                    continue;
 
                     count = order;
             }
@@ -1885,8 +1889,11 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (serversPs != null)
             {
-                foreach (var serverName in serversPs.Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"))).Where(serverName => string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) == 0))
+                foreach (var serverPs in serversPs)
                 {
+                    var serverName = Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"));
+                    if (string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) != 0)
+                        continue;
 
                         return true;
                 }
@@ -1906,10 +1913,12 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 ActiveDirectoryUtils.RemoveObjectFromGroup(userPath, groupPath);                
             }          
             
-            foreach (var userPath in users
-                .Select(user => GetUserPath(organizationId, user))
-                .Where(userPath => ActiveDirectoryUtils.AdObjectExists(userPath)))
+            foreach (var user in users)
             {                    
+                var userPath = GetUserPath(organizationId, user);
+                if (!ActiveDirectoryUtils.AdObjectExists(userPath))
+                    continue;
+
                 ActiveDirectoryUtils.GetADObject(userPath);
                 ActiveDirectoryUtils.AddObjectToGroup(userPath, groupPath);                    
             }
@@ -1921,8 +1930,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var orgPath = GetOrganizationPath(organizationId);
             var orgEntry = ActiveDirectoryUtils.GetADObject(orgPath);
 
-            foreach (var userObject in ActiveDirectoryUtils.GetGroupObjects(groupName, "user", orgEntry).Select(userPath => ActiveDirectoryUtils.GetADObject(userPath)))
+            foreach (var userPath in ActiveDirectoryUtils.GetGroupObjects(groupName, "user", orgEntry))
             {
+                var userObject = ActiveDirectoryUtils.GetADObject(userPath);
                 var samName = (string)ActiveDirectoryUtils.GetADObjectProperty(userObject, "sAMAccountName");
 
                 users.Add(samName);

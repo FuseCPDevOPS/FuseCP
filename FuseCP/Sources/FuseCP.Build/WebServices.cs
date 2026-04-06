@@ -379,8 +379,9 @@ namespace FuseCP.Build
 				// loop through all the attributes on the method
 				foreach (AttributeListSyntax attributeListSyntax in classDeclarationSyntax.AttributeLists)
 				{
-					foreach (IMethodSymbol attributeSymbol in attributeListSyntax.Attributes.Select(attributeSyntax => context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol))
+					foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
 					{
+						IMethodSymbol attributeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol;
 						if (attributeSymbol == null)
 						{
 							// weird, we couldn't get the symbol, ignore it

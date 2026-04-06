@@ -223,8 +223,9 @@ namespace FuseCP.Providers.Virtualization
                 {
                     HostedSolutionLog.LogInfo("Querying disk volumes with WMI");
                     var partitions = _miCim.EnumerateAssociatedInstances(objDisk, "Win32_DiskDriveToDiskPartition", "Win32_DiskPartition");
-                    foreach (var logicalDisks in partitions.Select(objPartition => _miCim.EnumerateAssociatedInstances(objPartition, "Win32_LogicalDiskToPartition", "Win32_LogicalDisk")))
+                    foreach (var objPartition in partitions)
                     {
+                        var logicalDisks = _miCim.EnumerateAssociatedInstances(objPartition, "Win32_LogicalDiskToPartition", "Win32_LogicalDisk");
                         foreach (var objVolume in logicalDisks.Where(objVolume => objVolume.CimInstanceProperties["Name"]?.Value != null))
                         {
                                 volumes.Add(objVolume.CimInstanceProperties["Name"].Value.ToString().TrimEnd(':'));

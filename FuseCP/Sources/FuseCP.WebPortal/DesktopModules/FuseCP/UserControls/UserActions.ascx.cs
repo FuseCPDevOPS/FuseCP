@@ -242,8 +242,12 @@ namespace FuseCP.Portal
         {
             var accountsWithoutPhone = GetAccountsWithoutPhone();
 
-            foreach (int userId in userIds.Except(accountsWithoutPhone.Select(x => x.AccountId)))
+            var accountsWithoutPhoneIds = new HashSet<int>(accountsWithoutPhone.Select(x => x.AccountId));
+            foreach (int userId in userIds)
             {
+                if (accountsWithoutPhoneIds.Contains(userId))
+                    continue;
+
                 ES.Services.Organizations.SendResetUserPasswordLinkSms(PanelRequest.ItemID, userId, "Group action", null);
             }
 
@@ -329,8 +333,11 @@ namespace FuseCP.Portal
 
             var accountsWithoutPhones = new List<OrganizationUser>();
 
-            foreach (var account in ids.Select(id => ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id)).Where(account => string.IsNullOrEmpty(account.MobilePhone)))
+                foreach (int id in ids)
             {
+                var account = ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id);
+                if (!string.IsNullOrEmpty(account.MobilePhone))
+                    continue;
 
                     accountsWithoutPhones.Add(account);
             }

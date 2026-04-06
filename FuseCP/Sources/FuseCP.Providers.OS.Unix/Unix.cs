@@ -264,8 +264,9 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 			childFiles.AddRange(Directory.GetDirectories(path));
 			childFiles.AddRange(Directory.GetFiles(path));
 
-			foreach (FileHash childHash in childFiles.Select(childFile => CalculateFileHash(rootFolder, childFile, checkSums)))
+			foreach (string childFile in childFiles)
 			{
+				FileHash childHash = CalculateFileHash(rootFolder, childFile, checkSums);
 				folder.Files.Add(childHash);
 
 				// check sum

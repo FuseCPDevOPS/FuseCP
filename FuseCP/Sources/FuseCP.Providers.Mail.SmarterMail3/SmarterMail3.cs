@@ -523,8 +523,9 @@ namespace FuseCP.Providers.Mail
 
 		protected void SetMailListSettings(MailList list, string[] smSettings)
 		{
-			foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
+			foreach (string setting in smSettings)
 			{
+			    string[] bunch = setting.Split(new char[] { '=' });
 
 				switch (bunch[0])
 				{
@@ -594,8 +595,9 @@ namespace FuseCP.Providers.Mail
             {
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+                foreach (string s in names)
                 {
+                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -624,8 +626,9 @@ namespace FuseCP.Providers.Mail
 
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+                foreach (string s in names)
                 {
+                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");

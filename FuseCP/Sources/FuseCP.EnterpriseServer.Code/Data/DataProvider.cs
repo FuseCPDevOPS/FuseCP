@@ -4037,10 +4037,12 @@ namespace FuseCP.EnterpriseServer
 					.ToHashSet();
 
 				bool addedAny = false;
-				foreach (var serviceId in services.Elements()
-					.Select(service => (int)service.Attribute("id"))
-					.Where(serviceId => !existingServices.Contains(serviceId)))
+				foreach (var service in services.Elements())
 				{
+					var serviceId = (int)service.Attribute("id");
+					if (existingServices.Contains(serviceId))
+						continue;
+
 					var virtualService = new Data.Entities.VirtualService()
 					{
 						ServerId = serverId,

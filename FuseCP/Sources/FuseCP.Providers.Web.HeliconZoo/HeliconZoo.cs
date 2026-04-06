@@ -119,8 +119,9 @@ namespace FuseCP.Providers.Web.HeliconZoo
 
                 //main engines
 
-                foreach (HeliconZooEngine newItem in enginesCollection.Select(item => ConvertElementToHeliconZooEngine(item)))
+                foreach (ConfigurationElement item in enginesCollection)
                 {
+                    HeliconZooEngine newItem = ConvertElementToHeliconZooEngine(item);
                     newItem.disabled = switchboardDisabledDefault;
                     result.Add(newItem);
                 }
@@ -130,8 +131,9 @@ namespace FuseCP.Providers.Web.HeliconZoo
 
                 ConfigurationElement userEngines = heliconZooServer.GetChildElement("userEngines");
                 ConfigurationElementCollection userEnginesCollection = userEngines.GetCollection();
-                foreach (HeliconZooEngine newItem in userEnginesCollection.Select(item => ConvertElementToHeliconZooEngine(item)))
+                foreach (ConfigurationElement item in userEnginesCollection)
                 {
+                    HeliconZooEngine newItem = ConvertElementToHeliconZooEngine(item);
 
                     //remove if exists
                     HeliconZooEngine serverItem = Collection_GetHeliconZooEngineByName(result, newItem.name);
@@ -648,8 +650,9 @@ namespace FuseCP.Providers.Web.HeliconZoo
 
             // search index.php in default documents
             bool indexPhpPresent = false;
-            foreach (string value in filesCollection.Select(configurationElement => configurationElement.GetAttributeValue("value") as string))
+            foreach (ConfigurationElement configurationElement in filesCollection)
             {
+                string value = configurationElement.GetAttributeValue("value") as string;
                 if (!string.IsNullOrEmpty(value))
                 {
                     if (string.Equals(value, "index.php", StringComparison.OrdinalIgnoreCase))

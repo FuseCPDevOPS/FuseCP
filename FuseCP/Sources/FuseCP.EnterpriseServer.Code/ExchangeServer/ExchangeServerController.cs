@@ -4231,8 +4231,9 @@ namespace FuseCP.EnterpriseServer
 
                     List<string> tagLinks = new List<string>();
 
-                    foreach (ExchangeRetentionPolicyTag tag in policytaglist.Select(policytag => GetExchangeRetentionPolicyTag(itemID, policytag.TagID)))
+                    foreach (ExchangeMailboxPlanRetentionPolicyTag policytag in policytaglist)
                     {
+                        ExchangeRetentionPolicyTag tag = GetExchangeRetentionPolicyTag(itemID, policytag.TagID);
                         tagLinks.Add(tag.FCPUniqueName);
 
                         // update PlanRetentionPolicyTags
@@ -5628,8 +5629,12 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             if (accountIds != null)
-                foreach (int result in accountIds.Select(accountId => DeletePublicFolder(itemId, accountId)).Where(result => result < 0))
+                foreach (int accountId in accountIds)
                 {
+                    int result = DeletePublicFolder(itemId, accountId);
+                    if (result >= 0)
+                        continue;
+
                     return result;
                 }
             return 0;
@@ -6310,14 +6315,10 @@ namespace FuseCP.EnterpriseServer
 
                 List<ExchangeAccount> mailboxes = GetExchangeMailboxes(itemId);
 
-                foreach (var mailboxInfo in mailboxes.Select(mailbox => new
+                foreach (ExchangeAccount mailbox in mailboxes)
                 {
-                    Id = mailbox.PrimaryEmailAddress,
-                    DefaultPublicFolders = exchange.SetDefaultPublicFolderMailbox(mailbox.PrimaryEmailAddress, org.OrganizationId, org.DistinguishedName)
-                }))
-                {
-                    string id = mailboxInfo.Id;
-                    string[] defaultPublicFoldes = mailboxInfo.DefaultPublicFolders;
+                    string id = mailbox.PrimaryEmailAddress;
+                    string[] defaultPublicFoldes = exchange.SetDefaultPublicFolderMailbox(mailbox.PrimaryEmailAddress, org.OrganizationId, org.DistinguishedName);
 
                     if (defaultPublicFoldes.Length == 1)
                         res += id + " has a value \"" + defaultPublicFoldes[0] + "\"" + Environment.NewLine;

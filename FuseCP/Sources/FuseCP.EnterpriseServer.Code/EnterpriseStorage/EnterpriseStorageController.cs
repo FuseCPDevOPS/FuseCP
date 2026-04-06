@@ -2099,8 +2099,9 @@ namespace FuseCP.EnterpriseServer
                 var result = new List<string>();
 
 
-                foreach (var reader in accountIds.Select(accountId => Database.GetUserEnterpriseFolderWithOwaEditPermission(itemId, accountId)))
+                foreach (int accountId in accountIds)
                 {
+                    var reader = Database.GetUserEnterpriseFolderWithOwaEditPermission(itemId, accountId);
 
                     while (reader.Read())
                     {
@@ -2195,8 +2196,9 @@ namespace FuseCP.EnterpriseServer
 
                             if ((orgs != null) && (orgs.Count > 0))
                             {
-                                foreach (SystemFile[] folders in orgs.Select(o => GetEnterpriseFoldersPaged(o.Id, true, false, false, "", "", 0, int.MaxValue).PageItems))
+                                foreach (Organization o in orgs)
                                 {
+                                    SystemFile[] folders = GetEnterpriseFoldersPaged(o.Id, true, false, false, "", "", 0, int.MaxValue).PageItems;
 
                                     stats.CreatedEnterpriseStorageFolders += folders.Count();
 
@@ -2371,8 +2373,11 @@ namespace FuseCP.EnterpriseServer
                 List<MappedDrive> mappedDrives = orgProxy.GetDriveMaps(org.OrganizationId).Where(x => x.LabelAs.ToLower().Contains(filterValue)).ToList();
                 var resultItems = new List<MappedDrive>();
 
-                foreach (var drive in folders.Select(folder => GetFolderMappedDrive(mappedDrives, folder)).Where(drive => drive != null))
+                foreach (SystemFile folder in folders)
                 {
+                    var drive = GetFolderMappedDrive(mappedDrives, folder);
+                    if (drive == null)
+                    continue;
 
                         resultItems.Add(drive);
                 }

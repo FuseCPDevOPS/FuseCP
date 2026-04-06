@@ -98,8 +98,9 @@ public class Configuration
 		if (urls != null)
 		{
 			Console.WriteLine($"Listening on URLs: {urls}");
-			foreach (var uri in urls.Split(';').Select(url => new Uri(url)))
+			foreach (var url in urls.Split(';'))
 			{
+				var uri = new Uri(url);
 				if (uri.Scheme == "http")
 				{
 					ulong file = 0;

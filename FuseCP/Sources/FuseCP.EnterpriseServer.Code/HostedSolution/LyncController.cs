@@ -1019,10 +1019,12 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     // policy list in all lync servers
                     List<string> allpolicylist = new List<string>();
                     List<ServerInfo> servers = ServerController.GetAllServers();
-                    foreach (List<ServiceInfo> services in servers.Select(server => ServerController.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.Lync)))
+                    foreach (ServerInfo server in servers)
                     {
-                        foreach (LyncServer lync in services.Select(service => GetLyncServer(service.ServiceId, -1)))
+                        List<ServiceInfo> services = ServerController.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.Lync);
+                        foreach (ServiceInfo service in services)
                         {
+                            LyncServer lync = GetLyncServer(service.ServiceId, -1);
                             string[] values = lync.GetPolicyList(type, name);
                             allpolicylist.AddRange(values.Where(val => !allpolicylist.Contains(val)));
                         }

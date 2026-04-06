@@ -797,8 +797,9 @@ namespace FuseCP.Providers.Web
 			if (dedicatedPoolFlagChanged)
 			{
 				WebAppVirtualDirectory[] dirs = GetAppVirtualDirectories(site.SiteId, false);
-				foreach (WebAppVirtualDirectory vdir in dirs.Select(dir => GetAppVirtualDirectory(site.SiteId, dir.Name)))
+				foreach (WebAppVirtualDirectory dir in dirs)
 				{
+					WebAppVirtualDirectory vdir = GetAppVirtualDirectory(site.SiteId, dir.Name);
 					// set dedicated pool flag
 					//dir.DedicatedApplicationPool = site.DedicatedApplicationPool;
 
@@ -3466,8 +3467,12 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 
 		protected void AddExtensions(List<string> allExtensions, string[] extensions)
 		{
-			foreach (string ext in extensions.Select(extension => extension.Split(',')[0].ToLower()).Where(ext => !allExtensions.Contains(ext)))
+			foreach (string extension in extensions)
 			{
+				string ext = extension.Split(',')[0].ToLower();
+				if (allExtensions.Contains(ext))
+					continue;
+
 				allExtensions.Add(ext);
 			}
 		}

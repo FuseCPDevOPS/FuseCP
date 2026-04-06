@@ -1816,16 +1816,22 @@ namespace FuseCP.Providers.HostedSolution
 
             var onBehalfs = GetPSObjectProperty(result, "GrantSendOnBehalfTo") as IEnumerable;
 
-            foreach (string user in onBehalfs ?? System.Linq.Enumerable.Empty<object>().Select(current => current.ToString()))
+            if (onBehalfs != null)
             {
-
-                ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
-
-                if (account != null)
+                foreach (object current in onBehalfs)
                 {
-                    accounts.Add(account);
-                }
+                    string user = current?.ToString();
+                    if (string.IsNullOrEmpty(user))
+                        continue;
 
+                    ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
+
+                    if (account != null)
+                    {
+                        accounts.Add(account);
+                    }
+
+                }
             }
 
             ExchangeLog.LogEnd("GetOnBehalfOfAccounts");
@@ -2986,8 +2992,9 @@ namespace FuseCP.Providers.HostedSolution
                 info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
                 List<ExchangeAccount> accounts = new List<ExchangeAccount>();
                 IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-                foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
+                foreach (ADObjectId id in ids)
                 {
+                    ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
                     if (account != null) accounts.Add(account);
                 }
                 info.ResourceDelegates = accounts.ToArray();
@@ -3601,8 +3608,12 @@ namespace FuseCP.Providers.HostedSolution
             IList<ADObjectId> ids =
                 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-            foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
+            foreach (ADObjectId id in ids)
             {
+                ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
+                if (account == null)
+                    continue;
+
                 list.Add(account);
             }
             return list.ToArray();
@@ -7818,8 +7829,10 @@ namespace FuseCP.Providers.HostedSolution
 
                 if (result != null)
                 {
-                    foreach (ExchangeMobileDevice device in result.Select(GetMobileDeviceObject))
+                    foreach (PSObject current in result)
                     {
+                        ExchangeMobileDevice device = GetMobileDeviceObject(current);
+
                         cmd = new Command("Remove-ActiveSyncDevice");
                         cmd.Parameters.Add("Identity", device.DeviceID);
                         cmd.Parameters.Add("Confirm", new SwitchParameter(false));
