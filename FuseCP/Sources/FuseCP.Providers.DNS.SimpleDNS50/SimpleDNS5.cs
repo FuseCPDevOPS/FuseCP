@@ -498,11 +498,13 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 				//
 				DNSZone dnsZone = cn.GetZone(zoneName);
 				//
-				foreach (DnsRecord zoneRecord in dnsZone.Records.Select(record => ConvertToNative(record, zoneName)))
+				foreach (DnsRecord zoneRecord in dnsZone.Records
+					.Select(record => ConvertToNative(record, zoneName))
+					.Where(zoneRecord => zoneRecord != null
+						&& zoneRecord.RecordType != DnsRecordType.SOA
+						&& zoneRecord.RecordType != DnsRecordType.Other))
 				{
-					if (zoneRecord != null && zoneRecord.RecordType != DnsRecordType.SOA
-						&& zoneRecord.RecordType != DnsRecordType.Other)
-						dnsRecords.Add(zoneRecord);
+					dnsRecords.Add(zoneRecord);
 				}
 			}
 

@@ -2538,9 +2538,9 @@ namespace FuseCP.Providers.HostedSolution
 				info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
 				List<ExchangeAccount> accounts = new List<ExchangeAccount>();
 				IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-				foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
+				foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())).Where(account => account != null))
 				{
-					if (account != null) accounts.Add(account);
+					accounts.Add(account);
 				}
 				info.ResourceDelegates = accounts.ToArray();
 				info.ScheduleOnlyDuringWorkHours = (bool)GetPSObjectProperty(calendar, "ScheduleOnlyDuringWorkHours");

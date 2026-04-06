@@ -141,15 +141,10 @@ namespace FuseCP.Providers.Virtualization
                 for (int i = 1; i < realVmData.VM.Disks.Length; i++)
                 {
                     VirtualHardDiskInfo disk = GetParentVHD(realVmData.VM.Disks[i]);
-                    bool remove = true;
-                    foreach (string path in vmSettings.VirtualHardDrivePath)
-                    {
-                        if (path != null && disk.Path != null && Path.GetFileName(path).ToLower().Equals(Path.GetFileName(disk.Path).ToLower()))
-                        {
-                            remove = false;
-                            break;
-                        }
-                    }
+                    bool remove = vmSettings.VirtualHardDrivePath.All(path =>
+                        path == null
+                        || disk.Path == null
+                        || !Path.GetFileName(path).Equals(Path.GetFileName(disk.Path), StringComparison.OrdinalIgnoreCase));
                     if (remove)
                     {
                         Command cmd = new Command("Remove-VMHardDiskDrive");
@@ -176,15 +171,12 @@ namespace FuseCP.Providers.Virtualization
                         string msHddHyperVFolderName = "Virtual Hard Disks\\" + vmSettings.Name;
                         while (String.IsNullOrEmpty(vmSettings.VirtualHardDrivePath[i]))
                         {
-                            bool addPath = true;
-                            foreach (string path in vmSettings.VirtualHardDrivePath)
+                            bool addPath = vmSettings.VirtualHardDrivePath.All(path =>
+                                path == null
+                                || !path.Contains(vmSettings.Name + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath), StringComparison.OrdinalIgnoreCase));
+                            if (!addPath)
                             {
-                                if (path != null && path.ToLower().Contains((vmSettings.Name + index + Path.GetExtension(vmSettings.OperatingSystemTemplatePath)).ToLower()))
-                                {
-                                    addPath = false;
-                                    index++;
-                                    break;
-                                }
+                                index++;
                             }
                             if (addPath)
                             {

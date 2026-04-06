@@ -577,15 +577,7 @@ namespace FuseCP.Providers.Database
 				throw new ApplicationException("Too many files were uploaded"); // error: too many files were uploaded
 
 			// analyze uploaded files
-			bool fromDump = true;
-			foreach (string file in files)
-			{
-				if (Path.GetExtension(file).ToLower() != ".sql")
-				{
-					fromDump = false;
-					break;
-				}
-			}
+			bool fromDump = files.All(file => Path.GetExtension(file).Equals(".sql", StringComparison.OrdinalIgnoreCase));
 
 			if (fromDump)
 			{

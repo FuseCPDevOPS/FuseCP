@@ -437,15 +437,10 @@ namespace FuseCP.Providers.HostedSolution
                     if (tmp.Length < 2) return false;
 
                     // Get SipDomains and verify existence
-                    bool bSipDomainExists = false;
                     cmd = new Command("Get-CsSipDomain");
                     Collection<PSObject> sipDomains = ExecuteShellCommand(runSpace, cmd, false);
-
-                    foreach (string d in sipDomains.Select(domain => (string)GetPSObjectProperty(domain, "Name")).Where(d => d.ToLower() == tmp[1].ToLower()))
-                    {
-                            bSipDomainExists = true;
-                            break;
-                    }
+                    bool bSipDomainExists = sipDomains.Any(domain =>
+                        string.Equals((string)GetPSObjectProperty(domain, "Name"), tmp[1], StringComparison.OrdinalIgnoreCase));
 
                     string path = string.Empty;
 
@@ -616,15 +611,10 @@ namespace FuseCP.Providers.HostedSolution
                     if (tmp.Length < 2) return false;
 
                     // Get SipDomains and verify existence
-                    bool bSipDomainExists = false;
                     cmd = new Command("Get-CsSipDomain");
                     Collection<PSObject> sipDomains = ExecuteShellCommand(runSpace, cmd, false);
-
-                    foreach (string d in sipDomains.Select(domain => (string)GetPSObjectProperty(domain, "Name")).Where(d => d.ToLower() == tmp[1].ToLower()))
-                    {
-                            bSipDomainExists = true;
-                            break;
-                    }
+                    bool bSipDomainExists = sipDomains.Any(domain =>
+                        string.Equals((string)GetPSObjectProperty(domain, "Name"), tmp[1], StringComparison.OrdinalIgnoreCase));
 
                     string path = string.Empty;
 
@@ -988,9 +978,9 @@ namespace FuseCP.Providers.HostedSolution
                         Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
                         if ((result != null) && (result.Count > 0))
                         {
-                            foreach (string Identity in result.Select(res => GetPSObjectProperty(res, "Identity").ToString()))
+                            foreach (string identity in result.Select(res => GetPSObjectProperty(res, "Identity")?.ToString()).Where(identity => !string.IsNullOrEmpty(identity)))
                             {
-                                ret.Add(Identity);
+                                ret.Add(identity);
                             }
                         }
                     }
@@ -1002,11 +992,12 @@ namespace FuseCP.Providers.HostedSolution
                         Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
                         if ((result != null) && (result.Count > 0))
                         {
-                            foreach (PSObject res in result
-                                .Where(res => ("" + (string)GetPSObjectProperty(res, "Description")).ToLower().IndexOf(name.ToLower()) != -1))
+                            foreach (string identity in result
+                                .Where(res => ("" + (string)GetPSObjectProperty(res, "Description")).ToLower().IndexOf(name.ToLower()) != -1)
+                                .Select(res => GetPSObjectProperty(res, "Identity")?.ToString())
+                                .Where(identity => !string.IsNullOrEmpty(identity)))
                             {
-                                string Identity = GetPSObjectProperty(res, "Identity").ToString();
-                                ret.Add(Identity);
+                                ret.Add(identity);
                             }
 
 

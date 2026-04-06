@@ -130,8 +130,12 @@ namespace FuseCP.EnterpriseServer
 
             // check if site has dedicated IP assigned
             var siteIpAddresses = ServerController.GetItemIPAddresses(siteItemId, IPAddressPool.None);
-            foreach (var packageIpAddress in siteIpAddresses.Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID)).Where(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress))
+                foreach (var siteIp in siteIpAddresses)
             {
+                    var packageIpAddress = ServerController.GetPackageIPAddress(siteIp.AddressID);
+                    if (packageIpAddress == null || packageIpAddress.ExternalIP != site.SiteIPAddress)
+                    continue;
+
                     site.IsDedicatedIP = true;
                     break;
             }
@@ -837,14 +841,18 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (int certificateId in certificates.Select(c => c.id))
+                foreach (SSLCertificate certificate in certificates)
                 {
+                    int certificateId = certificate.id;
                     DeleteCertificateRequest(siteItemId, certificateId);
                 }
                 
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
+                {
+                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
+                }
 
                 // remove web site main pointer
                 DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
@@ -1021,15 +1029,19 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (int certificateId in certificates.Select(c => c.id))
+                foreach (SSLCertificate certificate in certificates)
                 {
+                    int certificateId = certificate.id;
                     DeleteCertificateRequest(siteItemId, certificateId);
                 }
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
+                {
+                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
+                }
 
                 // remove web site main pointer
                 DeleteWebSitePointer(siteItemId, domain.DomainId, true, true, false);
@@ -1422,8 +1434,9 @@ namespace FuseCP.EnterpriseServer
                 FillWebServerBindings(bindings, dnsRecords, ipAddr, hostName, domain.DomainName, ignoreGlobalDNSRecords);
 
                 //for logging purposes
-                foreach (string header in bindings.Select(b => string.Format("{0} {1} {2}", b.Host, b.IP, b.Port)))
+                foreach (ServerBinding binding in bindings)
                 {
+                    string header = string.Format("{0} {1} {2}", binding.Host, binding.IP, binding.Port);
                     TaskManager.WriteParameter("Add Binding", header);
                 }
 
@@ -4208,8 +4221,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // process virtual directories
                 WebAppVirtualDirectory[] vdirs = web.GetAppVirtualDirectories(siteId);
-                foreach (WebAppVirtualDirectory vdir in vdirs.Select(vdirShort => web.GetAppVirtualDirectory(siteId, vdirShort.Name)))
+                foreach (WebAppVirtualDirectory vdirShort in vdirs)
                 {
+                    WebAppVirtualDirectory vdir = web.GetAppVirtualDirectory(siteId, vdirShort.Name);
 
                     // serialize vdir
                     serializer = new XmlSerializer(typeof(WebAppVirtualDirectory));
@@ -4476,8 +4490,11 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
+                {
+                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, true);
+                }
 
                 // Get certificateinfo to delete from metabase later, FCP expects only one active certificate for each site
                 var certificatesToDeleteFromMetaBase = GetCertificatesForSite(item.Id).Where(c => c.Installed).ToList();
