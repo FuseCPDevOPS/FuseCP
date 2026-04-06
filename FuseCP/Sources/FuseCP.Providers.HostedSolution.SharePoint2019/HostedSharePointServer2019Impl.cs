@@ -498,8 +498,11 @@ namespace FuseCP.Providers.HostedSolution
 
                 if (result != null)
                 {
-                    foreach (var spSite in result.Select(psObject => psObject.BaseObject as SPSite).Where(spSite => spSite != null))
+                    foreach (var psObject in result)
                     {
+						var spSite = psObject.BaseObject as SPSite;
+						if (spSite == null)
+							continue;
 
                             collections.Add(spSite.Url, spSite);
                     }

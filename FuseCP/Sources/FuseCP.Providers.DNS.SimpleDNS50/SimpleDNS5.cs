@@ -766,8 +766,9 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
             {
                 String[] names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+                foreach (string name in names)
                 {
+					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + name);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -795,8 +796,9 @@ if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
 
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(s => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + s)))
+                foreach (string name in names)
                 {
+					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + name);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");

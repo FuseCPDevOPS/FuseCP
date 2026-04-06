@@ -1352,8 +1352,9 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", org);
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-                foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+                foreach (PSObject obj in result)
                 {
+                    string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                     cmd = new Command("Set-Mailbox");
                     cmd.Parameters.Add("Identity", id);
                     cmd.Parameters.Add("IssueWarningQuota", issueWarningQuota);
@@ -1390,8 +1391,9 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", org);
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-                foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+                foreach (PSObject obj in result)
                 {
+                    string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                     cmd = new Command("Get-MailboxStatistics");
                     cmd.Parameters.Add("Identity", id);
                     result = ExecuteShellCommand(runSpace, cmd);
@@ -1435,8 +1437,9 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("OrganizationalUnit", ouName);
                 cmd.Parameters.Add("Filter", "CustomAttribute2 -ne 'disabled'");
                 Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-                foreach (string id in result.Select(obj => (string)GetPSObjectProperty(obj, "DistinguishedName")))
+                foreach (PSObject obj in result)
                 {
+                    string id = (string)GetPSObjectProperty(obj, "DistinguishedName");
                     ChangeMailboxState(id, enabled);
                 }
             }
@@ -1486,8 +1489,9 @@ namespace FuseCP.Providers.HostedSolution
             cmd.Parameters.Add("OrganizationalUnit", org);
             Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-            foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+            foreach (PSObject obj in result)
             {
+                string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                 cmd = new Command("Get-MailboxStatistics");
                 cmd.Parameters.Add("Identity", id);
                 result = ExecuteShellCommand(runSpace, cmd);
@@ -1526,8 +1530,9 @@ namespace FuseCP.Providers.HostedSolution
                 cmd.Parameters.Add("Mailbox", mailbox);
                 cmd.Parameters.Add("GetChildren", new SwitchParameter(true));
                 result = ExecuteShellCommand(runSpace, cmd);
-                foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))))
+                foreach (PSObject obj in result)
                 {
+                    string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
                     size += CalculatePublicFolderDiskSpace(runSpace, mailbox, id);
                 }
             }
