@@ -28,7 +28,7 @@ namespace FuseCP.Server
     public class ServerConfiguration : IConfigurationSectionHandler
     {
         #region Public Properties
-        private  SecuritySettings security = new SecuritySettings();
+        private static SecuritySettings security = new SecuritySettings();
 
         public static SecuritySettings Security
         {

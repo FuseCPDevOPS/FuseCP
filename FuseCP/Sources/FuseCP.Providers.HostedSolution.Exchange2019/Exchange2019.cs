@@ -6865,7 +6865,7 @@ namespace FuseCP.Providers.HostedSolution
 
         #region PowerShell integration
         private WSManConnectionInfo connectionInfo = null;
-        private string ExchangePath = null;
+        private static string ExchangePath = null;
 
         internal static string GetExchangePath()
         {
