@@ -523,9 +523,8 @@ namespace FuseCP.Providers.Mail
 
 		protected void SetMailListSettings(MailList list, string[] smSettings)
 		{
-			foreach (string setting in smSettings)
+			foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
 			{
-			    string[] bunch = setting.Split(new char[] { '=' });
 
 				switch (bunch[0])
 				{
@@ -650,5 +649,4 @@ namespace FuseCP.Providers.Mail
         }
     }
 }
-
 

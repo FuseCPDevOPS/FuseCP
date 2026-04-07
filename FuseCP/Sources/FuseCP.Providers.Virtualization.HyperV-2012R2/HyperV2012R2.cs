@@ -377,15 +377,14 @@ namespace FuseCP.Providers.Virtualization
                 Command command = new Command("Get-VMNetworkAdapter");
                 Collection<PSObject> result = PowerShell.ExecuteOnVm(command, vmData, true); 
 
-                foreach (PSObject current in result)
+                foreach (VirtualMachineNetworkAdapter adapter in result.Select(current => new VirtualMachineNetworkAdapter
                 {
-                    var adapter = new VirtualMachineNetworkAdapter
-                    {
-                        IPAddresses = current.GetProperty<string[]>("IPAddresses"),
-                        Name = current.GetString("Name"),
-                        MacAddress = current.GetString("MacAddress"),
-                        SwitchName = current.GetString("SwitchName")
-                    };
+                    IPAddresses = current.GetProperty<string[]>("IPAddresses"),
+                    Name = current.GetString("Name"),
+                    MacAddress = current.GetString("MacAddress"),
+                    SwitchName = current.GetString("SwitchName")
+                }))
+                {
                     adapters.Add(adapter);
                 }
 

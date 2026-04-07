@@ -3562,13 +3562,9 @@ namespace FuseCP.EnterpriseServer
 			{
 				var regex = new Regex(createdRegex, RegexOptions.IgnoreCase);
 
-				foreach (Match match in regex.Matches(raw).Cast<Match>())
+				foreach (string value in regex.Matches(raw).Cast<Match>().Where(match => match.Success && match.Groups.Count == 2).Select(match => match.Groups[1].Value.Trim()))
 				{
-					if (!match.Success || match.Groups.Count != 2)
-						continue;
-
-					string value = match.Groups[1].Value.Trim();
-						return value;
+					return value;
 				}
 			}
 

@@ -1988,16 +1988,8 @@ namespace FuseCP.EnterpriseServer
         {
             List<string> mailAddresses = new List<string>();
             //
-            foreach (string bccItem in bccAddresses)
+            foreach (string bccAddress in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)).Select(bccItem => bccItem.Trim().Replace(';', ',')))
             {
-                    if (String.IsNullOrEmpty(bccItem))
-                        continue;
-
-                    string bccAddress = bccItem.Trim();
-                    // check if value is semicolon-delimited and convert it to the standard format
-                    if (bccAddress.Contains(";"))
-                        bccAddress = bccAddress.Replace(';', ',');
-                    //
                     mailAddresses.Add(bccAddress);
             }
             //

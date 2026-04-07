@@ -36,11 +36,8 @@ public class @(Class.Identifier): @(OldNamespace).@Class.Identifier, I@(Class.Id
 				(method.ReturnType is GenericNameSyntax ? "return await " : "await ") :
 				(method.ReturnType is PredefinedTypeSyntax pre && pre.Keyword.IsKind(SyntaxKind.VoidKeyword) ? "" : "return ");
 
-			var hasSwaggerReturnTypeAttribute = method.AttributeLists.Any(al => al.Attributes.Any(at => at.Name.ToString().EndsWith("SwaggerWcfReturnType")));
-			var hasOpenApiReturnTypeAttribute = method.AttributeLists.Any(al => al.Attributes.Any(at => at.Name.ToString().EndsWith("OpenApiResponse")));
 
-
-			@if (WebServices.EmitOpenApiTypes && !hasSwaggerReturnTypeAttribute)
+			@if (WebServices.EmitOpenApiTypes && !method.AttributeLists.Any(al => al.Attributes.Any(at => at.Name.ToString().EndsWith("SwaggerWcfReturnType"))))
 			{
 				<text>
 					#if NETFRAMEWORK
@@ -49,7 +46,7 @@ public class @(Class.Identifier): @(OldNamespace).@Class.Identifier, I@(Class.Id
 				</text>
 			}
 
-			@if (WebServices.EmitOpenApiTypes && !hasOpenApiReturnTypeAttribute)
+			@if (WebServices.EmitOpenApiTypes && !method.AttributeLists.Any(al => al.Attributes.Any(at => at.Name.ToString().EndsWith("OpenApiResponse"))))
 			{
 				<text>
 					#if !NETFRAMEWORK

@@ -141,10 +141,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     report.LyncReport.Items.FindAll(
                         delegate(LyncUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
 
-                foreach (LyncUserStatistics current in lyncOrganizationStatistics.Where(current => current.EnterpriseVoice))
-                {
-                    item.TotalLyncEVUsers++;
-                }
+                item.TotalLyncEVUsers = lyncOrganizationStatistics.Count(current => current.EnterpriseVoice);
 
                 item.TotalLyncUsers = lyncOrganizationStatistics.Count;
             }
@@ -154,10 +151,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     report.SfBReport.Items.FindAll(
                         delegate (SfBUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
 
-                foreach (SfBUserStatistics current in SfBOrganizationStatistics.Where(current => current.EnterpriseVoice))
-                {
-                    item.TotalSfBEVUsers++;
-                }
+                item.TotalSfBEVUsers = SfBOrganizationStatistics.Count(current => current.EnterpriseVoice);
 
                 item.TotalSfBUsers = SfBOrganizationStatistics.Count;
             }

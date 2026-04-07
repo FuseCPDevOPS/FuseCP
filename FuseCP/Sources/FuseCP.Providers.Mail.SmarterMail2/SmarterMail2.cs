@@ -198,9 +198,8 @@ namespace FuseCP.Providers.Mail
         
         private static void FillMailDomainFields(MailDomain domain, SettingsRequestResult addResult)
         {
-            foreach (string pair in addResult.settingValues)
+            foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
             {
-                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "catchall":
@@ -831,9 +830,8 @@ namespace FuseCP.Providers.Mail
                 if (!addResult.Result)
                     throw new Exception(addResult.Message);
 
-                foreach (string pair in addResult.settingValues)
+                foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
                 {
-                    string[] parts = pair.Split('=');
                     if (parts[0] == "isenabled") mailbox.Enabled = Boolean.Parse(parts[1]);
                     else if (parts[0] == "maxsize") mailbox.MaxMailboxSize = Int32.Parse(parts[1]);
                     else if (parts[0] == "passwordlocked") mailbox.PasswordLocked = Boolean.Parse(parts[1]);
@@ -1618,5 +1616,4 @@ namespace FuseCP.Providers.Mail
 
     
 }
-
 

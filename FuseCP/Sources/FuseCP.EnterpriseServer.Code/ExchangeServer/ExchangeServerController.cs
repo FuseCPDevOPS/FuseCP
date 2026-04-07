@@ -5629,9 +5629,8 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             if (accountIds != null)
-                foreach (int accountId in accountIds)
+                foreach (int result in accountIds.Select(accountId => DeletePublicFolder(itemId, accountId)))
                 {
-                    int result = DeletePublicFolder(itemId, accountId);
                     if (result >= 0)
                         continue;
 

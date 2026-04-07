@@ -841,16 +841,14 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (SSLCertificate certificate in certificates)
+                foreach (int certificateId in certificates.Select(certificate => certificate.id))
                 {
-                    int certificateId = certificate.id;
                     DeleteCertificateRequest(siteItemId, certificateId);
                 }
                 
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
                 {
-                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
                 }
 
@@ -1029,17 +1027,15 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (SSLCertificate certificate in certificates)
+                foreach (int certificateId in certificates.Select(certificate => certificate.id))
                 {
-                    int certificateId = certificate.id;
                     DeleteCertificateRequest(siteItemId, certificateId);
                 }
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
                 {
-                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
                 }
 
@@ -4490,9 +4486,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (DomainInfo pointer in pointers)
+                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
                 {
-                    int pointerId = pointer.DomainId;
                     DeleteWebSitePointer(siteItemId, pointerId, true, true, true);
                 }
 

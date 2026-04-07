@@ -243,11 +243,8 @@ namespace FuseCP.Portal
             var accountsWithoutPhone = GetAccountsWithoutPhone();
 
             var accountsWithoutPhoneIds = new HashSet<int>(accountsWithoutPhone.Select(x => x.AccountId));
-            foreach (int userId in userIds)
+            foreach (int userId in userIds.Where(userId => !accountsWithoutPhoneIds.Contains(userId)))
             {
-                if (accountsWithoutPhoneIds.Contains(userId))
-                    continue;
-
                 ES.Services.Organizations.SendResetUserPasswordLinkSms(PanelRequest.ItemID, userId, "Group action", null);
             }
 

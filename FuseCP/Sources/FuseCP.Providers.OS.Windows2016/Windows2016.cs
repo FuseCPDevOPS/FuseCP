@@ -1466,18 +1466,13 @@ namespace FuseCP.Providers.OS
 
             var regex = new Regex(recordTypePattern, RegexOptions.IgnoreCase);
 
-            foreach (Match match in regex.Matches(raw).Cast<Match>())
+            foreach (var dnsRecord in regex.Matches(raw).Cast<Match>().Where(match => match.Groups.Count == 2).Select(match => new DnsRecordInfo
             {
-                if (match.Groups.Count != 2)
-                    continue;
-
-                var dnsRecord = new DnsRecordInfo
-                {
-                    Value = match.Groups[1].Value != null ? match.Groups[1].Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").ToLowerInvariant().Trim() : null,
-                    RecordType = recordType,
-                    DnsServer = dnsServer
-                };
-
+                Value = match.Groups[1].Value != null ? match.Groups[1].Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").ToLowerInvariant().Trim() : null,
+                RecordType = recordType,
+                DnsServer = dnsServer
+            }))
+            {
                 records.Add(dnsRecord);
             }
 

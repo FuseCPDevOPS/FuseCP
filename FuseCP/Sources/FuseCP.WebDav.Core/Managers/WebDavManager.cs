@@ -424,9 +424,7 @@ namespace FuseCP.WebDav.Core.Managers
                 {
                     var regex = new Regex(itemToIgnore.Regex);
 
-                    Match match = regex.Match(item.DisplayName.Trim('/'));
-
-                    if (match.Success && result.Contains(item))
+                    if (regex.IsMatch(item.DisplayName.Trim('/')) && result.Contains(item))
                     {
                         result.Remove(item);
 

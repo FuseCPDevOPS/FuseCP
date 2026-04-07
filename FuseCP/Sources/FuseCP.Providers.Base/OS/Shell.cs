@@ -157,9 +157,8 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(arguments))
 				yield break;
 
-			foreach (Match match in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+"))
+			foreach (var token in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Cast<Match>().Select(match => match.Value))
 			{
-				var token = match.Value;
 				var normalizedToken = token;
 				if (normalizedToken.Length >= 2 && ((normalizedToken[0] == '"' && normalizedToken[normalizedToken.Length - 1] == '"') || (normalizedToken[0] == '\'' && normalizedToken[normalizedToken.Length - 1] == '\'')))
 					normalizedToken = normalizedToken.Substring(1, normalizedToken.Length - 2);

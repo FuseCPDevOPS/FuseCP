@@ -17,6 +17,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FuseCP.EnterpriseServer;
@@ -94,18 +95,19 @@ namespace FuseCP.EnterpriseServer;
 	public static void CopyDirectoryContentUNC(string sourceDirectory, string destinationDirectory) {
 			sourceDirectory = Path.GetFullPath(sourceDirectory);
 			destinationDirectory = Path.GetFullPath(destinationDirectory);
-            foreach(string dir in Directory.GetDirectories(sourceDirectory, "*", SearchOption.AllDirectories)) {
-				string relativePath = Path.GetRelativePath(sourceDirectory, dir);
-				string destinationPath = EnsurePathUnderRoot(destinationDirectory, relativePath);
-                if(!Directory.Exists(destinationPath)) { 
-                    Directory.CreateDirectory(destinationPath);
+			foreach(var pathInfo in Directory.GetDirectories(sourceDirectory, "*", SearchOption.AllDirectories).Select(dir => new {
+				destinationPath = EnsurePathUnderRoot(destinationDirectory, Path.GetRelativePath(sourceDirectory, dir))
+			})) {
+				if(!Directory.Exists(pathInfo.destinationPath)) {
+					Directory.CreateDirectory(pathInfo.destinationPath);
                 }
             }
             
-            foreach(string file in Directory.GetFiles(sourceDirectory, "*.*", SearchOption.AllDirectories)) {
-				string relativePath = Path.GetRelativePath(sourceDirectory, file);
-				string destinationPath = EnsurePathUnderRoot(destinationDirectory, relativePath);
-                File.Copy(file, destinationPath, true);
+            foreach(var pathInfo in Directory.GetFiles(sourceDirectory, "*.*", SearchOption.AllDirectories).Select(file => new {
+				file,
+				destinationPath = EnsurePathUnderRoot(destinationDirectory, Path.GetRelativePath(sourceDirectory, file))
+			})) {
+                File.Copy(pathInfo.file, pathInfo.destinationPath, true);
             }
         }
 

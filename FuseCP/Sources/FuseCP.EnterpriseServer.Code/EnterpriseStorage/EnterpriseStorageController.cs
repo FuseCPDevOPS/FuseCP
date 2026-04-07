@@ -304,9 +304,7 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var folder in GetFolders(account.ItemId))
             {
-                var permissions = GetFolderPermission(account.ItemId, folder.Name);
-
-                foreach (var permission in permissions.Where(permission =>
+                foreach (var permission in GetFolderPermission(account.ItemId, folder.Name).Where(permission =>
                     (!permission.IsGroup
                         && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
                     || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
@@ -700,9 +698,7 @@ namespace FuseCP.EnterpriseServer
 
                 foreach (var folder in es.GetFoldersWithoutFrsm(org.OrganizationId, webDavSettings))
                 {
-                    var permissions = ConvertToESPermission(itemId, folder.Rules);
-
-                    foreach (var permission in permissions.Where(permission =>
+                    foreach (var permission in ConvertToESPermission(itemId, folder.Rules).Where(permission =>
                         (!permission.IsGroup
                             && (permission.DisplayName == userName || permission.DisplayName == displayName))
                         || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
@@ -2373,13 +2369,9 @@ namespace FuseCP.EnterpriseServer
                 List<MappedDrive> mappedDrives = orgProxy.GetDriveMaps(org.OrganizationId).Where(x => x.LabelAs.ToLower().Contains(filterValue)).ToList();
                 var resultItems = new List<MappedDrive>();
 
-                foreach (SystemFile folder in folders)
+                foreach (MappedDrive drive in folders.Select(folder => GetFolderMappedDrive(mappedDrives, folder)).Where(drive => drive != null))
                 {
-                    var drive = GetFolderMappedDrive(mappedDrives, folder);
-                    if (drive == null)
-                    continue;
-
-                        resultItems.Add(drive);
+                    resultItems.Add(drive);
                 }
 
                 mappedDrives = resultItems;

@@ -633,9 +633,8 @@ namespace FuseCP.Providers.Mail
                 if (!addResult.Result)
                     throw new Exception(addResult.Message);
 
-                foreach (string pair in addResult.settingValues)
+                foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
                 {
-                    string[] parts = pair.Split('=');
                     if (parts[0] == "isenabled") mailbox.Enabled = Boolean.Parse(parts[1]);
                     else if (parts[0] == "maxsize") mailbox.MaxMailboxSize = Int32.Parse(parts[1]);
                     else if (parts[0] == "passwordlocked") mailbox.PasswordLocked = Boolean.Parse(parts[1]);
@@ -1619,9 +1618,8 @@ namespace FuseCP.Providers.Mail
 
         private void SetMailListSettings(MailList list, string[] smSettings)
         {
-            foreach (string setting in smSettings)
+            foreach (string[] bunch in smSettings.Select(setting => setting.Split(new char[] { '=' })))
             {
-                string[] bunch = setting.Split(new char[] { '=' });
 
                 switch (bunch[0])
                 {
@@ -1700,9 +1698,8 @@ namespace FuseCP.Providers.Mail
         {
             List<string> settings = new List<string>();
 
-            foreach (string pair in defaultSettings)
+            foreach (string[] parts in defaultSettings.Select(pair => pair.Split('=')))
             {
-                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "defaultaltsmtpport":
@@ -1814,9 +1811,8 @@ namespace FuseCP.Providers.Mail
 
         private static void FillMailDomainFields(MailDomain domain, SettingsRequestResult addResult)
         {
-            foreach (string pair in addResult.settingValues)
+            foreach (string[] parts in addResult.settingValues.Select(pair => pair.Split('=')))
             {
-                string[] parts = pair.Split('=');
                 switch (parts[0])
                 {
                     case "catchall":
@@ -1976,5 +1972,4 @@ namespace FuseCP.Providers.Mail
 
     }
 }
-
 

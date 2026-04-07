@@ -127,9 +127,9 @@ namespace FuseCP.Portal
                     if (htSites[w.Name.ToLower()] == null) htSites.Add(w.Name.ToLower(), 1);
 
                     DomainInfo[] pointers = ES.Services.WebServers.GetWebSitePointers(w.Id);
-                    foreach (DomainInfo p in pointers)
+                    foreach (DomainInfo p in pointers.Where(p => htSites[p.DomainName.ToLower()] == null))
                     {
-                        if (htSites[p.DomainName.ToLower()] == null) htSites.Add(p.DomainName.ToLower(), 1);
+                        htSites.Add(p.DomainName.ToLower(), 1);
                     }
                 }
             }
@@ -140,13 +140,11 @@ namespace FuseCP.Portal
 
                 foreach (Providers.Mail.MailDomain mailDomain in mailDomains)
                 {
-                    DomainInfo[] pointers = ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id);
-                    if (pointers == null)
-                        continue;
+                    DomainInfo[] pointers = ES.Services.MailServers.GetMailDomainPointers(mailDomain.Id) ?? Array.Empty<DomainInfo>();
 
-                    foreach (DomainInfo p in pointers)
+                    foreach (DomainInfo p in pointers.Where(p => htMailDomainPointers[p.DomainName.ToLower()] == null))
                     {
-                        if (htMailDomainPointers[p.DomainName.ToLower()] == null) htMailDomainPointers.Add(p.DomainName.ToLower(), 1);
+                        htMailDomainPointers.Add(p.DomainName.ToLower(), 1);
                     }
                 }
             }

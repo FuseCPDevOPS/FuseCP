@@ -45,9 +45,9 @@ namespace FuseCP.EnterpriseServer.Data
 			DT dobj = (DT)Activator.CreateInstance(typeof(DT));
 
 			// copy properties
-			foreach (string propName in sProps.Keys.Where(propName => sProps[propName].Name != "Item" && sProps[propName].CanRead))
+			foreach (string propName in sProps.Keys.Where(propName => sProps[propName].Name != "Item" && sProps[propName].CanRead && dProps.ContainsKey(propName) && dProps[propName] != null))
 			{
-					if (!dProps.TryGetValue(propName, out var dProp) || dProp == null) continue;
+					var dProp = dProps[propName];
 					var val = sProps[propName].GetValue(so, null);
 					if (val != null && dProp.CanWrite)
 					{
@@ -250,9 +250,8 @@ namespace FuseCP.EnterpriseServer.Data
 						{
 							string columnName = System.Convert.ToString(field["ColumnName"]);
 
-							foreach (PropertyInfo prop in props)
-								if (columnName.ToLower() == prop.Name.ToLower())
-									propslist.Add(prop);
+							foreach (PropertyInfo prop in props.Where(prop => columnName.ToLower() == prop.Name.ToLower()))
+								propslist.Add(prop);
 						}
 						props = propslist.ToArray();
 					}

@@ -201,9 +201,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     .Where(app => !string.IsNullOrEmpty(app.ApplicationPoolName) &&
                         srvman.ApplicationPools[app.ApplicationPoolName] != null))
                 {
-                    string AppPoolName = app.ApplicationPoolName;
-
-                    ApplicationPool pool = srvman.ApplicationPools[AppPoolName];
+                    ApplicationPool pool = srvman.ApplicationPools[app.ApplicationPoolName];
 
                     //
                     switch (state)

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Net;
 
@@ -56,9 +57,8 @@ namespace FuseCP.Providers.OS
                 if (!string.IsNullOrEmpty(value))
                 {
                     if (value.StartsWith("?")) value = value.Substring(1);
-                    foreach (var par in value.Split('&', ';'))
+                    foreach (var tokens in value.Split('&', ';').Select(par => par.Split('=')))
                     {
-                        var tokens = par.Split('=');
                         if (tokens.Length > 1) Add(Uri.UnescapeDataString(tokens[0].Trim()), Uri.UnescapeDataString(tokens[1].Trim()));
                         else Add(Uri.UnescapeDataString(tokens[0].Trim()), "");
                     }

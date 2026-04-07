@@ -224,14 +224,11 @@ namespace FuseCP.Providers.DNS
                 .ThenBy(r => r.RecordData)
                 .ToArray();
             List<DnsRecord> result = new List<DnsRecord>();
-            foreach (DnsRecord record in records)
+            foreach (DnsRecord record in records.Where(record => !result.Any(res => res.RecordName.Equals(record.RecordName)
+                && res.RecordType.Equals(record.RecordType)
+                && res.RecordData.Equals(record.RecordData))))
             {
-                if (!result.Any(res => res.RecordName.Equals(record.RecordName)
-                    && res.RecordType.Equals(record.RecordType)
-                    && res.RecordData.Equals(record.RecordData)))
-                {
-                    result.Add(record);
-                }
+                result.Add(record);
             }
             return result.ToArray();
         }

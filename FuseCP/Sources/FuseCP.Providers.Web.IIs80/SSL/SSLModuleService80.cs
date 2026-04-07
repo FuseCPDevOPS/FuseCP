@@ -331,23 +331,23 @@ namespace FuseCP.Providers.Web.Iis
                 // Find cert by somehow perhaps first looking in the database? There vi kan lookup the serialnumber and find the hostname needed to create the path to the cert in CCS and then we can load the certdata into a cert and do a export with new password.
                 // Another solution would be to look through all SSL-bindings on all sites until we found the site with the binding that has this serialNumber. But serialNumber is not good enough, we need hash that is unique and present in bindingInfo
                 // A third solution is to iterate over all files in CCS, load them into memory and find the one with the correct serialNumber, but that cannot be good if there are thousands of files...
-                foreach (var file in Directory.GetFiles(CCSUncPath))
+                foreach (var fileStream in Directory.GetFiles(CCSUncPath).Select(File.OpenRead))
                 {
-                    var fileStream = File.OpenRead(file);
-
-                    // Read certificate data from file
-                    var certData = new byte[fileStream.Length];
-                    fileStream.ReadExactly(certData, 0, (int)fileStream.Length);
-                    var convertedCert = X509CertificateLoader.LoadPkcs12(
-                        certData,
-                        CCSCommonPassword,
-                        X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet);
-
-                    fileStream.Close();
-
-                    if (convertedCert.SerialNumber == serialNumber)
+                    using (fileStream)
                     {
-                        return convertedCert.Export(X509ContentType.Pfx, password);
+
+                        // Read certificate data from file
+                        var certData = new byte[fileStream.Length];
+                        fileStream.ReadExactly(certData, 0, (int)fileStream.Length);
+                        var convertedCert = X509CertificateLoader.LoadPkcs12(
+                            certData,
+                            CCSCommonPassword,
+                            X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet);
+
+                        if (convertedCert.SerialNumber == serialNumber)
+                        {
+                            return convertedCert.Export(X509ContentType.Pfx, password);
+                        }
                     }
                 }
             }

@@ -56,9 +56,11 @@ namespace FuseCP.WebDav.Core.Owa
                 cobaltFile.CobaltEndpoint.ExecuteRequestBatch(requestBatch);
 
 
-                foreach (var request in requestBatch.Requests.Where(request =>
+                var uploadCount = requestBatch.Requests.Count(request =>
                     request.GetType() == typeof(PutChangesRequest) &&
-                    request.PartitionId == FilePartitionId.Content && request.CompletedSuccessfully))
+                    request.PartitionId == FilePartitionId.Content && request.CompletedSuccessfully);
+
+                for (var i = 0; i < uploadCount; i++)
                 {
                     using (var saveStream = new MemoryStream())
                     {

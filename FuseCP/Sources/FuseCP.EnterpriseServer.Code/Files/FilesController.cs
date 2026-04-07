@@ -630,9 +630,8 @@ public class FilesController: ControllerBase
 
             List<string> archFiles = new List<string>();
             string rootFolder = "";
-            foreach (string file in files)
+            foreach (string archFile in files.Select(file => GetFullPackagePath(packageId, file)))
             {
-                string archFile = GetFullPackagePath(packageId, file);
                 int idx = archFile.LastIndexOf("\\");
                 rootFolder = archFile.Substring(0, idx);
                 archFiles.Add(archFile.Substring(idx + 1));
@@ -683,9 +682,8 @@ public class FilesController: ControllerBase
 
 				List<string> archFiles = new List<string>();
 				string root = String.IsNullOrEmpty(rootFolder) ? "" : GetFullPackagePath(packageId, rootFolder);
-                foreach (string file in files)
+                foreach (string archFile in files.Select(file => GetFullPackagePath(packageId, file)))
 				{
-                    string archFile = GetFullPackagePath(packageId, file);
 					if (!String.IsNullOrEmpty(rootFolder))
 					{
 

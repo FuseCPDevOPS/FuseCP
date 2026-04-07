@@ -288,10 +288,9 @@ namespace FuseCP.Providers.DNS
 			DNSZone dnsZone = cn.GetZone(zoneName);
 
 			// add zone records
-			foreach (DnsRecord record in records)
+			foreach (DnsRecord record in records.Where(record => SupportedDnsRecords.ContainsKey(record.RecordType)))
 			{
-if (!SupportedDnsRecords.TryGetValue(record.RecordType, out var _ckv))
-					continue;
+				var _ckv = SupportedDnsRecords[record.RecordType];
 
 				string m_strRecordName = ConvertRecordNameToSDNSFormat(record.RecordName, zoneName);
 

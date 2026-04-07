@@ -1889,13 +1889,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (serversPs != null)
             {
-                foreach (var serverName in serversPs.Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"))))
-                {
-                    if (string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) != 0)
-                        continue;
-
-                        return true;
-                }
+                return serversPs
+                    .Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server")))
+                    .Any(serverName => string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) == 0);
             }
 
             return false;
@@ -3079,16 +3075,14 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 return result;
             }            
 
-            foreach (var psDrive in psDrives)
+            foreach (var driveInfo in psDrives.Select(psDrive => new RdsServerDriveInfo
             {
-                var driveInfo = new RdsServerDriveInfo()
-                {
-                    VolumeName = RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "VolumeName").ToString(),
-                    DeviceId = RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "DeviceId").ToString(),
-                    SizeMb = Math.Round(Convert.ToDouble(RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "Size")) / 1024 / 1024, 1),
-                    FreeSpaceMb = Math.Round(Convert.ToDouble(RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "FreeSpace")) / 1024 / 1024, 1)
-                };
-
+                VolumeName = RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "VolumeName").ToString(),
+                DeviceId = RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "DeviceId").ToString(),
+                SizeMb = Math.Round(Convert.ToDouble(RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "Size")) / 1024 / 1024, 1),
+                FreeSpaceMb = Math.Round(Convert.ToDouble(RdsRunspaceExtensions.GetPSObjectProperty(psDrive, "FreeSpace")) / 1024 / 1024, 1)
+            }))
+            {
                 result.Add(driveInfo);
             }
 

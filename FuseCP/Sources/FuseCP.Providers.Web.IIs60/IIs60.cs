@@ -3467,11 +3467,8 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 
 		protected void AddExtensions(List<string> allExtensions, string[] extensions)
 		{
-			foreach (string ext in extensions.Select(extension => extension.Split(',')[0].ToLower()))
+			foreach (string ext in extensions.Select(extension => extension.Split(',')[0].ToLower()).Where(ext => !allExtensions.Contains(ext)))
 			{
-				if (allExtensions.Contains(ext))
-					continue;
-
 				allExtensions.Add(ext);
 			}
 		}

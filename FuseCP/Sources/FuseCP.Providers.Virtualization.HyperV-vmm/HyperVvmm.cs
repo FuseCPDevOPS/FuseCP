@@ -1309,10 +1309,9 @@ namespace FuseCP.Providers.Virtualization
             // determine maximum available space
             ulong oneMegabyte = 1048576;
             ulong freeSpace = 0;
-            foreach (Vds.DiskExtent extent in advancedDisk.Extents.Where(extent => extent.Type == Microsoft.Storage.Vds.DiskExtentType.Free))
+            foreach (Vds.DiskExtent extent in advancedDisk.Extents.Where(extent => extent.Type == Microsoft.Storage.Vds.DiskExtentType.Free && extent.Size > oneMegabyte))
             {
-                if (extent.Size > oneMegabyte)
-                    freeSpace += extent.Size;
+                freeSpace += extent.Size;
             }
 
             if (freeSpace == 0)
