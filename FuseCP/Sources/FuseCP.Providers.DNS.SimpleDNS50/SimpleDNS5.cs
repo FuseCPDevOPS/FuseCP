@@ -765,9 +765,8 @@ namespace FuseCP.Providers.DNS
             {
                 String[] names = key.GetSubKeyNames();
 
-                foreach (string name in names)
+                foreach (RegistryKey subkey in names.Select(name => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + name)))
                 {
-					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + name);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");
@@ -795,9 +794,8 @@ namespace FuseCP.Providers.DNS
 
                 names = key.GetSubKeyNames();
 
-                foreach (string name in names)
+                foreach (RegistryKey subkey in names.Select(name => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + name)))
                 {
-					RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + name);
 					if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
 					{
 						productName = (string)subkey.GetValue("DisplayName");

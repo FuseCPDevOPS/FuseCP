@@ -3558,9 +3558,8 @@ namespace FuseCP.EnterpriseServer
 
 		private string ParseWhoisDomainInfo(string raw, IEnumerable<string> patterns)
 		{
-			foreach (string createdRegex in patterns)
+			foreach (var regex in patterns.Select(createdRegex => new Regex(createdRegex, RegexOptions.IgnoreCase)))
 			{
-				var regex = new Regex(createdRegex, RegexOptions.IgnoreCase);
 
 				foreach (Match match in regex.Matches(raw))
 				{

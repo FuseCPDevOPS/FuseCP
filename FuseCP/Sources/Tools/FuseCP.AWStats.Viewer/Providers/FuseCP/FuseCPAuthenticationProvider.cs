@@ -55,9 +55,8 @@ namespace FuseCP.AWStats.Viewer
                 PackageInfo[] packages = packagesProxy.GetMyPackages(user.UserId);
 
                 // load all statistics sites from all packages
-                foreach (PackageInfo package in packages)
+                foreach (StatsSite[] sites in packages.Select(package => statsServers.GetStatisticsSites(package.PackageId, false)))
                 {
-                    StatsSite[] sites = statsServers.GetStatisticsSites(package.PackageId, false);
 
                     foreach (StatsSite site in sites)
                     {

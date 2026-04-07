@@ -918,8 +918,8 @@ namespace FuseCP.Providers.Utils
             object groups = objUser.Invoke("Groups", null);
             foreach (object group in (IEnumerable)groups)
             {
-                // Get the Directory Entry.
                 using DirectoryEntry objGroup = new DirectoryEntry(group);
+                // Get the Directory Entry.
                 string groupFullName = (string)GetObjectProperty(objGroup, "distinguishedName");
                 int startPos = groupFullName.IndexOf("CN=") + 3;
                 int endPos = groupFullName.IndexOf(",", startPos);
@@ -1244,8 +1244,8 @@ namespace FuseCP.Providers.Utils
                     object users = group.Invoke("Members", null);
                     foreach (object nUser in (IEnumerable)users)
                     {
-                        // Get the Directory Entry.
                         using DirectoryEntry objUser = new DirectoryEntry(nUser);
+                        // Get the Directory Entry.
                         groupMembers.Add(objUser.Name);
                     }
 
@@ -1278,10 +1278,9 @@ namespace FuseCP.Providers.Utils
                     objGroup.CommitChanges();
 
                     // add users to group
-                    foreach (string userName in group.Members)
+                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        DirectoryEntry objUser = GetUserObject(userName, serverSettings, usersOU);
                         if (objUser != null)
                         {
                             objGroup.Invoke("Add", new Object[] { objUser.Path.ToString() });
@@ -1346,10 +1345,9 @@ namespace FuseCP.Providers.Utils
 
                     // remove all users from the group
                     string[] groupUsers = GetGroupUsers(objGroup);
-                    foreach (string userName in groupUsers)
+                    foreach (DirectoryEntry objUser in groupUsers.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        DirectoryEntry objUser = GetUserObject(userName, serverSettings, usersOU);
                         if (objUser != null)
                         {
                             objGroup.Invoke("Remove", new Object[] { objUser.Path.ToString() });
@@ -1358,10 +1356,9 @@ namespace FuseCP.Providers.Utils
                     }
 
                     // add users to group
-                    foreach (string userName in group.Members)
+                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        DirectoryEntry objUser = GetUserObject(userName, serverSettings, usersOU);
                         if (objUser != null)
                         {
                             objGroup.Invoke("Add", new Object[] { objUser.Path.ToString() });

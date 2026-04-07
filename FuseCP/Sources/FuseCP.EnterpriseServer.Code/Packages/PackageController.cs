@@ -991,9 +991,8 @@ namespace FuseCP.EnterpriseServer
             int statusId = (int)status;
 
             List<PackageInfo> changedPackages = new List<PackageInfo>();
-            foreach (PackageInfo childPackage in packages)
+            foreach (PackageInfo package in packages.Select(childPackage => GetPackage(childPackage.PackageId)))
             {
-                PackageInfo package = GetPackage(childPackage.PackageId);
                 if (package == null)
                     continue;
 

@@ -341,9 +341,8 @@ namespace FuseCP.LinuxVmConfig
                 }
 
                 ExecutionContext context = null;
-                foreach (string tid in tasks.Keys)
+                foreach (string taskDefinition in tasks.Keys.Select(tid => tasks[tid]))
                 {
-                    string taskDefinition = tasks[tid];
                     //find first correct task 
                     string taskParameters = KvpUtils.GetKvpStringValue(InputKVP, taskDefinition);
                     if (taskDefinition.LastIndexOf("-") == -1 || taskDefinition.LastIndexOf('-') == taskDefinition.Length - 1)
@@ -458,9 +457,8 @@ namespace FuseCP.LinuxVmConfig
                 return;
 
             string[] pairs = parameters.Split('|');
-            foreach (string pair in pairs)
+            foreach (string[] parts in pairs.Select(pair => pair.Split(new char[] { '=' }, 2)))
             {
-                string[] parts = pair.Split(new char[] { '=' }, 2);
                 if (parts.Length != 2)
                     continue;
 

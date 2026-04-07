@@ -1808,8 +1808,7 @@ namespace FuseCP.EnterpriseServer
 				// restore accounts
 				foreach (XmlNode accountNode in itemNode.SelectNodes("MailAccount"))
 				{
-					var accountNodeReader = new XmlNodeReader(accountNode);
-					using (accountNodeReader)
+					using (var accountNodeReader = new XmlNodeReader(accountNode))
 					{
 						MailAccount account = (MailAccount)accountSerializer.Deserialize(accountNodeReader);
 
@@ -1845,8 +1844,7 @@ namespace FuseCP.EnterpriseServer
 				// restore groups
 				foreach (XmlNode groupNode in itemNode.SelectNodes("MailGroup"))
 				{
-					var groupNodeReader = new XmlNodeReader(groupNode);
-					using (groupNodeReader)
+					using (var groupNodeReader = new XmlNodeReader(groupNode))
 					{
 						MailGroup mailGroup = (MailGroup)groupSerializer.Deserialize(groupNodeReader);
 
@@ -1868,8 +1866,7 @@ namespace FuseCP.EnterpriseServer
 				// restore lists
 				foreach (XmlNode listNode in itemNode.SelectNodes("MailList"))
 				{
-					var listNodeReader = new XmlNodeReader(listNode);
-					using (listNodeReader)
+					using (var listNodeReader = new XmlNodeReader(listNode))
 					{
 						MailList list = (MailList)listSerializer.Deserialize(listNodeReader);
 

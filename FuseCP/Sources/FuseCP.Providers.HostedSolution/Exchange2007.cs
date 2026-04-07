@@ -2544,9 +2544,8 @@ namespace FuseCP.Providers.HostedSolution
 				info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
 				List<ExchangeAccount> accounts = new List<ExchangeAccount>();
 				IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-				foreach (ADObjectId id in ids)
+				foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
 				{
-					ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
 					if (account == null)
 						continue;
 
@@ -2994,9 +2993,8 @@ namespace FuseCP.Providers.HostedSolution
 			IList<ADObjectId> ids =
 				 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-			foreach (ADObjectId id in ids)
+			foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
 			{
-				ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
 				if (account == null)
 					continue;
 
@@ -5977,9 +5975,8 @@ namespace FuseCP.Providers.HostedSolution
 		 Collection<PSObject> results = invoker.Invoke(cmd, null, out errors);
 		 if (errors != null && errors.Count > 0)
 		 {
-			 foreach (var err in errors)
+			 foreach (string errorMessage in errors.Select(err => string.Format("Invoke error: {0}", err.ToString())))
 			 {
-				 string errorMessage = string.Format("Invoke error: {0}", err.ToString());
 				 ExchangeLog.LogError(errorMessage, null);
 			 }
 		 }

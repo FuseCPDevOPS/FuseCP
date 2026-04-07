@@ -4037,9 +4037,8 @@ namespace FuseCP.EnterpriseServer
 					.ToHashSet();
 
 				bool addedAny = false;
-				foreach (var service in services.Elements())
+				foreach (var serviceId in services.Elements().Select(service => (int)service.Attribute("id")))
 				{
-					var serviceId = (int)service.Attribute("id");
 					if (existingServices.Contains(serviceId))
 						continue;
 

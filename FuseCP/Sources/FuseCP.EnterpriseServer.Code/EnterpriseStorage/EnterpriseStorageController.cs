@@ -2095,9 +2095,8 @@ namespace FuseCP.EnterpriseServer
                 var result = new List<string>();
 
 
-                foreach (int accountId in accountIds)
+                foreach (var reader in accountIds.Select(accountId => Database.GetUserEnterpriseFolderWithOwaEditPermission(itemId, accountId)))
                 {
-                    var reader = Database.GetUserEnterpriseFolderWithOwaEditPermission(itemId, accountId);
 
                     while (reader.Read())
                     {
@@ -2192,9 +2191,8 @@ namespace FuseCP.EnterpriseServer
 
                             if ((orgs != null) && (orgs.Count > 0))
                             {
-                                foreach (Organization o in orgs)
+                                foreach (SystemFile[] folders in orgs.Select(o => GetEnterpriseFoldersPaged(o.Id, true, false, false, "", "", 0, int.MaxValue).PageItems))
                                 {
-                                    SystemFile[] folders = GetEnterpriseFoldersPaged(o.Id, true, false, false, "", "", 0, int.MaxValue).PageItems;
 
                                     stats.CreatedEnterpriseStorageFolders += folders.Count();
 

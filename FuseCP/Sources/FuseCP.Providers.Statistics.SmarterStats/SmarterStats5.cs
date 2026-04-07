@@ -37,9 +37,8 @@ namespace FuseCP.Providers.Statistics
             {
                 var names = key.GetSubKeyNames();
 
-                foreach (string name in names)
+                foreach (RegistryKey subkey in names.Select(name => key.OpenSubKey(name)))
                 {
-                    RegistryKey subkey = key.OpenSubKey(name);
                     if (subkey == null)
                         continue;
 
@@ -64,9 +63,8 @@ namespace FuseCP.Providers.Statistics
             {
                 var names = key.GetSubKeyNames();
 
-                foreach (string name in names)
+                foreach (RegistryKey subkey in names.Select(name => key.OpenSubKey(name)))
                 {
-                    RegistryKey subkey = key.OpenSubKey(name);
                     if (subkey == null)
                         continue;
 

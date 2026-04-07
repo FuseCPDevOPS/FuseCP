@@ -330,9 +330,8 @@ namespace FuseCP.Portal
 
             var accountsWithoutPhones = new List<OrganizationUser>();
 
-                foreach (int id in ids)
+                foreach (var account in ids.Select(id => ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id)))
             {
-                var account = ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id);
                 if (!string.IsNullOrEmpty(account.MobilePhone))
                     continue;
 

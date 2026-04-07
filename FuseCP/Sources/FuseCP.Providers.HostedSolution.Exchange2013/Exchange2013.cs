@@ -2987,9 +2987,8 @@ namespace FuseCP.Providers.HostedSolution
                 info.MaximumDurationInMinutes = (int)GetPSObjectProperty(calendar, "MaximumDurationInMinutes");
                 List<ExchangeAccount> accounts = new List<ExchangeAccount>();
                 IList<ADObjectId> ids = (IList<ADObjectId>)GetPSObjectProperty(calendar, "ResourceDelegates");
-                foreach (ADObjectId id in ids)
+                foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
                 {
-                    ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
                     if (account != null) accounts.Add(account);
                 }
                 info.ResourceDelegates = accounts.ToArray();
@@ -3569,9 +3568,8 @@ namespace FuseCP.Providers.HostedSolution
             IList<ADObjectId> ids =
                 (IList<ADObjectId>)GetPSObjectProperty(exchangeObject, "GrantSendOnBehalfTo");
 
-            foreach (ADObjectId id in ids)
+            foreach (ExchangeAccount account in ids.Select(id => GetExchangeAccount(runSpace, id.ToString())))
             {
-                ExchangeAccount account = GetExchangeAccount(runSpace, id.ToString());
                 if (account == null)
                     continue;
 
@@ -7790,9 +7788,8 @@ namespace FuseCP.Providers.HostedSolution
 
                 if (result != null)
                 {
-                    foreach (PSObject current in result)
+                    foreach (ExchangeMobileDevice device in result.Select(current => GetMobileDeviceObject(current)))
                     {
-                        ExchangeMobileDevice device = GetMobileDeviceObject(current);
 
                         cmd = new Command("Remove-ActiveSyncDevice");
                         cmd.Parameters.Add("Identity", device.DeviceID);

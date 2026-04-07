@@ -333,9 +333,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             using (var srvman = GetServerManager())
             {
                 //
-                foreach (string poolName in appPoolNames)
+                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])))
                 {
-                    int indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName]);
                     if (indexOf <= -1)
                         continue;
 
@@ -352,9 +351,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
         {
             using (var srvman = GetServerManager())
             {
-                foreach (string item in appPoolNames)
+                foreach (int indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])))
                 {
-                    int indexOf = srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item]);
                     if (indexOf <= -1)
                         continue;
 
@@ -572,9 +570,8 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     }
 
 					// Create HTTP bindings received
-                    foreach (var serverBinding in bindings)
+                    foreach (var bindingInformation in bindings.Select(serverBinding => String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host)))
                         {
-                        var bindingInformation = String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host);
                             iisObject.Bindings.Add(bindingInformation, Uri.UriSchemeHttp);
                         }
 				}

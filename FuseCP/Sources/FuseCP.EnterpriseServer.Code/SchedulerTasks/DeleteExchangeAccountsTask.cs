@@ -35,9 +35,8 @@ namespace FuseCP.EnterpriseServer
         {
             List<Organization> organizations = OrganizationController.GetOrganizations(TaskManager.TopTask.PackageId, true);
 
-            foreach (Organization organization in organizations)
+            foreach (List<OrganizationDeletedUser> deletedUsers in organizations.Select(organization => OrganizationController.GetOrganizationDeletedUsers(organization.Id)))
             {
-                List<OrganizationDeletedUser> deletedUsers = OrganizationController.GetOrganizationDeletedUsers(organization.Id);
 
                 foreach (OrganizationDeletedUser deletedUser in deletedUsers)
                 {

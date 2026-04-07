@@ -4231,9 +4231,8 @@ namespace FuseCP.EnterpriseServer
 
                     List<string> tagLinks = new List<string>();
 
-                    foreach (ExchangeMailboxPlanRetentionPolicyTag policytag in policytaglist)
+                    foreach (ExchangeRetentionPolicyTag tag in policytaglist.Select(policytag => GetExchangeRetentionPolicyTag(itemID, policytag.TagID)))
                     {
-                        ExchangeRetentionPolicyTag tag = GetExchangeRetentionPolicyTag(itemID, policytag.TagID);
                         tagLinks.Add(tag.FCPUniqueName);
 
                         // update PlanRetentionPolicyTags

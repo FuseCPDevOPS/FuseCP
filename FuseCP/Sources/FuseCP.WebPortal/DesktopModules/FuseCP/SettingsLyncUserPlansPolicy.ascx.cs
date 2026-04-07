@@ -497,9 +497,8 @@ namespace FuseCP.Portal
 
             try
             {
-                foreach (UserInfo ui in UsersInfo)
+                foreach (PackageInfo[] Packages in UsersInfo.Select(ui => ES.Services.Packages.GetPackages(ui.UserId)))
                 {
-                    PackageInfo[] Packages = ES.Services.Packages.GetPackages(ui.UserId);
                     if ((Packages == null) || (Packages.GetLength(0) <= 0))
                         continue;
 

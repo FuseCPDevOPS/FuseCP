@@ -769,9 +769,9 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     xmlConfigs[0].Load(path);
                     // Lookup for external references first
                     XmlNodeList xmlReferences = xmlConfigs[0].SelectNodes("//reference");
-                    foreach (XmlElement xmlReference in xmlReferences)
+                    foreach (XmlNode xmlReference in xmlReferences)
                     {
-                        string referencePath = Path.Join(appRoot, xmlReference.GetAttribute("src"));
+                        string referencePath = Path.Join(appRoot, xmlReference.Attributes["src"].Value);
                         if (File.Exists(referencePath))
                         {
                             XmlDocument xmldoc = new XmlDocument();
@@ -781,9 +781,8 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     }
 
                     // parse XML
-                    foreach (XmlDocument xmlConfig in xmlConfigs)
+                    foreach (XmlNodeList xmlHandlers in xmlConfigs.Select(xmlConfig => xmlConfig.SelectNodes("//handler")))
                     {
-                        XmlNodeList xmlHandlers = xmlConfig.SelectNodes("//handler");
                         foreach (XmlNode xmlHandler in xmlHandlers)
                         {
                             string keyName = xmlHandler.ParentNode.Attributes["source"].Value

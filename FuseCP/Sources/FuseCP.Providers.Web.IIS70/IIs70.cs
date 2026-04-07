@@ -855,9 +855,8 @@ namespace FuseCP.Providers.Web
 				// cleanup app pools
 				using (var srvman = webObjectsSvc.GetServerManager())
 				{
-					foreach (WebAppPool poolItem in dedicatedPools)
+					foreach (string poolName in dedicatedPools.Select(poolItem => WSHelper.InferAppPoolName(poolItem.Name, siteName, poolItem.Mode)))
 					{
-						string poolName = WSHelper.InferAppPoolName(poolItem.Name, siteName, poolItem.Mode);
 						//
 						ApplicationPool pool = srvman.ApplicationPools[poolName];
 						if (pool == null)

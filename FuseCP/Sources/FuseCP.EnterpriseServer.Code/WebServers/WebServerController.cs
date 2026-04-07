@@ -130,9 +130,8 @@ namespace FuseCP.EnterpriseServer
 
             // check if site has dedicated IP assigned
             var siteIpAddresses = ServerController.GetItemIPAddresses(siteItemId, IPAddressPool.None);
-                foreach (var siteIp in siteIpAddresses)
+                foreach (var packageIpAddress in siteIpAddresses.Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID)))
             {
-                    var packageIpAddress = ServerController.GetPackageIPAddress(siteIp.AddressID);
                     if (packageIpAddress == null || packageIpAddress.ExternalIP != site.SiteIPAddress)
                     continue;
 
@@ -4221,9 +4220,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // process virtual directories
                 WebAppVirtualDirectory[] vdirs = web.GetAppVirtualDirectories(siteId);
-                foreach (WebAppVirtualDirectory vdirShort in vdirs)
+                foreach (WebAppVirtualDirectory vdir in vdirs.Select(vdirShort => web.GetAppVirtualDirectory(siteId, vdirShort.Name)))
                 {
-                    WebAppVirtualDirectory vdir = web.GetAppVirtualDirectory(siteId, vdirShort.Name);
 
                     // serialize vdir
                     serializer = new XmlSerializer(typeof(WebAppVirtualDirectory));

@@ -163,9 +163,8 @@ namespace FuseCP.Web.Services
 			//Credentials.ServiceCertificate.SetCertificate(
 			//	StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectName, "localhost");
 
-			foreach (var uri in baseAdresses)
+			foreach (var adr in baseAdresses.Select(uri => uri.AbsoluteUri))
 			{
-				var adr = uri.AbsoluteUri;
 				if (IsHttp(adr))
 				{
 					if (HasApi(adr, "api"))

@@ -461,9 +461,8 @@ namespace FuseCP.Providers.OS
                 childFiles.AddRange(Directory.GetDirectories(path));
                 childFiles.AddRange(Directory.GetFiles(path));
 
-                foreach (string childFile in childFiles)
+                foreach (FileHash childHash in childFiles.Select(childFile => CalculateFileHash(rootFolder, childFile, checkSums)))
                 {
-                    FileHash childHash = CalculateFileHash(rootFolder, childFile, checkSums);
                     folder.Files.Add(childHash);
 
                     // check sum
