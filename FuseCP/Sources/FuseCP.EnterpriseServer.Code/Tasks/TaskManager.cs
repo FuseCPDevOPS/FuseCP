@@ -40,8 +40,8 @@ namespace FuseCP.EnterpriseServer
 
 		static readonly object Lock = new object();
 		// purge timer, used for killing old tasks from the hash
-		static Timer purgeTimer = null;
-        static int timers = 0;
+		 Timer purgeTimer = null;
+         int timers = 0;
         public TaskManager(): this(null) { }
 		public TaskManager(ControllerBase provider) : base(provider) {
             InitTimer();
@@ -471,7 +471,7 @@ namespace FuseCP.EnterpriseServer
 
         void WriteDebug(string msg) => Debug.WriteLine(msg);
 
-        static bool IsPurging = false;
+         bool IsPurging = false;
         void PurgeCompletedTasks(object obj)
         {
             try

@@ -1,0 +1,167 @@
+[
+  {
+    "newString": "\t\tpublic  string ALLOWED_EDIT_EXTENSIONS = \".txt,.htm,.html,.cfc,.cfml,.cfm,.php,.pl,.sql,.cs,.vb,.ascx,.aspx,.inc,.asp,.config,.xml,.xsl,.xslt,.xsd,.master,.htaccess,.htpasswd,.cshtml,.vbhtml,.ini,.config\";",
+    "filePath": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/FileManager.ascx.cs",
+    "oldString": "\t\tpublic static string ALLOWED_EDIT_EXTENSIONS = \".txt,.htm,.html,.cfc,.cfml,.cfm,.php,.pl,.sql,.cs,.vb,.ascx,.aspx,.inc,.asp,.config,.xml,.xsl,.xslt,.xsd,.master,.htaccess,.htpasswd,.cshtml,.vbhtml,.ini,.config\";"
+  },
+  {
+    "newString": "        private  string _ValidationKey = null;",
+    "filePath": "FuseCP/Sources/FuseCP.WebPortal/Code/SecureSessionModule.cs",
+    "oldString": "        private static string _ValidationKey = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Web.IIs80/SSL/SSLModuleService80.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Web.IIs100/SSL/SSLModuleService100.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Web.IIS70/SSL/SSLModuleService.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-vmm/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2025/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2022/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2019/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2016/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2012R2/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.StorageSpaces.Windows2016/Windows2016.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.OS.Windows2025/Windows2025.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "         TraceListener defaultTraceListener = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.OS.Windows2016/Windows2016.cs",
+    "oldString": "        static TraceListener defaultTraceListener = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.OS.Windows2022/Windows2022.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "\t\tprivate  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.OS.Windows2019/Windows2019.cs",
+    "oldString": "\t\tprivate static InitialSessionState session = null;"
+  },
+  {
+    "newString": "        private  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.EnterpriseStorage.Windows2016/SyncShareService.cs",
+    "oldString": "        private static InitialSessionState session = null;"
+  },
+  {
+    "newString": "         bool WebSocketsInitialized = false;",
+    "filePath": "FuseCP/Sources/FuseCP.Web.Services/TunnelHandler.cs",
+    "oldString": "        static bool WebSocketsInitialized = false;"
+  },
+  {
+    "newString": "\t\t Assembly serviceAssembly = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Web.Clients/ClientAssemblyBase.cs",
+    "oldString": "\t\tstatic Assembly serviceAssembly = null;"
+  },
+  {
+    "newString": "        protected  InitialSessionState session = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Server.Utils/PowerShellManager.cs",
+    "oldString": "        protected static InitialSessionState session = null;"
+  },
+  {
+    "newString": "\t\tpublic  long TotalBytesProcessed = 0;",
+    "filePath": "FuseCP/Sources/FuseCP.Server.Utils/LogParser/LogReader.cs",
+    "oldString": "\t\tpublic static long TotalBytesProcessed = 0;"
+  },
+  {
+    "newString": "        private  SecuritySettings security = new SecuritySettings();",
+    "filePath": "FuseCP/Sources/FuseCP.Server/Code/ServerConfiguration.cs",
+    "oldString": "        private static SecuritySettings security = new SecuritySettings();"
+  },
+  {
+    "newString": "         TunnelService instance = null;",
+    "filePath": "FuseCP/Sources/FuseCP.Providers.Base/OS/TunnelSockets/TunnelService.cs",
+    "oldString": "        static TunnelService instance = null;"
+  },
+  {
+    "newString": "         Type contextType = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/DbContext.cs",
+    "oldString": "        static Type contextType = null;"
+  },
+  {
+    "newString": "         Type contextType = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/DbContext.cs",
+    "oldString": "        static Type contextType = null;"
+  },
+  {
+    "newString": "         Type contextType = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/DbContext.cs",
+    "oldString": "        static Type contextType = null;"
+  },
+  {
+    "newString": "         Type contextType = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/DbContext.cs",
+    "oldString": "        static Type contextType = null;"
+  },
+  {
+    "newString": "         Type contextType = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/DbContext.cs",
+    "oldString": "        static Type contextType = null;"
+  },
+  {
+    "newString": "         int timers = 0;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskManager.cs",
+    "oldString": "        static int timers = 0;"
+  },
+  {
+    "newString": "         bool IsPurging = false;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskManager.cs",
+    "oldString": "        static bool IsPurging = false;"
+  },
+  {
+    "newString": "         int timers = 0;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskManager.cs",
+    "oldString": "        static int timers = 0;"
+  },
+  {
+    "newString": "\t\t Timer purgeTimer = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskManager.cs",
+    "oldString": "\t\tstatic Timer purgeTimer = null;"
+  },
+  {
+    "newString": "         string cryptoKey = null;",
+    "filePath": "FuseCP/Sources/FuseCP.EnterpriseServer/Code/EnterpriseServerTunnelService.cs",
+    "oldString": "        static string cryptoKey = null;"
+  }
+]

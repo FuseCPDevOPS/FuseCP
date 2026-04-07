@@ -1381,7 +1381,7 @@ namespace FuseCP.Providers.OS
 
         public virtual WSLShell WSL => WSLShell.Default;
 
-        static TraceListener defaultTraceListener = null;
+         TraceListener defaultTraceListener = null;
         public TraceListener DefaultTraceListener => defaultTraceListener ?? (defaultTraceListener = new FuseCP.Server.Utils.EventLogTraceListener());
 
 
@@ -1764,7 +1764,7 @@ namespace FuseCP.Providers.OS
         }
 
         #region PowerShell integration
-        private static InitialSessionState session = null;
+        private InitialSessionState session = null;
 
         protected virtual Runspace OpenRunspace()
         {

@@ -35,7 +35,7 @@ namespace FuseCP.EnterpriseServer
         ServerController ServerController => Controllers.ServerController;
         UserController UserController => Controllers.UserController;
 
-        static string cryptoKey = null;
+         string cryptoKey = null;
         public override string CryptoKey => cryptoKey ?? (cryptoKey = Cryptor.SHA256($"{CryptoUtils.CryptoKey}{DateTime.Now.Ticks}"));
 
         public override void Authenticate(string user, string password) => UsernamePasswordValidator.Validate(user, password);

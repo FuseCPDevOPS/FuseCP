@@ -30,7 +30,7 @@ namespace FuseCP.Providers.OS
     public class TunnelServiceAttribute : Attribute
     {
         public Type Client { get; set; }
-        static TunnelService instance = null;
+         TunnelService instance = null;
         public TunnelService Instance => instance ?? (instance = (TunnelService)Activator.CreateInstance(Client));
 
         public TunnelServiceAttribute(Type client) { Client = client; }

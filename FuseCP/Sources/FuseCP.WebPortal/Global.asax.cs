@@ -39,8 +39,8 @@ namespace FuseCP.WebPortal
 	{
 		const bool Debug = false;
 		private readonly int keepAliveMinutes = 10;
-		private static string keepAliveUrl = "";
-		private static System.Timers.Timer timer = null;
+		private string keepAliveUrl = "";
+		private System.Timers.Timer timer = null;
 
 		protected void Application_PostAuthorizeRequest(Object sender, EventArgs e)
 		{

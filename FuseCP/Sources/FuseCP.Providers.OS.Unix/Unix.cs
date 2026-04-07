@@ -915,7 +915,7 @@ public class Unix : HostingServiceProviderBase, IUnixOperatingSystem
 	public bool IsSystemd => OSInfo.IsSystemd;
 	public bool IsOpenRC => OSInfo.IsOpenRC;
 
-	static TraceListener defaultTraceListener = null;
+ TraceListener defaultTraceListener = null;
 	public TraceListener DefaultTraceListener => defaultTraceListener ?? (defaultTraceListener = new SyslogTraceListener());
     }
 

@@ -104,7 +104,7 @@ namespace FuseCP.Providers.EnterpriseStorage
         }
 
         #region PowerShell integration
-        private static InitialSessionState session = null;
+        private  InitialSessionState session = null;
 
         private Runspace OpenRunspace()
         {

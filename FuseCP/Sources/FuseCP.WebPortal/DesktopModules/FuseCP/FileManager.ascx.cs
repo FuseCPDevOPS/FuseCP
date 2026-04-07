@@ -36,7 +36,7 @@ namespace FuseCP.Portal
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.Literal gvFilesID;
 
-		public static string ALLOWED_EDIT_EXTENSIONS = ".txt,.htm,.html,.cfc,.cfml,.cfm,.php,.pl,.sql,.cs,.vb,.ascx,.aspx,.inc,.asp,.config,.xml,.xsl,.xslt,.xsd,.master,.htaccess,.htpasswd,.cshtml,.vbhtml,.ini,.config";
+		public  string ALLOWED_EDIT_EXTENSIONS = ".txt,.htm,.html,.cfc,.cfml,.cfm,.php,.pl,.sql,.cs,.vb,.ascx,.aspx,.inc,.asp,.config,.xml,.xsl,.xslt,.xsd,.master,.htaccess,.htpasswd,.cshtml,.vbhtml,.ini,.config";
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -35,7 +35,7 @@ namespace FuseCP.Providers.HostedSolution
     {
         #region Fields
 
-        private static RunspaceConfiguration runspaceConfiguration;
+        private RunspaceConfiguration runspaceConfiguration;
 
         #endregion
 

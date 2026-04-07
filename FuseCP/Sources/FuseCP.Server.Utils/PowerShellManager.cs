@@ -27,7 +27,7 @@ namespace FuseCP.Server.Utils
     public class PowerShellManager : IDisposable
     {
         private readonly string _remoteComputerName;
-        protected static InitialSessionState session = null;
+        protected  InitialSessionState session = null;
 
         public string RemoteComputerName { get => _remoteComputerName; }
 

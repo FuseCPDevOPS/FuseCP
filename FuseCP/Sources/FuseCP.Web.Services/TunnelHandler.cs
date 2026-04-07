@@ -63,7 +63,7 @@ namespace FuseCP.Web.Services
 
     public class TunnelHandlerCore : TunnelHandlerBase, ITunnelHandler
     {
-        static bool WebSocketsInitialized = false;
+         bool WebSocketsInitialized = false;
 
         public void Init(WebApplication app)
         {

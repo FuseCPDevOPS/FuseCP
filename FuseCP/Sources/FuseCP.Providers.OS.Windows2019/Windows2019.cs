@@ -323,7 +323,7 @@ namespace FuseCP.Providers.OS
 		}
 
 		#region PowerShell integration
-		private static InitialSessionState session = null;
+		private  InitialSessionState session = null;
 
 		protected override Runspace OpenRunspace()
 		{

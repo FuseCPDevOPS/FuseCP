@@ -29,7 +29,7 @@ namespace FuseCP.Portal.RDS.UserControls
 	{
         public const string DirectionString = "DirectionString";
         public event EventHandler OnRefreshClicked;
-        private static OrganizationUser[] LocalAdmins = null;
+        private OrganizationUser[] LocalAdmins = null;
 
         public bool ButtonAddEnabled
         {

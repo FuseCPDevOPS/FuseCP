@@ -211,7 +211,7 @@ namespace FuseCP.EnterpriseServer.Data
 
         public bool InitSeedData { get; set; } = false;
 
-        static Type contextType = null;
+         Type contextType = null;
         Type ContextType
         {
             get

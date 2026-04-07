@@ -322,7 +322,7 @@ namespace FuseCP.Providers.StorageSpaces
         }
 
         #region PowerShell integration
-        private static InitialSessionState session = null;
+        private  InitialSessionState session = null;
 
         protected override Runspace OpenRunspace()
         {

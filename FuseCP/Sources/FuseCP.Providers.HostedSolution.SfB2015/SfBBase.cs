@@ -30,7 +30,7 @@ namespace FuseCP.Providers.HostedSolution
     {
         #region Fields
 
-        private static InitialSessionState session;
+        private InitialSessionState session;
 
         #endregion
 

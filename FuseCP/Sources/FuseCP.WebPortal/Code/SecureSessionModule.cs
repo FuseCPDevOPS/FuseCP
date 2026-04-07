@@ -30,7 +30,7 @@ namespace FuseCP.WebPortal
         public const string DEFAULT_PAGE = "~/Default.aspx";
         public const string PAGE_ID_PARAM = "pid";
 
-        private static string _ValidationKey = null;
+        private  string _ValidationKey = null;
 
         public void Init(HttpApplication app)
         {

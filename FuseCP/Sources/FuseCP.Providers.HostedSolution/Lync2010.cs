@@ -1288,7 +1288,7 @@ namespace FuseCP.Providers.HostedSolution
 		#endregion
 
 		#region PowerShell integration
-		private static InitialSessionState session = null;
+		private InitialSessionState session = null;
 
 		internal virtual Runspace OpenRunspace()
 		{

@@ -29,7 +29,7 @@ namespace FuseCP.Providers.Virtualization
     public class PowerShellManager : IDisposable
     {
         private readonly string _remoteComputerName;
-        protected static InitialSessionState session = null;
+        protected  InitialSessionState session = null;
         readonly object psLocker = new object();
         private readonly bool isStatic = false;
         public bool IsStaticObj { get => isStatic; }

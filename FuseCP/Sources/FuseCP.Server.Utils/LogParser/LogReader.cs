@@ -29,7 +29,7 @@ namespace FuseCP.Providers.Utils.LogParser
 	/// </summary>
 	public class LogReader
 	{
-		public static long TotalBytesProcessed = 0;
+		public  long TotalBytesProcessed = 0;
 
 		public class FilesByCreationDateComparer : IComparer
 		{

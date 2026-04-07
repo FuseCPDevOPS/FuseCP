@@ -638,7 +638,7 @@ namespace FuseCP.Providers.Web.Iis
         }
 
         #region PowerShell integration
-        private static InitialSessionState session = null;
+        private  InitialSessionState session = null;
 
         protected override Runspace OpenRunspace()
         {
