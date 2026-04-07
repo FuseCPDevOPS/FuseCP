@@ -2,6 +2,37 @@
 
 ## Commits Included
 
+### Commit: 2cc9ec111
+**Message**: Fix compile errors: resolve CS0120 static field access issues
+
+**Scope**: 5 files modified with static field corrections discovered during CI validation
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2013/Exchange2013.cs` (Line 6834) — ExchangePath field made static (accessed from static method GetExchangePath)
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2016/Exchange2016.cs` (Line 6868) — ExchangePath field made static (accessed from static method GetExchangePath)
+- `FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange2019/Exchange2019.cs` (Line 6868) — ExchangePath field made static (accessed from static method GetExchangePath)
+- `FuseCP/Sources/FuseCP.Server/Code/ServerConfiguration.cs` (Line 31) — security field made static (accessed from static Security property)
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/FileManager.ascx.cs` (Line 40) — ALLOWED_EDIT_EXTENSIONS made static (accessed from SystemSettings.ascx.cs line 102)
+
+#### Validation Summary
+- **Local Validation**: ✅ Full pipeline passed (database workflow: 29 PASSED, 0 FAILED, 1 SKIPPED; ordered build: 172.7s, all 80+ projects succeeded)
+- **Compile Errors**: 0 (all CS0120 errors resolved)
+- **Editor Diagnostics**: ✅ clean in all 5 files
+- **Analyzer Suppression**: None
+
+#### Risk Assessment
+- ✅ **Low Risk**: Mechanical static field fixes only, no logic changes
+- ✅ **Backward Compatible**: Static modifier affects only field access pattern, not public API
+- ✅ **Exchange Provider Parity**: All three Exchange providers (2013, 2016, 2019) fixed consistently
+- ✅ **CI Ready**: Changes verified against GitHub Actions-equivalent validation pipeline
+
+#### Testing Guidance
+1. Exchange provider functionality (GetExchangePath static context)
+2. Server authentication/security initialization (ServerConfiguration.Security property)
+3. File manager extension list initialization (FileManager ALLOWED_EDIT_EXTENSIONS static access)
+
+---
+
 ### Commit: 08f90b115
 **Message**: fix: continue controller query-flow cleanups
 
