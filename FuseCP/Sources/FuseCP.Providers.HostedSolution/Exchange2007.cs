@@ -1232,12 +1232,8 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", org);
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-				foreach (PSObject obj in result)
+				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))).Where(id => !string.IsNullOrEmpty(id)))
 				{
-					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
-					if (string.IsNullOrEmpty(id))
-						continue;
-
 					cmd = new Command("Set-Mailbox");
 					cmd.Parameters.Add("Identity", id);
 					cmd.Parameters.Add("IssueWarningQuota", issueWarningQuota);
@@ -1274,12 +1270,8 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", org);
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-				foreach (PSObject obj in result)
+				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))).Where(id => !string.IsNullOrEmpty(id)))
 				{
-					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
-					if (string.IsNullOrEmpty(id))
-						continue;
-
 					cmd = new Command("Get-MailboxStatistics");
 					cmd.Parameters.Add("Identity", id);
 					result = ExecuteShellCommand(runSpace, cmd);
@@ -1325,12 +1317,8 @@ namespace FuseCP.Providers.HostedSolution
 				cmd.Parameters.Add("OrganizationalUnit", ouName);
 				cmd.Parameters.Add("Filter", "CustomAttribute2 -ne 'disabled'");
 				Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-				foreach (PSObject obj in result)
+				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "DistinguishedName"))).Where(id => !string.IsNullOrEmpty(id)))
 				{
-					string id = (string)GetPSObjectProperty(obj, "DistinguishedName");
-					if (string.IsNullOrEmpty(id))
-						continue;
-
 					ChangeMailboxState(id, enabled);
 				}
 			}
@@ -1380,12 +1368,8 @@ namespace FuseCP.Providers.HostedSolution
 			cmd.Parameters.Add("OrganizationalUnit", org);
 			Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
 
-			foreach (PSObject obj in result)
+			foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))).Where(id => !string.IsNullOrEmpty(id)))
 			{
-				string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
-				if (string.IsNullOrEmpty(id))
-					continue;
-
 				cmd = new Command("Get-MailboxStatistics");
 				cmd.Parameters.Add("Identity", id);
 				result = ExecuteShellCommand(runSpace, cmd);
@@ -1430,12 +1414,8 @@ namespace FuseCP.Providers.HostedSolution
 				if (!string.IsNullOrEmpty(PublicFolderServer))
 					cmd.Parameters.Add("Server", PublicFolderServer);
 				result = ExecuteShellCommand(runSpace, cmd);
-				foreach (PSObject obj in result)
+				foreach (string id in result.Select(obj => ObjToString(GetPSObjectProperty(obj, "Identity"))).Where(id => !string.IsNullOrEmpty(id)))
 				{
-					string id = ObjToString(GetPSObjectProperty(obj, "Identity"));
-					if (string.IsNullOrEmpty(id))
-						continue;
-
 					size += CalculatePublicFolderDiskSpace(runSpace, id);
 				}
 			}
@@ -6829,10 +6809,8 @@ namespace FuseCP.Providers.HostedSolution
 
 				if (result != null)
 				{
-					foreach (PSObject current in result)
+					foreach (ExchangeMobileDevice device in result.Select(GetMobileDeviceObject))
 					{
-						ExchangeMobileDevice device = GetMobileDeviceObject(current);
-
 						cmd = new Command("Remove-ActiveSyncDevice");
 						cmd.Parameters.Add("Identity", device.DeviceID);
 						cmd.Parameters.Add("Confirm", false);

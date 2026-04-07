@@ -126,9 +126,8 @@ namespace FuseCP.Providers.Web.Handlers
 
 				var handlersCollection = handlersSection.GetCollection();
 				// Iterate over extensions in order to setup non-existent handlers
-				foreach (var extension in extensions)
+				foreach (var extParts in extensions.Select(extension => extension.Split(',')))
 				{
-					var extParts = extension.Split(',');
 					if (FindHandlerAction(handlersCollection, extParts[0], processor) != null)
 						continue;
 

@@ -661,12 +661,8 @@ namespace FuseCP.Providers.Utils
                     objUser.CommitChanges();
 
                     // add user to groups
-                    foreach (string groupName in user.MemberOf)
+                    foreach (DirectoryEntry group in user.MemberOf.Select(groupName => computer.Children.Find(groupName, "group")).Where(group => group != null))
                     {
-                        var group = computer.Children.Find(groupName, "group");
-                        if (group == null)
-                            continue;
-
                         group.Invoke("Add", new object[] { objUser.Path.ToString() });
                         group.CommitChanges();
                     }
@@ -774,12 +770,8 @@ namespace FuseCP.Providers.Utils
                     }
 
                     // add user to groups
-                    foreach (string groupName in user.MemberOf)
+                    foreach (DirectoryEntry group in user.MemberOf.Select(groupName => computer.Children.Find(groupName, "group")).Where(group => group != null))
                     {
-                        var group = computer.Children.Find(groupName, "group");
-                        if (group == null)
-                            continue;
-
                         group.Invoke("Add", new object[] { objUser.Path.ToString() });
                         group.CommitChanges();
                     }

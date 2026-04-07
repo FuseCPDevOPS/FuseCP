@@ -1889,9 +1889,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (serversPs != null)
             {
-                foreach (var serverPs in serversPs)
+                foreach (var serverName in serversPs.Select(serverPs => Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"))))
                 {
-                    var serverName = Convert.ToString(RdsRunspaceExtensions.GetPSObjectProperty(serverPs, "Server"));
                     if (string.Compare(serverName, server.FqdName, StringComparison.InvariantCultureIgnoreCase) != 0)
                         continue;
 

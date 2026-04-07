@@ -3467,9 +3467,8 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 
 		protected void AddExtensions(List<string> allExtensions, string[] extensions)
 		{
-			foreach (string extension in extensions)
+			foreach (string ext in extensions.Select(extension => extension.Split(',')[0].ToLower()))
 			{
-				string ext = extension.Split(',')[0].ToLower();
 				if (allExtensions.Contains(ext))
 					continue;
 
@@ -3482,12 +3481,11 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 			if (String.IsNullOrEmpty(processor))
 				return;
 
-			foreach (string extension in extensions)
+			foreach (string[] extParts in extensions.Select(extension => extension.Split(',')))
 			{
 				ManagementClass clsScriptMap = wmi.GetClass("ScriptMap");
 				ManagementObject objScriptMap = clsScriptMap.CreateInstance();
 
-				string[] extParts = extension.Split(',');
 				objScriptMap.Properties["Extensions"].Value = extParts[0];
 				objScriptMap.Properties["Flags"].Value = Int32.Parse(extParts[1]);
 				objScriptMap.Properties["IncludedVerbs"].Value = "GET,HEAD,POST,DEBUG";
