@@ -352,10 +352,10 @@ namespace FuseCP.Providers.Utils
 
             // add files in the current folder
             FileInfo[] dirFiles = new DirectoryInfo(fullPath).GetFiles(pattern);
-            foreach (SystemFile fi in dirFiles.Select(file => new SystemFile(folder + "\\" + file.Name, file.Name, false, file.Length,
-                file.CreationTime, file.LastWriteTime)))
+            foreach (FileInfo file in dirFiles)
             {
-                files.Add(fi);
+                files.Add(new SystemFile(folder + "\\" + file.Name, file.Name, false, file.Length,
+                    file.CreationTime, file.LastWriteTime));
             }
 
             // add children folders

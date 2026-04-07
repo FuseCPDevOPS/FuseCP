@@ -991,8 +991,12 @@ namespace FuseCP.EnterpriseServer
             int statusId = (int)status;
 
             List<PackageInfo> changedPackages = new List<PackageInfo>();
-            foreach (PackageInfo package in packages.Select(p => GetPackage(p.PackageId)).Where(package => package != null))
+            foreach (PackageInfo childPackage in packages)
             {
+                PackageInfo package = GetPackage(childPackage.PackageId);
+                if (package == null)
+                    continue;
+
                 if (package.StatusId != statusId)
                 {
                     bool currEnabled = (package.StatusId == (int)PackageStatus.Active);
@@ -1988,9 +1992,13 @@ namespace FuseCP.EnterpriseServer
         {
             List<string> mailAddresses = new List<string>();
             //
-            foreach (string bccAddress in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)).Select(bccItem => bccItem.Trim().Replace(';', ',')))
+            foreach (string bccItem in bccAddresses)
             {
-                    mailAddresses.Add(bccAddress);
+                if (String.IsNullOrEmpty(bccItem))
+                    continue;
+
+                string bccAddress = bccItem.Trim().Replace(';', ',');
+                mailAddresses.Add(bccAddress);
             }
             //
             return String.Join(",", mailAddresses);

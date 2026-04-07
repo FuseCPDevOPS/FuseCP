@@ -57,8 +57,9 @@ namespace FuseCP.Providers.OS
                 if (!string.IsNullOrEmpty(value))
                 {
                     if (value.StartsWith("?")) value = value.Substring(1);
-                    foreach (var tokens in value.Split('&', ';').Select(par => par.Split('=')))
+                    foreach (var pair in value.Split('&', ';'))
                     {
+                        var tokens = pair.Split('=');
                         if (tokens.Length > 1) Add(Uri.UnescapeDataString(tokens[0].Trim()), Uri.UnescapeDataString(tokens[1].Trim()));
                         else Add(Uri.UnescapeDataString(tokens[0].Trim()), "");
                     }

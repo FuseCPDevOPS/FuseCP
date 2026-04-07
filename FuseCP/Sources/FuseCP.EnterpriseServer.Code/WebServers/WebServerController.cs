@@ -263,8 +263,10 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-					foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
+                    foreach (GlobalDnsRecord dnsRecord in dnsRecords)
                     {
+                        if (string.IsNullOrEmpty(dnsRecord.ExternalIP))
+                            continue;
 						if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
@@ -811,8 +813,10 @@ namespace FuseCP.EnterpriseServer
 
             List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(siteItem.ServiceId);
 
-            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(d => !string.IsNullOrEmpty(d.ExternalIP)))
+            foreach (GlobalDnsRecord dnsRecord in dnsRecords)
             {
+                if (string.IsNullOrEmpty(dnsRecord.ExternalIP))
+                    continue;
                 if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
             }
 
@@ -841,15 +845,15 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (int certificateId in certificates.Select(certificate => certificate.id))
+                foreach (SSLCertificate certificate in certificates)
                 {
-                    DeleteCertificateRequest(siteItemId, certificateId);
+                    DeleteCertificateRequest(siteItemId, certificate.id);
                 }
                 
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
                 {
-                    DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
+                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
                 }
 
                 // remove web site main pointer
@@ -1027,16 +1031,16 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 certificates = GetPendingCertificates(siteItemId);
-                foreach (int certificateId in certificates.Select(certificate => certificate.id))
+                foreach (SSLCertificate certificate in certificates)
                 {
-                    DeleteCertificateRequest(siteItemId, certificateId);
+                    DeleteCertificateRequest(siteItemId, certificate.id);
                 }
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
                 {
-                    DeleteWebSitePointer(siteItemId, pointerId, true, true, false);
+                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, false);
                 }
 
                 // remove web site main pointer
@@ -4486,9 +4490,9 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // remove all web site pointers
                 List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
-                foreach (int pointerId in pointers.Select(pointer => pointer.DomainId))
+                foreach (DomainInfo pointer in pointers)
                 {
-                    DeleteWebSitePointer(siteItemId, pointerId, true, true, true);
+                    DeleteWebSitePointer(siteItemId, pointer.DomainId, true, true, true);
                 }
 
                 // Get certificateinfo to delete from metabase later, FCP expects only one active certificate for each site
