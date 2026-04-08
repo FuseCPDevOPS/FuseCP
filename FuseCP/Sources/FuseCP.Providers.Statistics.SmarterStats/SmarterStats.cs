@@ -46,7 +46,7 @@ namespace FuseCP.Providers.Statistics
 
         protected int ServerId
         {
-            get { try { return Int32.Parse(ProviderSettings["ServerID"]); } catch { return 1; } }
+            get { try { return Int32.Parse(ProviderSettings["ServerID"]); } catch (FormatException) { return 1; } }
         }
 
         protected string LogFormat
@@ -61,7 +61,7 @@ namespace FuseCP.Providers.Statistics
 
         protected int LogDeleteDays
         {
-            get { try { return Int32.Parse(ProviderSettings["LogDeleteDays"]); } catch { return 0; } }
+            get { try { return Int32.Parse(ProviderSettings["LogDeleteDays"]); } catch (FormatException) { return 0; } }
         }
 
         protected string SmarterLogsPath
@@ -71,12 +71,12 @@ namespace FuseCP.Providers.Statistics
 
         protected int SmarterLogDeleteMonths
         {
-            get { try { return Int32.Parse(ProviderSettings["SmarterLogDeleteMonths"]); } catch { return 0; } }
+            get { try { return Int32.Parse(ProviderSettings["SmarterLogDeleteMonths"]); } catch (FormatException) { return 0; } }
         }
 
         protected int TimeZoneId
         {
-            get { try { return Int32.Parse(ProviderSettings["TimeZoneId"]); } catch { return 1; } }
+            get { try { return Int32.Parse(ProviderSettings["TimeZoneId"]); } catch (FormatException) { return 1; } }
         }
 
 		protected string StatisticsUrl
