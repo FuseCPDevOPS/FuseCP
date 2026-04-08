@@ -3561,11 +3561,8 @@ namespace FuseCP.EnterpriseServer
 			foreach (var regex in patterns.Select(createdRegex => new Regex(createdRegex, RegexOptions.IgnoreCase)))
 			{
 
-				foreach (Match match in regex.Matches(raw))
+				foreach (Match match in regex.Matches(raw).Where(match => match.Success && match.Groups.Count == 2))
 				{
-					if (!match.Success || match.Groups.Count != 2)
-						continue;
-
 					return match.Groups[1].Value.Trim();
 				}
 			}

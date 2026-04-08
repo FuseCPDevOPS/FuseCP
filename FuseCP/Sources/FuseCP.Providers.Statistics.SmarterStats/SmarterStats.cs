@@ -381,11 +381,10 @@ namespace FuseCP.Providers.Statistics
             {
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(name => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + name)))
+                foreach (RegistryKey subkey in names
+                    .Select(name => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + name))
+                    .Where(subkey => subkey != null))
                 {
-					if (subkey == null)
-						continue;
-
                         if (!String.IsNullOrEmpty((string) subkey.GetValue("DisplayName")))
                         {
                             productName = (string) subkey.GetValue("DisplayName");

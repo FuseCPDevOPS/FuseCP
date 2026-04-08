@@ -38,12 +38,9 @@ namespace FuseCP.EnterpriseServer
             foreach (List<OrganizationDeletedUser> deletedUsers in organizations.Select(organization => OrganizationController.GetOrganizationDeletedUsers(organization.Id)))
             {
 
-                foreach (OrganizationDeletedUser deletedUser in deletedUsers)
+                foreach (OrganizationDeletedUser deletedUser in deletedUsers.Where(deletedUser => deletedUser.ExpirationDate > DateTime.UtcNow))
                 {
-                    if (deletedUser.ExpirationDate <= DateTime.UtcNow)
-                        continue;
-
-                        OrganizationController.DeleteUser(TaskManager.TopTask.ItemId, deletedUser.AccountId);
+                    OrganizationController.DeleteUser(TaskManager.TopTask.ItemId, deletedUser.AccountId);
                 }
             }
         }

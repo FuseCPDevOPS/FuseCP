@@ -130,11 +130,10 @@ namespace FuseCP.EnterpriseServer
 
             // check if site has dedicated IP assigned
             var siteIpAddresses = ServerController.GetItemIPAddresses(siteItemId, IPAddressPool.None);
-                foreach (var packageIpAddress in siteIpAddresses.Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID)))
+                foreach (var packageIpAddress in siteIpAddresses
+                    .Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID))
+                    .Where(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress))
             {
-                    if (packageIpAddress == null || packageIpAddress.ExternalIP != site.SiteIPAddress)
-                    continue;
-
                     site.IsDedicatedIP = true;
                     break;
             }
@@ -262,10 +261,8 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-                    foreach (GlobalDnsRecord dnsRecord in dnsRecords)
+                    foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP)))
                     {
-                        if (string.IsNullOrEmpty(dnsRecord.ExternalIP))
-                            continue;
 						if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
@@ -812,10 +809,8 @@ namespace FuseCP.EnterpriseServer
 
             List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(siteItem.ServiceId);
 
-            foreach (GlobalDnsRecord dnsRecord in dnsRecords)
+            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP)))
             {
-                if (string.IsNullOrEmpty(dnsRecord.ExternalIP))
-                    continue;
                 if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
             }
 

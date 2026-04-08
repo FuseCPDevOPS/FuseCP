@@ -991,11 +991,10 @@ namespace FuseCP.EnterpriseServer
             int statusId = (int)status;
 
             List<PackageInfo> changedPackages = new List<PackageInfo>();
-            foreach (PackageInfo package in packages.Select(childPackage => GetPackage(childPackage.PackageId)))
+            foreach (PackageInfo package in packages
+                .Select(childPackage => GetPackage(childPackage.PackageId))
+                .Where(package => package != null))
             {
-                if (package == null)
-                    continue;
-
                 if (package.StatusId != statusId)
                 {
                     bool currEnabled = (package.StatusId == (int)PackageStatus.Active);

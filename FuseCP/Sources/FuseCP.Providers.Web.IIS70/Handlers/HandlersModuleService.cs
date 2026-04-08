@@ -193,11 +193,10 @@ namespace FuseCP.Providers.Web.Handlers
 				var handlersSection = config.GetSection(Constants.HandlersSection, virtualDir.FullQualifiedPath);
 				var handlersCollection = handlersSection.GetCollection();
 				//
-				foreach (var existentHandler in extensions.Select(extension => FindHandlerAction(handlersCollection, extension.Split(',')[0], processor)))
+				 foreach (var existentHandler in extensions
+				     .Select(extension => FindHandlerAction(handlersCollection, extension.Split(',')[0], processor))
+				     .Where(existentHandler => existentHandler != null))
 				{
-					if (existentHandler == null)
-						continue;
-
 					handlersCollection.Remove(existentHandler);
 				}
 				//

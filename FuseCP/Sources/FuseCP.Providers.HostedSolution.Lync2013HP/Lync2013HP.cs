@@ -1013,13 +1013,12 @@ namespace FuseCP.Providers.HostedSolution
                         Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd, false);
                         if ((result != null) && (result.Count > 0))
                         {
-                            foreach (PSObject res in result)
+                            foreach (string identity in result
+                                .Where(res => ("" + (string)GetPSObjectProperty(res, "Description")).ToLower().IndexOf(name.ToLower()) != -1)
+                                .Select(res => GetPSObjectProperty(res, "Identity")?.ToString())
+                                .Where(identity => !string.IsNullOrEmpty(identity)))
                             {
-                                string Identity = GetPSObjectProperty(res, "Identity").ToString();
-                                string Description = "" + (string)GetPSObjectProperty(res, "Description");
-                                if (Description.ToLower().IndexOf(name.ToLower()) == -1) continue;
-
-                                ret.Add(Identity);
+                                ret.Add(identity);
                             }
 
 

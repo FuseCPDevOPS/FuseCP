@@ -351,11 +351,10 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
         {
             using (var srvman = GetServerManager())
             {
-                foreach (int indexOf in appPoolNames.Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item])))
+                foreach (int indexOf in appPoolNames
+                    .Select(item => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[item]))
+                    .Where(indexOf => indexOf > -1))
                 {
-                    if (indexOf <= -1)
-                        continue;
-
                     //
                     srvman.ApplicationPools.RemoveAt(indexOf);
                 }

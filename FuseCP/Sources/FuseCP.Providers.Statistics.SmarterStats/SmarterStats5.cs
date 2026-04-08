@@ -37,11 +37,10 @@ namespace FuseCP.Providers.Statistics
             {
                 var names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(name => key.OpenSubKey(name)))
+                foreach (RegistryKey subkey in names
+                    .Select(name => key.OpenSubKey(name))
+                    .Where(subkey => subkey != null))
                 {
-                    if (subkey == null)
-                        continue;
-
                     productName = subkey.GetValue("DisplayName") as String;
                     //
                     if (String.IsNullOrEmpty(productName))
@@ -63,11 +62,10 @@ namespace FuseCP.Providers.Statistics
             {
                 var names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(name => key.OpenSubKey(name)))
+                foreach (RegistryKey subkey in names
+                    .Select(name => key.OpenSubKey(name))
+                    .Where(subkey => subkey != null))
                 {
-                    if (subkey == null)
-                        continue;
-
                     productName = subkey.GetValue("DisplayName") as String;
                     //
                     if (String.IsNullOrEmpty(productName))

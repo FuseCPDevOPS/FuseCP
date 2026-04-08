@@ -330,12 +330,11 @@ namespace FuseCP.Portal
 
             var accountsWithoutPhones = new List<OrganizationUser>();
 
-                foreach (var account in ids.Select(id => ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id)))
+                foreach (var account in ids
+                    .Select(id => ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, id))
+                    .Where(account => string.IsNullOrEmpty(account.MobilePhone)))
             {
-                if (!string.IsNullOrEmpty(account.MobilePhone))
-                    continue;
-
-                    accountsWithoutPhones.Add(account);
+                accountsWithoutPhones.Add(account);
             }
 
             return accountsWithoutPhones;

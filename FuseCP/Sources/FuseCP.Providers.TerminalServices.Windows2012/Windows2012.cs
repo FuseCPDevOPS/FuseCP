@@ -1906,11 +1906,10 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 ActiveDirectoryUtils.RemoveObjectFromGroup(userPath, groupPath);                
             }          
             
-            foreach (var userPath in users.Select(user => GetUserPath(organizationId, user)))
+            foreach (var userPath in users
+                .Select(user => GetUserPath(organizationId, user))
+                .Where(userPath => ActiveDirectoryUtils.AdObjectExists(userPath)))
             {                    
-                if (!ActiveDirectoryUtils.AdObjectExists(userPath))
-                    continue;
-
                 ActiveDirectoryUtils.GetADObject(userPath);
                 ActiveDirectoryUtils.AddObjectToGroup(userPath, groupPath);                    
             }
