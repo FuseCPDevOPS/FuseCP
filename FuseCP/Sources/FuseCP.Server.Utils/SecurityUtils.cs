@@ -1278,14 +1278,11 @@ namespace FuseCP.Providers.Utils
                     objGroup.CommitChanges();
 
                     // add users to group
-                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
+                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)).Where(objUser => objUser != null))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        if (objUser != null)
-                        {
                             objGroup.Invoke("Add", new Object[] { objUser.Path.ToString() });
                             objUser.Close();
-                        }
                     }
 
                     objGroup.Close();
@@ -1345,25 +1342,19 @@ namespace FuseCP.Providers.Utils
 
                     // remove all users from the group
                     string[] groupUsers = GetGroupUsers(objGroup);
-                    foreach (DirectoryEntry objUser in groupUsers.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
+                    foreach (DirectoryEntry objUser in groupUsers.Select(userName => GetUserObject(userName, serverSettings, usersOU)).Where(objUser => objUser != null))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        if (objUser != null)
-                        {
                             objGroup.Invoke("Remove", new Object[] { objUser.Path.ToString() });
                             objUser.Close();
-                        }
                     }
 
                     // add users to group
-                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)))
+                    foreach (DirectoryEntry objUser in group.Members.Select(userName => GetUserObject(userName, serverSettings, usersOU)).Where(objUser => objUser != null))
                     {
                         //DirectoryEntry objUser = FindUserObject(userName, serverSettings, usersOU);
-                        if (objUser != null)
-                        {
                             objGroup.Invoke("Add", new Object[] { objUser.Path.ToString() });
                             objUser.Close();
-                        }
                     }
 
                     objGroup.Close();

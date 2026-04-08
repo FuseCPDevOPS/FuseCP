@@ -414,10 +414,9 @@ namespace FuseCP.EnterpriseServer
                     if (!String.IsNullOrEmpty(strSecondaryServices))
                     {
                         var secondaryServices = strSecondaryServices.Split(',');
-                        foreach (int secondaryId in secondaryServices.Select(strSecondaryId => Utils.ParseInt(strSecondaryId, 0)))
+                        foreach (int secondaryId in secondaryServices.Select(strSecondaryId => Utils.ParseInt(strSecondaryId, 0)).Where(secondaryId => secondaryId != 0))
                         {
-                            if (secondaryId != 0)
-                                secondaryServiceIds.Add(secondaryId);
+                            secondaryServiceIds.Add(secondaryId);
                         }
                     }
 
