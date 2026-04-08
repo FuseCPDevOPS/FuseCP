@@ -5628,11 +5628,10 @@ namespace FuseCP.EnterpriseServer
             if (accountCheck < 0) return accountCheck;
 
             if (accountIds != null)
-                foreach (int result in accountIds.Select(accountId => DeletePublicFolder(itemId, accountId)))
+                foreach (int result in accountIds
+                    .Select(accountId => DeletePublicFolder(itemId, accountId))
+                    .Where(result => result < 0))
                 {
-                    if (result >= 0)
-                        continue;
-
                     return result;
                 }
             return 0;

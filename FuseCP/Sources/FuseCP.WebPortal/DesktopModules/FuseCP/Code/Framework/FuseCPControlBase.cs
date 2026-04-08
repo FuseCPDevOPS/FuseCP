@@ -233,9 +233,8 @@ namespace FuseCP.Portal
 
 		public void DisableFormControls(Control ctrl, params Control[] excludeControls)
 		{
-			if (excludeControls != null)
+			if (excludeControls != null && excludeControls.Contains(ctrl))
 			{
-				if (excludeControls.Contains(ctrl))
 					return;
 			}
 

@@ -84,10 +84,9 @@ namespace FuseCP.Portal
                 var mailAccount = ES.Services.MailServers.GetMailAccount(id);
                 mailAccount.Enabled = enable;
                 return ES.Services.MailServers.UpdateMailAccount(mailAccount);
-            }))
+            }).Where(result => result < 0))
             {
-                if (result < 0)
-                    return result;
+                return result;
             }
 
             return 0;

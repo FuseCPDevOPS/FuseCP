@@ -333,11 +333,10 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             using (var srvman = GetServerManager())
             {
                 //
-                foreach (int indexOf in appPoolNames.Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName])))
+                foreach (int indexOf in appPoolNames
+                    .Select(poolName => srvman.ApplicationPools.IndexOf(srvman.ApplicationPools[poolName]))
+                    .Where(indexOf => indexOf > -1))
                 {
-                    if (indexOf <= -1)
-                        continue;
-
                     // Lookup for an app pool
                     // Remove app pool if it is found
                     srvman.ApplicationPools.RemoveAt(indexOf);

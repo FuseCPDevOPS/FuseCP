@@ -1502,13 +1502,12 @@ namespace FuseCP.Providers.Virtualization
 
                         bool hasExternalPort = false;
 
-                        foreach (string portName in switchPorts.Select(port => port.CimInstanceProperties["ElementName"]?.Value?.ToString()))
+                        foreach (string portName in switchPorts
+                            .Select(port => port.CimInstanceProperties["ElementName"]?.Value?.ToString())
+                            .Where(portName => !string.IsNullOrEmpty(portName) && portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase)))
                         {
-                            if (string.IsNullOrEmpty(portName) || !portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase))
-                                continue;
-
-                                hasExternalPort = true;
-                                break;
+                            hasExternalPort = true;
+                            break;
                         }
 
                         if (hasExternalPort)

@@ -1990,11 +1990,8 @@ namespace FuseCP.EnterpriseServer
         {
             List<string> mailAddresses = new List<string>();
             //
-            foreach (string bccItem in bccAddresses)
+            foreach (string bccItem in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)))
             {
-                if (String.IsNullOrEmpty(bccItem))
-                    continue;
-
                 string bccAddress = bccItem.Trim().Replace(';', ',');
                 mailAddresses.Add(bccAddress);
             }

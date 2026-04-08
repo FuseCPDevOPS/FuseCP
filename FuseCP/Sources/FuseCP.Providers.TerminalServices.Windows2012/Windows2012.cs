@@ -408,9 +408,11 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (ug.Count != groups.Count) return false;
 
-            foreach (bool res in groups.Select(item => ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower()))))
+            foreach (bool res in groups
+                .Select(item => ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower())))
+                .Where(res => !res))
             {
-                if (!res) return false;
+                return false;
             }
 
             return true;
