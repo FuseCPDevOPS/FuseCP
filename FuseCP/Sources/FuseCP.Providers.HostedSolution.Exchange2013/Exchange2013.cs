@@ -1699,7 +1699,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     foreach (object obj in extendedRights)
                     {
-                        string strRightName = obj.ToString();
+                        string strRightName = obj?.ToString();
                         if (string.Compare(strRightName, "Send-as", true) == 0)
                         {
                             ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
@@ -1854,7 +1854,7 @@ namespace FuseCP.Providers.HostedSolution
                 {
                     foreach (object obj in accessRights)
                     {
-                        string strRightName = obj.ToString();
+                        string strRightName = obj?.ToString();
                         if (string.Compare(strRightName, "FullAccess", true) == 0)
                         {
                             ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);

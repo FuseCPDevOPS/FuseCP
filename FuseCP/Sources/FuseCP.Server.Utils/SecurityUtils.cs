@@ -447,9 +447,8 @@ namespace FuseCP.Providers.Utils
                 //find the first instance
                 SearchResultCollection results = deSearch.FindAll();
 
-                foreach (SearchResult result in results)
+                foreach (DirectoryEntry objUser in results.Cast<SearchResult>().Select(result => GetDirectoryObject(result.Path, serverSettings)))
                 {
-                    DirectoryEntry objUser = GetDirectoryObject(result.Path, serverSettings);
                     users.Add((string)GetObjectProperty(objUser, "cn"));
                 }
             }
@@ -916,11 +915,9 @@ namespace FuseCP.Providers.Utils
         {
             List<string> userGroups = new List<string>();
             object groups = objUser.Invoke("Groups", null);
-            foreach (object group in (IEnumerable)groups)
+            foreach (string groupFullName in ((IEnumerable)groups).Cast<object>().Select(group => new DirectoryEntry(group)).Select(objGroup => (string)GetObjectProperty(objGroup, "distinguishedName")))
             {
-                using DirectoryEntry objGroup = new DirectoryEntry(group);
                 // Get the Directory Entry.
-                string groupFullName = (string)GetObjectProperty(objGroup, "distinguishedName");
                 int startPos = groupFullName.IndexOf("CN=") + 3;
                 int endPos = groupFullName.IndexOf(",", startPos);
                 userGroups.Add(groupFullName.Substring(startPos, endPos - startPos));
@@ -1184,9 +1181,8 @@ namespace FuseCP.Providers.Utils
                 //find the first instance
                 SearchResultCollection results = deSearch.FindAll();
 
-                foreach (SearchResult result in results)
+                foreach (DirectoryEntry objGroup in results.Cast<SearchResult>().Select(result => GetDirectoryObject(result.Path, serverSettings)))
                 {
-                    DirectoryEntry objGroup = GetDirectoryObject(result.Path, serverSettings);
                     groups.Add((string)GetObjectProperty(objGroup, "cn"));
                 }
             }

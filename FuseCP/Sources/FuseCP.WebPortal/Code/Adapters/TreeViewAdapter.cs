@@ -659,7 +659,7 @@ namespace CSSFriendly
                 StringBuilder stateBuilder = new StringBuilder(state);
                 foreach (TreeNode node in nodes)
                 {
-                    stateBuilder.Append(node.Expanded == true ? "e" : "n");
+                    stateBuilder.Append(node.Expanded.GetValueOrDefault() ? "e" : "n");
                     stateBuilder.Append(ComposeViewState(node.ChildNodes, String.Empty));
                 }
 

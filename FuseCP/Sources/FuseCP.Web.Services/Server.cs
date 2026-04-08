@@ -33,17 +33,15 @@ namespace FuseCP.Web.Services
 		{
 			get
 			{
-				try {
-					OperationContext context = OperationContext.Current;
-					if (context == null) return "127.0.0.1";
-					MessageProperties prop = context.IncomingMessageProperties;
-					RemoteEndpointMessageProperty endpoint =
-						prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-					string ip = endpoint?.Address ?? "127.0.0.1";
-					return ip;
-				} catch {
-					return "127.0.0.1";
-				}
+				OperationContext context = OperationContext.Current;
+				if (context == null) return "127.0.0.1";
+
+				MessageProperties prop = context.IncomingMessageProperties;
+				if (prop == null || !prop.ContainsKey(RemoteEndpointMessageProperty.Name)) return "127.0.0.1";
+
+				RemoteEndpointMessageProperty endpoint =
+					prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
+				return endpoint?.Address ?? "127.0.0.1";
 			}
 		}
 

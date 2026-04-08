@@ -1024,9 +1024,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                     List<ServerInfo> servers = ServerController.GetAllServers();
                     foreach (List<ServiceInfo> services in servers.Select(server => ServerController.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.SfB)))
                     {
-                        foreach (SfBServer sfb in services.Select(service => GetSfBServer(service.ServiceId, -1)))
+                        foreach (string[] values in services.Select(service => GetSfBServer(service.ServiceId, -1)).Select(sfb => sfb.GetPolicyList(type, name)))
                         {
-                            string[] values = sfb.GetPolicyList(type, name);
                             allpolicylist.AddRange(values.Where(val => !allpolicylist.Contains(val)));
                         }
 

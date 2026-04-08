@@ -455,9 +455,8 @@ namespace FuseCP.Providers.HostedSolution
             using (DirectorySearcher searcher = new DirectorySearcher(entry, filter))
             {
                 SearchResultCollection resCollection = searcher.FindAll();
-                foreach (SearchResult res in resCollection)
+                foreach (DirectoryEntry de in resCollection.Cast<SearchResult>().Select(res => res.GetDirectoryEntry()))
                 {
-                    DirectoryEntry de = res.GetDirectoryEntry();
                     de.InvokeSet("AccountDisabled", !enabled);
                     de.CommitChanges();
                 }
@@ -1593,10 +1592,9 @@ namespace FuseCP.Providers.HostedSolution
                 });
             }
 
-            foreach (DirectoryEntry groupEntry in ActiveDirectoryUtils.GetGroupObjects(groupName, "group", organizationEntry).Select(groupPath => ActiveDirectoryUtils.GetADObject(groupPath)))
+            foreach (string tmpSamAccountName in ActiveDirectoryUtils.GetGroupObjects(groupName, "group", organizationEntry).Select(groupPath => ActiveDirectoryUtils.GetADObject(groupPath)).Select(groupEntry => ActiveDirectoryUtils.GetADObjectStringProperty(groupEntry, ADAttributes.SAMAccountName)))
             {
 
-                string tmpSamAccountName = ActiveDirectoryUtils.GetADObjectStringProperty(groupEntry, ADAttributes.SAMAccountName);
 
                 members.Add(new ExchangeAccount
                 {
@@ -2473,9 +2471,8 @@ namespace FuseCP.Providers.HostedSolution
         {
             XmlNodeList drives = xml.SelectNodes("./Drives/Drive");
 
-            foreach (XmlNode driveNode in drives)
+            foreach (XmlNode props in drives.Cast<XmlNode>().Select(driveNode => driveNode.ChildNodes[0]))
             {
-                XmlNode props = driveNode.ChildNodes[0];
 
                 MappedDrive item = new MappedDrive(props.Attributes["path"].Value,
                                                    props.Attributes["label"].Value,

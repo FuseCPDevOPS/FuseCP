@@ -157,12 +157,12 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(arguments))
 				yield break;
 
-			foreach (Match match in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+"))
+			foreach (var token in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Select(match => match.Value))
 			{
-				var normalizedToken = match.Value;
-				if (normalizedToken.Length >= 2 && ((normalizedToken[0] == '"' && normalizedToken[normalizedToken.Length - 1] == '"') || (normalizedToken[0] == '\'' && normalizedToken[normalizedToken.Length - 1] == '\'')))
-					normalizedToken = normalizedToken.Substring(1, normalizedToken.Length - 2);
-				yield return normalizedToken;
+				var parsedToken = token;
+				if (parsedToken.Length >= 2 && ((parsedToken[0] == '"' && parsedToken[parsedToken.Length - 1] == '"') || (parsedToken[0] == '\'' && parsedToken[parsedToken.Length - 1] == '\'')))
+					parsedToken = parsedToken.Substring(1, parsedToken.Length - 2);
+				yield return parsedToken;
 			}
 		}
 
@@ -501,7 +501,9 @@ namespace FuseCP.Providers.OS
 				{
 					writer.Write(text);
 				}
-			} catch { }
+			}
+			catch (IOException) { }
+			catch (UnauthorizedAccessException) { }
 		}
 		protected virtual void OnLog(string text)
 		{

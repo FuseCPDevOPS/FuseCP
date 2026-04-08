@@ -215,12 +215,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             try
             {
                 LibraryItem[] osTemplates = VirtualizationHelper.GetOperatingSystemTemplates(vm.PackageId);
-                foreach (LibraryItem item in osTemplates)
-                    if (string.Compare(item.Path, Path.GetFileName(vm.OperatingSystemTemplatePath), true) == 0)
-                    {
-                        osTemplate = item;
-                        break;
-                    }
+                osTemplate = osTemplates.FirstOrDefault(item =>
+                    string.Compare(item.Path, Path.GetFileName(vm.OperatingSystemTemplatePath), true) == 0);
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {

@@ -62,14 +62,12 @@ namespace FuseCP.Providers.HostedSolution
 
             SearchResultCollection srcObjects = deSearch.FindAll();
 
-            foreach (SearchResult srcObject in srcObjects)
+            foreach (DirectoryEntry de in srcObjects.Cast<SearchResult>().Select(srcObject => srcObject.GetDirectoryEntry()))
             {
-                DirectoryEntry de = srcObject.GetDirectoryEntry();
                 PropertyValueCollection props = de.Properties["memberOf"];
 
-                foreach (string str in props)
+                foreach (string[] parts in props.Cast<object>().Select(str => str.ToString().Split(',')))
                 {
-                    string[] parts = str.Split(',');
                     for (int i = 0; i < parts.Length; i++)
                     {
                         if (parts[i].StartsWith("CN="))

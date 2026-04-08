@@ -388,9 +388,8 @@ HttpClient client = CreateHttpClient();
 					throw new Exception(result["message"]);
 
 				foreach (dynamic domain in result["data"])
-                {
-					string domainName = domain["name"].ToString();
-					domainNames.Add(domainName);
+				{
+					domainNames.Add(domain["name"].ToString());
 				}
 
 				String[] domainNameString = domainNames.ToArray();
@@ -644,8 +643,7 @@ HttpClient client = CreateHttpClient();
 				{
 					foreach (dynamic domain in result["domainAliasData"])
 					{
-						string domainAliasName = domain["name"].ToString();
-						domainAliasNames.Add(domainAliasName);
+						domainAliasNames.Add(domain["name"].ToString());
 					}
 				}
 
@@ -2006,9 +2004,8 @@ HttpClient client = CreateHttpClient();
                                 throw new Exception(listSubscriberresult["message"]);
 
 							foreach (dynamic item in listSubscriberresult["items"])
-                            {
-								string itememail = item["emailAddress"].ToString();
-								members.Add(itememail);
+							{
+								members.Add(item["emailAddress"].ToString());
 								
 							}
 
@@ -2088,8 +2085,7 @@ HttpClient client = CreateHttpClient();
 
 						foreach (dynamic item in listSubscriberresult["items"])
 						{
-							string itememail = item["emailAddress"].ToString();
-							members.Add(itememail);
+							members.Add(item["emailAddress"].ToString());
 
 						}
 

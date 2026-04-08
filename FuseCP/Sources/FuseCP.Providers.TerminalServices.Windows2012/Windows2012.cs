@@ -968,12 +968,9 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var processingOrders = showResult.Where(x => Convert.ToString(x).ToLower().Contains("processing order")).Select(x => Convert.ToString(x));
             var count = 0;
 
-                foreach (var order in processingOrders.Select(processingOrder => Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""))))
+            foreach (var order in processingOrders.Select(processingOrder => Convert.ToInt32(processingOrder.Remove(0, processingOrder.LastIndexOf("=") + 1).Replace(" ", ""))))
             {
-                    if (order <= count)
-                    continue;
-
-                    count = order;
+                count = Math.Max(count, order);
             }
 
             var userGroupAd = ActiveDirectoryUtils.GetADObject(GetUsersGroupPath(organizationId, collectionName));
@@ -1923,9 +1920,8 @@ namespace FuseCP.Providers.RemoteDesktopServices
             var orgPath = GetOrganizationPath(organizationId);
             var orgEntry = ActiveDirectoryUtils.GetADObject(orgPath);
 
-            foreach (var userObject in ActiveDirectoryUtils.GetGroupObjects(groupName, "user", orgEntry).Select(userPath => ActiveDirectoryUtils.GetADObject(userPath)))
+            foreach (var samName in ActiveDirectoryUtils.GetGroupObjects(groupName, "user", orgEntry).Select(userPath => ActiveDirectoryUtils.GetADObject(userPath)).Select(userObject => (string)ActiveDirectoryUtils.GetADObjectProperty(userObject, "sAMAccountName")))
             {
-                var samName = (string)ActiveDirectoryUtils.GetADObjectProperty(userObject, "sAMAccountName");
 
                 users.Add(samName);
             }
