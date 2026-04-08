@@ -304,7 +304,7 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var folder in GetFolders(account.ItemId))
             {
-                foreach (var permission in GetFolderPermission(account.ItemId, folder.Name).Where(permission =>
+                if (GetFolderPermission(account.ItemId, folder.Name).Any(permission =>
                     (!permission.IsGroup
                         && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
                     || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
@@ -698,13 +698,12 @@ namespace FuseCP.EnterpriseServer
 
                 foreach (var folder in es.GetFoldersWithoutFrsm(org.OrganizationId, webDavSettings))
                 {
-                    foreach (var permission in ConvertToESPermission(itemId, folder.Rules).Where(permission =>
+                    if (ConvertToESPermission(itemId, folder.Rules).Any(permission =>
                         (!permission.IsGroup
                             && (permission.DisplayName == userName || permission.DisplayName == displayName))
                         || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
                     {
                         rootFolders.Add(folder);
-                        break;
                     }
                 }
 

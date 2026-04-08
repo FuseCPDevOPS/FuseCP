@@ -408,14 +408,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
             if (ug.Count != groups.Count) return false;
 
-            foreach (bool res in groups
-                .Select(item => ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower())))
-                .Where(res => !res))
-            {
-                return false;
-            }
-
-            return true;
+            return groups.All(item => ug.Any(ugItem => ugItem.ToLower().Contains(item.ToLower())));
         }
 
         public void EditRdsCollectionSettings(RdsCollection collection)

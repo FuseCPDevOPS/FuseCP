@@ -975,8 +975,12 @@ LOG ON(
 					ExecuteNonQuery(connectionString,
 						@$"ALTER DATABASE [{databaseName}] SET OFFLINE;DROP DATABASE [{databaseName}]");
 
-					var server = csb.ContainsKey("server") ? csb["server"] as string :
-						csb.ContainsKey("data source") ? csb["data source"] as string : null;
+					string server = null;
+					if (!csb.TryGetValue("server", out var serverValue))
+					{
+						csb.TryGetValue("data source", out serverValue);
+					}
+					server = serverValue as string;
 					var localDb = server.ToLower().Contains("localdb");
 
 					if (localDb)

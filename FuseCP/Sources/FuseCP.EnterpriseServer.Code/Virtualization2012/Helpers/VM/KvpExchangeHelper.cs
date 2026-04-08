@@ -173,8 +173,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.VM
             }
 
             // DNS
-            if (!props.ContainsKey("PreferredDNSServer")
-                || String.IsNullOrEmpty(props["PreferredDNSServer"]))
+            if (!props.TryGetValue("PreferredDNSServer", out var dnsServer) || String.IsNullOrEmpty(dnsServer))
             {
                 props["PreferredDNSServer"] = "0.0.0.0"; // obtain automatically
             }

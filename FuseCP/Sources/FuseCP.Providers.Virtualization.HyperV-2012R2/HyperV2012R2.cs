@@ -1500,14 +1500,9 @@ namespace FuseCP.Providers.Virtualization
 
                         CimInstance[] switchPorts = mi.EnumerateAssociatedInstances(vswitch, "Msvm_SystemDevice", "Msvm_EthernetSwitchPort");
 
-                        bool hasExternalPort = false;
-
-                        foreach (string portName in switchPorts
+                        bool hasExternalPort = switchPorts
                             .Select(port => port.CimInstanceProperties["ElementName"]?.Value?.ToString())
-                            .Where(portName => !string.IsNullOrEmpty(portName) && portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase)))
-                        {
-                            hasExternalPort = true;
-                            break;
+                            .Any(portName => !string.IsNullOrEmpty(portName) && portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase));
                         }
 
                         if (hasExternalPort)

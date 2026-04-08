@@ -52,8 +52,7 @@ namespace FuseCP.WebDav.Core.Security.Cryptography
         {
             get
             {
-                return (ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] != null)
-                    ? Boolean.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"]) : true;
+                return ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"] == null || Boolean.Parse(ConfigurationManager.AppSettings["FuseCP.EncryptionEnabled"]);
             }
         }
 
