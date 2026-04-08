@@ -130,13 +130,9 @@ namespace FuseCP.EnterpriseServer
 
             // check if site has dedicated IP assigned
             var siteIpAddresses = ServerController.GetItemIPAddresses(siteItemId, IPAddressPool.None);
-                foreach (var packageIpAddress in siteIpAddresses
-                    .Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID))
-                    .Where(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress))
-            {
-                    site.IsDedicatedIP = true;
-                    break;
-            }
+            site.IsDedicatedIP = siteIpAddresses
+                .Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID))
+                .Any(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress);
 
             // truncate home folder
             site.ContentPath = FilesController.GetVirtualPackagePath(siteItem.PackageId, site.ContentPath);
@@ -261,9 +257,9 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-                    foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP)))
+                    foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
                     {
-						if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
+						return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                     }
                 }
                 else
@@ -809,9 +805,9 @@ namespace FuseCP.EnterpriseServer
 
             List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(siteItem.ServiceId);
 
-            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP)))
+            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
             {
-                if (!IsValidIPAdddress(dnsRecord.ExternalIP)) return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
+                return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
             }
 
             // place log record

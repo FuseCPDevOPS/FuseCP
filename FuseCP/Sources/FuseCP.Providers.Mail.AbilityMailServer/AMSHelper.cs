@@ -98,25 +98,23 @@ namespace FuseCP.Providers.Mail
 					foreach (string[] split in lines
 						.Where(line => line.StartsWith("accountpath"))
 						.Select(line => line.Split(new char[] { '=' }))
-						.Where(split => split.Length >= 2))
+						.Where(split => split.Length >= 2 && Path.IsPathRooted(split[1])))
                         {
-                            if (Path.IsPathRooted(split[1]))
+							if (String.Equals(split[1], "\\config\\accounts\\") && serverLocation != null)
                             {
-                                if (String.Equals(split[1], "\\config\\accounts\\") && serverLocation != null)
-                                {
-                                        return Path.Join(serverLocation, "config\\accounts\\");
-                                }
-                                    serverLocation = split[1];
-                                    DirectoryInfo Location = new DirectoryInfo(split[1]);
-                                    if (!Location.Exists)
-                                        Location.Create();
-                                    string groupConfPath = Path.Join(split[1], @"\groups.ini");
-                                    if (!File.Exists(groupConfPath) && key != null)
-                                            File.Copy(
-                                                Path.Join((string) key.GetValue("InstallLocation"), GroupsConfigFile),
-                                                groupConfPath);
-                                    break;
+								return Path.Join(serverLocation, "config\\accounts\\");
                             }
+
+							serverLocation = split[1];
+							DirectoryInfo Location = new DirectoryInfo(split[1]);
+							if (!Location.Exists)
+								Location.Create();
+							string groupConfPath = Path.Join(split[1], @"\groups.ini");
+							if (!File.Exists(groupConfPath) && key != null)
+								File.Copy(
+									Path.Join((string) key.GetValue("InstallLocation"), GroupsConfigFile),
+									groupConfPath);
+							break;
                     }
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))

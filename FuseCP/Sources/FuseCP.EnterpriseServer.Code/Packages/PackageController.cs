@@ -993,23 +993,20 @@ namespace FuseCP.EnterpriseServer
             List<PackageInfo> changedPackages = new List<PackageInfo>();
             foreach (PackageInfo package in packages
                 .Select(childPackage => GetPackage(childPackage.PackageId))
-                .Where(package => package != null))
+                .Where(package => package != null && package.StatusId != statusId))
             {
-                if (package.StatusId != statusId)
-                {
-                    bool currEnabled = (package.StatusId == (int)PackageStatus.Active);
-                    bool enabled = (statusId == (int)PackageStatus.Active);
+                bool currEnabled = (package.StatusId == (int)PackageStatus.Active);
+                bool enabled = (statusId == (int)PackageStatus.Active);
 
-                    // change package status
-                    package.StatusId = statusId;
+                // change package status
+                package.StatusId = statusId;
 
-                    // save package
-                    UpdatePackage(package);
+                // save package
+                UpdatePackage(package);
 
-                    // add to the list of affected packages
-                    if (currEnabled != enabled)
-                        changedPackages.Add(package);
-                }
+                // add to the list of affected packages
+                if (currEnabled != enabled)
+                    changedPackages.Add(package);
             }
 
             // change service items state asynchronously
@@ -1990,11 +1987,8 @@ namespace FuseCP.EnterpriseServer
         {
             List<string> mailAddresses = new List<string>();
             //
-            foreach (string bccItem in bccAddresses)
+            foreach (string bccItem in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)))
             {
-                if (String.IsNullOrEmpty(bccItem))
-                    continue;
-
                 string bccAddress = bccItem.Trim().Replace(';', ',');
                 mailAddresses.Add(bccAddress);
             }

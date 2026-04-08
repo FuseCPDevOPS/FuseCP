@@ -45,9 +45,13 @@ namespace FuseCP.EnterpriseServer.Data
 			DT dobj = (DT)Activator.CreateInstance(typeof(DT));
 
 			// copy properties
-			foreach (string propName in sProps.Keys.Where(propName => sProps[propName].Name != "Item" && sProps[propName].CanRead && dProps.ContainsKey(propName) && dProps[propName] != null))
+			foreach (string propName in sProps.Keys.Where(propName => sProps[propName].Name != "Item" && sProps[propName].CanRead))
 			{
-				var dProp = dProps[propName];
+				if (!dProps.TryGetValue(propName, out var dProp) || dProp == null)
+				{
+					continue;
+				}
+
 				var val = sProps[propName].GetValue(so, null);
 				if (val != null && dProp.CanWrite)
 				{
