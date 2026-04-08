@@ -3672,9 +3672,9 @@ namespace FuseCP.EnterpriseServer
 			// Check Quota for allowing editing TTL
 			int EditTTL = 0;
 			PackageContext cntx = PackageController.GetPackageContext(domain.PackageId);
-			if (cntx != null && cntx.Quotas.ContainsKey("DNS.EditTTL"))
+			if (cntx != null && cntx.Quotas.TryGetValue("DNS.EditTTL", out var editTtlQuota))
 			{
-				EditTTL = cntx.Quotas["DNS.EditTTL"].QuotaAllocatedValue;
+				EditTTL = editTtlQuota.QuotaAllocatedValue;
 				if (EditTTL == -1)
 					EditTTL = 0;
 			}

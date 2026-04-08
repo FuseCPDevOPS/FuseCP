@@ -43,17 +43,10 @@ namespace FuseCP.WebDavPortal.ViewComponents
                 return View("/Views/FileSystem/_ShowContentTable.cshtml", model);
 
             var pathPart = model.UrlSuffix ?? string.Empty;
-            IEnumerable<IHierarchyItem> children;
-
-            if (string.IsNullOrEmpty(model.SearchValue))
-            {
-                children = _webdavManager.OpenFolder(pathPart);
-            }
-            else
-            {
-                children = _webdavManager.SearchFiles(
+            IEnumerable<IHierarchyItem> children = string.IsNullOrEmpty(model.SearchValue)
+                ? _webdavManager.OpenFolder(pathPart)
+                : _webdavManager.SearchFiles(
                     ScpContext.User.ItemId, pathPart, model.SearchValue, ScpContext.User.Login, true);
-            }
 
             model.Items = children.Take(WebDavAppConfigManager.Instance.ElementsRendering.DefaultCount);
             return View("/Views/FileSystem/_ShowContentBigIcons.cshtml", model);

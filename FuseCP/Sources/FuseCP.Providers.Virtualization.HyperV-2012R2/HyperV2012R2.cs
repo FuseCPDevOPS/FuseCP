@@ -1503,7 +1503,6 @@ namespace FuseCP.Providers.Virtualization
                         bool hasExternalPort = switchPorts
                             .Select(port => port.CimInstanceProperties["ElementName"]?.Value?.ToString())
                             .Any(portName => !string.IsNullOrEmpty(portName) && portName.EndsWith("_External", StringComparison.OrdinalIgnoreCase));
-                        }
 
                         if (hasExternalPort)
                         {
@@ -1513,7 +1512,7 @@ namespace FuseCP.Providers.Virtualization
                             sw.SwitchType = "External";
                             externalSwitches.Add(sw);
                         }
-                    }                    
+                    }
                 }
             }
 

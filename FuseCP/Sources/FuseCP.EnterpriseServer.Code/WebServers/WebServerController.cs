@@ -257,10 +257,8 @@ namespace FuseCP.EnterpriseServer
 
                 if (dedicatedIp)
                 {
-                    foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
-                    {
-						return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
-                    }
+                    if (dnsRecords.Any(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
+                        return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
                 }
                 else
                 {
@@ -805,10 +803,8 @@ namespace FuseCP.EnterpriseServer
 
             List<GlobalDnsRecord> dnsRecords = ServerController.GetDnsRecordsByService(siteItem.ServiceId);
 
-            foreach (GlobalDnsRecord dnsRecord in dnsRecords.Where(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
-            {
+            if (dnsRecords.Any(dnsRecord => !string.IsNullOrEmpty(dnsRecord.ExternalIP) && !IsValidIPAdddress(dnsRecord.ExternalIP)))
                 return BusinessErrorCodes.ERROR_GLOBALDNS_FOR_DEDICATEDIP;
-            }
 
             // place log record
             TaskManager.StartTask("WEB_SITE", "SWITCH_TO_DEDICATED_IP", siteItem.Name, siteItemId);

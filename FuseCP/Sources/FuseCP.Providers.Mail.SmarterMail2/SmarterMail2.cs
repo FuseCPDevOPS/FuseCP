@@ -332,67 +332,41 @@ namespace FuseCP.Providers.Mail
             	string[] requestedDomainDefaults = defaultRequestedSettings.settingValues;
 
 				//domain Path is taken from FuseCP Service settings
+                int maxAliases = InheritDomainDefaultLimits ? defaultDomainSettings.MaxAliases : domain.MaxAliases;
+                int maxDomainSizeInMB = InheritDomainDefaultLimits ? defaultDomainSettings.MaxDomainSizeInMB : domain.MaxDomainSizeInMB;
+                int maxDomainUsers = InheritDomainDefaultLimits ? defaultDomainSettings.MaxDomainUsers : domain.MaxDomainUsers;
+                int maxMailboxSizeInMB = InheritDomainDefaultLimits ? defaultDomainSettings.MaxMailboxSizeInMB : domain.MaxMailboxSizeInMB;
+                int maxMessageSize = InheritDomainDefaultLimits ? defaultDomainSettings.MaxMessageSize : domain.MaxMessageSize;
+                int maxRecipients = InheritDomainDefaultLimits ? defaultDomainSettings.MaxRecipients : domain.MaxRecipients;
+                int maxDomainAliases = InheritDomainDefaultLimits ? defaultDomainSettings.MaxDomainAliases : domain.MaxDomainAliases;
+                int maxLists = InheritDomainDefaultLimits ? defaultDomainSettings.MaxLists : domain.MaxLists;
 
-                GenericResult1 result = null;
-
-                if (!InheritDomainDefaultLimits)
-                {
-                    result = domains.AddDomain(AdminUsername, AdminPassword,
-                                                             domain.Name,
-                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
-                                                             SYSTEM_DOMAIN_ADMIN, // admin username
-                                                             Guid.NewGuid().ToString("P"), // admin password
-                                                             "Domain", // admin first name
-                                                             "Administrator", // admin last name
-                                                             ServerIP,
-                                                             defaultDomainSettings.ImapPort,
-                                                             defaultDomainSettings.PopPort,
-                                                             defaultDomainSettings.SmtpPort,
-                                                             domain.MaxAliases,
-                                                             domain.MaxDomainSizeInMB,
-                                                             domain.MaxDomainUsers,
-                                                             domain.MaxMailboxSizeInMB,
-                                                             domain.MaxMessageSize,
-                                                             domain.MaxRecipients,
-                                                             domain.MaxDomainAliases,
-                                                             domain.MaxLists,
-                                                             defaultDomainSettings.ShowDomainAliasMenu,// ShowDomainAliasMenu
-                                                             defaultDomainSettings.ShowContentFilteringMenu,// ShowContentFilteringMenu
-                                                             defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
-                                                             defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
-                                                             defaultDomainSettings.RequireSmtpAuthentication,
-                                                             defaultDomainSettings.ShowListMenu, // ShowListMenu
-                                                             defaultDomainSettings.ListCommandAddress);
-                }
-                else
-                {
-                    result = domains.AddDomain(AdminUsername, AdminPassword,
-                                                             domain.Name,
-                                                             Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
-                                                             SYSTEM_DOMAIN_ADMIN, // admin username
-                                                             Guid.NewGuid().ToString("P"), // admin password
-                                                             "Domain", // admin first name
-                                                             "Administrator", // admin last name
-                                                             ServerIP,
-                                                             defaultDomainSettings.ImapPort,
-                                                             defaultDomainSettings.PopPort,
-                                                             defaultDomainSettings.SmtpPort,
-                                                             defaultDomainSettings.MaxAliases,
-                                                             defaultDomainSettings.MaxDomainSizeInMB,
-                                                             defaultDomainSettings.MaxDomainUsers,
-                                                             defaultDomainSettings.MaxMailboxSizeInMB,
-                                                             defaultDomainSettings.MaxMessageSize,
-                                                             defaultDomainSettings.MaxRecipients,
-                                                             defaultDomainSettings.MaxDomainAliases,
-                                                             defaultDomainSettings.MaxLists,
-                                                             defaultDomainSettings.ShowDomainAliasMenu,// ShowDomainAliasMenu
-                                                             defaultDomainSettings.ShowContentFilteringMenu,// ShowContentFilteringMenu
-                                                             defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
-                                                             defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
-                                                             defaultDomainSettings.RequireSmtpAuthentication,
-                                                             defaultDomainSettings.ShowListMenu, // ShowListMenu
-                                                             defaultDomainSettings.ListCommandAddress);
-                }
+                GenericResult1 result = domains.AddDomain(AdminUsername, AdminPassword,
+                                                         domain.Name,
+                                                         Path.Join(DomainsPath, domain.Name.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)),
+                                                         SYSTEM_DOMAIN_ADMIN, // admin username
+                                                         Guid.NewGuid().ToString("P"), // admin password
+                                                         "Domain", // admin first name
+                                                         "Administrator", // admin last name
+                                                         ServerIP,
+                                                         defaultDomainSettings.ImapPort,
+                                                         defaultDomainSettings.PopPort,
+                                                         defaultDomainSettings.SmtpPort,
+                                                         maxAliases,
+                                                         maxDomainSizeInMB,
+                                                         maxDomainUsers,
+                                                         maxMailboxSizeInMB,
+                                                         maxMessageSize,
+                                                         maxRecipients,
+                                                         maxDomainAliases,
+                                                         maxLists,
+                                                         defaultDomainSettings.ShowDomainAliasMenu,// ShowDomainAliasMenu
+                                                         defaultDomainSettings.ShowContentFilteringMenu,// ShowContentFilteringMenu
+                                                         defaultDomainSettings.ShowSpamMenu, // ShowSpamMenu
+                                                         defaultDomainSettings.ShowStatsMenu, // ShowStatsMenu
+                                                         defaultDomainSettings.RequireSmtpAuthentication,
+                                                         defaultDomainSettings.ShowListMenu, // ShowListMenu
+                                                         defaultDomainSettings.ListCommandAddress);
 
                 if (!result.Result)
                     throw new Exception(result.Message);

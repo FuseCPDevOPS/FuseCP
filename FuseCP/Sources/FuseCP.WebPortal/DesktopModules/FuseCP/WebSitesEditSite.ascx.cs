@@ -731,13 +731,11 @@ namespace FuseCP.Portal
 				return;
 			}
 
-			if (!String.IsNullOrEmpty(wmSvcServicePort)
-				&& !String.Equals(wmSvcServicePort, WebSite.WmSvcDefaultPort))
-				lclWmSvcConnectionHint.Text = String.Format(
-					lclWmSvcConnectionHint.Text, String.Format("{0}:{1}", wmSvcServiceUrl, wmSvcServicePort), item.Name);
-			else
-				lclWmSvcConnectionHint.Text = String.Format(
-					lclWmSvcConnectionHint.Text, wmSvcServiceUrl, item.Name);
+			var wmSvcHost = !String.IsNullOrEmpty(wmSvcServicePort)
+				&& !String.Equals(wmSvcServicePort, WebSite.WmSvcDefaultPort)
+				? String.Format("{0}:{1}", wmSvcServiceUrl, wmSvcServicePort)
+				: wmSvcServiceUrl;
+			lclWmSvcConnectionHint.Text = String.Format(lclWmSvcConnectionHint.Text, wmSvcHost, item.Name);
 		}
 
 		protected void btnWmSvcSiteEnable_Click(object sender, EventArgs e)

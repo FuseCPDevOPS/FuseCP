@@ -272,9 +272,9 @@ namespace FuseCP.EnterpriseServer
             int maxSize = 0; // unlimited
             string quotaName = groupName + prefix;
             PackageContext cntx = PackageController.GetPackageContext(packageId);
-            if (cntx != null && cntx.Quotas.ContainsKey(quotaName))
+			if (cntx != null && cntx.Quotas.TryGetValue(quotaName, out var quota))
             {
-                maxSize = cntx.Quotas[quotaName].QuotaAllocatedValue;
+				maxSize = quota.QuotaAllocatedValue;
                 if (maxSize == -1)
                     maxSize = 0;
             }

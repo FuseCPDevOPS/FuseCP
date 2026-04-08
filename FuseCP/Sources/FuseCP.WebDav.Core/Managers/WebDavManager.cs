@@ -418,10 +418,10 @@ namespace FuseCP.WebDav.Core.Managers
         {
             var result = items.ToList();
 
-            foreach (var item in items)
+            foreach (var item in items.Where(item => WebDavAppConfigManager.Instance.FilesToIgnore.Any(itemToIgnore =>
+                new Regex(itemToIgnore.Regex).IsMatch(item.DisplayName.Trim('/')))))
             {
-                if (WebDavAppConfigManager.Instance.FilesToIgnore.Any(itemToIgnore => 
-                        new Regex(itemToIgnore.Regex).IsMatch(item.DisplayName.Trim('/')) && result.Contains(item)))
+                if (result.Contains(item))
                 {
                     result.Remove(item);
                 }

@@ -117,7 +117,7 @@ namespace FuseCP.Providers.Database
 			get
 			{
 				return !String.IsNullOrEmpty(ProviderSettings["OldPassword"])
-				? Boolean.Parse(ProviderSettings["OldPassword"]) : false;
+					&& Boolean.Parse(ProviderSettings["OldPassword"]);
 			}
 		}
 

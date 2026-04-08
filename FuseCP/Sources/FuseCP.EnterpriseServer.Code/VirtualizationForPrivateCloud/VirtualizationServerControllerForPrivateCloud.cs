@@ -1350,8 +1350,8 @@ if (!cntx.Quotas.TryGetValue(quotaName, out var _ckv))
             }
 
             // DNS
-            if (!props.ContainsKey("PreferredDNSServer")
-                || String.IsNullOrEmpty(props["PreferredDNSServer"]))
+            if (!props.TryGetValue("PreferredDNSServer", out var preferredDnsServer)
+                || String.IsNullOrEmpty(preferredDnsServer))
             {
                 props["PreferredDNSServer"] = "0.0.0.0"; // obtain automatically
             }

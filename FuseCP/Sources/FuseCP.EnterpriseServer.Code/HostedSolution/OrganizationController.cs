@@ -2992,12 +2992,8 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-            if (!settings.ContainsKey(UseStorageSpaces))
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(settings[UseStorageSpaces]))
+            if (!settings.ContainsKey(UseStorageSpaces)
+                || string.IsNullOrEmpty(settings[UseStorageSpaces]))
             {
                 return false;
             }

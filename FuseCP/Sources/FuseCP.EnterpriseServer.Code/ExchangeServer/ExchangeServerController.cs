@@ -6454,7 +6454,7 @@ namespace FuseCP.EnterpriseServer
 
         private bool QuotaEnabled(PackageContext cntx, string quotaName)
         {
-            return cntx.Quotas.ContainsKey(quotaName) && !cntx.Quotas[quotaName].QuotaExhausted;
+			return cntx.Quotas.TryGetValue(quotaName, out var quota) && !quota.QuotaExhausted;
         }
 
         private bool IsDemoMode

@@ -36,10 +36,10 @@ namespace FuseCP.Portal.ExchangeServer
             chkRecursive.Visible = (PanelSecurity.SelectedUser.Role != UserRole.User);
             gvOrgs.Columns[2].Visible = gvOrgs.Columns[3].Visible = (PanelSecurity.SelectedUser.Role != UserRole.User) && chkRecursive.Checked;
 
-            btnSetDefaultOrganization.Enabled = !(gvOrgs.Rows.Count < 2);
+            btnSetDefaultOrganization.Enabled = gvOrgs.Rows.Count >= 2;
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
+            if (cntx.Quotas.TryGetValue(Quotas.ORGANIZATIONS, out var _ckv))
             {
                 btnCreate.Enabled = _ckv.QuotaAllocatedValue == -1 || _ckv.QuotaAllocatedValue > gvOrgs.Rows.Count;
             }

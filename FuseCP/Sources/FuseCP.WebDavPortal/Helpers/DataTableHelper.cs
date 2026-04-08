@@ -30,14 +30,13 @@ namespace FuseCP.WebDavPortal.Helpers
             {
                 var closure = order;
 
-                if (orderedEntities == null)
-                {
-                    orderedEntities = order.Ascending ? entities.OrderBy(x => x[closure.Column]) : entities.OrderByDescending(x => x[closure.Column]);
-                }
-                else
-                {
-                    orderedEntities = order.Ascending ? orderedEntities.ThenBy(x => x[closure.Column]) : orderedEntities.ThenByDescending(x => x[closure.Column]);
-                }
+                orderedEntities = orderedEntities == null
+                    ? (order.Ascending
+                        ? entities.OrderBy(x => x[closure.Column])
+                        : entities.OrderByDescending(x => x[closure.Column]))
+                    : (order.Ascending
+                        ? orderedEntities.ThenBy(x => x[closure.Column])
+                        : orderedEntities.ThenByDescending(x => x[closure.Column]));
             }
 
             if (orderedEntities == null)

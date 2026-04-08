@@ -308,10 +308,11 @@ namespace FuseCP.EnterpriseServer
 			int maxSize = 0; // unlimited
 			bool maxMailboxSizeChangeable = false;
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
-			if (cntx != null && cntx.Quotas.ContainsKey(Quotas.MAIL_MAXBOXSIZE))
+			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.MAIL_MAXBOXSIZE, out var maxMailboxSizeQuota))
 			{
-				maxSize = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
-				maxMailboxSizeChangeable = (cntx.Quotas[Quotas.MAIL_DISABLESIZEEDIT].QuotaAllocatedValue == 0);
+				maxSize = maxMailboxSizeQuota.QuotaAllocatedValue;
+				if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var disableSizeEditQuota))
+					maxMailboxSizeChangeable = (disableSizeEditQuota.QuotaAllocatedValue == 0);
 				if (maxSize == -1)
 					return item.MaxMailboxSize;
 			}
@@ -341,9 +342,9 @@ namespace FuseCP.EnterpriseServer
             int maxSize = 0; // unlimited
 
             PackageContext cntx = PackageController.GetParentPackageContext(packageId);
-            if (cntx != null && cntx.Quotas.ContainsKey(Quotas.MAIL_MAXBOXSIZE))
+			if (cntx != null && cntx.Quotas.TryGetValue(Quotas.MAIL_MAXBOXSIZE, out var maxMailboxSizeQuota))
             {
-                maxSize = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
+				maxSize = maxMailboxSizeQuota.QuotaAllocatedValue;
                 if (maxSize == -1)
                     return item.MaxMailboxSize;
             }
@@ -796,13 +797,13 @@ namespace FuseCP.EnterpriseServer
 		{
 			// load package context
 			PackageContext cntx = PackageController.GetPackageContext(packageId);
-			if (cntx == null || !cntx.Quotas.ContainsKey(quotaName))
+			if (cntx == null || !cntx.Quotas.TryGetValue(quotaName, out var recipientsQuota))
 				return false;
 
-			if (members == null || cntx.Quotas[quotaName].QuotaAllocatedValue == -1)
+			if (members == null || recipientsQuota.QuotaAllocatedValue == -1)
 				return true;
 
-			return (members.Length <= cntx.Quotas[quotaName].QuotaAllocatedValue);
+			return (members.Length <= recipientsQuota.QuotaAllocatedValue);
 		}
 		#endregion
 
