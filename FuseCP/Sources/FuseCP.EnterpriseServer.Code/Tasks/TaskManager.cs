@@ -769,14 +769,11 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
                     xmlConfigs[0].Load(path);
                     // Lookup for external references first
                     XmlNodeList xmlReferences = xmlConfigs[0].SelectNodes("//reference");
-                    foreach (string referencePath in xmlReferences.Cast<XmlNode>().Select(xmlReference => Path.Join(appRoot, xmlReference.Attributes["src"].Value)))
+                    foreach (string referencePath in xmlReferences.Cast<XmlNode>().Select(xmlReference => Path.Join(appRoot, xmlReference.Attributes["src"].Value)).Where(File.Exists))
                     {
-                        if (File.Exists(referencePath))
-                        {
-                            XmlDocument xmldoc = new XmlDocument();
-                            xmldoc.Load(referencePath);
-                            xmlConfigs.Add(xmldoc);
-                        }
+                        XmlDocument xmldoc = new XmlDocument();
+                        xmldoc.Load(referencePath);
+                        xmlConfigs.Add(xmldoc);
                     }
 
                     // parse XML

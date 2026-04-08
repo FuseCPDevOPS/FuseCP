@@ -157,10 +157,13 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(arguments))
 				yield break;
 
-			foreach (var token in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Select(match => match.Value))
+			foreach (Match match in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+"))
 			{
+				var token = match.Value;
 				var parsedToken = token;
-				if (parsedToken.Length >= 2 && ((parsedToken[0] == '"' && parsedToken[parsedToken.Length - 1] == '"') || (parsedToken[0] == '\'' && parsedToken[parsedToken.Length - 1] == '\'')))
+				var startsAndEndsWithDoubleQuotes = parsedToken[0] == '"' && parsedToken[parsedToken.Length - 1] == '"';
+				var startsAndEndsWithSingleQuotes = parsedToken[0] == '\'' && parsedToken[parsedToken.Length - 1] == '\'';
+				if (parsedToken.Length >= 2 && (startsAndEndsWithDoubleQuotes || startsAndEndsWithSingleQuotes))
 					parsedToken = parsedToken.Substring(1, parsedToken.Length - 2);
 				yield return parsedToken;
 			}
@@ -502,8 +505,8 @@ namespace FuseCP.Providers.OS
 					writer.Write(text);
 				}
 			}
-			catch (IOException) { }
-			catch (UnauthorizedAccessException) { }
+			catch (IOException ex) { System.Diagnostics.Trace.TraceWarning("AppendAllText IO exception: " + ex.Message); }
+			catch (UnauthorizedAccessException ex) { System.Diagnostics.Trace.TraceWarning("AppendAllText unauthorized: " + ex.Message); }
 		}
 		protected virtual void OnLog(string text)
 		{

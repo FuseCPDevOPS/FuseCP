@@ -38,10 +38,14 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                 string xml = settings["PsScript"];
                 var config = new ConfigFile(xml);
                 LibraryItem[] scripts = config.LibraryItems;
-                foreach (string script in scripts.Where(item => !String.IsNullOrEmpty(item.Name) && !String.IsNullOrEmpty(item.Description) && item.Name.Equals(point.ToString())).Select(item => PreparePsScript(item.Description, vm)))
+                foreach (LibraryItem item in scripts)
                 {
-                        VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
-                        if (vs != null) vs.ExecuteCustomPsScript(script);
+                    if (String.IsNullOrEmpty(item.Name) || String.IsNullOrEmpty(item.Description) || !item.Name.Equals(point.ToString()))
+                        continue;
+
+                    string script = PreparePsScript(item.Description, vm);
+                    VirtualizationServer2012 vs = VirtualizationHelper.GetVirtualizationProxy(vm.ServiceId);
+                    if (vs != null) vs.ExecuteCustomPsScript(script);
                 }
             }
             catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }

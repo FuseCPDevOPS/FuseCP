@@ -37,10 +37,10 @@ namespace FuseCP.Web.Services
 				if (context == null) return "127.0.0.1";
 
 				MessageProperties prop = context.IncomingMessageProperties;
-				if (prop == null || !prop.ContainsKey(RemoteEndpointMessageProperty.Name)) return "127.0.0.1";
+				if (prop == null || !prop.TryGetValue(RemoteEndpointMessageProperty.Name, out var endpointValue)) return "127.0.0.1";
 
 				RemoteEndpointMessageProperty endpoint =
-					prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
+					endpointValue as RemoteEndpointMessageProperty;
 				return endpoint?.Address ?? "127.0.0.1";
 			}
 		}
