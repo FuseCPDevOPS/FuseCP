@@ -218,7 +218,7 @@
 		<MSBuild Projects="$(RootFolder)\FuseCP.VmConfig\Sources\FuseCP.VmConfig.sln" Properties="$(CommonBuildProperties)" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.Import.Enterprise.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.AWStats.Viewer.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
-		<Exec Command="&quot;$(MsBuildExe)&quot; &quot;$(TrunkFolder)\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx&quot; &quot;/p:$(CommonBuildProperties)&quot; $(MsBuildSwitches)" />
+		<Exec Command="&quot;$(MsBuildExe)&quot; &quot;$(TrunkFolder)\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx&quot; /restore &quot;/p:$(CommonBuildProperties)&quot; $(MsBuildSwitches)" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.FixDefaultPublicFolderMailbox.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
  	</Target>
 
