@@ -169,43 +169,39 @@ namespace FuseCP.EnterpriseServer
             {
                 foreach (var attachment in attachments) //
                 {
-                    try
+                    using (attachment)
                     {
-                        // Determine ContentType - MimeKit has better auto-detection but respecting original if possible
-                        var contentType = MimeKit.ContentType.Parse(attachment.ContentType?.ToString() ?? "application/octet-stream"); //
-
-                        // Create MimePart - primarily handles streams.
-                        // System.Net.Mail.Attachment exposes its content via ContentStream.
-                        var mimePart = new MimePart(contentType)
+                        try
                         {
-                            Content = new MimeContent(attachment.ContentStream), // Get stream
-                            ContentDisposition = new ContentDisposition(ContentDisposition.Attachment), // Mark as attachment
-                            ContentTransferEncoding = attachment.TransferEncoding == System.Net.Mime.TransferEncoding.Base64 ? ContentEncoding.Base64 : ContentEncoding.Default, // Map encoding
-                            FileName = attachment.Name // Set filename
-                        };
+                            // Determine ContentType - MimeKit has better auto-detection but respecting original if possible
+                            var contentType = MimeKit.ContentType.Parse(attachment.ContentType?.ToString() ?? "application/octet-stream"); //
 
-                        // Handle ContentId if present (for inline attachments)
-                        if (!string.IsNullOrEmpty(attachment.ContentId)) //
-                        {
-                            mimePart.ContentId = attachment.ContentId; //
-                                                                       // Override ContentDisposition for inline
-                            mimePart.ContentDisposition = new ContentDisposition(ContentDisposition.Inline); //
+                            // Create MimePart - primarily handles streams.
+                            // System.Net.Mail.Attachment exposes its content via ContentStream.
+                            var mimePart = new MimePart(contentType)
+                            {
+                                Content = new MimeContent(attachment.ContentStream), // Get stream
+                                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment), // Mark as attachment
+                                ContentTransferEncoding = attachment.TransferEncoding == System.Net.Mime.TransferEncoding.Base64 ? ContentEncoding.Base64 : ContentEncoding.Default, // Map encoding
+                                FileName = attachment.Name // Set filename
+                            };
+
+                            // Handle ContentId if present (for inline attachments)
+                            if (!string.IsNullOrEmpty(attachment.ContentId)) //
+                            {
+                                mimePart.ContentId = attachment.ContentId; //
+                                                                           // Override ContentDisposition for inline
+                                mimePart.ContentDisposition = new ContentDisposition(ContentDisposition.Inline); //
+                            }
+
+                            mailkitAttachments.Add(mimePart); //
                         }
-
-                        mailkitAttachments.Add(mimePart); //
-                    }
-                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                    {
-                        // Log the error if a specific attachment fails conversion
-                        Console.WriteLine($"Error converting attachment '{attachment.Name}': {ex.Message}"); //
-                                                                                                             // Decide whether to continue without this attachment or fail the whole send
-                    }
-                    finally
-                    {
-                        // IMPORTANT: Dispose the original System.Net.Mail.Attachment
-                        // to release any resources it holds (like file handles or streams
-                        // if it created them internally). MailKit takes ownership of the stream passed to MimeContent.
-                        attachment.Dispose(); //
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        {
+                            // Log the error if a specific attachment fails conversion
+                            Console.WriteLine($"Error converting attachment '{attachment.Name}': {ex.Message}"); //
+                                                                                                                 // Decide whether to continue without this attachment or fail the whole send
+                        }
                     }
                 }
             }

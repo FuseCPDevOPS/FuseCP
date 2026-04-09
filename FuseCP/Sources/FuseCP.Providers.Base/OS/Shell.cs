@@ -366,8 +366,9 @@ namespace FuseCP.Providers.OS
 		{
 			get
 			{
-				Shell clone = Activator.CreateInstance(GetType()) as Shell;
-				clone!.Parent = this;
+				Shell clone = Activator.CreateInstance(GetType()) as Shell
+					?? throw new InvalidOperationException($"Unable to clone shell type {GetType().FullName}.");
+				clone.Parent = this;
 				clone.CreateNoWindow = this.CreateNoWindow;
 				clone.WindowStyle = this.WindowStyle;
 				clone.WorkingDirectory = this.WorkingDirectory;

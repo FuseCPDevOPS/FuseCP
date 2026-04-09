@@ -269,16 +269,13 @@ public class FilesController: ControllerBase
         // place log record
         TaskManager.StartTask("FILES", "DELETE_FILES", packageId);
 
-        if (files != null)
-        {
-            foreach (string file in files)
-                TaskManager.Write(file);
-        }
+        foreach (string file in files)
+            TaskManager.Write(file);
 
         try
         {
             OS.OperatingSystem os = GetOS(packageId);
-            for (int i = 0; i < files!.Length; i++)
+            for (int i = 0; i < files.Length; i++)
                 files[i] = GetFullPackagePath(packageId, files[i]);
 
             // delete files
@@ -411,18 +408,15 @@ public class FilesController: ControllerBase
         // place log record
         TaskManager.StartTask("FILES", "COPY_FILES", packageId);
         TaskManager.WriteParameter("Destination folder", destFolder);
-        if (files != null)
-        {
-            foreach (string file in files)
-                TaskManager.Write(file);
-        }
+        foreach (string file in files)
+            TaskManager.Write(file);
 
         try
         {
             OS.OperatingSystem os = GetOS(packageId);
             string destFullFolder = GetFullPackagePath(packageId, destFolder);
 
-            for (int i = 0; i < files!.Length; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 string srcFilePath = GetFullPackagePath(packageId, files[i]);
                 string destFilePath = Path.Join(destFullFolder,
@@ -472,18 +466,15 @@ public class FilesController: ControllerBase
         TaskManager.StartTask("FILES", "MOVE_FILES", packageId);
 
         TaskManager.WriteParameter("Destination folder", destFolder);
-        if (files != null)
-        {
-            foreach (string file in files)
-                TaskManager.Write(file);
-        }
+        foreach (string file in files)
+            TaskManager.Write(file);
 
         try
         {
             OS.OperatingSystem os = GetOS(packageId);
             string destFullFolder = GetFullPackagePath(packageId, destFolder);
 
-            for (int i = 0; i < files!.Length; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 string srcFilePath = GetFullPackagePath(packageId, files[i]);
                 string destFilePath = Path.Join(destFullFolder,
@@ -569,11 +560,8 @@ public class FilesController: ControllerBase
         // place log record
         TaskManager.StartTask("FILES", "UNZIP_FILES", packageId);
 
-        if (files != null)
-        {
-            foreach (string file in files)
-                TaskManager.Write(file);
-        }
+        foreach (string file in files)
+            TaskManager.Write(file);
 
         try
         {
@@ -582,7 +570,7 @@ public class FilesController: ControllerBase
 
             OS.OperatingSystem os = GetOS(packageId);
 
-            for (int i = 0; i < files!.Length; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 string zipFilePath = GetFullPackagePath(packageId, files[i]);
                 string destFolderPath = zipFilePath.Substring(0, zipFilePath.LastIndexOf("\\"));
@@ -616,11 +604,8 @@ public class FilesController: ControllerBase
         // place log record
         TaskManager.StartTask("FILES", "ZIP_FILES", archivePath, packageId);
 
-        if (files != null)
-        {
-            foreach (string file in files)
-                TaskManager.Write(file);
-        }
+        foreach (string file in files)
+            TaskManager.Write(file);
 
         try
         {
@@ -630,7 +615,7 @@ public class FilesController: ControllerBase
 
             List<string> archFiles = new List<string>();
             string rootFolder = "";
-            foreach (string archFile in files!.Select(file => GetFullPackagePath(packageId, file)))
+            foreach (string archFile in files.Select(file => GetFullPackagePath(packageId, file)))
             {
                 int idx = archFile.LastIndexOf("\\");
                 rootFolder = archFile.Substring(0, idx);
@@ -668,11 +653,8 @@ public class FilesController: ControllerBase
 			// place log record
         TaskManager.StartTask("FILES", "ZIP_FILES", archivePath, packageId);
 
-			if (files != null)
-			{
-				foreach (string file in files)
-					TaskManager.Write(file);
-			}
+            foreach (string file in files)
+                TaskManager.Write(file);
 
 			try
 			{
@@ -682,7 +664,7 @@ public class FilesController: ControllerBase
 
 				List<string> archFiles = new List<string>();
 				string root = String.IsNullOrEmpty(rootFolder) ? "" : GetFullPackagePath(packageId, rootFolder);
-                foreach (string archFile in files!.Select(file => GetFullPackagePath(packageId, file)))
+                foreach (string archFile in files.Select(file => GetFullPackagePath(packageId, file)))
 				{
 					if (!String.IsNullOrEmpty(rootFolder))
 					{

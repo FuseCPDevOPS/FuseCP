@@ -64,6 +64,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS80.Models.Response
         {
             //Declare the result
             var response = new ZoneRecordsResponse();
+            var recordData = record.RecordData ?? string.Empty;
 
             //Check that the record is in SDNS format
             if (!record.RecordName.Contains(zoneName))
@@ -77,31 +78,31 @@ namespace FuseCP.Providers.DNS.SimpleDNS80.Models.Response
             switch (record.RecordType)
             {
                 case DnsRecordType.MX:
-                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0)
+                    if (!recordData.EndsWith(".") && recordData.Length > 0)
                     {
-                        response.Data = $"{record.MxPriority} {record.RecordData}.";
+                        response.Data = $"{record.MxPriority} {recordData}.";
                         break;
                     }
-                    response.Data = $"{record.MxPriority} {record.RecordData}";
+                    response.Data = $"{record.MxPriority} {recordData}";
                     break;
                 case DnsRecordType.SRV:
-                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0)
+                    if (!recordData.EndsWith(".") && recordData.Length > 0)
                     {
-                        response.Data = $"{record.SrvPriority} {record.SrvWeight} {record.SrvPort} {record.RecordData}.";
+                        response.Data = $"{record.SrvPriority} {record.SrvWeight} {record.SrvPort} {recordData}.";
                         break;
                     }
-                    response.Data = $"{record.SrvPriority} {record.SrvWeight} {record.SrvPort} {record.RecordData}";
+                    response.Data = $"{record.SrvPriority} {record.SrvWeight} {record.SrvPort} {recordData}";
                     break;
                 case DnsRecordType.CNAME:
                 case DnsRecordType.NS:
-                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0) {
-                        response.Data = $"{record.RecordData}.";
+                    if (!recordData.EndsWith(".") && recordData.Length > 0) {
+                        response.Data = $"{recordData}.";
                         break;
                     }
-                    response.Data = $"{record.RecordData}";
+                    response.Data = recordData;
                     break;
                 default:
-                    response.Data = record.RecordData ?? "";
+                    response.Data = recordData;
                     break;
             }
             //Return the response

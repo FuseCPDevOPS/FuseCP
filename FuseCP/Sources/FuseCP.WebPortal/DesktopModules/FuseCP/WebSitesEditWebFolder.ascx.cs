@@ -98,18 +98,15 @@ namespace FuseCP.Portal
             folder.Title = txtTitle.Text.Trim();
             folder.Path = folderPath.SelectedFile;
 
-            List<string> users = new List<string>();
-            foreach (ListItem li in dlUsers.Items)
-                if (li.Selected)
-                    users.Add(li.Value);
+            folder.Users = dlUsers.Items.Cast<ListItem>()
+                .Where(li => li.Selected)
+                .Select(li => li.Value)
+                .ToArray();
 
-            List<string> groups = new List<string>();
-            foreach (ListItem li in dlGroups.Items)
-                if (li.Selected)
-                    groups.Add(li.Value);
-
-            folder.Users = users.ToArray();
-            folder.Groups = groups.ToArray();
+            folder.Groups = dlGroups.Items.Cast<ListItem>()
+                .Where(li => li.Selected)
+                .Select(li => li.Value)
+                .ToArray();
 
             try
             {

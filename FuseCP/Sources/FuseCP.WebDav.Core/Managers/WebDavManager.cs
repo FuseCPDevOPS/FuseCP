@@ -416,18 +416,8 @@ namespace FuseCP.WebDav.Core.Managers
 
         private IEnumerable<IHierarchyItem> FilterResult(IEnumerable<IHierarchyItem> items)
         {
-            var result = items.ToList();
-
-            foreach (var item in items.Where(item => WebDavAppConfigManager.Instance.FilesToIgnore.Any(itemToIgnore =>
-                new Regex(itemToIgnore.Regex).IsMatch(item.DisplayName.Trim('/')))))
-            {
-                if (result.Contains(item))
-                {
-                    result.Remove(item);
-                }
-            }
-
-            return result;
+            return items.Where(item => !WebDavAppConfigManager.Instance.FilesToIgnore.Any(itemToIgnore =>
+                new Regex(itemToIgnore.Regex).IsMatch(item.DisplayName.Trim('/'))));
         }
 
         #endregion

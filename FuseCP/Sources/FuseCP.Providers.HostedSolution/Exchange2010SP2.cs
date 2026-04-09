@@ -685,7 +685,7 @@ namespace FuseCP.Providers.HostedSolution
 							{
 								string db = ObjToString(GetPSObjectProperty(objDatabase, "Identity"));
 
-								if (!lstDatabase.Any(s => s.Equals(db, StringComparison.OrdinalIgnoreCase)))
+								if (lstDatabase.All(s => !s.Equals(db, StringComparison.OrdinalIgnoreCase)))
 								{
 									lstDatabase.Add(db);
 									ExchangeLog.LogInfo("AddDatabase: " + db);

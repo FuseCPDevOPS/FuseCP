@@ -2,5 +2,5 @@
 
 @foreach (var element in Model)
 {
-    <partial name="_ResoursePartial" model="element" />
+    @await Html.PartialAsync("_ResoursePartial", element)
 }

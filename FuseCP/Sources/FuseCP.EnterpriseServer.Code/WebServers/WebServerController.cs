@@ -4187,13 +4187,12 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public int BackupItem(string tempFolder, System.Xml.XmlWriter writer, ServiceProviderItem item, ResourceGroupInfo group)
         {
-            if (item is WebSite)
+            if (item is WebSite itemSite)
             {
                 WebServer web = GetWebServer(item.ServiceId);
 
                 // read web site
-                WebSite itemSite = item as WebSite;
-                string siteId = itemSite!.SiteId;
+                string siteId = itemSite.SiteId;
                 WebSite site = web.GetSite(siteId);
                 site.SiteId = itemSite.SiteId;
                 site.SiteIPAddressId = itemSite.SiteIPAddressId;

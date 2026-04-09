@@ -89,6 +89,7 @@ namespace FuseCP.Web.Clients
 				}
 			}
 			object service = Activator.CreateInstance(type);
+			using IDisposable disposableService = service as IDisposable;
 
 			try
 			{
@@ -126,8 +127,6 @@ namespace FuseCP.Web.Clients
 			}
 			finally
 			{
-				if (service is IDisposable disposableService) disposableService.Dispose();
-
 				Thread.CurrentPrincipal = principal;
 			}
 		}

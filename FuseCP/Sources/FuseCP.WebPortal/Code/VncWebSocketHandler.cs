@@ -63,7 +63,6 @@ namespace FuseCP.WebPortal
                 {
                     context.AcceptWebSocketRequest(async socketContext =>
                     {
-                        TunnelSocket outgoing = null;
                         var incoming = new TunnelSocket(socketContext.WebSocket);
                         var esclient = new EnterpriseServerTunnelClient();
                         esclient.Username = user;
@@ -72,14 +71,14 @@ namespace FuseCP.WebPortal
                         var credentials = new VncCredentials() { Password = vncpassword };
                         try
                         {
-                            outgoing = await esclient.GetPveVncWebSocketAsync(itemId, credentials);
-                            await incoming.Transmit(outgoing);
+                            using var outgoing = await esclient.GetPveVncWebSocketAsync(itemId, credentials);
+                            using (outgoing)
+                            {
+                                await incoming.Transmit(outgoing);
+                            }
                         } catch (Exception ex)
                         {
                             throw new IOException(ex.Message, ex);
-                        } finally
-                        {
-                            outgoing?.Dispose();
                         }
                     });
                 }

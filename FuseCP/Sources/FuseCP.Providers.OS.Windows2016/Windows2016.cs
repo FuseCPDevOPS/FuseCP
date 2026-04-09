@@ -1367,7 +1367,11 @@ namespace FuseCP.Providers.OS
         {
             var settings = provider.GetProviderDefaultSettings();
             var hosting = provider as HostingServiceProviderBase;
-            hosting!.ProviderSettings = new ServiceProviderSettings();
+            if (hosting == null)
+            {
+                throw new InvalidOperationException($"Provider type {provider.GetType().FullName} does not inherit {typeof(HostingServiceProviderBase).FullName}.");
+            }
+            hosting.ProviderSettings = new ServiceProviderSettings();
             foreach (var setting in settings)
             {
                 hosting.ProviderSettings.Settings.Add(setting.Name, setting.Value);
@@ -1465,15 +1469,12 @@ namespace FuseCP.Providers.OS
 
             var regex = new Regex(recordTypePattern, RegexOptions.IgnoreCase);
 
-            foreach (var dnsRecord in regex.Matches(raw).Cast<Match>().Where(match => match.Groups.Count == 2).Select(match => new DnsRecordInfo
+            records.AddRange(regex.Matches(raw).Cast<Match>().Where(match => match.Groups.Count == 2).Select(match => new DnsRecordInfo
             {
                 Value = match.Groups[1].Value != null ? match.Groups[1].Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").ToLowerInvariant().Trim() : null,
                 RecordType = recordType,
                 DnsServer = dnsServer
-            }))
-            {
-                records.Add(dnsRecord);
-            }
+            }));
 
             return records;
         }

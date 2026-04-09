@@ -165,46 +165,41 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public static void FillCollectionFromEntitySet<T>(List<T> list, IEnumerable set, Type tentity)
 		{
-			try
+			using IDisposable disposableSet = set as IDisposable;
+
+			Type type = typeof(T);
+
+			if (type == tentity)
 			{
-				Type type = typeof(T);
-
-				if (type == tentity)
-				{
-					list.AddRange(set.OfType<T>());
-				}
-				else
-				{
-
-					PropertyInfo[] props = GetTypeProperties(type);
-					PropertyInfo[] eprops = GetTypeProperties(tentity);
-					var pairs = props.Join(eprops, p => p.Name, ep => ep.Name, (p, ep) => new { Property = p, EntityProperty = ep }, StringComparer.OrdinalIgnoreCase)
-						.ToArray();
-
-					foreach (object entity in set)
-					{
-						// create an instance
-						T obj = (T)Activator.CreateInstance(type);
-						list.Add(obj);
-
-						// fill properties
-						foreach (var prop in pairs)
-						{
-
-							object propVal = prop.EntityProperty.GetValue(entity, null);
-							if (propVal == DBNull.Value || propVal == null)
-								prop.Property.SetValue(obj, GetNull(prop.Property.PropertyType), null);
-							else
-							{
-								SetPropertyValueWithFallback(prop.Property, obj, propVal);
-							}
-						} // for properties
-					} // for rows
-				}
+				list.AddRange(set.OfType<T>());
 			}
-			finally
+			else
 			{
-				if (set is IDisposable disposable) disposable.Dispose();
+
+				PropertyInfo[] props = GetTypeProperties(type);
+				PropertyInfo[] eprops = GetTypeProperties(tentity);
+				var pairs = props.Join(eprops, p => p.Name, ep => ep.Name, (p, ep) => new { Property = p, EntityProperty = ep }, StringComparer.OrdinalIgnoreCase)
+					.ToArray();
+
+				foreach (object entity in set)
+				{
+					// create an instance
+					T obj = (T)Activator.CreateInstance(type);
+					list.Add(obj);
+
+					// fill properties
+					foreach (var prop in pairs)
+					{
+
+						object propVal = prop.EntityProperty.GetValue(entity, null);
+						if (propVal == DBNull.Value || propVal == null)
+							prop.Property.SetValue(obj, GetNull(prop.Property.PropertyType), null);
+						else
+						{
+							SetPropertyValueWithFallback(prop.Property, obj, propVal);
+						}
+					} // for properties
+				} // for rows
 			}
 		}
 

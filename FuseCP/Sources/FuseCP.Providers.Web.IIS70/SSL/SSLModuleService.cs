@@ -38,12 +38,15 @@ namespace FuseCP.Providers.Web.Iis
 		public void GenerateCsr(SSLCertificate cert)
 		{
 			//  Create all the objects that will be required
-            CX509CertificateRequestPkcs10 pkcs10 = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509CertificateRequestPkcs10", true)) as CX509CertificateRequestPkcs10;
-            CX509PrivateKey privateKey = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509PrivateKey", true)) as CX509PrivateKey;
+            CX509CertificateRequestPkcs10 pkcs10 = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509CertificateRequestPkcs10", true)) as CX509CertificateRequestPkcs10
+                ?? throw new InvalidOperationException("Unable to create CX509CertificateRequestPkcs10 enrollment object.");
+            CX509PrivateKey privateKey = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509PrivateKey", true)) as CX509PrivateKey
+                ?? throw new InvalidOperationException("Unable to create CX509PrivateKey enrollment object.");
             CCspInformation csp = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CCspInformation", true)) as CCspInformation;
             CCspInformations csPs = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CCspInformations", true)) as CCspInformations;
             CX500DistinguishedName dn = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX500DistinguishedName", true)) as CX500DistinguishedName;
-            CX509Enrollment enroll = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509Enrollment", true)) as CX509Enrollment;
+            CX509Enrollment enroll = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509Enrollment", true)) as CX509Enrollment
+                ?? throw new InvalidOperationException("Unable to create CX509Enrollment enrollment object.");
             CObjectIds objectIds = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CObjectIds", true)) as CObjectIds;
             CObjectId objectId = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CObjectId", true)) as CObjectId;
             CX509ExtensionKeyUsage extensionKeyUsage = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509ExtensionKeyUsage", true)) as CX509ExtensionKeyUsage;
@@ -52,12 +55,12 @@ namespace FuseCP.Providers.Web.Iis
 			try
 			{
 				//  Initialize the csp object using the desired Cryptograhic Service Provider (CSP)
-				csp!.InitializeFromName("Microsoft RSA SChannel Cryptographic Provider");
+                csp!.InitializeFromName("Microsoft RSA SChannel Cryptographic Provider");
 				//  Add this CSP object to the CSP collection object
 				csPs!.Add(csp);
 
 				//  Provide key container name, key length and key spec to the private key object
-				privateKey!.Length = cert.CSRLength;
+                privateKey.Length = cert.CSRLength;
 				privateKey.KeySpec = X509KeySpec.XCN_AT_KEYEXCHANGE;
 				privateKey.KeyUsage = X509PrivateKeyUsageFlags.XCN_NCRYPT_ALLOW_ALL_USAGES;
 				privateKey.ExportPolicy =
@@ -77,11 +80,11 @@ namespace FuseCP.Providers.Web.Iis
 				//  Initialize the PKCS#10 certificate request object based on the private key.
 				//  Using the context, indicate that this is a user certificate request and don't
 				//  provide a template name
-				pkcs10!.InitializeFromPrivateKey(X509CertificateEnrollmentContext.ContextMachine, privateKey, "");
+                pkcs10.InitializeFromPrivateKey(X509CertificateEnrollmentContext.ContextMachine, privateKey, "");
 
 				cert.PrivateKey = privateKey.ToString();
 				// Key Usage Extension 
-				extensionKeyUsage!.InitializeEncode(
+                extensionKeyUsage!.InitializeEncode(
 					CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_DIGITAL_SIGNATURE_KEY_USAGE |
                     CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_NON_REPUDIATION_KEY_USAGE |
                     CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_KEY_ENCIPHERMENT_KEY_USAGE |
@@ -99,7 +102,7 @@ namespace FuseCP.Providers.Web.Iis
 
 				//  Encode the name in using the Distinguished Name object
 				string request = String.Format(@"CN={0}, O={1}, OU={2}, L={3}, S={4}, C={5}", cert.Hostname, cert.Organisation, cert.OrganisationUnit, cert.City, cert.State, cert.Country);
-				dn!.Encode(request, X500NameFlags.XCN_CERT_NAME_STR_NONE);
+                dn!.Encode(request, X500NameFlags.XCN_CERT_NAME_STR_NONE);
 
                 // enable SMIME capabilities
                 pkcs10.SmimeCapabilities = true;
@@ -108,9 +111,9 @@ namespace FuseCP.Providers.Web.Iis
 				pkcs10.Subject = dn;
 
 				// Create enrollment request
-				enroll!.InitializeFromRequest(pkcs10);
+                enroll.InitializeFromRequest(pkcs10);
 
-				enroll.CertificateFriendlyName = cert.FriendlyName;
+                enroll.CertificateFriendlyName = cert.FriendlyName;
 
 				cert.CSR = enroll.CreateRequest(EncodingType.XCN_CRYPT_STRING_BASE64REQUESTHEADER);
 
@@ -123,11 +126,12 @@ namespace FuseCP.Providers.Web.Iis
 
 		public SSLCertificate InstallCertificate(SSLCertificate cert, WebSite website)
 		{
-            CX509Enrollment response = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509Enrollment", true)) as CX509Enrollment;
+            CX509Enrollment response = Activator.CreateInstance(Type.GetTypeFromProgID("X509Enrollment.CX509Enrollment", true)) as CX509Enrollment
+                ?? throw new InvalidOperationException("Unable to create CX509Enrollment response object.");
 			try
 			{
 
-				response!.Initialize(X509CertificateEnrollmentContext.ContextMachine);
+                response.Initialize(X509CertificateEnrollmentContext.ContextMachine);
 				response.InstallResponse(
 					InstallResponseRestrictionFlags.AllowUntrustedRoot,
 					cert.Certificate, EncodingType.XCN_CRYPT_STRING_BASE64HEADER,

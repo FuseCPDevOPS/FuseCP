@@ -269,48 +269,39 @@ namespace FuseCP.Providers.Virtualization
                 CimMethodParameter.Create("CommandLine", command, Microsoft.Management.Infrastructure.CimType.String, CimFlags.In)
             };
             
-            CimMethodResult createResult = null;
+            using var createResult = await Task.Run(() => _miCim.InvokeStaticMethod("Win32_Process", "Create", methodParams));
 
-            try
+            // run process
+            uint returnValue = (uint)createResult.ReturnValue.Value;
+            if (returnValue != 0)
             {
-                // run process
-                createResult = await Task.Run(() => _miCim.InvokeStaticMethod("Win32_Process", "Create", methodParams));
-
-                uint returnValue = (uint)createResult.ReturnValue.Value;
-                if (returnValue != 0)
-                {
-                    throw new InvalidOperationException($"Failed to create remote process. Win32_Process.Create returned error code: {returnValue}.");
-                }
-
-                uint processId = (uint)createResult.OutParameters["ProcessId"].Value;
-                if (processId == 0)
-                {
-                    throw new InvalidOperationException("Win32_Process.Create executed successfully, but did not return a process identifier (ProcessId).");
-                }
-
-                // wait until finished (CIM has no event watcher so we will use polling)
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                while (stopwatch.Elapsed < effectiveTimeout)
-                {
-                    using (var processInstance = await Task.Run(() => _miCim.GetCimInstance("Win32_Process", "ProcessId = {0}", processId)))
-                    {
-                        if (processInstance == null)
-                        {
-                            return true; // successfully finished
-                        }
-                    }
-
-                    await Task.Delay(1000);
-                }
-
-                if (terminateTimeoutProcess)
-                {
-                    await TryTerminateProcessAsync(processId);
-                }
+                throw new InvalidOperationException($"Failed to create remote process. Win32_Process.Create returned error code: {returnValue}.");
             }
-            finally
+
+            uint processId = (uint)createResult.OutParameters["ProcessId"].Value;
+            if (processId == 0)
             {
-                createResult?.Dispose();
+                throw new InvalidOperationException("Win32_Process.Create executed successfully, but did not return a process identifier (ProcessId).");
+            }
+
+            // wait until finished (CIM has no event watcher so we will use polling)
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            while (stopwatch.Elapsed < effectiveTimeout)
+            {
+                using (var processInstance = await Task.Run(() => _miCim.GetCimInstance("Win32_Process", "ProcessId = {0}", processId)))
+                {
+                    if (processInstance == null)
+                    {
+                        return true; // successfully finished
+                    }
+                }
+
+                await Task.Delay(1000);
+            }
+
+            if (terminateTimeoutProcess)
+            {
+                await TryTerminateProcessAsync(processId);
             }
 
             return false; // process did not finish in time
@@ -318,22 +309,15 @@ namespace FuseCP.Providers.Virtualization
 
         private async Task TryTerminateProcessAsync(uint processId)
         {
-            CimInstance processToKill = null;
-            CimMethodResult terminateResult = null;
             try
             {
-                processToKill = await Task.Run(() => _miCim.GetCimInstance("Win32_Process", "ProcessId = {0}", processId));
+                using var processToKill = await Task.Run(() => _miCim.GetCimInstance("Win32_Process", "ProcessId = {0}", processId));
                 if (processToKill != null)
                 {
-                    terminateResult = await Task.Run(() => _miCim.InvokeMethod(processToKill, "Terminate"));
+                    using var terminateResult = await Task.Run(() => _miCim.InvokeMethod(processToKill, "Terminate"));
                 }
             }
             catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
-            finally
-            {
-                processToKill?.Dispose();
-                terminateResult?.Dispose();
-            }
         }
     }
 }

@@ -6136,15 +6136,13 @@ namespace FuseCP.EnterpriseServer
 					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					/// <summary>TODO</summary>
 					IQueryable<Data.Entities.Domain> domainsFiltered;
 					if (!recursive) domainsFiltered = Domains.Where(d => d.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						domainsFiltered = Domains
 							.Join(childPackages, d => d.PackageId, ch => ch, (d, ch) => d);
 					}
@@ -6214,10 +6212,6 @@ namespace FuseCP.EnterpriseServer
 
 					/// <summary>TODO</summary>
 					return EntityDataSet(count, domains);
-				}
-				finally
-				{
-					childPackages?.Dispose();
 				}
 			}
 			else
@@ -7389,13 +7383,11 @@ namespace FuseCP.EnterpriseServer
 
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.ServiceItem> serviceItems;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) serviceItems = ServiceItems.Where(si => si.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						serviceItems = ServiceItems.Join(childPackages, si => si.PackageId, ch => ch, (p, ch) => p);
 					}
 					var items = serviceItems
@@ -7504,10 +7496,6 @@ namespace FuseCP.EnterpriseServer
 
 					/// <summary>TODO</summary>
 					return EntityDataSet(count, items, properties);
-				}
-				finally
-				{
-					childPackages?.Dispose();
 				}
 			}
 			else
@@ -10531,13 +10519,11 @@ namespace FuseCP.EnterpriseServer
 
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packagesFiltered;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) packagesFiltered = Packages.Where(p => p.ParentPackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						packagesFiltered = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					}
 
@@ -10582,10 +10568,6 @@ namespace FuseCP.EnterpriseServer
 						});
 					/// <summary>TODO</summary>
 					return EntityDataSet(packages);
-				}
-				finally
-				{
-					childPackages?.Dispose();
 				}
 			}
 			else
@@ -12591,14 +12573,12 @@ namespace FuseCP.EnterpriseServer
 
 				var isAdmin = Users.Any(u => u.UserId == actorId && u.RoleId == 1);
 
-				TempIdSet childUsers = null;
-				try
+				using TempIdSet childUsers = packageId == 0 ? UserChildren(userId) : null;
 				{
 					IQueryable<Data.Entities.AuditLog> logs = AuditLogs;
 
 					if (packageId == 0)
 					{
-						childUsers = UserChildren(userId);
 						logs = logs
 							.Join(childUsers, l => l.UserId, u => u, (l, u) => l);
 						if (isAdmin) logs = logs.Concat(AuditLogs.Where(l => l.UserId == null));
@@ -12666,10 +12646,6 @@ namespace FuseCP.EnterpriseServer
 						});
 					/// <summary>TODO</summary>
 					return EntityDataSet(count, logsWithUser);
-				}
-				finally
-				{
-					childUsers?.Dispose();
 				}
 			}
 			else
@@ -18284,13 +18260,11 @@ namespace FuseCP.EnterpriseServer
 					});
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					}
 
@@ -18356,10 +18330,6 @@ namespace FuseCP.EnterpriseServer
 					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
-				finally
-				{
-					childPackages?.Dispose();
-				}
 			}
 			else
 			{
@@ -18406,13 +18376,11 @@ namespace FuseCP.EnterpriseServer
 					});
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					}
 					var items = packages
@@ -18492,10 +18460,6 @@ namespace FuseCP.EnterpriseServer
 					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
-				finally
-				{
-					childPackages?.Dispose();
-				}
 			}
 			else
 			{
@@ -18542,13 +18506,11 @@ namespace FuseCP.EnterpriseServer
 					});
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					}
 					var items = packages
@@ -18612,10 +18574,6 @@ namespace FuseCP.EnterpriseServer
 					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
 				}
-				finally
-				{
-					childPackages?.Dispose();
-				}
 			}
 			else
 			{
@@ -18662,13 +18620,11 @@ namespace FuseCP.EnterpriseServer
 					});
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.Package> packages;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					}
 
@@ -18733,10 +18689,6 @@ namespace FuseCP.EnterpriseServer
 
 					/// <summary>TODO</summary>
 					return EntityDataReader(count, items);
-				}
-				finally
-				{
-					childPackages?.Dispose();
 				}
 			}
 			else
@@ -18949,13 +18901,11 @@ namespace FuseCP.EnterpriseServer
 			{
 				/// <summary>TODO</summary>
 				IQueryable<Data.Entities.PackageIpAddress> addressesFiltered;
-				TempIdSet childPackages = null;
-				try
+				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
 					if (!recursive) addressesFiltered = PackageIpAddresses.Where(pa => pa.PackageId == packageId);
 					else
 					{
-						childPackages = PackagesTree(packageId, true);
 						addressesFiltered = PackageIpAddresses.Join(childPackages, pa => pa.PackageId, ch => ch, (pa, ch) => pa);
 					}
 
@@ -19012,10 +18962,6 @@ namespace FuseCP.EnterpriseServer
 					addresses = addresses.Skip(startRow).Take(maximumRows);
 					/// <summary>TODO</summary>
 					return EntityDataReader(count, addresses);
-				}
-				finally
-				{
-					childPackages?.Dispose();
 				}
 			}
 			else

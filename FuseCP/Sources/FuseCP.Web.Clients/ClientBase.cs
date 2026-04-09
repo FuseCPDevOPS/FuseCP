@@ -614,7 +614,11 @@ namespace FuseCP.Web.Clients
 							binding = GetNamedPipeBinding(true);
 							break;
 					}
-					binding!.ReceiveTimeout = Timeout ?? ReceiveTimeout;
+					if (binding == null)
+					{
+						throw new NotSupportedException($"Unsupported protocol '{Protocol}' for service client '{typeof(T).FullName}'.");
+					}
+					binding.ReceiveTimeout = Timeout ?? ReceiveTimeout;
 					binding.SendTimeout = Timeout ?? SendTimeout;
 
 					var endpoint = new EndpointAddress(serviceurl);

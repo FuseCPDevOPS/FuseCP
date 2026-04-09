@@ -97,7 +97,13 @@ namespace FuseCP.Portal
                 if (PanelRequest.PackageAddonID == 0)
                     return;
 
-                Utils.SelectListItem(ddlPlan, addon!.PlanId);
+                if (addon == null)
+                {
+                    RedirectBack();
+                    return;
+                }
+
+                Utils.SelectListItem(ddlPlan, addon.PlanId);
 
                 txtComments.Text = addon.Comments;
 

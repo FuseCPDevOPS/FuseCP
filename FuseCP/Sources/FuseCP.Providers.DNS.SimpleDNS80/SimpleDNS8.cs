@@ -86,7 +86,7 @@ namespace FuseCP.Providers.DNS
             if (string.IsNullOrWhiteSpace(endpoint))
                 throw new ArgumentNullException(nameof(endpoint));
             //Get the client to work with
-            var client = GetApiClient();
+            using var client = GetApiClient();
             //Try to get the response from the API and handle possible exceptions
             try
             {
@@ -126,11 +126,6 @@ namespace FuseCP.Providers.DNS
                 Log.WriteError("SimpleDNS 8 API Call (GET) - An unhandled exception occured.", ex);
                 return null;
             }
-            finally
-            {
-                //Dispose of the HttpClient
-                client.Dispose();
-            }
         }
 
         /// <summary>
@@ -148,7 +143,7 @@ namespace FuseCP.Providers.DNS
                 throw new ArgumentNullException(nameof(jsonBody));
 
             //Get the client to work with
-            var client = GetApiClient();
+            using var client = GetApiClient();
             //Try to get the response from the API and handle possible exceptions
             try
             {
@@ -190,11 +185,6 @@ namespace FuseCP.Providers.DNS
                 Log.WriteError("SimpleDNS 8 API Call (PUT) - An unhandled exception occured.", ex);
                 return null;
             }
-            finally
-            {
-                //Dispose of the HttpClient
-                client.Dispose();
-            }
         }
 
         /// <summary>
@@ -209,7 +199,7 @@ namespace FuseCP.Providers.DNS
                 throw new ArgumentNullException(nameof(endpoint));
 
             //Get the client to work with
-            var client = GetApiClient();
+            using var client = GetApiClient();
             //Try to get the response from the API and handle possible exceptions
             try
             {
@@ -249,11 +239,6 @@ namespace FuseCP.Providers.DNS
                 Log.WriteError("SimpleDNS 8 API Call (DELETE) - An unhandled exception occured.", ex);
                 return null;
             }
-            finally
-            {
-                //Dispose of the HttpClient
-                client.Dispose();
-            }
         }
 
         /// <summary>
@@ -271,7 +256,7 @@ namespace FuseCP.Providers.DNS
                 throw new ArgumentNullException(nameof(jsonBody));
 
             //Get the client to work with
-            var client = GetApiClient();
+            using var client = GetApiClient();
             //Try to get the response from the API and handle possible exceptions
             try
             {
@@ -312,11 +297,6 @@ namespace FuseCP.Providers.DNS
                 //Handle error and return null
                 Log.WriteError("SimpleDNS 8 API Call (PATCH) - An unhandled exception occured.", ex);
                 return null;
-            }
-            finally
-            {
-                //Dispose of the HttpClient
-                client.Dispose();
             }
         }
 

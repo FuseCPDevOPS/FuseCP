@@ -659,7 +659,7 @@ namespace FuseCP.Server.Utils
             l = r1 << 2;
             output[p++] = ascii64[(l >> 12) & 0x3f];
             output[p++] = ascii64[(l >> 6) & 0x3f];
-            output[p++] = ascii64[l & 0x3f];
+            output[p] = ascii64[l & 0x3f];
 
             return System.Text.ASCIIEncoding.ASCII.GetString(output);
         }

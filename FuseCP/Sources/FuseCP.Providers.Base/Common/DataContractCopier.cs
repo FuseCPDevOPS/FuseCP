@@ -95,7 +95,7 @@ namespace FuseCP.Providers
                     return arrayCopy;
                 }
             }
-            var mem = new ChunkedMemoryStream(BufferPool);
+            using var mem = new ChunkedMemoryStream(BufferPool);
             try
             {
                 var writer = XmlDictionaryWriter.CreateBinaryWriter(mem);
@@ -120,10 +120,6 @@ namespace FuseCP.Providers
                 // Some framework collection types (for example NameValueCollection in object graphs)
                 // cannot round-trip via DataContractSerializer in net10 paths.
                 return src;
-            }
-            finally
-            {
-                mem.Dispose();
             }
         }
     }

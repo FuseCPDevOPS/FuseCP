@@ -34,8 +34,9 @@ namespace FuseCP.Providers.OS
         {
             get
             {
-                var clone = Activator.CreateInstance(GetType()) as SyslogTraceListener;
-                clone!.IsClone = true;
+                var clone = Activator.CreateInstance(GetType()) as SyslogTraceListener
+                    ?? throw new InvalidOperationException($"Unable to create trace listener clone for {GetType().FullName}.");
+                clone.IsClone = true;
                 clone.serializer = serializer;
                 clone.sender = sender;
                 clone.Severity = Severity;

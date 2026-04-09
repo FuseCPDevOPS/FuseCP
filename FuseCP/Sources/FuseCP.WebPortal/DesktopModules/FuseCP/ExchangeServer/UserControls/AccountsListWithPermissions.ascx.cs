@@ -306,7 +306,12 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 HiddenField PermissionLabel = (HiddenField)e.Row.FindControl("PermissionLabel");
 
                 ExchangeAccount dRow = e.Row.DataItem as ExchangeAccount;
-                ListItem itm = new ListItem(dRow!.PublicFolderPermission, dRow.PublicFolderPermission);
+				if (dRow == null)
+				{
+					return;
+				}
+
+				ListItem itm = new ListItem(dRow.PublicFolderPermission, dRow.PublicFolderPermission);
 
                 if (ddlPermissions.Items.Contains(itm))
                 {

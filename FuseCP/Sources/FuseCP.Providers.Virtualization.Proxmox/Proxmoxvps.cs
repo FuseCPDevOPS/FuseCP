@@ -877,6 +877,10 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             var vnc = Api.Nodes[vm.Node].Qemu[vm.Id].Vncproxy.Vncproxy(true, true).Result;
             var dic = vnc.ResponseToDictionary;
             var data = dic["data"] as IDictionary<string, object>;
+            if (data == null)
+            {
+                throw new InvalidOperationException("Proxmox VNC proxy response did not contain a valid data payload.");
+            }
             var ticket = data!["ticket"] as string;
             var password = data["password"] as string;
             var port = int.Parse(data["port"] as string);

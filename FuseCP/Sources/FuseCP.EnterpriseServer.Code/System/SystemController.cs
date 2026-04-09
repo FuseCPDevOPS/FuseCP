@@ -55,33 +55,19 @@ namespace FuseCP.EnterpriseServer
 		{
 			// create settings object
 			SystemSettings settings = new SystemSettings();
-			
+
 			// get service settings
-			IDataReader reader = null;
+			using IDataReader reader = Database.GetSystemSettings(settingsName);
 
-			try
+			while (reader.Read())
 			{
-				// get service settings
-				reader = Database.GetSystemSettings(settingsName);
+				string name = (string)reader["PropertyName"];
+				string val = (string)reader["PropertyValue"];
 
-				while (reader.Read())
-				{
-					string name = (string)reader["PropertyName"];
-					string val = (string)reader["PropertyValue"];
+				if (name.ToLower().IndexOf("password") != -1 && decryptPassword)
+					val = CryptoUtils.Decrypt(val);
 
-					if (name.ToLower().IndexOf("password") != -1 && decryptPassword)
-						val = CryptoUtils.Decrypt(val);
-
-					settings[name] = val;
-				}
-			}
-			finally
-			{
-				if (reader != null)
-				{
-					if (!reader.IsClosed) reader.Close();
-					reader.Dispose();
-				}
+				settings[name] = val;
 			}
 
 			return settings;

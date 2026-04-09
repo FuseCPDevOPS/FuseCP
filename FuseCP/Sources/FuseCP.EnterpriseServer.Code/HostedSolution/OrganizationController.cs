@@ -2992,13 +2992,13 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-            if (!settings.ContainsKey(UseStorageSpaces)
-                || string.IsNullOrEmpty(settings[UseStorageSpaces]))
+            var useStorageSpaces = settings[UseStorageSpaces];
+            if (string.IsNullOrEmpty(useStorageSpaces))
             {
                 return false;
             }
 
-            return Convert.ToBoolean(settings[UseStorageSpaces]);
+            return Convert.ToBoolean(useStorageSpaces);
         }
 
         private bool CheckScheduleTaskRun(int packageId, string taskId)

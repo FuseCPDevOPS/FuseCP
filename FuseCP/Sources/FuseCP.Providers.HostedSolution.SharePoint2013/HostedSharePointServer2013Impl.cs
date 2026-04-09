@@ -659,10 +659,11 @@ namespace FuseCP.Providers.HostedSolution
             HostedSolutionLog.LogStart("ExecuteShellCommand");
             var errorList = new List<object>();
             Collection<PSObject> results;
+            var scriptList = scripts ?? new List<string>();
 
             using (Pipeline pipeLine = runspace.CreatePipeline())
             {
-                foreach (string script in scripts!)
+                foreach (string script in scriptList)
                 {
                     pipeLine.Commands.AddScript(script);
                 }
@@ -677,7 +678,7 @@ namespace FuseCP.Providers.HostedSolution
                         string errorMessage = string.Format("Invoke error: {0}", item);
                         HostedSolutionLog.LogWarning(errorMessage);
 
-                        throw new ArgumentException(scripts.First());
+                        throw new ArgumentException(scriptList.FirstOrDefault() ?? "No script provided.");
                     }
                 }
             }

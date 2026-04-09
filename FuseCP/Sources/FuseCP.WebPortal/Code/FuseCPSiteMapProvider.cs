@@ -113,13 +113,8 @@ namespace FuseCP.WebPortal
             if (parentPage != null)
             {
                 // fill collection
-                foreach (PortalPage page in parentPage.Pages)
+                foreach (PortalPage page in parentPage.Pages.Where(page => !page.Hidden))
                 {
-                    if (page.Hidden)
-                    {
-                        continue;
-                    }
-
                     SiteMapNode childNode = CreateNodeFromPage(page);
                     if (childNode != null)
                     {
@@ -132,18 +127,13 @@ namespace FuseCP.WebPortal
                 // check if this is a root node
                 if (node.Key == ROOT_NODE_KEY)
                 {
-                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values)
+                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values.Where(page => page.ParentPage == null && !page.Hidden))
                     {
-                            if (page.ParentPage != null || page.Hidden)
-                            {
-                                continue;
-                            }
-
-                            SiteMapNode childNode = CreateNodeFromPage(page);
-                            if (childNode != null)
-                            {
+                        SiteMapNode childNode = CreateNodeFromPage(page);
+                        if (childNode != null)
+                        {
                             children.Add(childNode);
-                            }
+                        }
                     }
                 }
             }

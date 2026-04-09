@@ -302,16 +302,15 @@ namespace FuseCP.EnterpriseServer
 
             var userGroups = OrganizationController.GetSecurityGroupsByMember(account.ItemId, account.AccountId);
 
-            foreach (var folder in GetFolders(account.ItemId))
-            {
-                if (GetFolderPermission(account.ItemId, folder.Name).Any(permission =>
+            var folderWithAccess = GetFolders(account.ItemId).FirstOrDefault(folder =>
+                GetFolderPermission(account.ItemId, folder.Name).Any(permission =>
                     (!permission.IsGroup
                         && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
-                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
-                {
-                    rootFolders.Add(folder);
-                    break;
-                }
+                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))));
+
+            if (folderWithAccess != null)
+            {
+                rootFolders.Add(folderWithAccess);
             }
 
             return rootFolders;
@@ -696,16 +695,11 @@ namespace FuseCP.EnterpriseServer
 
                 var userGroups = OrganizationController.GetSecurityGroupsByMember(itemId, accountId);
 
-                foreach (var folder in es.GetFoldersWithoutFrsm(org.OrganizationId, webDavSettings))
-                {
-                    if (ConvertToESPermission(itemId, folder.Rules).Any(permission =>
+                rootFolders.AddRange(es.GetFoldersWithoutFrsm(org.OrganizationId, webDavSettings).Where(folder =>
+                    ConvertToESPermission(itemId, folder.Rules).Any(permission =>
                         (!permission.IsGroup
                             && (permission.DisplayName == userName || permission.DisplayName == displayName))
-                        || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))))
-                    {
-                        rootFolders.Add(folder);
-                    }
-                }
+                        || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName)))));
 
                 return rootFolders.ToArray();
             }
@@ -2574,13 +2568,13 @@ namespace FuseCP.EnterpriseServer
                 return false;
             }
 
-            if (!settings.ContainsKey(UseStorageSpaces)
-                || string.IsNullOrEmpty(settings[UseStorageSpaces]))
+            var useStorageSpaces = settings[UseStorageSpaces];
+            if (string.IsNullOrEmpty(useStorageSpaces))
             {
                 return false;
             }
 
-            return Convert.ToBoolean(settings[UseStorageSpaces]);
+            return Convert.ToBoolean(useStorageSpaces);
         }
     }
 }

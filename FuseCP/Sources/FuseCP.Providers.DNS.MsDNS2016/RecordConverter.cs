@@ -28,7 +28,7 @@ namespace FuseCP.Providers.DNS
     {
         internal static string RemoveTrailingDot(string str)
         {
-            if (!str!.EndsWith("."))
+            if (string.IsNullOrEmpty(str) || !str.EndsWith("."))
                 return str;
             return str.Substring(0, str.Length - 1);
         }

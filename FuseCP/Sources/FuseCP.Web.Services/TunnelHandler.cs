@@ -42,19 +42,19 @@ namespace FuseCP.Web.Services
 
         public async Task Transmit(TunnelSocket listener, TunnelSocket destination)
         {
-            try
+            using (destination)
             {
-                await listener.ProvideUpgradeTunnelSocketAsync(destination);
-                await listener.Transmit(destination);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                if (listener.IsConnected) await listener.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
-                if (destination.IsConnected) await destination.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
-                throw new IOException(ex.Message, ex);
-            } finally
-            {
-                destination.Dispose();
+                try
+                {
+                    await listener.ProvideUpgradeTunnelSocketAsync(destination);
+                    await listener.Transmit(destination);
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    if (listener.IsConnected) await listener.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
+                    if (destination.IsConnected) await destination.CloseAsync(WebSocketCloseStatus.InternalServerError, ex.StackTrace);
+                    throw new IOException(ex.Message, ex);
+                }
             }
         }
 

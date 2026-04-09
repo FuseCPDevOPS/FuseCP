@@ -82,12 +82,10 @@ namespace FuseCP.Portal
             user.Name = usernameControl.Text;
             user.Password = passwordControl.Password;
 
-            List<string> groups = new List<string>();
-            foreach (ListItem li in dlGroups.Items)
-                if (li.Selected)
-                    groups.Add(li.Value);
-
-            user.Groups = groups.ToArray();
+            user.Groups = dlGroups.Items.Cast<ListItem>()
+                .Where(li => li.Selected)
+                .Select(li => li.Value)
+                .ToArray();
 
             try
             {

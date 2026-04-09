@@ -37,10 +37,9 @@ namespace FuseCP.Providers.Utils.LogParser
 			if(!File.Exists(siteFileName))
 				return;
 
-		    StreamReader reader = null;
 			try
 			{
-				reader = new StreamReader(siteFileName);
+				using StreamReader reader = new StreamReader(siteFileName);
 				string s = null;
 
 				// last accesses time
@@ -51,20 +50,11 @@ namespace FuseCP.Providers.Utils.LogParser
 				if((s = reader.ReadLine()) != null)
 					line = Int64.Parse(s.Trim());
 
-				reader.Close();
-                
+
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
                 Log.WriteError(ex);
-
-			}
-            finally
-			{
-			    if (reader != null)
-			    {
-			        reader.Dispose();
-			    }
 			}
 		}
 

@@ -80,12 +80,10 @@ namespace FuseCP.Portal
             WebGroup group = new WebGroup();
             group.Name = usernameControl.Text;
 
-            List<string> users = new List<string>();
-            foreach (ListItem li in dlUsers.Items)
-                if (li.Selected)
-                    users.Add(li.Value);
-
-            group.Users = users.ToArray();
+            group.Users = dlUsers.Items.Cast<ListItem>()
+                .Where(li => li.Selected)
+                .Select(li => li.Value)
+                .ToArray();
 
             try
             {
