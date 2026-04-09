@@ -96,7 +96,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                     foreach (NetworkAdapterIPAddress ip in nicLan.IPAddresses)
                     {
                         ipLanAddressesID.Add(ip.AddressId);
-                        privIps[i] = ip.IPAddress;
+                        privIps![i] = ip.IPAddress;
                         i++;
                     }
                 }
@@ -115,7 +115,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                     foreach (NetworkAdapterIPAddress ip in nicDmz.IPAddresses)
                     {
                         ipDmzAddressesID.Add(ip.AddressId);
-                        dmzIps[i] = ip.IPAddress;
+                        dmzIps![i] = ip.IPAddress;
                         i++;
                     }
                 }

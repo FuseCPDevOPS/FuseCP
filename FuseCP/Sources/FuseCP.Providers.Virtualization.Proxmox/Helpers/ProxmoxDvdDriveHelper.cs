@@ -37,7 +37,7 @@ namespace FuseCP.Providers.Virtualization
             var result = client.VMConfig(vmId);
 
             //vmconfig
-            JToken vmconfigjsonResponse = JToken.Parse(result.Content);
+            JToken vmconfigjsonResponse = JToken.Parse(result!.Content);
             JObject vmconfigconfigvalue = (JObject)vmconfigjsonResponse["data"];
 
             if (result != null)

@@ -187,7 +187,7 @@ namespace FuseCP.Providers.HostedSolution
 
 			Process proc = Process.Start(startInfo);
 
-			StreamWriter inputWriter = proc.StandardInput;
+			StreamWriter inputWriter = proc!.StandardInput;
 			inputWriter.WriteLine(EnterpriseServer);
 			inputWriter.Flush();
 			inputWriter.Close();

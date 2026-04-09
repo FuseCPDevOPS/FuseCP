@@ -981,7 +981,7 @@ LOG ON(
 						csb.TryGetValue("data source", out serverValue);
 					}
 					server = serverValue as string;
-					var localDb = server.ToLower().Contains("localdb");
+					var localDb = server!.ToLower().Contains("localdb");
 
 					if (localDb)
 					{
@@ -1721,7 +1721,7 @@ SELECT DatabaseVersion FROM Version");
 							// must use the same model shape to avoid false pending-model-changes errors.
 							using (var context = Activator.CreateInstance(contextType, new object[] { sqliteConnectionString, true }) as IMigratableDbContext)
 							{
-								context.Migrate();
+								context!.Migrate();
 							}
 						}
 						else throw new NotSupportedException("Upgrade SQLIte database must run on .NET Core.");

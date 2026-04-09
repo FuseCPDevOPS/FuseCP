@@ -110,7 +110,7 @@ namespace FuseCP.Providers.OS
             var sshhostip = DnsService.GetFirstIPAddress(Uri.DnsSafeHost);
             if (Uri.RemoteForwardHost == null)
             {
-                if (sshhostip.AddressFamily == AddressFamily.InterNetwork)
+                if (sshhostip!.AddressFamily == AddressFamily.InterNetwork)
                 {
                     remotehost = IPAddress.Loopback.ToString();
                     Loopback = IPAddress.Loopback;

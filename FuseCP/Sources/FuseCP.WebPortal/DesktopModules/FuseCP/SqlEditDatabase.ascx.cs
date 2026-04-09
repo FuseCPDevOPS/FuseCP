@@ -58,7 +58,7 @@ namespace FuseCP.Portal
 						else
 						{
 							Response.Clear();
-							Response.Write(config.PostData);
+							Response.Write(config!.PostData);
 							Response.End();
 						}
 					}

@@ -720,7 +720,7 @@ namespace FuseCP.EnterpriseServer
                         result.AddError("", new NullReferenceException("Organization not found"));
                     }
 
-                    var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org.PackageId));
+                    var rds = RemoteDesktopServicesHelpers.GetRemoteDesktopServices(RemoteDesktopServicesHelpers.GetRemoteDesktopServiceID(org!.PackageId));
 
                     rds.GetCollection(collection.Name);// ???
                 }

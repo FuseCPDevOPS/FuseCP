@@ -100,7 +100,7 @@ var _saveAs = (function(view) {
 				var listener = filesaver["on" + event_types[i]];
 				if (typeof listener === "function") {
 					try {
-						listener.call(filesaver, event || filesaver);
+						listener.call(filesaver, false || filesaver);
 					} catch (ex) {
 						throw_outside(ex);
 					}

@@ -95,7 +95,7 @@ namespace FuseCP.Portal.UserControls
             {
                 // checkbox
                 CheckBox chkSelect = e.Row.FindControl("chkSelect") as CheckBox;
-                chkSelect.Enabled = (!spaceOwner || (PanelSecurity.PackageId != item.PackageId));
+                chkSelect!.Enabled = (!spaceOwner || (PanelSecurity.PackageId != item.PackageId));
             }
         }
 

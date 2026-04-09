@@ -82,7 +82,7 @@ namespace FuseCP.Portal
             }
 
             // set display preferences
-            gvFiles.PageSize = UsersHelper.GetDisplayItemsPerPage();
+            gvFiles!.PageSize = UsersHelper.GetDisplayItemsPerPage();
             if (!IsPostBack)
             {
                 BindPath();

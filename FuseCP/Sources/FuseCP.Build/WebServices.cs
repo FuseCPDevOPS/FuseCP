@@ -264,7 +264,7 @@ namespace FuseCP.Build
 				var service = ParseMemberDeclaration(
 					new ServiceClass()
 					{
-						OldNamespace = oldNS.Name.ToString(),
+						OldNamespace = oldNS!.Name.ToString(),
 						Class = ws.Class,
 						WebMethods = methods
 					}

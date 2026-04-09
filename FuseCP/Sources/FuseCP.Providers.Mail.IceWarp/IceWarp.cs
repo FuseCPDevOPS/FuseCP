@@ -1099,7 +1099,7 @@ namespace FuseCP.Providers.Mail
                 {
                     var forwardTo = GetForwardToAddressFromAccountObject(accountObject);
                     var aliases = GetAliasListFromAccountObject(accountObject) as IEnumerable<string>;
-                    aliasList.AddRange(aliases.Where(a => a + "@" + domainName != forwardTo).Select(alias => new MailAlias { Name = alias + "@" + domainName, ForwardTo = forwardTo }));
+                    aliasList.AddRange(aliases!.Where(a => a + "@" + domainName != forwardTo).Select(alias => new MailAlias { Name = alias + "@" + domainName, ForwardTo = forwardTo }));
                 }
 
                 accountObject.FindDone();

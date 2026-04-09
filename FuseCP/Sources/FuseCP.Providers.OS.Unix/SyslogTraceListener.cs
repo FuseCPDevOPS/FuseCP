@@ -35,7 +35,7 @@ namespace FuseCP.Providers.OS
             get
             {
                 var clone = Activator.CreateInstance(GetType()) as SyslogTraceListener;
-                clone.IsClone = true;
+                clone!.IsClone = true;
                 clone.serializer = serializer;
                 clone.sender = sender;
                 clone.Severity = Severity;
@@ -58,7 +58,7 @@ namespace FuseCP.Providers.OS
         {
             if (IsClone)
             {
-                var msg = new SyslogMessage(Severity.Value, SyslogAppName, message)
+                var msg = new SyslogMessage(Severity!.Value, SyslogAppName, message)
                 {
                     DateTimeOffset = DateTimeOffset.Now,
                     HostName = Environment.MachineName,

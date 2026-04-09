@@ -417,7 +417,7 @@ namespace CSSFriendly
                 string id = (rfv != null) ? container.ID + "_" + textBox.ID : "";
                 if (!String.IsNullOrEmpty(id))
                 {
-                    Page.ClientScript.RegisterForEventValidation(textBox.UniqueID);
+                    Page.ClientScript.RegisterForEventValidation(textBox!.UniqueID);
                     WebControlAdapterExtender.WriteBeginDiv(writer, "AspNet-PasswordRecovery-UserName-UserPanel");
                     Extender.WriteTextBox(writer, false, passwordRecovery.LabelStyle.CssClass, passwordRecovery.UserNameLabelText, passwordRecovery.TextBoxStyle.CssClass, id, passwordRecovery.UserName);
                     WebControlAdapterExtender.WriteRequiredFieldValidator(writer, rfv, passwordRecovery.ValidatorTextStyle.CssClass, "UserName", passwordRecovery.UserNameRequiredErrorMessage);
@@ -496,7 +496,7 @@ namespace CSSFriendly
             string id = (rfv != null) ? container.ID + "_" + textBox.ID : "";
             if (!String.IsNullOrEmpty(id))
             {
-                Page.ClientScript.RegisterForEventValidation(textBox.UniqueID);
+                Page.ClientScript.RegisterForEventValidation(textBox!.UniqueID);
 
                 WebControlAdapterExtender.WriteBeginDiv(writer, "AspNet-PasswordRecovery-AnswerPanel");
                 Extender.WriteTextBox(writer, false, passwordRecovery.LabelStyle.CssClass, passwordRecovery.AnswerLabelText, passwordRecovery.TextBoxStyle.CssClass, id, "");

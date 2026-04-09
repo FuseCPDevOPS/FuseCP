@@ -662,7 +662,7 @@ namespace FuseCP.Providers.HostedSolution
 
             using (Pipeline pipeLine = runspace.CreatePipeline())
             {
-                foreach (string script in scripts)
+                foreach (string script in scripts!)
                 {
                     pipeLine.Commands.AddScript(script);
                 }

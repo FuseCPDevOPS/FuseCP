@@ -1367,7 +1367,7 @@ namespace FuseCP.Providers.OS
         {
             var settings = provider.GetProviderDefaultSettings();
             var hosting = provider as HostingServiceProviderBase;
-            hosting.ProviderSettings = new ServiceProviderSettings();
+            hosting!.ProviderSettings = new ServiceProviderSettings();
             foreach (var setting in settings)
             {
                 hosting.ProviderSettings.Settings.Add(setting.Name, setting.Value);

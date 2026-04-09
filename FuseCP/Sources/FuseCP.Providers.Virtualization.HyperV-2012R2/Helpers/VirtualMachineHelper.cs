@@ -70,7 +70,7 @@ namespace FuseCP.Providers.Virtualization
             if (requestedInformation == null || requestedInformation.Length == 0) 
                 HostedSolutionLog.LogWarning("At least one SummaryInformationRequest must be provided.", nameof(requestedInformation));
 
-            uint[] reqif = new uint[requestedInformation.Length];
+            uint[] reqif = new uint[requestedInformation!.Length];
             for (int i = 0; i < requestedInformation.Length; i++)
                 reqif[i] = (uint)requestedInformation[i];
 

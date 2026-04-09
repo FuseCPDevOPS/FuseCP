@@ -519,7 +519,7 @@ TransferLimitType=never");
             }
             finally
             {
-                reader.Close();
+                reader!.Close();
             }
 
             return dict;
@@ -618,7 +618,7 @@ TransferLimitType=never");
             }
             finally
             {
-                reader.Close();
+                reader!.Close();
             }
             return content;
         }

@@ -81,7 +81,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS90.Models.Response
             switch (record.RecordType)
             {
                 case DnsRecordType.MX:
-                    if (!record.RecordData.EndsWith(".") && record.RecordData.Length > 0)
+                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0)
                     {
                         response.Data = $"{record.MxPriority} {record.RecordData}.";
                         break;
@@ -89,7 +89,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS90.Models.Response
                     response.Data = $"{record.MxPriority} {record.RecordData}";
                     break;
                 case DnsRecordType.SRV:
-                    if (!record.RecordData.EndsWith(".") && record.RecordData.Length > 0)
+                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0)
                     {
                         response.Data = $"{record.SrvPriority} {record.SrvWeight} {record.SrvPort} {record.RecordData}.";
                         break;
@@ -99,7 +99,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS90.Models.Response
                 case DnsRecordType.CNAME:
                 case DnsRecordType.NS:
                 case DnsRecordType.PTR:
-                    if (!record.RecordData.EndsWith(".") && record.RecordData.Length > 0) {
+                    if (!record.RecordData!.EndsWith(".") && record.RecordData.Length > 0) {
                         response.Data = $"{record.RecordData}.";
                         break;
                     }
@@ -107,7 +107,7 @@ namespace FuseCP.Providers.DNS.SimpleDNS90.Models.Response
                     break;
                 case DnsRecordType.TXT:
                 case DnsRecordType.CAA:
-                    if (!record.RecordData.StartsWith("\"") && record.RecordData.Length > 0)
+                    if (!record.RecordData!.StartsWith("\"") && record.RecordData.Length > 0)
                     {
                         response.Data = $"\"{record.RecordData}\"";
                         break;

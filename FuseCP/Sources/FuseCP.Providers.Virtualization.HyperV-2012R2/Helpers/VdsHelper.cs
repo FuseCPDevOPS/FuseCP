@@ -60,7 +60,7 @@ namespace FuseCP.Providers.Virtualization
 
             // find volume
             Volume diskVolume = null;
-            foreach (Volume volume in diskPack.Volumes)
+            foreach (Volume volume in diskPack!.Volumes)
             {
                 if (volume.DriveLetter.ToString() == volumeName)
                 {
@@ -212,7 +212,7 @@ namespace FuseCP.Providers.Virtualization
                 // find volumes using VDS
                 List<string> volumes = new List<string>();
                 HostedSolutionLog.LogInfo("Querying disk volumes with VDS");
-                foreach (Volume volume in diskPack.Volumes.Cast<Volume>().Where(volume => volume.DriveLetter.ToString() != ""))
+                foreach (Volume volume in diskPack!.Volumes.Cast<Volume>().Where(volume => volume.DriveLetter.ToString() != ""))
                 {
                     volumes.Add(volume.DriveLetter.ToString());
                 }

@@ -367,7 +367,7 @@ namespace FuseCP.Providers.OS
 			get
 			{
 				Shell clone = Activator.CreateInstance(GetType()) as Shell;
-				clone.Parent = this;
+				clone!.Parent = this;
 				clone.CreateNoWindow = this.CreateNoWindow;
 				clone.WindowStyle = this.WindowStyle;
 				clone.WorkingDirectory = this.WorkingDirectory;

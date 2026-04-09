@@ -297,7 +297,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         return int.TryParse(id, out parsed) ? (int?)parsed : null;
                     })
                     .Where(id => id.HasValue)
-                    .Select(id => id.Value)
+                    .Select(id => id!.Value)
                     .ToList();
             }
 

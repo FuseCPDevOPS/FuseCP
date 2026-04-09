@@ -47,7 +47,7 @@ namespace FuseCP.Portal.ExchangeServer
                 RedirectSpaceHomePage();
 
             // load user details
-            UserInfo user = ES.Services.Users.GetUserById(package.UserId);
+            UserInfo user = ES.Services.Users.GetUserById(package!.UserId);
             txtTo.Text = user.Email;
 
         }

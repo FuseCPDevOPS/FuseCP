@@ -50,7 +50,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             }
 
             string rootFolderPath = EvaluateItemVariables(rootFolderPattern, vm);
-            if (!rootFolderPath.EndsWith(vm.Name))  //we must be sure that Path ends with vm.Name (hostname)!
+            if (!rootFolderPath.EndsWith(vm.Name))  //we must be sure that Path ends with vm.Name hostname!
             {
                 rootFolderPath = Path.Join(rootFolderPath, vm.Name);
             }

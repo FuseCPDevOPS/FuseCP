@@ -60,7 +60,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
                 settings = ServerController.GetServiceSettings(serviceId);
             }
 
-            bool isMaintenanceMode = settings["MaintenanceMode"] == MAINTENANCE_MODE_EMABLED;
+            bool isMaintenanceMode = settings!["MaintenanceMode"] == MAINTENANCE_MODE_EMABLED;
 
             // Administrator ignore that rule
             return UserController.GetUserInternally(SecurityContext.User.UserId).Role != UserRole.Administrator && isMaintenanceMode;

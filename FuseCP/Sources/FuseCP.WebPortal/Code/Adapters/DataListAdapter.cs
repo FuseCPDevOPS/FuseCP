@@ -137,7 +137,7 @@ namespace CSSFriendly
                             writer.Write(HtmlTextWriter.TagRightChar);
 
                             LiteralControl literalControl = container.Controls[0] as LiteralControl;
-                            writer.Write(literalControl.Text.Trim());
+                            writer.Write(literalControl!.Text.Trim());
 
                             writer.WriteEndTag("caption");
                         }

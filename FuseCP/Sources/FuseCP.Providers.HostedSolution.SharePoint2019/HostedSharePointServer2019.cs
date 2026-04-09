@@ -274,7 +274,7 @@ namespace FuseCP.Providers.HostedSolution
                 return false;
             }
 
-            var spVal = (string)spKey.GetValue("SharePoint");
+            var spVal = (string)spKey!.GetValue("SharePoint");
 
             return (String.Compare(spVal, "installed", true) == 0);
         }

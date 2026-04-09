@@ -4193,7 +4193,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
                 // read web site
                 WebSite itemSite = item as WebSite;
-                string siteId = itemSite.SiteId;
+                string siteId = itemSite!.SiteId;
                 WebSite site = web.GetSite(siteId);
                 site.SiteId = itemSite.SiteId;
                 site.SiteIPAddressId = itemSite.SiteIPAddressId;

@@ -52,12 +52,12 @@ namespace FuseCP.Providers.Web.Iis
 			try
 			{
 				//  Initialize the csp object using the desired Cryptograhic Service Provider (CSP)
-				csp.InitializeFromName("Microsoft RSA SChannel Cryptographic Provider");
+				csp!.InitializeFromName("Microsoft RSA SChannel Cryptographic Provider");
 				//  Add this CSP object to the CSP collection object
-				csPs.Add(csp);
+				csPs!.Add(csp);
 
 				//  Provide key container name, key length and key spec to the private key object
-				privateKey.Length = cert.CSRLength;
+				privateKey!.Length = cert.CSRLength;
 				privateKey.KeySpec = X509KeySpec.XCN_AT_KEYEXCHANGE;
 				privateKey.KeyUsage = X509PrivateKeyUsageFlags.XCN_NCRYPT_ALLOW_ALL_USAGES;
 				privateKey.ExportPolicy =
@@ -77,11 +77,11 @@ namespace FuseCP.Providers.Web.Iis
 				//  Initialize the PKCS#10 certificate request object based on the private key.
 				//  Using the context, indicate that this is a user certificate request and don't
 				//  provide a template name
-				pkcs10.InitializeFromPrivateKey(X509CertificateEnrollmentContext.ContextMachine, privateKey, "");
+				pkcs10!.InitializeFromPrivateKey(X509CertificateEnrollmentContext.ContextMachine, privateKey, "");
 
 				cert.PrivateKey = privateKey.ToString();
 				// Key Usage Extension 
-				extensionKeyUsage.InitializeEncode(
+				extensionKeyUsage!.InitializeEncode(
 					CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_DIGITAL_SIGNATURE_KEY_USAGE |
                     CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_NON_REPUDIATION_KEY_USAGE |
                     CertEnrollInterop.X509KeyUsageFlags.XCN_CERT_KEY_ENCIPHERMENT_KEY_USAGE |
@@ -92,14 +92,14 @@ namespace FuseCP.Providers.Web.Iis
 
 				// Enhanced Key Usage Extension
 
-                objectId.InitializeFromName(CertEnrollInterop.CERTENROLL_OBJECTID.XCN_OID_PKIX_KP_SERVER_AUTH);
-				objectIds.Add(objectId);
-				x509ExtensionEnhancedKeyUsage.InitializeEncode(objectIds);
+                objectId!.InitializeFromName(CertEnrollInterop.CERTENROLL_OBJECTID.XCN_OID_PKIX_KP_SERVER_AUTH);
+				objectIds!.Add(objectId);
+				x509ExtensionEnhancedKeyUsage!.InitializeEncode(objectIds);
 				pkcs10.X509Extensions.Add((CX509Extension)x509ExtensionEnhancedKeyUsage);
 
 				//  Encode the name in using the Distinguished Name object
 				string request = String.Format(@"CN={0}, O={1}, OU={2}, L={3}, S={4}, C={5}", cert.Hostname, cert.Organisation, cert.OrganisationUnit, cert.City, cert.State, cert.Country);
-				dn.Encode(request, X500NameFlags.XCN_CERT_NAME_STR_NONE);
+				dn!.Encode(request, X500NameFlags.XCN_CERT_NAME_STR_NONE);
 
                 // enable SMIME capabilities
                 pkcs10.SmimeCapabilities = true;
@@ -108,7 +108,7 @@ namespace FuseCP.Providers.Web.Iis
 				pkcs10.Subject = dn;
 
 				// Create enrollment request
-				enroll.InitializeFromRequest(pkcs10);
+				enroll!.InitializeFromRequest(pkcs10);
 
 				enroll.CertificateFriendlyName = cert.FriendlyName;
 
@@ -127,7 +127,7 @@ namespace FuseCP.Providers.Web.Iis
 			try
 			{
 
-				response.Initialize(X509CertificateEnrollmentContext.ContextMachine);
+				response!.Initialize(X509CertificateEnrollmentContext.ContextMachine);
 				response.InstallResponse(
 					InstallResponseRestrictionFlags.AllowUntrustedRoot,
 					cert.Certificate, EncodingType.XCN_CRYPT_STRING_BASE64HEADER,
@@ -205,7 +205,7 @@ namespace FuseCP.Providers.Web.Iis
                 Log.WriteInfo(result);
                 CloseRunspace(runSpace);
 
-                if (result.Contains("Create certificate failed")) throw new Exception($"Error creating Let's Encrypt certificate:{Environment.NewLine}{result}");
+                if (result!.Contains("Create certificate failed")) throw new Exception($"Error creating Let's Encrypt certificate:{Environment.NewLine}{result}");
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {

@@ -62,7 +62,7 @@ namespace FuseCP.Portal
 		protected void gvApplications_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			gvApplications.PageIndex = e.NewPageIndex;
-            if ((bool)!ViewState["IsSearchResults"])
+            if (bool!ViewState["IsSearchResults"])
             {
                 // categorized app list
                 BindApplications();
@@ -135,7 +135,7 @@ namespace FuseCP.Portal
 
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-            if ((bool)!ViewState["IsSearchResults"])
+            if (bool!ViewState["IsSearchResults"])
             {
                 gvApplications.PageIndex = 0;
             }

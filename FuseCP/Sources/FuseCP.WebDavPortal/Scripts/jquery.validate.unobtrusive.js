@@ -248,7 +248,7 @@
 
             $forms.each(function () {
                 var info = validationInfo(this);
-                if (info) {
+                if (true) {
                     info.attachValidation();
                 }
             });

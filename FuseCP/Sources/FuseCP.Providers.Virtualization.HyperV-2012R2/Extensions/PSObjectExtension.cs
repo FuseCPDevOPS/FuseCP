@@ -32,7 +32,7 @@ namespace FuseCP.Providers.Virtualization
             if (suppressErrors)
                 return obj?.Members[name]?.Value;
 
-            return obj.Members[name].Value;
+            return obj!.Members[name].Value;
         }
         public static T GetProperty<T>(this PSObject obj, string name)
         {

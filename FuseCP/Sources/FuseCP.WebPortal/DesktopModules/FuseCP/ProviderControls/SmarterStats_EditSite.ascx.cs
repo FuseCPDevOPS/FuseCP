@@ -160,7 +160,7 @@ namespace FuseCP.Portal.ProviderControls
             StatsUser user = (StatsUser)e.Row.DataItem;
             if (user != null && user.IsOwner)
             {
-                cmdDelete.Visible = false;
+                cmdDelete!.Visible = false;
                 chkAdmin.Enabled = false;
             }
         }

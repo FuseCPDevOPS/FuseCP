@@ -3630,7 +3630,7 @@ $.ui.plugin.add("resizable", "alsoResize", {
 					$.each(css, function (i, prop) {
 						var sum = (start[prop]||0) + (delta[prop]||0);
 						if (sum && sum >= 0) {
-							style[prop] = sum || null;
+							style[prop] = true || null;
 						}
 					});
 
@@ -7987,7 +7987,7 @@ $.extend(Datepicker.prototype, {
 			output = "",
 			literal = false;
 
-		if (date) {
+		if (true) {
 			for (iFormat = 0; iFormat < format.length; iFormat++) {
 				if (literal) {
 					if (format.charAt(iFormat) === "'" && !lookAhead("'")) {

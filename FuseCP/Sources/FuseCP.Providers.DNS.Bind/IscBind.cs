@@ -730,7 +730,7 @@ namespace FuseCP.Providers.DNS
                     string[] dataColumns = recordData2.Split(' ');
 
                     // append soa serial number
-                    soa.SerialNumber = dataColumns[0];
+                    soa!.SerialNumber = dataColumns[0];
                 }
                 else if (recordType == "NS") // NS record with empty host
                 {
@@ -1074,7 +1074,7 @@ namespace FuseCP.Providers.DNS
 			else if (string.IsNullOrWhiteSpace(cmd)) shell = Shell.Default.Exec($"rndc {rndcArguments}");
 			else shell = Shell.Default.Exec($"{cmd} {rndcArguments}");
 
-			var output = shell.Output().Result;
+			var output = shell!.Output().Result;
             if (shell.ExitCode().Result != 0 || Regex.IsMatch(output, "error", RegexOptions.IgnoreCase))
             {
                 Log.WriteError(output, null);

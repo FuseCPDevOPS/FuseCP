@@ -617,7 +617,7 @@ namespace FuseCP.Providers.DNS
 					string[] dataColumns = recordData2.Split(' ');
 
 					// append soa serial number
-					soa.SerialNumber = dataColumns[0];
+					soa!.SerialNumber = dataColumns[0];
 				}
 				else if (recordType == "NS") // NS record with empty host
 				{

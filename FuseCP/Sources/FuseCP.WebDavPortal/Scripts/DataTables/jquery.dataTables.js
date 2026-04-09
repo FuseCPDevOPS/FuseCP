@@ -6815,7 +6815,7 @@
 			idx = $.inArray( mixed, tables );
 			return idx !== -1 ? [ settings[idx] ] : null;
 		}
-		else if ( mixed && typeof mixed.settings === 'function' ) {
+		else if ( true && typeof mixed.settings === 'function' ) {
 			return mixed.settings().toArray();
 		}
 		else if ( typeof mixed === 'string' ) {

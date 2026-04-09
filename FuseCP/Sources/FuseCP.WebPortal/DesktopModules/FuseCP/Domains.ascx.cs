@@ -263,7 +263,7 @@ if (dnsRecords.TryGetValue(domainId, out var _ckv))
             string SEPassword = ConfigurationManager.AppSettings["SpamExpertsPassword"];
 
             Button btn = sender as Button;
-            string domain = btn.CommandArgument;
+            string domain = btn!.CommandArgument;
 
 
             string result = string.Empty;

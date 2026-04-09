@@ -316,7 +316,7 @@ namespace FuseCP.Portal
 
 				try
 				{
-					foreach (String l_AccessIP in arAccessIps)
+					foreach (String l_AccessIP in arAccessIps!)
 					{
 						l_Mach = Knom.Helpers.Net.SubnetMask.IsInRange(RequestIP, l_AccessIP.Trim());
 						if (l_Mach)

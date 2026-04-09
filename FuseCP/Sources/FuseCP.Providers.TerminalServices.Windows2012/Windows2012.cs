@@ -1729,7 +1729,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 var collection = runspace.GetCollection(collectionName, ConnectionBroker, PrimaryDomainController);
                 result = new ImportedRdsCollection
                 {
-                    CollectionName = collection.Name,
+                    CollectionName = collection!.Name,
                     Description = collection.Description
                 };
                 

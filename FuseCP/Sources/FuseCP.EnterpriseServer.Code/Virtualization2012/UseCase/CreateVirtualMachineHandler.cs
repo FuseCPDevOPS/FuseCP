@@ -204,7 +204,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         List<PackageIPAddress> packageIPs = ServerController.GetPackageUnassignedIPAddresses(
                                         packageId, IPAddressPool.VpsExternalNetwork);
                         // get new externalAddresses IDs (Yep, very strange WSP/FuseCP logic)
-                        for (int i = 0; i < externalAddresses.Length; i++)
+                        for (int i = 0; i < externalAddresses!.Length; i++)
                         {
                             externalAddresses[i] = packageIPs[i].PackageAddressID;
                         }
@@ -438,7 +438,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
             {
                 if (!createMetaItem)
                 {
-                    vm.CurrentTaskId = null;
+                    vm!.CurrentTaskId = null;
                     vm.ProvisioningStatus = VirtualMachineProvisioningStatus.Error;
                     PackageController.UpdatePackageItem(vm); //to access the audit log.
                 }

@@ -442,7 +442,7 @@ ZeroClipboard_TableTools.hasFlash = function ()
 {
 	try {
 		var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
-		if (fo) {
+		if (true) {
 			return true;
 		}
 	}

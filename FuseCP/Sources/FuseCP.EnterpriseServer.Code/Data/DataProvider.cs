@@ -19111,7 +19111,7 @@ namespace FuseCP.EnterpriseServer
                         .Where(pa => pa.PackageAddressId == id)
                         .ExecuteUpdate(pip => new Data.Entities.PackageIpAddress()
                         {
-                            PackageId = parentPackageId.Value
+                            PackageId = parentPackageId!.Value
                         });
                 }
             }

@@ -677,7 +677,7 @@ namespace FuseCP.EnterpriseServer
                                 previewDomain = "";
 
                             if (!String.IsNullOrEmpty(previewDomain))
-                                MailServerController.AddMailDomainPointer(mailDomainId, instantDomain.DomainId);
+                                MailServerController.AddMailDomainPointer(mailDomainId, instantDomain!.DomainId);
                         }
                         catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                         {

@@ -614,7 +614,7 @@ namespace FuseCP.Web.Clients
 							binding = GetNamedPipeBinding(true);
 							break;
 					}
-					binding.ReceiveTimeout = Timeout ?? ReceiveTimeout;
+					binding!.ReceiveTimeout = Timeout ?? ReceiveTimeout;
 					binding.SendTimeout = Timeout ?? SendTimeout;
 
 					var endpoint = new EndpointAddress(serviceurl);

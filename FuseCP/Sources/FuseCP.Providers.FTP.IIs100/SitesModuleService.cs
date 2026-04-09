@@ -268,7 +268,7 @@ namespace FuseCP.Providers.FTP.IIs100
             }
             finally
             {
-                store.Close();
+                store!.Close();
             }
             return list;
         }

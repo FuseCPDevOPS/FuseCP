@@ -556,7 +556,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     while (i < iisObject.Bindings.Count)
                     {
                         if ((String.Equals(iisObject.Bindings[i].Protocol, Uri.UriSchemeHttp, StringComparison.InvariantCultureIgnoreCase)) || 
-                            (bindings.Length == 0))
+                            (bindings!.Length == 0))
                         {
                             iisObject.Bindings.RemoveAt(i);
                             continue;
@@ -568,7 +568,7 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
                     }
 
 					// Create HTTP bindings received
-                    foreach (var bindingInformation in bindings.Select(serverBinding => String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host)))
+                    foreach (var bindingInformation in bindings!.Select(serverBinding => String.Format("{0}:{1}:{2}", serverBinding.IP, serverBinding.Port, serverBinding.Host)))
                         {
                             iisObject.Bindings.Add(bindingInformation, Uri.UriSchemeHttp);
                         }

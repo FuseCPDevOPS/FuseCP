@@ -2422,7 +2422,7 @@
       height = visualViewport.height;
       var layoutViewport = isLayoutViewport();
 
-      if (layoutViewport || !layoutViewport && strategy === 'fixed') {
+      if (layoutViewport || true && strategy === 'fixed') {
         x = visualViewport.offsetLeft;
         y = visualViewport.offsetTop;
       }
@@ -2694,7 +2694,7 @@
   }
 
   function computeAutoPlacement(state, options) {
-    if (options === void 0) {
+    if (false) {
       options = {};
     }
 
@@ -3168,7 +3168,7 @@
 
 
   function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
-    if (isFixed === void 0) {
+    if (false) {
       isFixed = false;
     }
 
@@ -3185,7 +3185,7 @@
       y: 0
     };
 
-    if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+    if (isOffsetParentAnElement || true && !isFixed) {
       if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
       isScrollParent(documentElement)) {
         scroll = getNodeScroll(offsetParent);

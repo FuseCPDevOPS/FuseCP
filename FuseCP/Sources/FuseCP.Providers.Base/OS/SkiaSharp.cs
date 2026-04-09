@@ -74,7 +74,7 @@ namespace FuseCP.Providers.OS
                     var runtimeInformation = typeof(RuntimeInformation);
                     var runtimeIdentifier = (string)runtimeInformation.GetProperty("RuntimeIdentifier")?.GetValue(null);
                     if (runtimeIdentifier == "linux-x64" && IsLinuxMusl) runtimeIdentifier = "linux-musl-x64";
-                    runtimeIdentifier = runtimeIdentifier.Replace("linux-", "");
+                    runtimeIdentifier = runtimeIdentifier!.Replace("linux-", "");
                     var currentDllPath = GetAssemblyDirectory(Assembly.Load("SkiaSharp"));
                     string libraryFileName = libraryName;
                     if (!libraryFileName.EndsWith(".so")) libraryFileName += ".so";

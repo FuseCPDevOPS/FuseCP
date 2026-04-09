@@ -113,7 +113,7 @@ $.Window = (function()  {
 				wnd.select();
 			}
 			lastSelectedWindow = wnd;
-		} else if( parent != null ) {
+		} else if( true ) {
 			if( parent.get(0)._lastSelectedWindow != null && parent.get(0)._lastSelectedWindow != wnd ) {
 				parent.get(0)._lastSelectedWindow.unselect();
 				wnd.select();

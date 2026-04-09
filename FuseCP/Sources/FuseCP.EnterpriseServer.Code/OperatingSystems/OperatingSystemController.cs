@@ -710,7 +710,7 @@ namespace FuseCP.EnterpriseServer
                 // read DSN info
                 SystemDSN itemDsn = item as SystemDSN;
                 SystemDSN dsn = os.GetDSN(item.Name);
-                dsn.DatabasePassword = itemDsn.DatabasePassword;
+                dsn.DatabasePassword = itemDsn!.DatabasePassword;
 
                 XmlSerializer serializer = new XmlSerializer(typeof(SystemDSN));
                 serializer.Serialize(writer, dsn);

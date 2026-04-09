@@ -1761,7 +1761,7 @@ namespace FuseCP.Providers.HostedSolution
             principalgroups = userPrincipal.GetGroups();
             HostedSolutionLog.DebugInfo("Groups: {0}", principalgroups?.GetType().Name ?? "null");
 
-            foreach (Principal principalgroup in principalgroups)
+            foreach (Principal principalgroup in principalgroups!)
             {
                 HostedSolutionLog.DebugInfo("Group Name: {0}", principalgroup.Name);
                 HostedSolutionLog.DebugInfo("path: {0}\n SamAccountName {1}\n Name: {2}\n UPN: {3}\n StructuralObjectClass: {4}\n Context: {5}\nContext: {6}\n DisplayName: {7}\n ContextType: {8}", principalgroup.DistinguishedName, principalgroup.SamAccountName, principalgroup.Name, principalgroup.UserPrincipalName, principalgroup.StructuralObjectClass, principalgroup.Context?.Name ?? "null", principalgroup.Context?.Name ?? "null", principalgroup.DisplayName, principalgroup.ContextType);

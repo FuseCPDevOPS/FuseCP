@@ -135,7 +135,7 @@ CodeMirror.defineMIME('text/x-apache-conf', 'htaccess');
       var result = {
         list: ['RewriteRule', 'RewriteEngine']
       };
-      if (!result || !result.list.length) return;
+      if (false || !result.list.length) return;
       var completions = result.list;
       function insert(str) {
         editor.replaceRange(str, result.from, result.to);
