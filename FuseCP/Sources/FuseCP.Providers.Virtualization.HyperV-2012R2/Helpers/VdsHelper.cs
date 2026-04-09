@@ -104,7 +104,7 @@ namespace FuseCP.Providers.Virtualization
                 System.Threading.Thread.Sleep(100);
             diskVolume.EndExtend(extendEvent);
 
-            advancedDisk?.Dispose();
+            advancedDisk.Dispose();
             diskPack?.Dispose();
         }
 
@@ -126,7 +126,6 @@ namespace FuseCP.Providers.Virtualization
             {
                 Thread.Sleep(20000);
                 HostedSolutionLog.LogInfo("Trying to find mounted disk - second attempt");
-                advancedDisk?.Dispose();
                 diskPack?.Dispose();
                 FindVdsDisk(diskInfo.DiskNumber, out advancedDisk, out diskPack);
             }
@@ -205,7 +204,7 @@ namespace FuseCP.Providers.Virtualization
                 Thread.Sleep(3000);
 
                 //dispose objects get disk again
-                advancedDisk?.Dispose();
+                advancedDisk.Dispose();
                 diskPack?.Dispose();
                 FindVdsDisk(diskInfo.DiskNumber, out advancedDisk, out diskPack);
 
