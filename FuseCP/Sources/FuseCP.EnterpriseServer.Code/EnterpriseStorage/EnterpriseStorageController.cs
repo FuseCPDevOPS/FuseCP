@@ -199,7 +199,7 @@ namespace FuseCP.EnterpriseServer
                     return new SystemFile[0];
                 }
 
-                int serviceId = GetEnterpriseStorageServiceID(org.PackageId);
+                int serviceId = GetEnterpriseStorageServiceID(org.PackageId);   
 
                 if (serviceId == 0)
                 {
@@ -221,32 +221,35 @@ namespace FuseCP.EnterpriseServer
                     var rootFolder = esFolders.First(
                         x => string.Equals(searchPath.Split('\\').FirstOrDefault(),
                             x.FolderName,
-                            StringComparison.InvariantCultureIgnoreCase));
+                            StringComparison.InvariantCultureIgnoreCase));      
 
                     if (rootFolder.StorageSpaceFolderId == null)
                     {
                         continue;
                     }
 
-
-                            var quota = StorageSpacesController.GetFolderQuota(esFolder.Path, esFolder.StorageSpaceId);
-
-                            if (quota != null)
+                    var searchRequest = new StorageSpaceFolderSearchRequest     
+                    {
                         SearchPath = searchPath,
-                                folder.Size = quota.Usage;
-                            }
+                        SearchValue = searchText,
+                        StorageSpaceFolderId = rootFolder.StorageSpaceFolderId.Value,
+                        StorageSpaceId = rootFolder.StorageSpaceId
+                    };
 
-                            folder.FsrmQuotaType = esFolder.FsrmQuotaType;
+                    searchRequests.Add(searchRequest);
+                }
 
-                            var ssFolder = StorageSpacesController.GetStorageSpaceFolderById(esFolder.StorageSpaceFolderId.Value);
+                var tasks = new List<Task<IEnumerable<SystemFile>>>();
 
-                            if (ssFolder != null)
-                            {
+                tasks.AddRange(StorageSpacesController.SearchInStorageSpaceFolders(searchRequests));
+
+                var task = new Task<IEnumerable<SystemFile>>(() =>
                 {
                     var locEs = GetEnterpriseStorage(serviceId);
 
                     return locEs.Search(org.OrganizationId, searchPaths, searchText, userPrincipalName, recursive);
                 });
+
                 task.Start();
 
                 tasks.Add(task);
