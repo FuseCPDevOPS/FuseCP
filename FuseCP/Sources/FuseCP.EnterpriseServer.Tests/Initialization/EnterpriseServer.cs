@@ -326,7 +326,7 @@ public class EnterpriseServer : IDisposable
 			if (sqliteConnectionString != null &&
 				DatabaseUtils.DatabaseExists(sqliteConnectionString, DatabaseName))
 				DatabaseUtils.DeleteDatabase(sqliteConnectionString, DatabaseName);
-		} catch { }
+		} catch (Exception ex) { _ = ex; }
 	}
 
 	public static void SetupEmbeddedEnterpriseServer()

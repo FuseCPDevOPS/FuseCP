@@ -191,11 +191,11 @@ namespace FuseCP.Providers.OS
 
                         var alwaysTrust = Delegate.CreateDelegate(delegateType, this, method);
 
-                        Delegate validateDelegate = (Delegate)remoteCertificateValidationCallback?.GetValue(clientWebSocket.Options);
+                        Delegate validateDelegate = (Delegate)remoteCertificateValidationCallback.GetValue(clientWebSocket.Options);
                         validateDelegate = validateDelegate == null ? alwaysTrust : Delegate.Combine(validateDelegate, alwaysTrust);
 
 
-                        remoteCertificateValidationCallback?.SetValue(clientWebSocket.Options, validateDelegate);
+                        remoteCertificateValidationCallback.SetValue(clientWebSocket.Options, validateDelegate);
                         validateCertificateSet = true;
                     }
                 }

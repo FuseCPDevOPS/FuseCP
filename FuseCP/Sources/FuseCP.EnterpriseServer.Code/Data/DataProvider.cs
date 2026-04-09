@@ -6137,12 +6137,9 @@ namespace FuseCP.EnterpriseServer
 				{
 					/// <summary>TODO</summary>
 					IQueryable<Data.Entities.Domain> domainsFiltered;
-					if (!recursive) domainsFiltered = Domains.Where(d => d.PackageId == packageId);
-					else
-					{
-						domainsFiltered = Domains
-							.Join(childPackages, d => d.PackageId, ch => ch, (d, ch) => d);
-					}
+					domainsFiltered = !recursive
+						? Domains.Where(d => d.PackageId == packageId)
+						: Domains.Join(childPackages, d => d.PackageId, ch => ch, (d, ch) => d);
 
 					var domains = domainsFiltered
 						.Where(d => !d.IsPreviewDomain && !d.IsDomainPointer &&
@@ -7382,11 +7379,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.ServiceItem> serviceItems;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) serviceItems = ServiceItems.Where(si => si.PackageId == packageId);
-					else
-					{
-						serviceItems = ServiceItems.Join(childPackages, si => si.PackageId, ch => ch, (p, ch) => p);
-					}
+					serviceItems = !recursive
+						? ServiceItems.Where(si => si.PackageId == packageId)
+						: ServiceItems.Join(childPackages, si => si.PackageId, ch => ch, (p, ch) => p);
 					var items = serviceItems
 						.Where(s => s.ItemTypeId == itemTypeId)
 						// &&
@@ -10518,11 +10513,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.Package> packagesFiltered;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) packagesFiltered = Packages.Where(p => p.ParentPackageId == packageId);
-					else
-					{
-						packagesFiltered = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
-					}
+					packagesFiltered = !recursive
+						? Packages.Where(p => p.ParentPackageId == packageId)
+						: Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 
 					var packages = packagesFiltered
 						.Where(p => p.PackageId != packageId)
@@ -18259,11 +18252,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.Package> packages;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
-					else
-					{
-						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
-					}
+					packages = !recursive
+						? Packages.Where(p => p.PackageId == packageId)
+						: Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 
 					var items = packages
 						.Join(ServiceItems.Where(si => si.ItemTypeId == 33 /* VPS */),
@@ -18375,11 +18366,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.Package> packages;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
-					else
-					{
-						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
-					}
+					packages = !recursive
+						? Packages.Where(p => p.PackageId == packageId)
+						: Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					var items = packages
 						.Join(ServiceItems.Where(si => si.ItemTypeId == 41 /* VPS2012 */),
 							p => p.PackageId, i => i.PackageId, (p, i) => new { Package = p, Item = i })
@@ -18505,11 +18494,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.Package> packages;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
-					else
-					{
-						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
-					}
+					packages = !recursive
+						? Packages.Where(p => p.PackageId == packageId)
+						: Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 					var items = packages
 						.Join(ServiceItems.Where(si => si.ItemTypeId == 143 /* Proxmox */),
 							p => p.PackageId, i => i.PackageId, (p, i) => new { Package = p, Item = i })
@@ -18619,11 +18606,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.Package> packages;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) packages = Packages.Where(p => p.PackageId == packageId);
-					else
-					{
-						packages = Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
-					}
+					packages = !recursive
+						? Packages.Where(p => p.PackageId == packageId)
+						: Packages.Join(childPackages, p => p.PackageId, ch => ch, (p, ch) => p);
 
 					var items = packages
 						.Join(ServiceItems.Where(si => si.ItemTypeId == 35 /* VPS for PC */),
@@ -18900,11 +18885,9 @@ namespace FuseCP.EnterpriseServer
 				IQueryable<Data.Entities.PackageIpAddress> addressesFiltered;
 				using TempIdSet childPackages = recursive ? PackagesTree(packageId, true) : null;
 				{
-					if (!recursive) addressesFiltered = PackageIpAddresses.Where(pa => pa.PackageId == packageId);
-					else
-					{
-						addressesFiltered = PackageIpAddresses.Join(childPackages, pa => pa.PackageId, ch => ch, (pa, ch) => pa);
-					}
+					addressesFiltered = !recursive
+						? PackageIpAddresses.Where(pa => pa.PackageId == packageId)
+						: PackageIpAddresses.Join(childPackages, pa => pa.PackageId, ch => ch, (pa, ch) => pa);
 
 					var addresses = addressesFiltered
 						.Where(pa => (orgId == 0 || pa.OrgId == orgId) &&

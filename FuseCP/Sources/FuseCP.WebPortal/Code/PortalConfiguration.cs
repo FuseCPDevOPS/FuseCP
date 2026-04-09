@@ -253,7 +253,7 @@ namespace FuseCP.WebPortal
 			}
 		}
 
-		private static void ParsePagesRecursively(string path, SiteStructure site, XmlNodeList xmlPages, PortalPage parentPage)
+		private static void ParsePagesRecursively(string path, SiteStructure localSite, XmlNodeList xmlPages, PortalPage parentPage)
 		{
 			foreach (XmlNode xmlPage in xmlPages)
 			{
@@ -302,9 +302,9 @@ namespace FuseCP.WebPortal
 					foreach (XmlNode xmlModule in xmlModules)
 					{
 						PageModule module = new PageModule();
-						module.ModuleId = site.Modules.Count + 1;
+						module.ModuleId = localSite.Modules.Count + 1;
 						module.Page = page;
-						site.Modules.Add(module.ModuleId, module);
+						localSite.Modules.Add(module.ModuleId, module);
 
 						if (xmlModule.Attributes["moduleDefinitionID"] == null)
 							throw new Exception(String.Format("ModuleDefinition ID is not specified. File: {0}, Node: {1}",
@@ -365,11 +365,11 @@ namespace FuseCP.WebPortal
 				if (parentPage != null)
 					parentPage.Pages.Add(page);
 
-				site.Pages.Add(page);
+				localSite.Pages.Add(page);
 
 				// process children
 				XmlNodeList xmlChildPages = xmlPage.SelectNodes("Pages/Page");
-				ParsePagesRecursively(path, site, xmlChildPages, page);
+				ParsePagesRecursively(path, localSite, xmlChildPages, page);
 			}
 		}
 	}

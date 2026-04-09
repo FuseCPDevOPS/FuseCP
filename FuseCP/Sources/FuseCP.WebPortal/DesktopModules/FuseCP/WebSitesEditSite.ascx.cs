@@ -574,10 +574,8 @@ namespace FuseCP.Portal
 				return;
 			}
 			// Step 3: Publishing has been enabled for the web site
-			if (item.WebDeploySitePublishingEnabled)
-			{
-				// Enable controls
-				EnableControlsInBulk(
+			// Enable controls
+			EnableControlsInBulk(
 					PanelWDeployPublishingCredentials,
 					WDeployChangePublishingPasswButton,
 					WDeployDisablePublishingButton,
@@ -601,10 +599,10 @@ namespace FuseCP.Portal
 				EnableControlsInBulk(PanelWDeployManagePublishingProfile);
 				// Save web site name as a command argument for the link
 				WDeployDownloadPubProfileLink.CommandArgument = item.Name;
-			}
 		}
+	}
 
-		private void BindWebPublishingProfileDatabases()
+	private void BindWebPublishingProfileDatabases()
 		{
 			MyDatabaseList.DataSource = ES.Services.DatabaseServers.GetSqlDatabases(PanelSecurity.PackageId, null, false);
 			MyDatabaseList.DataBind();

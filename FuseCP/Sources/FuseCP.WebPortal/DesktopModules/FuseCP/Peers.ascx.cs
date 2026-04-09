@@ -96,7 +96,7 @@ namespace FuseCP.Portal
                             break;
                     }
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) { _ = ex; }
             }
 
             return GetThemedImage("Exchange/" + imgName);

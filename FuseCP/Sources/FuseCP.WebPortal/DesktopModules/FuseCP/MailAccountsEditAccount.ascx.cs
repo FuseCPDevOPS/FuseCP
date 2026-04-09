@@ -177,19 +177,19 @@ namespace FuseCP.Portal
                 return;
 
             // get form data
-            MailAccount item = new MailAccount();
-            item.Id = PanelRequest.ItemID;
-            item.PackageId = PanelSecurity.PackageId;
-            item.Name = mailEditAddress.Email;
-            item.Password = passwordControl.Password;
-            item.MaxMailboxSize = Utils.ParseInt(txtMailBoxSizeLimit.Text);
+            MailAccount account = new MailAccount();
+            account.Id = PanelRequest.ItemID;
+            account.PackageId = PanelSecurity.PackageId;
+            account.Name = mailEditAddress.Email;
+            account.Password = passwordControl.Password;
+            account.MaxMailboxSize = Utils.ParseInt(txtMailBoxSizeLimit.Text);
 
-            // Only check for conflicting names if creating new item
+            // Only check for conflicting names if creating new account
             if (PanelRequest.ItemID == 0)
             {
                 //checking if account name is different from existing e-mail lists
                 MailList[] lists = ES.Services.MailServers.GetMailLists(PanelSecurity.PackageId, true) ?? Array.Empty<MailList>();
-                if (lists.Any(list => item.Name == list.Name))
+                if (lists.Any(list => account.Name == list.Name))
                 {
                     ShowWarningMessage("MAIL_ACCOUNT_NAME");
                     return;
@@ -197,7 +197,7 @@ namespace FuseCP.Portal
 
                 //checking if account name is different from existing e-mail groups
                 MailGroup[] mailgroups = ES.Services.MailServers.GetMailGroups(PanelSecurity.PackageId, true) ?? Array.Empty<MailGroup>();
-                if (mailgroups.Any(group => item.Name == group.Name))
+                if (mailgroups.Any(group => account.Name == group.Name))
                 {
                     ShowWarningMessage("MAIL_ACCOUNT_NAME");
                     return;
@@ -205,7 +205,7 @@ namespace FuseCP.Portal
 
                 //checking if account name is different from existing forwardings
                 MailAlias[] forwardings = ES.Services.MailServers.GetMailForwardings(PanelSecurity.PackageId, true) ?? Array.Empty<MailAlias>();
-                if (forwardings.Any(forwarding => item.Name == forwarding.Name))
+                if (forwardings.Any(forwarding => account.Name == forwarding.Name))
                 {
                     ShowWarningMessage("MAIL_ACCOUNT_NAME");
                     return;
@@ -219,14 +219,14 @@ namespace FuseCP.Portal
                 return;
             }
             IMailEditAccountControl ctrl = (IMailEditAccountControl)providerControl.Controls[0];
-            ctrl.SaveItem(item);
+            ctrl.SaveItem(account);
 
             if (PanelRequest.ItemID == 0)
             {
-                // new item
+                // new account
                 try
                 {
-                    int result = ES.Services.MailServers.AddMailAccount(item);
+                    int result = ES.Services.MailServers.AddMailAccount(account);
                     if (result == BusinessErrorCodes.ERROR_MAIL_ACCOUNT_PASSWORD_NOT_COMPLEXITY)
                     {
                         ShowErrorMessage("MAIL_ACCOUNT_PASSWORD_NOT_COMPLEXITY");
@@ -256,10 +256,10 @@ namespace FuseCP.Portal
             }
             else
             {
-                // existing item
+                // existing account
                 try
                 {
-                    int result = ES.Services.MailServers.UpdateMailAccount(item);
+                    int result = ES.Services.MailServers.UpdateMailAccount(account);
                     if (result == BusinessErrorCodes.ERROR_MAIL_ACCOUNT_PASSWORD_NOT_COMPLEXITY)
                     {
                         ShowErrorMessage("MAIL_ACCOUNT_PASSWORD_NOT_COMPLEXITY");
