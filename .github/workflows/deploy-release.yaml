@@ -184,7 +184,7 @@ jobs:
 
     - name: Upload deploy logs on failure
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: deploy-release-logs
         path: |
@@ -194,7 +194,7 @@ jobs:
         retention-days: 7
 
     - name: Publish build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with: 
         name: ${{ steps.sanitize_name_step.outputs.sanitized_artifact_name }}
         path: |
