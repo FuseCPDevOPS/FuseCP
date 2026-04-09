@@ -19,6 +19,7 @@ using FuseCP.Server.Utils;
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -60,9 +61,8 @@ namespace FuseCP.Providers.FTP
             {
                 names = key.GetSubKeyNames();
 
-                foreach (string subKeyName in names)
+                foreach (RegistryKey subkey in names.Select(subKeyName => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName)))
                 {
-                    RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName);
                     if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
                     {
                         productName = (string)subkey.GetValue("DisplayName");
@@ -91,9 +91,8 @@ namespace FuseCP.Providers.FTP
 
             names = key.GetSubKeyNames();
 
-            foreach (string subKeyName in names)
+            foreach (RegistryKey subkey in names.Select(subKeyName => HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName)))
             {
-                RegistryKey subkey = HKLM.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName);
                 if (subkey != null && !String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
                 {
                     productName = (string)subkey.GetValue("DisplayName");

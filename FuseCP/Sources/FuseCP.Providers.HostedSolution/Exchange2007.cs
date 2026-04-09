@@ -1517,9 +1517,9 @@ namespace FuseCP.Providers.HostedSolution
 
 			if (onBehalfs != null)
 			{
-				foreach (object current in onBehalfs)
+				foreach (object currentItem in onBehalfs)
 				{
-					string user = current?.ToString();
+					string user = currentItem?.ToString();
 					if (string.IsNullOrEmpty(user))
 						continue;
 
@@ -1553,9 +1553,9 @@ namespace FuseCP.Providers.HostedSolution
 
 				if (extendedRights != null)
 				{
-					foreach (object obj in extendedRights)
+					foreach (object rightItem in extendedRights)
 					{
-						string strRightName = obj?.ToString();
+						string strRightName = rightItem?.ToString();
 						if (string.Compare(strRightName, "Send-as", true) == 0)
 						{
 							ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);
@@ -1589,9 +1589,9 @@ namespace FuseCP.Providers.HostedSolution
 
 				if (accessRights != null)
 				{
-					foreach (object obj in accessRights)
+					foreach (object rightItem in accessRights)
 					{
-						string strRightName = obj?.ToString();
+						string strRightName = rightItem?.ToString();
 						if (string.Compare(strRightName, "FullAccess", true) == 0)
 						{
 							ExchangeAccount account = GetOrganizationAccount(runSpace, organizationId, user);

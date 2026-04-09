@@ -113,9 +113,8 @@ namespace FuseCP.WebPortal
             if (parentPage != null)
             {
                 // fill collection
-                foreach (PortalPage page in parentPage.Pages.Where(page => !page.Hidden))
+                foreach (SiteMapNode childNode in parentPage.Pages.Where(page => !page.Hidden).Select(page => CreateNodeFromPage(page)))
                 {
-                    SiteMapNode childNode = CreateNodeFromPage(page);
                     if (childNode != null)
                     {
                         children.Add(childNode);
@@ -127,9 +126,8 @@ namespace FuseCP.WebPortal
                 // check if this is a root node
                 if (node.Key == ROOT_NODE_KEY)
                 {
-                    foreach (PortalPage page in PortalConfiguration.Site.Pages.Values.Where(page => page.ParentPage == null && !page.Hidden))
+                    foreach (SiteMapNode childNode in PortalConfiguration.Site.Pages.Values.Where(page => page.ParentPage == null && !page.Hidden).Select(page => CreateNodeFromPage(page)))
                     {
-                        SiteMapNode childNode = CreateNodeFromPage(page);
                         if (childNode != null)
                         {
                             children.Add(childNode);

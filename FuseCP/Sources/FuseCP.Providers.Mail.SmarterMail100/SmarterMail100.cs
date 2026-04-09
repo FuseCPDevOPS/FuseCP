@@ -1866,7 +1866,7 @@ HttpClient client = CreateHttpClient();
 
 				foreach (dynamic member in result["items"])
 				{
-					string MemberlistAddress = member.listAddress;
+					string MemberlistAddress = (string)member.listAddress;
 					if (MemberlistAddress.ToLower() == GetAccountName(listName).ToLower())
 					{
 						return true;

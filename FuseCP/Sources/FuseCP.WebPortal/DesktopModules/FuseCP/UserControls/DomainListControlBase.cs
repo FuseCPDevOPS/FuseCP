@@ -88,9 +88,8 @@ namespace FuseCP.Portal.UserControls
             var items = new List<String>();
             foreach (GridViewRow row in Grid.Rows)
             {
-                var txt_name = (TextBox)row.FindControl(_txt_control_name);
+                TextBox txt_name = (TextBox)row.FindControl(_txt_control_name);
                 var val = txt_name.Text.Trim();
-
                 if ( include_empty || "" != val )
                 {
                     items.Add( val );

@@ -46,9 +46,8 @@ namespace FuseCP.Portal.SfB
             {
                 ddlPhoneNumber.Items.Add(new ListItem("<Select Phone>", ""));
 
-                foreach (PackageIPAddress ip in ips)
+                foreach (string phone in ips.Select(ip => ip.ExternalIP))
                 {
-                    string phone = ip.ExternalIP;
                     ddlPhoneNumber.Items.Add(new ListItem(phone, phone));
                 }
             }
