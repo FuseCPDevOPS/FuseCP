@@ -1,5 +1,5 @@
 {
-    "dotnet.preferCSharpExtension": true,
+    "dotnet.preferCSharpExtension": false,
     "dotnet.defaultSolution": "FuseCP.sln",
     "task.allowAutomaticTasks": "on"
 }
