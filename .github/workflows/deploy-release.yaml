@@ -152,9 +152,46 @@ jobs:
         echo "sanitized_artifact_name=$sanitized_name" >> "$GITHUB_OUTPUT"
 
 
-    - name: Run deploy-release.bat
+    - name: Run deploy-release.bat (with heartbeat)
+      shell: pwsh
       working-directory: FuseCP
-      run: .\deploy-release.bat
+      run: |
+        $outLog = Join-Path $PWD 'deploy-release.stdout.log'
+        $errLog = Join-Path $PWD 'deploy-release.stderr.log'
+        if (Test-Path $outLog) { Remove-Item $outLog -Force }
+        if (Test-Path $errLog) { Remove-Item $errLog -Force }
+
+        $proc = Start-Process -FilePath 'cmd.exe' `
+          -ArgumentList '/c', '.\\deploy-release.bat' `
+          -WorkingDirectory $PWD `
+          -NoNewWindow `
+          -PassThru `
+          -RedirectStandardOutput $outLog `
+          -RedirectStandardError $errLog
+
+        # Keep writing output so Actions does not terminate the step for inactivity.
+        while (-not $proc.HasExited) {
+          Write-Host "deploy-release.bat still running at $(Get-Date -Format o)"
+          Start-Sleep -Seconds 55
+        }
+
+        if (Test-Path $outLog) { Get-Content $outLog }
+        if (Test-Path $errLog) { Get-Content $errLog }
+
+        if ($proc.ExitCode -ne 0) {
+          throw "deploy-release.bat failed with exit code $($proc.ExitCode)"
+        }
+
+    - name: Upload deploy logs on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: deploy-release-logs
+        path: |
+          FuseCP\deploy-release.stdout.log
+          FuseCP\deploy-release.stderr.log
+          FuseCP\msbuild.log
+        retention-days: 7
 
     - name: Publish build artifacts
       uses: actions/upload-artifact@v4
