@@ -126,9 +126,12 @@ jobs:
 
     - name: Sanitize Artifact Name
       id: sanitize_name_step
-      shell: bash 
+      shell: bash
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        ACTOR_NAME: ${{ github.actor }}
       run: |
-        original_commit_message="${{ github.event.head_commit.message }} by @${{ github.actor }}"
+        original_commit_message="$COMMIT_MESSAGE by @$ACTOR_NAME"
 
         sanitized_name=$(echo "$original_commit_message" | tr -d '\r\n')
 
