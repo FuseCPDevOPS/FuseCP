@@ -4036,21 +4036,18 @@ namespace FuseCP.EnterpriseServer
 					.Select(v => v.ServiceId)
 					.ToHashSet();
 
-				bool addedAny = false;
-				foreach (var serviceId in services.Elements()
+				var newServiceIds = services.Elements()
 				    .Select(service => (int)service.Attribute("id"))
-				    .Where(serviceId => !existingServices.Contains(serviceId)))
-				{
-					var virtualService = new Data.Entities.VirtualService()
-					{
-						ServerId = serverId,
-						ServiceId = serviceId
-					};
-					VirtualServices.Add(virtualService);
-					addedAny = true;
-				}
+				    .Where(serviceId => !existingServices.Contains(serviceId))
+				    .ToArray();
 
-				if (addedAny) SaveChanges();
+				VirtualServices.AddRange(newServiceIds.Select(serviceId => new Data.Entities.VirtualService
+				{
+					ServerId = serverId,
+					ServiceId = serviceId
+				}));
+
+				if (newServiceIds.Length > 0) SaveChanges();
 			}
 			else
 			{

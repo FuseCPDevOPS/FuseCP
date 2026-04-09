@@ -730,15 +730,7 @@ namespace FuseCP.Providers.Database
 			expandedFiles.CopyTo(files, 0);
 
 			// analyze uploaded files
-			bool fromBackup = true;
-			foreach (string file in files)
-			{
-				if (Path.GetExtension(file).ToLower() == ".mdf")
-				{
-					fromBackup = false;
-					break;
-				}
-			}
+			bool fromBackup = files.All(file => Path.GetExtension(file).ToLower() != ".mdf");
 
 			// restore database
 			if (fromBackup)

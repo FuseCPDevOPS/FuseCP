@@ -264,9 +264,8 @@ namespace FuseCP.Providers.Web
 		private void ParseRequirements(string requirementsLine)
 		{
 			bool acceptUsers = false, acceptGroups = false;
-			foreach (string requirement in requirementsLine.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries))
+			foreach (string req in requirementsLine.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).Select(requirement => requirement.Trim()))
 			{
-				string req = requirement.Trim();
 				if (req.Equals(VALID_USER))
 				{
 					ValidUser = true;

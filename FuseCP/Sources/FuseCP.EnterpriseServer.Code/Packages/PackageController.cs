@@ -1986,13 +1986,10 @@ namespace FuseCP.EnterpriseServer
         public string BuildMessageBccField(params string[] bccAddresses)
         {
             List<string> mailAddresses = new List<string>();
-            //
-            foreach (string bccItem in bccAddresses.Where(bccItem => !String.IsNullOrEmpty(bccItem)))
-            {
-                string bccAddress = bccItem.Trim().Replace(';', ',');
-                mailAddresses.Add(bccAddress);
-            }
-            //
+            mailAddresses.AddRange(bccAddresses
+                .Where(bccItem => !String.IsNullOrEmpty(bccItem))
+                .Select(bccItem => bccItem.Trim().Replace(';', ',')));
+
             return String.Join(",", mailAddresses);
         }
         #endregion

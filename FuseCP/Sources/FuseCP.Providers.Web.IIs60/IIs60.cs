@@ -3369,14 +3369,12 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 					  String.Compare(errorA.HandlerType, "URL", true) == 0)))
 				{
 
-					foreach (HttpError errorB in httpErrors)
+					var inheritedError = httpErrors.FirstOrDefault(errorB =>
+						String.Equals(errorA.ErrorCode, errorB.ErrorCode)
+						&& String.Equals(errorA.ErrorSubcode, errorB.ErrorSubcode));
+					if (inheritedError != null)
 					{
-						if (String.Equals(errorA.ErrorCode, errorB.ErrorCode)
-							&& String.Equals(errorA.ErrorSubcode, errorB.ErrorSubcode))
-						{
-							httpErrors.Remove(errorB);
-							break;
-						}
+						httpErrors.Remove(inheritedError);
 					}
 					if (String.Compare(errorA.HandlerType, "file", true) == 0)
 					{

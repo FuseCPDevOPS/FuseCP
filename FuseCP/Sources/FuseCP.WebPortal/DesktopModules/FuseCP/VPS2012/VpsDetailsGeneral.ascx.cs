@@ -103,14 +103,9 @@ namespace FuseCP.Portal.VPS2012
                     txtDomain.Text = item.Domain;
                 }
 
-                if (guacamoleconnecturl != "")
-                {
-                    litRdpPageUrl.Text = Page.ResolveUrl(guacamoleconnecturl);
-                }
-                else
-                {
-                    litRdpPageUrl.Text = Page.ResolveUrl("~/DesktopModules/FuseCP/VPS2012/RemoteDesktop/Connect.aspx?ItemID=" + PanelRequest.ItemID + "&Resolution=");
-                }
+                litRdpPageUrl.Text = guacamoleconnecturl != ""
+                    ? Page.ResolveUrl(guacamoleconnecturl)
+                    : Page.ResolveUrl("~/DesktopModules/FuseCP/VPS2012/RemoteDesktop/Connect.aspx?ItemID=" + PanelRequest.ItemID + "&Resolution=");
                 TimeSpan uptime = TimeSpan.FromMilliseconds(vm.Uptime);
                 uptime = uptime.Subtract(TimeSpan.FromMilliseconds(uptime.Milliseconds));
                 litUptime.Text = uptime.ToString();

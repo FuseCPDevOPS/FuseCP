@@ -266,14 +266,8 @@ namespace FuseCP.Portal.ProviderControls
         {
             if (string.IsNullOrEmpty(data))
                 return null;
-            List<ServiceInfo> list = new List<ServiceInfo>();
             string[] servicesIds = data.Split(',');
-            foreach (ServiceInfo serviceInfo in servicesIds.Select(current => ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current))))
-            {
-                list.Add(serviceInfo);
-            }
-
-            return list;
+            return servicesIds.Select(current => ES.Services.Servers.GetServiceInfo(Utils.ParseInt(current))).ToList();
         }
 
         private StringDictionary ConvertArrayToDictionary(string[] settings)

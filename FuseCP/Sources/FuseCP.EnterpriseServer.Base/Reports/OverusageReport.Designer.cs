@@ -2119,23 +2119,17 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BandwidthOverusageRow[] GetBandwidthOverusageRows() {
-                if ((this.Table.ChildRelations["HostingSpace_BandwidthOverusage"] == null)) {
-                    return new BandwidthOverusageRow[0];
-                }
-                else {
-                    return ((BandwidthOverusageRow[])(base.GetChildRows(this.Table.ChildRelations["HostingSpace_BandwidthOverusage"])));
-                }
+                return (this.Table.ChildRelations["HostingSpace_BandwidthOverusage"] == null)
+                    ? new BandwidthOverusageRow[0]
+                    : ((BandwidthOverusageRow[])(base.GetChildRows(this.Table.ChildRelations["HostingSpace_BandwidthOverusage"])));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public DiskspaceOverusageRow[] GetDiskspaceOverusageRows() {
-                if ((this.Table.ChildRelations["HostingSpace_DiskspaceOverusage"] == null)) {
-                    return new DiskspaceOverusageRow[0];
-                }
-                else {
-                    return ((DiskspaceOverusageRow[])(base.GetChildRows(this.Table.ChildRelations["HostingSpace_DiskspaceOverusage"])));
-                }
+                return (this.Table.ChildRelations["HostingSpace_DiskspaceOverusage"] == null)
+                    ? new DiskspaceOverusageRow[0]
+                    : ((DiskspaceOverusageRow[])(base.GetChildRows(this.Table.ChildRelations["HostingSpace_DiskspaceOverusage"])));
             }
         }
         
@@ -2262,12 +2256,9 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public OverusageDetailsRow[] GetOverusageDetailsRows() {
-                if ((this.Table.ChildRelations["BandwidthOverusage_OverusageDetails"] == null)) {
-                    return new OverusageDetailsRow[0];
-                }
-                else {
-                    return ((OverusageDetailsRow[])(base.GetChildRows(this.Table.ChildRelations["BandwidthOverusage_OverusageDetails"])));
-                }
+                return (this.Table.ChildRelations["BandwidthOverusage_OverusageDetails"] == null)
+                    ? new OverusageDetailsRow[0]
+                    : ((OverusageDetailsRow[])(base.GetChildRows(this.Table.ChildRelations["BandwidthOverusage_OverusageDetails"])));
             }
         }
         
@@ -2394,12 +2385,9 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public OverusageDetailsRow[] GetOverusageDetailsRows() {
-                if ((this.Table.ChildRelations["DiskspaceOverusage_OverusageDetails"] == null)) {
-                    return new OverusageDetailsRow[0];
-                }
-                else {
-                    return ((OverusageDetailsRow[])(base.GetChildRows(this.Table.ChildRelations["DiskspaceOverusage_OverusageDetails"])));
-                }
+                return (this.Table.ChildRelations["DiskspaceOverusage_OverusageDetails"] == null)
+                    ? new OverusageDetailsRow[0]
+                    : ((OverusageDetailsRow[])(base.GetChildRows(this.Table.ChildRelations["DiskspaceOverusage_OverusageDetails"])));
             }
         }
         

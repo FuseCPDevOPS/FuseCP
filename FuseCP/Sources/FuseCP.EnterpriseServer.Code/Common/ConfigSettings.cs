@@ -137,15 +137,9 @@ namespace FuseCP.EnterpriseServer
 			{
 				if (serverRequestTimeout == null)
 				{
-					if (OSInfo.IsNetFX)
-					{
-						serverRequestTimeout = Utils.ParseInt(
-							ConfigurationManager.AppSettings["FuseCP.EnterpriseServer.ServerRequestTimeout"], -1);
-					}
-					else
-					{
-						serverRequestTimeout = Web.Services.Configuration.ServerRequestTimeout ?? -1;
-					}
+					serverRequestTimeout = OSInfo.IsNetFX
+						? Utils.ParseInt(ConfigurationManager.AppSettings["FuseCP.EnterpriseServer.ServerRequestTimeout"], -1)
+						: Web.Services.Configuration.ServerRequestTimeout ?? -1;
 				}
 				return serverRequestTimeout.Value;
 			}

@@ -475,8 +475,9 @@ namespace FuseCP.Portal
 
         private WebApplicationGalleryParamControl FindParameterControlByTag(DeploymentParameterWellKnownTag tag)
         {
-            foreach (WebApplicationGalleryParamControl paramControl in repParams.Items.Select(item => item.FindControl("param") as WebApplicationGalleryParamControl))
+            foreach (RepeaterItem item in repParams.Items)
             {
+                WebApplicationGalleryParamControl paramControl = item.FindControl("param") as WebApplicationGalleryParamControl;
                 if (paramControl != null && (paramControl.WellKnownTags & tag) == tag)
                     return paramControl;
             }
@@ -505,8 +506,9 @@ namespace FuseCP.Portal
 
             // collect parameters
             List<DeploymentParameter> parameters = new List<DeploymentParameter>();
-            foreach (WebApplicationGalleryParamControl paramControl in repParams.Items.Select(item => item.FindControl("param") as WebApplicationGalleryParamControl))
+            foreach (RepeaterItem item in repParams.Items)
             {
+                WebApplicationGalleryParamControl paramControl = item.FindControl("param") as WebApplicationGalleryParamControl;
                 if (paramControl != null)
                 {
                     // store parameter in the collection

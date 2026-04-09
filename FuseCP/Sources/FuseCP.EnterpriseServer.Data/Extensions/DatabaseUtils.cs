@@ -56,8 +56,7 @@ namespace FuseCP.EnterpriseServer.Data
 					char[] typeid = new char[4];
 					for (int i = 0; i < 4; i++)
 					{
-						if (i < type.Length) typeid[i] = type[i];
-						else typeid[i] = '0';
+						typeid[i] = i < type.Length ? type[i] : '0';
 					}
 					var typecode = new string(typeid);
 					var orderText = tokens.Length >= 3 ? tokens[tokens.Length - 3] : "";

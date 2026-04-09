@@ -76,9 +76,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             if (!string.IsNullOrEmpty(edgeServices))
             {
                 string[] services = edgeServices.Split(';');
-                foreach (string current in services)
+                foreach (string[] data in Array.ConvertAll(services, current => current.Split(',')))
                 {
-                    string[] data = current.Split(',');
                     try
                     {
                         int serviceId = int.Parse(data[1]);
