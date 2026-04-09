@@ -6,12 +6,14 @@ pushd "%~dp0"
 set DOTNET_CLI_UI_LANGUAGE=en-US
 set VSLANG=1033
 
-IF not defined SkipIISReset (
+IF /I "%GitHubAction%"=="true" (
+	echo Skipping IIS reset in GitHub Actions.
+) ELSE IF not defined SkipIISReset (
 	where iisreset >nul 2>&1
 	IF NOT ERRORLEVEL 1 (
 		echo Running IIS reset to clear potential file locks...
 		iisreset /restart >nul 2>&1
-		timeout /t 2 /nobreak >nul
+		ping -n 3 127.0.0.1 >nul
 		IF ERRORLEVEL 1 echo IIS reset skipped or failed; likely requires elevated shell.
 	)
 )
