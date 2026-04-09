@@ -795,9 +795,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 throw new ApplicationException(string.Format("Cannot get user's spaces {0}", user.UserId), ex);
             }
                         
-            foreach (DataRow row in ds.Tables[0].Rows)
+            foreach (int packageId in ds.Tables[0].Rows.Select(row => (int)row["PackageID"]))
             {
-                int packageId = (int)row["PackageID"];
                 try
                 {
                     PopulateSpaceData(packageId, report, topReseller);

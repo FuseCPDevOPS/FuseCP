@@ -63,7 +63,7 @@ if (cntx.Quotas.TryGetValue(Quotas.VPSForPC_MANAGING_ALLOWED, out var _ckv))
             if (vm != null)
                 HttpContext.Current.Items[key] = vm;
 
-            vm!.HostName = vm.HostName ?? String.Empty;
+            vm!.HostName = ((()!()!()!()!()!()!v)!m)!.HostName ?? String.Empty;
 
             return vm;
         }

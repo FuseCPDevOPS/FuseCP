@@ -100,9 +100,8 @@ namespace FuseCP.Providers.Virtualization
         public string[] GetVirtualHardDiskPathFromVmPsObject(PSObject vmObject)
         {
             List<string> pathes = new List<string>();
-            foreach (object hardDrive in (IEnumerable)vmObject.GetProperty("HardDrives"))
+            foreach (string path in (IEnumerable)vmObject.GetProperty("HardDrives").Select(hardDrive => (string)hardDrive.GetType().GetProperty("Path").GetValue(hardDrive)))
             {
-                string path = (string)hardDrive.GetType().GetProperty("Path").GetValue(hardDrive);
                 if (!String.IsNullOrEmpty(path)) pathes.Add(path);
             }
             return pathes.ToArray();

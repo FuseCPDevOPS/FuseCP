@@ -59,9 +59,8 @@ namespace FuseCP.Portal
             }
 
             long negativeDiskspace = 0;
-            foreach (DataRow dr in summaryTable.Rows)
+            foreach (long diskspace in summaryTable.Rows.Select(dr => Convert.ToInt64(dr["Diskspace"])))
             {
-                long diskspace = Convert.ToInt64(dr["Diskspace"]);
                 DiskspaceTotal += diskspace;
 
                 if (diskspace < 0)

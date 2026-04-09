@@ -574,7 +574,7 @@ namespace FuseCP.Portal
 				return;
 			}
 			// Step 3: Publishing has been enabled for the web site
-			if (item.WebDeploySitePublishingEnabled)
+			else
 			{
 				// Enable controls
 				EnableControlsInBulk(

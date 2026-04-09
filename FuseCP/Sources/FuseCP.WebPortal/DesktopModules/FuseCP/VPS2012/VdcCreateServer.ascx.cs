@@ -795,9 +795,8 @@ if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_ADDITIONAL_VHD_COUNT,
         {
             var result = new List<AdditionalHdd>();
 
-            foreach (RepeaterItem item in repHdd.Items)
+            foreach (AdditionalHdd hdd in repHdd.Items.Select(item => new AdditionalHdd(Utils.ParseInt(GetTextBoxText(item, "txtAdditionalHdd").Trim()), "")))
             {
-                AdditionalHdd hdd = new AdditionalHdd(Utils.ParseInt(GetTextBoxText(item, "txtAdditionalHdd").Trim()), "");
                 result.Add(hdd);
             }
 

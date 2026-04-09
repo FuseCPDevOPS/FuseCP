@@ -148,9 +148,8 @@ namespace FuseCP.Portal
             MenuItemCollection items = new MenuItemCollection();
 
             // get icons list
-            foreach (XmlNode xmlNode in xmlIcons)
+            foreach (MenuItem iconItem in xmlIcons.Select(xmlNode => CreateMenuItem(cntx, xmlNode)))
             {
-                MenuItem iconItem = CreateMenuItem(cntx, xmlNode);
                 // create icon item
                 if (iconItem == null)
                     continue;
@@ -242,9 +241,8 @@ namespace FuseCP.Portal
             XmlNodeList xmlMenuNodes = xmlNode.SelectNodes("Icon");
             if (xmlMenuNodes.Count==0)
                 xmlMenuNodes = xmlNode.SelectNodes("MenuItems/MenuItem");
-            foreach (XmlNode xmlMenuNode in xmlMenuNodes)
+            foreach (MenuItem menuItem in xmlMenuNodes.Select(xmlMenuNode => CreateMenuItem(cntx, xmlMenuNode)))
             {
-                MenuItem menuItem = CreateMenuItem(cntx, xmlMenuNode);
                 if (menuItem != null)
                     item.ChildItems.Add(menuItem);
             }

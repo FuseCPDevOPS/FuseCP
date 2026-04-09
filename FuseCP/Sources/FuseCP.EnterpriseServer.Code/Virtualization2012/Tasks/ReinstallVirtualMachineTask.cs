@@ -132,7 +132,6 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
             }
 
             //if (res.IsSuccess)
-            if (true)
             {
                 int timeOut = 240;
                 while (((VirtualMachine)PackageController.GetPackageItem(itemId)).ProvisioningStatus != VirtualMachineProvisioningStatus.Deleted && timeOut > 0)

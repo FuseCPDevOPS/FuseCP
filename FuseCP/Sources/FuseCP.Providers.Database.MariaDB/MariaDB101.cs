@@ -754,9 +754,8 @@ namespace FuseCP.Providers.Database
 				String.Format("Convert(db, 'System.String') = '{0}'", database);
 
 			DataView dvProcesses = new DataView(dtProcesses);
-			foreach (DataRowView rowSid in dvProcesses)
+			foreach (string cmdText in dvProcesses.Select(rowSid => String.Format("KILL {0}", rowSid["Id"])))
 			{
-				string cmdText = String.Format("KILL {0}", rowSid["Id"]);
 				try
 				{
 					ExecuteNonQuery(cmdText);

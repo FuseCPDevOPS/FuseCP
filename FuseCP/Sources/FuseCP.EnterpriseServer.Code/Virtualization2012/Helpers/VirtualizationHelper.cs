@@ -168,9 +168,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012
                 // check all VPS2012 services
                 DataView dvServices = ServerController.GetRawServicesByGroupName(ResourceGroups.VPS2012, true).Tables[0].DefaultView;
 
-                foreach (DataRowView dr in dvServices)
+                foreach (int serviceId in dvServices.Select(dr => (int)dr["ServiceID"]))
                 {
-                    int serviceId = (int)dr["ServiceID"];
                     if (serviceId != oldServiceId && CheckVmService(serviceId, itemId, vm.VirtualMachineId)) return serviceId;
                 }
             }
