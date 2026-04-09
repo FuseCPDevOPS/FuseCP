@@ -101,8 +101,9 @@ namespace FuseCP.Portal.UserControls
             if (dt == null)
                 return;
 
-            foreach (string sourceName in dt.Rows.Select(dr => dr["SourceName"].ToString()))
+            foreach (DataRow dr in dt.Rows)
             {
+                string sourceName = dr["SourceName"].ToString();
                 ddlSource.Items.Add(new ListItem(GetAuditLogSourceName(sourceName), sourceName));
             }
         }
@@ -118,8 +119,9 @@ namespace FuseCP.Portal.UserControls
             if (dt == null)
                 return;
 
-            foreach (string taskName in dt.Rows.Select(dr => dr["TaskName"].ToString()))
+            foreach (DataRow dr in dt.Rows)
             {
+                string taskName = dr["TaskName"].ToString();
                 ddlTask.Items.Add(new ListItem(GetAuditLogTaskName(sourceName, taskName), taskName));
             }
         }

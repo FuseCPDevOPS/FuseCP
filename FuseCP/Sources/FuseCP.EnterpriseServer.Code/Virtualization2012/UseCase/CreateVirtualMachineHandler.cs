@@ -206,7 +206,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                         // get new externalAddresses IDs (Yep, very strange WSP/FuseCP logic)
                         for (int i = 0; i < externalAddresses!.Length; i++)
                         {
-                            ((((((((externalAd)!d)!r)!e)!s)!s)!e)!s)![i] = packageIPs[i].PackageAddressID;
+                            externalAddresses[i] = packageIPs[i].PackageAddressID;
                         }
                     }
                 }
@@ -439,7 +439,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                 if (!createMetaItem)
                 {
                     vm!.CurrentTaskId = null;
-                    ((()!()!()!()!()!()!v)!m)!.ProvisioningStatus = VirtualMachineProvisioningStatus.Error;
+                    vm.ProvisioningStatus = VirtualMachineProvisioningStatus.Error;
                     PackageController.UpdatePackageItem(vm); //to access the audit log.
                 }
                 res.AddError(VirtualizationErrorCodes.CREATE_ERROR, ex);

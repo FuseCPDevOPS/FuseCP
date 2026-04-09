@@ -38,9 +38,11 @@ namespace FuseCP.Providers.Statistics
             {
                 names = key.GetSubKeyNames();
 
-                foreach (RegistryKey subkey in names.Select(subKeyName => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName)).Where(subkey => subkey != null))
+                foreach (RegistryKey subkey in names.Select(subKeyName => HKLM.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + subKeyName)))
                 {
 
+                    if (subkey != null)
+                    {
                         if (!String.IsNullOrEmpty((string)subkey.GetValue("DisplayName")))
                         {
                             productName = (string)subkey.GetValue("DisplayName");
@@ -50,6 +52,7 @@ namespace FuseCP.Providers.Statistics
                             productVersion = (string)subkey.GetValue("DisplayVersion");
                             break;
                         }
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(productVersion))

@@ -132,7 +132,7 @@ namespace FuseCP.Templates.AST
 
                 if (op == TokenType.Or)
                     return (Boolean)lv || (Boolean)rv;
-                else
+                else if (op == TokenType.And)
                     return (Boolean)lv && (Boolean)rv;
             }
 

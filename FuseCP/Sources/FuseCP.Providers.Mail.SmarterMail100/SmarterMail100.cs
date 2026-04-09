@@ -1864,8 +1864,9 @@ HttpClient client = CreateHttpClient();
 					throw new Exception(result["message"]);
 
 
-				foreach (string MemberlistAddress in result["items"].Select(member => (string)member.listAddress))
+				foreach (dynamic member in result["items"])
 				{
+					string MemberlistAddress = (string)member.listAddress;
 					if (MemberlistAddress.ToLower() == GetAccountName(listName).ToLower())
 					{
 						return true;

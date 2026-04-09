@@ -251,8 +251,9 @@ namespace FuseCP.Portal
             // iterate through all services
             List<int> ids = new List<int>();
 
-            foreach (DataList dlServices in dlServiceGroups.Items.Select(itemGroup => (DataList)itemGroup.FindControl("dlServices")))
+            foreach (DataListItem itemGroup in dlServiceGroups.Items)
             {
+                DataList dlServices = (DataList)itemGroup.FindControl("dlServices");
                 if (dlServices != null)
                 {
                     for (int i = 0; i < dlServices.Items.Count; i++)

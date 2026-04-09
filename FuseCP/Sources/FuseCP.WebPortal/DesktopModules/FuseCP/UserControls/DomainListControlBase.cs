@@ -86,8 +86,10 @@ namespace FuseCP.Portal.UserControls
         public List<String> CollectFormData( Boolean include_empty )
         {
             var items = new List<String>();
-            foreach (var val in Grid.Rows.Select(row => (TextBox)row.FindControl(_txt_control_name)).Select(txt_name => txt_name.Text.Trim()))
+            foreach (GridViewRow row in Grid.Rows)
             {
+                TextBox txt_name = (TextBox)row.FindControl(_txt_control_name);
+                var val = txt_name.Text.Trim();
                 if ( include_empty || "" != val )
                 {
                     items.Add( val );

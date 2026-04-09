@@ -537,8 +537,9 @@ namespace FuseCP.Providers.Utils
                     // get user groups
                     List<string> userGroups = new List<string>();
                     object groups = user.Invoke("Groups", null);
-                    foreach (using DirectoryEntry objGroup in (IEnumerable)groups.Select(nGroup => new DirectoryEntry(nGroup)))
+                    foreach (object nGroup in (IEnumerable)groups)
                     {
+                        using DirectoryEntry objGroup = new DirectoryEntry(nGroup);
                         userGroups.Add(objGroup.Name);
                     }
 
@@ -761,8 +762,9 @@ namespace FuseCP.Providers.Utils
 
                     // remove user from all assigned groups
                     object groups = objUser.Invoke("Groups", null);
-                    foreach (using DirectoryEntry objGroup in (IEnumerable)groups.Select(nGroup => new DirectoryEntry(nGroup)))
+                    foreach (object nGroup in (IEnumerable)groups)
                     {
+                        using DirectoryEntry objGroup = new DirectoryEntry(nGroup);
                         objGroup.Invoke("Remove", new object[] { objUser.Path });
                     }
 
@@ -1236,8 +1238,9 @@ namespace FuseCP.Providers.Utils
                     // get group members
                     List<string> groupMembers = new List<string>();
                     object users = group.Invoke("Members", null);
-                    foreach (using DirectoryEntry objUser in (IEnumerable)users.Select(nUser => new DirectoryEntry(nUser)))
+                    foreach (object nUser in (IEnumerable)users)
                     {
+                        using DirectoryEntry objUser = new DirectoryEntry(nUser);
                         // Get the Directory Entry.
                         groupMembers.Add(objUser.Name);
                     }
@@ -1369,8 +1372,9 @@ namespace FuseCP.Providers.Utils
 
                     // remove all group members
                     object users = objGroup.Invoke("Members", null);
-                    foreach (using DirectoryEntry objUser in (IEnumerable)users.Select(nUser => new DirectoryEntry(nUser)))
+                    foreach (object nUser in (IEnumerable)users)
                     {
+                        using DirectoryEntry objUser = new DirectoryEntry(nUser);
                         objGroup.Invoke("Remove", new object[] { objUser.Path });
                     }
 

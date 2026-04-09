@@ -1075,7 +1075,7 @@ namespace FuseCP.Providers.DNS
 			else shell = Shell.Default.Exec($"{cmd} {rndcArguments}");
 
 			var output = shell!.Output().Result;
-            if ((((((()!()!()!s)!h)!e)!l)!l)!.ExitCode().Result != 0 || Regex.IsMatch(output, "error", RegexOptions.IgnoreCase))
+            if (shell.ExitCode().Result != 0 || Regex.IsMatch(output, "error", RegexOptions.IgnoreCase))
             {
                 Log.WriteError(output, null);
             }

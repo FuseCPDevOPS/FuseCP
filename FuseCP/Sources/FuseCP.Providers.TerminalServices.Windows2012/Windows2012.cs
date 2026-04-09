@@ -1730,7 +1730,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
                 result = new ImportedRdsCollection
                 {
                     CollectionName = collection!.Name,
-                    Description = ((((((((col)!l)!e)!c)!t)!i)!o)!n)!.Description
+                    Description = collection.Description
                 };
                 
                 if (collection == null)

@@ -151,6 +151,7 @@ public class Servers
 			Os.Ubuntu => installed
 				.FirstOrDefault(d => d.Distro == WSLShell.Distro.Ubuntu ||
 					d.Distro == WSLShell.Distro.Ubuntu22 ||
+					d.Distro == WSLShell.Distro.Ubuntu22 ||
 					d.Distro == WSLShell.Distro.Ubuntu24 ||
 					d.OtherDistroName?.Contains("Ubuntu") == true),
 			Os.Fedora => installed

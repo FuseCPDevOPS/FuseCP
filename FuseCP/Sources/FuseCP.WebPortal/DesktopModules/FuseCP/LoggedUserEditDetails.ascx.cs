@@ -647,8 +647,10 @@ namespace FuseCP.Portal
         {
             var values = new List<string>();
 
-            foreach (string normalized in repeater.Items.Select(item => item.FindControl(textBoxControlId) as TextBox).Select(txt => NormalizeHex(txt != null ? txt.Text : String.Empty)))
+            foreach (RepeaterItem item in repeater.Items)
             {
+                TextBox txt = item.FindControl(textBoxControlId) as TextBox;
+                string normalized = NormalizeHex(txt != null ? txt.Text : String.Empty);
                 if (!PaletteHexColorRegex.IsMatch(normalized))
                 {
                     throw new InvalidOperationException("Invalid palette color value. Use #RRGGBB format.");
@@ -867,8 +869,6 @@ namespace FuseCP.Portal
 
             HttpCookie userThemeButtonsDarkCrumb = new HttpCookie("UserThemeButtonsDark", "");
             userThemeButtonsDarkCrumb.Expires = DateTime.Now.AddMonths(-1);
-            userThemeButtonsDarkCrumb.HttpOnly = true;
-            userThemeButtonsDarkCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
             HttpContext.Current.Response.Cookies.Add(userThemeButtonsDarkCrumb);
         }
 
