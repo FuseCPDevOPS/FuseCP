@@ -600,9 +600,8 @@ namespace FuseCP.Portal
 				// Save web site name as a command argument for the link
 				WDeployDownloadPubProfileLink.CommandArgument = item.Name;
 		}
-	}
 
-	private void BindWebPublishingProfileDatabases()
+		private void BindWebPublishingProfileDatabases()
 		{
 			MyDatabaseList.DataSource = ES.Services.DatabaseServers.GetSqlDatabases(PanelSecurity.PackageId, null, false);
 			MyDatabaseList.DataBind();
