@@ -8583,7 +8583,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 
-				id = package?.ParentPackageId;
+				id = package.ParentPackageId;
 			}
 
 			/// <summary>TODO</summary>
@@ -9318,7 +9318,7 @@ namespace FuseCP.EnterpriseServer
 					}
 				}
 
-				pid = package?.ParentPackageId;
+				pid = package.ParentPackageId;
 				package = Packages
 					.Where(p => p.PackageId == pid)
 					.Select(p => new

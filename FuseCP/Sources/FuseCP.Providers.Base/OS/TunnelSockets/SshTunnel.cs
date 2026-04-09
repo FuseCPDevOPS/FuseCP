@@ -126,7 +126,7 @@ namespace FuseCP.Providers.OS
                     Loopback = IPAddress.IPv6Loopback;
                     sshhost = sshhostip.ToString();
                 }
-                else if (sshhostip != default(IPAddress))
+                else
                 {
                     throw new ArgumentException("No supported ip adress");
                 }

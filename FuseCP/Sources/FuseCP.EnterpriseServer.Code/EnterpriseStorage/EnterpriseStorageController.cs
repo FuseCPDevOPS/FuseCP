@@ -228,28 +228,25 @@ namespace FuseCP.EnterpriseServer
                         continue;
                     }
 
-                    var searchRequest = new StorageSpaceFolderSearchRequest
-                    {
+
+                            var quota = StorageSpacesController.GetFolderQuota(esFolder.Path, esFolder.StorageSpaceId);
+
+                            if (quota != null)
                         SearchPath = searchPath,
-                        SearchValue = searchText,
-                        StorageSpaceFolderId = rootFolder.StorageSpaceFolderId.Value,
-                        StorageSpaceId = rootFolder.StorageSpaceId
-                    };
+                                folder.Size = quota.Usage;
+                            }
 
-                    searchRequests.Add(searchRequest);
-                }
+                            folder.FsrmQuotaType = esFolder.FsrmQuotaType;
 
-                var tasks = new List<Task<IEnumerable<SystemFile>>>();
+                            var ssFolder = StorageSpacesController.GetStorageSpaceFolderById(esFolder.StorageSpaceFolderId.Value);
 
-                tasks.AddRange(StorageSpacesController.SearchInStorageSpaceFolders(searchRequests));
-
-                var task = new Task<IEnumerable<SystemFile>>(() =>
+                            if (ssFolder != null)
+                            {
                 {
                     var locEs = GetEnterpriseStorage(serviceId);
 
                     return locEs.Search(org.OrganizationId, searchPaths, searchText, userPrincipalName, recursive);
                 });
-
                 task.Start();
 
                 tasks.Add(task);

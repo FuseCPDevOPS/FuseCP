@@ -1666,28 +1666,25 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 //Add the service records
-                if (domain != null)
+                if (domain.ZoneItemId != 0)
                 {
-                    if (domain.ZoneItemId != 0)
-                    {
-                        ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "");
-                    }
-
-                    // check if spamexperts filter is needed
-                    StringDictionary exSettings = ServerController.GetServiceSettings(exchangeServiceId);
-                    if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
-                    {
-
-                        SpamExpertsRoute route = new SpamExpertsRoute();
-                        route.PackageId = org.PackageId;
-                        route.DomainName = domain.DomainName;
-                        route.Route = exSettings["MailFilterDestinations"];
-                        SpamExpertsController.AddDomainFilter(route);
-                    }
-
-                    //Add to Mail Cleaner
-                    APIMailCleanerHelper.DomainAdd(domain.DomainName, domain.PackageId);
+                    ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "");
                 }
+
+                // check if spamexperts filter is needed
+                StringDictionary exSettings = ServerController.GetServiceSettings(exchangeServiceId);
+                if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
+                {
+
+                    SpamExpertsRoute route = new SpamExpertsRoute();
+                    route.PackageId = org.PackageId;
+                    route.DomainName = domain.DomainName;
+                    route.Route = exSettings["MailFilterDestinations"];
+                    SpamExpertsController.AddDomainFilter(route);
+                }
+
+                //Add to Mail Cleaner
+                APIMailCleanerHelper.DomainAdd(domain.DomainName, domain.PackageId);
 
                 return 0;
             }
@@ -1818,23 +1815,20 @@ namespace FuseCP.EnterpriseServer
                 }
 
                 //Delete the service records
-                if (domain != null)
+                if (domain.ZoneItemId != 0)
                 {
-                    if (domain.ZoneItemId != 0)
-                    {
-                        ServerController.RemoveServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "", false);
-                    }
-
-                    // check if spamexperts filter needs to be removed
-                    StringDictionary exSettings = ServerController.GetServiceSettings(exchangeServiceId);
-                    if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
-                    {
-                        SpamExpertsController.DeleteDomainFilter(domain);
-                    }
-
-                    //Delete Domain from Mail Cleaner
-                    APIMailCleanerHelper.DomainRemove(domain.DomainName, domain.PackageId);
+                    ServerController.RemoveServiceDNSRecords(org.PackageId, ResourceGroups.Exchange, domain, "", false);
                 }
+
+                // check if spamexperts filter needs to be removed
+                StringDictionary exSettings = ServerController.GetServiceSettings(exchangeServiceId);
+                if (exSettings != null && Convert.ToBoolean(exSettings["EnableMailFilter"]))
+                {
+                    SpamExpertsController.DeleteDomainFilter(domain);
+                }
+
+                //Delete Domain from Mail Cleaner
+                APIMailCleanerHelper.DomainRemove(domain.DomainName, domain.PackageId);
 
                 return 0;
             }

@@ -313,7 +313,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.UseCase
                     Database.DeleteItemDmzIPAddresses(SecurityContext.User.UserId, itemId);
 
                 // start if required
-                if (wasStarted && !isSuccessChangedWihoutReboot)
+                if (wasStarted)
                 {
                     TaskManager.Write(String.Format("Starting the server..."));
                     result = vs.ChangeVirtualMachineState(vm.VirtualMachineId, VirtualMachineRequestedState.Start, vm.ClusterName);
