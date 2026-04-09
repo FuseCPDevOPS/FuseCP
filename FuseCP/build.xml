@@ -218,7 +218,8 @@
 		<MSBuild Projects="$(RootFolder)\FuseCP.VmConfig\Sources\FuseCP.VmConfig.sln" Properties="$(CommonBuildProperties)" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.Import.Enterprise.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.AWStats.Viewer.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
-		<Exec Command="&quot;$(MsBuildExe)&quot; &quot;$(TrunkFolder)\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx&quot; /restore &quot;/p:$(CommonBuildProperties)&quot; $(MsBuildSwitches)" />
+		<!-- Use dotnet SDK build here because .NET 10 tooling requires newer MSBuild than VS2022 17.x provides on current hosted runners. -->
+		<Exec Command="dotnet build &quot;$(TrunkFolder)\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx&quot; --configuration $(BuildConfiguration) -p:Platform=&quot;$(Platform)&quot; -p:UseSharedCompilation=false --verbosity normal -m:1" />
 		<MSBuild Projects="$(TrunkFolder)\Sources\Tools\FuseCP.FixDefaultPublicFolderMailbox.sln" Properties="$(CommonBuildProperties)" Condition="'$(BuildLegacyNet48Tools)' == 'true'" />
  	</Target>
 
