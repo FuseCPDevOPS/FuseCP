@@ -881,6 +881,7 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawServicesByGroupName(string groupName, bool forAutodiscover)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, forAutodiscover);
 		}
 
@@ -2335,6 +2336,7 @@ namespace FuseCP.EnterpriseServer
 		#region Clusters
 		public List<ClusterInfo> GetClusters()
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ClusterInfo>();
 			return ObjectUtils.CreateListFromDataReader<ClusterInfo>(
 				Database.GetClusters(SecurityContext.User.UserId));
 		}
