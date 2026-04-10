@@ -20,7 +20,7 @@ using System.Security.Cryptography;
 
 namespace FuseCP.Providers.Utils
 {
-    public class CRC32 : HashAlgorithm
+    public sealed class CRC32 : HashAlgorithm
     {
         protected static uint AllOnes = 0xffffffff;
         protected static Hashtable cachedCRC32Tables;

@@ -23,7 +23,7 @@ using System.Text;
 
 namespace FuseCP.Providers.Virtualization
 {
-    public class MiManager : IDisposable //MI/CIM is WMIv2 
+    public sealed class MiManager : IDisposable //MI/CIM is WMIv2
     {
         private CimSession _session;
         private readonly object _disposeThreadSafetyLock = new object();

@@ -38,7 +38,7 @@ using IisSite = Microsoft.Web.Administration.Site;
 namespace FuseCP.Providers.FTP
 {
     [SupportedOSPlatform("windows")]
-    public class MsFTP100 : HostingServiceProviderBase, IFtpServer
+    public sealed class MsFTP100 : HostingServiceProviderBase, IFtpServer
     {
 
         private readonly SitesModuleService ftpSitesService;

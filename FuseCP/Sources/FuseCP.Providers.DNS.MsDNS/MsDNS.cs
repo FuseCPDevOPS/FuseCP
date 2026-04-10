@@ -27,7 +27,7 @@ using System.Linq;
 
 namespace FuseCP.Providers.DNS
 {
-	public class MsDNS : HostingServiceProviderBase, IDnsServer
+	public sealed class MsDNS : HostingServiceProviderBase, IDnsServer
 	{
 		#region Properties
 		protected int ExpireLimit
