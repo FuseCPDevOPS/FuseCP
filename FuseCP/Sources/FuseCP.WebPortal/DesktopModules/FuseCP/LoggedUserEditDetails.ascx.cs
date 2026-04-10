@@ -363,7 +363,6 @@ namespace FuseCP.Portal
                         }
                         
                         HttpCookie UserThemeStyleCrum = new HttpCookie("UserThemeStyle", ddlThemeStyle.SelectedValue);
-                        UserThemeStyleCrum.Expires = DateTime.Now.AddMonths(2);
                         UserThemeStyleCrum.HttpOnly = true;
                         UserThemeStyleCrum.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
                         HttpContext.Current.Response.Cookies.Add(UserThemeStyleCrum);
@@ -668,7 +667,6 @@ namespace FuseCP.Portal
             ES.Services.Users.UpdateUserThemeSetting(PanelSecurity.LoggedUserId, propertyName, csv);
 
             HttpCookie cookie = new HttpCookie(cookieName, csv);
-            cookie.Expires = DateTime.Now.AddMonths(2);
             cookie.HttpOnly = true;
             cookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
             HttpContext.Current.Response.Cookies.Add(cookie);
@@ -763,7 +761,6 @@ namespace FuseCP.Portal
             ES.Services.Users.UpdateUserThemeSetting(PanelSecurity.LoggedUserId, propertyName, csv);
 
             HttpCookie cookie = new HttpCookie(cookieName, csv);
-            cookie.Expires = DateTime.Now.AddMonths(2);
             cookie.HttpOnly = true;
             cookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
             HttpContext.Current.Response.Cookies.Add(cookie);
@@ -799,7 +796,6 @@ namespace FuseCP.Portal
                 || String.Equals(normalizedStyle, ThemeStyleDark, StringComparison.OrdinalIgnoreCase))
             {
                 HttpCookie modeCookie = new HttpCookie(ThemeModeCookie, normalizedStyle.ToLowerInvariant());
-                modeCookie.Expires = DateTime.Now.AddMonths(2);
                 modeCookie.HttpOnly = true;
                 modeCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
                 HttpContext.Current.Response.Cookies.Add(modeCookie);

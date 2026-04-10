@@ -359,7 +359,6 @@ namespace FuseCP.Portal
 							string UserThemeStyle = RowPropertyValue;
 
 							HttpCookie UserThemeStyleCrumb = new HttpCookie("UserThemeStyle", UserThemeStyle);
-							UserThemeStyleCrumb.Expires = DateTime.Now.AddMonths(2);
 							UserThemeStyleCrumb.HttpOnly = true;
 							UserThemeStyleCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(UserThemeStyleCrumb);
@@ -369,7 +368,6 @@ namespace FuseCP.Portal
 						if (RowPropertyName == "palette-Light")
 						{
 							HttpCookie paletteLightCookie = new HttpCookie("UserThemePaletteLight", RowPropertyValue ?? string.Empty);
-							paletteLightCookie.Expires = DateTime.Now.AddMonths(2);
 							paletteLightCookie.HttpOnly = true;
 							paletteLightCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(paletteLightCookie);
@@ -378,7 +376,6 @@ namespace FuseCP.Portal
 						if (RowPropertyName == "palette-Dark")
 						{
 							HttpCookie paletteDarkCookie = new HttpCookie("UserThemePaletteDark", RowPropertyValue ?? string.Empty);
-							paletteDarkCookie.Expires = DateTime.Now.AddMonths(2);
 							paletteDarkCookie.HttpOnly = true;
 							paletteDarkCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(paletteDarkCookie);
@@ -387,7 +384,6 @@ namespace FuseCP.Portal
 						if (RowPropertyName == "buttons-Light")
 						{
 							HttpCookie buttonsLightCookie = new HttpCookie("UserThemeButtonsLight", RowPropertyValue ?? string.Empty);
-							buttonsLightCookie.Expires = DateTime.Now.AddMonths(2);
 							buttonsLightCookie.HttpOnly = true;
 							buttonsLightCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(buttonsLightCookie);
@@ -396,7 +392,6 @@ namespace FuseCP.Portal
 						if (RowPropertyName == "buttons-Dark")
 						{
 							HttpCookie buttonsDarkCookie = new HttpCookie("UserThemeButtonsDark", RowPropertyValue ?? string.Empty);
-							buttonsDarkCookie.Expires = DateTime.Now.AddMonths(2);
 							buttonsDarkCookie.HttpOnly = true;
 							buttonsDarkCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 							HttpContext.Current.Response.Cookies.Add(buttonsDarkCookie);
@@ -524,7 +519,6 @@ namespace FuseCP.Portal
 			}
 
 			HttpCookie modeCookie = new HttpCookie(ThemeModeCookieName, selectedMode);
-			modeCookie.Expires = DateTime.Now.AddMonths(2);
 			modeCookie.HttpOnly = true;
 			modeCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(modeCookie);

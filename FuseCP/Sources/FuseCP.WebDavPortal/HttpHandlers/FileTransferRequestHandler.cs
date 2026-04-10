@@ -40,7 +40,9 @@ namespace FuseCP.WebDavPortal.HttpHandlers
 
             if (!string.IsNullOrWhiteSpace(requestPath))
             {
-                var relativePath = requestPath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
+                var relativePath = requestPath
+                    .TrimStart('/', '\\')
+                    .Replace('/', Path.DirectorySeparatorChar);
                 var absolutePath = Path.Combine(AppContext.BaseDirectory, relativePath);
 
                 if (File.Exists(absolutePath))

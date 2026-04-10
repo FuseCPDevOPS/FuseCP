@@ -401,12 +401,12 @@ namespace FuseCP.Providers.FTP
             }
 
             // Convert the encrypted bytes back to a string (base 16)
-            string hashString = "";
+            var hashStringBuilder = new StringBuilder();
 
             for (int i = 0; i < hashBytes.Length; i++)
-                hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+                hashStringBuilder.Append(Convert.ToString(hashBytes[i], 16).PadLeft(2, '0'));
 
-            return hashString.PadLeft(32, '0');
+            return hashStringBuilder.ToString().PadLeft(32, '0');
         }
 
         private void ReloadFileZillaConfig()

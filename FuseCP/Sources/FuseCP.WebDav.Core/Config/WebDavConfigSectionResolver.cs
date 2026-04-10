@@ -63,7 +63,7 @@ namespace FuseCP.WebDav.Core.Config
 
             while (current != null)
             {
-                var candidate = Path.Combine(current.FullName, "Web.config");
+                var candidate = Path.Join(current.FullName, "Web.config");
                 if (File.Exists(candidate))
                 {
                     return candidate;

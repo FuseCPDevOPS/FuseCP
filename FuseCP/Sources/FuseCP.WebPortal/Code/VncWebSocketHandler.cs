@@ -76,7 +76,7 @@ namespace FuseCP.WebPortal
                             {
                                 await incoming.Transmit(outgoing);
                             }
-                        } catch (Exception ex)
+                        } catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                         {
                             throw new IOException(ex.Message, ex);
                         }

@@ -82,7 +82,8 @@ namespace FuseCP.Providers.Common
 
 		public Byte[] GetMD5Hash()
 		{
-			return MD5.Create().ComputeHash(Get());
+			using var md5 = MD5.Create();
+			return md5.ComputeHash(Get());
 		}
 
 		public void Clear()

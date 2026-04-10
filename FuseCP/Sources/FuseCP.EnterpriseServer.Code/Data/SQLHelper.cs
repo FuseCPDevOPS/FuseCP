@@ -1847,7 +1847,7 @@ namespace Microsoft.ApplicationBlocks.Data
 					{
 						if( tableNames[index] == null || tableNames[index].Length == 0 ) throw new ArgumentException( "The tableNames parameter must contain a list of tables, a value was provided as null or empty string.", "tableNames" );
 						dataAdapter.TableMappings.Add(tableName, tableNames[index]);
-						tableName += (index + 1);
+                        tableName = "Table" + (index + 1);
 					}
 				}
                 

@@ -115,7 +115,6 @@ public class PortalUtils
 		{
 
 			HttpCookie cookieTheme = new HttpCookie(ThemeCookieName, theme);
-			cookieTheme.Expires = DateTime.Now.AddMonths(2);
 			cookieTheme.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(cookieTheme);
 		}
@@ -796,7 +795,6 @@ public class PortalUtils
 	{
 		// store last successful username in the cookie
 		HttpCookie cookie = new HttpCookie("FuseCPLogin", username);
-		cookie.Expires = DateTime.Now.AddDays(7);
 		cookie.Secure = FormsAuthentication.RequireSSL;
 		cookie.HttpOnly = true;
 		HttpContext.Current.Response.Cookies.Add(cookie);
@@ -817,7 +815,6 @@ public class PortalUtils
 		if (!String.IsNullOrEmpty(preferredLocale))
 		{
 			HttpCookie localeCrumb = new HttpCookie(CultureCookieName, preferredLocale);
-			localeCrumb.Expires = DateTime.Now.AddMonths(2);
 			localeCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(localeCrumb);
 		}
@@ -1191,7 +1188,7 @@ public class PortalUtils
 		string generalControlKey = string.Empty;
 
 		string appData = HostingEnvironment.MapPath(CONFIG_FOLDER);
-		string xmlFilePath = Path.Combine(appData, EXCHANGE_SERVER_HIERARCHY_FILE);
+		string xmlFilePath = Path.Combine(appData, EXCHANGE_SERVER_HIERARCHY_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 		if (File.Exists(xmlFilePath))
 		{
 			try

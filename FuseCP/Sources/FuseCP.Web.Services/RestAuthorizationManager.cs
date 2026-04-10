@@ -67,7 +67,7 @@ namespace FuseCP.Web.Services {
 					await validator.ValidateAsync(user.Name, user.Password);
 					return true;
 
-				} catch (Exception)
+				} catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 				{
 					return false;
 				}

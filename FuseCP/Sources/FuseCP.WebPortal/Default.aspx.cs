@@ -415,7 +415,8 @@ namespace FuseCP.WebPortal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                ShowError(skinPlaceHolder, String.Format("Can't load {0} skin: {1}", skinPath, ex));
+                System.Diagnostics.Trace.TraceWarning("Can't load skin '{0}': {1}", skinPath, ex.Message);
+                ShowError(skinPlaceHolder, String.Format("Can't load {0} skin.", skinPath));
                 return;
             }
 
@@ -517,7 +518,8 @@ namespace FuseCP.WebPortal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                ShowError(pane, String.Format("Container '{0}' could not be loaded: {1}", containerPath, ex));
+                System.Diagnostics.Trace.TraceWarning("Container '{0}' could not be loaded: {1}", containerPath, ex.Message);
+                ShowError(pane, String.Format("Container '{0}' could not be loaded.", containerPath));
                 return;
             }
 
@@ -574,7 +576,8 @@ namespace FuseCP.WebPortal
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                     {
-                        ShowError(contentPane, String.Format("Control '{0}' could not be loaded: {1}", controlPath, ex));
+                        System.Diagnostics.Trace.TraceWarning("Control '{0}' could not be loaded: {1}", controlPath, ex.Message);
+                        ShowError(contentPane, String.Format("Control '{0}' could not be loaded.", controlPath));
                     }
                 }
             }
@@ -607,7 +610,6 @@ namespace FuseCP.WebPortal
                     if (ci.TextInfo.IsRightToLeft)
                     {
                         HttpCookie UserRTL = new HttpCookie("UserRTL", "1");
-                        UserRTL.Expires = DateTime.Now.AddMonths(2);
                         UserRTL.HttpOnly = true;
                         UserRTL.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
                         HttpContext.Current.Response.Cookies.Add(UserRTL);

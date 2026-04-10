@@ -138,7 +138,7 @@ namespace FuseCP.WebDav.Core.Owa
                 .Replace('/', Path.DirectorySeparatorChar)
                 .TrimStart('~', '/', '\\');
 
-            return Path.Combine(AppContext.BaseDirectory, normalizedPath);
+            return Path.Join(AppContext.BaseDirectory, normalizedPath);
         }
     }
 }

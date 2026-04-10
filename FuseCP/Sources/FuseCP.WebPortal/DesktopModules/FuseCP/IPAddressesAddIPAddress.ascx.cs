@@ -68,7 +68,8 @@ namespace FuseCP.Portal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
+                System.Diagnostics.Trace.TraceWarning("Exception while binding IP servers: " + ex.Message);
+                Response.Write(HttpUtility.HtmlEncode("An unexpected error occurred while loading servers."));
             }
 
             // add "select" item

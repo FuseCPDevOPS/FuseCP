@@ -276,7 +276,7 @@ public class EnterpriseServer : IDisposable
 				CryptoUtils.Encrypt(SysadminPassword));
 
 			return sqliteConnectionString = connectionString;
-		} catch (Exception ex)
+		} catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 		{
 			throw new Exception($"Error, CS: {connectionString}; {ex}", ex);
 		}
@@ -326,7 +326,7 @@ public class EnterpriseServer : IDisposable
 			if (sqliteConnectionString != null &&
 				DatabaseUtils.DatabaseExists(sqliteConnectionString, DatabaseName))
 				DatabaseUtils.DeleteDatabase(sqliteConnectionString, DatabaseName);
-		} catch (Exception ex) { _ = ex; }
+		} catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { _ = ex; }
 	}
 
 	public static void SetupEmbeddedEnterpriseServer()

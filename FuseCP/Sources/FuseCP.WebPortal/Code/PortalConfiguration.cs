@@ -47,6 +47,13 @@ namespace FuseCP.WebPortal
 		private const string SITE_STRUCTURE_KEY = "SiteStructureCacheKey";
 		private const string SITE_SETTINGS_KEY = "SiteSettingsCacheKey";
 
+		private static string NormalizeRelativePathSegment(string segment)
+		{
+			return string.IsNullOrEmpty(segment)
+				? string.Empty
+				: segment.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+		}
+
 		static Dictionary<string, ModuleDefinition> modules = null;
 		static readonly object ModuleDefinitionsLock = new object();
 		public static Dictionary<string, ModuleDefinition> ModuleDefinitions
@@ -111,7 +118,7 @@ namespace FuseCP.WebPortal
 
 						// load pages
 						string appData = HostingEnvironment.MapPath(APP_DATA_FOLDER);
-						string path = Path.Combine(appData, SITE_SETTINGS_FILE);
+						string path = Path.Combine(appData, NormalizeRelativePathSegment(SITE_SETTINGS_FILE));
 
 						// load site settings
 						XmlDocument xml = new XmlDocument();
@@ -133,7 +140,7 @@ namespace FuseCP.WebPortal
 		{
 			// load pages
 			string appData = HttpContext.Current.Server.MapPath(APP_DATA_FOLDER);
-			string path = Path.Combine(appData, SITE_SETTINGS_FILE);
+			string path = Path.Combine(appData, NormalizeRelativePathSegment(SITE_SETTINGS_FILE));
 
 			try
 			{
@@ -241,7 +248,8 @@ namespace FuseCP.WebPortal
 				if (node.Attributes["file"] == null)
 					continue;
 
-				string incPath = Path.Combine(path, node.Attributes["file"].Value);
+				string includePath = NormalizeRelativePathSegment(node.Attributes["file"].Value);
+				string incPath = Path.Combine(path, includePath);
 				XmlDocument inc = new XmlDocument();
 				inc.Load(incPath);
 

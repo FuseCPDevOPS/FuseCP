@@ -56,7 +56,8 @@ namespace FuseCP.Portal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                Response.Write(HttpUtility.HtmlEncode(ex.ToString()));
+                System.Diagnostics.Trace.TraceWarning("Exception while binding space quotas: " + ex.Message);
+                Response.Write(HttpUtility.HtmlEncode("An unexpected error occurred while loading quotas."));
             }
         }
 
@@ -66,7 +67,8 @@ namespace FuseCP.Portal
             if (quotaTable == null)
                 return false;
 
-            return new DataView(quotaTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows).Count > 0;
+            using var dataView = new DataView(quotaTable, "GroupID=" + groupId, "", DataViewRowState.CurrentRows);
+            return dataView.Count > 0;
         }
 
         public DataView GetGroupQuotas(int groupId)

@@ -42,7 +42,6 @@ namespace FuseCP.Portal
 					theme = themeTable.Rows[0]["RTLName"].ToString();
 	
 					HttpCookie cookieTheme = new HttpCookie("UserTheme", theme);
-					cookieTheme.Expires = DateTime.Now.AddMonths(2);
 					cookieTheme.HttpOnly = true;
 					cookieTheme.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 					HttpContext.Current.Response.Cookies.Add(cookieTheme);

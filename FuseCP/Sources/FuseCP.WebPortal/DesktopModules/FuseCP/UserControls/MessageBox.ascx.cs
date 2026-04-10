@@ -86,7 +86,8 @@ namespace FuseCP.Portal
 						return $@"<a href=""{FuseCPGithubUrl}/tree/v{fileVersion}{file}"">{file}</a>";
 					}, RegexOptions.Multiline);
 					stackhtml = stackhtml.Replace("\n", "<br/>");
-					litStackTrace.Text = stackhtml;
+					System.Diagnostics.Trace.TraceWarning("MessageBox exception details: " + stacktxt);
+					litStackTrace.Text = PortalAntiXSS.Encode("Technical details are available in server logs.");
 
 					// send form
 					litSendFrom.Text = PanelSecurity.LoggedUser.Email;

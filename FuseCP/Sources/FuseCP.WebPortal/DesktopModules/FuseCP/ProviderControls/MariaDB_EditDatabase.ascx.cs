@@ -53,7 +53,7 @@ namespace FuseCP.Portal.ProviderControls {
                     HostModule.ShowResultMessage(result);
                     return;
                 }
-            } catch(Exception ex) {
+            } catch(Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 HostModule.ShowErrorMessage("SQL_TRUNCATE_DATABASE", ex);
                 return;
             }

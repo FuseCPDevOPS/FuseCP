@@ -29,7 +29,7 @@ namespace FuseCP.Portal {
             try {
                 BindVersions();
                 BindServers();
-            } catch(Exception ex) {
+            } catch(Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                 ProcessException(ex);
                 this.DisableControls = true;
                 return;

@@ -118,7 +118,8 @@ namespace FuseCP.Portal.VPS2012
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException)) //TODO: replace by messageBox ????
             {
-                VMNetworkError.Text = "Error - " + ex;
+                System.Diagnostics.Trace.TraceWarning("Exception while binding VM network details: " + ex.Message);
+                VMNetworkError.Text = "Error while loading VM network details.";
                 VMNetworkError.Visible = true;
             }                
         }

@@ -56,7 +56,8 @@ namespace FuseCP.Portal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                body = ex.ToString();
+                System.Diagnostics.Trace.TraceWarning("Exception while evaluating space summary letter template: " + ex.Message);
+                body = "Your reseller has not setup Hosting Space Summary Letter";
             }
             litContent.Text = body != null ? body : "Your reseller has not setup Hosting Space Summary Letter";
 

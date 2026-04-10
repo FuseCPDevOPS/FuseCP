@@ -20,6 +20,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 
 #if UseSkia
@@ -6276,7 +6277,7 @@ namespace FuseCP.EnterpriseServer
 
         public string SetDefaultPublicFolderMailbox(int itemId)
         {
-            string res = "";
+            var resultBuilder = new StringBuilder();
 
             try
             {
@@ -6302,7 +6303,9 @@ namespace FuseCP.EnterpriseServer
                     PackageController.UpdatePackageItem(org);
                 }
 
-                res += "OrgPublicFolderMailbox = " + exchange.CreateOrganizationRootPublicFolder(org.OrganizationId, org.DistinguishedName, org.SecurityGroup, org.DefaultDomain) + Environment.NewLine;
+                resultBuilder.Append("OrgPublicFolderMailbox = ")
+                    .Append(exchange.CreateOrganizationRootPublicFolder(org.OrganizationId, org.DistinguishedName, org.SecurityGroup, org.DefaultDomain))
+                    .Append(Environment.NewLine);
 
                 List<ExchangeAccount> mailboxes = GetExchangeMailboxes(itemId);
 
@@ -6312,20 +6315,20 @@ namespace FuseCP.EnterpriseServer
                     string[] defaultPublicFoldes = exchange.SetDefaultPublicFolderMailbox(mailbox.PrimaryEmailAddress, org.OrganizationId, org.DistinguishedName);
 
                     if (defaultPublicFoldes.Length == 1)
-                        res += id + " has a value \"" + defaultPublicFoldes[0] + "\"" + Environment.NewLine;
+                        resultBuilder.Append(id).Append(" has a value \"").Append(defaultPublicFoldes[0]).Append("\"").Append(Environment.NewLine);
 
                     if (defaultPublicFoldes.Length == 2)
-                        res += id + " changed \"" + defaultPublicFoldes[0] + "\" to \"" + defaultPublicFoldes[1] + "\"" + Environment.NewLine;
+                        resultBuilder.Append(id).Append(" changed \"").Append(defaultPublicFoldes[0]).Append("\" to \"").Append(defaultPublicFoldes[1]).Append("\"").Append(Environment.NewLine);
 
                 }
 
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                res += " Error " + ex;
+                resultBuilder.Append(" Error ").Append(ex);
             }
 
-            return res;
+            return resultBuilder.ToString();
 
         }
 

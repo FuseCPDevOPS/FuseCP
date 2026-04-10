@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 
 namespace FuseCP.Providers.Filters
@@ -70,20 +71,20 @@ namespace FuseCP.Providers.Filters
             uri.Scheme = "https";
             uri.Host = Url;
 
-            string path = "/api/" + command + "/";
+            var pathBuilder = new StringBuilder().Append("/api/").Append(command).Append('/');
             int paramCount = param.Length / 2;
             for (int i = 0; i < paramCount; i++)
             {
                 string name = param[i * 2];
                 string val = param[i * 2 + 1];
 
-                path += name + "/" + HttpUtility.UrlEncode(val) + "/";
+                pathBuilder.Append(name).Append('/').Append(HttpUtility.UrlEncode(val)).Append('/');
 
                 if (name != "password")
                     Log.WriteInfo("{0}={1}", name, val);
 
             }
-            uri.Path = path;
+            uri.Path = pathBuilder.ToString();
 
             string result = string.Empty;
             try

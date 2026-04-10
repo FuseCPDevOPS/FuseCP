@@ -2,15 +2,15 @@
   {
     "Name": "LINQ Miss-Select (Simple)",
     "Output": [
-      "MISSED_SELECT_TARGETS=67",
-      "MISSED_SELECT_FIXED=0",
-      "MISSED_SELECT_FILES_CHANGED=0"
+      "MISSED_SELECT_TARGETS=5",
+      "MISSED_SELECT_FIXED=1",
+      "MISSED_SELECT_FILES_CHANGED=1"
     ]
   },
   {
     "Name": "LINQ Missed-Select (Map/Filter)",
     "Output": [
-      "MISSED_SELECT_MAP_FILTER_TARGETS=67",
+      "MISSED_SELECT_MAP_FILTER_TARGETS=5",
       "MISSED_SELECT_MAP_FILTER_FIXED=0",
       "MISSED_SELECT_MAP_FILTER_FILES_CHANGED=0"
     ]
@@ -18,7 +18,7 @@
   {
     "Name": "LINQ Missed-Where (Simple)",
     "Output": [
-      "MISSED_WHERE_TARGETS=22",
+      "MISSED_WHERE_TARGETS=3",
       "MISSED_WHERE_FIXED=0",
       "MISSED_WHERE_FILES_CHANGED=0"
     ]
@@ -27,31 +27,27 @@
     "Name": "LINQ Missed-Where (v2)",
     "Output": [
       "Fetching cs/linq/missed-where alerts from GitHub API...",
-      "Total cs/linq/missed-where alerts: 22",
+      "Total cs/linq/missed-where alerts: 3",
+      "FIXED: SmarterStats4.cs:41 [subkey != null]",
       "",
-      "MISSED_WHERE_V2_TARGETS=22",
-      "MISSED_WHERE_V2_FIXED=0",
-      "MISSED_WHERE_V2_FILES_CHANGED=0",
+      "MISSED_WHERE_V2_TARGETS=3",
+      "MISSED_WHERE_V2_FIXED=1",
+      "MISSED_WHERE_V2_FILES_CHANGED=1",
       "Skipped reasons:",
-      "  already-where: 7",
-      "  braceless-extra-after: 6",
-      "  no-bounds: 3",
-      "  foreach-parse: 2",
-      "  multiline-cond: 2",
-      "  braceless-nobody: 2"
+      "  already-where: 2"
     ]
   },
   {
     "Name": "Missed Ternary Operator",
     "Output": [
-      "Total alerts: 47",
+      "Total alerts: 18",
       "Total fixed: 0"
     ]
   },
   {
     "Name": "Constant Condition (Safe)",
     "Output": [
-      "CONSTANT_TARGETS=46",
+      "CONSTANT_TARGETS=22",
       "CONSTANT_FIXED=0",
       "CONSTANT_FILES_CHANGED=0"
     ]

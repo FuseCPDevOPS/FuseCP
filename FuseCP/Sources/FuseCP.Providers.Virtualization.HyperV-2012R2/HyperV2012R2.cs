@@ -1082,7 +1082,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 try {
                     HardDriveHelper.Delete(vmData.VM.Disks);
-                } catch (Exception ex) {
+                } catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
                     return JobHelper.CreateUnsuccessResult(ReturnCode.Failed, ex.Message);
                 }
                 

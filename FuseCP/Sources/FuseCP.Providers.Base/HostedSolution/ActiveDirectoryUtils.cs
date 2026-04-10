@@ -615,7 +615,8 @@ namespace FuseCP.Providers.HostedSolution
 
         public static bool IsInheritanceEnabled(string objectPath)
         {
-            return !new DirectoryEntry(objectPath).ObjectSecurity.AreAccessRulesProtected;
+            using var obj = new DirectoryEntry(objectPath);
+            return !obj.ObjectSecurity.AreAccessRulesProtected;
         }
 
         public static void DisableInheritance(string objectPath)

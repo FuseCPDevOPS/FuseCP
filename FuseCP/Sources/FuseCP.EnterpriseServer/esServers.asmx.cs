@@ -144,7 +144,7 @@ namespace FuseCP.EnterpriseServer
                         foreach(KeyValuePair<int, string> i in s.Where(i => i.Key != 0)) {
                             res.Add(i.Key+"-"+i.Value);
                         }
-                    } catch(Exception e) {
+                    } catch(Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException)) {
                         res.Add(x[0] + "-" + e.Message);
                     }
                 }

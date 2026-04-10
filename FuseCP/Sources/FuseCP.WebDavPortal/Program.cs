@@ -104,9 +104,9 @@ app.Use(async (context, next) =>
     if (requestPath.Length > 1
         && requestPath.IndexOf('/', 1) < 0)
     {
-        var fileName = requestPath.TrimStart('/');
+        var fileName = requestPath.TrimStart('/', '\\');
         var extension = Path.GetExtension(fileName);
-        var absolutePath = Path.Combine(contentRoot, fileName);
+        var absolutePath = Path.Join(contentRoot, fileName);
 
         if (rootAssetExtensions.Contains(extension) && File.Exists(absolutePath))
         {
@@ -120,17 +120,17 @@ app.Use(async (context, next) =>
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(contentRoot, "Content")),
+    FileProvider = new PhysicalFileProvider(Path.Join(contentRoot, "Content")),
     RequestPath = "/Content"
 });
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(contentRoot, "Scripts")),
+    FileProvider = new PhysicalFileProvider(Path.Join(contentRoot, "Scripts")),
     RequestPath = "/Scripts"
 });
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(contentRoot, "fonts")),
+    FileProvider = new PhysicalFileProvider(Path.Join(contentRoot, "fonts")),
     RequestPath = "/fonts"
 });
 

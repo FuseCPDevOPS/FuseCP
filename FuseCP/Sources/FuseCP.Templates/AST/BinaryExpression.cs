@@ -111,10 +111,10 @@ namespace FuseCP.Templates.AST
 
                 if (val is Boolean)
                 {
-                    bool ret = Convert.ToBoolean(val);
-                    return ret;
+                    return Convert.ToBoolean(val);
                 }
-                    return dec ? Convert.ToDecimal(val) : Convert.ToInt32(val);
+
+                return dec ? Convert.ToDecimal(val) : Convert.ToInt32(val);
             }
             else if (op == TokenType.Or || op == TokenType.And)
             {

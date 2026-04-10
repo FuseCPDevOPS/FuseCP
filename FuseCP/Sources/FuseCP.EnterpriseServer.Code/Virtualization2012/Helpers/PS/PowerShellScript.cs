@@ -77,8 +77,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                 string vAdapterMac = "$" + networkPrefix + "AdapterMac";
                 if (script.Contains(vIps) || script.Contains(vGateway) || script.Contains(vMasks) || script.Contains(vAdapterName) || script.Contains(vAdapterMac))
                 {
-                    string ips = "";
-                    string masks = "";
+                    var ipsBuilder = new StringBuilder();
+                    var masksBuilder = new StringBuilder();
                     string gateway = "";
                     string adapterName = "";
                     string adapterMac = "";
@@ -107,8 +107,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                         {
                             string comma = ",";
                             if (i == nic.IPAddresses.Length - 1) comma = "";
-                            ips += "\"" + nic.IPAddresses[i].IPAddress + "\"" + comma;
-                            masks += "\"" + nic.IPAddresses[i].SubnetMask + "\"" + comma;
+                            ipsBuilder.Append("\"").Append(nic.IPAddresses[i].IPAddress).Append("\"").Append(comma);
+                            masksBuilder.Append("\"").Append(nic.IPAddresses[i].SubnetMask).Append("\"").Append(comma);
                             if (i == 0)
                             {
                                 if (networkPrefix.Equals("priv") && !String.IsNullOrEmpty(vm.CustomPrivateGateway))
@@ -126,8 +126,8 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers.PS
                             }
                         }
                     }
-                    vars += vIps + " = @(" + ips + ")" + Environment.NewLine;
-                    vars += vMasks + " = @(" + masks + ")" + Environment.NewLine;
+                    vars += vIps + " = @(" + ipsBuilder + ")" + Environment.NewLine;
+                    vars += vMasks + " = @(" + masksBuilder + ")" + Environment.NewLine;
                     if (!String.IsNullOrEmpty(gateway)) vars += vGateway + " = " + gateway + Environment.NewLine;
                     if (!String.IsNullOrEmpty(adapterName)) vars += vAdapterName + " = " + adapterName + Environment.NewLine;
                     if (!String.IsNullOrEmpty(adapterMac)) vars += vAdapterMac + " = " + adapterMac + Environment.NewLine;

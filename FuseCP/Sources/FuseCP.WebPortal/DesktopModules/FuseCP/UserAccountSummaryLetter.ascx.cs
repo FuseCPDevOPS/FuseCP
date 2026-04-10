@@ -56,7 +56,8 @@ namespace FuseCP.Portal
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                body = ex.ToString();
+                System.Diagnostics.Trace.TraceWarning("Exception while evaluating account summary letter template: " + ex.Message);
+                body = GetLocalizedString("NotSetup.Text");
             }
             litContent.Text = body != null ? body : GetLocalizedString("NotSetup.Text");
 

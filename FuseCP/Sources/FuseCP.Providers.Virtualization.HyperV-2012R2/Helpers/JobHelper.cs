@@ -72,7 +72,7 @@ namespace FuseCP.Providers.Virtualization
                     result.Job = CreateFromCimObject(mi.GetInstance(objJob));
                 }                
 
-            } catch (Exception e) {
+            } catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException)) {
                 HostedSolutionLog.LogError(e);
             }
 
