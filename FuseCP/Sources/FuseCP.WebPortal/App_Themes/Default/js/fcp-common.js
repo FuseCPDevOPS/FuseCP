@@ -553,7 +553,11 @@ $(document).ready(function () {
     var skinLogoDefault = '../Images/queenadmin-logo.png';
 
     if (skin != null) {
-        $('head').append('<link rel="stylesheet" href="' + skin + '" type="text/css" />');
+        var skinLinkEl = document.createElement('link');
+        skinLinkEl.rel = 'stylesheet';
+        skinLinkEl.type = 'text/css';
+        skinLinkEl.href = skin;
+        document.head.appendChild(skinLinkEl);
     }
 
     if (skinLogo != null) {
@@ -566,7 +570,11 @@ $(document).ready(function () {
         e.preventDefault();
 
         resetStyle();
-        $('head').append('<link rel="stylesheet" href="' + $(this).attr('data-skin') + '" type="text/css" />');
+        var newSkinLink = document.createElement('link');
+        newSkinLink.rel = 'stylesheet';
+        newSkinLink.type = 'text/css';
+        newSkinLink.href = $(this).attr('data-skin') || '';
+        document.head.appendChild(newSkinLink);
 
         if (!$(this).hasClass('full-white')) {
             skinLogo = '../Images/logo-white.png';
@@ -796,7 +804,9 @@ $(document).ready(function () {
         var $btnToggle = $(this).parents('ul').siblings('.dropdown-toggle');
 
         $btnToggle
- 		.html($(this).text() + ' <span class="caret"></span>')
+ 		.empty()
+ 		.append(document.createTextNode($(this).text() + ' '))
+ 		.append($('<span class="caret"></span>'))
  		.removeClass($btnToggle.attr('data-btnclass'))
  		.addClass($(this).attr('data-btnclass'))
  		.attr('data-btnclass', $(this).attr('data-btnclass'));
