@@ -258,6 +258,7 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetNestedPackagesSummary(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetNestedPackagesSummary(SecurityContext.User.UserId, packageId);
         }
 
@@ -271,16 +272,19 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetRawMyPackages(int userId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetMyPackages(SecurityContext.User.UserId, userId);
         }
 
         public DataSet GetRawPackages(int userId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackages(SecurityContext.User.UserId, userId);
         }
 
         public DataSet GetRawPackagePackages(int packageId, bool recursive)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagePackages(SecurityContext.User.UserId, packageId, recursive);
         }
 
