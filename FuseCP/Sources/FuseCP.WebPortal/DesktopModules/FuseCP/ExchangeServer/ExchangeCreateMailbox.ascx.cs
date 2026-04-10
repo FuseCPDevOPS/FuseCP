@@ -222,6 +222,27 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedM
                     null,
                     null,
                     null,
+                    null,
+                    null,
+
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    user.ExternalEmail,
+                    txtSubscriberNumber.Text,
+                    0,
+                    false,
+                    chkUserMustChangePassword.Checked);
+        }
 
         private static string GenerateSecurePassword(int length)
         {
@@ -243,27 +264,6 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedM
             }
 
             return new string(chars);
-        }
-                    null,
-                    null,
-
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    user.ExternalEmail,
-                    txtSubscriberNumber.Text,
-                    0,
-                    false,
-                    chkUserMustChangePassword.Checked);
         }
 
 
