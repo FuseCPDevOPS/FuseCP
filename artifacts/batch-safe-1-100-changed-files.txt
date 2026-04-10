@@ -1,0 +1,2 @@
+FuseCP/Sources/FuseCP.Providers.Statistics.SmarterStats/SmarterStats4.cs
+FuseCP/Sources/FuseCP.Templates/AST/BinaryExpression.cs
