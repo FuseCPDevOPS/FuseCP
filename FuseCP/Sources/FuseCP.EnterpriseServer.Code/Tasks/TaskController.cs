@@ -181,6 +181,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTaskParameter> GetTaskParams(int taskId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTaskParameter>();
             List<BackgroundTaskParameter> parameters = ObjectUtils.CreateListFromDataReader<BackgroundTaskParameter>(
                 Database.GetBackgroundTaskParams(taskId));
 
@@ -189,6 +190,7 @@ namespace FuseCP.EnterpriseServer
 
         public void AddLog(BackgroundTaskLogRecord log)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             using (var db = Database.Context)
             {
                 db.AddBackgroundTaskLog(log.TaskId, log.Date, log.ExceptionStackTrace, log.InnerTaskStart,
@@ -198,6 +200,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTaskLogRecord> GetLogs(BackgroundTask task, DateTime startLogTime)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTaskLogRecord>();
             if (startLogTime <= task.StartDate)
             {
                 startLogTime = task.StartDate;
