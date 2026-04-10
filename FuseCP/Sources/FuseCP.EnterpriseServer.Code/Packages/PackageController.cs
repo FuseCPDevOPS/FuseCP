@@ -327,21 +327,25 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotas(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
         public DataSet GetParentPackageQuotas(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetParentPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageQuotasForEdit(SecurityContext.User.UserId, packageId);
         }
 
         public PackageInfo GetPackage(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<PackageInfo>(
                 Database.GetPackage(SecurityContext.User.UserId, packageId));
         }
