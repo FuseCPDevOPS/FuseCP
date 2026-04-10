@@ -3991,18 +3991,19 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 			objSite.Put();
 		}
 
-        #endregion
-        {
-            int value = 0;
-            RegistryKey root = Registry.LocalMachine;
-            RegistryKey rk = root.OpenSubKey("SOFTWARE\\Microsoft\\InetStp");
-            if (rk != null)
-            {
-                value = (int)rk.GetValue("MajorVersion", null);
-                rk.Close();
-            }
-            return value;
-        }
+		#endregion
+		public virtual int GetIISVersion()
+		{
+			int value = 0;
+			RegistryKey root = Registry.LocalMachine;
+			RegistryKey rk = root.OpenSubKey("SOFTWARE\\Microsoft\\InetStp");
+			if (rk != null)
+			{
+				value = (int)rk.GetValue("MajorVersion", null);
+				rk.Close();
+			}
+			return value;
+		}
 		protected static int ReadInstalledIISVersion()
 		{
 			int value = 0;
@@ -4015,8 +4016,6 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 			}
 			return value;
 		}
-
-		public virtual int GetIISVersion() => ReadInstalledIISVersion();
 
         public virtual bool IsIISInstalled() => GetIISVersion() == 6;
 
