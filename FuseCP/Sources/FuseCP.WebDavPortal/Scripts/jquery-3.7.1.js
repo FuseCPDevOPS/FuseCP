@@ -1649,7 +1649,7 @@ Expr = jQuery.expr = {
 
 			return pattern ||
 				( pattern = new RegExp( "(^|" + whitespace + ")" + className +
-					"(" + whitespace + "|$)" ) ) &&
+					"(" + whitespace + "|$)" ) ),
 				classCache( className, function( elem ) {
 					return pattern.test(
 						typeof elem.className === "string" && elem.className ||
