@@ -130,10 +130,7 @@ namespace FuseCP.Templates.AST
                 if (!(lv is Boolean && rv is Boolean))
                     throw new ParserException("Logical operation can be applied to operands of boolean type only", Line, Column);
 
-                if (op == TokenType.Or)
-                    return (Boolean)lv || (Boolean)rv;
-                else
-                    return (Boolean)lv && (Boolean)rv;
+                return op == TokenType.Or ? (Boolean)lv || (Boolean)rv : (Boolean)lv && (Boolean)rv;
             }
 
             return 0;
