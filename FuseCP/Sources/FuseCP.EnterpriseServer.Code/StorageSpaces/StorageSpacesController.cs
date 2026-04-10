@@ -1277,6 +1277,7 @@ namespace FuseCP.EnterpriseServer
 
         public string GetParentUnc(string uncPath)
         {
+            EnsureSafeStoragePath(uncPath, "uncPath");
             var uri = new Uri(uncPath);
 
             if (uri.Segments.Length == 2)
