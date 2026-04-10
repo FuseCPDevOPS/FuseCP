@@ -317,6 +317,7 @@ namespace FuseCP.EnterpriseServer
             int statusId, int roleId, string sortColumn, int startRow, int maximumRows, string colType, 
             string fullType, bool onlyFind)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetSearchObject(SecurityContext.User.UserId, userId,
                 filterColumn, filterValue, statusId, roleId, sortColumn, startRow, 
                 maximumRows, colType, fullType, false, onlyFind);
@@ -326,6 +327,7 @@ namespace FuseCP.EnterpriseServer
             string ItemTypeName, string GroupName, int PackageID, string VPSType, int RoleID, int UserID,
             string FilterColumns)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetSearchTableByColumns(PagedStored, FilterValue, MaximumRows,
                 Recursive, PoolID, ServerID, SecurityContext.User.UserId, StatusID, PlanID, OrgID, ItemTypeName, GroupName,
                 PackageID, VPSType, RoleID, UserID, FilterColumns);
