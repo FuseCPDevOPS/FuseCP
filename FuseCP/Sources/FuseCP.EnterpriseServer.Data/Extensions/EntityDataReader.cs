@@ -50,9 +50,11 @@ namespace FuseCP.EnterpriseServer.Data
 
 	public class EntityDataReader<TEntity>: IDataReader, IEntityDataSet, IEnumerable<TEntity> where TEntity : class
 	{
-		public virtual IEnumerable<TEntity> Set { get; set; }
+		private IEnumerable<TEntity> _set;
+		public virtual IEnumerable<TEntity> Set { get => _set; set => _set = value; }
 		IEnumerable IEntityDataSet.Set => Set;
-        public virtual Type Type { get; private set; }
+		private Type _type;
+        public virtual Type Type { get => _type; private set => _type = value; }
 
         PropertyCollection properties = null;
 
@@ -100,10 +102,10 @@ namespace FuseCP.EnterpriseServer.Data
         }
 
         public EntityDataReader(IEnumerable<TEntity> set) {
-			Set = set;
-			RecordsAffected = -1;
-			Type = typeof(TEntity);
-			if (Type == typeof(object)) Type = Set.FirstOrDefault(e => e != null)?.GetType() ?? typeof(object);
+			_set = set;
+			_recordsAffected = -1;
+			_type = typeof(TEntity);
+			if (_type == typeof(object)) _type = _set.FirstOrDefault(e => e != null)?.GetType() ?? typeof(object);
 		}
 
 		IEnumerator<TEntity> enumerator = null;
@@ -122,7 +124,8 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public virtual bool IsClosed { get; private set; } = false;
 
-		public virtual int RecordsAffected { get; private set; }
+		private int _recordsAffected;
+		public virtual int RecordsAffected { get => _recordsAffected; private set => _recordsAffected = value; }
 
 		public virtual int FieldCount => Properties.Count;
 
