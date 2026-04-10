@@ -33,7 +33,7 @@ using System.Data.Entity;
 
 namespace FuseCP.EnterpriseServer.Data
 {
-	public class TempIdSet: IQueryable<int>, IDisposable
+	public sealed class TempIdSet: IQueryable<int>, IDisposable
 	{
 		public Guid Scope { get; private set; }
 		public IQueryable<int> Query { get; private set; }
@@ -192,7 +192,7 @@ namespace FuseCP.EnterpriseServer.Data
 		public DateTime Date { get; set; }
 	}
 
-	public class TempDatedIdSet : IQueryable<DatedId>, IDisposable
+	public sealed class TempDatedIdSet : IQueryable<DatedId>, IDisposable
 	{
 		public Guid Scope { get; private set; }
 		public IQueryable<DatedId> Query { get; private set; }
