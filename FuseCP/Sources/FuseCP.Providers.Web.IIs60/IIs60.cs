@@ -295,7 +295,7 @@ namespace FuseCP.Providers.Web
 
 		public IIs60()
 		{
-			if (IsIISInstalled())
+			if (ReadInstalledIISVersion() == 6)
 			{
 				// instantiate WMI helper
 				wmi = new WmiHelper("root\\MicrosoftIISv2");
@@ -3992,7 +3992,6 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 		}
 
         #endregion
-        public virtual int GetIISVersion()
         {
             int value = 0;
             RegistryKey root = Registry.LocalMachine;
@@ -4004,6 +4003,20 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
             }
             return value;
         }
+		protected static int ReadInstalledIISVersion()
+		{
+			int value = 0;
+			RegistryKey root = Registry.LocalMachine;
+			RegistryKey rk = root.OpenSubKey("SOFTWARE\\Microsoft\\InetStp");
+			if (rk != null)
+			{
+				value = (int)rk.GetValue("MajorVersion", null);
+				rk.Close();
+			}
+			return value;
+		}
+
+		public virtual int GetIISVersion() => ReadInstalledIISVersion();
 
         public virtual bool IsIISInstalled() => GetIISVersion() == 6;
 

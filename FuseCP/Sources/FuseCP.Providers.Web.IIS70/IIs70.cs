@@ -512,7 +512,7 @@ namespace FuseCP.Providers.Web
 
 		public IIs70()
 		{
-            if (GetIISVersion() >= 7)
+            if (ReadInstalledIISVersion() >= 7)
             {
                 // New implementation avoiding locks and other sync issues
                 winAuthSvc = new WindowsAuthModuleService();
