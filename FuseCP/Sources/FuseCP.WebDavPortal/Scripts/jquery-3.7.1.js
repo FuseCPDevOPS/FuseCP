@@ -1756,7 +1756,7 @@ Expr = jQuery.expr = {
 							while ( ( node = ++nodeIndex && node && node[ dir ] ||
 
 								// Fallback to seeking `elem` from the start
-								stfalseop() ) ) {
+								start.pop() ) ) {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
@@ -1781,7 +1781,7 @@ Expr = jQuery.expr = {
 
 								// Use the same loop as above to seek `elem` from the start
 								while ( ( node = ++nodeIndex && node && node[ dir ] ||
-									stfalseop() ) ) {
+									start.pop() ) ) {
 
 									if ( ( ofType ?
 										nodeName( node, name ) :
