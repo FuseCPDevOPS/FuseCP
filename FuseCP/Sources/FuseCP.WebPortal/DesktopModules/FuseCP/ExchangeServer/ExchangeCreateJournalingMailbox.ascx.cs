@@ -15,6 +15,7 @@
 
 using System;
 using System.Text;
+using System.Security.Cryptography;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
@@ -136,7 +137,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
                 if (sendToControl.IsRequestSend && IsNewUser)
                 {
-                    passwordString = Membership.GeneratePassword(16, 3);
+                    passwordString = GenerateSecurePassword(16);
                 }
 
                 accountId = ES.Services.ExchangeServer.CreateMailbox(PanelRequest.ItemID, accountId, ExchangeAccountType.JournalingMailbox, accountName,
@@ -185,6 +186,28 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
             ES.Services.Organizations.SetUserGeneralSettings(PanelRequest.ItemID, accountId, txtDisplayName.Text, null, false, user.Disabled, user.Locked,
                 txtFirstName.Text, txtInitials.Text, txtLastName.Text, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
                 null, null, null, user.ExternalEmail, txtSubscriberNumber.Text, 0, false, false);
+        }
+
+        private static string GenerateSecurePassword(int length)
+        {
+            const string allowedChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+
+            if (length <= 0)
+                return string.Empty;
+
+            var data = new byte[length];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(data);
+            }
+
+            var chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = allowedChars[data[i] % allowedChars.Length];
+            }
+
+            return new string(chars);
         }
 
 

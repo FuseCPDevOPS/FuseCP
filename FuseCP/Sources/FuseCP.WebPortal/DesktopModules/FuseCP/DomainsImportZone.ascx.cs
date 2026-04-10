@@ -24,6 +24,8 @@ namespace FuseCP.Portal
 {
     public partial class DomainsImportZone : FuseCPModuleBase
     {
+        private const int MaxZoneFileSizeBytes = 1024 * 1024;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //Get the domain information
@@ -39,6 +41,19 @@ namespace FuseCP.Portal
             //First check that there was actually a file uploaded
             if (zoneFile != null && zoneFile.ContentLength > 0)
             {
+                var extension = Path.GetExtension(zoneFile.FileName);
+                if (!string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
+                    return;
+                }
+
+                if (zoneFile.ContentLength > MaxZoneFileSizeBytes)
+                {
+                    ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
+                    return;
+                }
+
                 //Get the contents from the file
                 using var reader = new StreamReader(zoneFile.InputStream);
                 var contents = reader.ReadToEnd();

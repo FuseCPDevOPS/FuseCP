@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Security.Cryptography;
 using System.Web.Security;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.HostedSolution;
@@ -148,7 +149,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedM
 
                 if (sendToControl.IsRequestSend && IsNewUser)
                 {
-                    passwordString = Membership.GeneratePassword(16, 3);
+                    passwordString = GenerateSecurePassword(16);
                 }
 
                 accountId = ES.Services.ExchangeServer.CreateMailbox(PanelRequest.ItemID, accountId, type,
@@ -221,6 +222,28 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2013_SHAREDMAILBOXES, out var sharedM
                     null,
                     null,
                     null,
+
+        private static string GenerateSecurePassword(int length)
+        {
+            const string allowedChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+
+            if (length <= 0)
+                return string.Empty;
+
+            var data = new byte[length];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(data);
+            }
+
+            var chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = allowedChars[data[i] % allowedChars.Length];
+            }
+
+            return new string(chars);
+        }
                     null,
                     null,
 

@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Security.Cryptography;
 using System.Web.Security;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.ResultObjects;
@@ -87,7 +88,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
                 if (sendToControl.IsRequestSend)
                 {
-                    passwordString = Membership.GeneratePassword(16, 3);
+                    passwordString = GenerateSecurePassword(16);
                 }
 
                 int accountId = ES.Services.Organizations.CreateUser(PanelRequest.ItemID, txtDisplayName.Text.Trim(),
@@ -170,6 +171,28 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
                     0,
                     false,
                     chkUserMustChangePassword.Checked);
+        }
+
+        private static string GenerateSecurePassword(int length)
+        {
+            const string allowedChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+
+            if (length <= 0)
+                return string.Empty;
+
+            var data = new byte[length];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(data);
+            }
+
+            var chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = allowedChars[data[i] % allowedChars.Length];
+            }
+
+            return new string(chars);
         }
     }
 }
