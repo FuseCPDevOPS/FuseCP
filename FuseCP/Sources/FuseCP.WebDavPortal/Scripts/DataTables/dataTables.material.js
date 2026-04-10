@@ -82,6 +82,7 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 
 	var attach = function( container, buttons ) {
 		var i, ien, node, button, disabled, active;
+		void disabled;
 		var clickHandler = function ( e ) {
 			e.preventDefault();
 			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {

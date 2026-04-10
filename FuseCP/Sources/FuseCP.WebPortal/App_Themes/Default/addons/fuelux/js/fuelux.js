@@ -980,6 +980,7 @@
 				var self = this;
 				var BAD_DATE = new Date( NaN );
 				var dt, isoExp, momentParse, momentParseWithFormat, tryMomentParseAll, month, parts, use;
+				void use;
 
 				if ( date ) {
 					if ( this.moment ) { //if we have moment, use that to parse the dates
@@ -5050,6 +5051,7 @@
 				var $first = this.$suggest.find( 'li.pillbox-suggest-sel' );
 				var dir = e.keyCode === 38; // up arrow
 				var $next, val;
+				void val;
 
 				e.preventDefault();
 
@@ -7855,6 +7857,7 @@
 			_parseStartDateTime: function( startTimeISO8601 ) {
 				var startTime = {};
 				var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
+				void startDateTimeISO8601FormatSplit;
 				void startDate;
  // removed useless expression (CodeQL): startDate;
 
@@ -7920,6 +7923,7 @@
 			setValue: function setValue( options ) {
 				var startTime = {};
 				var startDateTime, startDate, startTimeISO8601, timeOffset, utcStartHours;
+				void timeOffset;
 
 				// TIME
 				if ( options.startDateTime ) {

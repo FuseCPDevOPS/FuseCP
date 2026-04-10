@@ -574,6 +574,8 @@ $.extend( ColReorder.prototype, {
 	"fnOrder": function ( set, original )
 	{
 		var a = [], i, ien, j, jen;
+		void j;
+		void jen;
 		var columns = this.s.dt.aoColumns;
 
 		if ( set === undefined ){
@@ -822,6 +824,7 @@ $.extend( ColReorder.prototype, {
 	"_fnStateSave": function ( oState )
 	{
 		var i, iLen, aCopy, iOrigColumn;
+		void aCopy;
 		var oSettings = this.s.dt;
 		var columns = oSettings.aoColumns;
 
