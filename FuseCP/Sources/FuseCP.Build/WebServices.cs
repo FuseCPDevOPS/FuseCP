@@ -317,7 +317,7 @@ namespace FuseCP.Build
 				var clientAssemblyClass = ParseMemberDeclaration(
 					new ClientAssemblyClass()
 					{
-						OldNamespace = (((old)!N)!S)!.Name.ToString(),
+						OldNamespace = ((((ol)!d)!N)!S)!.Name.ToString(),
 						Class = ws.Class,
 						WebMethods = globalizedMethods
 					}
