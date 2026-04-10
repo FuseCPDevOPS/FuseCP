@@ -395,3 +395,49 @@
 - Manual mechanical fixes delivered: real (batches 2–3)
 - Further progress requires: per-rule semantic campaigns or higher-risk refactoring
 - Saturation point confirmed: estimated 955–970 alerts remain (down from 993 baseline)
+
+---
+
+### Commit: 1245a19a5
+**Message**: fix: revert broken batch 4 null-deref fix for WebServices.cs
+
+**Scope**: CI/build infrastructure - resolving compiler error from CodeQL batch 4
+
+#### Issue Description
+Batch 4's ix-null-deref-forgiving-span.ps1 CodeQL remediation introduced a compiler error (CS1525 "Invalid expression term '.'") in FuseCP/Sources/FuseCP.Build/WebServices.cs at line 320. The script wrapped the variable oldNS with parentheses and the null-forgiving operator, changing:
+
+\\\csharp
+OldNamespace = oldNS.Name.ToString(),
+\\\
+
+To:
+
+\\\csharp
+OldNamespace = (oldNS)!.Name.ToString(),
+\\\
+
+This syntax form, while theoretically valid in C# 9+, triggered a compiler error and cascaded through batches 5-12, all of which inherited the broken file state.
+
+#### Root Cause
+The CodeQL remediation script's byte-level file manipulation (via PowerShell ReadAllLines() / WriteAllLines() with UTF-8 encoding) may have introduced subtle encoding or line-ending artifacts that caused Roslyn to misparse the line. The exact mechanism remains unclear, but attempting to apply the null-forgiving operator in this specific context broke compilation.
+
+#### Remediation
+Reverted WebServices.cs to its last known good state (HEAD~9) where compilation succeeds. The file compiles cleanly without the null-forgiving operator; the null-deref alert can be addressed with a different approach if required.
+
+#### Files Modified
+- FuseCP/Sources/FuseCP.Build/WebServices.cs (line 320) — reverted to pre-batch-4 state
+
+#### Validation Summary
+- **Local Build**: ✅ FuseCP.Build project compiles without errors  
+- **Compile Errors**: 0 (CS1525 resolved)
+- **Regression**: None (code identical to last working state)
+
+#### Risk Assessment
+- ✅ **Zero Risk**: Pure revert to known-good state
+- ✅ **No Logic Changes**: Functional behavior unchanged
+- ✅ **No Breaking Changes**: WebServices.cs is internal build tooling
+
+#### Testing Guidance
+- Validate FuseCP.Build project compiles
+- Verify RazorBlade code generation still functions correctly
+- Confirm generated service wrappers have no regressions
