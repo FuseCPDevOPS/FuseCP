@@ -2191,11 +2191,13 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteExpiredAccessTokens();
         }
 
@@ -3901,11 +3903,13 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateAdditionalGroup(int groupId, string groupName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.UpdateAdditionalGroup(groupId, groupName);
         }
 
         public void DeleteAdditionalGroup(int groupId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteAdditionalGroup(groupId);
         }
 
