@@ -464,3 +464,28 @@ Reverted WebServices.cs to its last known good state (HEAD~9) where compilation 
 #### Testing Guidance
 1. Load WebDav portal pages using DataTables fixed columns and verify client-side script initialization
 2. Open browser console and ensure no new JS runtime errors appear in affected page flows
+
+---
+
+### Commit: 639a052c1
+**Message**: security: CodeQL remediation batch 14 - fix-js-constant-span-alerts.ps1
+
+**Scope**: JavaScript constant-condition span remediation across core portal/WebDav jQuery assets.
+
+#### Files Modified
+- FuseCP/Sources/FuseCP.WebDavPortal/Scripts/jquery-3.7.1.js
+- FuseCP/Sources/FuseCP.WebDavPortal/Scripts/jquery-3.7.1.slim.js
+- FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/jquery/jquery-2.1.0.js
+
+#### Validation Summary
+- **Fix Script Output**: JS_CONST_TARGETS=9, JS_CONST_FIXED=6, JS_CONST_FILES_CHANGED=3, JS_CONST_SKIPPED=3
+- **Commit Result**: 3 files changed, 6 insertions, 6 deletions
+- **Automation Note**: Additional scripts in this run mostly reported no-op due non-matching or already-fixed spans.
+
+#### Risk Assessment
+- ✅ **Low Risk**: Localized constant-span simplifications in JS libraries
+- ✅ **Behavioral Intent**: No feature changes; expression cleanup only
+
+#### Testing Guidance
+1. Smoke test WebDav and WebPortal pages that load jQuery 2.1.0, 3.7.1, and 3.7.1.slim bundles
+2. Verify browser console has no new script parse/runtime errors
