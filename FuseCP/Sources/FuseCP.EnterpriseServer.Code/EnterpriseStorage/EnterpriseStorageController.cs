@@ -170,11 +170,13 @@ namespace FuseCP.EnterpriseServer
 
         public int AddWebDavAccessToken(WebDavAccessToken accessToken)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             return Database.AddWebDavAccessToken(accessToken);
         }
 
         public void DeleteExpiredWebDavAccessTokens()
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 

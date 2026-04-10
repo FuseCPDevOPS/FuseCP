@@ -1164,11 +1164,13 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateUserThemeSetting(int userId, string PropertyName, string PropertyValue)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			Database.UpdateUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName, PropertyValue);
 		}
 
 		public void DeleteUserThemeSetting(int userId, string PropertyName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			Database.DeleteUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName);
 		}
 
