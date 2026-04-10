@@ -21,7 +21,7 @@ namespace FuseCP.Providers.OS
     /// Summary description for FileSystemItem.
     /// </summary>
     [Serializable]
-    public sealed class SystemFile : ServiceProviderItem
+    public class SystemFile : ServiceProviderItem
     {
         private string fullName;
         private DateTime created;

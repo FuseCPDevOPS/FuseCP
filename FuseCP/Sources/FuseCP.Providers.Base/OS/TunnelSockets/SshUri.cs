@@ -50,7 +50,7 @@ namespace FuseCP.Providers.OS
     /// by which you can change the url very easily.
     /// </summary>
     [DataContract]
-    public sealed class SshUri: TunnelUri
+    public class SshUri: TunnelUri
     {
         string url = null;
 
