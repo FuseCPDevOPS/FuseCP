@@ -115,6 +115,7 @@ public class PortalUtils
 		{
 
 			HttpCookie cookieTheme = new HttpCookie(ThemeCookieName, theme);
+			cookieTheme.HttpOnly = true;
 			cookieTheme.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(cookieTheme);
 		}
@@ -815,6 +816,7 @@ public class PortalUtils
 		if (!String.IsNullOrEmpty(preferredLocale))
 		{
 			HttpCookie localeCrumb = new HttpCookie(CultureCookieName, preferredLocale);
+			localeCrumb.HttpOnly = true;
 			localeCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 			HttpContext.Current.Response.Cookies.Add(localeCrumb);
 		}
