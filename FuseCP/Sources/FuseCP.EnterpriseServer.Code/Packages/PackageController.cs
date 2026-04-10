@@ -944,6 +944,10 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
+                | DemandAccount.IsResellerCSR);
+            if (accountCheck < 0) return accountCheck;
+
             // delete packages asynchronously
             PackageAsyncWorker packageWorker = new PackageAsyncWorker();
             packageWorker.UserId = SecurityContext.User.UserId;
