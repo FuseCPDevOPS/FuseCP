@@ -25,6 +25,8 @@ namespace FuseCP.EnterpriseServer
         public CommentsController(ControllerBase provider) : base(provider) { }
         public DataSet GetComments(int userId, string itemTypeId, int itemId)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return new DataSet();
             return Database.GetComments(SecurityContext.User.UserId, userId, itemTypeId, itemId);
         }
 
