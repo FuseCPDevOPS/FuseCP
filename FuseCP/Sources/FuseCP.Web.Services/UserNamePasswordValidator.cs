@@ -33,12 +33,14 @@ namespace FuseCP.Web.Services
 		{
 			if (Policy != null)
 			{
-				if (Policy.Policy == PolicyAttribute.ServerAuthenticated && ValidateServer != null)
+				if (Policy.Policy == PolicyAttribute.ServerAuthenticated)
 				{
+					if (ValidateServer == null) throw new NotSupportedException("Server authentication callback is not configured.");
 					if (!ValidateServer(password)) throw new FaultException("Invalid server password");
 				}
-				else if (Policy.Policy == PolicyAttribute.EnterpriseServerAuthenticated && ValidateEnterpriseServer != null)
+				else if (Policy.Policy == PolicyAttribute.EnterpriseServerAuthenticated)
 				{
+					if (ValidateEnterpriseServer == null) throw new NotSupportedException("Enterprise authentication callback is not configured.");
 					if (!ValidateEnterpriseServer(userName, password)) throw new FaultException("Invalid user or password");
 				}
 				else if (Policy.Policy == PolicyAttribute.Encrypted) { } // do not require username & password

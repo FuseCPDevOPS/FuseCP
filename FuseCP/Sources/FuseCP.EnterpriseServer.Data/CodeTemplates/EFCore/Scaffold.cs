@@ -303,9 +303,9 @@ namespace FuseCP.EnterpriseServer.Data.Scaffolding
 
 				var dll = Assembly.GetExecutingAssembly().Location;
 
-				string cmd;
-				if (Prefetch) cmd = $"dotnet \"{dll}\" \"{options.ConnectionString}\" {indent}";
-				else cmd = $"dotnet \"{dll}\" \"{options.ConnectionString}\" \"{entityType.ClrType.AssemblyQualifiedName}\" {indent}";
+				var cmd = Prefetch
+					? $"dotnet \"{dll}\" \"{options.ConnectionString}\" {indent}"
+					: $"dotnet \"{dll}\" \"{options.ConnectionString}\" \"{entityType.ClrType.AssemblyQualifiedName}\" {indent}";
 				if (debug) Console.WriteLine(cmd);
 				var output = new OSShell().Exec(cmd).Output().Result;
 				if (debug) Console.WriteLine(output);

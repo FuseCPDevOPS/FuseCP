@@ -266,7 +266,7 @@ namespace FuseCP.Web.Clients
 		public bool IsSsl => Protocol == Protocols.BasicHttps || Protocol == Protocols.WSHttps || Protocol == Protocols.NetHttps || Protocol == Protocols.NetTcpSsl || Protocol == Protocols.NetPipeSsl ||
 			Protocol == Protocols.gRPCSsl || Protocol == Protocols.gRPCWebSsl;
 
-		public bool IsSsh => Protocol == Protocols.Ssh || url.StartsWith("ssh://");
+		public bool IsSsh => Protocol == Protocols.Ssh;
 		public bool IsSecureProtocol => IsSsl || IsSsh ||
 			UseMessageSecurityOverHttp && Protocol == Protocols.WSHttp && OSInfo.IsNetFX && IsEncrypted;
 
@@ -570,7 +570,13 @@ namespace FuseCP.Web.Clients
 								ws.Security.Message.NegotiateServiceCredential = true;
 								binding = ws;
 							}
-							else if (!isEncrypted || IsLocal)
+							else if (IsLocal)
+							{
+								var ws = new WSHttpBinding(SecurityMode.None);
+								ws.MaxReceivedMessageSize = MaximumMessageSize;
+								binding = ws;
+							}
+							else if (!isEncrypted)
 							{
 								var ws = new WSHttpBinding(SecurityMode.None);
 								ws.MaxReceivedMessageSize = MaximumMessageSize;

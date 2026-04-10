@@ -758,23 +758,20 @@ namespace FuseCP.EnterpriseServer
                 {
                     var folder = ConvertToSystemFile(esFolder, org.OrganizationId);
 
-                    if (esFolder.StorageSpaceFolderId != null)
+                    var quota = StorageSpacesController.GetFolderQuota(esFolder.Path, esFolder.StorageSpaceId);
+
+                    if (quota != null)
                     {
-                        var quota = StorageSpacesController.GetFolderQuota(esFolder.Path, esFolder.StorageSpaceId);
+                        folder.Size = quota.Usage;
+                    }
 
-                        if (quota != null)
-                        {
-                            folder.Size = quota.Usage;
-                        }
+                    folder.FsrmQuotaType = esFolder.FsrmQuotaType;
 
-                        folder.FsrmQuotaType = esFolder.FsrmQuotaType;
+                    var ssFolder = StorageSpacesController.GetStorageSpaceFolderById(esFolder.StorageSpaceFolderId.Value);
 
-                        var ssFolder = StorageSpacesController.GetStorageSpaceFolderById(esFolder.StorageSpaceFolderId.Value);
-
-                        if (ssFolder != null)
-                        {
-                            folder.UncPath = ssFolder.UncPath;
-                        }
+                    if (ssFolder != null)
+                    {
+                        folder.UncPath = ssFolder.UncPath;
                     }
 
                     if (loadDriveMapInfo)

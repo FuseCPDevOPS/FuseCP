@@ -1477,7 +1477,7 @@ LOG ON(
 			int i = 0;
 			float n = commandCount;
 			var sql = script.Reader.ReadToEnd();
-			command.Query = ProcessInstallVariables?.Invoke(sql) ?? sql;
+			command.Query = ProcessInstallVariables != null ? ProcessInstallVariables(sql) : sql;
 			command.StatementExecuted += (sender, args) =>
 				OnProgressChange?.Invoke((float)++i / n);
 			command.Error += (sender, args) =>
@@ -1570,7 +1570,7 @@ SELECT DatabaseVersion FROM Version");
 					{
 						if (!string.IsNullOrWhiteSpace(sql))
 						{
-							sql = ProcessInstallVariables?.Invoke(sql) ?? sql;
+							sql = ProcessInstallVariables != null ? ProcessInstallVariables(sql) : sql;
 							command.CommandText = sql;
 							try
 							{

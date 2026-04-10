@@ -114,16 +114,7 @@ namespace FuseCP.Templates.AST
                     bool ret = Convert.ToBoolean(val);
                     return ret;
                 }
-                else if (dec)
-                {
-                    decimal ret = Convert.ToDecimal(val);
-                    return ret;
-                }
-                else
-                {
-                    int ret = Convert.ToInt32(val);
-                    return ret;
-                }
+                    return dec ? Convert.ToDecimal(val) : Convert.ToInt32(val);
             }
             else if (op == TokenType.Or || op == TokenType.And)
             {

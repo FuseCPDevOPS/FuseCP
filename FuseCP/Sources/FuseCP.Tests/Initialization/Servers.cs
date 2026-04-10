@@ -278,7 +278,7 @@ if (Processes.TryGetValue(u.Url, out var _ckv))
 			int index, port;
 			if (type.Framework == Framework.NetFramework && type.Os != Os.Windows) throw new NotSupportedException(".NET Framework only supported on Windows.");
 
-			if (type.Framework == Framework.NetFramework && type.Os == Os.Windows && type.Protocol == Scheme.Https)
+			if (type.Framework == Framework.NetFramework && type.Protocol == Scheme.Https)
 			{
 				// IIS Express only supports SSL for ports between 44300 and 44399
 				index = (int)type.Component + ComponentN;

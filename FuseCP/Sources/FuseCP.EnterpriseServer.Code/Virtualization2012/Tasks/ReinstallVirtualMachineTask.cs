@@ -143,12 +143,10 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Tasks
                 if (timeOut > 0)
                 {
 
-                    if (keepMetaItem) //Clean assigned IPs from VM item
-                    {
-                        IpAddressExternalHelper.DeleteVirtualMachineExternalIPAddresses(itemId, extIps.ToArray(), false);
-                        IpAddressPrivateHelper.DeleteVirtualMachinePrivateIPAddresses(itemId, ipLanAddressesID.ToArray(), false);
-                        IpAddressPrivateHelper.DeleteVirtualMachineDmzIPAddresses(itemId, ipDmzAddressesID.ToArray(), false);
-                    }
+                    //Clean assigned IPs from VM item
+                    IpAddressExternalHelper.DeleteVirtualMachineExternalIPAddresses(itemId, extIps.ToArray(), false);
+                    IpAddressPrivateHelper.DeleteVirtualMachinePrivateIPAddresses(itemId, ipLanAddressesID.ToArray(), false);
+                    IpAddressPrivateHelper.DeleteVirtualMachineDmzIPAddresses(itemId, ipDmzAddressesID.ToArray(), false);
                     TaskManager.Write(String.Format("The old VPS was deleted."));
                     System.Threading.Thread.Sleep(1000); //give a little time to delete, just for sure.       
 

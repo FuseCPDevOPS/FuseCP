@@ -646,8 +646,8 @@ namespace FuseCP.EnterpriseServer
 					{
 						users = users
 							.Where(u => u.UserId != userId && !u.IsPeer &&
-								(statusId == 0 || statusId > 0 && statusId == u.StatusId) &&
-								(roleId == 0 || roleId > 0 && roleId == u.RoleId));
+								(statusId == 0 || statusId == u.StatusId) &&
+								(roleId == 0 || roleId == u.RoleId));
 						users = recursive
 							? users.Join(childUsers, u => u.UserId, ch => ch, (u, ch) => u)
 							: users.Where(u => u.OwnerId == userId);
@@ -855,8 +855,8 @@ namespace FuseCP.EnterpriseServer
 
 					var users = Users
 						.Where(u => u.UserId != userId && !u.IsPeer &&
-							(statusId == 0 || statusId > 0 && u.StatusId == statusId) &&
-							(roleId == 0 || roleId > 0 && u.RoleId == roleId))
+							(statusId == 0 || u.StatusId == statusId) &&
+							(roleId == 0 || u.RoleId == roleId))
 						.Join(userChildren, id => id.UserId, tid => tid, (u, t) => u);
 
 					var userItems = users.Join(
@@ -4298,14 +4298,10 @@ namespace FuseCP.EnterpriseServer
 
 		public int UpdateQuotaHidden(string quotaName, int groupID, bool hideQuota)
 		{
-			if (UseEntityFramework)
-			{
-				return Quotas.Where(quota => quota.QuotaName == quotaName && quota.GroupId == groupID)
-					.ExecuteUpdate(quota => new Data.Entities.Quota { HideQuota = hideQuota });
-			}
-			else
-			{
-				return SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
+			return UseEntityFramework
+				? Quotas.Where(quota => quota.QuotaName == quotaName && quota.GroupId == groupID)
+					.ExecuteUpdate(quota => new Data.Entities.Quota { HideQuota = hideQuota })
+				: SqlHelper.ExecuteNonQuery(NativeConnectionString, CommandType.StoredProcedure,
 					ObjectQualifier + "UpdateQuotaHidden",
 					/// <summary>TODO</summary>
 					new SqlParameter("@QuotaName", quotaName),
@@ -4313,7 +4309,6 @@ namespace FuseCP.EnterpriseServer
 					new SqlParameter("@GroupID", groupID),
 					/// <summary>TODO</summary>
 					new SqlParameter("@HideQuota", hideQuota.ToString()));
-			}
 		}
 		#endregion
 
@@ -18199,18 +18194,13 @@ namespace FuseCP.EnterpriseServer
 
 		public int GetCrmUserCount(int itemId)
 		{
-			if (UseEntityFramework)
-			{
-				return ExchangeAccounts
+			return UseEntityFramework
+				? ExchangeAccounts
 					.Where(a => a.ItemId == itemId)
 					.SelectMany(a => a.CrmUsers)
-					.Count();
-			}
-			else
-			{
-				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetOrganizationCRMUserCount",
+					.Count()
+				: (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetOrganizationCRMUserCount",
 					new SqlParameter[] { new SqlParameter("@ItemID", itemId) });
-			}
 		}
 		/// <summary>Auto-generated member.</summary>
 

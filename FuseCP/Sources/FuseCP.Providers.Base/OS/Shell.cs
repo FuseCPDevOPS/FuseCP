@@ -74,8 +74,24 @@ namespace FuseCP.Providers.OS
 		bool checkHasExited = true;
 
 		// Process.HasExited can cause deadlock because it raises Exit event, therefore disable it in CheckCompleted by checkHasExited = false
-		public bool IsCompleted => Process == null ||
-			((DoNotWaitForProcessExit || hasProcessExited || (checkHasExited && Process.HasExited)) && errorEOF && outputEOF);
+		public bool IsCompleted
+		{
+			get
+			{
+				if (Process == null)
+				{
+					return true;
+				}
+
+				var isProcessExitSatisfied = DoNotWaitForProcessExit || hasProcessExited;
+				if (!isProcessExitSatisfied && checkHasExited)
+				{
+					isProcessExitSatisfied = Process.HasExited;
+				}
+
+				return isProcessExitSatisfied && errorEOF && outputEOF;
+			}
+		}
 		public Shell GetResult() => this;
 		public Shell Parent { get; set; } = null;
 		public virtual char PathSeparator => Path.PathSeparator;
