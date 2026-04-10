@@ -182,16 +182,19 @@ namespace FuseCP.EnterpriseServer
 
         public WebDavAccessToken GetWebDavAccessTokenById(int id)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<WebDavAccessToken>(Database.GetWebDavAccessTokenById(id));
         }
 
         public WebDavAccessToken GetWebDavAccessTokenByAccessToken(Guid accessToken)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<WebDavAccessToken>(Database.GetWebDavAccessTokenByAccessToken(accessToken));
         }
 
         public SystemFile[] SearchFiles(int itemId, string[] searchPaths, string searchText, string userPrincipalName, bool recursive)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new SystemFile[0];
             try
             {
                 // load organization
