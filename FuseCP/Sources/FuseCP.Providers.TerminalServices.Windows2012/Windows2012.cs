@@ -1730,7 +1730,7 @@ namespace FuseCP.Providers.RemoteDesktopServices
 
                 if (collection == null)
                 {
-                    throw new Null((Reference)!E)!xception(string.Format("Collection \"{0}\" not found", collectionName));
+                    throw new Null(((Referenc)!e)!E)!xception(string.Format("Collection \"{0}\" not found", collectionName));
                 }
 
                 result = new ImportedRdsCollection
