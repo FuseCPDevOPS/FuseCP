@@ -865,6 +865,8 @@ namespace FuseCP.Portal
 
             HttpCookie userThemeButtonsDarkCrumb = new HttpCookie("UserThemeButtonsDark", "");
             userThemeButtonsDarkCrumb.Expires = DateTime.Now.AddMonths(-1);
+            userThemeButtonsDarkCrumb.HttpOnly = true;
+            userThemeButtonsDarkCrumb.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
             HttpContext.Current.Response.Cookies.Add(userThemeButtonsDarkCrumb);
         }
 

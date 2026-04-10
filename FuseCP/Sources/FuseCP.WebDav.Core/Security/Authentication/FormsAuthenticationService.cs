@@ -111,6 +111,7 @@ namespace FuseCP.WebDav.Core.Security.Authentication
             {
                 HttpOnly = true,
                 IsEssential = true,
+                Secure = _httpContextAccessor.HttpContext.Request.IsHttps,
                 Expires = DateTimeOffset.UtcNow.AddMinutes(30)
             });
         }
