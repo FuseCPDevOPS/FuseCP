@@ -21,7 +21,7 @@ using System.Net;
 
 namespace FuseCP.Providers.OS
 {
-    public class QueryStringDictionary: OrderedNameDictionary<string>
+    public sealed class QueryStringDictionary: OrderedNameDictionary<string>
     {
 
         public QueryStringDictionary(): base() { }

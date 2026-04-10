@@ -23,7 +23,7 @@ using System.Text.RegularExpressions;
 namespace FuseCP.Providers.OS
 {
 	public enum WSLNetworkingMode { NAT, mirrored }
-	public class WSLShell : Shell
+	public sealed class WSLShell : Shell
 	{
 		private static string ToCamelCase(string name)
 		{
