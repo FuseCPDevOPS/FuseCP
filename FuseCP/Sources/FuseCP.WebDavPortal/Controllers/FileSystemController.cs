@@ -250,6 +250,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ShowAdditionalContent(string path = "", int resourseRenderCount = 0)
         {
             path = path.Replace(ScpContext.User.OrganizationId, "").Trim('/');
@@ -311,6 +312,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("UploadFiles")]
         public ActionResult UploadFilePost(string org, string pathPart)
         {
@@ -348,6 +350,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult DeleteFiles(IEnumerable<string> filePathes = null, bool deleteNonEmptyFolder = false)
         {
             var model = new DeleteFilesModel();
@@ -389,6 +392,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult NewFolder(string org, string pathPart)
         {
             string folderPath = pathPart + "/" + Request.Form["foldername"];
@@ -425,6 +429,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult ItemExist(string org, string pathPart, string newItemName)
         {
             var exist = _webdavManager.FileExist(string.Format("{0}/{1}", pathPart.TrimEnd('/'), newItemName.Trim('/')));

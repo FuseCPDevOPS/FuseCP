@@ -92,6 +92,7 @@ namespace FuseCP.WebDavPortal.Controllers.Api
         }
 
         [HttpPost]
+        [IgnoreAntiforgeryToken]
         public IActionResult Post(int accessTokenId)
         {
             var operation = OwaActionSelector.ResolveOperation(Request.Headers);

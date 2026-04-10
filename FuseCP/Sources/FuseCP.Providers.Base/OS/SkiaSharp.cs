@@ -62,11 +62,12 @@ namespace FuseCP.Providers.OS
         static readonly SkiaSharp Current = new SkiaSharp(); 
 
         static readonly Dictionary<string, IntPtr> loadedNativeDlls = new Dictionary<string, IntPtr>();
+        private static readonly object _nativeDllLock = new object();
         public IntPtr SkiaDllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
         {
             if (libraryName.Contains("SkiaSharp"))
             {
-                lock (this)
+                lock (_nativeDllLock)
                 {
                     IntPtr dll;
                     if (loadedNativeDlls.TryGetValue(libraryName, out dll)) return dll;

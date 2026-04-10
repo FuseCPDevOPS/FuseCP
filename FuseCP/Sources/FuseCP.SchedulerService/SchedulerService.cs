@@ -36,13 +36,11 @@ public class ServiceBase {
 public partial class SchedulerService : ServiceBase
 {
     private readonly Timer _Timer;
-    private static object _isRuninng;
+    private static readonly object _isRuninng = new object();
     #region Construcor
 
     public SchedulerService()
     {
-        _isRuninng = new object();
-
         InitializeComponent();
 
         _Timer = new Timer(Process, null, 5000, 5000);

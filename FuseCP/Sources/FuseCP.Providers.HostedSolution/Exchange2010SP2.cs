@@ -652,9 +652,6 @@ namespace FuseCP.Providers.HostedSolution
 			cmd.Parameters.Add("Identity", dagNameDAG);
 			dags = ExecuteShellCommand(runSpace, cmd);
 
-			if (htBbalancer == null)
-				htBbalancer = new Hashtable();
-
 			// use fully qualified dagName for loadbalancer. Thus if there are two services and one of them
 			// contains only the DAG, the "fixed" database could also be used in loadbalancing. If you do not want this,
 			// set either IsExcludedFromProvisioning or IsSuspendedFromProvisioning - it is not evaluated for fixed databases

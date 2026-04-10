@@ -41,11 +41,12 @@ namespace FuseCP.Portal
 
 		int ServerId;
 		Task<ServerInfo> serverInfo = null;
+		private readonly object _serverInfoLock = new object();
 		async Task<ServerInfo> ServerInfo()
 		{
 			try
 			{
-				lock (this)
+				lock (_serverInfoLock)
 				{
 					if (serverInfo == null)
 					{

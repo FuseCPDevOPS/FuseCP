@@ -28,6 +28,7 @@ namespace FuseCP.Portal
     public class FuseCPModuleBase : FuseCPControlBase
     {
         private IMessageBoxControl messageBox;
+        private readonly object _msgLock = new object();
 
         public FuseCPModuleBase()
         {
@@ -131,7 +132,7 @@ namespace FuseCP.Portal
 
         public void ShowResultMessage(string moduleName, int resultCode, bool showcf, params object[] formatArgs)
         {
-            lock (this)
+            lock (_msgLock)
             {
                 MessageBoxType messageType = MessageBoxType.Warning;
 
@@ -192,7 +193,7 @@ namespace FuseCP.Portal
 
         public virtual void ShowSuccessMessage(string moduleName, string messageKey, params string[] formatArgs)
         {
-            lock (this)
+            lock (_msgLock)
             {
                 string localizedMessage = GetSharedLocalizedString(moduleName, "Success." + messageKey);
                 string localizedDescription = GetSharedLocalizedString(moduleName, "SuccessDescription." + messageKey);
@@ -220,7 +221,7 @@ namespace FuseCP.Portal
 
         public void ShowWarningMessage(string moduleName, string messageKey)
         {
-            lock (this)
+            lock (_msgLock)
             {
                 string localizedMessage = GetSharedLocalizedString(moduleName, "Warning." + messageKey);
                 string localizedDescription = GetSharedLocalizedString(moduleName, "WarningDescription." + messageKey);
@@ -244,7 +245,7 @@ namespace FuseCP.Portal
 
         public void ShowErrorMessage(string moduleName, string messageKey, Exception ex, params string[] additionalParameters)
         {
-            lock (this)
+            lock (_msgLock)
             {
                 string exceptionKey = null;
                 string[] messageParts = null;

@@ -262,11 +262,12 @@ namespace FuseCP.Providers.Virtualization
         });
 
         ApiClient api = null;
+        private readonly object _apiLock = new object();
         public ApiClient Api
         {
             get
             {
-                lock (this)
+                lock (_apiLock)
                 {
                     if (api != null) return api;
                     {
@@ -280,7 +281,7 @@ namespace FuseCP.Providers.Virtualization
             }
             private set
             {
-                lock (this) { api = value; }
+                lock (_apiLock) { api = value; }
             }
         }
 

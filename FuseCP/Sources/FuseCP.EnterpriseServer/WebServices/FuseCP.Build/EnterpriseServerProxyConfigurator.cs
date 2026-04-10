@@ -29,7 +29,7 @@ namespace FuseCP.EnterpriseServer
 		private string username;
 		private string password;
 
-		static bool? isCore = null;
+		bool? isCore = null;
 		public bool IsCore
 		{
 			get

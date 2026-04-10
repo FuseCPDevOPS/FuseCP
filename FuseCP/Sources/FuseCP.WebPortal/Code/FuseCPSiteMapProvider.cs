@@ -31,6 +31,7 @@ namespace FuseCP.WebPortal
         private const string PAGE_ID_PARAM = "pid";
 
         private SiteMapProvider parentSiteMapProvider = null;
+        private readonly object _syncLock = new object();
 
         public FuseCPSiteMapProvider()
         {
@@ -164,7 +165,7 @@ namespace FuseCP.WebPortal
         // not actually build the site map.
         public override void Initialize(string name, NameValueCollection attributes)
         {
-            lock (this)
+            lock (_syncLock)
             {
                 base.Initialize(name, attributes);
             }
