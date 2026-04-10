@@ -31,7 +31,7 @@ namespace FuseCP.WebDavPortal.CustomAttributes
                 return;
             }
 
-            if (context.HttpContext.User?.Identity?.IsAuthenticated == true)
+            if (context.HttpContext.User?.Identity?.IsAuthenticated)
             {
                 return;
             }
