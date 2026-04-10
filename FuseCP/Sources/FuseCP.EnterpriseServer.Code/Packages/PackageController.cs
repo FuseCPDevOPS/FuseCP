@@ -240,6 +240,7 @@ namespace FuseCP.EnterpriseServer
         #region Packages
         public List<PackageInfo> GetMyPackages(int userId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(packages,
                 GetRawMyPackages(userId));
@@ -248,6 +249,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<PackageInfo> GetPackages(int userId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(
                 packages, GetRawPackages(userId));
