@@ -304,6 +304,7 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 			var currentUserId = SecurityContext.User.UserId;
 			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
 			var canPeerChangeMfa = Convert.ToBoolean(authSettings[SystemSettings.MFA_CAN_PEER_CHANGE_MFA]);
@@ -313,6 +314,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void PreLoadUsersServers(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			Task.Run(() =>
 			{
 				using (var controller = AsAsync<UserController>())
@@ -1159,6 +1161,7 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetUserThemeSettings(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetUserThemeSettings(SecurityContext.User.UserId, userId);
 		}
 
