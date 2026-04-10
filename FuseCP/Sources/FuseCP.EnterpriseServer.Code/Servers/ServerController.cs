@@ -2247,21 +2247,29 @@ namespace FuseCP.EnterpriseServer
 
 		public int AddItemIPAddress(int itemId, int packageAddressId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return Database.AddItemIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 
 		public int SetItemPrimaryIPAddress(int itemId, int packageAddressId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return Database.SetItemPrimaryIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return Database.DeleteItemIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return Database.DeleteItemIPAddresses(SecurityContext.User.UserId, itemId);
 		}
 

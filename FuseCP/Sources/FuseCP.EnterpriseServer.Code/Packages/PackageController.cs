@@ -1649,6 +1649,8 @@ namespace FuseCP.EnterpriseServer
         public int DeletePackageItem(int itemId)
         {
             // delete item
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
             Database.DeleteServiceItem(SecurityContext.User.UserId, itemId);
 
             return 0;
@@ -1656,12 +1658,16 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageBandwidth(int packageId, string xml)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
             Database.UpdatePackageBandwidth(packageId, xml);
             return 0;
         }
 
         public int UpdatePackageDiskSpace(int packageId, string xml)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
             Database.UpdatePackageDiskSpace(packageId, xml);
             return 0;
         }
