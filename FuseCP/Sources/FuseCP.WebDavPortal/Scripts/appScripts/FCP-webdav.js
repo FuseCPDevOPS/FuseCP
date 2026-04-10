@@ -83,7 +83,9 @@ $("#create-button").click(function (e) {
 
     if ($('#filenameForm').valid()) {
 
-        var fileName = $('#createNewItemDialog #filename').val() + $(this).data('extension');
+        var rawName = String($('#createNewItemDialog #filename').val() || '');
+        var ext = String($(this).data('extension') || '');
+        var fileName = encodeURIComponent(rawName) + ext;
 
         $(this).attr('href', $(this).data('href') + '/' + fileName);
 
