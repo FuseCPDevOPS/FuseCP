@@ -30,6 +30,7 @@ namespace FuseCP.EnterpriseServer
 
         public BackgroundTask GetTask(string taskId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             BackgroundTask task = ObjectUtils.FillObjectFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTask(taskId));
 
@@ -45,6 +46,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTask> GetScheduleTasks(int scheduleId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetScheduleBackgroundTasks(scheduleId));
         }
@@ -58,24 +60,28 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTask> GetTasks(int actorId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTasks(actorId));
         }
 
         public List<BackgroundTask> GetTasks(Guid guid)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTasks(guid));
         }
 
         public List<BackgroundTask> GetProcessTasks(BackgroundTaskStatus status)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetProcessBackgroundTasks(status));
         }
 
         public BackgroundTask GetTopTask(Guid guid)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             BackgroundTask task = ObjectUtils.FillObjectFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTopTask(guid));
 
