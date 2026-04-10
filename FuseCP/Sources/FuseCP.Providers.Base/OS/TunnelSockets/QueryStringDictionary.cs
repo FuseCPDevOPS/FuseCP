@@ -34,7 +34,7 @@ namespace FuseCP.Providers.OS
             }
         }
 
-        public virtual string QueryString
+        public string QueryString
         {
             get
             {
