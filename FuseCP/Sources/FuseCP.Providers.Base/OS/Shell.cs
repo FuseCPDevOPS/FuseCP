@@ -524,7 +524,7 @@ namespace FuseCP.Providers.OS
 			catch (IOException ex) { System.Diagnostics.Trace.TraceWarning("AppendAllText IO exception: " + ex.Message); }
 			catch (UnauthorizedAccessException ex) { System.Diagnostics.Trace.TraceWarning("AppendAllText unauthorized: " + ex.Message); }
 		}
-		protected virtual void OnLog(string text)
+		protected void OnLog(string text)
 		{
 			OutputAndErrorLock.Wait();
 			try
@@ -552,7 +552,7 @@ namespace FuseCP.Providers.OS
 				OutputAndErrorLock.Release();
 			}
 		}
-		protected virtual void OnLogCommandEnd()
+		protected void OnLogCommandEnd()
 		{
 			OutputAndErrorLock.Wait();
 			try
@@ -564,7 +564,7 @@ namespace FuseCP.Providers.OS
 				OutputAndErrorLock.Release();
 			}
 		}
-		protected virtual void OnLogOutput(string text)
+		protected void OnLogOutput(string text)
 		{
 			OutputLock.Wait();
 			try
@@ -577,7 +577,7 @@ namespace FuseCP.Providers.OS
 				OutputLock.Release();
 			}
 		}
-		protected virtual void OnLogError(string text)
+		protected void OnLogError(string text)
 		{
 			ErrorLock.Wait();
 			try
