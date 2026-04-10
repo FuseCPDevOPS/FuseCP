@@ -143,6 +143,7 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateBackgroundTaskParams(BackgroundTask task)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteBackgroundTaskParams(task.Id);
 
             AddTaskParams(task.Id, task.Params);
@@ -150,16 +151,19 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTasks(Guid guid)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteBackgroundTasks(guid);
         }
 
         public void DeleteBackgroundTask(int id)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteBackgroundTask(id);
         }
 
         public void AddTaskParams(int taskId, List<BackgroundTaskParameter> parameters)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             using (var db = Database.Context)
             {
                 foreach (BackgroundTaskParameter param in SerializeParams(parameters))
