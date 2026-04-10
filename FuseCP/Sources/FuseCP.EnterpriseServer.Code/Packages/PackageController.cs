@@ -291,6 +291,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetPackagesPaged(int userId, string filterColumn, string filterValue,
             string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagesPaged(SecurityContext.User.UserId, userId,
                 filterColumn, filterValue, sortColumn, startRow, maximumRows);
         }
@@ -298,6 +299,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetNestedPackagesPaged(int packageId, string filterColumn, string filterValue,
             int statusId, int planId, int serverId, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetNestedPackagesPaged(SecurityContext.User.UserId, packageId,
                 filterColumn, filterValue, statusId, planId, serverId, sortColumn, startRow, maximumRows);
         }
@@ -305,6 +307,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet SearchServiceItemsPaged(int userId, int itemTypeId, string filterValue,
             string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return Database.SearchServiceItemsPaged(SecurityContext.User.UserId, userId, itemTypeId, filterValue,
                 sortColumn, startRow, maximumRows);
         }
