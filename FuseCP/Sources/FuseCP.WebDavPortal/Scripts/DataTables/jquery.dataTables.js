@@ -1388,7 +1388,7 @@
 	
 	
 	var _empty = function ( d ) {
-		return !d || d === true || d === '-' ? true : false;
+		return !d || d === true || d === '-';
 	};
 	
 	
@@ -1934,7 +1934,7 @@
 			browser.bScrollbarLeft = Math.round( inner.offset().left ) !== 1;
 	
 			// IE8- don't provide height and width for getBoundingClientRect
-			browser.bBounding = n[0].getBoundingClientRect().width ? true : false;
+			browser.bBounding = !!n[0].getBoundingClientRect().width;
 	
 			n.remove();
 		}
@@ -3787,7 +3787,7 @@
 					iColShifted = fnShiftCol( aLayout, i, iColumn );
 	
 					/* Cache calculation for unique columns */
-					bUnique = iColspan === 1 ? true : false;
+					bUnique = iColspan === 1;
 	
 					/* If there is col / rowspan, copy the information into the layout grid */
 					for ( l=0 ; l<iColspan ; l++ )
