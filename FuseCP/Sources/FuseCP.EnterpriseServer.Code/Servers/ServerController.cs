@@ -2367,21 +2367,25 @@ namespace FuseCP.EnterpriseServer
 		#region Global DNS records
 		public DataSet GetRawDnsRecordsByService(int serviceId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByService(SecurityContext.User.UserId, serviceId);
 		}
 
 		public DataSet GetRawDnsRecordsByServer(int serverId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByServer(SecurityContext.User.UserId, serverId);
 		}
 
 		public DataSet GetRawDnsRecordsByPackage(int packageId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByPackage(SecurityContext.User.UserId, packageId);
 		}
 
 		public DataSet GetRawDnsRecordsByGroup(int groupId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByGroup(groupId);
 		}
 
