@@ -441,3 +441,26 @@ Reverted WebServices.cs to its last known good state (HEAD~9) where compilation 
 - Validate FuseCP.Build project compiles
 - Verify RazorBlade code generation still functions correctly
 - Confirm generated service wrappers have no regressions
+
+---
+
+### Commit: 655b8c597
+**Message**: security: CodeQL remediation batch 13 - fix-js-unused-local-void.ps1
+
+**Scope**: Targeted JavaScript no-op-local remediation from active js/unused-local-variable findings.
+
+#### Files Modified
+- FuseCP/Sources/FuseCP.WebDavPortal/Scripts/DataTables/dataTables.fixedColumns.js
+
+#### Validation Summary
+- **Fix Script Output**: JS_UNUSED_TARGETS=13, JS_UNUSED_FIXED=1, JS_UNUSED_FILES_CHANGED=1
+- **Commit Result**: 1 file changed, 1 insertion
+- **Automation Note**: Additional batch scripts in this run were predominantly no-op against current alert spans.
+
+#### Risk Assessment
+- ✅ **Low Risk**: Narrow JavaScript cleanup in vendor-adjacent DataTables script section
+- ✅ **Behavioral Impact**: Intended to be non-functional cleanup only
+
+#### Testing Guidance
+1. Load WebDav portal pages using DataTables fixed columns and verify client-side script initialization
+2. Open browser console and ensure no new JS runtime errors appear in affected page flows
