@@ -886,6 +886,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ServiceInfo> GetServicesByGroupName(string groupName)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataSet<ServiceInfo>(
 				Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, false));
 		}
@@ -904,6 +906,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfo(int serviceId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
 		}
