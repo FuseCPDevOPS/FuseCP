@@ -173,9 +173,8 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(arguments))
 				yield break;
 
-			foreach (var parsedToken in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Cast<Match>().Select(match => match.Value))
+			foreach (var token in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Cast<Match>().Select(match => match.Value))
 			{
-				var token = parsedToken;
 				var startsAndEndsWithDoubleQuotes = token[0] == '"' && token[token.Length - 1] == '"';
 				var startsAndEndsWithSingleQuotes = token[0] == '\'' && token[token.Length - 1] == '\'';
 				if (token.Length >= 2 && (startsAndEndsWithDoubleQuotes || startsAndEndsWithSingleQuotes))
