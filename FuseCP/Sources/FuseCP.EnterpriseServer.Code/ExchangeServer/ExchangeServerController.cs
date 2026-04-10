@@ -1148,6 +1148,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetAccounts(int itemId, ExchangeAccountType accountType)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1316,6 +1318,8 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
             #region Demo Mode
             if (IsDemoMode)
                 return GetDemoAccounts(includeMailboxes, includeContacts, includeDistributionLists,
@@ -1334,6 +1338,8 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
             if (types.Length == 0)
                 return new List<ExchangeAccount>();
 
@@ -1427,6 +1433,8 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount SearchAccount(ExchangeAccountType accountType, string primaryEmailAddress)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
                 Database.SearchExchangeAccount(SecurityContext.User.UserId,
                 accountType, primaryEmailAddress));
