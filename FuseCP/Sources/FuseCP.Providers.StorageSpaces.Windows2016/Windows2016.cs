@@ -30,11 +30,12 @@ using Microsoft.Search.Interop;
 using FuseCP.Providers.OS;
 using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
+using BaseWindows2016 = FuseCP.Providers.OS.Windows2016;
 //using Scripting;
 
 namespace FuseCP.Providers.StorageSpaces
 {
-    public class Windows2016 : FuseCP.Providers.OS.Windows2016, IStorageSpace
+    public class Windows2016 : BaseWindows2016, IStorageSpace
     {
         #region Properties
         new internal string PrimaryDomainController

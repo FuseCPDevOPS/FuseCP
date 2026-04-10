@@ -21,10 +21,11 @@ using System.Reflection;
 using CoreWCF;
 using System.Text;
 using System.Threading.Tasks;
+using BaseUserNamePasswordValidator = CoreWCF.IdentityModel.Selectors.UserNamePasswordValidator;
 
 namespace FuseCP.Web.Services
 {
-	public class UserNamePasswordValidator : CoreWCF.IdentityModel.Selectors.UserNamePasswordValidator
+	public class UserNamePasswordValidator : BaseUserNamePasswordValidator
 	{
 
 		public PolicyAttribute Policy;

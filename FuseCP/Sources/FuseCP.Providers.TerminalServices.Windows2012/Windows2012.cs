@@ -1727,16 +1727,17 @@ namespace FuseCP.Providers.RemoteDesktopServices
             {
                 runspace = RdsRunspaceExtensions.OpenRunspace();
                 var collection = runspace.GetCollection(collectionName, ConnectionBroker, PrimaryDomainController);
-                result = new ImportedRdsCollection
-                {
-                    CollectionName = collection!.Name,
-                    Description = collection.Description
-                };
-                
+
                 if (collection == null)
                 {
                     throw new NullReferenceException(string.Format("Collection \"{0}\" not found", collectionName));
                 }
+
+                result = new ImportedRdsCollection
+                {
+                    CollectionName = collection.Name,
+                    Description = collection.Description
+                };
 
                 object[] errors;
                 result.CollectionSettings = runspace.GetCollectionSettings(collectionName, ConnectionBroker, PrimaryDomainController, out errors).ToList();

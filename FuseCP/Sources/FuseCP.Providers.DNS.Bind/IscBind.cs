@@ -1074,7 +1074,13 @@ namespace FuseCP.Providers.DNS
 			else if (string.IsNullOrWhiteSpace(cmd)) shell = Shell.Default.Exec($"rndc {rndcArguments}");
 			else shell = Shell.Default.Exec($"{cmd} {rndcArguments}");
 
-			var output = shell!.Output().Result;
+            if (shell == null)
+            {
+                Log.WriteError("BIND reload shell was not created.", null);
+                return;
+            }
+
+			var output = shell.Output().Result;
             if (shell.ExitCode().Result != 0 || Regex.IsMatch(output, "error", RegexOptions.IgnoreCase))
             {
                 Log.WriteError(output, null);

@@ -23,10 +23,11 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using BaseMenuAdapter = System.Web.UI.WebControls.Adapters.MenuAdapter;
 
 namespace CSSFriendly
 {
-    public class MenuAdapter : System.Web.UI.WebControls.Adapters.MenuAdapter
+    public class MenuAdapter : BaseMenuAdapter
     {
         private WebControlAdapterExtender _extender = null;
         private WebControlAdapterExtender Extender
