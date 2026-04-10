@@ -1316,7 +1316,7 @@ DataTable.ext.buttons.pdfHtml5 = {
 
 		if ( config.title ) {
 			doc.content.unshift( {
-				text: _title( config, false ),
+				text: _title( config ),
 				style: 'title',
 				margin: [ 0, 0, 0, 12 ]
 			} );

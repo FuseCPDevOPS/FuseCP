@@ -798,9 +798,7 @@ $.extend( Scroller.prototype, {
 			heights = this.s.heights,
 			iScrollTop = this.dom.scroller.scrollTop,
 			iActualScrollTop = iScrollTop,
-			void iActualScrollTop;
 			iScrollBottom = iScrollTop + heights.viewport,
-			void iScrollBottom;
 			iTableHeight = $(this.s.dt.nTable).height(),
 			displayStart = this.s.dt._iDisplayStart,
 			displayLen = this.s.dt._iDisplayLength,

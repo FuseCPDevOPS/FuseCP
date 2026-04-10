@@ -39,7 +39,7 @@ namespace FuseCP.Portal
         protected void Page_Load(object sender, EventArgs e)
         {
 			// check for "View" mode
-			if (String.Compare(Request["Mode"], "view", true) == 0)
+			if (String.Compare(Request.QueryString["Mode"], "view", true) == 0)
 			{
 				// load database
 				try

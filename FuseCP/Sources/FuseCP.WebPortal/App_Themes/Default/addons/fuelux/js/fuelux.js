@@ -7249,7 +7249,7 @@
 			}
 
 			while ( !invalid && template.search( '{{' ) >= 0 ) {
-				replace( template );
+				replace();
 			}
 
 			return template;

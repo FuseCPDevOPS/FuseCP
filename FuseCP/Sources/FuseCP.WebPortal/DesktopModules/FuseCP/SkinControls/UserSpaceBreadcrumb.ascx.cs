@@ -110,7 +110,7 @@ namespace FuseCP.Portal.SkinControls
             }
 
             // organization
-            bool orgVisible = (PanelRequest.ItemID > 0 && Request[DefaultPage.PAGE_ID_PARAM].Equals(PID_SPACE_EXCHANGE_SERVER, StringComparison.InvariantCultureIgnoreCase));
+            bool orgVisible = (PanelRequest.ItemID > 0 && string.Equals(Request.QueryString[DefaultPage.PAGE_ID_PARAM], PID_SPACE_EXCHANGE_SERVER, StringComparison.InvariantCultureIgnoreCase));
 
             spanOrgn.Visible = orgVisible;
 
@@ -125,7 +125,7 @@ namespace FuseCP.Portal.SkinControls
                 lnkOrgn.Text = org.Name;
 
                 string curCtrlKey = PanelRequest.Ctl.ToLower();
-                string ctrlKey = PortalUtils.GetGeneralESControlKey(Request[DefaultPage.CONTROL_ID_PARAM].ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                string ctrlKey = PortalUtils.GetGeneralESControlKey((Request.QueryString[DefaultPage.CONTROL_ID_PARAM] ?? string.Empty).ToLower(System.Globalization.CultureInfo.InvariantCulture));
 
                 if (curCtrlKey == "edit_user")
                 {

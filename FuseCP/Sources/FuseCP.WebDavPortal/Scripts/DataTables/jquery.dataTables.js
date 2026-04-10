@@ -2987,7 +2987,6 @@
 			tds = [],
 			td = row.firstChild,
 			name, col, o, i=0, contents,
-			void o;
 			columns = settings.aoColumns,
 			objectRead = settings._rowReadObject;
 	

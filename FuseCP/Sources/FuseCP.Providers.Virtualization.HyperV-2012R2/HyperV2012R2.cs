@@ -125,7 +125,7 @@ namespace FuseCP.Providers.Virtualization
             get { return _powerShell ?? (_powerShell = new PowerShellManager(ServerNameSettings, false)); }
         }
 
-        private static PowerShellManager _powerShellAsync;
+        private PowerShellManager _powerShellAsync;
         protected PowerShellManager PowerShellWithJobs
         {
             get { return _powerShellAsync ?? (_powerShellAsync = new PowerShellManager(ServerNameSettings, true)); }

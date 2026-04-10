@@ -54,7 +54,7 @@ namespace FuseCP.Providers.HostedSolution
     public class Exchange2019 : HostingServiceProviderBase, IExchangeServer
     {
 
-        static private Hashtable htBbalancer = new Hashtable();
+        private Hashtable htBbalancer = new Hashtable();
 
         static Exchange2019()
         {

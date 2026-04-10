@@ -1281,7 +1281,6 @@ var position = $.ui.position;
 
 
 var data = $.extend( $.expr.pseudos, {
- data;
 	data: $.expr.createPseudo ?
 		$.expr.createPseudo( function( dataName ) {
 			return function( elem ) {

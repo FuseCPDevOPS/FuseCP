@@ -78,7 +78,7 @@ namespace FuseCP.Portal
                     // bind item to controls
                     lblDomainName.Text = item.Name;
 
-					if (String.Compare(Request["Mode"], "view", true) == 0
+					if (String.Compare(Request.QueryString["Mode"], "view", true) == 0
 						&& !String.IsNullOrEmpty(item.StatisticsUrl))
 					{
 						// view mode

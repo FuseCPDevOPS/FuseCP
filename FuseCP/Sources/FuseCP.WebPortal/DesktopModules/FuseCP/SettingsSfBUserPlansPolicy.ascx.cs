@@ -40,7 +40,7 @@ namespace FuseCP.Portal
     public partial class SettingsSfBUserPlansPolicy : FuseCPControlBase, IUserSettingsEditorControl
     {
 
-        internal static List<SfBUserPlan> list;
+        internal List<SfBUserPlan> list;
 
         protected void ddArchivingPolicyUpdate()
         {

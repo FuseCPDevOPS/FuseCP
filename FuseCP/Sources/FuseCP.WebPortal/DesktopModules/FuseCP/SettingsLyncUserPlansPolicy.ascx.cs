@@ -40,7 +40,7 @@ namespace FuseCP.Portal
     public partial class SettingsLyncUserPlansPolicy : FuseCPControlBase, IUserSettingsEditorControl
     {
 
-        internal static List<LyncUserPlan> list;
+        internal List<LyncUserPlan> list;
 
         protected void ddArchivingPolicyUpdate()
         {

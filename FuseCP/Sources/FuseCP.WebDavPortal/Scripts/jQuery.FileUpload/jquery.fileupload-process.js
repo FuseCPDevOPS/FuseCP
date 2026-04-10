@@ -18,7 +18,9 @@
     define(['jquery', './jquery.fileupload'], factory);
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
-    factory(require('jquery'), require('./jquery.fileupload'));
+    var jquery = require('jquery');
+    require('./jquery.fileupload');
+    factory(jquery);
   } else {
     // Browser globals:
     factory(window.jQuery);

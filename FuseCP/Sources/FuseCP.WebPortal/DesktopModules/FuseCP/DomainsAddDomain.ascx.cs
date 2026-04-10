@@ -35,7 +35,7 @@ namespace FuseCP.Portal
 			{ 
 				// bind controls
 				BindControls();
-                DomainType type = GetDomainType(Request["DomainType"]);
+                DomainType type = GetDomainType(Request.QueryString["DomainType"]);
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
                 if (type == DomainType.Domain && cntx.Quotas[Quotas.OS_DOMAINS].QuotaExhausted)
                 {
@@ -73,7 +73,7 @@ namespace FuseCP.Portal
 		private void BindControls()
 		{
 			// get domain type
-			DomainType type = GetDomainType(Request["DomainType"]);
+			DomainType type = GetDomainType(Request.QueryString["DomainType"]);
             // enable domain/sub-domain fields
             // load package context
             if (type == DomainType.Domain || type == DomainType.DomainPointer)
@@ -196,7 +196,7 @@ namespace FuseCP.Portal
 				return;
 
 			// get domain type
-			DomainType type = GetDomainType(Request["DomainType"]);
+			DomainType type = GetDomainType(Request.QueryString["DomainType"]);
 
 			// get domain name
 		    var domainName = DomainName.Text;
@@ -264,7 +264,7 @@ namespace FuseCP.Portal
 		{
 			
 			// get domain type
-			DomainType type = GetDomainType(Request["DomainType"]);
+			DomainType type = GetDomainType(Request.QueryString["DomainType"]);
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			
 		    if (type == DomainType.Domain && !cntx.Quotas[Quotas.OS_DOMAINS].QuotaExhausted && CheckForCorrectIdnDomainUsage(DomainName.Text))

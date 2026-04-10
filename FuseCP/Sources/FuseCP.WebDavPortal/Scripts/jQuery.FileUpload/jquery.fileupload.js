@@ -19,7 +19,9 @@
     define(['jquery', 'jquery-ui/ui/widget'], factory);
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
-    factory(require('jquery'), require('./vendor/jquery.ui.widget'));
+    var jquery = require('jquery');
+    require('./vendor/jquery.ui.widget');
+    factory(jquery);
   } else {
     // Browser globals:
     factory(window.jQuery);

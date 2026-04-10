@@ -25,14 +25,13 @@
     ], factory);
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
-    factory(
-      require('jquery'),
-      require('blueimp-tmpl'),
-      require('./jquery.fileupload-image'),
-      require('./jquery.fileupload-audio'),
-      require('./jquery.fileupload-video'),
-      require('./jquery.fileupload-validate')
-    );
+    var jquery = require('jquery');
+    var tmpl = require('blueimp-tmpl');
+    require('./jquery.fileupload-image');
+    require('./jquery.fileupload-audio');
+    require('./jquery.fileupload-video');
+    require('./jquery.fileupload-validate');
+    factory(jquery, tmpl);
   } else {
     // Browser globals:
     factory(window.jQuery, window.tmpl);

@@ -32,7 +32,7 @@ namespace FuseCP.Portal
 {
     public partial class SpaceImportResources : FuseCPModuleBase
     {
-        private static TreeNode rootNode;
+        private TreeNode rootNode;
         
         protected void Page_Load(object sender, EventArgs e)
         {

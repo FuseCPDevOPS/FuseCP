@@ -22,7 +22,7 @@ namespace FuseCP.Portal
 {
     public partial class SettingsExchangePolicy : FuseCPControlBase, IUserSettingsEditorControl
     {
-        internal static AdditionalGroup[] additionalGroups;
+        internal AdditionalGroup[] additionalGroups;
 
         #region IUserSettingsEditorControl Members
 

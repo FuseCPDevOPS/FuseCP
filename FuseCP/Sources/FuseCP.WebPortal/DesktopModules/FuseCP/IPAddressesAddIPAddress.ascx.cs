@@ -153,7 +153,7 @@ namespace FuseCP.Portal
 
         private void RedirectBack()
         {
-            var returnUrl = Request["ReturnUrl"];
+            var returnUrl = Request.QueryString["ReturnUrl"];
 
             if (string.IsNullOrEmpty(returnUrl)
                 || !(returnUrl.StartsWith("/", StringComparison.Ordinal) && !returnUrl.StartsWith("//", StringComparison.Ordinal)))

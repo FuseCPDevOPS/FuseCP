@@ -1351,7 +1351,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 		}
 
 		if ( config.footer && data.footer ) {
-			addRow( data.footer, rowPos);
+			addRow( data.footer );
 			$('row:last c', rels).attr( 's', '2' ); // bold
 		}
 

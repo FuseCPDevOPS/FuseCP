@@ -464,7 +464,6 @@ $.extend( FixedColumns.prototype , {
 	"_fnConstruct": function ( oInit )
 	{
 		var i, iLen, iWidth,
-		void i;
 			that = this;
 
 		/* Sanity checking */

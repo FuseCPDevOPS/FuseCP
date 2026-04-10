@@ -88,6 +88,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(AccountModel model)
         {
             Log.WriteStart("Login with Model");
@@ -163,6 +164,7 @@ namespace FuseCP.WebDavPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult PasswordChange(PasswordChangeModel model)
         {
             if (!ModelState.IsValid)
@@ -201,6 +203,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult PasswordResetLogin(PasswordResetLoginModel model)
         {
             if (!ModelState.IsValid)
@@ -270,6 +273,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult PasswordResetPincodeSendOptions(Guid token, PasswordResetPincodeSendOptionsModel model)
         {
             if (!ModelState.IsValid)
@@ -358,6 +362,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult PasswordResetPincode(Guid token, PasswordResetPincodeModel model)
         {
             if (!ModelState.IsValid)
@@ -406,6 +411,7 @@ namespace FuseCP.WebDavPortal.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult PasswordResetFinalStep(Guid token, string pincode, PasswordResetFinalStepModel model)
         {
             if (!ModelState.IsValid)

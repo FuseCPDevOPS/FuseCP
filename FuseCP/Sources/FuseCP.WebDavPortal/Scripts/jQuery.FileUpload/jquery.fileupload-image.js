@@ -26,15 +26,14 @@
     ], factory);
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
-    factory(
-      require('jquery'),
-      require('blueimp-load-image/js/load-image'),
-      require('blueimp-load-image/js/load-image-meta'),
-      require('blueimp-load-image/js/load-image-scale'),
-      require('blueimp-load-image/js/load-image-exif'),
-      require('blueimp-canvas-to-blob'),
-      require('./jquery.fileupload-process')
-    );
+    var jquery = require('jquery');
+    var loadImage = require('blueimp-load-image/js/load-image');
+    require('blueimp-load-image/js/load-image-meta');
+    require('blueimp-load-image/js/load-image-scale');
+    require('blueimp-load-image/js/load-image-exif');
+    require('blueimp-canvas-to-blob');
+    require('./jquery.fileupload-process');
+    factory(jquery, loadImage);
   } else {
     // Browser globals:
     factory(window.jQuery, window.loadImage);
