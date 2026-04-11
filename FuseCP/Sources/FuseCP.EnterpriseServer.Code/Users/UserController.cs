@@ -253,6 +253,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool UpdateUserMfaSecret(string username, bool activate)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+
 			UserInfoInternal user = GetUserInternally(username);
 
 			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
@@ -275,6 +277,8 @@ namespace FuseCP.EnterpriseServer
 
 		public string[] GetUserMfaQrCodeData(string username)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new string[0];
+
 			UserInfoInternal user = GetUserInternally(username);
 
 			if (user.MfaMode == 0)
@@ -290,6 +294,7 @@ namespace FuseCP.EnterpriseServer
 
 		public bool ActivateUserMfaQrCode(string username, string pin)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 			UserInfoInternal user = GetUserInternally(username);
 			if (user.MfaMode == 0)
 				return false;
@@ -916,13 +921,15 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(int userId)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return DeleteUser(null, userId);
 		}
 
 		public int DeleteUser(string taskId, int userId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// check if user has child accounts
@@ -941,7 +948,7 @@ namespace FuseCP.EnterpriseServer
 		public int ChangeUserPassword(int userId, string password)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details
@@ -1090,6 +1097,8 @@ namespace FuseCP.EnterpriseServer
 		#region User Settings
 		public UserSettings GetUserSettings(int userId, string settingsName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new UserSettings();
+
 			IDataReader reader = Database.GetUserSettings(
 				SecurityContext.User.UserId, userId, settingsName);
 
@@ -1110,7 +1119,7 @@ namespace FuseCP.EnterpriseServer
 		public int UpdateUserSettings(UserSettings settings)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details

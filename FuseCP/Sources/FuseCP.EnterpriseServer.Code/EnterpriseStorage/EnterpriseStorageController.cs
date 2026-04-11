@@ -129,11 +129,13 @@ namespace FuseCP.EnterpriseServer
 
         public ESPermission[] GetFolderPermission(int itemId, string folder)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ESPermission[0];
             return ConvertToESPermission(itemId, GetFolderWebDavRulesInternal(itemId, folder));
         }
 
         public bool CheckFileServicesInstallation(int serviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             EnterpriseStorage es = GetEnterpriseStorage(serviceId);
             return es.CheckFileServicesInstallation();
         }
@@ -150,21 +152,25 @@ namespace FuseCP.EnterpriseServer
 
         public void SetFRSMQuotaOnFolder(int itemId, string folderName, int quota, QuotaType quotaType)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SetFRSMQuotaOnFolderInternal(itemId, folderName, quota, quotaType);
         }
 
         public void StartSetEnterpriseFolderSettingsBackgroundTask(int itemId, SystemFile folder, ESPermission[] permissions, bool directoyBrowsingEnabled, int quota, QuotaType quotaType)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             StartESBackgroundTaskInternal("SET_ENTERPRISE_FOLDER_SETTINGS", itemId, folder, permissions, directoyBrowsingEnabled, quota, quotaType);
         }
 
         public void SetESGeneralSettings(int itemId, SystemFile folder, bool directoyBrowsingEnabled, int quota, QuotaType quotaType)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SetESGeneralSettingsInternal("SET_ENTERPRISE_FOLDER_GENERAL_SETTINGS", itemId, folder, directoyBrowsingEnabled, quota, quotaType);
         }
 
         public void SetESFolderPermissionSettings(int itemId, SystemFile folder, ESPermission[] permissions)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SetESFolderPermissionSettingsInternal("SET_ENTERPRISE_FOLDER_GENERAL_SETTINGS", itemId, folder, permissions);
         }
 
@@ -2029,6 +2035,7 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationUser[] GetFolderOwaAccounts(int itemId, string folderName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new OrganizationUser[0];
             try
             {
                 var folderId = GetFolderId(itemId, folderName);
@@ -2045,6 +2052,7 @@ namespace FuseCP.EnterpriseServer
 
         public void SetFolderOwaAccounts(int itemId, string folderName, OrganizationUser[] users)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             try
             {
                 var folderId = GetFolderId(itemId, folderName);
@@ -2085,6 +2093,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetUserEnterpriseFolderWithOwaEditPermission(int itemId, List<int> accountIds)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
             try
             {
                 var result = new List<string>();
@@ -2111,6 +2120,8 @@ namespace FuseCP.EnterpriseServer
 
         public string GetWebDavPortalUserSettingsByAccountId(int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             var dataReader = Database.GetWebDavPortalUserSettingsByAccountId(accountId);
 
             while (dataReader.Read())
@@ -2123,6 +2134,8 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateUserSettings(int accountId, string settings)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             var oldSettings = GetWebDavPortalUserSettingsByAccountId(accountId);
 
             if (string.IsNullOrEmpty(oldSettings))
@@ -2142,11 +2155,13 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationStatistics GetStatistics(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetStatisticsInternal(itemId, false);
         }
 
         public OrganizationStatistics GetStatisticsByOrganization(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetStatisticsInternal(itemId, true);
         }
 

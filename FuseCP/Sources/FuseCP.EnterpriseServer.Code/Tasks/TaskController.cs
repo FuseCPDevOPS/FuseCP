@@ -123,6 +123,7 @@ namespace FuseCP.EnterpriseServer
 
         public bool UpdateTask(BackgroundTask task)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             if (task.Status == BackgroundTaskStatus.Abort)
             {
                 DeleteBackgroundTasks(task.Guid);

@@ -264,6 +264,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<PackageInfo> GetPackagePackages(int packageId, bool recursive)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
+
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(
                 packages, GetRawPackagePackages(packageId, recursive));
@@ -361,6 +363,8 @@ namespace FuseCP.EnterpriseServer
 
         public PackageContext GetPackageContext(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             PackageContext context = new PackageContext();
 
             // load package
@@ -409,6 +413,8 @@ namespace FuseCP.EnterpriseServer
 
         public PackageContext GetParentPackageContext(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             PackageContext context = new PackageContext();
 
             // load package
@@ -919,6 +925,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackage(int packageId)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
+            if (accountCheck < 0) return accountCheck;
             return DeletePackage(null, packageId);
         }
 
@@ -1605,6 +1613,9 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageItem(ServiceProviderItem item)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             // build properties xml
             string xml = BuildPropertiesXml(ObjectUtils.GetObjectProperties(item, true));
 

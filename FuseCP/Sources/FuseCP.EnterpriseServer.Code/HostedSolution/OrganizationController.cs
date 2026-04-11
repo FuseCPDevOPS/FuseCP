@@ -1550,6 +1550,8 @@ namespace FuseCP.EnterpriseServer
 
         public void SetDefaultOrganization(int newDefaultOrganizationId, int currentDefaultOrganizationId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             // place log record
             var parameters = new List<BackgroundTaskParameter>
             {
@@ -1592,6 +1594,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<OrganizationDeletedUser> GetOrganizationDeletedUsers(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<OrganizationDeletedUser>();
             var result = new List<OrganizationDeletedUser>();
 
             var orgDeletedUsers = ObjectUtils.CreateListFromDataReader<OrganizationUser>(
@@ -1615,6 +1618,11 @@ namespace FuseCP.EnterpriseServer
         public OrganizationDeletedUsersPaged GetOrganizationDeletedUsersPaged(int itemId, string filterColumn, string filterValue, string sortColumn,
             int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            {
+                return new OrganizationDeletedUsersPaged { RecordsCount = 0, PageDeletedUsers = new OrganizationDeletedUser[0] };
+            }
+
             DataSet ds =
                 Database.GetExchangeAccountsPaged(SecurityContext.User.UserId, itemId, ((int)ExchangeAccountType.DeletedUser).ToString(),
                 filterColumn, filterValue, sortColumn, startRow, maximumRows, false);
@@ -2186,6 +2194,7 @@ namespace FuseCP.EnterpriseServer
 
         public AccessToken GetAccessToken(Guid accessToken, AccessTokenTypes type)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<AccessToken>(Database.GetAccessTokenByAccessToken(accessToken, type));
         }
 
@@ -2203,11 +2212,18 @@ namespace FuseCP.EnterpriseServer
 
         public SystemSettings GetWebDavSystemSettings()
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return SystemController.GetSystemSettingsInternal(SystemSettings.WEBDAV_PORTAL_SETTINGS, false);
         }
 
         public string GenerateUserPasswordResetLink(int itemId, int accountId, out Guid tokenGuid, string pincode = null, string resetUrl = null)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            {
+                tokenGuid = Guid.Empty;
+                return string.Empty;
+            }
+
             var settings = GetWebDavSystemSettings();
             tokenGuid = new Guid();
 
@@ -2244,6 +2260,8 @@ namespace FuseCP.EnterpriseServer
 
         public AccessToken CreatePasswordResetAccessToken(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             var settings = GetWebDavSystemSettings();
 
             if (settings == null || !settings.GetValueOrDefault(SystemSettings.WEBDAV_PASSWORD_RESET_ENABLED_KEY, false))
@@ -2274,11 +2292,14 @@ namespace FuseCP.EnterpriseServer
 
         public void SetAccessTokenResponse(Guid accessToken, string response)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.SetAccessTokenResponseMessage(accessToken, response);
         }
 
         public bool CheckPhoneNumberIsInUse(int itemId, string phoneNumber, string userSamAccountName = null)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+
             // load organization
             Organization org = GetOrganization(itemId);
 
@@ -2294,6 +2315,8 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateOrganizationPasswordSettings(int itemId, OrganizationPasswordSettings settings)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             TaskManager.StartTask("ORGANIZATION", "UPDATE_PASSWORD_SETTINGS");
 
             try
@@ -2330,6 +2353,8 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationPasswordSettings GetOrganizationPasswordSettings(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             var passwordSettings = GetOrganizationSettings<OrganizationPasswordSettings>(itemId, OrganizationSettings.PasswordSettings);
 
             if (passwordSettings == null)
@@ -2407,6 +2432,8 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateOrganizationGeneralSettings(int itemId, OrganizationGeneralSettings settings)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             TaskManager.StartTask("ORGANIZATION", "UPDATE_GENERAL_SETTINGS");
 
             try
@@ -2439,6 +2466,7 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationGeneralSettings GetOrganizationGeneralSettings(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetOrganizationSettings<OrganizationGeneralSettings>(itemId, OrganizationSettings.GeneralSettings);
         }
 
@@ -3195,6 +3223,7 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationDeletedUser GetDeletedUser(int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             OrganizationDeletedUser deletedUser = ObjectUtils.FillObjectFromDataReader<OrganizationDeletedUser>(
                 Database.GetOrganizationDeletedUser(accountId));
 
@@ -3883,6 +3912,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<AdditionalGroup> GetAdditionalGroups(int userId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<AdditionalGroup>();
+
             List<AdditionalGroup> additionalGroups = new List<AdditionalGroup>();
 
             IDataReader reader = Database.GetAdditionalGroups(userId);
@@ -3915,6 +3946,8 @@ namespace FuseCP.EnterpriseServer
 
         public int AddAdditionalGroup(int userId, string groupName)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
             return Database.AddAdditionalGroup(userId, groupName);
         }
 

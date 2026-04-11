@@ -851,24 +851,29 @@ namespace FuseCP.EnterpriseServer
 		#region Services
 		public DataSet GetRawServicesByServerId(int serverId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetRawServicesByServerId(SecurityContext.User.UserId, serverId);
 		}
 		public String GetMailFilterURL(int PackageId, String ResorceGroupName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			return Database.GetMailFilterURL(SecurityContext.User.UserId, PackageId, ResorceGroupName);
 		}
 		public String GetMailFilterURLByHostingPlan(int PlanID, String ResorceGroupName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			return Database.GetMailFilterUrlByHostingPlan(SecurityContext.User.UserId, PlanID, ResorceGroupName);
 		}
 		public List<ServiceInfo> GetServicesByServerId(int serverId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerId(SecurityContext.User.UserId, serverId));
 		}
 
 		public List<ServiceInfo> GetServicesByServerIdGroupName(int serverId, string groupName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerIdGroupName(SecurityContext.User.UserId,
 				serverId, groupName));
@@ -876,6 +881,7 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawServicesByGroupId(int groupId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetServicesByGroupId(SecurityContext.User.UserId, groupId);
 		}
 
@@ -2240,12 +2246,14 @@ namespace FuseCP.EnterpriseServer
 		#region Item IP Addresses
 		public List<PackageIPAddress> GetItemIPAddresses(int itemId, IPAddressPool pool)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
 			return ObjectUtils.CreateListFromDataReader<PackageIPAddress>(
 				Database.GetItemIPAddresses(SecurityContext.User.UserId, itemId, (int)pool));
 		}
 
 		public PackageIPAddress GetPackageIPAddress(int packageAddressId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<PackageIPAddress>(
 				Database.GetPackageIPAddress(packageAddressId));
 		}
@@ -2391,29 +2399,34 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawDnsRecordsTotal(int packageId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsTotal(SecurityContext.User.UserId, packageId);
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByService(int serviceId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByService(SecurityContext.User.UserId, serviceId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByServer(int serverId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByServer(SecurityContext.User.UserId, serverId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByPackage(int packageId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByPackage(SecurityContext.User.UserId, packageId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByGroup(int groupId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByGroup(groupId));
 		}
