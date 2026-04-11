@@ -40,11 +40,13 @@ public class FilesController: ControllerBase
 
     public SystemSettings GetFileManagerSettings()
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
         return SystemController.GetSystemSettingsInternal(SystemSettings.FILEMANAGER_SETTINGS, false);
     }
 
     public OS.OperatingSystem GetOS(int packageId)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
         int sid = PackageController.GetPackageServiceId(packageId, ResourceGroups.Os);
         if (sid <= 0)
             return null;
@@ -58,6 +60,7 @@ public class FilesController: ControllerBase
     readonly Dictionary<string, string> HomeFolders = new();
     public string GetHomeFolder(int packageId)
     {            
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
         // check context
         string key = "HomeFolder" + packageId;
         string path;
@@ -84,7 +87,8 @@ public class FilesController: ControllerBase
 
 		public string GetFullPackagePath(int packageId, string path)
 		{
-			string homeFolder = GetHomeFolder(packageId);
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            string homeFolder = GetHomeFolder(packageId);
 			string correctedPath = CorrectRelativePath(path);
             return homeFolder.Contains("/")
                 ? @$"{homeFolder}/{correctedPath.Replace('\\', '/')}".Replace("//", "/")
@@ -93,13 +97,15 @@ public class FilesController: ControllerBase
 
 		public string GetFullUncPackagePath(int packageId, int serviceId, string path)
 		{
-			return ConvertToUncPath(serviceId, GetFullPackagePath(packageId, path));
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            return ConvertToUncPath(serviceId, GetFullPackagePath(packageId, path));
 		}
 
     public string GetVirtualPackagePath(int packageId, string fullPath)
     {
-			if (String.IsNullOrEmpty(fullPath))
-				return fullPath;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (String.IsNullOrEmpty(fullPath))
+                return fullPath;
 
 			// check for UNC
 			int signIdx = fullPath.IndexOf("$");
@@ -117,6 +123,7 @@ public class FilesController: ControllerBase
 
     public string CorrectRelativePath(string relativePath)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
         // clean path
         string correctedPath = Regex.Replace(relativePath.Replace("/", "\\"),
                 @"\.\\|\.\.|\\\\|\?|\:|\""|\<|\>|\||%|\$\\", "");
@@ -127,6 +134,7 @@ public class FilesController: ControllerBase
 
     public List<SystemFile> GetFiles(int packageId, string path, bool includeFiles)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<SystemFile>();
         OS.OperatingSystem os = GetOS(packageId);
 
         string fullPath = GetFullPackagePath(packageId, path);
@@ -143,11 +151,13 @@ public class FilesController: ControllerBase
 
     public List<SystemFile> GetFilesByMask(int packageId, string path, string filesMask)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
         return null;
     }
 
     public byte[] GetFileBinaryContent(int packageId, string path)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new byte[0];
         OS.OperatingSystem os = GetOS(packageId);
         string fullPath = GetFullPackagePath(packageId, path);
 
@@ -342,6 +352,7 @@ public class FilesController: ControllerBase
 
     public bool FileExists(int packageId, string path)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
         OS.OperatingSystem os = GetOS(packageId);
         string fullPath = GetFullPackagePath(packageId, path);
         return os.FileExists(fullPath);
@@ -783,6 +794,7 @@ public class FilesController: ControllerBase
 
     public UserPermission[] GetFilePermissions(int packageId, string path)
     {
+        if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new UserPermission[0];
         try
         {
             // get all accounts
@@ -805,9 +817,10 @@ public class FilesController: ControllerBase
     }
 		public UnixFilePermissions GetUnixFilePermissions(int packageId, string path)
 		{
-			try
-			{
-				var permissions = new UnixFilePermissions();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new UnixFilePermissions();
+            try
+            {
+                var permissions = new UnixFilePermissions();
 
 				// get permissions
 				OS.OperatingSystem os = GetOS(packageId);
@@ -921,8 +934,9 @@ public class FilesController: ControllerBase
 
 		public string ConvertToUncPath(int serviceId, string path)
 		{
-			// load web service info
-			ServiceInfo svc = ServerController.GetServiceInfo(serviceId);
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            // load web service info
+            ServiceInfo svc = ServerController.GetServiceInfo(serviceId);
 			// load web server info
 			ServerInfo srv = ServerController.GetServerByIdInternal(svc.ServerId);
 

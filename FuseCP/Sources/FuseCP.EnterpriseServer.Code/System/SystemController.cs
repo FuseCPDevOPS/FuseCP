@@ -106,6 +106,7 @@ namespace FuseCP.EnterpriseServer
 
 		public bool GetSystemSetupMode()
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 			var fcpaSystemSettings = GetSystemSettings(SystemSettings.SETUP_SETTINGS);
 			// Flag either not found or empty
 			if (String.IsNullOrEmpty(fcpaSystemSettings["EnabledFCPA"]))
@@ -178,7 +179,8 @@ namespace FuseCP.EnterpriseServer
 
         public bool CheckIsTwilioEnabled()
         {
-            var settings = SystemController.GetSystemSettingsActive(SystemSettings.TWILIO_SETTINGS, false);
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			var settings = SystemController.GetSystemSettingsActive(SystemSettings.TWILIO_SETTINGS, false);
 
             return settings != null
                 && !string.IsNullOrEmpty(settings.GetValueOrDefault(SystemSettings.TWILIO_ACCOUNTSID_KEY, string.Empty))
@@ -189,23 +191,31 @@ namespace FuseCP.EnterpriseServer
 		//Theme options
 		public DataSet GetThemes()
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetThemes();
 		}
 
 		public DataSet GetThemeSettings(int ThemeID)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetThemeSettings(ThemeID);
 		}
 
 		public DataSet GetThemeSetting(int ThemeID, string SettingsName)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetThemeSetting(ThemeID, SettingsName);
 		}
 
-		public Data.DbType GetDatabaseType() => Database.DbType;
+		public Data.DbType GetDatabaseType()
+		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return default(Data.DbType);
+			return Database.DbType;
+		}
 
 		public bool GetUseEntityFramework()
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 			return Database.UseEntityFramework;
 		}
 

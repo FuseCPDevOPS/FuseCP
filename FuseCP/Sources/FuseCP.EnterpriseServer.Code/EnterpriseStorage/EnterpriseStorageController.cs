@@ -54,31 +54,37 @@ namespace FuseCP.EnterpriseServer
 
         public bool CheckEnterpriseStorageInitialization(int packageId, int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             return CheckEnterpriseStorageInitializationInternal(packageId, itemId);
         }
 
         public ResultObject CreateEnterpriseStorage(int packageId, int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return CreateEnterpriseStorageInternal(packageId, itemId);
         }
 
         public ResultObject DeleteEnterpriseStorage(int packageId, int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return DeleteEnterpriseStorageInternal(packageId, itemId);
         }
 
         public SystemFile[] GetFolders(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new SystemFile[0];
             return GetFoldersInternal(itemId);
         }
 
         public SystemFile[] GetUserRootFolders(int itemId, int accountId, string userName, string displayName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new SystemFile[0];
             return GetUserRootFoldersInternal(itemId, accountId, userName, displayName);
         }
 
         public SystemFile GetFolder(int itemId, string folderName, bool loadMappedDriveInfo = false)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetFolderInternal(itemId, folderName, loadMappedDriveInfo);
         }
 
@@ -94,6 +100,7 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject CreateFolder(int itemId, string folderName, int quota, QuotaType quotaType, bool addDefaultGroup, bool isRootFolder = false)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return CreateFolderInternal(itemId, folderName, quota, quotaType, addDefaultGroup, isRootFolder);
         }
 
@@ -104,26 +111,31 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject DeleteFolder(int itemId, string folderName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return DeleteFolderInternal(itemId, folderName);
         }
 
         public List<ExchangeAccount> SearchESAccounts(int itemId, string filterColumn, string filterValue, string sortColumn)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ExchangeAccount>();
             return SearchESAccountsInternal(itemId, filterColumn, filterValue, sortColumn);
         }
 
         public SystemFilesPaged GetEnterpriseFoldersPaged(int itemId, bool loadUsagesData, bool loadWebdavRules, bool loadMappedDrives, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new SystemFilesPaged();
             return GetEnterpriseFoldersPagedInternal(itemId, loadUsagesData, loadWebdavRules, loadMappedDrives, filterValue, sortColumn, startRow, maximumRows);
         }
 
         public IEnumerable<SystemFile> GetEnterpriseFolders(int itemId, bool loadUsagesData = false, bool loadWebdavRules = false, bool loadMappedDrives = false)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return Enumerable.Empty<SystemFile>();
             return GetEnterpriseFoldersPaged(itemId, loadUsagesData, loadWebdavRules, loadMappedDrives, "", "", 0, int.MaxValue).PageItems;
         }
 
         public ResultObject SetFolderPermission(int itemId, string folder, ESPermission[] permission)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return SetFolderWebDavRulesInternal(itemId, folder, permission);
         }
 
@@ -142,11 +154,13 @@ namespace FuseCP.EnterpriseServer
 
         public SystemFile RenameFolder(int itemId, string oldFolder, string newFolder)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return RenameFolderInternal(itemId, oldFolder, newFolder);
         }
 
         public bool CheckUsersDomainExists(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             return CheckUsersDomainExistsInternal(itemId);
         }
 
@@ -279,11 +293,13 @@ namespace FuseCP.EnterpriseServer
 
         public bool GetDirectoryBrowseEnabled(int itemId, string siteId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             return GetDirectoryBrowseEnabledInternal(itemId, siteId);
         }
 
         public void SetDirectoryBrowseEnabled(int itemId, string siteId, bool enabled)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SetDirectoryBrowseEnabledInternal(itemId, siteId, enabled);
         }
 
@@ -293,11 +309,13 @@ namespace FuseCP.EnterpriseServer
 
         public int AddWebDavDirectory(int packageId, string site, string vdirName, string contentpath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             return AddWebDavDirectoryInternal(packageId, site, vdirName, contentpath);
         }
 
         public int DeleteWebDavDirectory(int packageId, string site, string vdirName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             return DeleteWebDavDirectoryInternal(packageId, site, vdirName);
         }
 
@@ -892,6 +910,7 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject CreateSubFolder(int itemId, string folderPath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             ResultObject result = TaskManager.StartResultTask<ResultObject>("ENTERPRISE_STORAGE", "CREATE_SUB_FOLDER");
             try
             {
@@ -1304,6 +1323,7 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject MoveToStorageSpace(int itemId, string folderName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return MoveToStorageSpaceInternal(itemId, folderName);
         }
 
@@ -1440,6 +1460,7 @@ namespace FuseCP.EnterpriseServer
 
         public int GetEnterpriseStorageServiceId(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             return GetEnterpriseStorageServiceIdInternal(itemId);
         }
 
@@ -1459,6 +1480,7 @@ namespace FuseCP.EnterpriseServer
 
         public void SetEsFolderShareSettings(int itemId, string folderName, bool abeIsEnabled, bool edaIsEnabled)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SetEsFolderShareSettingsInternal(itemId, folderName, abeIsEnabled, edaIsEnabled);
         }
 
@@ -2236,6 +2258,7 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject CreateMappedDrive(int packageId, int itemId, string driveLetter, string labelAs, string folderName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return CreateMappedDriveInternal(packageId, itemId, driveLetter, labelAs, folderName);
         }
 
@@ -2307,6 +2330,7 @@ namespace FuseCP.EnterpriseServer
 
         public ResultObject DeleteMappedDrive(int itemId, string folderName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject { IsSuccess = false };
             return DeleteMappedDriveInternal(itemId, folderName);
         }
 
@@ -2352,6 +2376,7 @@ namespace FuseCP.EnterpriseServer
 
         public MappedDrivesPaged GetDriveMapsPaged(int itemId, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new MappedDrivesPaged();
             return GetDriveMapsPagedInternal(itemId, filterValue, sortColumn, startRow, maximumRows);
         }
 
@@ -2422,6 +2447,7 @@ namespace FuseCP.EnterpriseServer
 
         public string[] GetUsedDriveLetters(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new string[0];
             return GetUsedDriveLettersInternal(itemId);
         }
 
@@ -2448,6 +2474,7 @@ namespace FuseCP.EnterpriseServer
 
         public SystemFile[] GetNotMappedEnterpriseFolders(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new SystemFile[0];
             return GetNotMappedEnterpriseFoldersInternal(itemId);
         }
 

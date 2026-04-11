@@ -582,11 +582,13 @@ namespace FuseCP.EnterpriseServer
 
 		public UserInfoInternal GetUser(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			return GetUser(Database.GetUserById(SecurityContext.User.UserId, userId));
 		}
 
 		public UserInfoInternal GetUser(string username)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			return GetUser(Database.GetUserByUsername(SecurityContext.User.UserId, username));
 		}
 
@@ -616,12 +618,14 @@ namespace FuseCP.EnterpriseServer
 
 		public List<UserInfo> GetUserParents(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(
 				Database.GetUserParents(SecurityContext.User.UserId, userId));
 		}
 
 		public List<UserInfo> GetUsers(int userId, bool recursive)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(
 				Database.GetUsers(SecurityContext.User.UserId, userId, recursive));
 		}
@@ -630,6 +634,7 @@ namespace FuseCP.EnterpriseServer
 			int statusId, int roleId,
 			string sortColumn, int startRow, int maximumRows)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsersPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, statusId, roleId, sortColumn, startRow, maximumRows, false);
@@ -639,6 +644,7 @@ namespace FuseCP.EnterpriseServer
 			int statusId, int roleId,
 			string sortColumn, int startRow, int maximumRows)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsersPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, statusId, roleId, sortColumn, startRow, maximumRows, true);
@@ -646,12 +652,14 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetUsersSummary(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetUsersSummary(SecurityContext.User.UserId, userId);
 		}
 
 		public DataSet GetUserDomainsPaged(int userId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUserDomainsPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, sortColumn, startRow, maximumRows);
@@ -659,24 +667,30 @@ namespace FuseCP.EnterpriseServer
 
 		public List<UserInfo> GetUserPeers(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			// get user peers from database
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(GetRawUserPeers(userId));
 		}
 
 		public DataSet GetRawUserPeers(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			// get user peers from database
 			return Database.GetUserPeers(SecurityContext.User.UserId, userId);
 		}
 
 		public DataSet GetRawUsers(int ownerId, bool recursive)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsers(SecurityContext.User.UserId, ownerId, recursive);
 		}
 
 		public int AddUser(UserInfo user, bool sendLetter, string password, string[] notes)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+
 			int userId = AddUser(user, sendLetter, password);
 
 			if (userId > 0 && notes != null)
@@ -790,6 +804,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void AddUserVLan(int userId, UserVlan vLan)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			UserInfo user = GetUser(userId);
 			//
 			if (user == null)
@@ -805,6 +820,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void DeleteUserVLan(int userId, ushort vLanId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			UserInfo user = GetUser(userId);
 			//
 			if (user == null)
@@ -822,11 +838,16 @@ namespace FuseCP.EnterpriseServer
 
 		public int UpdateUser(UserInfo user)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
 			return UpdateUser(null, user);
 		}
 
 		public int UpdateUserAsync(string taskId, UserInfo user)
 		{
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+
 			UserAsyncWorker usersWorker = new UserAsyncWorker();
 			usersWorker.ThreadUserId = SecurityContext.User.UserId;
 			usersWorker.TaskId = taskId;
@@ -1074,6 +1095,7 @@ namespace FuseCP.EnterpriseServer
 
 		public IEnumerable<string> GetUserPackagesServerUrls(int userId)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return Enumerable.Empty<string>();
 			return ObjectUtils.CreateListFromDataReader<ServerUrlBag>(Database.GetUserPackagesServerUrls(userId))
 				.Select(bag => CryptoUtils.DecryptServerUrl(bag.ServerUrl));
 		}

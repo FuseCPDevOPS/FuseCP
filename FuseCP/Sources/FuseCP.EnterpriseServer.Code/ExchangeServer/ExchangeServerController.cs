@@ -133,6 +133,8 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -2523,6 +2525,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailboxAutoReplySettings GetMailboxAutoReplySettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -2612,6 +2617,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailbox GetMailboxGeneralSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -2716,6 +2724,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeResourceMailboxSettings GetResourceMailboxSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -2812,6 +2823,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeEmailAddress[] GetMailboxEmailAddresses(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new ExchangeEmailAddress[0];
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_MAILBOX_ADDRESSES", itemId);
 
@@ -3020,6 +3034,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailbox GetMailboxMailFlowSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -3213,6 +3230,9 @@ namespace FuseCP.EnterpriseServer
 
         public string GetMailboxSetupInstructions(int itemId, int accountId, bool pmm, bool emailMode, bool signup, string passwordResetUrl)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return string.Empty;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -3361,6 +3381,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailbox GetMailboxPermissions(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_MAILBOX_PERMISSIONS", itemId);
 
@@ -3594,6 +3617,9 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeMailboxPlan> GetExchangeMailboxPlans(int itemId, bool archiving)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeMailboxPlan>();
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_EXCHANGE_MAILBOXPLANS", itemId);
 
@@ -3677,6 +3703,8 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailboxPlan GetExchangeMailboxPlan(int itemID, int mailboxPlanId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
 
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_EXCHANGE_MAILBOXPLAN", mailboxPlanId);
@@ -3698,6 +3726,9 @@ namespace FuseCP.EnterpriseServer
 
         public int AddExchangeMailboxPlan(int itemID, ExchangeMailboxPlan mailboxPlan)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "ADD_EXCHANGE_MAILBOXPLAN_RETENTIONPOLICY_ARCHIVING", mailboxPlan.MailboxPlan, itemID);
 
@@ -3774,6 +3805,9 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateExchangeMailboxPlan(int itemID, ExchangeMailboxPlan mailboxPlan)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "UPDATE_EXCHANGE_MAILBOXPLAN", mailboxPlan.MailboxPlan, itemID);
 
@@ -3859,6 +3893,9 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteExchangeMailboxPlan(int itemID, int mailboxPlanId)
         {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             TaskManager.StartTask("EXCHANGE", "DELETE_EXCHANGE_MAILBOXPLAN_RETENTIONPOLICY_ARCHIVING", itemID);
 
             try
@@ -3892,6 +3929,8 @@ namespace FuseCP.EnterpriseServer
 
         public void SetOrganizationDefaultExchangeMailboxPlan(int itemId, int mailboxPlanId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             TaskManager.StartTask("EXCHANGE", "SET_EXCHANGE_MAILBOXPLAN", itemId);
 
             try
@@ -4251,6 +4290,9 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeMailboxPlanRetentionPolicyTag> GetExchangeMailboxPlanRetentionPolicyTags(int policyId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeMailboxPlanRetentionPolicyTag>();
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_EXCHANGE_RETENTIONPOLICYTAGS", policyId);
 
@@ -4550,6 +4592,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeContact GetContactGeneralSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -4678,6 +4723,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeContact GetContactMailFlowSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -4917,6 +4965,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeDistributionList GetDistributionListGeneralSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -5025,6 +5076,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeDistributionList GetDistributionListMailFlowSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -5124,6 +5178,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeEmailAddress[] GetDistributionListEmailAddresses(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new ExchangeEmailAddress[0];
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_DISTR_LIST_ADDRESSES", itemId);
 
@@ -5913,6 +5970,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangePublicFolder GetPublicFolderGeneralSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -6039,6 +6099,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangePublicFolder GetPublicFolderMailFlowSettings(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -6135,6 +6198,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeEmailAddress[] GetPublicFolderEmailAddresses(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new ExchangeEmailAddress[0];
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_PUBLIC_FOLDER_ADDRESSES", itemId);
 
@@ -6313,6 +6379,9 @@ namespace FuseCP.EnterpriseServer
 
         public string CreateOrganizationRootPublicFolder(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             string res = null;
 
             // place log record
@@ -6364,6 +6433,9 @@ namespace FuseCP.EnterpriseServer
 
         public string SetDefaultPublicFolderMailbox(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             var resultBuilder = new StringBuilder();
 
             try
@@ -6552,6 +6624,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMobileDevice[] GetMobileDevices(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new ExchangeMobileDevice[0];
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_MOBILE_DEVICES", itemId);
 
@@ -6582,6 +6657,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMobileDevice GetMobileDevice(int itemId, string deviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_MOBILE_DEVICE", itemId);
 
@@ -6609,6 +6687,8 @@ namespace FuseCP.EnterpriseServer
 
         public void WipeDataFromDevice(int itemId, string deviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "WIPE_DATA_FROM_DEVICE", deviceId, itemId);
 
@@ -6639,6 +6719,8 @@ namespace FuseCP.EnterpriseServer
 
         public void CancelRemoteWipeRequest(int itemId, string deviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "CANCEL_REMOTE_WIPE_REQUEST", deviceId, itemId);
 
@@ -6669,6 +6751,8 @@ namespace FuseCP.EnterpriseServer
 
         public void RemoveDevice(int itemId, string deviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "REMOVE_DEVICE", deviceId, itemId);
 
@@ -6814,6 +6898,9 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeDisclaimer GetExchangeDisclaimer(int itemId, int exchangeDisclaimerId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return null;
+
             try
             {
                 Organization org = GetOrganization(itemId);
@@ -6838,6 +6925,9 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeDisclaimer> GetExchangeDisclaimers(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeDisclaimer>();
+
             try
             {
                 Organization org = GetOrganization(itemId);
