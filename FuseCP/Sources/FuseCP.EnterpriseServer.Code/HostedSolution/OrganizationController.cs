@@ -1583,7 +1583,8 @@ namespace FuseCP.EnterpriseServer
 
         public void SetDefaultOrganization(int newDefaultOrganizationId, int currentDefaultOrganizationId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return;
 
             // place log record
             var parameters = new List<BackgroundTaskParameter>
@@ -2190,7 +2191,8 @@ namespace FuseCP.EnterpriseServer
 
         public void SendUserPasswordEmail(UserInfo owner, OrganizationUser user, string reason, string mailTo, string logoUrl, string settingsName, string taskName, bool finalStep)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return;
 
             UserSettings settings = UserController.GetUserSettings(owner.UserId,
                 settingsName);
@@ -3870,7 +3872,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<OrganizationDomainName> GetOrganizationDomains(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0)
                 return new List<OrganizationDomainName>();
 
             #region Demo Mode
