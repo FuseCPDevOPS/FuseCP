@@ -940,15 +940,15 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackage(string taskId, int packageId)
         {
+            // check account before starting any task side effects
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
+                | DemandAccount.IsReseller);
+            if (accountCheck < 0) return accountCheck;
+
             TaskManager.StartTask(taskId, "HOSTING_SPACE", "DELETE", packageId);
 
             try
             {
-                // check account
-                int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
-                    | DemandAccount.IsReseller);
-                if (accountCheck < 0) return accountCheck;
-
                 // check if package has child packages
                 if (GetPackagePackages(packageId, true).Count > 0)
                     return BusinessErrorCodes.ERROR_PACKAGE_HAS_PACKAGES;

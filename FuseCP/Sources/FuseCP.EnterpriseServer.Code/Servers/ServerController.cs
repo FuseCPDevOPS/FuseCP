@@ -2254,6 +2254,10 @@ namespace FuseCP.EnterpriseServer
 		public ResultObject DeallocatePackageIPAddresses(int packageId, int[] addressId)
 		{
 			#region Check account and space statuses
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0)
+				return new ResultObject() { IsSuccess = false };
+
 			// create result object
 			ResultObject res = new ResultObject();
 

@@ -1253,6 +1253,9 @@ namespace FuseCP.EnterpriseServer
         private List<ExchangeAccount> GetDemoAccounts(bool includeMailboxes, bool includeContacts, bool includeDistributionLists,
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
             List<ExchangeAccount> demoAccounts = new List<ExchangeAccount>();
 
             if (includeMailboxes)
@@ -1569,6 +1572,9 @@ namespace FuseCP.EnterpriseServer
 
         private ExchangeEmailAddress[] GetAccountEmailAddresses(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                return new ExchangeEmailAddress[0];
+
             #region Demo Mode
             if (IsDemoMode)
             {
