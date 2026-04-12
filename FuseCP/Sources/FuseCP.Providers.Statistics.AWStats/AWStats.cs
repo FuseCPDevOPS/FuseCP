@@ -91,7 +91,7 @@ namespace FuseCP.Providers.Statistics
             string[] files = Directory.GetFiles(AwStatsFolder,
                 ConfigFileName.ToLower().Replace("[domain_name]", "*"));
 
-            foreach (string fileName in Array.ConvertAll(files, Path.GetFileName))
+            foreach (string fileName in files.Select(Path.GetFileName))
             {
                 string site = fileName.Substring(configPrefix.Length,
                     fileName.Length - configPrefix.Length - configSuffix.Length);

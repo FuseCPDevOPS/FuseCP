@@ -1,77 +1,37 @@
-263`tFuseCP.WebPortal
-161`tFuseCP.EnterpriseServer.Code
-133`tFuseCP.WebDavPortal
-62`tFuseCP.Server
-54`tFuseCP.Providers.Base
-43`ttools
-43`tFuseCP.EnterpriseServer
-38`tFuseCP.EnterpriseServer.Data
-32`tFuseCP.Server.Utils
-23`tFuseCP.Providers.Virtualization.HyperV-2012R2
-22`tFuseCP.Providers.FTP.VsFtp
-21`tFuseCP.Providers.Web.IIS70
-17`tFuseCP.EnterpriseServer.Base
-13`tFuseCP.WebDav.Core
-11`tFuseCP.Providers.HostedSolution
-10`tFuseCP.Web.Services
-8`tFuseCP.Providers.DNS.SimpleDNS90
-8`tFuseCP.Providers.Virtualization.Proxmox
-8`tFuseCP.Providers.OS.Unix
-7`tFuseCP.Providers.DNS.SimpleDNS80
-6`tFuseCP.Providers.OS.Windows2016
-6`tFuseCP.Providers.Statistics.SmarterStats
-6`tFuseCP.Web.Clients
-5`tFuseCP.Build
-4`tFuseCP.Providers.HostedSolution.Exchange2013
-4`tFuseCP.Providers.Virtualization.HyperV-vmm
-4`tFuseCP.EnterpriseServer.Tests
-4`tFuseCP.Providers.HostedSolution.Lync2013HP
-4`tFuseCP.Providers.HostedSolution.Exchange2016
-4`tFuseCP.Providers.HostedSolution.Exchange2019
-4`tFuseCP.Providers.TerminalServices.Windows2012
-3`tFuseCP.Providers.StorageSpaces.Windows2016
-3`tFuseCP.Providers.Web.IIs100
-3`tFuseCP.Providers.Virtualization.HyperV
-3`tFuseCP.Providers.Web.IIs80
-3`tFuseCP.Providers.Web.Apache
-3`tFuseCP.Providers.Web.IIs60
-3`tFuseCP.Providers.HostedSolution.SharePoint2019
-3`tFuseCP.Providers.HostedSolution.SharePoint2016Ent
-3`tFuseCP.Providers.HostedSolution.SharePoint2016
-3`tFuseCP.Providers.FTP.Gene6
-3`tFuseCP.Providers.HostedSolution.SharePoint2013Ent
-3`tFuseCP.Providers.HostedSolution.SharePoint2013
-2`tFuseCP.Providers.DNS.SimpleDNS50
-2`tFuseCP.Providers.DNS.MsDNS2012
-2`tFuseCP.Templates
-2`tFuseCP.Providers.FTP.IIs100
-2`tFuseCP.Tests
-2`tFuseCP.Providers.HostedSolution.Lync2013
-2`tFuseCP.Providers.EnterpriseStorage.Windows2016
-2`tFuseCP.Providers.HostedSolution.SfB2015
-2`tFuseCP.Providers.DNS.Bind
-2`tFuseCP.Providers.Database.SqlServer
-2`tFuseCP.Providers.Database.MySQL
-2`tFuseCP.Providers.Database.MariaDB
-2`tFuseCP.Providers.Mail.IceWarp
-2`tFuseCP.Providers.Mail.AbilityMailServer
-2`tFuseCP.Providers.HostedSolution.SfB2019
-2`tFuseCP.Providers.DNS.SimpleDNS60
-1`tFuseCP.Providers.DNS.MsDNS
-1`tFuseCP.Providers.DNS.MsDNS2016
-1`tFuseCP.SchedulerService
-1`tFuseCP.Providers.DNS.SimpleDNS
-1`tFuseCP.Providers.Virtualization.HyperV-2025
-1`tFuseCP.Providers.FTP.FileZilla
-1`tFuseCP.WebSite
-1`tFuseCP.Providers.Virtualization.HyperV-2022
-1`tFuseCP.Providers.Virtualization.HyperV-2019
-1`tFuseCP.Providers.Virtualization.HyperV-2016
-1`tFuseCP.Providers.FTP.ServU
-1`tFuseCP.Providers.Statistics.AWStats
-1`tFuseCP.Providers.OS.Windows2025
-1`tFuseCP.Providers.OS.Windows2022
-1`tFuseCP.Providers.OS.Windows2019
-1`tFuseCP.Providers.Mail.SmarterMail2
-1`tFuseCP.Providers.Filters.SpamExperts
-1`tFuseCP
+"Project"	"Count"
+"FuseCP.WebDavPortal"	"153"
+"FuseCP.WebPortal"	"124"
+"FuseCP.EnterpriseServer.Code"	"77"
+"FuseCP.Server"	"60"
+"Source"	"56"
+"FuseCP.EnterpriseServer"	"38"
+"FuseCP.Providers.Base"	"33"
+"FuseCP.Server.Utils"	"27"
+"FuseCP.Providers.FTP.VsFtp"	"22"
+"FuseCP.EnterpriseServer.Data"	"17"
+"FuseCP.EnterpriseServer.Base"	"13"
+"FuseCP.WebDav.Core"	"7"
+"FuseCP.Providers.OS.Unix"	"5"
+"FuseCP.Web.Services"	"4"
+"FuseCP.Providers.Virtualization.Proxmox"	"4"
+"FuseCP.Providers.Virtualization.HyperV-2012R2"	"4"
+"FuseCP.Providers.Web.Apache"	"3"
+"FuseCP.Web.Clients"	"3"
+"FuseCP.Build"	"3"
+"FuseCP.Providers.Virtualization.HyperV-vmm"	"2"
+"FuseCP.Providers.HostedSolution"	"2"
+"FuseCP.Providers.OS.Windows2016"	"2"
+"FuseCP.Providers.Web.IIS70"	"2"
+"FuseCP.Providers.Virtualization.HyperV"	"2"
+"FuseCP.Providers.StorageSpaces.Windows2016"	"2"
+"FuseCP.Providers.Web.IIs100"	"1"
+"FuseCP.Providers.Web.IIs80"	"1"
+"FuseCP.Providers.Statistics.AWStats"	"1"
+"FuseCP.WebSite"	"1"
+"FuseCP.Templates"	"1"
+"FuseCP.Providers.Mail.AbilityMailServer"	"1"
+"FuseCP.Providers.FTP.IIs100"	"1"
+"FuseCP.Providers.EnterpriseStorage.Windows2016"	"1"
+"FuseCP.Providers.DNS.MsDNS"	"1"
+"FuseCP.Providers.Web.IIs60"	"1"
+"FuseCP.Providers.Mail.IceWarp"	"1"

@@ -1,10 +1,10 @@
 
 ==> Detecting changed files
-Changed files detected: 23 (base: HEAD)
+Changed files detected: 7 (base: HEAD)
 Scope derived from changed files.
 
 ==> Local validation
-Scope: Enterprise, Portal, Server, Shared
+Scope: Enterprise, Shared
 Configuration: Debug
 NuGet audit warnings: disabled for this run (-DisableNuGetAudit)
 Running: Database workflow automation
@@ -20,24 +20,21 @@ Full Automation
    All 95 configurations registered
 [PASS] Migration Files (All Providers)
    All migrations present for all 4 providers
-  Regenerating MySQL install.sql from PostgreSQL template...
-   Converting PostgreSQL identifiers to MySQL...
-   Normalizing datetime types...
-[PASS] MySQL Artifact Regeneration
-   Regenerated (0.55 MB)
+[SKIP] MySQL Artifact Regeneration
+   MySQL script is current
 
 ?????????????????????????????????????????????????????????????????????????????
 Install Scripts Currency
 ?????????????????????????????????????????????????????????????????????????????
 
-[PASS] SQLite Install Script
-   Current (8285 lines, 0.55 MB)
 [PASS] MySQL Install Script
    Current (7531 lines, 0.55 MB)
-[PASS] PostgreSQL Install Script
-   Current (7530 lines, 0.56 MB)
 [PASS] SqlServer Install Script
    Current (76653 lines, 2.31 MB)
+[PASS] PostgreSQL Install Script
+   Current (7530 lines, 0.56 MB)
+[PASS] SQLite Install Script
+   Current (8285 lines, 0.55 MB)
 
 ?????????????????????????????????????????????????????????????????????????????
 Comprehensive Database Verification (8 Phases)
@@ -73,14 +70,14 @@ Phase 5-6: Install Scripts & Migration History
 Install Scripts Currency
 ?????????????????????????????????????????????????????????????????????????????
 
-[PASS] SQLite Install Script
-   Current (8285 lines, 0.55 MB)
 [PASS] MySQL Install Script
    Current (7531 lines, 0.55 MB)
-[PASS] PostgreSQL Install Script
-   Current (7530 lines, 0.56 MB)
 [PASS] SqlServer Install Script
    Current (76653 lines, 2.31 MB)
+[PASS] PostgreSQL Install Script
+   Current (7530 lines, 0.56 MB)
+[PASS] SQLite Install Script
+   Current (8285 lines, 0.55 MB)
 [PASS]   Install Scripts Currency
    All scripts current
 Phase 7: Test Bootstrap (SQLite)
@@ -111,13 +108,13 @@ EF Workflow Guards
 
 Mode:       Full
 Status:     PASSED
-Timestamp:  2026-04-10 16:49:15
+Timestamp:  2026-04-11 17:06:28
 
 Results:
-  √ Passed:   30
+  √ Passed:   29
   ? Failed:   0
   ? Warnings: 0
-  ? Skipped:  0
+  ? Skipped:  1
 
 True
 Running: Ordered build (build.xml)
@@ -218,211 +215,5 @@ MSBuild version 18.3.0-release-26119-122+40cd698e5 for .NET
   FuseCP.Providers.Web.Apache -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.Web.Apache.dll
   FuseCP.Providers.DNS.SimpleDNS60 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.DNS.SimpleDNS60.dll
   FuseCP.Providers.Virtualization.Proxmox -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.Virtualization.Proxmoxvps.dll
-  FuseCP.Providers.HostedSolution.SfB2015 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\SfB2015\FuseCP.Providers.HostedSolution.SfB2015.dll
+CSC : error CS2012: Cannot open 'C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Providers.HostedSolution.SfB2015\obj\Debug\FuseCP.Providers.HostedSolution.SfB2015.dll' for writing -- The process cannot access the file 'C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Providers.HostedSolution.SfB2015\obj\Debug\FuseCP.Providers.HostedSolution.SfB2015.dll' because it is being used by another process. [C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Providers.HostedSolution.SfB2015\FuseCP.Providers.HostedSolution.SfB2015.csproj]
   FuseCP.Providers.HostedSolution.Lync2013 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Lync2013\FuseCP.Providers.HostedSolution.Lync2013.dll
-  FuseCP.Providers.HostedSolution.Exchange2016 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Exchange2016\FuseCP.Providers.HostedSolution.Exchange2016.dll
-  FuseCP.Providers.Virtualization.HyperV2025 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\HyperV2025\FuseCP.Providers.Virtualization.HyperV2025.dll
-  FuseCP.Providers.Mail.SmarterMail7 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Providers\FuseCP.Providers.Mail.SmarterMail7.dll
-  FuseCP.Providers.Mail.SmarterMail9 -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Providers\FuseCP.Providers.Mail.SmarterMail9.dll
-  FuseCP.Providers.Mail.ArgoMail -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Providers\FuseCP.Providers.Mail.ArgoMail.dll
-  FuseCP.Providers.Database.MariaDB -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.Database.MariaDB.dll
-  FuseCP.Providers.Mail.MDaemon -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\Providers\FuseCP.Providers.Mail.MDaemon.dll
-  FuseCP.Build -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Build\bin\Debug\netstandard2.0\FuseCP.Build.dll
-  FuseCP.Providers.Database.SqlServer -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.Database.SqlServer.dll
-  FuseCP.Web.Services -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Web.Services.dll
-  Copying C:\Users\Administrator\.nuget\packages\system.serviceprocess.servicecontroller\10.0.0\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll
-  FuseCP.Server -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin_dotnet\FuseCP.Server.dll
-  Copying C:\Users\Administrator\.nuget\packages\system.serviceprocess.servicecontroller\10.0.0\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll
-  FuseCP.Web.Clients -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Web.Clients.dll
-  FuseCP.Server.Client -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Server.Client.dll
-  FuseCP.Providers.Base -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Providers.Base.dll
-  FuseCP.EnterpriseServer.Base -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.EnterpriseServer.Base.dll
-  FuseCP.Web.Clients -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Web.Clients.dll
-  FuseCP.EnterpriseServer.Client -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.EnterpriseServer.Client.dll
-  FuseCP.Web.Services -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Web.Services.dll
-  Copying C:\Users\Administrator\.nuget\packages\system.serviceprocess.servicecontroller\10.0.0\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll
-  FuseCP.WebPortal -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.WebPortal\bin_dotnet\FuseCP.WebPortal.dll
-  Copied Core.Web.config
-  Delete unused dll files
-  Ensuring FuseCP.Providers.Base.dll is in bin folder for TargetFramework net10.0
-  FuseCP.Portal.Modules -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.WebPortal\bin_dotnet\FuseCP.Portal.Modules.dll
-  FuseCP.Server.Utils -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Server.Utils.dll
-  FuseCP.Build -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Build\bin\Debug\netstandard2.0\FuseCP.Build.dll
-  FuseCP.EnterpriseServer.Data -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Data\bin\Debug\net10.0\FuseCP.EnterpriseServer.Data.NetCore.dll
-  FuseCP.Templates -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer\bin\netstandard\FuseCP.Templates.dll
-  FuseCP.Server.Client -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Bin\net10.0\FuseCP.Server.Client.dll
-  FuseCP.EnterpriseServer.Code -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer\bin_dotnet\FuseCP.EnterpriseServer.Code.dll
-  FuseCP.EnterpriseServer -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer\bin_dotnet\FuseCP.EnterpriseServer.dll
-  Copied Core.Web.config
-  Delete unused dll files
-  FuseCP.Providers.OS.Unix -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Server\bin\netstandard\FuseCP.Providers.OS.Unix.dll
-  Copy Files: 
-  FuseCP.Tests -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.Tests\bin\Debug\net10.0\FuseCP.Tests.dll
-  FuseCP.EnterpriseServer.Tests -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Debug\net10.0\FuseCP.EnterpriseServer.Tests.dll
-  FuseCP.SchedulerService -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer\bin_dotnet\FuseCP.SchedulerService.dll
-  FuseCP.HyperV.Utils -> C:\git\FuseCPDevOPS-FuseCP\FuseCP.HyperV.Utils\Sources\FuseCP.HyperV.Utils\bin\Debug\FuseCP.HyperV.Utils.dll
-  FuseCP.VmConfig.Common -> C:\git\FuseCPDevOPS-FuseCP\FuseCP.VmConfig\Sources\FuseCP.VmConfig.Common\bin\Debug\net10.0\FuseCP.VmConfig.Common.dll
-  FuseCP.VmConfig -> C:\git\FuseCPDevOPS-FuseCP\FuseCP.VmConfig\Sources\FuseCP.VmConfig\bin\Debug\net10.0-windows\FuseCP.VmConfig.dll
-  Build started 4/10/2026 5:00:17 PM.
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" on node 1 (Restore target(s)).
-  ValidateSolutionConfiguration:
-    Building solution configuration "Debug|Any CPU".
-  _GetAllRestoreProjectPathItems:
-    Determining projects to restore...
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (1) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:11) on node 1 (_GenerateProjectRestoreGraph target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:11) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:14) on node 1 (_GenerateProjectRestoreGraphPerFramework target(s)).
-  AddPrunePackageReferences:
-    Loaded prune package data from framework packages
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (_GenerateProjectRestoreGraphPerFramework target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:11) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:15) on node 1 (_GenerateProjectRestoreGraphPerFramework target(s)).
-  AddPrunePackageReferences:
-    Loading prune package data from PrunePackageData folder
-    Failed to load prune package data from PrunePackageData folder, loading from targeting packs instead
-    Looking for targeting packs in C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref
-    Pack directories found: C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\10.0.4
-    Found package overrides file C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\10.0.4\data\PackageOverrides.txt
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (_GenerateProjectRestoreGraphPerFramework target(s)).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (_GenerateProjectRestoreGraph target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (1) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:7) on node 1 (_GenerateProjectRestoreGraph target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:7) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:9) on node 1 (_GenerateProjectRestoreGraphPerFramework target(s)).
-  AddPrunePackageReferences:
-    Loaded prune package data from framework packages
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (_GenerateProjectRestoreGraphPerFramework target(s)).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (_GenerateProjectRestoreGraph target(s)).
-  Restore:
-    X.509 certificate chain validation will use the default trust store selected by .NET for code signing.
-    X.509 certificate chain validation will use the default trust store selected by .NET for timestamping.
-    Assets file has not changed. Skipping assets file writing. Path: C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\obj\project.assets.json
-    Assets file has not changed. Skipping assets file writing. Path: C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\obj\project.assets.json
-    Assets file has not changed. Skipping assets file writing. Path: C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\obj\project.assets.json
-    Restored C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj (in 87 ms).
-    Restored C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj (in 87 ms).
-    Restored C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj (in 87 ms).
-    
-    NuGet Config files used:
-        C:\Users\Administrator\AppData\Roaming\NuGet\NuGet.Config
-        C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.FallbackLocation.config
-        C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
-    
-    Feeds used:
-        https://api.nuget.org/v3/index.json
-        C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
-    All projects are up-to-date for restore.
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (Restore target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" on node 1 (default targets).
-  ValidateSolutionConfiguration:
-    Building solution configuration "Debug|Any CPU".
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (1:2) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (2:10) on node 1 (default targets).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (2:10) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (2:11) on node 1 (Build target(s)).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (2:11) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:19) on node 1 (default targets).
-  GenerateTargetFrameworkMonikerAttribute:
-  Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
-  CoreGenerateAssemblyInfo:
-  Skipping target "CoreGenerateAssemblyInfo" because all output files are up-to-date with respect to the input files.
-  _GenerateSourceLinkFile:
-    Source Link file 'obj\Debug\net10.0\SSLCertificateMaker.Library.sourcelink.json' is up-to-date.
-  CoreCompile:
-  Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
-  GenerateBuildDependencyFile:
-  Skipping target "GenerateBuildDependencyFile" because all output files are up-to-date with respect to the input files.
-  CopyFilesToOutputDirectory:
-    SSLCertificateMaker.Library -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\bin\Debug\net10.0\SSLCertificateMaker.Library.dll
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (default targets).
-  GenerateBindingRedirects:
-  Skipping target "GenerateBindingRedirects" because all output files are up-to-date with respect to the input files.
-  GenerateAvaloniaResources:
-  Skipping target "GenerateAvaloniaResources" because all output files are up-to-date with respect to the input files.
-  GenerateTargetFrameworkMonikerAttribute:
-  Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
-  CoreGenerateAssemblyInfo:
-  Skipping target "CoreGenerateAssemblyInfo" because all output files are up-to-date with respect to the input files.
-  _GenerateSourceLinkFile:
-    Source Link file 'obj\Debug\net10.0\SSLCertificateMaker.Avalonia.sourcelink.json' is up-to-date.
-  CoreCompile:
-  Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
-  _CreateAppHost:
-  Skipping target "_CreateAppHost" because all output files are up-to-date with respect to the input files.
-  _CopyOutOfDateSourceItemsToOutputDirectory:
-  Skipping target "_CopyOutOfDateSourceItemsToOutputDirectory" because all output files are up-to-date with respect to the input files.
-  _CopyAppConfigFile:
-  Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
-  AvaloniaDeleteRefAssemblyBeforeOutputCopy:
-    Deleting file "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\obj\Debug\net10.0\ref\SSLCertificateMaker.Avalonia.dll".
-  GenerateBuildDependencyFile:
-  Skipping target "GenerateBuildDependencyFile" because all output files are up-to-date with respect to the input files.
-  GenerateBuildRuntimeConfigurationFiles:
-  Skipping target "GenerateBuildRuntimeConfigurationFiles" because all output files are up-to-date with respect to the input files.
-  CopyFilesToOutputDirectory:
-    Copying reference assembly from "obj\Debug\net10.0\refint\SSLCertificateMaker.Avalonia.dll" to "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\obj\Debug\net10.0\ref\SSLCertificateMaker.Avalonia.dll".
-    SSLCertificateMaker.Avalonia -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\bin\Debug\net10.0\SSLCertificateMaker.Avalonia.dll
-  CreateBootstrapperAfterBuild:
-    Version: '2.5.4.0'.
-    Runtime identifier: ''.
-    Variant: 'GUI'.
-    Prompt required: 'True'.
-    Target: 'C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\bin\Debug\net10.0\SSLCertificateMaker.Avalonia.dll'.
-    Extracting apphost...
-    Extracted apphost to 'C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\bin\Debug\net10.0\SSLCertificateMaker.Avalonia.exe'.
-    Extracted apphost config to 'C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\bin\Debug\net10.0\SSLCertificateMaker.Avalonia.exe.config'.
-    Injecting configuration...
-    Injected configuration into 'SSLCertificateMaker.Avalonia.exe'.
-    Injecting resources...
-    Injected resources into 'SSLCertificateMaker.Avalonia.exe'.
-    Bootstrapper successfully created.
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (Build target(s)).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Avalonia\SSLCertificateMaker.Avalonia.csproj" (default targets).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (1:2) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:22) on node 1 (default targets).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:22) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (3:24) on node 1 (Build target(s)).
-  GenerateTargetFrameworkMonikerAttribute:
-  Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
-  CoreGenerateAssemblyInfo:
-  Skipping target "CoreGenerateAssemblyInfo" because all output files are up-to-date with respect to the input files.
-  _GenerateSourceLinkFile:
-    Source Link file 'obj\Debug\netstandard2.0\SSLCertificateMaker.Library.sourcelink.json' is up-to-date.
-  CoreCompile:
-  Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
-  GenerateBuildDependencyFile:
-  Skipping target "GenerateBuildDependencyFile" because all output files are up-to-date with respect to the input files.
-  CopyFilesToOutputDirectory:
-    SSLCertificateMaker.Library -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\bin\Debug\netstandard2.0\SSLCertificateMaker.Library.dll
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (Build target(s)).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.Library\SSLCertificateMaker.Library.csproj" (default targets).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (1:2) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:10) on node 1 (default targets).
-  Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:10) is building "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (4:11) on node 1 (Build target(s)).
-  _WriteAppConfigWithSupportedRuntime:
-  Skipping target "_WriteAppConfigWithSupportedRuntime" because all output files are up-to-date with respect to the input files.
-  GenerateBindingRedirects:
-  Skipping target "GenerateBindingRedirects" because all output files are up-to-date with respect to the input files.
-  CoreResGen:
-    No resources are out of date with respect to their source files. Skipping resource generation.
-  GenerateTargetFrameworkMonikerAttribute:
-  Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
-  CoreGenerateAssemblyInfo:
-  Skipping target "CoreGenerateAssemblyInfo" because all output files are up-to-date with respect to the input files.
-  _GenerateSourceLinkFile:
-    Source Link file 'obj\Debug\SSLCertificateMaker.WinForms.sourcelink.json' is up-to-date.
-  CoreCompile:
-  Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
-  _CopyAppConfigFile:
-  Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
-  CopyFilesToOutputDirectory:
-    SSLCertificateMaker.WinForms -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\bin\Debug\SSLCertificateMaker.WinForms.exe
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (Build target(s)).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.WinForms\SSLCertificateMaker.WinForms.csproj" (default targets).
-  Done Building Project "C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\SSL-Certificate-Maker\SSLCertificateMaker.slnx" (default targets).
-  
-  Build succeeded.
-      0 Warning(s)
-      0 Error(s)
-  
-  Time Elapsed 00:00:06.86
-    Determining projects to restore...
-    All projects are up-to-date for restore.
-  FuseCP.LocalizationToolkit -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\FuseCP.LocalizationToolkit\bin\Debug\LocalizationToolkit.dll
-  FuseCP.LocalizationToolkit -> C:\git\FuseCPDevOPS-FuseCP\FuseCP\Sources\Tools\FuseCP.LocalizationToolkit\bin\Debug\LocalizationToolkit.dll
-
-==> Executed command summary
-- pwsh -NoProfile -File FuseCP/Tools/Orchestrate-Database-Workflow.ps1 -Mode Full
-- dotnet msbuild build.xml /target:Build /p:BuildConfiguration=Debug /v:m /m:1 /p:NuGetAudit=false
-
-Validation completed successfully.

@@ -18,7 +18,7 @@
   {
     "Name": "LINQ Missed-Where (Simple)",
     "Output": [
-      "MISSED_WHERE_TARGETS=3",
+      "MISSED_WHERE_TARGETS=2",
       "MISSED_WHERE_FIXED=0",
       "MISSED_WHERE_FILES_CHANGED=0"
     ]
@@ -27,12 +27,11 @@
     "Name": "LINQ Missed-Where (v2)",
     "Output": [
       "Fetching cs/linq/missed-where alerts from GitHub API...",
-      "Total cs/linq/missed-where alerts: 3",
-      "FIXED: SmarterStats4.cs:41 [subkey != null]",
+      "Total cs/linq/missed-where alerts: 2",
       "",
-      "MISSED_WHERE_V2_TARGETS=3",
-      "MISSED_WHERE_V2_FIXED=1",
-      "MISSED_WHERE_V2_FILES_CHANGED=1",
+      "MISSED_WHERE_V2_TARGETS=2",
+      "MISSED_WHERE_V2_FIXED=0",
+      "MISSED_WHERE_V2_FILES_CHANGED=0",
       "Skipped reasons:",
       "  already-where: 2"
     ]
@@ -40,14 +39,14 @@
   {
     "Name": "Missed Ternary Operator",
     "Output": [
-      "Total alerts: 18",
+      "Total alerts: 8",
       "Total fixed: 0"
     ]
   },
   {
     "Name": "Constant Condition (Safe)",
     "Output": [
-      "CONSTANT_TARGETS=22",
+      "CONSTANT_TARGETS=3",
       "CONSTANT_FIXED=0",
       "CONSTANT_FILES_CHANGED=0"
     ]
