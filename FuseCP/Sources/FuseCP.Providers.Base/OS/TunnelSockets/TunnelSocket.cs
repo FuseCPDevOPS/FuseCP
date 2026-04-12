@@ -729,42 +729,39 @@ namespace FuseCP.Providers.OS
                     if (port != 0) await ConnectAsync(ip, port, protocol);
                     else await ListenAsync(ip, protocol);
                 }
-                else if (IsWebSocket)
+                else if (IsWebSocket && BaseWebSocket is ClientWebSocket clientWebSocket)
                 {
-                    if (BaseWebSocket is ClientWebSocket clientWebSocket)
-                    {
-                        var local_url = Url;
-                        if (IsWebSocketOverSsh) local_url = await GetSshWebSocketUrlAsync();
+                    var local_url = Url;
+                    if (IsWebSocketOverSsh) local_url = await GetSshWebSocketUrlAsync();
 
 #if NETSTANDARD2_0
-                        var setValidationCallback = !ValidateCertificate && !SetRemoteValidationCallback();
-                        if (setValidationCallback) ServicePointManager.ServerCertificateValidationCallback += AlwaysTrustCertificate;
+                    var setValidationCallback = !ValidateCertificate && !SetRemoteValidationCallback();
+                    if (setValidationCallback) ServicePointManager.ServerCertificateValidationCallback += AlwaysTrustCertificate;
 #else
-                        SetRemoteValidationCallback();
+                    SetRemoteValidationCallback();
 #endif
 
-                        try
-                        {
-                            using var connectTimeout = new CancellationTokenSource(ConnectTimeout);
-                            await clientWebSocket.ConnectAsync(new System.Uri(local_url), connectTimeout.Token);
-                        }
-                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-                        {
-                            throw;
-                        }
-                        finally
-                        {
+                    try
+                    {
+                        using var connectTimeout = new CancellationTokenSource(ConnectTimeout);
+                        await clientWebSocket.ConnectAsync(new System.Uri(local_url), connectTimeout.Token);
+                    }
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    {
+                        throw;
+                    }
+                    finally
+                    {
 #if NETSTANDARD2_0
-                            if (setValidationCallback) ServicePointManager.ServerCertificateValidationCallback -= AlwaysTrustCertificate;
+                        if (setValidationCallback) ServicePointManager.ServerCertificateValidationCallback -= AlwaysTrustCertificate;
 #endif
-                        }
-                        if (Arguments != null) await SendData(Arguments);
+                    }
+                    if (Arguments != null) await SendData(Arguments);
 
-                        if (IsFallback && upgradeWhenAvailable)
-                        {
-                            await RequestUpgradeTunnelSocketAsync(false);
-                            await UseUpgradeTunnelSocketAsync();
-                        }
+                    if (IsFallback && upgradeWhenAvailable)
+                    {
+                        await RequestUpgradeTunnelSocketAsync(false);
+                        await UseUpgradeTunnelSocketAsync();
                     }
                 }
             }

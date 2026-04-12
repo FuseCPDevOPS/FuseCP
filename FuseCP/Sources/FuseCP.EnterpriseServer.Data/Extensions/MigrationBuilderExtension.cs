@@ -103,16 +103,15 @@ public static class MigrationBuilderExtension
 					if (start <= -1) start = query.Length;
 					hasSpecialCommand = false;
 				}
-				else if ((preIdent.Equals("CREATE", StringComparison.OrdinalIgnoreCase) ||
-					preIdent.Equals("ALTER", StringComparison.OrdinalIgnoreCase)) &&
-					(ident.Equals("FUNCTION", StringComparison.OrdinalIgnoreCase) ||
-					ident.Equals("VIEW", StringComparison.OrdinalIgnoreCase) ||
-					ident.Equals("PROCEDURE", StringComparison.OrdinalIgnoreCase) ||
-					ident.Equals("TRIGGER", StringComparison.OrdinalIgnoreCase)) ||
-					preIdent.Equals("DECLARE", StringComparison.OrdinalIgnoreCase) ||
-					ident.Equals("DECLARE", StringComparison.OrdinalIgnoreCase))
+				else
 				{
-					hasSpecialCommand = true;
+					bool isCreateOrAlter = preIdent.Equals("CREATE", StringComparison.OrdinalIgnoreCase) || preIdent.Equals("ALTER", StringComparison.OrdinalIgnoreCase);
+					bool isDefinition = ident.Equals("FUNCTION", StringComparison.OrdinalIgnoreCase) || ident.Equals("VIEW", StringComparison.OrdinalIgnoreCase) || ident.Equals("PROCEDURE", StringComparison.OrdinalIgnoreCase) || ident.Equals("TRIGGER", StringComparison.OrdinalIgnoreCase);
+					bool isDeclare = preIdent.Equals("DECLARE", StringComparison.OrdinalIgnoreCase) || ident.Equals("DECLARE", StringComparison.OrdinalIgnoreCase);
+					if ((isCreateOrAlter && isDefinition) || isDeclare)
+					{
+						hasSpecialCommand = true;
+					}
 				}
 				preIdent = ident;
 				identifier.Clear();

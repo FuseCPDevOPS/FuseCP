@@ -589,7 +589,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             string error = "Error creating wirtual machine.";
             try
             {
-                SshClient ssh = SshClient();
+                using SshClient ssh = SshClient();
                 try
                 {
                     ssh.Connect();
@@ -606,7 +606,6 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 string cmdError = term.Error;
                 error = $"Error creating wirtual machine. VM deploy script output:\n{cmdError}\n{output}";
                 ssh.Disconnect();
-                ssh.Dispose();
 
 
                 // Get created machine Id

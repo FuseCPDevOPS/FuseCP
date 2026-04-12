@@ -62,7 +62,9 @@ namespace FuseCP.Portal.ProviderControls
         private void BindAccounts(MailDomain item, DropDownList ddl, MailAccount[] accounts)
         {
 			if (ddl.Items.Count == 0)
-            ddl.Items.Add(new ListItem(GetLocalizedString("Text.NotSelected"), ""));
+			{
+				ddl.Items.Add(new ListItem(GetLocalizedString("Text.NotSelected"), ""));
+			}
 
             foreach (MailAccount account in accounts)
             {

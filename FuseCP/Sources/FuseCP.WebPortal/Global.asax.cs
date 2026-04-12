@@ -116,12 +116,13 @@ namespace FuseCP.WebPortal
 				var esTestClient = new FuseCP.EnterpriseServer.Client.esTest();
 				esTestClient.Url = serverUrl;
 				TouchTask = esTestClient.TouchAsync();
-			} else
-			{
-#if NETFRAMEWORK
-				Web.Clients.AssemblyLoader.Init();
-#endif
 			}
+#if NETFRAMEWORK
+			else
+			{
+				Web.Clients.AssemblyLoader.Init();
+			}
+#endif
 
 			VncWebSocketHandler.Init();
 
@@ -142,7 +143,7 @@ namespace FuseCP.WebPortal
 				keepAliveUrl = HttpContext.Current.Request.Url.ToString();
 				if (this.keepAliveMinutes > 0)
 				{
-					timer = new System.Timers.Timer(60000 * this.keepAliveMinutes);
+					timer = new System.Timers.Timer(60000.0 * this.keepAliveMinutes);
 					timer.Elapsed += new ElapsedEventHandler(KeepAlive);
 					timer.AutoReset = true;
 					timer.Start();

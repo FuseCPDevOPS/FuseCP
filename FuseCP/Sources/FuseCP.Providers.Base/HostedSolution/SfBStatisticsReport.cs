@@ -22,11 +22,11 @@ namespace FuseCP.Providers.HostedSolution
         public override string ToCSV()
         {
             StringBuilder mainBuilder = new StringBuilder();
-            StringBuilder sb = null;
+            StringBuilder sb = new StringBuilder();
             AddCSVHeader(mainBuilder);
             foreach (SfBUserStatistics item in Items)
             {
-                sb = new StringBuilder();
+                sb.Clear();
                 sb.Append("\n");
                 sb.AppendFormat("{0},", ToCsvString(item.TopResellerName));
                 sb.AppendFormat("{0},", ToCsvString(item.ResellerName));

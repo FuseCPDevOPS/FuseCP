@@ -332,16 +332,13 @@ namespace FuseCP.Web.Clients
 
 		public static string AssertScheme(this string url, Protocols protocol)
 		{
-			if (url.StartsWith("http://") &&
-				!(protocol == Protocols.BasicHttp || protocol == Protocols.NetHttp || protocol == Protocols.WSHttp ||
-				protocol == Protocols.gRPC || protocol == Protocols.gRPCWeb) ||
-				url.StartsWith("https://") &&
-				!(protocol == Protocols.BasicHttps || protocol == Protocols.NetHttps || protocol == Protocols.WSHttps ||
-				protocol == Protocols.gRPCSsl || protocol == Protocols.gRPCWebSsl) ||
-				url.StartsWith("net.tcp://") && !(protocol == Protocols.NetTcp || protocol == Protocols.NetTcpSsl) ||
-				url.StartsWith("net.pipe://") && !(protocol == Protocols.NetPipe || protocol == Protocols.NetPipeSsl) ||
-				url.StartsWith("assembly://") && protocol != Protocols.Assembly ||
-				url.StartsWith("ssh://") && (protocol == Protocols.Assembly || protocol == Protocols.NetPipe || protocol == Protocols.NetPipeSsl))
+			bool isHttpMismatch = url.StartsWith("http://") && !(protocol == Protocols.BasicHttp || protocol == Protocols.NetHttp || protocol == Protocols.WSHttp || protocol == Protocols.gRPC || protocol == Protocols.gRPCWeb);
+			bool isHttpsMismatch = url.StartsWith("https://") && !(protocol == Protocols.BasicHttps || protocol == Protocols.NetHttps || protocol == Protocols.WSHttps || protocol == Protocols.gRPCSsl || protocol == Protocols.gRPCWebSsl);
+			bool isTcpMismatch = url.StartsWith("net.tcp://") && !(protocol == Protocols.NetTcp || protocol == Protocols.NetTcpSsl);
+			bool isPipeMismatch = url.StartsWith("net.pipe://") && !(protocol == Protocols.NetPipe || protocol == Protocols.NetPipeSsl);
+			bool isAssemblyMismatch = url.StartsWith("assembly://") && protocol != Protocols.Assembly;
+			bool isSshMismatch = url.StartsWith("ssh://") && (protocol == Protocols.Assembly || protocol == Protocols.NetPipe || protocol == Protocols.NetPipeSsl);
+			if (isHttpMismatch || isHttpsMismatch || isTcpMismatch || isPipeMismatch || isAssemblyMismatch || isSshMismatch)
 				throw new NotSupportedException("This protocol is not valid for this connection.");
 			return url;
 		}

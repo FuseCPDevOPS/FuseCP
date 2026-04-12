@@ -3963,8 +3963,12 @@ namespace FuseCP.EnterpriseServer
 
 			// Trying to match site's bindings to against either 
 			// external or internal address of the shared ip
-			bool sharedIpMatch = Array.Exists(site.Bindings, 
-                x => (sharedIp != null && (x.IP.Equals(sharedIp.ExternalIP) || x.IP.Equals(sharedIp.InternalIP)) || (x.IP.Equals("*") && sharedIpId.Equals(0))));
+			bool sharedIpMatch = Array.Exists(site.Bindings, x =>
+			{
+				bool specificIpMatch = sharedIp != null && (x.IP.Equals(sharedIp.ExternalIP) || x.IP.Equals(sharedIp.InternalIP));
+				bool wildcardMatch = x.IP.Equals("*") && sharedIpId.Equals(0);
+				return specificIpMatch || wildcardMatch;
+			});
 
 			// Quering dedicated ips package quota allotted
 			bool dedicatedIpsAllotted = Array.Exists(packageCtx.QuotasArray,

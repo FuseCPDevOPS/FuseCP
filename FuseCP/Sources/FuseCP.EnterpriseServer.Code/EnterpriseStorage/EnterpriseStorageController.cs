@@ -331,11 +331,14 @@ namespace FuseCP.EnterpriseServer
 
             var userGroups = OrganizationController.GetSecurityGroupsByMember(account.ItemId, account.AccountId);
 
+            bool MatchesAccount(ESPermission permission)
+            {
+                bool isUserMatch = !permission.IsGroup && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName);
+                bool isGroupMatch = permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName);
+                return isUserMatch || isGroupMatch;
+            }
             var folderWithAccess = GetFolders(account.ItemId).FirstOrDefault(folder =>
-                GetFolderPermission(account.ItemId, folder.Name).Any(permission =>
-                    (!permission.IsGroup
-                        && (permission.DisplayName == account.UserPrincipalName || permission.DisplayName == account.DisplayName))
-                    || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName))));
+                GetFolderPermission(account.ItemId, folder.Name).Any(MatchesAccount));
 
             if (folderWithAccess != null)
             {
@@ -724,11 +727,14 @@ namespace FuseCP.EnterpriseServer
 
                 var userGroups = OrganizationController.GetSecurityGroupsByMember(itemId, accountId);
 
+                bool MatchesUser(ESPermission permission)
+                {
+                    bool isUserMatch = !permission.IsGroup && (permission.DisplayName == userName || permission.DisplayName == displayName);
+                    bool isGroupMatch = permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName);
+                    return isUserMatch || isGroupMatch;
+                }
                 rootFolders.AddRange(es.GetFoldersWithoutFrsm(org.OrganizationId, webDavSettings).Where(folder =>
-                    ConvertToESPermission(itemId, folder.Rules).Any(permission =>
-                        (!permission.IsGroup
-                            && (permission.DisplayName == userName || permission.DisplayName == displayName))
-                        || (permission.IsGroup && userGroups.Any(x => x.DisplayName == permission.DisplayName)))));
+                    ConvertToESPermission(itemId, folder.Rules).Any(MatchesUser)));
 
                 return rootFolders.ToArray();
             }

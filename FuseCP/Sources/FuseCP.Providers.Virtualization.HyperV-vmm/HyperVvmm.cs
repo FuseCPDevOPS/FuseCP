@@ -286,8 +286,7 @@ namespace FuseCP.Providers.Virtualization
 
             byte[] imgData = (byte[])objSummary["ThumbnailImage"];
 
-            // create new bitmap
-            Bitmap bmp = new Bitmap(width, height);
+            using Bitmap bmp = new Bitmap(width, height);
 
             if (imgData != null)
             {
@@ -312,14 +311,13 @@ namespace FuseCP.Providers.Virtualization
                 g.FillRectangle(brush, 0, 0, width, height);
             }
 
-            MemoryStream stream = new MemoryStream();
+            using MemoryStream stream = new MemoryStream();
             bmp.Save(stream, ImageFormat.Png);
 
             stream.Flush();
             byte[] buffer = stream.ToArray();
 
             bmp.Dispose();
-            stream.Dispose();
 
             return buffer;
         }

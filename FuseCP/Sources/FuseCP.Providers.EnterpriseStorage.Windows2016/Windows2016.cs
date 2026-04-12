@@ -437,15 +437,11 @@ if (quotas.TryGetValue(fullName, out var _ckv))
 
         public bool IsLegalXmlChar(int character)
         {
-            return
-            (
-                 character == 0x9 /* == '\t' == 9   */          ||
-                 character == 0xA /* == '\n' == 10  */          ||
-                 character == 0xD /* == '\r' == 13  */          ||
-                (character >= 0x20 && character <= 0xD7FF) ||
-                (character >= 0xE000 && character <= 0xFFFD) ||
-                (character >= 0x10000 && character <= 0x10FFFF)
-            );
+            bool isWhitespace = character == 0x9 /* == '\t' == 9   */ || character == 0xA /* == '\n' == 10  */ || character == 0xD /* == '\r' == 13  */;
+            bool isBasicMultilingual = character >= 0x20 && character <= 0xD7FF;
+            bool isPrivateUse = character >= 0xE000 && character <= 0xFFFD;
+            bool isSupplementary = character >= 0x10000 && character <= 0x10FFFF;
+            return isWhitespace || isBasicMultilingual || isPrivateUse || isSupplementary;
         }
 
         #region HostingServiceProvider methods

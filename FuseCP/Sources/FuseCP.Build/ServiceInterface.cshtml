@@ -97,7 +97,7 @@ public interface I@(Class.Identifier) {
 				Parameter = par,
 				IsSimple = !par.Modifiers.Any(mod => mod.IsKind(SyntaxKind.OutKeyword)) && IsSimpleType(par.Type),
 				IsString = !par.Modifiers.Any(mod => mod.IsKind(SyntaxKind.OutKeyword)) && IsStringType(par.Type)
-			});
+			}).ToList();
 		IEnumerable<ParameterSyntax> stringParameters = parameters
 			.Where(par => par.IsString)
 			.Select(par => par.Parameter);

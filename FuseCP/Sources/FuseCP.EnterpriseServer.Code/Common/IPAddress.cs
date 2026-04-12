@@ -142,7 +142,13 @@ namespace FuseCP.EnterpriseServer {
 			return ToString();
 		}
 
-		public static bool operator ==(IPAddress a, IPAddress b) { return a.Address == b.Address && a.Null == b.Null && (a.Null || !(a.IsSubnet && b.IsSubnet || a.IsMask && b.IsMask) || a.Cidr == b.Cidr); }
+		public static bool operator ==(IPAddress a, IPAddress b)
+		{
+			bool addressesMatch = a.Address == b.Address;
+			bool nullsMatch = a.Null == b.Null;
+			bool cidrMatch = a.Null || !(a.IsSubnet && b.IsSubnet || a.IsMask && b.IsMask) || a.Cidr == b.Cidr;
+			return addressesMatch && nullsMatch && cidrMatch;
+		}
 		public static bool operator ==(IPAddress a, long b) { return a.Address == b; }
 		public static bool operator !=(IPAddress a, IPAddress b) { return !(a == b); }
 		public static bool operator !=(IPAddress a, long b) { return a.Address != b; }
@@ -156,7 +162,10 @@ namespace FuseCP.EnterpriseServer {
             if (obj is IPAddress)
             {
                 var b = (IPAddress)obj;
-                return this.Address == b.Address && this.Null == b.Null && (this.Null || !(this.IsSubnet && b.IsSubnet || this.IsMask && b.IsMask) || this.Cidr == b.Cidr);
+                bool addressesMatch = this.Address == b.Address;
+                bool nullsMatch = this.Null == b.Null;
+                bool cidrMatch = this.Null || !(this.IsSubnet && b.IsSubnet || this.IsMask && b.IsMask) || this.Cidr == b.Cidr;
+                return addressesMatch && nullsMatch && cidrMatch;
             }
             else if (obj is long)
             {

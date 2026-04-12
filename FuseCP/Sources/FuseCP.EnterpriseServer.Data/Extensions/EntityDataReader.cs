@@ -241,9 +241,9 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public void Dispose() {
 			IsClosed = true;
-			if (enumerator != null && enumerator is IDisposable disposableEnum) disposableEnum.Dispose();
+			if (enumerator is IDisposable disposableEnum) disposableEnum.Dispose();
 			enumerator = null;
-			if (Set != null && Set is IDisposable disposableSet) disposableSet.Dispose();
+			if (Set is IDisposable disposableSet) disposableSet.Dispose();
 			Set = null;
 		}
 		public virtual string GetName(int i) => Properties[i].Info.Name;

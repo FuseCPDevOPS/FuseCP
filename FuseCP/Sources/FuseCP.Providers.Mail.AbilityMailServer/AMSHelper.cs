@@ -278,9 +278,7 @@ namespace FuseCP.Providers.Mail
 
                 if (!File.Exists(amsConfig))
                 {
-                    FileStream stream = File.Create(amsConfig);
-                    stream.Close();
-                    stream.Dispose();
+                    using (File.Create(amsConfig)) { }
                     return configTree;
                 }
                 

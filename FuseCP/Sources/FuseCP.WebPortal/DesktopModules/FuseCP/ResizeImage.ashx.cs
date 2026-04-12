@@ -104,29 +104,26 @@ namespace FuseCP.Portal
                 h = (int)(h * per);
                 w = (int)(w * per);
 
-                Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-                Graphics new_g = Graphics.FromImage(bitmap);
+                using Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+                using Graphics new_g = Graphics.FromImage(bitmap);
                 new_g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 new_g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
                 // draw white background
-                SolidBrush brush = new SolidBrush(Color.White);
+                using SolidBrush brush = new SolidBrush(Color.White);
                 new_g.FillRectangle(brush, new Rectangle(0, 0, width, height));
-                brush.Dispose();
 
                 if (img != null)
                 {
                     // draw image
                     new_g.DrawImage(img, 0, 0, w, h);
-                    img.Dispose();
                 }
 
                 // emit it to the response stream
                 bitmap.Save(context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 // clean-up
-                bitmap.Dispose();
-                new_g.Dispose();
+                img?.Dispose();
 
 				// set cache info if image was loaded
                 if (img != null)

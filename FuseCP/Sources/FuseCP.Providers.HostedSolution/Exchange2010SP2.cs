@@ -49,7 +49,7 @@ namespace FuseCP.Providers.HostedSolution
 	{
 		#region Static constructor
 
-		static private Hashtable htBbalancer = new Hashtable();
+		static readonly private Hashtable htBbalancer = new Hashtable();
 
 		static Exchange2010SP2()
 		{

@@ -282,7 +282,7 @@ namespace FuseCP.Providers.Web
 				Listen = ((string.IsNullOrEmpty(b.IP) || b.IP == "0.0.0.0" || b.IP == "[::]" || b.IP == "::" || b.IP == "*") ? b.Port : $"{b.IP}:{b.Port}") +
 					((b.Protocol == "https" && b.Port != "443") ? " https" : ""),
 				Host = (!string.IsNullOrEmpty(b.Host) && b.Host != "*") ? b.Host : null
-			});
+			}).ToList();
 			var bindingsByAddress = bindings.GroupBy(b => b.Address);
 
 			var globalConfig = new ConfigFile[] { GlobalConfig }

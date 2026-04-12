@@ -1035,16 +1035,9 @@ namespace FuseCP.Providers.Utils
                     string cmdFilePath = @"\\" + splits[2] + @"\" + splits[3] + @"\" + "Process.bat";
 
                     // Creating the BAT file
-                    FileStream fs = File.Create(cmdFilePath);
-                    if (fs != null)
-                    {
-                        fs.Close();
-                        fs.Dispose();
-                    }
+                    using (File.Create(cmdFilePath)) { }
 
-                    StreamWriter swr = new StreamWriter(cmdFilePath);
-
-                    if (swr != null)
+                    using (StreamWriter swr = new StreamWriter(cmdFilePath))
                     {
                         swr.WriteLine(@"cd c:\windows\system32");
 
@@ -1076,8 +1069,6 @@ namespace FuseCP.Providers.Utils
 
                         }
                         swr.Flush();
-                        swr.Close();
-                        swr.Dispose();
                     }
 
                     ConnectionOptions connOptions = new ConnectionOptions();

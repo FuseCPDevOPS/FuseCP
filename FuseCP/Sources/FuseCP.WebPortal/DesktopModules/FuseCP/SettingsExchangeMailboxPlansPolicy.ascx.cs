@@ -115,11 +115,7 @@ namespace FuseCP.Portal
             plan.MailboxPlan = txtMailboxPlan.Text;
             plan.Archiving = RetentionPolicy;
 
-            if (RetentionPolicy)
-            {
-
-            }
-            else
+            if (!RetentionPolicy)
             {
                 plan.MailboxSizeMB = mailboxSize.QuotaValue;
 
@@ -401,10 +397,7 @@ namespace FuseCP.Portal
             plan.MailboxPlan = txtMailboxPlan.Text;
             plan.Archiving = RetentionPolicy;
 
-            if (RetentionPolicy)
-            {
-            }
-            else
+            if (!RetentionPolicy)
             {
                 plan.MailboxSizeMB = mailboxSize.QuotaValue;
 

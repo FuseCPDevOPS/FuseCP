@@ -261,7 +261,7 @@ namespace FuseCP.Providers.Virtualization
             {
                 if (IsDisposed)
                 {
-                    throw new ObjectDisposedException(ToString());
+                    throw new ObjectDisposedException(GetType().Name);
                 }
             }
         }

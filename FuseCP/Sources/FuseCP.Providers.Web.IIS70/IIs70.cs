@@ -2476,26 +2476,14 @@ namespace FuseCP.Providers.Web
 			string apeRegistryPath = Constants.HeliconApeRegistryPath;
 			long dtFirstRunBinary = 0L;
 
-			try
-			{
-				dtFirstRunBinary = (long)Registry.GetValue(apeRegistryPath, "FirstRun", 0L);
-			}
-			catch (NullReferenceException)
-			{
-				// nothing
-			}
+			if (Registry.GetValue(apeRegistryPath, "FirstRun", null) is long firstRunVal1)
+				dtFirstRunBinary = firstRunVal1;
 
 			if (0 == dtFirstRunBinary)
 			{
 				apeRegistryPath = Constants.heliconApeRegistryPathWow6432;
-				try
-				{
-					dtFirstRunBinary = (long)Registry.GetValue(apeRegistryPath, "FirstRun", 0L);
-				}
-				catch (NullReferenceException)
-				{
-					// nothing
-				}
+				if (Registry.GetValue(apeRegistryPath, "FirstRun", null) is long firstRunVal2)
+					dtFirstRunBinary = firstRunVal2;
 			}
 
 			DateTime dtFirstRun;

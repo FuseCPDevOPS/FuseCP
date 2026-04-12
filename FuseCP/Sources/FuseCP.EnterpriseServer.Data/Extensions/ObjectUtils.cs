@@ -245,9 +245,8 @@ namespace FuseCP.EnterpriseServer.Data
 					if (readerSchema != null)
 					{
 						List<PropertyInfo> propslist = new List<PropertyInfo>();
-						foreach (DataRow field in readerSchema.Rows)
+						foreach (string columnName in readerSchema.Rows.Select(field => System.Convert.ToString(field["ColumnName"])))
 						{
-							string columnName = System.Convert.ToString(field["ColumnName"]);
 
 							foreach (PropertyInfo prop in props.Where(prop => string.Equals(columnName, prop.Name, StringComparison.OrdinalIgnoreCase)))
 							{

@@ -133,7 +133,7 @@ namespace FuseCP.Web.Services
 						if (File.Exists(keyFile)) CertificatePassword = File.ReadAllText(keyFile);
 					}
 					Certificate = X509CertificateLoader.LoadPkcs12FromFile(file, CertificatePassword, X509KeyStorageFlags.DefaultKeySet);
-					if (Certificate != null) Log($"Use certificate {Certificate.SubjectName} from {file}.");
+					if (Certificate != null) Log($"Use certificate {Certificate.SubjectName.Name} from {file}.");
 					else Error($"The certificate {file} was not found.");
 					return Certificate;
 				}

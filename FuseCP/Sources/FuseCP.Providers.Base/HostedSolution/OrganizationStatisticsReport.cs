@@ -24,9 +24,10 @@ namespace FuseCP.Providers.HostedSolution
             StringBuilder mainBuilder = new StringBuilder();
             
             AddCSVHeader(mainBuilder);
+            StringBuilder sb = new StringBuilder();
             foreach (OrganizationStatisticsRepotItem item in Items)
             {
-                StringBuilder sb = new StringBuilder();
+                sb.Clear();
                 sb.Append("\n");
                 sb.AppendFormat("{0},", ToCsvString(item.TopResellerName));
                 sb.AppendFormat("{0},", ToCsvString(item.ResellerName));

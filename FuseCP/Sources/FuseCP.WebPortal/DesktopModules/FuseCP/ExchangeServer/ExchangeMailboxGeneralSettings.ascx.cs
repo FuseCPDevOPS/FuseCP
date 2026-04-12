@@ -147,7 +147,7 @@ namespace FuseCP.Portal.ExchangeServer
 
 
                 mailboxSize.QuotaUsedValue = Convert.ToInt32(stats.TotalSize / 1024 / 1024);
-                mailboxSize.QuotaValue = (stats.MaxSize == -1) ? -1 : (int)Math.Round((double)(stats.MaxSize / 1024 / 1024));
+                mailboxSize.QuotaValue = (stats.MaxSize == -1) ? -1 : (int)Math.Round((double)stats.MaxSize / 1024 / 1024);
 
                 bool resourceMailbox = ((account.AccountType == ExchangeAccountType.Equipment) || (account.AccountType == ExchangeAccountType.Room));
                 secBookingDelegates.Visible = resourceMailbox;
@@ -197,7 +197,7 @@ namespace FuseCP.Portal.ExchangeServer
                 secLitigationHoldSettings.Visible = mailbox.EnableLitigationHold;
 
                 litigationHoldSpace.QuotaUsedValue = Convert.ToInt32(stats.LitigationHoldTotalSize / 1024 / 1024);
-                litigationHoldSpace.QuotaValue = (stats.LitigationHoldMaxSize == -1) ? -1 : (int)Math.Round((double)(stats.LitigationHoldMaxSize / 1024 / 1024));
+                litigationHoldSpace.QuotaValue = (stats.LitigationHoldMaxSize == -1) ? -1 : (int)Math.Round((double)stats.LitigationHoldMaxSize / 1024 / 1024);
 
                 if (Utils.CheckQouta(Quotas.EXCHANGE2007_DISCLAIMERSALLOWED, Cntx))
                 {

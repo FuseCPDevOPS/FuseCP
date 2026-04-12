@@ -396,7 +396,7 @@ namespace FuseCP.EnterpriseServer.Data
 		public virtual void Dispose()
 		{
 			clone?.Dispose();
-			if (BaseContext is IDisposable baseContext) baseContext.Dispose();
+			BaseContext?.Dispose();
 		}
 
 	}

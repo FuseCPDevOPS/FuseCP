@@ -495,11 +495,12 @@ namespace CSSFriendly
         {
             bool bItemCheckBoxDisallowed = (item.ShowCheckBox != null) && (!(item.ShowCheckBox.Value));
             bool bItemCheckBoxWanted = (item.ShowCheckBox != null) && (item.ShowCheckBox.Value);
-            bool bTreeCheckBoxWanted =
-                 (treeView.ShowCheckBoxes == TreeNodeTypes.All) ||
-                 ((treeView.ShowCheckBoxes == TreeNodeTypes.Leaf) && (!IsExpandable(item))) ||
-                 ((treeView.ShowCheckBoxes == TreeNodeTypes.Parent) && (IsExpandable(item))) ||
-                 ((treeView.ShowCheckBoxes == TreeNodeTypes.Root) && (item.Depth == 0));
+            bool bTreeCheckBoxWanted;
+            bool showAll = treeView.ShowCheckBoxes == TreeNodeTypes.All;
+            bool showLeaf = treeView.ShowCheckBoxes == TreeNodeTypes.Leaf && !IsExpandable(item);
+            bool showParent = treeView.ShowCheckBoxes == TreeNodeTypes.Parent && IsExpandable(item);
+            bool showRoot = treeView.ShowCheckBoxes == TreeNodeTypes.Root && item.Depth == 0;
+            bTreeCheckBoxWanted = showAll || showLeaf || showParent || showRoot;
 
             return (!bItemCheckBoxDisallowed) && (bItemCheckBoxWanted || bTreeCheckBoxWanted);
         }

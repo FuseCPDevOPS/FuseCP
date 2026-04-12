@@ -1200,7 +1200,7 @@ namespace FuseCP.Providers.HostedSolution
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
-						ExchangeLog.LogError(string.Format("Failed to delete accepted domain {0}", domain), ex);
+						ExchangeLog.LogError(string.Format("Failed to delete accepted domain {0}", domain.DomainName), ex);
 						ret = false;
 					}
 				}
