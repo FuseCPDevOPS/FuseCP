@@ -179,6 +179,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public OCSUserResult CreateOCSUser(int itemId, int accountId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new OCSUserResult();
             OCSUserResult res = TaskManager.StartResultTask<OCSUserResult>("OCS", "CREATE_OCS_USER");
 
             OCSUser retOCSUser = new OCSUser();
@@ -313,6 +314,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         
         public OCSUsersPagedResult GetOCSUsers(int itemId, string sortColumn, string sortDirection, string name, string email, int startRow, int count)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new OCSUsersPagedResult();
             OCSUsersPagedResult res = TaskManager.StartResultTask<OCSUsersPagedResult>("OCS", "GET_OCS_USERS");
 
             try
@@ -342,6 +344,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public IntResult GetOCSUsersCount(int itemId, string name, string email)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new IntResult();
             IntResult res = TaskManager.StartResultTask<IntResult>("OCS", "GET_OCS_USERS_COUNT");
             try
             {
@@ -359,6 +362,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public ResultObject DeleteOCSUser(int itemId, string instanceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject res = TaskManager.StartResultTask<ResultObject>("OCS", "DELETE_OCS_USER");
 
             OCSServer ocsServer;
@@ -400,6 +404,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public OCSUser GetUserGeneralSettings(int itemId, string instanceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             TaskManager.StartTask("OCS", "GET_OCS_USER_GENERAL_SETTINGS");
 
             OCSUser user;
@@ -421,6 +426,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void SetUserGeneralSettings(int itemId, string instanceId, bool enabledForFederation, bool enabledForPublicIMConnectivity, bool archiveInternalCommunications, bool archiveFederatedCommunications, bool enabledForEnhancedPresence)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             TaskManager.StartTask("OCS", "SET_OCS_USER_GENERAL_SETTINGS");
             try
             {

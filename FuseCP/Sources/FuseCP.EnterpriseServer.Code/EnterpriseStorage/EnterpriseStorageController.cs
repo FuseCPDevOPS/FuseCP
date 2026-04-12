@@ -2586,6 +2586,7 @@ namespace FuseCP.EnterpriseServer
 
         public int ConvertMegaBytesToGB(int megabytes)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             if (megabytes == -1)
                 return megabytes;
 
@@ -2594,6 +2595,7 @@ namespace FuseCP.EnterpriseServer
 
         public int ConvertBytesToMB(long bytes)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             int OneKb = 1024;
             int OneMb = OneKb * 1024;
 

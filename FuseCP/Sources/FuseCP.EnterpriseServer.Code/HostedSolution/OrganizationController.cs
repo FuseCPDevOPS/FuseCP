@@ -2674,6 +2674,7 @@ namespace FuseCP.EnterpriseServer
 
         public string BuildAccountNameEx(Organization org, string name)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             StringDictionary serviceSettings = ServerController.GetServiceSettings(org.ServiceId);
 
             var type = GetUserFormatType(serviceSettings);
@@ -2829,6 +2830,7 @@ namespace FuseCP.EnterpriseServer
         /// <returns> The account name with organization Id. </returns>
         public string BuildAccountNameWithOrgId(string orgId, string name, int serviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             name = ((orgId.Length + name.Length) > 19 && name.Length > 9) ? name.Substring(0, (19 - orgId.Length) < 10 ? 10 : 19 - orgId.Length) : name;
 
             orgId = (orgId.Length + name.Length) > 19 ? orgId.Substring(0, 19 - name.Length) : orgId;

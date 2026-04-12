@@ -31,23 +31,27 @@ namespace FuseCP.EnterpriseServer
 
         public DateTime GetSchedulerTime()
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return DateTime.MinValue;
             return DateTime.Now;
         }
 
         public List<ScheduleTaskInfo> GetScheduleTasks()
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ScheduleTaskInfo>();
             return ObjectUtils.CreateListFromDataReader<ScheduleTaskInfo>(
                 Database.GetScheduleTasks(SecurityContext.User.UserId));
         }
 
         public ScheduleTaskInfo GetScheduleTask(string taskId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<ScheduleTaskInfo>(
                 Database.GetScheduleTask(SecurityContext.User.UserId, taskId));
         }
 
         public DataSet GetSchedules(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             DataSet ds = Database.GetSchedules(SecurityContext.User.UserId, packageId);
 
             // set status to each returned schedule
@@ -62,6 +66,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetSchedulesPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             DataSet ds = Database.GetSchedulesPaged(SecurityContext.User.UserId, packageId,
                 recursive, filterColumn, filterValue, sortColumn, startRow, maximumRows);
 
@@ -76,6 +81,7 @@ namespace FuseCP.EnterpriseServer
 
         public ScheduleInfo GetSchedule(int scheduleId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             DataSet ds = Database.GetSchedule(SecurityContext.User.UserId, scheduleId);
             ScheduleInfo si = ObjectUtils.FillObjectFromDataView<ScheduleInfo>(ds.Tables[0].DefaultView);
             return si;
@@ -88,6 +94,7 @@ namespace FuseCP.EnterpriseServer
         /// <returns>View configuration for the task with supplied id.</returns>
         public List<ScheduleTaskViewConfiguration> GetScheduleTaskViewConfigurations(string taskId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ScheduleTaskViewConfiguration>();
             List<ScheduleTaskViewConfiguration> c = ObjectUtils.CreateListFromDataReader<ScheduleTaskViewConfiguration>(Database.GetScheduleTaskViewConfigurations(taskId));
             return c;
         }
@@ -128,12 +135,14 @@ namespace FuseCP.EnterpriseServer
 
         public ScheduleInfo GetScheduleInternal(int scheduleId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<ScheduleInfo>(
                 Database.GetScheduleInternal(scheduleId));
         }
 
         public List<ScheduleTaskParameterInfo> GetScheduleParameters(string taskId, int scheduleId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ScheduleTaskParameterInfo>();
             return ObjectUtils.CreateListFromDataReader<ScheduleTaskParameterInfo>(
                 Database.GetScheduleParameters(SecurityContext.User.UserId,
                 taskId, scheduleId));
@@ -215,6 +224,7 @@ namespace FuseCP.EnterpriseServer
 
         public void CalculateNextStartTime(ScheduleInfo schedule)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (schedule.ScheduleType == ScheduleType.OneTime)
             {
                 // start time stay intact

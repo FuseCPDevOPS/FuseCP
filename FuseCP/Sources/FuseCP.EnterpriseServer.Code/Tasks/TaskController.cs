@@ -97,6 +97,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddTask(BackgroundTask task)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             using (var clone = AsAsync<TaskController>())
             {
                 int taskId = clone.Database.AddBackgroundTask(task.Guid, task.TaskId, task.ScheduleId, task.PackageId, task.UserId,
