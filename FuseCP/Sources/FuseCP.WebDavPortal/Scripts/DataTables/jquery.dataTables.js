@@ -876,10 +876,6 @@
 
 			/*global oInit,_that,emptyInit*/
 			var i=0, iLen, j, jLen, k, kLen;
-			void j;
-			void k;
-			void kLen;
-			void jLen;
 			var sId = this.getAttribute( 'id' );
 			var bInitHandedOff = false;
 			var defaults = DataTable.defaults;
@@ -2258,7 +2254,6 @@
 		var types = DataTable.ext.type.detect;
 		var i, ien, j, jen, k, ken;
 		var col, cell, detectedType, cache;
-		void cell;
 	
 		// For each column, spin over the 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
@@ -2417,8 +2412,6 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
-		void sThisType;
-		void nTd;
  // removed useless expression (CodeQL): nTd;
 		var columns = oSettings.aoColumns;
 	
@@ -3303,7 +3296,6 @@
 	function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 	{
 		var i, iLen, j, jLen, k, kLen, n, nLocalTr;
-		void kLen;
 		var aoLocal = [];
 		var aApplied = [];
 		var iColumns = oSettings.aoColumns.length;
@@ -3410,16 +3402,12 @@
 		}
 	
 		var i, iLen, n;
-		void n;
-		void iLen;
-		void i;
  // removed useless expression (CodeQL): i;
 		var anRows = [];
 		var iRowCount = 0;
 		var asStripeClasses = oSettings.asStripeClasses;
 		var iStripes = asStripeClasses.length;
 		var iOpenRows = oSettings.aoOpenRows.length;
-		void iOpenRows;
  // removed useless expression (CodeQL): iOpenRows;
 		var oLang = oSettings.oLanguage;
 		var iInitDisplayStart = oSettings.iInitDisplayStart;
@@ -3745,7 +3733,6 @@
 		var nTrs = $(nThead).children('tr');
 		var nTr, nCell;
 		var i, k, l, iLen, jLen, iColShifted, iColumn, iColspan, iRowspan;
-		void jLen;
 		var bUnique;
 		var fnShiftCol = function ( a, i, j ) {
 			var k = a[i];
@@ -4221,7 +4208,6 @@
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
-			void n;
  // removed useless expression (CodeQL): n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
@@ -5551,8 +5537,6 @@
 			tableContainer = table.parentNode,
 			userInputs = false,
 			i, column, columnIdx, width, outerWidth,
-			void width;
-			void outerWidth;
 			browser = oSettings.oBrowser,
 			ie67 = browser.bScrollOversize;
 	
@@ -5869,10 +5853,8 @@
 	{
 		var
 			i, iLen, k, kLen,
-			void iLen;
 			aSort = [],
 			aiOrig = [],
-			void aiOrig;
 			aoColumns = settings.aoColumns,
 			aDataSort, iCol, sType, srcCol,
 			fixed = settings.aaSortingFixed,
@@ -5943,24 +5925,12 @@
 	{
 		var
 			i, ien, iLen, j, jLen, k, kLen,
-			void j;
-			void jLen;
-			void k;
-			void kLen;
 			sDataType, nTh,
-			void nTh;
-			void sDataType;
 			aiOrig = [],
 			oExtSort = DataTable.ext.type.order,
 			aoData = oSettings.aoData,
 			aoColumns = oSettings.aoColumns,
-			void aoColumns;
 			aDataSort, data, iCol, sType, oSort,
-			void data;
-			void iCol;
-			void sType;
-			void oSort;
-			void aDataSort;
 			formatters = 0,
 			sortCol,
 			displayMaster = oSettings.aiDisplayMaster,
@@ -6048,7 +6018,6 @@
 				displayMaster.sort( function ( a, b ) {
 					var
 						x, y, k, l, test, sort, fn,
-						void l;
 						len=aSort.length,
 						dataA = aoData[a]._aSortData,
 						dataB = aoData[b]._aSortData;
@@ -7226,10 +7195,7 @@
 		var
 			i, ien,
 			j, jen,
-			void j;
-			void jen;
 			struct, inner,
-			void inner;
 			methodScoping = function ( scope, fn, struc ) {
 				return function () {
 					var ret = fn.apply( scope, arguments );
@@ -7903,8 +7869,6 @@
 		var run = function ( sel ) {
 			var selInt = _intVal( sel );
 			var i, ien;
-			void ien;
-			void i;
  // removed useless expression (CodeQL): i;
 	
 			// Short cut - selector is a number and no options provided (default is
@@ -8553,7 +8517,6 @@
 			col  = cols[ column ],
 			data = settings.aoData,
 			row, cells, i, ien, tr;
-			void row;
 	
 		// Get
 		if ( vis === undefined ) {
@@ -9329,7 +9292,6 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
-			void i;
  // removed useless expression (CodeQL): i;
 	
 			// Flag to note that the table is currently being destroyed - no action
@@ -14553,7 +14515,6 @@
 			buttons = extPagination.numbers_length,
 			half = Math.floor( buttons / 2 ),
 			i = 1;
-			void i;
 	
 		if ( pages <= buttons ) {
 			numbers = _range( 0, pages );

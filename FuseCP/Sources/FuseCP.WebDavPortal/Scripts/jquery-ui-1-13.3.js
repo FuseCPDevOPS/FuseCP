@@ -21,7 +21,6 @@
 $.ui = $.ui || {};
 
 var version = $.ui.version = "1.13.3";
- version;
 
 
 /*!
@@ -764,7 +763,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 } );
 
 var widget = $.widget;
- widget;
 
 
 /*!
@@ -1262,7 +1260,6 @@ $.ui.position = {
 } )();
 
 var position = $.ui.position;
- position;
 
 
 /*!
@@ -1311,7 +1308,6 @@ var data = $.extend( $.expr.pseudos, {
 // This file is deprecated
 
 var disableSelection = $.fn.extend( {
- disableSelection;
 	disableSelection: ( function() {
 		var eventType = "onselectstart" in document.createElement( "div" ) ?
 			"selectstart" :
@@ -3019,7 +3015,6 @@ var effect = $.effects;
 
 
 var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, done ) {
- effectsEffectBlind;
 	var map = {
 			up: [ "bottom", "top" ],
 			vertical: [ "bottom", "top" ],
@@ -3075,7 +3070,6 @@ var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, d
 
 
 var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) {
- effectsEffectBounce;
 	var upAnim, downAnim, refValue,
 		element = $( this ),
 
@@ -3171,7 +3165,6 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 
 
 var effectsEffectClip = $.effects.define( "clip", "hide", function( options, done ) {
- effectsEffectClip;
 	var start,
 		animate = {},
 		element = $( this ),
@@ -3222,7 +3215,6 @@ var effectsEffectClip = $.effects.define( "clip", "hide", function( options, don
 
 
 var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, done ) {
- effectsEffectDrop;
 
 	var distance,
 		element = $( this ),
@@ -3279,7 +3271,6 @@ var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, don
 
 
 var effectsEffectExplode = $.effects.define( "explode", "hide", function( options, done ) {
- effectsEffectExplode;
 
 	var i, j, left, top, mx, my,
 		rows = options.pieces ? Math.round( Math.sqrt( options.pieces ) ) : 3,
@@ -3374,7 +3365,6 @@ var effectsEffectExplode = $.effects.define( "explode", "hide", function( option
 
 
 var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, done ) {
- effectsEffectFade;
 	var show = options.mode === "show";
 
 	$( this )
@@ -3407,7 +3397,6 @@ var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, d
 
 
 var effectsEffectFold = $.effects.define( "fold", "hide", function( options, done ) {
- effectsEffectFold;
 
 	// Create element
 	var element = $( this ),
@@ -3482,7 +3471,6 @@ var effectsEffectFold = $.effects.define( "fold", "hide", function( options, don
 
 
 var effectsEffectHighlight = $.effects.define( "highlight", "show", function( options, done ) {
- effectsEffectHighlight;
 	var element = $( this ),
 		animation = {
 			backgroundColor: element.css( "backgroundColor" )
@@ -3525,7 +3513,6 @@ var effectsEffectHighlight = $.effects.define( "highlight", "show", function( op
 
 
 var effectsEffectSize = $.effects.define( "size", function( options, done ) {
- effectsEffectSize;
 
 	// Create element
 	var baseline, factor, temp,
@@ -3704,7 +3691,6 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 
 
 var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
- effectsEffectScale;
 
 	// Create element
 	var el = $( this ),
@@ -3745,7 +3731,6 @@ var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
 
 
 var effectsEffectPuff = $.effects.define( "puff", "hide", function( options, done ) {
- effectsEffectPuff;
 	var newOptions = $.extend( true, {}, options, {
 		fade: true,
 		percent: parseInt( options.percent, 10 ) || 150
@@ -3772,7 +3757,6 @@ var effectsEffectPuff = $.effects.define( "puff", "hide", function( options, don
 
 
 var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( options, done ) {
- effectsEffectPulsate;
 	var element = $( this ),
 		mode = options.mode,
 		show = mode === "show",
@@ -3822,7 +3806,6 @@ var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( option
 
 
 var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
- effectsEffectShake;
 
 	var i = 1,
 		element = $( this ),
@@ -3882,7 +3865,6 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 
 
 var effectsEffectSlide = $.effects.define( "slide", "show", function( options, done ) {
- effectsEffectSlide;
 	var startClip, startRef,
 		element = $( this ),
 		map = {
@@ -3950,7 +3932,6 @@ if ( $.uiBackCompat !== false ) {
 	} );
 }
 var effectsEffectTransfer = effect;
- effectsEffectTransfer;
 
 
 /*!
@@ -4024,7 +4005,6 @@ $.extend( $.expr.pseudos, {
 } );
 
 var focusable = $.ui.focusable;
- focusable;
 
 
 
@@ -4032,7 +4012,6 @@ var focusable = $.ui.focusable;
 // IE8 does not support the form attribute and when it is supplied. It overwrites the form prop
 // with a string, so we need to find the proper form.
 var form = $.fn._form = function() {
- form;
 	return typeof this[ 0 ].form === "string" ? this.closest( "form" ) : $( this[ 0 ].form );
 };
 
@@ -4053,7 +4032,6 @@ var form = $.fn._form = function() {
 
 
 var formResetMixin = $.ui.formResetMixin = {
- formResetMixin;
 	_formResetHandler: function() {
 		var form = $( this );
 
@@ -4191,7 +4169,6 @@ if ( !$.fn.even || !$.fn.odd ) {
 
 
 var keycode = $.ui.keyCode = {
- keycode;
 	BACKSPACE: 8,
 	COMMA: 188,
 	DELETE: 46,
@@ -4227,7 +4204,6 @@ var keycode = $.ui.keyCode = {
 
 
 var labels = $.fn.labels = function() {
- labels;
 	var ancestor, selector, id, labels, ancestors;
 
 	if ( !this.length ) {
@@ -4283,7 +4259,6 @@ var labels = $.fn.labels = function() {
 
 
 var scrollParent = $.fn.scrollParent = function( includeHidden ) {
- scrollParent;
 	var position = this.css( "position" ),
 		excludeStaticParent = position === "absolute",
 		overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
@@ -4318,7 +4293,6 @@ var scrollParent = $.fn.scrollParent = function( includeHidden ) {
 
 
 var tabbable = $.extend( $.expr.pseudos, {
- tabbable;
 	tabbable: function( element ) {
 		var tabIndex = $.attr( element, "tabindex" ),
 			hasTabindex = tabIndex != null;
@@ -4343,7 +4317,6 @@ var tabbable = $.extend( $.expr.pseudos, {
 
 
 var uniqueId = $.fn.extend( {
- uniqueId;
 	uniqueId: ( function() {
 		var uuid = 0;
 
@@ -4388,7 +4361,6 @@ var uniqueId = $.fn.extend( {
 
 
 var widgetsAccordion = $.widget( "ui.accordion", {
- widgetsAccordion;
 	version: "1.13.3",
 	options: {
 		active: 0,
@@ -4971,7 +4943,6 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 
 var safeActiveElement = $.ui.safeActiveElement = function( document ) {
- safeActiveElement;
 	var activeElement;
 
 	// Support: IE 9 only
@@ -5020,7 +4991,6 @@ var safeActiveElement = $.ui.safeActiveElement = function( document ) {
 
 
 var widgetsMenu = $.widget( "ui.menu", {
- widgetsMenu;
 	version: "1.13.3",
 	defaultElement: "<ul>",
 	delay: 300,
@@ -6346,7 +6316,6 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 } );
 
 var widgetsAutocomplete = $.ui.autocomplete;
- widgetsAutocomplete;
 
 
 /*!
@@ -6371,7 +6340,6 @@ var widgetsAutocomplete = $.ui.autocomplete;
 var controlgroupCornerRegex = /ui-corner-([a-z]){2,6}/g;
 
 var widgetsControlgroup = $.widget( "ui.controlgroup", {
- widgetsControlgroup;
 	version: "1.13.3",
 	defaultElement: "<div>",
 	options: {
@@ -6904,7 +6872,6 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 } ] );
 
 var widgetsCheckboxradio = $.ui.checkboxradio;
- widgetsCheckboxradio;
 
 
 /*!
@@ -7330,7 +7297,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsButton = $.ui.button;
- widgetsButton;
 
 
 /* eslint-disable max-len, camelcase */
@@ -9553,13 +9519,11 @@ $.datepicker.uuid = new Date().getTime();
 $.datepicker.version = "1.13.3";
 
 var widgetsDatepicker = $.datepicker;
- widgetsDatepicker;
 
 
 
 // This file is deprecated
 var ie = $.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
- ie;
 
 /*!
  * jQuery UI Mouse 1.13.3
@@ -9582,7 +9546,6 @@ $( document ).on( "mouseup", function() {
 } );
 
 var widgetsMouse = $.widget( "ui.mouse", {
- widgetsMouse;
 	version: "1.13.3",
 	options: {
 		cancel: "input, textarea, button, select, option",
@@ -9783,7 +9746,6 @@ var widgetsMouse = $.widget( "ui.mouse", {
 
 // $.ui.plugin is deprecated. Use $.widget() extensions instead.
 var plugin = $.ui.plugin = {
- plugin;
 	add: function( module, option, set ) {
 		var i,
 			proto = $.ui[ module ].prototype;
@@ -9816,7 +9778,6 @@ var plugin = $.ui.plugin = {
 
 
 var safeBlur = $.ui.safeBlur = function( element ) {
- safeBlur;
 
 	// Support: IE9 - 10 only
 	// If the <body> is blurred, IE will switch windows, see #9420
@@ -11059,7 +11020,6 @@ $.ui.plugin.add( "draggable", "zIndex", {
 } );
 
 var widgetsDraggable = $.ui.draggable;
- widgetsDraggable;
 
 
 /*!
@@ -12261,7 +12221,6 @@ $.ui.plugin.add( "resizable", "grid", {
 } );
 
 var widgetsResizable = $.ui.resizable;
- widgetsResizable;
 
 
 /*!
@@ -13190,7 +13149,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsDialog = $.ui.dialog;
- widgetsDialog;
 
 
 /*!
@@ -13674,7 +13632,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsDroppable = $.ui.droppable;
- widgetsDroppable;
 
 
 /*!
@@ -13699,7 +13656,6 @@ var widgetsDroppable = $.ui.droppable;
 
 
 var widgetsProgressbar = $.widget( "ui.progressbar", {
- widgetsProgressbar;
 	version: "1.13.3",
 	options: {
 		classes: {
@@ -13859,7 +13815,6 @@ var widgetsProgressbar = $.widget( "ui.progressbar", {
 
 
 var widgetsSelectable = $.widget( "ui.selectable", $.ui.mouse, {
- widgetsSelectable;
 	version: "1.13.3",
 	options: {
 		appendTo: "body",
@@ -14162,7 +14117,6 @@ var widgetsSelectable = $.widget( "ui.selectable", $.ui.mouse, {
 
 
 var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
- widgetsSelectmenu;
 	version: "1.13.3",
 	defaultElement: "<select>",
 	options: {
@@ -14832,7 +14786,6 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 
 
 var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
- widgetsSlider;
 	version: "1.13.3",
 	widgetEventPrefix: "slide",
 
@@ -15566,7 +15519,6 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 
 
 var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
- widgetsSortable;
 	version: "1.13.3",
 	widgetEventPrefix: "sort",
 	ready: false,
@@ -17701,7 +17653,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsSpinner = $.ui.spinner;
- widgetsSpinner;
 
 
 /*!
@@ -18606,7 +18557,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsTabs = $.ui.tabs;
- widgetsTabs;
 
 
 /*!
@@ -19113,10 +19063,8 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsTooltip = $.ui.tooltip;
- widgetsTooltip;
 
 
 
 
 } );
-
