@@ -59,6 +59,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebServer GetWebServer(int serviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             WebServer ws = new WebServer();
             ServiceProviderProxy.Init(ws, serviceId);
             return ws;
@@ -68,12 +69,14 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawWebSitesPaged(int packageId,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return PackageController.GetRawPackageItemsPaged(packageId, typeof(WebSite),
                 true, filterColumn, filterValue, sortColumn, startRow, maximumRows);
         }
 
         public List<WebSite> GetWebSites(int packageId, bool recursive)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<WebSite>();
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(
                 packageId, typeof(WebSite), recursive);
 
@@ -94,6 +97,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebSite GetWebSite(int packageId, string siteName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             ServiceProviderItem siteItem = PackageController.GetPackageItemByName(packageId, siteName, typeof(WebSite));
             if (siteItem == null)
                 return null;
@@ -103,6 +107,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebSite GetWebSite(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -157,6 +162,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddWebSite(int packageId, string hostName, int domainId, int ipAddressId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             return AddWebSite(packageId, hostName, domainId, ipAddressId, false, true);
         }
 
@@ -1247,6 +1253,7 @@ namespace FuseCP.EnterpriseServer
 
         public string GetWebUsersOU(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             int webServiceId = PackageController.GetPackageServiceId(packageId, ResourceGroups.Web);
             if (webServiceId > 0)
             {
@@ -1261,6 +1268,7 @@ namespace FuseCP.EnterpriseServer
         #region Web Site Pointers
         public List<DomainInfo> GetWebSitePointers(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
             List<DomainInfo> pointers = new List<DomainInfo>();
 
             // load site item
@@ -1615,6 +1623,7 @@ namespace FuseCP.EnterpriseServer
         #region Virtual Directories
         public List<WebVirtualDirectory> GetVirtualDirectories(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<WebVirtualDirectory>();
             List<WebVirtualDirectory> dirs = new List<WebVirtualDirectory>();
 
             // load site item
@@ -1638,6 +1647,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebVirtualDirectory GetVirtualDirectory(int siteItemId, string vdirName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -1786,6 +1796,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<WebAppVirtualDirectory> GetAppVirtualDirectories(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<WebAppVirtualDirectory>();
             List<WebAppVirtualDirectory> dirs = new List<WebAppVirtualDirectory>();
 
             // load site item
@@ -1809,6 +1820,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebAppVirtualDirectory GetAppVirtualDirectory(int siteItemId, string vdirName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2169,6 +2181,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebFolder[] GetFolders(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new WebFolder[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2181,6 +2194,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebFolder GetFolder(int siteItemId, string folderPath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2193,6 +2207,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateFolder(int siteItemId, WebFolder folder)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2225,6 +2240,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteFolder(int siteItemId, string folderPath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2257,6 +2273,7 @@ namespace FuseCP.EnterpriseServer
         #region Secured Users
         public WebUser[] GetUsers(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new WebUser[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2269,6 +2286,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebUser GetUser(int siteItemId, string userName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2281,6 +2299,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateUser(int siteItemId, WebUser user)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2311,6 +2330,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteUser(int siteItemId, string userName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2343,6 +2363,7 @@ namespace FuseCP.EnterpriseServer
         #region Secured Groups
         public WebGroup[] GetGroups(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new WebGroup[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2355,6 +2376,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebGroup GetGroup(int siteItemId, string groupName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2367,6 +2389,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateGroup(int siteItemId, WebGroup group)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2397,6 +2420,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteGroup(int siteItemId, string groupName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -2429,6 +2453,7 @@ namespace FuseCP.EnterpriseServer
         #region Shared SSL Folders
         public List<string> GetSharedSSLDomains(int packageId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
             List<string> domains = new List<string>();
 
             PackageSettings settings = PackageController.GetPackageSettings(packageId, PackageSettings.SHARED_SSL_SITES);
@@ -2441,12 +2466,14 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawSSLFoldersPaged(int packageId,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             return PackageController.GetRawPackageItemsPaged(packageId, typeof(SharedSSLFolder),
                 true, filterColumn, filterValue, sortColumn, startRow, maximumRows);
         }
 
         public List<SharedSSLFolder> GetSharedSSLFolders(int packageId, bool recursive)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<SharedSSLFolder>();
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(
                 packageId, typeof(SharedSSLFolder), recursive);
 
@@ -2461,6 +2488,7 @@ namespace FuseCP.EnterpriseServer
 
         public SharedSSLFolder GetSharedSSLFolder(int itemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load original item
             SharedSSLFolder vdirItem = (SharedSSLFolder)PackageController.GetPackageItem(itemId);
             if (vdirItem == null)
@@ -2680,6 +2708,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject SaveWebDeployPublishingProfile(int siteItemId, int[] serviceItemIds)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			ResultObject result = new ResultObject { IsSuccess = true };
 
 			try
@@ -2773,6 +2802,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject GrantWebDeployPublishingAccess(int siteItemId, string accountName, string accountPassword)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			ResultObject result = new ResultObject { IsSuccess = true };
 
 			try
@@ -2875,6 +2905,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void RevokeWebDeployPublishingAccess(int siteItemId)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			try
 			{
 				TaskManager.StartTask(LOG_SOURCE_WEB, "RevokeWebDeployPublishingAccess");
@@ -2939,6 +2970,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject ChangeWebDeployPublishingPassword(int siteItemId, string newAccountPassword)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			ResultObject result = new ResultObject { IsSuccess = true };
 			try
 			{
@@ -3004,6 +3036,7 @@ namespace FuseCP.EnterpriseServer
 
 		public BytesResult GetWebDeployPublishingProfile(int siteItemId)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new BytesResult();
 			var result = new BytesResult();
 			try
 			{
@@ -3299,6 +3332,7 @@ namespace FuseCP.EnterpriseServer
 
         public HtaccessFolder[] GetHeliconApeFolders(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new HtaccessFolder[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3311,6 +3345,7 @@ namespace FuseCP.EnterpriseServer
 
         public HtaccessFolder GetHeliconApeHttpdFolder(int serviceId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // get folder
             WebServer web = GetWebServer(serviceId);
             return web.GetHeliconApeHttpdFolder();
@@ -3318,6 +3353,7 @@ namespace FuseCP.EnterpriseServer
 
         public HtaccessFolder GetHeliconApeFolder(int siteItemId, string folderPath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3330,6 +3366,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateHeliconApeFolder(int siteItemId, HtaccessFolder folder)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3362,6 +3399,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateHeliconApeHttpdFolder(int serviceId, HtaccessFolder folder)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             folder.Path = FilesController.CorrectRelativePath(folder.Path);
 
             // place log record
@@ -3388,6 +3426,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHeliconApeFolder(int siteItemId, string folderPath)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3421,6 +3460,7 @@ namespace FuseCP.EnterpriseServer
         #region Helicon Ape Users
         public HtaccessUser[] GetHeliconApeUsers(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new HtaccessUser[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3433,6 +3473,7 @@ namespace FuseCP.EnterpriseServer
 
         public HtaccessUser GetHeliconApeUser(int siteItemId, string userName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3445,6 +3486,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateHeliconApeUser(int siteItemId, HtaccessUser user)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3475,6 +3517,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHeliconApeUser(int siteItemId, string userName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3507,6 +3550,7 @@ namespace FuseCP.EnterpriseServer
         #region Helicon Ape Groups
         public WebGroup[] GetHeliconApeGroups(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new WebGroup[0];
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3519,6 +3563,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebGroup GetHeliconApeGroup(int siteItemId, string groupName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3531,6 +3576,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateHeliconApeGroup(int siteItemId, WebGroup group)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3561,6 +3607,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHeliconApeGroup(int siteItemId, string groupName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             // load site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteItemId);
             if (siteItem == null)
@@ -3594,6 +3641,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject GrantWebManagementAccess(int siteItemId, string accountName, string accountPassword)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			ResultObject result = new ResultObject { IsSuccess = true };
 
 			try
@@ -3684,6 +3732,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void RevokeWebManagementAccess(int siteItemId)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			try
 			{
 				TaskManager.StartTask(LOG_SOURCE_WEB, "RevokeWebManagementAccess");
@@ -3758,6 +3807,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject ChangeWebManagementAccessPassword(int siteItemId, string accountPassword)
 		{
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			ResultObject result = new ResultObject { IsSuccess = true };
 			try
 			{
@@ -3852,6 +3902,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetImportableItems(int packageId, int itemTypeId, Type itemType, ResourceGroupInfo group)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
             // get service id
             int serviceId = PackageController.GetPackageServiceId(packageId, group.GroupName);
             if (serviceId == 0)
@@ -3867,6 +3918,7 @@ namespace FuseCP.EnterpriseServer
         public void ImportItem(int packageId, int itemTypeId, Type itemType,
 			ResourceGroupInfo group, string itemName)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			// Controller supports web sites only
 			if (itemType != typeof(WebSite))
 				return;
@@ -4104,6 +4156,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public int ImporHostHeader(int userId, int packageId, int siteId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(siteId);
             if (siteItem == null)
                 return -1;
@@ -4187,6 +4240,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public int BackupItem(string tempFolder, System.Xml.XmlWriter writer, ServiceProviderItem item, ResourceGroupInfo group)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             if (item is WebSite itemSite)
             {
                 WebServer web = GetWebServer(item.ServiceId);
@@ -4230,6 +4284,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public int RestoreItem(string tempFolder, System.Xml.XmlNode itemNode, int itemId, Type itemType, string itemName, int packageId, int serviceId, ResourceGroupInfo group)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             if (itemType == typeof(WebSite))
             {
                 WebServer web = GetWebServer(serviceId);
@@ -4326,6 +4381,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
         public SSLCertificate CertificateRequest(SSLCertificate certificate, int siteItemId)
         {
 
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+
             try
             {
                 TaskManager.StartTask(LOG_SOURCE_WEB, "certificateRequest");
@@ -4370,6 +4427,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject InstallCertificate(SSLCertificate certificate, int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
             try
             {
@@ -4421,6 +4479,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject LEInstallCertificate(int siteItemId, string email)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
             try
             {
@@ -4459,6 +4518,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject InstallPfx(byte[] pfx, int siteItemId, string password)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
             try
             {
@@ -4516,6 +4576,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public List<SSLCertificate> GetPendingCertificates(int siteItemId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<SSLCertificate>();
             WebSite item = GetWebSite(siteItemId);
             return ObjectUtils.CreateListFromDataSet<SSLCertificate>(
                 Database.GetPendingCertificates(SecurityContext.User.UserId, item.PackageId, item.Id, false));
@@ -4524,29 +4585,34 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public SSLCertificate GetSslCertificateById(int iD)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<SSLCertificate>(
                 Database.GetSSLCertificateByID(SecurityContext.User.UserId, iD));
         }
 
         public int CheckSSL(int siteID, bool renewal)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             return Database.CheckSSL(siteID, renewal);
         }
 
         public ResultObject CheckSSLForDomain(string domain, int siteID)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
             return result;
         }
 
         public SSLCertificate GetSiteCert(int siteid)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<SSLCertificate>(
                 Database.GetSiteCert(SecurityContext.User.UserId, siteid));
         }
 
         public List<SSLCertificate> GetCertificatesForSite(int siteId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<SSLCertificate>();
             WebSite item = GetWebSite(siteId);
             return ObjectUtils.CreateListFromDataSet<SSLCertificate>(
                 Database.GetCertificatesForSite(SecurityContext.User.UserId, item.PackageId, item.Id));
@@ -4554,6 +4620,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public byte[] ExportCertificate(int siteId, string serialNumber, string password)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new byte[0];
             WebSite item = GetWebSite(siteId);
 
             WebServer server = GetWebServer(item.ServiceId);
@@ -4562,6 +4629,8 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject DeleteCertificate(int siteId, SSLCertificate certificate)
         {
+
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 
             ResultObject result = new ResultObject { IsSuccess = true };
             try
@@ -4597,6 +4666,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject ImportCertificate(int siteId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
             try
             {
@@ -4634,6 +4704,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject CheckCertificate(int siteId)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = false };
             bool serverResult = false;
 
@@ -4658,6 +4729,7 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
 
         public ResultObject DeleteCertificateRequest(int siteId, int csrID)
         {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
             ResultObject result = new ResultObject { IsSuccess = true };
 
             try
