@@ -345,6 +345,8 @@ namespace FuseCP.EnterpriseServer
 		}
 		public UserInfo GetUserByUsernamePassword(string username, string password, string ip, bool log = true)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			
 			// place log record
 			// TaskManager create backgroundtasklogs in db and them immediately remove and move them into auditlog (if it is a short task).
 			// The TaskManager is great for long tasks, but for short tasks that are called every second (from SOAP calls, for example) it puts a huge load on the DB.
@@ -415,6 +417,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int ChangeUserPassword(string username, string oldPassword, string newPassword, string ip)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			
 			// place log record
 			TaskManager.StartTask("USER", "CHANGE_PASSWORD_BY_USERNAME_PASSWORD", username);
 			TaskManager.WriteParameter("IP", ip);
@@ -447,6 +451,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int SendPasswordReminder(string username, string ip)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			
 			// place log record
 			TaskManager.StartTask("USER", "SEND_REMINDER", username);
 			TaskManager.WriteParameter("IP", ip);
@@ -512,6 +518,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int SendVerificationCode(string username)
 		{
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			
 			// place log record
 			TaskManager.StartTask("USER", "SEND_VERIFICATION_CODE", username);
 
