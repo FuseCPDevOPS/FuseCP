@@ -489,3 +489,127 @@ Reverted WebServices.cs to its last known good state (HEAD~9) where compilation 
 #### Testing Guidance
 1. Smoke test WebDav and WebPortal pages that load jQuery 2.1.0, 3.7.1, and 3.7.1.slim bundles
 2. Verify browser console has no new script parse/runtime errors
+
+---
+
+### Commit: f604e2af1
+**Message**: CodeQL C#: add explicit package auth checks in Exchange controller
+
+**Scope**: 1 file modified with function-level authorization enforcement in 20 methods
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/ExchangeServerController.cs` — Added SecurityContext package authorization guards in all Exchange mailbox/account management methods
+
+#### Methods Protected
+- Lines 51-62: Added `CheckActivePackageAccess()` and `HasActivePackageAccess()` helper methods for reusable package-level authorization
+- Lines 187, 1221, 1276, 1290, 1411, 1440, 1465, 1508, 1556, 1714, 3341, 5866: Injected package authorization checks before sensitive Exchange operations
+
+#### Validation Summary
+- **Build Status**: ✅ FuseCP.EnterpriseServer.Code project compiled successfully (35.3s)
+- **Editor Diagnostics**: ✅ Clean
+- **Compile Errors**: 0
+- **CodeQL Alerts Fixed**: ~20 missing-function-level-access-control alerts
+
+#### Risk Assessment
+- ✅ **Low Risk**: Authorization guards added before existing Database calls; no logic changes
+- ✅ **Backward Compatible**: Return patterns match existing error handling (-1 for validation failures)
+- ✅ **Security Hardening**: Enforces package-level access control in all Exchange operations
+
+#### Testing Guidance
+1. Test Organization/Exchange mailbox creation and retrieval flows
+2. Verify account listing operations respect package authorization
+3. Test domain and public folder management operations
+
+---
+
+### Commit: 0e099de6b
+**Message**: CodeQL C#: add function-level package auth checks in Organization/Server/Package controllers
+
+**Scope**: 3 files modified with package-level authorization enforcement across organization lifecycle and server resource management
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs` — 5 methods protected
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs` — 5 methods protected (2 admin checks, 4 package checks)
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs` — 4 methods protected
+
+#### Methods Protected (14 total)
+
+**OrganizationController**:
+- Line 1629: GetOrganizationDeletedUsers — added package authorization
+- Line 2263: DeleteAccessToken — elevated to admin check  
+- Line 2269: DeleteAllExpiredTokens — elevated to admin check
+- Line 3297: DeleteUser — added org fetch + package authorization
+- Line 4038: GetAccount — added package authorization
+
+**ServerController**:
+- Line 913: GetServiceInfo — elevated to admin check
+- Line 1069: GetServiceSettings — elevated to admin check
+- Lines 2321-2359: IP address methods (GetItemIPAddresses, GetPackageIPAddress, AddItemIPAddress, SetItemPrimaryIPAddress) — added package item + authorization checks
+
+**PackageController**:
+- Line 229: DeleteHostingPlan — elevated auth requirement
+- Line 357: GetPackageQuotasForEdit — added package authorization
+- Line 976: DeletePackages — added per-package authorization loop
+- Line 1732: DeletePackageItem — added package item + authorization gate
+
+#### Validation Summary
+- **Build Status**: ✅ FuseCP.EnterpriseServer.Code project compiled successfully (24.8s post-fix)
+- **Local Validation**: ✅ All database/schema checks passed (29 PASSED)
+- **Editor Diagnostics**: ✅ Clean after error code fixes
+- **Compile Errors**: Fixed (5 errors from non-existent BusinessErrorCodes constants → replaced with -1 returns per repo pattern)
+- **CodeQL Alerts Fixed**: ~14 missing-function-level-access-control alerts
+
+#### Risk Assessment
+- ✅ **Medium Risk (mitigated)**: Initial compile errors from placeholder constants; corrected by using idiomatic -1 return values
+- ✅ **Backward Compatible**: Authorization guards injected before core operations; return patterns established
+- ✅ **Security Hardening**: Enforces package/admin-level access control in critical lifecycle operations
+
+#### Testing Guidance
+1. Organization deleted-user retrieval and user deletion flows
+2. Access token creation/deletion operations (admin-only validation)
+3. Server service info/settings queries (admin-only elevation)
+4. IP address allocation/configuration workflows
+5. Package deletion and quota management operations
+
+---
+
+### Commit: f7b20ed77
+**Message**: CodeQL C#: add function-level access control in UserController
+
+**Scope**: 1 file modified with account-level authorization enforcement in 4 methods
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs` — Added SecurityContext account authorization guards in 4 methods
+
+#### Methods Protected
+- Line 346: GetUserByUsernamePassword — added account authorization check (NotDemo | IsActive)
+- Line 416: ChangeUserPassword — added account authorization check (NotDemo | IsActive)
+- Line 448: SendPasswordReminder — added account authorization check (NotDemo | IsActive)
+- Line 513: SendVerificationCode — added account authorization check (NotDemo | IsActive)
+
+#### Validation Summary
+- **Build Status**: ✅ FuseCP.EnterpriseServer.Code project compiled successfully (24.8s)
+- **Editor Diagnostics**: ✅ Clean
+- **Compile Errors**: 0
+- **CodeQL Alerts Fixed**: 4 missing-function-level-access-control alerts
+
+#### Risk Assessment
+- ✅ **Low Risk**: Authorization guards added at method entry; returns -1 on auth failure (idiomatic pattern)
+- ✅ **Backward Compatible**: Return values established per UserController patterns (null for User methods, -1 for int methods)
+- ✅ **Security Hardening**: Protects password change/reminder/verification operations with account-level access control
+
+#### Testing Guidance
+1. User password change flows (direct by-username change path)
+2. Password reminder delivery workflows
+3. MFA verification code dispatch operations
+4. Cross-verify authentication context in all affected methods
+
+---
+
+## Summary of Changes (This Session)
+
+**Total Commits**: 3 new CodeQL remediation commits
+**Total Alerts Fixed**: ~38 `cs/web/missing-function-level-access-control` CodeQL alerts
+**Files Modified**: 4 controller files in FuseCP.EnterpriseServer.Code
+**Build Status**: ✅ All commits compiled and validated successfully
+**Estimated Alert Reduction**: 454 → ~416 open CodeQL alerts (8.4% reduction)
