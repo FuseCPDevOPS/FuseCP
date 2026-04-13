@@ -1277,15 +1277,31 @@ namespace FuseCP.EnterpriseServer
 
         public string GetParentUnc(string uncPath)
         {
-            EnsureSafeStoragePath(uncPath, "uncPath");
+            uncPath = EnsureSafeStoragePath(uncPath, nameof(uncPath));
+
+            if (!uncPath.StartsWith("\\\\", StringComparison.Ordinal))
+            {
+                throw new ArgumentException("Path must be a UNC path.", nameof(uncPath));
+            }
+
             var uri = new Uri(uncPath);
+            if (!uri.IsUnc)
+            {
+                throw new ArgumentException("Path must be a UNC path.", nameof(uncPath));
+            }
 
             if (uri.Segments.Length == 2)
             {
                 return string.Format("\\\\{0}", uri.Host);
             }
 
-            return Directory.GetParent(uncPath).ToString();
+            var parent = Directory.GetParent(uncPath);
+            if (parent == null)
+            {
+                throw new ArgumentException("Path must have a parent directory.", nameof(uncPath));
+            }
+
+            return parent.ToString();
         }
     }
 }
