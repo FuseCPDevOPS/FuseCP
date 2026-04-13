@@ -229,7 +229,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteHostingPlan(int planId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsReseller);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsReseller | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             int result = Database.DeleteHostingPlan(SecurityContext.User.UserId, planId);
@@ -357,6 +357,10 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+
+            if (SecurityContext.CheckPackage(packageId, DemandPackage.IsActive) < 0)
+                return new DataSet();
+
             return Database.GetPackageQuotasForEdit(SecurityContext.User.UserId, packageId);
         }
 
@@ -978,6 +982,13 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
                 | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;
+
+            foreach (PackageInfo package in packages)
+            {
+                int packageCheck = SecurityContext.CheckPackage(package.PackageId, DemandPackage.IsActive);
+                if (packageCheck < 0)
+                    return packageCheck;
+            }
 
             // delete packages asynchronously
             PackageAsyncWorker packageWorker = new PackageAsyncWorker();
@@ -1734,6 +1745,15 @@ namespace FuseCP.EnterpriseServer
             // delete item
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+
+            ServiceProviderItem item = GetPackageItem(itemId);
+            if (item == null)
+                return -1;
+
+            int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
+            if (packageCheck < 0)
+                return packageCheck;
+
             Database.DeleteServiceItem(SecurityContext.User.UserId, itemId);
 
             return 0;

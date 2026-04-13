@@ -924,7 +924,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfo(int serviceId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin | DemandAccount.IsActive);
 			if (accountCheck < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
@@ -1057,7 +1057,7 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettings(int serviceId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin | DemandAccount.IsActive);
 			if (accountCheck < 0)
 				return null;
 
@@ -2293,6 +2293,14 @@ namespace FuseCP.EnterpriseServer
 		public List<PackageIPAddress> GetItemIPAddresses(int itemId, IPAddressPool pool)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
+
+			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			if (item == null)
+				return new List<PackageIPAddress>();
+
+			if (SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive) < 0)
+				return new List<PackageIPAddress>();
+
 			return ObjectUtils.CreateListFromDataReader<PackageIPAddress>(
 				Database.GetItemIPAddresses(SecurityContext.User.UserId, itemId, (int)pool));
 		}
@@ -2300,14 +2308,36 @@ namespace FuseCP.EnterpriseServer
 		public PackageIPAddress GetPackageIPAddress(int packageAddressId)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
-			return ObjectUtils.FillObjectFromDataReader<PackageIPAddress>(
+
+			PackageIPAddress packageAddress = ObjectUtils.FillObjectFromDataReader<PackageIPAddress>(
 				Database.GetPackageIPAddress(packageAddressId));
+
+			if (packageAddress == null)
+				return null;
+
+			if (SecurityContext.CheckPackage(packageAddress.PackageId, DemandPackage.IsActive) < 0)
+				return null;
+
+			return packageAddress;
 		}
 
 		public int AddItemIPAddress(int itemId, int packageAddressId)
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			if (item == null)
+				return -1;
+
+			int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
+			if (packageCheck < 0)
+				return packageCheck;
+
+			PackageIPAddress packageAddress = GetPackageIPAddress(packageAddressId);
+			if (packageAddress == null)
+				return -1;
+
 			return Database.AddItemIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 
@@ -2315,6 +2345,19 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			if (item == null)
+				return -1;
+
+			int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
+			if (packageCheck < 0)
+				return packageCheck;
+
+			PackageIPAddress packageAddress = GetPackageIPAddress(packageAddressId);
+			if (packageAddress == null)
+				return -1;
+
 			return Database.SetItemPrimaryIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 

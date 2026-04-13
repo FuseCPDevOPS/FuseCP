@@ -1629,6 +1629,14 @@ namespace FuseCP.EnterpriseServer
         public List<OrganizationDeletedUser> GetOrganizationDeletedUsers(int itemId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<OrganizationDeletedUser>();
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<OrganizationDeletedUser>();
+
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return new List<OrganizationDeletedUser>();
+
             var result = new List<OrganizationDeletedUser>();
 
             var orgDeletedUsers = ObjectUtils.CreateListFromDataReader<OrganizationUser>(
@@ -2262,13 +2270,13 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredAccessTokens();
         }
 
@@ -3242,6 +3250,10 @@ namespace FuseCP.EnterpriseServer
                 if (org == null)
                     return -1;
 
+                int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
+                if (packageCheck < 0)
+                    return packageCheck;
+
                 // load account
                 ExchangeAccount user = ExchangeServerController.GetAccount(itemId, accountId);
                 
@@ -3324,10 +3336,17 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
 
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return null;
+
             OrganizationUser account = ObjectUtils.FillObjectFromDataReader<OrganizationUser>(
                 Database.GetExchangeAccount(itemId, userId));
 
             if (account == null)
+                return null;
+
+            if (SecurityContext.CheckPackage(account.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             // Log Extension
