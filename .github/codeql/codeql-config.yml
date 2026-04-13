@@ -9,3 +9,9 @@ paths-ignore:
   - "**/*ModelSnapshot.cs"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Data/CodeTemplates/**"
   - "FuseCP/Sources/FuseCP.Build/**/*.cshtml"
+  # High-volume third-party vendor files (not owned, not fixable)
+  - "**/Scripts/jquery-ui-*.js"
+  - "**/App_Themes/**/addons/fuelux/**"
+  - "**/JavaScript/jquery.window.js"
+  - "**/App_Themes/**/js/jquery-ui/**"
+  - "tools/MSBuildCommunityTasks/**"
