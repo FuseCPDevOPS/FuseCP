@@ -51,12 +51,26 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeServerController(ControllerBase db): base(db) { }
 
+        private int CheckActivePackageAccess(int packageId)
+        {
+            return SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
+        }
+
+        private bool HasActivePackageAccess(int packageId)
+        {
+            return CheckActivePackageAccess(packageId) >= 0;
+        }
+
         #region Organizations
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new DataSet();
+
+            int packageCheck = CheckActivePackageAccess(packageId);
+            if (packageCheck < 0) return new DataSet();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -98,6 +112,12 @@ namespace FuseCP.EnterpriseServer
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
 
+            int packageCheck = CheckActivePackageAccess(packageId);
+            if (packageCheck < 0)
+            {
+                return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+            }
+
             ServiceItemsPaged items = PackageController.GetPackageItemsPaged(
                 packageId, ResourceGroups.Exchange, typeof(Organization),
                 recursive, filterColumn, filterValue, sortColumn, startRow, maximumRows);
@@ -116,6 +136,10 @@ namespace FuseCP.EnterpriseServer
         {
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
+
+            int packageCheck = CheckActivePackageAccess(packageId);
+            if (packageCheck < 0) return new List<Organization>();
+
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(
                 packageId, typeof(Organization), recursive);
 
@@ -128,6 +152,10 @@ namespace FuseCP.EnterpriseServer
         {
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
+
+            int packageCheck = CheckActivePackageAccess(packageId);
+            if (packageCheck < 0) return new List<Organization>();
+
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByTypeInternal(packageId, null, typeof(Organization), recursive);
 
             return items.ConvertAll<Organization>(
@@ -159,6 +187,11 @@ namespace FuseCP.EnterpriseServer
             #endregion
 
             var org = (Organization)PackageController.GetPackageItem(itemId);
+            if (org == null)
+                return null;
+
+            if (!HasActivePackageAccess(org.PackageId))
+                return null;
 
             // Log Extension
             if (withLog)
@@ -1188,6 +1221,11 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1238,6 +1276,11 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<ExchangeAccount>();
+
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(Database.GetExchangeAccountByMailboxPlanId(itemId, mailboxPlanId));
         }
 
@@ -1247,6 +1290,11 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<ExchangeAccount>();
+
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(Database.GetExchangeMailboxes(itemId));
         }
 
@@ -1363,6 +1411,11 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
                 return GetDemoAccounts(includeMailboxes, includeContacts, includeDistributionLists,
@@ -1387,6 +1440,10 @@ namespace FuseCP.EnterpriseServer
             if (types.Length == 0)
                 return new List<ExchangeAccount>();
 
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1408,6 +1465,11 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1432,6 +1494,9 @@ namespace FuseCP.EnterpriseServer
             if (account == null)
                 return null;
 
+            if (!HasActivePackageAccess(account.PackageId))
+                return null;
+
             // Log Extension
             if (withLog)
                 LogExtension.WriteObject(account);
@@ -1443,10 +1508,14 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
+
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
                 Database.GetExchangeAccountByAccountNameWithoutItemId(userPrincipalName));
 
             if (account == null)
+                return null;
+
+            if (!HasActivePackageAccess(account.PackageId))
                 return null;
 
             return account;
@@ -1487,11 +1556,15 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
+
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
                 Database.SearchExchangeAccount(SecurityContext.User.UserId,
                 accountType, primaryEmailAddress));
 
             if (account == null)
+                return null;
+
+            if (!HasActivePackageAccess(account.PackageId))
                 return null;
 
             return account;
@@ -1641,6 +1714,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeDomainName>();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1667,6 +1741,10 @@ namespace FuseCP.EnterpriseServer
             Organization org = GetOrganization(itemId, false);
             if (org == null)
                 return null;
+
+            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            if (packageCheck < 0)
+                return new List<ExchangeDomainName>();
 
             // load all domains
             List<ExchangeDomainName> domains = ObjectUtils.CreateListFromDataReader<ExchangeDomainName>(
@@ -3262,6 +3340,10 @@ namespace FuseCP.EnterpriseServer
             Organization org = GetOrganization(itemId);
             if (org == null)
                 return null;
+
+            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            if (packageCheck < 0)
+                return string.Empty;
 
             // load user info
             UserInfo user = PackageController.GetPackageOwner(org.PackageId);
@@ -5783,6 +5865,14 @@ namespace FuseCP.EnterpriseServer
             // check account
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+
+            Organization org = GetOrganization(itemId, false);
+            if (org == null)
+                return -1;
+
+            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            if (packageCheck < 0)
+                return packageCheck;
 
             if (accountIds != null)
                 foreach (int result in accountIds
