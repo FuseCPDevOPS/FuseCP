@@ -217,15 +217,22 @@ namespace FuseCP.Providers.Web
             return flag;
         }
 
-        protected virtual Runspace OpenRunspace(string[] importModules)
+        private static InitialSessionState GetOrCreateSession(string[] importModules)
         {
-            Log.WriteStart("OpenRunspace", new object[0]);
             if (RunspaceHelper.session == null)
             {
                 RunspaceHelper.session = InitialSessionState.CreateDefault();
                 RunspaceHelper.session.ImportPSModule(importModules);
             }
-            Runspace runspace = RunspaceFactory.CreateRunspace(RunspaceHelper.session);
+
+            return RunspaceHelper.session;
+        }
+
+        protected virtual Runspace OpenRunspace(string[] importModules)
+        {
+            Log.WriteStart("OpenRunspace", new object[0]);
+            InitialSessionState currentSession = GetOrCreateSession(importModules);
+            Runspace runspace = RunspaceFactory.CreateRunspace(currentSession);
             runspace.Open();
             runspace.SessionStateProxy.SetVariable("ConfirmPreference", "none");
             Log.WriteEnd("OpenRunspace", new object[0]);

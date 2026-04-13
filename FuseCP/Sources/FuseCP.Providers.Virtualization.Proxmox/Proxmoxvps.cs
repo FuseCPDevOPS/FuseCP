@@ -533,7 +533,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                  new AuthenticationMethod[]{
 
                     // Pasword based Authentication
-                    new PasswordAuthenticationMethod(DeploySSHUserSettings, DeploySSHPassSettings),
+                    CreatePasswordAuthenticationMethod(),
 
 					 // // Key Based Authentication (using keys in OpenSSH Format) GenerateStreamFromString
 					 //new PrivateKeyAuthenticationMethod(DeploySSHUserSettings, new PrivateKeyFile(GenerateStreamFromString(DeploySSHKeySettings), DeploySSHKeyPassSettings))
@@ -544,7 +544,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                 Conninfo = new ConnectionInfo(DeploySSHServerHostSettings, Convert.ToInt32(DeploySSHServerPortSettings), DeploySSHUserSettings,
                      new AuthenticationMethod[]{
                         // Key Based Authentication (using keys in OpenSSH Format) GenerateStreamFromString
-                        new PrivateKeyAuthenticationMethod(DeploySSHUserSettings, new PrivateKeyFile(GenerateStreamFromString(DeploySSHKeySettings), DeploySSHKeyPassSettings))
+                        CreatePrivateKeyAuthenticationMethod()
                      }
                 );
             }
@@ -558,6 +558,17 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
             {
                 throw;
             }
+        }
+
+        private AuthenticationMethod CreatePasswordAuthenticationMethod()
+        {
+            return new PasswordAuthenticationMethod(DeploySSHUserSettings, DeploySSHPassSettings);
+        }
+
+        private AuthenticationMethod CreatePrivateKeyAuthenticationMethod()
+        {
+            return new PrivateKeyAuthenticationMethod(DeploySSHUserSettings,
+                new PrivateKeyFile(GenerateStreamFromString(DeploySSHKeySettings), DeploySSHKeyPassSettings));
         }
 
         public virtual VirtualMachine CreateVirtualMachine(VirtualMachine vm)
@@ -599,7 +610,7 @@ if (!vmconfigconfigvalue.TryGetValue("bootdisk", out var _ckv))
                     HostedSolutionLog.LogError("Error creating virtual machine SSH connection error", ex);
                     throw;
                 }
-                var term = ssh.CreateCommand($"sudo -n {sshcmd}");
+                using var term = ssh.CreateCommand($"sudo -n {sshcmd}");
                 term.CommandTimeout = TimeSpan.FromMinutes(120);
                 term.Execute();
                 string output = term.Result;

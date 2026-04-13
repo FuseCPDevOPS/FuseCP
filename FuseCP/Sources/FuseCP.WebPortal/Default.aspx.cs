@@ -709,9 +709,17 @@ namespace FuseCP.WebPortal
                         .ToList();
                 }
 
-                HttpContext.Current.Cache.Insert(cacheKey, list, new CacheDependency(resDir));
+                HttpContext.Current.Cache.Insert(cacheKey, list, CreateResourceCacheDependency(resDir));
             }
             return list;
+        }
+
+        private static CacheDependency CreateResourceCacheDependency(string resourceDirectory)
+        {
+            if (!Directory.Exists(resourceDirectory))
+                return null;
+
+            return new CacheDependency(resourceDirectory);
         }
 
         public static string GetGlobalLocalizedString(string fileName, string resourceKey)

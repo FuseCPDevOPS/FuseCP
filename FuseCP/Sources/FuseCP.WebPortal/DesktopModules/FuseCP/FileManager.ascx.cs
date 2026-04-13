@@ -205,16 +205,16 @@ function SetCreateZipFocus()
             if (file.IsDirectory)
                 return false;
 
-            // Get the Editable Extensions from the System Settings
-            // If it has not yet been set, we will use the original FuseCP allowed editable extensions
+            // Get editable extensions from settings without mutating the shared static default list.
             EnterpriseServer.SystemSettings settings = ES.Services.Files.GetFileManagerSettings();
+            string allowedEditExtensions = ALLOWED_EDIT_EXTENSIONS;
             if (!String.IsNullOrEmpty(settings["EditableExtensions"]))
             {
-                ALLOWED_EDIT_EXTENSIONS = settings["EditableExtensions"];
+                allowedEditExtensions = settings["EditableExtensions"];
             }
 
             string ext = Path.GetExtension(file.Name);
-            return ALLOWED_EDIT_EXTENSIONS.Split(',').ToArray().Contains(ext);
+            return allowedEditExtensions.Split(',').ToArray().Contains(ext);
         }
 
         #region Path methods

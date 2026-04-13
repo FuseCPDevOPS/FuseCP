@@ -173,28 +173,29 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
         protected override void ReadXmlSerializable(global::System.Xml.XmlReader reader) {
             if ((this.DetermineSchemaSerializationMode(reader) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 this.Reset();
-                global::System.Data.DataSet ds = new global::System.Data.DataSet();
-                ds.ReadXml(reader);
-                if ((ds.Tables["HostingSpace"] != null)) {
-                    base.Tables.Add(new HostingSpaceDataTable(ds.Tables["HostingSpace"]));
+                using (global::System.Data.DataSet ds = new global::System.Data.DataSet()) {
+                    ds.ReadXml(reader);
+                    if ((ds.Tables["HostingSpace"] != null)) {
+                        base.Tables.Add(new HostingSpaceDataTable(ds.Tables["HostingSpace"]));
+                    }
+                    if ((ds.Tables["BandwidthOverusage"] != null)) {
+                        base.Tables.Add(new BandwidthOverusageDataTable(ds.Tables["BandwidthOverusage"]));
+                    }
+                    if ((ds.Tables["DiskspaceOverusage"] != null)) {
+                        base.Tables.Add(new DiskspaceOverusageDataTable(ds.Tables["DiskspaceOverusage"]));
+                    }
+                    if ((ds.Tables["OverusageDetails"] != null)) {
+                        base.Tables.Add(new OverusageDetailsDataTable(ds.Tables["OverusageDetails"]));
+                    }
+                    this.DataSetName = ds.DataSetName;
+                    this.Prefix = ds.Prefix;
+                    this.Namespace = ds.Namespace;
+                    this.Locale = ds.Locale;
+                    this.CaseSensitive = ds.CaseSensitive;
+                    this.EnforceConstraints = ds.EnforceConstraints;
+                    this.Merge(ds, false, global::System.Data.MissingSchemaAction.Add);
+                    this.InitVars();
                 }
-                if ((ds.Tables["BandwidthOverusage"] != null)) {
-                    base.Tables.Add(new BandwidthOverusageDataTable(ds.Tables["BandwidthOverusage"]));
-                }
-                if ((ds.Tables["DiskspaceOverusage"] != null)) {
-                    base.Tables.Add(new DiskspaceOverusageDataTable(ds.Tables["DiskspaceOverusage"]));
-                }
-                if ((ds.Tables["OverusageDetails"] != null)) {
-                    base.Tables.Add(new OverusageDetailsDataTable(ds.Tables["OverusageDetails"]));
-                }
-                this.DataSetName = ds.DataSetName;
-                this.Prefix = ds.Prefix;
-                this.Namespace = ds.Namespace;
-                this.Locale = ds.Locale;
-                this.CaseSensitive = ds.CaseSensitive;
-                this.EnforceConstraints = ds.EnforceConstraints;
-                this.Merge(ds, false, global::System.Data.MissingSchemaAction.Add);
-                this.InitVars();
             }
             else {
                 this.ReadXml(reader);
@@ -205,10 +206,15 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         protected override global::System.Xml.Schema.XmlSchema GetSchemaSerializable() {
-            global::System.IO.MemoryStream stream = new global::System.IO.MemoryStream();
-            this.WriteXmlSchema(new global::System.Xml.XmlTextWriter(stream, null));
-            stream.Position = 0;
-            return global::System.Xml.Schema.XmlSchema.Read(new global::System.Xml.XmlTextReader(stream), null);
+            using (global::System.IO.MemoryStream stream = new global::System.IO.MemoryStream()) {
+                using (global::System.Xml.XmlTextWriter writer = new global::System.Xml.XmlTextWriter(stream, null)) {
+                    this.WriteXmlSchema(writer);
+                }
+                stream.Position = 0;
+                using (global::System.Xml.XmlTextReader reader = new global::System.Xml.XmlTextReader(stream)) {
+                    return global::System.Xml.Schema.XmlSchema.Read(reader, null);
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

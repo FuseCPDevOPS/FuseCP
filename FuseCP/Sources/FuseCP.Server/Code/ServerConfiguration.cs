@@ -53,6 +53,12 @@ namespace FuseCP.Server
             System.Configuration.ConfigurationManager.GetSection("FuseCP.server");
         }
 
+        private static void LoadSecuritySettings(XmlNode section)
+        {
+            security = new SecuritySettings();
+            security.ParseSection(section);
+        }
+
         public object Create(object parent, object configContext, System.Xml.XmlNode section)
         {
             // parse "security" section
@@ -60,8 +66,7 @@ namespace FuseCP.Server
             if (nodeSecurity == null)
                 throw new Exception("'FuseCP/security' section is missing");
 
-            security = new SecuritySettings();
-            security.ParseSection(nodeSecurity);
+            LoadSecuritySettings(nodeSecurity);
 
             return null;
         }

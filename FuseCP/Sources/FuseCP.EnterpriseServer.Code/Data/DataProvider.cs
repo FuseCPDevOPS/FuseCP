@@ -75,7 +75,18 @@ namespace FuseCP.EnterpriseServer
 		public bool? useEntityFramework = null;
 		/// <summary>Auto-generated member.</summary>
 		public static bool? alwaysUseEntityFramework = null;
-		int queryAlwaysUseEFStarted = 0;
+		private static int queryAlwaysUseEFStarted = 0;
+
+		private static bool TryStartAlwaysUseEntityFrameworkQuery()
+		{
+			return Interlocked.Exchange(ref queryAlwaysUseEFStarted, 1) == 0;
+		}
+
+		private static void SetAlwaysUseEntityFramework(bool? value)
+		{
+			alwaysUseEntityFramework = value;
+		}
+
 		public bool AlwaysUseEntityFramework
 		{
 			get
@@ -84,7 +95,7 @@ namespace FuseCP.EnterpriseServer
 				{
 					if (IsSqlServer)
 					{
-						if (Interlocked.Exchange(ref queryAlwaysUseEFStarted, 1) == 0)
+						if (TryStartAlwaysUseEntityFrameworkQuery())
 						{
 							Task.Run(async () =>
 							{
@@ -92,12 +103,12 @@ namespace FuseCP.EnterpriseServer
 								{
 									try
 									{
-										alwaysUseEntityFramework = (await context.SystemSettings
+										SetAlwaysUseEntityFramework((await context.SystemSettings
 											.Where(s => s.SettingsName == EnterpriseServer.SystemSettings.DEBUG_SETTINGS &&
 												s.PropertyName == EnterpriseServer.SystemSettings.ALWAYS_USE_ENTITYFRAMEWORK)
 											.Select(p => p.PropertyValue)
 											.FirstOrDefaultAsync()
-											.ConfigureAwait(false))?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false; 
+											.ConfigureAwait(false))?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false);
 									}
 									catch (DbException swallowedEx)
 									{
@@ -111,14 +122,14 @@ namespace FuseCP.EnterpriseServer
 							});
 						}
 					}
-					else alwaysUseEntityFramework = true;
+					else SetAlwaysUseEntityFramework(true);
 				}
 				/// <summary>TODO</summary>
 				return alwaysUseEntityFramework ?? false;
 			}
 			set
 			{
-				alwaysUseEntityFramework = value;
+				SetAlwaysUseEntityFramework(value);
 				useEntityFramework = null;
 			}
 		}

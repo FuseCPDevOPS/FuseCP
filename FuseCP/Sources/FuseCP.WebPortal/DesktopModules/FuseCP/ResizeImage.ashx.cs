@@ -92,6 +92,8 @@ namespace FuseCP.Portal
 					Trace.TraceError(ex.StackTrace);
 				}
 
+                try
+                {
                 int width = Utils.ParseInt(context.Request.QueryString[WIDTH], 20);
                 int height = Utils.ParseInt(context.Request.QueryString[HEIGHT], 20);
 
@@ -122,9 +124,6 @@ namespace FuseCP.Portal
                 // emit it to the response stream
                 bitmap.Save(context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                // clean-up
-                img?.Dispose();
-
 				// set cache info if image was loaded
                 if (img != null)
                 {
@@ -134,7 +133,13 @@ namespace FuseCP.Portal
                 }
 
                 // end response
-				context.Response.End();                                               
+				context.Response.End();
+                }
+                finally
+                {
+                    // clean-up
+                    img?.Dispose();
+                }
             }
         }
 
