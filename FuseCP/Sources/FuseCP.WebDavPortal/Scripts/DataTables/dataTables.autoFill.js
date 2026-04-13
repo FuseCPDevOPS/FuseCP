@@ -1,15 +1,60 @@
-/*! AutoFill 2.2.0
- * ©2008-2016 SpryMedia Ltd - datatables.net/license
+/*! AutoFill 2.7.1
+ * © SpryMedia Ltd - datatables.net/license
  */
+
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( ['jquery', 'datatables.net'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		var jq = require('jquery');
+		var cjsRequires = function (root, $) {
+			if ( ! $.fn.dataTable ) {
+				require('datatables.net')(root, $);
+			}
+		};
+
+		if (typeof window === 'undefined') {
+			module.exports = function (root, $) {
+				if ( ! root ) {
+					// CommonJS environments without a window global must pass a
+					// root. This will give an error otherwise
+					root = window;
+				}
+
+				if ( ! $ ) {
+					$ = jq( root );
+				}
+
+				cjsRequires( root, $ );
+				return factory( $, root, root.document );
+			};
+		}
+		else {
+			cjsRequires( window, jq );
+			module.exports = factory( jq, window, window.document );
+		}
+	}
+	else {
+		// Browser
+		factory( jQuery, window, document );
+	}
+}(function( $, window, document ) {
+'use strict';
+var DataTable = $.fn.dataTable;
+
+
 
 /**
  * @summary     AutoFill
  * @description Add Excel like click and drag auto-fill options to DataTables
- * @version     2.2.0
- * @file        dataTables.autoFill.js
+ * @version     2.7.1
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     www.sprymedia.co.uk/contact
- * @copyright   Copyright 2010-2016 SpryMedia Ltd.
+ * @copyright   SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -20,35 +65,6 @@
  *
  * For details please refer to: http://www.datatables.net
  */
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
-
 
 var _instance = 0;
 
@@ -62,8 +78,8 @@ var _instance = 0;
  */
 var AutoFill = function( dt, opts )
 {
-	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.8' ) ) {
-		throw( "Warning: AutoFill requires DataTables 1.10.8 or greater");
+	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.11' ) ) {
+		throw( "Warning: AutoFill requires DataTables 1.11 or greater");
 	}
 
 	// User and defaults configuration object
@@ -106,6 +122,8 @@ var AutoFill = function( dt, opts )
 	 * @namespace Common and useful DOM elements for the class instance
 	 */
 	this.dom = {
+		closeButton: $('<div class="dtaf-popover-close">&times;</div>'),
+
 		/** @type {jQuery} AutoFill handle */
 		handle: $('<div class="dt-autofill-handle"/>'),
 
@@ -125,7 +143,10 @@ var AutoFill = function( dt, opts )
 		background: $('<div class="dt-autofill-background"/>'),
 
 		/** @type {jQuery} Fill type chooser */
-		list: $('<div class="dt-autofill-list">'+this.s.dt.i18n('autoFill.info', '')+'<ul/></div>'),
+		list: $('<div class="dt-autofill-list">'+this.s.dt.i18n('autoFill.info', '')+'</div>')
+			.attr('aria-modal', true)
+			.attr('role', 'dialog')
+			.append('<div class="dt-autofill-list-items"></div>'),
 
 		/** @type {jQuery} DataTables scrolling container */
 		dtScroll: null,
@@ -163,10 +184,39 @@ $.extend( AutoFill.prototype, {
 
 		this._focusListener();
 
-		this.dom.handle.on( 'mousedown', function (e) {
+		this.dom.handle.on( 'mousedown touchstart', function (e) {
 			that._mousedown( e );
 			return false;
 		} );
+
+		$(window).on('resize', function() {
+			var handle = $('div.dt-autofill-handle');
+			if(handle.length > 0 && that.dom.attachedTo !== undefined) {
+				that._attach(that.dom.attachedTo)
+			}
+		})
+
+		let orientationReset = function() {
+			that.s.handle = {
+				height: false,
+				width: false
+			};
+			$(that.dom.handle).css({
+				'height': '',
+				'width': ''
+			})
+			if(that.dom.attachedTo !== undefined) {
+				that._attach(that.dom.attachedTo)
+			}
+		}
+
+		$(window)
+			.on('orientationchange', function() {
+				setTimeout(function() {
+					orientationReset();
+					setTimeout(orientationReset, 150);
+				}, 50);
+			});
 
 		return this;
 	},
@@ -194,7 +244,9 @@ $.extend( AutoFill.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
-		var dtScroll = $('div.dataTables_scrollBody', this.s.dt.table().container());
+
+		// Selectors for DataTables 1 and 2 - only one will be matched
+		var dtScroll = $('div.dataTables_scrollBody, div.dt-scroll-body', this.s.dt.table().container());
 
 		// Make the instance accessible to the API
 		dt.settings()[0].autoFill = this;
@@ -256,7 +308,7 @@ $.extend( AutoFill.prototype, {
 
 		// Might need to go through multiple offset parents
 		var offset = this._getPosition( node, this.dom.offsetParent );
-
+		
 		this.dom.attachedTo = node;
 		handle
 			.css( {
@@ -294,38 +346,46 @@ $.extend( AutoFill.prototype, {
 			var result = actions[ available[0] ].execute( dt, cells );
 			this._update( result, cells );
 		}
-		else {
+		else if ( available.length > 1 || this.c.alwaysAsk ) {
 			// Multiple actions available - ask the end user what they want to do
-			var list = this.dom.list.children('ul').empty();
+			var list = this.dom.list.children('div.dt-autofill-list-items').empty();
 
 			// Add a cancel option
 			available.push( 'cancel' );
 
 			$.each( available, function ( i, name ) {
-				list.append( $('<li/>')
-					.append(
-						'<div class="dt-autofill-question">'+
-							actions[ name ].option( dt, cells )+
-						'<div>'
-					)
-					.append( $('<div class="dt-autofill-button">' )
-						.append( $('<button class="'+AutoFill.classes.btn+'">'+dt.i18n('autoFill.button', '&gt;')+'</button>')
-							.on( 'click', function () {
-								var result = actions[ name ].execute(
-									dt, cells, $(this).closest('li')
-								);
-								that._update( result, cells );
+				list.append( $('<button/>')
+					.html(actions[ name ].option( dt, cells ))
+					.append( $('<span class="dt-autofill-button"/>').html(dt.i18n('autoFill.button', '&gt;')))
+					.on( 'click', function (e) {
+						if (e.target.nodeName.toLowerCase() !== 'button') {
+							return;
+						}
 
-								that.dom.background.remove();
-								that.dom.list.remove();
-							} )
-						)
-					)
+						var result = actions[ name ].execute(
+							dt, cells, $(this).closest('button')
+						);
+						that._update( result, cells );
+
+						that.dom.background.remove();
+						that.dom.list.remove();
+					} )
 				);
 			} );
 
 			this.dom.background.appendTo( 'body' );
+			this.dom.background.one('click', function() {
+				that.dom.background.remove();
+				that.dom.list.remove();
+			})
 			this.dom.list.appendTo( 'body' );
+
+			if (this.c.closeButton) {
+				this.dom.list.prepend(this.dom.closeButton).addClass(AutoFill.classes.closeable)
+				this.dom.closeButton.on('click', function() {
+					return that.dom.background.click()
+				});
+			}
 
 			this.dom.list.css( 'margin-top', this.dom.list.outerHeight()/2 * -1 );
 		}
@@ -358,12 +418,17 @@ $.extend( AutoFill.prototype, {
 		var dt = this.s.dt;
 		var start = this.s.start;
 		var startCell = $(this.dom.start);
-		var endCell = $(target);
 		var end = {
-			row: dt.rows( { page: 'current' } ).nodes().indexOf( endCell.parent()[0] ),
-			column: endCell.index()
+			row: this.c.vertical ?
+				dt.rows( { page: 'current' } ).nodes().indexOf( target.parentNode ) :
+				start.row,
+			column: this.c.horizontal ?
+				$(target).index() :
+				start.column
 		};
 		var colIndx = dt.column.index( 'toData', end.column );
+		var endRow =  dt.row( ':eq('+end.row+')', { page: 'current' } ); // Workaround for M581
+		var endCell = $( dt.cell( endRow.index(), colIndx ).node() );
 
 		// Be sure that is a DataTables controlled cell
 		if ( ! dt.cell( endCell ).any() ) {
@@ -371,7 +436,7 @@ $.extend( AutoFill.prototype, {
 		}
 
 		// if target is not in the columns available - do nothing
-		if ( dt.columns( this.c.columns ).indexes().indexOf( colIndx ) === -1 ) {
+		if ( dt.columns( this.c.columns ).indexes().indexOf( colIndx ) === -1 || end.row === -1) {
 			return;
 		}
 
@@ -384,10 +449,10 @@ $.extend( AutoFill.prototype, {
 		left   = start.column < end.column ? startCell : endCell;
 		right  = start.column < end.column ? endCell   : startCell;
 
-		top    = this._getPosition( top ).top;
-		left   = this._getPosition( left ).left;
-		height = this._getPosition( bottom ).top + bottom.outerHeight() - top;
-		width  = this._getPosition( right ).left + right.outerWidth() - left;
+		top    = this._getPosition( top.get(0) ).top;
+		left   = this._getPosition( left.get(0) ).left;
+		height = this._getPosition( bottom.get(0) ).top + bottom.outerHeight() - top;
+		width  = this._getPosition( right.get(0) ).left + right.outerWidth() - left;
 
 		var select = this.dom.select;
 		select.top.css( {
@@ -485,7 +550,11 @@ $.extend( AutoFill.prototype, {
 		editor
 			.bubble( nodes, false )
 			.multiSet( idValues )
-			.submit();
+			.submit(null, function () {
+				// If an error happens, Editor will show an alert, and then we need
+				// to finish the edit since we can't do anything else.
+				editor.close();
+			});
 	},
 
 
@@ -545,16 +614,18 @@ $.extend( AutoFill.prototype, {
 		}
 		else {
 			$(dt.table().body())
-				.on( 'mouseenter'+namespace, 'td, th', function (e) {
+				.on( 'mouseenter'+namespace+' touchstart'+namespace, 'td, th', function (e) {
 					that._attach( this );
 				} )
-				.on( 'mouseleave'+namespace, function (e) {
+				.on( 'mouseleave'+namespace+'touchend'+namespace, function (e) {
 					if ( $(e.relatedTarget).hasClass('dt-autofill-handle') ) {
 						return;
 					}
 
 					that._detach();
 				} );
+
+			
 		}
 	},
 
@@ -580,31 +651,35 @@ $.extend( AutoFill.prototype, {
 	_getPosition: function ( node, targetParent )
 	{
 		var
-			currNode = $(node),
+			currNode = node,
 			currOffsetParent,
-			position,
 			top = 0,
 			left = 0;
 
 		if ( ! targetParent ) {
-			targetParent = $( this.s.dt.table().node() ).offsetParent();
+			targetParent = $( $( this.s.dt.table().node() )[0].offsetParent );
 		}
 
 		do {
-			position = currNode.position();
-			currOffsetParent = currNode.offsetParent();
+			// Don't use jQuery().position() the behaviour changes between 1.x and 3.x for
+			// tables
+			var positionTop = currNode.offsetTop;
+			var positionLeft = currNode.offsetLeft;
 
-			top += position.top + currOffsetParent.scrollTop();
-			left += position.left + currOffsetParent.scrollLeft();
+			// jQuery doesn't give a `table` as the offset parent oddly, so use DOM directly
+			currOffsetParent = $( currNode.offsetParent );
+
+			top += positionTop + parseInt( currOffsetParent.css('border-top-width') || 0 ) * 1;
+			left += positionLeft + parseInt( currOffsetParent.css('border-left-width') || 0 ) * 1;
 
 			// Emergency fall back. Shouldn't happen, but just in case!
-			if ( currNode.get(0).nodeName.toLowerCase() === 'body' ) {
+			if ( currNode.nodeName.toLowerCase() === 'body' ) {
 				break;
 			}
 
-			currNode = currOffsetParent; // for next loop
+			currNode = currOffsetParent.get(0); // for next loop
 		}
-		while ( currOffsetParent.get(0) !== targetParent.get(0) );
+		while ( currOffsetParent.get(0) !== targetParent.get(0) )
 
 		return {
 			top: top,
@@ -631,10 +706,16 @@ $.extend( AutoFill.prototype, {
 		};
 
 		$(document.body)
-			.on( 'mousemove.autoFill', function (e) {
+			.on( 'mousemove.autoFill touchmove.autoFill', function (e) {
 				that._mousemove( e );
+				// If it is a touch event then when the touch ends we need to remove the handle
+				if(e.type === 'touchmove') {
+					$(document.body).one('touchend.autoFill', function() {
+						that._detach();
+					})
+				}
 			} )
-			.on( 'mouseup.autoFill', function (e) {
+			.on( 'mouseup.autoFill touchend.autoFill', function (e) {
 				that._mouseup( e );
 			} );
 
@@ -672,17 +753,17 @@ $.extend( AutoFill.prototype, {
 	 * @private
 	 */
 	_mousemove: function ( e )
-	{	
-		var that = this;
- // removed useless expression (CodeQL): that;
-		var dt = this.s.dt;
- // removed useless expression (CodeQL): dt;
-		var name = e.target.nodeName.toLowerCase();
+	{
+		var target = e.touches && e.touches.length
+			? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
+			: e.target;
+		var name = target.nodeName.toLowerCase();
+
 		if ( name !== 'td' && name !== 'th' ) {
 			return;
 		}
 
-		this._drawSelection( e.target, e );
+		this._drawSelection( target, e );
 		this._shiftScroll( e );
 	},
 
@@ -697,6 +778,7 @@ $.extend( AutoFill.prototype, {
 	{
 		$(document.body).off( '.autoFill' );
 
+		var that = this;
 		var dt = this.s.dt;
 		var select = this.dom.select;
 		select.top.remove();
@@ -715,12 +797,38 @@ $.extend( AutoFill.prototype, {
 			return;
 		}
 
+		var startDt = dt.cell( ':eq('+start.row+')', start.column+':visible', {page:'current'} );
+
+		// If Editor is active inside this cell (inline editing) we need to wait for Editor to
+		// submit and then we can loop back and trigger the fill.
+		if ( $('div.DTE', startDt.node()).length ) {
+			var editor = dt.editor();
+
+			editor
+				.on( 'submitSuccess.dtaf close.dtaf', function () {
+					editor.off( '.dtaf');
+
+					setTimeout( function () {
+						that._mouseup( e );
+					}, 100 );
+				} )
+				.on( 'submitComplete.dtaf preSubmitCancelled.dtaf close.dtaf', function () {
+					editor.off( '.dtaf');
+				} );
+
+			// Make the current input submit
+			editor.submit();
+
+			return;
+		}
+
 		// Build a matrix representation of the selected rows
 		var rows       = this._range( start.row, end.row );
 		var columns    = this._range( start.column, end.column );
 		var selected   = [];
 		var dtSettings = dt.settings()[0];
 		var dtColumns  = dtSettings.aoColumns;
+		var enabledColumns = dt.columns( this.c.columns ).indexes();
 
 		// Can't use Array.prototype.map as IE8 doesn't support it
 		// Can't use $.map as jQuery flattens 2D arrays
@@ -728,13 +836,18 @@ $.extend( AutoFill.prototype, {
 		for ( var rowIdx=0 ; rowIdx<rows.length ; rowIdx++ ) {
 			selected.push(
 				$.map( columns, function (column) {
-					var cell = dt.cell( ':eq('+rows[rowIdx]+')', column+':visible', {page:'current'} );
+					var row = dt.row( ':eq('+rows[rowIdx]+')', {page:'current'} ); // Workaround for M581
+					var cell = dt.cell( row.index(), column+':visible' );
 					var data = cell.data();
 					var cellIndex = cell.index();
 					var editField = dtColumns[ cellIndex.column ].editField;
 
 					if ( editField !== undefined ) {
-						data = dtSettings.oApi._fnGetObjectDataFn( editField )( dt.row( cellIndex.row ).data() );
+						data = DataTable.util.get( editField )( dt.row( cellIndex.row ).data() );
+					}
+
+					if ( enabledColumns.indexOf(cellIndex.column) === -1 ) {
+						return;
 					}
 
 					return {
@@ -797,15 +910,17 @@ $.extend( AutoFill.prototype, {
 	_shiftScroll: function ( e )
 	{
 		var that = this;
-		var dt = this.s.dt;
- // removed useless expression (CodeQL): dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;
 		var scrollSpeed = 5;
 		var buffer = 65;
+
+		// Different values if using a touchscreen
+		var pageX = !e.type.includes('touch') ? e.pageX - window.scrollX :e.touches[0].clientX;
+		var pageY = !e.type.includes('touch') ? e.pageY - window.scrollY :e.touches[0].clientY;
 		var
-			windowY = e.pageY - document.body.scrollTop,
-			windowX = e.pageX - document.body.scrollLeft,
+			windowY = pageY,
+			windowX = pageX,
 			windowVert, windowHoriz,
 			dtVert, dtHoriz;
 
@@ -827,17 +942,17 @@ $.extend( AutoFill.prototype, {
 
 		// DataTables scrolling calculations - based on the table's position in
 		// the document and the mouse position on the page
-		if ( scroll.dtTop !== null && e.pageY < scroll.dtTop + buffer ) {
+		if ( scroll.dtTop !== null && pageY < scroll.dtTop + buffer ) {
 			dtVert = scrollSpeed * -1;
 		}
-		else if ( scroll.dtTop !== null && e.pageY > scroll.dtTop + scroll.dtHeight - buffer ) {
+		else if ( scroll.dtTop !== null && pageY > scroll.dtTop + scroll.dtHeight - buffer ) {
 			dtVert = scrollSpeed;
 		}
 
-		if ( scroll.dtLeft !== null && e.pageX < scroll.dtLeft + buffer ) {
+		if ( scroll.dtLeft !== null && pageX < scroll.dtLeft + buffer ) {
 			dtHoriz = scrollSpeed * -1;
 		}
-		else if ( scroll.dtLeft !== null && e.pageX > scroll.dtLeft + scroll.dtWidth - buffer ) {
+		else if ( scroll.dtLeft !== null && pageX > scroll.dtLeft + scroll.dtWidth - buffer ) {
 			dtHoriz = scrollSpeed;
 		}
 
@@ -868,12 +983,7 @@ $.extend( AutoFill.prototype, {
 			this.s.scrollInterval = setInterval( function () {
 				// Don't need to worry about setting scroll <0 or beyond the
 				// scroll bound as the browser will just reject that.
-				if ( scroll.windowVert ) {
-					document.body.scrollTop += scroll.windowVert;
-				}
-				if ( scroll.windowHoriz ) {
-					document.body.scrollLeft += scroll.windowHoriz;
-				}
+				window.scrollTo(window.scrollX + (scroll.windowHoriz ? scroll.windowHoriz : 0), window.scrollY + (scroll.windowVert ? scroll.windowVert : 0))
 
 				// DataTables scrolling
 				if ( scroll.dtVert || scroll.dtHoriz ) {
@@ -910,6 +1020,7 @@ $.extend( AutoFill.prototype, {
 
 		var dt = this.s.dt;
 		var cell;
+		var columns = dt.columns( this.c.columns ).indexes();
 
 		// Potentially allow modifications to the cells matrix
 		this._emitEvent( 'preAutoFill', [ dt, cells ] );
@@ -930,7 +1041,9 @@ $.extend( AutoFill.prototype, {
 				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cell = cells[i][j];
 
-					cell.cell.data( cell.set );
+					if ( columns.indexOf(cell.index.column) !== -1 ) {
+						cell.cell.data( cell.set );
+					}
 				}
 			}
 
@@ -953,7 +1066,10 @@ $.extend( AutoFill.prototype, {
 AutoFill.actions = {
 	increment: {
 		available: function ( dt, cells ) {
-			return $.isNumeric( cells[0][0].label );
+			var d = cells[0][0].label;
+
+			// is numeric test based on jQuery's old `isNumeric` function
+			return !isNaN( d - parseFloat( d ) );
 		},
 
 		option: function ( dt, cells ) {
@@ -983,7 +1099,7 @@ AutoFill.actions = {
 		},
 
 		option: function ( dt, cells ) {
-			return dt.i18n('autoFill.fill', 'Fill all cells with <i>'+cells[0][0].label+'</i>' );
+			return dt.i18n('autoFill.fill', 'Fill all cells with <i>%d</i>', cells[0][0].label );
 		},
 
 		execute: function ( dt, cells, node ) {
@@ -1058,7 +1174,7 @@ AutoFill.actions = {
  * @static
  * @type      String
  */
-AutoFill.version = '2.2.0';
+AutoFill.version = '2.7.1';
 
 
 /**
@@ -1069,6 +1185,8 @@ AutoFill.version = '2.2.0';
 AutoFill.defaults = {
 	/** @type {Boolean} Ask user what they want to do, even for a single option */
 	alwaysAsk: false,
+
+	closeButton: true,
 
 	/** @type {string|null} What will trigger a focus */
 	focus: null, // focus, click, hover
@@ -1083,7 +1201,13 @@ AutoFill.defaults = {
 	update: null, // false is editor given, true otherwise
 
 	/** @type {DataTable.Editor} Editor instance for automatic submission */
-	editor: null
+	editor: null,
+
+	/** @type {boolean} Enable vertical fill */
+	vertical: true,
+
+	/** @type {boolean} Enable horizontal fill */
+	horizontal: true
 };
 
 
@@ -1094,7 +1218,9 @@ AutoFill.defaults = {
  */
 AutoFill.classes = {
 	/** @type {String} Class used by the selection button */
-	btn: 'btn'
+	btn: 'btn',
+
+	closeable: 'dtaf-popover-closeable'
 };
 
 
@@ -1155,9 +1281,9 @@ $(document).on( 'preInit.dt.autofill', function (e, settings, json) {
 
 // Alias for access
 DataTable.AutoFill = AutoFill;
-DataTable.AutoFill = AutoFill;
+$.fn.DataTable.AutoFill = AutoFill;
 
 
-return AutoFill;
+return DataTable;
 }));
 
