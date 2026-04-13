@@ -12907,16 +12907,20 @@ namespace FuseCP.EnterpriseServer
 					});
 
 				var count = packages.Count();
+				var packagesPage = packages.ToList();
 
 				if (!string.IsNullOrEmpty(sortColumn) && !sortColumn.StartsWith("PackagesNumber") &&
 					!sortColumn.StartsWith("QuotaValue"))
 				{
-					packages = packages.OrderBy(ColumnName(sortColumn));
-					packages = packages.Skip(startRow).Take(maximumRows);
+					packagesPage = packagesPage
+						.AsQueryable()
+						.OrderBy(ColumnName(sortColumn))
+						.Skip(startRow)
+						.Take(maximumRows)
+						.ToList();
 				}
 
-				var packagesSelected = packages
-					.AsEnumerable()
+				var packagesSelected = packagesPage
 					.Select(p => new
 					{
 						Package = p,
@@ -13066,16 +13070,20 @@ namespace FuseCP.EnterpriseServer
 					});
 
 				var count = packages.Count();
+				var packagesPage = packages.ToList();
 
 				if (!string.IsNullOrEmpty(sortColumn) && !sortColumn.StartsWith("PackagesNumber") &&
 					!sortColumn.StartsWith("QuotaValue"))
 				{
-					packages = packages.OrderBy(ColumnName(sortColumn));
-					packages = packages.Skip(startRow).Take(maximumRows);
+					packagesPage = packagesPage
+						.AsQueryable()
+						.OrderBy(ColumnName(sortColumn))
+						.Skip(startRow)
+						.Take(maximumRows)
+						.ToList();
 				}
 
-				var packagesSelected = packages
-					.AsEnumerable()
+				var packagesSelected = packagesPage
 					.Select(p => new
 					{
 						Package = p,
@@ -14227,8 +14235,9 @@ namespace FuseCP.EnterpriseServer
 						s.PriorityId,
 						s.MaxExecutionTime,
 						s.WeekMonthDay,
-                        StatusId = ScheduleStatus.Idle
-                    });
+						StatusId = ScheduleStatus.Idle
+					})
+					.ToList();
 
 				var task = schedule
 					.Join(ScheduleTasks, s => s.TaskId, st => st.TaskId, (s, st) => new

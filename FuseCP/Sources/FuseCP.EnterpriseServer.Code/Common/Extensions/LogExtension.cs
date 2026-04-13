@@ -304,7 +304,7 @@ namespace FuseCP.EnterpriseServer.Extensions
 
             if (oldValue == null || newValue == null)
             {
-                if (oldValue != newValue)
+                if (!object.Equals(oldValue, newValue))
                 {
                     WriteChangedProperty(obj, property, oldValueStr, newValueStr, withOld);
                 }

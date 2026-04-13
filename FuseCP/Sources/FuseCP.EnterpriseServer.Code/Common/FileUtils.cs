@@ -70,6 +70,10 @@ namespace FuseCP.EnterpriseServer;
 		{
 			foreach (ZipArchiveEntry entry in archive.Entries)
 			{
+				string entryName = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
+				if (Path.IsPathRooted(entryName) || entryName.Contains(".." + Path.DirectorySeparatorChar) || entryName.StartsWith(".."))
+					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
+
 				string destinationPath = EnsurePathUnderRoot(normalizedDestination, entry.FullName.Replace('/', Path.DirectorySeparatorChar));
 				if (String.IsNullOrEmpty(entry.Name))
 				{

@@ -1908,6 +1908,14 @@ namespace FuseCP.EnterpriseServer
 
                 // change administrator password
                 JobResult result = SendAdministratorPasswordKVP(itemId, password);
+                if (result == null || result.Job == null)
+                {
+                    res.IsSuccess = false;
+                    res.ErrorCodes.Add(VirtualizationErrorCodes.CHANGE_ADMIN_PASSWORD_ERROR);
+                    TaskManager.CompleteResultTask(res);
+                    return res;
+                }
+
                 if (result.ReturnValue != ReturnCode.JobStarted
                     && result.Job.JobState == ConcreteJobState.Completed)
                 {

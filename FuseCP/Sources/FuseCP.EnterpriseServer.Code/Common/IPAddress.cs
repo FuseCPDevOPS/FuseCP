@@ -146,7 +146,7 @@ namespace FuseCP.EnterpriseServer {
 		{
 			bool addressesMatch = a.Address == b.Address;
 			bool nullsMatch = a.Null == b.Null;
-			bool cidrMatch = a.Null || !(a.IsSubnet && b.IsSubnet || a.IsMask && b.IsMask) || a.Cidr == b.Cidr;
+			bool cidrMatch = CidrMatches(a, b);
 			return addressesMatch && nullsMatch && cidrMatch;
 		}
 		public static bool operator ==(IPAddress a, long b) { return a.Address == b; }
@@ -164,7 +164,7 @@ namespace FuseCP.EnterpriseServer {
                 var b = (IPAddress)obj;
                 bool addressesMatch = this.Address == b.Address;
                 bool nullsMatch = this.Null == b.Null;
-                bool cidrMatch = this.Null || !(this.IsSubnet && b.IsSubnet || this.IsMask && b.IsMask) || this.Cidr == b.Cidr;
+				bool cidrMatch = CidrMatches(this, b);
                 return addressesMatch && nullsMatch && cidrMatch;
             }
             else if (obj is long)
@@ -177,6 +177,18 @@ namespace FuseCP.EnterpriseServer {
                 return false;
             }
         }
+
+		private static bool CidrMatches(IPAddress a, IPAddress b)
+		{
+			if (a.Null)
+			{
+				return true;
+			}
+
+			bool bothSubnets = a.IsSubnet && b.IsSubnet;
+			bool bothMasks = a.IsMask && b.IsMask;
+			return !(bothSubnets || bothMasks) || a.Cidr == b.Cidr;
+		}
 
         public override int GetHashCode()
         {
