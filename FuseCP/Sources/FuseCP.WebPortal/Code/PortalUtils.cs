@@ -27,6 +27,7 @@ using System.Web.Compilation;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.Security;
+using System.Web.SessionState;
 using System.Web.UI.WebControls;
 using System.Web.Hosting;
 using System.Net;
@@ -263,11 +264,7 @@ public class PortalUtils
 	{
 		FormsAuthentication.SignOut();
 
-		if (HttpContext.Current.Session != null)
-		{
-			HttpContext.Current.Session.Clear();
-			HttpContext.Current.Session.Abandon();
-		}
+		InvalidateSessionSafe();
 
 		// Clear authentication cookie 
 		HttpCookie rFormsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
@@ -288,11 +285,7 @@ public class PortalUtils
 	{
 		FormsAuthentication.SignOut();
 
-		if (HttpContext.Current.Session != null)
-		{
-			HttpContext.Current.Session.Clear();
-			HttpContext.Current.Session.Abandon();
-		}
+		InvalidateSessionSafe();
 
 		// Clear authentication cookie 
 		HttpCookie rFormsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
@@ -323,6 +316,23 @@ public class PortalUtils
 		{
 			// Never let auth-cookie cleanup fail the request.
 		}
+	}
+
+	private static void InvalidateSessionSafe()
+	{
+		var context = HttpContext.Current;
+		if (context == null)
+			return;
+
+		if (context.Session != null)
+		{
+			context.Session.Clear();
+			context.Session.Abandon();
+		}
+
+		// Remove session id from current response to prevent session fixation/reuse.
+		var sessionManager = new SessionIDManager();
+		sessionManager.RemoveSessionID(context);
 	}
 
 	public static MenuItem GetSpaceMenuItem(string menuItemKey)

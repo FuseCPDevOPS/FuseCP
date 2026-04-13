@@ -16,6 +16,7 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Text;
 
@@ -32,6 +33,12 @@ namespace FuseCP.Server.Utils
             RegexOptions.Compiled);
         private static readonly Regex EmailRegex = new Regex(
             @"\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b",
+            RegexOptions.Compiled);
+        private static readonly Regex SensitiveMessageHintRegex = new Regex(
+            @"(?i)(password|pwd|token|apikey|secret|connectionstring)",
+            RegexOptions.Compiled);
+        private static readonly Regex SensitiveValueRegex = new Regex(
+            @"^(?:[A-Fa-f0-9]{32,}|[A-Za-z0-9_\-\.=+/]{24,})$",
             RegexOptions.Compiled);
 
         private static void TraceSwallowedException(Exception ex)
@@ -174,13 +181,14 @@ namespace FuseCP.Server.Utils
 
             if (args != null && args.Length > 0)
             {
+                object[] safeArgs = SanitizeLogArguments(message, args);
                 try
                 {
-                    message = String.Format(message, args);
+                    message = String.Format(message, safeArgs);
                 }
                 catch (FormatException)
                 {
-                    message = message + " | args=" + String.Join(", ", args);
+                    message = message + " | args=" + String.Join(", ", safeArgs);
                 }
             }
 
@@ -198,6 +206,41 @@ namespace FuseCP.Server.Utils
             sanitized = SensitivePairRegex.Replace(sanitized, "$1=[REDACTED]");
             sanitized = EmailRegex.Replace(sanitized, "[email]");
             return sanitized;
+        }
+
+        private static object[] SanitizeLogArguments(string messageTemplate, object[] args)
+        {
+            bool redactAllArgs = !String.IsNullOrEmpty(messageTemplate)
+                && SensitiveMessageHintRegex.IsMatch(messageTemplate);
+
+            var sanitized = new object[args.Length];
+            for (int i = 0; i < args.Length; i++)
+            {
+                sanitized[i] = SanitizeLogArgument(args[i], redactAllArgs);
+            }
+
+            return sanitized;
+        }
+
+        private static object SanitizeLogArgument(object value, bool redact)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (redact)
+            {
+                return "[REDACTED]";
+            }
+
+            string text = Convert.ToString(value, CultureInfo.InvariantCulture) ?? String.Empty;
+            if (SensitiveValueRegex.IsMatch(text))
+            {
+                return "[REDACTED]";
+            }
+
+            return SanitizeLogText(text);
         }
 
 
