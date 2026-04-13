@@ -119,7 +119,7 @@ namespace FuseCP.Providers.Utils
                 if (cacheTable)
                     cachedCRC32Tables.Add(aPolynomial, crc32Table);
             }
-            Initialize();
+            m_crc = AllOnes;
         }
 
         /// <summary>

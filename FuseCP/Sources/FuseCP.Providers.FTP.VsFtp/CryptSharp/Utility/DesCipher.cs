@@ -150,7 +150,7 @@ namespace CryptSharp.Utility
         void DesBegin(byte[] inputBuffer, int inputOffset, out uint L, out uint R)
         {
             ulong p = BitPacking.UInt64FromBEBytes(inputBuffer, inputOffset);
-            ulong pp = Permute(IP, p, 64); p = 0;
+            ulong pp = Permute(IP, p, 64);
 
             L = (uint)(pp >> 32);  R = (uint)pp;
         }
@@ -161,7 +161,7 @@ namespace CryptSharp.Utility
 
             uint temp = R;
             R = L ^ f;
-            L = temp; temp = 0;
+            L = temp;
         }
 
         static uint F(uint R, ulong K, int reversedSalt)
@@ -184,7 +184,7 @@ namespace CryptSharp.Utility
         void DesEnd(byte[] outputBuffer, int outputOffset, ref uint L, ref uint R)
         {
             ulong rl = (ulong)R << 32 | L; L = 0; R = 0;
-            ulong rlp = Permute(FP, rl, 64); rl = 0;
+            ulong rlp = Permute(FP, rl, 64);
 
             BitPacking.BEBytesFromUInt64(rlp, outputBuffer, outputOffset);
         }

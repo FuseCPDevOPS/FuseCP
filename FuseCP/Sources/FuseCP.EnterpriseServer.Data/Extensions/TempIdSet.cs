@@ -62,7 +62,7 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public TempIdSet(DbContext context, IEnumerable<int> ids, Guid scope = default, int level = 0):
-			this(context, scope, level) => AddRange(ids, level);
+			this(context, scope, level) => AddRangeCore(ids, level);
 
 		public IQueryable<int> OfLevel(int level)
 		{
@@ -97,6 +97,11 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public virtual int AddRange(IEnumerable<int> ids, int level = 0)
+		{
+			return AddRangeCore(ids, level);
+		}
+
+		private int AddRangeCore(IEnumerable<int> ids, int level = 0)
 		{
 			int n = 0;
 			var queryable = ids is IQueryable<int>;
@@ -221,7 +226,7 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public TempDatedIdSet(DbContext context, IEnumerable<DatedId> ids, Guid scope = default(Guid), int level = 0) :
-			this(context, scope, level) => AddRange(ids, level);
+			this(context, scope, level) => AddRangeCore(ids, level);
 
 		public IQueryable<DatedId> OfLevel(int level)
 		{
@@ -256,6 +261,11 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public virtual int AddRange(IEnumerable<DatedId> ids, int level = 0)
+		{
+			return AddRangeCore(ids, level);
+		}
+
+		private int AddRangeCore(IEnumerable<DatedId> ids, int level = 0)
 		{
 			int n = 0;
 			var queryable = ids is IQueryable<int>;

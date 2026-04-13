@@ -103,22 +103,22 @@ namespace CryptSharp.Utility
                     x14 ^= R(x13 + x12, 13); x15 ^= R(x14 + x13, 18);
                 }
 
-                output[outputOffset + 0] = input[inputOffset + 0] + x0; x0 = 0;
-                output[outputOffset + 1] = input[inputOffset + 1] + x1; x1 = 0;
-                output[outputOffset + 2] = input[inputOffset + 2] + x2; x2 = 0;
-                output[outputOffset + 3] = input[inputOffset + 3] + x3; x3 = 0;
-                output[outputOffset + 4] = input[inputOffset + 4] + x4; x4 = 0;
-                output[outputOffset + 5] = input[inputOffset + 5] + x5; x5 = 0;
-                output[outputOffset + 6] = input[inputOffset + 6] + x6; x6 = 0;
-                output[outputOffset + 7] = input[inputOffset + 7] + x7; x7 = 0;
-                output[outputOffset + 8] = input[inputOffset + 8] + x8; x8 = 0;
-                output[outputOffset + 9] = input[inputOffset + 9] + x9; x9 = 0;
-                output[outputOffset + 10] = input[inputOffset + 10] + x10; x10 = 0;
-                output[outputOffset + 11] = input[inputOffset + 11] + x11; x11 = 0;
-                output[outputOffset + 12] = input[inputOffset + 12] + x12; x12 = 0;
-                output[outputOffset + 13] = input[inputOffset + 13] + x13; x13 = 0;
-                output[outputOffset + 14] = input[inputOffset + 14] + x14; x14 = 0;
-                output[outputOffset + 15] = input[inputOffset + 15] + x15; x15 = 0;
+                output[outputOffset + 0] = input[inputOffset + 0] + x0;
+                output[outputOffset + 1] = input[inputOffset + 1] + x1;
+                output[outputOffset + 2] = input[inputOffset + 2] + x2;
+                output[outputOffset + 3] = input[inputOffset + 3] + x3;
+                output[outputOffset + 4] = input[inputOffset + 4] + x4;
+                output[outputOffset + 5] = input[inputOffset + 5] + x5;
+                output[outputOffset + 6] = input[inputOffset + 6] + x6;
+                output[outputOffset + 7] = input[inputOffset + 7] + x7;
+                output[outputOffset + 8] = input[inputOffset + 8] + x8;
+                output[outputOffset + 9] = input[inputOffset + 9] + x9;
+                output[outputOffset + 10] = input[inputOffset + 10] + x10;
+                output[outputOffset + 11] = input[inputOffset + 11] + x11;
+                output[outputOffset + 12] = input[inputOffset + 12] + x12;
+                output[outputOffset + 13] = input[inputOffset + 13] + x13;
+                output[outputOffset + 14] = input[inputOffset + 14] + x14;
+                output[outputOffset + 15] = input[inputOffset + 15] + x15;
             }
             catch (IndexOutOfRangeException)
             {

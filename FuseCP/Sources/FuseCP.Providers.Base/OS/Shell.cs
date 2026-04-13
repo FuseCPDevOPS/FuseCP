@@ -45,11 +45,13 @@ namespace FuseCP.Providers.OS
 			error = new StringBuilder();
 			outputAndError = new StringBuilder();
 			Log += OnLog;
-			LogCommand += OnLogCommand;
+			LogCommand += OnLogCommandHandler;
 			LogCommandEnd += OnLogCommandEnd;
 			LogError += OnLogError;
 			LogOutput += OnLogOutput;
 		}
+
+		void OnLogCommandHandler(string text) => OnLogCommand(text);
 
 		protected SemaphoreSlim Lock = new SemaphoreSlim(1, 1);
 		protected SemaphoreSlim OutputLock = new SemaphoreSlim(1, 1);
