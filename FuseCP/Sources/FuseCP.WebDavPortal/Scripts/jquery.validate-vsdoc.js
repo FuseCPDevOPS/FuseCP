@@ -489,7 +489,6 @@ $.extend($.validator, {
 		objectLength: function( obj ) {
 			var count = 0;
 			for ( var i in obj )
-			void i;
 				count++;
 			return count;
 		},

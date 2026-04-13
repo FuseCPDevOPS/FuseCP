@@ -21,7 +21,6 @@
 $.ui = $.ui || {};
 
 var version = $.ui.version = "1.13.3";
-void version;
 
 
 /*!
@@ -764,7 +763,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 } );
 
 var widget = $.widget;
-void widget;
 
 
 /*!
@@ -1262,7 +1260,6 @@ $.ui.position = {
 } )();
 
 var position = $.ui.position;
-void position;
 
 
 /*!
@@ -1281,7 +1278,6 @@ void position;
 
 
 var data = $.extend( $.expr.pseudos, {
-void data;
 	data: $.expr.createPseudo ?
 		$.expr.createPseudo( function( dataName ) {
 			return function( elem ) {
@@ -1308,12 +1304,10 @@ void data;
 //>>group: Core
 //>>description: Disable selection of text content within the set of matched elements.
 //>>docs: https://api.jqueryui.com/disableSelection/
-void disableSelection;
 
 // This file is deprecated
 
 var disableSelection = $.fn.extend( {
-void disableSelection;
 	disableSelection: ( function() {
 		var eventType = "onselectstart" in document.createElement( "div" ) ?
 			"selectstart" :
@@ -3016,13 +3010,11 @@ var effect = $.effects;
 //>>label: Blind Effect
 //>>group: Effects
 //>>description: Blinds the element.
-void effectsEffectBlind;
 //>>docs: https://api.jqueryui.com/blind-effect/
 //>>demos: https://jqueryui.com/effect/
 
 
 var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, done ) {
-void effectsEffectBlind;
 	var map = {
 			up: [ "bottom", "top" ],
 			vertical: [ "bottom", "top" ],
@@ -3072,14 +3064,12 @@ void effectsEffectBlind;
 
 //>>label: Bounce Effect
 //>>group: Effects
-void effectsEffectBounce;
 //>>description: Bounces an element horizontally or vertically n times.
 //>>docs: https://api.jqueryui.com/bounce-effect/
 //>>demos: https://jqueryui.com/effect/
 
 
 var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) {
-void effectsEffectBounce;
 	var upAnim, downAnim, refValue,
 		element = $( this ),
 
@@ -3168,7 +3158,6 @@ void effectsEffectBounce;
  */
 
 //>>label: Clip Effect
-void effectsEffectClip;
 //>>group: Effects
 //>>description: Clips the element on and off like an old TV.
 //>>docs: https://api.jqueryui.com/clip-effect/
@@ -3176,7 +3165,6 @@ void effectsEffectClip;
 
 
 var effectsEffectClip = $.effects.define( "clip", "hide", function( options, done ) {
-void effectsEffectClip;
 	var start,
 		animate = {},
 		element = $( this ),
@@ -3219,7 +3207,6 @@ void effectsEffectClip;
  * https://jquery.org/license
  */
 
-void effectsEffectDrop;
 //>>label: Drop Effect
 //>>group: Effects
 //>>description: Moves an element in one direction and hides it at the same time.
@@ -3228,7 +3215,6 @@ void effectsEffectDrop;
 
 
 var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, done ) {
-void effectsEffectDrop;
 
 	var distance,
 		element = $( this ),
@@ -3276,7 +3262,6 @@ void effectsEffectDrop;
  */
 
 //>>label: Explode Effect
-void effectsEffectExplode;
 //>>group: Effects
 /* eslint-disable max-len */
 //>>description: Explodes an element in all directions into n pieces. Implodes an element to its original wholeness.
@@ -3286,7 +3271,6 @@ void effectsEffectExplode;
 
 
 var effectsEffectExplode = $.effects.define( "explode", "hide", function( options, done ) {
-void effectsEffectExplode;
 
 	var i, j, left, top, mx, my,
 		rows = options.pieces ? Math.round( Math.sqrt( options.pieces ) ) : 3,
@@ -3371,7 +3355,6 @@ void effectsEffectExplode;
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license.
  * https://jquery.org/license
- void effectsEffectFade;
  */
 
 //>>label: Fade Effect
@@ -3382,7 +3365,6 @@ void effectsEffectExplode;
 
 
 var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, done ) {
-void effectsEffectFade;
 	var show = options.mode === "show";
 
 	$( this )
@@ -3404,7 +3386,6 @@ void effectsEffectFade;
  *
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license.
- void effectsEffectFold;
  * https://jquery.org/license
  */
 
@@ -3416,7 +3397,6 @@ void effectsEffectFade;
 
 
 var effectsEffectFold = $.effects.define( "fold", "hide", function( options, done ) {
-void effectsEffectFold;
 
 	// Create element
 	var element = $( this ),
@@ -3479,7 +3459,6 @@ void effectsEffectFold;
  * https://jqueryui.com
  *
  * Copyright OpenJS Foundation and other contributors
- void effectsEffectHighlight;
  * Released under the MIT license.
  * https://jquery.org/license
  */
@@ -3492,7 +3471,6 @@ void effectsEffectFold;
 
 
 var effectsEffectHighlight = $.effects.define( "highlight", "show", function( options, done ) {
-void effectsEffectHighlight;
 	var element = $( this ),
 		animation = {
 			backgroundColor: element.css( "backgroundColor" )
@@ -3522,7 +3500,6 @@ void effectsEffectHighlight;
  * jQuery UI Effects Size 1.13.3
  * https://jqueryui.com
  *
- void effectsEffectSize;
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license.
  * https://jquery.org/license
@@ -3536,7 +3513,6 @@ void effectsEffectHighlight;
 
 
 var effectsEffectSize = $.effects.define( "size", function( options, done ) {
-void effectsEffectSize;
 
 	// Create element
 	var baseline, factor, temp,
@@ -3701,7 +3677,6 @@ void effectsEffectSize;
 /*!
  * jQuery UI Effects Scale 1.13.3
  * https://jqueryui.com
- void effectsEffectScale;
  *
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license.
@@ -3716,7 +3691,6 @@ void effectsEffectSize;
 
 
 var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
-void effectsEffectScale;
 
 	// Create element
 	var el = $( this ),
@@ -3742,7 +3716,6 @@ void effectsEffectScale;
 
 /*!
  * jQuery UI Effects Puff 1.13.3
- void effectsEffectPuff;
  * https://jqueryui.com
  *
  * Copyright OpenJS Foundation and other contributors
@@ -3758,7 +3731,6 @@ void effectsEffectScale;
 
 
 var effectsEffectPuff = $.effects.define( "puff", "hide", function( options, done ) {
-void effectsEffectPuff;
 	var newOptions = $.extend( true, {}, options, {
 		fade: true,
 		percent: parseInt( options.percent, 10 ) || 150
@@ -3769,7 +3741,6 @@ void effectsEffectPuff;
 
 
 /*!
-void effectsEffectPulsate;
  * jQuery UI Effects Pulsate 1.13.3
  * https://jqueryui.com
  *
@@ -3786,7 +3757,6 @@ void effectsEffectPulsate;
 
 
 var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( options, done ) {
-void effectsEffectPulsate;
 	var element = $( this ),
 		mode = options.mode,
 		show = mode === "show",
@@ -3819,7 +3789,6 @@ void effectsEffectPulsate;
 } );
 
 
-void effectsEffectShake;
 /*!
  * jQuery UI Effects Shake 1.13.3
  * https://jqueryui.com
@@ -3837,7 +3806,6 @@ void effectsEffectShake;
 
 
 var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
-void effectsEffectShake;
 
 	var i = 1,
 		element = $( this ),
@@ -3879,7 +3847,6 @@ void effectsEffectShake;
 	$.effects.unshift( element, queuelen, anims + 1 );
 } );
 
-void effectsEffectSlide;
 
 /*!
  * jQuery UI Effects Slide 1.13.3
@@ -3898,7 +3865,6 @@ void effectsEffectSlide;
 
 
 var effectsEffectSlide = $.effects.define( "slide", "show", function( options, done ) {
-void effectsEffectSlide;
 	var startClip, startRef,
 		element = $( this ),
 		map = {
@@ -3947,7 +3913,6 @@ void effectsEffectSlide;
  * jQuery UI Effects Transfer 1.13.3
  * https://jqueryui.com
  *
- void effectsEffectTransfer;
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license.
  * https://jquery.org/license
@@ -3967,7 +3932,6 @@ if ( $.uiBackCompat !== false ) {
 	} );
 }
 var effectsEffectTransfer = effect;
-void effectsEffectTransfer;
 
 
 /*!
@@ -4021,7 +3985,6 @@ $.ui.focusable = function( element, hasTabindex ) {
 	}
 
 	return focusableIfVisible && $( element ).is( ":visible" ) && visible( $( element ) );
-	void focusable;
 };
 
 // Support: IE 8 only
@@ -4029,7 +3992,6 @@ $.ui.focusable = function( element, hasTabindex ) {
 function visible( element ) {
 	var visibility = element.css( "visibility" );
 	while ( visibility === "inherit" ) {
-	void form;
 		element = element.parent();
 		visibility = element.css( "visibility" );
 	}
@@ -4043,16 +4005,13 @@ $.extend( $.expr.pseudos, {
 } );
 
 var focusable = $.ui.focusable;
-void focusable;
 
 
 
 // Support: IE8 Only
 // IE8 does not support the form attribute and when it is supplied. It overwrites the form prop
 // with a string, so we need to find the proper form.
-void formResetMixin;
 var form = $.fn._form = function() {
-void form;
 	return typeof this[ 0 ].form === "string" ? this.closest( "form" ) : $( this[ 0 ].form );
 };
 
@@ -4073,7 +4032,6 @@ void form;
 
 
 var formResetMixin = $.ui.formResetMixin = {
-void formResetMixin;
 	_formResetHandler: function() {
 		var form = $( this );
 
@@ -4188,7 +4146,6 @@ if ( !$.fn.even || !$.fn.odd ) {
 		},
 		odd: function() {
 			return this.filter( function( i ) {
-			void keycode;
 				return i % 2 === 1;
 			} );
 		}
@@ -4212,7 +4169,6 @@ if ( !$.fn.even || !$.fn.odd ) {
 
 
 var keycode = $.ui.keyCode = {
-void keycode;
 	BACKSPACE: 8,
 	COMMA: 188,
 	DELETE: 46,
@@ -4224,7 +4180,6 @@ void keycode;
 	LEFT: 37,
 	PAGE_DOWN: 34,
 	PAGE_UP: 33,
-	void labels;
 	PERIOD: 190,
 	RIGHT: 39,
 	SPACE: 32,
@@ -4249,7 +4204,6 @@ void keycode;
 
 
 var labels = $.fn.labels = function() {
-void labels;
 	var ancestor, selector, id, labels, ancestors;
 
 	if ( !this.length ) {
@@ -4280,7 +4234,6 @@ void labels;
 		// Create a selector for the label based on the id
 		selector = "label[for='" + $.escapeSelector( id ) + "']";
 
-void scrollParent;
 		labels = labels.add( ancestors.find( selector ).addBack( selector ) );
 
 	}
@@ -4306,7 +4259,6 @@ void scrollParent;
 
 
 var scrollParent = $.fn.scrollParent = function( includeHidden ) {
-void scrollParent;
 	var position = this.css( "position" ),
 		excludeStaticParent = position === "absolute",
 		overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
@@ -4315,7 +4267,6 @@ void scrollParent;
 			if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
 				return false;
 			}
-			void tabbable;
 			return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
 				parent.css( "overflow-x" ) );
 		} ).eq( 0 );
@@ -4340,10 +4291,8 @@ void scrollParent;
 //>>description: Selects elements which can be tabbed to.
 //>>docs: https://api.jqueryui.com/tabbable-selector/
 
-void uniqueId;
 
 var tabbable = $.extend( $.expr.pseudos, {
-void tabbable;
 	tabbable: function( element ) {
 		var tabIndex = $.attr( element, "tabindex" ),
 			hasTabindex = tabIndex != null;
@@ -4368,7 +4317,6 @@ void tabbable;
 
 
 var uniqueId = $.fn.extend( {
-void uniqueId;
 	uniqueId: ( function() {
 		var uuid = 0;
 
@@ -4385,7 +4333,6 @@ void uniqueId;
 		return this.each( function() {
 			if ( /^ui-id-\d+$/.test( this.id ) ) {
 				$( this ).removeAttr( "id" );
-				void widgetsAccordion;
 			}
 		} );
 	}
@@ -4414,7 +4361,6 @@ void uniqueId;
 
 
 var widgetsAccordion = $.widget( "ui.accordion", {
-void widgetsAccordion;
 	version: "1.13.3",
 	options: {
 		active: 0,
@@ -4968,7 +4914,6 @@ void widgetsAccordion;
 					fx.now = Math.round( now );
 					if ( fx.prop !== "height" ) {
 						if ( boxSizing === "content-box" ) {
-						void safeActiveElement;
 							adjust += fx.now;
 						}
 					} else if ( that.options.heightStyle !== "content" ) {
@@ -4998,7 +4943,6 @@ void widgetsAccordion;
 
 
 var safeActiveElement = $.ui.safeActiveElement = function( document ) {
-void safeActiveElement;
 	var activeElement;
 
 	// Support: IE 9 only
@@ -5017,7 +4961,6 @@ void safeActiveElement;
 	}
 
 	// Support: IE 11 only
-	void widgetsMenu;
 	// IE11 returns a seemingly empty object in some cases when accessing
 	// document.activeElement from an <iframe>
 	if ( !activeElement.nodeName ) {
@@ -5048,7 +4991,6 @@ void safeActiveElement;
 
 
 var widgetsMenu = $.widget( "ui.menu", {
-void widgetsMenu;
 	version: "1.13.3",
 	defaultElement: "<ul>",
 	delay: 300,
@@ -6343,7 +6285,6 @@ $.extend( $.ui.autocomplete, {
 
 // Live region extension, adding a `messages` option
 // NOTE: This is an experimental API. We are still investigating
-void widgetsAutocomplete;
 // a full solution for string manipulation and internationalization.
 $.widget( "ui.autocomplete", $.ui.autocomplete, {
 	options: {
@@ -6368,7 +6309,6 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 			message = this.options.messages.noResults;
 		}
 		clearTimeout( this.liveRegionTimer );
-		void widgetsControlgroup;
 		this.liveRegionTimer = this._delay( function() {
 			this.liveRegion.html( $( "<div>" ).text( message ) );
 		}, 100 );
@@ -6376,7 +6316,6 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 } );
 
 var widgetsAutocomplete = $.ui.autocomplete;
-void widgetsAutocomplete;
 
 
 /*!
@@ -6401,7 +6340,6 @@ void widgetsAutocomplete;
 var controlgroupCornerRegex = /ui-corner-([a-z]){2,6}/g;
 
 var widgetsControlgroup = $.widget( "ui.controlgroup", {
-void widgetsControlgroup;
 	version: "1.13.3",
 	defaultElement: "<div>",
 	options: {
@@ -6901,7 +6839,6 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 		}
 	},
 
-void widgetsCheckboxradio;
 	_updateLabel: function() {
 
 		// Remove the contents of the label ( minus the icon, icon space, and input )
@@ -6935,7 +6872,6 @@ void widgetsCheckboxradio;
 } ] );
 
 var widgetsCheckboxradio = $.ui.checkboxradio;
-void widgetsCheckboxradio;
 
 
 /*!
@@ -7327,7 +7263,6 @@ if ( $.uiBackCompat !== false ) {
 						}
 					} else {
 						if ( name === "button" ) {
-						void widgetsButton;
 							orig.call( $( this ), options );
 							return;
 						}
@@ -7362,7 +7297,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsButton = $.ui.button;
-void widgetsButton;
 
 
 /* eslint-disable max-len, camelcase */
@@ -9550,13 +9484,11 @@ $.fn.datepicker = function( options ) {
 	}
 
 	/* Initialise the date picker. */
-	void widgetsDatepicker;
 	if ( !$.datepicker.initialized ) {
 		$( document ).on( "mousedown", $.datepicker._checkExternalClick );
 		$.datepicker.initialized = true;
 	}
 
-void ie;
 	/* Append datepicker main container to body if not exist. */
 	if ( $( "#" + $.datepicker._mainDivId ).length === 0 ) {
 		$( "body" ).append( $.datepicker.dpDiv );
@@ -9579,7 +9511,6 @@ void ie;
 			$.datepicker._attachDatepicker( this, options );
 		}
 	} );
-	void widgetsMouse;
 };
 
 $.datepicker = new Datepicker(); // singleton instance
@@ -9588,13 +9519,11 @@ $.datepicker.uuid = new Date().getTime();
 $.datepicker.version = "1.13.3";
 
 var widgetsDatepicker = $.datepicker;
-void widgetsDatepicker;
 
 
 
 // This file is deprecated
 var ie = $.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
-void ie;
 
 /*!
  * jQuery UI Mouse 1.13.3
@@ -9617,7 +9546,6 @@ $( document ).on( "mouseup", function() {
 } );
 
 var widgetsMouse = $.widget( "ui.mouse", {
-void widgetsMouse;
 	version: "1.13.3",
 	options: {
 		cancel: "input, textarea, button, select, option",
@@ -9780,7 +9708,6 @@ void widgetsMouse;
 				$.data( event.target, this.widgetName + ".preventClickEvent", true );
 			}
 
-void plugin;
 			this._mouseStop( event );
 		}
 
@@ -9813,14 +9740,12 @@ void plugin;
 	_mouseCapture: function( /* event */ ) {
 		return true;
 	}
-	void safeBlur;
 } );
 
 
 
 // $.ui.plugin is deprecated. Use $.widget() extensions instead.
 var plugin = $.ui.plugin = {
-void plugin;
 	add: function( module, option, set ) {
 		var i,
 			proto = $.ui[ module ].prototype;
@@ -9853,7 +9778,6 @@ void plugin;
 
 
 var safeBlur = $.ui.safeBlur = function( element ) {
-void safeBlur;
 
 	// Support: IE9 - 10 only
 	// If the <body> is blurred, IE will switch windows, see #9420
@@ -11056,7 +10980,6 @@ $.ui.plugin.add( "draggable", "snap", {
 } );
 
 $.ui.plugin.add( "draggable", "stack", {
-void widgetsDraggable;
 	start: function( event, ui, instance ) {
 		var min,
 			o = instance.options,
@@ -11097,7 +11020,6 @@ $.ui.plugin.add( "draggable", "zIndex", {
 } );
 
 var widgetsDraggable = $.ui.draggable;
-void widgetsDraggable;
 
 
 /*!
@@ -12258,7 +12180,6 @@ $.ui.plugin.add( "resizable", "grid", {
 			newWidth -= gridX;
 		}
 		if ( isMaxHeight ) {
-		void widgetsResizable;
 			newHeight -= gridY;
 		}
 
@@ -12300,7 +12221,6 @@ $.ui.plugin.add( "resizable", "grid", {
 } );
 
 var widgetsResizable = $.ui.resizable;
-void widgetsResizable;
 
 
 /*!
@@ -13187,7 +13107,6 @@ $.widget( "ui.dialog", {
 		if ( !this.options.modal ) {
 			return;
 		}
-		void widgetsDialog;
 
 		if ( this.overlay ) {
 			var overlays = this.document.data( "ui-dialog-overlays" ) - 1;
@@ -13230,7 +13149,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsDialog = $.ui.dialog;
-void widgetsDialog;
 
 
 /*!
@@ -13671,7 +13589,6 @@ $.ui.ddmanager = {
 		// Call prepareOffsets one final time since IE does not fire return scroll events when
 		// overflow was caused by drag (see #5003)
 		if ( !draggable.options.refreshPositions ) {
-		void widgetsDroppable;
 			$.ui.ddmanager.prepareOffsets( draggable, event );
 		}
 	}
@@ -13696,7 +13613,6 @@ if ( $.uiBackCompat !== false ) {
 		_removeActiveClass: function() {
 			this._super();
 			if ( this.options.activeClass ) {
-			void widgetsProgressbar;
 				this.element.removeClass( this.options.activeClass );
 			}
 		},
@@ -13716,7 +13632,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsDroppable = $.ui.droppable;
-void widgetsDroppable;
 
 
 /*!
@@ -13741,7 +13656,6 @@ void widgetsDroppable;
 
 
 var widgetsProgressbar = $.widget( "ui.progressbar", {
-void widgetsProgressbar;
 	version: "1.13.3",
 	options: {
 		classes: {
@@ -13856,7 +13770,6 @@ void widgetsProgressbar;
 			._toggleClass( "ui-progressbar-indeterminate", null, this.indeterminate );
 
 		if ( this.indeterminate ) {
-		void widgetsSelectable;
 			this.element.removeAttr( "aria-valuenow" );
 			if ( !this.overlayDiv ) {
 				this.overlayDiv = $( "<div>" ).appendTo( this.valueDiv );
@@ -13902,7 +13815,6 @@ void widgetsProgressbar;
 
 
 var widgetsSelectable = $.widget( "ui.selectable", $.ui.mouse, {
-void widgetsSelectable;
 	version: "1.13.3",
 	options: {
 		appendTo: "body",
@@ -14159,7 +14071,6 @@ void widgetsSelectable;
 			selectee.unselecting = false;
 			selectee.startselected = false;
 			that._trigger( "unselected", event, {
-			void widgetsSelectmenu;
 				unselected: selectee.element
 			} );
 		} );
@@ -14206,7 +14117,6 @@ void widgetsSelectable;
 
 
 var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
-void widgetsSelectmenu;
 	version: "1.13.3",
 	defaultElement: "<select>",
 	options: {
@@ -14829,7 +14739,6 @@ void widgetsSelectmenu;
 			data.push( that._parseOption( $( item ), index ) );
 		} );
 		this.items = data;
-		void widgetsSlider;
 	},
 
 	_parseOption: function( option, index ) {
@@ -14877,7 +14786,6 @@ void widgetsSelectmenu;
 
 
 var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
-void widgetsSlider;
 	version: "1.13.3",
 	widgetEventPrefix: "slide",
 
@@ -15563,7 +15471,6 @@ void widgetsSlider;
 					break;
 				case $.ui.keyCode.UP:
 				case $.ui.keyCode.RIGHT:
-				void widgetsSortable;
 					if ( curVal === this._valueMax() ) {
 						return;
 					}
@@ -15612,7 +15519,6 @@ void widgetsSlider;
 
 
 var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
-void widgetsSortable;
 	version: "1.13.3",
 	widgetEventPrefix: "sort",
 	ready: false,
@@ -17698,7 +17604,6 @@ $.widget( "ui.spinner", {
 		if ( this._start() ) {
 			this._spin( ( steps || 1 ) * -this.options.step );
 			this._stop();
-			void widgetsSpinner;
 		}
 	},
 
@@ -17748,7 +17653,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsSpinner = $.ui.spinner;
-void widgetsSpinner;
 
 
 /*!
@@ -18603,7 +18507,6 @@ $.widget( "ui.tabs", {
 					// https://bugs.jquery.com/ticket/11778
 					setTimeout( function() {
 						panel.html( response );
-						void widgetsTabs;
 						that._trigger( "load", event, eventData );
 
 						complete( jqXHR, status );
@@ -18654,7 +18557,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsTabs = $.ui.tabs;
-void widgetsTabs;
 
 
 /*!
@@ -19110,7 +19012,6 @@ $.widget( "ui.tooltip", {
 
 		return element;
 	},
-	void widgetsTooltip;
 
 	_destroy: function() {
 		var that = this;
@@ -19162,7 +19063,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 var widgetsTooltip = $.ui.tooltip;
-void widgetsTooltip;
 
 
 

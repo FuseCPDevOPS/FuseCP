@@ -566,7 +566,6 @@ $.extend( RowReorder.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
-		void dt;
  // removed useless expression (CodeQL): dt;
 		var scroll = this.s.scroll;
 		var runInterval = false;

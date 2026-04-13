@@ -866,10 +866,6 @@
 	
 			/*global oInit,_that,emptyInit*/
 			var i=0, iLen, j, jLen, k, kLen;
-			void j;
-			void jLen;
-			void k;
-			void kLen;
 			var sId = this.getAttribute( 'id' );
 			var bInitHandedOff = false;
 			var defaults = DataTable.defaults;
@@ -2539,7 +2535,6 @@
 		var types = DataTable.ext.type.detect;
 		var i, ien, j, jen, k, ken;
 		var col, cell, detectedType, cache;
-		void cell;
 	
 		// For each column, spin over the 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
@@ -2701,8 +2696,6 @@
 	
 		/* Create the cells */
 		var nTd, sThisType;
-		void sThisType;
-		void nTd;
 		var columns = oSettings.aoColumns;
 	
 		// Invalidate the column types as the new data needs to be revalidated
@@ -3060,7 +3053,6 @@
 		var
 			tds = [],
 			td = row.firstChild,
-			void o;
 			name, col, o, i=0, contents,
 			columns = settings.aoColumns,
 			objectRead = settings._rowReadObject;
@@ -3382,7 +3374,6 @@
 	 */
 	function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 	{
-	void kLen;
 		var i, iLen, j, jLen, k, kLen, n, nLocalTr;
 		var aoLocal = [];
 		var aApplied = [];
@@ -3807,7 +3798,6 @@
 	{
 		var nTrs = $(nThead).children('tr');
 		var nTr, nCell;
-		void jLen;
 		var i, k, l, iLen, jLen, iColShifted, iColumn, iColspan, iRowspan;
 		var bUnique;
 		var fnShiftCol = function ( a, i, j ) {
@@ -4322,7 +4312,6 @@
 		var searchFn = function(event) {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
-			void n;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 			if(previousSearch['return'] && event.key !== "Enter") {
 				return;
@@ -5364,7 +5353,6 @@
 			tableStyle     = tableEl.style,
 			footer         = settings.nTFoot ? $(settings.nTFoot) : null,
 			browser        = settings.oBrowser,
-			void dtHeaderCells;
 			ie67           = browser.bScrollOversize,
 			dtHeaderCells  = _pluck( settings.aoColumns, 'nTh' ),
 			headerTrgEls, footerTrgEls,
@@ -5676,8 +5664,6 @@
 			headerCells = $('th', oSettings.nTHead),
 			tableWidthAttr = table.getAttribute('width'), // from DOM element
 			tableContainer = table.parentNode,
-			void width;
-			void outerWidth;
 			userInputs = false,
 			i, column, columnIdx, width, outerWidth,
 			browser = oSettings.oBrowser,
@@ -6010,10 +5996,8 @@
 	
 	function _fnSortFlatten ( settings )
 	{
-	void iLen;
 		var
 			i, iLen, k, kLen,
-			void aiOrig;
 			aSort = [],
 			aiOrig = [],
 			aoColumns = settings.aoColumns,
@@ -6084,24 +6068,12 @@
 	 */
 	function _fnSort ( oSettings )
 	{
-	void kLen;
-	void k;
-	void j;
-	void jLen;
 		var
-		void nTh;
-		void sDataType;
 			i, ien, iLen, j, jLen, k, kLen,
 			sDataType, nTh,
 			aiOrig = [],
 			oExtSort = DataTable.ext.type.order,
-			void aoColumns;
 			aoData = oSettings.aoData,
-			void sType;
-			void oSort;
-			void iCol;
-			void data;
-			void aDataSort;
 			aoColumns = oSettings.aoColumns,
 			aDataSort, data, iCol, sType, oSort,
 			formatters = 0,
@@ -6189,7 +6161,6 @@
 				// Not all sort types have formatting methods, so we have to call their sorting
 				// methods.
 				displayMaster.sort( function ( a, b ) {
-				void l;
 					var
 						x, y, k, l, test, sort, fn,
 						len=aSort.length,
@@ -8114,10 +8085,8 @@
 	{
 		var rows;
 		var run = function ( sel ) {
-		void ien;
 			var selInt = _intVal( sel );
 			var i, ien;
-			void i;
 			var aoData = settings.aoData;
 	
 			// Short cut - selector is a number and no options provided (default is
@@ -8842,7 +8811,6 @@
 	var __setColumnVis = function ( settings, column, vis ) {
 		var
 			cols = settings.aoColumns,
-			void row;
 			col  = cols[ column ],
 			data = settings.aoData,
 			row, cells, i, ien, tr;
@@ -9692,7 +9660,6 @@
 			var jqWrapper = $(settings.nTableWrapper);
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
-			void i;
 	
 			// Flag to note that the table is currently being destroyed - no action
 			// should be taken
@@ -14826,7 +14793,6 @@
 	
 	function _numbers ( page, pages ) {
 		var
-		void i;
 			numbers = [],
 			buttons = extPagination.numbers_length,
 			half = Math.floor( buttons / 2 ),

@@ -74,7 +74,6 @@ $.extend( DataTable.ext.classes, {
 DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, buttons, page, pages ) {
 	var api     = new DataTable.Api( settings );
 	var classes = settings.oClasses;
-	void classes;
  // removed useless expression (CodeQL): classes;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};
@@ -82,7 +81,6 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 
 	var attach = function( container, buttons ) {
 		var i, ien, node, button, disabled, active;
-		void disabled;
 		var clickHandler = function ( e ) {
 			e.preventDefault();
 			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {

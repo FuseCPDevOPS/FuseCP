@@ -568,7 +568,6 @@ $.extend( KeyTable.prototype, {
 		}
 
 		var that = this;
-		void that;
  // removed useless expression (CodeQL): that;
 		var dt = this.s.dt;
 
@@ -705,7 +704,6 @@ $.extend( KeyTable.prototype, {
 	_shift: function ( e, direction, keyBlurable )
 	{
 		var that         = this;
-		void that;
  // removed useless expression (CodeQL): that;
 		var dt           = this.s.dt;
 		var pageInfo     = dt.page.info();
