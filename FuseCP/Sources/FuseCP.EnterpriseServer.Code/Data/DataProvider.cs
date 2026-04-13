@@ -5072,28 +5072,25 @@ namespace FuseCP.EnterpriseServer
 
                 if (!string.IsNullOrEmpty(filterValue))
 				{
-					if (!string.IsNullOrEmpty(filterColumn))
-					{
-						addresses = addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue));
-					}
-					else
-					{
 #if NETFRAMEWORK
-						addresses = addresses.Where(a => DbFunctions.Like(a.ExternalIp, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => DbFunctions.Like(a.ExternalIp, filterValue) ||
 							DbFunctions.Like(a.InternalIp, filterValue) ||
 							DbFunctions.Like(a.DefaultGateway, filterValue) ||
 							DbFunctions.Like(a.ServerName, filterValue) ||
 							DbFunctions.Like(a.ItemName, filterValue) ||
 							DbFunctions.Like(a.Username, filterValue));
 #else
-						addresses = addresses.Where(a => EF.Functions.Like(a.ExternalIp, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => EF.Functions.Like(a.ExternalIp, filterValue) ||
 							EF.Functions.Like(a.InternalIp, filterValue) ||
 							EF.Functions.Like(a.DefaultGateway, filterValue) ||
 							EF.Functions.Like(a.ServerName, filterValue) ||
 							EF.Functions.Like(a.ItemName, filterValue) ||
 							EF.Functions.Like(a.Username, filterValue));
 #endif
-					}
 				}
 
 				var count = addresses.Count();
@@ -7445,25 +7442,21 @@ namespace FuseCP.EnterpriseServer
 
 					if (!string.IsNullOrEmpty(filterValue))
 					{
-						if (!string.IsNullOrEmpty(filterColumn))
-						{
-							items = items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue));
-						}
-						else
-						{
-							items = items
 #if NETFRAMEWORK
-								.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
+						items = !string.IsNullOrEmpty(filterColumn)
+							? items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue))
+							: items.Where(i => DbFunctions.Like(i.ItemName, filterValue) ||
 									DbFunctions.Like(i.Username, filterValue) ||
 									DbFunctions.Like(i.FullName, filterValue) ||
 									DbFunctions.Like(i.Email, filterValue));
 #else
-							.Where(i => EF.Functions.Like(i.ItemName, filterValue) ||
+						items = !string.IsNullOrEmpty(filterColumn)
+							? items.Where(DynamicFunctions.ColumnLike(items, filterColumn, filterValue))
+							: items.Where(i => EF.Functions.Like(i.ItemName, filterValue) ||
 								EF.Functions.Like(i.Username, filterValue) ||
 								EF.Functions.Like(i.FullName, filterValue) ||
 								EF.Functions.Like(i.Email, filterValue));
 #endif
-						}
 					}
 
 					var count = items.Count();
@@ -10411,22 +10404,19 @@ namespace FuseCP.EnterpriseServer
 
 				if (!string.IsNullOrEmpty(filterValue))
 				{
-					if (!string.IsNullOrEmpty(filterColumn))
-					{
-						packages = packages.Where(DynamicFunctions.ColumnLike(packages, filterColumn, filterValue));
-					}
-					else
-					{
 #if NETFRAMEWORK
-						packages = packages.Where(p => DbFunctions.Like(p.Username, filterValue) ||
+					packages = !string.IsNullOrEmpty(filterColumn)
+						? packages.Where(DynamicFunctions.ColumnLike(packages, filterColumn, filterValue))
+						: packages.Where(p => DbFunctions.Like(p.Username, filterValue) ||
 							DbFunctions.Like(p.FullName, filterValue) ||
 							DbFunctions.Like(p.Email, filterValue));
 #else
-						packages = packages.Where(p => EF.Functions.Like(p.Username, filterValue) ||
+					packages = !string.IsNullOrEmpty(filterColumn)
+						? packages.Where(DynamicFunctions.ColumnLike(packages, filterColumn, filterValue))
+						: packages.Where(p => EF.Functions.Like(p.Username, filterValue) ||
 							EF.Functions.Like(p.FullName, filterValue) ||
 							EF.Functions.Like(p.Email, filterValue));
 #endif
-					}
 				}
 
 				var count = packages.Count();
@@ -16037,19 +16027,17 @@ namespace FuseCP.EnterpriseServer
 
 				if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterValue))
 				{
-					if (filterColumn == "PrimaryEmailAddress" &&
-						(accountTypes.Length != 1 || accountTypes[0] != ExchangeAccountType.Contact))
-					{
+					bool filterByPrimaryEmail = filterColumn == "PrimaryEmailAddress" &&
+						(accountTypes.Count() != 1 || accountTypes.First() != ExchangeAccountType.Contact);
 #if NETFRAMEWORK
-						accounts = accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => DbFunctions.Like(e.EmailAddress, filterValue)));
+					accounts = filterByPrimaryEmail
+						? accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => DbFunctions.Like(e.EmailAddress, filterValue)))
+						: accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
 #else
-						accounts = accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => EF.Functions.Like(e.EmailAddress, filterValue)));
+					accounts = filterByPrimaryEmail
+						? accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => EF.Functions.Like(e.EmailAddress, filterValue)))
+						: accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
 #endif
-					}
-					else
-					{
-						accounts = accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
-					}
 				}
 
 				accounts = !string.IsNullOrEmpty(sortColumn) ? accounts.OrderBy(ColumnName(sortColumn)) : accounts.OrderBy(a => a.DisplayName);
@@ -18901,27 +18889,23 @@ namespace FuseCP.EnterpriseServer
 						});
 					if (!string.IsNullOrEmpty(filterValue))
 					{
-						if (!string.IsNullOrEmpty(filterColumn))
-						{
-							addresses = addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue));
-						}
-						else
-						{
-							addresses = addresses
 #if NETFRAMEWORK
-								.Where(a => DbFunctions.Like(a.ExternalIp, filterValue) ||
+						addresses = !string.IsNullOrEmpty(filterColumn)
+							? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+							: addresses.Where(a => DbFunctions.Like(a.ExternalIp, filterValue) ||
 									DbFunctions.Like(a.InternalIp, filterValue) ||
 									DbFunctions.Like(a.DefaultGateway, filterValue) ||
 									DbFunctions.Like(a.ItemName, filterValue) ||
 									DbFunctions.Like(a.Username, filterValue));
 #else
-								.Where(a => EF.Functions.Like(a.ExternalIp, filterValue) ||
+						addresses = !string.IsNullOrEmpty(filterColumn)
+							? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+							: addresses.Where(a => EF.Functions.Like(a.ExternalIp, filterValue) ||
 									EF.Functions.Like(a.InternalIp, filterValue) ||
 									EF.Functions.Like(a.DefaultGateway, filterValue) ||
 									EF.Functions.Like(a.ItemName, filterValue) ||
 									EF.Functions.Like(a.Username, filterValue));
 #endif
-						}
 					}
 
 					var count = addresses.Count();
@@ -19061,21 +19045,17 @@ namespace FuseCP.EnterpriseServer
 
 				if (!string.IsNullOrEmpty(filterValue))
 				{
-					if (!string.IsNullOrEmpty(filterColumn))
-					{
-						addresses = addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue));
-					}
-					else
-					{
-						addresses = addresses
 #if NETFRAMEWORK
-							.Where(a => DbFunctions.Like(a.IpAddress, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => DbFunctions.Like(a.IpAddress, filterValue) ||
 								DbFunctions.Like(a.ItemName, filterValue));
 #else
-							.Where(a => EF.Functions.Like(a.IpAddress, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => EF.Functions.Like(a.IpAddress, filterValue) ||
 								EF.Functions.Like(a.ItemName, filterValue));
 #endif
-					}
 				}
 
 				var count = addresses.Count();
@@ -19159,21 +19139,17 @@ namespace FuseCP.EnterpriseServer
 
 				if (!string.IsNullOrEmpty(filterValue))
 				{
-					if (!string.IsNullOrEmpty(filterColumn))
-					{
-						addresses = addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue));
-					}
-					else
-					{
-						addresses = addresses
 #if NETFRAMEWORK
-							.Where(a => DbFunctions.Like(a.IpAddress, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => DbFunctions.Like(a.IpAddress, filterValue) ||
 								DbFunctions.Like(a.ItemName, filterValue));
 #else
-							.Where(a => EF.Functions.Like(a.IpAddress, filterValue) ||
+					addresses = !string.IsNullOrEmpty(filterColumn)
+						? addresses.Where(DynamicFunctions.ColumnLike(addresses, filterColumn, filterValue))
+						: addresses.Where(a => EF.Functions.Like(a.IpAddress, filterValue) ||
 								EF.Functions.Like(a.ItemName, filterValue));
 #endif
-					}
 				}
 
 				var count = addresses.Count();
