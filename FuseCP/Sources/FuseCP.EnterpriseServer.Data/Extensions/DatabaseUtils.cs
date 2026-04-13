@@ -218,7 +218,7 @@ namespace FuseCP.EnterpriseServer.Data
 		/// <returns>True if connecion is valid, otherwise false.</returns>
 		public static bool CheckSqlServerConnection(string connectionString)
 		{
-			SqlConnection conn = new SqlConnection(connectionString);
+			SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(connectionString));
 			try
 			{
 				conn.Open();
@@ -272,7 +272,7 @@ namespace FuseCP.EnterpriseServer.Data
 			ParseConnectionString(connectionString, out dbtype, out nativeConnectionString);
 			if (dbtype == DbType.SqlServer || dbtype == DbType.Unknown)
 			{
-				SqlConnection conn = new SqlConnection(nativeConnectionString);
+				SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(nativeConnectionString));
 				try
 				{
 					using SqlCommand cmd = new SqlCommand("SELECT SERVERPROPERTY('productversion')", conn);
@@ -309,7 +309,9 @@ namespace FuseCP.EnterpriseServer.Data
 			if (dbtype == DbType.SqlServer || dbtype == DbType.Unknown)
 			{
 
-				SqlConnection conn = new SqlConnection(nativeConnectionString);
+				SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(nativeConnectionString));
+
+
 				int mode = 0;
 				try
 				{
@@ -357,7 +359,7 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public static int ExecuteStoredProcedure(string connectionString, string name, params SqlParameter[] commandParameters)
 		{
-			using (SqlConnection connection = new SqlConnection(connectionString))
+			using (SqlConnection connection = new SqlConnection(EnsureSqlServerEncryption(connectionString)))
 			{
 				connection.Open();
 				using SqlCommand cmd = new SqlCommand();
@@ -1757,6 +1759,8 @@ SELECT DatabaseVersion FROM Version");
 		}
 	}
 }
+
+
 
 
 
