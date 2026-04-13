@@ -1208,17 +1208,22 @@ public class PortalUtils
 				XmlDocument xmlDoc = new XmlDocument();
 				xmlDoc.Load(xmlFilePath);
 
-				// Restrict controlKey to safe identifier characters to prevent XPath injection.
+				// Restrict controlKey to safe identifier characters.
 				if (!string.IsNullOrEmpty(controlKey) && !System.Text.RegularExpressions.Regex.IsMatch(controlKey, @"^[A-Za-z0-9._\-]+$"))
 					return generalControlKey;
 
-				XmlElement xmlNode = (XmlElement)xmlDoc.SelectSingleNode("/Controls/Control[@key=" + ToXPathLiteral(controlKey) + "]");
-
-				generalControlKey = xmlNode.HasAttribute("general_key") ? xmlNode.GetAttribute("general_key") : xmlNode.GetAttribute("key");
-
-
-
-
+				XmlNodeList nodes = xmlDoc.SelectNodes("/Controls/Control");
+				if (nodes != null)
+				{
+					foreach (XmlNode node in nodes)
+					{
+						if (node is XmlElement element && String.Equals(element.GetAttribute("key"), controlKey, StringComparison.Ordinal))
+						{
+							generalControlKey = element.HasAttribute("general_key") ? element.GetAttribute("general_key") : element.GetAttribute("key");
+							break;
+						}
+					}
+				}
 			}
 			catch (System.Exception swallowedEx) when (!(swallowedEx is System.OutOfMemoryException) && !(swallowedEx is System.StackOverflowException) && !(swallowedEx is System.AccessViolationException))
 			{
