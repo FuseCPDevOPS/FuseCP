@@ -9,6 +9,7 @@ paths-ignore:
   - "**/*ModelSnapshot.cs"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Data/CodeTemplates/**"
   - "FuseCP/Sources/FuseCP.Build/**/*.cshtml"
+  - "**/*.g.cs"
   # High-volume third-party vendor files (not owned, not fixable)
   - "**/Scripts/jquery-ui-*.js"
   - "**/App_Themes/**/addons/fuelux/**"
