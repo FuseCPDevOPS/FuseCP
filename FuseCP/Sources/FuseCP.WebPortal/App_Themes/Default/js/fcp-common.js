@@ -541,6 +541,20 @@ $(document).ready(function () {
 
     refreshSidebarToggleIcon();
 
+    function getSafeSkinHref(url) {
+        if (!url || typeof url !== 'string') {
+            return '';
+        }
+
+        var trimmed = url.trim();
+        // Only allow local relative CSS files to avoid scriptable URL schemes.
+        if (!/^(\.\.?\/|\/)/.test(trimmed) || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(trimmed)) {
+            return '';
+        }
+
+        return /\.css(?:\?|#|$)/i.test(trimmed) ? trimmed : '';
+    }
+
 
     /************************
  	/*	DEMO PANEL
@@ -553,11 +567,14 @@ $(document).ready(function () {
     var skinLogoDefault = '../Images/queenadmin-logo.png';
 
     if (skin != null) {
-        var skinLinkEl = document.createElement('link');
-        skinLinkEl.rel = 'stylesheet';
-        skinLinkEl.type = 'text/css';
-        skinLinkEl.href = skin;
-        document.head.appendChild(skinLinkEl);
+        var safeStoredSkin = getSafeSkinHref(skin);
+        if (safeStoredSkin) {
+            var skinLinkEl = document.createElement('link');
+            skinLinkEl.rel = 'stylesheet';
+            skinLinkEl.type = 'text/css';
+            skinLinkEl.href = safeStoredSkin;
+            document.head.appendChild(skinLinkEl);
+        }
     }
 
     if (skinLogo != null) {
@@ -570,10 +587,15 @@ $(document).ready(function () {
         e.preventDefault();
 
         resetStyle();
+        var requestedSkin = $(this).attr('data-skin') || '';
+        var safeRequestedSkin = getSafeSkinHref(requestedSkin);
+        if (!safeRequestedSkin) {
+            return;
+        }
         var newSkinLink = document.createElement('link');
         newSkinLink.rel = 'stylesheet';
         newSkinLink.type = 'text/css';
-        newSkinLink.href = $(this).attr('data-skin') || '';
+        newSkinLink.href = safeRequestedSkin;
         document.head.appendChild(newSkinLink);
 
         if (!$(this).hasClass('full-white')) {
@@ -584,7 +606,7 @@ $(document).ready(function () {
 
         $('.logo img').attr('src', skinLogo);
 
-        localStorage.setItem('queenSkin', $(this).attr('data-skin'));
+        localStorage.setItem('queenSkin', safeRequestedSkin);
         localStorage.setItem('queenSkinLogo', skinLogo);
     });
 
