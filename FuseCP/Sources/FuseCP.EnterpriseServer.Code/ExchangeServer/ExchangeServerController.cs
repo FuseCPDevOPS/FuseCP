@@ -51,16 +51,6 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeServerController(ControllerBase db): base(db) { }
 
-        private int CheckActivePackageAccess(int packageId)
-        {
-            return SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
-        }
-
-        private bool HasActivePackageAccess(int packageId)
-        {
-            return CheckActivePackageAccess(packageId) >= 0;
-        }
-
         #region Organizations
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
@@ -68,7 +58,7 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new DataSet();
 
-            int packageCheck = CheckActivePackageAccess(packageId);
+            int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new DataSet();
 
             #region Demo Mode
@@ -112,7 +102,7 @@ namespace FuseCP.EnterpriseServer
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
 
-            int packageCheck = CheckActivePackageAccess(packageId);
+            int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0)
             {
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
@@ -137,7 +127,7 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
 
-            int packageCheck = CheckActivePackageAccess(packageId);
+            int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
 
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(
@@ -153,7 +143,7 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
 
-            int packageCheck = CheckActivePackageAccess(packageId);
+            int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
 
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByTypeInternal(packageId, null, typeof(Organization), recursive);
@@ -190,7 +180,7 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return null;
 
-            if (!HasActivePackageAccess(org.PackageId))
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             // Log Extension
@@ -1494,7 +1484,7 @@ namespace FuseCP.EnterpriseServer
             if (account == null)
                 return null;
 
-            if (!HasActivePackageAccess(account.PackageId))
+            if (SecurityContext.CheckPackage(account.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             // Log Extension
@@ -1515,7 +1505,7 @@ namespace FuseCP.EnterpriseServer
             if (account == null)
                 return null;
 
-            if (!HasActivePackageAccess(account.PackageId))
+            if (SecurityContext.CheckPackage(account.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             return account;
@@ -1564,7 +1554,7 @@ namespace FuseCP.EnterpriseServer
             if (account == null)
                 return null;
 
-            if (!HasActivePackageAccess(account.PackageId))
+            if (SecurityContext.CheckPackage(account.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             return account;
@@ -1742,7 +1732,7 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return null;
 
-            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
             if (packageCheck < 0)
                 return new List<ExchangeDomainName>();
 
@@ -3341,7 +3331,7 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return null;
 
-            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
             if (packageCheck < 0)
                 return string.Empty;
 
@@ -5870,7 +5860,7 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return -1;
 
-            int packageCheck = CheckActivePackageAccess(org.PackageId);
+            int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
             if (packageCheck < 0)
                 return packageCheck;
 
