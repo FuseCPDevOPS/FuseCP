@@ -138,7 +138,7 @@ namespace FuseCP.EnterpriseServer
                 delegate (ServiceProviderItem item) { return (Organization)item; }));
         }
 
-        public List<Organization> GetExchangeOrganizationsInternal(int packageId, bool recursive)
+        internal List<Organization> GetExchangeOrganizationsInternal(int packageId, bool recursive)
         {
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
@@ -7180,7 +7180,7 @@ namespace FuseCP.EnterpriseServer
             }
         }
 #endif
-        public byte[] ResizeImageGdi(byte[] picture, int width, int height)
+        private byte[] ResizeImageGdi(byte[] picture, int width, int height)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
@@ -7203,7 +7203,7 @@ namespace FuseCP.EnterpriseServer
 #endif
         }
 
-        public byte[] ResizeImageSkia(byte[] data, int width, int height)
+        private byte[] ResizeImageSkia(byte[] data, int width, int height)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
             return null;
@@ -7231,7 +7231,7 @@ namespace FuseCP.EnterpriseServer
 #endif
         }
 
-        public byte[] ResizeImage(byte[] image, int width, int height)
+        private byte[] ResizeImage(byte[] image, int width, int height)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
