@@ -229,8 +229,15 @@ namespace FuseCP.EnterpriseServer
         public int DeleteHostingPlan(int planId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsReseller | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsReseller) < 0)
+                return SecurityContext.CheckAccount(DemandAccount.IsReseller);
+
+            HostingPlanInfo plan = GetHostingPlan(planId);
+            if (plan == null)
+                return -1;
 
             int result = Database.DeleteHostingPlan(SecurityContext.User.UserId, planId);
             if (result == -1)
@@ -358,7 +365,11 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
 
-            if (SecurityContext.CheckPackage(packageId, DemandPackage.IsActive) < 0)
+            int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
+            if (packageCheck < 0)
+                return new DataSet();
+
+            if (GetPackage(packageId) == null)
                 return new DataSet();
 
             return Database.GetPackageQuotasForEdit(SecurityContext.User.UserId, packageId);
@@ -983,11 +994,20 @@ namespace FuseCP.EnterpriseServer
                 | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;
 
+            if (packages == null)
+                return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
+
             foreach (PackageInfo package in packages)
             {
+                if (package == null)
+                    return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
+
                 int packageCheck = SecurityContext.CheckPackage(package.PackageId, DemandPackage.IsActive);
                 if (packageCheck < 0)
                     return packageCheck;
+
+                if (GetPackage(package.PackageId) == null)
+                    return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
             }
 
             // delete packages asynchronously
@@ -1753,6 +1773,9 @@ namespace FuseCP.EnterpriseServer
             int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
             if (packageCheck < 0)
                 return packageCheck;
+
+            if (GetPackage(item.PackageId) == null)
+                return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
 
             Database.DeleteServiceItem(SecurityContext.User.UserId, itemId);
 
