@@ -518,12 +518,8 @@ namespace FuseCP.EnterpriseServer.Data
 		private static SqlConnection CreateEncryptedSqlConnection(string connectionString)
 		{
 			string normalizedConnectionString = EnsureSqlServerEncryption(connectionString);
-			SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder(normalizedConnectionString)
-			{
-				Encrypt = true,
-				TrustServerCertificate = true
-			};
-			return new SqlConnection(connectionStringBuilder.ConnectionString);
+			string enforcedConnectionString = normalizedConnectionString.TrimEnd(';') + ";Encrypt=True;TrustServerCertificate=True";
+			return new SqlConnection(enforcedConnectionString);
 		}
 		public static DataSet ExecuteQuery(string connectionString, string commandText)
 		{
