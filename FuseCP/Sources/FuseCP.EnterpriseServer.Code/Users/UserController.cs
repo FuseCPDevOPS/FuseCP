@@ -310,6 +310,11 @@ namespace FuseCP.EnterpriseServer
 		public bool CanUserChangeMfa(int changeUserId)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+
+			UserInfoInternal targetUser = GetUser(changeUserId);
+			if (targetUser == null)
+				return false;
+
 			var currentUserId = SecurityContext.User.UserId;
 			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
 			var canPeerChangeMfa = Convert.ToBoolean(authSettings[SystemSettings.MFA_CAN_PEER_CHANGE_MFA]);
@@ -952,6 +957,10 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			if (GetUser(userId) == null)
+				return -1;
+
 			return DeleteUser(null, userId);
 		}
 
@@ -960,6 +969,9 @@ namespace FuseCP.EnterpriseServer
 			// check account
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			if (GetUser(userId) == null)
+				return -1;
 
 			// check if user has child accounts
 			if (GetUsers(userId, false).Count > 0)
@@ -1213,6 +1225,7 @@ namespace FuseCP.EnterpriseServer
 		public void DeleteUserThemeSetting(int userId, string PropertyName)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName);
 		}
 

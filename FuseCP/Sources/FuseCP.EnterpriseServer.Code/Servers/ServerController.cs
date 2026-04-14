@@ -2365,6 +2365,19 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			if (item == null)
+				return -1;
+
+			int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
+			if (packageCheck < 0)
+				return packageCheck;
+
+			PackageIPAddress packageAddress = GetPackageIPAddress(packageAddressId);
+			if (packageAddress == null)
+				return -1;
+
 			return Database.DeleteItemIPAddress(SecurityContext.User.UserId, itemId, packageAddressId);
 		}
 
@@ -2372,6 +2385,15 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			if (item == null)
+				return -1;
+
+			int packageCheck = SecurityContext.CheckPackage(item.PackageId, DemandPackage.IsActive);
+			if (packageCheck < 0)
+				return packageCheck;
+
 			return Database.DeleteItemIPAddresses(SecurityContext.User.UserId, itemId);
 		}
 
