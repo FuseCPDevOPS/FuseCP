@@ -197,6 +197,7 @@ namespace FuseCP.EnterpriseServer
         public void DeleteExpiredWebDavAccessTokens()
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 
@@ -2124,7 +2125,19 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
             try
             {
+                Organization org = OrganizationController.GetOrganization(itemId);
+                if (org == null)
+                    return new List<string>();
+
+                int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
+                if (packageCheck < 0)
+                    return new List<string>();
+
                 var result = new List<string>();
+
+
+                if (accountIds == null)
+                    return result;
 
 
                 foreach (var reader in accountIds.Select(accountId => Database.GetUserEnterpriseFolderWithOwaEditPermission(itemId, accountId)))

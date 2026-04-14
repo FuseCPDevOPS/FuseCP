@@ -374,6 +374,10 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
+            ScheduleInfo schedule = GetSchedule(scheduleId);
+            if (schedule == null)
+                return -1;
+
             // stop schedule if active
             StopSchedule(scheduleId);
 

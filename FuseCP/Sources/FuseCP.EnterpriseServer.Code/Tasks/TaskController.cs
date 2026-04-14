@@ -160,12 +160,20 @@ namespace FuseCP.EnterpriseServer
         public void DeleteBackgroundTasks(Guid guid)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
+            if (!GetTasks(guid).Any())
+                return;
+
             Database.DeleteBackgroundTasks(guid);
         }
 
         public void DeleteBackgroundTask(int id)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+
+            if (!GetTasks().Any(task => task.Id == id))
+                return;
+
             Database.DeleteBackgroundTask(id);
         }
 

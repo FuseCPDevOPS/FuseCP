@@ -99,6 +99,12 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Organization org = OrganizationController.GetOrganization(itemId);
+            if (org == null)
+                return;
+
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return;
+
             if (org.IsOCSOrganization)
             {
                 int serviceId = PackageController.GetPackageServiceId(org.PackageId, ResourceGroups.OCS);
