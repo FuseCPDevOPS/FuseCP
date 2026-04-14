@@ -520,9 +520,9 @@ namespace FuseCP.EnterpriseServer.Data
 			string normalizedConnectionString = EnsureSqlServerEncryption(connectionString);
 			SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder(normalizedConnectionString)
 			{
+				Encrypt = true,
 				TrustServerCertificate = true
 			};
-			connectionStringBuilder["Encrypt"] = true;
 			return new SqlConnection(connectionStringBuilder.ConnectionString);
 		}
 		public static DataSet ExecuteQuery(string connectionString, string commandText)

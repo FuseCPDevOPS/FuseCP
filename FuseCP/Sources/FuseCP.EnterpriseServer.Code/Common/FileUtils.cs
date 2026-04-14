@@ -71,7 +71,10 @@ namespace FuseCP.EnterpriseServer;
 			string destinationRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			foreach (ZipArchiveEntry entry in archive.Entries)
 			{
-				string destinationPath = Path.GetFullPath(Path.Combine(normalizedDestination, entry.FullName));
+				string entryPath = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
+				if (Path.IsPathRooted(entryPath) || entryPath.Contains('.') || entryPath.Contains(".." + Path.DirectorySeparatorChar) || entryPath.StartsWith(".."))
+					throw new InvalidDataException($"Archive entry '{entry.FullName}' contains invalid path characters.");
+				string destinationPath = Path.GetFullPath(Path.Combine(normalizedDestination, entryPath));
 				if (!destinationPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase) &&
 					!String.Equals(destinationPath, normalizedDestination, StringComparison.OrdinalIgnoreCase))
 				{
