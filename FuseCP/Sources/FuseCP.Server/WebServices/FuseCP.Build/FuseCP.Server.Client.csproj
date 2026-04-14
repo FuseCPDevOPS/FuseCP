@@ -46,4 +46,8 @@
         </ItemGroup>
     </Target>
 
+    <Target Name="NormalizeGeneratedServiceBaseNames" BeforeTargets="CoreCompile" Condition="Exists('$(MSBuildThisFileDirectory)FuseCP.Build.WebServices')">
+        <Exec Command="pwsh -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)Normalize-GeneratedWebServices.ps1&quot; -RootPath &quot;$(MSBuildThisFileDirectory)FuseCP.Build.WebServices&quot;" />
+    </Target>
+
 </Project>
