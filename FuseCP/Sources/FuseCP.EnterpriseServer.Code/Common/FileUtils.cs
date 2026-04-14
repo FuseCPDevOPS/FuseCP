@@ -71,10 +71,16 @@ namespace FuseCP.EnterpriseServer;
 			string destinationRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			foreach (ZipArchiveEntry entry in archive.Entries)
 			{
-				string entryPath = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
-				if (Path.IsPathRooted(entryPath) || entryPath.Contains('.') || entryPath.Contains(".." + Path.DirectorySeparatorChar) || entryPath.StartsWith(".."))
-					throw new InvalidDataException($"Archive entry '{entry.FullName}' contains invalid path characters.");
-				string destinationPath = Path.GetFullPath(Path.Combine(normalizedDestination, entryPath));
+				string entryPath = entry.FullName.Replace('\\', '/');
+				if (entryPath.StartsWith("/", StringComparison.Ordinal) || entryPath.IndexOf('\0') >= 0)
+					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
+
+				string[] segments = entryPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+				if (segments.Any(segment => segment == "." || segment == ".."))
+					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
+
+				string relativePath = entryPath.Replace('/', Path.DirectorySeparatorChar);
+				string destinationPath = Path.GetFullPath(Path.Combine(normalizedDestination, relativePath));
 				if (!destinationPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase) &&
 					!String.Equals(destinationPath, normalizedDestination, StringComparison.OrdinalIgnoreCase))
 				{
