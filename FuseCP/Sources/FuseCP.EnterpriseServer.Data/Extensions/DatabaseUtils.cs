@@ -512,13 +512,7 @@ namespace FuseCP.EnterpriseServer.Data
 			if (!Regex.IsMatch(connectionString, @"(^|;)\s*TrustServerCertificate\s*=", RegexOptions.IgnoreCase))
 				connectionString = connectionString.TrimEnd(';') + ";TrustServerCertificate=True";
 
-			var builder = new SqlConnectionStringBuilder(connectionString);
-			// Always enforce encryption on SQL Server connections; also trust the certificate
-			// to preserve connectivity with self-signed certs used by typical deployments.
-			builder.Encrypt = true;
-			if (!builder.TrustServerCertificate)
-				builder.TrustServerCertificate = true;
-			return builder.ConnectionString;
+			return connectionString;
 		}
 		public static DataSet ExecuteQuery(string connectionString, string commandText)
 		{

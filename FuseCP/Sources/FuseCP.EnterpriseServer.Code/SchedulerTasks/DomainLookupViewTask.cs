@@ -106,8 +106,7 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var package in packages)
             {
-                int packageId = package.PackageId;
-                var domains = ServerController.GetDomains(packageId);
+                var domains = ServerController.GetDomains(package.PackageId);
 
                 domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
 

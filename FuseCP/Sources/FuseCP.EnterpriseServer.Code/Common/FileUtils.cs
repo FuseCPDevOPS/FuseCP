@@ -68,13 +68,19 @@ namespace FuseCP.EnterpriseServer;
 
 		using (ZipArchive archive = ZipFile.OpenRead(zipFile))
 		{
+			string destinationRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			foreach (ZipArchiveEntry entry in archive.Entries)
 			{
 				string entryName = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
 				if (Path.IsPathRooted(entryName) || entryName.Contains(".." + Path.DirectorySeparatorChar) || entryName.StartsWith(".."))
 					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
 
-				string destinationPath = EnsurePathUnderRoot(normalizedDestination, entryName);
+				string destinationPath = Path.GetFullPath(Path.Join(normalizedDestination, entryName));
+				if (!destinationPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase) &&
+					!String.Equals(destinationPath, normalizedDestination, StringComparison.OrdinalIgnoreCase))
+				{
+					throw new InvalidDataException($"Archive entry '{entry.FullName}' escapes destination folder.");
+				}
 				if (String.IsNullOrEmpty(entry.Name))
 				{
 					Directory.CreateDirectory(destinationPath);
