@@ -61,6 +61,9 @@ namespace FuseCP.EnterpriseServer
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new DataSet();
 
+            if (PackageController.GetPackage(packageId) == null)
+                return new DataSet();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -108,6 +111,11 @@ namespace FuseCP.EnterpriseServer
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
 
+            if (PackageController.GetPackage(packageId) == null)
+            {
+                return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+            }
+
             ServiceItemsPaged items = PackageController.GetPackageItemsPaged(
                 packageId, ResourceGroups.Exchange, typeof(Organization),
                 recursive, filterColumn, filterValue, sortColumn, startRow, maximumRows);
@@ -129,6 +137,9 @@ namespace FuseCP.EnterpriseServer
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
+
+            if (PackageController.GetPackage(packageId) == null)
+                return new List<Organization>();
 
             List<ServiceProviderItem> items = PackageController.GetPackageItemsByType(
                 packageId, typeof(Organization), recursive);
@@ -1132,6 +1143,11 @@ namespace FuseCP.EnterpriseServer
                     return serviceId;
                 }
 
+                if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                {
+                    return serviceId;
+                }
+
                 serviceId = ExchangeServerController.GetExchangeServiceID(org.PackageId);
             }
 
@@ -1216,6 +1232,9 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1271,6 +1290,9 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(Database.GetExchangeAccountByMailboxPlanId(itemId, mailboxPlanId));
         }
 
@@ -1283,6 +1305,9 @@ namespace FuseCP.EnterpriseServer
 
             Organization org = GetOrganization(itemId, false);
             if (org == null)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(Database.GetExchangeMailboxes(itemId));
@@ -1406,6 +1431,9 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
                 return GetDemoAccounts(includeMailboxes, includeContacts, includeDistributionLists,
@@ -1434,6 +1462,9 @@ namespace FuseCP.EnterpriseServer
             if (org == null)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1458,6 +1489,9 @@ namespace FuseCP.EnterpriseServer
 
             Organization org = GetOrganization(itemId, false);
             if (org == null)
+                return null;
+
+            if (SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
             #region Demo Mode
