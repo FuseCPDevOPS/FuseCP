@@ -12944,7 +12944,9 @@ namespace FuseCP.EnterpriseServer
 						p.Package.RoleId,
 						p.Package.Email,
 						UserComments = Clone.GetItemComments(p.Package.UserId, "USER", actorId)
-					});
+					})
+					.ToList()
+					.AsEnumerable();
 
 				if (string.IsNullOrEmpty(sortColumn))
 				{
@@ -13107,7 +13109,9 @@ namespace FuseCP.EnterpriseServer
 						p.Package.RoleId,
 						p.Package.Email,
 						UserComments = Clone.GetItemComments(p.Package.UserId, "USER", actorId)
-					});
+					})
+					.ToList()
+					.AsEnumerable();
 
 				if (string.IsNullOrEmpty(sortColumn))
 				{
@@ -16147,19 +16151,15 @@ namespace FuseCP.EnterpriseServer
 
 				if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterValue))
 				{
-					if (filterColumn == "PrimaryEmailAddress" &&
-						(accountTypes.Count != 1 || accountTypes[0] != ExchangeAccountType.Contact))
-					{
+					var useEmailAddressFilter = filterColumn == "PrimaryEmailAddress" &&
+						(accountTypes.Count != 1 || accountTypes[0] != ExchangeAccountType.Contact);
+					accounts = useEmailAddressFilter
 #if NETFRAMEWORK
-						accounts = accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => DbFunctions.Like(e.EmailAddress, filterValue)));
+						? accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => DbFunctions.Like(e.EmailAddress, filterValue)))
 #else
-						accounts = accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => EF.Functions.Like(e.EmailAddress, filterValue)));
+						? accounts.Where(a => a.ExchangeAccountEmailAddresses.Any(e => EF.Functions.Like(e.EmailAddress, filterValue)))
 #endif
-					}
-					else
-					{
-						accounts = accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
-					}
+						: accounts.Where(DynamicFunctions.ColumnLike(accounts, filterColumn, filterValue));
 				}
 
 				accounts = archiving

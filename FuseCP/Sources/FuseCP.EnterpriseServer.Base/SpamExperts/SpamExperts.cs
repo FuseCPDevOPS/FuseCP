@@ -22,53 +22,55 @@ namespace FuseCP.EnterpriseServer
 {
     public class SpamExperts
     {
-
-
-        //string emailAddress;
-        //bool isPrimary;
-        //bool isUserPrincipalName;
+        private bool seEnabled;
+        private string schemaValue;
+        private string urlValue;
+        private string userValue;
+        private string passwordValue;
+        private string errorMailSubject;
+        private string errorMailBody;
 
 
         public bool SEEnabled
         {
-            get { return SEEnabled; }
-            set { SEEnabled = value; }
+            get { return seEnabled; }
+            set { seEnabled = value; }
         }
 
         public string schema
         {
-            get { return this.schema; }
-            set { this.schema = value; }
+            get { return schemaValue; }
+            set { schemaValue = value; }
         }
 
         public string url
         {
-            get { return this.url; }
-            set { this.url = value; }
+            get { return urlValue; }
+            set { urlValue = value; }
         }
 
         public string user
         {
-            get { return user; }
-            set { user = value; }
+            get { return userValue; }
+            set { userValue = value; }
         }
 
         public string password
         {
-            get { return password; }
-            set { password = value; }
+            get { return passwordValue; }
+            set { passwordValue = value; }
         }
 
         public string ErrorMailSubject
         {
-            get { return ErrorMailSubject; }
-            set { ErrorMailSubject = value; }
+            get { return errorMailSubject; }
+            set { errorMailSubject = value; }
         }
 
         public string ErrorMailBody
         {
-            get { return ErrorMailBody; }
-            set { ErrorMailBody = "{0}.Error: {1}"; }
+            get { return errorMailBody; }
+            set { errorMailBody = value; }
         }
 
     }

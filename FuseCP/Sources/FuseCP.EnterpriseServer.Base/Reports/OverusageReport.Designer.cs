@@ -416,9 +416,7 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public HostingSpaceDataTable() {
                 this.TableName = "HostingSpace";
-                this.BeginInit();
                 this.InitClass();
-                this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -829,9 +827,7 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BandwidthOverusageDataTable() {
                 this.TableName = "BandwidthOverusage";
-                this.BeginInit();
                 this.InitClass();
-                this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1125,9 +1121,7 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public DiskspaceOverusageDataTable() {
                 this.TableName = "DiskspaceOverusage";
-                this.BeginInit();
                 this.InitClass();
-                this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1425,9 +1419,7 @@ namespace FuseCP.EnterpriseServer.Base.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public OverusageDetailsDataTable() {
                 this.TableName = "OverusageDetails";
-                this.BeginInit();
                 this.InitClass();
-                this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

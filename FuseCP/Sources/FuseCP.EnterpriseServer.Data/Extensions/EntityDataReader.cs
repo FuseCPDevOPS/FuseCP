@@ -241,7 +241,7 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public void Dispose() {
 			IsClosed = true;
-			if (enumerator is IDisposable disposableEnum) disposableEnum.Dispose();
+			enumerator?.Dispose();
 			enumerator = null;
 			if (Set is IDisposable disposableSet) disposableSet.Dispose();
 			Set = null;

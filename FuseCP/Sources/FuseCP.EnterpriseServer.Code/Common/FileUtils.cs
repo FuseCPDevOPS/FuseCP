@@ -74,7 +74,7 @@ namespace FuseCP.EnterpriseServer;
 				if (Path.IsPathRooted(entryName) || entryName.Contains(".." + Path.DirectorySeparatorChar) || entryName.StartsWith(".."))
 					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
 
-				string destinationPath = EnsurePathUnderRoot(normalizedDestination, entry.FullName.Replace('/', Path.DirectorySeparatorChar));
+				string destinationPath = EnsurePathUnderRoot(normalizedDestination, entryName);
 				if (String.IsNullOrEmpty(entry.Name))
 				{
 					Directory.CreateDirectory(destinationPath);
