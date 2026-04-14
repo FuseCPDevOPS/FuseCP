@@ -57,6 +57,15 @@ public class PortalUtils
 	public const string SPACE_ID_PARAM = "SpaceID";
 	public const string SEARCH_QUERY_PARAM = "Query";
 
+	private static string CombineUnderRoot(string rootPath, string relativeSegment)
+	{
+		string rootFullPath = Path.GetFullPath(rootPath);
+		string combinedPath = Path.GetFullPath(Path.Combine(rootFullPath, relativeSegment.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+		string rootPrefix = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		if (!combinedPath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && !string.Equals(combinedPath, rootFullPath, StringComparison.OrdinalIgnoreCase))
+			throw new InvalidOperationException("Resolved path is outside of the expected root.");
+		return combinedPath;
+	}
 
 	public static string CultureCookieName
 	{
@@ -1200,7 +1209,7 @@ public class PortalUtils
 		string generalControlKey = string.Empty;
 
 		string appData = HostingEnvironment.MapPath(CONFIG_FOLDER);
-		string xmlFilePath = Path.Combine(appData, EXCHANGE_SERVER_HIERARCHY_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+		string xmlFilePath = CombineUnderRoot(appData, EXCHANGE_SERVER_HIERARCHY_FILE);
 		if (File.Exists(xmlFilePath))
 		{
 			try

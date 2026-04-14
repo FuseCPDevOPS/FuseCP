@@ -54,6 +54,16 @@ namespace FuseCP.WebPortal
 				: segment.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 		}
 
+		private static string CombineUnderRoot(string rootPath, string relativeSegment)
+		{
+			string rootFullPath = Path.GetFullPath(rootPath);
+			string combinedPath = Path.GetFullPath(Path.Combine(rootFullPath, NormalizeRelativePathSegment(relativeSegment)));
+			string rootPrefix = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+			if (!combinedPath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && !string.Equals(combinedPath, rootFullPath, StringComparison.OrdinalIgnoreCase))
+				throw new InvalidOperationException("Resolved path is outside of the expected root.");
+			return combinedPath;
+		}
+
 		static Dictionary<string, ModuleDefinition> modules = null;
 		static readonly object ModuleDefinitionsLock = new object();
 		public static Dictionary<string, ModuleDefinition> ModuleDefinitions
@@ -118,7 +128,7 @@ namespace FuseCP.WebPortal
 
 						// load pages
 						string appData = HostingEnvironment.MapPath(APP_DATA_FOLDER);
-						string path = Path.Combine(appData, NormalizeRelativePathSegment(SITE_SETTINGS_FILE));
+						string path = CombineUnderRoot(appData, SITE_SETTINGS_FILE);
 
 						// load site settings
 						XmlDocument xml = new XmlDocument();
@@ -140,7 +150,7 @@ namespace FuseCP.WebPortal
 		{
 			// load pages
 			string appData = HttpContext.Current.Server.MapPath(APP_DATA_FOLDER);
-			string path = Path.Combine(appData, NormalizeRelativePathSegment(SITE_SETTINGS_FILE));
+			string path = CombineUnderRoot(appData, SITE_SETTINGS_FILE);
 
 			try
 			{
@@ -248,8 +258,8 @@ namespace FuseCP.WebPortal
 				if (node.Attributes["file"] == null)
 					continue;
 
-				string includePath = NormalizeRelativePathSegment(node.Attributes["file"].Value);
-				string incPath = Path.Combine(path, includePath);
+				string includePath = node.Attributes["file"].Value;
+				string incPath = CombineUnderRoot(path, includePath);
 				XmlDocument inc = new XmlDocument();
 				inc.Load(incPath);
 
