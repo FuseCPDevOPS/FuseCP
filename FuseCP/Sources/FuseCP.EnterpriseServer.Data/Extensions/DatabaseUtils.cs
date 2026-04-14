@@ -503,6 +503,15 @@ namespace FuseCP.EnterpriseServer.Data
 		/// </summary>
 		private static string EnsureSqlServerEncryption(string connectionString)
 		{
+			if (string.IsNullOrWhiteSpace(connectionString))
+				return "Encrypt=True;TrustServerCertificate=True";
+
+			if (!Regex.IsMatch(connectionString, @"(^|;)\s*Encrypt\s*=", RegexOptions.IgnoreCase))
+				connectionString = connectionString.TrimEnd(';') + ";Encrypt=True";
+
+			if (!Regex.IsMatch(connectionString, @"(^|;)\s*TrustServerCertificate\s*=", RegexOptions.IgnoreCase))
+				connectionString = connectionString.TrimEnd(';') + ";TrustServerCertificate=True";
+
 			var builder = new SqlConnectionStringBuilder(connectionString);
 			// Always enforce encryption on SQL Server connections; also trust the certificate
 			// to preserve connectivity with self-signed certs used by typical deployments.
