@@ -309,7 +309,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
 
 			UserInfoInternal targetUser = GetUser(changeUserId);
 			if (targetUser == null)
@@ -955,7 +956,10 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(int userId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			if (GetUser(userId) == null)
@@ -967,7 +971,10 @@ namespace FuseCP.EnterpriseServer
 		public int DeleteUser(string taskId, int userId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			if (GetUser(userId) == null)
@@ -1224,7 +1231,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void DeleteUserThemeSetting(int userId, string PropertyName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName);
 		}
