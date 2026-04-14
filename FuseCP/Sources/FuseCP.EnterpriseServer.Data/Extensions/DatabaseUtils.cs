@@ -218,7 +218,7 @@ namespace FuseCP.EnterpriseServer.Data
 		/// <returns>True if connecion is valid, otherwise false.</returns>
 		public static bool CheckSqlServerConnection(string connectionString)
 		{
-			SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(connectionString));
+			SqlConnection conn = CreateEncryptedSqlConnection(connectionString);
 			try
 			{
 				conn.Open();
@@ -272,7 +272,7 @@ namespace FuseCP.EnterpriseServer.Data
 			ParseConnectionString(connectionString, out dbtype, out nativeConnectionString);
 			if (dbtype == DbType.SqlServer || dbtype == DbType.Unknown)
 			{
-				SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(nativeConnectionString));
+				SqlConnection conn = CreateEncryptedSqlConnection(nativeConnectionString);
 				try
 				{
 					using SqlCommand cmd = new SqlCommand("SELECT SERVERPROPERTY('productversion')", conn);
@@ -309,7 +309,7 @@ namespace FuseCP.EnterpriseServer.Data
 			if (dbtype == DbType.SqlServer || dbtype == DbType.Unknown)
 			{
 
-				SqlConnection conn = new SqlConnection(EnsureSqlServerEncryption(nativeConnectionString));
+				SqlConnection conn = CreateEncryptedSqlConnection(nativeConnectionString);
 
 
 				int mode = 0;
@@ -359,7 +359,7 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public static int ExecuteStoredProcedure(string connectionString, string name, params SqlParameter[] commandParameters)
 		{
-			using (SqlConnection connection = new SqlConnection(EnsureSqlServerEncryption(connectionString)))
+			using (SqlConnection connection = CreateEncryptedSqlConnection(connectionString))
 			{
 				connection.Open();
 				using SqlCommand cmd = new SqlCommand();
@@ -409,7 +409,7 @@ namespace FuseCP.EnterpriseServer.Data
 			SqlConnection conn = null;
 			try
 			{
-				conn = new SqlConnection(EnsureSqlServerEncryption(connectionString));
+				conn = CreateEncryptedSqlConnection(connectionString);
 				using SqlCommand cmd = new SqlCommand(commandText, conn);
 				cmd.CommandTimeout = 300;
 				conn.Open();
@@ -429,7 +429,7 @@ namespace FuseCP.EnterpriseServer.Data
 			SqlConnection conn = null;
 			try
 			{
-				conn = new SqlConnection(EnsureSqlServerEncryption(connectionString));
+				conn = CreateEncryptedSqlConnection(connectionString);
 				using SqlCommand cmd = new SqlCommand(commandText, conn);
 				cmd.CommandTimeout = 300;
 				conn.Open();
@@ -514,6 +514,17 @@ namespace FuseCP.EnterpriseServer.Data
 
 			return connectionString;
 		}
+
+		private static SqlConnection CreateEncryptedSqlConnection(string connectionString)
+		{
+			string normalizedConnectionString = EnsureSqlServerEncryption(connectionString);
+			SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder(normalizedConnectionString)
+			{
+				TrustServerCertificate = true
+			};
+			connectionStringBuilder["Encrypt"] = true;
+			return new SqlConnection(connectionStringBuilder.ConnectionString);
+		}
 		public static DataSet ExecuteQuery(string connectionString, string commandText)
 		{
 			Data.DbType dbType;
@@ -537,7 +548,7 @@ namespace FuseCP.EnterpriseServer.Data
 			SqlConnection conn = null;
 			try
 			{
-				conn = new SqlConnection(EnsureSqlServerEncryption(connectionString));
+				conn = CreateEncryptedSqlConnection(connectionString);
 				conn.Open();
 				using SqlDataAdapter adapter = new SqlDataAdapter(commandText, conn);
 				DataSet ds = new DataSet();
@@ -1417,7 +1428,7 @@ LOG ON(
 		}
 		public static System.Data.Common.DbConnection SqlServerConnection(string connectionString)
 		{
-			return new SqlConnection(EnsureSqlServerEncryption(connectionString));
+			return CreateEncryptedSqlConnection(connectionString);
 		}
 		public static System.Data.Common.DbConnection MySqlConnection(string connectionString)
 		{
