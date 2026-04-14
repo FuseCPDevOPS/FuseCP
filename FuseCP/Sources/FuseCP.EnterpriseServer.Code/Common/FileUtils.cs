@@ -71,26 +71,15 @@ namespace FuseCP.EnterpriseServer;
 			string destinationRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			foreach (ZipArchiveEntry entry in archive.Entries)
 			{
-				string entryPath = entry.FullName.Replace('\\', '/');
-				if (entryPath.StartsWith("/", StringComparison.Ordinal) || entryPath.IndexOf('\0') >= 0)
-					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
+				string fileName = Path.GetFileName(entry.FullName);
+				if (String.IsNullOrWhiteSpace(fileName))
+					continue;
 
-				string[] segments = entryPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-				if (segments.Any(segment => segment == "." || segment == ".."))
-					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
-
-				string relativePath = entryPath.Replace('/', Path.DirectorySeparatorChar);
-				string normalizedRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-				string destinationPath = Path.GetFullPath(normalizedRoot + Path.DirectorySeparatorChar + relativePath);
+				string destinationPath = Path.GetFullPath(Path.Join(normalizedDestination, fileName));
 				if (!destinationPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase) &&
 					!String.Equals(destinationPath, normalizedDestination, StringComparison.OrdinalIgnoreCase))
 				{
 					throw new InvalidDataException($"Archive entry '{entry.FullName}' escapes destination folder.");
-				}
-				if (String.IsNullOrEmpty(entry.Name))
-				{
-					Directory.CreateDirectory(destinationPath);
-					continue;
 				}
 
 				string destinationDirectory = Path.GetDirectoryName(destinationPath);

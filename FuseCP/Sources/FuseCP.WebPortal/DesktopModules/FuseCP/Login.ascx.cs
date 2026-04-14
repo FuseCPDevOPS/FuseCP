@@ -70,22 +70,7 @@ namespace FuseCP.Portal
 		{
 			get
 			{
-				string redirectUrl = "";
-				if (Request.QueryString["returnurl"] != null)
-				{
-					// return to the url passed to signin
-					// redirectUrl = HttpUtility.UrlDecode(Request["returnurl"]);
-					redirectUrl = Request.QueryString["ReturnUrl"];
-					if (!IsLocalUrl(redirectUrl))
-					{
-						redirectUrl = PortalUtils.LoginRedirectUrl;
-					}
-				}
-				else
-				{
-					redirectUrl = PortalUtils.LoginRedirectUrl;
-				}
-				return redirectUrl;
+				return PortalUtils.LoginRedirectUrl;
 			}
 		}
 

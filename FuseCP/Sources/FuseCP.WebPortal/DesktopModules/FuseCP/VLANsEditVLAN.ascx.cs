@@ -69,22 +69,7 @@ namespace FuseCP.Portal
 
         private void RedirectBack()
         {
-            var returnUrl = Request.QueryString["ReturnUrl"];
-
-            if (string.IsNullOrEmpty(returnUrl)
-                || !Uri.TryCreate(returnUrl, UriKind.Relative, out Uri relativeReturnUrl)
-                || !relativeReturnUrl.OriginalString.StartsWith("/", StringComparison.Ordinal)
-                || relativeReturnUrl.OriginalString.StartsWith("//", StringComparison.Ordinal)
-                || relativeReturnUrl.OriginalString.StartsWith("/\\", StringComparison.Ordinal))
-            {
-                returnUrl = NavigateURL("ServerID", ddlServer.SelectedValue);
-            }
-            else
-            {
-                returnUrl = relativeReturnUrl.OriginalString;
-            }
-
-            Response.Redirect(returnUrl);
+            Response.Redirect(NavigateURL("ServerID", ddlServer.SelectedValue));
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
