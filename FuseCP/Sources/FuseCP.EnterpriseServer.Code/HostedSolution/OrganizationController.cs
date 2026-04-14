@@ -1626,7 +1626,7 @@ namespace FuseCP.EnterpriseServer
 
         #region Users
 
-        public List<OrganizationDeletedUser> GetOrganizationDeletedUsers(int itemId)
+        internal List<OrganizationDeletedUser> GetOrganizationDeletedUsers(int itemId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<OrganizationDeletedUser>();
 
@@ -2270,13 +2270,15 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredAccessTokens();
         }
 
@@ -3306,7 +3308,7 @@ namespace FuseCP.EnterpriseServer
             }
         }
 
-        public OrganizationDeletedUser GetDeletedUser(int accountId)
+        private OrganizationDeletedUser GetDeletedUser(int accountId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             OrganizationDeletedUser deletedUser = ObjectUtils.FillObjectFromDataReader<OrganizationDeletedUser>(
@@ -4057,6 +4059,7 @@ namespace FuseCP.EnterpriseServer
         public void DeleteAdditionalGroup(int groupId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (!GetAdditionalGroups(SecurityContext.User.UserId).Any(group => group.GroupId == groupId)) return;
             Database.DeleteAdditionalGroup(groupId);
         }
 
