@@ -78,6 +78,11 @@ namespace FuseCP.Providers
 			set { name = value; }
 		}
 
+        protected void SetNameDuringConstruction(string value)
+        {
+            name = value;
+        }
+
         [DataMember]
         public string GroupName
         {

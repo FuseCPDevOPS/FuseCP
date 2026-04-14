@@ -72,7 +72,7 @@ namespace FuseCP.Providers.DNS
 
 		public MsDNS()
 		{
-			if (IsDNSInstalled())
+			if (IsDnsServiceInstalled())
 			{
 				// creare WMI helper
 				wmi = new WmiHelper("root\\MicrosoftDNS");
@@ -1314,11 +1314,7 @@ namespace FuseCP.Providers.DNS
 			}
 		}
 
-		/// <summary>
-		/// Supports managed resources disposal
-		/// </summary>
-		/// <returns></returns>
-		protected virtual bool IsDNSInstalled()
+		private static bool IsDnsServiceInstalled()
 		{
 			using (RegistryKey root = Registry.LocalMachine)
 			{
@@ -1331,6 +1327,15 @@ namespace FuseCP.Providers.DNS
 					return res;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Supports managed resources disposal
+		/// </summary>
+		/// <returns></returns>
+		protected virtual bool IsDNSInstalled()
+		{
+			return IsDnsServiceInstalled();
 		}
 
 		public override bool IsInstalled()

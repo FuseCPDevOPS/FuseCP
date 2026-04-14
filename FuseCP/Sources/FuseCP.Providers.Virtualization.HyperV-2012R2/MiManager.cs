@@ -284,13 +284,13 @@ namespace FuseCP.Providers.Virtualization
         }
 
         /// <summary>
-        /// Protected virtual method to dispose managed and unmanaged resources.
+        /// Dispose managed and unmanaged resources.
         /// </summary>
         /// <param name="disposing">
         /// True if called from Dispose() (deterministic disposal);
         /// False if called from the finalizer (non-deterministic disposal).
         /// </param>
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             lock (_disposeThreadSafetyLock)
             {

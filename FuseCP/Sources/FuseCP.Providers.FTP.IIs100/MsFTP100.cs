@@ -61,7 +61,7 @@ namespace FuseCP.Providers.FTP
         /// </summary>
         public MsFTP100()
         {
-            if (IsMsFTPInstalled())
+            if (IsMsFtpServiceInstalled())
             {
                 this.ftpSitesService = new SitesModuleService();
             }
@@ -1065,7 +1065,7 @@ namespace FuseCP.Providers.FTP
 
         #endregion
 
-        protected virtual bool IsMsFTPInstalled()
+        private static bool IsMsFtpServiceInstalled()
         {
             int value = 0;
             RegistryKey root = Registry.LocalMachine;
@@ -1082,6 +1082,11 @@ namespace FuseCP.Providers.FTP
                 ftp.Close();
 
             return res;
+        }
+
+        protected virtual bool IsMsFTPInstalled()
+        {
+            return IsMsFtpServiceInstalled();
         }
 
         public override bool IsInstalled()

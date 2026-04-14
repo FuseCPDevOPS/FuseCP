@@ -67,62 +67,52 @@ namespace FuseCP.Providers.OS
         public PrivateKeyFile[] Keys { get; protected set; } = new PrivateKeyFile[0];
 
         public SshUri() { }
-        public SshUri(string url) => Url = url;
+        public SshUri(string url) => InitializeSshUrl(url);
+
+        private void InitializeSshUrl(string value)
+        {
+            if (url == value)
+            {
+                return;
+            }
+
+            base.Url = url = value;
+            if (string.IsNullOrEmpty(url))
+            {
+                RemoteForwardHost = null;
+                LocalForwardPort = RemoteForwardPort = 0;
+                Keys = new PrivateKeyFile[0];
+                return;
+            }
+
+            var uri = new Uri(url);
+
+            var match = Regex.Match(uri.PathAndQuery, @"^/?(?:(?<localport>[0-9]+):)?(?:(?<host>\[[0-9a-fA-F:]+\]|[0-9a-zA-Z_.-]+):)?(?<remoteport>[0-9]+)(?:/(?<path>.*?))?(?:\?(?<query>.*?))?$");
+            if (match.Success)
+            {
+                LocalForwardPort = match.Groups["localport"].Success ? uint.Parse(match.Groups["localport"].Value) : 0;
+                RemoteForwardHost = match.Groups["host"].Success ? match.Groups["host"].Value : null;
+                RemoteForwardPort = match.Groups["remoteport"].Success ? uint.Parse(match.Groups["remoteport"].Value) : 0;
+                Path = match.Groups["path"].Success ? match.Groups["path"].Value : "";
+
+                var keys = Query["keyfiles"];
+                Keys = keys != null
+                    ? keys.Split(',')
+                        .Select(file => new PrivateKeyFile(file))
+                        .ToArray()
+                    : null;
+            }
+            else throw new ArgumentException("This url is not a valid ssh url.");
+
+            if (uri.Scheme != "ssh") throw new ArgumentException("This url is not a valid ssh url. Ssh urls must begin with ssh://");
+        }
 
         [DataMember]
         public override string Url {
             get => base.Url;
             set
             {
-                if (url != value)
-                {
-                    base.Url = url = value;
-                    if (string.IsNullOrEmpty(url))
-                    {
-                        RemoteForwardHost = null;
-                        LocalForwardPort = RemoteForwardPort = 0;
-                        Keys = new PrivateKeyFile[0];
-                    }
-                    else
-                    {
-                        var uri = new Uri(url);
-
-                        var match = Regex.Match(uri.PathAndQuery, @"^/?(?:(?<localport>[0-9]+):)?(?:(?<host>\[[0-9a-fA-F:]+\]|[0-9a-zA-Z_.-]+):)?(?<remoteport>[0-9]+)(?:/(?<path>.*?))?(?:\?(?<query>.*?))?$");
-                        if (match.Success)
-                        {
-                            LocalForwardPort = match.Groups["localport"].Success ? uint.Parse(match.Groups["localport"].Value) : 0;
-
-
-
-
-
-                            RemoteForwardHost = match.Groups["host"].Success ? match.Groups["host"].Value : null;
-
-
-
-
-
-                            RemoteForwardPort = match.Groups["remoteport"].Success ? uint.Parse(match.Groups["remoteport"].Value) : 0;
-
-
-
-
-
-                            Path = match.Groups["path"].Success ? match.Groups["path"].Value : "";
-
-
-                            var keys = Query["keyfiles"];
-                            Keys = keys != null
-                                ? keys.Split(',')
-                                    .Select(file => new PrivateKeyFile(file))
-                                    .ToArray()
-                                : null;
-                        }
-                        else throw new ArgumentException("This url is not a valid ssh url.");
-
-                        if (uri.Scheme != "ssh") throw new ArgumentException("This url is not a valid ssh url. Ssh urls must begin with ssh://");
-                    }
-                }
+                InitializeSshUrl(value);
             }
         }
 

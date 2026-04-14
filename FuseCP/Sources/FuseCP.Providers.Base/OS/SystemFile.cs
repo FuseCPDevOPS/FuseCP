@@ -45,7 +45,7 @@ namespace FuseCP.Providers.OS
         public SystemFile(string name, string fullName, bool isDirectory, long size,
             DateTime created, DateTime changed)
         {
-            this.Name = name;
+            SetNameDuringConstruction(name);
             this.fullName = fullName;
             this.isDirectory = isDirectory;
             this.size = size;

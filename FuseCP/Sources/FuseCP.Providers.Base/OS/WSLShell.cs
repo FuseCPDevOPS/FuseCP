@@ -413,8 +413,13 @@ namespace FuseCP.Providers.OS
 		public class WSLGlobalConfiguration : ConfigurationBase
 		{
 			public WSLGlobalConfiguration(WSLShell shell) : base(shell) { }
-			public WSLGlobalConfiguration(WSLShell shell, string user) { User = user; Shell = shell; Open(); }
-			public virtual string User { get; set; } = null;
+			public WSLGlobalConfiguration(WSLShell shell, string user) { this.user = user; Shell = shell; Open(); }
+			private string user = null;
+			public string User
+			{
+				get => user;
+				set => user = value;
+			}
 			public override string File => User == null ?
 				Path.Join(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), ".wslconfig") :
 				Path.Join(Path.GetDirectoryName(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile)), User, ".wslconfig");

@@ -50,7 +50,37 @@ namespace FuseCP.Providers.OS
         string url = null;
 
         public TunnelUri() { }
-        public TunnelUri(string url) => Url = url;
+        public TunnelUri(string url) => InitializeUrl(url);
+
+        private void InitializeUrl(string value)
+        {
+            if (url == value)
+            {
+                return;
+            }
+
+            url = value;
+            if (string.IsNullOrEmpty(url))
+            {
+                Username = Password = Host = DnsSafeHost = IdnHost = Path = null;
+                Query = new QueryStringDictionary();
+                port = 0;
+                return;
+            }
+
+            var uri = new Uri(url);
+            scheme = uri.Scheme;
+            var userInfo = uri.UserInfo.Split(':');
+            Username = userInfo[0];
+            Password = userInfo.Length > 1 ? userInfo[1] : null;
+
+            Host = uri.Host;
+            DnsSafeHost = uri.DnsSafeHost;
+            IdnHost = uri.IdnHost;
+            port = uri.Port <= 0 ? 22 : uri.Port;
+            Path = uri.AbsolutePath;
+            Query = new QueryStringDictionary(url);
+        }
 
         string scheme = null;
         public string Scheme
@@ -111,31 +141,7 @@ namespace FuseCP.Providers.OS
             }
             set
             {
-                if (url != value)
-                {
-                    url = value;
-                    if (string.IsNullOrEmpty(url))
-                    {
-                        Username = Password = Host = DnsSafeHost = IdnHost = Path = QueryString = null;
-                        Tunnel = TunnelOption.None;
-                        port = 0;
-                    }
-                    else
-                    {
-                        var uri = new Uri(url);
-                        scheme = uri.Scheme;
-                        var userInfo = uri.UserInfo.Split(':');
-                        Username = userInfo[0];
-                        Password = userInfo.Length > 1 ? userInfo[1] : null;
-
-                        Host = uri.Host;
-                        DnsSafeHost = uri.DnsSafeHost;
-                        IdnHost = uri.IdnHost;
-                        port = uri.Port <= 0 ? 22 : uri.Port;
-                        Path = uri.AbsolutePath;
-                        Query = new QueryStringDictionary(url);
-                    }
-                }
+                InitializeUrl(value);
             }
         }
 
