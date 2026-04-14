@@ -913,9 +913,11 @@ namespace FuseCP.EnterpriseServer
 		public ServiceInfo GetServiceInfoAdmin(int serviceId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin
-				| DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0)
+				return null;
+
+			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
 				return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
@@ -1069,8 +1071,11 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0)
+				return null;
+
+			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
 				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2473,9 +2478,14 @@ namespace FuseCP.EnterpriseServer
 		public int DeleteCluster(int clusterId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin
-				| DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
+				return SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+
+			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))
+				return -1;
 
 			Database.DeleteCluster(clusterId);
 
