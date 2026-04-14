@@ -102,11 +102,12 @@ namespace FuseCP.EnterpriseServer
             var dnsServers = dnsServersString.Split(';');
 
             var packages = ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
+            var packageUsers = packages.ToDictionary(package => package.PackageId, package => package.UserId);
 
 
-            foreach (var package in packages)
+            foreach (int packageId in packages.Select(package => package.PackageId))
             {
-                var domains = ServerController.GetDomains(package.PackageId);
+                var domains = ServerController.GetDomains(packageId);
 
                 domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
 
@@ -121,7 +122,12 @@ namespace FuseCP.EnterpriseServer
 
                     if (!domainUsers.ContainsKey(domain.PackageId))
                     {
-                        var domainUser = UserController.GetUser(packages.First(x=>x.PackageId == domain.PackageId).UserId);
+                        if (!packageUsers.TryGetValue(domain.PackageId, out int packageUserId))
+                        {
+                            continue;
+                        }
+
+                        var domainUser = UserController.GetUser(packageUserId);
 
                         domainUsers.Add(domain.PackageId, domainUser);
                     }
