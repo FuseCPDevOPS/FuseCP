@@ -44,7 +44,8 @@ namespace FuseCP.WebDavPortal.HttpHandlers
                     .TrimStart('/', '\\')
                     .Replace('/', Path.DirectorySeparatorChar);
                 var rootPath = Path.GetFullPath(AppContext.BaseDirectory);
-                var absolutePath = Path.GetFullPath(Path.Combine(rootPath, relativePath));
+                var normalizedRoot = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                var absolutePath = Path.GetFullPath(normalizedRoot + Path.DirectorySeparatorChar + relativePath);
                 var rootPrefix = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
                 if (absolutePath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && File.Exists(absolutePath))

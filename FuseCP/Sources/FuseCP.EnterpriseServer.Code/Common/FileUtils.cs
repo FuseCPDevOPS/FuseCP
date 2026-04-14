@@ -80,7 +80,8 @@ namespace FuseCP.EnterpriseServer;
 					throw new InvalidDataException($"Archive entry '{entry.FullName}' has an invalid path.");
 
 				string relativePath = entryPath.Replace('/', Path.DirectorySeparatorChar);
-				string destinationPath = Path.GetFullPath(Path.Combine(normalizedDestination, relativePath));
+				string normalizedRoot = normalizedDestination.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+				string destinationPath = Path.GetFullPath(normalizedRoot + Path.DirectorySeparatorChar + relativePath);
 				if (!destinationPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase) &&
 					!String.Equals(destinationPath, normalizedDestination, StringComparison.OrdinalIgnoreCase))
 				{

@@ -127,9 +127,16 @@ namespace FuseCP.Portal
             var returnUrl = Request.QueryString["ReturnUrl"];
 
             if (string.IsNullOrEmpty(returnUrl)
-                || !(returnUrl.StartsWith("/", StringComparison.Ordinal) && !returnUrl.StartsWith("//", StringComparison.Ordinal)))
+                || !Uri.TryCreate(returnUrl, UriKind.Relative, out Uri relativeReturnUrl)
+                || !relativeReturnUrl.OriginalString.StartsWith("/", StringComparison.Ordinal)
+                || relativeReturnUrl.OriginalString.StartsWith("//", StringComparison.Ordinal)
+                || relativeReturnUrl.OriginalString.StartsWith("/\\", StringComparison.Ordinal))
             {
                 returnUrl = NavigateURL("ServerID", ddlServer.SelectedValue);
+            }
+            else
+            {
+                returnUrl = relativeReturnUrl.OriginalString;
             }
 
             Response.Redirect(returnUrl);

@@ -45,16 +45,23 @@ namespace FuseCP.Portal
 				return false;
 			}
 
+			if (url.StartsWith("//", StringComparison.Ordinal) || url.StartsWith("\\\\", StringComparison.Ordinal) || url.StartsWith("/\\", StringComparison.Ordinal))
+			{
+				return false;
+			}
+
 			Uri absoluteUri;
 			if (Uri.TryCreate(url, UriKind.Absolute, out absoluteUri))
 			{
-				return String.Equals(this.Request.Url.Host, absoluteUri.Host, StringComparison.OrdinalIgnoreCase);
+				return String.Equals(this.Request.Url.Host, absoluteUri.Host, StringComparison.OrdinalIgnoreCase)
+					&& String.Equals(this.Request.Url.Scheme, absoluteUri.Scheme, StringComparison.OrdinalIgnoreCase);
 			}
 			else
 			{
-				bool isLocal = !url.StartsWith("http:", StringComparison.OrdinalIgnoreCase)
-					 && !url.StartsWith("https:", StringComparison.OrdinalIgnoreCase)
-					 && Uri.IsWellFormedUriString(url, UriKind.Relative);
+				bool isLocal = url.StartsWith("/", StringComparison.Ordinal)
+					&& !url.StartsWith("//", StringComparison.Ordinal)
+					&& !url.StartsWith("/\\", StringComparison.Ordinal)
+					&& Uri.IsWellFormedUriString(url, UriKind.Relative);
 				return isLocal;
 			}
 		}
