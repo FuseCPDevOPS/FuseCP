@@ -175,14 +175,14 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(arguments))
 				yield break;
 
-			foreach (var currentToken in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Cast<Match>().Select(match => match.Value))
-			{
-				var token = currentToken;
-				var startsAndEndsWithDoubleQuotes = token[0] == '"' && token[token.Length - 1] == '"';
-				var startsAndEndsWithSingleQuotes = token[0] == '\'' && token[token.Length - 1] == '\'';
-				if (token.Length >= 2 && (startsAndEndsWithDoubleQuotes || startsAndEndsWithSingleQuotes))
-					token = token.Substring(1, token.Length - 2);
-				yield return token;
+		foreach (var token in Regex.Matches(arguments, @"(?:[^\s\""']+|\""(?:\\.|[^\""])*\""|'(?:\\.|[^'])*')+").Cast<Match>().Select(match => match.Value))
+		{
+			var processedToken = token;
+			var startsAndEndsWithDoubleQuotes = token[0] == '"' && token[token.Length - 1] == '"';
+			var startsAndEndsWithSingleQuotes = token[0] == '\'' && token[token.Length - 1] == '\'';
+			if (token.Length >= 2 && (startsAndEndsWithDoubleQuotes || startsAndEndsWithSingleQuotes))
+				processedToken = token.Substring(1, token.Length - 2);
+			yield return processedToken;
 			}
 		}
 

@@ -1668,9 +1668,9 @@ namespace FuseCP.EnterpriseServer
 							var isAdmin = CheckIsUserAdmin(ActorID);
 
 							var ipAddresses = IpAddresses
-								.Where(ip => isAdmin &&
-									(PoolID == 0 || PoolID > 0 && ip.PoolId == PoolID) &&
-									(ServerID == 0 || ServerID > 0 && ip.ServerId == ServerID))
+								.Where(ip => isAdmin)
+								.Where(ip => PoolID == 0 || ip.PoolId == PoolID)
+								.Where(ip => ServerID == 0 || ip.ServerId == ServerID)
 								.GroupJoin(PackageIpAddresses, ip => ip.AddressId, pip => pip.AddressId, (ip, pips) => new
 								{
 									IP = ip,
@@ -1810,9 +1810,8 @@ namespace FuseCP.EnterpriseServer
 						case "PackageIPAddresses":
 
 							var pips = PackageIpAddresses
-								.Where(pip =>
-									(PoolID == 0 || PoolID > 0 && pip.Address.PoolId == PoolID) &&
-									(OrgID == 0 || OrgID > 0 && pip.OrgId == OrgID))
+								.Where(pip => PoolID == 0 || pip.Address.PoolId == PoolID)
+								.Where(pip => OrgID == 0 || pip.OrgId == OrgID)
 								.Join(packagesTree, pip => pip.PackageId, pt => pt, (pip, pt) => pip)
 								.GroupJoin(ServiceItems, pip => pip.ItemId, si => si.ItemId, (pip, sis) => new
 								{
@@ -5985,9 +5984,9 @@ namespace FuseCP.EnterpriseServer
 				if (record != null)
 				{
 					// check rights
-					if ((record.ServerId > 0 || record.ServiceId > 0) && !CheckIsUserAdmin(actorId) ||
-						record.PackageId > 0 && !CheckActorPackageRights(actorId, record.PackageId))
-						return;
+					bool serverOrServiceRecord = record.ServerId > 0 || record.ServiceId > 0;
+					if (serverOrServiceRecord && !CheckIsUserAdmin(actorId)) return;
+					if (record.PackageId > 0 && !CheckActorPackageRights(actorId, record.PackageId)) return;
 
 					GlobalDnsRecords.Remove(record);
 
@@ -7680,10 +7679,10 @@ namespace FuseCP.EnterpriseServer
 						Item = s,
 						Type = t
 					})
-					.Where(s => (!calculateDiskspace || s.Type.CalculateDiskspace == true) &&
-						(!calculateBandwidth || s.Type.CalculateBandwidth == true) &&
-						(!suspendable || s.Type.Suspendable == true) &&
-						(!disposable || s.Type.Disposable == true));
+.Where(s => !calculateDiskspace || s.Type.CalculateDiskspace == true)
+						.Where(s => !calculateBandwidth || s.Type.CalculateBandwidth == true)
+						.Where(s => !suspendable || s.Type.Suspendable == true)
+						.Where(s => !disposable || s.Type.Disposable == true);
 
 				var serviceItems = items
 					.Join(ResourceGroups, s => s.Type.GroupId, r => r.GroupId, (s, r) => new
@@ -12575,16 +12574,16 @@ namespace FuseCP.EnterpriseServer
 					}
 
 					logs = logs
-						.Where(l => startDate <= l.StartDate && l.StartDate < endDate &&
-							(sourceName == "" || l.SourceName == sourceName) &&
-							(taskName == "" || l.TaskName == taskName) &&
-							(itemId == 0 || itemId > 0 && l.ItemId == itemId) &&
+						.Where(l => startDate <= l.StartDate && l.StartDate < endDate)
+						.Where(l => sourceName == "" || l.SourceName == sourceName)
+						.Where(l => taskName == "" || l.TaskName == taskName)
+						.Where(l => itemId == 0 || l.ItemId == itemId)
 #if NETFRAMEWORK
-							(itemName == "" || DbFunctions.Like(l.ItemName, itemName)) &&
+						.Where(l => itemName == "" || DbFunctions.Like(l.ItemName, itemName))
 #else
-							(itemName == "" || EF.Functions.Like(l.ItemName, itemName)) &&
+						.Where(l => itemName == "" || EF.Functions.Like(l.ItemName, itemName))
 #endif
-							(severityId == -1 || severityId > -1 && l.SeverityId == severityId));
+						.Where(l => severityId == -1 || l.SeverityId == severityId);
 
 					var count = logs.Count();
 
@@ -12772,14 +12771,14 @@ namespace FuseCP.EnterpriseServer
 				using (var childUsers = UserChildren(userId))
 				{
 					var logs = AuditLogs
-						.Where(l => startDate <= l.StartDate && l.StartDate < endDate &&
-							(string.IsNullOrEmpty(sourceName) || l.SourceName == sourceName) &&
-							(string.IsNullOrEmpty(taskName) || l.TaskName == taskName) &&
-							(itemId <= 0 || itemId == l.ItemId) &&
+						.Where(l => startDate <= l.StartDate && l.StartDate < endDate)
+						.Where(l => string.IsNullOrEmpty(sourceName) || l.SourceName == sourceName)
+						.Where(l => string.IsNullOrEmpty(taskName) || l.TaskName == taskName)
+						.Where(l => itemId <= 0 || itemId == l.ItemId)
 #if NETFRAMEWORK
-							(string.IsNullOrEmpty(itemName) || DbFunctions.Like(l.ItemName, itemName)));
+						.Where(l => string.IsNullOrEmpty(itemName) || DbFunctions.Like(l.ItemName, itemName));
 #else
-							(string.IsNullOrEmpty(itemName) || EF.Functions.Like(l.ItemName, itemName)));
+						.Where(l => string.IsNullOrEmpty(itemName) || EF.Functions.Like(l.ItemName, itemName));
 #endif
 					logs = logs.Where(l => l.UserId == null && isAdmin)
 						.Concat(logs
@@ -16239,15 +16238,16 @@ namespace FuseCP.EnterpriseServer
 					/// <summary>TODO</summary>
 					throw new AccessViolationException("You are not allowed to access this package");
 
+				var includedTypes = new List<ExchangeAccountType>();
+				if (includeMailboxes) includedTypes.Add(ExchangeAccountType.Mailbox);
+				if (includeContacts) includedTypes.Add(ExchangeAccountType.Contact);
+				if (includeDistributionLists) includedTypes.Add(ExchangeAccountType.DistributionList);
+				if (includeRooms) includedTypes.Add(ExchangeAccountType.Room);
+				if (includeEquipment) includedTypes.Add(ExchangeAccountType.Equipment);
+				if (includeSecurityGroups) includedTypes.Add(ExchangeAccountType.SecurityGroup);
+				if (includeSharedMailbox) includedTypes.Add(ExchangeAccountType.SharedMailbox);
 				var accounts = ExchangeAccounts
-					.Where(a => a.ItemId == itemId && (
-						(includeMailboxes && a.AccountType == ExchangeAccountType.Mailbox) ||
-						(includeContacts && a.AccountType == ExchangeAccountType.Contact) ||
-						(includeDistributionLists && a.AccountType == ExchangeAccountType.DistributionList) ||
-						(includeRooms && a.AccountType == ExchangeAccountType.Room) ||
-						(includeEquipment && a.AccountType == ExchangeAccountType.Equipment) ||
-						(includeSecurityGroups && a.AccountType == ExchangeAccountType.SecurityGroup) ||
-						(includeSharedMailbox && a.AccountType == ExchangeAccountType.SharedMailbox)));
+					.Where(a => a.ItemId == itemId && includedTypes.Contains(a.AccountType));
 
 				if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterValue))
 				{
