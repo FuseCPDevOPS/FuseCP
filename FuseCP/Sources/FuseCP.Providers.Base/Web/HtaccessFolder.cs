@@ -29,7 +29,9 @@ namespace FuseCP.Providers.Web
 
 		public const string HTTPD_CONF_FILE = "httpd.conf";
 		public const string HTACCESS_FILE = ".htaccess";
-		public const string HTPASSWDS_FILE = ".htpasswds";
+		public const string HTUSERS_FILE = ".htpasswds";
+		[Obsolete("Use HTUSERS_FILE instead")]
+		public const string HTPASSWDS_FILE = HTUSERS_FILE;
 		public const string HTGROUPS_FILE = ".htgroups";
 
 
@@ -239,7 +241,7 @@ namespace FuseCP.Providers.Web
 			}
 			else
 			{
-				string authUserFilePath = System.IO.Path.Join(SiteRootPath, HTPASSWDS_FILE.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
+				string authUserFilePath = System.IO.Path.Join(SiteRootPath, HTUSERS_FILE.TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar));
 				if (File.Exists(authUserFilePath))
 				{
 					AuthUserFile = authUserFilePath;

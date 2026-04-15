@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -49,33 +49,38 @@ namespace FuseCP.EnterpriseServer
         #region Hosting Plans
         public DataSet GetHostingPlans(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetHostingPlans(SecurityContext.User.UserId, userId);
         }
 
         public DataSet GetHostingAddons(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetHostingAddons(SecurityContext.User.UserId, userId);
         }
 
         public HostingPlanInfo GetHostingPlan(int planId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<HostingPlanInfo>(
                 Database.GetHostingPlan(SecurityContext.User.UserId, planId));
         }
 
         public DataSet GetHostingPlanQuotas(int packageId, int planId, int serverId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetHostingPlanQuotas(SecurityContext.User.UserId, packageId,
                 planId, serverId);
         }
 
         public HostingPlanContext GetHostingPlanContext(int planId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             HostingPlanContext context = new HostingPlanContext();
 
             // load hosting plan
@@ -177,7 +182,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<HostingPlanInfo> GetUserAvailableHostingPlans(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<HostingPlanInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<HostingPlanInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<HostingPlanInfo>();
             return ObjectUtils.CreateListFromDataSet<HostingPlanInfo>(
                 Database.GetUserAvailableHostingPlans(SecurityContext.User.UserId, userId));
         }
@@ -256,7 +262,8 @@ namespace FuseCP.EnterpriseServer
         #region Packages
         public List<PackageInfo> GetMyPackages(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<PackageInfo>();
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(packages,
                 GetRawMyPackages(userId));
@@ -265,7 +272,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<PackageInfo> GetPackages(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<PackageInfo>();
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(
                 packages, GetRawPackages(userId));
@@ -274,13 +282,15 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetNestedPackagesSummary(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetNestedPackagesSummary(SecurityContext.User.UserId, packageId);
         }
 
         public List<PackageInfo> GetPackagePackages(int packageId, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<PackageInfo>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<PackageInfo>();
 
             List<PackageInfo> packages = new List<PackageInfo>();
             ObjectUtils.FillCollectionFromDataSet<PackageInfo>(
@@ -290,26 +300,30 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetRawMyPackages(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetMyPackages(SecurityContext.User.UserId, userId);
         }
 
         public DataSet GetRawPackages(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackages(SecurityContext.User.UserId, userId);
         }
 
         public DataSet GetRawPackagePackages(int packageId, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagePackages(SecurityContext.User.UserId, packageId, recursive);
         }
 
         public DataSet GetPackagesPaged(int userId, string filterColumn, string filterValue,
             string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagesPaged(SecurityContext.User.UserId, userId,
                 filterColumn, filterValue, sortColumn, startRow, maximumRows);
         }
@@ -317,7 +331,8 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetNestedPackagesPaged(int packageId, string filterColumn, string filterValue,
             int statusId, int planId, int serverId, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetNestedPackagesPaged(SecurityContext.User.UserId, packageId,
                 filterColumn, filterValue, statusId, planId, serverId, sortColumn, startRow, maximumRows);
         }
@@ -325,7 +340,8 @@ namespace FuseCP.EnterpriseServer
         public DataSet SearchServiceItemsPaged(int userId, int itemTypeId, string filterValue,
             string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.SearchServiceItemsPaged(SecurityContext.User.UserId, userId, itemTypeId, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -335,7 +351,8 @@ namespace FuseCP.EnterpriseServer
             int statusId, int roleId, string sortColumn, int startRow, int maximumRows, string colType, 
             string fullType, bool onlyFind)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetSearchObject(SecurityContext.User.UserId, userId,
                 filterColumn, filterValue, statusId, roleId, sortColumn, startRow, 
                 maximumRows, colType, fullType, false, onlyFind);
@@ -345,7 +362,8 @@ namespace FuseCP.EnterpriseServer
             string ItemTypeName, string GroupName, int PackageID, string VPSType, int RoleID, int UserID,
             string FilterColumns)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetSearchTableByColumns(PagedStored, FilterValue, MaximumRows,
                 Recursive, PoolID, ServerID, SecurityContext.User.UserId, StatusID, PlanID, OrgID, ItemTypeName, GroupName,
                 PackageID, VPSType, RoleID, UserID, FilterColumns);
@@ -354,13 +372,15 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotas(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
         public DataSet GetParentPackageQuotas(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetParentPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
@@ -381,14 +401,16 @@ namespace FuseCP.EnterpriseServer
 
         public PackageInfo GetPackage(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<PackageInfo>(
                 Database.GetPackage(SecurityContext.User.UserId, packageId));
         }
 
         public PackageContext GetPackageContext(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 
             PackageContext context = new PackageContext();
 
@@ -438,7 +460,8 @@ namespace FuseCP.EnterpriseServer
 
         public PackageContext GetParentPackageContext(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 
             PackageContext context = new PackageContext();
 
@@ -488,7 +511,8 @@ namespace FuseCP.EnterpriseServer
 
         public UserInfo GetPackageOwner(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             PackageInfo package = GetPackage(packageId);
             if (package == null)
                 return null;
@@ -769,7 +793,8 @@ namespace FuseCP.EnterpriseServer
         public PackageResult AddPackage(int userId, int planId, string packageName,
             string packageComments, int statusId, DateTime purchaseDate, bool sendLetter)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageResult();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageResult();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageResult();
             return AddPackage(userId, planId, packageName, packageComments, statusId, purchaseDate,
                 sendLetter, false);
         }
@@ -1063,7 +1088,8 @@ namespace FuseCP.EnterpriseServer
 
         public int ChangePackagesStatus(List<PackageInfo> packages, PackageStatus status, bool async)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
             int statusId = (int)status;
 
             List<PackageInfo> changedPackages = new List<PackageInfo>();
@@ -1160,20 +1186,23 @@ namespace FuseCP.EnterpriseServer
 
         public DateTime GetPackageBandwidthUpdate(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return DateTime.MinValue;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return DateTime.MinValue;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return DateTime.MinValue;
             return Database.GetPackageBandwidthUpdate(packageId);
         }
 
         public void UpdatePackageBandwidthUpdate(int packageId, DateTime updateDate)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             Database.UpdatePackageBandwidthUpdate(packageId, updateDate);
         }
 
         // This gets the system quota and updates the home folder with the value
         public void UpdatePackageHardQuota(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             // request OS service
             int osId = GetPackageServiceId(packageId, ResourceGroups.Os);
             if (osId == 0)
@@ -1227,20 +1256,23 @@ namespace FuseCP.EnterpriseServer
         #region Package Add-ons
         public DataSet GetPackageAddons(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageAddons(SecurityContext.User.UserId, packageId);
         }
 
         public PackageAddonInfo GetPackageAddon(int packageAddonId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<PackageAddonInfo>(
                 Database.GetPackageAddon(SecurityContext.User.UserId, packageAddonId));
         }
 
         public PackageResult AddPackageAddonById(int packageId, int addonPlanId, int quantity)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageResult();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageResult();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageResult();
             PackageAddonInfo addon = new PackageAddonInfo();
             addon.PackageId = packageId;
             addon.PlanId = addonPlanId;
@@ -1398,27 +1430,33 @@ namespace FuseCP.EnterpriseServer
         #region Package Items
         public DataSet GetSearchableServiceItemTypes()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetSearchableServiceItemTypes();
         }
 
         public int GetPackageServiceId(int packageId, string groupName)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             return Database.GetPackageServiceId(SecurityContext.User.UserId, packageId, groupName, true);
         }
 
         public int GetPackageServiceId(int packageId, string groupName, bool updatePackage)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             return Database.GetPackageServiceId(SecurityContext.User.UserId, packageId, groupName, updatePackage);
         }
 
         public List<ServiceProviderItem> GetPackageItemsByName(int packageId, string itemName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             DataSet dsItems = Database.GetServiceItemsByName(
                 SecurityContext.User.UserId, packageId, itemName);
 
@@ -1427,25 +1465,29 @@ namespace FuseCP.EnterpriseServer
 
         public List<ServiceProviderItem> GetPackageItemsByType(int packageId, string groupName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             return GetPackageItemsByType(packageId, groupName, itemType, false);
         }
 
         public List<ServiceProviderItem> GetPackageItemsByType(int packageId, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             return GetPackageItemsByType(packageId, null, itemType, false);
         }
 
         public List<ServiceProviderItem> GetPackageItemsByType(int packageId, Type itemType, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             return GetPackageItemsByType(packageId, null, itemType, recursive);
         }
 
         public List<ServiceProviderItem> GetPackageItemsByType(int packageId, string groupName, Type itemType, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItems = Database.GetServiceItems(SecurityContext.User.UserId,
                 packageId, groupName, typeName, recursive);
@@ -1455,7 +1497,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<ServiceProviderItem> GetPackageItemsByTypeInternal(int packageId, string groupName, Type itemType, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItems = Database.GetServiceItems(-1, packageId, groupName, typeName, recursive);
 
@@ -1464,13 +1507,15 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetRawPackageItemsByType(int packageId, Type itemType, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return GetRawPackageItemsByType(packageId, null, itemType, recursive);
         }
 
         public DataSet GetRawPackageItemsByType(int packageId, string groupName, Type itemType, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItems = Database.GetServiceItems(SecurityContext.User.UserId,
                 packageId, groupName, typeName, recursive);
@@ -1483,7 +1528,8 @@ namespace FuseCP.EnterpriseServer
         public ServiceItemsPaged GetPackageItemsPaged(int packageId, Type itemType,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
             return GetPackageItemsPaged(packageId, null, itemType, false, filterColumn, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -1491,7 +1537,8 @@ namespace FuseCP.EnterpriseServer
         public ServiceItemsPaged GetPackageItemsPaged(int packageId, Type itemType, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
             return GetPackageItemsPaged(packageId, null, itemType, recursive, filterColumn, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -1499,7 +1546,8 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawPackageItemsPaged(int packageId, Type itemType, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return GetRawPackageItemsPaged(packageId, null, itemType, recursive, filterColumn, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -1507,7 +1555,8 @@ namespace FuseCP.EnterpriseServer
         public ServiceItemsPaged GetPackageItemsPaged(int packageId, string groupName, Type itemType,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
             return GetPackageItemsPaged(packageId, groupName, itemType, false, filterColumn, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -1515,7 +1564,8 @@ namespace FuseCP.EnterpriseServer
         public ServiceItemsPaged GetPackageItemsPaged(int packageId, string groupName, Type itemType, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ServiceItemsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ServiceItemsPaged();
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItems = Database.GetServiceItemsPaged(
                 SecurityContext.User.UserId, packageId, groupName, typeName, 0, recursive, filterColumn, filterValue,
@@ -1531,7 +1581,8 @@ namespace FuseCP.EnterpriseServer
             bool recursive, string filterColumn, string filterValue, string sortColumn,
             int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return GetRawPackageItemsPaged(packageId, groupName, itemType, 0, recursive, filterColumn, filterValue,
                 sortColumn, startRow, maximumRows);
         }
@@ -1540,7 +1591,8 @@ namespace FuseCP.EnterpriseServer
             int serverId, bool recursive, string filterColumn, string filterValue, string sortColumn,
             int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItems = Database.GetServiceItemsPaged(
                 SecurityContext.User.UserId, packageId, groupName, typeName, serverId, recursive, filterColumn, filterValue,
@@ -1553,62 +1605,71 @@ namespace FuseCP.EnterpriseServer
 
         public int GetServiceItemsCount(Type itemType, string groupName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
             return GetServiceItemsCount(itemType, groupName, 0);
         }
 
         public int GetServiceItemsCount(Type itemType, string groupName, int serviceId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
             string typeName = ObjectUtils.GetTypeFullName(itemType);
             return Database.GetServiceItemsCount(typeName, groupName, serviceId);
         }
 
         public DataSet GetPackageItemsDataSet(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetServiceItemsByPackage(SecurityContext.User.UserId,
                 packageId);
         }
 
         public List<ServiceProviderItem> GetPackageItems(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             DataSet dsItems = GetPackageItemsDataSet(packageId);
             return CreateServiceItemsList(dsItems, 0);
         }
 
         public DataSet GetRawPackageItems(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetServiceItemsByPackage(SecurityContext.User.UserId,
                 packageId);
         }
 
         public DataSet GetServiceItemsDataSet(int serviceId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetServiceItemsByService(SecurityContext.User.UserId,
                 serviceId);
         }
 
         public List<ServiceProviderItem> GetServiceItems(int serviceId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             DataSet dsItems = GetServiceItemsDataSet(serviceId);
             return CreateServiceItemsList(dsItems, 0);
         }
 
         public List<ServiceProviderItemType> GetServiceItemTypes()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItemType>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItemType>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItemType>();
             return ObjectUtils.CreateListFromDataReader<ServiceProviderItemType>(
                 Database.GetServiceItemTypes());
         }
 
         public ServiceProviderItemType GetServiceItemType(int itemTypeId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<ServiceProviderItemType>(
                 Database.GetServiceItemType(itemTypeId));
         }
@@ -1616,7 +1677,8 @@ namespace FuseCP.EnterpriseServer
         public List<ServiceProviderItem> GetServiceItemsForStatistics(int serviceId, int packageId,
             bool calculateDiskspace, bool calculateBandwidth, bool suspendable, bool disposable)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             DataSet dsItems = Database.GetServiceItemsForStatistics(SecurityContext.User.UserId,
                 serviceId, packageId, calculateDiskspace, calculateBandwidth, suspendable, disposable);
             return CreateServiceItemsList(dsItems, 0);
@@ -1624,7 +1686,8 @@ namespace FuseCP.EnterpriseServer
 
         public ServiceProviderItem GetPackageItem(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             DataSet dsItem = Database.GetServiceItem(SecurityContext.User.UserId, itemId);
             DataView dvItem = dsItem.Tables[0].DefaultView;
             if (dvItem.Count == 0)
@@ -1635,13 +1698,15 @@ namespace FuseCP.EnterpriseServer
 
         public ServiceProviderItem GetPackageItemByName(int packageId, string itemName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return GetPackageItemByName(packageId, null, itemName, itemType);
         }
 
         public ServiceProviderItem GetPackageItemByName(int packageId, string groupName, string itemName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             string itemTypeName = ObjectUtils.GetTypeFullName(itemType);
             DataSet dsItem = Database.GetServiceItemByName(SecurityContext.User.UserId,
                 packageId, groupName, itemName, itemTypeName);
@@ -1654,7 +1719,8 @@ namespace FuseCP.EnterpriseServer
 
         public int GetServiceItemsCountByNameAndServiceId(int serviceId, string groupName, string itemName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
             string itemTypeName = ObjectUtils.GetTypeFullName(itemType);
 
             return Database.GetServiceItemsCountByNameAndServiceId(SecurityContext.User.UserId,
@@ -1663,27 +1729,31 @@ namespace FuseCP.EnterpriseServer
 
         public bool CheckServiceItemExists(string itemName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
             return CheckServiceItemExists(itemName, null, itemType);
         }
 
         public bool CheckServiceItemExists(string itemName, string groupName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
             string itemTypeName = ObjectUtils.GetTypeFullName(itemType);
             return Database.CheckServiceItemExists(itemName, groupName, itemTypeName);
         }
 
         public bool CheckServiceItemExists(int serviceId, string itemName, Type itemType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
             string itemTypeName = ObjectUtils.GetTypeFullName(itemType);
             return Database.CheckServiceItemExists(serviceId, itemName, itemTypeName);
         }
 
         public int AddPackageItem(ServiceProviderItem item)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
             // check parameters
             if (item.PackageId < 0)
                 throw new ArgumentException("item.PackageId property value should be specified!");
@@ -1706,7 +1776,9 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageItem(ServiceProviderItem item)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // build properties xml
@@ -1796,7 +1868,9 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageBandwidth(int packageId, string xml)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             Database.UpdatePackageBandwidth(packageId, xml);
             return 0;
@@ -1804,7 +1878,9 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageDiskSpace(int packageId, string xml)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             Database.UpdatePackageDiskSpace(packageId, xml);
             return 0;
@@ -1812,7 +1888,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<ServiceProviderItem> CreateServiceItemsList(DataSet dsItems, int itemsTablePosition)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceProviderItem>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceProviderItem>();
             List<ServiceProviderItem> items = new List<ServiceProviderItem>();
 
             DataView dvItems = dsItems.Tables[itemsTablePosition].DefaultView;
@@ -1932,7 +2009,8 @@ namespace FuseCP.EnterpriseServer
         #region Package Settings
         public PackageSettings GetPackageSettings(int packageId, string settingsName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageSettings();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageSettings();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageSettings();
             IDataReader reader = Database.GetPackageSettings(
                 SecurityContext.User.UserId, packageId, settingsName);
 
@@ -2098,7 +2176,8 @@ namespace FuseCP.EnterpriseServer
         }
 
         public bool SetDefaultTopPackage(int userId, int packageId) {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
             List<PackageInfo> lpi = GetPackages(userId);
             foreach(PackageInfo pi in lpi) {
                 if(pi.DefaultTopPackage) {
@@ -2118,7 +2197,8 @@ namespace FuseCP.EnterpriseServer
         #region Quotas
         public QuotaValueInfo GetPackageQuota(int packageId, string quotaName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             QuotaValueInfo quota = ObjectUtils.FillObjectFromDataReader<QuotaValueInfo>(
                 Database.GetPackageQuota(SecurityContext.User.UserId,
                 packageId, quotaName));
@@ -2133,7 +2213,8 @@ namespace FuseCP.EnterpriseServer
         #region Fix for item #1547 by Pavel Tsurbeleu
         public string BuildMessageBccField(params string[] bccAddresses)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return string.Empty;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return string.Empty;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return string.Empty;
             List<string> mailAddresses = new List<string>();
             mailAddresses.AddRange(bccAddresses
                 .Where(bccItem => !String.IsNullOrEmpty(bccItem))
@@ -2233,7 +2314,8 @@ namespace FuseCP.EnterpriseServer
 
         public string GetEvaluatedPackageTemplateBody(int packageId, bool signup)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             // load user info
             UserInfo user = GetPackageOwner(packageId);
             string settingName = user.HtmlMail ? "HtmlBody" : "TextBody";
@@ -2250,7 +2332,8 @@ namespace FuseCP.EnterpriseServer
 
         public string GetEvaluatedAccountTemplateBody(int userId, bool signup)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             // load user info
             UserInfo user = UserController.GetUser(userId);
             string settingName = user.HtmlMail ? "HtmlBody" : "TextBody";
@@ -2267,7 +2350,8 @@ namespace FuseCP.EnterpriseServer
 
         public string EvaluateUserPackageTempate(int userId, int packageId, string template)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             // package context
             return packageId > -1 ? EvaluatePackageTempate(packageId, template, false, false) : EvaluateAccountTempate(userId, template, false, false);
 
@@ -2281,7 +2365,8 @@ namespace FuseCP.EnterpriseServer
 
         public string EvaluatePackageTempate(int packageId, string template, bool signup, bool email)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             Hashtable items = new Hashtable();
 
             items["Signup"] = signup;
@@ -2433,7 +2518,8 @@ namespace FuseCP.EnterpriseServer
 
         public string EvaluateAccountTempate(int userId, string template, bool signup, bool email)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             Hashtable items = new Hashtable();
 
             items["Signup"] = signup;
@@ -2496,7 +2582,8 @@ namespace FuseCP.EnterpriseServer
 
         public string EvaluateTemplate(string template, Hashtable items)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             using StringWriter writer = new StringWriter();
 
             try
@@ -2538,7 +2625,8 @@ namespace FuseCP.EnterpriseServer
             DateTime startDate, DateTime endDate, string sortColumn,
             int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagesBandwidthPaged(
                 SecurityContext.User.UserId, userId, packageId, startDate, endDate, sortColumn,
                 startRow, maximumRows);
@@ -2547,7 +2635,8 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetPackagesDiskspacePaged(int userId, int packageId, string sortColumn,
             int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackagesDiskspacePaged(
                 SecurityContext.User.UserId, userId, packageId, sortColumn,
                 startRow, maximumRows);
@@ -2555,14 +2644,16 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageBandwidth(int packageId, DateTime startDate, DateTime endDate)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageBandwidth(
                 SecurityContext.User.UserId, packageId, startDate, endDate);
         }
 
         public DataSet GetPackageDiskspace(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
             return Database.GetPackageDiskspace(
                 SecurityContext.User.UserId, packageId);
         }
@@ -2572,7 +2663,8 @@ namespace FuseCP.EnterpriseServer
         #region Overusage Report
         public Reports.OverusageReport GetOverusageSummaryReport(int userId, int packageId, DateTime startDate, DateTime endDate)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
             Reports.OverusageReport report = new Reports.OverusageReport();
 
             report = GetDiskspaceReport(report, userId, packageId, String.Empty);
@@ -2583,7 +2675,8 @@ namespace FuseCP.EnterpriseServer
 
         public Reports.OverusageReport GetDiskspaceOverusageDetailsReport(int userId, int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
             Reports.OverusageReport report = new Reports.OverusageReport();
 
             report = GetDiskspaceInformationAboutPackage(report, packageId);
@@ -2594,7 +2687,8 @@ namespace FuseCP.EnterpriseServer
 
         public Reports.OverusageReport GetBandwidthDetailsReport(int userId, int packageId, DateTime startDate, DateTime endDate)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new Reports.OverusageReport();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new Reports.OverusageReport();
             Reports.OverusageReport report = new Reports.OverusageReport();
 
             report = GetBandwidthInformationAboutPackage(report, packageId, startDate, endDate);
@@ -2892,7 +2986,8 @@ namespace FuseCP.EnterpriseServer
         public Dictionary<int, List<ServiceProviderItem>> OrderServiceItemsByServices(
             List<ServiceProviderItem> items)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new Dictionary<int, List<ServiceProviderItem>>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new Dictionary<int, List<ServiceProviderItem>>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new Dictionary<int, List<ServiceProviderItem>>();
             // order items by service id
             Dictionary<int, List<ServiceProviderItem>> orderedItems = new Dictionary<int, List<ServiceProviderItem>>();
             foreach (ServiceProviderItem item in items)

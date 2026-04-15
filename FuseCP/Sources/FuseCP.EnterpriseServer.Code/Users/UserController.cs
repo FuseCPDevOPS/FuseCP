@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -253,7 +253,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool UpdateUserMfaSecret(string username, bool activate)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
 
 			UserInfoInternal user = GetUserInternally(username);
 
@@ -277,7 +278,8 @@ namespace FuseCP.EnterpriseServer
 
 		public string[] GetUserMfaQrCodeData(string username)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new string[0];
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new string[0];
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new string[0];
 
 			UserInfoInternal user = GetUserInternally(username);
 
@@ -294,7 +296,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool ActivateUserMfaQrCode(string username, string pin)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
 			UserInfoInternal user = GetUserInternally(username);
 			if (user.MfaMode == 0)
 				return false;
@@ -325,7 +328,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void PreLoadUsersServers(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			Task.Run(() =>
 			{
 				using (var controller = AsAsync<UserController>())
@@ -351,7 +355,8 @@ namespace FuseCP.EnterpriseServer
 		}
 		public UserInfo GetUserByUsernamePassword(string username, string password, string ip, bool log = true)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			
 			// place log record
 			// TaskManager create backgroundtasklogs in db and them immediately remove and move them into auditlog (if it is a short task).
@@ -423,7 +428,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int ChangeUserPassword(string username, string oldPassword, string newPassword, string ip)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
 			
 			// place log record
 			TaskManager.StartTask("USER", "CHANGE_PASSWORD_BY_USERNAME_PASSWORD", username);
@@ -457,7 +463,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int SendPasswordReminder(string username, string ip)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
 			
 			// place log record
 			TaskManager.StartTask("USER", "SEND_REMINDER", username);
@@ -524,7 +531,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int SendVerificationCode(string username)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
 			
 			// place log record
 			TaskManager.StartTask("USER", "SEND_VERIFICATION_CODE", username);
@@ -596,13 +604,15 @@ namespace FuseCP.EnterpriseServer
 
 		public UserInfoInternal GetUser(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return GetUser(Database.GetUserById(SecurityContext.User.UserId, userId));
 		}
 
 		public UserInfoInternal GetUser(string username)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return GetUser(Database.GetUserByUsername(SecurityContext.User.UserId, username));
 		}
 
@@ -632,14 +642,16 @@ namespace FuseCP.EnterpriseServer
 
 		public List<UserInfo> GetUserParents(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(
 				Database.GetUserParents(SecurityContext.User.UserId, userId));
 		}
 
 		public List<UserInfo> GetUsers(int userId, bool recursive)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(
 				Database.GetUsers(SecurityContext.User.UserId, userId, recursive));
 		}
@@ -648,7 +660,8 @@ namespace FuseCP.EnterpriseServer
 			int statusId, int roleId,
 			string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsersPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, statusId, roleId, sortColumn, startRow, maximumRows, false);
@@ -658,7 +671,8 @@ namespace FuseCP.EnterpriseServer
 			int statusId, int roleId,
 			string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsersPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, statusId, roleId, sortColumn, startRow, maximumRows, true);
@@ -666,14 +680,16 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetUsersSummary(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetUsersSummary(SecurityContext.User.UserId, userId);
 		}
 
 		public DataSet GetUserDomainsPaged(int userId, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUserDomainsPaged(SecurityContext.User.UserId, userId,
 				filterColumn, filterValue, sortColumn, startRow, maximumRows);
@@ -681,28 +697,33 @@ namespace FuseCP.EnterpriseServer
 
 		public List<UserInfo> GetUserPeers(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<UserInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<UserInfo>();
 			// get user peers from database
 			return ObjectUtils.CreateListFromDataSet<UserInfo>(GetRawUserPeers(userId));
 		}
 
 		public DataSet GetRawUserPeers(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			// get user peers from database
 			return Database.GetUserPeers(SecurityContext.User.UserId, userId);
 		}
 
 		public DataSet GetRawUsers(int ownerId, bool recursive)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			// get users from database
 			return Database.GetUsers(SecurityContext.User.UserId, ownerId, recursive);
 		}
 
 		public int AddUser(UserInfo user, bool sendLetter, string password, string[] notes)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			int userId = AddUser(user, sendLetter, password);
@@ -818,7 +839,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void AddUserVLan(int userId, UserVlan vLan)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			UserInfo user = GetUser(userId);
 			//
 			if (user == null)
@@ -834,7 +856,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void DeleteUserVLan(int userId, ushort vLanId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			UserInfo user = GetUser(userId);
 			//
 			if (user == null)
@@ -852,14 +875,18 @@ namespace FuseCP.EnterpriseServer
 
 		public int UpdateUser(UserInfo user)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 			return UpdateUser(null, user);
 		}
 
 		public int UpdateUserAsync(string taskId, UserInfo user)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			UserAsyncWorker usersWorker = new UserAsyncWorker();
@@ -996,7 +1023,9 @@ namespace FuseCP.EnterpriseServer
 		public int ChangeUserPassword(int userId, string password)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details
@@ -1122,7 +1151,8 @@ namespace FuseCP.EnterpriseServer
 
 		public IEnumerable<string> GetUserPackagesServerUrls(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return Enumerable.Empty<string>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return Enumerable.Empty<string>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return Enumerable.Empty<string>();
 			return ObjectUtils.CreateListFromDataReader<ServerUrlBag>(Database.GetUserPackagesServerUrls(userId))
 				.Select(bag => CryptoUtils.DecryptServerUrl(bag.ServerUrl));
 		}
@@ -1146,7 +1176,8 @@ namespace FuseCP.EnterpriseServer
 		#region User Settings
 		public UserSettings GetUserSettings(int userId, string settingsName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new UserSettings();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new UserSettings();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new UserSettings();
 
 			IDataReader reader = Database.GetUserSettings(
 				SecurityContext.User.UserId, userId, settingsName);
@@ -1168,7 +1199,9 @@ namespace FuseCP.EnterpriseServer
 		public int UpdateUserSettings(UserSettings settings)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details
@@ -1219,13 +1252,15 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetUserThemeSettings(int userId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetUserThemeSettings(SecurityContext.User.UserId, userId);
 		}
 
 		public void UpdateUserThemeSetting(int userId, string PropertyName, string PropertyValue)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			Database.UpdateUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName, PropertyValue);
 		}
 

@@ -34,8 +34,6 @@ namespace FuseCP.Providers.OS
 
 	public abstract class Shell : INotifyCompletion
 	{
-		const bool DoNotWaitForProcessExit = false;
-
 		static int N = 0;
 
 		public int ShellId = N++;
@@ -85,7 +83,7 @@ namespace FuseCP.Providers.OS
 					return true;
 				}
 
-				var isProcessExitSatisfied = DoNotWaitForProcessExit || hasProcessExited;
+				var isProcessExitSatisfied = hasProcessExited;
 				if (!isProcessExitSatisfied && checkHasExited)
 				{
 					isProcessExitSatisfied = Process.HasExited;

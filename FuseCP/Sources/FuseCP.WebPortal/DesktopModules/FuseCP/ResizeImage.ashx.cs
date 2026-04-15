@@ -92,7 +92,7 @@ namespace FuseCP.Portal
 					Trace.TraceError(ex.StackTrace);
 				}
 
-                try
+                using (img)
                 {
                 int width = Utils.ParseInt(context.Request.QueryString[WIDTH], 20);
                 int height = Utils.ParseInt(context.Request.QueryString[HEIGHT], 20);
@@ -134,11 +134,6 @@ namespace FuseCP.Portal
 
                 // end response
 				context.Response.End();
-                }
-                finally
-                {
-                    // clean-up
-                    img?.Dispose();
                 }
             }
         }

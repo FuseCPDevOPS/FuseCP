@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -82,7 +82,8 @@ namespace FuseCP.EnterpriseServer
 		#region Servers
 		public List<ServerInfo> GetAllServers()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServerInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServerInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServerInfo>();
 			// fill collection
 			var servers = ObjectUtils.CreateListFromDataSet<ServerInfo>(
 				Database.GetAllServers(SecurityContext.User.UserId));
@@ -94,13 +95,15 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawAllServers()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetAllServers(SecurityContext.User.UserId);
 		}
 
 		public List<ServerInfo> GetServers()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServerInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServerInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServerInfo>();
 			var servers = ObjectUtils.CreateListFromDataSet<ServerInfo>(
 				Database.GetServers(SecurityContext.User.UserId));
 
@@ -111,7 +114,8 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawServers()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetServers(SecurityContext.User.UserId);
 		}
 
@@ -147,7 +151,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ServerInfo GetServerShortDetails(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			var server = ObjectUtils.FillObjectFromDataReader<ServerInfo>(
 				Database.GetServerShortDetails(serverId));
 			DecryptServerUrl(server);
@@ -156,7 +161,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ServerInfo GetServerById(int serverId, bool forAutodiscover = false)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			var server = ObjectUtils.FillObjectFromDataReader<ServerInfo>(
 				Database.GetServer(SecurityContext.User.UserId, serverId, forAutodiscover));
 			DecryptServerUrl(server);
@@ -165,7 +171,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ServerInfo GetServerByName(string serverName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			var server = ObjectUtils.FillObjectFromDataReader<ServerInfo>(
 				Database.GetServerByName(SecurityContext.User.UserId, serverName));
 			DecryptServerUrl(server);
@@ -684,7 +691,8 @@ namespace FuseCP.EnterpriseServer
 
 		public Dictionary<int, string> AutoUpdateServer(int serverId, int serviceId, byte[] zipFile, string zipFileName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new Dictionary<int, string>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new Dictionary<int, string>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new Dictionary<int, string>();
 			OS.OperatingSystem os = new OS.OperatingSystem();
 			ServiceProviderProxy.Init(os, serviceId);
 			Dictionary<int, string> res = new Dictionary<int, string>();
@@ -744,19 +752,22 @@ namespace FuseCP.EnterpriseServer
 		#region Virtual Servers
 		public DataSet GetVirtualServers()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetVirtualServers(SecurityContext.User.UserId);
 		}
 
 		public DataSet GetAvailableVirtualServices(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetAvailableVirtualServices(SecurityContext.User.UserId, serverId);
 		}
 
 		public DataSet GetVirtualServices(int serverId, bool forAutodiscover)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetVirtualServices(SecurityContext.User.UserId, serverId, forAutodiscover);
 		}
 
@@ -862,29 +873,34 @@ namespace FuseCP.EnterpriseServer
 		#region Services
 		public DataSet GetRawServicesByServerId(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetRawServicesByServerId(SecurityContext.User.UserId, serverId);
 		}
 		public String GetMailFilterURL(int PackageId, String ResorceGroupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return Database.GetMailFilterURL(SecurityContext.User.UserId, PackageId, ResorceGroupName);
 		}
 		public String GetMailFilterURLByHostingPlan(int PlanID, String ResorceGroupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return Database.GetMailFilterUrlByHostingPlan(SecurityContext.User.UserId, PlanID, ResorceGroupName);
 		}
 		public List<ServiceInfo> GetServicesByServerId(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerId(SecurityContext.User.UserId, serverId));
 		}
 
 		public List<ServiceInfo> GetServicesByServerIdGroupName(int serverId, string groupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataReader<ServiceInfo>(
 				Database.GetServicesByServerIdGroupName(SecurityContext.User.UserId,
 				serverId, groupName));
@@ -892,19 +908,23 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawServicesByGroupId(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetServicesByGroupId(SecurityContext.User.UserId, groupId);
 		}
 
 		public DataSet GetRawServicesByGroupName(string groupName, bool forAutodiscover)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, forAutodiscover);
 		}
 
 		public List<ServiceInfo> GetServicesByGroupName(string groupName)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return new List<ServiceInfo>();
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return new List<ServiceInfo>();
 			return ObjectUtils.CreateListFromDataSet<ServiceInfo>(
 				Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, false));
@@ -1147,7 +1167,8 @@ namespace FuseCP.EnterpriseServer
 
 		public string[] InstallService(int serviceId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new string[0];
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new string[0];
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new string[0];
 			ServiceProvider prov = new ServiceProvider();
 			ServiceProviderProxy.Init(prov, serviceId);
 			return prov.Install();
@@ -1178,55 +1199,63 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ProviderInfo> GetInstalledProviders(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
 			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(
 				Database.GetGroupProviders(groupId));
 		}
 
 		public List<ResourceGroupInfo> GetResourceGroups()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ResourceGroupInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ResourceGroupInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ResourceGroupInfo>();
 			return ObjectUtils.CreateListFromDataSet<ResourceGroupInfo>(
 				Database.GetResourceGroups());
 		}
 
 		public ResourceGroupInfo GetResourceGroup(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<ResourceGroupInfo>(
 				Database.GetResourceGroup(groupId));
 		}
 
 		public ResourceGroupInfo GetResourceGroupByName(string name)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<ResourceGroupInfo>(
 				Database.GetResourceGroupByName(name));
 		}
 
 		public ProviderInfo GetProvider(int providerId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<ProviderInfo>(
 				Database.GetProvider(providerId));
 		}
 
 		public List<ProviderInfo> GetProviders()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
 			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(Database.GetProviders());
 		}
 
 		public List<ProviderInfo> GetProvidersByGroupID(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ProviderInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ProviderInfo>();
 			return ObjectUtils.CreateListFromDataSet<ProviderInfo>(
 				Database.GetGroupProviders(groupId));
 		}
 
 		public String GetMailFilterUrl(int packageId, string groupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return string.Empty;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return string.Empty;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return string.Empty;
 			// load service
 			String l_stURL = Database.GetMailFilterURL(SecurityContext.User.UserId, packageId, groupName);
 
@@ -1238,7 +1267,8 @@ namespace FuseCP.EnterpriseServer
 
 		public String GetMailFilterUrlByHostingPlan(int PlanId, string groupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return string.Empty;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return string.Empty;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return string.Empty;
 			// load service
 			String l_stURL = Database.GetMailFilterUrlByHostingPlan(SecurityContext.User.UserId, PlanId, groupName);
 
@@ -1249,7 +1279,8 @@ namespace FuseCP.EnterpriseServer
 		}
 		public ProviderInfo GetPackageServiceProvider(int packageId, string groupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			// load service
 			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
 
@@ -1261,7 +1292,8 @@ namespace FuseCP.EnterpriseServer
 		}
 		public BoolResult IsInstalled(int serverId, int providerId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new BoolResult();
 			BoolResult res = TaskManager.StartResultTask<BoolResult>("AUTO_DISCOVERY", "IS_INSTALLED");
 
 			try
@@ -1290,7 +1322,8 @@ namespace FuseCP.EnterpriseServer
 
 		public BoolResult IsInstalled(int serverId, ProviderInfo provider)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new BoolResult();
 			BoolResult res = TaskManager.StartResultTask<BoolResult>("AUTO_DISCOVERY", "IS_INSTALLED");
 
 			try
@@ -1312,7 +1345,8 @@ namespace FuseCP.EnterpriseServer
 		}
 		public BoolResult IsInstalled(ServerInfo server, ProviderInfo provider)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new BoolResult();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new BoolResult();
 			BoolResult res = TaskManager.StartResultTask<BoolResult>("AUTO_DISCOVERY", "IS_INSTALLED");
 
 			try
@@ -1334,7 +1368,8 @@ namespace FuseCP.EnterpriseServer
 
 		public string GetServerVersion(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			AutoDiscovery ad = new AutoDiscovery();
 			ServiceProviderProxy.ServerInit(ad, serverId);
 
@@ -1343,7 +1378,8 @@ namespace FuseCP.EnterpriseServer
 
 		public string GetServerFilePath(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			AutoDiscovery ad = new AutoDiscovery();
 			ServiceProviderProxy.ServerInit(ad, serverId);
 
@@ -1371,7 +1407,8 @@ namespace FuseCP.EnterpriseServer
         #region Private / DMZ Network VLANs
         public VLANsPaged GetPrivateNetworkVLANsPaged(int serverId, string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new VLANsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new VLANsPaged();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new VLANsPaged();
             VLANsPaged result = new VLANsPaged();
 
 			// get reader
@@ -1543,7 +1580,8 @@ namespace FuseCP.EnterpriseServer
 
 		public PackageVLANsPaged GetPackagePrivateNetworkVLANs(int packageId, string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageVLANsPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageVLANsPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageVLANsPaged();
 			PackageVLANsPaged result = new PackageVLANsPaged();
 
 			// get reader
@@ -1562,7 +1600,8 @@ namespace FuseCP.EnterpriseServer
 
 		public PackageVLANsPaged GetPackageDmzNetworkVLANs(int packageId, string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageVLANsPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageVLANsPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageVLANsPaged();
 			PackageVLANsPaged result = new PackageVLANsPaged();
 
 			// get reader
@@ -1615,7 +1654,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<VLANInfo> GetUnallottedVLANs(int packageId, string groupName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<VLANInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<VLANInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<VLANInfo>();
 
 			int serviceId = 0;
 			bool servicebyid = int.TryParse(groupName, out serviceId);
@@ -1630,7 +1670,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void AllocatePackageVLANs(int packageId, int[] vlanIds, bool isDmz)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			if (vlanIds == null || vlanIds.Length == 0) return;
 			// prepare XML document
 			string xml = PrepareXML(vlanIds);
@@ -1742,7 +1783,8 @@ namespace FuseCP.EnterpriseServer
 		#region IP Addresses
 		public List<IPAddressInfo> GetIPAddresses(IPAddressPool pool, int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<IPAddressInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<IPAddressInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<IPAddressInfo>();
 			return ObjectUtils.CreateListFromDataReader<IPAddressInfo>(
 				Database.GetIPAddresses(SecurityContext.User.UserId, (int)pool, serverId));
 		}
@@ -1750,7 +1792,8 @@ namespace FuseCP.EnterpriseServer
 		public IPAddressesPaged GetIPAddressesPaged(IPAddressPool pool, int serverId,
 			string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new IPAddressesPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new IPAddressesPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new IPAddressesPaged();
 			IPAddressesPaged result = new IPAddressesPaged();
 
 			// get reader
@@ -1769,7 +1812,8 @@ namespace FuseCP.EnterpriseServer
 
 		public IPAddressInfo GetIPAddress(int addressId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<IPAddressInfo>(
 				Database.GetIPAddress(addressId));
 		}
@@ -2040,7 +2084,8 @@ namespace FuseCP.EnterpriseServer
 		public PackageIPAddressesPaged GetPackageIPAddresses(int packageId, int orgId, IPAddressPool pool,
 			string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows, bool recursive)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new PackageIPAddressesPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new PackageIPAddressesPaged();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new PackageIPAddressesPaged();
 			PackageIPAddressesPaged result = new PackageIPAddressesPaged();
 
 			// get reader
@@ -2059,13 +2104,15 @@ namespace FuseCP.EnterpriseServer
 
 		public int GetPackageIPAddressesCount(int packageId, int orgId, IPAddressPool pool)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
 			return Database.GetPackageIPAddressesCount(packageId, orgId, (int)pool);
 		}
 
 		public List<IPAddressInfo> GetUnallottedIPAddresses(int packageId, string groupName, IPAddressPool pool)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<IPAddressInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<IPAddressInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<IPAddressInfo>();
 
 			int serviceId = 0;
 			bool servicebyid = int.TryParse(groupName, out serviceId);
@@ -2080,7 +2127,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<PackageIPAddress> GetPackageUnassignedIPAddresses(int packageId, int orgId, IPAddressPool pool)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<PackageIPAddress>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
 			return ObjectUtils.CreateListFromDataReader<PackageIPAddress>(
 				Database.GetPackageUnassignedIPAddresses(SecurityContext.User.UserId, packageId, orgId, (int)pool));
 		}
@@ -2092,7 +2140,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void AllocatePackageIPAddresses(int packageId, int[] addressId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			// prepare XML document
 			string xml = PrepareXML(addressId);
 
@@ -2202,7 +2251,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject AllocateMaximumPackageIPAddresses(int packageId, string groupName, IPAddressPool pool)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ResultObject() { IsSuccess = false };
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			// get maximum server IPs
 			int maxAvailableIPs = GetUnallottedIPAddresses(packageId, groupName, pool).Count;
 
@@ -2236,7 +2286,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ResultObject AllocateMaximumPackageVLANs(int packageId, string groupName, bool isDmz)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new ResultObject() { IsSuccess = false };
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new ResultObject() { IsSuccess = false };
 			// get maximum server VLANs
 			int maxAvailableVLANs = GetUnallottedVLANs(packageId, groupName).Count;
 
@@ -2263,7 +2314,10 @@ namespace FuseCP.EnterpriseServer
 		public ResultObject DeallocatePackageIPAddresses(int packageId, int[] addressId)
 		{
 			#region Check account and space statuses
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0)
+				return new ResultObject() { IsSuccess = false };
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0)
 				return new ResultObject() { IsSuccess = false };
 
@@ -2301,7 +2355,8 @@ namespace FuseCP.EnterpriseServer
 		#region Item IP Addresses
 		public List<PackageIPAddress> GetItemIPAddresses(int itemId, IPAddressPool pool)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<PackageIPAddress>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
 			if (item == null)
@@ -2316,7 +2371,8 @@ namespace FuseCP.EnterpriseServer
 
 		public PackageIPAddress GetPackageIPAddress(int packageAddressId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 
 			PackageIPAddress packageAddress = ObjectUtils.FillObjectFromDataReader<PackageIPAddress>(
 				Database.GetPackageIPAddress(packageAddressId));
@@ -2332,7 +2388,9 @@ namespace FuseCP.EnterpriseServer
 
 		public int AddItemIPAddress(int itemId, int packageAddressId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
@@ -2352,7 +2410,9 @@ namespace FuseCP.EnterpriseServer
 
 		public int SetItemPrimaryIPAddress(int itemId, int packageAddressId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
@@ -2470,7 +2530,8 @@ namespace FuseCP.EnterpriseServer
 		#region Clusters
 		public List<ClusterInfo> GetClusters()
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ClusterInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ClusterInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ClusterInfo>();
 			return ObjectUtils.CreateListFromDataReader<ClusterInfo>(
 				Database.GetClusters(SecurityContext.User.UserId));
 		}
@@ -2509,65 +2570,75 @@ namespace FuseCP.EnterpriseServer
 		#region Global DNS records
 		public DataSet GetRawDnsRecordsByService(int serviceId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByService(SecurityContext.User.UserId, serviceId);
 		}
 
 		public DataSet GetRawDnsRecordsByServer(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByServer(SecurityContext.User.UserId, serverId);
 		}
 
 		public DataSet GetRawDnsRecordsByPackage(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByPackage(SecurityContext.User.UserId, packageId);
 		}
 
 		public DataSet GetRawDnsRecordsByGroup(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsByGroup(groupId);
 		}
 
 		public DataSet GetRawDnsRecordsTotal(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			return Database.GetDnsRecordsTotal(SecurityContext.User.UserId, packageId);
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByService(int serviceId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByService(SecurityContext.User.UserId, serviceId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByServer(int serverId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByServer(SecurityContext.User.UserId, serverId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByPackage(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByPackage(SecurityContext.User.UserId, packageId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsByGroup(int groupId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				Database.GetDnsRecordsByGroup(groupId));
 		}
 
 		public List<GlobalDnsRecord> GetDnsRecordsTotal(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<GlobalDnsRecord>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<GlobalDnsRecord>();
 			return ObjectUtils.CreateListFromDataSet<GlobalDnsRecord>(
 				GetRawDnsRecordsTotal(packageId));
 		}
@@ -2643,7 +2714,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<DnsRecordInfo> GetDomainDnsRecords(int domainId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DnsRecordInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DnsRecordInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DnsRecordInfo>();
 			var result = new List<DnsRecordInfo>();
 
 			var records = ObjectUtils.CreateListFromDataReader<DnsRecordInfo>(Database.GetDomainAllDnsRecords(domainId));
@@ -2663,7 +2735,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int CheckDomain(string domainName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
 			int checkDomainResult = Database.CheckDomain(-10, domainName, false);
 
 			if (checkDomainResult == -1)
@@ -2676,14 +2749,16 @@ namespace FuseCP.EnterpriseServer
 
 		public List<DomainInfo> GetDomains(int packageId, bool recursive)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetDomains(SecurityContext.User.UserId, packageId, recursive));
 		}
 
 		public List<DomainInfo> GetDomains(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetDomains(SecurityContext.User.UserId, packageId, true));
 		}
@@ -2691,14 +2766,16 @@ namespace FuseCP.EnterpriseServer
 
 		public List<DomainInfo> GetDomainsByZoneId(int zoneId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetDomainsByZoneId(SecurityContext.User.UserId, zoneId));
 		}
 
 		public List<DomainInfo> GetDomainsByDomainItemId(int zoneId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetDomainsByDomainItemId(SecurityContext.User.UserId, zoneId));
 		}
@@ -2706,14 +2783,16 @@ namespace FuseCP.EnterpriseServer
 
 		public List<DomainInfo> GetMyDomains(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetDomains(SecurityContext.User.UserId, packageId, false));
 		}
 
 		public List<DomainInfo> GetResellerDomains(int packageId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<DomainInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<DomainInfo>();
 			return ObjectUtils.CreateListFromDataSet<DomainInfo>(
 				Database.GetResellerDomains(SecurityContext.User.UserId, packageId));
 		}
@@ -2721,7 +2800,8 @@ namespace FuseCP.EnterpriseServer
 		public DataSet GetDomainsPaged(int packageId, int serverId, bool recursive, string filterColumn, string filterValue,
 			string sortColumn, int startRow, int maximumRows)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			DataSet ds = Database.GetDomainsPaged(SecurityContext.User.UserId,
 				packageId, serverId, recursive, filterColumn, filterValue,
 				sortColumn, startRow, maximumRows);
@@ -2731,7 +2811,8 @@ namespace FuseCP.EnterpriseServer
 
 		public DomainInfo GetDomain(int domainId, bool withLog = true)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			// get domain by ID
 			DomainInfo domain = GetDomainItem(domainId);
 
@@ -2752,14 +2833,16 @@ namespace FuseCP.EnterpriseServer
 
 		public DomainInfo GetDomain(string domainName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<DomainInfo>(
 				Database.GetDomainByName(SecurityContext.User.UserId, domainName, false, false));
 		}
 
 		public DomainInfo GetDomain(string domainName, bool searchOnDomainPointer, bool isDomainPointer)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return GetDomainItem(domainName, searchOnDomainPointer, isDomainPointer);
 		}
 
@@ -2785,28 +2868,32 @@ namespace FuseCP.EnterpriseServer
 
 		public DomainInfo GetDomainItem(int domainId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<DomainInfo>(
 				Database.GetDomain(SecurityContext.User.UserId, domainId));
 		}
 
 		public DomainInfo GetDomainItem(string domainName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return GetDomainItem(domainName, false, false);
 		}
 
 
 		public DomainInfo GetDomainItem(string domainName, bool searchOnDomainPointer, bool isDomainPointer)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			return ObjectUtils.FillObjectFromDataReader<DomainInfo>(
 				Database.GetDomainByName(SecurityContext.User.UserId, domainName, searchOnDomainPointer, isDomainPointer));
 		}
 
 		public string GetDomainAlias(int packageId, string domainName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			// load package settings
 			PackageSettings packageSettings = PackageController.GetPackageSettings(packageId,
 				PackageSettings.INSTANT_ALIAS);
@@ -2825,7 +2912,9 @@ namespace FuseCP.EnterpriseServer
 			bool createWebSite, int pointWebSiteId, int pointMailDomainId, bool createDnsZone, bool createPreviewDomain, bool allowSubDomains, string hostName)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			if (domainType == DomainType.Domain)
@@ -2918,7 +3007,9 @@ namespace FuseCP.EnterpriseServer
 		public int AddDomain(DomainInfo domain, bool createPreviewDomain, bool createZone)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// check package
@@ -3029,7 +3120,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int AddDomainItem(DomainInfo domain)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
 			return Database.AddDomain(SecurityContext.User.UserId,
 				domain.PackageId, domain.ZoneItemId, domain.DomainName, domain.HostingAllowed,
 				domain.WebSiteId, domain.MailDomainId, domain.IsSubDomain, domain.IsPreviewDomain, domain.IsDomainPointer);
@@ -3037,13 +3129,15 @@ namespace FuseCP.EnterpriseServer
 
 		public void AddServiceDNSRecords(int packageId, string groupName, DomainInfo domain, string serviceIP)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			AddServiceDNSRecords(packageId, groupName, domain, serviceIP, false);
 		}
 
 		public void AddServiceDNSRecords(int packageId, string groupName, DomainInfo domain, string serviceIP, bool wildcardOnly)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
 			if (serviceId > 0)
 			{
@@ -3086,7 +3180,8 @@ namespace FuseCP.EnterpriseServer
 
 		public void RemoveServiceDNSRecords(int packageId, string groupName, DomainInfo domain, string serviceIP, bool wildcardOnly)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
 			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
 			if (serviceId > 0)
 			{
@@ -3707,7 +3802,8 @@ namespace FuseCP.EnterpriseServer
 
 		public DomainInfo UpdateDomainWhoisData(DomainInfo domain)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			try
 			{
 				var idn = new IdnMapping();
@@ -3733,7 +3829,8 @@ namespace FuseCP.EnterpriseServer
 
 		public DomainInfo UpdateDomainWhoisData(DomainInfo domain, DateTime? creationDate, DateTime? expirationDate, string registrarName)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			Database.UpdateWhoisDomainInfo(domain.DomainId, creationDate, expirationDate, DateTime.Now, registrarName);
 
 			domain.CreationDate = creationDate;
@@ -3780,7 +3877,8 @@ namespace FuseCP.EnterpriseServer
 		#region DNS Zones
 		public DnsRecord[] GetDnsZoneRecords(int domainId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DnsRecord[0];
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DnsRecord[0];
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DnsRecord[0];
 			// load domain info
 			DomainInfo domain = GetDomain(domainId);
 
@@ -3801,7 +3899,8 @@ namespace FuseCP.EnterpriseServer
 
 		public DataSet GetRawDnsZoneRecords(int domainId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 			DataSet ds = new DataSet();
 			DataTable dt = ds.Tables.Add();
 
@@ -3828,7 +3927,8 @@ namespace FuseCP.EnterpriseServer
 		public DnsRecord GetDnsZoneRecord(int domainId, string recordName, DnsRecordType recordType,
 			string recordData)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 			// get all zone records
 			DnsRecord[] records = GetDnsZoneRecords(domainId);
 			return records.FirstOrDefault(record =>
@@ -3841,7 +3941,9 @@ namespace FuseCP.EnterpriseServer
 					string recordData, int mxPriority, int srvPriority, int srvWeight, int srvPort, int recordTTL)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// load domain info
@@ -3932,7 +4034,8 @@ namespace FuseCP.EnterpriseServer
 			string originalRecordName, string originalRecordData,
 			string recordName, DnsRecordType recordType, string recordData, int mxPriority, int srvPriority, int srvWeight, int srvPortNumber, int recordTTL)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
 			// place log record
 			DomainInfo domain = GetDomain(domainId);
 			TaskManager.StartTask("DNS_ZONE", "UPDATE_RECORD", domain.DomainName, domain.ZoneItemId);
@@ -3962,7 +4065,9 @@ namespace FuseCP.EnterpriseServer
 			string recordData)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// load domain info

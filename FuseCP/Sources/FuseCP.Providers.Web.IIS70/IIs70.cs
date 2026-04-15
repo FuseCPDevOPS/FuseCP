@@ -2855,7 +2855,7 @@ namespace FuseCP.Providers.Web
 
 		#region Secured Helicon Ape Users
 
-		public static string GeneratePasswordHash(HtaccessUser user)
+		public static string GenerateCredentialHash(HtaccessUser user)
 		{
 			if (HtaccessFolder.AUTH_TYPE_BASIC == user.AuthType)
 			{
@@ -2886,7 +2886,7 @@ namespace FuseCP.Providers.Web
 			//users.Add(new WebUser {Name = HtaccessFolder.VALID_USER});
 
 			// load users file
-			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTUSERS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
 
 			// iterate through all lines
@@ -2911,7 +2911,7 @@ namespace FuseCP.Providers.Web
 		{
 			// load users file
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTUSERS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
 
 			// iterate through all lines
@@ -2924,13 +2924,13 @@ namespace FuseCP.Providers.Web
 				if (colonIdx != -1)
 				{
 					string username = line.Substring(0, colonIdx);
-					string password = line.Substring(colonIdx + 1);
+					string storedCredentialHash = line.Substring(colonIdx + 1);
 					if (String.Compare(username, userName, true) == 0)
 					{
 						// exists
 						user = new HtaccessUser();
 						user.Name = username;
-						user.Password = password;
+						user.Password = storedCredentialHash;
 						break;
 					}
 				}
@@ -2982,7 +2982,7 @@ namespace FuseCP.Providers.Web
 				return;
 
 			string rootPath = GetSiteContentPath(siteId);
-			string usersPath = Path.Join(rootPath, HtaccessFolder.HTPASSWDS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+			string usersPath = Path.Join(rootPath, HtaccessFolder.HTUSERS_FILE.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
 			// load users file
 			List<string> lines = HtaccessFolder.ReadLinesFile(usersPath);
@@ -3013,10 +3013,10 @@ namespace FuseCP.Providers.Web
 						if (!String.IsNullOrEmpty(user.Password))
 						{
 							// hash password
-							string password = GeneratePasswordHash(user);
+							string credentialHash = GenerateCredentialHash(user);
 
 							// update line
-							updatedLine = username + ":" + password;
+							updatedLine = username + ":" + credentialHash;
 						}
 					}
 				}
@@ -3027,7 +3027,7 @@ namespace FuseCP.Providers.Web
 			if (!exists && !deleteUser)
 			{
 				// new user has been added
-				updatedLines.Add(user.Name + ":" + GeneratePasswordHash(user));
+				updatedLines.Add(user.Name + ":" + GenerateCredentialHash(user));
 			}
 
 			// save users file

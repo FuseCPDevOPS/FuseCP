@@ -75,7 +75,9 @@ namespace FuseCP.Server.Utils
                 if (logSeverity.TraceError)
                 {
                     StringBuilder txt = new StringBuilder();
-                    txt.Append($"[{DateTime.Now:G}] ERROR: ");
+                    txt.Append("[");
+                    txt.Append(DateTime.Now.ToString("G", CultureInfo.InvariantCulture));
+                    txt.Append("] ERROR: ");
                     txt.AppendLine(SanitizeLogText(message));
                     while (ex != null) {
                         txt.AppendLine("[" + ex.GetType().FullName + "] " + SanitizeLogText(ex.Message));
@@ -181,18 +183,11 @@ namespace FuseCP.Server.Utils
 
             if (args != null && args.Length > 0)
             {
-                object[] safeArgs = SanitizeLogArguments(message, args);
-                try
-                {
-                    message = String.Format(message, safeArgs);
-                }
-                catch (FormatException)
-                {
-                    message = message + " | args=" + String.Join(", ", safeArgs);
-                }
+                object[] safeArgs = SanitizeLogArguments(args);
+                message = message + " | args=" + String.Join(", ", safeArgs);
             }
 
-            return String.Concat(String.Format("[{0:G}] {1}: ", DateTime.Now, tag), SanitizeLogText(message));
+            return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(message);
         }
 
         private static string SanitizeLogText(string input)
@@ -208,39 +203,25 @@ namespace FuseCP.Server.Utils
             return sanitized;
         }
 
-        private static object[] SanitizeLogArguments(string messageTemplate, object[] args)
+        private static object[] SanitizeLogArguments(object[] args)
         {
-            bool redactAllArgs = !String.IsNullOrEmpty(messageTemplate)
-                && SensitiveMessageHintRegex.IsMatch(messageTemplate);
-
             var sanitized = new object[args.Length];
             for (int i = 0; i < args.Length; i++)
             {
-                sanitized[i] = SanitizeLogArgument(args[i], redactAllArgs);
+                sanitized[i] = SanitizeLogArgument(args[i]);
             }
 
             return sanitized;
         }
 
-        private static object SanitizeLogArgument(object value, bool redact)
+        private static object SanitizeLogArgument(object value)
         {
             if (value == null)
             {
                 return null;
             }
 
-            if (redact)
-            {
-                return "[REDACTED]";
-            }
-
-            string text = Convert.ToString(value, CultureInfo.InvariantCulture) ?? String.Empty;
-            if (SensitiveValueRegex.IsMatch(text))
-            {
-                return "[REDACTED]";
-            }
-
-            return SanitizeLogText(text);
+            return "[REDACTED]";
         }
 
 

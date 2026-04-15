@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,9 @@ namespace FuseCP.EnterpriseServer
         public CommentsController(ControllerBase provider) : base(provider) { }
         public DataSet GetComments(int userId, string itemTypeId, int itemId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return new DataSet();
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return new DataSet();
             return Database.GetComments(SecurityContext.User.UserId, userId, itemTypeId, itemId);
         }
@@ -34,7 +36,9 @@ namespace FuseCP.EnterpriseServer
             string commentText, int severityId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // add comment
@@ -47,7 +51,9 @@ namespace FuseCP.EnterpriseServer
         public int DeleteComment(int commentId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // delete comment

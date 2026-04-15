@@ -77,11 +77,8 @@ namespace FuseCP.Portal
                         record.SrvPriority,
                         record.SrvWeight,
                         record.SrvPort,
-                        record.RecordTTL)))
+                        record.RecordTTL)).Where(result => result < 0))
                     {
-                        if (result >= 0)
-                            continue;
-
                         ShowResultMessage(result);
                     }
                     //Show success message
