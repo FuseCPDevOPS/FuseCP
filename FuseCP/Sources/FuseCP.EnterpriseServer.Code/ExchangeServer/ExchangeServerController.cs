@@ -55,9 +55,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return new DataSet();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -134,9 +132,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<Organization> GetExchangeOrganizations(int packageId, bool recursive)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return new List<Organization>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -155,9 +151,7 @@ namespace FuseCP.EnterpriseServer
 
         internal List<Organization> GetExchangeOrganizationsInternal(int packageId, bool recursive)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return new List<Organization>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -172,8 +166,7 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 
             #region Demo Mode
             if (IsDemoMode)
@@ -210,15 +203,13 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationStatistics GetOrganizationStatistics(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetOrganizationStatisticsInternal(itemId, false);
         }
 
         public OrganizationStatistics GetOrganizationStatisticsByOrganization(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetOrganizationStatisticsInternal(itemId, true);
         }
 
@@ -693,9 +684,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteOrganization(int itemId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -768,8 +757,7 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganizationStorageLimits(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 
             // place log record
             TaskManager.StartTask("EXCHANGE", "GET_ORG_LIMITS", itemId);
@@ -792,9 +780,7 @@ namespace FuseCP.EnterpriseServer
             int prohibitSendReceiveKB, int keepDeletedItemsDays, bool applyToMailboxes)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1091,9 +1077,7 @@ namespace FuseCP.EnterpriseServer
                 int inactivityLockMin, int passwordExpirationDays, int passwordHistory, int refreshInterval)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1155,8 +1139,7 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchServiceId(int? itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
             int serviceId = -1;
 
             if (itemId.HasValue)
@@ -1842,9 +1825,7 @@ namespace FuseCP.EnterpriseServer
         public int AddAuthoritativeDomain(int itemId, int domainId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1930,9 +1911,7 @@ namespace FuseCP.EnterpriseServer
         public int ChangeAcceptedDomainType(int itemId, int domainId, ExchangeAcceptedDomainType domainType)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1994,9 +1973,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteAuthoritativeDomain(int itemId, int domainId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2100,9 +2077,7 @@ namespace FuseCP.EnterpriseServer
         public string CreateJournalRule(int itemId, string journalEmail, string scope, string recipientEmail, bool enabled)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return null;
 
             // place log record
@@ -2135,9 +2110,7 @@ namespace FuseCP.EnterpriseServer
         public ExchangeJournalRule GetJournalRule(int itemId, string journalEmail)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return null;
 
             // place log record
@@ -2167,9 +2140,7 @@ namespace FuseCP.EnterpriseServer
         public int SetJournalRule(int itemId, ExchangeJournalRule rule)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return -1;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return -1;
 
             // place log record
@@ -2201,9 +2172,7 @@ namespace FuseCP.EnterpriseServer
             string displayName, string name, string domain, string password, bool sendSetupInstructions, string setupInstructionMailAddress, int mailboxPlanId, int archivedPlanId, string subscriberNumber, bool EnableArchiving)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check mailbox quota
@@ -2461,9 +2430,7 @@ namespace FuseCP.EnterpriseServer
         public int DisableMailbox(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2555,9 +2522,7 @@ namespace FuseCP.EnterpriseServer
         public int SetDeletedMailbox(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2600,9 +2565,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteMailbox(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2763,9 +2726,7 @@ namespace FuseCP.EnterpriseServer
         public int SetMailboxAutoReplySettings(int itemId, int accountId, ExchangeMailboxAutoReplySettings settings)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2859,9 +2820,7 @@ namespace FuseCP.EnterpriseServer
         public int SetMailboxGeneralSettings(int itemId, int accountId, bool hideAddressBook, bool disabled)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -2972,9 +2931,7 @@ namespace FuseCP.EnterpriseServer
         public int SetResourceMailboxSettings(int itemId, int accountId, ExchangeResourceMailboxSettings resourceSettings)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3054,9 +3011,7 @@ namespace FuseCP.EnterpriseServer
         public int AddMailboxEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3125,9 +3080,7 @@ namespace FuseCP.EnterpriseServer
         public int SetMailboxPrimaryEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3195,9 +3148,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteMailboxEmailAddresses(int itemId, int accountId, string[] emailAddresses)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3296,9 +3247,7 @@ namespace FuseCP.EnterpriseServer
             bool requireSenderAuthentication)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3403,9 +3352,7 @@ namespace FuseCP.EnterpriseServer
         public int SetMailboxManagerSettings(int itemId, int accountId, bool pmmAllowed, MailboxManagerActions action)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3649,9 +3596,7 @@ namespace FuseCP.EnterpriseServer
         public int SetMailboxPermissions(int itemId, int accountId, string[] sendAsaccounts, string[] fullAccessAcounts, string[] onBehalfOfAccounts, ExchangeAccount[] calendarAccounts, ExchangeAccount[] contactAccounts)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3701,9 +3646,7 @@ namespace FuseCP.EnterpriseServer
         public int SetExchangeMailboxPlan(int itemId, int accountId, int mailboxPlanId, int archivePlanId, bool EnableArchiving)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3966,9 +3909,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddExchangeMailboxPlan(int itemID, ExchangeMailboxPlan mailboxPlan)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4047,9 +3988,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateExchangeMailboxPlan(int itemID, ExchangeMailboxPlan mailboxPlan)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4137,9 +4076,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteExchangeMailboxPlan(int itemID, int mailboxPlanId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             TaskManager.StartTask("EXCHANGE", "DELETE_EXCHANGE_MAILBOXPLAN_RETENTIONPOLICY_ARCHIVING", itemID);
@@ -4722,9 +4659,7 @@ namespace FuseCP.EnterpriseServer
 
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check mailbox quota
@@ -4802,9 +4737,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteContact(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4907,9 +4840,7 @@ namespace FuseCP.EnterpriseServer
             string webPage, string notes, int useMapiRichTextFormat)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5040,9 +4971,7 @@ namespace FuseCP.EnterpriseServer
             string[] acceptAccounts, string[] rejectAccounts, bool requireSenderAuthentication)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5099,9 +5028,7 @@ namespace FuseCP.EnterpriseServer
         public int CreateDistributionList(int itemId, string displayName, string name, string domain, int managerId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check mailbox quota
@@ -5188,9 +5115,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteDistributionList(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5289,9 +5214,7 @@ namespace FuseCP.EnterpriseServer
             string notes)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5405,9 +5328,7 @@ namespace FuseCP.EnterpriseServer
             string[] acceptAccounts, string[] rejectAccounts, bool requireSenderAuthentication)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5489,9 +5410,7 @@ namespace FuseCP.EnterpriseServer
         public int AddDistributionListEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5548,9 +5467,7 @@ namespace FuseCP.EnterpriseServer
         public int SetDistributionListPrimaryEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5604,9 +5521,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteDistributionListEmailAddresses(int itemId, int accountId, string[] emailAddresses)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -5842,9 +5757,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddDistributionListMember(int itemId, string distributionListName, int memberId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             #region Demo Mode
@@ -5901,9 +5814,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteDistributionListMember(int itemId, string distributionListName, int memberId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             #region Demo Mode
@@ -5967,9 +5878,7 @@ namespace FuseCP.EnterpriseServer
             bool mailEnabled, string name, string domain)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check mailbox quota
@@ -6069,9 +5978,7 @@ namespace FuseCP.EnterpriseServer
         public int DeletePublicFolders(int itemId, int[] accountIds)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             Organization org = GetOrganization(itemId, false);
@@ -6095,9 +6002,7 @@ namespace FuseCP.EnterpriseServer
         public int DeletePublicFolder(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6148,9 +6053,7 @@ namespace FuseCP.EnterpriseServer
             string name, string domain)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6219,9 +6122,7 @@ namespace FuseCP.EnterpriseServer
         public int DisableMailPublicFolder(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6339,9 +6240,7 @@ namespace FuseCP.EnterpriseServer
             bool hideAddressBook, ExchangeAccount[] accounts)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6472,9 +6371,7 @@ namespace FuseCP.EnterpriseServer
             string[] acceptAccounts, string[] rejectAccounts, bool requireSenderAuthentication)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6553,9 +6450,7 @@ namespace FuseCP.EnterpriseServer
         public int AddPublicFolderEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6610,9 +6505,7 @@ namespace FuseCP.EnterpriseServer
         public int SetPublicFolderPrimaryEmailAddress(int itemId, int accountId, string emailAddress)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -6664,9 +6557,7 @@ namespace FuseCP.EnterpriseServer
         public int DeletePublicFolderEmailAddresses(int itemId, int accountId, string[] emailAddresses)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -7133,9 +7024,7 @@ namespace FuseCP.EnterpriseServer
         {
             int res = -1;
 
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -7170,9 +7059,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdateExchangeDisclaimer(int itemId, ExchangeDisclaimer disclaimer)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -7210,9 +7097,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteExchangeDisclaimer(int itemId, int exchangeDisclaimerId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             TaskManager.StartTask("EXCHANGE", "DELETE_EXCHANGE_EXCHANGEDISCLAIMER", itemId);
@@ -7314,9 +7199,7 @@ namespace FuseCP.EnterpriseServer
         {
             int res = 0;
 
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -7376,9 +7259,7 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchangeAccountDisclaimerId(int itemId, int AccountID)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             try
             {

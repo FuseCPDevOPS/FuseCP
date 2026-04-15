@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2025 FuseCP
+// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,8 +30,7 @@ namespace FuseCP.EnterpriseServer
 
         public BackgroundTask GetTask(string taskId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             BackgroundTask task = ObjectUtils.FillObjectFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTask(taskId));
 
@@ -47,8 +46,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTask> GetScheduleTasks(int scheduleId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTask>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetScheduleBackgroundTasks(scheduleId));
         }
@@ -62,32 +60,28 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTask> GetTasks(int actorId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTask>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTasks(actorId));
         }
 
         public List<BackgroundTask> GetTasks(Guid guid)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTask>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTasks(guid));
         }
 
         public List<BackgroundTask> GetProcessTasks(BackgroundTaskStatus status)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTask>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetProcessBackgroundTasks(status));
         }
 
         public BackgroundTask GetTopTask(Guid guid)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             BackgroundTask task = ObjectUtils.FillObjectFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTopTask(guid));
 
@@ -103,8 +97,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddTask(BackgroundTask task)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return 0;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return 0;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             using (var clone = AsAsync<TaskController>())
             {
                 int taskId = clone.Database.AddBackgroundTask(task.Guid, task.TaskId, task.ScheduleId, task.PackageId, task.UserId,
@@ -131,8 +124,7 @@ namespace FuseCP.EnterpriseServer
 
         public bool UpdateTask(BackgroundTask task)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             if (task.Status == BackgroundTaskStatus.Abort)
             {
                 DeleteBackgroundTasks(task.Guid);
@@ -159,8 +151,7 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateBackgroundTaskParams(BackgroundTask task)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.DeleteBackgroundTaskParams(task.Id);
 
             AddTaskParams(task.Id, task.Params);
@@ -168,30 +159,23 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTasks(Guid guid)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
-
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (!GetTasks(guid).Any())
                 return;
-
             Database.DeleteBackgroundTasks(guid);
         }
 
         public void DeleteBackgroundTask(int id)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
-
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (!GetTasks().Any(task => task.Id == id))
                 return;
-
             Database.DeleteBackgroundTask(id);
         }
 
         public void AddTaskParams(int taskId, List<BackgroundTaskParameter> parameters)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             using (var db = Database.Context)
             {
                 foreach (BackgroundTaskParameter param in SerializeParams(parameters))
@@ -203,8 +187,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTaskParameter> GetTaskParams(int taskId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTaskParameter>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTaskParameter>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTaskParameter>();
             List<BackgroundTaskParameter> parameters = ObjectUtils.CreateListFromDataReader<BackgroundTaskParameter>(
                 Database.GetBackgroundTaskParams(taskId));
 
@@ -213,8 +196,7 @@ namespace FuseCP.EnterpriseServer
 
         public void AddLog(BackgroundTaskLogRecord log)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             using (var db = Database.Context)
             {
                 db.AddBackgroundTaskLog(log.TaskId, log.Date, log.ExceptionStackTrace, log.InnerTaskStart,
@@ -224,8 +206,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<BackgroundTaskLogRecord> GetLogs(BackgroundTask task, DateTime startLogTime)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<BackgroundTaskLogRecord>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<BackgroundTaskLogRecord>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTaskLogRecord>();
             if (startLogTime <= task.StartDate)
             {
                 startLogTime = task.StartDate;

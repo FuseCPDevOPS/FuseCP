@@ -297,8 +297,7 @@ namespace FuseCP.EnterpriseServer
 
         public bool OrganizationIdentifierExists(string organizationId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
             return Database.ExchangeOrganizationExists(organizationId);
         }
 
@@ -318,9 +317,7 @@ namespace FuseCP.EnterpriseServer
 
         public int CreateOrganization(int packageId, string organizationId, string organizationName, string domainName)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             int itemId = 0;
@@ -508,9 +505,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteOrganizationDomain(int itemId, int domainId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -755,9 +750,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteOrganization(int itemId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1446,9 +1439,7 @@ namespace FuseCP.EnterpriseServer
         public int ChangeOrganizationDomainType(int itemId, int domainId, ExchangeAcceptedDomainType newDomainType)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1479,9 +1470,7 @@ namespace FuseCP.EnterpriseServer
         public int AddOrganizationDomain(int itemId, string domainName)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check domains quota
@@ -1593,9 +1582,7 @@ namespace FuseCP.EnterpriseServer
         public int SetOrganizationDefaultDomain(int itemId, int domainId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // load organization
@@ -1618,9 +1605,7 @@ namespace FuseCP.EnterpriseServer
 
         public void SetDefaultOrganization(int newDefaultOrganizationId, int currentDefaultOrganizationId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return;
 
             // place log record
@@ -1665,8 +1650,7 @@ namespace FuseCP.EnterpriseServer
 
         internal List<OrganizationDeletedUser> GetOrganizationDeletedUsers(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<OrganizationDeletedUser>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<OrganizationDeletedUser>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<OrganizationDeletedUser>();
 
             Organization org = GetOrganization(itemId, false);
             if (org == null)
@@ -2184,8 +2168,7 @@ namespace FuseCP.EnterpriseServer
         /// <param name="finalStep">Url direction</param>
         public void SendResetUserPasswordEmail(int itemId, int accountId, string reason, string mailTo, bool finalStep)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 
             // load organization
             Organization org = GetOrganization(itemId);
@@ -2217,8 +2200,7 @@ namespace FuseCP.EnterpriseServer
 
         public void SendUserPasswordRequestEmail(int itemId, int accountId, string reason, string mailTo, bool finalStep)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 
             // load organization
             Organization org = GetOrganization(itemId);
@@ -2247,16 +2229,13 @@ namespace FuseCP.EnterpriseServer
 
         public void SendUserExpirationPasswordEmail(UserInfo owner, OrganizationUser user, string reason, string mailTo, string logoUrl)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             SendUserPasswordEmail(owner, user, reason, user.PrimaryEmailAddress, logoUrl, UserSettings.USER_PASSWORD_EXPIRATION_LETTER, "USER_PASSWORD_EXPIRATION_LETTER", true);
         }
 
         public void SendUserPasswordEmail(UserInfo owner, OrganizationUser user, string reason, string mailTo, string logoUrl, string settingsName, string taskName, bool finalStep)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return;
 
             UserSettings settings = UserController.GetUserSettings(owner.UserId,
@@ -2321,31 +2300,27 @@ namespace FuseCP.EnterpriseServer
 
         public AccessToken GetAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<AccessToken>(Database.GetAccessTokenByAccessToken(accessToken, type));
         }
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredAccessTokens();
         }
 
         public SystemSettings GetWebDavSystemSettings()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return SystemController.GetSystemSettingsInternal(SystemSettings.WEBDAV_PORTAL_SETTINGS, false);
         }
 
@@ -2393,8 +2368,7 @@ namespace FuseCP.EnterpriseServer
 
         public AccessToken CreatePasswordResetAccessToken(int itemId, int accountId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 
             var settings = GetWebDavSystemSettings();
 
@@ -2426,15 +2400,13 @@ namespace FuseCP.EnterpriseServer
 
         public void SetAccessTokenResponse(Guid accessToken, string response)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.SetAccessTokenResponseMessage(accessToken, response);
         }
 
         public bool CheckPhoneNumberIsInUse(int itemId, string phoneNumber, string userSamAccountName = null)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 
             // load organization
             Organization org = GetOrganization(itemId);
@@ -2451,8 +2423,7 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateOrganizationPasswordSettings(int itemId, OrganizationPasswordSettings settings)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 
             TaskManager.StartTask("ORGANIZATION", "UPDATE_PASSWORD_SETTINGS");
 
@@ -2490,8 +2461,7 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationPasswordSettings GetOrganizationPasswordSettings(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 
             var passwordSettings = GetOrganizationSettings<OrganizationPasswordSettings>(itemId, OrganizationSettings.PasswordSettings);
 
@@ -2570,8 +2540,7 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateOrganizationGeneralSettings(int itemId, OrganizationGeneralSettings settings)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 
             TaskManager.StartTask("ORGANIZATION", "UPDATE_GENERAL_SETTINGS");
 
@@ -2605,8 +2574,7 @@ namespace FuseCP.EnterpriseServer
 
         public OrganizationGeneralSettings GetOrganizationGeneralSettings(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             return GetOrganizationSettings<OrganizationGeneralSettings>(itemId, OrganizationSettings.GeneralSettings);
         }
 
@@ -2754,8 +2722,7 @@ namespace FuseCP.EnterpriseServer
 
         public string BuildAccountNameEx(Organization org, string name)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             StringDictionary serviceSettings = ServerController.GetServiceSettings(org.ServiceId);
 
             var type = GetUserFormatType(serviceSettings);
@@ -2797,9 +2764,7 @@ namespace FuseCP.EnterpriseServer
 
         public int ImportUser(int itemId, string accountName, string displayName, string name, string domain, string password, string subscriberNumber)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             if (string.IsNullOrEmpty(accountName))
@@ -2913,8 +2878,7 @@ namespace FuseCP.EnterpriseServer
         /// <returns> The account name with organization Id. </returns>
         public string BuildAccountNameWithOrgId(string orgId, string name, int serviceId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             name = ((orgId.Length + name.Length) > 19 && name.Length > 9) ? name.Substring(0, (19 - orgId.Length) < 10 ? 10 : 19 - orgId.Length) : name;
 
             orgId = (orgId.Length + name.Length) > 19 ? orgId.Substring(0, 19 - name.Length) : orgId;
@@ -3000,9 +2964,7 @@ namespace FuseCP.EnterpriseServer
         public int SetDeletedUser(int itemId, int accountId, bool enableForceArchive)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3294,9 +3256,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteUser(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3388,8 +3348,7 @@ namespace FuseCP.EnterpriseServer
 
         private OrganizationDeletedUser GetDeletedUser(int accountId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
             OrganizationDeletedUser deletedUser = ObjectUtils.FillObjectFromDataReader<OrganizationDeletedUser>(
                 Database.GetOrganizationDeletedUser(accountId));
 
@@ -3610,9 +3569,7 @@ namespace FuseCP.EnterpriseServer
         {
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3714,9 +3671,7 @@ namespace FuseCP.EnterpriseServer
         {
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
 
@@ -3813,9 +3768,7 @@ namespace FuseCP.EnterpriseServer
         {
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4132,8 +4085,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<AdditionalGroup> GetAdditionalGroups(int userId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<AdditionalGroup>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<AdditionalGroup>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<AdditionalGroup>();
 
             List<AdditionalGroup> additionalGroups = new List<AdditionalGroup>();
 
@@ -4155,24 +4107,20 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateAdditionalGroup(int groupId, string groupName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.UpdateAdditionalGroup(groupId, groupName);
         }
 
         public void DeleteAdditionalGroup(int groupId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (!GetAdditionalGroups(SecurityContext.User.UserId).Any(group => group.GroupId == groupId)) return;
             Database.DeleteAdditionalGroup(groupId);
         }
 
         public int AddAdditionalGroup(int userId, string groupName)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
             return Database.AddAdditionalGroup(userId, groupName);
         }
@@ -4185,9 +4133,7 @@ namespace FuseCP.EnterpriseServer
                 throw new ArgumentNullException("displayName");
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
 
@@ -4395,9 +4341,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteSecurityGroup(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4437,9 +4381,7 @@ namespace FuseCP.EnterpriseServer
         public int SetSecurityGroupGeneralSettings(int itemId, int accountId, string displayName, string[] memberAccounts, string notes)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4561,9 +4503,7 @@ namespace FuseCP.EnterpriseServer
         public int AddObjectToSecurityGroup(int itemId, int accountId, string groupName)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4602,9 +4542,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteObjectFromSecurityGroup(int itemId, int accountId, string groupName)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -4924,9 +4862,7 @@ namespace FuseCP.EnterpriseServer
 
             public int AddSupportServiceLevel(string levelName, string levelDescription)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             if (string.IsNullOrEmpty(levelName))
@@ -4983,8 +4919,7 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateSupportServiceLevel(int levelID, string levelName, string levelDescription)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 
             // place log record
             TaskManager.StartTask("ORGANIZATION", "UPDATE_SUPPORT_SERVICE_LEVEL", levelID);
