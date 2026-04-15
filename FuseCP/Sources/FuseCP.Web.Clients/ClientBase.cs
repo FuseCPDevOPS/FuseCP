@@ -268,7 +268,7 @@ namespace FuseCP.Web.Clients
 
 		public bool IsSsh => Protocol == Protocols.Ssh;
 		public bool IsSecureProtocol => IsSsl || IsSsh ||
-			UseMessageSecurityOverHttp && Protocol == Protocols.WSHttp && IsEncrypted;
+			Protocol == Protocols.WSHttp && IsEncrypted;
 
 		public bool IsHttp => Protocol <= Protocols.WSHttp;
 		public bool IsHttps => Protocol >= Protocols.BasicHttps && Protocol <= Protocols.WSHttps;
@@ -559,7 +559,7 @@ namespace FuseCP.Web.Clients
 							binding = nethttps;
 							break;
 						case Protocols.WSHttp:
-							if (isEncrypted && UseMessageSecurityOverHttp)
+							if (isEncrypted)
 							{
 								var ws = new WSHttpBinding(SecurityMode.Message);
 								ws.MaxReceivedMessageSize = MaximumMessageSize;
@@ -567,15 +567,11 @@ namespace FuseCP.Web.Clients
 								ws.Security.Message.NegotiateServiceCredential = true;
 								binding = ws;
 							}
-							else if (IsLocal || !isEncrypted)
+							else
 							{
 								var ws = new WSHttpBinding(SecurityMode.None);
 								ws.MaxReceivedMessageSize = MaximumMessageSize;
 								binding = ws;
-							}
-							else
-							{
-								throw new NotSupportedException("This protocol is not secure on this connection.");
 							}
 							break;
 						case Protocols.WSHttps:

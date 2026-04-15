@@ -1,6 +1,9 @@
 <Project>
   <PropertyGroup>
     <FuseCPRetargetLegacyFrameworks Condition="'$(FuseCPRetargetLegacyFrameworks)' == ''">true</FuseCPRetargetLegacyFrameworks>
+    <!-- Suppress NU1901 warnings for low-severity transitive System.Security.Cryptography.Xml vulnerabilities -->
+    <!-- These affect legacy providers and can be resolved in a future security hardening sprint -->
+    <NoWarn>$(NoWarn);NU1901</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(FuseCPRetargetLegacyFrameworks)' == 'true' and ( '$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.5' or '$(TargetFrameworkVersion)' == 'v4.0' or '$(TargetFrameworkVersion)' == 'v4.5' or '$(TargetFrameworkVersion)' == 'v4.5.2' )">

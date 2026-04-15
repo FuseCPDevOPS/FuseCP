@@ -10,6 +10,8 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<LangVersion>11</LangVersion>
 		<Nullable>disable</Nullable>
+		<!-- Suppress late-binding and implicit-Object-conversion warnings in this legacy VB provider -->
+		<NoWarn>42016,42017,42018,42019,42021,42032</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<DebugType>portable</DebugType>
