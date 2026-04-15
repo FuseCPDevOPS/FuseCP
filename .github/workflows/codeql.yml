@@ -67,12 +67,12 @@ jobs:
           git reset --hard HEAD
           git submodule foreach --recursive "git config core.autocrlf false; git config core.eol lf; git reset --hard HEAD"
 
-      - name: Install .NET SDK 10.0.200
+      - name: Install latest .NET 10 SDK
         if: matrix.language == 'csharp'
         uses: actions/setup-dotnet@v5
         with:
-          # Pin to a known available SDK to avoid transient channel manifest 404s.
-          dotnet-version: '10.0.200'
+          # Use the latest available .NET 10 SDK instead of an exact patch pin.
+          dotnet-version: '10.0.x'
 
       - name: Build C# solutions for CodeQL
         if: matrix.language == 'csharp'

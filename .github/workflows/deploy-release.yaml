@@ -113,11 +113,11 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
-    - name: Install .NET SDK 10.0.200
+    - name: Install latest .NET 10 SDK
       uses: actions/setup-dotnet@v5
       with:
-        # Pin to avoid setup-dotnet channel resolving to unavailable SDK artifacts.
-        dotnet-version: '10.0.200'
+        # Use the latest available .NET 10 SDK instead of an exact patch pin.
+        dotnet-version: '10.0.x'
 
     - name: Verify solution sync (FuseCP.sln vs scope solutions)
       shell: pwsh
