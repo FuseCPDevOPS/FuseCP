@@ -1527,9 +1527,9 @@ jQuery.expr = {
 		CLASS: function( className ) {
 			var pattern = classCache[ className + " " ];
 
-			return pattern ||
-				( pattern = new RegExp( "(^|" + whitespace + ")" + className +
-					"(" + whitespace + "|$)" ) ) &&
+			if ( !pattern ) {
+				pattern = new RegExp( "(^|" + whitespace + ")" + className +
+					"(" + whitespace + "|$)" );
 				classCache( className, function( elem ) {
 					return pattern.test(
 						typeof elem.className === "string" && elem.className ||
@@ -1538,6 +1538,9 @@ jQuery.expr = {
 							""
 					);
 				} );
+			}
+
+			return pattern;
 		},
 
 		ATTR: function( name, operator, check ) {
@@ -1637,7 +1640,7 @@ jQuery.expr = {
 							while ( ( node = ++nodeIndex && node && node[ dir ] ||
 
 								// Fallback to seeking `elem` from the start
-								( diff = nodeIndex = 0 ) || start.pop() ) ) {
+								( diff = nodeIndex = 0, start.pop() ) ) {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
@@ -1663,7 +1666,7 @@ jQuery.expr = {
 
 								// Use the same loop as above to seek `elem` from the start
 								while ( ( node = ++nodeIndex && node && node[ dir ] ||
-									( diff = nodeIndex = 0 ) || start.pop() ) ) {
+									( diff = nodeIndex = 0, start.pop() ) ) {
 
 									if ( ( ofType ?
 										nodeName( node, name ) :
@@ -1699,8 +1702,11 @@ jQuery.expr = {
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
 			var fn = jQuery.expr.pseudos[ pseudo ] ||
-				jQuery.expr.setFilters[ pseudo.toLowerCase() ] ||
+				jQuery.expr.setFilters[ pseudo.toLowerCase() ];
+
+			if ( !fn ) {
 				selectorError( "unsupported pseudo: " + pseudo );
+			}
 
 			// The user may use createPseudo to indicate that
 			// arguments are needed to create the filter function
