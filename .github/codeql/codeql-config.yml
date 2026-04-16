@@ -24,6 +24,10 @@ paths-ignore:
   - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/bootstrap/bootstrap.js"
   - "FuseCP/Sources/FuseCP.WebPortal/JavaScript/bootstrap/bootstrap.js"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs"
   - "tools/MSBuildCommunityTasks/**"
 
 query-filters:
