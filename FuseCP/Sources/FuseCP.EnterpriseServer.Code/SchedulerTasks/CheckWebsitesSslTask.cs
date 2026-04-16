@@ -144,11 +144,10 @@ namespace FuseCP.EnterpriseServer
             foreach (var item in dvItems.Cast<DataRowView>().Select(row => new
             {
                 Row = row,
-                ItemTypeName = (string)row["TypeName"]
+                ItemType = Type.GetType((string)row["TypeName"])
             }))
             {
-                Type itemType = Type.GetType(item.ItemTypeName);
-                if (!typeof(WebSite).Equals(itemType)) continue;
+                if (!typeof(WebSite).Equals(item.ItemType)) continue;
                 string domain = (string)item.Row["ItemName"];
                 if (String.IsNullOrEmpty(domain)) continue;
                 string url = "https://" + domain;
