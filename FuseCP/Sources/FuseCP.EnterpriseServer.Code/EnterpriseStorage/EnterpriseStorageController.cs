@@ -203,32 +203,37 @@ namespace FuseCP.EnterpriseServer
 
         public void SetESFolderPermissionSettings(int itemId, SystemFile folder, ESPermission[] permissions)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             SetESFolderPermissionSettingsInternal("SET_ENTERPRISE_FOLDER_GENERAL_SETTINGS", itemId, folder, permissions);
         }
 
         public int AddWebDavAccessToken(WebDavAccessToken accessToken)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             return Database.AddWebDavAccessToken(accessToken);
         }
 
         public void DeleteExpiredWebDavAccessTokens()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 
         public WebDavAccessToken GetWebDavAccessTokenById(int id)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<WebDavAccessToken>(Database.GetWebDavAccessTokenById(id));
         }
 
         public WebDavAccessToken GetWebDavAccessTokenByAccessToken(Guid accessToken)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<WebDavAccessToken>(Database.GetWebDavAccessTokenByAccessToken(accessToken));
         }
 
@@ -2159,7 +2164,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetUserEnterpriseFolderWithOwaEditPermission(int itemId, List<int> accountIds)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<string>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<string>();
             try
             {
                 Organization org = OrganizationController.GetOrganization(itemId);

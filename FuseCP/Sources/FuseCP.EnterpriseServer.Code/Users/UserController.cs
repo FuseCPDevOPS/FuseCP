@@ -309,7 +309,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
 
 			UserInfoInternal targetUser = GetUser(changeUserId);
 			if (targetUser == null)
@@ -880,6 +881,9 @@ namespace FuseCP.EnterpriseServer
 				int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
 				if (accountCheck < 0) return accountCheck;
 
+				accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+				if (accountCheck < 0) return accountCheck;
+
 				UserInfo currentUser = GetUser(user.UserId);
 
 				//prevent downgrade reseller with child accounts to user role
@@ -1161,7 +1165,10 @@ namespace FuseCP.EnterpriseServer
 		public int UpdateUserSettings(UserSettings settings)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details

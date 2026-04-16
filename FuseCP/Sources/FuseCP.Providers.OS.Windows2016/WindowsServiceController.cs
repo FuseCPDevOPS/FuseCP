@@ -23,17 +23,28 @@ namespace FuseCP.Providers.OS
 {
 	public class WindowsServiceController : ServiceController
 	{
+		private static string ValidateServiceId(string serviceId)
+		{
+			if (string.IsNullOrWhiteSpace(serviceId))
+			{
+				throw new ArgumentException("Service identifier cannot be empty.", nameof(serviceId));
+			}
+
+			return serviceId;
+		}
+
 		public override bool IsInstalled => true;
 
 		public override IEnumerable<OSService> All() => OSInfo.Windows.GetOSServices();
 
 		public override void ChangeStatus(string serviceId, OSServiceStatus status)
 		{
+			serviceId = ValidateServiceId(serviceId);
 			OSInfo.Windows.ChangeOSServiceStatus(serviceId, status);
 		}
 
 		public override OSService Info(string serviceId)
-			=> All().Where(s => s.Id == serviceId).FirstOrDefault();
+			=> All().Where(s => s.Id == ValidateServiceId(serviceId)).FirstOrDefault();
 
 		public override ServiceManager Install(ServiceDescription service)
 		{
@@ -64,6 +75,7 @@ namespace FuseCP.Providers.OS
 
 		public override void Remove(string serviceId)
 		{
+			serviceId = ValidateServiceId(serviceId);
 			Shell.Standard.Exec($"sc.exe delete {serviceId}");
 		}
 

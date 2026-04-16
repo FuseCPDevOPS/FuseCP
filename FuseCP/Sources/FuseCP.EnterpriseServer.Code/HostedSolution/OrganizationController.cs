@@ -1605,7 +1605,10 @@ namespace FuseCP.EnterpriseServer
 
         public void SetDefaultOrganization(int newDefaultOrganizationId, int currentDefaultOrganizationId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return;
 
             // place log record
@@ -2235,7 +2238,10 @@ namespace FuseCP.EnterpriseServer
 
         public void SendUserPasswordEmail(UserInfo owner, OrganizationUser user, string reason, string mailTo, string logoUrl, string settingsName, string taskName, bool finalStep)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return;
 
             UserSettings settings = UserController.GetUserSettings(owner.UserId,
@@ -3256,7 +3262,10 @@ namespace FuseCP.EnterpriseServer
         public int DeleteUser(int itemId, int accountId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (accountCheck < 0) return accountCheck;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
