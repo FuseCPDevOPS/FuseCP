@@ -4,18 +4,7 @@ var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)
 
 // Used when there is no 'main' module.
 // The name is probably (hopefully) unique so minification removes for releases.
-var register_3795 = function (id) {
- // removed useless expression (CodeQL): register_3795;
-  var module = dem(id);
-  var fragments = id.split('.');
-  var target = Function('return this;')();
-  for (var i = 0; i < fragments.length - 1; ++i) {
-    if (target[fragments[i]] === undefined)
-      target[fragments[i]] = {};
-    target = target[fragments[i]];
-  }
-  target[fragments[fragments.length - 1]] = module;
-};
+// Removed unused register_3795 function (CodeQL: js/unused-local-variable)
 
 var instantiate = function (id) {
   var actual = defs[id];

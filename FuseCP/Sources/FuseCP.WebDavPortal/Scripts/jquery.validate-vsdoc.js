@@ -488,8 +488,9 @@ $.extend($.validator, {
 		
 		objectLength: function( obj ) {
 			var count = 0;
-			for ( var i in obj )
+			for ( var i in obj ) { // i unused: just counting (CodeQL: js/unused-local-variable)
 				count++;
+			}
 			return count;
 		},
 		
