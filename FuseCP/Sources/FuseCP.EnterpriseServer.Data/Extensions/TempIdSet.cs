@@ -62,7 +62,7 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public TempIdSet(DbContext context, IEnumerable<int> ids, Guid scope = default, int level = 0):
-			this(context, scope, level) => AddRangeCore(ids, level);
+			this(context, scope, level) => AddRangeCore(ids, level, allowQueryableOptimization: false);
 
 		public IQueryable<int> OfLevel(int level)
 		{
@@ -98,14 +98,14 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public virtual int AddRange(IEnumerable<int> ids, int level = 0)
 		{
-			return AddRangeCore(ids, level);
+			return AddRangeCore(ids, level, allowQueryableOptimization: true);
 		}
 
-		private int AddRangeCore(IEnumerable<int> ids, int level = 0)
+		private int AddRangeCore(IEnumerable<int> ids, int level = 0, bool allowQueryableOptimization = true)
 		{
 			int n = 0;
 			var queryable = ids is IQueryable<int>;
-			if (!queryable || !AddRangeQueryable((IQueryable<int>)ids, out n, level))
+			if (!allowQueryableOptimization || !queryable || !AddRangeQueryable((IQueryable<int>)ids, out n, level))
 			{
 				const int BatchSize = 1024;
 				var buffer = new TempId[BatchSize];
@@ -226,7 +226,7 @@ namespace FuseCP.EnterpriseServer.Data
 		}
 
 		public TempDatedIdSet(DbContext context, IEnumerable<DatedId> ids, Guid scope = default(Guid), int level = 0) :
-			this(context, scope, level) => AddRangeCore(ids, level);
+			this(context, scope, level) => AddRangeCore(ids, level, allowQueryableOptimization: false);
 
 		public IQueryable<DatedId> OfLevel(int level)
 		{
@@ -262,14 +262,14 @@ namespace FuseCP.EnterpriseServer.Data
 
 		public virtual int AddRange(IEnumerable<DatedId> ids, int level = 0)
 		{
-			return AddRangeCore(ids, level);
+			return AddRangeCore(ids, level, allowQueryableOptimization: true);
 		}
 
-		private int AddRangeCore(IEnumerable<DatedId> ids, int level = 0)
+		private int AddRangeCore(IEnumerable<DatedId> ids, int level = 0, bool allowQueryableOptimization = true)
 		{
 			int n = 0;
 			var queryable = ids is IQueryable<int>;
-			if (!queryable || !AddRangeQueryable((IQueryable<DatedId>)ids, out n, level))
+			if (!allowQueryableOptimization || !queryable || !AddRangeQueryable((IQueryable<DatedId>)ids, out n, level))
 			{
 				const int BatchSize = 1024;
 				var buffer = new TempId[BatchSize];

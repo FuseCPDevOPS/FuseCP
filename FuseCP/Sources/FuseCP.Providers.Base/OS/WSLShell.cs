@@ -328,7 +328,6 @@ namespace FuseCP.Providers.OS
 			public ConfigurationBase(WSLShell shell)
 			{
 				Shell = shell;
-				Open();
 			}
 
 			protected virtual bool IsWslFile => !File.Contains('\\');
@@ -400,7 +399,10 @@ namespace FuseCP.Providers.OS
 
 		public class WSLConfiguration : ConfigurationBase
 		{
-			public WSLConfiguration(WSLShell shell) : base(shell) { }
+			public WSLConfiguration(WSLShell shell) : base(shell)
+			{
+				Open();
+			}
 			public override string File => "/etc/wsl.conf";
 			protected override bool IsWslFile => true;
 			public BootSection Boot => (BootSection)this[nameof(Boot)];
@@ -412,8 +414,15 @@ namespace FuseCP.Providers.OS
 
 		public class WSLGlobalConfiguration : ConfigurationBase
 		{
-			public WSLGlobalConfiguration(WSLShell shell) : base(shell) { }
-			public WSLGlobalConfiguration(WSLShell shell, string user) { this.user = user; Shell = shell; Open(); }
+			public WSLGlobalConfiguration(WSLShell shell) : base(shell)
+			{
+				Open();
+			}
+			public WSLGlobalConfiguration(WSLShell shell, string user) : base(shell)
+			{
+				this.user = user;
+				Open();
+			}
 			private string user = null;
 			public string User
 			{
