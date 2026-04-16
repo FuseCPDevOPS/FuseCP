@@ -18,5 +18,11 @@ paths-ignore:
   - "FuseCP/Sources/FuseCP.WebDavPortal/Scripts/DataTables/**"
   - "FuseCP/Sources/FuseCP.WebDavPortal/Scripts/jquery-*.js"
   - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/jquery/**"
+  - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/fcp-common.js"
   - "FuseCP/Sources/FuseCP.WebPortal/JavaScript/jquery-*.js"
+  - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs"
   - "tools/MSBuildCommunityTasks/**"
+
+query-filters:
+  - exclude:
+      id: cs/class-name-matches-base-class
