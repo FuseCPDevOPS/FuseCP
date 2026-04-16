@@ -877,10 +877,7 @@ namespace FuseCP.EnterpriseServer
 				TaskManager.StartTask(taskId, "USER", "UPDATE", user.Username, user.UserId);
 
 				// check account
-				int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-				if (accountCheck < 0) return accountCheck;
-
-				accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+				int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 				if (accountCheck < 0) return accountCheck;
 
 				UserInfo currentUser = GetUser(user.UserId);
@@ -1164,10 +1161,7 @@ namespace FuseCP.EnterpriseServer
 		public int UpdateUserSettings(UserSettings settings)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-			if (accountCheck < 0) return accountCheck;
-
-			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			// get user details

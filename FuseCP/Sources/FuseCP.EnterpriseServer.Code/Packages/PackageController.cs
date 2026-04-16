@@ -956,10 +956,7 @@ namespace FuseCP.EnterpriseServer
         public int DeletePackage(string taskId, int packageId)
         {
             // check account before starting any task side effects
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             accountCheck = SecurityContext.CheckAccount(DemandAccount.IsReseller);
@@ -1164,16 +1161,14 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdatePackageBandwidthUpdate(int packageId, DateTime updateDate)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Database.UpdatePackageBandwidthUpdate(packageId, updateDate);
         }
 
         // This gets the system quota and updates the home folder with the value
         public void UpdatePackageHardQuota(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             // request OS service
             int osId = GetPackageServiceId(packageId, ResourceGroups.Os);
             if (osId == 0)
@@ -1706,10 +1701,7 @@ namespace FuseCP.EnterpriseServer
 
         public int UpdatePackageItem(ServiceProviderItem item)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // build properties xml

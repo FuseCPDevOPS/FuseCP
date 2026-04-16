@@ -930,7 +930,7 @@ $.extend(Buttons.prototype, {
 			}
 
 			if (! setLinerTab) {
-				button.attr('tabindex', this.s.dt.settings()[0].iTabIndex)
+						button.attr('tabindex', this.s.dt.settings()[0].iTabIndex);
 			}
 
 			if (config.enabled === false) {

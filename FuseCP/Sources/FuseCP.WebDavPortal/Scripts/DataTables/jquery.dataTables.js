@@ -1346,7 +1346,7 @@
 		return res.length !== str.length
 			? (both === true ? str + ' ' : '' ) + res.replace(/[\u0300-\u036f]/g, "")
 			: res;
-	}
+	};
 	
 	/**
 	 * Determine if all values in the array are unique. This means we can short
@@ -1433,7 +1433,7 @@
 		}
 	
 		return out;
-	}
+	};
 	
 	// Similar to jQuery's addClass, but use classList.add
 	function _addClass(el, name) {
@@ -3265,7 +3265,7 @@
 	
 			// Add a row if needed
 			if (! row.length) {
-				row = $('<tr/>').appendTo(target)
+				row = $('<tr/>').appendTo(target);
 			}
 	
 			// Add the number of cells needed to make up to the number of columns
@@ -4830,7 +4830,7 @@
 			_fnDrawHead( settings, settings.aoFooter );
 	
 			// Cache the paging start point, as the first redraw will reset it
-			var iAjaxStart = settings.iInitDisplayStart
+			var iAjaxStart = settings.iInitDisplayStart;
 	
 			// Local data load
 			// Check if there is data passing into the constructor
@@ -4884,7 +4884,7 @@
 						_fnReDraw( settings );
 						_fnProcessingDisplay( settings, false );
 						_fnInitComplete( settings );
-					}, settings );
+					});
 				}
 				else {
 					_fnInitComplete( settings );
@@ -5472,7 +5472,7 @@
 			.removeAttr( 'id' );
 	
 		// Clean up the table body
-		tmpTable.append('<tbody/>')
+		tmpTable.append('<tbody/>');
 	
 		// Clone the table header and footer - we can't use the header / footer
 		// from the cloned table, since if scrolling is active, the table's
@@ -5534,7 +5534,7 @@
 					var text = longest + padding;
 					var insert = longest.indexOf('<') === -1 && longest.indexOf('&') === -1
 						? document.createTextNode(text)
-						: text
+						: text;
 	
 					$('<td/>')
 						.addClass(autoClass)
@@ -6455,7 +6455,7 @@
 		if ( s.length !== undefined ) {
 			// If already initialised just set the value directly so that the select element is also updated
 			if (api) {
-				api.page.len(s.length)
+				api.page.len(s.length);
 			}
 			else {
 				settings._iDisplayLength   = s.length;
@@ -6499,13 +6499,13 @@
 				settings.aaSorting.push(set);
 			} );
 		}
-	
+				_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] );
 		// Search
 		if ( s.search !== undefined ) {
 			$.extend( settings.oPreviousSearch, s.search );
 		}
 	
-		// Columns
+	};
 		if ( s.columns ) {
 			var set = s.columns;
 			var incoming = _pluck(s.columns, 'name');
@@ -8588,7 +8588,7 @@
 					$( row.nTr ).removeClass( 'dt-hasChild' );
 				}
 	
-				_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
+				_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] );
 	
 				__details_events( ctx[0] );
 				__details_state( ctx );
@@ -9851,7 +9851,7 @@
 		else if (type === 'foundation' || (module && module.Reveal)) {
 			__foundation = module;
 		}
-	}
+	};
 	
 	/**
 	 * CommonJS factory function pass through. This will check if the arguments
@@ -9877,7 +9877,7 @@
 		}
 	
 		return is;
-	}
+	};
 	
 	/**
 	 * Provide a common method for plug-ins to check the version of DataTables being
@@ -12545,7 +12545,7 @@
 	
 			return str;
 		};
-	}
+	};
 	
 	/*
 	 * Public helper functions. These aren't used internally by DataTables, or
@@ -12774,7 +12774,7 @@
 				className: 'dt-right'
 			});
 		}
-	}
+	};
 	
 	/**
 	 * Helpers for `columns.render`.

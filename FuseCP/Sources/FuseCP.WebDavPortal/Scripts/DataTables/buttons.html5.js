@@ -1298,8 +1298,7 @@ DataTable.ext.buttons.excelHtml5 = {
 				addRow(
 					row.map(function (cell) {
 						return cell ? cell.title : '';
-					}),
-					rowPos
+					})
 				);
 				$('row:last c', rels).attr('s', '2'); // bold
 
@@ -1321,13 +1320,13 @@ DataTable.ext.buttons.excelHtml5 = {
 		// Title and top messages
 		var exportInfo = dt.buttons.exportInfo(config);
 		if (exportInfo.title) {
-			addRow([exportInfo.title], rowPos);
+			addRow([exportInfo.title]);
 			_excelMergeCells(rels, rowPos, 0, 1, data.header.length);
 			$('row:last c', rels).attr('s', '51'); // centre
 		}
 
 		if (exportInfo.messageTop) {
-			addRow([exportInfo.messageTop], rowPos);
+			addRow([exportInfo.messageTop]);
 			_excelMergeCells(rels, rowPos, 0, 1, data.header.length);
 		}
 
@@ -1340,7 +1339,7 @@ DataTable.ext.buttons.excelHtml5 = {
 
 		// Table body
 		for (var n = 0, ie = data.body.length; n < ie; n++) {
-			addRow(data.body[n], rowPos);
+			addRow(data.body[n]);
 		}
 
 		dataEndRow = rowPos;
@@ -1352,7 +1351,7 @@ DataTable.ext.buttons.excelHtml5 = {
 
 		// Below the table
 		if (exportInfo.messageBottom) {
-			addRow([exportInfo.messageBottom], rowPos);
+			addRow([exportInfo.messageBottom]);
 			_excelMergeCells(rels, rowPos, 0, 1, data.header.length);
 		}
 

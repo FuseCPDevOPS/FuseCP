@@ -1203,7 +1203,7 @@ $.extend(KeyTable.prototype, {
 		// Only create the input element once on first class
 		if (!this.s.tabInput) {
 			var inputId = 'keytable-focus-capture-' + this.s.namespace.split('-')[1];
-			var input = '<input id="' + inputId + '" type="text" tabindex="' + tabIndex + '"/>'
+						var input = '<input id="' + inputId + '" type="text" tabindex="' + tabIndex + '"/>';
 			var div = $('<div><label for="' + inputId + '">' + input + '</label></div>').css({
 				position: 'absolute',
 				height: 1,
