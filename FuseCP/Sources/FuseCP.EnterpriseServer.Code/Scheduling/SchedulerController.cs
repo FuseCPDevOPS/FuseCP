@@ -224,8 +224,7 @@ namespace FuseCP.EnterpriseServer
 
         public void CalculateNextStartTime(ScheduleInfo schedule)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             if (schedule.ScheduleType == ScheduleType.OneTime)
             {
                 // start time stay intact
@@ -304,9 +303,7 @@ namespace FuseCP.EnterpriseServer
         public int AddSchedule(ScheduleInfo schedule)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // check quota
@@ -332,9 +329,7 @@ namespace FuseCP.EnterpriseServer
         public int UpdateSchedule(ScheduleInfo schedule)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // load original schedule to preserve server-managed fields
@@ -376,9 +371,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteSchedule(int scheduleId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             ScheduleInfo schedule = GetSchedule(scheduleId);

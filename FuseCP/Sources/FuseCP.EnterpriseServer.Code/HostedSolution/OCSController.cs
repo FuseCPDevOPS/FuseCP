@@ -97,8 +97,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void DeleteDomain(int itemId, string domainName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Organization org = OrganizationController.GetOrganization(itemId);
             if (org == null)
                 return;
@@ -118,8 +117,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void DeleteDomain(string domainName, OCSEdgeServer[] edgeServers)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {
                 try
@@ -135,8 +133,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void AddDomain(string domainName, OCSEdgeServer[] edgeServers)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {
                 try
@@ -152,8 +149,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void  AddDomain(string domainName, int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             Organization org = OrganizationController.GetOrganization(itemId);
             if (!org.IsOCSOrganization)
             {
@@ -436,8 +432,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void SetUserGeneralSettings(int itemId, string instanceId, bool enabledForFederation, bool enabledForPublicIMConnectivity, bool archiveInternalCommunications, bool archiveFederatedCommunications, bool enabledForEnhancedPresence)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             TaskManager.StartTask("OCS", "SET_OCS_USER_GENERAL_SETTINGS");
             try
             {

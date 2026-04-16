@@ -1069,10 +1069,7 @@ namespace FuseCP.EnterpriseServer
                 int inactivityLockMin, int passwordExpirationDays, int passwordHistory, int refreshInterval)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -1170,13 +1167,7 @@ namespace FuseCP.EnterpriseServer
             string filterColumn, string filterValue, string sortColumn,
             int startRow, int maximumRows, bool archiving)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-            {
-                return new ExchangeAccountsPaged { RecordsCount = 0, PageItems = new ExchangeAccount[0] };
-            }
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
             {
                 return new ExchangeAccountsPaged { RecordsCount = 0, PageItems = new ExchangeAccount[0] };
@@ -1308,10 +1299,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetExchangeMailboxes(int itemId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return new List<ExchangeAccount>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
 
@@ -1435,10 +1423,7 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return new List<ExchangeAccount>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
 
@@ -1467,10 +1452,7 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return new List<ExchangeAccount>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeAccount>();
             if (types.Length == 0)
@@ -1501,10 +1483,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccount(int itemId, int accountId, bool withLog = true)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
 
@@ -1598,10 +1577,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount SearchAccount(ExchangeAccountType accountType, string primaryEmailAddress)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
 
@@ -3223,10 +3199,7 @@ namespace FuseCP.EnterpriseServer
             bool requireSenderAuthentication)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             // place log record
@@ -3285,10 +3258,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeMailbox GetMailboxAdvancedSettings(int itemId, int accountId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
             #region Demo Mode
@@ -5696,10 +5666,7 @@ namespace FuseCP.EnterpriseServer
 
         public int AddDistributionListMember(int itemId, string distributionListName, int memberId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             #region Demo Mode
@@ -7025,10 +6992,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteExchangeDisclaimer(int itemId, int exchangeDisclaimerId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             TaskManager.StartTask("EXCHANGE", "DELETE_EXCHANGE_EXCHANGEDISCLAIMER", itemId);
@@ -7066,10 +7030,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeDisclaimer GetExchangeDisclaimer(int itemId, int exchangeDisclaimerId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return null;
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return null;
 
@@ -7097,10 +7058,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeDisclaimer> GetExchangeDisclaimers(int itemId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0)
-                return new List<ExchangeDisclaimer>();
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0)
                 return new List<ExchangeDisclaimer>();
 
