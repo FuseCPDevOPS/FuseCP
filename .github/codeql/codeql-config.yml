@@ -20,6 +20,9 @@ paths-ignore:
   - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/jquery/**"
   - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/fcp-common.js"
   - "FuseCP/Sources/FuseCP.WebPortal/JavaScript/jquery-*.js"
+  - "FuseCP/Sources/FuseCP.WebDavPortal/Scripts/jquery.validate-vsdoc.js"
+  - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/bootstrap/bootstrap.js"
+  - "FuseCP/Sources/FuseCP.WebPortal/JavaScript/bootstrap/bootstrap.js"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs"
   - "tools/MSBuildCommunityTasks/**"
 
