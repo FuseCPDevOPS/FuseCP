@@ -1793,6 +1793,8 @@ window.CodeMirror = (function() {
     if (dy == null && e.detail && e.axis == e.VERTICAL_AXIS) dy = e.detail;
     else if (dy == null) dy = e.wheelDelta;
 
+    var display = cm.display, scroll = display.scroller;
+
     // Webkit browsers on OS X abort momentum scrolls when the target
     // of the scroll event is removed from the scrollable element.
     // This hack (see related code in patchDisplay) makes sure the
@@ -1805,8 +1807,6 @@ window.CodeMirror = (function() {
         }
       }
     }
-
-    var display = cm.display, scroll = display.scroller;
     // On some browsers, horizontal scrolling will cause redraws to
     // happen before the gutter has been realigned, causing it to
     // wriggle around in a most unseemly way. When we have an
@@ -5046,7 +5046,7 @@ window.CodeMirror = (function() {
   // character combinations that suffer from this phenomenon on the
   // various browsers.
   var spanAffectsWrapping = /^$/; // Won't match any two-character string
-  if (gecko) spanAffectsWrapping = /$'/;
+  if (gecko) spanAffectsWrapping = /\$'/;
   else if (safari) spanAffectsWrapping = /\-[^ \-?]|\?[^ !'\"\),.\-\/:;\?\]\}]/;
   else if (chrome) spanAffectsWrapping = /\-[^ \-\.?]|\?[^ \-\.?\]\}:;!'\"\),\/]|[\.!\"#&%\)*+,:;=>\]|\}~][\(\{\[<]|\$'/;
 
@@ -5260,7 +5260,7 @@ window.CodeMirror = (function() {
       if (!bidiRE.test(str)) return false;
       var len = str.length, types = [];
       for (var i = 0, type; i < len; ++i)
-        types.push(type = charType(str.charCodeAt(i)));
+		types.push(charType(str.charCodeAt(i)));
 
       // W1. Examine each non-spacing mark (NSM) in the level run, and
       // change the type of the NSM to the type of the previous

@@ -541,18 +541,38 @@ $(document).ready(function () {
 
     refreshSidebarToggleIcon();
 
+    var allowedSkinHrefs = [
+        '../App_Themes/Default/Styles/skins/default.css',
+        '../App_Themes/Default/Styles/skins/full-white.css',
+        '../App_Themes/Default/Styles/skins/blue.css',
+        '../App_Themes/Default/Styles/skins/light-green.css',
+        '../App_Themes/Default/Styles/skins/orange.css',
+        '../App_Themes/Default/Styles/skins/red.css'
+    ];
+
     function getSafeSkinHref(url) {
         if (!url || typeof url !== 'string') {
             return '';
         }
 
-        var trimmed = url.trim();
-        // Only allow local relative CSS files to avoid scriptable URL schemes.
-        if (!/^(\.\.?\/|\/)/.test(trimmed) || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(trimmed)) {
-            return '';
+        var trimmed = $.trim(url);
+        var normalized = trimmed
+            .replace(/^[.\/]+/, '')
+            .replace(/\\/g, '/')
+            .toLowerCase();
+
+        for (var i = 0; i < allowedSkinHrefs.length; i++) {
+            var candidate = allowedSkinHrefs[i];
+            var candidateNormalized = candidate
+                .replace(/^[.\/]+/, '')
+                .toLowerCase();
+
+            if (candidateNormalized === normalized) {
+                return candidate;
+            }
         }
 
-        return /\.css(?:\?|#|$)/i.test(trimmed) ? trimmed : '';
+        return '';
     }
 
 

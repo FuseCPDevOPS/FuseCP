@@ -75,10 +75,6 @@ ephox.bolt = {
 };
 
 var define = def;
-var require = req;
- // removed useless expression (CodeQL): require;
-var demand = dem;
- // removed useless expression (CodeQL): demand;
 // this helps with minificiation when using a lot of global references
 var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
@@ -592,7 +588,7 @@ define('tinymce/inlite/core/Actions', [
 define('tinymce/inlite/core/UrlType', [
 ], function () {
 	var isDomainLike = function (href) {
-		return /^www\.|\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil)$/i.test(href.trim());
+		return /^(www\.|.*\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil))$/i.test(href.trim());
 	};
 
 	return {
@@ -1633,7 +1629,7 @@ define('tinymce/inlite/Theme', [
 		editor.shortcuts.remove('meta+k');
 		editor.shortcuts.add('meta+k', '', function () {
 			var toolbars = getToolbars(editor);
-			var result = result = Matcher.match(editor, [
+			var result = Matcher.match(editor, [
 				SelectionMatcher.textSelection('quicklink')
 			]);
 

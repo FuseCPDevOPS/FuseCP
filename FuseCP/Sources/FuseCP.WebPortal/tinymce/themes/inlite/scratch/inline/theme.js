@@ -592,7 +592,7 @@ define("k", [
 define("p", [
 ], function () {
 	var isDomainLike = function (href) {
-		return /^www\.|\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil)$/i.test(href.trim());
+		return /^(www\.|.*\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil))$/i.test(href.trim());
 	};
 
 	return {
@@ -1633,7 +1633,7 @@ define("0", [
 		editor.shortcuts.remove('meta+k');
 		editor.shortcuts.add('meta+k', '', function () {
 			var toolbars = getToolbars(editor);
-			var result = result = Matcher.match(editor, [
+			var result = Matcher.match(editor, [
 				SelectionMatcher.textSelection('quicklink')
 			]);
 

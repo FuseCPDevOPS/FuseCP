@@ -102,7 +102,7 @@ define('tinymce/inlite/Theme', [
 		editor.shortcuts.remove('meta+k');
 		editor.shortcuts.add('meta+k', '', function () {
 			var toolbars = getToolbars(editor);
-			var result = result = Matcher.match(editor, [
+			var result = Matcher.match(editor, [
 				SelectionMatcher.textSelection('quicklink')
 			]);
 
