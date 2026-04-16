@@ -15,4 +15,8 @@ paths-ignore:
   - "**/App_Themes/**/addons/fuelux/**"
   - "**/JavaScript/jquery.window.js"
   - "**/App_Themes/**/js/jquery-ui/**"
+  - "FuseCP/Sources/FuseCP.WebDavPortal/Scripts/DataTables/**"
+  - "FuseCP/Sources/FuseCP.WebDavPortal/Scripts/jquery-*.js"
+  - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/jquery/**"
+  - "FuseCP/Sources/FuseCP.WebPortal/JavaScript/jquery-*.js"
   - "tools/MSBuildCommunityTasks/**"
