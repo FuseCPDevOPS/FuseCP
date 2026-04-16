@@ -426,7 +426,7 @@ namespace FuseCP.Portal
         protected void BindCertificateFields()
         {
             // Decode certificate's fields
-            Lookup<string, string> dnFields = DecodeDn(InstalledCert.DistinguishedName);
+            ILookup<string, string> dnFields = DecodeDn(InstalledCert.DistinguishedName);
             // Set certificate's Hostname
             lblInstalledDomain.Text = InstalledCert.Hostname;
             // Set certificate's Expiration Date
@@ -445,9 +445,12 @@ namespace FuseCP.Portal
             lblInstalledBits.Text = InstalledCert.CSRLength.ToString();
         }
 
-        public Lookup<string, string> DecodeDn(string distinguisedName)
+        public ILookup<string, string> DecodeDn(string distinguisedName)
         {
-            return (Lookup<string, string>)new Regex(@"(\w{1,2})=([a-zA-Z0-9\.\-\s\(\)]+),*").Matches(distinguisedName).Cast<Match>().ToLookup(x => x.Groups[1].Value, x => x.Groups[2].Value);
+            return new Regex(@"(\w{1,2})=([a-zA-Z0-9\.\-\s\(\)]+),*")
+                .Matches(distinguisedName)
+                .Cast<Match>()
+                .ToLookup(x => x.Groups[1].Value, x => x.Groups[2].Value);
         }
 
         protected void btnExport_Click(object sender, EventArgs e)

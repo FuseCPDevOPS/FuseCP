@@ -309,8 +309,7 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
-			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 
 			UserInfoInternal targetUser = GetUser(changeUserId);
 			if (targetUser == null)

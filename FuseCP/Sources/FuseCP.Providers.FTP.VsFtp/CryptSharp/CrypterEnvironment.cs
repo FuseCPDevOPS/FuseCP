@@ -160,7 +160,12 @@ namespace CryptSharp
         /// <returns>The same <see cref="CrypterEnvironment"/>.</returns>
         public CrypterEnvironment MakeReadOnly()
         {
-            ((CrypterCollection)Crypters).IsReadOnly = true; return this;
+            if (Crypters is CrypterCollection crypterCollection)
+            {
+                crypterCollection.IsReadOnly = true;
+            }
+
+            return this;
         }
 
         /// <summary>

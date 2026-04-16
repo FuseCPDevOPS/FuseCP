@@ -72,10 +72,10 @@ namespace FuseCP.Portal
 				try
 				{
 					// technical details
-					litPageUrl.Text = PortalAntiXSS.Encode(Request.Url.ToString());
-					litLoggedUser.Text = PanelSecurity.LoggedUser.Username;
-					litSelectedUser.Text = PanelSecurity.SelectedUser.Username;
-					litPackageName.Text = PanelSecurity.PackageId.ToString();
+					string pageUrl = Request?.Url != null ? PortalAntiXSS.Encode(Request.Url.ToString()) : String.Empty;
+					string loggedUser = PanelSecurity.LoggedUser?.Username ?? String.Empty;
+					string selectedUser = PanelSecurity.SelectedUser?.Username ?? String.Empty;
+					string packageName = PanelSecurity.PackageId.ToString();
 					var stacktxt = ex.ToString().Trim();
 					var stackhtml = stacktxt;
 					var fileVersion = OSInfo.FuseCPVersion;
@@ -87,6 +87,10 @@ namespace FuseCP.Portal
 					}, RegexOptions.Multiline);
 					stackhtml = stackhtml.Replace("\n", "<br/>");
 					System.Diagnostics.Trace.TraceWarning("MessageBox exception details: " + stacktxt);
+					litPageUrl.Text = String.Empty;
+					litLoggedUser.Text = String.Empty;
+					litSelectedUser.Text = String.Empty;
+					litPackageName.Text = String.Empty;
 					litStackTrace.Text = PortalAntiXSS.Encode("Technical details are available in server logs.");
 
 					// send form
@@ -101,10 +105,10 @@ namespace FuseCP.Portal
 
 					// compose email message
 					StringBuilder sb = new StringBuilder();
-					sb.Append("Page URL: ").Append(litPageUrl.Text).Append("\n\n");
-					sb.Append("Logged User: ").Append(litLoggedUser.Text).Append("\n\n");
-					sb.Append("Selected User: ").Append(litSelectedUser.Text).Append("\n\n");
-					sb.Append("Package ID: ").Append(litPackageName.Text).Append("\n\n");
+					sb.Append("Page URL: ").Append(pageUrl).Append("\n\n");
+					sb.Append("Logged User: ").Append(loggedUser).Append("\n\n");
+					sb.Append("Selected User: ").Append(selectedUser).Append("\n\n");
+					sb.Append("Package ID: ").Append(packageName).Append("\n\n");
 					sb.Append("Stack Trace: ").Append(stackhtml).Append("\n\n");
 					sb.Append("Personal Comments: ").Append("%Comments%").Append("\n\n");
 					emailMessage = $@"

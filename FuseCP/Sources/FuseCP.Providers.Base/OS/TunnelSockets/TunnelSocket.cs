@@ -119,7 +119,11 @@ namespace FuseCP.Providers.OS
         {
             // Replace the url's QueryString
             get => Uri?.Url;
-            set => Uri = (url = value).StartsWith("ssh://") ? new SshUri(url) : new TunnelUri(url);
+            set
+            {
+                url = value;
+                Uri = url.StartsWith("ssh://") ? new SshUri(url) : new TunnelUri(url);
+            }
         }
 
         public bool ValidateCertificate { get; set; } = true;

@@ -77,7 +77,7 @@ namespace FuseCP.Templates
             foreach (Statement stm in statements)
                 Debug.Write(stm);
 
-			return statements;
+            return new List<Statement>(statements);
 		}
 
 
