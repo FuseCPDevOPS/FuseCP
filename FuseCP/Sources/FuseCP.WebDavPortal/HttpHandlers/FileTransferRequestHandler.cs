@@ -43,6 +43,13 @@ namespace FuseCP.WebDavPortal.HttpHandlers
                 var relativePath = requestPath
                     .TrimStart('/', '\\')
                     .Replace('/', Path.DirectorySeparatorChar);
+
+                if (Path.IsPathRooted(relativePath))
+                {
+                    await _next(context);
+                    return;
+                }
+
                 var rootPath = Path.GetFullPath(AppContext.BaseDirectory);
                 var normalizedRoot = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                 var absolutePath = Path.GetFullPath(Path.Combine(normalizedRoot, relativePath));

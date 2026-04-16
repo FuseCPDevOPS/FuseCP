@@ -59,6 +59,9 @@ public class PortalUtils
 
 	private static string CombineUnderRoot(string rootPath, string relativeSegment)
 	{
+		if (Path.IsPathRooted(relativeSegment))
+			throw new InvalidOperationException("Path segment must be relative.");
+
 		string rootFullPath = Path.GetFullPath(rootPath);
 		string normalizedRoot = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 		string combinedPath = Path.GetFullPath(Path.Combine(normalizedRoot, relativeSegment.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
