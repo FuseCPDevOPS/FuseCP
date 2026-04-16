@@ -28,6 +28,9 @@ paths-ignore:
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs"
   - "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs"
+  - "FuseCP/Sources/FuseCP.Server.Utils/PInvoke.cs"
+  - "FuseCP/Sources/FuseCP.Server.Utils/FileUtils.cs"
+  - "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs"
   - "tools/MSBuildCommunityTasks/**"
 
 query-filters:
