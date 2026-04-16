@@ -68,7 +68,7 @@ namespace FuseCP.Web.Clients
 			{
 				if (value != protocol)
 				{
-					url = url
+					_url = _url
 						.Strip("basic")
 						.Strip("net")
 						.Strip("ws")
@@ -80,28 +80,28 @@ namespace FuseCP.Web.Clients
 						.Strip("pipe")
 						.Strip("pipe/ssl");
 
-					SetProtocol(url, ref value);
+					SetProtocol(_url, ref value);
 
-					url.AssertScheme(value);
+					_url.AssertScheme(value);
 
 					if (value == Protocols.NetTcp && IsEncrypted && !IsLocal) value = Protocols.NetTcpSsl;
 
-					if (value == Protocols.BasicHttp) url = url.SetApi("basic");
-					else if (value == Protocols.BasicHttps) url = url.SetApi("basic");
-					else if (value == Protocols.NetHttp) url = url.SetApi("net");
-					else if (value == Protocols.NetHttps) url = url.SetApi("net");
-					else if (value == Protocols.WSHttp) url = url.SetApi("ws");
-					else if (value == Protocols.WSHttps) url = url.SetApi("ws");
-					else if (value == Protocols.NetTcp) url = url.SetApi("tcp");
-					else if (value == Protocols.NetTcpSsl) url = url.SetApi("tcp/ssl");
-					else if (value == Protocols.gRPC) url = url.SetApi("grpc");
-					else if (value == Protocols.gRPCSsl) url = url.SetApi("grpc");
-					else if (value == Protocols.gRPCWeb) url = url.SetApi("grpc/web");
-					else if (value == Protocols.gRPCWebSsl) url = url.SetApi("grpc/web");
-					else if (value == Protocols.NetPipe) url = url.SetApi("pipe");
-					else if (value == Protocols.NetPipeSsl) url = url.SetApi("pipe/ssl");
-					else if (value == Protocols.Assembly) url = url.SetScheme("assembly");
-					else if (value == Protocols.Ssh) url = url.SetScheme("ssh");
+					if (value == Protocols.BasicHttp) _url = _url.SetApi("basic");
+					else if (value == Protocols.BasicHttps) _url = _url.SetApi("basic");
+					else if (value == Protocols.NetHttp) _url = _url.SetApi("net");
+					else if (value == Protocols.NetHttps) _url = _url.SetApi("net");
+					else if (value == Protocols.WSHttp) _url = _url.SetApi("ws");
+					else if (value == Protocols.WSHttps) _url = _url.SetApi("ws");
+					else if (value == Protocols.NetTcp) _url = _url.SetApi("tcp");
+					else if (value == Protocols.NetTcpSsl) _url = _url.SetApi("tcp/ssl");
+					else if (value == Protocols.gRPC) _url = _url.SetApi("grpc");
+					else if (value == Protocols.gRPCSsl) _url = _url.SetApi("grpc");
+					else if (value == Protocols.gRPCWeb) _url = _url.SetApi("grpc/web");
+					else if (value == Protocols.gRPCWebSsl) _url = _url.SetApi("grpc/web");
+					else if (value == Protocols.NetPipe) _url = _url.SetApi("pipe");
+					else if (value == Protocols.NetPipeSsl) _url = _url.SetApi("pipe/ssl");
+					else if (value == Protocols.Assembly) _url = _url.SetScheme("assembly");
+					else if (value == Protocols.Ssh) _url = _url.SetScheme("ssh");
 				}
 				protocol = value;
 			}
@@ -153,61 +153,61 @@ namespace FuseCP.Web.Clients
 		public V Header<V>() => (V)SoapHeader;
 		public TimeSpan? Timeout { get; set; } = null;
 
-		protected string url = null;
+		protected string _url = null;
 		public string Url
 		{
-			get { return url; }
+			get { return _url; }
 			set
 			{
-				url = value;
-				if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("Url must not be null or empty.");
+				_url = value;
+				if (string.IsNullOrEmpty(_url)) throw new ArgumentNullException("Url must not be null or empty.");
 
-				if (url.StartsWith("http://"))
+				if (_url.StartsWith("http://"))
 				{
-					if (url.HasApi("basic")) protocol = Protocols.BasicHttp;
-					else if (url.HasApi("net")) protocol = Protocols.NetHttp;
-					else if (url.HasApi("ws")) protocol = Protocols.WSHttp;
-					else if (url.HasApi("grpc")) protocol = Protocols.gRPC;
-					else if (url.HasApi("grpc/web")) protocol = Protocols.gRPCWeb;
+					if (_url.HasApi("basic")) protocol = Protocols.BasicHttp;
+					else if (_url.HasApi("net")) protocol = Protocols.NetHttp;
+					else if (_url.HasApi("ws")) protocol = Protocols.WSHttp;
+					else if (_url.HasApi("grpc")) protocol = Protocols.gRPC;
+					else if (_url.HasApi("grpc/web")) protocol = Protocols.gRPCWeb;
 					else protocol = Protocols.BasicHttp;
 				
 					/* if (IsEncrypted && !IsLocal &&
 						!(protocol == Protocols.WSHttp && UseMessageSecurityOverHttp)) throw new NotSupportedException("This protocol is not secure over this connection."); */
 				}
-				else if (url.StartsWith("https://"))
+				else if (_url.StartsWith("https://"))
 				{
-					if (url.HasApi("basic")) protocol = Protocols.BasicHttps;
-					else if (url.HasApi("net")) protocol = Protocols.NetHttps;
-					else if (url.HasApi("ws")) protocol = Protocols.WSHttps;
-					else if (url.HasApi("grpc")) protocol = Protocols.gRPCSsl;
-					else if (url.HasApi("grpc/web")) protocol = Protocols.gRPCWebSsl;
+					if (_url.HasApi("basic")) protocol = Protocols.BasicHttps;
+					else if (_url.HasApi("net")) protocol = Protocols.NetHttps;
+					else if (_url.HasApi("ws")) protocol = Protocols.WSHttps;
+					else if (_url.HasApi("grpc")) protocol = Protocols.gRPCSsl;
+					else if (_url.HasApi("grpc/web")) protocol = Protocols.gRPCWebSsl;
 					else protocol = Protocols.BasicHttps;
 				}
-				else if (url.StartsWith("net.tcp://"))
+				else if (_url.StartsWith("net.tcp://"))
 				{
-					if (url.HasApi("tcp/ssl")) protocol = Protocols.NetTcpSsl;
-					else if (url.HasApi("tcp"))
+					if (_url.HasApi("tcp/ssl")) protocol = Protocols.NetTcpSsl;
+					else if (_url.HasApi("tcp"))
 					{
 						if (IsEncrypted && !IsLocal) throw new NotSupportedException("This protocol is not secure over this connection.");
 						else protocol = Protocols.NetTcp;
 					}
-					else if (url.HasApi("ssl"))
+					else if (_url.HasApi("ssl"))
 					{
 						protocol = Protocols.NetTcpSsl;
-						url = url.SetApi("tcp/ssl");
+						_url = _url.SetApi("tcp/ssl");
 					}
 					else
 					{
 						if (IsEncrypted && !IsLocal) throw new NotSupportedException("This protocol is not secure over this connection.");
 						protocol = Protocols.NetTcp;
-						url = url.SetApi("tcp");
+						_url = _url.SetApi("tcp");
 					}
 				}
 				//#if NETFRAMEWORK
-				else if (url.StartsWith("net.pipe://"))
+				else if (_url.StartsWith("net.pipe://"))
 				{
-					if (url.HasApi("pipe/ssl")) protocol = Protocols.NetPipeSsl;
-					else if (url.HasApi("pipe"))
+					if (_url.HasApi("pipe/ssl")) protocol = Protocols.NetPipeSsl;
+					else if (_url.HasApi("pipe"))
 					{
 						if (IsEncrypted && !IsLocal) throw new NotSupportedException("This protocol is not secure over this connection.");
 						else protocol = Protocols.NetPipe;
@@ -215,16 +215,16 @@ namespace FuseCP.Web.Clients
 					else throw new NotSupportedException("net.pipe url must include pipe api");
 				}
 				//#endif
-				else if (url.StartsWith("assembly://")) Protocol = Protocols.Assembly;
-				else if (url.StartsWith("ssh://"))
+				else if (_url.StartsWith("assembly://")) Protocol = Protocols.Assembly;
+				else if (_url.StartsWith("ssh://"))
 				{
-					if (url.HasApi("basic")) protocol = Protocols.BasicHttp;
-					else if (url.HasApi("net")) protocol = Protocols.NetHttp;
-					else if (url.HasApi("ws")) protocol = Protocols.WSHttp;
-					else if (url.HasApi("grpc")) protocol = Protocols.gRPC;
-					else if (url.HasApi("grpc/web")) protocol = Protocols.gRPCWeb;
-					else if (url.HasApi("tcp")) protocol = Protocols.NetTcp;
-					else if (url.HasApi("tcp/ssl")) protocol = Protocols.NetTcpSsl;
+					if (_url.HasApi("basic")) protocol = Protocols.BasicHttp;
+					else if (_url.HasApi("net")) protocol = Protocols.NetHttp;
+					else if (_url.HasApi("ws")) protocol = Protocols.WSHttp;
+					else if (_url.HasApi("grpc")) protocol = Protocols.gRPC;
+					else if (_url.HasApi("grpc/web")) protocol = Protocols.gRPCWeb;
+					else if (_url.HasApi("tcp")) protocol = Protocols.NetTcp;
+					else if (_url.HasApi("tcp/ssl")) protocol = Protocols.NetTcpSsl;
 					else protocol = Protocols.BasicHttp;
 
 				}
@@ -283,12 +283,12 @@ namespace FuseCP.Web.Clients
 			get
 			{
 				if (IsSsh) return true;
-				var host = new Uri(url).Host;
-				return url.StartsWith("pipe://", StringComparison.OrdinalIgnoreCase) || DnsService.IsHostLAN(host);
+				var host = new Uri(_url).Host;
+				return _url.StartsWith("pipe://", StringComparison.OrdinalIgnoreCase) || DnsService.IsHostLAN(host);
 			}
 		}
 
-		public bool IsDefaultApi => !Regex.IsMatch(url, "(?:basic|net|ws|grpc|grpc/ssl|tcp|tcp/ssl|pipe|pipe/ssl)(?:/[A-Za-z0-9_�]+)?/?(?:\\?|$)");
+		public bool IsDefaultApi => !Regex.IsMatch(_url, "(?:basic|net|ws|grpc|grpc/ssl|tcp|tcp/ssl|pipe|pipe/ssl)(?:/[A-Za-z0-9_�]+)?/?(?:\\?|$)");
 
 		public bool IsAuthenticated
 		{
@@ -445,7 +445,7 @@ namespace FuseCP.Web.Clients
 		string UseSsh(string serviceurl)
 		{
 			SshTunnel tunnel;
-			lock (SshLock) tunnel = SshTunnels.GetOrAdd(url, StartSshTunnel);
+			lock (SshLock) tunnel = SshTunnels.GetOrAdd(_url, StartSshTunnel);
 
 			WaitForTunnelReady(tunnel);
 
@@ -489,7 +489,7 @@ namespace FuseCP.Web.Clients
 		{
 			get
 			{
-				var serviceurl = url;
+				var serviceurl = _url;
 				if (serviceurl.StartsWith("ssh://")) serviceurl = UseSsh(serviceurl);
 
 				serviceurl = $"{serviceurl}/{this.GetType().Name}";
@@ -624,7 +624,7 @@ namespace FuseCP.Web.Clients
 						}
 						else
 						{
-							FactoryPool[url] = null;
+							FactoryPool[_url] = null;
 						}
 					}
 
@@ -667,9 +667,9 @@ namespace FuseCP.Web.Clients
 					throw new NotSupportedException("gRPC is not yet supported.");
 
 					GrpcChannel gchannel;
-					if (!GrpcPool.TryGetValue(url, out gchannel))
+					if (!GrpcPool.TryGetValue(_url, out gchannel))
 					{
-						GrpcPool[url] = gchannel = GrpcChannel.ForAddress(url);
+						GrpcPool[_url] = gchannel = GrpcChannel.ForAddress(_url);
 					}
 					client = gchannel.CreateGrpcService<T>();
 				}
@@ -678,7 +678,7 @@ namespace FuseCP.Web.Clients
 				{
 					var assemblyClient = new U();
 					assemblyClient.Client = this;
-					assemblyClient.AssemblyName = url.Substring("assembly://".Length);
+					assemblyClient.AssemblyName = _url.Substring("assembly://".Length);
 					client = assemblyClient;
 				}
 				else throw new NotSupportedException("Unsupported protocol in FuseCP.Web.Clients.ClientBase");
@@ -691,7 +691,7 @@ namespace FuseCP.Web.Clients
 		{
 			lock (FactoryPool)
 			{
-				FactoryPool[url] = factory;
+				FactoryPool[_url] = factory;
 				factory = null;
 			}
 			if (client != null && client is IClientChannel channel &&
