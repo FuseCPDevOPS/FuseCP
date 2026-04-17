@@ -913,7 +913,16 @@ namespace FuseCP.EnterpriseServer
 		public ServiceInfo GetServiceInfoAdmin(int serviceId)
 		{
 			// check account
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0)
+				return null;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			if (accountCheck < 0)
+				return null;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			if (accountCheck < 0)
 				return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
@@ -1074,10 +1083,16 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
 			// check account
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0)
 				return null;
 
-			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			if (accountCheck < 0)
+				return null;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			if (accountCheck < 0)
 				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2370,7 +2385,10 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
@@ -2390,7 +2408,10 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
@@ -2480,11 +2501,15 @@ namespace FuseCP.EnterpriseServer
 		public int DeleteCluster(int clusterId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
 			if (accountCheck < 0) return accountCheck;
 
-			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
-				return SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			if (accountCheck < 0)
+				return accountCheck;
 
 			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))
 				return -1;

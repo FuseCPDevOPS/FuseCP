@@ -59,240 +59,7 @@ namespace FuseCP.Providers.OS
 #endif
     public sealed class WindowsOSInfo
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct OSVERSIONINFO
-        {
-            public Int32 dwOSVersionInfoSize;
-            public Int32 dwMajorVersion;
-            public Int32 dwMinorVersion;
-            public Int32 dwBuildNumber;
-            public Int32 dwPlatformID;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-            public string szCSDVersion;
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct OSVERSIONINFOEX
-        {
-            public Int32 dwOSVersionInfoSize;
-            public Int32 dwMajorVersion;
-            public Int32 dwMinorVersion;
-            public Int32 dwBuildNumber;
-            public Int32 dwPlatformID;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-            public string szCSDVersion;
-            public short wServicePackMajor;
-            public short wServicePackMinor;
-            public short wSuiteMask;
-            public byte wProductType;
-            public byte wReserved;
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SYSTEM_INFO
-        {
-            public Int32 dwOemID;
-            public Int32 dwPageSize;
-            public Int32 wProcessorArchitecture;
-            public Int32 lpMinimumApplicationAddress;
-            public Int32 lpMaximumApplicationAddress;
-            public Int32 dwActiveProcessorMask;
-            public Int32 dwNumberOrfProcessors;
-            public Int32 dwProcessorType;
-            public Int32 dwAllocationGranularity;
-            public Int32 dwReserved;
-        }
-        public enum WinSuiteMask : int
-        {
-            VER_SUITE_SMALLBUSINESS = 1,
-            VER_SUITE_ENTERPRISE = 2,
-            VER_SUITE_BACKOFFICE = 4,
-            VER_SUITE_COMMUNICATIONS = 8,
-            VER_SUITE_TERMINAL = 16,
-            VER_SUITE_SMALLBUSINESS_RESTRICTED = 32,
-            VER_SUITE_EMBEDDEDNT = 64,
-            VER_SUITE_DATACENTER = 128,
-            VER_SUITE_SINGLEUSERTS = 256,
-            VER_SUITE_PERSONAL = 512,
-            VER_SUITE_BLADE = 1024,
-            VER_SUITE_STORAGE_SERVER = 8192,
-            VER_SUITE_COMPUTE_SERVER = 16384
-        }
-        public enum WinPlatform : byte
-        {
-            VER_NT_WORKSTATION = 1,
-            VER_NT_DOMAIN_CONTROLLER = 2,
-            VER_NT_SERVER = 3
-        }
-        public enum OSMajorVersion : byte
-        {
-            VER_OS_NT4 = 4,
-            VER_OS_2K_XP_2K3 = 5,
-            VER_OS_VISTA_LONGHORN = 6
-        }
-
-        private const Int32 SM_SERVERR2 = 89;
-        private const Int32 SM_MEDIACENTER = 87;
-        private const Int32 SM_TABLETPC = 86;
-
-        [DllImport("kernel32")]
-        private static extern int GetSystemInfo(ref SYSTEM_INFO lpSystemInfo);
-        [DllImport("user32")]
-        private static extern int GetSystemMetrics(int nIndex);
-        [DllImport("kernel32", EntryPoint = "GetVersion")]
-        private static extern int GetVersionAdv(ref OSVERSIONINFO lpVersionInformation);
-        [DllImport("kernel32")]
-        private static extern int GetVersionEx(ref OSVERSIONINFOEX lpVersionInformation);
-
-
-        /*public static string GetVersionEx()
-		{
-			OSVERSIONINFO osvi = new OSVERSIONINFO();
-			OSVERSIONINFOEX xosvi = new OSVERSIONINFOEX();
-			Int32 iRet = 0;
-			string strDetails = string.Empty;
-			osvi.dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFO));
-			xosvi.dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX));
-			try
-			{
-				iRet = (int)System.Environment.OSVersion.Platform;
-				if (iRet == 1)
-				{
-					iRet = GetVersionAdv(ref osvi);
-					strDetails = Environment.NewLine + "Version: " + osvi.dwMajorVersion + "." + osvi.dwMinorVersion + "." + osvi.dwBuildNumber + Environment.NewLine + osvi.szCSDVersion;
-					if (Len(osvi) == 0)
-					{
-						return "Windows 95" + strDetails;
-					}
-					else if (Len(osvi) == 10)
-					{
-						return "Windows 98" + strDetails;
-					}
-					else if (Len(osvi) == 9)
-					{
-						return "Windows ME" + strDetails;
-					}
-				}
-				else
-				{
-					iRet = GetVersionEx(xosvi);
-					strDetails = Environment.NewLine + "Version: " + xosvi.dwMajorVersion + "." + xosvi.dwMinorVersion + "." + xosvi.dwBuildNumber + Environment.NewLine + xosvi.szCSDVersion + " (" + xosvi.wServicePackMajor + "." + xosvi.wServicePackMinor + ")";
-					if (xosvi.dwMajorVersion == (byte)OSMajorVersion.VER_OS_NT4)
-					{
-						return "Windows NT 4" + strDetails;
-					}
-					else if (xosvi.dwMajorVersion == OSMajorVersion.VER_OS_2K_XP_2K3)
-					{
-						if (xosvi.dwMinorVersion == 0)
-						{
-							if (xosvi.wProductType == WinPlatform.VER_NT_WORKSTATION)
-							{
-								return "Windows 2000 Pro" + strDetails;
-							}
-							else if (xosvi.wProductType == WinPlatform.VER_NT_SERVER)
-							{
-								if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_DATACENTER) == WinSuiteMask.VER_SUITE_DATACENTER)
-								{
-									return "Windows 2000 Datacenter Server" + strDetails;
-								}
-								else if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_ENTERPRISE) == WinSuiteMask.VER_SUITE_ENTERPRISE)
-								{
-									return "Windows 2000 Advanced Server" + strDetails;
-								}
-								else if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_SMALLBUSINESS) == WinSuiteMask.VER_SUITE_SMALLBUSINESS)
-								{
-									return "Windows 2000 Small Business Server" + strDetails;
-								}
-								else
-								{
-									return "Windows 2000 Server" + strDetails;
-								}
-							}
-							else if (xosvi.wProductType == WinPlatform.VER_NT_DOMAIN_CONTROLLER)
-							{
-								if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_DATACENTER) == WinSuiteMask.VER_SUITE_DATACENTER)
-								{
-									return "Windows 2000 Datacenter Server Domain Controller" + strDetails;
-								}
-								else if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_ENTERPRISE) == WinSuiteMask.VER_SUITE_ENTERPRISE)
-								{
-									return "Windows 2000 Advanced Server Domain Controller" + strDetails;
-								}
-								else if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_SMALLBUSINESS) == WinSuiteMask.VER_SUITE_SMALLBUSINESS)
-								{
-									return "Windows 2000 Small Business Server Domain Controller" + strDetails;
-								}
-								else
-								{
-									return "Windows 2000 Server Domain Controller" + strDetails;
-								}
-							}
-						}
-						else if (xosvi.dwMinorVersion == 1)
-						{
-							if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_PERSONAL) == WinSuiteMask.VER_SUITE_PERSONAL)
-							{
-								return "Windows XP Home Edition" + strDetails;
-							}
-							else
-							{
-								return "Windows XP Professional Edition" + strDetails;
-							}
-						}
-						else if (xosvi.dwMinorVersion == 2)
-						{
-							if (xosvi.wProductType == WinPlatform.VER_NT_WORKSTATION)
-							{
-								return "Windows XP Professional x64 Edition" + strDetails;
-							}
-							else if (xosvi.wProductType == WinPlatform.VER_NT_SERVER)
-							{
-								if (GetSystemMetrics(SM_SERVERR2) == 1)
-								{
-									return "Windows Server 2003 R2" + strDetails;
-								}
-								else
-								{
-									return "Windows Server 2003" + strDetails;
-								}
-							}
-							else if (xosvi.wProductType == WinPlatform.VER_NT_DOMAIN_CONTROLLER)
-							{
-								if (GetSystemMetrics(SM_SERVERR2) == 1)
-								{
-									return "Windows Server 2003 R2 Domain Controller" + strDetails;
-								}
-								else
-								{
-									return "Windows Server 2003 Domain Controller" + strDetails;
-								}
-							}
-						}
-					}
-					else if (xosvi.dwMajorVersion == OSMajorVersion.VER_OS_VISTA_LONGHORN)
-					{
-						if (xosvi.wProductType == WinPlatform.VER_NT_WORKSTATION)
-						{
-							if ((xosvi.wSuiteMask & WinSuiteMask.VER_SUITE_PERSONAL) == WinSuiteMask.VER_SUITE_PERSONAL)
-							{
-								return "Windows Vista (Home Premium, Home Basic, or Home Ultimate) Edition";
-							}
-							else
-							{
-								return "Windows Vista (Enterprize or Business)" + strDetails;
-							}
-						}
-						else
-						{
-							return "Windows Server (Longhorn)" + strDetails;
-						}
-					}
-				}
-			}
-			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
-			{
-				MessageBox.Show(GetLastError.ToString);
-				return string.Empty;
-			}
-		}*/
+        // Legacy interop-based OS detection was removed in favor of managed-only APIs.
 
         public static int GetCurrentBuild()
         {
@@ -309,7 +76,6 @@ namespace FuseCP.Providers.OS
         static WindowsVersion? version;
         public static WindowsVersion GetVersion()
         {
-
             if (version.HasValue) return version.Value;
 
             if (!OSInfo.IsWindows)
@@ -319,12 +85,6 @@ namespace FuseCP.Providers.OS
             }
 
             WindowsVersion ret = WindowsVersion.Unknown;
-
-            OSVERSIONINFOEX info = new OSVERSIONINFOEX();
-            info.dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX));
-            GetVersionEx(ref info);
-
-            // Get OperatingSystem information from the system namespace.
             System.OperatingSystem osInfo = System.Environment.OSVersion;
 
             Version ver = osInfo.Version;
@@ -332,10 +92,10 @@ namespace FuseCP.Providers.OS
             var match = Regex.Match(osDesc, @"[0-9]+(?:\.[0-9]+){0,3}");
             if (match.Success) ver = new Version(match.Value);
 
-            // Determine the platform.
+            bool isServer = osDesc.IndexOf("server", StringComparison.OrdinalIgnoreCase) >= 0;
+
             switch (osInfo.Platform)
             {
-                // Platform is Windows 95, Windows 98, Windows 98 Second Edition, or Windows Me.
                 case System.PlatformID.Win32Windows:
                     switch (osInfo.Version.Minor)
                     {
@@ -351,7 +111,6 @@ namespace FuseCP.Providers.OS
                     }
                     break;
 
-                // Platform is Windows NT 3.51, Windows NT 4.0, Windows 2000, or Windows XP.
                 case System.PlatformID.Win32NT:
                     switch (ver.Major)
                     {
@@ -371,25 +130,7 @@ namespace FuseCP.Providers.OS
                                     ret = WindowsVersion.WindowsXP;
                                     break;
                                 case 2:
-                                    int i = GetSystemMetrics(SM_SERVERR2);
-                                    if (i != 0)
-                                    {
-                                        //Server 2003 R2
-                                        ret = WindowsVersion.WindowsServer2003;
-                                    }
-                                    else
-                                    {
-                                        ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.WindowsXP : WindowsVersion.WindowsServer2003;
-
-
-
-
-
-
-
-
-                                        break;
-                                    }
+                                    ret = isServer ? WindowsVersion.WindowsServer2003 : WindowsVersion.WindowsXP;
                                     break;
                             }
                             break;
@@ -397,78 +138,50 @@ namespace FuseCP.Providers.OS
                             switch (ver.Minor)
                             {
                                 case 0:
-                                    ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.Vista : WindowsVersion.WindowsServer2008;
-
-
-
+                                    ret = isServer ? WindowsVersion.WindowsServer2008 : WindowsVersion.Vista;
                                     break;
                                 case 1:
-                                    ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.Windows7 : WindowsVersion.WindowsServer2008R2;
-
-
-
+                                    ret = isServer ? WindowsVersion.WindowsServer2008R2 : WindowsVersion.Windows7;
                                     break;
                                 case 2:
-                                    ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.Windows8 : WindowsVersion.WindowsServer2012;
-
-
-
+                                    ret = isServer ? WindowsVersion.WindowsServer2012 : WindowsVersion.Windows8;
                                     break;
                                 case 3:
-                                    ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.Windows81 : WindowsVersion.WindowsServer2012R2;
-
-
-
+                                    ret = isServer ? WindowsVersion.WindowsServer2012R2 : WindowsVersion.Windows81;
                                     break;
                             }
                             break;
                         case 10:
-                            int ReleaseId = GetReleaseId();
-                            // Server 2016
-                            if ((ReleaseId == 1607 || ReleaseId == 1709 || ReleaseId == 1803) &&
-                                info.wProductType != (byte)WinPlatform.VER_NT_WORKSTATION) ret = WindowsVersion.WindowsServer2016;
-                            // Windows 10 below 1903
-                            else if (ReleaseId == 1507 || ReleaseId == 1511 || ReleaseId == 1607 || ReleaseId == 1703 || ReleaseId == 1709 || ReleaseId == 1803) ret = WindowsVersion.Windows10;
-                            // Server 2019, Server 2022, Windows 10 above 1903 & Windows 11
+                            int releaseId = GetReleaseId();
+                            if ((releaseId == 1607 || releaseId == 1709 || releaseId == 1803) && isServer)
+                            {
+                                ret = WindowsVersion.WindowsServer2016;
+                            }
+                            else if (releaseId == 1507 || releaseId == 1511 || releaseId == 1607 || releaseId == 1703 || releaseId == 1709 || releaseId == 1803)
+                            {
+                                ret = WindowsVersion.Windows10;
+                            }
                             else
                             {
-                                var currentBuild = GetCurrentBuild();
-
-                                if (ReleaseId == 1809 || ReleaseId == 1903 || ReleaseId == 1909 || ReleaseId == 2004 || ReleaseId == 2009)
+                                int currentBuild = GetCurrentBuild();
+                                if (currentBuild >= 22000 && !isServer)
                                 {
-
-                                    if (currentBuild >= 22000 && info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION)
-                                    {
-                                        ret = WindowsVersion.Windows11;
-                                    }
-                                    else if (currentBuild >= 20348 && info.wProductType != (byte)WinPlatform.VER_NT_WORKSTATION)
-                                    {
-                                        ret = currentBuild >= 26000 ? WindowsVersion.WindowsServer2025 : WindowsVersion.WindowsServer2022;
-
-                                    }
-                                    else
-                                    {
-                                        ret = info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION ? WindowsVersion.Windows10 : WindowsVersion.WindowsServer2019;
-
-                                    }
+                                    ret = WindowsVersion.Windows11;
+                                }
+                                else if (currentBuild >= 20348 && isServer)
+                                {
+                                    ret = currentBuild >= 26000 ? WindowsVersion.WindowsServer2025 : WindowsVersion.WindowsServer2022;
                                 }
                                 else
                                 {
-                                    if (currentBuild >= 22000 && info.wProductType == (byte)WinPlatform.VER_NT_WORKSTATION)
-                                    {
-                                        ret = WindowsVersion.Windows11;
-                                    }
-                                    else if (currentBuild >= 20348 && info.wProductType != (byte)WinPlatform.VER_NT_WORKSTATION)
-                                    {
-										ret = currentBuild >= 26000 ? WindowsVersion.WindowsServer2025 : WindowsVersion.WindowsServer2022;
-
-									}
-								}
+                                    ret = isServer ? WindowsVersion.WindowsServer2019 : WindowsVersion.Windows10;
+                                }
                             }
                             break;
                     }
                     break;
             }
+
             version = ret;
             return ret;
         }

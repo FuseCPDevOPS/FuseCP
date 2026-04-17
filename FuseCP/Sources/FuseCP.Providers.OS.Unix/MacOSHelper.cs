@@ -15,7 +15,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -23,28 +25,10 @@ namespace FuseCP.Providers.OS
 {
 	public static class MacOSHelper
 	{
-		// Constants for host_statistics
-		const int HOST_CPU_LOAD_INFO = 3;
-		const int HOST_CPU_LOAD_INFO_COUNT = CPU_STATE_MAX;
-
 		const int CPU_STATE_USER = 0;
 		const int CPU_STATE_SYSTEM = 1;
 		const int CPU_STATE_IDLE = 2;
 		const int CPU_STATE_NICE = 3;
-		const int CPU_STATE_MAX = 4;
-
-		[StructLayout(LayoutKind.Sequential)]
-		struct host_cpu_load_info
-		{
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = CPU_STATE_MAX)]
-			public uint[] cpu_ticks;
-		}
-
-		[DllImport("/usr/lib/libSystem.dylib")]
-		static extern int host_statistics(IntPtr host, int flavor, IntPtr cpuLoadInfo, ref int count);
-
-		[DllImport("/usr/lib/libSystem.dylib")]
-		static extern IntPtr mach_host_self();
 
 		public static short GetProcessorTotalProcessorTimeMac()
 		{
@@ -60,29 +44,49 @@ namespace FuseCP.Providers.OS
 			return (short)(100 - idlePercent);
 		}
 
-		static (uint idleTicks, uint totalTicks) GetCpuStatsMac()
+		static (ulong idleTicks, ulong totalTicks) GetCpuStatsMac()
 		{
-			var cpuInfo = new host_cpu_load_info { cpu_ticks = new uint[CPU_STATE_MAX] };
-			int count = HOST_CPU_LOAD_INFO_COUNT;
-			int size = Marshal.SizeOf<host_cpu_load_info>();
-			IntPtr ptr = Marshal.AllocHGlobal(size);
-			Marshal.StructureToPtr(cpuInfo, ptr, false);
+			ulong[] ticks = ReadKernelCpuTicks();
+			if (ticks.Length <= CPU_STATE_NICE)
+				throw new Exception("Unexpected kern.cp_time format.");
 
-			int result = host_statistics(mach_host_self(), HOST_CPU_LOAD_INFO, ptr, ref count);
-			if (result != 0)
-				throw new Exception("host_statistics failed.");
+			ulong user = ticks[CPU_STATE_USER];
+			ulong system = ticks[CPU_STATE_SYSTEM];
+			ulong idle = ticks[CPU_STATE_IDLE];
+			ulong nice = ticks[CPU_STATE_NICE];
 
-			cpuInfo = Marshal.PtrToStructure<host_cpu_load_info>(ptr);
-			Marshal.FreeHGlobal(ptr);
-
-			uint user = cpuInfo.cpu_ticks[CPU_STATE_USER];
-			uint system = cpuInfo.cpu_ticks[CPU_STATE_SYSTEM];
-			uint idle = cpuInfo.cpu_ticks[CPU_STATE_IDLE];
-			uint nice = cpuInfo.cpu_ticks[CPU_STATE_NICE];
-
-			uint total = user + system + idle + nice;
+			ulong total = user + system + idle + nice;
 
 			return (idle, total);
+		}
+
+		static ulong[] ReadKernelCpuTicks()
+		{
+			using var proc = new Process
+			{
+				StartInfo = new ProcessStartInfo
+				{
+					FileName = "sysctl",
+					Arguments = "-n kern.cp_time",
+					UseShellExecute = false,
+					RedirectStandardOutput = true,
+					RedirectStandardError = true,
+					CreateNoWindow = true
+				}
+			};
+
+			proc.Start();
+			string output = proc.StandardOutput.ReadToEnd();
+			string error = proc.StandardError.ReadToEnd();
+			proc.WaitForExit();
+
+			if (proc.ExitCode != 0)
+				throw new Exception($"sysctl kern.cp_time failed: {error}");
+
+			return output
+				.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)
+				.Select(v => ulong.Parse(v, CultureInfo.InvariantCulture))
+				.ToArray();
 		}
 	}
 }

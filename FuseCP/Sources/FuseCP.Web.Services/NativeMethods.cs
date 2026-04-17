@@ -14,7 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace FuseCP.Web.Services;
 
@@ -22,11 +22,15 @@ internal static class NativeMethods
 {
 	internal const string AspNetCoreModuleDll = "aspnetcorev2_inprocess.dll";
 
-	[DllImport("kernel32.dll")]
-	private static extern IntPtr GetModuleHandle(string lpModuleName);
-
 	public static bool IsAspNetCoreModuleLoaded()
 	{
-		return GetModuleHandle(AspNetCoreModuleDll) != IntPtr.Zero;
+		using Process current = Process.GetCurrentProcess();
+		foreach (ProcessModule module in current.Modules)
+		{
+			if (string.Equals(module.ModuleName, AspNetCoreModuleDll, StringComparison.OrdinalIgnoreCase))
+				return true;
+		}
+
+		return false;
 	}
 }
