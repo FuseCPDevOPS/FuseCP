@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Versioning;
 using System.Text;
 using MySql.Data.MySqlClient;
 
@@ -58,10 +59,14 @@ namespace FuseCP.Providers.DNS
 
 		static PowerDNS()
 		{
-			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            if (OperatingSystem.IsWindows())
+            {
+                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            }
 		}
 
-		static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        [SupportedOSPlatform("windows")]
+        static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			//
 			if (!args.Name.Contains("MySql.Data"))

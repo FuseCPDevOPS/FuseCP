@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Versioning;
 using Microsoft.Win32;
 
 namespace FuseCP.Server.Utils
@@ -27,6 +28,7 @@ namespace FuseCP.Server.Utils
 			/// <summary>
 			/// Implements common methods to manipulate on a registry section's sub keys and their values
 			/// </summary>
+			[SupportedOSPlatform("windows")]
 			public class RegistryHiveSection
 			{
 				public RegistryHiveSection() { }
@@ -179,6 +181,7 @@ namespace FuseCP.Server.Utils
 			/// <summary>
 			/// Represents HKEY_LOCAL_MACHINE section
 			/// </summary>
+			[SupportedOSPlatform("windows")]
 			public static RegistryHiveSection HKLM = new RegistryHiveSection();
 		};
 	}
