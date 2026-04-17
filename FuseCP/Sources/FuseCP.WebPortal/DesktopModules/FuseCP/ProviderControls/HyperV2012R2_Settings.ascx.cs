@@ -60,7 +60,8 @@ namespace FuseCP.Portal.ProviderControls
 
             // Guacamole
             txtGuacamoleConnectScript.Text = settings["GuacamoleConnectScript"];
-            txtGuacamoleConnectPassword.Text = settings["GuacamoleConnectPassword"];
+            ViewState["GUAC_PWD"] = settings["GuacamoleConnectPassword"];
+            txtGuacamoleConnectPassword.Text = String.Empty;
             txtGuacamoleHyperVDomain.Text = settings["GuacamoleHyperVDomain"];
             txtGuacamoleHyperVIP.Text = settings["GuacamoleHyperVIP"];
             ViewState["PWD"] = settings["GuacamoleHyperVAdministratorPassword"];
@@ -205,7 +206,10 @@ namespace FuseCP.Portal.ProviderControls
 
             // Guacamole
             settings["GuacamoleConnectScript"] = txtGuacamoleConnectScript.Text.Trim();
-            settings["GuacamoleConnectPassword"] = txtGuacamoleConnectPassword.Text.Trim();
+            string guacamolePassword = txtGuacamoleConnectPassword.Text.Trim();
+            if (String.IsNullOrEmpty(guacamolePassword))
+                guacamolePassword = (string)ViewState["GUAC_PWD"];
+            settings["GuacamoleConnectPassword"] = guacamolePassword;
             settings["GuacamoleHyperVIP"] = txtGuacamoleHyperVIP.Text.Trim();
             settings["GuacamoleHyperVDomain"] = txtGuacamoleHyperVDomain.Text.Trim();
             settings["GuacamoleHyperVAdministratorPassword"] = (txtGuacamoleHyperVAdministratorPassword.Text.Length > 0) ? txtGuacamoleHyperVAdministratorPassword.Text : (string)ViewState["PWD"];
@@ -515,7 +519,8 @@ namespace FuseCP.Portal.ProviderControls
         protected void btnguacamolepassword_Click(object sender, EventArgs e)
         {
             string guacapassword = VPS2012.guacamole.Encryption.GenerateEncryptionKey();
-            txtGuacamoleConnectPassword.Text = guacapassword;
+            ViewState["GUAC_PWD"] = guacapassword;
+            txtGuacamoleConnectPassword.Text = String.Empty;
         }
 
         protected void ddlPrivateNetworkFormat_SelectedIndexChanged(object sender, EventArgs e)

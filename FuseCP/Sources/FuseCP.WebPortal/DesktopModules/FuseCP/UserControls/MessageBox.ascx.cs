@@ -68,6 +68,7 @@ namespace FuseCP.Portal
 			// show exception
 			if (ex != null)
 			{
+				litDescription.Text = String.Empty;
 				// show error
 				try
 				{

@@ -224,7 +224,7 @@ namespace FuseCP.Portal.UserControls
             // error
             if (ex != null)
             {
-                description += "<br><br>Technical details are available in server logs.";
+                description = "Technical details are available in server logs.";
             }
 
             litDescription.Text = !String.IsNullOrEmpty(description)

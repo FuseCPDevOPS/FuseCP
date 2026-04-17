@@ -587,11 +587,11 @@ namespace FuseCP.Portal
 				// Display plain-text publishing account name
 				WDeployPublishingAccountLiteral.Text = HttpUtility.HtmlEncode(item.WebDeployPublishingAccount);
 				// Miscellaneous
-				// Enable empty publishing password for stylistic purposes
-				WDeployPublishingPasswordTextBox.Text = PasswordControl.EMPTY_PASSWORD;
+					// Keep actual value server-side; render only placeholder marker.
+					WDeployPublishingPasswordTextBox.Text = String.Empty;
 				WDeployPublishingPasswordTextBox.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
 				// Enable empty publishing password confirmation for stylistic purposes
-				WDeployPublishingConfirmPasswordTextBox.Text = PasswordControl.EMPTY_PASSWORD;
+					WDeployPublishingConfirmPasswordTextBox.Text = String.Empty;
 				WDeployPublishingConfirmPasswordTextBox.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
 
 				// Step 4: Publishing has been enabled and publishing profile has been built
@@ -692,12 +692,12 @@ namespace FuseCP.Portal
 				btnWmSvcSiteEnable.Visible = false;
 				txtWmSvcAccountName.Visible = false;
 
-				//
-				txtWmSvcAccountPassword.Text = PasswordControl.EMPTY_PASSWORD;
+					//
+					txtWmSvcAccountPassword.Text = String.Empty;
 				txtWmSvcAccountPassword.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
 
 				//
-				txtWmSvcAccountPasswordC.Text = PasswordControl.EMPTY_PASSWORD;
+					txtWmSvcAccountPasswordC.Text = String.Empty;
 				txtWmSvcAccountPasswordC.Attributes["value"] = PasswordControl.EMPTY_PASSWORD;
 			}
 
@@ -761,6 +761,8 @@ namespace FuseCP.Portal
 		protected void btnWmSvcChangePassw_Click(object sender, EventArgs e)
 		{
 			if (!Page.IsValid)
+				return;
+			if (String.IsNullOrEmpty(txtWmSvcAccountPassword.Text) || txtWmSvcAccountPassword.Text.Equals(PasswordControl.EMPTY_PASSWORD))
 				return;
 
 			//
