@@ -229,13 +229,7 @@ namespace FuseCP.EnterpriseServer
         public int DeleteHostingPlan(int planId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsReseller);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
                 return accountCheck;
 
@@ -367,10 +361,7 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return new DataSet();
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -1000,13 +991,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsResellerCSR);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;
 
             if (packages == null)
@@ -1778,10 +1763,7 @@ namespace FuseCP.EnterpriseServer
         public int DeletePackageItem(int itemId)
         {
             // delete item
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            if (accountCheck < 0) return accountCheck;
-
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
             ServiceProviderItem item = GetPackageItem(itemId);
