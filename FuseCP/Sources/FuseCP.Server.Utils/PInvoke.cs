@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace FuseCP.Server.Utils
@@ -30,12 +29,7 @@ namespace FuseCP.Server.Utils
 			/// </summary>
 			public class RegistryHiveSection
 			{
-				private readonly UIntPtr HiveSection;
-
-				public RegistryHiveSection(UIntPtr hiveSection)
-				{
-					this.HiveSection = hiveSection;
-				}
+				public RegistryHiveSection() { }
 
 				/// <summary>
 				/// Provide seamless dev experience bypassing Registry Redirector feature 
@@ -43,85 +37,65 @@ namespace FuseCP.Server.Utils
 				/// </summary>
 				/// <param name="name">Registry key path being tested</param>
 				/// <returns></returns>
-				private bool SubKeyExists(string name, int samDesired)
+				private static RegistryView GetRegistryView(bool isX64)
 				{
-					UIntPtr hSubKey;
-					// Open key
-					int result = PInvoke.RegOpenKeyEx(HiveSection, name, 0, samDesired, out hSubKey);
-					// Close key
-					PInvoke.RegCloseKey(hSubKey);
-					//
-					return (result == 0);
+					return isX64 ? RegistryView.Registry64 : RegistryView.Registry32;
 				}
 
-				private string GetSubKeyValue(string keyPath, string keyValue, int samDesired)
+				private bool SubKeyExists(string name, bool isX64)
 				{
-					if (SubKeyExists(keyPath, samDesired))
+					using var baseKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, GetRegistryView(isX64));
+					using var subKey = baseKey.OpenSubKey(name);
+					return subKey != null;
+				}
+
+				private string GetSubKeyValue(string keyPath, string keyValue, bool isX64)
+				{
+					if (SubKeyExists(keyPath, isX64))
 					{
-						UIntPtr hSubKey;
-						uint size = 1024;
-						uint type;
-						string valueStr = null;
-						StringBuilder keyBuffer = new StringBuilder(unchecked((int)size));
-						// Open key
-						if (PInvoke.RegOpenKeyEx(HiveSection, keyPath, 0, samDesired, out hSubKey) == 0)
+						using var baseKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, GetRegistryView(isX64));
+						using var subKey = baseKey.OpenSubKey(keyPath);
+						if (subKey != null)
 						{
 							try
 							{
-								//
-								if (PInvoke.RegQueryValueEx(hSubKey, keyValue, 0, out type, keyBuffer, ref size) == 0)
-									valueStr = keyBuffer.ToString();
+								return subKey.GetValue(keyValue) as string;
 							}
 							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								Log.WriteError(ex);
 							}
-							finally
-							{
-								// Close key
-								PInvoke.RegCloseKey(hSubKey);
-							}
 						}
-
-						return (valueStr);
 					}
-					//
+
 					return null;
 				}
 
-				private int GetDwordSubKeyValue(string keyPath, string keyValue, int samDesired)
+				private int GetDwordSubKeyValue(string keyPath, string keyValue, bool isX64)
 				{
-					if (SubKeyExists(keyPath, samDesired))
+					if (SubKeyExists(keyPath, isX64))
 					{
-						UIntPtr hSubKey;
-						uint size = 1024;
-						// REG_DWORD
-						uint type = (uint)4;
-						//
-						int valueInt = 0;
-						// Open key
-						if (PInvoke.RegOpenKeyEx(HiveSection, keyPath, 0, samDesired, out hSubKey) == 0)
+						using var baseKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, GetRegistryView(isX64));
+						using var subKey = baseKey.OpenSubKey(keyPath);
+						if (subKey != null)
 						{
 							try
 							{
-								//
-								if (PInvoke.RegQueryValueEx(hSubKey, keyValue, 0, ref type, ref valueInt, ref size) == 0)
-									return valueInt;
+								object value = subKey.GetValue(keyValue);
+								if (value == null)
+									return 0;
+
+								return Convert.ToInt32(value);
 							}
 							catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 							{
 								Log.WriteError(ex);
 							}
-							finally
-							{
-								// Close key
-								PInvoke.RegCloseKey(hSubKey);
-							}
 						}
-						//
-						return (valueInt);
+
+						return 0;
 					}
-					//
+
 					return 0;
 				}
 
@@ -134,7 +108,7 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public bool SubKeyExists_x86(string name)
 				{
-					return SubKeyExists(name, KEY_READ | KEY_WOW64_32KEY);
+					return SubKeyExists(name, false);
 				}
 
 				/// <summary>
@@ -146,7 +120,7 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public bool SubKeyExists_x64(string name)
 				{
-					return SubKeyExists(name, KEY_READ | KEY_WOW64_64KEY);
+					return SubKeyExists(name, true);
 				}
 
 				/// <summary>
@@ -159,7 +133,7 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public int GetDwordSubKeyValue_x64(string keyPath, string keyValue)
 				{
-					return GetDwordSubKeyValue(keyPath, keyValue, KEY_READ | KEY_WOW64_64KEY);
+					return GetDwordSubKeyValue(keyPath, keyValue, true);
 				}
 
 				/// <summary>
@@ -172,7 +146,7 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public string GetSubKeyValue_x64(string keyPath, string keyValue)
 				{
-					return GetSubKeyValue(keyPath, keyValue, KEY_READ | KEY_WOW64_64KEY);
+					return GetSubKeyValue(keyPath, keyValue, true);
 				}
 
 				/// <summary>
@@ -185,7 +159,7 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public string GetSubKeyValue_x86(string keyPath, string keyValue)
 				{
-					return GetSubKeyValue(keyPath, keyValue, KEY_READ | KEY_WOW64_32KEY);
+					return GetSubKeyValue(keyPath, keyValue, false);
 				}
 
 				/// <summary>
@@ -198,37 +172,15 @@ namespace FuseCP.Server.Utils
 				/// <returns></returns>
 				public int GetDwordSubKeyValue_x86(string keyPath, string keyValue)
 				{
-					return GetDwordSubKeyValue(keyPath, keyValue, KEY_READ | KEY_WOW64_32KEY);
+					return GetDwordSubKeyValue(keyPath, keyValue, false);
 				}
 			};
 
 			/// <summary>
 			/// Represents HKEY_LOCAL_MACHINE section
 			/// </summary>
-			public static RegistryHiveSection HKLM = new RegistryHiveSection(PInvoke.HKEY_LOCAL_MACHINE);
+			public static RegistryHiveSection HKLM = new RegistryHiveSection();
 		};
-
-		#region Wrappers definitions for Windows Native API functions
-
-		public static UIntPtr HKEY_LOCAL_MACHINE = new UIntPtr(0x80000002u);
-
-		public const int KEY_READ = 0x20019;
-		public const int KEY_WOW64_32KEY = 0x0200;
-		public const int KEY_WOW64_64KEY = 0x0100;
-
-		[DllImport("advapi32.dll", CharSet = CharSet.Auto)]
-		public static extern int RegOpenKeyEx(UIntPtr hKey, string subKey, int ulOptions, int samDesired, out UIntPtr hkResult);
-
-		[DllImport("advapi32.dll", SetLastError = true)]
-		public static extern int RegCloseKey(UIntPtr hKey);
-
-		[DllImport("advapi32.dll", CharSet = CharSet.Unicode, EntryPoint = "RegQueryValueExW", SetLastError = true)]
-		static extern int RegQueryValueEx(UIntPtr hKey, [MarshalAs(UnmanagedType.LPWStr)]string lpValueName, int lpReserved, out uint lpType, [Optional] System.Text.StringBuilder lpData, ref uint lpcbData);
-
-		[DllImport("advapi32.dll", CharSet = CharSet.Unicode, EntryPoint = "RegQueryValueExW", SetLastError = true)]
-		static extern int RegQueryValueEx(UIntPtr hKey, [MarshalAs(UnmanagedType.LPWStr)]string lpValueName, int lpReserved, ref uint lpType, [Optional] ref int lpData, ref uint lpcbData);
-
-		#endregion
 	}
 }
 

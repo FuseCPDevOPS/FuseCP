@@ -19,7 +19,6 @@ using System.Text;
 using System.IO.Compression;
 using System.Threading;
 using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -924,46 +923,27 @@ namespace FuseCP.Providers.Utils
             files = 0;
             folders = 0;
 
-            IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
             long size = 0;
-            FindData findData = new FindData();
 
-            IntPtr findHandle;
+            if (!Directory.Exists(path))
+                return 0;
 
-            findHandle = path.StartsWith("\\\\")
-                             ? Kernel32.FindFirstFile(path + @"\*", findData)
-                             : Kernel32.FindFirstFile(@"\\?\" + path + @"\*", findData);
-            if (findHandle != INVALID_HANDLE_VALUE)
+            foreach (string entry in Directory.EnumerateFileSystemEntries(path))
             {
-
-                do
+                if (Directory.Exists(entry))
                 {
-                    if ((findData.fileAttributes & (int)FileAttributes.Directory) != 0)
-                    {
-
-                        if (findData.fileName != "." && findData.fileName != "..")
-                        {
-                            folders++;
-
-                            int subfiles, subfolders;
-                            string subdirectory = path + (path.EndsWith(@"\") ? "" : @"\") +
-                                findData.fileName;
-                            size += CalculateFolderSize(subdirectory, out subfiles, out subfolders);
-                            folders += subfolders;
-                            files += subfiles;
-                        }
-                    }
-                    else
-                    {
-                        // File
-                        files++;
-
-                        size += (long)findData.nFileSizeLow + (long)findData.nFileSizeHigh * 4294967296;
-                    }
+                    folders++;
+                    int subFiles;
+                    int subFolders;
+                    size += CalculateFolderSize(entry, out subFiles, out subFolders);
+                    files += subFiles;
+                    folders += subFolders;
                 }
-                while (Kernel32.FindNextFile(findHandle, findData));
-                Kernel32.FindClose(findHandle);
-
+                else
+                {
+                    files++;
+                    size += new FileInfo(entry).Length;
+                }
             }
 
             return size;
@@ -1229,41 +1209,6 @@ namespace FuseCP.Providers.Utils
 
     }
 
-    #region File Size Calculation helper classes
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    class FindData
-    {
-        public int fileAttributes;
-        public int creationTime_lowDateTime;
-        public int creationTime_highDateTime;
-        public int lastAccessTime_lowDateTime;
-        public int lastAccessTime_highDateTime;
-        public int lastWriteTime_lowDateTime;
-        public int lastWriteTime_highDateTime;
-        public uint nFileSizeHigh;
-        public uint nFileSizeLow;
-        public int dwReserved0;
-        public int dwReserved1;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        public String fileName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
-        public String alternateFileName;
-    }
-
-    class Kernel32
-    {
-        [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr FindFirstFile(String fileName, [In, Out] FindData findFileData);
-
-        [DllImport("kernel32", CharSet = CharSet.Auto)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FindNextFile(IntPtr hFindFile, [In, Out] FindData lpFindFileData);
-
-        [DllImport("kernel32", CharSet = CharSet.Auto)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FindClose(IntPtr hFindFile);
-    }
-    #endregion
 }
 
 
