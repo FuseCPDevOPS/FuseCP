@@ -64,10 +64,6 @@ ephox.bolt = {
 };
 
 var define = def;
-var require = req;
- // removed useless expression (CodeQL): require;
-var demand = dem;
- // removed useless expression (CodeQL): demand;
 // this helps with minificiation when using a lot of global references
 var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });

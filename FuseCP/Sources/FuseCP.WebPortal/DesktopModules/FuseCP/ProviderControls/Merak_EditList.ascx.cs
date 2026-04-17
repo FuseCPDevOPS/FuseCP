@@ -48,7 +48,8 @@ namespace FuseCP.Portal.ProviderControls
             txtMaxRecipients.Text = item.MaxRecipientsPerMessage.ToString();
             if (!String.IsNullOrEmpty(item.Password))
             {
-                txtPassword.Attributes["value"] = txtPassword.Text = item.Password;
+                ViewState["PWD"] = item.Password;
+                txtPassword.Text = String.Empty;
             }
             else
             {

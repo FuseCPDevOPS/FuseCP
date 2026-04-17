@@ -48,7 +48,8 @@ namespace FuseCP.Portal.ProviderControls
             Utils.SelectListItem(ddllblOriginator, item.Originator.ToString());
             Utils.SelectListItem(ddlPostingMode, item.PostingMode.ToString());
             Utils.SelectListItem(ddlPasswordProtection, item.PasswordProtection.ToString());
-            txtPassword.Text = item.Password;
+            ViewState["PWD"] = item.Password;
+            txtPassword.Text = String.Empty;
             Utils.SelectListItem(ddlDefaultRights, ((int) item.DefaultRights).ToString());
             txtMaxMessageSize.Text = item.MaxMessageSize.ToString();
             txtMaxMembers.Text = item.MaxMembers.ToString();
@@ -91,7 +92,7 @@ namespace FuseCP.Portal.ProviderControls
             item.Originator = (IceWarpListOriginator)Enum.Parse(typeof (IceWarpListOriginator), ddllblOriginator.SelectedValue);
             item.PostingMode = (PostingMode)Enum.Parse(typeof (PostingMode), ddlPostingMode.SelectedValue);
             item.PasswordProtection = (PasswordProtection)Enum.Parse(typeof (PasswordProtection), ddlPasswordProtection.SelectedValue);
-            item.Password = txtPassword.Text;
+            item.Password = (txtPassword.Text.Length > 0) ? txtPassword.Text : (string)ViewState["PWD"];
             item.DefaultRights = (IceWarpListDefaultRights)Enum.Parse(typeof (IceWarpListDefaultRights), ddlDefaultRights.SelectedValue);
             item.MaxMessageSize = Convert.ToInt32(txtMaxMessageSize.Text);
             item.MaxMembers = Convert.ToInt32(txtMaxMembers.Text);

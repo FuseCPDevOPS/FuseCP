@@ -59,7 +59,8 @@ namespace FuseCP.Portal.ProviderControls
             selectedListFromAddress = item.ListFromAddress;
             Utils.SelectListItem(ddlListReplyToAddress, item.ListReplyToAddress);
             selectedListReplyToAddress = item.ListReplyToAddress;
-            txtPassword.Text = item.Password;
+            ViewState["PWD"] = item.Password;
+            txtPassword.Text = String.Empty;
             chkPasswordEnabled.Checked = item.RequirePassword;
             cbDigestMode.Checked = item.DigestMode;
             cbSendSubcsribe.Checked = item.SendSubscribe;
@@ -96,7 +97,7 @@ namespace FuseCP.Portal.ProviderControls
             item.ListToAddress = ddlListToAddress.SelectedValue;
             item.ListFromAddress = ddlListFromAddress.SelectedValue;
             item.ListReplyToAddress = ddlListReplyToAddress.SelectedValue;
-            item.Password = txtPassword.Text;
+            item.Password = (txtPassword.Text.Length > 0) ? txtPassword.Text : (string)ViewState["PWD"];
             item.RequirePassword = chkPasswordEnabled.Checked;
             item.SubjectPrefix = txtSubjectPrefix.Text;
             item.EnableSubjectPrefix = chkSubjectPrefixEnabled.Checked;

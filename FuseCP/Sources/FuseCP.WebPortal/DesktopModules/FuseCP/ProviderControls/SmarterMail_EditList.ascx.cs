@@ -49,7 +49,8 @@ namespace FuseCP.Portal.ProviderControls
             }
             chkReplyToList.Checked = (item.ReplyToMode == ReplyTo.RepliesToList);
             Utils.SelectListItem(ddlPostingMode, item.PostingMode);
-            txtPassword.Text = item.Password;
+            ViewState["PWD"] = item.Password;
+            txtPassword.Text = String.Empty;
             chkPasswordEnabled.Checked = item.RequirePassword;
             txtSubjectPrefix.Text = item.SubjectPrefix;
             chkSubjectPrefixEnabled.Checked = item.EnableSubjectPrefix;
@@ -77,7 +78,7 @@ namespace FuseCP.Portal.ProviderControls
             item.ReplyToMode = chkReplyToList.Checked ? ReplyTo.RepliesToList : ReplyTo.RepliesToSender;
             item.PostingMode = (PostingMode)Enum.Parse(typeof(PostingMode), ddlPostingMode.SelectedValue, true);
 
-            item.Password = txtPassword.Text;
+            item.Password = (txtPassword.Text.Length > 0) ? txtPassword.Text : (string)ViewState["PWD"];
             item.RequirePassword = chkPasswordEnabled.Checked;
 
             item.SubjectPrefix = txtSubjectPrefix.Text;

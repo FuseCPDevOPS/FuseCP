@@ -46,7 +46,8 @@ namespace FuseCP.Portal.ProviderControls
             mailEditItems.Items = item.Members;
             if (!String.IsNullOrEmpty(item.Password))
             {
-                txtPassword.Attributes["value"] = txtPassword.Text = item.Password;
+                ViewState["PWD"] = item.Password;
+                txtPassword.Text = String.Empty;
             }
             else
             {
