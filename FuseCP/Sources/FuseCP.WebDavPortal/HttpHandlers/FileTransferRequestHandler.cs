@@ -60,7 +60,7 @@ namespace FuseCP.WebDavPortal.HttpHandlers
 
                 var rootPath = Path.GetFullPath(AppContext.BaseDirectory);
                 var normalizedRoot = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                var absolutePath = Path.GetFullPath(Path.Combine(normalizedRoot, relativePath));
+                var absolutePath = Path.GetFullPath(Path.Join(normalizedRoot, relativePath));
                 var rootPrefix = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
                 if (absolutePath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && File.Exists(absolutePath))

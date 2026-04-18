@@ -581,24 +581,27 @@ namespace CSSFriendly
     public class ControlRestorationInfo
     {
         private readonly Control _ctrl = null;
-        private readonly ControlCollection _coll = null;
+        private readonly Action _restoreAction = null;
 
         public bool IsValid
         {
-            get { return (_ctrl != null) && (_coll != null); }
+            get { return (_ctrl != null) && (_restoreAction != null); }
         }
 
         public ControlRestorationInfo(Control ctrl, ControlCollection coll)
         {
             _ctrl = ctrl;
-            _coll = coll;
+            if (ctrl != null && coll != null)
+            {
+                _restoreAction = () => coll.Add(ctrl);
+            }
         }
 
         public void Restore()
         {
             if (IsValid)
             {
-                _coll.Add(_ctrl);
+                _restoreAction();
             }
         }
     }

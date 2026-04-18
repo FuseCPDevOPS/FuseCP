@@ -225,6 +225,7 @@ namespace FuseCP.Portal.UserControls
             // error
             if (ex != null)
             {
+                litMessage.Text = HttpUtility.HtmlEncode("An unexpected error occurred.");
                 description = "Technical details are available in server logs.";
             }
 

@@ -68,7 +68,7 @@ namespace FuseCP.WebPortal
 
 			string rootFullPath = Path.GetFullPath(rootPath);
 			string normalizedRoot = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-			string combinedPath = Path.GetFullPath(Path.Combine(normalizedRoot, normalizedSegment));
+			string combinedPath = Path.GetFullPath(Path.Join(normalizedRoot, normalizedSegment));
 			string rootPrefix = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			if (!combinedPath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && !string.Equals(combinedPath, rootFullPath, StringComparison.OrdinalIgnoreCase))
 				throw new InvalidOperationException("Resolved path is outside of the expected root.");

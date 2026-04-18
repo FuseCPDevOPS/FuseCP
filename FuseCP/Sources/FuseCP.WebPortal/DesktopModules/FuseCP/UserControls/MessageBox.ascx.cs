@@ -82,6 +82,7 @@ namespace FuseCP.Portal
 			// show exception
 			if (ex != null)
 			{
+				litMessage.Text = HttpUtility.HtmlEncode("An unexpected error occurred.");
 				litDescription.Text = String.Empty;
 				// show error
 				try
@@ -94,13 +95,10 @@ namespace FuseCP.Portal
 					litStackTrace.Text = PortalAntiXSS.Encode("Technical details are available in server logs.");
 
 					// send form
-					litSendFrom.Text = PanelSecurity.LoggedUser.Email;
-
-					if (!String.IsNullOrEmpty(PortalUtils.FromEmail))
-						litSendFrom.Text = PortalUtils.FromEmail;
+					litSendFrom.Text = !String.IsNullOrEmpty(PortalUtils.FromEmail) ? PortalUtils.FromEmail : String.Empty;
 
 					litSendTo.Text = PortalUtils.AdminEmail;
-					litSendCC.Text = PanelSecurity.LoggedUser.Email;
+					litSendCC.Text = String.Empty;
 					litSendSubject.Text = GetLocalizedString("Text.Subject");
 
 				}

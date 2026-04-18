@@ -3,6 +3,40 @@
 ## Commits Included
 
 ### Commit: pending
+**Message**: fix: continue CodeQL web and analyzer cleanup pass
+
+**Scope**: 11 files modified with targeted follow-up remediations from the 71-alert baseline
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/CheckWebsitesSslTask.cs` — refactored package loop to explicit `.Select(...)` projection
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/DomainLookupViewTask.cs` — refactored package iteration to explicit `.Select(...)` projection
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs` — refactored HTTP URL loop to projected `Test` client sequence
+- `FuseCP/Sources/FuseCP.Providers.Base/Web/HtaccessFolder.cs` — replaced `as` usage in `Equals(object)` with pattern matching
+- `FuseCP/Sources/FuseCP.WebDavPortal/HttpHandlers/FileTransferRequestHandler.cs` — replaced `Path.Combine` with `Path.Join` in guarded root-path join
+- `FuseCP/Sources/FuseCP.WebDavPortal/Views/Web.config` — added `X-Frame-Options` and `X-Content-Type-Options` headers
+- `FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/WebControlAdapterExtender.cs` — replaced stored collection reference with encapsulated restore action
+- `FuseCP/Sources/FuseCP.WebPortal/Code/PortalConfiguration.cs` — replaced `Path.Combine` with `Path.Join` in guarded root-path join
+- `FuseCP/Sources/FuseCP.WebPortal/Code/PortalUtils.cs` — replaced `Path.Combine` with `Path.Join` in guarded root-path join
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/MessageBox.ascx.cs` — reduced exception-bound user-visible data and sender/cc exposure
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/SimpleMessageBox.ascx.cs` — replaced exception-bound message text with generic safe text
+
+#### Validation Summary
+- **Focused Builds**: ✅ `FuseCP.WebPortal`, `FuseCP.WebDavPortal`, `FuseCP.EnterpriseServer.Code`, `FuseCP.Providers.Base`
+- **Editor Diagnostics**: ✅ clean in touched files
+- **Analyzer Suppression**: None
+
+#### Risk Assessment
+- ✅ **Low Risk**: mostly mechanical analyzer-shape and safe-output refinements
+- ✅ **Backward Compatible**: no schema or contract changes
+
+#### Testing Guidance
+1. Exercise portal and webdav UI error rendering paths to confirm generic/sanitized output.
+2. Exercise file-transfer and portal path resolution paths with normal and traversal-style inputs.
+3. Exercise scheduler tasks and user preload flow for expected iteration behavior.
+
+---
+
+### Commit: 09026538e
 **Message**: fix: harden web portal and webdav CodeQL findings
 
 **Scope**: 22 files modified with targeted no-suppression CodeQL remediations across WebPortal, WebDavPortal, providers, logging, and supporting utilities
