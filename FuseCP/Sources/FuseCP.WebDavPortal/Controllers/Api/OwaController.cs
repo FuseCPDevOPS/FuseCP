@@ -64,15 +64,19 @@ namespace FuseCP.WebDavPortal.Controllers.Api
         }
 
         [HttpGet]
-        public CheckFileInfo CheckFileInfo(int accessTokenId)
+        public IActionResult CheckFileInfo(int accessTokenId)
         {
             var token = _tokenManager.GetToken(accessTokenId);
+            if (!IsAuthorizedToken(token))
+            {
+                return Unauthorized();
+            }
 
             var fileInfo = _wopiServer.GetCheckFileInfo(token);
 
             if (fileInfo.Size <= 1)
             {
-                return fileInfo;
+                return Ok(fileInfo);
             }
 
             var urlPart = Url.RouteUrl(FileSystemRouteNames.ShowContentPath, new { org = ScpContext.User.OrganizationId, pathPart = token.FilePath });
@@ -80,12 +84,18 @@ namespace FuseCP.WebDavPortal.Controllers.Api
 
             fileInfo.DownloadUrl = url;
 
-            return fileInfo;
+            return Ok(fileInfo);
         }
 
         [HttpGet("contents")]
         public IActionResult GetFile(int accessTokenId)
         {
+            var token = _tokenManager.GetToken(accessTokenId);
+            if (!IsAuthorizedToken(token))
+            {
+                return Unauthorized();
+            }
+
             var bytes = _wopiServer.GetFileBytes(accessTokenId);
 
             return File(bytes, "application/octet-stream");
@@ -95,6 +105,17 @@ namespace FuseCP.WebDavPortal.Controllers.Api
         [IgnoreAntiforgeryToken]
         public IActionResult Post(int accessTokenId)
         {
+            var token = _tokenManager.GetToken(accessTokenId);
+            if (!IsAuthorizedToken(token))
+            {
+                return Unauthorized();
+            }
+
+            if (!HasValidWopiHeaders(Request.Headers))
+            {
+                return Unauthorized();
+            }
+
             var operation = OwaActionSelector.ResolveOperation(Request.Headers);
 
             if (string.IsNullOrWhiteSpace(operation))
@@ -117,6 +138,22 @@ namespace FuseCP.WebDavPortal.Controllers.Api
                 default:
                     return BadRequest();
             }
+        }
+
+        private static bool HasValidWopiHeaders(Microsoft.AspNetCore.Http.IHeaderDictionary headers)
+        {
+            return headers.TryGetValue("X-WOPI-Proof", out var wopiProof) && !string.IsNullOrWhiteSpace(wopiProof)
+                && headers.TryGetValue("X-WOPI-TimeStamp", out var wopiTimestamp) && !string.IsNullOrWhiteSpace(wopiTimestamp)
+                && headers.TryGetValue("X-WOPI-CorrelationID", out var correlationId) && !string.IsNullOrWhiteSpace(correlationId);
+        }
+
+        private static bool IsAuthorizedToken(WebDavAccessToken token)
+        {
+            return token != null
+                && ScpContext.User != null
+                && token.ExpirationDate > DateTime.UtcNow
+                && token.AccountId == ScpContext.User.AccountId
+                && token.ItemId == ScpContext.User.ItemId;
         }
 
         private IActionResult Cobalt(int accessTokenId)

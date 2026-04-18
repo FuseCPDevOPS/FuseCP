@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,11 +24,18 @@ namespace FuseCP.Providers.OS
 {
 	public class WindowsServiceController : ServiceController
 	{
+		private static readonly Regex ServiceIdPattern = new Regex(@"^[A-Za-z0-9._\-]+$", RegexOptions.Compiled);
+
 		private static string ValidateServiceId(string serviceId)
 		{
 			if (string.IsNullOrWhiteSpace(serviceId))
 			{
 				throw new ArgumentException("Service identifier cannot be empty.", nameof(serviceId));
+			}
+
+			if (!ServiceIdPattern.IsMatch(serviceId))
+			{
+				throw new ArgumentException("Service identifier contains invalid characters.", nameof(serviceId));
 			}
 
 			return serviceId;
@@ -44,7 +52,7 @@ namespace FuseCP.Providers.OS
 		}
 
 		public override OSService Info(string serviceId)
-			=> All().Where(s => s.Id == ValidateServiceId(serviceId)).FirstOrDefault();
+			=> All().FirstOrDefault(s => string.Equals(s.Id, ValidateServiceId(serviceId), StringComparison.Ordinal));
 
 		public override ServiceManager Install(ServiceDescription service)
 		{

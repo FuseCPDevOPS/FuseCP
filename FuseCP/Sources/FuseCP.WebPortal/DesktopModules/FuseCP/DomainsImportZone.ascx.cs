@@ -25,6 +25,7 @@ namespace FuseCP.Portal
     public partial class DomainsImportZone : FuseCPModuleBase
     {
         private const int MaxZoneFileSizeBytes = 1024 * 1024;
+        private const int MaxZoneRecordCount = 5000;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,6 +42,13 @@ namespace FuseCP.Portal
             //First check that there was actually a file uploaded
             if (zoneFile != null && zoneFile.ContentLength > 0)
             {
+                var originalFileName = Path.GetFileName(zoneFile.FileName ?? string.Empty);
+                if (!string.Equals(originalFileName, zoneFile.FileName, StringComparison.Ordinal))
+                {
+                    ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
+                    return;
+                }
+
                 var extension = Path.GetExtension(zoneFile.FileName);
                 if (!string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase))
                 {
@@ -63,6 +71,11 @@ namespace FuseCP.Portal
                     var domainId = PanelRequest.DomainID;
                     //Try and parse the JSON to an array of DNSRecords
                     var importRecords = JsonConvert.DeserializeObject<DnsRecord[]>(contents);
+                    if (importRecords == null || importRecords.Length == 0 || importRecords.Length > MaxZoneRecordCount)
+                    {
+                        ShowErrorMessage("DOMAIN_IMPORT");
+                        return;
+                    }
                     //Get the existing records on the DNS server
                     var existingRecords = ES.Services.Servers.GetDnsZoneRecords(domainId);
                     //Get the records that are new to the zone

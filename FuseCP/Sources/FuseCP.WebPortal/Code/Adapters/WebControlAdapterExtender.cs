@@ -581,20 +581,11 @@ namespace CSSFriendly
     public class ControlRestorationInfo
     {
         private readonly Control _ctrl = null;
-        public Control Control
-        {
-            get { return _ctrl; }
-        }
-
         private readonly ControlCollection _coll = null;
-        public ControlCollection Collection
-        {
-            get { return _coll; }
-        }
 
         public bool IsValid
         {
-            get { return (Control != null) && (Collection != null); }
+            get { return (_ctrl != null) && (_coll != null); }
         }
 
         public ControlRestorationInfo(Control ctrl, ControlCollection coll)

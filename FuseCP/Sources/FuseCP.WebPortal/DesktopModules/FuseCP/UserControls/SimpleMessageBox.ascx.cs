@@ -15,6 +15,7 @@
 
 using System;
 using System.Text;
+using System.Web;
 using FuseCP.EnterpriseServer;
 using FuseCP.Providers.Common;
 
@@ -158,7 +159,7 @@ namespace FuseCP.Portal.UserControls
             if(String.IsNullOrEmpty(localizedMsg))
                 localizedMsg = messageKey;
 
-            litMessage.Text = localizedMsg;
+            litMessage.Text = HttpUtility.HtmlEncode(localizedMsg);
 
             // detailed messages
             StringBuilder sb = new StringBuilder();
@@ -190,7 +191,7 @@ namespace FuseCP.Portal.UserControls
                     localizedStr = str;
 
 		        sb.Append("- ");
-                sb.Append(localizedStr);
+                sb.Append(HttpUtility.HtmlEncode(localizedStr));
 		        sb.Append("<br/>");
 		    }
 
@@ -219,7 +220,7 @@ namespace FuseCP.Portal.UserControls
 			divMessageBox.Attributes["class"] = boxStyle;
 
 			// set texts
-			litMessage.Text = message;
+            litMessage.Text = HttpUtility.HtmlEncode(message);
 
             // error
             if (ex != null)
@@ -228,7 +229,7 @@ namespace FuseCP.Portal.UserControls
             }
 
             litDescription.Text = !String.IsNullOrEmpty(description)
-                ? String.Format("<br/><span class=\"description\">{0}</span>", description) : "";
+                ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(description)) : "";
 		}
     }
 }

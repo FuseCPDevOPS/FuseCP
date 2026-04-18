@@ -314,8 +314,20 @@ namespace FuseCP.Providers.Web.Apache
 		{
 			if (Parent != null) Parent.Remove(this);
 		}
-		public ConfigFile Root => Parent == null ? (this as ConfigFile) : Parent.Root;
-		public ConfigFile ConfigFile => (this is ConfigFile file) ? file : Parent.ConfigFile;
+		public ConfigFile Root
+		{
+			get
+			{
+				ConfigSection section = this;
+				while (section.Parent != null)
+				{
+					section = section.Parent;
+				}
+
+				return section as ConfigFile;
+			}
+		}
+		public ConfigFile ConfigFile => Root;
 		public override string ToString()
 		{
 			using var w = new StringWriter();

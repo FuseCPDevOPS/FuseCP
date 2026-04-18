@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace FuseCP.Providers.Web
 {
-	public class HtaccessFolder : IComparable
+	public class HtaccessFolder : IComparable, IComparable<HtaccessFolder>, IEquatable<HtaccessFolder>
 	{
 		#region Constants
 
@@ -483,13 +483,36 @@ namespace FuseCP.Providers.Web
 		#region Implementation of IComparable
 		public int CompareTo(object obj)
 		{
-			HtaccessFolder folder = obj as HtaccessFolder;
-			if (folder != null)
+			if (obj == null) return 1;
+			if (obj is HtaccessFolder folder)
 			{
-				return String.CompareOrdinal(this.Path.ToLower(), folder.Path.ToLower());
+				return CompareTo(folder);
 			}
 
-			return 0;
+			throw new ArgumentException("Object must be of type HtaccessFolder.", nameof(obj));
+		}
+
+		public int CompareTo(HtaccessFolder other)
+		{
+			if (other == null) return 1;
+			return StringComparer.OrdinalIgnoreCase.Compare(this.Path ?? string.Empty, other.Path ?? string.Empty);
+		}
+
+		public bool Equals(HtaccessFolder other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return StringComparer.OrdinalIgnoreCase.Equals(this.Path, other.Path);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as HtaccessFolder);
+		}
+
+		public override int GetHashCode()
+		{
+			return StringComparer.OrdinalIgnoreCase.GetHashCode(this.Path ?? string.Empty);
 		}
 
 		#endregion

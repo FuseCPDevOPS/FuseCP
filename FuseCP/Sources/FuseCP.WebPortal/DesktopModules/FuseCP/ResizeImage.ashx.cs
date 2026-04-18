@@ -50,6 +50,8 @@ namespace FuseCP.Portal
 
 		public const int BitmapCacheDurationInSeconds = 900;
 
+        private const int MaxDimension = 2048;
+
 
         private static bool Abort()
         {
@@ -66,6 +68,13 @@ namespace FuseCP.Portal
             {
 				// Create decoded version of the image url
 				imageUrl = context.Server.UrlDecode(imageUrl);
+
+                if (!IsAllowedImageUrl(imageUrl))
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    context.Response.End();
+                    return;
+                }
 				//
 				Image img = null;
 
@@ -94,8 +103,8 @@ namespace FuseCP.Portal
 
                 using (img)
                 {
-                int width = Utils.ParseInt(context.Request.QueryString[WIDTH], 20);
-                int height = Utils.ParseInt(context.Request.QueryString[HEIGHT], 20);
+                int width = NormalizeDimension(Utils.ParseInt(context.Request.QueryString[WIDTH], 20));
+                int height = NormalizeDimension(Utils.ParseInt(context.Request.QueryString[HEIGHT], 20));
 
                 // calculate new size
                 int h = (img != null) ? img.Height : height;
@@ -136,6 +145,37 @@ namespace FuseCP.Portal
 				context.Response.End();
                 }
             }
+        }
+
+        private static int NormalizeDimension(int value)
+        {
+            if (value < 1)
+            {
+                return 1;
+            }
+
+            return value > MaxDimension ? MaxDimension : value;
+        }
+
+        private static bool IsAllowedImageUrl(string imageUrl)
+        {
+            if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var parsedUri))
+            {
+                return false;
+            }
+
+            if (!string.Equals(parsedUri.Scheme, Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(parsedUri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            if (string.Equals(parsedUri.Host, "localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            return !IPAddress.TryParse(parsedUri.Host, out var hostAddress) || !IPAddress.IsLoopback(hostAddress);
         }
 
         public bool IsReusable

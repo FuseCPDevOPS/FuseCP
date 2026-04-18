@@ -60,7 +60,7 @@ public interface I@(Class.Identifier) {
 
 		TypeInfo info = Model.GetTypeInfo(type);
 		var tm = info.Type as INamedTypeSymbol;
-		if (tm.EnumUnderlyingType != null) return true;
+		if (tm?.EnumUnderlyingType != null) return true;
 		var name = tm?.GetFullTypeName();
 		return name != null && (name == typeof(byte).FullName || name == typeof(sbyte).FullName || name == typeof(char).FullName || name == typeof(string).FullName || name == typeof(short).FullName ||
 			name == typeof(ushort).FullName || name == typeof(int).FullName || name == typeof(uint).FullName || name == typeof(long).FullName || name == typeof(ulong).FullName ||

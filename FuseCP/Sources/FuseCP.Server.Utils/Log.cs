@@ -80,7 +80,7 @@ namespace FuseCP.Server.Utils
                     txt.Append("] ERROR: ");
                     txt.AppendLine(SanitizeLogText(message));
                     while (ex != null) {
-                        txt.AppendLine("[" + ex.GetType().FullName + "] " + SanitizeLogText(ex.Message));
+                        txt.AppendLine("[" + ex.GetType().FullName + "]");
                         ex = ex.InnerException;
                         if (ex != null)
                         {
@@ -183,8 +183,7 @@ namespace FuseCP.Server.Utils
 
             if (args != null && args.Length > 0)
             {
-                object[] safeArgs = SanitizeLogArguments(args);
-                message = message + " | args=" + String.Join(", ", safeArgs);
+                message = message + " | args=[REDACTED]";
             }
 
             return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(message);
@@ -200,7 +199,35 @@ namespace FuseCP.Server.Utils
             string sanitized = input.Replace("\r", String.Empty).Replace("\n", " ");
             sanitized = SensitivePairRegex.Replace(sanitized, "$1=[REDACTED]");
             sanitized = EmailRegex.Replace(sanitized, "[email]");
+            if (LooksSensitive(sanitized))
+            {
+                return "[REDACTED]";
+            }
             return sanitized;
+        }
+
+        private static bool LooksSensitive(string input)
+        {
+            if (String.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
+
+            if (SensitiveMessageHintRegex.IsMatch(input))
+            {
+                return true;
+            }
+
+            string[] tokens = input.Split(new[] { ' ', '\t', ';', ',', '&', '|' }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                if (SensitiveValueRegex.IsMatch(tokens[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static object[] SanitizeLogArguments(object[] args)

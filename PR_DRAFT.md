@@ -2,6 +2,52 @@
 
 ## Commits Included
 
+### Commit: pending
+**Message**: fix: harden web portal and webdav CodeQL findings
+
+**Scope**: 22 files modified with targeted no-suppression CodeQL remediations across WebPortal, WebDavPortal, providers, logging, and supporting utilities
+
+#### Files Modified
+- `FuseCP.WebSite/Sources/FuseCP.WebSite/web.config` — disabled directory browsing and debug compilation
+- `FuseCP/Sources/FuseCP.Build/ServiceInterface.cshtml` — null-safe enum underlying type access
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/CheckWebsitesSslTask.cs` — simplified iterator mapping/filtering pattern
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/DomainLookupViewTask.cs` — removed unnecessary projection before loop
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs` — localized per-URL client test object creation
+- `FuseCP/Sources/FuseCP.Providers.Base/HostedSolution/BaseReport.cs` — replaced direct float equality with epsilon comparison
+- `FuseCP/Sources/FuseCP.Providers.Base/OS/Shell.cs` — rejected shell meta-characters in command token
+- `FuseCP/Sources/FuseCP.Providers.Base/Web/HtaccessFolder.cs` — aligned compare/equality/hash semantics
+- `FuseCP/Sources/FuseCP.Providers.OS.Windows2016/WindowsServiceController.cs` — tightened service id validation and lookup comparison
+- `FuseCP/Sources/FuseCP.Providers.Web.Apache/ConfigSection.cs` — removed downcast/type-test of `this` for root resolution
+- `FuseCP/Sources/FuseCP.Server.Utils/Log.cs` — reduced sensitive data exposure in logging and argument formatting
+- `FuseCP/Sources/FuseCP.WebDav.Core/Scp/Framework/FCP.cs` — switched async-local cache access to concurrent dictionary `GetOrAdd`
+- `FuseCP/Sources/FuseCP.WebDavPortal/Controllers/Api/OwaController.cs` — added token ownership/expiry checks and WOPI header validation
+- `FuseCP/Sources/FuseCP.WebDavPortal/HttpHandlers/AuthCookieHandler.cs` — set auth timeout cookie `HttpOnly=true`
+- `FuseCP/Sources/FuseCP.WebDavPortal/HttpHandlers/FileTransferRequestHandler.cs` — rejected traversal segments before resolving file path
+- `FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/WebControlAdapterExtender.cs` — reduced exposed mutable implementation state
+- `FuseCP/Sources/FuseCP.WebPortal/Code/PortalConfiguration.cs` — normalized relative segments and rejected traversal parts
+- `FuseCP/Sources/FuseCP.WebPortal/Code/PortalUtils.cs` — normalized relative segments and rejected traversal parts
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/DomainsImportZone.ascx.cs` — hardened uploaded file name, size, type, and record-count checks
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ResizeImage.ashx.cs` — validated remote image URL scheme/host and constrained dimensions
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/MessageBox.ascx.cs` — removed sensitive diagnostics from user-facing reporting and encoded user content
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/SimpleMessageBox.ascx.cs` — encoded rendered messages/details before output
+
+#### Validation Summary
+- **Focused Builds**: ✅ `FuseCP.WebPortal`, `FuseCP.WebDavPortal`, `FuseCP.Providers.Base`, `FuseCP.Providers.Web.Apache`, `FuseCP.Providers.OS.Windows2016`, `FuseCP.WebDav.Core`, and `FuseCP.Server.Utils` built successfully during the remediation passes
+- **Editor Diagnostics**: ✅ clean in touched files after edits
+- **Analyzer Suppression**: None
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: changes are focused on input validation, authorization checks, data minimization, and mechanical analyzer-driven refactors
+- ✅ **Backward Compatible**: no schema changes or public contract changes introduced
+- ⚠️ **Primary Risk Areas**: WebPortal/WebDav request handling and logging behavior, mitigated by focused compile validation
+
+#### Testing Guidance
+1. Exercise WOPI file access/edit flows and verify expired or mismatched access tokens are rejected.
+2. Exercise portal message rendering and error-report submission to confirm sanitized output and email behavior.
+3. Exercise DNS zone import and remote image resize paths with valid and invalid input.
+
+---
+
 ### Commit: 2cc9ec111
 **Message**: Fix compile errors: resolve CS0120 static field access issues
 

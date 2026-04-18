@@ -42,7 +42,15 @@ namespace FuseCP.WebDavPortal.HttpHandlers
             {
                 var relativePath = requestPath
                     .TrimStart('/', '\\')
-                    .Replace('/', Path.DirectorySeparatorChar);
+                    .Replace('/', Path.DirectorySeparatorChar)
+                    .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+                var pathSegments = relativePath.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+                if (pathSegments.Any(segment => string.Equals(segment, "..", StringComparison.Ordinal)))
+                {
+                    await _next(context);
+                    return;
+                }
 
                 if (Path.IsPathRooted(relativePath))
                 {

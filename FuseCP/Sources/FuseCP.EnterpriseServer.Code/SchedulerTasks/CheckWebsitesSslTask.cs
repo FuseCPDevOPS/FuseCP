@@ -141,17 +141,14 @@ namespace FuseCP.EnterpriseServer
             int recordsCount = (int)serviceItems.Tables[0].Rows[0][0];
             if (recordsCount == 0) return;
             DataView dvItems = serviceItems.Tables[1].DefaultView;
-            foreach (var item in dvItems.Cast<DataRowView>().Select(row => new
+            foreach (DataRowView row in dvItems)
             {
-                Row = row,
-                ItemType = Type.GetType((string)row["TypeName"])
-            }))
-            {
-                if (!typeof(WebSite).Equals(item.ItemType)) continue;
-                string domain = (string)item.Row["ItemName"];
+                var itemType = Type.GetType((string)row["TypeName"]);
+                if (!typeof(WebSite).Equals(itemType)) continue;
+                string domain = (string)row["ItemName"];
                 if (String.IsNullOrEmpty(domain)) continue;
                 string url = "https://" + domain;
-                string email = (string)item.Row["Email"];
+                string email = (string)row["Email"];
 
                 var varList = new List<KeyValuePair<string, string>>();
                 varList.Add(new KeyValuePair<string, string>(domainVariableKey, domain));

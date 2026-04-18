@@ -199,6 +199,14 @@ namespace FuseCP.Providers.OS
 				startInfo.ArgumentList.Add(token);
 		}
 
+		static bool ContainsShellMetaCharacters(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+				return false;
+
+			return value.IndexOfAny(new[] { '&', '|', ';', '>', '<', '`' }) >= 0;
+		}
+
 		protected virtual string ToTempFile(string script)
 		{
 			var file = Path.GetTempFileName();
@@ -276,6 +284,9 @@ namespace FuseCP.Providers.OS
 
 			if (arguments.IndexOf('\0') >= 0 || arguments.IndexOf('\r') >= 0 || arguments.IndexOf('\n') >= 0)
 				throw new ArgumentException("Arguments contain invalid control characters.", nameof(cmd));
+
+			if (ContainsShellMetaCharacters(cmd))
+				throw new ArgumentException("Command contains invalid shell meta characters.", nameof(cmd));
 
 			var cmdWithPath = Find(cmd);
 			if (cmdWithPath != null)

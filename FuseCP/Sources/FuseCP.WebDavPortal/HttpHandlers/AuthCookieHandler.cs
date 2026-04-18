@@ -65,7 +65,7 @@ namespace FuseCP.WebDavPortal.HttpHandlers
 
             context.Response.Cookies.Append(WebDavAppConfigManager.Instance.AuthTimeoutCookieName, cookieValue, new CookieOptions
             {
-                HttpOnly = false,
+                HttpOnly = true,
                 IsEssential = true,
                 Secure = context.Request.IsHttps,
                 Path = "/"

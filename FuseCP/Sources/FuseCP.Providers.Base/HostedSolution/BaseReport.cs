@@ -111,7 +111,7 @@ namespace FuseCP.Providers.HostedSolution
 		protected static string UnlimitedToCsvString(double val)
 		{
 			string ret = string.Empty;
-			ret = (val == -1d) ? ToCsvString("Unlimited") : ToCsvString(val);
+			ret = (Math.Abs(val - (-1d)) < double.Epsilon) ? ToCsvString("Unlimited") : ToCsvString(val);
 			return ret;
 		}
 

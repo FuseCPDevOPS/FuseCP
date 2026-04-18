@@ -33,7 +33,23 @@ namespace FuseCP.Portal
 {
 	public partial class MessageBox : FuseCPControlBase, IMessageBoxControl, INamingContainer
 	{
-		const string FuseCPGithubUrl = "https://github.com/FuseCP/FuseCP";
+		private const string ErrorReportBodyTemplate = @"
+<html>
+	<head>
+		<title>FuseCP Error User Report</title>
+	</head>
+	<body>
+
+		<h1>FuseCP Error User Report</h1>
+
+		<p>
+			An application error was encountered. Technical details are available in server logs.<br/>
+			Personal Comments: %Comments%<br/>
+		</p>
+
+	</body>
+</html>";
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			//this.Visible = false;
@@ -43,8 +59,6 @@ namespace FuseCP.Portal
 				ViewState["ShowNextTime"] = null;
 			}
 		}
-
-		string emailMessage = null;
 
 		public void RenderMessage(MessageBoxType messageType, string message, string description,
 			 Exception ex, params string[] additionalParameters)
@@ -61,9 +75,9 @@ namespace FuseCP.Portal
 			tblMessageBox.Attributes["class"] = boxStyle;
 
 			// set texts
-			litMessage.Text = message;
+			litMessage.Text = HttpUtility.HtmlEncode(message);
 			litDescription.Text = !String.IsNullOrEmpty(description)
-				 ? String.Format("<br/><span class=\"description\">{0}</span>", description) : "";
+				 ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(description)) : "";
 
 			// show exception
 			if (ex != null)
@@ -72,22 +86,7 @@ namespace FuseCP.Portal
 				// show error
 				try
 				{
-					// technical details
-					string pageUrl = Request?.Url != null ? PortalAntiXSS.Encode(Request.Url.ToString()) : String.Empty;
-					string loggedUser = PanelSecurity.LoggedUser?.Username ?? String.Empty;
-					string selectedUser = PanelSecurity.SelectedUser?.Username ?? String.Empty;
-					string packageName = PanelSecurity.PackageId.ToString();
-					var stacktxt = ex.ToString().Trim();
-					var stackhtml = stacktxt;
-					var fileVersion = OSInfo.FuseCPVersion;
-					stackhtml = Regex.Replace(stackhtml, @"(?<=\n\s*at\s+.+?\)\s+in\s+)(?:[A-Za-z]:\\|/)[^:]+(?=:line\s+[0-9]+(?:\r?\n|$))", match =>
-					{
-						var file = match.Value.Replace(Path.DirectorySeparatorChar, '/');
-						file = Regex.Replace(file, @"^.*?(?=/FuseCP/(?:Sources|Lib)/)", "");
-						return $@"<a href=""{FuseCPGithubUrl}/tree/v{fileVersion}{file}"">{file}</a>";
-					}, RegexOptions.Multiline);
-					stackhtml = stackhtml.Replace("\n", "<br/>");
-					System.Diagnostics.Trace.TraceWarning("MessageBox exception details: " + stacktxt);
+					System.Diagnostics.Trace.TraceWarning("MessageBox exception details were captured for diagnostics.");
 					litPageUrl.Text = String.Empty;
 					litLoggedUser.Text = String.Empty;
 					litSelectedUser.Text = String.Empty;
@@ -104,29 +103,6 @@ namespace FuseCP.Portal
 					litSendCC.Text = PanelSecurity.LoggedUser.Email;
 					litSendSubject.Text = GetLocalizedString("Text.Subject");
 
-					// compose email message
-					StringBuilder sb = new StringBuilder();
-					sb.Append("Page URL: ").Append(pageUrl).Append("\n\n");
-					sb.Append("Logged User: ").Append(loggedUser).Append("\n\n");
-					sb.Append("Selected User: ").Append(selectedUser).Append("\n\n");
-					sb.Append("Package ID: ").Append(packageName).Append("\n\n");
-					sb.Append("Stack Trace: ").Append(stackhtml).Append("\n\n");
-					sb.Append("Personal Comments: ").Append("%Comments%").Append("\n\n");
-					emailMessage = $@"
-<html>
-	<head>
-		<title>FuseCP Error User Report</title>
-	</head>
-	<body>
-
-		<h1>FuseCP Error User Report</h1>
-
-		<p>
-			{sb.ToString().Replace("\n", "<br/>\n")}
-		</p>
-
-	</body>
-</html>";
 				}
 				catch (System.Exception catchEx) when (!(catchEx is System.OutOfMemoryException) && !(catchEx is System.StackOverflowException) && !(catchEx is System.AccessViolationException))
 				{
@@ -149,13 +125,14 @@ namespace FuseCP.Portal
 				btnSend.Visible = false;
 				lblSentMessage.Visible = true;
 
-				var from = PanelSecurity.LoggedUser.Email;
+				var from = !String.IsNullOrEmpty(PortalUtils.FromEmail) ? PortalUtils.FromEmail : PortalUtils.AdminEmail;
 				var to = PortalUtils.AdminEmail;
 				var subject = GetLocalizedString("Text.Subject");
-				emailMessage = emailMessage.Replace("%Comments%", $"<p>{txtSendComments.Text}</p>".Replace("\n", "<br/>\n"));
+				var encodedComments = PortalAntiXSS.Encode(txtSendComments.Text ?? String.Empty).Replace("\n", "<br/>\n");
+				var emailMessage = ErrorReportBodyTemplate.Replace("%Comments%", $"<p>{encodedComments}</p>");
 
 				// send mail
-				PortalUtils.SendMail(from, to, from, subject, emailMessage, true);
+				PortalUtils.SendMail(from, to, String.Empty, subject, emailMessage, true);
 
 				lblSentMessage.Text = GetLocalizedString("Text.MessageSent");
 			}
@@ -165,43 +142,19 @@ namespace FuseCP.Portal
 			}
 		}
 
-		// Use control state for emailMessage because ViewState won't always work
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
-			Page.RegisterRequiresControlState(this);
 		}
 
 		protected override object SaveControlState()
 		{
-			object obj = base.SaveControlState();
-			return emailMessage != null
-				? (obj != null ? new Pair(obj, emailMessage) : emailMessage)
-				: obj;
+			return base.SaveControlState();
 		}
 
 		protected override void LoadControlState(object state)
 		{
-			if (state != null)
-			{
-				Pair p = state as Pair;
-				if (p != null)
-				{
-					base.LoadControlState(p.First);
-					emailMessage = (string)p.Second;
-				}
-				else
-				{
-					if (state is string)
-					{
-						emailMessage = (string)state;
-					}
-					else
-					{
-						base.LoadControlState(state);
-					}
-				}
-			}
+			base.LoadControlState(state);
 		}
 
 	}

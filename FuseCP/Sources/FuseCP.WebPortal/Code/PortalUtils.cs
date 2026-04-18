@@ -62,9 +62,16 @@ public class PortalUtils
 		if (Path.IsPathRooted(relativeSegment))
 			throw new InvalidOperationException("Path segment must be relative.");
 
+		string normalizedSegment = relativeSegment
+			.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+			.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+		string[] pathParts = normalizedSegment.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+		if (pathParts.Any(part => string.Equals(part, "..", StringComparison.Ordinal)))
+			throw new InvalidOperationException("Path traversal segments are not allowed.");
+
 		string rootFullPath = Path.GetFullPath(rootPath);
 		string normalizedRoot = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-		string combinedPath = Path.GetFullPath(Path.Combine(normalizedRoot, relativeSegment.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)));
+		string combinedPath = Path.GetFullPath(Path.Combine(normalizedRoot, normalizedSegment));
 		string rootPrefix = rootFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 		if (!combinedPath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) && !string.Equals(combinedPath, rootFullPath, StringComparison.OrdinalIgnoreCase))
 			throw new InvalidOperationException("Resolved path is outside of the expected root.");

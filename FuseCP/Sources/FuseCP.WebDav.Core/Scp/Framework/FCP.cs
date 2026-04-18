@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using FuseCP.EnterpriseServer;
@@ -29,18 +30,18 @@ namespace FuseCP.WebDav.Core.Scp.Framework
     public class FCP
     {
         private const string WebServicesKey = "WebServices";
-        private static readonly AsyncLocal<Dictionary<string, object>> CurrentItems = new AsyncLocal<Dictionary<string, object>>();
+        private static readonly AsyncLocal<ConcurrentDictionary<string, object>> CurrentItems = new AsyncLocal<ConcurrentDictionary<string, object>>();
         private readonly ICryptography _cryptography;
 
         public static IServiceProvider ServiceProvider { get; set; }
 
-        private static Dictionary<string, object> Items
+        private static ConcurrentDictionary<string, object> Items
         {
             get
             {
                 if (CurrentItems.Value == null)
                 {
-                    CurrentItems.Value = new Dictionary<string, object>();
+                    CurrentItems.Value = new ConcurrentDictionary<string, object>(StringComparer.Ordinal);
                 }
 
                 return CurrentItems.Value;
@@ -56,20 +57,7 @@ namespace FuseCP.WebDav.Core.Scp.Framework
         {
             get
             {
-                FCP services = null;
-
-if (Items.TryGetValue(WebServicesKey, out var _ckv))
-                {
-                    services = _ckv as FCP;
-                }
-
-                if (services == null)
-                {
-                    services = new FCP();
-                    Items[WebServicesKey] = services;
-                }
-
-                return services;
+                return (FCP)Items.GetOrAdd(WebServicesKey, _ => new FCP());
             }
         }
 
@@ -247,18 +235,7 @@ if (Items.TryGetValue(WebServicesKey, out var _ckv))
         {
             Type t = typeof(T);
             string key = t.FullName + ".ServiceProxy";
-            T proxy = default(T);
-
-if (Items.TryGetValue(key, out var _ckv))
-            {
-                proxy = (T)_ckv;
-            }
-
-            if (proxy == null)
-            {
-                proxy = (T)Activator.CreateInstance(t);
-                Items[key] = proxy;
-            }
+            T proxy = (T)Items.GetOrAdd(key, _ => Activator.CreateInstance(t));
 
             object p = proxy;
 
