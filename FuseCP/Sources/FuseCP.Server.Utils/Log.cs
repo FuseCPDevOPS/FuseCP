@@ -40,6 +40,7 @@ namespace FuseCP.Server.Utils
         private static readonly Regex SensitiveValueRegex = new Regex(
             @"^(?:[A-Fa-f0-9]{32,}|[A-Za-z0-9_\-\.=+/]{24,})$",
             RegexOptions.Compiled);
+        private const string GenericErrorMessage = "An error occurred. See server logs for details.";
 
         private static void TraceSwallowedException(Exception ex)
         {
@@ -104,7 +105,7 @@ namespace FuseCP.Server.Utils
             {
                 if (ex != null)
                 {
-                    WriteError(ex.Message, ex);
+                    WriteError(GenericErrorMessage, ex);
                 }
             }
             catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { TraceSwallowedException(swallowedEx); }
@@ -179,6 +180,11 @@ namespace FuseCP.Server.Utils
             if (message == null)
             {
                 message = String.Empty;
+            }
+
+            if (LooksSensitive(message))
+            {
+                message = "[REDACTED]";
             }
 
             if (args != null && args.Length > 0)

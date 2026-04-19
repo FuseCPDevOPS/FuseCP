@@ -75,26 +75,42 @@ namespace FuseCP.Providers.Common
 
             // ��� ������������� ������ �������� ��������� ������ - ����
 
-            string password;
-            byte[] final;
+            salt = NormalizeMd5Salt(salt);
 
-            // ����� ����, ���� � �������� ���� ������ ��� ���
-            //  1. ����� ���������� $apr1$
+            ByteVector s = new ByteVector();
+            ByteVector s1 = new ByteVector();
+
+            InitializeMd5Vectors(pw, salt, s, s1);
+            byte[] final = s1.GetMD5Hash();
+
+            AppendDigestChunks(pw, s, final);
+            ClearBytes(final);
+            AppendAlternatingSourceBytes(pw, s, final);
+
+            final = s.GetMD5Hash();
+            final = IterateMd5Rounds(pw, salt, s1, final);
+
+            return BuildMd5Password(salt, final);
+        }
+
+        private static string NormalizeMd5Salt(string salt)
+        {
             if (salt.StartsWith(MD5_MAGIC_PREFIX))
             {
                 salt = salt.Substring(MD5_MAGIC_PREFIX.Length);
             }
 
-            //  2. ����� ���� �� ������� '$' ��� 8 ��������
             int sp = salt.IndexOf('$');
-            if (sp < 0 || sp > 8) sp = 8;
+            if (sp < 0 || sp > 8)
+            {
+                sp = 8;
+            }
 
-            salt = salt.Substring(0, sp);
-            //Debug.WriteLine(string.Format("salt [{0}]", salt));
+            return salt.Substring(0, sp);
+        }
 
-            ByteVector s = new ByteVector();
-            ByteVector s1 = new ByteVector();
-
+        private static void InitializeMd5Vectors(string pw, string salt, ByteVector s, ByteVector s1)
+        {
             s.Add(pw);
             s.Add(MD5_MAGIC_PREFIX);
             s.Add(salt);
@@ -102,20 +118,28 @@ namespace FuseCP.Providers.Common
             s1.Add(pw);
             s1.Add(salt);
             s1.Add(pw);
+        }
 
-            final = s1.GetMD5Hash();
-
+        private static void AppendDigestChunks(string pw, ByteVector s, byte[] final)
+        {
             for (int i = pw.Length; i > 0; i -= MD5_DIGESTSIZE)
             {
                 s.Add(final, 0, (i > MD5_DIGESTSIZE) ? MD5_DIGESTSIZE : i);
             }
+        }
 
-            for (int i = 0; i < final.Length; i++)
-                final[i] = 0;
+        private static void ClearBytes(byte[] value)
+        {
+            for (int i = 0; i < value.Length; i++)
+            {
+                value[i] = 0;
+            }
+        }
 
+        private static void AppendAlternatingSourceBytes(string pw, ByteVector s, byte[] final)
+        {
             for (int i = pw.Length; i != 0; i >>= 1)
             {
-                // (i & 1)  � �����
                 if ((i & 0x01) == 1)
                 {
                     s.Add(final, 0, 1);
@@ -125,12 +149,14 @@ namespace FuseCP.Providers.Common
                     s.Add(pw.Substring(0, 1));
                 }
             }
+        }
 
-            final = s.GetMD5Hash();
-
+        private static byte[] IterateMd5Rounds(string pw, string salt, ByteVector s1, byte[] final)
+        {
             for (int i = 0; i < 1000; i++)
             {
                 s1.Clear();
+
                 if ((i & 1) != 0)
                 {
                     s1.Add(pw);
@@ -139,6 +165,7 @@ namespace FuseCP.Providers.Common
                 {
                     s1.Add(final);
                 }
+
                 if ((i % 3) != 0)
                 {
                     s1.Add(salt);
@@ -157,10 +184,16 @@ namespace FuseCP.Providers.Common
                 {
                     s1.Add(pw);
                 }
+
                 final = s1.GetMD5Hash();
             }
 
-            password = "";
+            return final;
+        }
+
+        private static string BuildMd5Password(string salt, byte[] final)
+        {
+            var password = string.Empty;
             ulong l;
 
             l = ((ulong)final[0] << 16) | ((ulong)final[6] << 8) | ((ulong)final[12]);
@@ -176,9 +209,7 @@ namespace FuseCP.Providers.Common
             l = ((ulong)final[11]);
             password += PasswdHelper.to64(l, 2);
 
-            password = string.Format("{0}{1}${2}", MD5_MAGIC_PREFIX, salt, password);
-
-            return password;
+            return string.Format("{0}{1}${2}", MD5_MAGIC_PREFIX, salt, password);
         }
 
 

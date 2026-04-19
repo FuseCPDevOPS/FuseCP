@@ -108,7 +108,7 @@ namespace FuseCP.Providers.OS
             get => IsSshTunnel && Uri.Tunnel == TunnelOption.WebSocket;
             set
             {
-                if (IsSshTunnel) Uri.Tunnel = TunnelOption.WebSocket;
+                if (IsSshTunnel) Uri.Tunnel = value ? TunnelOption.WebSocket : TunnelOption.None;
             }
         }
         public bool IsSecure => url.StartsWith("wss://") || IsSshTunnel || url.StartsWith("https://");

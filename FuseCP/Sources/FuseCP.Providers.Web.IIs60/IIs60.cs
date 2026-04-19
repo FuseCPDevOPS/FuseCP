@@ -2505,10 +2505,9 @@ namespace FuseCP.Providers.Web
 						{
 							// change password
 							BsdDES des = new BsdDES();
-							string passwordHash = des.Crypt(user.Password);
 
 							// update line
-							updatedLine = username + ":" + passwordHash;
+							updatedLine = username + ":" + des.Crypt(user.Password);
 						}
 					}
 				}

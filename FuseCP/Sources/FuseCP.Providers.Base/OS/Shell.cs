@@ -207,6 +207,17 @@ namespace FuseCP.Providers.OS
 			return value.IndexOfAny(new[] { '&', '|', ';', '>', '<', '`' }) >= 0;
 		}
 
+		static bool IsSafeCommandToken(string value)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+				return false;
+
+			if (value.IndexOf(Path.DirectorySeparatorChar) >= 0 || value.IndexOf(Path.AltDirectorySeparatorChar) >= 0)
+				return false;
+
+			return Regex.IsMatch(value, @"^[A-Za-z0-9._\-]+$");
+		}
+
 		protected virtual string ToTempFile(string script)
 		{
 			var file = Path.GetTempFileName();
@@ -287,6 +298,9 @@ namespace FuseCP.Providers.OS
 
 			if (ContainsShellMetaCharacters(cmd))
 				throw new ArgumentException("Command contains invalid shell meta characters.", nameof(cmd));
+
+			if (!IsSafeCommandToken(cmd))
+				throw new ArgumentException("Command contains invalid characters.", nameof(cmd));
 
 			var cmdWithPath = Find(cmd);
 			if (cmdWithPath != null)

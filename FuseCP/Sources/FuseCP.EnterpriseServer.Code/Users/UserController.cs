@@ -339,9 +339,6 @@ namespace FuseCP.EnterpriseServer
 					var httpUrls = servers
 						.Where(url => !url.StartsWith("ssh://") && !url.StartsWith("assembly://"))
 						.Take(50);
-					var sshUrls = servers
-						.Where(url => url.StartsWith("ssh://"))
-						.Take(50);
 					foreach (var test in httpUrls.Select(url => new Server.Client.Test { Url = url }))
 					{
 						test.TouchAsync();

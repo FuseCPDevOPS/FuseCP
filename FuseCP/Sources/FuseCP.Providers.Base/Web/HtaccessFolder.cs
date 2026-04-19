@@ -507,7 +507,12 @@ namespace FuseCP.Providers.Web
 
 		public override bool Equals(object obj)
 		{
-			return obj is HtaccessFolder other && Equals(other);
+			if (obj == null || obj.GetType() != typeof(HtaccessFolder))
+			{
+				return false;
+			}
+
+			return Equals((HtaccessFolder)obj);
 		}
 
 		public override int GetHashCode()

@@ -75,15 +75,14 @@ namespace FuseCP.Portal
 			tblMessageBox.Attributes["class"] = boxStyle;
 
 			// set texts
-			litMessage.Text = HttpUtility.HtmlEncode(message);
-			litDescription.Text = !String.IsNullOrEmpty(description)
-				 ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(description)) : "";
+			var safeMessage = message;
+			var safeDescription = description;
 
 			// show exception
 			if (ex != null)
 			{
-				litMessage.Text = HttpUtility.HtmlEncode("An unexpected error occurred.");
-				litDescription.Text = String.Empty;
+				safeMessage = "An unexpected error occurred.";
+				safeDescription = String.Empty;
 				// show error
 				try
 				{
@@ -111,6 +110,10 @@ namespace FuseCP.Portal
 			{
 				rowTechnicalDetails.Visible = false;
 			}
+
+			litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
+			litDescription.Text = !String.IsNullOrEmpty(safeDescription)
+				 ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(safeDescription)) : "";
 		}
 
 		protected void btnSend_Click(object sender, EventArgs e)

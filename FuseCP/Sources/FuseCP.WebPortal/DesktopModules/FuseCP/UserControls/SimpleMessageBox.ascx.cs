@@ -219,18 +219,21 @@ namespace FuseCP.Portal.UserControls
 
 			divMessageBox.Attributes["class"] = boxStyle;
 
-			// set texts
-            litMessage.Text = HttpUtility.HtmlEncode(message);
+            var safeMessage = message;
+            var safeDescription = description;
 
             // error
             if (ex != null)
             {
-                litMessage.Text = HttpUtility.HtmlEncode("An unexpected error occurred.");
-                description = "Technical details are available in server logs.";
+                safeMessage = "An unexpected error occurred.";
+                safeDescription = "Technical details are available in server logs.";
             }
 
-            litDescription.Text = !String.IsNullOrEmpty(description)
-                ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(description)) : "";
+			// set texts
+            litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
+
+            litDescription.Text = !String.IsNullOrEmpty(safeDescription)
+                ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(safeDescription)) : "";
 		}
     }
 }
