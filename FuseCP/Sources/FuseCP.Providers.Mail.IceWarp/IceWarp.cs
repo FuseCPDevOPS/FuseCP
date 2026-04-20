@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -1166,26 +1166,30 @@ namespace FuseCP.Providers.Mail
             const string symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
             var chars = new List<char>();
-
-            for (int i = 0; i < Math.Max(0, alphaCount); i++)
-                chars.Add(letters[RandomNumberGenerator.GetInt32(letters.Length)]);
-
-            for (int i = 0; i < Math.Max(0, digitCount); i++)
-                chars.Add(digits[RandomNumberGenerator.GetInt32(digits.Length)]);
-
-            for (int i = 0; i < Math.Max(0, nonAlphaNumCount); i++)
-                chars.Add(symbols[RandomNumberGenerator.GetInt32(symbols.Length)]);
+            AddRandomChars(chars, letters, alphaCount);
+            AddRandomChars(chars, digits, digitCount);
+            AddRandomChars(chars, symbols, nonAlphaNumCount);
 
             while (chars.Count < Math.Max(0, minLength))
                 chars.Add(letters[RandomNumberGenerator.GetInt32(letters.Length)]);
 
+            ShuffleChars(chars);
+            return new string(chars.ToArray());
+        }
+
+        private static void AddRandomChars(List<char> chars, string pool, int count)
+        {
+            for (int i = 0; i < Math.Max(0, count); i++)
+                chars.Add(pool[RandomNumberGenerator.GetInt32(pool.Length)]);
+        }
+
+        private static void ShuffleChars(List<char> chars)
+        {
             for (int i = chars.Count - 1; i > 0; i--)
             {
                 int j = RandomNumberGenerator.GetInt32(i + 1);
                 (chars[i], chars[j]) = (chars[j], chars[i]);
             }
-
-            return new string(chars.ToArray());
         }
 
         public void UpdateMailAlias(MailAlias mailAlias)

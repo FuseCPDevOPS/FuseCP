@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+﻿// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -204,13 +204,20 @@ namespace FuseCP.Server.Utils
 
         void Init()
         {
-            int inbit, obit;
             old_rawkey0 = old_rawkey1 = 0;
             saltbits = 0;
             old_salt = 0;
-            const int bits28 = 4;
-            const int bits24 = 8;
 
+            InitializeSboxTables();
+            InitializePermutationTables();
+            InitializeMaskArrays();
+            InitializePsboxMasks();
+
+            des_initialised = true;
+        }
+
+        void InitializeSboxTables()
+        {
             /*
              * Invert the S-boxes, reordering the input bits.
              */
@@ -231,7 +238,10 @@ namespace FuseCP.Server.Utils
                         m_sbox[b, (i << 6) | j] =
                             (byte)((u_sbox[(b << 1), i] << 4) |
                             u_sbox[(b << 1) + 1, j]);
+        }
 
+        void InitializePermutationTables()
+        {
             /*
              * Set up the initial & final permutations into a useful form, and
              * initialise the inverted key permutation.
@@ -259,6 +269,13 @@ namespace FuseCP.Server.Utils
             {
                 inv_comp_perm[comp_perm[i] - 1] = (byte)i;
             }
+        }
+
+        void InitializeMaskArrays()
+        {
+            const int bits28 = 4;
+            const int bits24 = 8;
+            int inbit, obit;
 
             /*
              * Set up the OR-mask arrays for the initial and final permutations,
@@ -322,7 +339,10 @@ namespace FuseCP.Server.Utils
                     }
                 }
             }
+        }
 
+        void InitializePsboxMasks()
+        {
             /*
              * Invert the P-box permutation, and convert into OR-masks for
              * handling the output of the S-box arrays setup above.
@@ -340,8 +360,6 @@ namespace FuseCP.Server.Utils
                             psbox[b, i] |= bits32[un_pbox[8 * b + j]];
                     }
                 }
-
-            des_initialised = true;
         }
 
         void SetupSalt(uint salt)
