@@ -154,16 +154,40 @@ jobs:
     - name: Publish Unit Tests
       id: process-trx
       continue-on-error: true  # fork PRs don't have write permission to create status checks or PR comments
-      uses: im-open/process-dotnet-test-results@v3.0.1
+      uses: im-open/process-dotnet-test-results@v4.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         base-directory: './test-results'
-        create-status-check: true
+        # Keep PR comment output but avoid check-run payloads exceeding GitHub's 65,535 character limit.
+        create-status-check: false
         create-pr-comment: true
         update-comment-if-one-exists: true
         ignore-test-failures: true
         timezone: 'europe/zurich'
         comment-identifier: 'bff-tests'
+
+    - name: Append Truncated Test Markdown to Job Summary
+      if: steps.process-trx.outputs.test-results-truncated == 'true'
+      shell: pwsh
+      run: |
+        $resultsFile = "${{ steps.process-trx.outputs.test-results-file-path }}"
+        if ([string]::IsNullOrWhiteSpace($resultsFile) -or -not (Test-Path $resultsFile)) {
+          Write-Host "No test-results markdown file found for summary append."
+          exit 0
+        }
+
+        "## Truncated Test Results" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        "The processed test results exceeded GitHub's 65535 character limit and were truncated by the action." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        "" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        Get-Content -Path $resultsFile -Raw | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+    - name: Upload Truncated Test Markdown
+      if: steps.process-trx.outputs.test-results-truncated == 'true'
+      uses: actions/upload-artifact@v7
+      with:
+        name: Truncated-Test-Results-Markdown
+        path: ${{ steps.process-trx.outputs.test-results-file-path }}
+        retention-days: 7
         
     - name: Fail if Tests Failed
       shell: pwsh
