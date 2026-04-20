@@ -197,7 +197,9 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteExpiredWebDavAccessTokens()
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 

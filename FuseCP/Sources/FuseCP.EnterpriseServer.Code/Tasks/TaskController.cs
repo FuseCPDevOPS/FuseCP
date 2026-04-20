@@ -165,8 +165,7 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null)
                 return;
 
-            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
-            if (!GetTasks(actorId).Any(task => task.Guid == guid))
+            if (!CanManageBackgroundTask(currentUser, task => task.Guid == guid))
                 return;
             Database.DeleteBackgroundTasks(guid);
         }
@@ -179,10 +178,21 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null)
                 return;
 
-            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
-            if (!GetTasks(actorId).Any(task => task.Id == id))
+            if (!CanManageBackgroundTask(currentUser, task => task.Id == id))
                 return;
             Database.DeleteBackgroundTask(id);
+        }
+
+        private bool CanManageBackgroundTask(UserInfo currentUser, Func<BackgroundTask, bool> matcher)
+        {
+            if (currentUser == null || matcher == null)
+                return false;
+
+            if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return true;
+
+            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            return GetTasks(actorId).Any(matcher);
         }
 
         public void AddTaskParams(int taskId, List<BackgroundTaskParameter> parameters)

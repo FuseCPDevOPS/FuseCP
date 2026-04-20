@@ -986,9 +986,13 @@ namespace FuseCP.EnterpriseServer
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
-			bool canManageUser = SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				|| SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER)
-				|| SecurityContext.User.UserId == userId;
+			var currentUser = SecurityContext.User;
+			if (currentUser == null)
+				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
+			bool canManageUser = currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+				|| currentUser.UserId == userId;
 			if (!canManageUser)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
@@ -1007,9 +1011,13 @@ namespace FuseCP.EnterpriseServer
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
-			bool canManageUser = SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				|| SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER)
-				|| SecurityContext.User.UserId == userId;
+			var currentUser = SecurityContext.User;
+			if (currentUser == null)
+				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
+			bool canManageUser = currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+				|| currentUser.UserId == userId;
 			if (!canManageUser)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
@@ -1021,7 +1029,7 @@ namespace FuseCP.EnterpriseServer
 				return BusinessErrorCodes.ERROR_USER_HAS_USERS;
 
 			UserAsyncWorker userWorker = new UserAsyncWorker();
-			userWorker.ThreadUserId = SecurityContext.User.UserId;
+			userWorker.ThreadUserId = currentUser.UserId;
 			userWorker.UserId = userId;
 			userWorker.TaskId = taskId;
 			userWorker.DeleteUserAsync();
@@ -1279,10 +1287,12 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
-			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				&& SecurityContext.User.UserId != userId) return;
+			var currentUser = SecurityContext.User;
+			if (currentUser == null) return;
+			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				&& currentUser.UserId != userId) return;
 			if (GetUser(userId) == null) return;
-			Database.DeleteUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName);
+			Database.DeleteUserThemeSetting(currentUser.UserId, userId, PropertyName);
 		}
 
 		#endregion

@@ -375,9 +375,24 @@ namespace FuseCP.EnterpriseServer
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
 
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
             ScheduleInfo schedule = GetSchedule(scheduleId);
             if (schedule == null)
                 return -1;
+
+            if (schedule.PackageId > 0)
+            {
+                int packageCheck = SecurityContext.CheckPackage(schedule.PackageId, DemandPackage.IsActive);
+                if (packageCheck < 0)
+                    return packageCheck;
+            }
+            else if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+            {
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+            }
 
             // stop schedule if active
             StopSchedule(scheduleId);
