@@ -151,7 +151,10 @@ namespace FuseCP.EnterpriseServer
 
         public void UpdateBackgroundTaskParams(BackgroundTask task)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.User == null) return;
+
             Database.DeleteBackgroundTaskParams(task.Id);
 
             AddTaskParams(task.Id, task.Params);
