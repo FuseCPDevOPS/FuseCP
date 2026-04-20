@@ -2264,13 +2264,16 @@ namespace FuseCP.EnterpriseServer
 
         public AccessToken GetAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
             return ObjectUtils.FillObjectFromDataReader<AccessToken>(Database.GetAccessTokenByAccessToken(accessToken, type));
         }
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
@@ -4076,8 +4079,9 @@ namespace FuseCP.EnterpriseServer
                 throw new ArgumentNullException("displayName");
 
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
+            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
 
 
             // place log record

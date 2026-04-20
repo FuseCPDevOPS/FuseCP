@@ -190,7 +190,8 @@ namespace FuseCP.EnterpriseServer
 
         public int AddWebDavAccessToken(WebDavAccessToken accessToken)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             return Database.AddWebDavAccessToken(accessToken);
         }
 
@@ -2121,7 +2122,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<string> GetUserEnterpriseFolderWithOwaEditPermission(int itemId, List<int> accountIds)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<string>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<string>();
             try
             {
                 Organization org = OrganizationController.GetOrganization(itemId);

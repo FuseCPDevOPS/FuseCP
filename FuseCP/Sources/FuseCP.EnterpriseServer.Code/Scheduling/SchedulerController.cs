@@ -371,8 +371,9 @@ namespace FuseCP.EnterpriseServer
         public int DeleteSchedule(int scheduleId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
+            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
 
             ScheduleInfo schedule = GetSchedule(scheduleId);
             if (schedule == null)
