@@ -104,9 +104,9 @@ namespace FuseCP.EnterpriseServer
             var packages = ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
             var packageUsers = packages.ToDictionary(package => package.PackageId, package => package.UserId);
 
-            foreach (int packageId in packages.Select(package => package.PackageId))
+            foreach (var package in packages)
             {
-                var domains = ServerController.GetDomains(packageId);
+                var domains = ServerController.GetDomains(package.PackageId);
 
                 domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
 

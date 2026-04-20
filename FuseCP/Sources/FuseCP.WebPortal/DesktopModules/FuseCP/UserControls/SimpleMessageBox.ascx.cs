@@ -220,7 +220,7 @@ namespace FuseCP.Portal.UserControls
 			divMessageBox.Attributes["class"] = boxStyle;
 
             var safeMessage = message;
-            var safeDescription = description;
+            string safeDescription;
 
             // error
             if (ex != null)

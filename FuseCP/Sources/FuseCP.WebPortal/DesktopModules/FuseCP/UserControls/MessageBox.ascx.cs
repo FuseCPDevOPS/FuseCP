@@ -76,13 +76,13 @@ namespace FuseCP.Portal
 
 			// set texts
 			var safeMessage = message;
-			var safeDescription = description;
+			string safeDescription;
 
 			// show exception
 			if (ex != null)
 			{
 				safeMessage = "An unexpected error occurred.";
-				safeDescription = String.Empty;
+				safeDescription = String.Empty; // suppress raw description when exception is present
 				// show error
 				try
 				{
@@ -109,6 +109,7 @@ namespace FuseCP.Portal
 			else
 			{
 				rowTechnicalDetails.Visible = false;
+				safeDescription = description ?? String.Empty;
 			}
 
 			litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
