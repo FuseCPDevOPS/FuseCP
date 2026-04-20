@@ -2266,6 +2266,8 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.User == null) return null;
+
             return ObjectUtils.FillObjectFromDataReader<AccessToken>(Database.GetAccessTokenByAccessToken(accessToken, type));
         }
 
@@ -2290,6 +2292,8 @@ namespace FuseCP.EnterpriseServer
         public SystemSettings GetWebDavSystemSettings()
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.User == null) return null;
+
             return SystemController.GetSystemSettingsInternal(SystemSettings.WEBDAV_PORTAL_SETTINGS, false);
         }
 
@@ -4058,6 +4062,10 @@ namespace FuseCP.EnterpriseServer
         public void UpdateAdditionalGroup(int groupId, string groupName)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return;
+            if (!GetAdditionalGroups(currentUser.UserId).Any(group => group.GroupId == groupId)) return;
+
             Database.UpdateAdditionalGroup(groupId, groupName);
         }
 
@@ -4074,6 +4082,9 @@ namespace FuseCP.EnterpriseServer
         {
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
             return Database.AddAdditionalGroup(userId, groupName);
         }
 

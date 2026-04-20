@@ -192,6 +192,8 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_CANCELLED;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
             return Database.AddWebDavAccessToken(accessToken);
         }
 
@@ -207,6 +209,8 @@ namespace FuseCP.EnterpriseServer
         public WebDavAccessToken GetWebDavAccessTokenById(int id)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.User == null) return null;
+
             return ObjectUtils.FillObjectFromDataReader<WebDavAccessToken>(Database.GetWebDavAccessTokenById(id));
         }
 
