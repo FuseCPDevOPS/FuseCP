@@ -1270,7 +1270,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeAccount>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1334,7 +1340,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeAccount>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1356,7 +1368,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeAccount>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1489,7 +1507,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeAccount>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1506,7 +1530,7 @@ namespace FuseCP.EnterpriseServer
             #endregion
 
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(
-                Database.SearchExchangeAccounts(SecurityContext.User.UserId, itemId, includeMailboxes, includeContacts,
+                Database.SearchExchangeAccounts(currentUser.UserId, itemId, includeMailboxes, includeContacts,
                 includeDistributionLists, includeRooms, includeEquipment, IncludeSharedMailbox, includeSecurityGroups,
                 filterColumn, filterValue, sortColumn));
         }
@@ -1523,7 +1547,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeAccount>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeAccount>();
             if (types.Length == 0)
                 return new List<ExchangeAccount>();
@@ -1546,7 +1576,7 @@ namespace FuseCP.EnterpriseServer
             #endregion
 
             return ObjectUtils.CreateListFromDataReader<ExchangeAccount>(
-                Database.SearchExchangeAccountsByTypes(SecurityContext.User.UserId, itemId,
+                Database.SearchExchangeAccountsByTypes(currentUser.UserId, itemId,
                     types, filterColumn, filterValue, sortColumn));
         }
 
@@ -1559,7 +1589,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return null;
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return null;
 
             Organization org = GetOrganization(itemId, false);
@@ -1611,7 +1647,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return null;
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1669,7 +1711,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return null;
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1837,7 +1885,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeDomainName>();
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new List<ExchangeDomainName>();
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return new List<ExchangeDomainName>();
 
             #region Demo Mode
@@ -3491,7 +3545,13 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return string.Empty;
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return string.Empty;
+
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return string.Empty;
 
             #region Demo Mode

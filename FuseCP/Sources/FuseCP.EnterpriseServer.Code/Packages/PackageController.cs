@@ -207,8 +207,13 @@ namespace FuseCP.EnterpriseServer
             PackageResult result = new PackageResult();
 
             // check account
-            result.Result = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
-                | DemandAccount.IsReseller);
+            result.Result = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            if (result.Result < 0) return result;
+
+            result.Result = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (result.Result < 0) return result;
+
+            result.Result = SecurityContext.CheckAccount(DemandAccount.IsReseller);
             if (result.Result < 0) return result;
             if (SecurityContext.User == null)
             {
@@ -361,13 +366,19 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotas(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.User == null) return new DataSet();
+
             return Database.GetPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
         public DataSet GetParentPackageQuotas(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.User == null) return new DataSet();
+
             return Database.GetParentPackageQuotas(SecurityContext.User.UserId, packageId);
         }
 
@@ -1770,9 +1781,15 @@ namespace FuseCP.EnterpriseServer
         public int MovePackageItem(int itemId, int destinationServiceId, bool forAutodiscover)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
-                | DemandAccount.IsAdmin);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             if (accountCheck < 0 && !forAutodiscover) return accountCheck;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (accountCheck < 0 && !forAutodiscover) return accountCheck;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+            if (accountCheck < 0 && !forAutodiscover) return accountCheck;
+
             if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // move item

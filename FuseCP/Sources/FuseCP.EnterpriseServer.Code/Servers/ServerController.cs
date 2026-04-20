@@ -934,10 +934,10 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfo(int serviceId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-			if (accountCheck < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 
-			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
 			if (accountCheck < 0) return null;
 			if (SecurityContext.User == null) return null;
 
@@ -948,9 +948,16 @@ namespace FuseCP.EnterpriseServer
 		public int AddService(ServiceInfo service)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin
-				| DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
 			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			if (accountCheck < 0) return accountCheck;
+
+			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+
+			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			TaskManager.StartTask("SERVER", "ADD_SERVICE", GetServerByIdInternal(service.ServerId).ServerName, service.ServerId);
 
