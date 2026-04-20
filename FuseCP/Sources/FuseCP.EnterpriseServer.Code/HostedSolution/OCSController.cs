@@ -98,6 +98,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         public void DeleteDomain(int itemId, string domainName)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.User == null) return;
+
             Organization org = OrganizationController.GetOrganization(itemId);
             if (org == null)
                 return;
@@ -136,6 +138,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         public void AddDomain(string domainName, OCSEdgeServer[] edgeServers)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.User == null) return;
+
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {
                 try

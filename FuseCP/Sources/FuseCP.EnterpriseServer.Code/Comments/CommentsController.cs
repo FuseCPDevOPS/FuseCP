@@ -45,6 +45,7 @@ namespace FuseCP.EnterpriseServer
             // check account
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // add comment
             Database.AddComment(SecurityContext.User.UserId, itemTypeId,
@@ -58,6 +59,7 @@ namespace FuseCP.EnterpriseServer
             // check account
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // delete comment
             Database.DeleteComment(SecurityContext.User.UserId, commentId);
