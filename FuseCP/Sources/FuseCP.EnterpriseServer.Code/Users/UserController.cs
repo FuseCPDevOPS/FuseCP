@@ -298,6 +298,8 @@ namespace FuseCP.EnterpriseServer
 		{
  if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
  if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.User == null) return false;
+
 			UserInfoInternal user = GetUserInternally(username);
 			if (user.MfaMode == 0)
 				return false;
@@ -1270,6 +1272,8 @@ namespace FuseCP.EnterpriseServer
 		{
  if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
  if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.User == null) return new DataSet();
+
 			return Database.GetUserThemeSettings(SecurityContext.User.UserId, userId);
 		}
 
@@ -1277,10 +1281,12 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
-			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				&& SecurityContext.User.UserId != userId) return;
+			var currentUser = SecurityContext.User;
+			if (currentUser == null) return;
+			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				&& currentUser.UserId != userId) return;
 			if (GetUser(userId) == null) return;
-			Database.UpdateUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName, PropertyValue);
+			Database.UpdateUserThemeSetting(currentUser.UserId, userId, PropertyName, PropertyValue);
 		}
 
 		public void DeleteUserThemeSetting(int userId, string PropertyName)

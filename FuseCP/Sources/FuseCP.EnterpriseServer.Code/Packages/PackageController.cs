@@ -210,6 +210,11 @@ namespace FuseCP.EnterpriseServer
             result.Result = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
                 | DemandAccount.IsReseller);
             if (result.Result < 0) return result;
+            if (SecurityContext.User == null)
+            {
+                result.Result = BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+                return result;
+            }
 
             string quotasXml = BuildPlanQuotasXml(plan.Groups, plan.Quotas);
 
@@ -346,6 +351,8 @@ namespace FuseCP.EnterpriseServer
             string FilterColumns)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.User == null) return new DataSet();
+
             return Database.GetSearchTableByColumns(PagedStored, FilterValue, MaximumRows,
                 Recursive, PoolID, ServerID, SecurityContext.User.UserId, StatusID, PlanID, OrgID, ItemTypeName, GroupName,
                 PackageID, VPSType, RoleID, UserID, FilterColumns);
@@ -966,6 +973,7 @@ namespace FuseCP.EnterpriseServer
 
             accountCheck = SecurityContext.CheckAccount(DemandAccount.IsReseller);
             if (accountCheck < 0) return accountCheck;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             TaskManager.StartTask(taskId, "HOSTING_SPACE", "DELETE", packageId);
 
@@ -1765,6 +1773,7 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive
                 | DemandAccount.IsAdmin);
             if (accountCheck < 0 && !forAutodiscover) return accountCheck;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // move item
             Database.MoveServiceItem(SecurityContext.User.UserId, itemId, destinationServiceId, forAutodiscover);
