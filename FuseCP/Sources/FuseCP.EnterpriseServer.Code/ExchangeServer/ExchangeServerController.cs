@@ -55,7 +55,8 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new DataSet();
@@ -98,7 +99,12 @@ namespace FuseCP.EnterpriseServer
         public OrganizationsPaged GetExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+            {
+                return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+            }
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
             {
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
@@ -130,7 +136,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<Organization> GetExchangeOrganizations(int packageId, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<Organization>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<Organization>();
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
@@ -164,7 +171,8 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
 
             #region Demo Mode
             if (IsDemoMode)
@@ -1143,7 +1151,8 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchServiceId(int? itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
             int serviceId = -1;
 
             if (itemId.HasValue)
@@ -1240,7 +1249,10 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetAccounts(int itemId, ExchangeAccountType accountType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1298,7 +1310,10 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetExchangeAccountByMailboxPlanId(int itemId, int mailboxPlanId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1314,7 +1329,10 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetExchangeMailboxes(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1439,7 +1457,10 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1467,7 +1488,10 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
             if (types.Length == 0)
                 return new List<ExchangeAccount>();
@@ -1497,7 +1521,10 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccount(int itemId, int accountId, bool withLog = true)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return null;
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
             Organization org = GetOrganization(itemId, false);
@@ -1543,7 +1570,10 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccountByAccountName(string userPrincipalName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return null;
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1592,7 +1622,10 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount SearchAccount(ExchangeAccountType accountType, string primaryEmailAddress)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return null;
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1752,7 +1785,10 @@ namespace FuseCP.EnterpriseServer
         #region Domains
         public List<ExchangeDomainName> GetOrganizationDomains(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return new List<ExchangeDomainName>();
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeDomainName>();
 
             #region Demo Mode
@@ -3396,7 +3432,10 @@ namespace FuseCP.EnterpriseServer
 
         public string GetMailboxSetupInstructions(int itemId, int accountId, bool pmm, bool emailMode, bool signup, string passwordResetUrl)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+                return string.Empty;
+
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return string.Empty;
 
             #region Demo Mode
@@ -5991,8 +6030,9 @@ namespace FuseCP.EnterpriseServer
         public int DeletePublicFolders(int itemId, int[] accountIds)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
+            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
 
             Organization org = GetOrganization(itemId, false);
             if (org == null)
