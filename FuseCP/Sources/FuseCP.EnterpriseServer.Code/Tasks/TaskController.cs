@@ -183,7 +183,7 @@ namespace FuseCP.EnterpriseServer
             Database.DeleteBackgroundTask(id);
         }
 
-        private bool CanManageBackgroundTask(UserInfo currentUser, Func<BackgroundTask, bool> matcher)
+        private bool CanManageBackgroundTask(EnterpriseServerPrincipal currentUser, Func<BackgroundTask, bool> matcher)
         {
             if (currentUser == null || matcher == null)
                 return false;
