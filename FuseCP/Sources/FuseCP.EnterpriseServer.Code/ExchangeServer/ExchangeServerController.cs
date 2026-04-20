@@ -1207,6 +1207,11 @@ namespace FuseCP.EnterpriseServer
                 return new ExchangeAccountsPaged { RecordsCount = 0, PageItems = new ExchangeAccount[0] };
             }
 
+            if (SecurityContext.User == null)
+            {
+                return new ExchangeAccountsPaged { RecordsCount = 0, PageItems = new ExchangeAccount[0] };
+            }
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -1624,6 +1629,9 @@ namespace FuseCP.EnterpriseServer
                 return false;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return false;
+            if (SecurityContext.User == null)
+                return false;
+
             // place log record
             TaskManager.StartTask("EXCHANGE", "AUTHENTICATE", email, itemId);
 
@@ -1752,6 +1760,8 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
                 return new ExchangeEmailAddress[0];
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return new ExchangeEmailAddress[0];
+            if (SecurityContext.User == null)
                 return new ExchangeEmailAddress[0];
 
             #region Demo Mode
@@ -3378,6 +3388,9 @@ namespace FuseCP.EnterpriseServer
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0)
                 return null;
+            if (SecurityContext.User == null)
+                return null;
+
             #region Demo Mode
             if (IsDemoMode)
             {
@@ -5971,6 +5984,7 @@ namespace FuseCP.EnterpriseServer
             int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+            if (SecurityContext.User == null) return -1;
 
             // check mailbox quota
             OrganizationStatistics orgStats = GetOrganizationStatisticsByOrganization(itemId);
