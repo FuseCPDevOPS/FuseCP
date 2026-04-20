@@ -3437,6 +3437,7 @@ namespace FuseCP.EnterpriseServer
             int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // place log record
             TaskManager.StartTask("EXCHANGE", "UPDATE_MAILBOX_GENERAL", itemId);
