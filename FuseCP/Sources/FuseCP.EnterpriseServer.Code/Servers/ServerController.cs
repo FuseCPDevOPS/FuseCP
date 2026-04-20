@@ -893,12 +893,16 @@ namespace FuseCP.EnterpriseServer
 		public DataSet GetRawServicesByGroupId(int groupId)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.User == null) return new DataSet();
+
 			return Database.GetServicesByGroupId(SecurityContext.User.UserId, groupId);
 		}
 
 		public DataSet GetRawServicesByGroupName(string groupName, bool forAutodiscover)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+			if (SecurityContext.User == null) return new DataSet();
+
 			return Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, forAutodiscover);
 		}
 
@@ -906,6 +910,8 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return new List<ServiceInfo>();
+			if (SecurityContext.User == null) return new List<ServiceInfo>();
+
 			return ObjectUtils.CreateListFromDataSet<ServiceInfo>(
 				Database.GetServicesByGroupName(SecurityContext.User.UserId, groupName, false));
 		}
@@ -1070,6 +1076,8 @@ namespace FuseCP.EnterpriseServer
 
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
 			if (accountCheck < 0)
+				return null;
+			if (SecurityContext.User == null)
 				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2361,6 +2369,7 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
 			if (item == null)
@@ -2476,6 +2485,8 @@ namespace FuseCP.EnterpriseServer
 		public List<ClusterInfo> GetClusters()
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<ClusterInfo>();
+			if (SecurityContext.User == null) return new List<ClusterInfo>();
+
 			return ObjectUtils.CreateListFromDataReader<ClusterInfo>(
 				Database.GetClusters(SecurityContext.User.UserId));
 		}
