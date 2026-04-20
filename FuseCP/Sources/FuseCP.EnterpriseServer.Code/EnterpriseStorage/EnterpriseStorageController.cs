@@ -200,6 +200,7 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.User == null) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 
@@ -2126,6 +2127,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<string>();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<string>();
+            if (SecurityContext.User == null) return new List<string>();
             try
             {
                 Organization org = OrganizationController.GetOrganization(itemId);

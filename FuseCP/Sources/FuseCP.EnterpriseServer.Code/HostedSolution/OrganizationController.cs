@@ -2274,6 +2274,7 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.User == null) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
@@ -2282,6 +2283,7 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
+            if (SecurityContext.User == null) return;
             Database.DeleteExpiredAccessTokens();
         }
 
@@ -4062,7 +4064,9 @@ namespace FuseCP.EnterpriseServer
         public void DeleteAdditionalGroup(int groupId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-            if (!GetAdditionalGroups(SecurityContext.User.UserId).Any(group => group.GroupId == groupId)) return;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return;
+            if (!GetAdditionalGroups(currentUser.UserId).Any(group => group.GroupId == groupId)) return;
             Database.DeleteAdditionalGroup(groupId);
         }
 

@@ -119,6 +119,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.User == null) return;
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {
                 try

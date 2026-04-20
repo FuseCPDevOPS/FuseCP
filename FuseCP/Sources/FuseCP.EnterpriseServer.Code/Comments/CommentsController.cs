@@ -36,7 +36,7 @@ namespace FuseCP.EnterpriseServer
             if (actorId != userId && SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
                 return new DataSet();
 
-            return Database.GetComments(SecurityContext.User.UserId, userId, itemTypeId, itemId);
+            return Database.GetComments(currentUser.UserId, userId, itemTypeId, itemId);
         }
 
         public int AddComment(string itemTypeId, int itemId,
