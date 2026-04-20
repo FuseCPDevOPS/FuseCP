@@ -919,6 +919,8 @@ namespace FuseCP.EnterpriseServer
 				 return null;
 			 if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
 				 return null;
+			 if (SecurityContext.User == null)
+				 return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
@@ -1083,6 +1085,8 @@ namespace FuseCP.EnterpriseServer
 			 if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
 				 return null;
 			 if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
+				 return null;
+			 if (SecurityContext.User == null)
 				 return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2378,6 +2382,7 @@ namespace FuseCP.EnterpriseServer
 			 int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
 			 int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			 if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+			 if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
 			if (item == null)
@@ -2399,6 +2404,7 @@ namespace FuseCP.EnterpriseServer
 			 int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
 			 int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			 if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+			 if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
 			if (item == null)
@@ -2492,6 +2498,8 @@ namespace FuseCP.EnterpriseServer
 			 int adminCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
 			 if (notDemoCheck < 0 || activeCheck < 0 || adminCheck < 0)
 				 return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : adminCheck);
+			 if (SecurityContext.User == null)
+				 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))
 				return -1;

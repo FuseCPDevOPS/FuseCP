@@ -235,6 +235,9 @@ namespace FuseCP.EnterpriseServer
             if (notDemoCheck < 0 || activeCheck < 0 || resellerCheck < 0)
                 return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : resellerCheck);
 
+            if (SecurityContext.User == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
             HostingPlanInfo plan = GetHostingPlan(planId);
             if (plan == null)
                 return -1;
@@ -365,6 +368,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.User == null) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0)
@@ -998,6 +1002,9 @@ namespace FuseCP.EnterpriseServer
             int resellerCsrCheck = SecurityContext.CheckAccount(DemandAccount.IsResellerCSR);
             if (notDemoCheck < 0 || activeCheck < 0 || resellerCsrCheck < 0)
                 return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : resellerCsrCheck);
+
+            if (SecurityContext.User == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             if (packages == null)
                 return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
@@ -1771,6 +1778,9 @@ namespace FuseCP.EnterpriseServer
             int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+
+            if (SecurityContext.User == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             ServiceProviderItem item = GetPackageItem(itemId);
             if (item == null)

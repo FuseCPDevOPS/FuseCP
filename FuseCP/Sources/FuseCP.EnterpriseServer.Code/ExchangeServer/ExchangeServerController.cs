@@ -57,6 +57,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.User == null) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new DataSet();
@@ -109,6 +110,11 @@ namespace FuseCP.EnterpriseServer
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
 
+               if (SecurityContext.User == null)
+               {
+                   return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+               }
+
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0)
             {
@@ -138,6 +144,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<Organization>();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<Organization>();
+            if (SecurityContext.User == null) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
@@ -173,6 +180,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
+            if (SecurityContext.User == null) return null;
 
             #region Demo Mode
             if (IsDemoMode)
@@ -1153,6 +1161,7 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
+            if (SecurityContext.User == null) return -1;
             int serviceId = -1;
 
             if (itemId.HasValue)
@@ -1255,6 +1264,9 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.User == null)
+                return new List<ExchangeAccount>();
+
             Organization org = GetOrganization(itemId, false);
             if (org == null)
                 return new List<ExchangeAccount>();
@@ -1316,6 +1328,9 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.User == null)
+                return new List<ExchangeAccount>();
+
             Organization org = GetOrganization(itemId, false);
             if (org == null)
                 return new List<ExchangeAccount>();
@@ -1333,6 +1348,9 @@ namespace FuseCP.EnterpriseServer
                 return new List<ExchangeAccount>();
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.User == null)
                 return new List<ExchangeAccount>();
 
             Organization org = GetOrganization(itemId, false);
@@ -1463,6 +1481,9 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
+            if (SecurityContext.User == null)
+                return new List<ExchangeAccount>();
+
             Organization org = GetOrganization(itemId, false);
             if (org == null)
                 return new List<ExchangeAccount>();
@@ -1492,6 +1513,9 @@ namespace FuseCP.EnterpriseServer
                 return new List<ExchangeAccount>();
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
+
+            if (SecurityContext.User == null)
                 return new List<ExchangeAccount>();
             if (types.Length == 0)
                 return new List<ExchangeAccount>();
@@ -1525,6 +1549,9 @@ namespace FuseCP.EnterpriseServer
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return null;
+
+            if (SecurityContext.User == null)
                 return null;
 
             Organization org = GetOrganization(itemId, false);
@@ -1574,6 +1601,9 @@ namespace FuseCP.EnterpriseServer
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return null;
+
+            if (SecurityContext.User == null)
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1626,6 +1656,9 @@ namespace FuseCP.EnterpriseServer
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return null;
+
+            if (SecurityContext.User == null)
                 return null;
 
             ExchangeAccount account = ObjectUtils.FillObjectFromDataReader<ExchangeAccount>(
@@ -1789,6 +1822,9 @@ namespace FuseCP.EnterpriseServer
                 return new List<ExchangeDomainName>();
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return new List<ExchangeDomainName>();
+
+            if (SecurityContext.User == null)
                 return new List<ExchangeDomainName>();
 
             #region Demo Mode
@@ -3436,6 +3472,9 @@ namespace FuseCP.EnterpriseServer
                 return string.Empty;
 
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return string.Empty;
+
+            if (SecurityContext.User == null)
                 return string.Empty;
 
             #region Demo Mode
@@ -6033,6 +6072,9 @@ namespace FuseCP.EnterpriseServer
             int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+
+            if (SecurityContext.User == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             Organization org = GetOrganization(itemId, false);
             if (org == null)
