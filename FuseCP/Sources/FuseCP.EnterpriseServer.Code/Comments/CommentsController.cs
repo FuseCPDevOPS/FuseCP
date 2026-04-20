@@ -27,6 +27,15 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return new DataSet();
+
+            var actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            if (actorId != userId && SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
+                return new DataSet();
+
             return Database.GetComments(SecurityContext.User.UserId, userId, itemTypeId, itemId);
         }
 

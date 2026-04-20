@@ -45,7 +45,7 @@ namespace FuseCP.Portal
             }
 
             //Get the uploaded zone file
-            var zoneFile = file.PostedFile;
+            var zoneFile = Request.Files[0];
             //First check that there was actually a file uploaded
             if (zoneFile != null && zoneFile.ContentLength > 0)
             {
@@ -56,7 +56,7 @@ namespace FuseCP.Portal
                     return;
                 }
 
-                var extension = Path.GetExtension(zoneFile.FileName);
+                var extension = Path.GetExtension(originalFileName);
                 if (!string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase))
                 {
                     ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -25,6 +26,38 @@ namespace FuseCP.Providers.OS
 	public class WindowsServiceController : ServiceController
 	{
 		private static readonly Regex ServiceIdPattern = new Regex(@"^[A-Za-z0-9._\-]+$", RegexOptions.Compiled);
+
+		private static void RunProcess(string fileName, params string[] arguments)
+		{
+			using (var process = new Process())
+			{
+				process.StartInfo = new ProcessStartInfo
+				{
+					FileName = fileName,
+					UseShellExecute = false,
+					CreateNoWindow = true,
+					RedirectStandardOutput = true,
+					RedirectStandardError = true
+				};
+
+				foreach (var argument in arguments)
+				{
+					process.StartInfo.ArgumentList.Add(argument);
+				}
+
+				if (!process.Start())
+				{
+					throw new InvalidOperationException($"Failed to start process '{fileName}'.");
+				}
+
+				process.WaitForExit();
+				if (process.ExitCode != 0)
+				{
+					var error = process.StandardError.ReadToEnd();
+					throw new InvalidOperationException($"Process '{fileName}' failed with exit code {process.ExitCode}: {error}");
+				}
+			}
+		}
 
 		private static string ValidateServiceId(string serviceId)
 		{
@@ -48,11 +81,12 @@ namespace FuseCP.Providers.OS
 		public override void ChangeStatus(string serviceId, OSServiceStatus status)
 		{
 			serviceId = ValidateServiceId(serviceId);
-			if (Info(serviceId) == null)
+			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
+			if (service == null)
 			{
 				throw new ArgumentException("Service not found.", nameof(serviceId));
 			}
-			OSInfo.Windows.ChangeOSServiceStatus(serviceId, status);
+			OSInfo.Windows.ChangeOSServiceStatus(service.Id, status);
 		}
 
 		public override OSService Info(string serviceId)
@@ -60,41 +94,84 @@ namespace FuseCP.Providers.OS
 
 		public override ServiceManager Install(ServiceDescription service)
 		{
+			if (service == null)
+			{
+				throw new ArgumentNullException(nameof(service));
+			}
+
+			var serviceId = ValidateServiceId(service.ServiceId);
+			if (string.IsNullOrWhiteSpace(service.Executable))
+			{
+				throw new ArgumentException("Executable path cannot be empty.", nameof(service));
+			}
+
 			var winService = service as WindowsServiceDescription;
-			var cmd = $"sc.exe create {service.ServiceId} binPath= \"{service.Executable}\"";
+			var arguments = new List<string> { "create", serviceId, "binPath=", service.Executable };
 			if (winService != null)
 			{
-				if (!string.IsNullOrEmpty(winService.DisplayName)) cmd += $" DisplayName= \"{winService.DisplayName}\"";
+				if (!string.IsNullOrEmpty(winService.DisplayName))
+				{
+					arguments.Add("DisplayName=");
+					arguments.Add(winService.DisplayName);
+				}
 				if (winService.DependsOn != null && winService.DependsOn.Any())
 				{
-					cmd += $" depend= \"{string.Join("/", winService.DependsOn.Select(dep => dep.Trim()))}";
+					arguments.Add("depend=");
+					arguments.Add(string.Join("/", winService.DependsOn.Select(dep => dep.Trim())));
 				}
 				if (!string.IsNullOrEmpty(winService.Object))
 				{
-					cmd += $" obj= \"{winService.Object}\"";
+					arguments.Add("obj=");
+					arguments.Add(winService.Object);
 				}
-				if (winService.Type != WindowsServiceType.Own) cmd += $" type= {winService.Type.ToString().ToLower()}";
-				if (winService.Error != WindowsServiceErrorHandling.Normal) cmd += $" error= {winService.Error.ToString().ToLower()}";
-				if (winService.Start != WindowsServiceStartMode.Demand) cmd += $" start= {winService.Start.ToString().ToLower()}";
-				if (winService.Tag.HasValue) cmd += $" tag= {(winService.Tag.Value ? "yes" : "no")}";
-				if (!string.IsNullOrEmpty(winService.Group)) cmd += $" group= \"{winService.Group}\"";
-				if (!string.IsNullOrEmpty(winService.Password)) cmd += $" password= \"{winService.Password}\"";
+				if (winService.Type != WindowsServiceType.Own)
+				{
+					arguments.Add("type=");
+					arguments.Add(winService.Type.ToString().ToLowerInvariant());
+				}
+				if (winService.Error != WindowsServiceErrorHandling.Normal)
+				{
+					arguments.Add("error=");
+					arguments.Add(winService.Error.ToString().ToLowerInvariant());
+				}
+				if (winService.Start != WindowsServiceStartMode.Demand)
+				{
+					arguments.Add("start=");
+					arguments.Add(winService.Start.ToString().ToLowerInvariant());
+				}
+				if (winService.Tag.HasValue)
+				{
+					arguments.Add("tag=");
+					arguments.Add(winService.Tag.Value ? "yes" : "no");
+				}
+				if (!string.IsNullOrEmpty(winService.Group))
+				{
+					arguments.Add("group=");
+					arguments.Add(winService.Group);
+				}
+				if (!string.IsNullOrEmpty(winService.Password))
+				{
+					arguments.Add("password=");
+					arguments.Add(winService.Password);
+				}
 			}
-			Shell.Standard.Exec(cmd);
 
-			return new ServiceManager(this, service.ServiceId);
+			RunProcess("sc.exe", arguments.ToArray());
+
+			return new ServiceManager(this, serviceId);
 		}
 
 		public override void Remove(string serviceId)
 		{
 			serviceId = ValidateServiceId(serviceId);
-			if (Info(serviceId) == null)
+			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
+			if (service == null)
 			{
 				throw new ArgumentException("Service not found.", nameof(serviceId));
 			}
-			Shell.Standard.Exec($"sc.exe delete {serviceId}");
+			RunProcess("sc.exe", "delete", service.Id);
 		}
 
-		public override void SystemReboot() => Shell.Standard.Exec("shutdown.exe /r /f /t 0");
+		public override void SystemReboot() => RunProcess("shutdown.exe", "/r", "/f", "/t", "0");
 	}
 }
