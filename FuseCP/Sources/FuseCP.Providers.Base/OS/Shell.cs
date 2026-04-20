@@ -299,6 +299,9 @@ namespace FuseCP.Providers.OS
 			if (ContainsShellMetaCharacters(arguments))
 				throw new ArgumentException("Arguments contain invalid shell meta characters.", nameof(cmd));
 
+			if (!string.IsNullOrEmpty(arguments) && !Regex.IsMatch(arguments, @"^[A-Za-z0-9\s_\-\./:=,@+\\]*$"))
+				throw new ArgumentException("Arguments contain unsafe characters.", nameof(cmd));
+
 			if (ContainsShellMetaCharacters(cmd))
 				throw new ArgumentException("Command contains invalid shell meta characters.", nameof(cmd));
 
