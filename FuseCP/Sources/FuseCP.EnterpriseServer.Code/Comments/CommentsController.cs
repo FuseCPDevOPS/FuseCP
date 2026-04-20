@@ -43,8 +43,12 @@ namespace FuseCP.EnterpriseServer
             string commentText, int severityId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             if (accountCheck < 0) return accountCheck;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // add comment
@@ -57,8 +61,12 @@ namespace FuseCP.EnterpriseServer
         public int DeleteComment(int commentId)
         {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             if (accountCheck < 0) return accountCheck;
+
+            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
+
             if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // delete comment

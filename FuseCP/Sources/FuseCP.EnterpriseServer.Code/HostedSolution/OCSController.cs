@@ -97,7 +97,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void DeleteDomain(int itemId, string domainName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
             if (SecurityContext.User == null) return;
 
             Organization org = OrganizationController.GetOrganization(itemId);
