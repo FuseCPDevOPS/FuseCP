@@ -165,6 +165,7 @@ namespace FuseCP.EnterpriseServer
             int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
             int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
             if (notDemoCheck < 0 || activeCheck < 0) return new List<Organization>();
+            if (SecurityContext.User == null) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
@@ -1374,6 +1375,8 @@ namespace FuseCP.EnterpriseServer
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
                 return new List<ExchangeAccount>();
             if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+                return new List<ExchangeAccount>();
+            if (SecurityContext.User == null)
                 return new List<ExchangeAccount>();
 
             List<ExchangeAccount> demoAccounts = new List<ExchangeAccount>();
