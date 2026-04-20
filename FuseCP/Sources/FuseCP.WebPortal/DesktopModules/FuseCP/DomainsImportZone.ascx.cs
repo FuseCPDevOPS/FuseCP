@@ -26,6 +26,7 @@ namespace FuseCP.Portal
     {
         private const int MaxZoneFileSizeBytes = 1024 * 1024;
         private const int MaxZoneRecordCount = 5000;
+        private static readonly string[] AllowedZoneContentTypes = { "application/json", "text/json", "text/plain" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,6 +38,12 @@ namespace FuseCP.Portal
     
         protected void UploadZoneFile_OnClick(object sender, EventArgs e)
         {
+            if (Request?.Files == null || Request.Files.Count != 1)
+            {
+                ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
+                return;
+            }
+
             //Get the uploaded zone file
             var zoneFile = file.PostedFile;
             //First check that there was actually a file uploaded
@@ -57,6 +64,12 @@ namespace FuseCP.Portal
                 }
 
                 if (zoneFile.ContentLength > MaxZoneFileSizeBytes)
+                {
+                    ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
+                    return;
+                }
+
+                if (!AllowedZoneContentTypes.Contains(zoneFile.ContentType ?? string.Empty, StringComparer.OrdinalIgnoreCase))
                 {
                     ShowErrorMessage("DOMAIN_IMPORT_NO_FILE");
                     return;

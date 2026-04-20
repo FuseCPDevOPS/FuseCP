@@ -102,7 +102,6 @@ namespace FuseCP.WebDavPortal.Controllers.Api
         }
 
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public IActionResult Post(int accessTokenId)
         {
             var token = _tokenManager.GetToken(accessTokenId);

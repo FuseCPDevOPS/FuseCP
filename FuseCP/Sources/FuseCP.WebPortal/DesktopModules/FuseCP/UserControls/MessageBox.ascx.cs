@@ -109,7 +109,7 @@ namespace FuseCP.Portal
 			else
 			{
 				rowTechnicalDetails.Visible = false;
-				safeDescription = description ?? String.Empty;
+				safeDescription = String.Empty;
 			}
 
 			litMessage.Text = HttpUtility.HtmlEncode(safeMessage);

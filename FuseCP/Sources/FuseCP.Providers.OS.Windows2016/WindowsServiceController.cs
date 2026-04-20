@@ -48,6 +48,10 @@ namespace FuseCP.Providers.OS
 		public override void ChangeStatus(string serviceId, OSServiceStatus status)
 		{
 			serviceId = ValidateServiceId(serviceId);
+			if (Info(serviceId) == null)
+			{
+				throw new ArgumentException("Service not found.", nameof(serviceId));
+			}
 			OSInfo.Windows.ChangeOSServiceStatus(serviceId, status);
 		}
 
