@@ -312,18 +312,18 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
 
 			var currentUser = SecurityContext.User;
 			if (currentUser == null)
 				return false;
 
-			UserInfoInternal targetUser = GetUser(changeUserId);
-			if (targetUser == null)
-				return false;
-
-			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) || currentUser.UserId == targetUser.UserId)
+			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) || currentUser.UserId == changeUserId)
 				return true;
+
+			if (GetUser(changeUserId) == null)
+				return false;
 
 			var currentUserId = currentUser.UserId;
 			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
@@ -986,6 +986,12 @@ namespace FuseCP.EnterpriseServer
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
+			bool canManageUser = SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				|| SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER)
+				|| SecurityContext.User.UserId == userId;
+			if (!canManageUser)
+				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
 			if (GetUser(userId) == null)
 				return -1;
 
@@ -1000,6 +1006,12 @@ namespace FuseCP.EnterpriseServer
 
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
+
+			bool canManageUser = SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				|| SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER)
+				|| SecurityContext.User.UserId == userId;
+			if (!canManageUser)
+				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (GetUser(userId) == null)
 				return -1;
@@ -1257,6 +1269,8 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				&& SecurityContext.User.UserId != userId) return;
 			if (GetUser(userId) == null) return;
 			Database.UpdateUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName, PropertyValue);
 		}
@@ -1265,6 +1279,8 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				&& SecurityContext.User.UserId != userId) return;
 			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName);
 		}
