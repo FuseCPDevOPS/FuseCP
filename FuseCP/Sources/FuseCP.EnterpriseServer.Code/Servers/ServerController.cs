@@ -908,8 +908,8 @@ namespace FuseCP.EnterpriseServer
 
 		public List<ServiceInfo> GetServicesByGroupName(string groupName)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-			if (accountCheck < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<ServiceInfo>();
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<ServiceInfo>();
 			if (SecurityContext.User == null) return new List<ServiceInfo>();
 
 			return ObjectUtils.CreateListFromDataSet<ServiceInfo>(
@@ -1072,11 +1072,13 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettings(int serviceId)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-			if (accountCheck < 0)
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
 				return null;
 
-			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+				return null;
+
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
 			if (accountCheck < 0)
 				return null;
 			if (SecurityContext.User == null)
@@ -2369,8 +2371,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int SetItemPrimaryIPAddress(int itemId, int packageAddressId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
-			if (accountCheck < 0) return accountCheck;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
@@ -2496,9 +2498,10 @@ namespace FuseCP.EnterpriseServer
 		public int AddCluster(ClusterInfo cluster)
 		{
 			// check account
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin
-				| DemandAccount.IsActive);
-			if (accountCheck < 0) return accountCheck;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			return Database.AddCluster(cluster.ClusterName);
 		}
