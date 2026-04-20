@@ -160,7 +160,12 @@ namespace FuseCP.EnterpriseServer
         public void DeleteBackgroundTasks(Guid guid)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-            if (!GetTasks(guid).Any())
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return;
+
+            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            if (!GetTasks(actorId).Any(task => task.Guid == guid))
                 return;
             Database.DeleteBackgroundTasks(guid);
         }
@@ -168,7 +173,12 @@ namespace FuseCP.EnterpriseServer
         public void DeleteBackgroundTask(int id)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-            if (!GetTasks().Any(task => task.Id == id))
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return;
+
+            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            if (!GetTasks(actorId).Any(task => task.Id == id))
                 return;
             Database.DeleteBackgroundTask(id);
         }

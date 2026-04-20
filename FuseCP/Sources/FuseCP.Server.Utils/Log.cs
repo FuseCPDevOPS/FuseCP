@@ -79,7 +79,7 @@ namespace FuseCP.Server.Utils
                     txt.Append("[");
                     txt.Append(DateTime.Now.ToString("G", CultureInfo.InvariantCulture));
                     txt.Append("] ERROR: ");
-                    txt.AppendLine(SanitizeLogText(message));
+                    txt.AppendLine(GenericErrorMessage);
                     while (ex != null) {
                         txt.AppendLine("[" + ex.GetType().FullName + "]");
                         ex = ex.InnerException;
@@ -177,22 +177,19 @@ namespace FuseCP.Server.Utils
 
         private static string FormatIncomingMessage(string message, string tag, params object[] args)
         {
-            if (message == null)
-            {
-                message = String.Empty;
-            }
+            string messageToLog = String.IsNullOrEmpty(message) ? String.Empty : "Message logged.";
 
             if (LooksSensitive(message))
             {
-                message = "[REDACTED]";
+                messageToLog = "[REDACTED]";
             }
 
             if (args != null && args.Length > 0)
             {
-                message = message + " | args=[REDACTED]";
+                messageToLog = messageToLog + " | args=[REDACTED]";
             }
 
-            return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(message);
+            return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(messageToLog);
         }
 
         private static string SanitizeLogText(string input)

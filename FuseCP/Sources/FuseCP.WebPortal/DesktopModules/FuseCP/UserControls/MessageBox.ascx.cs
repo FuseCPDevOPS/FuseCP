@@ -94,9 +94,9 @@ namespace FuseCP.Portal
 					litStackTrace.Text = PortalAntiXSS.Encode("Technical details are available in server logs.");
 
 					// send form
-					litSendFrom.Text = !String.IsNullOrEmpty(PortalUtils.FromEmail) ? PortalUtils.FromEmail : String.Empty;
+					litSendFrom.Text = String.Empty;
 
-					litSendTo.Text = PortalUtils.AdminEmail;
+					litSendTo.Text = String.Empty;
 					litSendCC.Text = String.Empty;
 					litSendSubject.Text = GetLocalizedString("Text.Subject");
 

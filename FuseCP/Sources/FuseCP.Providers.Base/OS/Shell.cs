@@ -296,6 +296,9 @@ namespace FuseCP.Providers.OS
 			if (arguments.IndexOf('\0') >= 0 || arguments.IndexOf('\r') >= 0 || arguments.IndexOf('\n') >= 0)
 				throw new ArgumentException("Arguments contain invalid control characters.", nameof(cmd));
 
+			if (ContainsShellMetaCharacters(arguments))
+				throw new ArgumentException("Arguments contain invalid shell meta characters.", nameof(cmd));
+
 			if (ContainsShellMetaCharacters(cmd))
 				throw new ArgumentException("Command contains invalid shell meta characters.", nameof(cmd));
 

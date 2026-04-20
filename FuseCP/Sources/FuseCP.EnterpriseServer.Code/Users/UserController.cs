@@ -314,11 +314,18 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 
+			var currentUser = SecurityContext.User;
+			if (currentUser == null)
+				return false;
+
 			UserInfoInternal targetUser = GetUser(changeUserId);
 			if (targetUser == null)
 				return false;
 
-			var currentUserId = SecurityContext.User.UserId;
+			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) || currentUser.UserId == targetUser.UserId)
+				return true;
+
+			var currentUserId = currentUser.UserId;
 			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
 			var canPeerChangeMfa = Convert.ToBoolean(authSettings[SystemSettings.MFA_CAN_PEER_CHANGE_MFA]);
 
@@ -1250,6 +1257,7 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+			if (GetUser(userId) == null) return;
 			Database.UpdateUserThemeSetting(SecurityContext.User.UserId, userId, PropertyName, PropertyValue);
 		}
 

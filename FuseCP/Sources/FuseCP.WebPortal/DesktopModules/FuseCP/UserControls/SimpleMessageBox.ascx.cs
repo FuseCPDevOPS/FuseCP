@@ -228,6 +228,10 @@ namespace FuseCP.Portal.UserControls
                 safeMessage = "An unexpected error occurred.";
                 safeDescription = "Technical details are available in server logs.";
             }
+            else
+            {
+                safeDescription = String.Empty;
+            }
 
 			// set texts
             litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
