@@ -135,64 +135,12 @@ namespace CryptSharp
 
                 I = (byte[])A.Hash.Clone();
 
-                A.Initialize();
-                AddToDigest(A, key);
-                AddToDigest(A, salt);
+                H = ComputeInitialHash(A, key, salt, I);
+                P = ComputeRepeatedKeyDigest(A, key);
+                S = ComputeRepeatedSaltDigest(A, salt, H[0]);
+                ApplyRounds(A, P, S, H, rounds);
 
-                AddToDigestRolling(A, I, 0, I.Length, key.Length);
-
-                int length = key.Length;
-                for (int i = 0; i < 31 && length != 0; i++)
-                {
-                    AddToDigest(A, (length & (1 << i)) != 0 ? I : key);
-                    length &= ~(1 << i);
-                }
-                FinishDigest(A);
-
-                H = (byte[])A.Hash.Clone();
-
-                A.Initialize();
-                for (int i = 0; i < key.Length; i++)
-                {
-                    AddToDigest(A, key);
-                }
-                FinishDigest(A);
-
-                P = new byte[key.Length];
-                CopyRolling(A.Hash, 0, A.Hash.Length, P);
-
-                A.Initialize();
-                for (int i = 0; i < 16 + H[0]; i++)
-                {
-                    AddToDigest(A, salt);
-                }
-                FinishDigest(A);
-
-                S = new byte[salt.Length];
-                CopyRolling(A.Hash, 0, A.Hash.Length, S);
-
-                for (int i = 0; i < rounds; i++)
-                {
-                    A.Initialize();
-                    if ((i & 1) != 0) { AddToDigest(A, P); }
-                    if ((i & 1) == 0) { AddToDigest(A, H); }
-                    if ((i % 3) != 0) { AddToDigest(A, S); }
-                    if ((i % 7) != 0) { AddToDigest(A, P); }
-                    if ((i & 1) != 0) { AddToDigest(A, H); }
-                    if ((i & 1) == 0) { AddToDigest(A, P); }
-                    FinishDigest(A);
-
-                    Array.Copy(A.Hash, H, H.Length);
-                }
-
-                byte[] crypt = new byte[H.Length];
-                int[] permutation = GetCryptPermutation();
-                for (int i = 0; i < crypt.Length; i++)
-                {
-                    crypt[i] = H[permutation[i]];
-                }
-
-                return crypt;
+                return PermuteHash(H, GetCryptPermutation());
             }
             finally
             {
@@ -202,6 +150,81 @@ namespace CryptSharp
                 Security.Clear(H);
                 Security.Clear(I);
             }
+        }
+
+        static byte[] ComputeInitialHash(HashAlgorithm algorithm, byte[] key, byte[] salt, byte[] initialHash)
+        {
+            algorithm.Initialize();
+            AddToDigest(algorithm, key);
+            AddToDigest(algorithm, salt);
+
+            AddToDigestRolling(algorithm, initialHash, 0, initialHash.Length, key.Length);
+
+            int length = key.Length;
+            for (int i = 0; i < 31 && length != 0; i++)
+            {
+                AddToDigest(algorithm, (length & (1 << i)) != 0 ? initialHash : key);
+                length &= ~(1 << i);
+            }
+            FinishDigest(algorithm);
+
+            return (byte[])algorithm.Hash.Clone();
+        }
+
+        static byte[] ComputeRepeatedKeyDigest(HashAlgorithm algorithm, byte[] key)
+        {
+            algorithm.Initialize();
+            for (int i = 0; i < key.Length; i++)
+            {
+                AddToDigest(algorithm, key);
+            }
+            FinishDigest(algorithm);
+
+            byte[] result = new byte[key.Length];
+            CopyRolling(algorithm.Hash, 0, algorithm.Hash.Length, result);
+            return result;
+        }
+
+        static byte[] ComputeRepeatedSaltDigest(HashAlgorithm algorithm, byte[] salt, byte firstHashByte)
+        {
+            algorithm.Initialize();
+            for (int i = 0; i < 16 + firstHashByte; i++)
+            {
+                AddToDigest(algorithm, salt);
+            }
+            FinishDigest(algorithm);
+
+            byte[] result = new byte[salt.Length];
+            CopyRolling(algorithm.Hash, 0, algorithm.Hash.Length, result);
+            return result;
+        }
+
+        static void ApplyRounds(HashAlgorithm algorithm, byte[] keyDigest, byte[] saltDigest, byte[] hash, int rounds)
+        {
+            for (int i = 0; i < rounds; i++)
+            {
+                algorithm.Initialize();
+                if ((i & 1) != 0) { AddToDigest(algorithm, keyDigest); }
+                if ((i & 1) == 0) { AddToDigest(algorithm, hash); }
+                if ((i % 3) != 0) { AddToDigest(algorithm, saltDigest); }
+                if ((i % 7) != 0) { AddToDigest(algorithm, keyDigest); }
+                if ((i & 1) != 0) { AddToDigest(algorithm, hash); }
+                if ((i & 1) == 0) { AddToDigest(algorithm, keyDigest); }
+                FinishDigest(algorithm);
+
+                Array.Copy(algorithm.Hash, hash, hash.Length);
+            }
+        }
+
+        static byte[] PermuteHash(byte[] hash, int[] permutation)
+        {
+            byte[] crypt = new byte[hash.Length];
+            for (int i = 0; i < crypt.Length; i++)
+            {
+                crypt[i] = hash[permutation[i]];
+            }
+
+            return crypt;
         }
 
         protected abstract HashAlgorithm CreateHashAlgorithm();

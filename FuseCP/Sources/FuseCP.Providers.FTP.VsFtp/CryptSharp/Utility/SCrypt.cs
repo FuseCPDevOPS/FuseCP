@@ -204,31 +204,52 @@ namespace CryptSharp.Utility
 
         static void SMix(uint[] B, int Boffset, uint[] Bp, int Bpoffset, uint N, int r)
         {
-            uint Nmask = N - 1; int Bs = 16 * 2 * r;
+            uint Nmask = N - 1;
+            int Bs = 16 * 2 * r;
             uint[] scratch1 = new uint[16];
             uint[] scratchX = new uint[16], scratchY = new uint[Bs];
             uint[] scratchZ = new uint[Bs];
 
-            uint[] x = new uint[Bs]; uint[][] v = new uint[N][];
+            uint[] x = new uint[Bs];
+            uint[][] v = new uint[N][];
             for (int i = 0; i < v.Length; i++) { v[i] = new uint[Bs]; }
 
             Array.Copy(B, Boffset, x, 0, Bs);
+            FillMixVectors(x, v, N, r, scratchX, scratchY, scratch1);
+            ApplyMixVectors(x, v, N, Nmask, r, scratchX, scratchY, scratchZ, scratch1);
+            Array.Copy(x, 0, Bp, Bpoffset, Bs);
+
+            ClearMixBuffers(v, x, scratchX, scratchY, scratchZ, scratch1);
+        }
+
+        static void FillMixVectors(uint[] x, uint[][] v, uint N, int r, uint[] scratchX, uint[] scratchY, uint[] scratch1)
+        {
             for (uint i = 0; i < N; i++)
             {
-                Array.Copy(x, v[i], Bs);
-                BlockMix(x, 0, x, 0, scratchX, scratchY, scratch1, r); 
+                Array.Copy(x, v[i], x.Length);
+                BlockMix(x, 0, x, 0, scratchX, scratchY, scratch1, r);
             }
+        }
+
+        static void ApplyMixVectors(uint[] x, uint[][] v, uint N, uint nMask, int r, uint[] scratchX, uint[] scratchY, uint[] scratchZ, uint[] scratch1)
+        {
             for (uint i = 0; i < N; i++)
             {
-                uint j = x[Bs - 16] & Nmask; uint[] vj = v[j];
+                uint j = x[x.Length - 16] & nMask;
+                uint[] vj = v[j];
                 for (int k = 0; k < scratchZ.Length; k++) { scratchZ[k] = x[k] ^ vj[k]; }
                 BlockMix(scratchZ, 0, x, 0, scratchX, scratchY, scratch1, r);
             }
-            Array.Copy(x, 0, Bp, Bpoffset, Bs);
+        }
 
+        static void ClearMixBuffers(uint[][] v, uint[] x, uint[] scratchX, uint[] scratchY, uint[] scratchZ, uint[] scratch1)
+        {
             for (int i = 0; i < v.Length; i++) { Security.Clear(v[i]); }
-            Security.Clear(v); Security.Clear(x);
-            Security.Clear(scratchX); Security.Clear(scratchY); Security.Clear(scratchZ);
+            Security.Clear(v);
+            Security.Clear(x);
+            Security.Clear(scratchX);
+            Security.Clear(scratchY);
+            Security.Clear(scratchZ);
             Security.Clear(scratch1);
         }
 
