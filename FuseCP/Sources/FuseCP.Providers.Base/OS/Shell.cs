@@ -212,8 +212,18 @@ namespace FuseCP.Providers.OS
 			if (string.IsNullOrWhiteSpace(value))
 				return false;
 
-			if (value.IndexOf(Path.DirectorySeparatorChar) >= 0 || value.IndexOf(Path.AltDirectorySeparatorChar) >= 0)
+			if (value.IndexOf('\0') >= 0 || value.IndexOf('\r') >= 0 || value.IndexOf('\n') >= 0)
 				return false;
+
+			if (value.IndexOf('"') >= 0 || value.IndexOf('\'') >= 0)
+				return false;
+
+			if (value.IndexOf(Path.DirectorySeparatorChar) >= 0 || value.IndexOf(Path.AltDirectorySeparatorChar) >= 0)
+			{
+				// Full command paths are allowed because ProcessStartInfo starts the executable directly.
+				// Keep shell metacharacter filtering in caller and disallow wildcard/pipe-like path characters.
+				return value.IndexOfAny(new[] { '*', '?', '<', '>', '|' }) < 0;
+			}
 
 			return Regex.IsMatch(value, @"^[A-Za-z0-9._\-]+$");
 		}
@@ -296,11 +306,9 @@ namespace FuseCP.Providers.OS
 			if (arguments.IndexOf('\0') >= 0 || arguments.IndexOf('\r') >= 0 || arguments.IndexOf('\n') >= 0)
 				throw new ArgumentException("Arguments contain invalid control characters.", nameof(cmd));
 
-			if (ContainsShellMetaCharacters(arguments))
-				throw new ArgumentException("Arguments contain invalid shell meta characters.", nameof(cmd));
-
-			if (!string.IsNullOrEmpty(arguments) && !Regex.IsMatch(arguments, @"^[A-Za-z0-9\s_\-\./:=,@+\\]*$"))
-				throw new ArgumentException("Arguments contain unsafe characters.", nameof(cmd));
+			// Arguments are passed via ProcessStartInfo.ArgumentList (no shell expansion),
+			// so shell metacharacters are treated as literal argument content.
+			// Keep control-character checks above, and command token checks below.
 
 			if (ContainsShellMetaCharacters(cmd))
 				throw new ArgumentException("Command contains invalid shell meta characters.", nameof(cmd));
