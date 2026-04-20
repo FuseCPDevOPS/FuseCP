@@ -79,7 +79,7 @@ namespace FuseCP.Portal
 			string safeDescription;
 
 			// show exception
-			if (ex != null)
+			if (ex != null || messageType == MessageBoxType.Error)
 			{
 				safeMessage = "An unexpected error occurred.";
 				safeDescription = String.Empty; // suppress raw description when exception is present

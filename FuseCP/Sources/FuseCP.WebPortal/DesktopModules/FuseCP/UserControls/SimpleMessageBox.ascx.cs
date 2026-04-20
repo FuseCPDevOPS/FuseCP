@@ -223,7 +223,7 @@ namespace FuseCP.Portal.UserControls
             string safeDescription;
 
             // error
-            if (ex != null)
+            if (ex != null || messageType == MessageBoxType.Error)
             {
                 safeMessage = "An unexpected error occurred.";
                 safeDescription = "Technical details are available in server logs.";
