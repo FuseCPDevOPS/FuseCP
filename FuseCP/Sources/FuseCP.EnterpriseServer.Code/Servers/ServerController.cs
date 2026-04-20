@@ -939,6 +939,8 @@ namespace FuseCP.EnterpriseServer
 
 			accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
 			if (accountCheck < 0) return null;
+			if (SecurityContext.User == null) return null;
+
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
 		}
