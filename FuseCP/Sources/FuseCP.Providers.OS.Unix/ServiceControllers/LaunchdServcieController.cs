@@ -120,7 +120,10 @@ public class LaunchdServiceController : ServiceController
 	public override void Remove(string serviceId)
 	{
 		serviceId = ValidateServiceId(serviceId);
-		Path.Join(ServicesDirectory, $"{serviceId}.plist");
+		if (Info(serviceId) == null)
+		{
+			throw new ArgumentException("Service not found.", nameof(serviceId));
+		}
 
 		Shell.Exec($"launchctl disable system/{serviceId}");
 		Shell.Exec($"launchctl bootout  system {ServiceFile(serviceId)}");

@@ -88,6 +88,10 @@ namespace FuseCP.Providers.OS
 		public override void Remove(string serviceId)
 		{
 			serviceId = ValidateServiceId(serviceId);
+			if (Info(serviceId) == null)
+			{
+				throw new ArgumentException("Service not found.", nameof(serviceId));
+			}
 			Shell.Standard.Exec($"sc.exe delete {serviceId}");
 		}
 
