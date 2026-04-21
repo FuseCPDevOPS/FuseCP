@@ -238,6 +238,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHostingPlan(int planId)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
@@ -382,6 +384,8 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return new DataSet();
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new DataSet();
 

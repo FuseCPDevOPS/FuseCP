@@ -918,6 +918,8 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfoAdmin(int serviceId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
@@ -1092,6 +1094,8 @@ namespace FuseCP.EnterpriseServer
 
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;

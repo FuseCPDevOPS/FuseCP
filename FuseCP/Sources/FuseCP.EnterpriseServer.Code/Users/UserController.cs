@@ -1277,10 +1277,12 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateUserThemeSetting(int userId, string PropertyName, string PropertyValue)
 		{
-			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && SecurityContext.User.UserId != userId) return;
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && currentUser.UserId != userId)) return;
+			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && currentUser.UserId != userId) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
 			if (GetUser(userId) == null) return;
 			Database.UpdateUserThemeSetting(currentUser.UserId, userId, PropertyName, PropertyValue);
@@ -1288,10 +1290,12 @@ namespace FuseCP.EnterpriseServer
 
 		public void DeleteUserThemeSetting(int userId, string PropertyName)
 		{
-			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && SecurityContext.User.UserId != userId) return;
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && currentUser.UserId != userId)) return;
+			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && currentUser.UserId != userId) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsReseller) < 0) return;
 			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(currentUser.UserId, userId, PropertyName);

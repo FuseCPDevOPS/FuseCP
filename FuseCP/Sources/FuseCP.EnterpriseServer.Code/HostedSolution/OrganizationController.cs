@@ -4071,6 +4071,8 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAdditionalGroup(int groupId)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             var currentUser = SecurityContext.User;
