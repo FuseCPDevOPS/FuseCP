@@ -314,6 +314,8 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return false;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return false;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 
@@ -985,6 +987,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(int userId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
@@ -1004,6 +1008,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(string taskId, int userId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;

@@ -2273,6 +2273,8 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
@@ -2280,6 +2282,8 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAllExpiredTokens()
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredAccessTokens();

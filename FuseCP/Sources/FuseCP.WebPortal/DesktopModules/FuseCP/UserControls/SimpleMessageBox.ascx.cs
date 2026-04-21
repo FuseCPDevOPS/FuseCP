@@ -221,9 +221,12 @@ namespace FuseCP.Portal.UserControls
 
             // For error cases, always use a generic safe message to prevent leaking sensitive
             // details to the client. For info/warning cases use the caller-supplied message.
-            string safeMessage = (messageType == MessageBoxType.Error)
-                ? "An unexpected error occurred."
-                : (message ?? string.Empty);
+            string safeMessage = messageType switch
+            {
+                MessageBoxType.Error => "An unexpected error occurred.",
+                MessageBoxType.Warning => "Operation completed with warnings.",
+                _ => "Operation completed successfully."
+            };
             string safeDescription = (messageType == MessageBoxType.Error)
                 ? "Technical details are available in server logs."
                 : String.Empty;

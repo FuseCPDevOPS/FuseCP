@@ -1013,6 +1013,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
@@ -1793,6 +1795,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackageItem(int itemId)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLERCSR) && !principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLERCSR) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;

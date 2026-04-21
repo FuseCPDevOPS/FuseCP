@@ -79,7 +79,7 @@ namespace FuseCP.Portal
 			// sensitive details to the client. For info/warning cases use the caller-supplied message.
 			string safeMessage = (ex != null || messageType == MessageBoxType.Error)
 				? "An unexpected error occurred."
-				: (message ?? string.Empty);
+				: (messageType == MessageBoxType.Warning ? "Operation completed with warnings." : "Operation completed successfully.");
 			string safeDescription;
 
 			// show exception

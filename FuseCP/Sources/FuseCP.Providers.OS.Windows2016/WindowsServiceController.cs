@@ -97,6 +97,15 @@ namespace FuseCP.Providers.OS
 				throw new UnauthorizedAccessException("Changing unmanaged system services is not permitted.");
 			}
 
+			var allowedServiceIds = All()
+				.Where(s => s != null && IsManagedServiceId(s.Id))
+				.Select(s => s.Id)
+				.ToHashSet(StringComparer.OrdinalIgnoreCase);
+			if (!allowedServiceIds.Contains(serviceId))
+			{
+				throw new UnauthorizedAccessException("Requested service is not in the managed-service allow list.");
+			}
+
 			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
 			if (service == null)
 			{

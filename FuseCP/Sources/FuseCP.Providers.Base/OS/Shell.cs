@@ -340,6 +340,14 @@ namespace FuseCP.Providers.OS
 				// Resolve to a canonical, absolute path so the executable source is unambiguous
 				// and free from any path-traversal manipulation that could survive IsSafeCommandToken.
 				var resolvedExecutable = Path.GetFullPath(cmdWithPath);
+				if (!Path.IsPathRooted(resolvedExecutable) || !File.Exists(resolvedExecutable))
+					throw new ArgumentException("Command path is invalid.", nameof(cmd));
+
+				var executableToken = Path.GetFileNameWithoutExtension(resolvedExecutable);
+				var requestedToken = Path.GetFileNameWithoutExtension(cmd);
+				if (!string.Equals(executableToken, requestedToken, StringComparison.OrdinalIgnoreCase))
+					throw new ArgumentException("Resolved command does not match requested command token.", nameof(cmd));
+
 				var child = Clone;
 				var local_process = new Process();
 				child.Process = local_process;

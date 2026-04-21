@@ -162,6 +162,8 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTasks(Guid guid)
         {
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return;
             var currentUser = SecurityContext.User;

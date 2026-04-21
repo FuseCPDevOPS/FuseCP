@@ -2387,6 +2387,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
@@ -2408,6 +2410,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
@@ -2501,6 +2505,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteCluster(int clusterId)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal == null || !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
 			if (accountCheck < 0)
