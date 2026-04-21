@@ -74,6 +74,17 @@ namespace FuseCP.Providers.OS
 			return serviceId;
 		}
 
+		private static bool IsManagedServiceId(string serviceId)
+		{
+			if (string.IsNullOrWhiteSpace(serviceId))
+			{
+				return false;
+			}
+
+			return serviceId.StartsWith("fusecp.", StringComparison.OrdinalIgnoreCase)
+				|| serviceId.StartsWith("fusecp-", StringComparison.OrdinalIgnoreCase);
+		}
+
 		public override bool IsInstalled => true;
 
 		public override IEnumerable<OSService> All() => OSInfo.Windows.GetOSServices();
@@ -81,6 +92,11 @@ namespace FuseCP.Providers.OS
 		public override void ChangeStatus(string serviceId, OSServiceStatus status)
 		{
 			serviceId = ValidateServiceId(serviceId);
+			if (!IsManagedServiceId(serviceId))
+			{
+				throw new UnauthorizedAccessException("Changing unmanaged system services is not permitted.");
+			}
+
 			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
 			if (service == null)
 			{

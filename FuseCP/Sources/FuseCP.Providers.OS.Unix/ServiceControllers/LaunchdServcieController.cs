@@ -36,6 +36,15 @@ public class LaunchdServiceController : ServiceController
 			throw new ArgumentException("Invalid service identifier.", nameof(serviceId));
 		return serviceId;
 	}
+
+	static bool IsManagedServiceId(string serviceId)
+	{
+		if (string.IsNullOrWhiteSpace(serviceId))
+			return false;
+
+		return serviceId.StartsWith("fusecp.", StringComparison.OrdinalIgnoreCase)
+			|| serviceId.StartsWith("fusecp-", StringComparison.OrdinalIgnoreCase);
+	}
 	string ServiceFile(string serviceId) => Path.Join(ServicesDirectory, $"{ValidateServiceId(serviceId)}.plist");
 	public override IEnumerable<OSService> All()
 	{
@@ -98,6 +107,8 @@ public class LaunchdServiceController : ServiceController
 	public override void ChangeStatus(string serviceId, OSServiceStatus status)
 	{
 		serviceId = ValidateServiceId(serviceId);
+		if (!IsManagedServiceId(serviceId))
+			throw new UnauthorizedAccessException("Changing unmanaged system services is not permitted.");
 		var service = Info(serviceId);
 		if (service == null) throw new ArgumentException($"Service {serviceId} not found");
 		if (service.Status == OSServiceStatus.Running)

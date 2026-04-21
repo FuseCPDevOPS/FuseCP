@@ -196,7 +196,11 @@ namespace FuseCP.Providers.OS
 		static void ApplyArguments(ProcessStartInfo startInfo, string arguments)
 		{
 			foreach (var token in TokenizeArguments(arguments))
+			{
+				if (!IsSafeArgumentToken(token))
+					throw new ArgumentException("Arguments contain invalid shell meta characters.", nameof(arguments));
 				startInfo.ArgumentList.Add(token);
+			}
 		}
 
 		static bool ContainsShellMetaCharacters(string value)
@@ -226,6 +230,17 @@ namespace FuseCP.Providers.OS
 			}
 
 			return Regex.IsMatch(value, @"^[A-Za-z0-9._\-]+$");
+		}
+
+		static bool IsSafeArgumentToken(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+				return true;
+
+			if (value.IndexOf('\0') >= 0 || value.IndexOf('\r') >= 0 || value.IndexOf('\n') >= 0)
+				return false;
+
+			return !ContainsShellMetaCharacters(value);
 		}
 
 		protected virtual string ToTempFile(string script)

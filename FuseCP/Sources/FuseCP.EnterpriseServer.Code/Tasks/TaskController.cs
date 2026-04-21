@@ -162,10 +162,13 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTasks(Guid guid)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             var currentUser = SecurityContext.User;
             if (currentUser == null)
+                return;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return;
 
             if (!CanManageBackgroundTask(currentUser, task => task.Guid == guid))
@@ -175,10 +178,13 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTask(int id)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             var currentUser = SecurityContext.User;
             if (currentUser == null)
+                return;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return;
 
             if (!CanManageBackgroundTask(currentUser, task => task.Id == id))

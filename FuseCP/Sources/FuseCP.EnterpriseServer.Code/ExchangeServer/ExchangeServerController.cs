@@ -55,9 +55,13 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
-            if (SecurityContext.User == null) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return new DataSet();
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new DataSet();
@@ -100,17 +104,20 @@ namespace FuseCP.EnterpriseServer
         public OrganizationsPaged GetExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
             {
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
 
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
-            {
-                return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
-            }
+               var currentUser = SecurityContext.User;
+               if (currentUser == null)
+               {
+                   return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+               }
 
-               if (SecurityContext.User == null)
+               if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                   && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                   && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                {
                    return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
                }
@@ -142,9 +149,13 @@ namespace FuseCP.EnterpriseServer
 
         public List<Organization> GetExchangeOrganizations(int packageId, bool recursive)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new List<Organization>();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new List<Organization>();
-            if (SecurityContext.User == null) return new List<Organization>();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<Organization>();
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return new List<Organization>();
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0) return new List<Organization>();
@@ -179,9 +190,13 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
-            if (SecurityContext.User == null) return null;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return null;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                return null;
 
             #region Demo Mode
             if (IsDemoMode)
@@ -1160,9 +1175,13 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchServiceId(int? itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return -1;
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return -1;
-            if (SecurityContext.User == null) return -1;
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return -1;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return -1;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                return -1;
             int serviceId = -1;
 
             if (itemId.HasValue)
@@ -1264,10 +1283,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetAccounts(int itemId, ExchangeAccountType accountType)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeAccount>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             var currentUser = SecurityContext.User;
@@ -1334,10 +1350,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetExchangeAccountByMailboxPlanId(int itemId, int mailboxPlanId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeAccount>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             var currentUser = SecurityContext.User;
@@ -1362,10 +1375,7 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetExchangeMailboxes(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeAccount>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             var currentUser = SecurityContext.User;
@@ -1501,10 +1511,7 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeAccount>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             var currentUser = SecurityContext.User;
@@ -1541,10 +1548,7 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeAccount>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeAccount>();
 
             var currentUser = SecurityContext.User;
@@ -1583,10 +1587,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccount(int itemId, int accountId, bool withLog = true)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return null;
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
 
             var currentUser = SecurityContext.User;
@@ -1641,10 +1642,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccountByAccountName(string userPrincipalName)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return null;
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
 
             var currentUser = SecurityContext.User;
@@ -1705,10 +1703,7 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount SearchAccount(ExchangeAccountType accountType, string primaryEmailAddress)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return null;
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return null;
 
             var currentUser = SecurityContext.User;
@@ -1879,10 +1874,7 @@ namespace FuseCP.EnterpriseServer
         #region Domains
         public List<ExchangeDomainName> GetOrganizationDomains(int itemId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return new List<ExchangeDomainName>();
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return new List<ExchangeDomainName>();
 
             var currentUser = SecurityContext.User;
@@ -3539,10 +3531,7 @@ namespace FuseCP.EnterpriseServer
 
         public string GetMailboxSetupInstructions(int itemId, int accountId, bool pmm, bool emailMode, bool signup, string passwordResetUrl)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-                return string.Empty;
-
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
                 return string.Empty;
 
             var currentUser = SecurityContext.User;
@@ -6146,12 +6135,15 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePublicFolders(int itemId, int[] accountIds)
         {
-            // check account
-            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
 
-            if (SecurityContext.User == null)
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             Organization org = GetOrganization(itemId, false);

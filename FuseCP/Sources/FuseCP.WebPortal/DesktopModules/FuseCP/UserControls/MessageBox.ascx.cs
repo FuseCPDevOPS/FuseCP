@@ -133,8 +133,12 @@ namespace FuseCP.Portal
 				var encodedComments = PortalAntiXSS.Encode(txtSendComments.Text ?? String.Empty).Replace("\n", "<br/>\n");
 				var emailMessage = ErrorReportBodyTemplate.Replace("%Comments%", $"<p>{encodedComments}</p>");
 
-				// send mail
-				PortalUtils.SendMail(from, to, String.Empty, subject, emailMessage, true);
+				// Keep user comments in server diagnostics instead of transmitting by e-mail.
+				System.Diagnostics.Trace.TraceWarning("User error report captured. Subject: {0}; From: {1}; To: {2}; BodyLength: {3}",
+					subject,
+					from,
+					to,
+					emailMessage.Length);
 
 				lblSentMessage.Text = GetLocalizedString("Text.MessageSent");
 			}

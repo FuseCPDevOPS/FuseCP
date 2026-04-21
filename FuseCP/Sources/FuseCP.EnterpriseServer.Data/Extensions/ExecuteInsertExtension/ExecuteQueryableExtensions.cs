@@ -45,21 +45,13 @@ public static partial class EstrellasDeEsperanzaEntityFrameworkExtensions
 	public const string PostgreSqlProviderCore = "Npgsql.EntityFrameworkCore";
 
 	const string StringLiterals = "(?:[^\"']*?(?:'(?:''|[^'])*'|\"[^\"]*\"))*[^\"']*?";
-#if NETCOREAPP
-	[GeneratedRegex($"^({StringLiterals})SELECT", RegexOptions.Singleline)]
-	private static partial Regex InjectInsertRegex();
-	[GeneratedRegex($"^(?<params>{StringLiterals})SELECT", RegexOptions.Singleline)]
-	private static partial Regex InjectInsertSqliteRegex();
-	[GeneratedRegex(@"(?:^|\n)\.param\s+set\s+(?<name>[@a-zA-Z0-9_]+)\s+(?<value>(?:'(?:[^']|'')*')|(?:""[^""]*"")|(?:.*?)(?=\s*\r?\n))", RegexOptions.Singleline)]
-	private static partial Regex ParseParamsSqliteRegex();
-#else
 	static readonly Regex injectInsertRegex = new Regex($"^({StringLiterals})SELECT", RegexOptions.Singleline);
 	static readonly Regex injectInsertSqliteRegex = new Regex($"^(?<params>{StringLiterals})SELECT", RegexOptions.Singleline);
 	static readonly Regex parseParamsSqliteRegex = new Regex(@"(?:^|\n)\.param\s+set\s+(?<name>[@a-zA-Z0-9_]+)\s+(?<value>(?:'(?:[^']|'')*')|(?:""[^""]*"")|(?:.*?)(?=\s*\r?\n))", RegexOptions.Singleline);
 	private static Regex InjectInsertRegex() => injectInsertRegex;
 	private static Regex InjectInsertSqliteRegex() => injectInsertSqliteRegex;
 	private static Regex ParseParamsSqliteRegex() => parseParamsSqliteRegex;
-#endif
+
 	public enum DatabaseType { Unknown, SqlServer, Sqlite, MySql, MariaDb, PostgreSql, Oracle, Other };
 	public class QueryContext<EntityType> where EntityType : class
 	{

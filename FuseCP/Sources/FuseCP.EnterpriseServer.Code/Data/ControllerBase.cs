@@ -114,6 +114,7 @@ namespace FuseCP.EnterpriseServer
 
 		PackageController packageController = null;
 		protected PackageController PackageController => packageController ??= new PackageController(this);
+		protected IPackageMetadataReader PackageMetadataReader => packageController ??= new PackageController(this);
 
 		RemoteDesktopServicesController remoteDesktopServicesController = null;
 		protected RemoteDesktopServicesController RemoteDesktopServicesController => remoteDesktopServicesController ??= new RemoteDesktopServicesController(this);

@@ -42,7 +42,7 @@ namespace FuseCP.EnterpriseServer
     /// <summary>
     /// Summary description for Packages.
     /// </summary>
-    public class PackageController: ControllerBase
+    public class PackageController: ControllerBase, IPackageMetadataReader
     {
         public PackageController(ControllerBase provider) : base(provider) { }
 
@@ -238,12 +238,9 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHostingPlan(int planId)
         {
-            // check account
-            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            int resellerCheck = SecurityContext.CheckAccount(DemandAccount.IsReseller);
-            if (notDemoCheck < 0 || activeCheck < 0 || resellerCheck < 0)
-                return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : resellerCheck);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
+            if (accountCheck < 0)
+                return accountCheck;
 
             if (SecurityContext.User == null)
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
@@ -384,8 +381,7 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return new DataSet();
-            if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
             if (SecurityContext.User == null) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -1016,11 +1012,9 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
-            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            int resellerCsrCheck = SecurityContext.CheckAccount(DemandAccount.IsResellerCSR);
-            if (notDemoCheck < 0 || activeCheck < 0 || resellerCsrCheck < 0)
-                return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : resellerCsrCheck);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
+            if (accountCheck < 0)
+                return accountCheck;
 
             if (SecurityContext.User == null)
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
@@ -1800,10 +1794,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackageItem(int itemId)
         {
-            // delete item
-            int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-            int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            if (accountCheck < 0) return accountCheck;
 
             if (SecurityContext.User == null)
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;

@@ -85,28 +85,28 @@ namespace FuseCP.Portal.UserControls
         {
 			RenderMessage(MessageBoxType.Error,
 				GetLocalizedMessage("Error.", messageKey),
-				GetLocalizedMessage("ErrorDescription.", messageKey), ex);
+                GetLocalizedMessage("ErrorDescription.", messageKey));
         }
 
         public void ShowWarningMessage(string messageKey)
         {
 			RenderMessage(MessageBoxType.Warning,
 				GetLocalizedMessage("Warning.", messageKey),
-				GetLocalizedMessage("WarningDescription.", messageKey), null);
+                GetLocalizedMessage("WarningDescription.", messageKey));
         }
 
         public void ShowWarningMessage(string messageKey, string description)
         {
             RenderMessage(MessageBoxType.Warning,
                 GetLocalizedMessage("Warning.", messageKey),
-                                                description, null);
+                                                description);
         }
 
         public void ShowSuccessMessage(string messageKey)
         {
 			RenderMessage(MessageBoxType.Information,
 				GetLocalizedMessage("Success.", messageKey),
-				GetLocalizedMessage("SuccessDescription.", messageKey), null);
+                GetLocalizedMessage("SuccessDescription.", messageKey));
         }
 
 
@@ -200,7 +200,7 @@ namespace FuseCP.Portal.UserControls
                 ? String.Format("<br/><span class=\"description\">{0}</span>", description) : "";
 		}
         
-        public void RenderMessage(MessageBoxType messageType, string message, string description, Exception ex)
+        public void RenderMessage(MessageBoxType messageType, string message, string description)
 		{
 			divMessageBox.Visible = true;
             ViewState["JustRendered"] = true;
@@ -223,7 +223,7 @@ namespace FuseCP.Portal.UserControls
             string safeDescription;
 
             // error
-            if (ex != null || messageType == MessageBoxType.Error)
+            if (messageType == MessageBoxType.Error)
             {
                 safeMessage = "An unexpected error occurred.";
                 safeDescription = "Technical details are available in server logs.";

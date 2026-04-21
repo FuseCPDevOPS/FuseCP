@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2025 FuseCP
+// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -918,15 +918,10 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfoAdmin(int serviceId)
 		{
-			// check account
-			 if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-				 return null;
-			 if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
-				 return null;
-			 if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
-				 return null;
-			 if (SecurityContext.User == null)
-				 return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
+				return null;
+			if (SecurityContext.User == null)
+				return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
@@ -1098,15 +1093,10 @@ namespace FuseCP.EnterpriseServer
 
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
-			// check account
-			 if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-				 return null;
-			 if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
-				 return null;
-			 if (SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0)
-				 return null;
-			 if (SecurityContext.User == null)
-				 return null;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
+				return null;
+			if (SecurityContext.User == null)
+				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
 
@@ -1187,7 +1177,7 @@ namespace FuseCP.EnterpriseServer
 
 		public StringDictionary GetMailServiceSettingsByPackage(int packageID)
 		{
-			int serviceID = PackageController.GetPackageServiceId(packageID, ResourceGroups.Mail);
+			int serviceID = PackageMetadataReader.GetPackageServiceId(packageID, ResourceGroups.Mail);
 
 			// check account
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
@@ -1277,7 +1267,7 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
 			// load service
-			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
+			int serviceId = PackageMetadataReader.GetPackageServiceId(packageId, groupName);
 
 			if (serviceId == 0)
 				return null;
@@ -1646,7 +1636,7 @@ namespace FuseCP.EnterpriseServer
 			int serviceId = 0;
 			bool servicebyid = int.TryParse(groupName, out serviceId);
 			if (!servicebyid) // get service ID
-				serviceId = PackageController.GetPackageServiceId(packageId, groupName);
+				serviceId = PackageMetadataReader.GetPackageServiceId(packageId, groupName);
 
 
 			// get unallotted vlans
@@ -1711,7 +1701,7 @@ namespace FuseCP.EnterpriseServer
 			}
 
 			// get hosting plan VLAN limits
-			PackageContext cntx = PackageController.GetPackageContext(packageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(packageId);
 			int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
 			int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
 
@@ -2096,7 +2086,7 @@ namespace FuseCP.EnterpriseServer
 			int serviceId = 0;
 			bool servicebyid = int.TryParse(groupName, out serviceId);
 			if (!servicebyid) // get service ID
-				serviceId = PackageController.GetPackageServiceId(packageId, groupName);
+				serviceId = PackageMetadataReader.GetPackageServiceId(packageId, groupName);
 
 
 			// get unallotted addresses
@@ -2165,7 +2155,7 @@ namespace FuseCP.EnterpriseServer
 			}
 
 			// get hosting plan IP limits
-			PackageContext cntx = PackageController.GetPackageContext(packageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(packageId);
 			int quotaAllocated = cntx.Quotas[quotaName].QuotaAllocatedValue;
 			int quotaUsed = cntx.Quotas[quotaName].QuotaUsedValue;
 
@@ -2238,7 +2228,7 @@ namespace FuseCP.EnterpriseServer
 			// get hosting plan IPs
 			int number = 0;
 
-			PackageContext cntx = PackageController.GetPackageContext(packageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(packageId);
 			if (cntx.Quotas.TryGetValue(quotaName, out var quota))
 			{
 				number = quota.QuotaAllocatedValue;
@@ -2272,7 +2262,7 @@ namespace FuseCP.EnterpriseServer
 			string quotaName;
 			quotaName = isDmz ? Quotas.VPS2012_DMZ_VLANS_NUMBER : Quotas.VPS2012_PRIVATE_VLANS_NUMBER;
 
-			PackageContext cntx = PackageController.GetPackageContext(packageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(packageId);
 			if (cntx.Quotas.TryGetValue(quotaName, out var quota))
 			{
 				number = quota.QuotaAllocatedValue == -1
@@ -2329,7 +2319,7 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<PackageIPAddress>();
 
-			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
 				return new List<PackageIPAddress>();
 
@@ -2361,7 +2351,7 @@ namespace FuseCP.EnterpriseServer
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
-			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
 				return -1;
 
@@ -2382,7 +2372,7 @@ namespace FuseCP.EnterpriseServer
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
 				return -1;
 
@@ -2399,12 +2389,11 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
-			 int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-			 int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-			 if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
-			 if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
 				return -1;
 
@@ -2421,12 +2410,11 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
-			 int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-			 int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-			 if (notDemoCheck < 0 || activeCheck < 0) return notDemoCheck < 0 ? notDemoCheck : activeCheck;
-			 if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			if (accountCheck < 0) return accountCheck;
+			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-			ServiceProviderItem item = PackageController.GetPackageItem(itemId);
+			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
 				return -1;
 
@@ -2515,14 +2503,11 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteCluster(int clusterId)
 		{
-			// check account
-			 int notDemoCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
-			 int activeCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-			 int adminCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
-			 if (notDemoCheck < 0 || activeCheck < 0 || adminCheck < 0)
-				 return notDemoCheck < 0 ? notDemoCheck : (activeCheck < 0 ? activeCheck : adminCheck);
-			 if (SecurityContext.User == null)
-				 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
+			if (accountCheck < 0)
+				return accountCheck;
+			if (SecurityContext.User == null)
+				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))
 				return -1;
@@ -2857,7 +2842,7 @@ namespace FuseCP.EnterpriseServer
 
 			if (domainType == DomainType.Domain)
 			{
-				PackageContext cntx = PackageController.GetPackageContext(packageId);
+				PackageContext cntx = PackageMetadataReader.GetPackageContext(packageId);
 				if (!cntx.Quotas[Quotas.OS_NOTALLOWTENANTCREATEDOMAINS].QuotaExhausted)
 				{
 					accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
@@ -2874,9 +2859,9 @@ namespace FuseCP.EnterpriseServer
 			bool isDomainPointer = (domainType == DomainType.DomainPointer);
 
 			// check services
-			bool dnsEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Dns) > 0);
-			bool webEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Web) > 0);
-			bool mailEnabled = (PackageController.GetPackageServiceId(packageId, ResourceGroups.Mail) > 0);
+			bool dnsEnabled = (PackageMetadataReader.GetPackageServiceId(packageId, ResourceGroups.Dns) > 0);
+			bool webEnabled = (PackageMetadataReader.GetPackageServiceId(packageId, ResourceGroups.Web) > 0);
+			bool mailEnabled = (PackageMetadataReader.GetPackageServiceId(packageId, ResourceGroups.Mail) > 0);
 
 			// add main domain
 			int domainId = AddDomainInternal(packageId, domainName, createDnsZone && dnsEnabled, isSubDomain, false, isDomainPointer, allowSubDomains);
@@ -2980,19 +2965,19 @@ namespace FuseCP.EnterpriseServer
 				if (isSubDomain)
 				{
 					// sub-domain
-					if (PackageController.GetPackageQuota(packageId, Quotas.OS_SUBDOMAINS).QuotaExhausted)
+					if (PackageMetadataReader.GetPackageQuota(packageId, Quotas.OS_SUBDOMAINS).QuotaExhausted)
 						return BusinessErrorCodes.ERROR_SUBDOMAIN_QUOTA_LIMIT;
 				}
 				else if (isDomainPointer)
 				{
 					// domain pointer
-					//if (PackageController.GetPackageQuota(packageId, Quotas.OS_DOMAINPOINTERS).QuotaExhausted)
+					//if (PackageMetadataReader.GetPackageQuota(packageId, Quotas.OS_DOMAINPOINTERS).QuotaExhausted)
 					//    return BusinessErrorCodes.ERROR_DOMAIN_QUOTA_LIMIT;
 				}
 				else
 				{
 					// top-level domain
-					if (PackageController.GetPackageQuota(packageId, Quotas.OS_DOMAINS).QuotaExhausted)
+					if (PackageMetadataReader.GetPackageQuota(packageId, Quotas.OS_DOMAINS).QuotaExhausted)
 						return BusinessErrorCodes.ERROR_DOMAIN_QUOTA_LIMIT;
 				}
 			}
@@ -3026,7 +3011,7 @@ namespace FuseCP.EnterpriseServer
 				try
 				{
 					// add DNS zone
-					int serviceId = PackageController.GetPackageServiceId(packageId, ResourceGroups.Dns);
+					int serviceId = PackageMetadataReader.GetPackageServiceId(packageId, ResourceGroups.Dns);
 					if (serviceId > 0)
 					{
 						zoneItemId = DnsServerController.AddZone(packageId, serviceId, domainName, true, isPreviewDomain);
@@ -3071,7 +3056,7 @@ namespace FuseCP.EnterpriseServer
 		public void AddServiceDNSRecords(int packageId, string groupName, DomainInfo domain, string serviceIP, bool wildcardOnly)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
+			int serviceId = PackageMetadataReader.GetPackageServiceId(packageId, groupName);
 			if (serviceId > 0)
 			{
 				List<DnsRecord> tmpZoneRecords = new List<DnsRecord>();
@@ -3084,7 +3069,7 @@ namespace FuseCP.EnterpriseServer
 						.ToList();
 				}
 
-				DnsZone zone = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
+				DnsZone zone = (DnsZone)PackageMetadataReader.GetPackageItem(domain.ZoneItemId);
 				tmpZoneRecords.AddRange(DnsServerController.BuildDnsResourceRecords(dnsRecords, "", domain.ZoneName, serviceIP));
 
 				try
@@ -3114,7 +3099,7 @@ namespace FuseCP.EnterpriseServer
 		public void RemoveServiceDNSRecords(int packageId, string groupName, DomainInfo domain, string serviceIP, bool wildcardOnly)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-			int serviceId = PackageController.GetPackageServiceId(packageId, groupName);
+			int serviceId = PackageMetadataReader.GetPackageServiceId(packageId, groupName);
 			if (serviceId > 0)
 			{
 				List<DnsRecord> zoneRecords = new List<DnsRecord>();
@@ -3126,7 +3111,7 @@ namespace FuseCP.EnterpriseServer
 						.ToList();
 				}
 
-				DnsZone zone = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
+				DnsZone zone = (DnsZone)PackageMetadataReader.GetPackageItem(domain.ZoneItemId);
 				zoneRecords.AddRange(DnsServerController.BuildDnsResourceRecords(dnsRecords, "", domain.ZoneName, serviceIP));
 
 				try
@@ -3225,8 +3210,8 @@ namespace FuseCP.EnterpriseServer
 				}
 
 				// Find and delete all zone items for this domain
-				var zoneItems = PackageController.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(DnsZone));
-				zoneItems.AddRange(PackageController.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(SecondaryDnsZone)));
+				var zoneItems = PackageMetadataReader.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(DnsZone));
+				zoneItems.AddRange(PackageMetadataReader.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(SecondaryDnsZone)));
 
 				foreach (var zoneItem in zoneItems.Where(z => z.Name == domain.ZoneName))
 				{
@@ -3261,7 +3246,7 @@ namespace FuseCP.EnterpriseServer
 
 			if (!(domain.IsDomainPointer || domain.IsSubDomain || domain.IsPreviewDomain))
 			{
-				PackageContext cntx = PackageController.GetPackageContext(domain.PackageId);
+				PackageContext cntx = PackageMetadataReader.GetPackageContext(domain.PackageId);
 				if (!cntx.Quotas[Quotas.OS_NOTALLOWTENANTDELETEDOMAINS].QuotaExhausted)
 				{
 					accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
@@ -3397,7 +3382,7 @@ namespace FuseCP.EnterpriseServer
 			try
 			{
 				// create DNS zone
-				int serviceId = PackageController.GetPackageServiceId(domain.PackageId, ResourceGroups.Dns);
+				int serviceId = PackageMetadataReader.GetPackageServiceId(domain.PackageId, ResourceGroups.Dns);
 				if (serviceId > 0)
 				{
 					// add zone
@@ -3438,7 +3423,7 @@ namespace FuseCP.EnterpriseServer
 
 		private void AddAllServiceDNS(DomainInfo domain)
 		{
-			PackageContext cntx = PackageController.GetPackageContext(domain.PackageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(domain.PackageId);
 			if (cntx != null)
 			{
 				// fill dictionaries
@@ -3812,7 +3797,7 @@ namespace FuseCP.EnterpriseServer
 			DomainInfo domain = GetDomain(domainId);
 
 			// get DNS zone
-			DnsZone zoneItem = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
+			DnsZone zoneItem = (DnsZone)PackageMetadataReader.GetPackageItem(domain.ZoneItemId);
 
 			if (zoneItem != null)
 			{
@@ -3879,7 +3864,7 @@ namespace FuseCP.EnterpriseServer
 			if (packageCheck < 0) return packageCheck;
 
 			// get DNS service
-			DnsZone zoneItem = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
+			DnsZone zoneItem = (DnsZone)PackageMetadataReader.GetPackageItem(domain.ZoneItemId);
 
 			if (zoneItem == null)
 				return 0;
@@ -3889,7 +3874,7 @@ namespace FuseCP.EnterpriseServer
 			if (domain.RecordMinimumTTL == 0) domain.RecordMinimumTTL = 3600;
 			// Check Quota for allowing editing TTL
 			int EditTTL = 0;
-			PackageContext cntx = PackageController.GetPackageContext(domain.PackageId);
+			PackageContext cntx = PackageMetadataReader.GetPackageContext(domain.PackageId);
 			if (cntx != null && cntx.Quotas.TryGetValue("DNS.EditTTL", out var editTtlQuota))
 			{
 				EditTTL = editTtlQuota.QuotaAllocatedValue;
@@ -4000,7 +3985,7 @@ namespace FuseCP.EnterpriseServer
 			if (packageCheck < 0) return packageCheck;
 
 			// get DNS service
-			DnsZone zoneItem = (DnsZone)PackageController.GetPackageItem(domain.ZoneItemId);
+			DnsZone zoneItem = (DnsZone)PackageMetadataReader.GetPackageItem(domain.ZoneItemId);
 
 			if (zoneItem == null)
 				return 0;

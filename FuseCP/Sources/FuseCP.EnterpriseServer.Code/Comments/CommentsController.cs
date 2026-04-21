@@ -60,17 +60,18 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteComment(int commentId)
         {
-            // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
-            accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
-
-            if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             // delete comment
-            Database.DeleteComment(SecurityContext.User.UserId, commentId);
+            Database.DeleteComment(currentUser.UserId, commentId);
 
             return 0;
         }
