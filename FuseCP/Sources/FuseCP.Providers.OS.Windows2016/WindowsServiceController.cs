@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +60,7 @@ namespace FuseCP.Providers.OS
 			}
 		}
 
-		private static string ValidateServiceId(string serviceId)
+		protected override string ValidateServiceId(string serviceId)
 		{
 			if (string.IsNullOrWhiteSpace(serviceId))
 			{
@@ -95,6 +96,11 @@ namespace FuseCP.Providers.OS
 			if (principal?.Identity == null || !principal.Identity.IsAuthenticated)
 			{
 				throw new UnauthorizedAccessException("Authenticated principal is required to manage service status.");
+			}
+			var windowsPrincipal = principal as WindowsPrincipal;
+			if (!((windowsPrincipal?.IsInRole(WindowsBuiltInRole.Administrator) ?? false) || principal.IsInRole("Administrators")))
+			{
+				throw new UnauthorizedAccessException("Administrative principal is required to manage service status.");
 			}
 
 			serviceId = ValidateServiceId(serviceId);

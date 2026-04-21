@@ -25,10 +25,13 @@ namespace FuseCP.Providers.OS;
 public class OpenRCServiceController: ServiceController
 {
 	const string ScriptPath = "/etc/init.d";
+	private string ValidateOpenRcServiceId(string serviceId) => ValidateServiceId(serviceId);
+
 	public override ServiceManager Install(ServiceDescription service)
 	{
 		var srvc = service as OpenRCServiceDescription;
 		if (srvc == null) throw new ArgumentException("Service description is not of type OpenRCServiceDescription");
+		var serviceId = ValidateOpenRcServiceId(srvc.ServiceId);
 
 		var body = new StringBuilder();
 		body.AppendLine("#!/sbin/openrc-run");
@@ -108,17 +111,18 @@ public class OpenRCServiceController: ServiceController
 			body.AppendLine(srvc.Body);
 		}
 		
-		var script = Path.Join(ScriptPath, srvc.ServiceId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+		var script = Path.Join(ScriptPath, serviceId.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 		File.WriteAllText(script, body.ToString());
 
 		Shell.Exec($"chmod +x {script}");
-		Shell.Exec($"rc-update add {srvc.ServiceId} default");
+		Shell.Exec($"rc-update add {serviceId} default");
 
-		return new ServiceManager(this, srvc.ServiceId);
+		return new ServiceManager(this, serviceId);
 	}
 	public override void SystemReboot() => Shell.Exec("openrc-shutdown reboot");
 	public override void ChangeStatus(string serviceId, OSServiceStatus status)
 	{
+		serviceId = ValidateOpenRcServiceId(serviceId);
 		var service = Info(serviceId);
 		if (service == null)
 		{
@@ -196,20 +200,27 @@ public class OpenRCServiceController: ServiceController
 		}
 	}
 
-	public override OSService Info(string serviceId) => All().FirstOrDefault(s => s.Id == serviceId);
+	public override OSService Info(string serviceId)
+	{
+		serviceId = ValidateOpenRcServiceId(serviceId);
+		return All().FirstOrDefault(s => s.Id == serviceId);
+	}
 
 	public override void Remove(string serviceId)
 	{
+		serviceId = ValidateOpenRcServiceId(serviceId);
 		Shell.Exec($"rc-update del {serviceId}");
 	}
 	public override bool IsInstalled => OSInfo.IsOpenRC;
 	public Shell Shell => Shell.Default;
     public override void Enable(string serviceId)
     {
+		serviceId = ValidateOpenRcServiceId(serviceId);
         Shell.Exec($"rc-update add {serviceId} default");
     }
     public override void Disable(string serviceId)
     {
+		serviceId = ValidateOpenRcServiceId(serviceId);
         Shell.Exec($"rc-update delete {serviceId} default");
     }
 }

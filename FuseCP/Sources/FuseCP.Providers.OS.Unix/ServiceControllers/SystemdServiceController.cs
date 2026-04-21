@@ -26,7 +26,7 @@ public class SystemdServiceController : ServiceController
 {
 	public virtual string ServicesDirectory => "/lib/systemd/system";
 
-	static string ValidateServiceId(string serviceId)
+	protected override string ValidateServiceId(string serviceId)
 	{
 		if (string.IsNullOrWhiteSpace(serviceId) || !Regex.IsMatch(serviceId, @"^[A-Za-z0-9_.-]+$"))
 			throw new ArgumentException("Invalid service identifier.", nameof(serviceId));

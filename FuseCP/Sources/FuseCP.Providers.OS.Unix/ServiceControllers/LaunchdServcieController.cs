@@ -30,7 +30,7 @@ public class LaunchdServiceController : ServiceController
 	public override bool IsInstalled => OSInfo.IsMac;
 	public Shell Shell => Shell.Standard;
 	public override void SystemReboot() => Shell.Exec("launchctrl reboot");
-	static string ValidateServiceId(string serviceId)
+	protected override string ValidateServiceId(string serviceId)
 	{
 		if (string.IsNullOrWhiteSpace(serviceId) || !Regex.IsMatch(serviceId, @"^[A-Za-z0-9_.-]+$"))
 			throw new ArgumentException("Invalid service identifier.", nameof(serviceId));

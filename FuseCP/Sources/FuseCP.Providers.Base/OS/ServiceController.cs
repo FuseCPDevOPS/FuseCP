@@ -16,6 +16,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FuseCP.Providers.OS
 {
@@ -137,27 +138,47 @@ namespace FuseCP.Providers.OS
 	}
 	public abstract class ServiceController
 	{
+		private static readonly Regex SafeServiceIdPattern = new Regex(@"^[A-Za-z0-9._\-]+$", RegexOptions.Compiled);
+
+		protected virtual string ValidateServiceId(string serviceId)
+		{
+			if (string.IsNullOrWhiteSpace(serviceId))
+			{
+				throw new ArgumentException("Service identifier cannot be empty.", nameof(serviceId));
+			}
+
+			if (!SafeServiceIdPattern.IsMatch(serviceId))
+			{
+				throw new ArgumentException("Service identifier contains invalid characters.", nameof(serviceId));
+			}
+
+			return serviceId;
+		}
+
 		public virtual void Start(string serviceId)
 		{
+			serviceId = ValidateServiceId(serviceId);
 			ChangeStatus(serviceId, OSServiceStatus.Running);
 		}
 
 		public virtual void Stop(string serviceId)
 		{
+			serviceId = ValidateServiceId(serviceId);
 			ChangeStatus(serviceId, OSServiceStatus.Stopped);
 		}
 		public virtual void Restart(string serviceId)
 		{
+			serviceId = ValidateServiceId(serviceId);
 			Stop(serviceId);
 			Start(serviceId);
 		}
-		public virtual void Reload(string serviceId) => Restart(serviceId);
-		public virtual void Enable(string serviceId) { }
-		public virtual void Disable(string serviceId) { }
+		public virtual void Reload(string serviceId) => Restart(ValidateServiceId(serviceId));
+		public virtual void Enable(string serviceId) { serviceId = ValidateServiceId(serviceId); }
+		public virtual void Disable(string serviceId) { serviceId = ValidateServiceId(serviceId); }
 		public abstract void SystemReboot();
 		public abstract void ChangeStatus(string serviceId, OSServiceStatus status);
 		public abstract IEnumerable<OSService> All();
-		public ServiceManager this[string serviceId] => new ServiceManager(this, serviceId);
+		public ServiceManager this[string serviceId] => new ServiceManager(this, ValidateServiceId(serviceId));
 		public abstract OSService Info(string serviceId);
 		public abstract ServiceManager Install(ServiceDescription service);
 		public abstract void Remove(string serviceId);
