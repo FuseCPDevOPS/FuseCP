@@ -106,6 +106,10 @@ public class LaunchdServiceController : ServiceController
 	}
 	public override void ChangeStatus(string serviceId, OSServiceStatus status)
 	{
+		var principal = System.Threading.Thread.CurrentPrincipal;
+		if (principal?.Identity == null || !principal.Identity.IsAuthenticated)
+			throw new UnauthorizedAccessException("Authenticated principal is required to manage service status.");
+
 		serviceId = ValidateServiceId(serviceId);
 		if (!IsManagedServiceId(serviceId))
 			throw new UnauthorizedAccessException("Changing unmanaged system services is not permitted.");

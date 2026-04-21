@@ -91,6 +91,12 @@ namespace FuseCP.Providers.OS
 
 		public override void ChangeStatus(string serviceId, OSServiceStatus status)
 		{
+			var principal = System.Threading.Thread.CurrentPrincipal;
+			if (principal?.Identity == null || !principal.Identity.IsAuthenticated)
+			{
+				throw new UnauthorizedAccessException("Authenticated principal is required to manage service status.");
+			}
+
 			serviceId = ValidateServiceId(serviceId);
 			if (!IsManagedServiceId(serviceId))
 			{

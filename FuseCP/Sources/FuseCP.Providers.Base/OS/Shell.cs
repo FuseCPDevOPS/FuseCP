@@ -240,9 +240,11 @@ namespace FuseCP.Providers.OS
 			if (value.IndexOf('\0') >= 0 || value.IndexOf('\r') >= 0 || value.IndexOf('\n') >= 0)
 				return false;
 
-			// ProcessStartInfo.ArgumentList passes each token as a literal argument.
-			// Shell metacharacters are only interpreted by shell executables, which are
-			// already constrained by command token validation before process start.
+			// Even though ArgumentList bypasses shell parsing for direct executables,
+			// reject shell metacharacters to prevent unsafe forwarding into interpreters.
+			if (ContainsShellMetaCharacters(value))
+				return false;
+
 			return true;
 		}
 
