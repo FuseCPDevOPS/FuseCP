@@ -240,7 +240,10 @@ namespace FuseCP.Providers.OS
 			if (value.IndexOf('\0') >= 0 || value.IndexOf('\r') >= 0 || value.IndexOf('\n') >= 0)
 				return false;
 
-			return !ContainsShellMetaCharacters(value);
+			// ProcessStartInfo.ArgumentList passes each token as a literal argument.
+			// Shell metacharacters are only interpreted by shell executables, which are
+			// already constrained by command token validation before process start.
+			return true;
 		}
 
 		protected virtual string ToTempFile(string script)

@@ -73,7 +73,7 @@ namespace FuseCP.Portal.UserControls
 			}
 
 			// render message
-			RenderMessage(messageType, localizedMessage, localizedDescription, null);
+            RenderMessage(messageType, localizedMessage, localizedDescription);
 		}
 
         public void ShowErrorMessage(string messageKey)
