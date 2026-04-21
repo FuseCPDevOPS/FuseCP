@@ -49,19 +49,14 @@ namespace FuseCP.EnterpriseServer
     {
         public const int MAX_THUMBNAILPHOTO_SIZE = 96;
 
-        private static bool PrincipalIsResellerOrAdmin()
-        {
-            var principal = System.Threading.Thread.CurrentPrincipal;
-            return principal != null && (principal.IsInRole(SecurityContext.ROLE_RESELLER) || principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR));
-        }
-
         public ExchangeServerController(ControllerBase db): base(db) { }
 
         #region Organizations
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (!PrincipalIsResellerOrAdmin()) return new DataSet();
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return new DataSet();
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new DataSet();
 
@@ -106,7 +101,8 @@ namespace FuseCP.EnterpriseServer
         public OrganizationsPaged GetExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
             {
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
             }
@@ -148,7 +144,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<Organization> GetExchangeOrganizations(int packageId, bool recursive)
         {
-            if (!PrincipalIsResellerOrAdmin()) return new List<Organization>();
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return new List<Organization>();
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new List<Organization>();
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new List<Organization>();
@@ -186,7 +183,8 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
-            if (!PrincipalIsResellerOrAdmin()) return null;
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return null;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return null;
 
@@ -1167,7 +1165,8 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchServiceId(int? itemId)
         {
-            if (!PrincipalIsResellerOrAdmin()) return -1;
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return -1;
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return -1;
             int serviceId = -1;
@@ -1271,7 +1270,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<ExchangeAccount> GetAccounts(int itemId, ExchangeAccountType accountType)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return new List<ExchangeAccount>();
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
@@ -1475,7 +1475,8 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return new List<ExchangeAccount>();
 
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
@@ -1509,7 +1510,8 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return new List<ExchangeAccount>();
 
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
@@ -1547,7 +1549,8 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccount(int itemId, int accountId, bool withLog = true)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
@@ -1596,7 +1599,8 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount GetAccountByAccountName(string userPrincipalName)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
@@ -1651,7 +1655,8 @@ namespace FuseCP.EnterpriseServer
 
         public ExchangeAccount SearchAccount(ExchangeAccountType accountType, string primaryEmailAddress)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return null;
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
@@ -1816,7 +1821,8 @@ namespace FuseCP.EnterpriseServer
         #region Domains
         public List<ExchangeDomainName> GetOrganizationDomains(int itemId)
         {
-            if (!PrincipalIsResellerOrAdmin())
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)))
                 return new List<ExchangeDomainName>();
 
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
@@ -6062,7 +6068,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePublicFolders(int itemId, int[] accountIds)
         {
-            if (!PrincipalIsResellerOrAdmin()) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+            var principal = System.Threading.Thread.CurrentPrincipal;
+            if (principal == null || (!principal.IsInRole(SecurityContext.ROLE_RESELLER) && !principal.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0) return accountCheck;
 
