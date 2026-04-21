@@ -320,9 +320,10 @@ namespace FuseCP.EnterpriseServer
 			if (currentUser == null)
 				return false;
 
-			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-				|| currentUser.UserId == changeUserId)
+			if (SecurityContext.CheckAccount(DemandAccount.IsReseller) >= 0)
+				return true;
+
+			if (currentUser.UserId == changeUserId)
 				return true;
 
 			if (GetUser(changeUserId) == null)
@@ -990,10 +991,7 @@ namespace FuseCP.EnterpriseServer
 			if (currentUser == null)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-			bool canManageUser = currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-				|| currentUser.UserId == userId;
-			if (!canManageUser)
+			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsReseller) < 0)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (GetUser(userId) == null)
@@ -1011,10 +1009,7 @@ namespace FuseCP.EnterpriseServer
 			if (currentUser == null)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-			bool canManageUser = currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-				|| currentUser.UserId == userId;
-			if (!canManageUser)
+			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsReseller) < 0)
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (GetUser(userId) == null)
@@ -1273,12 +1268,10 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateUserThemeSetting(int userId, string PropertyName, string PropertyValue)
 		{
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return;
-			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return;
+			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
-			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				&& currentUser.UserId != userId) return;
+			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsAdmin) < 0) return;
 			if (GetUser(userId) == null) return;
 			Database.UpdateUserThemeSetting(currentUser.UserId, userId, PropertyName, PropertyValue);
 		}
@@ -1288,9 +1281,7 @@ namespace FuseCP.EnterpriseServer
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
-			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				&& !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-				&& currentUser.UserId != userId) return;
+			if (currentUser.UserId != userId && SecurityContext.CheckAccount(DemandAccount.IsReseller) < 0) return;
 			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(currentUser.UserId, userId, PropertyName);
 		}

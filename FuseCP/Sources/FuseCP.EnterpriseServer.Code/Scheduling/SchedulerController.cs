@@ -370,15 +370,10 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteSchedule(int scheduleId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0) return accountCheck;
 
             var currentUser = SecurityContext.User;
-            if (currentUser == null)
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             ScheduleInfo schedule = GetSchedule(scheduleId);
             if (schedule == null)

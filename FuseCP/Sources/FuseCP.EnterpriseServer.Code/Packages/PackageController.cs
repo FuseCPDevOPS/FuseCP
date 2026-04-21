@@ -381,12 +381,7 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new DataSet();
-            var currentUser = SecurityContext.User;
-            if (currentUser == null) return new DataSet();
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-                && !currentUser.IsInRole(SecurityContext.ROLE_USER)) return new DataSet();
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
             if (packageCheck < 0)
@@ -1016,16 +1011,9 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
                 return accountCheck;
-
-            var currentUser = SecurityContext.User;
-            if (currentUser == null)
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             if (packages == null)
                 return BusinessErrorCodes.ERROR_PACKAGE_NOT_FOUND;
@@ -1802,16 +1790,8 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackageItem(int itemId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;
-
-            var currentUser = SecurityContext.User;
-            if (currentUser == null)
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLERCSR))
-                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             ServiceProviderItem item = GetPackageItem(itemId);
             if (item == null)

@@ -104,16 +104,10 @@ namespace FuseCP.EnterpriseServer
             var packages = ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
             var packageUsers = packages.ToDictionary(package => package.PackageId, package => package.UserId);
 
-            foreach (var packageId in packageUsers.Keys)
+            foreach (var domain in packageUsers.Keys
+                .SelectMany(packageId => ServerController.GetDomains(packageId))
+                .Where(x => !x.IsSubDomain && !x.IsDomainPointer))
             {
-                var domains = ServerController.GetDomains(packageId);
-
-                domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
-
-                //domains = domains.Where(x => x.ZoneItemId > 0).ToList(); //Selecting only dns enabled domains
-
-                foreach (var domain in domains)
-                {
                     if (domainsChanges.Any(x => x.DomainName == domain.DomainName))
                     {
                         continue;
@@ -155,7 +149,6 @@ namespace FuseCP.EnterpriseServer
                     }
 
                     domainsChanges.Add(domainChanges);
-                }
             }
 
             var changedDomains = FindDomainsWithChangedRecords(domainsChanges);

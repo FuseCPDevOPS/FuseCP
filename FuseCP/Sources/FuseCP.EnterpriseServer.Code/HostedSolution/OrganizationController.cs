@@ -2274,18 +2274,12 @@ namespace FuseCP.EnterpriseServer
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
-            var currentUser = SecurityContext.User;
-            if (currentUser == null) return;
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
-            var currentUser = SecurityContext.User;
-            if (currentUser == null) return;
-            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             Database.DeleteExpiredAccessTokens();
         }
 

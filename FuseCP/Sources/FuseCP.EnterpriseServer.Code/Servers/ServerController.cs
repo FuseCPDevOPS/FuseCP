@@ -920,11 +920,6 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
-			       var currentUser = SecurityContext.User;
-			       if (currentUser == null)
-				       return null;
-			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
-				return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
 				Database.GetService(SecurityContext.User.UserId, serviceId));
@@ -1097,11 +1092,6 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
-				return null;
-			       var currentUser = SecurityContext.User;
-			       if (currentUser == null)
-				       return null;
-			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
 				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2395,13 +2385,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
-			       var currentUser = SecurityContext.User;
-			       if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				       && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
-				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
@@ -2420,13 +2405,8 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
-			       var currentUser = SecurityContext.User;
-			       if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-				       && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
-				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
@@ -2520,11 +2500,6 @@ namespace FuseCP.EnterpriseServer
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
 			if (accountCheck < 0)
 				return accountCheck;
-			       var currentUser = SecurityContext.User;
-			       if (currentUser == null)
-				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
-			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
-				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))
 				return -1;
