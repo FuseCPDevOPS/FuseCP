@@ -200,7 +200,9 @@ namespace FuseCP.EnterpriseServer
         public void DeleteExpiredWebDavAccessTokens()
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
-            if (SecurityContext.User == null) return;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             Database.DeleteExpiredWebDavAccessTokens();
         }
 
@@ -2128,7 +2130,8 @@ namespace FuseCP.EnterpriseServer
         public List<string> GetUserEnterpriseFolderWithOwaEditPermission(int itemId, List<int> accountIds)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<string>();
-            if (SecurityContext.User == null) return new List<string>();
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return new List<string>();
             try
             {
                 Organization org = OrganizationController.GetOrganization(itemId);
@@ -2137,6 +2140,11 @@ namespace FuseCP.EnterpriseServer
 
                 int packageCheck = SecurityContext.CheckPackage(org.PackageId, DemandPackage.IsActive);
                 if (packageCheck < 0)
+                    return new List<string>();
+
+                if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                    && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+                    && (accountIds == null || accountIds.Any(accountId => accountId != currentUser.UserId)))
                     return new List<string>();
 
                 var result = new List<string>();

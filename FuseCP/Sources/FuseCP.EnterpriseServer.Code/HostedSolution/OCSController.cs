@@ -121,7 +121,10 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         public void DeleteDomain(string domainName, OCSEdgeServer[] edgeServers)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
-            if (SecurityContext.User == null) return;
+            var currentUser = SecurityContext.User;
+            if (currentUser == null) return;
+            if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)) return;
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {
                 try

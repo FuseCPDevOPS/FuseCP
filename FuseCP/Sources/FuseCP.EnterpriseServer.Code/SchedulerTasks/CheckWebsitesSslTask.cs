@@ -124,10 +124,9 @@ namespace FuseCP.EnterpriseServer
             else
             {
                 // get user packages
-                List<PackageInfo> packages = PackageController.GetMyPackages(topTask.EffectiveUserId);
-                foreach (var package in packages)
+                foreach (var packageId in PackageController.GetMyPackages(topTask.EffectiveUserId).Select(p => p.PackageId))
                 {
-                    DataSet serviceItems = PackageController.GetRawPackageItemsPaged(package.PackageId, ResourceGroups.Web, typeof(WebSite),
+                    DataSet serviceItems = PackageController.GetRawPackageItemsPaged(packageId, ResourceGroups.Web, typeof(WebSite),
                         true, "ItemName", "%%", "", 0, Int32.MaxValue);
                     checkWebsites(serviceItems);
                 }

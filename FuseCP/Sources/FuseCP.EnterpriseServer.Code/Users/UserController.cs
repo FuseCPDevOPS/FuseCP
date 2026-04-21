@@ -320,7 +320,9 @@ namespace FuseCP.EnterpriseServer
 			if (currentUser == null)
 				return false;
 
-			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) || currentUser.UserId == changeUserId)
+			if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				|| currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
+				|| currentUser.UserId == changeUserId)
 				return true;
 
 			if (GetUser(changeUserId) == null)
@@ -1287,6 +1289,7 @@ namespace FuseCP.EnterpriseServer
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
 			if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				&& !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
 				&& currentUser.UserId != userId) return;
 			if (GetUser(userId) == null) return;
 			Database.DeleteUserThemeSetting(currentUser.UserId, userId, PropertyName);

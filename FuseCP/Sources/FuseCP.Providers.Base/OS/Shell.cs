@@ -337,10 +337,13 @@ namespace FuseCP.Providers.OS
 			var cmdWithPath = Find(cmd);
 			if (cmdWithPath != null)
 			{
+				// Resolve to a canonical, absolute path so the executable source is unambiguous
+				// and free from any path-traversal manipulation that could survive IsSafeCommandToken.
+				var resolvedExecutable = Path.GetFullPath(cmdWithPath);
 				var child = Clone;
 				var local_process = new Process();
 				child.Process = local_process;
-				local_process.StartInfo.FileName = cmdWithPath;
+				local_process.StartInfo.FileName = resolvedExecutable;
 				ApplyArguments(local_process.StartInfo, arguments);
 				local_process.StartInfo.UseShellExecute = false;
 				local_process.StartInfo.CreateNoWindow = CreateNoWindow;

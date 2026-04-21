@@ -377,8 +377,7 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null)
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
             if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             ScheduleInfo schedule = GetSchedule(scheduleId);

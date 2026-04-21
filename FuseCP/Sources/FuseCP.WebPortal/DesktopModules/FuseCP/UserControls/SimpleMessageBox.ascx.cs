@@ -219,13 +219,17 @@ namespace FuseCP.Portal.UserControls
 
 			divMessageBox.Attributes["class"] = boxStyle;
 
-            var safeMessage = message;
+            // For error cases, always use a generic safe message to prevent leaking sensitive
+            // details to the client. For info/warning cases use the caller-supplied message.
+            string safeMessage = (messageType == MessageBoxType.Error)
+                ? "An unexpected error occurred."
+                : (message ?? string.Empty);
             string safeDescription;
 
             // error
             if (messageType == MessageBoxType.Error)
             {
-                safeMessage = "An unexpected error occurred.";
+                // safeMessage is already set to the generic safe string above.
                 safeDescription = "Technical details are available in server logs.";
             }
             else

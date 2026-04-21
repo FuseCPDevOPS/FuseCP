@@ -75,13 +75,17 @@ namespace FuseCP.Portal
 			tblMessageBox.Attributes["class"] = boxStyle;
 
 			// set texts
-			var safeMessage = message;
+			// For error/exception cases, always use a generic safe message to prevent leaking
+			// sensitive details to the client. For info/warning cases use the caller-supplied message.
+			string safeMessage = (ex != null || messageType == MessageBoxType.Error)
+				? "An unexpected error occurred."
+				: (message ?? string.Empty);
 			string safeDescription;
 
 			// show exception
 			if (ex != null || messageType == MessageBoxType.Error)
 			{
-				safeMessage = "An unexpected error occurred.";
+				// safeMessage is already set to the generic safe string above.
 				safeDescription = String.Empty; // suppress raw description when exception is present
 				// show error
 				try
@@ -127,17 +131,12 @@ namespace FuseCP.Portal
 				btnSend.Visible = false;
 				lblSentMessage.Visible = true;
 
-				var from = !String.IsNullOrEmpty(PortalUtils.FromEmail) ? PortalUtils.FromEmail : PortalUtils.AdminEmail;
-				var to = PortalUtils.AdminEmail;
-				var subject = GetLocalizedString("Text.Subject");
 				var encodedComments = PortalAntiXSS.Encode(txtSendComments.Text ?? String.Empty).Replace("\n", "<br/>\n");
 				var emailMessage = ErrorReportBodyTemplate.Replace("%Comments%", $"<p>{encodedComments}</p>");
 
 				// Keep user comments in server diagnostics instead of transmitting by e-mail.
-				System.Diagnostics.Trace.TraceWarning("User error report captured. Subject: {0}; From: {1}; To: {2}; BodyLength: {3}",
-					subject,
-					from,
-					to,
+				// Do not log PII (email addresses) here; they are available in server configuration.
+				System.Diagnostics.Trace.TraceWarning("User error report captured. BodyLength: {0}",
 					emailMessage.Length);
 
 				lblSentMessage.Text = GetLocalizedString("Text.MessageSent");

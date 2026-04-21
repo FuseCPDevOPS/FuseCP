@@ -102,6 +102,14 @@ namespace FuseCP.Providers.OS
 			{
 				throw new ArgumentException("Service not found.", nameof(serviceId));
 			}
+
+			// Verify the resolved service object is also managed, not just the caller-provided ID.
+			// This ensures the authorization check applies to the actual resource being modified.
+			if (!IsManagedServiceId(service.Id))
+			{
+				throw new UnauthorizedAccessException("Resolved service is not managed by FuseCP.");
+			}
+
 			OSInfo.Windows.ChangeOSServiceStatus(service.Id, status);
 		}
 

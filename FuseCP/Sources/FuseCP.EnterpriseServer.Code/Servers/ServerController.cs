@@ -920,7 +920,10 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
-			if (SecurityContext.User == null)
+			       var currentUser = SecurityContext.User;
+			       if (currentUser == null)
+				       return null;
+			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
 				return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
@@ -1095,7 +1098,10 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
-			if (SecurityContext.User == null)
+			       var currentUser = SecurityContext.User;
+			       if (currentUser == null)
+				       return null;
+			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
 				return null;
 
 			bool isDemoAccount = (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0);
@@ -2391,7 +2397,11 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
-			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			       var currentUser = SecurityContext.User;
+			       if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				       && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
+				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
@@ -2412,7 +2422,11 @@ namespace FuseCP.EnterpriseServer
 		{
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
-			if (SecurityContext.User == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			       var currentUser = SecurityContext.User;
+			       if (currentUser == null) return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
+				       && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
+				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			ServiceProviderItem item = PackageMetadataReader.GetPackageItem(itemId);
 			if (item == null)
@@ -2506,7 +2520,10 @@ namespace FuseCP.EnterpriseServer
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
 			if (accountCheck < 0)
 				return accountCheck;
-			if (SecurityContext.User == null)
+			       var currentUser = SecurityContext.User;
+			       if (currentUser == null)
+				       return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+			       if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
 				return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
 			if (!GetClusters().Any(cluster => cluster.ClusterId == clusterId))

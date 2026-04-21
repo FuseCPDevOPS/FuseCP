@@ -167,8 +167,7 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null)
                 return;
             if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
                 return;
 
             if (!CanManageBackgroundTask(currentUser, task => task.Guid == guid))
@@ -183,8 +182,7 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null)
                 return;
             if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)
-                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER)
-                && !currentUser.IsInRole(SecurityContext.ROLE_USER))
+                && !currentUser.IsInRole(SecurityContext.ROLE_RESELLER))
                 return;
 
             if (!CanManageBackgroundTask(currentUser, task => task.Id == id))
