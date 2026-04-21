@@ -374,8 +374,6 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0) return accountCheck;
 
-            var currentUser = SecurityContext.User;
-
             ScheduleInfo schedule = GetSchedule(scheduleId);
             if (schedule == null)
                 return -1;

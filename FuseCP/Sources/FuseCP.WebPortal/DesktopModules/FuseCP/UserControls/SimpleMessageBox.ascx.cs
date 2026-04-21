@@ -224,18 +224,9 @@ namespace FuseCP.Portal.UserControls
             string safeMessage = (messageType == MessageBoxType.Error)
                 ? "An unexpected error occurred."
                 : (message ?? string.Empty);
-            string safeDescription;
-
-            // error
-            if (messageType == MessageBoxType.Error)
-            {
-                // safeMessage is already set to the generic safe string above.
-                safeDescription = "Technical details are available in server logs.";
-            }
-            else
-            {
-                safeDescription = String.Empty;
-            }
+            string safeDescription = (messageType == MessageBoxType.Error)
+                ? "Technical details are available in server logs."
+                : String.Empty;
 
 			// set texts
             litMessage.Text = HttpUtility.HtmlEncode(safeMessage);

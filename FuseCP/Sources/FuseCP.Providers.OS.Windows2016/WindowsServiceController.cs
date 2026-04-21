@@ -98,17 +98,11 @@ namespace FuseCP.Providers.OS
 			}
 
 			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
-			if (service == null || !IsManagedServiceId(service.Id))
-			{
-				throw new UnauthorizedAccessException("Resolved service is not managed by FuseCP.");
-			}
 			if (service == null)
 			{
 				throw new ArgumentException("Service not found.", nameof(serviceId));
 			}
 
-			// Verify the resolved service object is also managed, not just the caller-provided ID.
-			// This ensures the authorization check applies to the actual resource being modified.
 			if (!IsManagedServiceId(service.Id))
 			{
 				throw new UnauthorizedAccessException("Resolved service is not managed by FuseCP.");

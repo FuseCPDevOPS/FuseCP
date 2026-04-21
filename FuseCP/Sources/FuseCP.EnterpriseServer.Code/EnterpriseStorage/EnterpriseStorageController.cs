@@ -2129,7 +2129,6 @@ namespace FuseCP.EnterpriseServer
         {
             if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new List<string>();
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new List<string>();
-            var currentUser = SecurityContext.User;
             try
             {
                 Organization org = OrganizationController.GetOrganization(itemId);
