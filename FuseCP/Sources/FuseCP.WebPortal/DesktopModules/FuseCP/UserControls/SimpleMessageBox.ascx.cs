@@ -240,8 +240,9 @@ namespace FuseCP.Portal.UserControls
 			// set texts
             litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
 
-            litDescription.Text = !String.IsNullOrEmpty(safeDescription)
-                ? String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(safeDescription)) : "";
+            litDescription.Text = String.IsNullOrEmpty(safeDescription) 
+                ? "" 
+                : String.Format("<br/><span class=\"description\">{0}</span>", HttpUtility.HtmlEncode(safeDescription));
 		}
     }
 }

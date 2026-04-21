@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2025 FuseCP
+// Copyright (C) 2025 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -238,6 +238,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteHostingPlan(int planId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
                 return accountCheck;
@@ -381,6 +382,7 @@ namespace FuseCP.EnterpriseServer
 
         public DataSet GetPackageQuotasForEdit(int packageId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -1011,6 +1013,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackages(List<PackageInfo> packages)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0)
                 return accountCheck;
@@ -1790,6 +1793,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeletePackageItem(int itemId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLERCSR) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsResellerCSR);
             if (accountCheck < 0) return accountCheck;
 

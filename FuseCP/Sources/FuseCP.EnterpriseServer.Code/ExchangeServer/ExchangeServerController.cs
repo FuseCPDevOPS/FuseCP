@@ -55,6 +55,7 @@ namespace FuseCP.EnterpriseServer
         public DataSet GetRawExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new DataSet();
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new DataSet();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -98,6 +99,11 @@ namespace FuseCP.EnterpriseServer
         public OrganizationsPaged GetExchangeOrganizationsPaged(int packageId, bool recursive,
             string filterColumn, string filterValue, string sortColumn, int startRow, int maximumRows)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+            {
+                return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
+            }
+
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
             {
                 return new OrganizationsPaged { RecordsCount = 0, PageItems = new Organization[0] };
@@ -130,6 +136,8 @@ namespace FuseCP.EnterpriseServer
 
         public List<Organization> GetExchangeOrganizations(int packageId, bool recursive)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return new List<Organization>();
+
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return new List<Organization>();
 
             int packageCheck = SecurityContext.CheckPackage(packageId, DemandPackage.IsActive);
@@ -165,6 +173,7 @@ namespace FuseCP.EnterpriseServer
 
         public Organization GetOrganization(int itemId, bool withLog = true)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return null;
 
             #region Demo Mode
@@ -1144,6 +1153,7 @@ namespace FuseCP.EnterpriseServer
 
         public int GetExchServiceId(int? itemId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return -1;
             int serviceId = -1;
 
@@ -1447,6 +1457,9 @@ namespace FuseCP.EnterpriseServer
             bool includeRooms, bool includeEquipment, bool IncludeSharedMailbox, bool includeSecurityGroups,
             string filterColumn, string filterValue, string sortColumn)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return new List<ExchangeAccount>();
+
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
                 return new List<ExchangeAccount>();
 
@@ -1475,6 +1488,9 @@ namespace FuseCP.EnterpriseServer
                     ExchangeAccountType[] types,
                     string filterColumn, string filterValue, string sortColumn)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return new List<ExchangeAccount>();
+
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0)
                 return new List<ExchangeAccount>();
 

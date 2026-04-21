@@ -2273,12 +2273,14 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAccessToken(Guid accessToken, AccessTokenTypes type)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteAccessToken(accessToken, type);
         }
 
         public void DeleteAllExpiredTokens()
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0) return;
             Database.DeleteExpiredAccessTokens();
         }
@@ -4065,6 +4067,7 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteAdditionalGroup(int groupId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
             var currentUser = SecurityContext.User;
             if (currentUser == null) return;

@@ -162,6 +162,7 @@ namespace FuseCP.EnterpriseServer
 
         public void DeleteBackgroundTasks(Guid guid)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return;
             var currentUser = SecurityContext.User;
 
@@ -185,7 +186,7 @@ namespace FuseCP.EnterpriseServer
             if (currentUser == null || matcher == null)
                 return false;
 
-            if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+            if (SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
                 return true;
 
             int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;

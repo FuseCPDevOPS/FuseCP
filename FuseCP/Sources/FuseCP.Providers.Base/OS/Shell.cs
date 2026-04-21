@@ -335,7 +335,7 @@ namespace FuseCP.Providers.OS
 				throw new ArgumentException("Command contains invalid characters.", nameof(cmd));
 
 			var cmdWithPath = Find(cmd);
-			if (cmdWithPath != null)
+			if (cmdWithPath != null && !ContainsShellMetaCharacters(cmdWithPath))
 			{
 				// Resolve to a canonical, absolute path so the executable source is unambiguous
 				// and free from any path-traversal manipulation that could survive IsSafeCommandToken.

@@ -314,6 +314,7 @@ namespace FuseCP.EnterpriseServer
 
 		public bool CanUserChangeMfa(int changeUserId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return false;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
 
 			var currentUser = SecurityContext.User;
@@ -984,6 +985,7 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(int userId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
@@ -1002,6 +1004,7 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteUser(string taskId, int userId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 			if (accountCheck < 0) return accountCheck;
 
@@ -1268,6 +1271,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void UpdateUserThemeSetting(int userId, string PropertyName, string PropertyValue)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && SecurityContext.User.UserId != userId) return;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;
@@ -1278,6 +1282,7 @@ namespace FuseCP.EnterpriseServer
 
 		public void DeleteUserThemeSetting(int userId, string PropertyName)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR) && SecurityContext.User.UserId != userId) return;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
 			var currentUser = SecurityContext.User;
 			if (currentUser == null) return;

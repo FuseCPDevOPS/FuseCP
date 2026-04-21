@@ -370,6 +370,7 @@ namespace FuseCP.EnterpriseServer
 
         public int DeleteSchedule(int scheduleId)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
             if (accountCheck < 0) return accountCheck;
 
@@ -385,7 +386,7 @@ namespace FuseCP.EnterpriseServer
                 if (packageCheck < 0)
                     return packageCheck;
             }
-            else if (!currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+            else if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
             {
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
             }

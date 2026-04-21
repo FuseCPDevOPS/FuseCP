@@ -1,0 +1,662 @@
+[
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1319,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 5981,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1604,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1507,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1242,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1147,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 135,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/SimpleMessageBox.ascx.cs",
+    "line": 222,
+    "message": "This data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/linq/missed-where",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/CheckWebsitesSslTask.cs",
+    "line": 144,
+    "message": "This foreach loop implicitly filters its target sequence - consider filtering the sequence explicitly using '.Where(...)'."
+  },
+  {
+    "rule": "cs/web/insecure-direct-object-reference",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Windows2016/WindowsServiceController.cs",
+    "line": 40,
+    "message": "This method may be missing authorization checks for which users can access the resource of the provided ID."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Windows2016/WindowsServiceController.cs",
+    "line": 40,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/path-combine",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/Code/PortalUtils.cs",
+    "line": 67,
+    "message": "Call to 'System.IO.Path.Combine' may silently drop its earlier arguments."
+  },
+  {
+    "rule": "cs/path-combine",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/Code/PortalConfiguration.cs",
+    "line": 64,
+    "message": "Call to 'System.IO.Path.Combine' may silently drop its earlier arguments."
+  },
+  {
+    "rule": "cs/path-combine",
+    "path": "FuseCP/Sources/FuseCP.WebDavPortal/HttpHandlers/FileTransferRequestHandler.cs",
+    "line": 55,
+    "message": "Call to 'System.IO.Path.Combine' may silently drop its earlier arguments."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs",
+    "line": 1074,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs",
+    "line": 913,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 171,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1765,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs",
+    "line": 956,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1555,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/EnterpriseStorage/EnterpriseStorageController.cs",
+    "line": 2123,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskController.cs",
+    "line": 168,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Tasks/TaskController.cs",
+    "line": 160,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs",
+    "line": 2391,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs",
+    "line": 2371,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs",
+    "line": 993,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs",
+    "line": 2278,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OCSController.cs",
+    "line": 118,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs",
+    "line": 1767,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs",
+    "line": 1225,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs",
+    "line": 310,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs",
+    "line": 4059,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs",
+    "line": 364,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/HostedSolution/OrganizationController.cs",
+    "line": 2271,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1302,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/EnterpriseStorage/EnterpriseStorageController.cs",
+    "line": 197,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/linq/missed-select",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/CheckWebsitesSslTask.cs",
+    "line": 128,
+    "message": "This foreach loop immediately maps its iteration variable to another variable - consider mapping the sequence explicitly using '.Select(...)'."
+  },
+  {
+    "rule": "cs/linq/missed-select",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/SchedulerTasks/DomainLookupViewTask.cs",
+    "line": 107,
+    "message": "This foreach loop immediately maps its iteration variable to another variable - consider mapping the sequence explicitly using '.Select(...)'."
+  },
+  {
+    "rule": "js/unused-local-variable",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/tinymce/themes/inlite/scratch/inline/theme.js",
+    "line": 69,
+    "message": "Unused variable demand."
+  },
+  {
+    "rule": "js/unused-local-variable",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/tinymce/themes/inlite/scratch/inline/theme.js",
+    "line": 67,
+    "message": "Unused variable require."
+  },
+  {
+    "rule": "cs/unsynchronized-static-access",
+    "path": "FuseCP/Sources/FuseCP.WebDav.Core/Scp/Framework/FCP.cs",
+    "line": 252,
+    "message": "Unsynchronized access to Items in non-static context from InvokeAsync.\nUnsynchronized access to Items in non-static context from InvokeAsync."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/MessageBox.ascx.cs",
+    "line": 64,
+    "message": "This data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/unsynchronized-static-access",
+    "path": "FuseCP/Sources/FuseCP.WebDav.Core/Scp/Framework/FCP.cs",
+    "line": 260,
+    "message": "Unsynchronized access to Items in non-static context from InvokeAsync.\nUnsynchronized access to Items in non-static context from InvokeAsync."
+  },
+  {
+    "rule": "cs/expose-implementation",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/WebControlAdapterExtender.cs",
+    "line": 600,
+    "message": "'ControlRestorationInfo' exposes the internal representation stored in field '_coll'. The value may be modified through the variable coll.\n'ControlRestorationInfo' exposes the internal representation stored in field '_coll'. The value may be modified through the variable coll."
+  },
+  {
+    "rule": "cs/web/missing-token-validation",
+    "path": "FuseCP/Sources/FuseCP.WebDavPortal/Controllers/Api/OwaController.cs",
+    "line": 96,
+    "message": "Method 'Post' handles a POST request without performing CSRF token validation."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs",
+    "line": 594,
+    "message": "This data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs",
+    "line": 591,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs",
+    "line": 700,
+    "message": "This data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information.\nThis data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/WebSitesEditSite.ascx.cs",
+    "line": 696,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail_EditList.ascx.cs",
+    "line": 52,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail60_EditList.ascx.cs",
+    "line": 62,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail50_EditList.ascx.cs",
+    "line": 54,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100x_EditList.ascx.cs",
+    "line": 62,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/SmarterMail100_EditList.ascx.cs",
+    "line": 62,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/Merak_EditList.ascx.cs",
+    "line": 51,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/MailEnable_EditList.ascx.cs",
+    "line": 49,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/IceWarp_EditList.ascx.cs",
+    "line": 51,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/HyperV2016_Settings.ascx.cs",
+    "line": 324,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/sensitive-data-transmission",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ProviderControls/HyperV2012R2_Settings.ascx.cs",
+    "line": 518,
+    "message": "This data transmitted to the user depends on sensitive information."
+  },
+  {
+    "rule": "cs/web/cookie-httponly-not-set",
+    "path": "FuseCP/Sources/FuseCP.WebDavPortal/HttpHandlers/AuthCookieHandler.cs",
+    "line": 66,
+    "message": "Cookie attribute 'HttpOnly' is not set to true."
+  },
+  {
+    "rule": "cs/web/file-upload",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/DomainsImportZone.ascx.cs",
+    "line": 40,
+    "message": "Avoid using file upload."
+  },
+  {
+    "rule": "cs/command-line-injection",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/Shell.cs",
+    "line": 286,
+    "message": "This command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value.\nThis command line depends on a user-provided value."
+  },
+  {
+    "rule": "cs/exposure-of-sensitive-information",
+    "path": "FuseCP/Sources/FuseCP.Server.Utils/Log.cs",
+    "line": 123,
+    "message": "Private data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location.\nPrivate data returned by access to parameter primaryEmailAddress is written to an external location."
+  },
+  {
+    "rule": "cs/cleartext-storage-of-sensitive-information",
+    "path": "FuseCP/Sources/FuseCP.Server.Utils/Log.cs",
+    "line": 123,
+    "message": "This stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by access to parameter password : String as clear text.\nThis stores sensitive data returned by access to parameter password : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by access to parameter password : String as clear text."
+  },
+  {
+    "rule": "cs/cleartext-storage-of-sensitive-information",
+    "path": "FuseCP/Sources/FuseCP.Server.Utils/Log.cs",
+    "line": 90,
+    "message": "This stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text.\nThis stores sensitive data returned by call to method Format : String as clear text."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Unix/ServiceControllers/LaunchdServcieController.cs",
+    "line": 98,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/complex-block",
+    "path": "FuseCP/Sources/FuseCP.Providers.Mail.IceWarp/IceWarp.cs",
+    "line": 1163,
+    "message": "Block with too many statements (5 complex statements in the block)."
+  },
+  {
+    "rule": "cs/web/missing-x-frame-options",
+    "path": "FuseCP/Sources/FuseCP.WebDavPortal/Views/Web.config",
+    "line": 1,
+    "message": "Configuration file is missing the X-Frame-Options setting."
+  },
+  {
+    "rule": "cs/simplifiable-boolean-expression",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/obj/Debug/net10.0/generated/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+    "line": 1427,
+    "message": "The expression 'A || false' can be simplified to 'A'."
+  },
+  {
+    "rule": "cs/nested-if-statements",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/obj/Debug/net10.0/generated/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+    "line": 605,
+    "message": "These 'if' statements can be combined."
+  },
+  {
+    "rule": "cs/nested-if-statements",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Data/obj/Debug/net10.0/generated/System.Text.RegularExpressions.Generator/System.Text.RegularExpressions.Generator.RegexGenerator/RegexGenerator.g.cs",
+    "line": 182,
+    "message": "These 'if' statements can be combined."
+  },
+  {
+    "rule": "cs/coupled-types",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs",
+    "line": 45,
+    "message": "Type PackageController is too closely tied to ServerController (66 dependencies one way and 35 the other)."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Users/UserController.cs",
+    "line": 967,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Servers/ServerController.cs",
+    "line": 2480,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerController.cs",
+    "line": 371,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Packages/PackageController.cs",
+    "line": 229,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 3405,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1473,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 1442,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 100,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/ExchangeServer/ExchangeServerController.cs",
+    "line": 55,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/web/missing-function-level-access-control",
+    "path": "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Comments/CommentsController.cs",
+    "line": 47,
+    "message": "This action is missing an authorization check."
+  },
+  {
+    "rule": "cs/complex-block",
+    "path": "FuseCP/Sources/FuseCP.Server.Utils/BsdDES.cs",
+    "line": 206,
+    "message": "Block with too many statements (8 complex statements in the block)."
+  },
+  {
+    "rule": "cs/complex-block",
+    "path": "FuseCP/Sources/FuseCP.Providers.FTP.VsFtp/CryptSharp/Utility/SCrypt.cs",
+    "line": 206,
+    "message": "Block with too many statements (4 complex statements in the block)."
+  },
+  {
+    "rule": "cs/complex-block",
+    "path": "FuseCP/Sources/FuseCP.Providers.FTP.VsFtp/CryptSharp/ShaCrypter.cs",
+    "line": 129,
+    "message": "Block with too many statements (5 complex statements in the block)."
+  },
+  {
+    "rule": "cs/complex-block",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/Common/PasswdHelper.cs",
+    "line": 72,
+    "message": "Block with too many statements (4 complex statements in the block)."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Web.Services/NativeMethods.cs",
+    "line": 26,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Unix/MacOSHelper.cs",
+    "line": 47,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Unix/MacOSHelper.cs",
+    "line": 44,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 143,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 141,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 139,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 137,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/ProcessExtensions.cs",
+    "line": 41,
+    "message": "Minimise the use of unmanaged code."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Web.Services/NativeMethods.cs",
+    "line": 30,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Unix/MacOSHelper.cs",
+    "line": 71,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.OS.Unix/MacOSHelper.cs",
+    "line": 71,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 374,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/WindowsOSInfo.cs",
+    "line": 325,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/call-to-unmanaged-code",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/ProcessExtensions.cs",
+    "line": 59,
+    "message": "Replace this call with a call to managed code if possible."
+  },
+  {
+    "rule": "cs/inconsistent-compareto-and-equals",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/Web/HtaccessFolder.cs",
+    "line": 26,
+    "message": "Class HtaccessFolder implements CompareTo but does not override Equals; the two could be inconsistent."
+  },
+  {
+    "rule": "cs/equality-on-floats",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/HostedSolution/BaseReport.cs",
+    "line": 114,
+    "message": "Equality checks on floating point values can yield unexpected results."
+  },
+  {
+    "rule": "cs/unused-property-value",
+    "path": "FuseCP/Sources/FuseCP.Providers.Base/OS/TunnelSockets/TunnelSocket.cs",
+    "line": 109,
+    "message": "Value ignored when setting property."
+  },
+  {
+    "rule": "cs/type-test-of-this",
+    "path": "FuseCP/Sources/FuseCP.Providers.Web.Apache/ConfigSection.cs",
+    "line": 318,
+    "message": "Testing whether 'this' is an instance of ConfigFile in ConfigSection introduces a dependency cycle between the two types.\nTesting whether 'this' is an instance of ConfigFile in ConfigSection introduces a dependency cycle between the two types."
+  },
+  {
+    "rule": "cs/downcast-of-this",
+    "path": "FuseCP/Sources/FuseCP.Providers.Web.Apache/ConfigSection.cs",
+    "line": 317,
+    "message": "Downcasting 'this' from ConfigSection to ConfigFile introduces a dependency cycle between the two types.\nDowncasting 'this' from ConfigSection to ConfigFile introduces a dependency cycle between the two types."
+  },
+  {
+    "rule": "cs/dereferenced-value-may-be-null",
+    "path": "FuseCP/Sources/FuseCP.Build/ServiceInterface.cshtml",
+    "line": 63,
+    "message": "Variable tm may be null at this access because of this assignment."
+  },
+  {
+    "rule": "cs/web/directory-browse-enabled",
+    "path": "FuseCP.WebSite/Sources/FuseCP.WebSite/web.config",
+    "line": 11,
+    "message": "Directory browsing is enabled in this ASP.NET configuration file."
+  },
+  {
+    "rule": "cs/cleartext-storage-of-sensitive-information",
+    "path": "FuseCP/Sources/FuseCP.Providers.Web.IIs60/IIs60.cs",
+    "line": 3609,
+    "message": "This stores sensitive data returned by access to local variable passwordHash : String as clear text."
+  },
+  {
+    "rule": "js/useless-assignment-to-local",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/tinymce/themes/inlite/scratch/compile/theme.js",
+    "line": 1551,
+    "message": "The value assigned to result here is unused."
+  },
+  {
+    "rule": "js/regex/missing-regexp-anchor",
+    "path": "FuseCP/Sources/FuseCP.WebPortal/tinymce/themes/inlite/scratch/compile/theme.js",
+    "line": 510,
+    "message": "Misleading operator precedence. The subexpression '\\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil)$' is anchored at the end, but the other parts of this regular expression are not\nMisleading operator precedence. The subexpression '^www\\.' is anchored at the beginning, but the other parts of this regular expression are not"
+  }
+]

@@ -918,6 +918,7 @@ namespace FuseCP.EnterpriseServer
 
 		public ServiceInfo GetServiceInfoAdmin(int serviceId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
 
@@ -1091,6 +1092,7 @@ namespace FuseCP.EnterpriseServer
 
 		public StringDictionary GetServiceSettingsAdmin(int serviceId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin) < 0)
 				return null;
 
@@ -2385,6 +2387,7 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddress(int itemId, int packageAddressId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
 
@@ -2405,6 +2408,7 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteItemIPAddresses(int itemId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller);
 			if (accountCheck < 0) return accountCheck;
 
@@ -2497,6 +2501,7 @@ namespace FuseCP.EnterpriseServer
 
 		public int DeleteCluster(int clusterId)
 		{
+			if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return -1;
 			int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
 			if (accountCheck < 0)
 				return accountCheck;

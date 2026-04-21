@@ -120,6 +120,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         public void DeleteDomain(string domainName, OCSEdgeServer[] edgeServers)
         {
+            if (!SecurityContext.User.IsInRole(SecurityContext.ROLE_RESELLER) && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR)) return;
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsReseller) < 0) return;
             foreach (OCSEdgeServer currentEdgeServer in edgeServers)
             {

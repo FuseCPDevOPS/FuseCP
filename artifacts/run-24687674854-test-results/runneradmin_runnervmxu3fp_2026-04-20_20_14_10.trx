@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ba4f42de-30bb-46f4-89fa-18f69b517a3f" name="runneradmin@runnervmxu3fp 2026-04-20 20:14:10" runUser="runnervmxu3fp\runneradmin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-04-20T20:14:10.5808845+00:00" queuing="2026-04-20T20:14:10.5808847+00:00" start="2026-04-20T20:13:27.3846418+00:00" finish="2026-04-20T20:14:14.8177422+00:00" />
+  <TestSettings name="default" id="ccb921d1-457c-4caf-8ac9-b0b448019ddd">
+    <Deployment runDeploymentRoot="runneradmin_runnervmxu3fp_2026-04-20_20_14_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4e69fcf9-fdb7-455c-8c99-e165fc283b6d" testId="1cefbbb3-59c0-89b6-9917-97eb380b8b09" testName="IsIpInCidr_DifferentHostInSlash32_ReturnsFalse" computerName="runnervmxu3fp" duration="00:00:00.0000893" startTime="2026-04-20T20:14:10.5647002+00:00" endTime="2026-04-20T20:14:10.5648331+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4e69fcf9-fdb7-455c-8c99-e165fc283b6d" />
+    <UnitTestResult executionId="70d1dcdb-daa0-4692-bdc5-f20135b52667" testId="1f8295c9-f200-84af-8e80-b49c5f0813cb" testName="TestGetSearchObjectStoredProcedure (SqlServer)" computerName="runnervmxu3fp" duration="00:00:00.1549260" startTime="2026-04-20T20:14:13.5479390+00:00" endTime="2026-04-20T20:14:13.7029560+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70d1dcdb-daa0-4692-bdc5-f20135b52667" />
+    <UnitTestResult executionId="df76117c-e0b1-4d0f-ac00-6dee1b3a852d" testId="1cc9f221-5ee1-8bdd-a5ff-a32c528776fb" testName="IsIpInCidr_ExactMatchWithin_ReturnsTrue" computerName="runnervmxu3fp" duration="00:00:00.0067111" startTime="2026-04-20T20:13:27.9573528+00:00" endTime="2026-04-20T20:14:10.5508680+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df76117c-e0b1-4d0f-ac00-6dee1b3a852d" />
+    <UnitTestResult executionId="5b31b99c-57ba-4a95-a849-ea5ef62cd1d9" testId="15a72c4d-9aea-8ca5-a764-1e650a9908c5" testName="TestIgnoreDataMember" computerName="runnervmxu3fp" duration="00:00:00.0369507" startTime="2026-04-20T20:14:13.7277838+00:00" endTime="2026-04-20T20:14:13.7649648+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b31b99c-57ba-4a95-a849-ea5ef62cd1d9">
+      <Output>
+        <StdOut>TestContext Messages:&#xD;
+Testing for type: FuseCP.EnterpriseServer.PackageContext&#xD;
+  Deserialized type: FuseCP.EnterpriseServer.PackageContext</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="de8be17f-aa46-441b-bc53-8c2d3999d6b0" testId="179fd0ab-2822-805b-b470-a4b485e66c90" testName="TestEncryptDecrypt" computerName="runnervmxu3fp" duration="00:00:00.0003827" startTime="2026-04-20T20:14:11.7342773+00:00" endTime="2026-04-20T20:14:11.7347090+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de8be17f-aa46-441b-bc53-8c2d3999d6b0" />
+    <UnitTestResult executionId="be057bb9-1c21-4456-9083-5ab4585e6a31" testId="126cba10-ca52-8f3c-b9fd-63031651706e" testName="TestGetSearchObjectStoredProcedure (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0246313" startTime="2026-04-20T20:14:13.7030137+00:00" endTime="2026-04-20T20:14:13.7277428+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be057bb9-1c21-4456-9083-5ab4585e6a31" />
+    <UnitTestResult executionId="19b1daa9-ed05-452a-b0e9-c750a4ac6449" testId="1b7b59fd-f8e2-873f-8f11-913dfb02fb7a" testName="IsIpInCidr_ExactHostRoute_ReturnsTrue" computerName="runnervmxu3fp" duration="00:00:00.0000828" startTime="2026-04-20T20:14:10.5645507+00:00" endTime="2026-04-20T20:14:10.5646790+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19b1daa9-ed05-452a-b0e9-c750a4ac6449" />
+    <UnitTestResult executionId="acbded1c-ad77-4e41-937d-7fddfff6294d" testId="17562c9f-62c5-8d01-ba20-d7dd0dc0e0ed" testName="TestDbAccess (SqlServer)" computerName="runnervmxu3fp" duration="00:00:00.6284619" startTime="2026-04-20T20:14:11.7347313+00:00" endTime="2026-04-20T20:14:12.3632925+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="acbded1c-ad77-4e41-937d-7fddfff6294d" />
+    <UnitTestResult executionId="735c95c4-810f-4720-aaa2-88170701991a" testId="17620a5c-24fc-8dbe-86b3-9ea45cdbd573" testName="IsIpInCidr_AddressOutsideSubnet_ReturnsFalse" computerName="runnervmxu3fp" duration="00:00:00.0002131" startTime="2026-04-20T20:14:10.5638157+00:00" endTime="2026-04-20T20:14:10.5640858+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="735c95c4-810f-4720-aaa2-88170701991a" />
+    <UnitTestResult executionId="6ef92129-3ea9-4612-936f-74bbb498bf00" testId="1db4b88f-ab89-8870-ab6a-9c966bfbd873" testName="TestDynamicLike (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0137076" startTime="2026-04-20T20:14:12.4519160+00:00" endTime="2026-04-20T20:14:12.4656851+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ef92129-3ea9-4612-936f-74bbb498bf00" />
+    <UnitTestResult executionId="43a6d8e6-2e83-4a2b-8102-fcf1a8c4ebbc" testId="1d5fcd4a-4fd8-8642-804b-b7208e0d8798" testName="UnblockIp_AfterBlock_IsNotBlocked (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0177778" startTime="2026-04-20T20:14:11.6558217+00:00" endTime="2026-04-20T20:14:11.6736666+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="43a6d8e6-2e83-4a2b-8102-fcf1a8c4ebbc" />
+    <UnitTestResult executionId="e93dbd75-de6b-4373-9356-c38315e4a6e0" testId="11f5d5f8-9a59-86ea-bd7e-1a2325ab614c" testName="RecordAttempt_SingleFailure_NotBlocked (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.9230600" startTime="2026-04-20T20:14:10.5694128+00:00" endTime="2026-04-20T20:14:11.4942620+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e93dbd75-de6b-4373-9356-c38315e4a6e0" />
+    <UnitTestResult executionId="1b13d84b-111a-4bea-aeba-05e782bf91b7" testId="1ab0d373-b5ce-8e6d-b136-326809502aad" testName="BlockIp_IsIpBlocked_ReturnsTrue (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0782922" startTime="2026-04-20T20:14:11.5774245+00:00" endTime="2026-04-20T20:14:11.6557872+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b13d84b-111a-4bea-aeba-05e782bf91b7" />
+    <UnitTestResult executionId="a8f743e8-eeb6-4c40-b2a8-12d33e2e0966" testId="1641570f-1a33-8671-9695-5972ecc177be" testName="IsIpInCidr_InvalidCidr_ReturnsFalse" computerName="runnervmxu3fp" duration="00:00:00.0001030" startTime="2026-04-20T20:14:10.5648540+00:00" endTime="2026-04-20T20:14:10.5650005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8f743e8-eeb6-4c40-b2a8-12d33e2e0966" />
+    <UnitTestResult executionId="9bed132d-cd5b-4987-b62e-36036cc9bb6e" testId="162287fe-5ef5-8ec3-9ef7-a2695ceac0ba" testName="IsIpInCidr_EmptyIp_ReturnsFalse" computerName="runnervmxu3fp" duration="00:00:00.0000801" startTime="2026-04-20T20:14:10.5650222+00:00" endTime="2026-04-20T20:14:10.5651451+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bed132d-cd5b-4987-b62e-36036cc9bb6e" />
+    <UnitTestResult executionId="a1da7e98-6099-40d9-aec8-2d81cc9ebf3d" testId="1890aaa3-1082-8d84-bcf0-1846585c5819" testName="IsIpInCidr_LoopbackInSlash8_ReturnsTrue" computerName="runnervmxu3fp" duration="00:00:00.0001120" startTime="2026-04-20T20:14:10.5641812+00:00" endTime="2026-04-20T20:14:10.5643442+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1da7e98-6099-40d9-aec8-2d81cc9ebf3d" />
+    <UnitTestResult executionId="7620ab21-0020-4191-83c1-34897eaabdf4" testId="1ae25bdb-c0a4-8513-9b23-1398e64e2fd5" testName="RecordAttempt_SuccessAfterFailure_NotBlocked (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0829667" startTime="2026-04-20T20:14:11.4943165+00:00" endTime="2026-04-20T20:14:11.5773894+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7620ab21-0020-4191-83c1-34897eaabdf4" />
+    <UnitTestResult executionId="c80326c6-b5d4-425b-9e81-31bce6a2c804" testId="101105f7-bc3a-8099-9a3c-9e800f9fa644" testName="IsIpInCidr_IPv6_LoopbackInSlash64_ReturnsTrue" computerName="runnervmxu3fp" duration="00:00:00.0023595" startTime="2026-04-20T20:14:10.5651650+00:00" endTime="2026-04-20T20:14:10.5675691+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c80326c6-b5d4-425b-9e81-31bce6a2c804" />
+    <UnitTestResult executionId="353b8ae8-7be3-486d-90d3-d6dd08c25a18" testId="1d8a2955-818a-8f44-b71f-eae1e24cdfb7" testName="TestESAssemblyAccess" computerName="runnervmxu3fp" duration="00:00:00.1752650" startTime="2026-04-20T20:14:14.1359311+00:00" endTime="2026-04-20T20:14:14.7407827+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="353b8ae8-7be3-486d-90d3-d6dd08c25a18" />
+    <UnitTestResult executionId="ee9eac19-134f-4606-9fbb-658d6a6b7e9e" testId="1bd1bb35-1341-880a-a9ac-bf89628883c3" testName="GetAttempts_ReturnsRecordedEntries (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0188343" startTime="2026-04-20T20:14:11.6984277+00:00" endTime="2026-04-20T20:14:11.7173112+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee9eac19-134f-4606-9fbb-658d6a6b7e9e" />
+    <UnitTestResult executionId="8c102726-367f-4100-9e57-387ee3f31c30" testId="17e085fe-9a4e-888a-9488-34f5d668f403" testName="IsIpInCidr_LoopbackOutsideSlash8_ReturnsFalse" computerName="runnervmxu3fp" duration="00:00:00.0000904" startTime="2026-04-20T20:14:10.5643677+00:00" endTime="2026-04-20T20:14:10.5645280+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c102726-367f-4100-9e57-387ee3f31c30" />
+    <UnitTestResult executionId="07dae47f-1154-4be6-9bc5-a8b29c7ee8cf" testId="1b6973ef-afbc-829e-9143-6d7cb169f19c" testName="GetPolicies_BlacklistOnly_ReturnsBlacklistEntries (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0121219" startTime="2026-04-20T20:14:11.7173343+00:00" endTime="2026-04-20T20:14:11.7301589+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07dae47f-1154-4be6-9bc5-a8b29c7ee8cf" />
+    <UnitTestResult executionId="b88d0a11-27d4-4e1a-9e07-a4e2489b4c6a" testId="190443ab-b957-8c62-a23a-0b94b3f75231" testName="IsIpInCidr_HighestAddressInSubnet_ReturnsTrue" computerName="runnervmxu3fp" duration="00:00:00.0002343" startTime="2026-04-20T20:14:10.5627524+00:00" endTime="2026-04-20T20:14:10.5633985+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b88d0a11-27d4-4e1a-9e07-a4e2489b4c6a" />
+    <UnitTestResult executionId="f8e267df-0cb4-4914-b610-318d427360e7" testId="1ab915ba-39e6-8aae-8bd4-5d3bbd4f96aa" testName="TestDynamicLike (SqlServer)" computerName="runnervmxu3fp" duration="00:00:00.0633753" startTime="2026-04-20T20:14:12.3884447+00:00" endTime="2026-04-20T20:14:12.4518825+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8e267df-0cb4-4914-b610-318d427360e7" />
+    <UnitTestResult executionId="f63be724-2f86-4849-bb7d-792e9d6482b9" testId="1823a733-01c4-8348-943b-483a843b01a3" testName="SerializeServerSettings" computerName="runnervmxu3fp" duration="00:00:00.0036305" startTime="2026-04-20T20:14:13.7653903+00:00" endTime="2026-04-20T20:14:13.7691398+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f63be724-2f86-4849-bb7d-792e9d6482b9">
+      <Output>
+        <StdOut>TestContext Messages:&#xD;
+Testing for type: FuseCP.EnterpriseServer.SystemSettings&#xD;
+  Deserialized type: FuseCP.EnterpriseServer.SystemSettings&#xD;
+&lt;SystemSettings xmlns="http://schemas.datacontract.org/2004/07/FuseCP.EnterpriseServer" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;&lt;SettingsArray i:nil="true" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/&gt;&lt;/SystemSettings&gt;</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="768667f7-e0d4-4a3c-a145-08656b7687bf" testId="1f2ef8ec-26c6-881b-88e2-fb2b65e9f5fe" testName="TestSafeSql" computerName="runnervmxu3fp" duration="00:00:00.0030913" startTime="2026-04-20T20:14:13.7707145+00:00" endTime="2026-04-20T20:14:13.7738758+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="768667f7-e0d4-4a3c-a145-08656b7687bf" />
+    <UnitTestResult executionId="d6e60a98-ca29-4032-8b08-2913dd8de5f4" testId="1c2a1dfd-e091-864c-91fe-0810de0f1543" testName="TestESAccess" computerName="runnervmxu3fp" duration="00:00:00.3595661" startTime="2026-04-20T20:14:13.7738958+00:00" endTime="2026-04-20T20:14:14.1335857+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6e60a98-ca29-4032-8b08-2913dd8de5f4">
+      <Output>
+        <StdOut>Windows&gt;dotnet dev-certs httpsWindows/Kestrel&gt;A valid HTTPS certificate is already present.&#xD;
+Windows&gt;"C:\Program Files\dotnet\dotnet.exe" "D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer\bin_dotnet\FuseCP.EnterpriseServer.dll" --urls "http://localhost:9006;https://localhost:9056"&#xD;
+&#xD;
+&#xD;
+TestContext Messages:&#xD;
+EnterpriseServer check via NetFramework failed: Command contains invalid characters. (Parameter 'cmd')&#xD;
+EnterpriseServer check via Core failed: Arguments contain invalid shell meta characters. (Parameter 'cmd')&#xD;
+Exception: System.ArgumentException: Arguments contain invalid shell meta characters. (Parameter 'cmd')&#xD;
+   at FuseCP.Tests.TestServerSettings.TestESAccess() in D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\Tests\ServerSettings.cs:line 60</StdOut>
+        <ErrorInfo>
+          <Message>Test method FuseCP.Tests.TestServerSettings.TestESAccess threw exception:&#xD;
+System.ArgumentException: Arguments contain invalid shell meta characters. (Parameter 'cmd')</Message>
+          <StackTrace>   at FuseCP.Tests.TestServerSettings.TestESAccess() in D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\Tests\ServerSettings.cs:line 60&#xD;
+   at Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution.TestMethodInfo.ExecuteInternalAsync(Object[] arguments, CancellationTokenSource timeoutTokenSource) in /_/src/Adapter/MSTestAdapter.PlatformServices/Execution/TestMethodInfo.cs:line 407&#xD;
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0f62f19a-da80-454b-af48-165cc681c21c" testId="1c71ff5b-7eef-8d43-910b-2c0cc76c79a9" testName="TestDbAccess (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0250005" startTime="2026-04-20T20:14:12.3633392+00:00" endTime="2026-04-20T20:14:12.3884148+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f62f19a-da80-454b-af48-165cc681c21c" />
+    <UnitTestResult executionId="4124fd70-38df-4ae1-8deb-6644f4a68be1" testId="1a9178ec-b1d1-8591-b8bd-1c95aff60c43" testName="TestGetSearchObjectEF (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.1742615" startTime="2026-04-20T20:14:13.3735154+00:00" endTime="2026-04-20T20:14:13.5478912+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4124fd70-38df-4ae1-8deb-6644f4a68be1" />
+    <UnitTestResult executionId="acf2a38c-14d7-4b7b-b035-6a8bb4535e0b" testId="12f79cfd-6ff6-8a79-bb90-ca3353604a7c" testName="TestCryptoSshUrl" computerName="runnervmxu3fp" duration="00:00:00.0024284" startTime="2026-04-20T20:14:11.7301866+00:00" endTime="2026-04-20T20:14:11.7327431+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="acf2a38c-14d7-4b7b-b035-6a8bb4535e0b" />
+    <UnitTestResult executionId="ab720aa7-87b3-4e3d-93e5-67aeeb96ddd0" testId="1b603e9f-5a97-8984-bd99-844315451e4d" testName="WhitelistIp_BlockIsIgnored_NotBlocked (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0093274" startTime="2026-04-20T20:14:11.6889808+00:00" endTime="2026-04-20T20:14:11.6984016+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab720aa7-87b3-4e3d-93e5-67aeeb96ddd0" />
+    <UnitTestResult executionId="a74db7db-fe93-44ec-b165-9aafae9b0677" testId="1220775e-7e6e-8474-8b89-87ec9d821409" testName="WhitelistIp_IsIpWhitelisted_ReturnsTrue (Sqlite)" computerName="runnervmxu3fp" duration="00:00:00.0152115" startTime="2026-04-20T20:14:11.6736904+00:00" endTime="2026-04-20T20:14:11.6889541+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a74db7db-fe93-44ec-b165-9aafae9b0677" />
+    <UnitTestResult executionId="b88fc6ae-cf30-4fbb-813f-72ba17ba79a7" testId="1e3c1fa2-f97a-8eff-8e2b-088d7b0fa22d" testName="TestGetSearchObjectEF (SqlServer)" computerName="runnervmxu3fp" duration="00:00:00.9076712" startTime="2026-04-20T20:14:12.4657117+00:00" endTime="2026-04-20T20:14:13.3734568+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b88fc6ae-cf30-4fbb-813f-72ba17ba79a7" />
+    <UnitTestResult executionId="63951e13-751e-4198-b7fe-a65bbb6b8546" testId="18dfb038-8bb6-87eb-a73e-9fcc4c775967" testName="TestWindowsOSVersion" computerName="runnervmxu3fp" duration="00:00:00.0014593" startTime="2026-04-20T20:14:13.7691741+00:00" endTime="2026-04-20T20:14:13.7706939+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63951e13-751e-4198-b7fe-a65bbb6b8546" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="IsIpInCidr_LoopbackOutsideSlash8_ReturnsFalse" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="17e085fe-9a4e-888a-9488-34f5d668f403">
+      <Execution id="8c102726-367f-4100-9e57-387ee3f31c30" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_LoopbackOutsideSlash8_ReturnsFalse" />
+    </UnitTest>
+    <UnitTest name="TestSafeSql" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1f2ef8ec-26c6-881b-88e2-fb2b65e9f5fe">
+      <Execution id="768667f7-e0d4-4a3c-a145-08656b7687bf" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.SafeSqlTest" name="TestSafeSql" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_DifferentHostInSlash32_ReturnsFalse" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1cefbbb3-59c0-89b6-9917-97eb380b8b09">
+      <Execution id="4e69fcf9-fdb7-455c-8c99-e165fc283b6d" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_DifferentHostInSlash32_ReturnsFalse" />
+    </UnitTest>
+    <UnitTest name="TestESAccess" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1c2a1dfd-e091-864c-91fe-0810de0f1543">
+      <Execution id="d6e60a98-ca29-4032-8b08-2913dd8de5f4" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.TestServerSettings" name="TestESAccess" />
+    </UnitTest>
+    <UnitTest name="TestDynamicLike (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1db4b88f-ab89-8870-ab6a-9c966bfbd873">
+      <Execution id="6ef92129-3ea9-4612-936f-74bbb498bf00" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestDynamicLike" />
+    </UnitTest>
+    <UnitTest name="UnblockIp_AfterBlock_IsNotBlocked (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1d5fcd4a-4fd8-8642-804b-b7208e0d8798">
+      <Execution id="43a6d8e6-2e83-4a2b-8102-fcf1a8c4ebbc" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="UnblockIp_AfterBlock_IsNotBlocked" />
+    </UnitTest>
+    <UnitTest name="TestDbAccess (SqlServer)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="17562c9f-62c5-8d01-ba20-d7dd0dc0e0ed">
+      <Execution id="acbded1c-ad77-4e41-937d-7fddfff6294d" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestDbAccess" />
+    </UnitTest>
+    <UnitTest name="TestGetSearchObjectStoredProcedure (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="126cba10-ca52-8f3c-b9fd-63031651706e">
+      <Execution id="be057bb9-1c21-4456-9083-5ab4585e6a31" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestGetSearchObjectStoredProcedure" />
+    </UnitTest>
+    <UnitTest name="WhitelistIp_BlockIsIgnored_NotBlocked (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1b603e9f-5a97-8984-bd99-844315451e4d">
+      <Execution id="ab720aa7-87b3-4e3d-93e5-67aeeb96ddd0" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="WhitelistIp_BlockIsIgnored_NotBlocked" />
+    </UnitTest>
+    <UnitTest name="TestWindowsOSVersion" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="18dfb038-8bb6-87eb-a73e-9fcc4c775967">
+      <Execution id="63951e13-751e-4198-b7fe-a65bbb6b8546" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Misc" name="TestWindowsOSVersion" />
+    </UnitTest>
+    <UnitTest name="SerializeServerSettings" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1823a733-01c4-8348-943b-483a843b01a3">
+      <Execution id="f63be724-2f86-4849-bb7d-792e9d6482b9" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Misc" name="SerializeServerSettings" />
+    </UnitTest>
+    <UnitTest name="TestGetSearchObjectEF (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1a9178ec-b1d1-8591-b8bd-1c95aff60c43">
+      <Execution id="4124fd70-38df-4ae1-8deb-6644f4a68be1" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestGetSearchObjectEF" />
+    </UnitTest>
+    <UnitTest name="TestGetSearchObjectEF (SqlServer)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1e3c1fa2-f97a-8eff-8e2b-088d7b0fa22d">
+      <Execution id="b88fc6ae-cf30-4fbb-813f-72ba17ba79a7" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestGetSearchObjectEF" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_AddressOutsideSubnet_ReturnsFalse" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="17620a5c-24fc-8dbe-86b3-9ea45cdbd573">
+      <Execution id="735c95c4-810f-4720-aaa2-88170701991a" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_AddressOutsideSubnet_ReturnsFalse" />
+    </UnitTest>
+    <UnitTest name="TestDbAccess (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1c71ff5b-7eef-8d43-910b-2c0cc76c79a9">
+      <Execution id="0f62f19a-da80-454b-af48-165cc681c21c" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestDbAccess" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_EmptyIp_ReturnsFalse" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="162287fe-5ef5-8ec3-9ef7-a2695ceac0ba">
+      <Execution id="9bed132d-cd5b-4987-b62e-36036cc9bb6e" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_EmptyIp_ReturnsFalse" />
+    </UnitTest>
+    <UnitTest name="TestGetSearchObjectStoredProcedure (SqlServer)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1f8295c9-f200-84af-8e80-b49c5f0813cb">
+      <Execution id="70d1dcdb-daa0-4692-bdc5-f20135b52667" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestGetSearchObjectStoredProcedure" />
+    </UnitTest>
+    <UnitTest name="BlockIp_IsIpBlocked_ReturnsTrue (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1ab0d373-b5ce-8e6d-b136-326809502aad">
+      <Execution id="1b13d84b-111a-4bea-aeba-05e782bf91b7" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="BlockIp_IsIpBlocked_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="TestESAssemblyAccess" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1d8a2955-818a-8f44-b71f-eae1e24cdfb7">
+      <Execution id="353b8ae8-7be3-486d-90d3-d6dd08c25a18" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.TestServerSettings" name="TestESAssemblyAccess" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_ExactHostRoute_ReturnsTrue" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1b7b59fd-f8e2-873f-8f11-913dfb02fb7a">
+      <Execution id="19b1daa9-ed05-452a-b0e9-c750a4ac6449" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_ExactHostRoute_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="TestIgnoreDataMember" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="15a72c4d-9aea-8ca5-a764-1e650a9908c5">
+      <Execution id="5b31b99c-57ba-4a95-a849-ea5ef62cd1d9" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.IgnoreDataMember" name="TestIgnoreDataMember" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_InvalidCidr_ReturnsFalse" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1641570f-1a33-8671-9695-5972ecc177be">
+      <Execution id="a8f743e8-eeb6-4c40-b2a8-12d33e2e0966" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_InvalidCidr_ReturnsFalse" />
+    </UnitTest>
+    <UnitTest name="GetAttempts_ReturnsRecordedEntries (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1bd1bb35-1341-880a-a9ac-bf89628883c3">
+      <Execution id="ee9eac19-134f-4606-9fbb-658d6a6b7e9e" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="GetAttempts_ReturnsRecordedEntries" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_HighestAddressInSubnet_ReturnsTrue" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="190443ab-b957-8c62-a23a-0b94b3f75231">
+      <Execution id="b88d0a11-27d4-4e1a-9e07-a4e2489b4c6a" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_HighestAddressInSubnet_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_ExactMatchWithin_ReturnsTrue" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1cc9f221-5ee1-8bdd-a5ff-a32c528776fb">
+      <Execution id="df76117c-e0b1-4d0f-ac00-6dee1b3a852d" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_ExactMatchWithin_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="RecordAttempt_SingleFailure_NotBlocked (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="11f5d5f8-9a59-86ea-bd7e-1a2325ab614c">
+      <Execution id="e93dbd75-de6b-4373-9356-c38315e4a6e0" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="RecordAttempt_SingleFailure_NotBlocked" />
+    </UnitTest>
+    <UnitTest name="TestDynamicLike (SqlServer)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1ab915ba-39e6-8aae-8bd4-5d3bbd4f96aa">
+      <Execution id="f8e267df-0cb4-4914-b610-318d427360e7" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Database" name="TestDynamicLike" />
+    </UnitTest>
+    <UnitTest name="RecordAttempt_SuccessAfterFailure_NotBlocked (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1ae25bdb-c0a4-8513-9b23-1398e64e2fd5">
+      <Execution id="7620ab21-0020-4191-83c1-34897eaabdf4" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="RecordAttempt_SuccessAfterFailure_NotBlocked" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_LoopbackInSlash8_ReturnsTrue" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1890aaa3-1082-8d84-bcf0-1846585c5819">
+      <Execution id="a1da7e98-6099-40d9-aec8-2d81cc9ebf3d" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_LoopbackInSlash8_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="GetPolicies_BlacklistOnly_ReturnsBlacklistEntries (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1b6973ef-afbc-829e-9143-6d7cb169f19c">
+      <Execution id="07dae47f-1154-4be6-9bc5-a8b29c7ee8cf" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="GetPolicies_BlacklistOnly_ReturnsBlacklistEntries" />
+    </UnitTest>
+    <UnitTest name="IsIpInCidr_IPv6_LoopbackInSlash64_ReturnsTrue" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="101105f7-bc3a-8099-9a3c-9e800f9fa644">
+      <Execution id="c80326c6-b5d4-425b-9e81-31bce6a2c804" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="IsIpInCidr_IPv6_LoopbackInSlash64_ReturnsTrue" />
+    </UnitTest>
+    <UnitTest name="TestEncryptDecrypt" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="179fd0ab-2822-805b-b470-a4b485e66c90">
+      <Execution id="de8be17f-aa46-441b-bc53-8c2d3999d6b0" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Crypto" name="TestEncryptDecrypt" />
+    </UnitTest>
+    <UnitTest name="TestCryptoSshUrl" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="12f79cfd-6ff6-8a79-bb90-ca3353604a7c">
+      <Execution id="acf2a38c-14d7-4b7b-b035-6a8bb4535e0b" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.Crypto" name="TestCryptoSshUrl" />
+    </UnitTest>
+    <UnitTest name="WhitelistIp_IsIpWhitelisted_ReturnsTrue (Sqlite)" storage="d:\a\fusecp\fusecp\fusecp\sources\fusecp.enterpriseserver.tests\bin\release\net10.0\fusecp.enterpriseserver.tests.dll" id="1220775e-7e6e-8474-8b89-87ec9d821409">
+      <Execution id="a74db7db-fe93-44ec-b165-9aafae9b0677" />
+      <TestMethod codeBase="D:\a\FuseCP\FuseCP\FuseCP\Sources\FuseCP.EnterpriseServer.Tests\bin\Release\net10.0\FuseCP.EnterpriseServer.Tests.dll" adapterTypeName="executor://mstestadapter/v4" className="FuseCP.Tests.BruteForceProtectionTests" name="WhitelistIp_IsIpWhitelisted_ReturnsTrue" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1cefbbb3-59c0-89b6-9917-97eb380b8b09" executionId="4e69fcf9-fdb7-455c-8c99-e165fc283b6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f8295c9-f200-84af-8e80-b49c5f0813cb" executionId="70d1dcdb-daa0-4692-bdc5-f20135b52667" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1cc9f221-5ee1-8bdd-a5ff-a32c528776fb" executionId="df76117c-e0b1-4d0f-ac00-6dee1b3a852d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15a72c4d-9aea-8ca5-a764-1e650a9908c5" executionId="5b31b99c-57ba-4a95-a849-ea5ef62cd1d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="179fd0ab-2822-805b-b470-a4b485e66c90" executionId="de8be17f-aa46-441b-bc53-8c2d3999d6b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="126cba10-ca52-8f3c-b9fd-63031651706e" executionId="be057bb9-1c21-4456-9083-5ab4585e6a31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b7b59fd-f8e2-873f-8f11-913dfb02fb7a" executionId="19b1daa9-ed05-452a-b0e9-c750a4ac6449" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17562c9f-62c5-8d01-ba20-d7dd0dc0e0ed" executionId="acbded1c-ad77-4e41-937d-7fddfff6294d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17620a5c-24fc-8dbe-86b3-9ea45cdbd573" executionId="735c95c4-810f-4720-aaa2-88170701991a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1db4b88f-ab89-8870-ab6a-9c966bfbd873" executionId="6ef92129-3ea9-4612-936f-74bbb498bf00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d5fcd4a-4fd8-8642-804b-b7208e0d8798" executionId="43a6d8e6-2e83-4a2b-8102-fcf1a8c4ebbc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11f5d5f8-9a59-86ea-bd7e-1a2325ab614c" executionId="e93dbd75-de6b-4373-9356-c38315e4a6e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ab0d373-b5ce-8e6d-b136-326809502aad" executionId="1b13d84b-111a-4bea-aeba-05e782bf91b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1641570f-1a33-8671-9695-5972ecc177be" executionId="a8f743e8-eeb6-4c40-b2a8-12d33e2e0966" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="162287fe-5ef5-8ec3-9ef7-a2695ceac0ba" executionId="9bed132d-cd5b-4987-b62e-36036cc9bb6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1890aaa3-1082-8d84-bcf0-1846585c5819" executionId="a1da7e98-6099-40d9-aec8-2d81cc9ebf3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ae25bdb-c0a4-8513-9b23-1398e64e2fd5" executionId="7620ab21-0020-4191-83c1-34897eaabdf4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="101105f7-bc3a-8099-9a3c-9e800f9fa644" executionId="c80326c6-b5d4-425b-9e81-31bce6a2c804" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d8a2955-818a-8f44-b71f-eae1e24cdfb7" executionId="353b8ae8-7be3-486d-90d3-d6dd08c25a18" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1bd1bb35-1341-880a-a9ac-bf89628883c3" executionId="ee9eac19-134f-4606-9fbb-658d6a6b7e9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17e085fe-9a4e-888a-9488-34f5d668f403" executionId="8c102726-367f-4100-9e57-387ee3f31c30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b6973ef-afbc-829e-9143-6d7cb169f19c" executionId="07dae47f-1154-4be6-9bc5-a8b29c7ee8cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="190443ab-b957-8c62-a23a-0b94b3f75231" executionId="b88d0a11-27d4-4e1a-9e07-a4e2489b4c6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ab915ba-39e6-8aae-8bd4-5d3bbd4f96aa" executionId="f8e267df-0cb4-4914-b610-318d427360e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1823a733-01c4-8348-943b-483a843b01a3" executionId="f63be724-2f86-4849-bb7d-792e9d6482b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f2ef8ec-26c6-881b-88e2-fb2b65e9f5fe" executionId="768667f7-e0d4-4a3c-a145-08656b7687bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c2a1dfd-e091-864c-91fe-0810de0f1543" executionId="d6e60a98-ca29-4032-8b08-2913dd8de5f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c71ff5b-7eef-8d43-910b-2c0cc76c79a9" executionId="0f62f19a-da80-454b-af48-165cc681c21c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a9178ec-b1d1-8591-b8bd-1c95aff60c43" executionId="4124fd70-38df-4ae1-8deb-6644f4a68be1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12f79cfd-6ff6-8a79-bb90-ca3353604a7c" executionId="acf2a38c-14d7-4b7b-b035-6a8bb4535e0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b603e9f-5a97-8984-bd99-844315451e4d" executionId="ab720aa7-87b3-4e3d-93e5-67aeeb96ddd0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1220775e-7e6e-8474-8b89-87ec9d821409" executionId="a74db7db-fe93-44ec-b165-9aafae9b0677" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e3c1fa2-f97a-8eff-8e2b-088d7b0fa22d" executionId="b88fc6ae-cf30-4fbb-813f-72ba17ba79a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18dfb038-8bb6-87eb-a73e-9fcc4c775967" executionId="63951e13-751e-4198-b7fe-a65bbb6b8546" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="34" executed="34" passed="33" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+</TestRun>

@@ -98,6 +98,10 @@ namespace FuseCP.Providers.OS
 			}
 
 			var service = All().FirstOrDefault(s => string.Equals(s.Id, serviceId, StringComparison.Ordinal));
+			if (service == null || !IsManagedServiceId(service.Id))
+			{
+				throw new UnauthorizedAccessException("Resolved service is not managed by FuseCP.");
+			}
 			if (service == null)
 			{
 				throw new ArgumentException("Service not found.", nameof(serviceId));
