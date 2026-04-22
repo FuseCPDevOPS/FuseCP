@@ -12,6 +12,15 @@ $(document).ready(function () {
 
     function collapseAction($collection, action) {
         if (!window.bootstrap || !window.bootstrap.Collapse) {
+            forEachElement($collection, function (element) {
+                if (action === 'show') {
+                    element.classList.add('show');
+                } else if (action === 'hide') {
+                    element.classList.remove('show');
+                } else {
+                    element.classList.toggle('show');
+                }
+            });
             return;
         }
 
@@ -250,7 +259,7 @@ $(document).ready(function () {
     syncTopBarHeightVariable();
     ensureDesktopSearchVisible();
 
-    $('.main-menu .submenu-toggle').click(function (e) {
+    $(document).on('click', '.main-menu .submenu-toggle', function (e) {
         e.preventDefault();
 
         $currentItemToggle = $(this);

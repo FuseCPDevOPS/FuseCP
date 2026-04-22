@@ -57,7 +57,14 @@ namespace FuseCP.WebPortal
 
 				if (authTicket != null)
 				{
-					roleName = authTicket.UserData;
+					// UserData is stored as "password + newline + role" for ES proxy auth.
+					// Extract the last non-empty line so role checks keep working.
+					string ticketData = authTicket.UserData ?? String.Empty;
+					string[] ticketParts = ticketData
+						.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+					roleName = (ticketParts.Length > 0)
+						? ticketParts[ticketParts.Length - 1].Trim()
+						: String.Empty;
 				}
 
 				string[] roles = null;

@@ -213,7 +213,9 @@ namespace CSSFriendly
                     else
                     {
                         writer.WriteBeginTag("a"); //changed span to a
+                        writer.WriteAttribute("href", "#");
                         writer.WriteAttribute("class", "submenu-toggle"); //GetItemClass(menu, item)
+                        writer.WriteAttribute("onclick", "this.parentNode.classList.toggle('active');var u=this.parentNode.getElementsByTagName('ul')[0];if(u){u.classList.toggle('show');}return false;");
                         writer.Write(HtmlTextWriter.TagRightChar);
                         writer.Indent++;
                         writer.WriteLine();
