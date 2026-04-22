@@ -158,6 +158,8 @@ jobs:
     - name: Run deploy-release.bat (with heartbeat)
       shell: pwsh
       working-directory: FuseCP
+      env:
+        BuildInstallerMsi: false
       run: |
         $outLog = Join-Path $PWD 'deploy-release.stdout.log'
         $errLog = Join-Path $PWD 'deploy-release.stderr.log'
