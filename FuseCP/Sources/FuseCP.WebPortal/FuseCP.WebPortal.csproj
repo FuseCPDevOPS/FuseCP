@@ -65,8 +65,8 @@
         <PackageReference Include="JavaScriptEngineSwitcher.Msie" Version="3.24.1" />
         <PackageReference Include="MsieJavaScriptEngine" Version="3.2.5" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="MailKit" Version="4.15.1" />
-        <PackageReference Include="MimeKit" Version="4.15.1" />
+        <PackageReference Include="MailKit" Version="4.16.0" />
+        <PackageReference Include="MimeKit" Version="4.16.0" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
         <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
         <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.26" />
