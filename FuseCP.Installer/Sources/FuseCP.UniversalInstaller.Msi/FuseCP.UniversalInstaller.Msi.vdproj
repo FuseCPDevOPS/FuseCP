@@ -270,21 +270,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FF2BD004F3A340F9B309E6A193D2C3FF"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF2BD004F3A340F9B309E6A193D2C3FF"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FuseCP.Installer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FF2BD004F3A340F9B309E6A193D2C3FF"
-                    {
-                    "Name" = "8:FuseCP.Installer.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
             "SourcePath" = "8:FuseCP.Installer.dll"
-            "TargetName" = "8:"
+            "TargetName" = "8:FuseCP.Installer.dll"
             "Tag" = "8:"
             "Folder" = "8:_69534927F8764F848A73EDCFB8B13EC6"
             "Condition" = "8:"

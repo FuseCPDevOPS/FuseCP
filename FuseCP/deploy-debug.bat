@@ -36,7 +36,7 @@ IF not defined Configuration ( Set Configuration=Debug)
 IF not defined BuildLegacyPackaging ( Set BuildLegacyPackaging=false)
 IF not defined BuildLinuxInstallPackages ( Set BuildLinuxInstallPackages=true)
 IF not defined BuildInstallerSolution ( Set BuildInstallerSolution=true)
-IF not defined BuildInstallerMsi ( Set BuildInstallerMsi=false)
+IF not defined BuildInstallerMsi ( Set BuildInstallerMsi=true)
 
 IF EXIST "%ProgramFiles%\Microsoft Visual Studio\18\Community\MSBuild\Current\bin\MSBuild.exe" (
 	Set FCPMSBuild="%ProgramFiles%\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe"

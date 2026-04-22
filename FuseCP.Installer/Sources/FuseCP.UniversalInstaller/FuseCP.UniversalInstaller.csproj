@@ -148,12 +148,7 @@
         </ItemGroup>
         <Delete Files="@(DllsToDelete)" />
 
-        <ItemGroup>
-            <Dirs Include="$([System.IO.Directory]::GetDirectories('$(OutputPath)', '*.*'))" />
-        </ItemGroup>
-
-        <Message Text="Found directories: @(Dirs)" Importance="High" />
-        <RemoveDir Directories="@(Dirs)" />
+        <!-- Keep output directories in place to avoid transient file-lock warnings during post-build cleanup. -->
     </Target>
 
     <Target Name="CopyOutput" AfterTargets="Build" Condition="$(TargetFramework) == 'net10.0-windows'">

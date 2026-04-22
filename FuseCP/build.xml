@@ -504,9 +504,11 @@
 		<PropertyGroup>
 			<InstallerProjectRoot>$(RootFolder)\FuseCP.Installer\Sources\</InstallerProjectRoot>
 			<InstallerEntryProject>$(InstallerProjectRoot)FuseCP.UniversalInstaller\FuseCP.UniversalInstaller.csproj</InstallerEntryProject>
-			<InstallerProjectBin Condition="Exists('$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0\FuseCP.Installer.dll')">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0</InstallerProjectBin>
+			<InstallerProjectBin Condition="Exists('$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(Platform)\$(BuildConfiguration)\net10.0\FuseCP.Installer.dll')">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(Platform)\$(BuildConfiguration)\net10.0</InstallerProjectBin>
+			<InstallerProjectBin Condition="'$(InstallerProjectBin)' == '' and Exists('$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(Platform)\$(BuildConfiguration)\net10.0-windows\FuseCP.Installer.dll')">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(Platform)\$(BuildConfiguration)\net10.0-windows</InstallerProjectBin>
+			<InstallerProjectBin Condition="'$(InstallerProjectBin)' == '' and Exists('$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0\FuseCP.Installer.dll')">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0</InstallerProjectBin>
 			<InstallerProjectBin Condition="'$(InstallerProjectBin)' == '' and Exists('$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0-windows\FuseCP.Installer.dll')">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0-windows</InstallerProjectBin>
-			<InstallerProjectBin Condition="'$(InstallerProjectBin)' == ''">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(BuildConfiguration)\net10.0-windows</InstallerProjectBin>
+			<InstallerProjectBin Condition="'$(InstallerProjectBin)' == ''">$(InstallerProjectRoot)FuseCP.UniversalInstaller\bin\$(Platform)\$(BuildConfiguration)\net10.0-windows</InstallerProjectBin>
 		</PropertyGroup>
 
 		<Exec Command="dotnet restore /p:BuildWithNetFrameworkHostedCompiler=true &quot;$(InstallerEntryProject)&quot;" Condition="'$(BuildInstallerSolution)' == 'true'" />
@@ -522,8 +524,10 @@
 			<InstallerBinaries Include="$(InstallerProjectBin)\**\*.exe" />
 			<InstallerBinaries Include="$(InstallerProjectBin)\**\*.Installer.deps.json" />
 			<InstallerBinaries Include="$(InstallerProjectBin)\**\*.runtimeconfig.json" />
-			<SetupDll Include="$(InstallerProjectRoot)\FuseCP.Setup\bin\$(BuildConfiguration)\**\Setup2.dll" />
-			<SetupDll Include="$(InstallerProjectRoot)\FuseCP.Setup\bin\$(BuildConfiguration)\**\Setup2.pdb" />
+			<SetupDll Include="$(InstallerProjectRoot)FuseCP.Setup\bin\$(Platform)\$(BuildConfiguration)\**\Setup2.dll" />
+			<SetupDll Include="$(InstallerProjectRoot)FuseCP.Setup\bin\$(Platform)\$(BuildConfiguration)\**\Setup2.pdb" />
+			<SetupDll Include="$(InstallerProjectRoot)FuseCP.Setup\bin\$(BuildConfiguration)\**\Setup2.dll" />
+			<SetupDll Include="$(InstallerProjectRoot)FuseCP.Setup\bin\$(BuildConfiguration)\**\Setup2.pdb" />
 		</ItemGroup>
 		<Copy SourceFiles="@(InstallerBinaries)" DestinationFolder="$(InstallerBuild)\%(RecursiveDir)" Condition="'$(BuildInstallerSolution)' == 'true'" />
 		<Copy SourceFiles="@(SetupDll)" DestinationFolder="$(SetupBuildFolder)" Condition="'$(BuildInstallerSolution)' == 'true'" />
