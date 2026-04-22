@@ -73,7 +73,9 @@ namespace FuseCP.Tests
 			var exe = wslDistro != null ? "/usr/lib/dotnet/dotnet" : shell.Find("dotnet");
 			if (wslDistro != null)
 			{
-				var dotnetExists = shell.Exec($"test -x \"{exe}\" && echo ok").Output().Result.Trim() == "ok";
+				// Use ExecScriptAsync so the shell metacharacters (&&) in the script are
+				// handled by bash inside WSL rather than being validated as argument tokens.
+				var dotnetExists = shell.ExecScriptAsync($"test -x \"{exe}\" && echo ok").Output().Result.Trim() == "ok";
 				if (!dotnetExists)
 				{
 					var discoveredExe = shell.Find("dotnet");
@@ -120,9 +122,11 @@ namespace FuseCP.Tests
 			cert.Input.WriteLine("yes");
 			cert.Wait();*/
 
-			var launchCommand = wslDistro != null
-				? $"\"{exe}\" \"{dll}\""
-				: $"\"{exe}\" \"{dll}\" --urls \"{HttpUrl};{HttpsUrl}\"";
+			// URLs are written to appsettings.hardened.json by WriteTestOverlay above;
+			// the server reads applicationUrls from config. Do not pass --urls on the
+			// command line because the semicolon separator is rejected as a shell
+			// metacharacter by Shell's argument validator.
+			var launchCommand = $"\"{exe}\" \"{dll}\"";
 
 			process = shell.ExecAsync(launchCommand).Process;
 			if (process == null) throw new InvalidOperationException($"Could not start Kestrel: executable not found at '{exe}'");
