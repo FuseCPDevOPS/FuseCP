@@ -26,6 +26,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Management.Automation" Version="7.5.5" />
+		<PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
@@ -34,6 +35,6 @@
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
 		<ProjectReference Include="..\FuseCP.Providers.HostedSolution\FuseCP.Providers.HostedSolution.csproj" />
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
-		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2012R2\FuseCP.Providers.Virtualization.HyperV2012R2.csproj" />
+
 	</ItemGroup>
 </Project>

@@ -22,11 +22,15 @@ using System.Runtime.Versioning;
 
 namespace FuseCP.Providers.Virtualization
 {
+    /// <summary>
+    /// DEPRECATED: This class will be removed in the next release (after 2025?).
+    /// Please use <c>MiManager</c> instead.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     internal class Wmi
     {
-        string nameSpace = null;
-        string computerName = null;
+        readonly string nameSpace = null;
+        readonly string computerName = null;
         ManagementScope scope = null;
 
         public Wmi(string nameSpace) : this(nameSpace, null)
@@ -88,8 +92,7 @@ namespace FuseCP.Providers.Virtualization
         {
             ManagementObjectCollection col = obj.GetRelated(className);
             ManagementObjectCollection.ManagementObjectEnumerator enumerator = col.GetEnumerator();
-            enumerator.MoveNext();
-            return (ManagementObject)enumerator.Current;
+            return enumerator.MoveNext() ? (ManagementObject)enumerator.Current : null;
         }
 
         internal void Dump(ManagementBaseObject obj)

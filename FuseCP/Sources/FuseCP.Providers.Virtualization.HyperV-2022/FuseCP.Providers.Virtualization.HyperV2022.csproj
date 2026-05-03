@@ -34,7 +34,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
 		<ProjectReference Include="..\FuseCP.Providers.HostedSolution\FuseCP.Providers.HostedSolution.csproj" />
-		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2012R2\FuseCP.Providers.Virtualization.HyperV2012R2.csproj" />
+		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2016\FuseCP.Providers.Virtualization.HyperV2016.csproj" />
 		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2019\FuseCP.Providers.Virtualization.HyperV2019.csproj" />
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
