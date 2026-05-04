@@ -64,18 +64,7 @@
 			<Project>{9b99f215-5029-4779-bc2f-6d83cbb42205}</Project>
 			<Name>FuseCP.Providers.Web.IIs100</Name>
 		</ProjectReference>
-		<ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Web.IIs60\FuseCP.Providers.Web.IIs60.csproj">
-			<Project>{9be0317d-e42e-4ff6-9a87-8c801f046ea1}</Project>
-			<Name>FuseCP.Providers.Web.IIs60</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Web.IIS70\FuseCP.Providers.Web.IIs70.csproj">
-			<Project>{1b9dce85-c664-49fc-b6e1-86c63cab88d1}</Project>
-			<Name>FuseCP.Providers.Web.IIs70</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Web.IIs80\FuseCP.Providers.Web.IIs80.csproj">
-			<Project>{6e348968-461d-45a1-b235-4f552947b9f1}</Project>
-			<Name>FuseCP.Providers.Web.IIs80</Name>
-		</ProjectReference>-->
+		-->
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="obj\x86\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />

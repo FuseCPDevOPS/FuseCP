@@ -710,12 +710,12 @@ namespace FuseCP.Providers.Web.Iis
             return ExecuteShellCommand(runSpace, cmd, useDomainController, out errors);
         }
 
-        internal Collection<PSObject> ExecuteShellCommand(Runspace runSpace, Command cmd, out object[] errors)
+        internal new Collection<PSObject> ExecuteShellCommand(Runspace runSpace, Command cmd, out object[] errors)
         {
             return ExecuteShellCommand(runSpace, cmd, true, out errors);
         }
 
-        internal Collection<PSObject> ExecuteShellCommand(Runspace runSpace, Command cmd, bool useDomainController, out object[] errors)
+        internal new Collection<PSObject> ExecuteShellCommand(Runspace runSpace, Command cmd, bool useDomainController, out object[] errors)
         {
             Log.WriteStart("ExecuteShellCommand");
 
@@ -776,7 +776,7 @@ namespace FuseCP.Providers.Web.Iis
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        internal string GetResultObjectIdentity(Collection<PSObject> result)
+        internal new string GetResultObjectIdentity(Collection<PSObject> result)
         {
             Log.WriteStart("GetResultObjectIdentity");
             if (result == null)
@@ -797,7 +797,7 @@ namespace FuseCP.Providers.Web.Iis
             return ret;
         }
 
-        internal string GetResultObjectDN(Collection<PSObject> result)
+        internal new string GetResultObjectDN(Collection<PSObject> result)
         {
             Log.WriteStart("GetResultObjectDN");
             if (result == null)
