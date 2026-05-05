@@ -9,9 +9,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
     /// <inheritdoc />
     public partial class RemoveDeprecatedProvidersExchangeAndSql : Migration
     {
+        private static readonly int[] _deprecatedProviderIds =
+            { 5, 16, 27, 32, 90, 202, 209, 1203, 1501 };
+
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Delete ServiceDefaultProperties for these providers first to satisfy the FK constraint.
+            var inList = string.Join(", ", _deprecatedProviderIds);
+            migrationBuilder.Sql($@"DELETE FROM ""ServiceDefaultProperties"" WHERE ""ProviderID"" IN ({inList});");
+
             migrationBuilder.DeleteData(
                 table: "Providers",
                 keyColumn: "ProviderID",

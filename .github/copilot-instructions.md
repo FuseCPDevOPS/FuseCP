@@ -40,6 +40,11 @@ These instructions guide AI coding assistants working in this repository.
      - **PostgreSQL connection**: `Host=localhost;Port=5433;User ID=postgres;Password=Password12` — this works.
   4. Commit Entity, Configuration, migration files, and regenerated `install.*.sql` files
   5. **Database workflow verification is FULLY AUTOMATED**: Never manually run verification scripts - they execute automatically in CI, local validation, and pre-commit hooks. Treat `install.*.sql` as generated artifacts, not the source of truth. SQLite upgrades run through EF migrations. Never edit EF model snapshot files or migration files by hand. See `DATABASE_WORKFLOW_COMPLETE.md` for complete reference.
+  6. **SQLite FK constraint rule**: `PRAGMA foreign_keys = OFF` is a **no-op inside transactions** — the SQLite install script runs entirely inside `BEGIN TRANSACTION`, so PRAGMA cannot disable FK enforcement mid-script. When an EF SQLite migration deletes rows from a parent table (e.g. `Providers`), you MUST first emit a `migrationBuilder.Sql(...)` to delete child rows from every non-cascading FK table. Tables with non-cascading FKs to `Providers`: `ServiceDefaultProperties` and `Services`. Pattern:
+     ```csharp
+     migrationBuilder.Sql(@"DELETE FROM ""ServiceDefaultProperties"" WHERE ""ProviderID"" IN (1, 2, 3);");
+     migrationBuilder.DeleteData(table: "Providers", keyColumn: "ProviderID", keyValue: 1);
+     ```
 
 ## Exchange Provider Patterns
 
