@@ -57,7 +57,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "AccountId" }, "AccessTokensIdx_AccountID");
 
-                    b.ToTable("AccessTokens", (string)null);
+                    b.ToTable("AccessTokens");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.AdditionalGroup", b =>
@@ -80,7 +80,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_AdditionalGroup");
 
-                    b.ToTable("AdditionalGroups", (string)null);
+                    b.ToTable("AdditionalGroups");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.AuditLog", b =>
@@ -139,7 +139,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("RecordId")
                         .HasName("PK_Log");
 
-                    b.ToTable("AuditLog", (string)null);
+                    b.ToTable("AuditLog");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.AuditLogSource", b =>
@@ -151,7 +151,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("SourceName");
 
-                    b.ToTable("AuditLogSources", (string)null);
+                    b.ToTable("AuditLogSources");
 
                     b.HasData(
                         new
@@ -329,7 +329,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("SourceName", "TaskName")
                         .HasName("PK_LogActions");
 
-                    b.ToTable("AuditLogTasks", (string)null);
+                    b.ToTable("AuditLogTasks");
 
                     b.HasData(
                         new
@@ -2240,7 +2240,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_BackgroundTask");
 
-                    b.ToTable("BackgroundTasks", (string)null);
+                    b.ToTable("BackgroundTasks");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.BackgroundTaskLog", b =>
@@ -2282,7 +2282,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "TaskId" }, "BackgroundTaskLogsIdx_TaskID");
 
-                    b.ToTable("BackgroundTaskLogs", (string)null);
+                    b.ToTable("BackgroundTaskLogs");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.BackgroundTaskParameter", b =>
@@ -2314,7 +2314,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "TaskId" }, "BackgroundTaskParametersIdx_TaskID");
 
-                    b.ToTable("BackgroundTaskParameters", (string)null);
+                    b.ToTable("BackgroundTaskParameters");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.BackgroundTaskStack", b =>
@@ -2335,7 +2335,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "TaskId" }, "BackgroundTaskStackIdx_TaskID");
 
-                    b.ToTable("BackgroundTaskStack", (string)null);
+                    b.ToTable("BackgroundTaskStack");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.BlackBerryUser", b =>
@@ -2361,7 +2361,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "AccountId" }, "BlackBerryUsersIdx_AccountId");
 
-                    b.ToTable("BlackBerryUsers", (string)null);
+                    b.ToTable("BlackBerryUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.BruteForceLog", b =>
@@ -2400,7 +2400,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_BruteForceLog");
 
-                    b.ToTable("BruteForceLogs", (string)null);
+                    b.ToTable("BruteForceLogs");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Cluster", b =>
@@ -2419,7 +2419,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("ClusterId");
 
-                    b.ToTable("Clusters", (string)null);
+                    b.ToTable("Clusters");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Comment", b =>
@@ -2463,7 +2463,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "UserId" }, "CommentsIdx_UserID");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.CrmUser", b =>
@@ -2505,7 +2505,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "AccountId" }, "CRMUsersIdx_AccountID");
 
-                    b.ToTable("CRMUsers", (string)null);
+                    b.ToTable("CRMUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DmzIpAddress", b =>
@@ -2535,7 +2535,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ItemId" }, "DmzIPAddressesIdx_ItemID");
 
-                    b.ToTable("DmzIPAddresses", (string)null);
+                    b.ToTable("DmzIPAddresses");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Domain", b =>
@@ -2611,7 +2611,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ZoneItemId" }, "DomainsIdx_ZoneItemID");
 
-                    b.ToTable("Domains", (string)null);
+                    b.ToTable("Domains");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DomainDnsRecord", b =>
@@ -2645,7 +2645,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "DomainId" }, "DomainDnsRecordsIdx_DomainId");
 
-                    b.ToTable("DomainDnsRecords", (string)null);
+                    b.ToTable("DomainDnsRecords");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.EnterpriseFolder", b =>
@@ -2690,7 +2690,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "StorageSpaceFolderId" }, "EnterpriseFoldersIdx_StorageSpaceFolderId");
 
-                    b.ToTable("EnterpriseFolders", (string)null);
+                    b.ToTable("EnterpriseFolders");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.EnterpriseFoldersOwaPermission", b =>
@@ -2721,7 +2721,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "FolderId" }, "EnterpriseFoldersOwaPermissionsIdx_FolderID");
 
-                    b.ToTable("EnterpriseFoldersOwaPermissions", (string)null);
+                    b.ToTable("EnterpriseFoldersOwaPermissions");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeAccount", b =>
@@ -2810,7 +2810,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasIndex(new[] { "AccountName" }, "IX_ExchangeAccounts_UniqueAccountName")
                         .IsUnique();
 
-                    b.ToTable("ExchangeAccounts", (string)null);
+                    b.ToTable("ExchangeAccounts");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeAccountEmailAddress", b =>
@@ -2838,7 +2838,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasIndex(new[] { "EmailAddress" }, "IX_ExchangeAccountEmailAddresses_UniqueEmail")
                         .IsUnique();
 
-                    b.ToTable("ExchangeAccountEmailAddresses", (string)null);
+                    b.ToTable("ExchangeAccountEmailAddresses");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeDeletedAccount", b =>
@@ -2876,7 +2876,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_ExchangeDeletedAccount");
 
-                    b.ToTable("ExchangeDeletedAccounts", (string)null);
+                    b.ToTable("ExchangeDeletedAccounts");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeDisclaimer", b =>
@@ -2901,7 +2901,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("ExchangeDisclaimerId");
 
-                    b.ToTable("ExchangeDisclaimers", (string)null);
+                    b.ToTable("ExchangeDisclaimers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeMailboxPlan", b =>
@@ -3022,7 +3022,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasIndex(new[] { "MailboxPlanId" }, "IX_ExchangeMailboxPlans")
                         .IsUnique();
 
-                    b.ToTable("ExchangeMailboxPlans", (string)null);
+                    b.ToTable("ExchangeMailboxPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeMailboxPlanRetentionPolicyTag", b =>
@@ -3044,7 +3044,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("PlanTagId")
                         .HasName("PK_ExchangeMailboxPlanRetentionPolicyTag");
 
-                    b.ToTable("ExchangeMailboxPlanRetentionPolicyTags", (string)null);
+                    b.ToTable("ExchangeMailboxPlanRetentionPolicyTags");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeOrganization", b =>
@@ -3076,7 +3076,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasIndex(new[] { "OrganizationId" }, "IX_ExchangeOrganizations_UniqueOrg")
                         .IsUnique();
 
-                    b.ToTable("ExchangeOrganizations", (string)null);
+                    b.ToTable("ExchangeOrganizations");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeOrganizationDomain", b =>
@@ -3115,7 +3115,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         .IsUnique()
                         .HasFilter("[DomainID] IS NOT NULL");
 
-                    b.ToTable("ExchangeOrganizationDomains", (string)null);
+                    b.ToTable("ExchangeOrganizationDomains");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeOrganizationSetting", b =>
@@ -3137,7 +3137,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ItemId" }, "ExchangeOrganizationSettingsIdx_ItemId");
 
-                    b.ToTable("ExchangeOrganizationSettings", (string)null);
+                    b.ToTable("ExchangeOrganizationSettings");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeOrganizationSsFolder", b =>
@@ -3167,7 +3167,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "StorageSpaceFolderId" }, "ExchangeOrganizationSsFoldersIdx_StorageSpaceFolderId");
 
-                    b.ToTable("ExchangeOrganizationSsFolders", (string)null);
+                    b.ToTable("ExchangeOrganizationSsFolders");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ExchangeRetentionPolicyTag", b =>
@@ -3199,7 +3199,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("TagId")
                         .HasName("PK_ExchangeRetentionPolicyTag");
 
-                    b.ToTable("ExchangeRetentionPolicyTags", (string)null);
+                    b.ToTable("ExchangeRetentionPolicyTags");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.GlobalDnsRecord", b =>
@@ -3267,7 +3267,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServiceId" }, "GlobalDnsRecordsIdx_ServiceID");
 
-                    b.ToTable("GlobalDnsRecords", (string)null);
+                    b.ToTable("GlobalDnsRecords");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.HostingPlan", b =>
@@ -3325,7 +3325,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "UserId" }, "HostingPlansIdx_UserID");
 
-                    b.ToTable("HostingPlans", (string)null);
+                    b.ToTable("HostingPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.HostingPlanQuota", b =>
@@ -3348,7 +3348,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("QuotaId");
 
-                    b.ToTable("HostingPlanQuotas", (string)null);
+                    b.ToTable("HostingPlanQuotas");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.HostingPlanResource", b =>
@@ -3373,7 +3373,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("HostingPlanResources", (string)null);
+                    b.ToTable("HostingPlanResources");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.IpAddress", b =>
@@ -3427,7 +3427,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServerId" }, "IPAddressesIdx_ServerID");
 
-                    b.ToTable("IPAddresses", (string)null);
+                    b.ToTable("IPAddresses");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.IpSecurityPolicy", b =>
@@ -3470,7 +3470,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_IpSecurityPolicy");
 
-                    b.ToTable("IpSecurityPolicies", (string)null);
+                    b.ToTable("IpSecurityPolicies");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUser", b =>
@@ -3508,7 +3508,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "LyncUserPlanId" }, "LyncUsersIdx_LyncUserPlanID");
 
-                    b.ToTable("LyncUsers", (string)null);
+                    b.ToTable("LyncUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUserPlan", b =>
@@ -3599,7 +3599,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ItemId" }, "LyncUserPlansIdx_ItemID");
 
-                    b.ToTable("LyncUserPlans", (string)null);
+                    b.ToTable("LyncUserPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.OcsUser", b =>
@@ -3633,7 +3633,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("OcsuserId");
 
-                    b.ToTable("OCSUsers", (string)null);
+                    b.ToTable("OCSUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Package", b =>
@@ -3704,7 +3704,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "UserId" }, "PackageIndex_UserID");
 
-                    b.ToTable("Packages", null, t =>
+                    b.ToTable("Packages", t =>
                         {
                             t.HasTrigger("Update_StatusIDchangeDate");
                         });
@@ -3761,7 +3761,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "PlanId" }, "PackageAddonsIdx_PlanID");
 
-                    b.ToTable("PackageAddons", (string)null);
+                    b.ToTable("PackageAddons");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageIpAddress", b =>
@@ -3800,7 +3800,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "PackageId" }, "PackageIPAddressesIdx_PackageID");
 
-                    b.ToTable("PackageIPAddresses", (string)null);
+                    b.ToTable("PackageIPAddresses");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageQuota", b =>
@@ -3822,7 +3822,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("QuotaId");
 
-                    b.ToTable("PackageQuotas", (string)null);
+                    b.ToTable("PackageQuotas");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageResource", b =>
@@ -3848,7 +3848,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("PackageResources", (string)null);
+                    b.ToTable("PackageResources");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageService", b =>
@@ -3867,7 +3867,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("PackageServices", (string)null);
+                    b.ToTable("PackageServices");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageSetting", b =>
@@ -3892,7 +3892,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("PackageId", "SettingsName", "PropertyName");
 
-                    b.ToTable("PackageSettings", (string)null);
+                    b.ToTable("PackageSettings");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackageVlan", b =>
@@ -3924,7 +3924,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "VlanId" }, "PackageVLANsIdx_VlanID");
 
-                    b.ToTable("PackageVLANs", (string)null);
+                    b.ToTable("PackageVLANs");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackagesBandwidth", b =>
@@ -3953,7 +3953,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("PackagesBandwidth", (string)null);
+                    b.ToTable("PackagesBandwidth");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackagesDiskspace", b =>
@@ -3975,7 +3975,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("PackagesDiskspace", (string)null);
+                    b.ToTable("PackagesDiskspace");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PackagesTreeCache", b =>
@@ -3994,7 +3994,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("PackageId");
 
-                    b.ToTable("PackagesTreeCache", (string)null);
+                    b.ToTable("PackagesTreeCache");
 
                     b.HasData(
                         new
@@ -4031,7 +4031,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ItemId" }, "PrivateIPAddressesIdx_ItemID");
 
-                    b.ToTable("PrivateIPAddresses", (string)null);
+                    b.ToTable("PrivateIPAddresses");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.PrivateNetworkVlan", b =>
@@ -4058,7 +4058,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServerId" }, "PrivateNetworkVLANsIdx_ServerID");
 
-                    b.ToTable("PrivateNetworkVLANs", (string)null);
+                    b.ToTable("PrivateNetworkVLANs");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Provider", b =>
@@ -4096,27 +4096,9 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "GroupId" }, "ProvidersIdx_GroupID");
 
-                    b.ToTable("Providers", (string)null);
+                    b.ToTable("Providers");
 
                     b.HasData(
-                        new
-                        {
-                            ProviderId = 2,
-                            DisplayName = "Internet Information Services 6.0",
-                            EditorControl = "IIS60",
-                            GroupId = 2,
-                            ProviderName = "IIS60",
-                            ProviderType = "FuseCP.Providers.Web.IIs60, FuseCP.Providers.Web.IIs60"
-                        },
-                        new
-                        {
-                            ProviderId = 3,
-                            DisplayName = "Microsoft FTP Server 6.0",
-                            EditorControl = "MSFTP60",
-                            GroupId = 3,
-                            ProviderName = "MSFTP60",
-                            ProviderType = "FuseCP.Providers.FTP.MsFTP, FuseCP.Providers.FTP.IIs60"
-                        },
                         new
                         {
                             ProviderId = 4,
@@ -4125,15 +4107,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 4,
                             ProviderName = "MailEnable",
                             ProviderType = "FuseCP.Providers.Mail.MailEnable, FuseCP.Providers.Mail.MailEnable"
-                        },
-                        new
-                        {
-                            ProviderId = 5,
-                            DisplayName = "Microsoft SQL Server 2000",
-                            EditorControl = "MSSQL",
-                            GroupId = 5,
-                            ProviderName = "MSSQL",
-                            ProviderType = "FuseCP.Providers.Database.MsSqlServer, FuseCP.Providers.Database.SqlServer"
                         },
                         new
                         {
@@ -4164,30 +4137,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 9,
-                            DisplayName = "SimpleDNS Plus 4.x",
-                            EditorControl = "SimpleDNS",
-                            GroupId = 7,
-                            ProviderName = "SimpleDNS",
-                            ProviderType = "FuseCP.Providers.DNS.SimpleDNS, FuseCP.Providers.DNS.SimpleDNS"
-                        },
-                        new
-                        {
                             ProviderId = 10,
                             DisplayName = "SmarterStats 3.x",
                             EditorControl = "SmarterStats",
                             GroupId = 8,
                             ProviderName = "SmarterStats",
                             ProviderType = "FuseCP.Providers.Statistics.SmarterStats, FuseCP.Providers.Statistics.SmarterStats"
-                        },
-                        new
-                        {
-                            ProviderId = 11,
-                            DisplayName = "SmarterMail 2.x",
-                            EditorControl = "SmarterMail",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail2, FuseCP.Providers.Mail.SmarterMail2"
                         },
                         new
                         {
@@ -4206,24 +4161,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 4,
                             ProviderName = "Merak",
                             ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak"
-                        },
-                        new
-                        {
-                            ProviderId = 14,
-                            DisplayName = "SmarterMail 3.x - 4.x",
-                            EditorControl = "SmarterMail",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail3, FuseCP.Providers.Mail.SmarterMail3"
-                        },
-                        new
-                        {
-                            ProviderId = 16,
-                            DisplayName = "Microsoft SQL Server 2005",
-                            EditorControl = "MSSQL",
-                            GroupId = 10,
-                            ProviderName = "MSSQL",
-                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2005, FuseCP.Providers.Database.SqlServer"
                         },
                         new
                         {
@@ -4309,33 +4246,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 27,
-                            DisplayName = "Hosted Microsoft Exchange Server 2007",
-                            EditorControl = "Exchange",
-                            GroupId = 12,
-                            ProviderName = "Exchange2007",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2007, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 28,
-                            DisplayName = "SimpleDNS Plus 5.x",
-                            EditorControl = "SimpleDNS",
-                            GroupId = 7,
-                            ProviderName = "SimpleDNS",
-                            ProviderType = "FuseCP.Providers.DNS.SimpleDNS5, FuseCP.Providers.DNS.SimpleDNS50"
-                        },
-                        new
-                        {
-                            ProviderId = 29,
-                            DisplayName = "SmarterMail 5.x",
-                            EditorControl = "SmarterMail50",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail5, FuseCP.Providers.Mail.SmarterMail5"
-                        },
-                        new
-                        {
                             ProviderId = 30,
                             DisplayName = "MySQL Server 5.1",
                             EditorControl = "MySQL",
@@ -4354,15 +4264,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 32,
-                            DisplayName = "Hosted Microsoft Exchange Server 2010",
-                            EditorControl = "Exchange",
-                            GroupId = 12,
-                            ProviderName = "Exchange2010",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2010, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
                             ProviderId = 56,
                             DisableAutoDiscovery = true,
                             DisplayName = "PowerDNS",
@@ -4370,15 +4271,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 7,
                             ProviderName = "PowerDNS",
                             ProviderType = "FuseCP.Providers.DNS.PowerDNS, FuseCP.Providers.DNS.PowerDNS"
-                        },
-                        new
-                        {
-                            ProviderId = 60,
-                            DisplayName = "SmarterMail 6.x",
-                            EditorControl = "SmarterMail60",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail6, FuseCP.Providers.Mail.SmarterMail6"
                         },
                         new
                         {
@@ -4409,66 +4301,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 64,
-                            DisplayName = "SmarterMail 7.x - 8.x",
-                            EditorControl = "SmarterMail60",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail7, FuseCP.Providers.Mail.SmarterMail7"
-                        },
-                        new
-                        {
-                            ProviderId = 65,
-                            DisplayName = "SmarterMail 9.x",
-                            EditorControl = "SmarterMail60",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail9, FuseCP.Providers.Mail.SmarterMail9"
-                        },
-                        new
-                        {
-                            ProviderId = 66,
-                            DisplayName = "SmarterMail 10.x +",
-                            EditorControl = "SmarterMail100",
-                            GroupId = 4,
-                            ProviderName = "SmarterMail",
-                            ProviderType = "FuseCP.Providers.Mail.SmarterMail10, FuseCP.Providers.Mail.SmarterMail10"
-                        },
-                        new
-                        {
                             ProviderId = 67,
                             DisplayName = "SmarterMail 100.x +",
                             EditorControl = "SmarterMail100x",
                             GroupId = 4,
                             ProviderName = "SmarterMail",
                             ProviderType = "FuseCP.Providers.Mail.SmarterMail100, FuseCP.Providers.Mail.SmarterMail100"
-                        },
-                        new
-                        {
-                            ProviderId = 90,
-                            DisplayName = "Hosted Microsoft Exchange Server 2010 SP2",
-                            EditorControl = "Exchange",
-                            GroupId = 12,
-                            ProviderName = "Exchange2010SP2",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2010SP2, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 91,
-                            DisplayName = "Hosted Microsoft Exchange Server 2013",
-                            EditorControl = "Exchange",
-                            GroupId = 12,
-                            ProviderName = "Exchange2013",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2013, FuseCP.Providers.HostedSolution.Exchange2013"
-                        },
-                        new
-                        {
-                            ProviderId = 92,
-                            DisplayName = "Hosted Microsoft Exchange Server 2016",
-                            EditorControl = "Exchange",
-                            GroupId = 12,
-                            ProviderName = "Exchange2016",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2016, FuseCP.Providers.HostedSolution.Exchange2016"
                         },
                         new
                         {
@@ -4481,48 +4319,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 101,
-                            DisplayName = "Internet Information Services 7.0",
-                            EditorControl = "IIS70",
-                            GroupId = 2,
-                            ProviderName = "IIS70",
-                            ProviderType = "FuseCP.Providers.Web.IIs70, FuseCP.Providers.Web.IIs70"
-                        },
-                        new
-                        {
-                            ProviderId = 102,
-                            DisplayName = "Microsoft FTP Server 7.0",
-                            EditorControl = "MSFTP70",
-                            GroupId = 3,
-                            ProviderName = "MSFTP70",
-                            ProviderType = "FuseCP.Providers.FTP.MsFTP, FuseCP.Providers.FTP.IIs70"
-                        },
-                        new
-                        {
                             ProviderId = 103,
                             DisplayName = "Hosted Organizations",
                             EditorControl = "Organizations",
                             GroupId = 13,
                             ProviderName = "Organizations",
                             ProviderType = "FuseCP.Providers.HostedSolution.OrganizationProvider, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 105,
-                            DisplayName = "Internet Information Services 8.0",
-                            EditorControl = "IIS70",
-                            GroupId = 2,
-                            ProviderName = "IIS80",
-                            ProviderType = "FuseCP.Providers.Web.IIs80, FuseCP.Providers.Web.IIs80"
-                        },
-                        new
-                        {
-                            ProviderId = 106,
-                            DisplayName = "Microsoft FTP Server 8.0",
-                            EditorControl = "MSFTP70",
-                            GroupId = 3,
-                            ProviderName = "MSFTP80",
-                            ProviderType = "FuseCP.Providers.FTP.MsFTP80, FuseCP.Providers.FTP.IIs80"
                         },
                         new
                         {
@@ -4580,15 +4382,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 202,
-                            DisplayName = "Microsoft SQL Server 2008",
-                            EditorControl = "MSSQL",
-                            GroupId = 22,
-                            ProviderName = "MsSQL",
-                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer"
-                        },
-                        new
-                        {
                             ProviderId = 203,
                             DisableAutoDiscovery = true,
                             DisplayName = "BlackBerry 4.1",
@@ -4638,31 +4431,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 209,
-                            DisplayName = "Microsoft SQL Server 2012",
-                            EditorControl = "MSSQL",
-                            GroupId = 23,
-                            ProviderName = "MsSQL",
-                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer"
-                        },
-                        new
-                        {
                             ProviderId = 250,
                             DisplayName = "Microsoft Lync Server 2010 Multitenant Hosting Pack",
                             EditorControl = "Lync",
                             GroupId = 41,
                             ProviderName = "Lync2010",
                             ProviderType = "FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 300,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Microsoft Hyper-V",
-                            EditorControl = "HyperV",
-                            GroupId = 30,
-                            ProviderName = "HyperV",
-                            ProviderType = "FuseCP.Providers.Virtualization.HyperV, FuseCP.Providers.Virtualization.HyperV"
                         },
                         new
                         {
@@ -4747,26 +4521,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 350,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Microsoft Hyper-V 2012 R2",
-                            EditorControl = "HyperV2012R2",
-                            GroupId = 33,
-                            ProviderName = "HyperV2012R2",
-                            ProviderType = "FuseCP.Providers.Virtualization.HyperV2012R2, FuseCP.Providers.Virtualization.HyperV2012R2"
-                        },
-                        new
-                        {
-                            ProviderId = 351,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Microsoft Hyper-V Virtual Machine Management",
-                            EditorControl = "HyperVvmm",
-                            GroupId = 33,
-                            ProviderName = "HyperVvmm",
-                            ProviderType = "FuseCP.Providers.Virtualization.HyperVvmm, FuseCP.Providers.Virtualization.HyperVvmm"
-                        },
-                        new
-                        {
                             ProviderId = 352,
                             DisableAutoDiscovery = true,
                             DisplayName = "Microsoft Hyper-V 2016",
@@ -4794,16 +4548,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 167,
                             ProviderName = "Proxmox",
                             ProviderType = "FuseCP.Providers.Virtualization.ProxmoxvpsLocal, FuseCP.Providers.Virtualization.Proxmoxvps"
-                        },
-                        new
-                        {
-                            ProviderId = 400,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Microsoft Hyper-V For Private Cloud",
-                            EditorControl = "HyperVForPrivateCloud",
-                            GroupId = 40,
-                            ProviderName = "HyperVForPC",
-                            ProviderType = "FuseCP.Providers.VirtualizationForPC.HyperVForPC, FuseCP.Providers.VirtualizationForPC.HyperVForPC"
                         },
                         new
                         {
@@ -4840,15 +4584,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 49,
                             ProviderName = "StorageSpace2012",
                             ProviderType = "FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Windows2012"
-                        },
-                        new
-                        {
-                            ProviderId = 1203,
-                            DisplayName = "Microsoft SQL Server 2014",
-                            EditorControl = "MSSQL",
-                            GroupId = 46,
-                            ProviderName = "MsSQL",
-                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2014, FuseCP.Providers.Database.SqlServer"
                         },
                         new
                         {
@@ -4903,16 +4638,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 52,
                             ProviderName = "SfB2019",
                             ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019"
-                        },
-                        new
-                        {
-                            ProviderId = 1501,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Remote Desktop Services Windows 2012",
-                            EditorControl = "RDS",
-                            GroupId = 45,
-                            ProviderName = "RemoteDesktopServices2012",
-                            ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2012,FuseCP.Providers.RemoteDesktopServices.Windows2012"
                         },
                         new
                         {
@@ -5174,15 +4899,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 1703,
-                            DisplayName = "SimpleDNS Plus 6.x",
-                            EditorControl = "SimpleDNS",
-                            GroupId = 7,
-                            ProviderName = "SimpleDNS",
-                            ProviderType = "FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60"
-                        },
-                        new
-                        {
                             ProviderId = 1704,
                             DisplayName = "Microsoft SQL Server 2017",
                             EditorControl = "MSSQL",
@@ -5285,15 +5001,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 1901,
-                            DisplayName = "SimpleDNS Plus 8.x",
-                            EditorControl = "SimpleDNS",
-                            GroupId = 7,
-                            ProviderName = "SimpleDNS",
-                            ProviderType = "FuseCP.Providers.DNS.SimpleDNS8, FuseCP.Providers.DNS.SimpleDNS80"
-                        },
-                        new
-                        {
                             ProviderId = 1902,
                             DisplayName = "Microsoft DNS Server 2016",
                             EditorControl = "MSDNS",
@@ -5381,7 +5088,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ItemTypeId" }, "QuotasIdx_ItemTypeID");
 
-                    b.ToTable("Quotas", (string)null);
+                    b.ToTable("Quotas");
 
                     b.HasData(
                         new
@@ -8764,7 +8471,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("Id");
 
-                    b.ToTable("RDSCertificates", (string)null);
+                    b.ToTable("RDSCertificates");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsCollection", b =>
@@ -8795,7 +8502,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_RdsCollection");
 
-                    b.ToTable("RDSCollections", (string)null);
+                    b.ToTable("RDSCollections");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsCollectionSetting", b =>
@@ -8866,7 +8573,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "RdsCollectionId" }, "RDSCollectionSettingsIdx_RDSCollectionId");
 
-                    b.ToTable("RDSCollectionSettings", (string)null);
+                    b.ToTable("RDSCollectionSettings");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsCollectionUser", b =>
@@ -8893,7 +8600,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "RdsCollectionId" }, "RDSCollectionUsersIdx_RDSCollectionId");
 
-                    b.ToTable("RDSCollectionUsers", (string)null);
+                    b.ToTable("RDSCollectionUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsMessage", b =>
@@ -8925,7 +8632,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "RdsCollectionId" }, "RDSMessagesIdx_RDSCollectionId");
 
-                    b.ToTable("RDSMessages", (string)null);
+                    b.ToTable("RDSMessages");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsServer", b =>
@@ -8970,7 +8677,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "RdsCollectionId" }, "RDSServersIdx_RDSCollectionId");
 
-                    b.ToTable("RDSServers", (string)null);
+                    b.ToTable("RDSServers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.RdsServerSetting", b =>
@@ -9000,7 +8707,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("RdsServerId", "SettingsName", "PropertyName");
 
-                    b.ToTable("RDSServerSettings", (string)null);
+                    b.ToTable("RDSServerSettings");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ResourceGroup", b =>
@@ -9028,7 +8735,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("GroupId");
 
-                    b.ToTable("ResourceGroups", (string)null);
+                    b.ToTable("ResourceGroups");
 
                     b.HasData(
                         new
@@ -9366,7 +9073,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "GroupId" }, "ResourceGroupDnsRecordsIdx_GroupID");
 
-                    b.ToTable("ResourceGroupDnsRecords", (string)null);
+                    b.ToTable("ResourceGroupDnsRecords");
 
                     b.HasData(
                         new
@@ -9600,7 +9307,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "TaskId" }, "ScheduleIdx_TaskID");
 
-                    b.ToTable("Schedule", (string)null);
+                    b.ToTable("Schedule");
 
                     b.HasData(
                         new
@@ -9660,7 +9367,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("ScheduleId", "ParameterId");
 
-                    b.ToTable("ScheduleParameters", (string)null);
+                    b.ToTable("ScheduleParameters");
 
                     b.HasData(
                         new
@@ -9695,7 +9402,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("TaskId");
 
-                    b.ToTable("ScheduleTasks", (string)null);
+                    b.ToTable("ScheduleTasks");
 
                     b.HasData(
                         new
@@ -9874,7 +9581,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("TaskId", "ParameterId");
 
-                    b.ToTable("ScheduleTaskParameters", (string)null);
+                    b.ToTable("ScheduleTaskParameters");
 
                     b.HasData(
                         new
@@ -10671,7 +10378,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("ScheduleTaskViewConfiguration", (string)null);
+                    b.ToTable("ScheduleTaskViewConfiguration");
 
                     b.HasData(
                         new
@@ -10931,7 +10638,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "PrimaryGroupId" }, "ServersIdx_PrimaryGroupID");
 
-                    b.ToTable("Servers", (string)null);
+                    b.ToTable("Servers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Service", b =>
@@ -10974,7 +10681,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServerId" }, "ServicesIdx_ServerID");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ServiceDefaultProperty", b =>
@@ -10996,7 +10703,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("ProviderId", "PropertyName")
                         .HasName("PK_ServiceDefaultProperties");
 
-                    b.ToTable("ServiceDefaultProperties", (string)null);
+                    b.ToTable("ServiceDefaultProperties");
 
                     b.HasData(
                         new
@@ -13863,7 +13570,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServiceId" }, "ServiceItemsIdx_ServiceID");
 
-                    b.ToTable("ServiceItems", (string)null);
+                    b.ToTable("ServiceItems");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ServiceItemProperty", b =>
@@ -13883,7 +13590,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("ItemId", "PropertyName");
 
-                    b.ToTable("ServiceItemProperties", (string)null);
+                    b.ToTable("ServiceItemProperties");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.ServiceItemType", b =>
@@ -13938,7 +13645,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "GroupId" }, "ServiceItemTypesIdx_GroupID");
 
-                    b.ToTable("ServiceItemTypes", (string)null);
+                    b.ToTable("ServiceItemTypes");
 
                     b.HasData(
                         new
@@ -14796,7 +14503,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("ServiceId", "PropertyName")
                         .HasName("PK_ServiceProperties");
 
-                    b.ToTable("ServiceProperties", (string)null);
+                    b.ToTable("ServiceProperties");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SfBUser", b =>
@@ -14828,7 +14535,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("SfBUserId");
 
-                    b.ToTable("SfBUsers", (string)null);
+                    b.ToTable("SfBUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SfBUserPlan", b =>
@@ -14917,7 +14624,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("SfBUserPlanId");
 
-                    b.ToTable("SfBUserPlans", (string)null);
+                    b.ToTable("SfBUserPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SslCertificate", b =>
@@ -14987,7 +14694,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("Id");
 
-                    b.ToTable("SSLCertificates", (string)null);
+                    b.ToTable("SSLCertificates");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.StorageSpace", b =>
@@ -15043,7 +14750,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServiceId" }, "StorageSpacesIdx_ServiceId");
 
-                    b.ToTable("StorageSpaces", (string)null);
+                    b.ToTable("StorageSpaces");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.StorageSpaceFolder", b =>
@@ -15086,7 +14793,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "StorageSpaceId" }, "StorageSpaceFoldersIdx_StorageSpaceId");
 
-                    b.ToTable("StorageSpaceFolders", (string)null);
+                    b.ToTable("StorageSpaceFolders");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.StorageSpaceLevel", b =>
@@ -15109,7 +14816,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("Id")
                         .HasName("PK_StorageSpaceLevel");
 
-                    b.ToTable("StorageSpaceLevels", (string)null);
+                    b.ToTable("StorageSpaceLevels");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.StorageSpaceLevelResourceGroup", b =>
@@ -15133,7 +14840,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "LevelId" }, "StorageSpaceLevelResourceGroupsIdx_LevelId");
 
-                    b.ToTable("StorageSpaceLevelResourceGroups", (string)null);
+                    b.ToTable("StorageSpaceLevelResourceGroups");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SupportServiceLevel", b =>
@@ -15157,7 +14864,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                     b.HasKey("LevelId")
                         .HasName("PK_SupportServiceLevel");
 
-                    b.ToTable("SupportServiceLevels", (string)null);
+                    b.ToTable("SupportServiceLevels");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SystemSetting", b =>
@@ -15177,7 +14884,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("SettingsName", "PropertyName");
 
-                    b.ToTable("SystemSettings", (string)null);
+                    b.ToTable("SystemSettings");
 
                     b.HasData(
                         new
@@ -15257,7 +14964,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex("Created", "Scope", "Level");
 
-                    b.ToTable("TempIds", (string)null);
+                    b.ToTable("TempIds");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Theme", b =>
@@ -15291,7 +14998,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("ThemeId");
 
-                    b.ToTable("Themes", (string)null);
+                    b.ToTable("Themes");
 
                     b.HasData(
                         new
@@ -15337,7 +15044,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ThemeId" }, "ThemeSettingsIdx_ThemeID");
 
-                    b.ToTable("ThemeSettings", (string)null);
+                    b.ToTable("ThemeSettings");
 
                     b.HasData(
                         new
@@ -15652,7 +15359,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "OwnerId" }, "UsersIdx_OwnerID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -15708,7 +15415,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("UserId", "SettingsName", "PropertyName");
 
-                    b.ToTable("UserSettings", (string)null);
+                    b.ToTable("UserSettings");
 
                     b.HasData(
                         new
@@ -16774,7 +16481,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasKey("DatabaseVersion");
 
-                    b.ToTable("Versions", (string)null);
+                    b.ToTable("Versions");
 
                     b.HasData(
                         new
@@ -16858,7 +16565,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServerId" }, "VirtualGroupsIdx_ServerID");
 
-                    b.ToTable("VirtualGroups", (string)null);
+                    b.ToTable("VirtualGroups");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.VirtualService", b =>
@@ -16884,7 +16591,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "ServiceId" }, "VirtualServicesIdx_ServiceID");
 
-                    b.ToTable("VirtualServices", (string)null);
+                    b.ToTable("VirtualServices");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebDavAccessToken", b =>
@@ -16922,7 +16629,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "AccountId" }, "WebDavAccessTokensIdx_AccountID");
 
-                    b.ToTable("WebDavAccessTokens", (string)null);
+                    b.ToTable("WebDavAccessTokens");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebDavPortalUsersSetting", b =>
@@ -16945,7 +16652,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 
                     b.HasIndex(new[] { "AccountId" }, "WebDavPortalUsersSettingsIdx_AccountId");
 
-                    b.ToTable("WebDavPortalUsersSettings", (string)null);
+                    b.ToTable("WebDavPortalUsersSettings");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.AccessToken", b =>

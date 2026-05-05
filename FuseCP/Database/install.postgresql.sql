@@ -7526,5 +7526,471 @@ BEGIN
     VALUES ('20260320130002_RemovedLegacyStorefrontArtifacts', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 2;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 3;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 9;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 11;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 14;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 28;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 29;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 60;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 64;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 65;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 66;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 91;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 92;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 101;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 102;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 105;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 106;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 201;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 300;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 350;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 351;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 400;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1201;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1202;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1205;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1206;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1703;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1901;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 209;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 210;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 460;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 461;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 462;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 463;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 464;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 465;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 466;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."Quotas"
+    WHERE "QuotaID" = 467;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."ScheduleTaskParameters"
+    WHERE "ParameterID" = 'CRM_REPORT' AND "TaskID" = 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT';
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RecordDefaultTTL' AND "ProviderID" = 55;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RecordMinimumTTL' AND "ProviderID" = 55;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."ResourceGroups"
+    WHERE "GroupID" = 21;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    DELETE FROM public."ResourceGroups"
+    WHERE "GroupID" = 24;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    CREATE TABLE public."BruteForceLogs" (
+        "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+        "IpAddress" character varying(45) NOT NULL,
+        "Username" character varying(255),
+        "Layer" character varying(20) NOT NULL,
+        "AttemptTime" timestamp with time zone NOT NULL,
+        "Succeeded" boolean NOT NULL,
+        "UserAgent" character varying(500),
+        CONSTRAINT "PK_BruteForceLog" PRIMARY KEY ("Id")
+    );
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    CREATE TABLE public."IpSecurityPolicies" (
+        "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+        "IpRange" character varying(50) NOT NULL,
+        "IsWhitelist" boolean NOT NULL,
+        "CreatedDate" timestamp with time zone NOT NULL,
+        "ExpiresDate" timestamp with time zone,
+        "Reason" character varying(500),
+        "IsActive" boolean NOT NULL,
+        "SeverityLevel" integer NOT NULL,
+        "CreatedBy" character varying(255),
+        CONSTRAINT "PK_IpSecurityPolicy" PRIMARY KEY ("Id")
+    );
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260504163543_RemoveDeprecatedProvidersAllSqlTypes') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260504163543_RemoveDeprecatedProvidersAllSqlTypes', '9.0.9');
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 5;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 16;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 27;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 32;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 90;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 202;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 209;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1203;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1501;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260505094749_RemoveDeprecatedProvidersExchangeAndSql') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260505094749_RemoveDeprecatedProvidersExchangeAndSql', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

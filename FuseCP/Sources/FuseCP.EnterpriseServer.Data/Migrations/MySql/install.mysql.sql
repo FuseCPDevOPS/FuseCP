@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+﻿CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
     `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
     `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
     CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
@@ -2642,8 +2642,10 @@ BEGIN
     (12, NULL, 'Exchange', 5, TRUE),
     (13, NULL, 'Hosted Organizations', 6, TRUE),
     (20, 'FuseCP.EnterpriseServer.HostedSharePointServerController', 'Sharepoint Foundation Server', 14, TRUE),
+    (21, NULL, 'Hosted CRM', 16, TRUE),
     (22, 'FuseCP.EnterpriseServer.DatabaseServerController', 'MsSQL2008', 9, TRUE),
     (23, 'FuseCP.EnterpriseServer.DatabaseServerController', 'MsSQL2012', 10, TRUE),
+    (24, NULL, 'Hosted CRM2013', 16, TRUE),
     (30, NULL, 'VPS', 19, TRUE),
     (31, NULL, 'BlackBerry', 21, TRUE),
     (32, NULL, 'OCS', 22, TRUE),
@@ -2884,10 +2886,10 @@ BEGIN
     (66, NULL, 'SmarterMail 10.x +', 'SmarterMail100', 4, 'SmarterMail', 'FuseCP.Providers.Mail.SmarterMail10, FuseCP.Providers.Mail.SmarterMail10'),
     (67, NULL, 'SmarterMail 100.x +', 'SmarterMail100x', 4, 'SmarterMail', 'FuseCP.Providers.Mail.SmarterMail100, FuseCP.Providers.Mail.SmarterMail100'),
     (90, NULL, 'Hosted Microsoft Exchange Server 2010 SP2', 'Exchange', 12, 'Exchange2010SP2', 'FuseCP.Providers.HostedSolution.Exchange2010SP2, FuseCP.Providers.HostedSolution'),
-    (91, NULL, 'Hosted Microsoft Exchange Server 2013', 'Exchange', 12, 'Exchange2013', 'FuseCP.Providers.HostedSolution.Exchange2013, FuseCP.Providers.HostedSolution.Exchange2013');
+    (91, NULL, 'Hosted Microsoft Exchange Server 2013', 'Exchange', 12, 'Exchange2013', 'FuseCP.Providers.HostedSolution.Exchange2013, FuseCP.Providers.HostedSolution.Exchange2013'),
+    (92, NULL, 'Hosted Microsoft Exchange Server 2016', 'Exchange', 12, 'Exchange2016', 'FuseCP.Providers.HostedSolution.Exchange2016, FuseCP.Providers.HostedSolution.Exchange2016');
     INSERT INTO `Providers` (`ProviderID`, `DisableAutoDiscovery`, `DisplayName`, `EditorControl`, `GroupID`, `ProviderName`, `ProviderType`)
-    VALUES (92, NULL, 'Hosted Microsoft Exchange Server 2016', 'Exchange', 12, 'Exchange2016', 'FuseCP.Providers.HostedSolution.Exchange2016, FuseCP.Providers.HostedSolution.Exchange2016'),
-    (93, NULL, 'Hosted Microsoft Exchange Server 2019', 'Exchange', 12, 'Exchange2016', 'FuseCP.Providers.HostedSolution.Exchange2019, FuseCP.Providers.HostedSolution.Exchange2019'),
+    VALUES (93, NULL, 'Hosted Microsoft Exchange Server 2019', 'Exchange', 12, 'Exchange2016', 'FuseCP.Providers.HostedSolution.Exchange2019, FuseCP.Providers.HostedSolution.Exchange2019'),
     (100, NULL, 'Windows Server 2008', 'Windows2008', 1, 'Windows2008', 'FuseCP.Providers.OS.Windows2008, FuseCP.Providers.OS.Windows2008'),
     (101, NULL, 'Internet Information Services 7.0', 'IIS70', 2, 'IIS70', 'FuseCP.Providers.Web.IIs70, FuseCP.Providers.Web.IIs70'),
     (102, NULL, 'Microsoft FTP Server 7.0', 'MSFTP70', 3, 'MSFTP70', 'FuseCP.Providers.FTP.MsFTP, FuseCP.Providers.FTP.IIs70'),
@@ -2901,6 +2903,7 @@ BEGIN
     (113, NULL, 'Microsoft FTP Server 10.0', 'MSFTP70', 3, 'MSFTP100', 'FuseCP.Providers.FTP.MsFTP100, FuseCP.Providers.FTP.IIs100'),
     (160, NULL, 'IceWarp Mail Server', 'IceWarp', 4, 'IceWarp', 'FuseCP.Providers.Mail.IceWarp, FuseCP.Providers.Mail.IceWarp'),
     (200, NULL, 'Hosted Windows SharePoint Services 3.0', 'HostedSharePoint30', 20, 'HostedSharePoint30', 'FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.HostedSolution'),
+    (201, NULL, 'Hosted MS CRM 4.0', 'CRM', 21, 'CRM', 'FuseCP.Providers.HostedSolution.CRMProvider, FuseCP.Providers.HostedSolution'),
     (202, NULL, 'Microsoft SQL Server 2008', 'MSSQL', 22, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer'),
     (203, TRUE, 'BlackBerry 4.1', 'BlackBerry', 31, 'BlackBerry 4.1', 'FuseCP.Providers.HostedSolution.BlackBerryProvider, FuseCP.Providers.HostedSolution'),
     (204, TRUE, 'BlackBerry 5.0', 'BlackBerry5', 31, 'BlackBerry 5.0', 'FuseCP.Providers.HostedSolution.BlackBerry5Provider, FuseCP.Providers.HostedSolution'),
@@ -2926,11 +2929,15 @@ BEGIN
     (371, FALSE, 'Proxmox Virtualization', 'Proxmox', 167, 'Proxmox', 'FuseCP.Providers.Virtualization.ProxmoxvpsLocal, FuseCP.Providers.Virtualization.Proxmoxvps'),
     (400, TRUE, 'Microsoft Hyper-V For Private Cloud', 'HyperVForPrivateCloud', 40, 'HyperVForPC', 'FuseCP.Providers.VirtualizationForPC.HyperVForPC, FuseCP.Providers.VirtualizationForPC.HyperVForPC'),
     (410, NULL, 'Microsoft DNS Server 2012+', 'MSDNS', 7, 'MSDNS.2012', 'FuseCP.Providers.DNS.MsDNS2012, FuseCP.Providers.DNS.MsDNS2012'),
-    (500, NULL, 'Unix System', 'Unix', 1, 'UnixSystem', 'FuseCP.Providers.OS.Unix, FuseCP.Providers.OS.Unix');
+    (500, NULL, 'Unix System', 'Unix', 1, 'UnixSystem', 'FuseCP.Providers.OS.Unix, FuseCP.Providers.OS.Unix'),
+    (600, NULL, 'Enterprise Storage Windows 2012', 'EnterpriseStorage', 44, 'EnterpriseStorage2012', 'FuseCP.Providers.EnterpriseStorage.Windows2012, FuseCP.Providers.EnterpriseStorage.Windows2012');
     INSERT INTO `Providers` (`ProviderID`, `DisableAutoDiscovery`, `DisplayName`, `EditorControl`, `GroupID`, `ProviderName`, `ProviderType`)
-    VALUES (600, NULL, 'Enterprise Storage Windows 2012', 'EnterpriseStorage', 44, 'EnterpriseStorage2012', 'FuseCP.Providers.EnterpriseStorage.Windows2012, FuseCP.Providers.EnterpriseStorage.Windows2012'),
-    (700, NULL, 'Storage Spaces Windows 2012', 'StorageSpaceServices', 49, 'StorageSpace2012', 'FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Windows2012'),
+    VALUES (700, NULL, 'Storage Spaces Windows 2012', 'StorageSpaceServices', 49, 'StorageSpace2012', 'FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Windows2012'),
+    (1201, NULL, 'Hosted MS CRM 2011', 'CRM2011', 21, 'CRM', 'FuseCP.Providers.HostedSolution.CRMProvider2011, FuseCP.Providers.HostedSolution.CRM2011'),
+    (1202, NULL, 'Hosted MS CRM 2013', 'CRM2011', 24, 'CRM', 'FuseCP.Providers.HostedSolution.CRMProvider2013, FuseCP.Providers.HostedSolution.Crm2013'),
     (1203, NULL, 'Microsoft SQL Server 2014', 'MSSQL', 46, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2014, FuseCP.Providers.Database.SqlServer'),
+    (1205, NULL, 'Hosted MS CRM 2015', 'CRM2011', 24, 'CRM', 'FuseCP.Providers.HostedSolution.CRMProvider2015, FuseCP.Providers.HostedSolution.Crm2015'),
+    (1206, NULL, 'Hosted MS CRM 2016', 'CRM2011', 24, 'CRM', 'FuseCP.Providers.HostedSolution.CRMProvider2016, FuseCP.Providers.HostedSolution.Crm2016'),
     (1301, NULL, 'Hosted SharePoint Foundation 2013', 'HostedSharePoint30', 20, 'HostedSharePoint2013', 'FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013'),
     (1306, NULL, 'Hosted SharePoint Foundation 2016', 'HostedSharePoint30', 20, 'HostedSharePoint2016', 'FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.HostedSolution.SharePoint2016'),
     (1401, NULL, 'Microsoft Lync Server 2013 Enterprise Edition', 'Lync', 41, 'Lync2013', 'FuseCP.Providers.HostedSolution.Lync2013, FuseCP.Providers.HostedSolution.Lync2013'),
@@ -2965,10 +2972,10 @@ BEGIN
     (1601, TRUE, 'Mail Cleaner', 'MailCleaner', 61, 'MailCleaner', 'FuseCP.Providers.Filters.MailCleaner, FuseCP.Providers.Filters.MailCleaner'),
     (1602, TRUE, 'SpamExperts Mail Filter', 'SpamExperts', 61, 'SpamExperts', 'FuseCP.Providers.Filters.SpamExperts, FuseCP.Providers.Filters.SpamExperts'),
     (1701, NULL, 'Microsoft SQL Server 2016', 'MSSQL', 71, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2016, FuseCP.Providers.Database.SqlServer'),
-    (1702, NULL, 'Hosted SharePoint Enterprise 2016', 'HostedSharePoint30', 73, 'HostedSharePoint2016Ent', 'FuseCP.Providers.HostedSolution.HostedSharePointServer2016Ent, FuseCP.Providers.HostedSolution.SharePoint2016Ent');
+    (1702, NULL, 'Hosted SharePoint Enterprise 2016', 'HostedSharePoint30', 73, 'HostedSharePoint2016Ent', 'FuseCP.Providers.HostedSolution.HostedSharePointServer2016Ent, FuseCP.Providers.HostedSolution.SharePoint2016Ent'),
+    (1703, NULL, 'SimpleDNS Plus 6.x', 'SimpleDNS', 7, 'SimpleDNS', 'FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60');
     INSERT INTO `Providers` (`ProviderID`, `DisableAutoDiscovery`, `DisplayName`, `EditorControl`, `GroupID`, `ProviderName`, `ProviderType`)
-    VALUES (1703, NULL, 'SimpleDNS Plus 6.x', 'SimpleDNS', 7, 'SimpleDNS', 'FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60'),
-    (1704, NULL, 'Microsoft SQL Server 2017', 'MSSQL', 72, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2017, FuseCP.Providers.Database.SqlServer'),
+    VALUES (1704, NULL, 'Microsoft SQL Server 2017', 'MSSQL', 72, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2017, FuseCP.Providers.Database.SqlServer'),
     (1705, NULL, 'Microsoft SQL Server 2019', 'MSSQL', 74, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2019, FuseCP.Providers.Database.SqlServer'),
     (1706, NULL, 'Microsoft SQL Server 2022', 'MSSQL', 75, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2022, FuseCP.Providers.Database.SqlServer'),
     (1707, NULL, 'Microsoft SQL Server 2025', 'MSSQL', 76, 'MsSQL', 'FuseCP.Providers.Database.MsSqlServer2025, FuseCP.Providers.Database.SqlServer'),
@@ -3076,6 +3083,8 @@ BEGIN
     (204, 5, NULL, NULL, NULL, 'Max Log Size', 'MsSQL2000.MaxLogSize', 4.0, 3, FALSE),
     (207, 13, NULL, NULL, 1, 'Domains per Organizations', 'HostedSolution.Domains', 3.0, 3, FALSE),
     (208, 20, NULL, NULL, NULL, 'Max site storage, MB', 'HostedSharePoint.MaxStorage', 2.0, 3, FALSE),
+    (209, 21, NULL, NULL, 1, 'Full licenses per organization', 'HostedCRM.Users', 2.0, 3, FALSE),
+    (210, 21, NULL, NULL, NULL, 'CRM Organization', 'HostedCRM.Organization', 1.0, 1, FALSE),
     (213, 22, NULL, NULL, NULL, 'Max Database Size', 'MsSQL2008.MaxDatabaseSize', 3.0, 3, FALSE),
     (214, 22, NULL, NULL, NULL, 'Database Backups', 'MsSQL2008.Backup', 5.0, 1, FALSE),
     (215, 22, NULL, NULL, NULL, 'Database Restores', 'MsSQL2008.Restore', 6.0, 1, FALSE),
@@ -3183,6 +3192,14 @@ BEGIN
     (451, 45, NULL, NULL, 1, 'Remote Desktop Servers', 'RDS.Servers', 2.0, 2, FALSE),
     (452, 45, NULL, NULL, NULL, 'Disable user from adding server', 'RDS.DisableUserAddServer', 3.0, 1, FALSE),
     (453, 45, NULL, NULL, NULL, 'Disable user from removing server', 'RDS.DisableUserDeleteServer', 3.0, 1, FALSE),
+    (460, 21, NULL, NULL, NULL, 'Max Database Size, MB', 'HostedCRM.MaxDatabaseSize', 5.0, 3, FALSE),
+    (461, 21, NULL, NULL, 1, 'Limited licenses per organization', 'HostedCRM.LimitedUsers', 3.0, 3, FALSE),
+    (462, 21, NULL, NULL, 1, 'ESS licenses per organization', 'HostedCRM.ESSUsers', 4.0, 3, FALSE),
+    (463, 24, NULL, NULL, NULL, 'CRM Organization', 'HostedCRM2013.Organization', 1.0, 1, FALSE),
+    (464, 24, NULL, NULL, NULL, 'Max Database Size, MB', 'HostedCRM2013.MaxDatabaseSize', 5.0, 3, FALSE),
+    (465, 24, NULL, NULL, 1, 'Essential licenses per organization', 'HostedCRM2013.EssentialUsers', 2.0, 3, FALSE),
+    (466, 24, NULL, NULL, 1, 'Basic licenses per organization', 'HostedCRM2013.BasicUsers', 3.0, 3, FALSE),
+    (467, 24, NULL, NULL, 1, 'Professional licenses per organization', 'HostedCRM2013.ProfessionalUsers', 4.0, 3, FALSE),
     (468, 45, NULL, NULL, NULL, 'Use Drive Maps', 'EnterpriseStorage.DriveMaps', 2.0, 1, FALSE),
     (472, 46, NULL, NULL, NULL, 'Max Database Size', 'MsSQL2014.MaxDatabaseSize', 3.0, 3, FALSE),
     (473, 46, NULL, NULL, NULL, 'Database Backups', 'MsSQL2014.Backup', 5.0, 1, FALSE),
@@ -3384,6 +3401,7 @@ BEGIN
     ('FTP_PASSWORD', 'SCHEDULE_TASK_FTP_FILES', 'String', NULL, 4),
     ('FTP_SERVER', 'SCHEDULE_TASK_FTP_FILES', 'String', 'ftp.myserver.com', 2),
     ('FTP_USERNAME', 'SCHEDULE_TASK_FTP_FILES', 'String', NULL, 3),
+    ('CRM_REPORT', 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT', 'Boolean', 'true', 6),
     ('EMAIL', 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT', 'String', NULL, 1),
     ('EXCHANGE_REPORT', 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT', 'Boolean', 'true', 2),
     ('LYNC_REPORT', 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT', 'Boolean', 'true', 4),
@@ -5898,9 +5916,8 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `Quotas`
-    WHERE `QuotaID` = 770;
-    SELECT ROW_COUNT();
-
+    WHERE `QuotaID` = 770
+    RETURNING 1;
 
     END IF;
 END //
@@ -5915,26 +5932,8 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `Quotas`
-    WHERE `QuotaID` = 771;
-    SELECT ROW_COUNT();
-
-
-    END IF;
-END //
-DELIMITER ;
-CALL MigrationsScript();
-DROP PROCEDURE MigrationsScript;
-
-DROP PROCEDURE IF EXISTS MigrationsScript;
-DELIMITER //
-CREATE PROCEDURE MigrationsScript()
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
-
-    DELETE FROM `ServiceDefaultProperties`
-    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 1;
-    SELECT ROW_COUNT();
-
+    WHERE `QuotaID` = 771
+    RETURNING 1;
 
     END IF;
 END //
@@ -5949,9 +5948,8 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `ServiceDefaultProperties`
-    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 100;
-    SELECT ROW_COUNT();
-
+    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 1
+    RETURNING 1;
 
     END IF;
 END //
@@ -5966,9 +5964,24 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `ServiceDefaultProperties`
-    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 104;
-    SELECT ROW_COUNT();
+    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 100
+    RETURNING 1;
 
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'UsersHome' AND `ProviderID` = 104
+    RETURNING 1;
 
     END IF;
 END //
@@ -5983,26 +5996,8 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `Providers`
-    WHERE `ProviderID` = 1;
-    SELECT ROW_COUNT();
-
-
-    END IF;
-END //
-DELIMITER ;
-CALL MigrationsScript();
-DROP PROCEDURE MigrationsScript;
-
-DROP PROCEDURE IF EXISTS MigrationsScript;
-DELIMITER //
-CREATE PROCEDURE MigrationsScript()
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
-
-    DELETE FROM `Providers`
-    WHERE `ProviderID` = 100;
-    SELECT ROW_COUNT();
-
+    WHERE `ProviderID` = 1
+    RETURNING 1;
 
     END IF;
 END //
@@ -6017,9 +6012,24 @@ BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
 
     DELETE FROM `Providers`
-    WHERE `ProviderID` = 104;
-    SELECT ROW_COUNT();
+    WHERE `ProviderID` = 100
+    RETURNING 1;
 
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20251113211812_RemovedOldWindowsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 104
+    RETURNING 1;
 
     END IF;
 END //
@@ -6047,6 +6057,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260318133000_AddBruteForceProtection') THEN
+
     CREATE TABLE `BruteForceLogs` (
         `Id` int NOT NULL AUTO_INCREMENT,
         `IpAddress` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
@@ -6069,6 +6080,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260318133000_AddBruteForceProtection') THEN
+
     CREATE TABLE `IpSecurityPolicies` (
         `Id` int NOT NULL AUTO_INCREMENT,
         `IpRange` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
@@ -6093,6 +6105,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260318133000_AddBruteForceProtection') THEN
+
     CREATE INDEX `IX_BruteForceLogs_IpAddress_Layer_AttemptTime` ON `BruteForceLogs` (`IpAddress`, `Layer`, `AttemptTime`);
 
     END IF;
@@ -6106,6 +6119,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260318133000_AddBruteForceProtection') THEN
+
     CREATE INDEX `IX_IpSecurityPolicies_IpRange_IsActive` ON `IpSecurityPolicies` (`IpRange`, `IsActive`);
 
     END IF;
@@ -6119,6 +6133,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260318133000_AddBruteForceProtection') THEN
+
     INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
     VALUES ('20260318133000_AddBruteForceProtection', '9.0.9');
 
@@ -6133,8 +6148,8 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260320130001_RemovedLegacyStorefrontArtifacts') THEN
-    SET FOREIGN_KEY_CHECKS = 0;
 
+    SET FOREIGN_KEY_CHECKS = 0;
     DROP TABLE IF EXISTS `ecTopLevelDomainsCycles`;
     DROP TABLE IF EXISTS `ecTopLevelDomains`;
     DROP TABLE IF EXISTS `ecTaxations`;
@@ -6171,8 +6186,8 @@ BEGIN
     DROP TABLE IF EXISTS `ecCategory`;
     DROP TABLE IF EXISTS `ecBillingCycles`;
     DROP TABLE IF EXISTS `ecAddonProducts`;
-
     SET FOREIGN_KEY_CHECKS = 1;
+
 
     END IF;
 END //
@@ -6185,6 +6200,7 @@ DELIMITER //
 CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260320130001_RemovedLegacyStorefrontArtifacts') THEN
+
     INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
     VALUES ('20260320130001_RemovedLegacyStorefrontArtifacts', '9.0.9');
 
@@ -6194,4 +6210,756 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 2
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 3
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 9
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 11
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 14
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 28
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 29
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 60
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 64
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 65
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 66
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 91
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 92
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 101
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 102
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 105
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 106
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 201
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 300
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 350
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 351
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 400
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1201
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1202
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1205
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1206
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1703
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1901
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 209
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 210
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 460
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 461
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 462
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 463
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 464
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 465
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 466
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `Quotas`
+    WHERE `QuotaID` = 467
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `ScheduleTaskParameters`
+    WHERE `ParameterID` = 'CRM_REPORT' AND `TaskID` = 'SCHEDULE_TASK_HOSTED_SOLUTION_REPORT'
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RecordDefaultTTL' AND `ProviderID` = 55
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RecordMinimumTTL' AND `ProviderID` = 55
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `ResourceGroups`
+    WHERE `GroupID` = 21
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    DELETE FROM `ResourceGroups`
+    WHERE `GroupID` = 24
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    CREATE TABLE `BruteForceLogs` (
+        `Id` int NOT NULL AUTO_INCREMENT,
+        `IpAddress` varchar(45) CHARACTER SET utf8mb4 NOT NULL,
+        `Username` varchar(255) CHARACTER SET utf8mb4 NULL,
+        `Layer` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+        `AttemptTime` datetime(6) NOT NULL,
+        `Succeeded` tinyint(1) NOT NULL,
+        `UserAgent` varchar(500) CHARACTER SET utf8mb4 NULL,
+        CONSTRAINT `PK_BruteForceLog` PRIMARY KEY (`Id`)
+    ) CHARACTER SET=utf8mb4;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    CREATE TABLE `IpSecurityPolicies` (
+        `Id` int NOT NULL AUTO_INCREMENT,
+        `IpRange` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+        `IsWhitelist` tinyint(1) NOT NULL,
+        `CreatedDate` datetime(6) NOT NULL,
+        `ExpiresDate` datetime(6) NULL,
+        `Reason` varchar(500) CHARACTER SET utf8mb4 NULL,
+        `IsActive` tinyint(1) NOT NULL,
+        `SeverityLevel` int NOT NULL,
+        `CreatedBy` varchar(255) CHARACTER SET utf8mb4 NULL,
+        CONSTRAINT `PK_IpSecurityPolicy` PRIMARY KEY (`Id`)
+    ) CHARACTER SET=utf8mb4;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260504163828_RemoveDeprecatedProvidersAllSqlTypes') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260504163828_RemoveDeprecatedProvidersAllSqlTypes', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
+

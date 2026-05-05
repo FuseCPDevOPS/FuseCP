@@ -4,6 +4,7 @@ using FuseCP.EnterpriseServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 {
     [DbContext(typeof(MySqlDbContext))]
-    partial class MySqlDbContextModelSnapshot_RemovedOldWindowsProviders : ModelSnapshot
+    [Migration("20260505095011_RemoveDeprecatedProvidersExchangeAndSql")]
+    partial class RemoveDeprecatedProvidersExchangeAndSql
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

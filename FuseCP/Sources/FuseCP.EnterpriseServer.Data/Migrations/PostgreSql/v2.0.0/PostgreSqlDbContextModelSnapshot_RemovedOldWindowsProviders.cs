@@ -26,7 +26,7 @@ using FuseCP.EnterpriseServer.Data;
 namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlDbContext))]
-    partial class PostgreSqlDbContextModelSnapshot : ModelSnapshot
+    partial class PostgreSqlDbContextModelSnapshot_RemovedOldWindowsProviders : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

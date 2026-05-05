@@ -4,6 +4,7 @@ using FuseCP.EnterpriseServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 {
     [DbContext(typeof(MySqlDbContext))]
-    partial class MySqlDbContextModelSnapshot_RemovedOldWindowsProviders : ModelSnapshot
+    [Migration("20260504163828_RemoveDeprecatedProvidersAllSqlTypes")]
+    partial class RemoveDeprecatedProvidersAllSqlTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4084,6 +4087,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         },
                         new
                         {
+                            ProviderId = 5,
+                            DisplayName = "Microsoft SQL Server 2000",
+                            EditorControl = "MSSQL",
+                            GroupId = 5,
+                            ProviderName = "MSSQL",
+                            ProviderType = "FuseCP.Providers.Database.MsSqlServer, FuseCP.Providers.Database.SqlServer"
+                        },
+                        new
+                        {
                             ProviderId = 6,
                             DisplayName = "MySQL Server 4.x",
                             EditorControl = "MySQL",
@@ -4135,6 +4147,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             GroupId = 4,
                             ProviderName = "Merak",
                             ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak"
+                        },
+                        new
+                        {
+                            ProviderId = 16,
+                            DisplayName = "Microsoft SQL Server 2005",
+                            EditorControl = "MSSQL",
+                            GroupId = 10,
+                            ProviderName = "MSSQL",
+                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2005, FuseCP.Providers.Database.SqlServer"
                         },
                         new
                         {
@@ -4220,6 +4241,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         },
                         new
                         {
+                            ProviderId = 27,
+                            DisplayName = "Hosted Microsoft Exchange Server 2007",
+                            EditorControl = "Exchange",
+                            GroupId = 12,
+                            ProviderName = "Exchange2007",
+                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2007, FuseCP.Providers.HostedSolution"
+                        },
+                        new
+                        {
                             ProviderId = 30,
                             DisplayName = "MySQL Server 5.1",
                             EditorControl = "MySQL",
@@ -4235,6 +4265,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             GroupId = 8,
                             ProviderName = "SmarterStats",
                             ProviderType = "FuseCP.Providers.Statistics.SmarterStats4, FuseCP.Providers.Statistics.SmarterStats"
+                        },
+                        new
+                        {
+                            ProviderId = 32,
+                            DisplayName = "Hosted Microsoft Exchange Server 2010",
+                            EditorControl = "Exchange",
+                            GroupId = 12,
+                            ProviderName = "Exchange2010",
+                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2010, FuseCP.Providers.HostedSolution"
                         },
                         new
                         {
@@ -4281,6 +4320,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             GroupId = 4,
                             ProviderName = "SmarterMail",
                             ProviderType = "FuseCP.Providers.Mail.SmarterMail100, FuseCP.Providers.Mail.SmarterMail100"
+                        },
+                        new
+                        {
+                            ProviderId = 90,
+                            DisplayName = "Hosted Microsoft Exchange Server 2010 SP2",
+                            EditorControl = "Exchange",
+                            GroupId = 12,
+                            ProviderName = "Exchange2010SP2",
+                            ProviderType = "FuseCP.Providers.HostedSolution.Exchange2010SP2, FuseCP.Providers.HostedSolution"
                         },
                         new
                         {
@@ -4356,6 +4404,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         },
                         new
                         {
+                            ProviderId = 202,
+                            DisplayName = "Microsoft SQL Server 2008",
+                            EditorControl = "MSSQL",
+                            GroupId = 22,
+                            ProviderName = "MsSQL",
+                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer"
+                        },
+                        new
+                        {
                             ProviderId = 203,
                             DisableAutoDiscovery = true,
                             DisplayName = "BlackBerry 4.1",
@@ -4402,6 +4459,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             GroupId = 20,
                             ProviderName = "HostedSharePoint2010",
                             ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution"
+                        },
+                        new
+                        {
+                            ProviderId = 209,
+                            DisplayName = "Microsoft SQL Server 2012",
+                            EditorControl = "MSSQL",
+                            GroupId = 23,
+                            ProviderName = "MsSQL",
+                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer"
                         },
                         new
                         {
@@ -4561,6 +4627,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         },
                         new
                         {
+                            ProviderId = 1203,
+                            DisplayName = "Microsoft SQL Server 2014",
+                            EditorControl = "MSSQL",
+                            GroupId = 46,
+                            ProviderName = "MsSQL",
+                            ProviderType = "FuseCP.Providers.Database.MsSqlServer2014, FuseCP.Providers.Database.SqlServer"
+                        },
+                        new
+                        {
                             ProviderId = 1301,
                             DisplayName = "Hosted SharePoint Foundation 2013",
                             EditorControl = "HostedSharePoint30",
@@ -4612,6 +4687,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             GroupId = 52,
                             ProviderName = "SfB2019",
                             ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019"
+                        },
+                        new
+                        {
+                            ProviderId = 1501,
+                            DisableAutoDiscovery = true,
+                            DisplayName = "Remote Desktop Services Windows 2012",
+                            EditorControl = "RDS",
+                            GroupId = 45,
+                            ProviderName = "RemoteDesktopServices2012",
+                            ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2012,FuseCP.Providers.RemoteDesktopServices.Windows2012"
                         },
                         new
                         {

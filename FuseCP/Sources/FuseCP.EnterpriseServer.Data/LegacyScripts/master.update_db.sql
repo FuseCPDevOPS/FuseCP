@@ -145,14 +145,14 @@ GO
 -- SimpleDNS 6.x
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1703')
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1703, 7, N'SimpleDNS', N'SimpleDNS Plus 6.x', N'FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60', N'SimpleDNS', NULL)
+INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1703, 7, N'SimpleDNS', N'SimpleDNS Plus 6.x', N'FuseCP.Providers.DNS.SimpleDNS9, FuseCP.Providers.DNS.SimpleDNS90', N'SimpleDNS', NULL)
 END
 GO
 
 -- SimpleDNS 8.x
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1901')
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1901, 7, N'SimpleDNS', N'SimpleDNS Plus 8.x', N'FuseCP.Providers.DNS.SimpleDNS8, FuseCP.Providers.DNS.SimpleDNS80', N'SimpleDNS', NULL)
+INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1901, 7, N'SimpleDNS', N'SimpleDNS Plus 8.x', N'FuseCP.Providers.DNS.SimpleDNS9, FuseCP.Providers.DNS.SimpleDNS90', N'SimpleDNS', NULL)
 END
 GO
 
@@ -331,23 +331,28 @@ GO
 -- Version 1.0.1 section
 
 
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted Microsoft Exchange Server 2013')
+-- Removing Exchange 2013 (replaced by Exchange2019, ProviderID 93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 91)
 BEGIN
-INSERT [dbo].[Providers] ([ProviderId], [GroupId], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES(91, 12, N'Exchange2013', N'Hosted Microsoft Exchange Server 2013', N'FuseCP.Providers.HostedSolution.Exchange2013, FuseCP.Providers.HostedSolution.Exchange2013', N'Exchange',	1)
-END
-ELSE
-BEGIN
-UPDATE [dbo].[Providers] SET [DisableAutoDiscovery] = NULL WHERE [DisplayName] = 'Hosted Microsoft Exchange Server 2013'
+	UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 91
 END
 GO
-
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted Microsoft Exchange Server 2016')
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 91 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2013')
 BEGIN
-INSERT [dbo].[Providers] ([ProviderId], [GroupId], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES(92, 12, N'Exchange2016', N'Hosted Microsoft Exchange Server 2016', N'FuseCP.Providers.HostedSolution.Exchange2016, FuseCP.Providers.HostedSolution.Exchange2016', N'Exchange',	NULL)
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 91
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 91 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2013'
 END
-ELSE
+GO
+-- Removing Exchange 2016 (replaced by Exchange2019, ProviderID 93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 92)
 BEGIN
-UPDATE [dbo].[Providers] SET [DisableAutoDiscovery] = NULL WHERE [DisplayName] = 'Hosted Microsoft Exchange Server 2016'
+	UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 92
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 92 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2016')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 92
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 92 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2016'
 END
 GO
 
@@ -372,7 +377,7 @@ GO
 
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderName] = 'HeliconZoo')
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (135, 42, N'HeliconZoo', N'Web Application Engines', N'FuseCP.Providers.Web.HeliconZoo.HeliconZoo, FuseCP.Providers.Web.HeliconZoo', N'HeliconZoo', NULL)
+INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (135, 42, N'HeliconZoo', N'Web Application Engines', N'FuseCP.Providers.Web.IIs100, FuseCP.Providers.Web.IIs100', N'HeliconZoo', NULL)
 END
 GO
 
@@ -7539,13 +7544,16 @@ UPDATE [dbo].[Providers] SET [EditorControl] = N'HyperV2012R2', [GroupID] = 33 W
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderName] = 'HyperVvmm')
+-- Removing Hyper-V VMM (replaced by HyperV2016, ProviderID 352)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 351)
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (351, 33, N'HyperVvmm', N'Microsoft Hyper-V Virtual Machine Management', N'FuseCP.Providers.Virtualization.HyperVvmm, FuseCP.Providers.Virtualization.HyperVvmm', N'HyperVvmm', 1)
+	UPDATE [Services] SET [ProviderID] = 352 WHERE [ProviderID] = 351
 END
-ELSE
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 351 AND [DisplayName] = 'Microsoft Hyper-V Virtual Machine Management')
 BEGIN
-UPDATE [dbo].[Providers] SET [EditorControl] = N'HyperVvmm', [GroupID] = 33 WHERE [ProviderName] = 'HyperVvmm'
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 351
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 351 AND [DisplayName] = 'Microsoft Hyper-V Virtual Machine Management'
 END
 GO
 
@@ -13906,10 +13914,30 @@ GO
 -- FuseCP Migration from Other panels
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.OS.Windows2003, FuseCP.Providers.OS.Windows2003' WHERE ProviderID = 1
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Web.IIs60, FuseCP.Providers.Web.IIs60' WHERE ProviderID = 2
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.FTP.MsFTP, FuseCP.Providers.FTP.IIs60' WHERE ProviderID = 3
-Go
+-- Removing IIS60 (replaced by IIS100, ProviderID 112)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 2)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 112 WHERE [ProviderID] = 2
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 2 AND [DisplayName] = 'Internet Information Services 6.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 2
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 2 AND [DisplayName] = 'Internet Information Services 6.0'
+END
+GO
+-- Removing MSFTP60 (replaced by MSFTP100, ProviderID 113)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 3)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 113 WHERE [ProviderID] = 3
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 3 AND [DisplayName] = 'Microsoft FTP Server 6.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 3
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 3 AND [DisplayName] = 'Microsoft FTP Server 6.0'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.MailEnable, FuseCP.Providers.Mail.MailEnable' WHERE ProviderID = 4
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer, FuseCP.Providers.Database.SqlServer' WHERE ProviderID = 5
@@ -13920,18 +13948,48 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.DNS.MsDNS, FuseCP.Provide
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Statistics.AWStats, FuseCP.Providers.Statistics.AWStats' WHERE ProviderID = 8
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.DNS.SimpleDNS, FuseCP.Providers.DNS.SimpleDNS' WHERE ProviderID = 9
-Go
+-- Removing SimpleDNS 4.x (replaced by SimpleDNS9, ProviderID 1903)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 9)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 1903 WHERE [ProviderID] = 9
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 9 AND [DisplayName] = 'SimpleDNS Plus 4.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 9
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 9 AND [DisplayName] = 'SimpleDNS Plus 4.x'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Statistics.SmarterStats, FuseCP.Providers.Statistics.SmarterStats' WHERE ProviderID = 10
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail2, FuseCP.Providers.Mail.SmarterMail2' WHERE ProviderID = 11
-Go
+-- Removing SmarterMail 2.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 11)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 11
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 11 AND [DisplayName] = 'SmarterMail 2.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 11
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 11 AND [DisplayName] = 'SmarterMail 2.x'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.FTP.Gene6, FuseCP.Providers.FTP.Gene6' WHERE ProviderID = 12
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak' WHERE ProviderID = 13
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail3, FuseCP.Providers.Mail.SmarterMail3' WHERE ProviderID = 14
-Go
+-- Removing SmarterMail 3.x-4.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 14)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 14
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 14 AND [DisplayName] = 'SmarterMail 3.x - 4.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 14
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 14 AND [DisplayName] = 'SmarterMail 3.x - 4.x'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2005, FuseCP.Providers.Database.SqlServer' WHERE ProviderID = 16
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MySqlServer50, FuseCP.Providers.Database.MySQL' WHERE ProviderID = 17
@@ -13954,10 +14012,30 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.FTP.FileZilla, FuseCP.Pro
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Exchange2007, FuseCP.Providers.HostedSolution' WHERE ProviderID = 27
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.DNS.SimpleDNS5, FuseCP.Providers.DNS.SimpleDNS50' WHERE ProviderID = 28
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail5, FuseCP.Providers.Mail.SmarterMail5' WHERE ProviderID = 29
-Go
+-- Removing SimpleDNS 5.x (replaced by SimpleDNS9, ProviderID 1903)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 28)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 1903 WHERE [ProviderID] = 28
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 28 AND [DisplayName] = 'SimpleDNS Plus 5.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 28
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 28 AND [DisplayName] = 'SimpleDNS Plus 5.x'
+END
+GO
+-- Removing SmarterMail 5.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 29)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 29
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 29 AND [DisplayName] = 'SmarterMail 5.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 29
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 29 AND [DisplayName] = 'SmarterMail 5.x'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MySqlServer51, FuseCP.Providers.Database.MySQL' WHERE ProviderID = 30
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Statistics.SmarterStats4, FuseCP.Providers.Statistics.SmarterStats' WHERE ProviderID = 31
@@ -13966,40 +14044,140 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Exchange20
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.DNS.PowerDNS, FuseCP.Providers.DNS.PowerDNS' WHERE ProviderID = 56
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail6, FuseCP.Providers.Mail.SmarterMail6' WHERE ProviderID = 60
-Go
+-- Removing SmarterMail 6.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 60)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 60
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 60 AND [DisplayName] = 'SmarterMail 6.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 60
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 60 AND [DisplayName] = 'SmarterMail 6.x'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.Merak10, FuseCP.Providers.Mail.Merak10' WHERE ProviderID = 61
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Statistics.SmarterStats5, FuseCP.Providers.Statistics.SmarterStats' WHERE ProviderID = 62
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.hMailServer5, FuseCP.Providers.Mail.hMailServer5' WHERE ProviderID = 63
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail7, FuseCP.Providers.Mail.SmarterMail7' WHERE ProviderID = 64
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail9, FuseCP.Providers.Mail.SmarterMail9' WHERE ProviderID = 65
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.SmarterMail10, FuseCP.Providers.Mail.SmarterMail10' WHERE ProviderID = 66
-Go
+-- Removing SmarterMail 7.x-8.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 64)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 64
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 64 AND [DisplayName] = 'SmarterMail 7.x - 8.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 64
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 64 AND [DisplayName] = 'SmarterMail 7.x - 8.x'
+END
+GO
+-- Removing SmarterMail 9.x (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 65)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 65
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 65 AND [DisplayName] = 'SmarterMail 9.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 65
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 65 AND [DisplayName] = 'SmarterMail 9.x'
+END
+GO
+-- Removing SmarterMail 10.x+ (replaced by SmarterMail100, ProviderID 67)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 66)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 67 WHERE [ProviderID] = 66
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 66 AND [DisplayName] = 'SmarterMail 10.x +')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 66
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 66 AND [DisplayName] = 'SmarterMail 10.x +'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Exchange2010SP2, FuseCP.Providers.HostedSolution' WHERE ProviderID = 90
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Exchange2013, FuseCP.Providers.HostedSolution.Exchange2013' WHERE ProviderID = 91
-Go
+-- Removing Exchange 2013 (replaced by Exchange2019, ProviderID 93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 91)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 91
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 91 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2013')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 91
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 91 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2013'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.OS.Windows2008, FuseCP.Providers.OS.Windows2008' WHERE ProviderID = 100
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Web.IIs70, FuseCP.Providers.Web.IIs70' WHERE ProviderID = 101
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.FTP.MsFTP, FuseCP.Providers.FTP.IIs70' WHERE ProviderID = 102
-Go
+-- Removing IIS70 (replaced by IIS100, ProviderID 112)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 101)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 112 WHERE [ProviderID] = 101
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 101 AND [DisplayName] = 'Internet Information Services 7.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 101
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 101 AND [DisplayName] = 'Internet Information Services 7.0'
+END
+GO
+-- Removing MSFTP70 (replaced by MSFTP100, ProviderID 113)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 102)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 113 WHERE [ProviderID] = 102
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 102 AND [DisplayName] = 'Microsoft FTP Server 7.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 102
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 102 AND [DisplayName] = 'Microsoft FTP Server 7.0'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.OrganizationProvider, FuseCP.Providers.HostedSolution' WHERE ProviderID = 103
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.OS.Windows2012, FuseCP.Providers.OS.Windows2012' WHERE ProviderID = 104
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Web.IIs80, FuseCP.Providers.Web.IIs80' WHERE ProviderID = 105
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.FTP.MsFTP80, FuseCP.Providers.FTP.IIs80' WHERE ProviderID = 106
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Web.HeliconZoo.HeliconZoo, FuseCP.Providers.Web.HeliconZoo' WHERE ProviderID = 135
-Go
+-- Removing IIS80 (replaced by IIS100, ProviderID 112)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 105)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 112 WHERE [ProviderID] = 105
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 105 AND [DisplayName] = 'Internet Information Services 8.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 105
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 105 AND [DisplayName] = 'Internet Information Services 8.0'
+END
+GO
+-- Removing MSFTP80 (replaced by MSFTP100, ProviderID 113)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 106)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 113 WHERE [ProviderID] = 106
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 106 AND [DisplayName] = 'Microsoft FTP Server 8.0')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 106
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 106 AND [DisplayName] = 'Microsoft FTP Server 8.0'
+END
+GO
+-- Removing HeliconZoo (replaced by IIS100, ProviderID 112)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 135)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 112 WHERE [ProviderID] = 135
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 135 AND [DisplayName] = 'Web Application Engines')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 135
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 135 AND [DisplayName] = 'Web Application Engines'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Mail.IceWarp, FuseCP.Providers.Mail.IceWarp' WHERE ProviderID = 160
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.HostedSolution' WHERE ProviderID = 200
@@ -14022,16 +14200,46 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2012,
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution' WHERE ProviderID = 250
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Virtualization.HyperV, FuseCP.Providers.Virtualization.HyperV' WHERE ProviderID = 300
-Go
+-- Removing Hyper-V (replaced by HyperV2016, ProviderID 352)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 300)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 352 WHERE [ProviderID] = 300
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 300 AND [DisplayName] = 'Microsoft Hyper-V')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 300
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 300 AND [DisplayName] = 'Microsoft Hyper-V'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MySqlServer55, FuseCP.Providers.Database.MySQL' WHERE ProviderID = 301
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MySqlServer56, FuseCP.Providers.Database.MySQL' WHERE ProviderID = 302
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.Virtualization.HyperV2012R2, FuseCP.Providers.Virtualization.HyperV2012R2' WHERE ProviderID = 350
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.VirtualizationForPC.HyperVForPC, FuseCP.Providers.VirtualizationForPC.HyperVForPC' WHERE ProviderID = 400
-Go
+-- Removing Hyper-V 2012 R2 (replaced by HyperV2016, ProviderID 352)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 350)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 352 WHERE [ProviderID] = 350
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 350 AND [DisplayName] = 'Microsoft Hyper-V 2012 R2')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 350
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 350 AND [DisplayName] = 'Microsoft Hyper-V 2012 R2'
+END
+GO
+-- Removing Hyper-V For Private Cloud (replaced by HyperV2016, ProviderID 352)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 400)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 352 WHERE [ProviderID] = 400
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 400 AND [DisplayName] = 'Microsoft Hyper-V For Private Cloud')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 400
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 400 AND [DisplayName] = 'Microsoft Hyper-V For Private Cloud'
+END
+GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.DNS.MsDNS2012, FuseCP.Providers.DNS.MsDNS2012' WHERE ProviderID = 410
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.EnterpriseStorage.Windows2012, FuseCP.Providers.EnterpriseStorage.Windows2012' WHERE ProviderID = 600
@@ -14416,16 +14624,28 @@ END
 GO
 
 -- SimpleDNS 6.x
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1703' AND DisplayName = 'SimpleDNS Plus 6.x')
+-- Removing SimpleDNS 6.x (replaced by SimpleDNS9, ProviderID 1903)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1703)
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1703, 7, N'SimpleDNS', N'SimpleDNS Plus 6.x', N'FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60', N'SimpleDNS', NULL)
+	UPDATE [Services] SET [ProviderID] = 1903 WHERE [ProviderID] = 1703
 END
 GO
-
--- SimpleDNS 8.x
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1901' AND DisplayName = 'SimpleDNS Plus 8.x')
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1703 AND [DisplayName] = 'SimpleDNS Plus 6.x')
 BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1901, 7, N'SimpleDNS', N'SimpleDNS Plus 8.x', N'FuseCP.Providers.DNS.SimpleDNS8, FuseCP.Providers.DNS.SimpleDNS80', N'SimpleDNS', NULL)
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1703
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1703 AND [DisplayName] = 'SimpleDNS Plus 6.x'
+END
+GO
+-- Removing SimpleDNS 8.x (replaced by SimpleDNS9, ProviderID 1903)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1901)
+BEGIN
+	UPDATE [Services] SET [ProviderID] = 1903 WHERE [ProviderID] = 1901
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1901 AND [DisplayName] = 'SimpleDNS Plus 8.x')
+BEGIN
+	DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1901
+	DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1901 AND [DisplayName] = 'SimpleDNS Plus 8.x'
 END
 GO
 
@@ -20261,4 +20481,223 @@ BEGIN
 	   AND EXISTS (SELECT 1 FROM [dbo].[Providers] WHERE [ProviderID] = 55)
 		PRINT N'ACTION REQUIRED: Nettica DNS (ProviderID 55) was not removed because one or more server services still reference it. Reassign those services to a supported DNS provider, then manually DELETE FROM [Providers] WHERE ProviderID = 55.';
 END;
+GO
+
+-- FuseCP: Remove deprecated providers batch 2 (migrate services + delete)
+-- SQL Server 2000 (5) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 5)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 5
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 5 AND [DisplayName] = 'Microsoft SQL Server 2000')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 5
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 5 AND [DisplayName] = 'Microsoft SQL Server 2000'
+END
+GO
+-- SQL Server 2005 (16) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 16)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 16
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 16 AND [DisplayName] = 'Microsoft SQL Server 2005')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 16
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 16 AND [DisplayName] = 'Microsoft SQL Server 2005'
+END
+GO
+-- Exchange 2007 (27) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 27)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 27
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 27 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2007')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 27
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 27 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2007'
+END
+GO
+-- Exchange 2010 (32) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 32)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 32
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 32 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 32
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 32 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010'
+END
+GO
+-- Exchange 2010 SP2 (90) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 90)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 90
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 90 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010 SP2')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 90
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 90 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010 SP2'
+END
+GO
+-- SQL Server 2008 (202) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 202)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 202
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 202 AND [DisplayName] = 'Microsoft SQL Server 2008')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 202
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 202 AND [DisplayName] = 'Microsoft SQL Server 2008'
+END
+GO
+-- SQL Server 2012 (209) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 209)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 209
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 209 AND [DisplayName] = 'Microsoft SQL Server 2012')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 209
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 209 AND [DisplayName] = 'Microsoft SQL Server 2012'
+END
+GO
+-- SQL Server 2014 (1203) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1203)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 1203
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1203 AND [DisplayName] = 'Microsoft SQL Server 2014')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1203
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1203 AND [DisplayName] = 'Microsoft SQL Server 2014'
+END
+GO
+-- RDS Windows 2012 (1501) -> RDS Windows 2016 (1502)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1501)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1502 WHERE [ProviderID] = 1501
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1501 AND [DisplayName] = 'Remote Desktop Services Windows 2012')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1501
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1501 AND [DisplayName] = 'Remote Desktop Services Windows 2012'
+END
+GO
+-- FuseCP: Remove deprecated providers batch 2 (migrate services + delete)
+-- SQL Server 2000 (5) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 5)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 5
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 5 AND [DisplayName] = 'Microsoft SQL Server 2000')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 5
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 5 AND [DisplayName] = 'Microsoft SQL Server 2000'
+END
+GO
+-- SQL Server 2005 (16) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 16)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 16
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 16 AND [DisplayName] = 'Microsoft SQL Server 2005')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 16
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 16 AND [DisplayName] = 'Microsoft SQL Server 2005'
+END
+GO
+-- Exchange 2007 (27) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 27)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 27
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 27 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2007')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 27
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 27 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2007'
+END
+GO
+-- Exchange 2010 (32) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 32)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 32
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 32 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 32
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 32 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010'
+END
+GO
+-- Exchange 2010 SP2 (90) -> Exchange 2019 (93)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 90)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 93 WHERE [ProviderID] = 90
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 90 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010 SP2')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 90
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 90 AND [DisplayName] = 'Hosted Microsoft Exchange Server 2010 SP2'
+END
+GO
+-- SQL Server 2008 (202) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 202)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 202
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 202 AND [DisplayName] = 'Microsoft SQL Server 2008')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 202
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 202 AND [DisplayName] = 'Microsoft SQL Server 2008'
+END
+GO
+-- SQL Server 2012 (209) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 209)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 209
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 209 AND [DisplayName] = 'Microsoft SQL Server 2012')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 209
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 209 AND [DisplayName] = 'Microsoft SQL Server 2012'
+END
+GO
+-- SQL Server 2014 (1203) -> SQL Server 2016 (1701)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1203)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1701 WHERE [ProviderID] = 1203
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1203 AND [DisplayName] = 'Microsoft SQL Server 2014')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1203
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1203 AND [DisplayName] = 'Microsoft SQL Server 2014'
+END
+GO
+-- RDS Windows 2012 (1501) -> RDS Windows 2016 (1502)
+IF EXISTS (SELECT * FROM [dbo].[Services] WHERE [ProviderID] = 1501)
+BEGIN
+   UPDATE [Services] SET [ProviderID] = 1502 WHERE [ProviderID] = 1501
+END
+GO
+IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = 1501 AND [DisplayName] = 'Remote Desktop Services Windows 2012')
+BEGIN
+   DELETE FROM [dbo].[ServiceDefaultProperties] WHERE [ProviderID] = 1501
+   DELETE FROM [dbo].[Providers] WHERE [ProviderID] = 1501 AND [DisplayName] = 'Remote Desktop Services Windows 2012'
+END
 GO
