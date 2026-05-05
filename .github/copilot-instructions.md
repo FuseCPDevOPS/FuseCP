@@ -30,6 +30,14 @@ These instructions guide AI coding assistants working in this repository.
   1. Add `ApplyConfiguration(model, new MyEntityConfiguration());` in `DbContextBase.OnModelCreating()`
   2. Add DbSet property in `DbContext.Sets.cs`
   3. Run `FuseCP/Sources/FuseCP.EnterpriseServer.Data/MigrationAdd.bat` to generate migrations for all 4 providers and regenerate `install.*.sql`
+     - **Known MySQL auth failure in MigrationAdd.bat**: The bat hardcodes `Uid=root;Pwd=Password12` for MySQL, but the local dev MySQL root has **no password**. The MySQL migration and install script steps will fail with "Access denied" — this is expected. After the bat finishes, manually re-run:
+       ```
+       dotnet ef migrations add --framework net10.0 --no-build -o Migrations\MySql --context MySqlDbContext <MigrationName> -- "DbType=MySql;Server=localhost;Database=FuseCP;Uid=root;"
+       dotnet ef migrations script --framework net10.0 --no-build -o Migrations\MySql\install.mysql.sql --context MySqlDbContext -i -- "DbType=MySql;Server=localhost;Database=FuseCP;Uid=root;"
+       Copy-Item -Force "Migrations\MySql\install.mysql.sql" "..\..\Database\install.mysql.sql"
+       ```
+     - **Known SQL Server install script failure**: The `install.sqlserver.sql` generation via `migrations script -i` throws "Stream was not readable" on this dev box (pre-existing issue). The previous file is copied in its place; CI regenerates it correctly. This error does not block validation.
+     - **PostgreSQL connection**: `Host=localhost;Port=5433;User ID=postgres;Password=Password12` — this works.
   4. Commit Entity, Configuration, migration files, and regenerated `install.*.sql` files
   5. **Database workflow verification is FULLY AUTOMATED**: Never manually run verification scripts - they execute automatically in CI, local validation, and pre-commit hooks. Treat `install.*.sql` as generated artifacts, not the source of truth. SQLite upgrades run through EF migrations. Never edit EF model snapshot files or migration files by hand. See `DATABASE_WORKFLOW_COMPLETE.md` for complete reference.
 
