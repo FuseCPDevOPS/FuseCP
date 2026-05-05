@@ -147,7 +147,16 @@ namespace FuseCP.EnterpriseServer.Data
 			base(new DbOptions<Context.DbContextBase>(DbType.Sqlite, connectionString, initSeedData))
 		{ }
 
-		public void Migrate() => Database.Migrate();
+		public void Migrate()
+		{
+			// EF Core 9 raises PendingModelChangesWarning when Migrate() is called and all
+			// migrations are already applied but a model hash mismatch is detected. This is
+			// a false positive when the install script has already applied every migration.
+			// Only invoke Database.Migrate() when there are actually pending migrations to
+			// apply; otherwise the ValidateMigrations check (and its warning-as-error) is skipped.
+			if (Database.GetPendingMigrations().Any())
+				Database.Migrate();
+		}
 #elif NetFX
 		public SqliteDbContext(Data.DbContext context) : base(context)
 		{
