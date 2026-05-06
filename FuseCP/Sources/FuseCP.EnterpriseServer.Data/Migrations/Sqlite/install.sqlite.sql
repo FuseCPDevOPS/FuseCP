@@ -8451,5 +8451,28 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260505094716_RemoveDeprecatedProvidersExchangeAndSql', '9.0.9');
 
+DELETE FROM "Providers"
+WHERE "ProviderID" = 203;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'UserName' AND "ProviderID" = 204;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'UtilityPath' AND "ProviderID" = 204;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 204;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260506105728_RemoveBlackBerryProviders', '9.0.9');
+
 COMMIT;
 

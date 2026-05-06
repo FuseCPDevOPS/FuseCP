@@ -110,12 +110,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 200, DisplayName = "Hosted Windows SharePoint Services 3.0", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint30", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.Hoste" +
                 "dSolution" },
             new Provider() { ProviderId = 202, DisplayName = "Microsoft SQL Server 2008", EditorControl = "MSSQL", GroupId = 22, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 203, DisableAutoDiscovery = true, DisplayName = "BlackBerry 4.1", EditorControl = "BlackBerry", GroupId = 31, ProviderName = "BlackBerry 4.1",
-                ProviderType = "FuseCP.Providers.HostedSolution.BlackBerryProvider, FuseCP.Providers.HostedSol" +
-                "ution" },
-            new Provider() { ProviderId = 204, DisableAutoDiscovery = true, DisplayName = "BlackBerry 5.0", EditorControl = "BlackBerry5", GroupId = 31, ProviderName = "BlackBerry 5.0",
-                ProviderType = "FuseCP.Providers.HostedSolution.BlackBerry5Provider, FuseCP.Providers.HostedSo" +
-                "lution" },
             new Provider() { ProviderId = 205, DisableAutoDiscovery = true, DisplayName = "Office Communications Server 2007 R2", EditorControl = "OCS", GroupId = 32, ProviderName = "OCS",
                 ProviderType = "FuseCP.Providers.HostedSolution.OCS2007R2, FuseCP.Providers.HostedSolution" },
             new Provider() { ProviderId = 206, DisableAutoDiscovery = true, DisplayName = "OCS Edge server", EditorControl = "OCS_Edge", GroupId = 32, ProviderName = "OCSEdge",

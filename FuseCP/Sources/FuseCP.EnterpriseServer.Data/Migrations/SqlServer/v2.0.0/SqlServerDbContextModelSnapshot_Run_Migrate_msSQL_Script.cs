@@ -4382,26 +4382,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 203,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "BlackBerry 4.1",
-                            EditorControl = "BlackBerry",
-                            GroupId = 31,
-                            ProviderName = "BlackBerry 4.1",
-                            ProviderType = "FuseCP.Providers.HostedSolution.BlackBerryProvider, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 204,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "BlackBerry 5.0",
-                            EditorControl = "BlackBerry5",
-                            GroupId = 31,
-                            ProviderName = "BlackBerry 5.0",
-                            ProviderType = "FuseCP.Providers.HostedSolution.BlackBerry5Provider, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
                             ProviderId = 205,
                             DisableAutoDiscovery = true,
                             DisplayName = "Office Communications Server 2007 R2",
@@ -12373,18 +12353,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             ProviderId = 200,
                             PropertyName = "RootWebApplicationIpAddress",
                             PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 204,
-                            PropertyName = "UserName",
-                            PropertyValue = "admin"
-                        },
-                        new
-                        {
-                            ProviderId = 204,
-                            PropertyName = "UtilityPath",
-                            PropertyValue = "C:\\Program Files\\Research In Motion\\BlackBerry Enterprise Server Resource Kit\\BlackBerry Enterprise Server User Administration Tool"
                         },
                         new
                         {

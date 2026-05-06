@@ -351,9 +351,6 @@ Protocol=dbmssocn"
 			new ServiceDefaultProperty() { ProviderId = 113, PropertyName = "SiteId", PropertyValue = "Default FTP Site" },
 			new ServiceDefaultProperty() { ProviderId = 113, PropertyName = "sslusesni", PropertyValue = "False" },
 			new ServiceDefaultProperty() { ProviderId = 200, PropertyName = "RootWebApplicationIpAddress", PropertyValue = "" },
-			new ServiceDefaultProperty() { ProviderId = 204, PropertyName = "UserName", PropertyValue = "admin" },
-			new ServiceDefaultProperty() { ProviderId = 204, PropertyName = "UtilityPath", PropertyValue = "C:\\Program Files\\Research In Motion\\BlackBerry Enterprise Server Resource Kit\\Bl" +
-				"ackBerry Enterprise Server User Administration Tool" },
 			new ServiceDefaultProperty() { ProviderId = 300, PropertyName = "CpuLimit", PropertyValue = "100" },
 			new ServiceDefaultProperty() { ProviderId = 300, PropertyName = "CpuReserve", PropertyValue = "0" },
 			new ServiceDefaultProperty() { ProviderId = 300, PropertyName = "CpuWeight", PropertyValue = "100" },

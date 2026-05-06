@@ -7992,5 +7992,45 @@ BEGIN
     VALUES ('20260505094749_RemoveDeprecatedProvidersExchangeAndSql', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506105810_RemoveBlackBerryProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 203;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506105810_RemoveBlackBerryProviders') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'UserName' AND "ProviderID" = 204;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506105810_RemoveBlackBerryProviders') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'UtilityPath' AND "ProviderID" = 204;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506105810_RemoveBlackBerryProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 204;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506105810_RemoveBlackBerryProviders') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260506105810_RemoveBlackBerryProviders', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 
