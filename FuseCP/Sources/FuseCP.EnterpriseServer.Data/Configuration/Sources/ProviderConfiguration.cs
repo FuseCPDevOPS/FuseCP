@@ -155,18 +155,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
                 "15" },
             new Provider() { ProviderId = 1404, DisplayName = "Microsoft Skype for Business Server 2019", EditorControl = "SfB", GroupId = 52, ProviderName = "SfB2019", ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB20" +
                 "19" },
-            new Provider() { ProviderId = 1501, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2012", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2012",
-                ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2012,FuseCP.Providers.RemoteDesk" +
-                "topServices.Windows2012" },
-            new Provider() { ProviderId = 1502, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2016", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2012",
-                ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2016,FuseCP.Providers.RemoteDesk" +
-                "topServices.Windows2016" },
-            new Provider() { ProviderId = 1503, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2019", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2019",
-                ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2019,FuseCP.Providers.RemoteDesk" +
-                "topServices.Windows2019" },
-            new Provider() { ProviderId = 1504, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2022", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2022",
-                ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2022,FuseCP.Providers.RemoteDesk" +
-                "topServices.Windows2022" },
             new Provider() { ProviderId = 1505, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2025", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2025",
                 ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesk" +
                 "topServices.Windows2025" },

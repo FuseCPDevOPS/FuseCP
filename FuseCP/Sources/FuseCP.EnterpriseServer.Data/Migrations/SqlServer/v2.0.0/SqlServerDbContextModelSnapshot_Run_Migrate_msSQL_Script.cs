@@ -4522,36 +4522,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 1502,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Remote Desktop Services Windows 2016",
-                            EditorControl = "RDS",
-                            GroupId = 45,
-                            ProviderName = "RemoteDesktopServices2012",
-                            ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2016,FuseCP.Providers.RemoteDesktopServices.Windows2016"
-                        },
-                        new
-                        {
-                            ProviderId = 1503,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Remote Desktop Services Windows 2019",
-                            EditorControl = "RDS",
-                            GroupId = 45,
-                            ProviderName = "RemoteDesktopServices2019",
-                            ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2019,FuseCP.Providers.RemoteDesktopServices.Windows2019"
-                        },
-                        new
-                        {
-                            ProviderId = 1504,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Remote Desktop Services Windows 2022",
-                            EditorControl = "RDS",
-                            GroupId = 45,
-                            ProviderName = "RemoteDesktopServices2022",
-                            ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2022,FuseCP.Providers.RemoteDesktopServices.Windows2022"
-                        },
-                        new
-                        {
                             ProviderId = 1505,
                             DisableAutoDiscovery = true,
                             DisplayName = "Remote Desktop Services Windows 2025",

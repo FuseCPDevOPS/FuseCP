@@ -9304,5 +9304,27 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260506124338_ConsolidateMySqlProvidersTo90', '9.0.9');
 
+UPDATE "Services" SET "ProviderID" = 1505 WHERE "ProviderID" IN (1501, 1502, 1503, 1504);
+
+DELETE FROM "Providers" WHERE "ProviderID" = 1501;
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1502;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1503;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1504;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260506134148_ConsolidateRdsProvidersTo2025', '9.0.9');
+
 COMMIT;
 

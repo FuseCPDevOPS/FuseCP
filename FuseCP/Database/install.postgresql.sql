@@ -9374,5 +9374,51 @@ BEGIN
     VALUES ('20260506124500_ConsolidateMySqlProvidersTo90', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    UPDATE "public"."Services" SET "ProviderID" = 1505 WHERE "ProviderID" IN (1501, 1502, 1503, 1504);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    DELETE FROM "public"."Providers" WHERE "ProviderID" = 1501;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1502;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1503;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1504;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506134417_ConsolidateRdsProvidersTo2025') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260506134417_ConsolidateRdsProvidersTo2025', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 
