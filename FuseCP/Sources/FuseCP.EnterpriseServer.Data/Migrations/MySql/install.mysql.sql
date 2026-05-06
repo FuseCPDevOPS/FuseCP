@@ -9612,5 +9612,1010 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    UPDATE `Services` SET `ProviderID` = 320 WHERE `ProviderID` IN (6, 17, 30, 301, 302, 303, 304, 305, 306, 307, 308);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 302
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 303
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'sslmode' AND `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'sslmode' AND `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'sslmode' AND `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'sslmode' AND `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'ExternalAddress' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InstallFolder' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'InternalAddress' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootLogin' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RootPassword' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'sslmode' AND `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 6
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 17
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 30
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 301
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 304
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 305
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 306
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 307
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 308
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260506124428_ConsolidateMySqlProvidersTo90') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260506124428_ConsolidateMySqlProvidersTo90', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

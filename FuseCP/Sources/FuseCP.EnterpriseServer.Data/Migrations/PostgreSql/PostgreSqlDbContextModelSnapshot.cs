@@ -4085,15 +4085,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         },
                         new
                         {
-                            ProviderId = 6,
-                            DisplayName = "MySQL Server 4.x",
-                            EditorControl = "MySQL",
-                            GroupId = 6,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
                             ProviderId = 7,
                             DisplayName = "Microsoft DNS Server",
                             EditorControl = "MSDNS",
@@ -4136,15 +4127,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             GroupId = 4,
                             ProviderName = "Merak",
                             ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak"
-                        },
-                        new
-                        {
-                            ProviderId = 17,
-                            DisplayName = "MySQL Server 5.0",
-                            EditorControl = "MySQL",
-                            GroupId = 11,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer50, FuseCP.Providers.Database.MySQL"
                         },
                         new
                         {
@@ -4218,15 +4200,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             GroupId = 3,
                             ProviderName = "FileZilla",
                             ProviderType = "FuseCP.Providers.FTP.FileZilla, FuseCP.Providers.FTP.FileZilla"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            DisplayName = "MySQL Server 5.1",
-                            EditorControl = "MySQL",
-                            GroupId = 11,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer51, FuseCP.Providers.Database.MySQL"
                         },
                         new
                         {
@@ -4392,78 +4365,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             GroupId = 41,
                             ProviderName = "Lync2010",
                             ProviderType = "FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            DisplayName = "MySQL Server 5.5",
-                            EditorControl = "MySQL",
-                            GroupId = 11,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer55, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 302,
-                            DisplayName = "MySQL Server 5.6",
-                            EditorControl = "MySQL",
-                            GroupId = 11,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer56, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 303,
-                            DisplayName = "MySQL Server 5.7",
-                            EditorControl = "MySQL",
-                            GroupId = 11,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer57, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            DisplayName = "MySQL Server 8.0",
-                            EditorControl = "MySQL",
-                            GroupId = 90,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer80, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            DisplayName = "MySQL Server 8.1",
-                            EditorControl = "MySQL",
-                            GroupId = 90,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer81, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            DisplayName = "MySQL Server 8.2",
-                            EditorControl = "MySQL",
-                            GroupId = 90,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer82, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            DisplayName = "MySQL Server 8.3",
-                            EditorControl = "MySQL",
-                            GroupId = 90,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer83, FuseCP.Providers.Database.MySQL"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            DisplayName = "MySQL Server 8.4",
-                            EditorControl = "MySQL",
-                            GroupId = 90,
-                            ProviderName = "MySQL",
-                            ProviderType = "FuseCP.Providers.Database.MySqlServer84, FuseCP.Providers.Database.MySQL"
                         },
                         new
                         {
@@ -10681,36 +10582,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         },
                         new
                         {
-                            ProviderId = 6,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 6,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 4.1"
-                        },
-                        new
-                        {
-                            ProviderId = 6,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 6,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 6,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
                             ProviderId = 7,
                             PropertyName = "ExpireLimit",
                             PropertyValue = "1209600"
@@ -11065,36 +10936,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         },
                         new
                         {
-                            ProviderId = 17,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 17,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 5.0"
-                        },
-                        new
-                        {
-                            ProviderId = 17,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 17,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 17,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
                             ProviderId = 22,
                             PropertyName = "AdminPassword",
                             PropertyValue = ""
@@ -11242,36 +11083,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             ProviderId = 29,
                             PropertyName = "ServiceUrl",
                             PropertyValue = "http://localhost:9998/services/"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 5.1"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 30,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
                         },
                         new
                         {
@@ -12244,216 +12055,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             ProviderId = 300,
                             PropertyName = "VirtualDiskType",
                             PropertyValue = "dynamic"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 5.5"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 301,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 8.0"
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 304,
-                            PropertyName = "sslmode",
-                            PropertyValue = "True"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 8.0"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 305,
-                            PropertyName = "sslmode",
-                            PropertyValue = "True"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 8.0"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 306,
-                            PropertyName = "sslmode",
-                            PropertyValue = "True"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 8.0"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 307,
-                            PropertyName = "sslmode",
-                            PropertyValue = "True"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "ExternalAddress",
-                            PropertyValue = "localhost"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MySQL\\MySQL Server 8.0"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "InternalAddress",
-                            PropertyValue = "localhost,3306"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "RootLogin",
-                            PropertyValue = "root"
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "RootPassword",
-                            PropertyValue = ""
-                        },
-                        new
-                        {
-                            ProviderId = 308,
-                            PropertyName = "sslmode",
-                            PropertyValue = "True"
                         },
                         new
                         {

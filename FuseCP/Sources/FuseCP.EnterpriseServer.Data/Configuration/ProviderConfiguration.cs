@@ -46,14 +46,12 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
 		HasData(() => new Provider[] {
 			//new Provider() { ProviderId = 1, DisplayName = "Windows Server 2003", EditorControl = "Windows2003", GroupId = 1, ProviderName = "Windows2003", ProviderType = "FuseCP.Providers.OS.Windows2003, FuseCP.Providers.OS.Windows2003" },
 			new Provider() { ProviderId = 4, DisplayName = "MailEnable Server 1.x - 7.x", EditorControl = "MailEnable", GroupId = 4, ProviderName = "MailEnable", ProviderType = "FuseCP.Providers.Mail.MailEnable, FuseCP.Providers.Mail.MailEnable" },
-			new Provider() { ProviderId = 6, DisplayName = "MySQL Server 4.x", EditorControl = "MySQL", GroupId = 6, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer, FuseCP.Providers.Database.MySQL" },
 			new Provider() { ProviderId = 7, DisplayName = "Microsoft DNS Server", EditorControl = "MSDNS", GroupId = 7, ProviderName = "MSDNS", ProviderType = "FuseCP.Providers.DNS.MsDNS, FuseCP.Providers.DNS.MsDNS" },
 			new Provider() { ProviderId = 8, DisplayName = "AWStats Statistics Service", EditorControl = "AWStats", GroupId = 8, ProviderName = "AWStats", ProviderType = "FuseCP.Providers.Statistics.AWStats, FuseCP.Providers.Statistics.AWStats" },
 			new Provider() { ProviderId = 10, DisplayName = "SmarterStats 3.x", EditorControl = "SmarterStats", GroupId = 8, ProviderName = "SmarterStats", ProviderType = "FuseCP.Providers.Statistics.SmarterStats, FuseCP.Providers.Statistics.SmarterS" +
 				"tats" },
 			new Provider() { ProviderId = 12, DisplayName = "Gene6 FTP Server 3.x", EditorControl = "Gene6FTP", GroupId = 3, ProviderName = "Gene6FTP", ProviderType = "FuseCP.Providers.FTP.Gene6, FuseCP.Providers.FTP.Gene6" },
 			new Provider() { ProviderId = 13, DisplayName = "Merak Mail Server 8.0.3 - 9.2.x", EditorControl = "Merak", GroupId = 4, ProviderName = "Merak", ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak" },
-			new Provider() { ProviderId = 17, DisplayName = "MySQL Server 5.0", EditorControl = "MySQL", GroupId = 11, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer50, FuseCP.Providers.Database.MySQL" },
 			new Provider() { ProviderId = 18, DisplayName = "MDaemon 9.x - 11.x", EditorControl = "MDaemon", GroupId = 4, ProviderName = "MDaemon", ProviderType = "FuseCP.Providers.Mail.MDaemon, FuseCP.Providers.Mail.MDaemon" },
 			new Provider() { ProviderId = 19, DisableAutoDiscovery = true, DisplayName = "ArGoSoft Mail Server 1.x", EditorControl = "ArgoMail", GroupId = 4, ProviderName = "ArgoMail",
 				ProviderType = "FuseCP.Providers.Mail.ArgoMail, FuseCP.Providers.Mail.ArgoMail" },
@@ -64,7 +62,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
 			new Provider() { ProviderId = 24, DisplayName = "ISC BIND 8.x - 9.x", EditorControl = "Bind", GroupId = 7, ProviderName = "Bind", ProviderType = "FuseCP.Providers.DNS.IscBind, FuseCP.Providers.DNS.Bind" },
 			new Provider() { ProviderId = 25, DisplayName = "Serv-U FTP 6.x", EditorControl = "ServU", GroupId = 3, ProviderName = "ServU", ProviderType = "FuseCP.Providers.FTP.ServU, FuseCP.Providers.FTP.ServU" },
 			new Provider() { ProviderId = 26, DisplayName = "FileZilla FTP Server 0.9", EditorControl = "FileZilla", GroupId = 3, ProviderName = "FileZilla", ProviderType = "FuseCP.Providers.FTP.FileZilla, FuseCP.Providers.FTP.FileZilla" },
-			new Provider() { ProviderId = 30, DisplayName = "MySQL Server 5.1", EditorControl = "MySQL", GroupId = 11, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer51, FuseCP.Providers.Database.MySQL" },
 			new Provider() { ProviderId = 31, DisplayName = "SmarterStats 4.x", EditorControl = "SmarterStats", GroupId = 8, ProviderName = "SmarterStats", ProviderType = "FuseCP.Providers.Statistics.SmarterStats4, FuseCP.Providers.Statistics.Smarter" +
 				"Stats" },
 			new Provider() { ProviderId = 56, DisableAutoDiscovery = true, DisplayName = "PowerDNS", EditorControl = "PowerDNS", GroupId = 7, ProviderName = "PowerDNS",
@@ -94,14 +91,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
 			new Provider() { ProviderId = 208, DisplayName = "Hosted SharePoint Foundation 2010", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2010", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.H" +
 				"ostedSolution" },
 			new Provider() { ProviderId = 250, DisplayName = "Microsoft Lync Server 2010 Multitenant Hosting Pack", EditorControl = "Lync", GroupId = 41, ProviderName = "Lync2010", ProviderType = "FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution" },
-			new Provider() { ProviderId = 301, DisplayName = "MySQL Server 5.5", EditorControl = "MySQL", GroupId = 11, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer55, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 302, DisplayName = "MySQL Server 5.6", EditorControl = "MySQL", GroupId = 11, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer56, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 303, DisplayName = "MySQL Server 5.7", EditorControl = "MySQL", GroupId = 11, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer57, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 304, DisplayName = "MySQL Server 8.0", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer80, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 305, DisplayName = "MySQL Server 8.1", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer81, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 306, DisplayName = "MySQL Server 8.2", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer82, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 307, DisplayName = "MySQL Server 8.3", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer83, FuseCP.Providers.Database.MySQL" },
-			new Provider() { ProviderId = 308, DisplayName = "MySQL Server 8.4", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer84, FuseCP.Providers.Database.MySQL" },
 			new Provider() { ProviderId = 320, DisplayName = "MySQL Server 9.0", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer90, FuseCP.Providers.Database.MySQL" },
 			new Provider() { ProviderId = 352, DisableAutoDiscovery = true, DisplayName = "Microsoft Hyper-V 2016", EditorControl = "HyperV2012R2", GroupId = 33, ProviderName = "HyperV2016",
 				ProviderType = "FuseCP.Providers.Virtualization.HyperV2016, FuseCP.Providers.Virtualization.Hy" +
