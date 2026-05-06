@@ -8032,5 +8032,844 @@ BEGIN
     VALUES ('20260506105810_RemoveBlackBerryProviders', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    UPDATE "public"."Services" SET "ProviderID" = 1586 WHERE "ProviderID" IN (1550, 1560, 1570, 1571, 1572, 1573, 1574, 1575, 1576, 1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584, 1585);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1560;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1550;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1570;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1571;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1572;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1573;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1574;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1575;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1576;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1577;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1578;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1579;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1580;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1581;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1582;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1583;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1584;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1585;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260506122332_ConsolidateMariaDbProvidersTo117') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260506122332_ConsolidateMariaDbProvidersTo117', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

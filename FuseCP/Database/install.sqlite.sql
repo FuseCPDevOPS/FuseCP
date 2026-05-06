@@ -8474,5 +8474,525 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260506105728_RemoveBlackBerryProviders', '9.0.9');
 
+UPDATE "Services" SET "ProviderID" = 1586 WHERE "ProviderID" IN (1550, 1560, 1570, 1571, 1572, 1573, 1574, 1575, 1576, 1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584, 1585);
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1560;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'ExternalAddress' AND "ProviderID" = 1585;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InstallFolder' AND "ProviderID" = 1585;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'InternalAddress' AND "ProviderID" = 1585;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootLogin' AND "ProviderID" = 1585;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RootPassword' AND "ProviderID" = 1585;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1550;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1570;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1571;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1572;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1573;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1574;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1575;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1576;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1577;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1578;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1579;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1580;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1581;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1582;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1583;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1584;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1585;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260506122116_ConsolidateMariaDbProvidersTo117', '9.0.9');
+
 COMMIT;
 
