@@ -1714,6 +1714,22 @@ SELECT DatabaseVersion FROM Version");
 						{
 							var efMigrationHistory = ExecuteScalarSqlServer(masterConnectionString, "SELECT OBJECT_ID(N'[dbo].[__EFMigrationsHistory]')");
 							var versions = ExecuteScalarSqlServer(masterConnectionString, "SELECT OBJECT_ID(N'[dbo].[Versions]')");
+							if (efMigrationHistory != null && efMigrationHistory != DBNull.Value)
+							{
+								// Historical SQL Server databases may contain the original
+								// AddBruteForceProtection migration id (20260318133000), while the
+								// current migration metadata expects 20260319085603. Align the history
+								// row once before applying install-script upgrades.
+								ExecuteNonQuerySqlServer(masterConnectionString, @"
+	UPDATE [dbo].[__EFMigrationsHistory]
+	SET [MigrationId] = N'20260319085603_AddBruteForceProtection'
+	WHERE [MigrationId] = N'20260318133000_AddBruteForceProtection'
+	  AND NOT EXISTS (
+	      SELECT 1
+	      FROM [dbo].[__EFMigrationsHistory]
+	      WHERE [MigrationId] = N'20260319085603_AddBruteForceProtection'
+	  );");
+							}
 							if (versions != null && versions != DBNull.Value && (efMigrationHistory == null || efMigrationHistory == DBNull.Value))
 							{
 								RunSqlScript(masterConnectionString, updateSqlScript, updateCount, OnProgressChange,
