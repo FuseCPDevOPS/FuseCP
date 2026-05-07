@@ -10947,5 +10947,309 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'admode' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'expirelimit' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'minimumttl' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'nameservers' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RecordDefaultTTL' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'RecordMinimumTTL' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'refreshinterval' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'responsibleperson' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `ServiceDefaultProperties`
+    WHERE `PropertyName` = 'retrydelay' AND `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `GlobalDnsRecords` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `PackageServices` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `ServiceItems` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `ServiceProperties` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `StorageSpaces` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `VirtualServices` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `Services` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `ServiceDefaultProperties` SET `ProviderID` = 1902 WHERE `ProviderID` = 410;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 410
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    UPDATE `Providers` SET `DisplayName` = 'MsDNSPS', `ProviderName` = 'MsDNSPS', `ProviderType` = 'FuseCP.Providers.DNS.MsDNSPS, FuseCP.Providers.DNS.MsDNSPS'
+    WHERE `ProviderID` = 1902;
+    SELECT ROW_COUNT();
+
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507120553_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260507120553_ConsolidateMsDnsProvidersToMsDnsPs', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

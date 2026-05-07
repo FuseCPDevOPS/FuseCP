@@ -131,7 +131,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 400, DisableAutoDiscovery = true, DisplayName = "Microsoft Hyper-V For Private Cloud", EditorControl = "HyperVForPrivateCloud", GroupId = 40, ProviderName = "HyperVForPC",
                 ProviderType = "FuseCP.Providers.VirtualizationForPC.HyperVForPC, FuseCP.Providers.Virtualizat" +
                 "ionForPC.HyperVForPC" },
-            new Provider() { ProviderId = 410, DisplayName = "Microsoft DNS Server 2012+", EditorControl = "MSDNS", GroupId = 7, ProviderName = "MSDNS.2012", ProviderType = "FuseCP.Providers.DNS.MsDNS2012, FuseCP.Providers.DNS.MsDNS2012" },
             new Provider() { ProviderId = 500, DisplayName = "Unix System", EditorControl = "Unix", GroupId = 1, ProviderName = "UnixSystem", ProviderType = "FuseCP.Providers.OS.Unix, FuseCP.Providers.OS.Unix" },
             new Provider() { ProviderId = 600, DisplayName = "Enterprise Storage Windows 2012", EditorControl = "EnterpriseStorage", GroupId = 44, ProviderName = "EnterpriseStorage2012", ProviderType = "FuseCP.Providers.EnterpriseStorage.Windows2012, FuseCP.Providers.EnterpriseSto" +
                 "rage.Windows2012" },
@@ -177,7 +176,7 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
                 ProviderType = "FuseCP.Providers.Virtualization.HyperV2025, FuseCP.Providers.Virtualization.Hy" +
                 "perV2025" },
             new Provider() { ProviderId = 1901, DisplayName = "SimpleDNS Plus 8.x", EditorControl = "SimpleDNS", GroupId = 7, ProviderName = "SimpleDNS", ProviderType = "FuseCP.Providers.DNS.SimpleDNS8, FuseCP.Providers.DNS.SimpleDNS80" },
-            new Provider() { ProviderId = 1902, DisplayName = "Microsoft DNS Server 2016", EditorControl = "MSDNS", GroupId = 7, ProviderName = "MSDNS.2016", ProviderType = "FuseCP.Providers.DNS.MsDNS2016, FuseCP.Providers.DNS.MsDNS2016" },
+            new Provider() { ProviderId = 1902, DisplayName = "MsDNSPS", EditorControl = "MSDNS", GroupId = 7, ProviderName = "MsDNSPS", ProviderType = "FuseCP.Providers.DNS.MsDNSPS, FuseCP.Providers.DNS.MsDNSPS" },
             new Provider() { ProviderId = 1903, DisplayName = "SimpleDNS Plus 9.x", EditorControl = "SimpleDNS", GroupId = 7, ProviderName = "SimpleDNS", ProviderType = "FuseCP.Providers.DNS.SimpleDNS9, FuseCP.Providers.DNS.SimpleDNS90" },
             new Provider() { ProviderId = 1910, DisplayName = "vsftpd FTP Server 3", EditorControl = "vsftpd", GroupId = 3, ProviderName = "vsftpd", ProviderType = "FuseCP.Providers.FTP.VsFtp3, FuseCP.Providers.FTP.VsFtp" },
             new Provider() { ProviderId = 1911, DisplayName = "Apache Web Server 2.4", EditorControl = "Apache", GroupId = 2, ProviderName = "Apache", ProviderType = "FuseCP.Providers.Web.Apache24, FuseCP.Providers.Web.Apache" }

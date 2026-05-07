@@ -9380,5 +9380,79 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260507082713_RemoveLegacyCommunicationsProviders', '9.0.9');
 
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'admode' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'expirelimit' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'minimumttl' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'nameservers' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RecordDefaultTTL' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'RecordMinimumTTL' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'refreshinterval' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'responsibleperson' AND "ProviderID" = 410;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'retrydelay' AND "ProviderID" = 410;
+SELECT changes();
+
+
+UPDATE "GlobalDnsRecords" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "PackageServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "ServiceItems" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "ServiceProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "StorageSpaces" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "VirtualServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "Services" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "ServiceDefaultProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 410;
+SELECT changes();
+
+
+UPDATE "Providers" SET "DisplayName" = 'MsDNSPS', "ProviderName" = 'MsDNSPS', "ProviderType" = 'FuseCP.Providers.DNS.MsDNSPS, FuseCP.Providers.DNS.MsDNSPS'
+WHERE "ProviderID" = 1902;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260507120746_ConsolidateMsDnsProvidersToMsDnsPsSqlite', '9.0.9');
+
 COMMIT;
 

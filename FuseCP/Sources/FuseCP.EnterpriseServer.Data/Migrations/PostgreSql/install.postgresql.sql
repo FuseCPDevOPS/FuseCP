@@ -9540,5 +9540,157 @@ BEGIN
     VALUES ('20260507082949_RemoveLegacyCommunicationsProviders', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'admode' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'expirelimit' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'minimumttl' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'nameservers' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RecordDefaultTTL' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'RecordMinimumTTL' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'refreshinterval' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'responsibleperson' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'retrydelay' AND "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "GlobalDnsRecords" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "PackageServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "ServiceItems" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "ServiceProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "StorageSpaces" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "VirtualServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "Services" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE "ServiceDefaultProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 410;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    UPDATE public."Providers" SET "DisplayName" = 'MsDNSPS', "ProviderName" = 'MsDNSPS', "ProviderType" = 'FuseCP.Providers.DNS.MsDNSPS, FuseCP.Providers.DNS.MsDNSPS'
+    WHERE "ProviderID" = 1902;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260507120307_ConsolidateMsDnsProvidersToMsDnsPs', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

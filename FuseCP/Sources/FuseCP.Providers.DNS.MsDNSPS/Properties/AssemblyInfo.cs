@@ -20,8 +20,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FuseCP.Providers.DNS.MsDNS2016")]
-[assembly: AssemblyProduct("FuseCP.Providers.DNS.MsDNS2016")]
+[assembly: AssemblyTitle("FuseCP.Providers.DNS.MsDNSPS")]
+[assembly: AssemblyProduct("FuseCP.Providers.DNS.MsDNSPS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
