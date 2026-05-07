@@ -9454,5 +9454,13 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260507120746_ConsolidateMsDnsProvidersToMsDnsPsSqlite', '9.0.9');
 
+INSERT INTO "Providers" ("ProviderID", "DisableAutoDiscovery", "DisplayName", "EditorControl", "GroupID", "ProviderName", "ProviderType")
+VALUES (1404, NULL, 'Microsoft Skype for Business Server 2019', 'SfB', 52, 'SfB2019', 'FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019');
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260507161747_ReAddSfB2019Provider', '9.0.9');
+
 COMMIT;
 

@@ -143,6 +143,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Database.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.HostedSolution.Exchange2019", "FuseCP.Providers.HostedSolution.Exchange2019\FuseCP.Providers.HostedSolution.Exchange2019.csproj", "{DFB0EEE9-389B-43B0-BCB3-46E639F31B3D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.HostedSolution.SfB2019", "FuseCP.Providers.HostedSolution.SfB2019\FuseCP.Providers.HostedSolution.SfB2019.csproj", "{E019EC98-BE91-485B-82C1-4D744AF58B84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A06DE5E4-4331-47E1-8F46-7B846146B559} = {A06DE5E4-4331-47E1-8F46-7B846146B559}
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.OS.Windows2016", "FuseCP.Providers.OS.Windows2016\FuseCP.Providers.OS.Windows2016.csproj", "{4396082E-EC55-4741-A183-D0E374ADC2FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Web.IIs100", "FuseCP.Providers.Web.IIs100\FuseCP.Providers.Web.IIs100.csproj", "{9B99F215-5029-4779-BC2F-6D83CBB42205}"
@@ -565,6 +570,18 @@ Global
 		{DFB0EEE9-389B-43B0-BCB3-46E639F31B3D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DFB0EEE9-389B-43B0-BCB3-46E639F31B3D}.Release|x86.ActiveCfg = Release|Any CPU
 		{DFB0EEE9-389B-43B0-BCB3-46E639F31B3D}.Release|x86.Build.0 = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Debug|x86.Build.0 = Debug|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|x86.ActiveCfg = Release|Any CPU
+		{E019EC98-BE91-485B-82C1-4D744AF58B84}.Release|x86.Build.0 = Release|Any CPU
 		{4396082E-EC55-4741-A183-D0E374ADC2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4396082E-EC55-4741-A183-D0E374ADC2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4396082E-EC55-4741-A183-D0E374ADC2FD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

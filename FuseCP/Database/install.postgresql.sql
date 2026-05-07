@@ -9692,5 +9692,21 @@ BEGIN
     VALUES ('20260507120307_ConsolidateMsDnsProvidersToMsDnsPs', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507161819_ReAddSfB2019Provider') THEN
+    INSERT INTO public."Providers" ("ProviderID", "DisableAutoDiscovery", "DisplayName", "EditorControl", "GroupID", "ProviderName", "ProviderType")
+    VALUES (1404, NULL, 'Microsoft Skype for Business Server 2019', 'SfB', 52, 'SfB2019', 'FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019');
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507161819_ReAddSfB2019Provider') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260507161819_ReAddSfB2019Provider', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

@@ -4,23 +4,26 @@ using FuseCP.EnterpriseServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
+namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
 {
-    [DbContext(typeof(MySqlDbContext))]
-    partial class MySqlDbContextModelSnapshot_RemovedOldWindowsProviders : ModelSnapshot
+    [DbContext(typeof(SqlServerDbContext))]
+    [Migration("20260507161800_ReAddSfB2019Provider")]
+    partial class ReAddSfB2019Provider
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.AccessToken", b =>
                 {
@@ -29,17 +32,17 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("AccessTokenGuid")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -67,11 +70,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("GroupName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -92,10 +95,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("RecordID");
 
                     b.Property<string>("ExecutionLog")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("ItemId")
                         .HasColumnType("int")
@@ -103,7 +106,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("ItemName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int")
@@ -120,7 +123,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("TaskName")
                         .IsRequired()
@@ -134,7 +137,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Username")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RecordId")
                         .HasName("PK_Log");
@@ -324,7 +327,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("TaskDescription")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("SourceName", "TaskName")
                         .HasName("PK_LogActions");
@@ -2169,20 +2172,20 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("Completed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("EffectiveUserId")
                         .HasColumnType("int")
                         .HasColumnName("EffectiveUserID");
 
                     b.Property<DateTime?>("FinishDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<Guid>("Guid")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("IndicatorCurrent")
                         .HasColumnType("int");
@@ -2196,13 +2199,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("ItemName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("MaximumExecutionTime")
                         .HasColumnType("int");
 
                     b.Property<bool?>("NotifyOnComplete")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("PackageId")
                         .HasColumnType("int")
@@ -2216,22 +2219,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<string>("Source")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("TaskId")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("TaskID");
 
                     b.Property<string>("TaskName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -2250,13 +2253,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("LogID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("LogId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LogId"));
 
                     b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("ExceptionStackTrace")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int?>("InnerTaskStart")
                         .HasColumnType("int");
@@ -2269,13 +2272,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("TaskID");
 
                     b.Property<string>("Text")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int?>("TextIdent")
                         .HasColumnType("int");
 
                     b.Property<string>("XmlParameters")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.HasKey("LogId")
                         .HasName("PK_BackgroundTaskLog");
@@ -2292,14 +2295,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ParameterID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ParameterId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParameterId"));
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("SerializerValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int")
@@ -2307,7 +2310,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("TypeName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("ParameterId")
                         .HasName("PK_BackgroundTaskParameter");
@@ -2324,7 +2327,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("TaskStackID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TaskStackId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskStackId"));
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int")
@@ -2344,16 +2347,18 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("BlackBerryUserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlackBerryUserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.HasKey("BlackBerryUserId");
 
@@ -2369,31 +2374,31 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AttemptTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
                         .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<string>("Layer")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("Succeeded")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserAgent")
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Username")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id")
                         .HasName("PK_BruteForceLog");
@@ -2408,12 +2413,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ClusterID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ClusterId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClusterId"));
 
                     b.Property<string>("ClusterName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ClusterId");
 
@@ -2427,14 +2432,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("CommentID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CommentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
                     b.Property<string>("CommentText")
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -2469,14 +2476,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("CRMUserID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CrmUserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CrmUserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<Guid?>("BusinessUnitId")
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("BusinessUnitID");
 
                     b.Property<int?>("CalType")
@@ -2484,13 +2491,17 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("CALType");
 
                     b.Property<DateTime>("ChangedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<Guid?>("CrmUserGuid")
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("CRMUserGuid");
 
                     b.HasKey("CrmUserId");
@@ -2507,7 +2518,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("DmzAddressID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DmzAddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DmzAddressId"));
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
@@ -2517,7 +2528,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("IPAddress");
 
                     b.Property<bool>("IsPrimary")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -2537,10 +2548,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("DomainID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DomainId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DomainId"));
 
                     b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("DomainItemId")
                         .HasColumnType("int");
@@ -2548,31 +2559,31 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("DomainName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("HostingAllowed")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsDomainPointer")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsPreviewDomain")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsSubDomain")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<DateTime?>("LastUpdateDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("MailDomainId")
                         .HasColumnType("int")
@@ -2583,7 +2594,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("PackageID");
 
                     b.Property<string>("RegistrarName")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("WebSiteId")
                         .HasColumnType("int")
@@ -2613,14 +2624,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DnsServer")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("DomainId")
                         .HasColumnType("int");
@@ -2630,7 +2641,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Value")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id")
                         .HasName("PK_DomainDnsRecord");
@@ -2647,16 +2658,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("EnterpriseFolderID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EnterpriseFolderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnterpriseFolderId"));
 
                     b.Property<string>("Domain")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FolderName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("FolderQuota")
                         .ValueGeneratedOnAdd()
@@ -2665,7 +2676,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("HomeFolder")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -2673,7 +2684,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("LocationDrive")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("StorageSpaceFolderId")
                         .HasColumnType("int");
@@ -2692,7 +2703,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
@@ -2723,12 +2734,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AccountId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
 
                     b.Property<string>("AccountName")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("AccountType")
                         .HasColumnType("int");
@@ -2737,22 +2748,24 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool?>("EnableArchiving")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ExchangeDisclaimerId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsVip")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("IsVIP");
 
@@ -2765,7 +2778,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("LevelID");
 
                     b.Property<bool?>("MailEnabledPublicFolder")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("MailboxManagerActions")
                         .HasMaxLength(200)
@@ -2777,19 +2790,19 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("PrimaryEmailAddress")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("SamAccountName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SubscriberNumber")
                         .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("UserPrincipalName")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("AccountId");
 
@@ -2810,7 +2823,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("AddressID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
@@ -2819,7 +2832,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("AddressId");
 
@@ -2838,22 +2851,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("FileName")
                         .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FolderName")
                         .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<int>("OriginAt")
                         .HasColumnType("int")
@@ -2861,7 +2874,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("StoragePath")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id")
                         .HasName("PK_ExchangeDeletedAccount");
@@ -2875,15 +2888,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ExchangeDisclaimerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExchangeDisclaimerId"));
 
                     b.Property<string>("DisclaimerName")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("DisclaimerText")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -2900,10 +2913,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("MailboxPlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MailboxPlanId"));
 
                     b.Property<bool?>("AllowLitigationHold")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ArchiveSizeMb")
                         .HasColumnType("int")
@@ -2913,44 +2926,44 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<bool?>("Archiving")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EnableActiveSync")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("EnableArchiving")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("EnableAutoReply")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("EnableForceArchiveDeletion")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EnableImap")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("EnableIMAP");
 
                     b.Property<bool>("EnableMapi")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("EnableMAPI");
 
                     b.Property<bool>("EnableOwa")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("EnableOWA");
 
                     b.Property<bool>("EnablePop")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("EnablePOP");
 
                     b.Property<bool>("HideFromAddressBook")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDefault")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsForJournaling")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("IssueWarningPct")
                         .HasColumnType("int");
@@ -2964,16 +2977,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("LitigationHoldMsg")
                         .HasMaxLength(512)
-                        .HasColumnType("varchar(512)");
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<string>("LitigationHoldUrl")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MailboxPlan")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("MailboxPlanType")
                         .HasColumnType("int");
@@ -3022,7 +3035,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PlanTagID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PlanTagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlanTagId"));
 
                     b.Property<int>("MailboxPlanId")
                         .HasColumnType("int");
@@ -3054,7 +3067,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("OrganizationId")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("varchar(128)")
+                        .HasColumnType("nvarchar(128)")
                         .HasColumnName("OrganizationID");
 
                     b.Property<int?>("SfBuserPlanId")
@@ -3076,7 +3089,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("OrganizationDomainID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrganizationDomainId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationDomainId"));
 
                     b.Property<int?>("DomainId")
                         .HasColumnType("int")
@@ -3090,7 +3103,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool?>("IsHost")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<int>("ItemId")
@@ -3102,7 +3115,8 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.HasIndex(new[] { "ItemId" }, "ExchangeOrganizationDomainsIdx_ItemID");
 
                     b.HasIndex(new[] { "DomainId" }, "IX_ExchangeOrganizationDomains_UniqueDomain")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[DomainID] IS NOT NULL");
 
                     b.ToTable("ExchangeOrganizationDomains");
                 });
@@ -3115,12 +3129,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SettingsName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("Xml")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ItemId", "SettingsName");
 
@@ -3135,7 +3149,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -3166,7 +3180,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("TagID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
 
                     b.Property<int>("AgeLimitForRetention")
                         .HasColumnType("int");
@@ -3180,7 +3194,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("TagName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("TagType")
                         .HasColumnType("int");
@@ -3198,7 +3212,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("RecordID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("RecordId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordId"));
 
                     b.Property<int?>("IpAddressId")
                         .HasColumnType("int")
@@ -3215,12 +3229,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("RecordData")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("RecordName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("RecordType")
                         .IsRequired()
@@ -3266,25 +3280,25 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PlanID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlanId"));
 
                     b.Property<bool>("Available")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsAddon")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int")
                         .HasColumnName("PackageID");
 
                     b.Property<string>("PlanDescription")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("PlanName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("RecurrenceLength")
                         .HasColumnType("int");
@@ -3293,14 +3307,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<decimal?>("RecurringPrice")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("money");
 
                     b.Property<int?>("ServerId")
                         .HasColumnType("int")
                         .HasColumnName("ServerID");
 
                     b.Property<decimal?>("SetupPrice")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("money");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int")
@@ -3353,10 +3367,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnOrder(2);
 
                     b.Property<bool?>("CalculateBandwidth")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("CalculateDiskSpace")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("PlanId", "GroupId");
 
@@ -3372,10 +3386,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("AddressID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("DefaultGateway")
                         .HasMaxLength(15)
@@ -3426,32 +3440,32 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ExpiresDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("IpRange")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsWhitelist")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Reason")
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("SeverityLevel")
                         .HasColumnType("int");
@@ -3469,25 +3483,29 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("LyncUserID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("LyncUserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LyncUserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<int>("LyncUserPlanId")
                         .HasColumnType("int")
                         .HasColumnName("LyncUserPlanID");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("SipAddress")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("LyncUserId");
 
@@ -3502,32 +3520,32 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("LyncUserPlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LyncUserPlanId"));
 
                     b.Property<bool>("AllowOrganizeMeetingsWithExternalAnonymous")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("ArchivePolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("Conferencing")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EnterpriseVoice")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Federation")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IM")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("IM");
 
                     b.Property<bool>("IsDefault")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -3536,31 +3554,31 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("LyncUserPlanName")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("LyncUserPlanType")
                         .HasColumnType("int");
 
                     b.Property<bool>("Mobility")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("MobilityEnableOutsideVoice")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("PublicIMConnectivity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("PublicIMConnectivity");
 
                     b.Property<bool>("RemoteUserAccess")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("ServerUri")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
+                        .HasColumnType("nvarchar(300)")
                         .HasColumnName("ServerURI");
 
                     b.Property<int?>("Telephony")
@@ -3568,11 +3586,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("TelephonyDialPlanPolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("TelephonyVoicePolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("VoicePolicy")
                         .HasColumnType("int");
@@ -3594,23 +3612,27 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("OCSUserID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OcsuserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OcsuserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("InstanceId")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("InstanceID");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.HasKey("OcsuserId");
 
@@ -3624,27 +3646,27 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PackageID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PackageId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageId"));
 
                     b.Property<DateTime?>("BandwidthUpdated")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("DefaultTopPackage")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<bool>("OverrideQuotas")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("PackageComments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("PackageName")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("ParentPackageId")
                         .HasColumnType("int")
@@ -3655,7 +3677,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("PlanID");
 
                     b.Property<DateTime?>("PurchaseDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("ServerId")
                         .HasColumnType("int")
@@ -3666,8 +3688,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("StatusID");
 
                     b.Property<DateTime>("StatusIdChangeDate")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("StatusIDchangeDate");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasColumnName("StatusIDchangeDate")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -3683,7 +3707,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.HasIndex(new[] { "UserId" }, "PackageIndex_UserID");
 
-                    b.ToTable("Packages");
+                    b.ToTable("Packages", t =>
+                        {
+                            t.HasTrigger("Update_StatusIDchangeDate");
+                        });
+
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
 
                     b.HasData(
                         new
@@ -3706,10 +3735,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PackageAddonID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PackageAddonId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageAddonId"));
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int")
@@ -3720,7 +3749,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("PlanID");
 
                     b.Property<DateTime?>("PurchaseDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
@@ -3745,14 +3774,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PackageAddressID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PackageAddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageAddressId"));
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int")
                         .HasColumnName("AddressID");
 
                     b.Property<bool?>("IsPrimary")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ItemId")
                         .HasColumnType("int")
@@ -3812,10 +3841,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnOrder(2);
 
                     b.Property<bool>("CalculateBandwidth")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("CalculateDiskspace")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("PackageId", "GroupId")
                         .HasName("PK_PackageResources");
@@ -3853,16 +3882,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SettingsName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(3);
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.HasKey("PackageId", "SettingsName", "PropertyName");
 
@@ -3876,11 +3905,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PackageVlanID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PackageVlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PackageVlanId"));
 
                     b.Property<bool>("IsDmz")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<int>("PackageId")
@@ -3914,7 +3943,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnOrder(2);
 
                     b.Property<DateTime>("LogDate")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("datetime")
                         .HasColumnOrder(3);
 
                     b.Property<long>("BytesReceived")
@@ -3985,7 +4014,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("PrivateAddressID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PrivateAddressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrivateAddressId"));
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
@@ -3995,7 +4024,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("IPAddress");
 
                     b.Property<bool>("IsPrimary")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -4015,10 +4044,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("VlanID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("VlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VlanId"));
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int?>("ServerId")
                         .HasColumnType("int")
@@ -4042,16 +4071,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("ProviderID");
 
                     b.Property<bool?>("DisableAutoDiscovery")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("EditorControl")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int")
@@ -4059,11 +4088,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("ProviderName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ProviderType")
                         .HasMaxLength(400)
-                        .HasColumnType("varchar(400)");
+                        .HasColumnType("nvarchar(400)");
 
                     b.HasKey("ProviderId")
                         .HasName("PK_Provider");
@@ -4646,7 +4675,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("GroupID");
 
                     b.Property<bool?>("HideQuota")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ItemTypeId")
                         .HasColumnType("int")
@@ -4657,16 +4686,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("QuotaDescription")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("QuotaName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<double>("QuotaOrder")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("double")
+                        .HasColumnType("float")
                         .HasDefaultValue(1.0);
 
                     b.Property<int>("QuotaTypeId")
@@ -4677,7 +4706,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool?>("ServiceQuota")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.HasKey("QuotaId");
@@ -8042,30 +8071,30 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<DateTime?>("ExpiryDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Hash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -8079,15 +8108,15 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("DisplayName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
@@ -8095,7 +8124,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id")
                         .HasName("PK_RdsCollection");
@@ -8110,38 +8139,38 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ActiveSessionLimitMin")
                         .HasColumnType("int");
 
                     b.Property<bool?>("AuthenticateUsingNla")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("AuthenticateUsingNLA");
 
                     b.Property<bool?>("AutomaticReconnectionEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("BrokenConnectionAction")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ClientDeviceRedirectionOptions")
                         .HasMaxLength(250)
-                        .HasColumnType("varchar(250)");
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool?>("ClientPrinterAsDefault")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("ClientPrinterRedirected")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("DisconnectedSessionLimitMin")
                         .HasColumnType("int");
 
                     b.Property<string>("EncryptionLevel")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("IdleSessionLimitMin")
                         .HasColumnType("int");
@@ -8150,7 +8179,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<bool?>("RdEasyPrintDriverEnabled")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("RDEasyPrintDriverEnabled");
 
                     b.Property<int>("RdsCollectionId")
@@ -8159,13 +8188,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SecurityLayer")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool?>("TemporaryFoldersDeletedOnExit")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("TemporaryFoldersPerSession")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -8181,7 +8210,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
@@ -8207,14 +8236,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("MessageText")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int>("RdsCollectionId")
                         .HasColumnType("int")
@@ -8223,7 +8252,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("char(250)")
+                        .HasColumnType("nchar(250)")
                         .IsFixedLength();
 
                     b.HasKey("Id");
@@ -8240,11 +8269,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("ConnectionEnabled")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<int?>("Controller")
@@ -8252,11 +8281,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FqdName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("ItemId")
                         .HasColumnType("int")
@@ -8264,7 +8293,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("RdsCollectionId")
                         .HasColumnType("int")
@@ -8286,22 +8315,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SettingsName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(3);
 
                     b.Property<bool>("ApplyAdministrators")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("ApplyUsers")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.HasKey("RdsServerId", "SettingsName", "PropertyName");
 
@@ -8316,12 +8345,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("GroupController")
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("GroupName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("GroupOrder")
                         .ValueGeneratedOnAdd()
@@ -8329,7 +8358,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasDefaultValue(1);
 
                     b.Property<bool?>("ShowGroup")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("GroupId");
 
@@ -8636,7 +8665,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("RecordID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("RecordId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordId"));
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int")
@@ -8649,12 +8678,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("RecordData")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("RecordName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("RecordOrder")
                         .ValueGeneratedOnAdd()
@@ -8843,13 +8872,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ScheduleID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ScheduleId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"));
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("FromTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("HistoriesNumber")
                         .HasColumnType("int");
@@ -8858,13 +8887,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastRun")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("MaxExecutionTime")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("NextRun")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int")
@@ -8872,29 +8901,29 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("PriorityId")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("PriorityID");
 
                     b.Property<string>("ScheduleName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ScheduleTypeId")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("ScheduleTypeID");
 
                     b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("TaskId")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("TaskID");
 
                     b.Property<DateTime?>("ToTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("WeekMonthDay")
                         .HasColumnType("int");
@@ -8955,13 +8984,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("ParameterId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("ParameterID")
                         .HasColumnOrder(2);
 
                     b.Property<string>("ParameterValue")
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("ScheduleId", "ParameterId");
 
@@ -8986,7 +9015,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                 {
                     b.Property<string>("TaskId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("TaskID");
 
                     b.Property<int>("RoleId")
@@ -8996,7 +9025,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("TaskType")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("TaskId");
 
@@ -9153,24 +9182,24 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                 {
                     b.Property<string>("TaskId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("TaskID")
                         .HasColumnOrder(1);
 
                     b.Property<string>("ParameterId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("ParameterID")
                         .HasColumnOrder(2);
 
                     b.Property<string>("DataTypeId")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("DataTypeID");
 
                     b.Property<string>("DefaultValue")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ParameterOrder")
                         .ValueGeneratedOnAdd()
@@ -9952,25 +9981,25 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                 {
                     b.Property<string>("ConfigurationId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("ConfigurationID")
                         .HasColumnOrder(2);
 
                     b.Property<string>("TaskId")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("TaskID")
                         .HasColumnOrder(1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Environment")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ConfigurationId", "TaskId");
 
@@ -10149,7 +10178,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ServerID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ServerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServerId"));
 
                     b.Property<string>("ADAuthenticationType")
                         .HasMaxLength(50)
@@ -10159,42 +10188,42 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool?>("ADEnabled")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("ADEnabled");
 
                     b.Property<string>("ADParentDomain")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ADParentDomainController")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ADPassword")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("ADPassword");
 
                     b.Property<string>("ADRootDomain")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)")
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("ADRootDomain");
 
                     b.Property<string>("ADUsername")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("ADUsername");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("InstantDomainAlias")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<bool?>("IsCore")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("OSPlatform")
                         .ValueGeneratedOnAdd()
@@ -10204,11 +10233,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Password")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("PasswordIsSHA256")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("PasswordIsSHA256");
 
@@ -10219,17 +10248,17 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("ServerName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ServerUrl")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasDefaultValue("");
 
                     b.Property<bool>("VirtualServer")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.HasKey("ServerId");
@@ -10246,14 +10275,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ServiceID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ServiceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
 
                     b.Property<int?>("ClusterId")
                         .HasColumnType("int")
                         .HasColumnName("ClusterID");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int")
@@ -10266,7 +10295,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("ServiceName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ServiceQuotaValue")
                         .HasColumnType("int");
@@ -10291,12 +10320,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyValue")
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("ProviderId", "PropertyName")
                         .HasName("PK_ServiceDefaultProperties");
@@ -12263,14 +12292,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ItemID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ItemId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("ItemName")
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("ItemTypeId")
                         .HasColumnType("int")
@@ -12304,11 +12333,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ItemId", "PropertyName");
 
@@ -12323,21 +12352,21 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool>("Backupable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<bool?>("CalculateBandwidth")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("CalculateDiskspace")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("DisplayName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("Disposable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("GroupId")
                         .HasColumnType("int")
@@ -12345,18 +12374,18 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool>("Importable")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<bool?>("Searchable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("Suspendable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("TypeName")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("TypeOrder")
                         .ValueGeneratedOnAdd()
@@ -13216,11 +13245,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ServiceId", "PropertyName")
                         .HasName("PK_ServiceProperties");
@@ -13235,17 +13264,17 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("SfBUserID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("SfBUserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SfBUserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
                         .HasColumnName("AccountID");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("SfBUserPlanId")
                         .HasColumnType("int")
@@ -13253,7 +13282,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SipAddress")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("SfBUserId");
 
@@ -13267,63 +13296,63 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("SfBUserPlanId");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("SfBUserPlanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SfBUserPlanId"));
 
                     b.Property<bool>("AllowOrganizeMeetingsWithExternalAnonymous")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("ArchivePolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("Conferencing")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EnterpriseVoice")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Federation")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IM")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasColumnName("IM");
 
                     b.Property<bool>("IsDefault")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int")
                         .HasColumnName("ItemID");
 
                     b.Property<bool>("Mobility")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("MobilityEnableOutsideVoice")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("PublicIMConnectivity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("PublicIMConnectivity");
 
                     b.Property<bool>("RemoteUserAccess")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("ServerUri")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
+                        .HasColumnType("nvarchar(300)")
                         .HasColumnName("ServerURI");
 
                     b.Property<string>("SfBUserPlanName")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
+                        .HasColumnType("nvarchar(300)")
                         .HasColumnName("SfBUserPlanName");
 
                     b.Property<int?>("SfBUserPlanType")
@@ -13335,11 +13364,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("TelephonyDialPlanPolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("TelephonyVoicePolicy")
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("VoicePolicy")
                         .HasColumnType("int");
@@ -13356,13 +13385,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Certificate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("Csr")
-                        .HasColumnType("TEXT")
+                        .HasColumnType("ntext")
                         .HasColumnName("CSR");
 
                     b.Property<int?>("CsrLength")
@@ -13371,37 +13400,37 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("DistinguishedName")
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime?>("ExpiryDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("FriendlyName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Hash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("Hostname")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool?>("Installed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsRenewal")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Pfx")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.Property<int?>("PreviousId")
                         .HasColumnType("int");
 
                     b.Property<string>("SerialNumber")
                         .HasMaxLength(250)
-                        .HasColumnType("varchar(250)");
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("SiteId")
                         .HasColumnType("int")
@@ -13412,7 +13441,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnName("UserID");
 
                     b.Property<DateTime?>("ValidFrom")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -13425,7 +13454,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<long>("FsrmQuotaSizeBytes")
                         .HasColumnType("bigint");
@@ -13435,11 +13464,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool>("IsDisabled")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsShared")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
@@ -13453,7 +13482,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("Path")
                         .IsRequired()
                         .IsUnicode(false)
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<int>("ServerId")
                         .HasColumnType("int");
@@ -13463,7 +13492,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("UncPath")
                         .IsUnicode(false)
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(max)");
 
                     b.HasKey("Id")
                         .HasName("PK_StorageSpace");
@@ -13481,7 +13510,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<long>("FsrmQuotaSizeBytes")
                         .HasColumnType("bigint");
@@ -13490,7 +13519,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<bool>("IsShared")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -13501,14 +13530,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Property<string>("Path")
                         .IsRequired()
                         .IsUnicode(false)
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<int>("StorageSpaceId")
                         .HasColumnType("int");
 
                     b.Property<string>("UncPath")
                         .IsUnicode(false)
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(max)");
 
                     b.HasKey("Id")
                         .HasName("PK_StorageSpaceFolder");
@@ -13524,16 +13553,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id")
                         .HasName("PK_StorageSpaceLevel");
@@ -13547,7 +13576,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
@@ -13572,16 +13601,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("LevelID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("LevelId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LevelId"));
 
                     b.Property<string>("LevelDescription")
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("LevelName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("LevelId")
                         .HasName("PK_SupportServiceLevel");
@@ -13593,16 +13622,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                 {
                     b.Property<string>("SettingsName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(1);
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.HasKey("SettingsName", "PropertyName");
 
@@ -13665,13 +13694,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Key"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Key"));
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -13680,7 +13709,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int");
 
                     b.Property<Guid>("Scope")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Key");
 
@@ -13696,11 +13725,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ThemeID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ThemeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThemeId"));
 
                     b.Property<string>("DisplayName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
@@ -13710,12 +13739,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("LTRName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("LTRName");
 
                     b.Property<string>("RTLName")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("RTLName");
 
                     b.HasKey("ThemeId");
@@ -13741,22 +13770,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ThemeSettingID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ThemeSettingId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThemeSettingId"));
 
                     b.Property<string>("PropertyName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("PropertyValue")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("SettingsName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("ThemeId")
                         .HasColumnType("int")
@@ -13938,42 +13967,42 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("UserID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("AdditionalParams")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("Changed")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("City")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("longtext");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("CompanyName")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("Created")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<bool?>("EcommerceEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("FailedLogins")
                         .HasColumnType("int");
@@ -13985,11 +14014,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("HtmlMail")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<string>("InstantMessenger")
@@ -13999,17 +14028,17 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<bool>("IsDemo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsPeer")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("LoginStatusId")
                         .HasColumnType("int");
@@ -14028,11 +14057,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("Password")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PinSecret")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("PrimaryPhone")
                         .HasMaxLength(30)
@@ -14045,7 +14074,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SecondaryEmail")
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("SecondaryPhone")
                         .HasMaxLength(30)
@@ -14054,7 +14083,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("State")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int")
@@ -14062,11 +14091,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SubscriberNumber")
                         .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("Username")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Zip")
                         .HasMaxLength(20)
@@ -14076,7 +14105,8 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.HasKey("UserId");
 
                     b.HasIndex(new[] { "Username" }, "IX_Users_Username")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Username] IS NOT NULL");
 
                     b.HasIndex(new[] { "OwnerId" }, "UsersIdx_OwnerID");
 
@@ -14123,16 +14153,16 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("SettingsName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(2);
 
                     b.Property<string>("PropertyName")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(3);
 
                     b.Property<string>("PropertyValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("ntext");
 
                     b.HasKey("UserId", "SettingsName", "PropertyName");
 
@@ -15086,6 +15116,110 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         });
                 });
 
+            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.UsersDetailed", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserID");
+
+                    b.Property<DateTime?>("Changed")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("CompanyName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool?>("EcommerceEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int?>("FailedLogins")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(101)
+                        .HasColumnType("nvarchar(101)");
+
+                    b.Property<bool>("IsDemo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPeer")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("LoginStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OwnerEmail")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("OwnerFirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("OwnerFullName")
+                        .HasMaxLength(101)
+                        .HasColumnType("nvarchar(101)");
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int")
+                        .HasColumnName("OwnerID");
+
+                    b.Property<string>("OwnerLastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("OwnerRoleId")
+                        .HasColumnType("int")
+                        .HasColumnName("OwnerRoleID");
+
+                    b.Property<string>("OwnerUsername")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("PackagesNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int")
+                        .HasColumnName("RoleID");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int")
+                        .HasColumnName("StatusID");
+
+                    b.Property<string>("SubscriberNumber")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("UsersDetailed", (string)null);
+                });
+
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Version", b =>
                 {
                     b.Property<string>("DatabaseVersion")
@@ -15094,7 +15228,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("BuildDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.HasKey("DatabaseVersion");
 
@@ -15160,10 +15294,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("VirtualGroupID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("VirtualGroupId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VirtualGroupId"));
 
                     b.Property<bool?>("BindDistributionToPrimary")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("DistributionType")
                         .HasColumnType("int");
@@ -15192,7 +15326,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("VirtualServiceID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("VirtualServiceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VirtualServiceId"));
 
                     b.Property<int>("ServerId")
                         .HasColumnType("int")
@@ -15218,10 +15352,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("AccessToken")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int")
@@ -15229,14 +15363,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.Property<string>("AuthData")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -15256,13 +15390,13 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<string>("Settings")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id")
                         .HasName("PK_WebDavPortalUsersSetting");
