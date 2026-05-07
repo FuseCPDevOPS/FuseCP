@@ -107,14 +107,9 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 200, DisplayName = "Hosted Windows SharePoint Services 3.0", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint30", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.Hoste" +
                 "dSolution" },
             new Provider() { ProviderId = 202, DisplayName = "Microsoft SQL Server 2008", EditorControl = "MSSQL", GroupId = 22, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 205, DisableAutoDiscovery = true, DisplayName = "Office Communications Server 2007 R2", EditorControl = "OCS", GroupId = 32, ProviderName = "OCS",
-                ProviderType = "FuseCP.Providers.HostedSolution.OCS2007R2, FuseCP.Providers.HostedSolution" },
-            new Provider() { ProviderId = 206, DisableAutoDiscovery = true, DisplayName = "OCS Edge server", EditorControl = "OCS_Edge", GroupId = 32, ProviderName = "OCSEdge",
-                ProviderType = "FuseCP.Providers.HostedSolution.OCSEdge2007R2, FuseCP.Providers.HostedSolution" },
             new Provider() { ProviderId = 208, DisplayName = "Hosted SharePoint Foundation 2010", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2010", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.H" +
                 "ostedSolution" },
             new Provider() { ProviderId = 209, DisplayName = "Microsoft SQL Server 2012", EditorControl = "MSSQL", GroupId = 23, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 250, DisplayName = "Microsoft Lync Server 2010 Multitenant Hosting Pack", EditorControl = "Lync", GroupId = 41, ProviderName = "Lync2010", ProviderType = "FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution" },
             new Provider() { ProviderId = 300, DisableAutoDiscovery = true, DisplayName = "Microsoft Hyper-V", EditorControl = "HyperV", GroupId = 30, ProviderName = "HyperV",
                 ProviderType = "FuseCP.Providers.Virtualization.HyperV, FuseCP.Providers.Virtualization.HyperV" },
             new Provider() { ProviderId = 320, DisplayName = "MySQL Server 9.0", EditorControl = "MySQL", GroupId = 90, ProviderName = "MySQL", ProviderType = "FuseCP.Providers.Database.MySqlServer90, FuseCP.Providers.Database.MySQL" },
@@ -147,14 +142,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
                 "ostedSolution.SharePoint2013" },
             new Provider() { ProviderId = 1306, DisplayName = "Hosted SharePoint Foundation 2016", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2016", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.H" +
                 "ostedSolution.SharePoint2016" },
-            new Provider() { ProviderId = 1401, DisplayName = "Microsoft Lync Server 2013 Enterprise Edition", EditorControl = "Lync", GroupId = 41, ProviderName = "Lync2013", ProviderType = "FuseCP.Providers.HostedSolution.Lync2013, FuseCP.Providers.HostedSolution.Lync" +
-                "2013" },
-            new Provider() { ProviderId = 1402, DisplayName = "Microsoft Lync Server 2013 Multitenant Hosting Pack", EditorControl = "Lync", GroupId = 41, ProviderName = "Lync2013HP", ProviderType = "FuseCP.Providers.HostedSolution.Lync2013HP, FuseCP.Providers.HostedSolution.Ly" +
-                "nc2013HP" },
-            new Provider() { ProviderId = 1403, DisplayName = "Microsoft Skype for Business Server 2015", EditorControl = "SfB", GroupId = 52, ProviderName = "SfB2015", ProviderType = "FuseCP.Providers.HostedSolution.SfB2015, FuseCP.Providers.HostedSolution.SfB20" +
-                "15" },
-            new Provider() { ProviderId = 1404, DisplayName = "Microsoft Skype for Business Server 2019", EditorControl = "SfB", GroupId = 52, ProviderName = "SfB2019", ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB20" +
-                "19" },
             new Provider() { ProviderId = 1505, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2025", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2025",
                 ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesk" +
                 "topServices.Windows2025" },

@@ -4355,41 +4355,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                         },
                         new
                         {
-                            ProviderId = 205,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "Office Communications Server 2007 R2",
-                            EditorControl = "OCS",
-                            GroupId = 32,
-                            ProviderName = "OCS",
-                            ProviderType = "FuseCP.Providers.HostedSolution.OCS2007R2, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 206,
-                            DisableAutoDiscovery = true,
-                            DisplayName = "OCS Edge server",
-                            EditorControl = "OCS_Edge",
-                            GroupId = 32,
-                            ProviderName = "OCSEdge",
-                            ProviderType = "FuseCP.Providers.HostedSolution.OCSEdge2007R2, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
                             ProviderId = 208,
                             DisplayName = "Hosted SharePoint Foundation 2010",
                             EditorControl = "HostedSharePoint30",
                             GroupId = 20,
                             ProviderName = "HostedSharePoint2010",
                             ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 250,
-                            DisplayName = "Microsoft Lync Server 2010 Multitenant Hosting Pack",
-                            EditorControl = "Lync",
-                            GroupId = 41,
-                            ProviderName = "Lync2010",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution"
                         },
                         new
                         {
@@ -4483,42 +4454,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                             GroupId = 20,
                             ProviderName = "HostedSharePoint2016",
                             ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.HostedSolution.SharePoint2016"
-                        },
-                        new
-                        {
-                            ProviderId = 1401,
-                            DisplayName = "Microsoft Lync Server 2013 Enterprise Edition",
-                            EditorControl = "Lync",
-                            GroupId = 41,
-                            ProviderName = "Lync2013",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Lync2013, FuseCP.Providers.HostedSolution.Lync2013"
-                        },
-                        new
-                        {
-                            ProviderId = 1402,
-                            DisplayName = "Microsoft Lync Server 2013 Multitenant Hosting Pack",
-                            EditorControl = "Lync",
-                            GroupId = 41,
-                            ProviderName = "Lync2013HP",
-                            ProviderType = "FuseCP.Providers.HostedSolution.Lync2013HP, FuseCP.Providers.HostedSolution.Lync2013HP"
-                        },
-                        new
-                        {
-                            ProviderId = 1403,
-                            DisplayName = "Microsoft Skype for Business Server 2015",
-                            EditorControl = "SfB",
-                            GroupId = 52,
-                            ProviderName = "SfB2015",
-                            ProviderType = "FuseCP.Providers.HostedSolution.SfB2015, FuseCP.Providers.HostedSolution.SfB2015"
-                        },
-                        new
-                        {
-                            ProviderId = 1404,
-                            DisplayName = "Microsoft Skype for Business Server 2019",
-                            EditorControl = "SfB",
-                            GroupId = 52,
-                            ProviderName = "SfB2019",
-                            ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019"
                         },
                         new
                         {

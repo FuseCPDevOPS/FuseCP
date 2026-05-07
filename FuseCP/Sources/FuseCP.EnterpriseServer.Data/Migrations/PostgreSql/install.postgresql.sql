@@ -9420,5 +9420,125 @@ BEGIN
     VALUES ('20260506134417_ConsolidateRdsProvidersTo2025', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."GlobalDnsRecords" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."PackageServices" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."ServiceItems" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."ServiceProperties" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."StorageSpaces" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."VirtualServices" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM "public"."ServiceDefaultProperties" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 205;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 206;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 250;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1401;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1402;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1403;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1404;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507082949_RemoveLegacyCommunicationsProviders') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260507082949_RemoveLegacyCommunicationsProviders', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

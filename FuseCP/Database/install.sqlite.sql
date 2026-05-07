@@ -9326,5 +9326,59 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260506134148_ConsolidateRdsProvidersTo2025', '9.0.9');
 
+DELETE FROM "GlobalDnsRecords" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "PackageServices" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "ServiceItems" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "ServiceProperties" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "StorageSpaces" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "VirtualServices" WHERE "ServiceID" IN (SELECT "ServiceID" FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+DELETE FROM "Services" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404);
+
+DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (205, 206, 250, 1401, 1402, 1403, 1404);
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 205;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 206;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 250;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1401;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1402;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1403;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1404;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260507082713_RemoveLegacyCommunicationsProviders', '9.0.9');
+
 COMMIT;
 

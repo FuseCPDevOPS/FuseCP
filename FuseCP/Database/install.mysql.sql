@@ -10708,5 +10708,244 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `GlobalDnsRecords` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `PackageServices` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `ServiceItems` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `ServiceProperties` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `StorageSpaces` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `VirtualServices` WHERE `ServiceID` IN (SELECT `ServiceID` FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404));
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Services` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` IN (205, 206, 250, 1401, 1402, 1403, 1404);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 205
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 206
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 250
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1401
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1402
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1403
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1404
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260507082855_RemoveLegacyCommunicationsProviders') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260507082855_RemoveLegacyCommunicationsProviders', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 
