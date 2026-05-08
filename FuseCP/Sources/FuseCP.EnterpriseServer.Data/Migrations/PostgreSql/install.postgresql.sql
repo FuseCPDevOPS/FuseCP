@@ -9708,5 +9708,53 @@ BEGIN
     VALUES ('20260507161819_ReAddSfB2019Provider', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508083007_RemoveSharePoint2013Providers') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1301;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508083007_RemoveSharePoint2013Providers') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1552;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508083007_RemoveSharePoint2013Providers') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260508083007_RemoveSharePoint2013Providers', '9.0.9');
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508091930_RemoveLegacyHostedSharePoint30And2010') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 200;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508091930_RemoveLegacyHostedSharePoint30And2010') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 208;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508091930_RemoveLegacyHostedSharePoint30And2010') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260508091930_RemoveLegacyHostedSharePoint30And2010', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

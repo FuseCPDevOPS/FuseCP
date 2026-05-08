@@ -4239,24 +4239,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
-                            ProviderId = 200,
-                            DisplayName = "Hosted Windows SharePoint Services 3.0",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 20,
-                            ProviderName = "HostedSharePoint30",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
-                            ProviderId = 208,
-                            DisplayName = "Hosted SharePoint Foundation 2010",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 20,
-                            ProviderName = "HostedSharePoint2010",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution"
-                        },
-                        new
-                        {
                             ProviderId = 320,
                             DisplayName = "MySQL Server 9.0",
                             EditorControl = "MySQL",
@@ -4323,15 +4305,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
-                            ProviderId = 1301,
-                            DisplayName = "Hosted SharePoint Foundation 2013",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 20,
-                            ProviderName = "HostedSharePoint2013",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013"
-                        },
-                        new
-                        {
                             ProviderId = 1306,
                             DisplayName = "Hosted SharePoint Foundation 2016",
                             EditorControl = "HostedSharePoint30",
@@ -4357,15 +4330,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                             GroupId = 45,
                             ProviderName = "RemoteDesktopServices2025",
                             ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesktopServices.Windows2025"
-                        },
-                        new
-                        {
-                            ProviderId = 1552,
-                            DisplayName = "Hosted SharePoint Enterprise 2013",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 73,
-                            ProviderName = "HostedSharePoint2013Ent",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Providers.HostedSolution.SharePoint2013Ent"
                         },
                         new
                         {

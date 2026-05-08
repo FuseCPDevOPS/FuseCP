@@ -104,11 +104,7 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 112, DisplayName = "Internet Information Services 10.0", EditorControl = "IIS70", GroupId = 2, ProviderName = "IIS100", ProviderType = "FuseCP.Providers.Web.IIs100, FuseCP.Providers.Web.IIs100" },
             new Provider() { ProviderId = 113, DisplayName = "Microsoft FTP Server 10.0", EditorControl = "MSFTP70", GroupId = 3, ProviderName = "MSFTP100", ProviderType = "FuseCP.Providers.FTP.MsFTP100, FuseCP.Providers.FTP.IIs100" },
             new Provider() { ProviderId = 160, DisplayName = "IceWarp Mail Server", EditorControl = "IceWarp", GroupId = 4, ProviderName = "IceWarp", ProviderType = "FuseCP.Providers.Mail.IceWarp, FuseCP.Providers.Mail.IceWarp" },
-            new Provider() { ProviderId = 200, DisplayName = "Hosted Windows SharePoint Services 3.0", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint30", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.Hoste" +
-                "dSolution" },
             new Provider() { ProviderId = 202, DisplayName = "Microsoft SQL Server 2008", EditorControl = "MSSQL", GroupId = 22, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2008, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 208, DisplayName = "Hosted SharePoint Foundation 2010", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2010", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.H" +
-                "ostedSolution" },
             new Provider() { ProviderId = 209, DisplayName = "Microsoft SQL Server 2012", EditorControl = "MSSQL", GroupId = 23, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer" },
             new Provider() { ProviderId = 300, DisableAutoDiscovery = true, DisplayName = "Microsoft Hyper-V", EditorControl = "HyperV", GroupId = 30, ProviderName = "HyperV",
                 ProviderType = "FuseCP.Providers.Virtualization.HyperV, FuseCP.Providers.Virtualization.HyperV" },
@@ -137,8 +133,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 700, DisplayName = "Storage Spaces Windows 2012", EditorControl = "StorageSpaceServices", GroupId = 49, ProviderName = "StorageSpace2012", ProviderType = "FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Win" +
                 "dows2012" },
             new Provider() { ProviderId = 1203, DisplayName = "Microsoft SQL Server 2014", EditorControl = "MSSQL", GroupId = 46, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2014, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 1301, DisplayName = "Hosted SharePoint Foundation 2013", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2013", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.H" +
-                "ostedSolution.SharePoint2013" },
             new Provider() { ProviderId = 1306, DisplayName = "Hosted SharePoint Foundation 2016", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2016", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.H" +
                 "ostedSolution.SharePoint2016" },
             new Provider() { ProviderId = 1404, DisplayName = "Microsoft Skype for Business Server 2019", EditorControl = "SfB", GroupId = 52, ProviderName = "SfB2019", ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB20" +
@@ -146,8 +140,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 1505, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2025", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2025",
                 ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesk" +
                 "topServices.Windows2025" },
-            new Provider() { ProviderId = 1552, DisplayName = "Hosted SharePoint Enterprise 2013", EditorControl = "HostedSharePoint30", GroupId = 73, ProviderName = "HostedSharePoint2013Ent", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Provider" +
-                "s.HostedSolution.SharePoint2013Ent" },
             new Provider() { ProviderId = 1586, DisplayName = "MariaDB 11.7", EditorControl = "MariaDB", GroupId = 50, ProviderName = "MariaDB", ProviderType = "FuseCP.Providers.Database.MariaDB117, FuseCP.Providers.Database.MariaDB" },
             new Provider() { ProviderId = 1601, DisableAutoDiscovery = true, DisplayName = "Mail Cleaner", EditorControl = "MailCleaner", GroupId = 61, ProviderName = "MailCleaner",
                 ProviderType = "FuseCP.Providers.Filters.MailCleaner, FuseCP.Providers.Filters.MailCleaner" },

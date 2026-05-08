@@ -22,10 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Server", "FuseCP.Ser
 		{05B23C2B-15CE-48EF-995C-C5E517A04011} = {05B23C2B-15CE-48EF-995C-C5E517A04011}
 		{084AD513-34BC-4349-A38F-3EF65B32A96F} = {084AD513-34BC-4349-A38F-3EF65B32A96F}
 		{0A3E9C71-8046-4154-858D-52D350354B2B} = {0A3E9C71-8046-4154-858D-52D350354B2B}
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252} = {0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}
 		{117C74E2-E821-463E-B73D-E660114EB391} = {117C74E2-E821-463E-B73D-E660114EB391}
 		{1C26EBB3-E92E-48A5-B1FB-3AED9D5B9D74} = {1C26EBB3-E92E-48A5-B1FB-3AED9D5B9D74}
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1} = {24762DC8-6078-4F10-A524-C94ED59BD5D1}
 		{2A5247C2-0CBE-426B-8A78-4C25366E7659} = {2A5247C2-0CBE-426B-8A78-4C25366E7659}
 		{2B46D398-96AA-4E5E-A09E-9FB3EF38A47C} = {2B46D398-96AA-4E5E-A09E-9FB3EF38A47C}
 		{2FA82B71-B32A-47DE-A17B-40DE08D0256D} = {2FA82B71-B32A-47DE-A17B-40DE08D0256D}
@@ -122,8 +120,6 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FuseCP.Providers.Mail.Merak
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FuseCP.Providers.Mail.hMailServer5", "FuseCP.Providers.Mail.hMail5\FuseCP.Providers.Mail.hMailServer5.vbproj", "{8F644D50-D602-4AD3-8EB0-CA3C3676B18D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.HostedSolution.SharePoint2013", "FuseCP.Providers.HostedSolution.SharePoint2013\FuseCP.Providers.HostedSolution.SharePoint2013.csproj", "{24762DC8-6078-4F10-A524-C94ED59BD5D1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.RemoteDesktopServices.Windows2012", "FuseCP.Providers.TerminalServices.Windows2012\FuseCP.Providers.RemoteDesktopServices.Windows2012.csproj", "{411EFA7F-DE87-4D37-BD15-95787CF77411}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.EnterpriseStorage.Windows2016", "FuseCP.Providers.EnterpriseStorage.Windows2016\FuseCP.Providers.EnterpriseStorage.Windows2016.csproj", "{D435AB26-3AE1-4AAA-B423-50372B2C16F3}"
@@ -131,8 +127,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Web.WebDav", "FuseCP.Providers.Web.WebDav\FuseCP.Providers.Web.WebDav.csproj", "{CE2DF3D7-D6FF-48FA-B2EA-7B836FCBF698}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Mail.IceWarp", "FuseCP.Providers.Mail.IceWarp\FuseCP.Providers.Mail.IceWarp.csproj", "{95EA2D6E-278C-4A74-97DB-946362C4DEEA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.HostedSolution.SharePoint2013Ent", "FuseCP.Providers.HostedSolution.SharePoint2013Ent\FuseCP.Providers.HostedSolution.SharePoint2013Ent.csproj", "{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.StorageSpaces.Windows2016", "FuseCP.Providers.StorageSpaces.Windows2016\FuseCP.Providers.StorageSpaces.Windows2016.csproj", "{BDB1CF50-DF8D-4165-BFDB-F000D29D0A56}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -476,16 +470,6 @@ Global
 		{8F644D50-D602-4AD3-8EB0-CA3C3676B18D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8F644D50-D602-4AD3-8EB0-CA3C3676B18D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8F644D50-D602-4AD3-8EB0-CA3C3676B18D}.Release|x86.ActiveCfg = Release|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{24762DC8-6078-4F10-A524-C94ED59BD5D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{411EFA7F-DE87-4D37-BD15-95787CF77411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{411EFA7F-DE87-4D37-BD15-95787CF77411}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411EFA7F-DE87-4D37-BD15-95787CF77411}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -526,16 +510,6 @@ Global
 		{95EA2D6E-278C-4A74-97DB-946362C4DEEA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{95EA2D6E-278C-4A74-97DB-946362C4DEEA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{95EA2D6E-278C-4A74-97DB-946362C4DEEA}.Release|x86.ActiveCfg = Release|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0CF0C19E-7BFE-4A61-AF00-7B7CE7264252}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDB1CF50-DF8D-4165-BFDB-F000D29D0A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDB1CF50-DF8D-4165-BFDB-F000D29D0A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB1CF50-DF8D-4165-BFDB-F000D29D0A56}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

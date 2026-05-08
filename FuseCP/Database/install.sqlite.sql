@@ -9462,5 +9462,39 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260507161747_ReAddSfB2019Provider', '9.0.9');
 
+DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (1301, 1552);
+
+DELETE FROM "Services" WHERE "ProviderID" IN (1301, 1552);
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1301;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1552;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260508082934_RemoveSharePoint2013Providers', '9.0.9');
+
+DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (200, 208);
+
+DELETE FROM "Services" WHERE "ProviderID" IN (200, 208);
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 200;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 208;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260508091851_RemoveLegacyHostedSharePoint30And2010', '9.0.9');
+
 COMMIT;
 

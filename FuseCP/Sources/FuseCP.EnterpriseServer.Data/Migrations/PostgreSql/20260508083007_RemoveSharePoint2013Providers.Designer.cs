@@ -3,6 +3,7 @@ using System;
 using FuseCP.EnterpriseServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlDbContext))]
-    partial class PostgreSqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508083007_RemoveSharePoint2013Providers")]
+    partial class RemoveSharePoint2013Providers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4318,6 +4321,24 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                             GroupId = 4,
                             ProviderName = "IceWarp",
                             ProviderType = "FuseCP.Providers.Mail.IceWarp, FuseCP.Providers.Mail.IceWarp"
+                        },
+                        new
+                        {
+                            ProviderId = 200,
+                            DisplayName = "Hosted Windows SharePoint Services 3.0",
+                            EditorControl = "HostedSharePoint30",
+                            GroupId = 20,
+                            ProviderName = "HostedSharePoint30",
+                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.HostedSolution"
+                        },
+                        new
+                        {
+                            ProviderId = 208,
+                            DisplayName = "Hosted SharePoint Foundation 2010",
+                            EditorControl = "HostedSharePoint30",
+                            GroupId = 20,
+                            ProviderName = "HostedSharePoint2010",
+                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution"
                         },
                         new
                         {
