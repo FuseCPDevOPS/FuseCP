@@ -4371,15 +4371,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
-                            ProviderId = 1702,
-                            DisplayName = "Hosted SharePoint Enterprise 2016",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 73,
-                            ProviderName = "HostedSharePoint2016Ent",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016Ent, FuseCP.Providers.HostedSolution.SharePoint2016Ent"
-                        },
-                        new
-                        {
                             ProviderId = 1704,
                             DisplayName = "Microsoft SQL Server 2017",
                             EditorControl = "MSSQL",
@@ -4417,10 +4408,10 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         new
                         {
                             ProviderId = 1711,
-                            DisplayName = "Hosted SharePoint 2019",
+                            DisplayName = "SharePoint Enterprise",
                             EditorControl = "HostedSharePoint30",
                             GroupId = 73,
-                            ProviderName = "HostedSharePoint2019",
+                            ProviderName = "SharepointEnterprise",
                             ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2019, FuseCP.Providers.HostedSolution.SharePoint2019"
                         },
                         new

@@ -9756,5 +9756,58 @@ BEGIN
     VALUES ('20260508091930_RemoveLegacyHostedSharePoint30And2010', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    INSERT INTO "public"."ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+    SELECT sdp."PropertyName", 1711, sdp."PropertyValue"
+    FROM "public"."ServiceDefaultProperties" sdp
+    WHERE sdp."ProviderID" = 1702
+      AND NOT EXISTS (
+          SELECT 1
+          FROM "public"."ServiceDefaultProperties" dst
+          WHERE dst."ProviderID" = 1711 AND dst."PropertyName" = sdp."PropertyName"
+      );
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    DELETE FROM "public"."ServiceDefaultProperties" WHERE "ProviderID" = 1702;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    UPDATE "public"."Services" SET "ProviderID" = 1711 WHERE "ProviderID" = 1702;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 1702;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    UPDATE public."Providers" SET "DisplayName" = 'SharePoint Enterprise', "ProviderName" = 'SharepointEnterprise'
+    WHERE "ProviderID" = 1711;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260508094637_ConsolidateSharePointEnterpriseProvider') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260508094637_ConsolidateSharePointEnterpriseProvider', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

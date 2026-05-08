@@ -146,15 +146,13 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 1602, DisableAutoDiscovery = true, DisplayName = "SpamExperts Mail Filter", EditorControl = "SpamExperts", GroupId = 61, ProviderName = "SpamExperts",
                 ProviderType = "FuseCP.Providers.Filters.SpamExperts, FuseCP.Providers.Filters.SpamExperts" },
             new Provider() { ProviderId = 1701, DisplayName = "Microsoft SQL Server 2016", EditorControl = "MSSQL", GroupId = 71, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2016, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 1702, DisplayName = "Hosted SharePoint Enterprise 2016", EditorControl = "HostedSharePoint30", GroupId = 73, ProviderName = "HostedSharePoint2016Ent", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016Ent, FuseCP.Provider" +
-                "s.HostedSolution.SharePoint2016Ent" },
             new Provider() { ProviderId = 1703, DisplayName = "SimpleDNS Plus 6.x", EditorControl = "SimpleDNS", GroupId = 7, ProviderName = "SimpleDNS", ProviderType = "FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60" },
             new Provider() { ProviderId = 1704, DisableAutoDiscovery = true, DisplayName = "Microsoft SQL Server 2017", EditorControl = "MSSQL", GroupId = 72, ProviderName = "MsSQL",
                 ProviderType = "FuseCP.Providers.Database.MsSqlServer2017, FuseCP.Providers.Database.SqlServer" },
             new Provider() { ProviderId = 1705, DisableAutoDiscovery = true, DisplayName = "Microsoft SQL Server 2019", EditorControl = "MSSQL", GroupId = 74, ProviderName = "MsSQL",
                 ProviderType = "FuseCP.Providers.Database.MsSqlServer2019, FuseCP.Providers.Database.SqlServer" },
             new Provider() { ProviderId = 1706, DisplayName = "Microsoft SQL Server 2022", EditorControl = "MSSQL", GroupId = 75, ProviderName = "MsSQL", ProviderType = "FuseCP.Providers.Database.MsSqlServer2022, FuseCP.Providers.Database.SqlServer" },
-            new Provider() { ProviderId = 1711, DisplayName = "Hosted SharePoint 2019", EditorControl = "HostedSharePoint30", GroupId = 73, ProviderName = "HostedSharePoint2019", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2019, FuseCP.Providers.H" +
+            new Provider() { ProviderId = 1711, DisplayName = "SharePoint Enterprise", EditorControl = "HostedSharePoint30", GroupId = 73, ProviderName = "SharepointEnterprise", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2019, FuseCP.Providers.H" +
                 "ostedSolution.SharePoint2019" },
             new Provider() { ProviderId = 1800, DisplayName = "Windows Server 2019", EditorControl = "Windows2012", GroupId = 1, ProviderName = "Windows2019", ProviderType = "FuseCP.Providers.OS.Windows2019, FuseCP.Providers.OS.Windows2019" },
             new Provider() { ProviderId = 1801, DisableAutoDiscovery = true, DisplayName = "Microsoft Hyper-V 2019", EditorControl = "HyperV2012R2", GroupId = 33, ProviderName = "HyperV2019",

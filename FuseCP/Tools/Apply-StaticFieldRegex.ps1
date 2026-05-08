@@ -36,7 +36,6 @@ $filesWithStaticFields = @(
     "FuseCP/Sources/FuseCP.EnterpriseServer.Code/Data/DataProvider.cs",
     "FuseCP/Sources/FuseCP.Providers.HostedSolution.SfB2019/SfBBase.cs",
     "FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016/HostedSharePointServer2016Impl.cs",
-    "FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2016Ent/HostedSharePointServer2016EntImpl.cs",
     "FuseCP/Sources/FuseCP.Providers.HostedSolution.SharePoint2019/HostedSharePointServer2019Impl.cs",
     "FuseCP/Sources/FuseCP.Providers.HostedSolution/Exchange2010SP2.cs",
     "FuseCP/Sources/FuseCP.Providers.OS.Unix/Unix.cs"

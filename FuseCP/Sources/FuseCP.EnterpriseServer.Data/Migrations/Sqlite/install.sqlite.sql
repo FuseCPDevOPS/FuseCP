@@ -9496,5 +9496,32 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260508091851_RemoveLegacyHostedSharePoint30And2010', '9.0.9');
 
+INSERT INTO "ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+SELECT sdp."PropertyName", 1711, sdp."PropertyValue"
+FROM "ServiceDefaultProperties" sdp
+WHERE sdp."ProviderID" = 1702
+  AND NOT EXISTS (
+      SELECT 1
+      FROM "ServiceDefaultProperties" dst
+      WHERE dst."ProviderID" = 1711 AND dst."PropertyName" = sdp."PropertyName"
+  );
+
+DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" = 1702;
+
+UPDATE "Services" SET "ProviderID" = 1711 WHERE "ProviderID" = 1702;
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 1702;
+SELECT changes();
+
+
+UPDATE "Providers" SET "DisplayName" = 'SharePoint Enterprise', "ProviderName" = 'SharepointEnterprise'
+WHERE "ProviderID" = 1711;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260508094600_ConsolidateSharePointEnterpriseProvider', '9.0.9');
+
 COMMIT;
 

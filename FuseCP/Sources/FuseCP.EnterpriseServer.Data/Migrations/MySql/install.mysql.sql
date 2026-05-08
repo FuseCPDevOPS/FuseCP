@@ -11375,5 +11375,103 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    INSERT INTO `ServiceDefaultProperties` (`PropertyName`, `ProviderID`, `PropertyValue`)
+    SELECT sdp.`PropertyName`, 1711, sdp.`PropertyValue`
+    FROM `ServiceDefaultProperties` sdp
+    WHERE sdp.`ProviderID` = 1702
+      AND NOT EXISTS (
+          SELECT 1
+          FROM `ServiceDefaultProperties` dst
+          WHERE dst.`ProviderID` = 1711 AND dst.`PropertyName` = sdp.`PropertyName`
+      );
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` = 1702;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    UPDATE `Services` SET `ProviderID` = 1711 WHERE `ProviderID` = 1702;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 1702
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    UPDATE `Providers` SET `DisplayName` = 'SharePoint Enterprise', `ProviderName` = 'SharepointEnterprise'
+    WHERE `ProviderID` = 1711;
+    SELECT ROW_COUNT();
+
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508094625_ConsolidateSharePointEnterpriseProvider') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260508094625_ConsolidateSharePointEnterpriseProvider', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 
