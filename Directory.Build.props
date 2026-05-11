@@ -5,14 +5,11 @@
     <!-- These affect legacy providers and can be resolved in a future security hardening sprint -->
     <NoWarn>$(NoWarn);NU1901;NU1510</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(FuseCPRetargetLegacyFrameworks)' == 'true' and ( '$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.5' or '$(TargetFrameworkVersion)' == 'v4.0' or '$(TargetFrameworkVersion)' == 'v4.5' or '$(TargetFrameworkVersion)' == 'v4.5.2' )">
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
-
   <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
     <!-- Force patched version globally to avoid NU1903 warnings from transitive pulls in provider projects. -->
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.6" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.7" />
   </ItemGroup>
-
 </Project>

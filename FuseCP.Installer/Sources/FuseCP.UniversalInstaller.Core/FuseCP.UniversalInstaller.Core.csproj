@@ -1,75 +1,69 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <OutputType>Exe</OutputType>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>disable</Nullable>
-        <LangVersion>13</LangVersion>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-        <OutputPath>bin\$(Configuration)</OutputPath>
-        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-        <StartupObject>FuseCP.UniversalInstaller.Core.Program</StartupObject>
-        <DebugType>embedded</DebugType>
-        <UseDebugWebService Condition="$(UseDebugWebService) == ''">true</UseDebugWebService>
-        <DefineConstants Condition="$(UseDebugWebService) == 'true'">$(DefineConstants);UseDebugWebService</DefineConstants>
-    </PropertyGroup>
-    
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <Optimize>false</Optimize>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <NoWarn>$(NoWarn);NU1702</NoWarn>
-    </PropertyGroup>
-    
-    <ItemGroup>
-      <Compile Remove="Common\Utils.Old.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Using Remove="System.Windows.Forms" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.EnterpriseServer.Base\FuseCP.EnterpriseServer.Base.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.EnterpriseServer.Data\FuseCP.EnterpriseServer.Data.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="..\..\..\FuseCP\Sources\VersionInfo.cs" Link="VersionInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\EULA.rtf" />
-      <EmbeddedResource Include="Resources\EULA.Unix.rtf" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="Common\Utils.Old.cs" />
-    </ItemGroup>
-    <ItemGroup>
-		<PackageReference Include="SharpCompress" Version="0.40.0" />
-		<PackageReference Include="NeoSmart.AsyncLock" Version="3.2.1" />
-        <PackageReference Include="AspNetCoreSharedServer.Api" Version="1.3.0" />
-        <PackageReference Include="Microsoft.Web.Administration" Version="11.1.0" />
-        <PackageReference Include="Mono.Cecil" Version="0.11.6" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="Microsoft.Dism" Version="3.3.12" />
-		<PackageReference Include="Mono.Posix" Version="7.1.0-final.1.21458.1" />
-		<PackageReference Include="Mono.Unix" Version="7.1.0-final.1.21458.1" GeneratePathProperty="true" />
-
-		<!--<PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>13</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <StartupObject>FuseCP.UniversalInstaller.Core.Program</StartupObject>
+    <DebugType>embedded</DebugType>
+    <UseDebugWebService Condition="$(UseDebugWebService) == ''">true</UseDebugWebService>
+    <DefineConstants Condition="$(UseDebugWebService) == 'true'">$(DefineConstants);UseDebugWebService</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1702</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Common\Utils.Old.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.EnterpriseServer.Base\FuseCP.EnterpriseServer.Base.csproj" />
+    <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.EnterpriseServer.Data\FuseCP.EnterpriseServer.Data.csproj" />
+    <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
+    <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\FuseCP\Sources\VersionInfo.cs" Link="VersionInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EULA.rtf" />
+    <EmbeddedResource Include="Resources\EULA.Unix.rtf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Utils.Old.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpCompress" Version="0.48.0" />
+    <PackageReference Include="NeoSmart.AsyncLock" Version="3.2.1" />
+    <PackageReference Include="AspNetCoreSharedServer.Api" Version="1.3.0" />
+    <PackageReference Include="Microsoft.Web.Administration" Version="11.1.0" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Octokit" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Dism" Version="3.3.12" />
+    <PackageReference Include="Mono.Posix" Version="7.1.0-final.1.21458.1" />
+    <PackageReference Include="Mono.Unix" Version="7.1.0-final.1.21458.1" GeneratePathProperty="true" />
+    <!--<PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
         <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
         <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
         <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.0" />
         <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />-->
+  </ItemGroup>
+  <Target Name="CopyMonoUnixRuntimes" AfterTargets="Build">
+    <ItemGroup>
+      <RuntimeFiles Include="$(PkgMono_Unix)\runtimes\**\*.*" />
     </ItemGroup>
-    
-	<Target Name="CopyMonoUnixRuntimes" AfterTargets="Build">
-		<ItemGroup>
-			<RuntimeFiles Include="$(PkgMono_Unix)\runtimes\**\*.*" />
-		</ItemGroup>
-		<Message Importance="high" Text="Copying Mono.Posix native library from $(MonoUnixRuntimePath) to $(OutputDir)" />
-	    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(OutputPath)\runtimes\%(RecursiveDir)" SkipUnchangedFiles="true" />
-	</Target>
-
+    <Message Importance="high" Text="Copying Mono.Posix native library from $(MonoUnixRuntimePath) to $(OutputDir)" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(OutputPath)\runtimes\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

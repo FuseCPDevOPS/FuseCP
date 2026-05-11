@@ -44,9 +44,9 @@ public class Unzip
 			Log.WriteInfo(string.Format("Unzipping file \"{0}\" to the folder \"{1}\"", zipFile, destFolder));
 
 			using (var file = stream ?? new FileStream(zipFile, System.IO.FileMode.Open, FileAccess.Read))
-			using (var zip = SevenZipArchive.Open(file))
+			using (var zip = SevenZipArchive.OpenArchive(file, new ReaderOptions { LeaveStreamOpen = stream != null }))
 			{
-				long zipSize = zip.TotalUncompressSize;
+				long zipSize = zip.TotalUncompressedSize;
 				long unzipped = 0;
 
 				int files = 0;

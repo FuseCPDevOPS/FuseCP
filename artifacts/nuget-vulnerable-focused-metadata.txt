@@ -1,0 +1,16 @@
+Focused vulnerability scan metadata
+Generated: 
+2026-05-11T22:52:16
+
+Unscannable/partial items:
+- FuseCP/Sources/FuseCP.Providers.Web.WebDav/FuseCP.Providers.Web.WebDav.csproj: dotnet list package parse issue (restore succeeds, list fails).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Common.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/DBInfo.CodeGen.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test01_ProjectReferenceDoesNotExist/Project01/Project01.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test02_DifferentRefPathSameProject/Project01/Project01.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test02_DifferentRefPathSameProject/Project02/Project02.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test02_DifferentRefPathSameProject/Project03/Project03.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test02_DifferentRefPathSameProject/Project03_Copy/Project03_copy.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/DependencyGraph/Test03_EmptyDependencies/Project01/Project01.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/ILMerge/A/A.csproj: package.config project (dotnet list package unsupported).
+- tools/MSBuildCommunityTasks/Source/Source/MSBuild.Community.Tasks.Tests/ILMerge/B/B.csproj: package.config project (dotnet list package unsupported).

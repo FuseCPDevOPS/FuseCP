@@ -20,6 +20,7 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.6" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.6" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.3.9" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.0" />
 
