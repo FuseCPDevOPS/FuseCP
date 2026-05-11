@@ -9462,9 +9462,19 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260507161747_ReAddSfB2019Provider', '9.0.9');
 
+INSERT INTO "ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+SELECT sdp."PropertyName", 1306, sdp."PropertyValue"
+FROM "ServiceDefaultProperties" sdp
+WHERE sdp."ProviderID" IN (1301, 1552)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM "ServiceDefaultProperties" dst
+      WHERE dst."ProviderID" = 1306 AND dst."PropertyName" = sdp."PropertyName"
+  );
+
 DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (1301, 1552);
 
-DELETE FROM "Services" WHERE "ProviderID" IN (1301, 1552);
+UPDATE "Services" SET "ProviderID" = 1306 WHERE "ProviderID" IN (1301, 1552);
 
 DELETE FROM "Providers"
 WHERE "ProviderID" = 1301;
@@ -9479,9 +9489,19 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260508082934_RemoveSharePoint2013Providers', '9.0.9');
 
+INSERT INTO "ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+SELECT sdp."PropertyName", 1306, sdp."PropertyValue"
+FROM "ServiceDefaultProperties" sdp
+WHERE sdp."ProviderID" IN (200, 208)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM "ServiceDefaultProperties" dst
+      WHERE dst."ProviderID" = 1306 AND dst."PropertyName" = sdp."PropertyName"
+  );
+
 DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (200, 208);
 
-DELETE FROM "Services" WHERE "ProviderID" IN (200, 208);
+UPDATE "Services" SET "ProviderID" = 1306 WHERE "ProviderID" IN (200, 208);
 
 DELETE FROM "Providers"
 WHERE "ProviderID" = 200;

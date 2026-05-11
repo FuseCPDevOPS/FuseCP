@@ -28209,8 +28209,6 @@ INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName]
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (13, 4, N'Merak', N'Merak Mail Server 8.0.3 - 9.2.x', N'FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak', N'Merak', NULL)
 GO
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (15, 9, N'Sps20', N'Windows SharePoint Services 2.0', N'FuseCP.Providers.SharePoint.Sps20, FuseCP.Providers.SharePoint.Sps20', N'Sps20', 1)
-GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (17, 11, N'MySQL', N'MySQL Server 5.0', N'FuseCP.Providers.Database.MySqlServer50, FuseCP.Providers.Database.MySQL', N'MySQL', NULL)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (18, 4, N'MDaemon', N'MDaemon 9.x - 11.x', N'FuseCP.Providers.Mail.MDaemon, FuseCP.Providers.Mail.MDaemon', N'MDaemon', NULL)
@@ -28222,8 +28220,6 @@ GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (21, 4, N'AbilityMailServer', N'Ability Mail Server 2.x', N'FuseCP.Providers.Mail.AbilityMailServer, FuseCP.Providers.Mail.AbilityMailServer', N'AbilityMailServer', NULL)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (22, 4, N'hMailServer43', N'hMailServer 4.3', N'FuseCP.Providers.Mail.hMailServer43, FuseCP.Providers.Mail.hMailServer43', N'hMailServer43', NULL)
-GO
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (23, 9, N'Sps20', N'Windows SharePoint Services 3.0', N'FuseCP.Providers.SharePoint.Sps30, FuseCP.Providers.SharePoint.Sps30', N'Sps20', NULL)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (24, 7, N'Bind', N'ISC BIND 8.x - 9.x', N'FuseCP.Providers.DNS.IscBind, FuseCP.Providers.DNS.Bind', N'Bind', NULL)
 GO

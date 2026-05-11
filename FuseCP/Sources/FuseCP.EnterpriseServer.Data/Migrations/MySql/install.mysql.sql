@@ -11287,6 +11287,56 @@ CREATE PROCEDURE MigrationsScript()
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508083024_RemoveSharePoint2013Providers') THEN
 
+    INSERT INTO `ServiceDefaultProperties` (`PropertyName`, `ProviderID`, `PropertyValue`)
+    SELECT sdp.`PropertyName`, 1306, sdp.`PropertyValue`
+    FROM `ServiceDefaultProperties` sdp
+    WHERE sdp.`ProviderID` IN (1301, 1552)
+      AND NOT EXISTS (
+          SELECT 1
+          FROM `ServiceDefaultProperties` dst
+          WHERE dst.`ProviderID` = 1306 AND dst.`PropertyName` = sdp.`PropertyName`
+      );
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508083024_RemoveSharePoint2013Providers') THEN
+
+    DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` IN (1301, 1552);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508083024_RemoveSharePoint2013Providers') THEN
+
+    UPDATE `Services` SET `ProviderID` = 1306 WHERE `ProviderID` IN (1301, 1552);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508083024_RemoveSharePoint2013Providers') THEN
+
     DELETE FROM `Providers`
     WHERE `ProviderID` = 1301
     RETURNING 1;
@@ -11321,6 +11371,56 @@ BEGIN
 
     INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
     VALUES ('20260508083024_RemoveSharePoint2013Providers', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508091917_RemoveLegacyHostedSharePoint30And2010') THEN
+
+    INSERT INTO `ServiceDefaultProperties` (`PropertyName`, `ProviderID`, `PropertyValue`)
+    SELECT sdp.`PropertyName`, 1306, sdp.`PropertyValue`
+    FROM `ServiceDefaultProperties` sdp
+    WHERE sdp.`ProviderID` IN (200, 208)
+      AND NOT EXISTS (
+          SELECT 1
+          FROM `ServiceDefaultProperties` dst
+          WHERE dst.`ProviderID` = 1306 AND dst.`PropertyName` = sdp.`PropertyName`
+      );
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508091917_RemoveLegacyHostedSharePoint30And2010') THEN
+
+    DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` IN (200, 208);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260508091917_RemoveLegacyHostedSharePoint30And2010') THEN
+
+    UPDATE `Services` SET `ProviderID` = 1306 WHERE `ProviderID` IN (200, 208);
 
     END IF;
 END //
