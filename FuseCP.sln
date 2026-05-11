@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.DNS.PowerD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.DNS.SimpleDNS90", "FuseCP\Sources\FuseCP.Providers.DNS.SimpleDNS90\FuseCP.Providers.DNS.SimpleDNS90.csproj", "{5A478237-7003-4581-B4A4-13FA1A4C445D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.DNS.MsDNSPS", "FuseCP\Sources\FuseCP.Providers.DNS.MsDNSPS\FuseCP.Providers.DNS.MsDNSPS.csproj", "{B438BF34-B741-4F37-A7BE-FD9C9D49AE26}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Filters.MailCleaner", "FuseCP\Sources\FuseCP.Providers.Filters.MailCleaner\FuseCP.Providers.Filters.MailCleaner.csproj", "{C94BABC6-5A97-445F-9AE4-4BDB35D67200}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuseCP.Providers.Filters.SpamExperts", "FuseCP\Sources\FuseCP.Providers.Filters.SpamExperts\FuseCP.Providers.Filters.SpamExperts.csproj", "{89623648-B344-4816-A736-FC75F6988043}"
