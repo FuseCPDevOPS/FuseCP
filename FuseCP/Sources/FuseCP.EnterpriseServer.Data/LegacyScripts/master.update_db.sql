@@ -410,16 +410,6 @@ GO
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.CRMProvider2011, FuseCP.Providers.HostedSolution.CRM2011' WHERE ProviderID = 1201
 GO
 
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted SharePoint Foundation 2013')
-BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery])
-VALUES (1301, 20, N'HostedSharePoint2013', N'Hosted SharePoint Foundation 2013', N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013', N'HostedSharePoint30', NULL)
-END
-GO
-
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013' WHERE ProviderID = 1301
-GO
-
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted SharePoint Foundation 2016')
 BEGIN
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery])
@@ -8508,18 +8498,6 @@ GO
 UPDATE [dbo].[ResourceGroups] SET GroupController = 'FuseCP.EnterpriseServer.HostedSharePointServerEntController' WHERE GroupName = 'Sharepoint Enterprise Server'
 GO
 
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted SharePoint Enterprise 2013')
-BEGIN
-DECLARE @group_id AS INT
-SELECT @group_id = GroupId FROM [dbo].[ResourceGroups] WHERE GroupName = 'Sharepoint Enterprise Server'
-INSERT [dbo].[Providers] ([ProviderId], [GroupId], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES(1552, @group_id, N'HostedSharePoint2013Ent', N'Hosted SharePoint Enterprise 2013', N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Providers.HostedSolution.SharePoint2013Ent', N'HostedSharePoint30', NULL)
-END
-ELSE
-BEGIN
-UPDATE [dbo].[Providers] SET [DisableAutoDiscovery] = NULL WHERE [DisplayName] = 'Hosted SharePoint Enterprise 2013'
-END
-GO
-
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [DisplayName] = 'Hosted SharePoint Enterprise 2016')
 BEGIN
 DECLARE @group_id AS INT
@@ -14194,8 +14172,6 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.OCS2007R2,
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.OCSEdge2007R2, FuseCP.Providers.HostedSolution' WHERE ProviderID = 206
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution' WHERE ProviderID = 208
-Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer' WHERE ProviderID = 209
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution' WHERE ProviderID = 250
@@ -14254,15 +14230,11 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2014,
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.CRMProvider2015, FuseCP.Providers.HostedSolution.Crm2015' WHERE ProviderID = 1205
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013' WHERE ProviderID = 1301
-Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2013, FuseCP.Providers.HostedSolution.Lync2013' WHERE ProviderID = 1401
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2013HP, FuseCP.Providers.HostedSolution.Lync2013HP' WHERE ProviderID = 1402
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.RemoteDesktopServices.Windows2012,FuseCP.Providers.RemoteDesktopServices.Windows2012' WHERE ProviderID = 1501
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Providers.HostedSolution.SharePoint2013Ent' WHERE ProviderName = 'HostedSharePoint2013Ent'
 Go
 UPDATE ServiceItemTypes SET TypeName = N'FuseCP.Providers.OS.HomeFolder, FuseCP.Providers.Base' WHERE ItemTypeID = 2
 GO
@@ -14575,30 +14547,6 @@ INSERT INTO [dbo].[UserSettings] ([UserID],[SettingsName],[PropertyName],[Proper
 			(1,'DiskspaceXLST','TransformContentType','text/html')
 
 			
--- Fix for SP2013 wrong ProviderID
-
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1552' AND [DisplayName] = 'Hosted SharePoint Enterprise 2013')
-BEGIN
-DECLARE @group_id AS INT
-SELECT @group_id = GroupId FROM [dbo].[ResourceGroups] WHERE GroupName = 'Sharepoint Enterprise Server'
-INSERT [dbo].[Providers] ([ProviderId], [GroupId], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES(1552, @group_id, N'HostedSharePoint2013Ent', N'Hosted SharePoint Enterprise 2013', N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Providers.HostedSolution.SharePoint2013Ent', N'HostedSharePoint30', NULL)
-END
-ELSE
-BEGIN
-UPDATE [dbo].[Providers] SET [DisableAutoDiscovery] = NULL WHERE [DisplayName] = 'Hosted SharePoint Enterprise 2013'
-END
-GO
-
-IF EXISTS (SELECT * FROM [dbo].[Providers] WHERE DisplayName = 'Hosted SharePoint Enterprise 2013' AND NOT ProviderID = '1552')
-BEGIN
-DECLARE @SP2013provider_id INT
-SET @SP2013provider_id = (SELECT ProviderID FROM [dbo].[Providers] WHERE DisplayName = 'Hosted SharePoint Enterprise 2013' AND NOT ProviderID = '1552')
-UPDATE [ServiceDefaultProperties] SET [ProviderID]='1552' WHERE [ProviderID] = @SP2013provider_id
-UPDATE [Services] SET [ProviderID]='1552' WHERE [ProviderID] = @SP2013provider_id
-DELETE FROM [Providers] WHERE [ProviderID] = @SP2013provider_id AND DisplayName = 'Hosted SharePoint Enterprise 2013'
-END
-GO
-
 -- Fix for SP2016 wrong ProviderID
 
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1702' AND [DisplayName] = 'Hosted SharePoint Enterprise 2016')
@@ -16829,7 +16777,6 @@ UPDATE [dbo].[HostingPlanResources] SET [GroupID] = '73' WHERE [GroupID] = @grou
 UPDATE [dbo].[PackagesDiskspace] SET [GroupID] = '73' WHERE [GroupID] = @group_id
 UPDATE [dbo].[VirtualGroups] SET [GroupID] = '73' WHERE [GroupID] = @group_id
 UPDATE [dbo].[ResourceGroups] SET [GroupID] = '73' WHERE [GroupName] = 'Sharepoint Enterprise Server'
-UPDATE [dbo].[Providers] SET [GroupID] = '73' WHERE [ProviderName] = 'HostedSharePoint2013Ent'
 UPDATE [dbo].[Providers] SET [GroupID] = '73' WHERE [ProviderName] = 'HostedSharePoint2016Ent'
 UPDATE [dbo].[Quotas] SET [GroupID] = '73' WHERE [QuotaName] = 'HostedSharePointEnterprise.Sites'
 UPDATE [dbo].[Quotas] SET [GroupID] = '73' WHERE [QuotaName] = 'HostedSharePointEnterprise.MaxStorage'

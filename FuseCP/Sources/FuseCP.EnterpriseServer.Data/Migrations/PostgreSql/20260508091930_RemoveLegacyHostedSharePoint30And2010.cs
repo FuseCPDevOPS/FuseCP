@@ -12,6 +12,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Remap ServiceDefaultProperties to SharePoint Foundation 2016 (Provider 1306)
+            migrationBuilder.Sql(@"INSERT INTO public.""ServiceDefaultProperties"" (""PropertyName"", ""ProviderID"", ""PropertyValue"")
+SELECT sdp.""PropertyName"", 1306, sdp.""PropertyValue""
+FROM public.""ServiceDefaultProperties"" sdp
+WHERE sdp.""ProviderID"" IN (200, 208)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM public.""ServiceDefaultProperties"" dst
+      WHERE dst.""ProviderID"" = 1306 AND dst.""PropertyName"" = sdp.""PropertyName""
+  );");
+
+            migrationBuilder.Sql(@"DELETE FROM public.""ServiceDefaultProperties"" WHERE ""ProviderID"" IN (200, 208);");
+
+            // Remap services to SharePoint Foundation 2016 (Provider 1306)
+            migrationBuilder.Sql(@"UPDATE public.""Services"" SET ""ProviderID"" = 1306 WHERE ""ProviderID"" IN (200, 208);");
+
             migrationBuilder.DeleteData(
                 schema: "public",
                 table: "Providers",

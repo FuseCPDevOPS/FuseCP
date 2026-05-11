@@ -28256,8 +28256,6 @@ INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName]
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (113, 3, N'MSFTP100', N'Microsoft FTP Server 10.0', N'FuseCP.Providers.FTP.MsFTP100, FuseCP.Providers.FTP.IIs100', N'MSFTP70', NULL)
 GO
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (200, 20, N'HostedSharePoint30', N'Hosted Windows SharePoint Services 3.0', N'FuseCP.Providers.HostedSolution.HostedSharePointServer, FuseCP.Providers.HostedSolution', N'HostedSharePoint30', NULL)
-GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (201, 21, N'CRM', N'Hosted MS CRM 4.0', N'FuseCP.Providers.HostedSolution.CRMProvider, FuseCP.Providers.HostedSolution', N'CRM', NULL)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (203, 31, N'BlackBerry 4.1', N'BlackBerry 4.1', N'FuseCP.Providers.HostedSolution.BlackBerryProvider, FuseCP.Providers.HostedSolution', N'BlackBerry', 1)
@@ -28267,8 +28265,6 @@ GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (205, 32, N'OCS', N'Office Communications Server 2007 R2', N'FuseCP.Providers.HostedSolution.OCS2007R2, FuseCP.Providers.HostedSolution', N'OCS', 1)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (206, 32, N'OCSEdge', N'OCS Edge server', N'FuseCP.Providers.HostedSolution.OCSEdge2007R2, FuseCP.Providers.HostedSolution', N'OCS_Edge', 1)
-GO
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (208, 20, N'HostedSharePoint2010', N'Hosted SharePoint Foundation 2010', N'FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution', N'HostedSharePoint30', NULL)
 GO
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (250, 41, N'Lync2010', N'Microsoft Lync Server 2010 Multitenant Hosting Pack', N'FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution', N'Lync', NULL)
 GO

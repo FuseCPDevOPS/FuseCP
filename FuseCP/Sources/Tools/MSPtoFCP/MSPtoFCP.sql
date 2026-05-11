@@ -111,8 +111,6 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.OCS2007R2,
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.OCSEdge2007R2, FuseCP.Providers.HostedSolution' WHERE ProviderID = 206
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2010, FuseCP.Providers.HostedSolution' WHERE ProviderID = 208
-Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2012, FuseCP.Providers.Database.SqlServer' WHERE ProviderID = 209
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2010, FuseCP.Providers.HostedSolution' WHERE ProviderID = 250
@@ -141,15 +139,11 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.Database.MsSqlServer2014,
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.CRMProvider2015, FuseCP.Providers.HostedSolution.Crm2015' WHERE ProviderID = 1205
 Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013, FuseCP.Providers.HostedSolution.SharePoint2013' WHERE ProviderID = 1301
-Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2013, FuseCP.Providers.HostedSolution.Lync2013' WHERE ProviderID = 1401
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Lync2013HP, FuseCP.Providers.HostedSolution.Lync2013HP' WHERE ProviderID = 1402
 Go
 UPDATE Providers SET ProviderType = N'FuseCP.Providers.RemoteDesktopServices.Windows2012,FuseCP.Providers.RemoteDesktopServices.Windows2012' WHERE ProviderID = 1501
-Go
-UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.HostedSharePointServer2013Ent, FuseCP.Providers.HostedSolution.SharePoint2013Ent' WHERE ProviderID = 1503
 Go
 UPDATE ServiceItemTypes SET TypeName = N'FuseCP.Providers.OS.HomeFolder, FuseCP.Providers.Base' WHERE ItemTypeID = 2
 GO
@@ -609,9 +603,6 @@ UPDATE Providers SET ProviderType = N'FuseCP.Providers.HostedSolution.Exchange20
 Go
 
 -- Sharepoint
-UPDATE [dbo].[Providers] SET DisplayName = 'Hosted SharePoint Foundation 2013' WHERE DisplayName = 'Hosted SharePoint  2013'
-GO
-
 UPDATE [dbo].[ResourceGroups] SET GroupController = N'FuseCP.EnterpriseServer.HostedSharePointServerController' WHERE GroupName = 'Sharepoint Foundation Server'
 GO
 

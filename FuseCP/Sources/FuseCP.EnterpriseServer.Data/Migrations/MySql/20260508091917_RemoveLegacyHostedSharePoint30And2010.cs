@@ -12,6 +12,22 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Remap ServiceDefaultProperties to SharePoint Foundation 2016 (Provider 1306)
+            migrationBuilder.Sql(@"INSERT INTO `ServiceDefaultProperties` (`PropertyName`, `ProviderID`, `PropertyValue`)
+SELECT sdp.`PropertyName`, 1306, sdp.`PropertyValue`
+FROM `ServiceDefaultProperties` sdp
+WHERE sdp.`ProviderID` IN (200, 208)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM `ServiceDefaultProperties` dst
+      WHERE dst.`ProviderID` = 1306 AND dst.`PropertyName` = sdp.`PropertyName`
+  );");
+
+            migrationBuilder.Sql(@"DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` IN (200, 208);");
+
+            // Remap services to SharePoint Foundation 2016 (Provider 1306)
+            migrationBuilder.Sql(@"UPDATE `Services` SET `ProviderID` = 1306 WHERE `ProviderID` IN (200, 208);");
+
             migrationBuilder.DeleteData(
                 table: "Providers",
                 keyColumn: "ProviderID",
