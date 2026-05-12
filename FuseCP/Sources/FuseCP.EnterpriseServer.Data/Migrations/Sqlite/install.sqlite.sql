@@ -9425,18 +9425,6 @@ WHERE "PropertyName" = 'retrydelay' AND "ProviderID" = 410;
 SELECT changes();
 
 
-UPDATE "GlobalDnsRecords" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
-UPDATE "PackageServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
-UPDATE "ServiceItems" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
-UPDATE "ServiceProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
-UPDATE "StorageSpaces" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
-UPDATE "VirtualServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-
 UPDATE "Services" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
 
 UPDATE "ServiceDefaultProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
