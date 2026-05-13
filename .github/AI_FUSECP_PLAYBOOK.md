@@ -94,6 +94,12 @@ For dependency/CVE updates:
   - AI usage disclosure when materially assisted
 - Mention what was **not** validated locally if anything was skipped.
 
+For database schema work, include both views in PR notes and AI handoff notes:
+
+- EF view: entities/configuration/DbContext changes and migration names for all 4 providers.
+- SQL view: concrete SQL operations introduced (`migrationBuilder.Sql(...)` plus generated `install.*.sql` impacts), including any known local generation exceptions.
+- Provider retirement safety: document how `Providers.ProviderID` dependencies were handled in both `Services` and `ServiceDefaultProperties` (remap preferred, delete only when intentional), before provider row removal.
+
 ## 7) Escalation Triggers
 
 Escalate to maintainers when changes involve:

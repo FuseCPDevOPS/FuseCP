@@ -45,6 +45,16 @@ These instructions guide AI coding assistants working in this repository.
      migrationBuilder.Sql(@"DELETE FROM ""ServiceDefaultProperties"" WHERE ""ProviderID"" IN (1, 2, 3);");
      migrationBuilder.DeleteData(table: "Providers", keyColumn: "ProviderID", keyValue: 1);
      ```
+    7. **Provider removal dependency rule (required)**: `Providers.ProviderID` is referenced by both `Services.ProviderID` and `ServiceDefaultProperties.ProviderID`.
+      - Never delete from `Providers` first.
+      - For provider retirement, either remap `Services` rows to a replacement provider (preferred) or explicitly remove dependent `Services` rows when that behavior is intended.
+      - Always handle `ServiceDefaultProperties` before removing provider rows: remap shared keys to the replacement provider where needed, then delete obsolete provider defaults.
+      - Only after dependents are handled should `migrationBuilder.DeleteData(...)` remove provider records.
+      - Apply this logic consistently across SqlServer/MySql/PostgreSql/Sqlite migrations.
+    8. **AI response requirements for DB changes**: When an AI agent proposes or implements database changes, it must explicitly show both EF and SQL impact:
+      - EF side: Entities/Configuration touched, DbContext wiring changes, and the migration names created for SqlServer/MySql/PostgreSql/Sqlite.
+      - SQL side: a concise summary of the actual SQL operations introduced (for example `INSERT/UPDATE/DELETE`, data remap, seed add/remove, FK safety deletes) and where they appear (`migrationBuilder.Sql(...)` and/or generated `install.*.sql` deltas).
+      - Artifacts: call out which generated scripts changed under `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/*/install.*.sql` and `FuseCP/Database/install.*.sql`, and note known local generation exceptions (for example SQL Server "Stream was not readable") when applicable.
 
 ## Exchange Provider Patterns
 
