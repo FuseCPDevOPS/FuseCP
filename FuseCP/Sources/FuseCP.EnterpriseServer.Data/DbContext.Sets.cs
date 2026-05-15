@@ -76,9 +76,6 @@ namespace FuseCP.EnterpriseServer.Data
 		DbSet<Comment> comments = null;
 		public virtual DbSet<Comment> Comments => comments ??= Set<Comment>();
 
-		DbSet<CrmUser> crmusers = null;
-		public virtual DbSet<CrmUser> CrmUsers => crmusers ??= Set<CrmUser>();
-
 		DbSet<DmzIpAddress> dmzIpAddresses = null;
 		public virtual DbSet<DmzIpAddress> DmzIpAddresses => dmzIpAddresses ??= Set<DmzIpAddress>();
 

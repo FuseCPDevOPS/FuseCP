@@ -182,32 +182,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
         }
 
-        private void PrepareCRMMenu(PackageContext cntx, List<MenuGroup> groups, string imagePath)
-        {
-            MenuGroup crmGroup = new MenuGroup(GetLocalizedString("Text.CRMGroup"), imagePath + "crm_16.png");
-
-            crmGroup.MenuItems.Add(CreateMenuItem("CRMOrganization", "CRMOrganizationDetails"));
-            crmGroup.MenuItems.Add(CreateMenuItem("CRMUsers", "CRMUsers"));
-            crmGroup.MenuItems.Add(CreateMenuItem("StorageLimits", "crm_storage_settings"));
-
-            if (crmGroup.MenuItems.Count > 0)
-                groups.Add(crmGroup);
-
-        }
-
-        private void PrepareCRMMenu2013(PackageContext cntx, List<MenuGroup> groups, string imagePath)
-        {
-            MenuGroup crmGroup = new MenuGroup(GetLocalizedString("Text.CRMGroup2013"), imagePath + "crm_16.png");
-
-            crmGroup.MenuItems.Add(CreateMenuItem("CRMOrganization", "CRMOrganizationDetails"));
-            crmGroup.MenuItems.Add(CreateMenuItem("CRMUsers", "CRMUsers"));
-            crmGroup.MenuItems.Add(CreateMenuItem("StorageLimits", "crm_storage_settings"));
-
-            if (crmGroup.MenuItems.Count > 0)
-                groups.Add(crmGroup);
-
-        }
-
         private void PrepareBlackBerryMenu(PackageContext cntx, List<MenuGroup> groups, string imagePath)
         {
             MenuGroup bbGroup = new MenuGroup(GetLocalizedString("Text.BlackBerryGroup"), imagePath + "blackberry16.png");
@@ -335,13 +309,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             {
                 PrepareSharePointEnterpriseMenu(cntx, groups, imagePath, GetLocalizedString("Text.SharePointEnterpriseServerGroup"));
             }
-
-            //CRM Menu
-            if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                PrepareCRMMenu2013(cntx, groups, imagePath);
-            else if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                PrepareCRMMenu(cntx, groups, imagePath);
-
 
             //OCS Menu
             if (cntx.Groups.ContainsKey(ResourceGroups.OCS))

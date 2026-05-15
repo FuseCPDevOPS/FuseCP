@@ -289,29 +289,8 @@ namespace FuseCP.Portal.ExchangeServer
 
 
 
-            if (org.CrmOrganizationId != Guid.Empty)
-            {
-
-                if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                {
-                    crm2013StatsPanel.Visible = true;
-                    crmStatsPanel.Visible = false;
-                    BindCRM2013Stats(orgStats);
-                }
-                else if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                {
-                    crmStatsPanel.Visible = true;
-                    crm2013StatsPanel.Visible = false;
-                    BindCRMStats(orgStats);
-                }
-
-            }
-            else
-            {
-                crmStatsPanel.Visible = false;
-                crm2013StatsPanel.Visible = false;
-            }
-
+            crmStatsPanel.Visible = false;
+            crm2013StatsPanel.Visible = false;
 
             if (cntx.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))
             {

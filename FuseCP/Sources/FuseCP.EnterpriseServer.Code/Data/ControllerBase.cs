@@ -67,9 +67,6 @@ namespace FuseCP.EnterpriseServer
 		CommentsController commentsController = null;
 		protected CommentsController CommentsController => commentsController ??= new CommentsController(this);
 
-		CRMController crmController = null;
-		protected CRMController CRMController => crmController ??= new CRMController(this);
-
 		DnsServerController dnsServerController = null;
 		protected DnsServerController DnsServerController => dnsServerController ??= new DnsServerController(this);
 

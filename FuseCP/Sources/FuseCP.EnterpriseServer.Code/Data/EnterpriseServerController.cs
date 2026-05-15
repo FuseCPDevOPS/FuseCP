@@ -34,8 +34,6 @@ namespace FuseCP.EnterpriseServer
 
 		public new CommentsController CommentsController => base.CommentsController;
 
-		public new CRMController CRMController => base.CRMController;
-
 		public new DnsServerController DnsServerController => base.DnsServerController;
 
 		public new DatabaseServerController DatabaseServerController => base.DatabaseServerController;

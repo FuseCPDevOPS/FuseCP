@@ -109,10 +109,6 @@ namespace FuseCP.EnterpriseServer.Context
 
 		public virtual DbSet<Cluster> Clusters { get; set; }
 
-		public virtual DbSet<Comment> Comments { get; set; }
-
-		public virtual DbSet<CrmUser> CrmUsers { get; set; }
-
 		public virtual DbSet<DmzIpAddress> DmzIpAddresses { get; set; }
 
 		public virtual DbSet<Domain> Domains { get; set; }
@@ -378,7 +374,6 @@ namespace FuseCP.EnterpriseServer.Context
 			ApplyConfiguration(model, new BruteForceLogConfiguration());
 			ApplyConfiguration(model, new ClusterConfiguration());
 			ApplyConfiguration(model, new CommentConfiguration());
-			ApplyConfiguration(model, new CrmUserConfiguration());
 			ApplyConfiguration(model, new DmzIpAddressConfiguration());
 			ApplyConfiguration(model, new DomainConfiguration());
 			ApplyConfiguration(model, new DomainDnsRecordConfiguration());
@@ -535,9 +530,6 @@ namespace FuseCP.EnterpriseServer.Data
 
         DbSet<Comment> comments = null;
         public virtual DbSet<Comment> Comments => comments ??= Set<Comment>();
-
-        DbSet<Crmuser> crmusers = null;
-        public virtual DbSet<Crmuser> Crmusers => crmusers ??= Set<Crmuser>();
 
         DbSet<DmzIpaddress> dmzIpaddresses = null;
         public virtual DbSet<DmzIpaddress> DmzIpaddresses => dmzIpaddresses ??= Set<DmzIpaddress>();

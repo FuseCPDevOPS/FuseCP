@@ -9867,5 +9867,58 @@ BEGIN
     VALUES ('20260508094637_ConsolidateSharePointEnterpriseProvider', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    INSERT INTO public."ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+    SELECT sdp."PropertyName", 1306, sdp."PropertyValue"
+    FROM public."ServiceDefaultProperties" sdp
+    WHERE sdp."ProviderID" IN (15, 23)
+      AND NOT EXISTS (
+          SELECT 1
+          FROM public."ServiceDefaultProperties" dst
+          WHERE dst."ProviderID" = 1306 AND dst."PropertyName" = sdp."PropertyName"
+      );
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    DELETE FROM public."ServiceDefaultProperties" WHERE "ProviderID" IN (15, 23);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    UPDATE public."Services" SET "ProviderID" = 1306 WHERE "ProviderID" IN (15, 23);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 15;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    DELETE FROM public."Providers"
+    WHERE "ProviderID" = 23;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260511164431_RemapLegacySpsProvidersToSharePoint2016') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260511164431_RemapLegacySpsProvidersToSharePoint2016', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

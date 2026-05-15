@@ -224,83 +224,11 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         }
 
 
-        private int GetCRMServiceId(int packageId)
-        {
-            int serviceId = PackageController.GetPackageServiceId(packageId, ResourceGroups.HostedCRM);
-            return serviceId;
-        }
-
-        private CRM GetCRMProxy(int packageId)
-        {
-            int crmServiceId = GetCRMServiceId(packageId);
-            CRM ws = new CRM();
-            ServiceProviderProxy.Init(ws, crmServiceId);
-            return ws;
-        }
-
         private void PopulateCRMReportItems(Organization org, EnterpriseSolutionStatisticsReport report, string topReseller)
         {
-            if (org.CrmOrganizationId == Guid.Empty)
-                return;
-
-            List<OrganizationUser> users;
-
-            try
-            {
-                users = CRMController.GetCRMOrganizationUsers(org.Id);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                throw new ApplicationException(
-                    string.Format("Could not get CRM Organization users. OrgId : {0}", org.Id), ex);
-            }
-            
-            CRM crm;
-            try
-            {
-                crm = GetCRMProxy(org.PackageId);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                throw new ApplicationException(string.Format("Could not get CRM Proxy. PackageId: {0}", org.PackageId),
-                                               ex);
-            }
-            
-            foreach (OrganizationUser user in users)
-            {
-                try
-                {
-                    CRMOrganizationStatistics stats = new CRMOrganizationStatistics();
-
-                    PopulateBaseItem(stats, org, topReseller);
-
-                    stats.CRMOrganizationId = org.CrmOrganizationId;
-                    stats.CRMUserName = user.DisplayName;
-
-                    Guid crmUserId = CRMController.GetCrmUserId(user.AccountId);
-                    CrmUserResult res = crm.GetCrmUserById(crmUserId, org.OrganizationId);
-					if (res.IsSuccess && res.Value != null)
-					{
-						stats.ClientAccessMode = res.Value.ClientAccessMode;
-						stats.CRMDisabled = res.Value.IsDisabled;
-					}
-					else
-					{
-						StringBuilder sb = new StringBuilder("Could not get CRM user by id.");
-						foreach (string str in res.ErrorCodes)
-						{
-							sb.AppendFormat("\n{0};", str);
-						}
-						throw new ApplicationException(sb.ToString());
-					}
-                                         
-                    report.CRMReport.Items.Add(stats);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    TaskManager.WriteError(ex);
-                }
-            }
+            _ = org;
+            _ = report;
+            _ = topReseller;
         }
 
         private void PopulateOrganizationData(Organization org, EnterpriseSolutionStatisticsReport report, string topReseller)

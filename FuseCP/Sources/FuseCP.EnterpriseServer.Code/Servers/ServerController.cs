@@ -3472,7 +3472,6 @@ namespace FuseCP.EnterpriseServer
 								break;
 							case ResourceGroups.HostedOrganizations:
 								ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.HostedOrganizations, domain, "");
-								ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.HostedCRM, domain, "");
 								break;
 							case ResourceGroups.Mail:
 								List<DomainInfo> myDomains = ServerController.GetMyDomains(domain.PackageId);

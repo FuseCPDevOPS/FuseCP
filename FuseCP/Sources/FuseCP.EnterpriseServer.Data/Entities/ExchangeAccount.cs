@@ -94,9 +94,6 @@ public partial class ExchangeAccount
     public virtual ICollection<BlackBerryUser> BlackBerryUsers { get; set; } = new List<BlackBerryUser>();
 
     [InverseProperty("Account")]
-    public virtual ICollection<CrmUser> CrmUsers { get; set; } = new List<CrmUser>();
-
-    [InverseProperty("Account")]
     public virtual ICollection<EnterpriseFoldersOwaPermission> EnterpriseFoldersOwaPermissions { get; set; } = new List<EnterpriseFoldersOwaPermission>();
 
     [InverseProperty("Account")]

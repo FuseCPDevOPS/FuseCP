@@ -11573,5 +11573,102 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    INSERT INTO `ServiceDefaultProperties` (`PropertyName`, `ProviderID`, `PropertyValue`)
+    SELECT sdp.`PropertyName`, 1306, sdp.`PropertyValue`
+    FROM `ServiceDefaultProperties` sdp
+    WHERE sdp.`ProviderID` IN (15, 23)
+      AND NOT EXISTS (
+          SELECT 1
+          FROM `ServiceDefaultProperties` dst
+          WHERE dst.`ProviderID` = 1306 AND dst.`PropertyName` = sdp.`PropertyName`
+      );
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    DELETE FROM `ServiceDefaultProperties` WHERE `ProviderID` IN (15, 23);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    UPDATE `Services` SET `ProviderID` = 1306 WHERE `ProviderID` IN (15, 23);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 15
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    DELETE FROM `Providers`
+    WHERE `ProviderID` = 23
+    RETURNING 1;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260511164419_RemapLegacySpsProvidersToSharePoint2016') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260511164419_RemapLegacySpsProvidersToSharePoint2016', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

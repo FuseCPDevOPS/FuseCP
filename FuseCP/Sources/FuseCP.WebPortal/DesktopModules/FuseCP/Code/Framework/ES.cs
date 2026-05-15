@@ -73,15 +73,6 @@ namespace FuseCP.WebPortal
 			}
 		}
 
-		public esCRM CRM
-		{
-			get
-			{
-				return GetCachedProxy<esCRM>();
-			}
-		}
-
-
 		public esVirtualizationServer VPS
 		{
 			get { return GetCachedProxy<esVirtualizationServer>(); }

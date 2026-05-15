@@ -1249,44 +1249,6 @@ namespace FuseCP.EnterpriseServer
 						}
 					}
 
-					/*------------------------------------CRM------------------------------------------------*/
-
-					var crmItems = ExchangeAccounts
-						.Join(CrmUsers, ea => ea.AccountId, cu => cu.AccountId, (ea, cu) => new
-						{
-							EA = ea,
-							CU = cu
-						})
-						.Join(ServiceItems
-							.Where(si => isAdmin || si.Package.UserId == userId),
-							ea => ea.EA.ItemId, si => si.ItemId, (ea, si) => new SearchItem()
-							{
-								ItemId = si.ItemId,
-								TextSearch = ea.EA.AccountName,
-								ColumnType = "CRMSite",
-								FullType = "CRMSites",
-								PackageId = si.PackageId,
-								AccountId = ea.EA.AccountId,
-								Username = si.Package.User.Username,
-								FullName = si.Package.User.FirstName + " " + si.Package.User.LastName
-							});
-
-					if (!string.IsNullOrEmpty(filterValue))
-					{
-#if NETFRAMEWORK
-						crmItems = crmItems.Where(si => DbFunctions.Like(si.TextSearch, filterValue));
-#else
-						crmItems = crmItems.Where(si => EF.Functions.Like(si.TextSearch, filterValue));
-#endif
-					}
-
-					if (onlyFind)
-					{
-						crmItems = crmItems.OrderBy(li => li.TextSearch);
-						crmItems = crmItems.Take(maximumRows);
-					}
-
-					/*------------------------------------VirtualServer------------------------------------------------*/
 
 					/// <summary>TODO</summary>
 					IQueryable<SearchItem> vpsItems;
@@ -1477,7 +1439,6 @@ namespace FuseCP.EnterpriseServer
 						.Concat(lyncItems.Take(int.MaxValue))
 						.Concat(sfbItems.Take(int.MaxValue))
 						.Concat(rdsItems.Take(int.MaxValue))
-						.Concat(crmItems.Take(int.MaxValue))
 						.Concat(vpsItems.Take(int.MaxValue))
 						.Concat(wdavItems.Take(int.MaxValue))
 						.Concat(vpsIpItems.Take(int.MaxValue));
@@ -17989,242 +17950,6 @@ namespace FuseCP.EnterpriseServer
 		}
 		#endregion
 
-		#region CRM
-		/// <summary>Auto-generated member.</summary>
-
-		public int GetCRMUsersCount(int itemId, string name, string email, int CALType)
-		{
-			if (UseEntityFramework)
-			{
-				if (string.IsNullOrEmpty(name)) name = "%";
-				if (string.IsNullOrEmpty(email)) email = "%";
-
-				return ExchangeAccounts
-					.Where(a => a.ItemId == itemId &&
-#if NETFRAMEWORK
-						DbFunctions.Like(a.DisplayName, name) && DbFunctions.Like(a.PrimaryEmailAddress, email))
-#else
-						EF.Functions.Like(a.DisplayName, name) && EF.Functions.Like(a.PrimaryEmailAddress, email))
-#endif
-					.Join(CrmUsers, a => a.AccountId, u => u.AccountId, (a, u) => u.CalType)
-					.Count(cal => cal == CALType || CALType == -1);
-			}
-			else
-			{
-				SqlParameter[] sqlParams = new SqlParameter[]
-				{
-					/// <summary>TODO</summary>
-					new SqlParameter("@ItemID", itemId),
-					GetFilterSqlParam("@Name", name),
-					GetFilterSqlParam("@Email", email),
-					/// <summary>TODO</summary>
-					new SqlParameter("@CALType", CALType)
-				};
-
-				return (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetCRMUsersCount", sqlParams);
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		private SqlParameter GetFilterSqlParam(string paramName, string value)
-		{
-			if (string.IsNullOrEmpty(value))
-				/// <summary>TODO</summary>
-				return new SqlParameter(paramName, DBNull.Value);
-
-			/// <summary>TODO</summary>
-			return new SqlParameter(paramName, value);
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public IDataReader GetCrmUsers(int itemId, string sortColumn, string sortDirection, string name, string email, int startRow, int count)
-		{
-			if (UseEntityFramework)
-			{
-				if (string.IsNullOrEmpty(name)) name = "%";
-				if (string.IsNullOrEmpty(email)) email = "%";
-
-				var accounts = ExchangeAccounts
-					.Where(a => a.ItemId == itemId &&
-#if NETFRAMEWORK
-						DbFunctions.Like(a.DisplayName, name) && DbFunctions.Like(a.PrimaryEmailAddress, email))
-#else
-						EF.Functions.Like(a.DisplayName, name) && EF.Functions.Like(a.PrimaryEmailAddress, email))
-#endif
-					.Join(CrmUsers, a => a.AccountId, u => u.AccountId, (a, u) => a)
-					.Select(a => new
-					{
-						a.AccountId,
-						a.ItemId,
-						a.AccountName,
-						a.DisplayName,
-						a.PrimaryEmailAddress,
-						a.SamAccountName
-					});
-
-				accounts = string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase)
-					? (sortColumn == "DisplayName" ? accounts.OrderBy(a => a.DisplayName) : accounts.OrderBy(a => a.PrimaryEmailAddress))
-					: (sortColumn == "DisplayName" ? accounts.OrderByDescending(a => a.DisplayName) : accounts.OrderByDescending(a => a.PrimaryEmailAddress));
-				accounts = accounts.Skip(startRow).Take(count);
-				/// <summary>TODO</summary>
-				return EntityDataReader(accounts);
-			}
-			else
-			{
-				SqlParameter[] sqlParams = new SqlParameter[] {
-					/// <summary>TODO</summary>
-					new SqlParameter("@ItemID", itemId),
-					/// <summary>TODO</summary>
-					new SqlParameter("@SortColumn", sortColumn),
-					/// <summary>TODO</summary>
-					new SqlParameter("@SortDirection", sortDirection),
-					GetFilterSqlParam("@Name", name),
-					GetFilterSqlParam("@Email", email),
-					/// <summary>TODO</summary>
-					new SqlParameter("@StartRow", startRow),
-					/// <summary>TODO</summary>
-					new SqlParameter("Count", count)
-				};
-
-				return SqlHelper.ExecuteReader(
-					NativeConnectionString,
-					CommandType.StoredProcedure,
-					"GetCRMUsers", sqlParams);
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public IDataReader GetCRMOrganizationUsers(int itemId)
-		{
-			if (UseEntityFramework)
-			{
-				var accounts = ExchangeAccounts
-					.Where(a => a.ItemId == itemId)
-					.Join(CrmUsers, a => a.AccountId, u => u.AccountId, (a, u) => a)
-					.Select(a => new
-					{
-						a.AccountId,
-						a.ItemId,
-						a.AccountName,
-						a.DisplayName,
-						a.PrimaryEmailAddress,
-						a.SamAccountName
-					});
-				/// <summary>TODO</summary>
-				return EntityDataReader(accounts);
-			}
-			else
-			{
-				return SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "GetCRMOrganizationUsers",
-					new SqlParameter[] { new SqlParameter("@ItemID", itemId) });
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public void CreateCRMUser(int itemId, Guid crmId, Guid businessUnitId, int CALType)
-		{
-			if (UseEntityFramework)
-			{
-				var now = DateTime.Now;
-				var user = new Data.Entities.CrmUser()
-				{
-					AccountId = itemId,
-					CrmUserGuid = crmId,
-					BusinessUnitId = businessUnitId,
-					CalType = CALType,
-					ChangedDate = now,
-					CreatedDate = now
-				};
-				CrmUsers.Add(user);
-				SaveChanges();
-			}
-			else
-			{
-				SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "InsertCRMUser",
-					new SqlParameter[] {
-						/// <summary>TODO</summary>
-						new SqlParameter("@ItemID", itemId),
-						/// <summary>TODO</summary>
-						new SqlParameter("@CrmUserID", crmId),
-						/// <summary>TODO</summary>
-						new SqlParameter("@BusinessUnitId", businessUnitId),
-						/// <summary>TODO</summary>
-						new SqlParameter("@CALType", CALType)
-					});
-
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public void UpdateCRMUser(int itemId, int CALType)
-		{
-			if (UseEntityFramework)
-			{
-                CrmUsers.Where(u => u.AccountId == itemId)
-                    .ExecuteUpdate(cu => new Data.Entities.CrmUser() { CalType = CALType });
-            }
-            else
-			{
-				SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "UpdateCRMUser",
-					new SqlParameter[] {
-						/// <summary>TODO</summary>
-						new SqlParameter("@ItemID", itemId),
-						/// <summary>TODO</summary>
-						new SqlParameter("@CALType", CALType)
-					});
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public IDataReader GetCrmUser(int accountId)
-		{
-			if (UseEntityFramework)
-			{
-				var user = CrmUsers
-					.Where(u => u.AccountId == accountId)
-					.Select(u => new
-					{
-						CrmUserId = u.CrmUserGuid,
-						u.BusinessUnitId
-					});
-				/// <summary>TODO</summary>
-				return EntityDataReader(user);
-			}
-			else
-			{
-				IDataReader reader = SqlHelper.ExecuteReader(NativeConnectionString, CommandType.StoredProcedure, "GetCRMUser",
-					new SqlParameter[] { new SqlParameter("@AccountID", accountId) });
-				/// <summary>TODO</summary>
-				return reader;
-			}
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public int GetCrmUserCount(int itemId)
-		{
-			return UseEntityFramework
-				? ExchangeAccounts
-					.Where(a => a.ItemId == itemId)
-					.SelectMany(a => a.CrmUsers)
-					.Count()
-				: (int)SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "GetOrganizationCRMUserCount",
-					new SqlParameter[] { new SqlParameter("@ItemID", itemId) });
-		}
-		/// <summary>Auto-generated member.</summary>
-
-		public void DeleteCrmOrganization(int organizationId)
-		{
-			if (UseEntityFramework)
-			{
-				CrmUsers.Where(u => u.Account.ItemId == organizationId).ExecuteDelete();
-			}
-			else
-			{
-				SqlHelper.ExecuteScalar(NativeConnectionString, CommandType.StoredProcedure, "DeleteCRMOrganization",
-					new SqlParameter[] { new SqlParameter("@ItemID", organizationId) });
-			}
-		}
-		#endregion
 
 		#region VPS - Virtual Private Servers
 		/// <summary>Auto-generated member.</summary>
@@ -25152,6 +24877,18 @@ WHERE PackageServices.PackageID = @PackageID AND Services.ProviderID = @Provider
 			}
 		}
 
+		#endregion
+
+
+		#region Helper Methods
+		/// <summary>Converts empty or null parameter strings to DBNull for SQL parameters.</summary>
+		private SqlParameter GetFilterSqlParam(string paramName, string value)
+		{
+			if (string.IsNullOrEmpty(value))
+				/// <summary>TODO</summary>
+				return new SqlParameter(paramName, DBNull.Value);
+			return new SqlParameter(paramName, value);
+		}
 		#endregion
 
 	}

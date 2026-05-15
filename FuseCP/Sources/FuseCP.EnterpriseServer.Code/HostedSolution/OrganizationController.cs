@@ -377,7 +377,6 @@ namespace FuseCP.EnterpriseServer
                 if (domain != null && domain.ZoneItemId != 0)
                 {
 					ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.HostedOrganizations, domain, "");
-					ServerController.AddServiceDNSRecords(org.PackageId, ResourceGroups.HostedCRM, domain, "");
                 }
 
 
@@ -782,17 +781,6 @@ namespace FuseCP.EnterpriseServer
 
                 try
                 {
-                    if (org.CrmOrganizationId != Guid.Empty)
-                        CRMController.DeleteOrganization(itemId);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    successful = false;
-                    TaskManager.WriteError(ex);
-                }
-
-                try
-                {
                     OrganizationUsersPagedResult res = BlackBerryController.GetBlackBerryUsers(itemId, string.Empty, string.Empty, string.Empty,
                                                             string.Empty, 0, int.MaxValue);
                     if (res.IsSuccess)
@@ -1145,24 +1133,6 @@ namespace FuseCP.EnterpriseServer
                     }
 
 
-                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                    {
-                        stats.CreatedCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.FULL).Value;
-                        stats.CreatedLimitedCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.LIMITED).Value;
-                        stats.CreatedESSCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.ESS).Value;
-                        stats.UsedCRMDiskSpace = CRMController.GetDBSize(org.Id, org.PackageId);
-                        stats.AllocatedCRMDiskSpace = CRMController.GetMaxDBSize(org.Id, org.PackageId);
-                    }
-
-                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                    {
-                        stats.CreatedProfessionalCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.PROFESSIONAL).Value;
-                        stats.CreatedBasicCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.BASIC).Value;
-                        stats.CreatedEssentialCRMUsers = CRMController.GetCRMUsersCount(org.Id, string.Empty, string.Empty, CRMUserLycenseTypes.ESSENTIAL).Value;
-                        stats.UsedCRMDiskSpace = CRMController.GetDBSize(org.Id, org.PackageId);
-                        stats.AllocatedCRMDiskSpace = CRMController.GetMaxDBSize(org.Id, org.PackageId);
-                    }
-
                     if (cntxTmp.Groups.ContainsKey(ResourceGroups.BlackBerry))
                     {
                         stats.CreatedBlackBerryUsers = BlackBerryController.GetBlackBerryUsersCount(org.Id, string.Empty, string.Empty).Value;
@@ -1239,24 +1209,6 @@ namespace FuseCP.EnterpriseServer
                                         stats.CreatedSharePointEnterpriseSiteCollections += sharePointStats.TotalRowCount;
                                     }                                    
 
-
-                                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                                    {
-                                        stats.CreatedCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.FULL ).Value;
-                                        stats.CreatedLimitedCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.LIMITED).Value;
-                                        stats.CreatedESSCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.ESS).Value;
-                                        stats.UsedCRMDiskSpace += CRMController.GetDBSize(o.Id, o.PackageId);
-                                        stats.AllocatedCRMDiskSpace += CRMController.GetMaxDBSize(o.Id, o.PackageId);
-                                    }
-
-                                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                                    {
-                                        stats.CreatedProfessionalCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.PROFESSIONAL).Value;
-                                        stats.CreatedBasicCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.BASIC).Value;
-                                        stats.CreatedEssentialCRMUsers += CRMController.GetCRMUsersCount(o.Id, string.Empty, string.Empty, CRMUserLycenseTypes.ESSENTIAL).Value;
-                                        stats.UsedCRMDiskSpace += CRMController.GetDBSize(o.Id, o.PackageId);
-                                        stats.AllocatedCRMDiskSpace += CRMController.GetMaxDBSize(o.Id, o.PackageId);
-                                    }
 
                                     if (cntxTmp.Groups.ContainsKey(ResourceGroups.BlackBerry))
                                     {
@@ -1335,20 +1287,6 @@ namespace FuseCP.EnterpriseServer
                 if (cntx.Groups.ContainsKey(ResourceGroups.SharepointEnterpriseServer))
                 {
                     stats.AllocatedSharePointEnterpriseSiteCollections = cntx.Quotas[Quotas.HOSTED_SHAREPOINT_ENTERPRISE_SITES].GetQuotaAllocatedValue(byOrganization);
-                }
-
-                if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                {
-                    stats.AllocatedCRMUsers = cntx.Quotas[Quotas.CRM_USERS].GetQuotaAllocatedValue(byOrganization);
-                    stats.AllocatedLimitedCRMUsers = cntx.Quotas[Quotas.CRM_LIMITEDUSERS].GetQuotaAllocatedValue(byOrganization);
-                    stats.AllocatedESSCRMUsers = cntx.Quotas[Quotas.CRM_ESSUSERS].GetQuotaAllocatedValue(byOrganization);
-                }
-
-                if (cntx.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                {
-                    stats.AllocatedProfessionalCRMUsers = cntx.Quotas[Quotas.CRM2013_PROFESSIONALUSERS].GetQuotaAllocatedValue(byOrganization);
-                    stats.AllocatedBasicCRMUsers = cntx.Quotas[Quotas.CRM2013_BASICUSERS].GetQuotaAllocatedValue(byOrganization);
-                    stats.AllocatedEssentialCRMUsers = cntx.Quotas[Quotas.CRM2013_ESSENTIALUSERS].GetQuotaAllocatedValue(byOrganization);
                 }
 
                 if (cntx.Groups.ContainsKey(ResourceGroups.BlackBerry))
@@ -2948,12 +2886,6 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
-                Guid crmUserId = CRMController.GetCrmUserId(accountId);
-                if (crmUserId != Guid.Empty)
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_CRM_USER;
-                }
-
                 if (Database.CheckOCSUserExists(accountId))
                 {
                     return BusinessErrorCodes.CURRENT_USER_IS_OCS_USER;
@@ -3235,12 +3167,6 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
-                Guid crmUserId = CRMController.GetCrmUserId(accountId);
-                if (crmUserId != Guid.Empty)
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_CRM_USER;
-                }
-
                 if (Database.CheckOCSUserExists(accountId))
                 {
                     return BusinessErrorCodes.CURRENT_USER_IS_OCS_USER;
@@ -3440,7 +3366,7 @@ namespace FuseCP.EnterpriseServer
                 retUser.AccountName = account.AccountName;
                 retUser.PrimaryEmailAddress = account.PrimaryEmailAddress;
                 retUser.AccountType = account.AccountType;
-                retUser.CrmUserId = CRMController.GetCrmUserId(accountId);
+                retUser.CrmUserId = Guid.Empty;
                 retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
                 retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
                 retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);
@@ -3503,7 +3429,7 @@ namespace FuseCP.EnterpriseServer
                 retUser.AccountName = account.AccountName;
                 retUser.PrimaryEmailAddress = account.PrimaryEmailAddress;
                 retUser.AccountType = account.AccountType;
-                retUser.CrmUserId = CRMController.GetCrmUserId(accountId);
+                retUser.CrmUserId = Guid.Empty;
                 retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
                 retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
                 retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);

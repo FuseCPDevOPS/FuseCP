@@ -156,7 +156,7 @@
         <Compile Include="Code\Helpers\RdsServerStatusHandler.cs" />
         <Compile Include="Code\Helpers\VirtualMachineSettingExtensions.cs" />
         <Compile Include="Code\Helpers\VirtualMachinesForPCHelper.cs" />
-        <Compile Include="Code\Helpers\CRMHelper.cs" />
+        
         <Compile Include="Code\Helpers\ExchangeHelper.cs" />
         <Compile Include="Code\Helpers\Extensions.cs" />
         <Compile Include="Code\Helpers\FilesHelper.cs" />
@@ -1638,13 +1638,8 @@
         <Compile Include="SettingsServiceLevels.ascx.designer.cs">
             <DependentUpon>SettingsServiceLevels.ascx</DependentUpon>
         </Compile>
-        <Compile Include="CRM\CRMStorageSettings.ascx.cs">
-            <DependentUpon>CRMStorageSettings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="CRM\CRMStorageSettings.ascx.designer.cs">
-            <DependentUpon>CRMStorageSettings.ascx</DependentUpon>
-        </Compile>
+        
+        
         <Compile Include="ExchangeServer\EnterpriseStorageCreateDriveMap.ascx.cs">
             <DependentUpon>EnterpriseStorageCreateDriveMap.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -1901,13 +1896,8 @@
         <Compile Include="OrganizationMenu.ascx.designer.cs">
             <DependentUpon>OrganizationMenu.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\CRM2011_Settings.ascx.cs">
-            <DependentUpon>CRM2011_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\CRM2011_Settings.ascx.designer.cs">
-            <DependentUpon>CRM2011_Settings.ascx</DependentUpon>
-        </Compile>
+        
+        
         <Compile Include="ProviderControls\EnterpriseStorage_Settings.ascx.cs">
             <DependentUpon>EnterpriseStorage_Settings.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -2441,34 +2431,14 @@
         <Compile Include="ExchangeServer\ExchangeMailboxMobileDetails.ascx.designer.cs">
             <DependentUpon>ExchangeMailboxMobileDetails.ascx</DependentUpon>
         </Compile>
-        <Compile Include="CRM\CreateCRMUser.ascx.cs">
-            <DependentUpon>CreateCRMUser.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="CRM\CreateCRMUser.ascx.designer.cs">
-            <DependentUpon>CreateCRMUser.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="CRM\CRMOrganizationDetails.ascx.cs">
-            <DependentUpon>CRMOrganizationDetails.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="CRM\CRMOrganizationDetails.ascx.designer.cs">
-            <DependentUpon>CRMOrganizationDetails.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="CRM\CRMUserRoles.ascx.cs">
-            <DependentUpon>CRMUserRoles.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="CRM\CRMUserRoles.ascx.designer.cs">
-            <DependentUpon>CRMUserRoles.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="CRM\CRMUsers.ascx.cs">
-            <DependentUpon>CRMUsers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="CRM\CRMUsers.ascx.designer.cs">
-            <DependentUpon>CRMUsers.ascx</DependentUpon>
-        </Compile>
+        
+        
+        
+        
+        
+        
+        
+        
         <Compile Include="DomainsAddDomainSelectType.ascx.cs">
             <DependentUpon>DomainsAddDomainSelectType.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -2637,13 +2607,8 @@
         <Compile Include="ProviderControls\Exchange_Settings.ascx.designer.cs">
             <DependentUpon>Exchange_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\CRM_Settings.ascx.cs">
-            <DependentUpon>CRM_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\CRM_Settings.ascx.designer.cs">
-            <DependentUpon>CRM_Settings.ascx</DependentUpon>
-        </Compile>
+        
+        
         <Compile Include="ProviderControls\HostedSharePoint30_Settings.ascx.cs">
             <DependentUpon>HostedSharePoint30_Settings.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -6292,13 +6257,11 @@
         <Content Include="BlackBerry\App_LocalResources\BlackBerryUsers.ascx.de-DE.resx" />
         <Content Include="BlackBerry\App_LocalResources\CreateNewBlackBerryUser.ascx.de-DE.resx" />
         <Content Include="BlackBerry\App_LocalResources\EditBlackBerryUser.ascx.de-DE.resx" />
-        <Content Include="CRM\App_LocalResources\CreateCRMUser.ascx.de-DE.resx" />
-        <Content Include="CRM\App_LocalResources\CRMOrganizationDetails.ascx.de-DE.resx" />
-        <Content Include="CRM\App_LocalResources\CRMStorageSettings.ascx.de-DE.resx" />
-        <Content Include="CRM\App_LocalResources\CRMUserRoles.ascx.de-DE.resx" />
-        <Content Include="CRM\App_LocalResources\CRMUsers.ascx.de-DE.resx">
-            <SubType>Designer</SubType>
-        </Content>
+        
+        
+        
+        
+        
         <Content Include="ExchangeServer\App_LocalResources\EnterpriseStorageCreateDriveMap.ascx.de-DE.resx" />
         <Content Include="ExchangeServer\App_LocalResources\EnterpriseStorageCreateFolder.ascx.de-DE.resx" />
         <Content Include="ExchangeServer\App_LocalResources\EnterpriseStorageDriveMaps.ascx.de-DE.resx" />
@@ -6449,7 +6412,7 @@
         <Content Include="ProviderControls\App_LocalResources\Common_ActiveDirectoryIntegration.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\Common_IPAddressesList.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\Common_SecondaryDNSServers.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\CRM_Settings.ascx.de-DE.resx" />
+        
         <Content Include="ProviderControls\App_LocalResources\EnterpriseStorage_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\Exchange_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\FileZilla_EditAccount.ascx.de-DE.resx" />
@@ -6761,7 +6724,7 @@
         <Content Include="SettingsRdsPolicy.ascx" />
         <Content Include="SettingsRdsSetupLetter.ascx" />
         <Content Include="SettingsServiceLevels.ascx" />
-        <Content Include="CRM\CRMStorageSettings.ascx" />
+        
         <Content Include="ExchangeServer\EnterpriseStorageCreateDriveMap.ascx" />
         <Content Include="ExchangeServer\EnterpriseStorageDriveMaps.ascx" />
         <Content Include="ExchangeServer\EnterpriseStorageFolderGeneralSettings.ascx" />
@@ -6787,7 +6750,7 @@
         <Content Include="Lync\LyncPhoneNumbers.ascx" />
         <Content Include="Lync\UserControls\LyncUserSettings.ascx" />
         <Content Include="OrganizationMenu.ascx" />
-        <Content Include="ProviderControls\CRM2011_Settings.ascx" />
+        
         <Content Include="ProviderControls\EnterpriseStorage_Settings.ascx" />
         <Content Include="ProviderControls\IceWarp_EditAccount.ascx" />
         <Content Include="ProviderControls\IceWarp_EditDomain.ascx" />
@@ -8451,10 +8414,10 @@
             <SubType>Designer</SubType>
         </Content>
         <Content Include="BackupWizard.ascx" />
-        <Content Include="CRM\CreateCRMUser.ascx" />
-        <Content Include="CRM\CRMOrganizationDetails.ascx" />
-        <Content Include="CRM\CRMUserRoles.ascx" />
-        <Content Include="CRM\CRMUsers.ascx" />
+        
+        
+        
+        
         <Content Include="ExchangeServer\ExchangeMailboxPermissions.ascx" />
         <Content Include="ExchangeServer\OrganizationCreateOrganization.ascx" />
         <Content Include="ExchangeServer\OrganizationCreateUser.ascx" />
@@ -8472,7 +8435,7 @@
         <Content Include="HostedSharePoint\HostedSharePointStorageUsage.ascx" />
         <Content Include="HostedSoluitonReportSummaryLetter.ascx" />
         <Content Include="OverusageReport.ascx" />
-        <Content Include="ProviderControls\CRM_Settings.ascx" />
+        
         <Content Include="ProviderControls\HostedSharePoint30_Settings.ascx" />
         <Content Include="ProviderControls\HyperV_Settings.ascx" />
         <Content Include="ProviderControls\MSFTP70_EditAccount.ascx" />
@@ -8513,15 +8476,9 @@
         <Content Include="HostedSharePoint\App_LocalResources\HostedSharePointStorageUsage.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
-        <Content Include="CRM\App_LocalResources\CRMUsers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="CRM\App_LocalResources\CreateCRMUser.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="CRM\App_LocalResources\CRMUserRoles.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+        
+        
+        
         <Content Include="App_LocalResources\HostedSoluitonReportSummaryLetter.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8957,12 +8914,8 @@
         <Content Include="ProviderControls\App_LocalResources\HostedSharePoint30_Settings.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
-        <Content Include="CRM\App_LocalResources\CRMOrganizationDetails.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\CRM_Settings.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+        
+        
         <EmbeddedResource Include="Scripts\AjaxUtils.js" />
         <Content Include="UserControls\App_LocalResources\PackageDetails.ascx.resx">
             <SubType>Designer</SubType>

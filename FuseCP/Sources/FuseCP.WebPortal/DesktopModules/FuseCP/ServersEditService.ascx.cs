@@ -232,7 +232,6 @@ namespace FuseCP.Portal
 
 			DnsRecrodsPanel.Visible = DnsRecrodsHeader.Visible = ((local_resourceGroup.GroupName == ResourceGroups.BlackBerry) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.OCS) ||
-																				 (local_resourceGroup.GroupName == ResourceGroups.HostedCRM) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.Os) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.HostedOrganizations) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) ||

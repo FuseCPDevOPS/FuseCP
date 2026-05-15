@@ -44,8 +44,6 @@ namespace FuseCP.EnterpriseServer
         public const string SharepointServer = "Sharepoint Server";
 		public const string Exchange = "Exchange";
         public const string HostedOrganizations = "Hosted Organizations";
-        public const string HostedCRM = "Hosted CRM"; // CRM 4/2011
-        public const string HostedCRM2013 = "Hosted CRM2013"; // CRM 2013/2015
         public const string VPS = "VPS";
         public const string VPS2012 = "VPS2012";
         public const string Proxmox = "Proxmox";

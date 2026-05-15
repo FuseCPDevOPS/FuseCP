@@ -241,12 +241,6 @@ namespace FuseCP.Portal.UserControls
             if (Cntx.Groups.ContainsKey(ResourceGroups.SharepointEnterpriseServer))
                 PrepareSharePointEnterpriseMenuRoot(items);
 
-            //CRM Menu
-            if (Cntx.Groups.ContainsKey(ResourceGroups.HostedCRM2013))
-                PrepareCRM2013MenuRoot(items);
-            else if (Cntx.Groups.ContainsKey(ResourceGroups.HostedCRM))
-                PrepareCRMMenuRoot(items);
-
             //OCS Menu
             if (Cntx.Groups.ContainsKey(ResourceGroups.OCS))
                 PrepareOCSMenuRoot(items);
