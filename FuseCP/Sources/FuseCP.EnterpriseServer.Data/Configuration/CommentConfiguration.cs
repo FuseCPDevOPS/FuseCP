@@ -30,6 +30,11 @@ namespace FuseCP.EnterpriseServer.Data.Configuration;
 public partial class CommentConfiguration: EntityTypeConfiguration<Comment>
 {
     public override void Configure() {
+#if NetCore
+    Core.ToTable("Comments");
+#else
+    ToTable("Comments");
+#endif
 
         Property(e => e.ItemTypeId).IsUnicode(false);
         if (IsSqlServer) Property(e => e.CreatedDate).HasColumnType("datetime");
