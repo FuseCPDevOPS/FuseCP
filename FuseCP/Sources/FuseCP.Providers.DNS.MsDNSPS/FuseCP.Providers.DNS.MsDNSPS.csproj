@@ -3,6 +3,9 @@
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<UseRidGraph>true</UseRidGraph>
 		<LangVersion>11</LangVersion>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
@@ -20,18 +23,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Management" Version="10.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="Microsoft.Management.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-			<HintPath>..\..\Lib\Microsoft.Management.Infrastructure.dll</HintPath>
-			<SpecificVersion>False</SpecificVersion>
-		</Reference>
-		<Reference Include="System.Management" />
-		<Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-			<HintPath>..\..\Lib\References\Microsoft\Windows2012\System.Management.Automation.dll</HintPath>
-			<SpecificVersion>False</SpecificVersion>
-			<Private>false</Private>
-		</Reference>
+		<PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
+		<PackageReference Include="System.Management.Automation" Version="7.5.5" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />

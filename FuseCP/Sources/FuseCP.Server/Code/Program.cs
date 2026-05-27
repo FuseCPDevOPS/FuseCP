@@ -50,11 +50,42 @@ namespace FuseCP.Server
 				if (assemblyName == null || string.IsNullOrEmpty(assemblyName.Name))
 					return null;
 
-				if (providerAssemblyMap.TryGetValue(assemblyName.Name, out var assemblyPath) && File.Exists(assemblyPath))
-					return context.LoadFromAssemblyPath(assemblyPath);
+				if (assemblyName.Name.StartsWith("FuseCP.", StringComparison.OrdinalIgnoreCase))
+				{
+					if (providerAssemblyMap.TryGetValue(assemblyName.Name, out var assemblyPath) && File.Exists(assemblyPath))
+						return context.LoadFromAssemblyPath(assemblyPath);
+
+					return null;
+				}
+
+				// Allow specific provider dependencies that are not FuseCP.* but are shipped in provider folders.
+				if (assemblyName.Name.Equals("Microsoft.Management.Infrastructure", StringComparison.OrdinalIgnoreCase)
+					|| assemblyName.Name.Equals("Microsoft.Management.Infrastructure.Native", StringComparison.OrdinalIgnoreCase))
+				{
+					var providerDependencyPath = ResolveDependencyFromProviderRoots(assemblyName.Name);
+					if (!string.IsNullOrEmpty(providerDependencyPath) && File.Exists(providerDependencyPath))
+						return context.LoadFromAssemblyPath(providerDependencyPath);
+				}
 
 				return null;
 			};
+		}
+
+		private static string ResolveDependencyFromProviderRoots(string assemblySimpleName)
+		{
+			foreach (var providerRoot in GetProviderProbeRoots().Where(Directory.Exists))
+			{
+				var directPath = Path.Combine(providerRoot, assemblySimpleName + ".dll");
+				if (File.Exists(directPath))
+					return directPath;
+
+				var nestedPath = Directory.EnumerateFiles(providerRoot, assemblySimpleName + ".dll", SearchOption.AllDirectories)
+					.FirstOrDefault();
+				if (!string.IsNullOrEmpty(nestedPath))
+					return nestedPath;
+			}
+
+			return null;
 		}
 
 		private static Dictionary<string, string> BuildProviderAssemblyMap()
@@ -66,6 +97,9 @@ namespace FuseCP.Server
 				foreach (var file in Directory.EnumerateFiles(providerRoot, "*.dll", SearchOption.AllDirectories))
 				{
 					var name = Path.GetFileNameWithoutExtension(file);
+					if (!name.StartsWith("FuseCP.", StringComparison.OrdinalIgnoreCase))
+						continue;
+
 					Version version;
 					try
 					{
@@ -101,10 +135,13 @@ namespace FuseCP.Server
 		{
 			var baseDir = AppContext.BaseDirectory;
 			yield return Path.Join(baseDir, "Providers");
+			yield return Path.Join(baseDir, "DNS");
+			yield return Path.Join(baseDir, "ProvidersLegacy");
 			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "Providers"));
+			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "DNS"));
+			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "ProvidersLegacy"));
 			yield return Path.Join(baseDir, "netstandard");
 			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin", "netstandard"));
-			yield return Path.GetFullPath(Path.Join(baseDir, "..", "bin"));
 		}
 	}
 }
