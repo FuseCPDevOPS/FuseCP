@@ -124,12 +124,39 @@ namespace FuseCP.EnterpriseServer
 				return null;
 
 			// decrypt passwords
-			server.Password = CryptoUtils.Decrypt(server.Password);
-			server.ADPassword = CryptoUtils.Decrypt(server.ADPassword);
+			server.Password = DecryptServerSecretCompat(server.Password, "Password", serverId);
+			server.ADPassword = DecryptServerSecretCompat(server.ADPassword, "ADPassword", serverId);
 
 			DecryptServerUrl(server);
 
 			return server;
+		}
+
+		private static string DecryptServerSecretCompat(string value, string fieldName, int serverId)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+				return value;
+
+			try
+			{
+				return CryptoUtils.Decrypt(value);
+			}
+			catch (System.Security.Cryptography.CryptographicException)
+			{
+				System.Diagnostics.Trace.TraceWarning(
+					"Server {0} field '{1}' is not decryptable with current key. Falling back to stored value.",
+					serverId,
+					fieldName);
+				return value;
+			}
+			catch (FormatException)
+			{
+				System.Diagnostics.Trace.TraceWarning(
+					"Server {0} field '{1}' is not Base64 encoded. Treating as plaintext legacy value.",
+					serverId,
+					fieldName);
+				return value;
+			}
 		}
 
 		public void DecryptServerUrl(ServerInfo server)

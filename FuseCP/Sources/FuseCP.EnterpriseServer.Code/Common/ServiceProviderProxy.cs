@@ -192,13 +192,26 @@ namespace FuseCP.EnterpriseServer
 			cnfg.ServerUrl = CryptoUtils.DecryptServerUrl(serverUrl);
 			if (proxy.IsAuthenticated)
 			{
-				cnfg.ServerPassword = cnfg.PasswordIsSHA256 ? CryptoUtils.SHA256(serverPassword) : CryptoUtils.SHA1(serverPassword);
+				cnfg.ServerPassword = NormalizeServerSharedSecret(serverPassword, cnfg.PasswordIsSHA256);
 			}
 
 			// configure proxy!
 			cnfg.Configure(proxy);
 
 			return proxy;
+		}
+
+		private static string NormalizeServerSharedSecret(string serverPassword, bool passwordIsSha256)
+		{
+			if (string.IsNullOrEmpty(serverPassword))
+				return string.Empty;
+
+			// Some environments already persist the hardened server shared secret hash.
+			// In that case using it as-is avoids double-hashing and auth failures.
+			if (CryptoUtils.IsSHA256(serverPassword))
+				return serverPassword;
+
+			return passwordIsSha256 ? CryptoUtils.SHA256(serverPassword) : CryptoUtils.SHA1(serverPassword);
 		}
 
 		public FuseCP.Web.Clients.ClientBase ServerInit(FuseCP.Web.Clients.ClientBase proxy,

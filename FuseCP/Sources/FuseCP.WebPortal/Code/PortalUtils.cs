@@ -223,10 +223,11 @@ public class PortalUtils
 		{
 			// set SMTP client settings
 			string smtpServer = PortalConfiguration.SiteSettings["SmtpHost"];
-			int smtpPort = Int32.Parse(PortalConfiguration.SiteSettings["SmtpPort"]);
+			int smtpPort = ParseIntWithDefault(PortalConfiguration.SiteSettings["SmtpPort"], 25);
 			string smtpUsername = PortalConfiguration.SiteSettings["SmtpUsername"];
 			string smtpPassword = PortalConfiguration.SiteSettings["SmtpPassword"];
-			bool enableSsl = ParseBool(PortalConfiguration.SiteSettings["SmtpEnableSsl"], false);
+			bool enableSsl = ParseBool(PortalConfiguration.SiteSettings["SmtpEnableSsl"],
+				ParseBool(PortalConfiguration.SiteSettings["SmtpUseSsl"], false));
 			bool enableLegacySSL = ParseBool(PortalConfiguration.SiteSettings["SmtpEnableLegacySSL"], false);
 
 			// Determine SecureSocketOptions based on EnableSsl and Port
@@ -248,7 +249,7 @@ public class PortalUtils
 
 			client.Connect(smtpServer, smtpPort, secureSocketOptions);
 
-			if (String.IsNullOrEmpty(smtpUsername))
+			if (!String.IsNullOrEmpty(smtpUsername))
 			{
 				client.Authenticate(smtpUsername, smtpPassword);
 			}
@@ -278,6 +279,14 @@ public class PortalUtils
 				client.Disconnect(true);
 			}
 		}
+	}
+
+	private static int ParseIntWithDefault(string value, int defaultValue)
+	{
+		if (Int32.TryParse(value, out int parsed) && parsed > 0)
+			return parsed;
+
+		return defaultValue;
 	}
 
 	public static void UserSignOut()
