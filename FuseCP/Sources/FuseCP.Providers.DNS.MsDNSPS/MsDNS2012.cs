@@ -293,8 +293,7 @@ namespace FuseCP.Providers.DNS
 		{
 			if (!OSInfo.IsWindows) return false;
 
-			return IsDNSInstalled() && WindowsVersion.WindowsServer2012 <= OSInfo.WindowsVersion &&
-				OSInfo.WindowsVersion < WindowsVersion.WindowsServer2016;
+			return IsDNSInstalled() && WindowsVersion.WindowsServer2012 <= OSInfo.WindowsVersion;
 		}
 	}
 }
