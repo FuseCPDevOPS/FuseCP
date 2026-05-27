@@ -25,17 +25,14 @@
 	 <SpecificVersion>False</SpecificVersion>
 	</Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\Lib\References\Microsoft\Windows2012\System.Management.Automation.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-  </ItemGroup>
+</ItemGroup>
   <ItemGroup>
     <Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Management" Version="10.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" />
+    <PackageReference Include="System.Management.Automation" Version="7.5.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />

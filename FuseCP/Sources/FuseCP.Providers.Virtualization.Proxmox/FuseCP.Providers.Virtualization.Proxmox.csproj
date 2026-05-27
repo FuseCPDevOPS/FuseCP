@@ -25,6 +25,7 @@
 		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.0" GeneratePathProperty="true" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.0" GeneratePathProperty="true" />
 		<!--<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" GenerateProperty="true" />-->
+		<PackageReference Include="System.Management.Automation" Version="7.5.5" />
 	</ItemGroup>
 
 	<!--<Import Project="$(PkgSkiaSharp_NativeAssets_Linux_NoDependencies)\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets" Condition=" '$(UseSkia)' == 'true' " />-->
@@ -50,11 +51,7 @@
 	
 	<ItemGroup>
 		<Reference Include="System.Management" />
-		<Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-			<HintPath>..\..\Lib\References\Microsoft\Windows2012\System.Management.Automation.dll</HintPath>
-			<SpecificVersion>False</SpecificVersion>
-		</Reference>
-	</ItemGroup>
+</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
 	</ItemGroup>

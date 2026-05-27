@@ -22,12 +22,7 @@
 			<HintPath>..\..\Lib\References\Microsoft\Microsoft.SharePoint.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-			<HintPath>..\..\Lib\References\Microsoft\Windows2012\System.Management.Automation.dll</HintPath>
-			<SpecificVersion>False</SpecificVersion>
-			<Private>false</Private>
-		</Reference>
-		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
+<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
 		<ProjectReference Include="..\FuseCP.Providers.HostedSolution\FuseCP.Providers.HostedSolution.csproj" />
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
@@ -50,4 +45,7 @@
         <Delete Files="@(FilesToDelete)" />
     </Target>
 
+    <ItemGroup>
+        <PackageReference Include="System.Management.Automation" Version="7.5.5" />
+    </ItemGroup>
 </Project>
