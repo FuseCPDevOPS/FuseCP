@@ -90,9 +90,16 @@ namespace FuseCP.Portal
             // calculate the width of the gauge
             int fTotal = Total;
             int percent = (fTotal > 0) ? Convert.ToInt32(Math.Round((double)Progress / (double)fTotal * 100)) : 0;
+            if (percent < 0)
+                percent = 0;
+            if (percent > 100)
+                percent = 100;
 
             double fFilledWidth = (fTotal > 0) ? ((double)Progress / (double)fTotal * Width) : 0;
             int filledWidth = Convert.ToInt32(fFilledWidth);
+
+            if (filledWidth < 0)
+                filledWidth = 0;
 
 			if (filledWidth > Width)
 				filledWidth = Width;
@@ -109,11 +116,14 @@ namespace FuseCP.Portal
             GaugeContent.Text += DrawImage(fillSrc, filledWidth);
             GaugeContent.Text += DrawImage(bkgSrc, width - filledWidth);
             GaugeContent.Text += DrawImage(rightSideSrc, 1);
+
+            if (DisplayText)
+                GaugeContent.Text += String.Format("&nbsp;{0}%", percent);
         }
 
         private string DrawImage(string src, int local_width)
         {
-            return String.Format("<img src=\"{0}\" local_width=\"{1}\" height=\"11\" align=\"absmiddle\"/>",
+            return String.Format("<img src=\"{0}\" width=\"{1}\" height=\"11\" align=\"absmiddle\"/>",
                 src, local_width);
         }
     }
