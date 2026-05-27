@@ -45,6 +45,31 @@ namespace FuseCP.Portal
             }
         }
 
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+
+            // Keep action buttons interactive on the hosting plan editor.
+            btnSave.Enabled = true;
+            btnSave.CssClass = RemoveDisabledCssClass(btnSave.CssClass);
+
+            if (btnDelete.Visible)
+            {
+                btnDelete.Enabled = true;
+                btnDelete.CssClass = RemoveDisabledCssClass(btnDelete.CssClass);
+            }
+        }
+
+        private static string RemoveDisabledCssClass(string cssClass)
+        {
+            if (String.IsNullOrWhiteSpace(cssClass))
+                return cssClass;
+
+            string[] tokens = cssClass.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] filteredTokens = Array.FindAll(tokens, token => !String.Equals(token, "disabled", StringComparison.OrdinalIgnoreCase));
+            return String.Join(" ", filteredTokens);
+        }
+
         private void BindServers()
         {
             ddlServer.DataSource = ES.Services.Servers.GetRawAllServers();

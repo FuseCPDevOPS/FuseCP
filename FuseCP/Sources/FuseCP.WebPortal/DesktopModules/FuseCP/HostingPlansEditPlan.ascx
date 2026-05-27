@@ -57,21 +57,13 @@
                     </uc1:HostingPlansQuotas>
                 </asp:Panel>
             </div>
+            <div class="card-footer text-end">
+                <asp:LinkButton id="btnDelete" CssClass="btn btn-danger" runat="server" CausesValidation="False" OnClick="btnDelete_Click" OnClientClick="return confirm('Are you sure you want to delete hosting plan?');" meta:resourcekey="btnDelete" Text="Delete"></asp:LinkButton>
+                &nbsp;
+                <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click" meta:resourcekey="btnCancel" Text="Cancel"></asp:LinkButton>
+                &nbsp;
+                <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" meta:resourcekey="btnSave" Text="Save"></asp:LinkButton>
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <div class="card-footer text-end">
-        <asp:LinkButton id="btnDelete" CssClass="btn btn-danger" runat="server" CausesValidation="False" OnClick="btnDelete_Click" OnClientClick="return confirm('Are you sure you want to delete hosting plan?');">
-            <i class="bi bi-trash">&nbsp;</i>&nbsp;
-            <asp:Localize runat="server" meta:resourcekey="btnDeleteText"/>
-        </asp:LinkButton>
-        &nbsp;
-        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click">
-            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
-            <asp:Localize runat="server" meta:resourcekey="btnCancel"/>
-        </asp:LinkButton>
-        &nbsp;
-        <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;
-            <asp:Localize runat="server" meta:resourcekey="btnSave"/>
-        </asp:LinkButton>
-    </div>
 </asp:Panel>
