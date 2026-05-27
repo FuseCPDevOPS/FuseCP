@@ -201,7 +201,7 @@ namespace FuseCP.Portal
             try
             {
                 // update server
-                int result = ES.Services.Servers.UpdateServer(server);
+                int result = ES.Services.Servers.UpdateServer(local_server);
                 if (result < 0)
                 {
                     ShowResultMessage(result);
