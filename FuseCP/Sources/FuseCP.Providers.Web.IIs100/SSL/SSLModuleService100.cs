@@ -692,12 +692,11 @@ namespace FuseCP.Providers.Web.Iis
                 invokeCommand.Parameters.Add("ComputerName", hostName);
             }
 
-            using RunspaceInvoke invoke = new RunspaceInvoke();
             string commandString = moduleImports.Any() ? string.Format("import-module {0};", string.Join(",", moduleImports)) : string.Empty;
 
             commandString = string.Format("{0};{1}", commandString, string.Join(";", scripts));
 
-            ScriptBlock sb = invoke.Invoke(string.Format("{{{0}}}", commandString))[0].BaseObject as ScriptBlock;
+            ScriptBlock sb = ScriptBlock.Create(commandString);
 
             invokeCommand.Parameters.Add("ScriptBlock", sb);
 

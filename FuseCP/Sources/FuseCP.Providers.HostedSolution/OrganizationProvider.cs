@@ -2546,7 +2546,7 @@ namespace FuseCP.Providers.HostedSolution
             ExecuteShellCommand(runSpace, cmd);
         }
 
-        private RunspaceConfiguration runspaceConfiguration = null;
+        private InitialSessionState runspaceConfiguration = null;
 
         internal virtual Runspace OpenRunspace()
         {
@@ -2554,7 +2554,7 @@ namespace FuseCP.Providers.HostedSolution
 
             if (runspaceConfiguration == null)
             {
-                runspaceConfiguration = RunspaceConfiguration.Create();
+                runspaceConfiguration = InitialSessionState.CreateDefault();
             }
 
             Runspace runSpace = RunspaceFactory.CreateRunspace(runspaceConfiguration);

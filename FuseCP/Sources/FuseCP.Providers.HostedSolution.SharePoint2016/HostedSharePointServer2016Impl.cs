@@ -35,7 +35,7 @@ namespace FuseCP.Providers.HostedSolution
     {
         #region Fields
 
-        private RunspaceConfiguration runspaceConfiguration;
+        private InitialSessionState runspaceConfiguration;
 
         #endregion
 
@@ -563,15 +563,9 @@ namespace FuseCP.Providers.HostedSolution
 
             if (runspaceConfiguration == null)
             {
-                runspaceConfiguration = RunspaceConfiguration.Create();
-                PSSnapInException exception;
-                runspaceConfiguration.AddPSSnapIn(SharepointSnapInName, out exception);
+                runspaceConfiguration = InitialSessionState.CreateDefault();
+                runspaceConfiguration.ImportPSModule(new string[] { SharepointSnapInName });
                 HostedSolutionLog.LogInfo("Sharepoint snapin loaded");
-
-                if (exception != null)
-                {
-                    HostedSolutionLog.LogWarning("SnapIn error", exception);
-                }
             }
 
             Runspace runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration);

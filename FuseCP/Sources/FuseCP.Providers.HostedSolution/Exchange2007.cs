@@ -5983,7 +5983,7 @@ namespace FuseCP.Providers.HostedSolution
 		 return results;
 	 }*/
 
-		private RunspaceConfiguration runspaceConfiguration = null;
+		private InitialSessionState runspaceConfiguration = null;
 		private static string ExchangePath = null;
 
 		internal static string GetExchangePath()
@@ -6031,15 +6031,9 @@ namespace FuseCP.Providers.HostedSolution
 
 			if (runspaceConfiguration == null)
 			{
-				runspaceConfiguration = RunspaceConfiguration.Create();
-				PSSnapInException exception = null;
+				runspaceConfiguration = InitialSessionState.CreateDefault();
+				runspaceConfiguration.ImportPSModule(new string[] { ExchangeSnapInName });
 
-				runspaceConfiguration.AddPSSnapIn(ExchangeSnapInName, out exception);
-
-				if (exception != null)
-				{
-					ExchangeLog.LogWarning("SnapIn error", exception);
-				}
 			}
 			Runspace runSpace = RunspaceFactory.CreateRunspace(runspaceConfiguration);
 			//
