@@ -9,6 +9,7 @@ This playbook gives AI coding agents a safe, fast starting workflow for FuseCP.
    - `.github/copilot-instructions.md`
    - `CONTRIBUTING.md`
    - `TESTING_ENVIRONMENT.md`
+  - `FuseCP/Sources/POWERSHELL_HOSTING_TROUBLESHOOTING.md` when the task touches provider-side PowerShell hosting, runspaces, module loading, or IIS-hosted execution behavior.
 2. Confirm prerequisites:
   - If `pwsh` is missing, install it first: `winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements`
    - `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Unit`

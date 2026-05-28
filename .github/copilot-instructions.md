@@ -16,6 +16,7 @@ These instructions guide AI coding assistants working in this repository.
 * Build and deployment scripts exist in `FuseCP/` and `tools/`.
 * Many solutions have ordering/dependency relationships; prefer orchestrated build entrypoints over ad-hoc independent `.sln` builds for end-to-end validation.
 * For quick repository orientation and safe-first workflows, use `.github/AI_FUSECP_PLAYBOOK.md`.
+* For PowerShell-hosted provider work, read `FuseCP/Sources/POWERSHELL_HOSTING_TROUBLESHOOTING.md` first; it captures the runspace, module import, execution policy, and IIS recycle patterns that commonly affect provider modules.
 
 ## Implementation Expectations
 
