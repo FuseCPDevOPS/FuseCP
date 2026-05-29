@@ -88,16 +88,48 @@ namespace FuseCP.Providers.DNS
 			if( HasDnsServerCommand( ps ) )
 				return;
 
-			ImportDnsServerModule( ps, false );
-			if( HasDnsServerCommand( ps ) )
-				return;
+			bool preferCompatibility = IsPowerShellCore( ps );
 
-			// On PowerShell 7, Windows-only modules may require compatibility mode.
-			ImportDnsServerModule( ps, true );
+			if( preferCompatibility )
+			{
+				// DNS cmdlets run reliably from a WinPS compatibility session in PowerShell Core hosts.
+				ImportDnsServerModule( ps, true );
+				if( HasDnsServerCommand( ps ) )
+					return;
+
+				ImportDnsServerModule( ps, false );
+			}
+			else
+			{
+				ImportDnsServerModule( ps, false );
+				if( HasDnsServerCommand( ps ) )
+					return;
+
+				ImportDnsServerModule( ps, true );
+			}
+
 			if( HasDnsServerCommand( ps ) )
 				return;
 
 			throw new InvalidOperationException( "DnsServer module is loaded, but Get-DnsServerZone is still unavailable." );
+		}
+
+		private static bool IsPowerShellCore( PowerShell ps )
+		{
+			ps.Commands.Clear();
+			ps.AddCommand( "Get-Variable" )
+				.AddParameter( "Name", "PSEdition" )
+				.AddParameter( "ValueOnly" )
+				.AddParameter( "ErrorAction", "SilentlyContinue" );
+
+			Collection<PSObject> result = ps.Invoke();
+			if( ps.HadErrors )
+			{
+				ps.Streams.Error.Clear();
+			}
+
+			string edition = result?.FirstOrDefault()?.BaseObject?.ToString();
+			return string.Equals( edition, "Core", StringComparison.OrdinalIgnoreCase );
 		}
 
 		private static bool HasDnsServerCommand( PowerShell ps )
@@ -120,7 +152,15 @@ namespace FuseCP.Providers.DNS
 		{
 			ps.Commands.Clear();
 
-			if( File.Exists( s_dnsModuleManifestPath ) )
+			if( useWindowsPowerShellCompatibility )
+			{
+				ps.AddCommand( "Import-Module" )
+					.AddParameter( "Name", "DnsServer" )
+					.AddParameter( "UseWindowsPowerShell" )
+					.AddParameter( "Force" )
+					.AddParameter( "ErrorAction", "Stop" );
+			}
+			else if( File.Exists( s_dnsModuleManifestPath ) )
 			{
 				ps.AddCommand( "Import-Module" )
 					.AddParameter( "Name", s_dnsModuleManifestPath )
@@ -135,11 +175,6 @@ namespace FuseCP.Providers.DNS
 					.AddParameter( "ErrorAction", "Stop" );
 			}
 
-			if( useWindowsPowerShellCompatibility )
-			{
-				ps.AddParameter( "UseWindowsPowerShell" );
-			}
-
 			ps.Invoke();
 			if( ps.HadErrors )
 			{
@@ -150,14 +185,13 @@ namespace FuseCP.Providers.DNS
 
 		public Collection<PSObject> RunPipeline( params Command[] pipelineCommands )
 		{
-			Log.WriteStart( "ExecuteShellCommand" );
-
 			Collection<PSObject> results = null;
 			using( Pipeline pipeLine = runSpace.CreatePipeline() )
 			{
-				// Add the command
-				foreach( var cmd in pipelineCommands )
+				foreach( Command cmd in pipelineCommands )
+				{
 					pipeLine.Commands.Add( cmd );
+				}
 
 				// Execute the pipeline and save the objects returned.
 				results = pipeLine.Invoke();
@@ -173,7 +207,6 @@ namespace FuseCP.Providers.DNS
 				}
 			}
 			// errors = errorList.ToArray();
-			Log.WriteEnd( "ExecuteShellCommand" );
 			return results;
 		}
 	}

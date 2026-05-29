@@ -16,10 +16,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Net;
+using System.Text;
+using System.Text.Json;
 using FuseCP.Server.Utils;
 using Microsoft.Management.Infrastructure;
 
@@ -212,17 +215,45 @@ namespace FuseCP.Providers.DNS
         /// <returns>Array of records</returns>
         public static DnsRecord[] GetZoneRecords(this PowerShellHelper ps, string zoneName)
         {
-            // Get-DnsServerResourceRecord -ZoneName xxxx.com
-            var allRecords = ps.RunPipeline(new Command("Get-DnsServerResourceRecord").addParam("ZoneName", zoneName));
+            bool runtimeMismatchDetected = false;
+            Collection<PSObject> allRecords = ExecuteGetZoneRecords(ps, zoneName, null, ref runtimeMismatchDetected);
 
-            DnsRecord[] records = allRecords.Select(o => o.asDnsRecord(zoneName))
-                .Where(r => null != r)
-                .Where(r => r.RecordType != DnsRecordType.SOA)
-                //	.Where( r => !( r.RecordName == "@" && DnsRecordType.NS == r.RecordType ) )
-                .OrderBy(r => r.RecordName)
-                .ThenBy(r => r.RecordType)
-                .ThenBy(r => r.RecordData)
-                .ToArray();
+            if (allRecords.Count == 0)
+            {
+                allRecords = ExecuteGetZoneRecords(ps, zoneName, "localhost", ref runtimeMismatchDetected);
+            }
+
+            if (allRecords.Count == 0)
+            {
+                allRecords = ExecuteGetZoneRecords(ps, zoneName, Environment.MachineName, ref runtimeMismatchDetected);
+            }
+
+            DnsRecord[] records;
+            if (allRecords.Count == 0 && runtimeMismatchDetected)
+            {
+                records = ExecuteGetZoneRecordsViaPwsh(zoneName, null);
+
+                if (records.Length == 0)
+                {
+                    records = ExecuteGetZoneRecordsViaPwsh(zoneName, "localhost");
+                }
+
+                if (records.Length == 0)
+                {
+                    records = ExecuteGetZoneRecordsViaPwsh(zoneName, Environment.MachineName);
+                }
+            }
+            else
+            {
+                records = allRecords.Select(o => o.asDnsRecord(zoneName))
+                    .Where(r => null != r)
+                    .Where(r => r.RecordType != DnsRecordType.SOA)
+                    .OrderBy(r => r.RecordName)
+                    .ThenBy(r => r.RecordType)
+                    .ThenBy(r => r.RecordData)
+                    .ToArray();
+            }
+
             List<DnsRecord> result = new List<DnsRecord>();
             foreach (DnsRecord record in records.Where(record => !result.Any(res => res.RecordName.Equals(record.RecordName)
                 && res.RecordType.Equals(record.RecordType)
@@ -231,6 +262,200 @@ namespace FuseCP.Providers.DNS
                 result.Add(record);
             }
             return result.ToArray();
+        }
+
+        private static Collection<PSObject> ExecuteGetZoneRecords(PowerShellHelper ps, string zoneName, string computerName, ref bool runtimeMismatchDetected)
+        {
+            try
+            {
+                var cmd = new Command("Get-DnsServerResourceRecord");
+                cmd.addParam("ZoneName", zoneName);
+                cmd.addParam("ErrorAction", "Stop");
+
+                if (!String.IsNullOrWhiteSpace(computerName))
+                {
+                    cmd.addParam("ComputerName", computerName);
+                }
+
+                return ps.RunPipeline(cmd) ?? new Collection<PSObject>();
+            }
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                if (!runtimeMismatchDetected && IsEnumerableAppendMismatch(ex))
+                {
+                    runtimeMismatchDetected = true;
+                }
+
+                string target = String.IsNullOrWhiteSpace(computerName) ? "default" : computerName;
+                Log.WriteWarning("Get-DnsServerResourceRecord failed for zone '{0}' on target '{1}': {2}", zoneName, target, ex.Message);
+                return new Collection<PSObject>();
+            }
+        }
+
+        private static bool IsEnumerableAppendMismatch(System.Exception ex)
+        {
+            const string marker = "EnumerableExtensions.Append";
+            return ex != null
+                && ex.Message != null
+                && ex.Message.IndexOf(marker, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static DnsRecord[] ExecuteGetZoneRecordsViaPwsh(string zoneName, string computerName)
+        {
+            try
+            {
+                string json = RunPwshDnsRecordsScript(zoneName, computerName);
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    return Array.Empty<DnsRecord>();
+                }
+
+                List<DnsRecord> records = ParsePwshDnsRecordsJson(zoneName, json);
+                return records
+                    .Where(r => r.RecordType != DnsRecordType.SOA)
+                    .OrderBy(r => r.RecordName)
+                    .ThenBy(r => r.RecordType)
+                    .ThenBy(r => r.RecordData)
+                    .ToArray();
+            }
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                string target = String.IsNullOrWhiteSpace(computerName) ? "default" : computerName;
+                Log.WriteWarning("pwsh fallback Get-DnsServerResourceRecord failed for zone '{0}' on target '{1}': {2}", zoneName, target, ex.Message);
+                return Array.Empty<DnsRecord>();
+            }
+        }
+
+        private static string RunPwshDnsRecordsScript(string zoneName, string computerName)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string safeComputer = (computerName ?? string.Empty).Replace("'", "''");
+            bool useComputer = !string.IsNullOrWhiteSpace(computerName);
+
+            string script = string.Format(
+                System.Globalization.CultureInfo.InvariantCulture,
+                "$ErrorActionPreference='Stop'; Import-Module DnsServer -ErrorAction Stop; $params=@{{ ZoneName='{0}' }}; if('{1}' -ne ''){{ $params.ComputerName='{1}' }}; $records=Get-DnsServerResourceRecord @params; $items=@(); foreach($rr in $records){{ $type=[string]$rr.RecordType; $data=''; $mx=0; $srvPr=0; $srvW=0; $srvPort=0; switch($type){{ 'A' {{ $data=$rr.RecordData.IPv4Address.IPAddressToString }} 'AAAA' {{ $data=$rr.RecordData.IPv6Address.IPAddressToString }} 'CNAME' {{ $data=$rr.RecordData.HostNameAlias }} 'MX' {{ $data=$rr.RecordData.MailExchange; $mx=[int]$rr.RecordData.Preference }} 'NS' {{ $data=$rr.RecordData.NameServer }} 'TXT' {{ $data=($rr.RecordData.DescriptiveText -join '') }} 'SRV' {{ $data=$rr.RecordData.DomainName; $srvPr=[int]$rr.RecordData.Priority; $srvW=[int]$rr.RecordData.Weight; $srvPort=[int]$rr.RecordData.Port }} 'PTR' {{ $data=$rr.RecordData.PtrDomainName }} default {{ $data=[string]$rr.RecordData }} }}; $ttl=0; if($rr.TimeToLive -ne $null){{ $ttl=[int][Math]::Round($rr.TimeToLive.TotalSeconds) }}; $items += [pscustomobject]@{{ RecordName=[string]$rr.HostName; RecordType=$type; RecordData=[string]$data; RecordTTL=$ttl; MxPriority=$mx; SrvPriority=$srvPr; SrvWeight=$srvW; SrvPort=$srvPort }} }}; $items | ConvertTo-Json -Compress -Depth 6",
+                safeZone,
+                useComputer ? safeComputer : string.Empty);
+
+            byte[] scriptBytes = Encoding.Unicode.GetBytes(script);
+            string encodedScript = Convert.ToBase64String(scriptBytes);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "pwsh",
+                Arguments = "-NoLogo -NoProfile -NonInteractive -EncodedCommand " + encodedScript,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using Process process = Process.Start(startInfo);
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start pwsh process for DNS records query.");
+            }
+
+            string stdout = process.StandardOutput.ReadToEnd();
+            string stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    "pwsh exited with code {0}: {1}", process.ExitCode, stderr));
+            }
+
+            return stdout;
+        }
+
+        private static List<DnsRecord> ParsePwshDnsRecordsJson(string zoneName, string json)
+        {
+            List<DnsRecord> records = new List<DnsRecord>();
+            using JsonDocument doc = JsonDocument.Parse(json);
+
+            if (doc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (JsonElement item in doc.RootElement.EnumerateArray())
+                {
+                    AddPwshRecord(records, zoneName, item);
+                }
+            }
+            else if (doc.RootElement.ValueKind == JsonValueKind.Object)
+            {
+                AddPwshRecord(records, zoneName, doc.RootElement);
+            }
+
+            return records;
+        }
+
+        private static void AddPwshRecord(List<DnsRecord> records, string zoneName, JsonElement item)
+        {
+            string typeText = ReadJsonString(item, "RecordType");
+            if (string.IsNullOrWhiteSpace(typeText))
+            {
+                return;
+            }
+
+            if (!Enum.TryParse(typeText, true, out DnsRecordType recordType))
+            {
+                return;
+            }
+
+            DnsRecord record = new DnsRecord
+            {
+                RecordType = recordType,
+                RecordName = RecordConverter.CorrectHost(zoneName, ReadJsonString(item, "RecordName")),
+                RecordData = RecordConverter.RemoveTrailingDot(ReadJsonString(item, "RecordData")),
+                RecordTTL = ReadJsonInt(item, "RecordTTL"),
+                MxPriority = ReadJsonInt(item, "MxPriority"),
+                SrvPriority = ReadJsonInt(item, "SrvPriority"),
+                SrvWeight = ReadJsonInt(item, "SrvWeight"),
+                SrvPort = ReadJsonInt(item, "SrvPort")
+            };
+
+            records.Add(record);
+        }
+
+        private static string ReadJsonString(JsonElement item, string name)
+        {
+            if (!item.TryGetProperty(name, out JsonElement value))
+            {
+                return string.Empty;
+            }
+
+            if (value.ValueKind == JsonValueKind.String)
+            {
+                return value.GetString() ?? string.Empty;
+            }
+
+            if (value.ValueKind == JsonValueKind.Null || value.ValueKind == JsonValueKind.Undefined)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString();
+        }
+
+        private static int ReadJsonInt(JsonElement item, string name)
+        {
+            if (!item.TryGetProperty(name, out JsonElement value))
+            {
+                return 0;
+            }
+
+            if (value.ValueKind == JsonValueKind.Number && value.TryGetInt32(out int number))
+            {
+                return number;
+            }
+
+            if (value.ValueKind == JsonValueKind.String && int.TryParse(value.GetString(), out number))
+            {
+                return number;
+            }
+
+            return 0;
         }
 
         #region Records add / remove

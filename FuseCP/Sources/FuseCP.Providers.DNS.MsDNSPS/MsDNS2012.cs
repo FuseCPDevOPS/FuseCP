@@ -14,9 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Management;
 using System.Management.Automation;
-using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 
@@ -94,7 +92,8 @@ namespace FuseCP.Providers.DNS
 
 		public virtual DnsRecord[] GetZoneRecords( string zoneName )
 		{
-			return ps.GetZoneRecords( zoneName );
+			DnsRecord[] records = ps.GetZoneRecords( zoneName );
+			return records ?? Array.Empty<DnsRecord>();
 		}
 
 		public virtual void AddPrimaryZone( string zoneName, string[] secondaryServers )
