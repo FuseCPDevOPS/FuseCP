@@ -16,6 +16,7 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Globalization;
 #if !NETSTANDARD2_0
@@ -29,6 +30,7 @@ namespace FuseCP.Server.Utils
 #endif
     public class EventLogTraceListener : TraceListener
     {
+        private const int MaxEventLogMessageLength = 30000;
         private EventLog eventLog;
         private bool nameSet;
 
@@ -70,14 +72,22 @@ namespace FuseCP.Server.Utils
 
         public EventLogTraceListener(string source)
         {
-            if (!EventLog.SourceExists(source))
+            try
             {
-                EventLog.CreateEventSource(source, source);
-            }
+                if (!EventLog.SourceExists(source))
+                {
+                    EventLog.CreateEventSource(source, source);
+                }
 
-            this.eventLog = new EventLog();
-            this.eventLog.Source = source;
-            this.eventLog.ModifyOverflowPolicy(OverflowAction.OverwriteAsNeeded, 0);
+                this.eventLog = new EventLog();
+                this.eventLog.Source = source;
+                this.eventLog.ModifyOverflowPolicy(OverflowAction.OverwriteAsNeeded, 0);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                SafeDebugWrite("EventLogTraceListener init failed: " + ex.Message);
+                this.eventLog = null;
+            }
         }
 
         public EventLogTraceListener() : this("FuseCP") { }
@@ -127,7 +137,7 @@ namespace FuseCP.Server.Utils
                         }
                     }
                 }
-                this.eventLog.WriteEvent(instance, new object[] { builder.ToString() });
+                WriteEventSafe(instance, builder.ToString());
             }
         }
 
@@ -136,7 +146,7 @@ namespace FuseCP.Server.Utils
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, severity, id, null, null, data, null))
             {
                 EventInstance instance = this.CreateEventInstance(severity, id);
-                this.eventLog.WriteEvent(instance, new object[] { data });
+                WriteEventSafe(instance, data);
             }
         }
 
@@ -145,7 +155,7 @@ namespace FuseCP.Server.Utils
             if ((base.Filter == null) || base.Filter.ShouldTrace(eventCache, source, severity, id, message, null, null, null))
             {
                 EventInstance instance = this.CreateEventInstance(severity, id);
-                this.eventLog.WriteEvent(instance, new object[] { message });
+                WriteEventSafe(instance, message);
             }
         }
 
@@ -156,7 +166,7 @@ namespace FuseCP.Server.Utils
                 EventInstance instance1 = this.CreateEventInstance(severity, id);
                 if (args == null)
                 {
-                    this.eventLog.WriteEvent(instance1, new object[] { format });
+                    WriteEventSafe(instance1, format);
                 }
                 else if (string.IsNullOrEmpty(format))
                 {
@@ -165,21 +175,18 @@ namespace FuseCP.Server.Utils
                     {
                         textArray1[num1] = args[num1].ToString();
                     }
-                    this.eventLog.WriteEvent(instance1, textArray1);
+                    WriteEventSafe(instance1, textArray1);
                 }
                 else
                 {
-                    this.eventLog.WriteEvent(instance1, new object[] { string.Format(CultureInfo.InvariantCulture, format, args) });
+                    WriteEventSafe(instance1, string.Format(CultureInfo.InvariantCulture, format, args));
                 }
             }
         }
 
         public override void Write(string message)
         {
-            if (this.eventLog != null)
-            {
-                this.eventLog.WriteEntry(message);
-            }
+            WriteEntrySafe(message);
         }
 
         public override void WriteLine(string message)
@@ -200,6 +207,69 @@ namespace FuseCP.Server.Utils
             if (disposing)
             {
                 this.Close();
+            }
+        }
+
+        private void WriteEntrySafe(string message)
+        {
+            if (this.eventLog == null)
+            {
+                return;
+            }
+
+            try
+            {
+                this.eventLog.WriteEntry(TruncateMessage(message));
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                SafeDebugWrite("EventLog write failed: " + ex.Message);
+            }
+        }
+
+        private void WriteEventSafe(EventInstance instance, params object[] values)
+        {
+            if (this.eventLog == null)
+            {
+                return;
+            }
+
+            try
+            {
+                object[] sanitized = (values ?? Array.Empty<object>())
+                    .Select(v => (object)TruncateMessage(v?.ToString()))
+                    .ToArray();
+
+                this.eventLog.WriteEvent(instance, sanitized);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                SafeDebugWrite("EventLog write failed: " + ex.Message);
+            }
+        }
+
+        private static string TruncateMessage(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+
+            return input.Length <= MaxEventLogMessageLength
+                ? input
+                : input.Substring(0, MaxEventLogMessageLength) + "... [truncated]";
+        }
+
+        private static void SafeDebugWrite(string message)
+        {
+            try
+            {
+                Debug.WriteLine(message);
+                Console.Error.WriteLine(message);
+            }
+            catch
+            {
+                // Avoid surfacing logging backend failures.
             }
         }
     }

@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -24,6 +25,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Xml.Linq;
 #endif
 
 using FuseCP.Providers.OS;
@@ -141,7 +143,7 @@ public class Configuration
 		Password = configuration.GetValue<string>("Server:Password") ?? String.Empty;
 		AllowLegacyPasswordAuthentication = configuration.GetValue<bool?>("Server:AllowLegacyPasswordAuthentication") ?? true;
 		AllowedHosts = configuration.GetValue<string>("AllowedHosts") ?? "*";
-		TraceLevel = configuration.GetValue<TraceLevel?>("TraceLevel") ?? TraceLevel.Off;
+		TraceLevel = ResolveTraceLevel(configuration);
 		KeyFile = configuration.GetValue<string>("ServerCertificate:KeyFile");
 		ExposeWebServices = configuration.GetValue<string>("exposeWebServices") ?? "";
 		WebApplicationsPath = configuration.GetValue<string>("EnterpriseServer:WebApplicationPath");
@@ -154,6 +156,117 @@ public class Configuration
 		IsLocalService = AllowedHosts.Split(';')
 			.All(host => host != "*" && DnsService.IsHostLAN(host)); // local network ip
 		IdleShutdownTime = configuration.GetValue<TimeSpan?>("IdleShutdownTime") ?? default;
+	}
+
+	private static TraceLevel ResolveTraceLevel(IConfiguration configuration)
+	{
+		TraceLevel? configuredTraceLevel = configuration.GetValue<TraceLevel?>("TraceLevel");
+
+		if (configuredTraceLevel.HasValue && configuredTraceLevel.Value != TraceLevel.Off)
+		{
+			return configuredTraceLevel.Value;
+		}
+
+		string legacySwitchValue =
+			configuration.GetValue<string>("Log") ??
+			configuration.GetValue<string>("Diagnostics:Log");
+
+		if (!string.IsNullOrWhiteSpace(legacySwitchValue) && TryParseLegacyLogSwitchValue(legacySwitchValue, out TraceLevel parsedLegacyLevel))
+		{
+			return parsedLegacyLevel;
+		}
+
+		string webConfigPath = FindWebConfigPath();
+		if (!string.IsNullOrWhiteSpace(webConfigPath)
+			&& TryReadLegacyLogSwitchFromWebConfig(webConfigPath, out legacySwitchValue)
+			&& TryParseLegacyLogSwitchValue(legacySwitchValue, out parsedLegacyLevel))
+		{
+			return parsedLegacyLevel;
+		}
+
+		return configuredTraceLevel ?? TraceLevel.Off;
+	}
+
+	private static string FindWebConfigPath()
+	{
+		try
+		{
+			DirectoryInfo dir = new DirectoryInfo(AppContext.BaseDirectory);
+			for (int i = 0; i < 8 && dir != null; i++)
+			{
+				string candidate = Path.Combine(dir.FullName, "Web.config");
+				if (File.Exists(candidate))
+				{
+					return candidate;
+				}
+
+				dir = dir.Parent;
+			}
+		}
+		catch
+		{
+			// Keep logging initialization resilient.
+		}
+
+		return null;
+	}
+
+	private static bool TryReadLegacyLogSwitchFromWebConfig(string webConfigPath, out string value)
+	{
+		value = null;
+
+		try
+		{
+			XDocument doc = XDocument.Load(webConfigPath, LoadOptions.None);
+			XElement switchElement = doc.Descendants("switches")
+				.Elements("add")
+				.FirstOrDefault(e => string.Equals((string)e.Attribute("name"), "Log", StringComparison.OrdinalIgnoreCase));
+
+			if (switchElement == null)
+			{
+				return false;
+			}
+
+			value = (string)switchElement.Attribute("value");
+			return !string.IsNullOrWhiteSpace(value);
+		}
+		catch
+		{
+			return false;
+		}
+	}
+
+	private static bool TryParseLegacyLogSwitchValue(string value, out TraceLevel level)
+	{
+		level = TraceLevel.Off;
+
+		if (string.IsNullOrWhiteSpace(value))
+		{
+			return false;
+		}
+
+		string trimmed = value.Trim();
+		if (int.TryParse(trimmed, out int numeric))
+		{
+			switch (numeric)
+			{
+				case 0: level = TraceLevel.Off; return true;
+				case 1: level = TraceLevel.Error; return true;
+				case 2: level = TraceLevel.Warning; return true;
+				case 3: level = TraceLevel.Info; return true;
+				case 4: level = TraceLevel.Verbose; return true;
+			}
+
+			return false;
+		}
+
+		if (Enum.TryParse(trimmed, true, out TraceLevel parsed))
+		{
+			level = parsed;
+			return true;
+		}
+
+		return false;
 	}
 #endif
 }

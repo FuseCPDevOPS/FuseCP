@@ -186,9 +186,34 @@ namespace FuseCP.Web.Services
 
 			if (TraceLevel != TraceLevel.Off)
 			{
-				var listener = OSInfo.Current.DefaultTraceListener;
-				Trace.Listeners.Add(listener);
-				Log($"Trace level set to {TraceLevel}");
+				try
+				{
+					TraceListener listener;
+					if (OSInfo.IsWindows)
+					{
+						// Avoid OS provider initialization here; it can pull in optional assemblies
+						// (e.g. System.Management.Automation) and crash startup.
+						Type eventLogListenerType = Type.GetType("FuseCP.Server.Utils.EventLogTraceListener, FuseCP.Server.Utils", throwOnError: false);
+						listener = eventLogListenerType == null
+							? null
+							: Activator.CreateInstance(eventLogListenerType) as TraceListener;
+					}
+					else
+					{
+						listener = OSInfo.Current.DefaultTraceListener;
+					}
+
+					if (listener != null)
+					{
+						Trace.Listeners.Add(listener);
+					}
+
+					Log($"Trace level set to {TraceLevel}");
+				}
+				catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+				{
+					Error($"Failed to initialize trace listener: {ex.Message}");
+				}
 			}
 
 			Server.ConfigurationComplete?.Invoke();

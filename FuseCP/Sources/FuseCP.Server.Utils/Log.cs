@@ -17,6 +17,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text;
 
@@ -44,15 +45,19 @@ namespace FuseCP.Server.Utils
 
         private static void TraceSwallowedException(Exception ex)
         {
-            if (ex == null)
+            try
             {
-                System.Diagnostics.Trace.TraceWarning("Exception swallowed.");
-                return;
-            }
+                string text = ex == null
+                    ? "Exception swallowed."
+                    : "Exception swallowed: " + SanitizeLogText(ex.GetType().FullName);
 
-            System.Diagnostics.Trace.TraceWarning(
-                "Exception swallowed: {0}",
-                SanitizeLogText(ex.GetType().FullName));
+                Debug.WriteLine(text);
+                Console.Error.WriteLine(text);
+            }
+            catch
+            {
+                // Never throw from logging fallback paths.
+            }
         }
 
         private Log()
@@ -79,15 +84,24 @@ namespace FuseCP.Server.Utils
                     txt.Append("[");
                     txt.Append(DateTime.Now.ToString("G", CultureInfo.InvariantCulture));
                     txt.Append("] ERROR: ");
-                    txt.AppendLine(GenericErrorMessage);
-                    while (ex != null) {
-                        txt.AppendLine("[" + ex.GetType().FullName + "]");
-                        ex = ex.InnerException;
-                        if (ex != null)
+                    txt.AppendLine(FormatIncomingMessage(message, "ERROR"));
+
+                    Exception current = ex;
+                    while (current != null)
+                    {
+                        txt.AppendLine("[" + current.GetType().FullName + "] " + SanitizeLogText(current.Message));
+                        if (!String.IsNullOrWhiteSpace(current.StackTrace))
+                        {
+                            txt.AppendLine(SanitizeLogText(current.StackTrace));
+                        }
+
+                        current = current.InnerException;
+                        if (current != null)
                         {
                             txt.AppendLine("Inner Exception:");
                         }
                     }
+
                     Trace.TraceError(txt.ToString());
                 }
             }
@@ -177,19 +191,32 @@ namespace FuseCP.Server.Utils
 
         private static string FormatIncomingMessage(string message, string tag, params object[] args)
         {
-            string messageToLog = String.IsNullOrEmpty(message) ? String.Empty : "Message logged.";
+            string messageTemplate = String.IsNullOrEmpty(message) ? String.Empty : message;
+            object[] sanitizedArgs = (args != null && args.Length > 0) ? SanitizeLogArguments(args) : Array.Empty<object>();
 
-            if (LooksSensitive(message))
+            string formattedMessage;
+            if (sanitizedArgs.Length == 0)
             {
-                messageToLog = "[REDACTED]";
+                formattedMessage = messageTemplate;
+            }
+            else
+            {
+                try
+                {
+                    formattedMessage = string.Format(CultureInfo.InvariantCulture, messageTemplate, sanitizedArgs);
+                }
+                catch (FormatException)
+                {
+                    formattedMessage = messageTemplate + " | args=" + string.Join(", ", sanitizedArgs.Select(a => a?.ToString() ?? "null"));
+                }
             }
 
-            if (args != null && args.Length > 0)
+            if (LooksSensitive(formattedMessage))
             {
-                messageToLog = messageToLog + " | args=[REDACTED]";
+                formattedMessage = "[REDACTED]";
             }
 
-            return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(messageToLog);
+            return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(formattedMessage);
         }
 
         private static string SanitizeLogText(string input)
@@ -251,7 +278,21 @@ namespace FuseCP.Server.Utils
                 return null;
             }
 
-            return "[REDACTED]";
+            if (value is string s)
+            {
+                return LooksSensitive(s) ? "[REDACTED]" : SanitizeLogText(s);
+            }
+
+            if (value is bool || value is byte || value is sbyte || value is short || value is ushort ||
+                value is int || value is uint || value is long || value is ulong || value is float ||
+                value is double || value is decimal || value is char || value is Enum || value is DateTime ||
+                value is DateTimeOffset || value is TimeSpan || value is Guid)
+            {
+                return value;
+            }
+
+            string text = value.ToString();
+            return LooksSensitive(text) ? "[REDACTED]" : SanitizeLogText(text);
         }
 
 
