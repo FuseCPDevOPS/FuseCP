@@ -18,7 +18,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Text;
 
 namespace FuseCP.Server.Utils
@@ -29,18 +28,6 @@ namespace FuseCP.Server.Utils
     public sealed class Log
     {
         private static readonly TraceSwitch logSeverity = new TraceSwitch("Log", "General trace switch");
-        private static readonly Regex SensitivePairRegex = new Regex(
-            @"(?i)(password|pwd|token|apikey|secret|connectionstring)\s*[=:]\s*([^;\s]+)",
-            RegexOptions.Compiled);
-        private static readonly Regex EmailRegex = new Regex(
-            @"\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b",
-            RegexOptions.Compiled);
-        private static readonly Regex SensitiveMessageHintRegex = new Regex(
-            @"(?i)(password|pwd|(?<!publickey)token|apikey|secret|connectionstring)",
-            RegexOptions.Compiled);
-        private static readonly Regex SensitiveValueRegex = new Regex(
-            @"^(?:[A-Fa-f0-9]{32,}|[A-Za-z0-9_\-\.=+/]{24,})$",
-            RegexOptions.Compiled);
         private const string GenericErrorMessage = "An error occurred. See server logs for details.";
 
         private static void TraceSwallowedException(Exception ex)
@@ -211,11 +198,6 @@ namespace FuseCP.Server.Utils
                 }
             }
 
-            if (LooksSensitive(formattedMessage))
-            {
-                formattedMessage = "[REDACTED]";
-            }
-
             return "[" + DateTime.Now.ToString("G", CultureInfo.InvariantCulture) + "] " + tag + ": " + SanitizeLogText(formattedMessage);
         }
 
@@ -226,38 +208,7 @@ namespace FuseCP.Server.Utils
                 return input;
             }
 
-            string sanitized = input.Replace("\r", String.Empty).Replace("\n", " ");
-            sanitized = SensitivePairRegex.Replace(sanitized, "$1=[REDACTED]");
-            sanitized = EmailRegex.Replace(sanitized, "[email]");
-            if (LooksSensitive(sanitized))
-            {
-                return "[REDACTED]";
-            }
-            return sanitized;
-        }
-
-        private static bool LooksSensitive(string input)
-        {
-            if (String.IsNullOrWhiteSpace(input))
-            {
-                return false;
-            }
-
-            if (SensitiveMessageHintRegex.IsMatch(input))
-            {
-                return true;
-            }
-
-            string[] tokens = input.Split(new[] { ' ', '\t', ';', ',', '&', '|' }, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (SensitiveValueRegex.IsMatch(tokens[i]))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return input.Replace("\r", String.Empty).Replace("\n", " ");
         }
 
         private static object[] SanitizeLogArguments(object[] args)
@@ -280,7 +231,7 @@ namespace FuseCP.Server.Utils
 
             if (value is string s)
             {
-                return LooksSensitive(s) ? "[REDACTED]" : SanitizeLogText(s);
+                return SanitizeLogText(s);
             }
 
             if (value is bool || value is byte || value is sbyte || value is short || value is ushort ||
@@ -292,7 +243,7 @@ namespace FuseCP.Server.Utils
             }
 
             string text = value.ToString();
-            return LooksSensitive(text) ? "[REDACTED]" : SanitizeLogText(text);
+            return SanitizeLogText(text);
         }
 
 
