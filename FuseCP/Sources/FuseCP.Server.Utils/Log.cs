@@ -36,7 +36,7 @@ namespace FuseCP.Server.Utils
             @"\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b",
             RegexOptions.Compiled);
         private static readonly Regex SensitiveMessageHintRegex = new Regex(
-            @"(?i)(password|pwd|token|apikey|secret|connectionstring)",
+            @"(?i)(password|pwd|(?<!publickey)token|apikey|secret|connectionstring)",
             RegexOptions.Compiled);
         private static readonly Regex SensitiveValueRegex = new Regex(
             @"^(?:[A-Fa-f0-9]{32,}|[A-Za-z0-9_\-\.=+/]{24,})$",
