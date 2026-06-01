@@ -34,7 +34,6 @@ namespace FuseCP.Server
 			ConfigureProviderAssemblyResolver();
 			PasswordValidator.Init();
 			FuseCP.Web.Services.StartupCore.Init(args);
-			FuseCP.Server.Utils.Log.LogLevel = FuseCP.Web.Services.Configuration.TraceLevel;
 		}
 
 		private static void ConfigureProviderAssemblyResolver()

@@ -184,6 +184,9 @@ namespace FuseCP.Web.Services
 			IsLocalService = Configuration.IsLocalService;
 			IdleShutdownTime = Configuration.IdleShutdownTime;
 
+			// Ensure shared Log.Write* APIs respect configured trace level before host starts.
+			ApplyServerLogLevel(TraceLevel);
+
 			if (TraceLevel != TraceLevel.Off)
 			{
 				try
@@ -323,6 +326,25 @@ namespace FuseCP.Web.Services
 			Server.ConfigureApp?.Invoke(app);
 
 			app.Run();
+		}
+
+		private static void ApplyServerLogLevel(TraceLevel traceLevel)
+		{
+			try
+			{
+				Type logType = Type.GetType("FuseCP.Server.Utils.Log, FuseCP.Server.Utils", throwOnError: false);
+				if (logType == null)
+				{
+					return;
+				}
+
+				var property = logType.GetProperty("LogLevel", BindingFlags.Public | BindingFlags.Static);
+				property?.SetValue(null, traceLevel);
+			}
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+			{
+				Error($"Failed to apply server log level: {ex.Message}");
+			}
 		}
 
 		// Extracted into a separate NoInlining method so the JIT does not attempt to
