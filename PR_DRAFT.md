@@ -2,6 +2,30 @@
 
 ## Commits Included
 
+### Commit: e736c2a4a
+**Message**: Clean up noisy DNS provider info logging
+
+**Scope**: 2 files modified with targeted DNS provider log-noise cleanup
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.Providers.DNS.MsDNSPS/DnsCommands.cs` — removed verbose informational logging from record discovery/deletion flow while keeping compatibility fallback behavior unchanged
+- `FuseCP/Sources/FuseCP.Providers.DNS.MsDNSPS/MsDNS2012.cs` — removed high-frequency `Log.WriteInfo` calls from add/delete zone record wrapper methods
+
+#### Validation Summary
+- **Start-of-day checks**: ✅ `FuseCP/Tools/Start-Of-Day.ps1` passed (environment, solution sync, database quick checks)
+- **Focused Build**: ✅ `dotnet build FuseCP/Sources/FuseCP.Providers.DNS.MsDNSPS/FuseCP.Providers.DNS.MsDNSPS.csproj -c Debug` succeeded after clearing IIS file lock
+- **Editor Diagnostics**: ✅ clean in touched files
+
+#### Risk Assessment
+- ✅ **Low Risk**: logging-only cleanup; no functional logic changes
+- ✅ **Backward Compatible**: DNS cmdlet invocation and error handling paths unchanged
+
+#### Testing Guidance
+1. Exercise DNS zone create/delete and record add/delete flows to confirm behavior is unchanged.
+2. Confirm operational logs remain actionable without high-volume informational noise.
+
+---
+
 ### Commit: pending
 **Message**: fix: continue CodeQL web and analyzer cleanup pass
 
