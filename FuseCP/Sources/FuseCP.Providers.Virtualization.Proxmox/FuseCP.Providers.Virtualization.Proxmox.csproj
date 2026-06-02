@@ -20,18 +20,18 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp" Version="3.119.0" GeneratePathProperty="true" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.0" GeneratePathProperty="true" />
-		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.0" GeneratePathProperty="true" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.0" GeneratePathProperty="true" />
+		<PackageReference Include="SkiaSharp" Version="3.119.4" GeneratePathProperty="true" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" GeneratePathProperty="true" />
+		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.4" GeneratePathProperty="true" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.4" GeneratePathProperty="true" />
 		<!--<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" GenerateProperty="true" />-->
-		<PackageReference Include="System.Management.Automation" Version="7.5.5" />
+		<PackageReference Include="System.Management.Automation" Version="7.6.2" />
 	</ItemGroup>
 
 	<!--<Import Project="$(PkgSkiaSharp_NativeAssets_Linux_NoDependencies)\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets" Condition=" '$(UseSkia)' == 'true' " />-->
-	<Import Project="$(PkgSkiaSharp_NativeAssets_Linux)\buildTransitive\net462\SkiaSharp.NativeAssets.Linux.targets" />
-	<Import Project="$(PkgSkiaSharp_NativeAssets_macOS)\buildTransitive\net462\SkiaSharp.NativeAssets.macOS.targets" />
-	<Import Project="$(PkgSkiaSharp_NativeAssets_Win32)\buildTransitive\net462\SkiaSharp.NativeAssets.Win32.targets" />
+	<Import Project="$(PkgSkiaSharp_NativeAssets_Linux)\buildTransitive\net462\SkiaSharp.NativeAssets.Linux.targets" Condition="'$(TargetFramework)' != '' and '$(PkgSkiaSharp_NativeAssets_Linux)' != '' and Exists('$(PkgSkiaSharp_NativeAssets_Linux)\buildTransitive\net462\SkiaSharp.NativeAssets.Linux.targets')" />
+	<Import Project="$(PkgSkiaSharp_NativeAssets_macOS)\buildTransitive\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="'$(TargetFramework)' != '' and '$(PkgSkiaSharp_NativeAssets_macOS)' != '' and Exists('$(PkgSkiaSharp_NativeAssets_macOS)\buildTransitive\net462\SkiaSharp.NativeAssets.macOS.targets')" />
+	<Import Project="$(PkgSkiaSharp_NativeAssets_Win32)\buildTransitive\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="'$(TargetFramework)' != '' and '$(PkgSkiaSharp_NativeAssets_Win32)' != '' and Exists('$(PkgSkiaSharp_NativeAssets_Win32)\buildTransitive\net462\SkiaSharp.NativeAssets.Win32.targets')" />
 
 	<ItemGroup>
 	  <None Remove="Resources\power-button.svg" />
@@ -40,13 +40,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Corsinvest.ProxmoxVE.Api" Version="8.4.1" GeneratePathProperty="true" />
-		<PackageReference Include="Corsinvest.ProxmoxVE.Api.Shared" Version="8.4.1" GeneratePathProperty="true" />
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
+		<PackageReference Include="Corsinvest.ProxmoxVE.Api" Version="9.2.1" GeneratePathProperty="true" />
+		<PackageReference Include="Corsinvest.ProxmoxVE.Api.Shared" Version="9.2.1" GeneratePathProperty="true" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.8" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="RestSharp" Version="112.1.0" GeneratePathProperty="true" />
-		<PackageReference Include="SSH.NET" Version="2025.0.0" GeneratePathProperty="true" />
-		<PackageReference Include="System.ValueTuple" Version="4.6.1" />
+		<PackageReference Include="RestSharp" Version="114.0.0" GeneratePathProperty="true" />
+		<PackageReference Include="SSH.NET" Version="2025.1.0" GeneratePathProperty="true" />
+		<PackageReference Include="System.ValueTuple" Version="4.6.2" />
 	</ItemGroup>
 	
 	<ItemGroup>

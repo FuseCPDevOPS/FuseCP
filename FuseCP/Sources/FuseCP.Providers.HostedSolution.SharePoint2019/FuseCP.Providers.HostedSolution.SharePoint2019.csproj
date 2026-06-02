@@ -46,6 +46,6 @@
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="System.Management.Automation" Version="7.5.5" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.2" />
     </ItemGroup>
 </Project>

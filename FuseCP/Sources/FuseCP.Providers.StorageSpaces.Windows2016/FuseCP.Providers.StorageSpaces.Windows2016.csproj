@@ -15,9 +15,9 @@
         <DebugType>pdbonly</DebugType>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Management" Version="10.0.0" />
-        <PackageReference Include="System.Data.OleDb" Version="10.0.0" />
-        <PackageReference Include="System.Management.Automation" Version="7.5.5" />
+        <PackageReference Include="System.Management" Version="10.0.8" />
+        <PackageReference Include="System.Data.OleDb" Version="10.0.8" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.2" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="Microsoft.Search.Interop">

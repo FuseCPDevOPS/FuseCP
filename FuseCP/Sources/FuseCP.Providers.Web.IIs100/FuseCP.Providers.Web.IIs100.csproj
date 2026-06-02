@@ -53,7 +53,7 @@
         <Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="System.Management.Automation" Version="7.5.5" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.2" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
