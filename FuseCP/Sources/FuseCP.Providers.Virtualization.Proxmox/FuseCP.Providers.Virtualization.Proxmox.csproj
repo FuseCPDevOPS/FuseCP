@@ -25,7 +25,7 @@
 		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.4" GeneratePathProperty="true" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.4" GeneratePathProperty="true" />
 		<!--<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" GenerateProperty="true" />-->
-		<PackageReference Include="System.Management.Automation" Version="7.6.2" />
+		<PackageReference Include="System.Management.Automation" />
 	</ItemGroup>
 
 	<!--<Import Project="$(PkgSkiaSharp_NativeAssets_Linux_NoDependencies)\build\net462\SkiaSharp.NativeAssets.Linux.NoDependencies.targets" Condition=" '$(UseSkia)' == 'true' " />-->
@@ -77,3 +77,4 @@
 	</Target>
 
 </Project>
+

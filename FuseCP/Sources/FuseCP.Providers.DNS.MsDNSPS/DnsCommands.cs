@@ -217,15 +217,18 @@ namespace FuseCP.Providers.DNS
         {
             bool runtimeMismatchDetected = false;
             Collection<PSObject> allRecords = ExecuteGetZoneRecords(ps, zoneName, null, ref runtimeMismatchDetected);
+            Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}'", allRecords.Count, zoneName);
 
-            if (allRecords.Count == 0)
+            if (allRecords.Count == 0 && !runtimeMismatchDetected)
             {
                 allRecords = ExecuteGetZoneRecords(ps, zoneName, "localhost", ref runtimeMismatchDetected);
+                Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}' on localhost", allRecords.Count, zoneName);
             }
 
-            if (allRecords.Count == 0)
+            if (allRecords.Count == 0 && !runtimeMismatchDetected)
             {
                 allRecords = ExecuteGetZoneRecords(ps, zoneName, Environment.MachineName, ref runtimeMismatchDetected);
+                Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}' on machine '{2}'", allRecords.Count, zoneName, Environment.MachineName);
             }
 
             DnsRecord[] records;
@@ -261,6 +264,7 @@ namespace FuseCP.Providers.DNS
             {
                 result.Add(record);
             }
+            Log.WriteInfo("GetZoneRecords: returning {0} unique records for zone '{1}'", result.Count, zoneName);
             return result.ToArray();
         }
 
@@ -277,27 +281,59 @@ namespace FuseCP.Providers.DNS
                     cmd.addParam("ComputerName", computerName);
                 }
 
+                //Log.WriteInfo("Powershell command: {0}", cmd.CommandText + " " + string.Join(" ", cmd.Parameters.Select(p => "-" + p.Name + " " + (p.Value ?? string.Empty))));
+
                 return ps.RunPipeline(cmd) ?? new Collection<PSObject>();
             }
             catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
-                if (!runtimeMismatchDetected && IsEnumerableAppendMismatch(ex))
+                bool mismatchDetected = IsEnumerableAppendMismatch(ex);
+                if (!runtimeMismatchDetected && mismatchDetected)
                 {
                     runtimeMismatchDetected = true;
                 }
 
                 string target = String.IsNullOrWhiteSpace(computerName) ? "default" : computerName;
-                Log.WriteWarning("Get-DnsServerResourceRecord failed for zone '{0}' on target '{1}': {2}", zoneName, target, ex.Message);
+                if (mismatchDetected)
+                {
+                    Log.WriteInfo("Get-DnsServerResourceRecord compatibility mismatch for zone '{0}' on target '{1}'. Falling back to pwsh: {2}", zoneName, target, ex.Message);
+                }
+                else
+                {
+                    Log.WriteWarning("Get-DnsServerResourceRecord failed for zone '{0}' on target '{1}': {2}", zoneName, target, ex.Message);
+                }
+
                 return new Collection<PSObject>();
             }
         }
 
         private static bool IsEnumerableAppendMismatch(System.Exception ex)
         {
-            const string marker = "EnumerableExtensions.Append";
-            return ex != null
-                && ex.Message != null
-                && ex.Message.IndexOf(marker, StringComparison.OrdinalIgnoreCase) >= 0;
+            if (ex == null)
+                return false;
+
+            System.Exception current = ex;
+            while (current != null)
+            {
+                string message = current.Message ?? string.Empty;
+                string details = current.ToString() ?? string.Empty;
+
+                if (message.IndexOf("EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase) >= 0
+                    || details.IndexOf("EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase) >= 0
+                    || (message.IndexOf("Method not found", StringComparison.OrdinalIgnoreCase) >= 0
+                        && (message.IndexOf("EnumerableExtensions", StringComparison.OrdinalIgnoreCase) >= 0
+                            || message.IndexOf("PS_DnsServerResourceRecord", StringComparison.OrdinalIgnoreCase) >= 0))
+                    || (details.IndexOf("Method not found", StringComparison.OrdinalIgnoreCase) >= 0
+                        && (details.IndexOf("EnumerableExtensions", StringComparison.OrdinalIgnoreCase) >= 0
+                            || details.IndexOf("PS_DnsServerResourceRecord", StringComparison.OrdinalIgnoreCase) >= 0)))
+                {
+                    return true;
+                }
+
+                current = current.InnerException;
+            }
+
+            return false;
         }
 
         private static DnsRecord[] ExecuteGetZoneRecordsViaPwsh(string zoneName, string computerName)
@@ -541,6 +577,9 @@ namespace FuseCP.Providers.DNS
 
         public static void Remove_DnsServerResourceRecord(this PowerShellHelper ps, string zoneName, DnsRecord record)
         {
+            if (record == null)
+                throw new ArgumentNullException(nameof(record));
+
             string type;
             if (!RecordTypes.rrTypeFromRecord.TryGetValue(record.RecordType, out type))
                 throw new Exception("Unknown record type");
@@ -548,16 +587,28 @@ namespace FuseCP.Providers.DNS
             string Name = record.RecordName;
             if (String.IsNullOrEmpty(Name)) Name = "@";
 
+            Log.WriteInfo("Get-DnsServerResourceRecord for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}'", zoneName, Name, type, record.RecordData);
             var cmd = new Command("Get-DnsServerResourceRecord");
             cmd.addParam("ZoneName", zoneName);
             cmd.addParam("Name", Name);
             cmd.addParam("RRType", type);
             Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
 
+            // Some DNS servers do not return apex records when queried by Name='@'.
+            if (resourceRecords == null || resourceRecords.Count == 0)
+            {
+                cmd = new Command("Get-DnsServerResourceRecord");
+                cmd.addParam("ZoneName", zoneName);
+                cmd.addParam("RRType", type);
+                resourceRecords = ps.RunPipeline(cmd);
+            }
+
             object inputObject = null;
             foreach (PSObject resourceRecord in resourceRecords)
             {
                 DnsRecord dnsResourceRecord = resourceRecord.asDnsRecord(zoneName);
+                if (dnsResourceRecord == null)
+                    continue;
 
                 bool found = false;
 
@@ -569,16 +620,20 @@ namespace FuseCP.Providers.DNS
                     case DnsRecordType.NS:
                     case DnsRecordType.TXT:
                     case DnsRecordType.PTR:
-                        found = dnsResourceRecord.RecordData == record.RecordData;
+                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData);
                         break;
                     case DnsRecordType.SOA:
                         found = true;
                         break;
                     case DnsRecordType.MX:
-                        found = (dnsResourceRecord.RecordData == record.RecordData) && (dnsResourceRecord.MxPriority == record.MxPriority);
+                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
+                            && (dnsResourceRecord.MxPriority == record.MxPriority);
                         break;
                     case DnsRecordType.SRV:
-                        found = (dnsResourceRecord.RecordData == record.RecordData)
+                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
                             && (dnsResourceRecord.SrvPriority == record.SrvPriority)
                             && (dnsResourceRecord.SrvWeight == record.SrvWeight)
                             && (dnsResourceRecord.SrvPort == record.SrvPort);
@@ -592,12 +647,68 @@ namespace FuseCP.Providers.DNS
                 }
             }
 
+            if (inputObject == null)
+            {
+                throw new InvalidOperationException(
+                    string.Format("No matching DNS record found for deletion. Zone='{0}', Name='{1}', Type='{2}', Data='{3}'.",
+                        zoneName,
+                        Name,
+                        type,
+                        record.RecordData ?? string.Empty));
+            }
+
             cmd = new Command("Remove-DnsServerResourceRecord");
             cmd.addParam("ZoneName", zoneName);
             cmd.addParam("InputObject", inputObject);
 
             cmd.addParam("Force");
             ps.RunPipeline(cmd);
+        }
+
+        private static bool RecordNamesMatch(string zoneName, string left, string right)
+        {
+            string normalizedLeft = NormalizeRecordName(zoneName, left);
+            string normalizedRight = NormalizeRecordName(zoneName, right);
+            return string.Equals(normalizedLeft, normalizedRight, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string NormalizeRecordName(string zoneName, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value) || value == "@")
+                return string.Empty;
+
+            string normalized = value.Trim().TrimEnd('.');
+            if (!string.IsNullOrWhiteSpace(zoneName) && string.Equals(normalized, zoneName.Trim().TrimEnd('.'), StringComparison.OrdinalIgnoreCase))
+                return string.Empty;
+
+            return normalized;
+        }
+
+        private static bool RecordsMatchByData(DnsRecordType type, string left, string right)
+        {
+            string normalizedLeft = NormalizeRecordData(type, left);
+            string normalizedRight = NormalizeRecordData(type, right);
+            return string.Equals(normalizedLeft, normalizedRight, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string NormalizeRecordData(DnsRecordType type, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            string normalized = value.Trim();
+
+            switch (type)
+            {
+                case DnsRecordType.CNAME:
+                case DnsRecordType.MX:
+                case DnsRecordType.NS:
+                case DnsRecordType.PTR:
+                case DnsRecordType.SRV:
+                    return RecordConverter.RemoveTrailingDot(normalized).Trim();
+                default:
+                    return normalized;
+            }
         }
 
         public static void Remove_DnsServerResourceRecords(this PowerShellHelper ps, string zoneName, string type)

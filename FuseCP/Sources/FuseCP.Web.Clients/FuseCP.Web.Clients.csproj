@@ -17,7 +17,7 @@
     <PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />-->
     <PackageReference Include="System.ServiceModel.Http" Version="10.0.652802" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="10.0.652802" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
+    <PackageReference Include="System.ServiceModel.Primitives" />
     <PackageReference Include="System.ServiceModel.NetNamedPipe" Version="10.0.652802" />
   </ItemGroup>
   <ItemGroup>
@@ -31,4 +31,5 @@
     <ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
   </ItemGroup>
 </Project>
+
 

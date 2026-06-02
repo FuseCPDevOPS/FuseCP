@@ -47,7 +47,6 @@ namespace FuseCP.Providers.DNS
 
 		public PowerShellHelper()
 		{
-			Log.WriteStart( "PowerShellHelper::ctor" );
 
 			Runspace rs = RunspaceFactory.CreateRunspace( s_session );
 			rs.Open();
@@ -55,7 +54,6 @@ namespace FuseCP.Providers.DNS
 			// rs.SessionStateProxy.SetVariable( "ConfirmPreference", "none" );
 
 			this.runSpace = rs;
-			Log.WriteEnd( "PowerShellHelper::ctor" );
 		}
 
 		public void Dispose()

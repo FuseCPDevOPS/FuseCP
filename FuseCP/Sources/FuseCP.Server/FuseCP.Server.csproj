@@ -59,8 +59,8 @@
         <Analyzer Include="$(PkgRazorBlade)\lib\netstandard2.0\RazorBlade.dll" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-        <PackageReference Include="CoreWCF.Primitives" Version="1.8.0" />
-        <PackageReference Include="CoreWCF.WebHttp" Version="1.8.0" />
+        <PackageReference Include="CoreWCF.Primitives" />
+        <PackageReference Include="CoreWCF.WebHttp" />
         <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" GeneratePathProperty="true" />
         <!--<PackageReference Include="System.Management" Version="8.0.0" GeneratePathProperty="true"
             IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />-->
@@ -85,3 +85,4 @@
     </Target>
 
 </Project>
+

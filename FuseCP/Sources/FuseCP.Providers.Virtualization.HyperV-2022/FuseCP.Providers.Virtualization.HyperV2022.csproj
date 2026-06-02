@@ -26,7 +26,7 @@
 		<Reference Include="System.Management" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Management.Automation" Version="7.6.2" />
+		<PackageReference Include="System.Management.Automation" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
@@ -39,3 +39,4 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+

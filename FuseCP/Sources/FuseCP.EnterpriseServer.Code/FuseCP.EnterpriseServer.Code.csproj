@@ -32,32 +32,32 @@
     </ItemGroup>
 
 	<ItemGroup>
-        <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
+        <PackageReference Include="GoogleAuthenticator" />
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="QRCoder" Version="1.7.0" />
-        <PackageReference Include="RestSharp" Version="112.1.0" />
+        <PackageReference Include="RestSharp" />
         <PackageReference Include="SkiaSharp" Version="3.119.1" GeneratePathProperty="true" ExcludeAssets="buildTransitive" />
         <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.1" GeneratePathProperty="true" ExcludeAssets="all" />
         <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.1" GeneratePathProperty="true" ExcludeAssets="all" />
         <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.1" GeneratePathProperty="true" ExcludeAssets="all" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
-        <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.0" />
+        <PackageReference Include="System.Diagnostics.EventLog" />
         <PackageReference Include="System.DirectoryServices" Version="10.0.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
-        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.10" />
+        <PackageReference Include="System.Linq.Dynamic.Core" />
         <PackageReference Include="System.ValueTuple" Version="4.6.1" />
         <PackageReference Include="Twilio" Version="7.13.6" />
         <PackageReference Include="WhoisClient.NET" Version="6.1.0" />
-        <PackageReference Include="MailKit" Version="4.16.0" />
-        <PackageReference Include="MimeKit" Version="4.16.0" />
+        <PackageReference Include="MailKit" />
+        <PackageReference Include="MimeKit" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
-        <PackageReference Include="Azure.Identity" Version="1.17.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="9.6.10" />
-        <PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
+        <PackageReference Include="Azure.Identity" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" />
+        <PackageReference Include="System.ServiceModel.Primitives" />
     </ItemGroup>
 
     <!-- hack for SkiaSharp, so the native dlls go in the right place -->
@@ -82,4 +82,6 @@
     </ItemGroup>
 
 </Project>
+
+
 

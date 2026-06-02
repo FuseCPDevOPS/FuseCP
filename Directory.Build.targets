@@ -1,0 +1,55 @@
+<Project>
+  <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+    <!-- Apply after project PackageReferences are declared so version metadata is present. -->
+    <PackageReference Update="System.Management" Version="10.0.8" />
+    <PackageReference Update="System.Management.Automation" Version="7.6.2" />
+    <PackageReference Update="System.ServiceModel.Primitives" Version="10.0.652802" />
+    <PackageReference Update="System.Data.OleDb" Version="10.0.8" />
+      <PackageReference Update="AutoMapper" Version="16.1.1" />
+      <PackageReference Update="Azure.Identity" Version="1.17.1" />
+      <PackageReference Update="bootstrap" Version="5.2.3" />
+      <PackageReference Update="BouncyCastle.Cryptography" Version="2.6.2" />
+      <PackageReference Update="CoreWCF.Primitives" Version="1.8.0" />
+      <PackageReference Update="CoreWCF.WebHttp" Version="1.8.0" />
+      <PackageReference Update="EntityFramework6.Npgsql" Version="6.4.3" />
+      <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" Version="1.4.6" />
+      <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.Configuration" Version="1.4.6" />
+      <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.Web.Extensions" Version="1.4.6" />
+      <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.Web.Mobile" Version="1.4.6" />
+      <PackageReference Update="GoogleAuthenticator" Version="3.2.0" />
+      <PackageReference Update="jQuery" Version="3.7.1" />
+      <PackageReference Update="jquery.datatables" Version="1.10.15" />
+      <PackageReference Update="jQuery.FileUpload" Version="10.4.0" />
+      <PackageReference Update="jQuery.UI.Combined" Version="1.13.3" />
+      <PackageReference Update="jQuery.Validation" Version="1.21.0" />
+      <PackageReference Update="MailKit" Version="4.16.0" />
+      <PackageReference Update="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.0" />
+      <PackageReference Update="Microsoft.Build.Tasks.Core" Version="15.9.30" />
+      <PackageReference Update="Microsoft.Data.Sqlite" Version="9.0.9" />
+      <PackageReference Update="Microsoft.EntityFrameworkCore.DynamicLinq" Version="9.6.10" />
+      <PackageReference Update="Microsoft.Extensions.DependencyModel" Version="10.0.0" />
+      <PackageReference Update="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
+      <PackageReference Update="Microsoft.Management.Infrastructure" Version="3.0.0" />
+      <PackageReference Update="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+      <PackageReference Update="MimeKit" Version="4.16.0" />
+      <PackageReference Update="Modernizr" Version="2.8.3" />
+      <PackageReference Update="MSTest.TestAdapter" Version="4.0.2" />
+      <PackageReference Update="MSTest.TestFramework" Version="4.0.2" />
+      <PackageReference Update="MySql.Data" Version="9.4.0" />
+      <PackageReference Update="Ninject" Version="3.3.6" />
+      <PackageReference Update="Ninject.Web.Common" Version="3.3.2" />
+      <PackageReference Update="Nito.AsyncEx" Version="5.1.2" />
+      <PackageReference Update="Npgsql" Version="8.0.7" />
+      <PackageReference Update="ReportViewerCore.NETCore" Version="15.1.26" />
+      <PackageReference Update="Respond" Version="1.4.2" />
+      <PackageReference Update="RestSharp" Version="112.1.0" />
+      <PackageReference Update="System.Data.DataSetExtensions" Version="4.5.0" />
+      <PackageReference Update="System.Data.SQLite" Version="2.0.2" />
+      <PackageReference Update="System.Data.SQLite.Core" Version="1.0.119" />
+      <PackageReference Update="System.Data.SQLite.EF6" Version="2.0.2" />
+      <PackageReference Update="System.Diagnostics.EventLog" Version="10.0.0" />
+      <PackageReference Update="System.Linq.Dynamic.Core" Version="1.6.10" />
+      <PackageReference Update="Z.EntityFramework.Plus.EF6" Version="9.103.9.3" />
+  </ItemGroup>
+</Project>
+

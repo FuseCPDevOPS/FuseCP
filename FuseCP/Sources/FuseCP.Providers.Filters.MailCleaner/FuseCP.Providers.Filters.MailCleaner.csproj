@@ -23,10 +23,11 @@
 		<Reference Include="System.DirectoryServices" />
 </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="System.Management.Automation" Version="7.6.2" />
+        <PackageReference Include="System.Management.Automation" />
     </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
 		<ProjectReference Include="..\FuseCP.Providers.HostedSolution\FuseCP.Providers.HostedSolution.csproj" />
 	</ItemGroup>
 </Project>
+

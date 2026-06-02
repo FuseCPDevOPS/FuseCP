@@ -19,7 +19,7 @@
         <PackageReference Include="Microsoft.IdentityModel.Logging" Version="8.14.0" />
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="RestSharp" Version="112.1.0" />
+        <PackageReference Include="RestSharp" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
         <PackageReference Include="System.DirectoryServices.AccountManagement" Version="9.0.10" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
@@ -53,4 +53,5 @@
         <ProjectReference Include="..\FuseCP.Web.Clients\FuseCP.Web.Clients.csproj" />
     </ItemGroup>
 </Project>
+
 

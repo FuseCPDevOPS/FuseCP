@@ -30,9 +30,9 @@
 			ReferenceOutputAssembly="false" PrivateAssets="All" />
     </ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-		<PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
+		<PackageReference Include="System.ServiceModel.Primitives" />
 		<PackageReference Include="System.DirectoryServices" Version="10.0.0" />
-		<PackageReference Include="CoreWCF.Primitives" Version="1.8.0"/>
+		<PackageReference Include="CoreWCF.Primitives" />
 	</ItemGroup>
 
     <Target Name="RerunAnalyzer" Condition="'$(AnyServices)' == ''" BeforeTargets="ResolveProjectReferences">
@@ -51,3 +51,5 @@
     </Target>
 
 </Project>
+
+

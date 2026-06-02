@@ -65,28 +65,28 @@
         <PackageReference Include="JavaScriptEngineSwitcher.Msie" Version="3.24.1" />
         <PackageReference Include="MsieJavaScriptEngine" Version="3.2.5" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="MailKit" Version="4.16.0" />
-        <PackageReference Include="MimeKit" Version="4.16.0" />
+        <PackageReference Include="MailKit" />
+        <PackageReference Include="MimeKit" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
-        <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
-        <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.26" />
+        <PackageReference Include="Nito.AsyncEx" />
+        <PackageReference Include="ReportViewerCore.NETCore" />
     </ItemGroup>
     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.4.6" />
-        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.30" />
+        <PackageReference Include="Microsoft.Build.Tasks.Core" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Drawing" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Configuration" Version="1.4.6" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Configuration" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Build" Version="1.4.6" ExcludeAssets="runtime" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Compilers" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Extensions" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Mobile" Version="1.4.6" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Extensions" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Mobile" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Optimization" Version="1.4.6" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Optimization.WebForms" Version="1.4.6" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Infrastructure" Version="1.4.6" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.WebGrease" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" Version="1.4.6" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" />
         
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="10.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="tinymce\**\*.*" />
@@ -269,5 +269,6 @@
     </Target>-->
 
 </Project>
+
 
 

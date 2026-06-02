@@ -34,15 +34,15 @@
     </ItemGroup>
     
     <ItemGroup>
-		<PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+		<PackageReference Include="Nito.AsyncEx" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.4.6" />
-        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.30" />
-                <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.26" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Configuration" Version="1.4.6" />
+        <PackageReference Include="Microsoft.Build.Tasks.Core" />
+                <PackageReference Include="ReportViewerCore.NETCore" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Configuration" />
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Build" Version="1.4.6" ExcludeAssets="runtime" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Mobile" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Extensions" Version="1.4.6" />
-        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" Version="1.4.6" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Mobile" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web.Extensions" />
+        <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
     </ItemGroup>
 
@@ -9208,5 +9208,6 @@
     </ItemGroup>
 
 </Project>
+
 
 

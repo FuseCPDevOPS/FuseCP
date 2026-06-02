@@ -25,7 +25,7 @@
 		<Reference Include="System.Management" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Management.Automation" Version="7.6.2" />
+		<PackageReference Include="System.Management.Automation" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />
@@ -37,3 +37,4 @@
 		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2016\FuseCP.Providers.Virtualization.HyperV2016.csproj" />
 	</ItemGroup>
 </Project>
+

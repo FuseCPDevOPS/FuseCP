@@ -17,7 +17,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
    </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
+        <PackageReference Include="GoogleAuthenticator" />
         <PackageReference Include="JWT" Version="1.3.4" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
@@ -25,7 +25,7 @@
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.1.2" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="QRCoder" Version="1.4.3" />
-        <PackageReference Include="RestSharp" Version="112.1.0" />
+        <PackageReference Include="RestSharp" />
         <PackageReference Include="System.Buffers" Version="4.5.1" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.7.0" />
         <PackageReference Include="System.Memory" Version="4.5.5" />
@@ -37,8 +37,8 @@
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
         <PackageReference Include="Twilio" Version="6.6.1" />
         <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
-        <PackageReference Include="MailKit" Version="4.16.0" />
-        <PackageReference Include="MimeKit" Version="4.16.0" />
+        <PackageReference Include="MailKit" />
+        <PackageReference Include="MimeKit" />
     </ItemGroup>
     <ItemGroup>
         <!--<Reference Include="JWT">
@@ -151,3 +151,4 @@
         <ProjectReference Include="..\..\FuseCP.Web.Clients\FuseCP.Web.Clients.csproj" />
     </ItemGroup>
 </Project>
+

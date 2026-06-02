@@ -23,8 +23,8 @@
 		<PackageReference Include="System.DirectoryServices" Version="10.0.8" />
 		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.8" />
 		<PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.8" />
-		<PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
-		<PackageReference Include="System.Management.Automation" Version="7.6.2" />
+		<PackageReference Include="System.ServiceModel.Primitives" />
+		<PackageReference Include="System.Management.Automation" />
 	</ItemGroup>
 	<!-- CRM references removed: CRMProxy.cs and CRMProvider.cs excluded from net10.0-windows build -->
 	<ItemGroup>
@@ -93,3 +93,4 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+

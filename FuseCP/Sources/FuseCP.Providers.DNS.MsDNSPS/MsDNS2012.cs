@@ -98,6 +98,7 @@ namespace FuseCP.Providers.DNS
 
 		public virtual void AddPrimaryZone( string zoneName, string[] secondaryServers )
 		{
+			Log.WriteInfo( String.Format( "Adding primary zone '{0}' with secondary servers: {1}", zoneName, String.Join(", ", secondaryServers) ) );
 			ps.Add_DnsServerPrimaryZone( zoneName, secondaryServers, AdMode);
 
             // remove ns records
@@ -129,6 +130,7 @@ namespace FuseCP.Providers.DNS
 		{
 			try
 			{
+				Log.WriteInfo( String.Format( "Adding record '{0}' of type '{1}' to zone '{2}'", record.RecordName, record.RecordType, zoneName ) );
 				string name = record.RecordName;
 				if( String.IsNullOrEmpty( name ) )
 					name = ".";
@@ -189,6 +191,7 @@ namespace FuseCP.Providers.DNS
 		{
 			try
 			{
+				Log.WriteInfo( String.Format( "Deleting record '{0}' with data '{1}' of type '{2}' from zone '{3}'", record.RecordName, record.RecordData, record.RecordType, zoneName ) );
 				string rrType;
 				if( !RecordTypes.rrTypeFromRecord.TryGetValue( record.RecordType, out rrType ) )
 					throw new Exception( "Unknown record type" );
