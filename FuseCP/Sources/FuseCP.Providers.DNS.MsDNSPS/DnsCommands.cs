@@ -586,83 +586,166 @@ namespace FuseCP.Providers.DNS
 
             string Name = record.RecordName;
             if (String.IsNullOrEmpty(Name)) Name = "@";
-
-            Log.WriteInfo("Get-DnsServerResourceRecord for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}'", zoneName, Name, type, record.RecordData);
-            var cmd = new Command("Get-DnsServerResourceRecord");
-            cmd.addParam("ZoneName", zoneName);
-            cmd.addParam("Name", Name);
-            cmd.addParam("RRType", type);
-            Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
-
-            // Some DNS servers do not return apex records when queried by Name='@'.
-            if (resourceRecords == null || resourceRecords.Count == 0)
+            string queryName = string.Equals(Name, "@", StringComparison.Ordinal) ? "'@'" : Name;
+            try
             {
-                cmd = new Command("Get-DnsServerResourceRecord");
+                Log.WriteInfo("Get-DnsServerResourceRecord for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}'", zoneName, Name, type, record.RecordData);
+                var cmd = new Command("Get-DnsServerResourceRecord");
                 cmd.addParam("ZoneName", zoneName);
+                cmd.addParam("Name", queryName);
                 cmd.addParam("RRType", type);
-                resourceRecords = ps.RunPipeline(cmd);
-            }
+                Log.WriteInfo("Powershell Remove_DnsServerResourceRecord: {0}", cmd.CommandText + " " + string.Join(" ", cmd.Parameters.Select(p => "-" + p.Name + " " + (p.Value ?? string.Empty))));
+                Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
 
-            object inputObject = null;
-            foreach (PSObject resourceRecord in resourceRecords)
-            {
-                DnsRecord dnsResourceRecord = resourceRecord.asDnsRecord(zoneName);
-                if (dnsResourceRecord == null)
-                    continue;
-
-                bool found = false;
-
-                switch (dnsResourceRecord.RecordType)
+                // Some DNS servers do not return apex records when queried by Name='@'.
+                if (resourceRecords == null || resourceRecords.Count == 0)
                 {
-                    case DnsRecordType.A:
-                    case DnsRecordType.AAAA:
-                    case DnsRecordType.CNAME:
-                    case DnsRecordType.NS:
-                    case DnsRecordType.TXT:
-                    case DnsRecordType.PTR:
-                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
-                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData);
-                        break;
-                    case DnsRecordType.SOA:
-                        found = true;
-                        break;
-                    case DnsRecordType.MX:
-                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
-                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
-                            && (dnsResourceRecord.MxPriority == record.MxPriority);
-                        break;
-                    case DnsRecordType.SRV:
-                        found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
-                            && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
-                            && (dnsResourceRecord.SrvPriority == record.SrvPriority)
-                            && (dnsResourceRecord.SrvWeight == record.SrvWeight)
-                            && (dnsResourceRecord.SrvPort == record.SrvPort);
-                        break;
+                    Log.WriteInfo("No records returned for Name='@'. Retrying Get-DnsServerResourceRecord without Name filter.");
+                    cmd = new Command("Get-DnsServerResourceRecord");
+                    cmd.addParam("ZoneName", zoneName);
+                    cmd.addParam("RRType", type);
+                    resourceRecords = ps.RunPipeline(cmd);
                 }
 
-                if (found)
+                Log.WriteInfo("Returned records are {0}", resourceRecords == null ? "null" : string.Join(", ", resourceRecords.Select(r => r.ToString())));
+
+                object inputObject = null;
+                foreach (PSObject resourceRecord in resourceRecords)
                 {
-                    inputObject = resourceRecord;
-                    break;
+                    DnsRecord dnsResourceRecord = resourceRecord.asDnsRecord(zoneName);
+                    if (dnsResourceRecord == null)
+                        continue;
+
+                    bool found = false;
+
+                    Log.WriteInfo("Comparing record for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}' with existing record: Zone='{4}', Name='{5}', Type='{6}', Data='{7}'",
+                        zoneName, Name, type, record.RecordData,
+                        zoneName, dnsResourceRecord.RecordName, dnsResourceRecord.RecordType, dnsResourceRecord.RecordData);
+
+                    switch (dnsResourceRecord.RecordType)
+                    {
+                        case DnsRecordType.A:
+                        case DnsRecordType.AAAA:
+                        case DnsRecordType.CNAME:
+                        case DnsRecordType.NS:
+                        case DnsRecordType.TXT:
+                        case DnsRecordType.PTR:
+                            found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                                && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData);
+                            break;
+                        case DnsRecordType.SOA:
+                            found = true;
+                            break;
+                        case DnsRecordType.MX:
+                            found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                                && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
+                                && (dnsResourceRecord.MxPriority == record.MxPriority);
+                            break;
+                        case DnsRecordType.SRV:
+                            found = RecordNamesMatch(zoneName, dnsResourceRecord.RecordName, record.RecordName)
+                                && RecordsMatchByData(dnsResourceRecord.RecordType, dnsResourceRecord.RecordData, record.RecordData)
+                                && (dnsResourceRecord.SrvPriority == record.SrvPriority)
+                                && (dnsResourceRecord.SrvWeight == record.SrvWeight)
+                                && (dnsResourceRecord.SrvPort == record.SrvPort);
+                            break;
+                    }
+
+                    if (found)
+                    {
+                        inputObject = resourceRecord;
+                        break;
+                    }
                 }
-            }
 
-            if (inputObject == null)
+                if (inputObject == null)
+                {
+                    throw new InvalidOperationException(
+                        string.Format("No matching DNS record found for deletion. Zone='{0}', Name='{1}', Type='{2}', Data='{3}'.",
+                            zoneName,
+                            Name,
+                            type,
+                            record.RecordData ?? string.Empty));
+                }
+
+                cmd = new Command("Remove-DnsServerResourceRecord");
+                cmd.addParam("ZoneName", zoneName);
+                cmd.addParam("InputObject", inputObject);
+
+                cmd.addParam("Force");
+                ps.RunPipeline(cmd);
+            }
+            catch (System.Exception ex) when (IsEnumerableAppendMismatch(ex))
             {
-                throw new InvalidOperationException(
-                    string.Format("No matching DNS record found for deletion. Zone='{0}', Name='{1}', Type='{2}', Data='{3}'.",
-                        zoneName,
-                        Name,
-                        type,
-                        record.RecordData ?? string.Empty));
+                Log.WriteInfo("Remove_DnsServerResourceRecord compatibility mismatch. Falling back to pwsh deletion for zone '{0}', name '{1}', type '{2}'.", zoneName, Name, type);
+                RemoveDnsServerResourceRecordViaPwsh(zoneName, type, record);
+            }
+        }
+
+        private static void RemoveDnsServerResourceRecordViaPwsh(string zoneName, string type, DnsRecord record)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string safeType = (type ?? string.Empty).Replace("'", "''");
+            string safeName = (record.RecordName ?? string.Empty).Replace("'", "''");
+            string safeData = (record.RecordData ?? string.Empty).Replace("'", "''");
+
+            string script = string.Format(
+                System.Globalization.CultureInfo.InvariantCulture,
+                "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "$zone='{0}'; $type='{1}'; $recordName='{2}'; $recordData='{3}'; $mx={4}; $srvPr={5}; $srvW={6}; $srvPort={7}; "
+                + "function Normalize-Name([string]$zoneName,[string]$value){{ if([string]::IsNullOrWhiteSpace($value) -or $value -eq '@'){{ return '' }}; $normalized=$value.Trim().TrimEnd('.'); if(-not [string]::IsNullOrWhiteSpace($zoneName) -and $normalized -ieq $zoneName.Trim().TrimEnd('.')){{ return '' }}; return $normalized }} "
+                + "function Normalize-Data([string]$recordType,[string]$value){{ if([string]::IsNullOrWhiteSpace($value)){{ return '' }}; $normalized=$value.Trim(); if($recordType -eq 'CNAME' -or $recordType -eq 'MX' -or $recordType -eq 'NS' -or $recordType -eq 'PTR' -or $recordType -eq 'SRV'){{ return $normalized.TrimEnd('.') }}; return $normalized }} "
+                + "$expectedName=Normalize-Name $zone $recordName; $expectedData=Normalize-Data $type $recordData; "
+                + "$records=Get-DnsServerResourceRecord -ZoneName $zone -RRType $type; $target=$null; "
+                + "foreach($rr in $records){{ $rrName=[string]$rr.HostName; $rrData=''; $rrMx=0; $rrSrvPr=0; $rrSrvW=0; $rrSrvPort=0; "
+                + "switch($type){{ 'A' {{ $rrData=[string]$rr.RecordData.IPv4Address.IPAddressToString }} 'AAAA' {{ $rrData=[string]$rr.RecordData.IPv6Address.IPAddressToString }} 'CNAME' {{ $rrData=[string]$rr.RecordData.HostNameAlias }} 'MX' {{ $rrData=[string]$rr.RecordData.MailExchange; $rrMx=[int]$rr.RecordData.Preference }} 'NS' {{ $rrData=[string]$rr.RecordData.NameServer }} 'TXT' {{ $rrData=[string]($rr.RecordData.DescriptiveText -join '') }} 'PTR' {{ $rrData=[string]$rr.RecordData.PtrDomainName }} 'SRV' {{ $rrData=[string]$rr.RecordData.DomainName; $rrSrvPr=[int]$rr.RecordData.Priority; $rrSrvW=[int]$rr.RecordData.Weight; $rrSrvPort=[int]$rr.RecordData.Port }} default {{ $rrData=[string]$rr.RecordData }} }}; "
+                + "$nameMatches=(Normalize-Name $zone $rrName) -ieq $expectedName; $dataMatches=(Normalize-Data $type $rrData) -ieq $expectedData; $found=$false; "
+                + "switch($type){{ 'MX' {{ $found=$nameMatches -and $dataMatches -and ($rrMx -eq $mx) }} 'SRV' {{ $found=$nameMatches -and $dataMatches -and ($rrSrvPr -eq $srvPr) -and ($rrSrvW -eq $srvW) -and ($rrSrvPort -eq $srvPort) }} 'SOA' {{ $found=$true }} default {{ $found=$nameMatches -and $dataMatches }} }}; "
+                + "if($found){{ $target=$rr; break }} }}; "
+                + "if($null -eq $target){{ throw ('No matching DNS record found for pwsh fallback deletion. Zone=''' + $zone + ''', Name=''' + $recordName + ''', Type=''' + $type + ''', Data=''' + $recordData + '''.') }}; "
+                + "Remove-DnsServerResourceRecord -ZoneName $zone -InputObject $target -Force",
+                safeZone,
+                safeType,
+                safeName,
+                safeData,
+                record.MxPriority,
+                record.SrvPriority,
+                record.SrvWeight,
+                record.SrvPort);
+
+            byte[] scriptBytes = Encoding.Unicode.GetBytes(script);
+            string encodedScript = Convert.ToBase64String(scriptBytes);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "pwsh",
+                Arguments = "-NoLogo -NoProfile -NonInteractive -EncodedCommand " + encodedScript,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using Process process = Process.Start(startInfo);
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start pwsh process for DNS record deletion fallback.");
             }
 
-            cmd = new Command("Remove-DnsServerResourceRecord");
-            cmd.addParam("ZoneName", zoneName);
-            cmd.addParam("InputObject", inputObject);
+            string stdout = process.StandardOutput.ReadToEnd();
+            string stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
 
-            cmd.addParam("Force");
-            ps.RunPipeline(cmd);
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    "pwsh DNS record deletion fallback failed with code {0}: {1}", process.ExitCode, stderr));
+            }
+
+            if (!string.IsNullOrWhiteSpace(stdout))
+            {
+                Log.WriteInfo("pwsh DNS record deletion fallback output: {0}", stdout.Trim());
+            }
         }
 
         private static bool RecordNamesMatch(string zoneName, string left, string right)

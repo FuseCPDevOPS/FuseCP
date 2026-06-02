@@ -198,9 +198,23 @@ namespace FuseCP.Providers.DNS
 				// Terminating errors raise exceptions instead.
 				if( null != pipeLine.Error && pipeLine.Error.Count > 0 )
 				{
+					List<string> errors = new List<string>();
 					foreach( object item in pipeLine.Error.ReadToEnd() )
 					{
-						Log.WriteWarning( string.Format( "Invoke error: {0}", item ) );
+						string message = item?.ToString() ?? string.Empty;
+						errors.Add( message );
+						Log.WriteWarning( string.Format( "Invoke error: {0}", message ) );
+					}
+
+					bool enumerableAppendMismatch = errors.Any( message =>
+						(message?.IndexOf( "EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase ) ?? -1) >= 0
+						|| ((message?.IndexOf( "Method not found", StringComparison.OrdinalIgnoreCase ) ?? -1) >= 0
+							&& (message?.IndexOf( "PS_DnsServerResourceRecord", StringComparison.OrdinalIgnoreCase ) ?? -1) >= 0));
+
+					if( enumerableAppendMismatch )
+					{
+						throw new InvalidOperationException( "PowerShell runtime compatibility mismatch detected while invoking DNS cmdlets. "
+							+ string.Join( " | ", errors ) );
 					}
 				}
 			}
