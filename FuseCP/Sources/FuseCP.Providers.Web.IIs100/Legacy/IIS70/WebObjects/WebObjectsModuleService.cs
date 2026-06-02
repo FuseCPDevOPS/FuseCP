@@ -75,14 +75,49 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
 				{
 					try
 					{
-						string cmd = FileUtils.EvaluateSystemVariables(@"%windir%\system32\inetsrv\appcmd.exe");
-						//
-						OS.Shell.Default.Exec($"{cmd} unlock config -section:{sectionName}");
+                        string appCmdPath = FileUtils.EvaluateSystemVariables(@"%windir%\system32\inetsrv\appcmd.exe");
+                        if (!File.Exists(appCmdPath))
+                        {
+                            messages.Add(String.Format("Could not unlock section '{0}'. Reason: appcmd.exe not found at '{1}'.", sectionName, appCmdPath));
+                            continue;
+                        }
+
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = appCmdPath,
+                            Arguments = String.Format("unlock config -section:{0}", sectionName),
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                        };
+
+                        using (var process = Process.Start(startInfo))
+                        {
+                            if (process == null)
+                            {
+                                messages.Add(String.Format("Could not unlock section '{0}'. Reason: failed to start appcmd.exe.", sectionName));
+                                continue;
+                            }
+
+                            string stdOut = process.StandardOutput.ReadToEnd();
+                            string stdErr = process.StandardError.ReadToEnd();
+                            process.WaitForExit();
+
+                            if (process.ExitCode != 0)
+                            {
+                                messages.Add(String.Format("Could not unlock section '{0}'. Reason: appcmd exit code {1}. Output: {2} {3}",
+                                    sectionName,
+                                    process.ExitCode,
+                                    (stdOut ?? String.Empty).Trim(),
+                                    (stdErr ?? String.Empty).Trim()).Trim());
+                            }
+                        }
 					}
 					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 					{
 						messages.Add(String.Format("Could not unlock section '{0}'. Reason: {1}",
-							sectionName, ex.StackTrace));
+                            sectionName, ex));
 					}
 				}
 			}

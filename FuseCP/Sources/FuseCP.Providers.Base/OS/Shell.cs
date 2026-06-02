@@ -669,7 +669,33 @@ namespace FuseCP.Providers.OS
 		public readonly static Shell Default = new StandardShell(); // OSInfo.Current.DefaultShell;
 		public static bool IsWindows => System.Environment.OSVersion.Platform == PlatformID.Win32NT;
 #else
-		public static Shell Default => OSInfo.Current.DefaultShell;
+		private static Shell fallbackDefault = null;
+		public static Shell Default
+		{
+			get
+			{
+				if (fallbackDefault != null)
+				{
+					return fallbackDefault;
+				}
+
+				try
+				{
+					fallbackDefault = OSInfo.Current?.DefaultShell;
+				}
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+					System.Diagnostics.Trace.TraceWarning("Could not resolve OS-specific default shell. Falling back to standard shell. Reason: {0}", ex.Message);
+				}
+
+				if (fallbackDefault == null)
+				{
+					fallbackDefault = Standard;
+				}
+
+				return fallbackDefault;
+			}
+		}
 		public static bool IsWindows => OSInfo.IsWindows;
 #endif
 	}

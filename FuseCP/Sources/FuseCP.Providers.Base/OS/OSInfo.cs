@@ -257,11 +257,29 @@ namespace FuseCP.Providers.OS
 
 		static Providers.OS.IOperatingSystem CreateOperatingSystem(params string[] typeNames)
 		{
-			return typeNames
-				.Select(typeName => Type.GetType(typeName))
-				.Where(type => type != null)
-				.Select(type => Activator.CreateInstance(type) as Providers.OS.IOperatingSystem)
-				.FirstOrDefault(instance => instance != null);
+			foreach (string typeName in typeNames)
+			{
+				Type type = Type.GetType(typeName);
+				if (type == null)
+				{
+					continue;
+				}
+
+				try
+				{
+					Providers.OS.IOperatingSystem instance = Activator.CreateInstance(type) as Providers.OS.IOperatingSystem;
+					if (instance != null)
+					{
+						return instance;
+					}
+				}
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+					System.Diagnostics.Trace.TraceWarning("Could not create OS provider '{0}'. Reason: {1}", type.AssemblyQualifiedName, ex.Message);
+				}
+			}
+
+			return null;
 		}
 
 		static Providers.OS.IOperatingSystem os = null;
