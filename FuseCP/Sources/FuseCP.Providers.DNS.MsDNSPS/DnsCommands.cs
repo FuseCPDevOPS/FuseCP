@@ -217,18 +217,15 @@ namespace FuseCP.Providers.DNS
         {
             bool runtimeMismatchDetected = false;
             Collection<PSObject> allRecords = ExecuteGetZoneRecords(ps, zoneName, null, ref runtimeMismatchDetected);
-            Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}'", allRecords.Count, zoneName);
 
             if (allRecords.Count == 0 && !runtimeMismatchDetected)
             {
                 allRecords = ExecuteGetZoneRecords(ps, zoneName, "localhost", ref runtimeMismatchDetected);
-                Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}' on localhost", allRecords.Count, zoneName);
             }
 
             if (allRecords.Count == 0 && !runtimeMismatchDetected)
             {
                 allRecords = ExecuteGetZoneRecords(ps, zoneName, Environment.MachineName, ref runtimeMismatchDetected);
-                Log.WriteInfo("GetZoneRecords: retrieved {0} records for zone '{1}' on machine '{2}'", allRecords.Count, zoneName, Environment.MachineName);
             }
 
             DnsRecord[] records;
@@ -264,7 +261,6 @@ namespace FuseCP.Providers.DNS
             {
                 result.Add(record);
             }
-            Log.WriteInfo("GetZoneRecords: returning {0} unique records for zone '{1}'", result.Count, zoneName);
             return result.ToArray();
         }
 
@@ -280,8 +276,6 @@ namespace FuseCP.Providers.DNS
                 {
                     cmd.addParam("ComputerName", computerName);
                 }
-
-                //Log.WriteInfo("Powershell command: {0}", cmd.CommandText + " " + string.Join(" ", cmd.Parameters.Select(p => "-" + p.Name + " " + (p.Value ?? string.Empty))));
 
                 return ps.RunPipeline(cmd) ?? new Collection<PSObject>();
             }
@@ -589,25 +583,20 @@ namespace FuseCP.Providers.DNS
             string queryName = string.Equals(Name, "@", StringComparison.Ordinal) ? "'@'" : Name;
             try
             {
-                Log.WriteInfo("Get-DnsServerResourceRecord for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}'", zoneName, Name, type, record.RecordData);
                 var cmd = new Command("Get-DnsServerResourceRecord");
                 cmd.addParam("ZoneName", zoneName);
                 cmd.addParam("Name", queryName);
                 cmd.addParam("RRType", type);
-                Log.WriteInfo("Powershell Remove_DnsServerResourceRecord: {0}", cmd.CommandText + " " + string.Join(" ", cmd.Parameters.Select(p => "-" + p.Name + " " + (p.Value ?? string.Empty))));
                 Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
 
                 // Some DNS servers do not return apex records when queried by Name='@'.
                 if (resourceRecords == null || resourceRecords.Count == 0)
                 {
-                    Log.WriteInfo("No records returned for Name='@'. Retrying Get-DnsServerResourceRecord without Name filter.");
                     cmd = new Command("Get-DnsServerResourceRecord");
                     cmd.addParam("ZoneName", zoneName);
                     cmd.addParam("RRType", type);
                     resourceRecords = ps.RunPipeline(cmd);
                 }
-
-                Log.WriteInfo("Returned records are {0}", resourceRecords == null ? "null" : string.Join(", ", resourceRecords.Select(r => r.ToString())));
 
                 object inputObject = null;
                 foreach (PSObject resourceRecord in resourceRecords)
@@ -617,10 +606,6 @@ namespace FuseCP.Providers.DNS
                         continue;
 
                     bool found = false;
-
-                    Log.WriteInfo("Comparing record for deletion: Zone='{0}', Name='{1}', Type='{2}', Data='{3}' with existing record: Zone='{4}', Name='{5}', Type='{6}', Data='{7}'",
-                        zoneName, Name, type, record.RecordData,
-                        zoneName, dnsResourceRecord.RecordName, dnsResourceRecord.RecordType, dnsResourceRecord.RecordData);
 
                     switch (dnsResourceRecord.RecordType)
                     {
