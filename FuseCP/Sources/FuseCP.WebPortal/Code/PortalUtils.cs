@@ -1048,9 +1048,57 @@ public class PortalUtils
 	}
 
 	#region Navigation Routines
+	private static bool IsSafeLocalRedirectUrl(string url)
+	{
+		if (string.IsNullOrWhiteSpace(url))
+		{
+			return false;
+		}
+
+		string normalizedUrl = url.Trim();
+		if (normalizedUrl.StartsWith("//", StringComparison.Ordinal)
+			|| normalizedUrl.StartsWith("\\\\", StringComparison.Ordinal)
+			|| normalizedUrl.StartsWith("/\\", StringComparison.Ordinal)
+			|| normalizedUrl.StartsWith("~/\\", StringComparison.Ordinal))
+		{
+			return false;
+		}
+
+		Uri absoluteUri;
+		if (Uri.TryCreate(normalizedUrl, UriKind.Absolute, out absoluteUri))
+		{
+			Uri requestUrl = HttpContext.Current?.Request?.Url;
+			return requestUrl != null
+				&& String.Equals(requestUrl.Host, absoluteUri.Host, StringComparison.OrdinalIgnoreCase)
+				&& String.Equals(requestUrl.Scheme, absoluteUri.Scheme, StringComparison.OrdinalIgnoreCase)
+				&& requestUrl.Port == absoluteUri.Port;
+		}
+
+		if (normalizedUrl.StartsWith("~/", StringComparison.Ordinal))
+		{
+			return true;
+		}
+
+		return normalizedUrl.StartsWith("/", StringComparison.Ordinal)
+			&& !normalizedUrl.StartsWith("//", StringComparison.Ordinal)
+			&& !normalizedUrl.StartsWith("/\\", StringComparison.Ordinal)
+			&& Uri.IsWellFormedUriString(normalizedUrl, UriKind.Relative);
+	}
+
 	public static string LoginRedirectUrl
 	{
-		get { return DefaultPage.GetPageUrl(PortalConfiguration.SiteSettings["DefaultPage"]); }
+		get
+		{
+			string returnUrl = HttpContext.Current?.Request?.QueryString["ReturnUrl"];
+			if (IsSafeLocalRedirectUrl(returnUrl))
+			{
+				return returnUrl.StartsWith("~/", StringComparison.Ordinal)
+					? VirtualPathUtility.ToAbsolute(returnUrl)
+					: returnUrl;
+			}
+
+			return DefaultPage.GetPageUrl(PortalConfiguration.SiteSettings["DefaultPage"]);
+		}
 	}
 
 	public static string GetUserHomePageUrl(int userId)
