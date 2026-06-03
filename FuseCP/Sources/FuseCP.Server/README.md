@@ -27,7 +27,7 @@ Debugging on Linux:
   Visual Stuido by clickng on the WSL debug button, to debug FuseCP.Server in WSL.
 
 
-The net10 version of the FuseCP.Server resides in the directory bin_dotnet. It can be started by excuting the command
+The net10 version of the FuseCP.Server resides in the directory bin. It can be started by excuting the command
 
 dotnet FuseCP.Server.dll
 

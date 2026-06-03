@@ -16,6 +16,10 @@
 #if NETCOREAPP
 
 using System.Reflection;
+using System;
+using System.IO;
+using System.Linq;
+using System.Runtime.Loader;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using FuseCP.Web.Services;
@@ -33,7 +37,7 @@ public class Program
 		};
 		Server.ConfigureBuilder = builder =>
 		{
-			var es = Assembly.Load("FuseCP.EnterpriseServer");
+			var es = TryLoadEnterpriseServerAssembly();
 			if (es != null)
 			{
 				var initializer = es.GetType("FuseCP.EnterpriseServer.Code.Initializer");
@@ -61,6 +65,43 @@ public class Program
 
 		app.Run();*/
 
+	}
+
+	private static Assembly TryLoadEnterpriseServerAssembly()
+	{
+		try
+		{
+			return Assembly.Load("FuseCP.EnterpriseServer");
+		}
+		catch
+		{
+			// Fall back to explicit probe paths for split Portal/EnterpriseServer layouts.
+		}
+
+		var probePaths = (Configuration.ProbingPaths ?? string.Empty)
+			.Split(new[] { ';', ',' }, System.StringSplitOptions.RemoveEmptyEntries)
+			.Select(p => p.Trim())
+			.Where(p => p.Length > 0);
+
+		foreach (var probePath in probePaths)
+		{
+			try
+			{
+				var basePath = Path.IsPathRooted(probePath)
+					? probePath
+					: Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, probePath));
+				var candidate = Path.Combine(basePath, "FuseCP.EnterpriseServer.dll");
+				if (!File.Exists(candidate)) continue;
+
+				return AssemblyLoadContext.Default.LoadFromAssemblyPath(candidate);
+			}
+			catch
+			{
+				// Try next configured path.
+			}
+		}
+
+		return null;
 	}
 }
 #endif

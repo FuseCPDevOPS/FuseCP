@@ -255,11 +255,102 @@ namespace FuseCP.Providers.OS
 		public static OS.IUnixOperatingSystem Unix => (IUnixOperatingSystem)Current;
 		public static IWindowsOperatingSystem Windows => (IWindowsOperatingSystem)Current;
 
+		private static Type ResolveOperatingSystemType(string typeName)
+		{
+			if (String.IsNullOrWhiteSpace(typeName))
+			{
+				return null;
+			}
+
+			Type type = Type.GetType(typeName, throwOnError: false);
+			if (type != null)
+			{
+				return type;
+			}
+
+			var typeParts = typeName.Split(',');
+			if (typeParts.Length < 2)
+			{
+				return null;
+			}
+
+			var className = typeParts[0].Trim();
+			var assemblySimpleName = typeParts[1].Trim();
+			var probeRoots = GetOperatingSystemProbeRoots();
+
+			foreach (var root in probeRoots.Where(Directory.Exists))
+			{
+				var assemblyPath = Path.Combine(root, assemblySimpleName + ".dll");
+				if (!File.Exists(assemblyPath))
+				{
+					assemblyPath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
+						.FirstOrDefault();
+				}
+
+				if (String.IsNullOrWhiteSpace(assemblyPath) || !File.Exists(assemblyPath))
+				{
+					continue;
+				}
+
+				try
+				{
+					var assembly = Assembly.LoadFrom(assemblyPath);
+					type = assembly.GetType(className, throwOnError: false, ignoreCase: false);
+					if (type != null)
+					{
+						return type;
+					}
+				}
+				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+				{
+					System.Diagnostics.Trace.TraceWarning("Could not load OS provider assembly '{0}'. Reason: {1}", assemblyPath, ex.Message);
+				}
+			}
+
+			return null;
+		}
+
+		private static string[] GetOperatingSystemProbeRoots()
+		{
+			string executingAssemblyDirectory = null;
+			try
+			{
+				executingAssemblyDirectory = Path.GetDirectoryName(typeof(OSInfo).Assembly.Location);
+			}
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+			}
+
+			var baseDirectories = new[]
+			{
+				executingAssemblyDirectory,
+				AppContext.BaseDirectory,
+				AppDomain.CurrentDomain.BaseDirectory,
+				Environment.CurrentDirectory
+			}
+			.Where(d => !String.IsNullOrWhiteSpace(d))
+			.Distinct(StringComparer.OrdinalIgnoreCase);
+
+			return baseDirectories
+				.SelectMany(baseDir => new[]
+				{
+					Path.Combine(baseDir, "bin", "OS"),
+					Path.Combine(baseDir, "bin", "Providers", "OS"),
+					Path.Combine(baseDir, "bin", "Providers"),
+					Path.Combine(baseDir, "OS"),
+					Path.Combine(baseDir, "Providers"),
+					Path.Combine(baseDir, "DNS"),
+					Path.Combine(baseDir, "ProvidersLegacy")
+				})
+				.Distinct(StringComparer.OrdinalIgnoreCase)
+				.ToArray();
+		}
+
 		static Providers.OS.IOperatingSystem CreateOperatingSystem(params string[] typeNames)
 		{
 			foreach (string typeName in typeNames)
 			{
-				Type type = Type.GetType(typeName);
+				Type type = ResolveOperatingSystemType(typeName);
 				if (type == null)
 				{
 					continue;
@@ -297,49 +388,27 @@ namespace FuseCP.Providers.OS
 							case WindowsVersion.WindowsServer2025:
 								os = CreateOperatingSystem(
 									"FuseCP.Providers.OS.Windows2025, FuseCP.Providers.OS.Windows2025",
-									"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022",
-									"FuseCP.Providers.OS.Windows2019, FuseCP.Providers.OS.Windows2019",
-									"FuseCP.Providers.OS.Windows2016, FuseCP.Providers.OS.Windows2016");
+									"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022");
 								break;
 							case WindowsVersion.WindowsServer2022:
 							case WindowsVersion.Windows11:
-								os = CreateOperatingSystem(
-									"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022",
-									"FuseCP.Providers.OS.Windows2019, FuseCP.Providers.OS.Windows2019",
-									"FuseCP.Providers.OS.Windows2016, FuseCP.Providers.OS.Windows2016");
-								break;
 							case WindowsVersion.Windows10:
 							case WindowsVersion.WindowsServer2019:
-								os = CreateOperatingSystem(
-									"FuseCP.Providers.OS.Windows2019, FuseCP.Providers.OS.Windows2019",
-									"FuseCP.Providers.OS.Windows2016, FuseCP.Providers.OS.Windows2016");
-								break;
 							case WindowsVersion.WindowsServer2016:
-								os = CreateOperatingSystem(
-									"FuseCP.Providers.OS.Windows2016, FuseCP.Providers.OS.Windows2016",
-									"FuseCP.Providers.OS.Windows2012, FuseCP.Providers.OS.Windows2012");
-								break;
 							case WindowsVersion.WindowsServer2012:
 							case WindowsVersion.Windows8:
 							case WindowsVersion.WindowsServer2012R2:
 							case WindowsVersion.Windows81:
-								os = CreateOperatingSystem(
-									"FuseCP.Providers.OS.Windows2012, FuseCP.Providers.OS.Windows2012",
-									"FuseCP.Providers.OS.Windows2008, FuseCP.Providers.OS.Windows2008");
-								break;
 							case WindowsVersion.WindowsServer2008:
 							case WindowsVersion.WindowsServer2008R2:
 							case WindowsVersion.Vista:
 							case WindowsVersion.Windows7:
-								os = CreateOperatingSystem(
-									"FuseCP.Providers.OS.Windows2008, FuseCP.Providers.OS.Windows2008",
-									"FuseCP.Providers.OS.Windows2003, FuseCP.Providers.OS.Windows2003");
-								break;
-
 							case WindowsVersion.WindowsServer2003:
 							case WindowsVersion.WindowsXP:
 							case WindowsVersion.WindowsNT4:
-								os = CreateOperatingSystem("FuseCP.Providers.OS.Windows2003, FuseCP.Providers.OS.Windows2003");
+								os = CreateOperatingSystem(
+									"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022",
+									"FuseCP.Providers.OS.Windows2025, FuseCP.Providers.OS.Windows2025");
 								break;
 						}
 
@@ -347,12 +416,7 @@ namespace FuseCP.Providers.OS
 						{
 							os = CreateOperatingSystem(
 								"FuseCP.Providers.OS.Windows2025, FuseCP.Providers.OS.Windows2025",
-								"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022",
-								"FuseCP.Providers.OS.Windows2019, FuseCP.Providers.OS.Windows2019",
-								"FuseCP.Providers.OS.Windows2016, FuseCP.Providers.OS.Windows2016",
-								"FuseCP.Providers.OS.Windows2012, FuseCP.Providers.OS.Windows2012",
-								"FuseCP.Providers.OS.Windows2008, FuseCP.Providers.OS.Windows2008",
-								"FuseCP.Providers.OS.Windows2003, FuseCP.Providers.OS.Windows2003");
+								"FuseCP.Providers.OS.Windows2022, FuseCP.Providers.OS.Windows2022");
 						}
 					}
 					else if (IsUnix)

@@ -318,7 +318,7 @@ namespace FuseCP.Web.Clients
 #endif
   
                 var dir = Path.GetFileName(path);
-                while (Regex.IsMatch(dir, @"^((net[0-9][.0-9]*)|Debug|Release|bin|bin_dotnet)$"))
+                while (Regex.IsMatch(dir, @"^((net[0-9][.0-9]*)|Debug|Release|bin|bin)$"))
     			{
 	    			path = Path.GetDirectoryName(path);
                     dir = Path.GetFileName(path);

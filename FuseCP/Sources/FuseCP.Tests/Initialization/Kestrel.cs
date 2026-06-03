@@ -50,7 +50,7 @@ namespace FuseCP.Tests
 			var apppath = Paths.Path(component);
 			var testdllpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			var testprojpath = Path.GetFullPath(Path.Join(testdllpath, "..", "..", ".."));
-			var workingDir = Path.Join(apppath, "bin_dotnet");
+			var workingDir = Path.Join(apppath, "bin");
 			var log = Path.GetFullPath(Path.Join(Paths.Test, "TestResults", $"Kestrel.log"));
 			if (!Directory.Exists(Path.GetDirectoryName(log))) Directory.CreateDirectory(Path.GetDirectoryName(log));
 			var dll = Path.Join(workingDir, $"{Paths.App}.{component}.dll");

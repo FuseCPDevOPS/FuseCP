@@ -27,11 +27,15 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using FuseCP.EnterpriseServer;
+using FuseCP.Providers.FTP;
 
 namespace FuseCP.Portal.ProviderControls
 {
     public partial class MSFTP70_Settings : FuseCPControlBase, IHostingServiceProviderSettings
     {
+        private const string HardenedLabel = "Hardened";
+        private const string NotHardenedLabel = "Not hardened";
+
         protected void Page_Load(object sender, EventArgs e)
         {
         }
@@ -40,11 +44,12 @@ namespace FuseCP.Portal.ProviderControls
         {
 			int selectedAddressid = this.FindAddressByText(settings["SharedIP"]);
 			ipAddress.AddressId = (selectedAddressid > 0) ? selectedAddressid : 0;
-            BindSiteId(settings);
+            BindSiteId(settings["SiteId"]);
             txtAdFtpRoot.Text = settings["AdFtpRoot"];
             txtFtpGroupName.Text = settings["FtpGroupName"];
 			chkBuildUncFilesPath.Checked = Utils.ParseBool(settings["BuildUncFilesPath"], false);
             ActiveDirectoryIntegration.BindSettings(settings);
+            UpdateHardeningUi();
         }
 
         public void SaveSettings(StringDictionary settings)
@@ -84,14 +89,15 @@ namespace FuseCP.Portal.ProviderControls
 			return 0;
 		}
 
-        private void BindSiteId(StringDictionary settings)
+        private void BindSiteId(string selectedSiteId)
         {
+            ddlSite.Items.Clear();
             var sites = ES.Services.FtpServers.GetFtpSites(PanelRequest.ServiceId);
 
             foreach (var item in sites.Select(site => new ListItem(site.Name + " (User Isolation Mode: " + site["UserIsolationMode"] + ")", site.Name)))
             {
 
-                if (item.Value == settings["SiteId"])
+                if (item.Value == selectedSiteId)
                 {
                     item.Selected = true;
                 }
@@ -105,6 +111,10 @@ namespace FuseCP.Portal.ProviderControls
             }
             else
             {
+                if (ddlSite.SelectedItem == null)
+                {
+                    ddlSite.SelectedIndex = 0;
+                }
                 ddlSite_SelectedIndexChanged(this, null);
             }
         }
@@ -114,6 +124,93 @@ namespace FuseCP.Portal.ProviderControls
             var isActiveDirectoryUserIsolated = ddlSite.SelectedItem.Text.Contains("ActiveDirectory");
             FtpRootRow.Visible = isActiveDirectoryUserIsolated;
             txtAdFtpRootReqValidator.Enabled= isActiveDirectoryUserIsolated;
+            UpdateHardeningUi();
+        }
+
+        protected void cmdHardenNow_Click(object sender, EventArgs e)
+        {
+            litHardeningMessage.Text = String.Empty;
+
+            try
+            {
+                string[] installResults = ES.Services.Servers.InstallService(PanelRequest.ServiceId);
+                if (installResults != null && installResults.Length > 0)
+                {
+                    litHardeningMessage.Text = "<br /><span class='text-danger'>Hardening failed: " + String.Join(" | ", installResults.Select(Server.HtmlEncode)) + "</span>";
+                }
+                else
+                {
+                    litHardeningMessage.Text = "<br /><span class='text-success'>Hardening applied successfully.</span>";
+                }
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                litHardeningMessage.Text = "<br /><span class='text-danger'>Hardening failed: " + Server.HtmlEncode(ex.Message) + "</span>";
+            }
+
+            string selectedSiteId = ddlSite.SelectedValue;
+            BindSiteId(selectedSiteId);
+            UpdateHardeningUi();
+        }
+
+        private void UpdateHardeningUi()
+        {
+            var selectedSite = GetSelectedSite();
+            if (selectedSite == null)
+            {
+                litHardeningStatus.Text = "<span class='text-warning'>Not installed</span>";
+                cmdHardenNow.Visible = true;
+                litHardeningDetails.Text = "<div class='text-muted'>No FTP site found yet for this service.</div>";
+                return;
+            }
+
+            bool isHardened = IsIisFtpSiteHardened(selectedSite);
+            litHardeningStatus.Text = isHardened
+                ? "<span class='text-success fw-semibold'>" + HardenedLabel + "</span>"
+                : "<span class='text-danger fw-semibold'>" + NotHardenedLabel + "</span>";
+            cmdHardenNow.Visible = !isHardened;
+            litHardeningDetails.Text = BuildHardeningDetailsHtml(selectedSite);
+        }
+
+        private FtpSite GetSelectedSite()
+        {
+            if (ddlSite.SelectedItem == null)
+            {
+                return null;
+            }
+
+            string selectedSiteId = ddlSite.SelectedValue;
+            var sites = ES.Services.FtpServers.GetFtpSites(PanelRequest.ServiceId);
+            return sites.FirstOrDefault(site => String.Equals(site.Name, selectedSiteId, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static bool IsIisFtpSiteHardened(FtpSite site)
+        {
+            if (site == null)
+            {
+                return false;
+            }
+
+            bool anonymousDisabled = !site.AllowAnonymous;
+            bool userIsolated = String.Equals(site["UserIsolationMode"], "StartInUsersDirectory", StringComparison.OrdinalIgnoreCase);
+            return anonymousDisabled && userIsolated;
+        }
+
+        private static string BuildHardeningDetailsHtml(FtpSite site)
+        {
+            bool anonymousDisabled = !site.AllowAnonymous;
+            bool userIsolated = String.Equals(site["UserIsolationMode"], "StartInUsersDirectory", StringComparison.OrdinalIgnoreCase);
+            string isolationMode = String.IsNullOrEmpty(site["UserIsolationMode"]) ? "Unknown" : site["UserIsolationMode"];
+
+            string anonymousLine = anonymousDisabled
+                ? "<li class='text-success'>Anonymous authentication: disabled</li>"
+                : "<li class='text-danger'>Anonymous authentication: enabled</li>";
+
+            string isolationLine = userIsolated
+                ? "<li class='text-success'>User isolation mode: StartInUsersDirectory</li>"
+                : "<li class='text-danger'>User isolation mode: " + HttpUtility.HtmlEncode(isolationMode) + "</li>";
+
+            return "<ul class='mb-0 ps-3'>" + anonymousLine + isolationLine + "</ul>";
         }
     }
 }

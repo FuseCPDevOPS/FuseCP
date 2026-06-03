@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <PublishUrl>publish\</PublishUrl>
         <WarningsAsErrors>618</WarningsAsErrors>
-        <OutputPath>..\FuseCP.Server\bin\netstandard\</OutputPath>
+        <OutputPath>..\FuseCP.Server\bin\Providers\netstandard\</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -37,4 +37,5 @@
         <PackageReference Include="System.Data.DataSetExtensions" />
     </ItemGroup>
 </Project>
+
 

@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>wcfcert</AssemblyName>
     <TargetFramework>net10.0</TargetFramework>
-    <OutputPath>..\FuseCP.Server\bin\LetsEncrypt\</OutputPath>
+    <OutputPath>..\FuseCP.Server\bin\Providers\LetsEncrypt\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Nullable>disable</Nullable>
@@ -38,3 +38,4 @@
     </None>
   </ItemGroup>
 </Project>
+

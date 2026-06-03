@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-		<OutputPath>..\FuseCP.Server\bin\HyperV2019\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\HyperV2019\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -37,4 +37,5 @@
 		<ProjectReference Include="..\FuseCP.Providers.Virtualization.HyperV-2016\FuseCP.Providers.Virtualization.HyperV2016.csproj" />
 	</ItemGroup>
 </Project>
+
 

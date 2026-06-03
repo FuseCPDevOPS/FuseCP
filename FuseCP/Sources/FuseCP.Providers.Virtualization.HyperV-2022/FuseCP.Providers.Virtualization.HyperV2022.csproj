@@ -3,7 +3,7 @@
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<UseRidGraph>true</UseRidGraph>
-		<OutputPath>..\FuseCP.Server\bin\HyperV2022\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\HyperV2022\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -39,4 +39,5 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+
 

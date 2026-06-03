@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
-        <OutputPath>bin_dotnet</OutputPath>
+        <OutputPath>bin</OutputPath>
         <StartupObject>FuseCP.Server.Program</StartupObject>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -25,7 +25,7 @@
         <None Include="WebServices\**\*.cs" Exclude="WebServices\FuseCP.Build\obj\**\*.cs" />
         <None Remove="WebServices\FuseCP.Build\obj\**" />
         <None Remove="**\*.asmx" />
-        <Content Remove="bin_dotnet\**\*.*" />
+        <Content Remove="bin\**\*.*" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
@@ -82,6 +82,16 @@
     <Target Name="CopyServiceProcessRuntime" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net10.0'">
         <Message Importance="high" Text="Copying $(PkgSystem_ServiceProcess_ServiceController)\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll" />
         <Copy SourceFiles="$(PkgSystem_ServiceProcess_ServiceController)\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll" DestinationFolder="$(OutputPath)" />
+    </Target>
+
+    <Target Name="BuildAndCopyModernOsProviders" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net10.0' and '$(OS)' == 'Windows_NT'">
+        <MSBuild Projects="..\FuseCP.Providers.OS.Windows2016\FuseCP.Providers.OS.Windows2016.csproj;..\FuseCP.Providers.OS.Windows2022\FuseCP.Providers.OS.Windows2022.csproj;..\FuseCP.Providers.OS.Windows2025\FuseCP.Providers.OS.Windows2025.csproj"
+                 Targets="Build"
+                 Properties="Configuration=$(Configuration)" />
+    </Target>
+
+    <Target Name="PruneEmptyRuntimeOutputDirectories" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net10.0' and '$(OS)' == 'Windows_NT'">
+        <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;$root = [IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\\$(OutputPath)'); if (Test-Path $root) { Get-ChildItem -Path $root -Directory -Recurse | Sort-Object FullName -Descending | ForEach-Object { if (-not (Get-ChildItem -Path $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 1)) { Remove-Item -Path $_.FullName -Recurse -Force -ErrorAction SilentlyContinue } } }&quot;" />
     </Target>
 
 </Project>

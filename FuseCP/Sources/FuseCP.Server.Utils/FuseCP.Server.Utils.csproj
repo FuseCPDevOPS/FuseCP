@@ -2,8 +2,8 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <PublishUrl>publish\</PublishUrl>
-        <OutputPath>..\FuseCP.Server\bin\netstandard</OutputPath>
-        <ServerPath>..\FuseCP.Server\bin\netstandard</ServerPath>
+        <OutputPath>..\FuseCP.Server\bin\Providers</OutputPath>
+        <ServerPath>..\FuseCP.Server\bin\Providers</ServerPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -44,5 +44,6 @@
 		<Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(ServerPath)\runtimes\%(RecursiveDir)" SkipUnchangedFiles="true" />
 	</Target>
 </Project>
+
 
 

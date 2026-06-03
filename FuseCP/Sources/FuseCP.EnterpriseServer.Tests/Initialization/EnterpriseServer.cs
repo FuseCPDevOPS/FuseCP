@@ -45,8 +45,8 @@ public class EnterpriseServer : IDisposable
 #if NETFRAMEWORK
 		Web.Clients.AssemblyLoader.Init(@"..\FuseCP.EnterpriseServer\bin;..\FuseCP.EnterpriseServer\bin\Code;..\FuseCP.EnterpriseServer\bin\netstandard", "none", true);
 #else
-		//Web.Clients.AssemblyLoader.Init(@"..\FuseCP.EnterpriseServer\bin_dotnet;..\FuseCP.EnterpriseServer\bin\netstandard", "none", true);
-		Web.Services.Configuration.ProbingPaths = @"..\..\..\..\FuseCP.EnterpriseServer\bin_dotnet;..\..\..\..\FuseCP.EnterpriseServer\bin\netstandard";
+		//Web.Clients.AssemblyLoader.Init(@"..\FuseCP.EnterpriseServer\bin;..\FuseCP.EnterpriseServer\bin\netstandard", "none", true);
+		Web.Services.Configuration.ProbingPaths = @"..\..\..\..\FuseCP.EnterpriseServer\bin;..\..\..\..\FuseCP.EnterpriseServer\bin\netstandard";
 		Web.Services.AssemblyLoaderNetCore.Init();
 
 		Assembly eserver = null;

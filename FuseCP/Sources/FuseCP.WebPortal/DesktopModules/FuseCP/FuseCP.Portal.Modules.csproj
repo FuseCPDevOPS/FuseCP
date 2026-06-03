@@ -25,7 +25,7 @@
         <DefineConstants>TRACE;Modules</DefineConstants>
     </PropertyGroup>
     <PropertyGroup>
-        <OutputPath>..\..\bin_dotnet</OutputPath>
+        <OutputPath>..\..\bin</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

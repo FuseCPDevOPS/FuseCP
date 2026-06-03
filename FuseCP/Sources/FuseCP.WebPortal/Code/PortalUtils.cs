@@ -29,7 +29,6 @@ using System.Web.UI;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
-using System.Web.Hosting;
 using System.Net;
 using MimeKit;
 using MailKit;
@@ -924,7 +923,7 @@ public class PortalUtils
 
 	public static void LoadStatesDropDownList(DropDownList list, string countryCode)
 	{
-		string xmlFilePath = HostingEnvironment.MapPath(CONFIG_FOLDER + "CountryStates.config");
+		string xmlFilePath = PortalPathResolver.MapPath(CONFIG_FOLDER + "CountryStates.config");
 		list.Items.Clear();
 		if (File.Exists(xmlFilePath))
 		{
@@ -955,7 +954,7 @@ public class PortalUtils
 
 	public static void LoadCountriesDropDownList(DropDownList list, string countryToSelect)
 	{
-		string countriesPath = HostingEnvironment.MapPath(CONFIG_FOLDER + "Countries.config");
+		string countriesPath = PortalPathResolver.MapPath(CONFIG_FOLDER + "Countries.config");
 
 		if (File.Exists(countriesPath))
 		{
@@ -994,7 +993,7 @@ public class PortalUtils
 
 	public static void LoadCultureDropDownList(DropDownList list)
 	{
-		string localesPath = HostingEnvironment.MapPath(CONFIG_FOLDER + "SupportedLocales.config");
+		string localesPath = PortalPathResolver.MapPath(CONFIG_FOLDER + "SupportedLocales.config");
 
 		if (File.Exists(localesPath))
 		{
@@ -1276,7 +1275,7 @@ public class PortalUtils
 	{
 		string generalControlKey = string.Empty;
 
-		string appData = HostingEnvironment.MapPath(CONFIG_FOLDER);
+		string appData = PortalPathResolver.MapPath(CONFIG_FOLDER);
 		string xmlFilePath = CombineUnderRoot(appData, EXCHANGE_SERVER_HIERARCHY_FILE);
 		if (File.Exists(xmlFilePath))
 		{

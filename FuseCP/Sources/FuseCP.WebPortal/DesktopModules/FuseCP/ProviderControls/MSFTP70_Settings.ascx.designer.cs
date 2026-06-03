@@ -86,6 +86,60 @@ namespace FuseCP.Portal.ProviderControls {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator txtAdFtpRootReqValidator;
         
         /// <summary>
+        /// IisFtpHardeningRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow IisFtpHardeningRow;
+        
+        /// <summary>
+        /// lblHardeningStatusTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHardeningStatusTitle;
+        
+        /// <summary>
+        /// litHardeningStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litHardeningStatus;
+        
+        /// <summary>
+        /// cmdHardenNow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cmdHardenNow;
+        
+        /// <summary>
+        /// litHardeningMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litHardeningMessage;
+        
+        /// <summary>
+        /// litHardeningDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litHardeningDetails;
+        
+        /// <summary>
         /// lblGroupName control.
         /// </summary>
         /// <remarks>

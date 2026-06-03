@@ -41,6 +41,15 @@ namespace FuseCP.Providers
                 {
                     // try to create provider class
                     Type providerType = ResolveProviderType(ProviderSettings.ProviderType);
+                    if (providerType == null)
+                    {
+                        throw new TypeLoadException(
+                            String.Format(
+                                "Could not resolve provider type '{0}' for provider '{1}'. Ensure the provider assembly is deployed under a supported probe folder.",
+                                ProviderSettings.ProviderType,
+                                ProviderSettings.ProviderName));
+                    }
+
                     try
                     {
                         provider = CreateProviderInstance(providerType, ProviderSettings.ProviderType);
@@ -81,7 +90,7 @@ namespace FuseCP.Providers
             }
         }
 
-        private static Type ResolveProviderType(string providerTypeName)
+        public static Type ResolveProviderType(string providerTypeName)
         {
             if (string.IsNullOrWhiteSpace(providerTypeName))
                 return null;
@@ -103,6 +112,12 @@ namespace FuseCP.Providers
             {
                 var assemblyPath = Path.Combine(root, assemblySimpleName + ".dll");
                 if (!File.Exists(assemblyPath))
+                {
+                    assemblyPath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
+                        .FirstOrDefault();
+                }
+
+                if (string.IsNullOrWhiteSpace(assemblyPath) || !File.Exists(assemblyPath))
                     continue;
 
                 try
@@ -123,18 +138,44 @@ namespace FuseCP.Providers
 
         private static string[] GetProviderProbeRoots()
         {
-            var baseDir = AppContext.BaseDirectory;
+            return GetProbeBaseDirectories()
+                .SelectMany(baseDir => new[]
+                {
+                    Path.Combine(baseDir, "bin", "Providers"),
+                    Path.Combine(baseDir, "bin", "OS"),
+                    Path.Combine(baseDir, "bin", "DNS"),
+                    Path.Combine(baseDir, "bin", "Providers", "OS"),
+                    Path.Combine(baseDir, "Providers"),
+                    Path.Combine(baseDir, "OS"),
+                    Path.Combine(baseDir, "DNS"),
+                    Path.Combine(baseDir, "ProvidersLegacy"),
+                    Path.Combine(baseDir, "netstandard")
+                })
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+
+        private static string[] GetProbeBaseDirectories()
+        {
+            string executingAssemblyDirectory = null;
+            try
+            {
+                executingAssemblyDirectory = Path.GetDirectoryName(typeof(HostingServiceProviderWebService).Assembly.Location);
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+            }
+
             return new[]
             {
-                Path.Combine(baseDir, "Providers"),
-                Path.Combine(baseDir, "DNS"),
-                Path.Combine(baseDir, "ProvidersLegacy"),
-                Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "Providers")),
-                Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "DNS")),
-                Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "ProvidersLegacy")),
-                Path.Combine(baseDir, "netstandard"),
-                Path.GetFullPath(Path.Combine(baseDir, "..", "bin", "netstandard"))
-            };
+                executingAssemblyDirectory,
+                AppContext.BaseDirectory,
+                AppDomain.CurrentDomain.BaseDirectory,
+                Environment.CurrentDirectory
+            }
+            .Where(d => !string.IsNullOrWhiteSpace(d))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
         }
 
         private static bool ShouldFallbackToLegacyDnsProvider(string providerTypeName, PlatformNotSupportedException ex)
@@ -184,17 +225,39 @@ namespace FuseCP.Providers
                 return null;
 
             string candidatePath = Path.Combine(directory, assemblySimpleName + ".dll");
-            if (!File.Exists(candidatePath))
-                return null;
+            if (File.Exists(candidatePath))
+            {
+                try
+                {
+                    return Assembly.LoadFrom(candidatePath);
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
+            }
 
-            try
+            foreach (var root in GetProviderProbeRoots().Where(Directory.Exists))
             {
-                return Assembly.LoadFrom(candidatePath);
+                candidatePath = Path.Combine(root, assemblySimpleName + ".dll");
+                if (!File.Exists(candidatePath))
+                {
+                    candidatePath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
+                        .FirstOrDefault();
+                }
+
+                if (string.IsNullOrWhiteSpace(candidatePath) || !File.Exists(candidatePath))
+                    continue;
+
+                try
+                {
+                    return Assembly.LoadFrom(candidatePath);
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                }
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                return null;
-            }
+
+            return null;
         }
 
         public RemoteServerSettings ServerSettings

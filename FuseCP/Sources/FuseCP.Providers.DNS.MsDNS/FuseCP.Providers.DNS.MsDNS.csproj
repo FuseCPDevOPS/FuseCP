@@ -6,7 +6,7 @@
 		<AssemblyTitle>FuseCP.Providers.DNS.MsDNS</AssemblyTitle>
 		<Product>FuseCP.Providers.DNS.MsDNS</Product>
 		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-		<OutputPath>..\FuseCP.Server\bin\DNS\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\DNS\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<LangVersion>11</LangVersion>
@@ -33,4 +33,5 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+
 

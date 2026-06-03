@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<RootNamespace>FuseCP.Providers.Database</RootNamespace>
 		<TargetFramework>net10.0</TargetFramework>
-		<OutputPath>..\FuseCP.Server\bin\netstandard\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\netstandard\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -34,8 +34,9 @@
         </ItemGroup>
 
         <Copy SourceFiles="@(CopyToOutputFiles)" DestinationFolder="$(OutputPath)\%(RecursiveDir)" />
-        <Copy SourceFiles="@(CopyToNetCore)" DestinationFolder="$(OutputPath)\..\..\bin_dotnet\%(RecursiveDir)" />
+        <Copy SourceFiles="@(CopyToNetCore)" DestinationFolder="$(OutputPath)\..\..\bin\%(RecursiveDir)" />
         <Copy SourceFiles="@(CopyToNetFX)" DestinationFolder="$(OutputPath)\..\%(RecursiveDir)" />
     </Target>
 
 </Project>
+

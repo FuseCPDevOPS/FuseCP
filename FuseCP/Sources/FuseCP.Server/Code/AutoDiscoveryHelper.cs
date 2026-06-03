@@ -54,7 +54,14 @@ namespace FuseCP.Server.Code
                         return res;
                     }
 
-                    Type providerType = Type.GetType(name);
+                    Type providerType = HostingServiceProviderWebService.ResolveProviderType(name);
+                    if (providerType == null)
+                    {
+                        res.IsSuccess = false;
+                        res.ErrorCodes.Add(ErrorCodes.CANNOT_CREATE_PROVIDER_INSTANCE);
+                        Log.WriteWarning("Could not resolve provider type '{0}' during auto-discovery.", name);
+                        return res;
+                    }
                     IHostingServiceProvider provider = (IHostingServiceProvider)Activator.CreateInstance(providerType);
                     res.Value = provider.IsInstalled();
                 }

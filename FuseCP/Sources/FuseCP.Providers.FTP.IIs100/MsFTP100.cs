@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+// Copyright (C) 2026 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,20 +20,15 @@ using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
+using System.Diagnostics;
 using System.Text;
-using System.Net;
-using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Runtime.Versioning;
 using FuseCP.Providers.FTP.IIs100;
-using FuseCP.Providers.FTP.IIs100.Authorization;
 using FuseCP.Providers.FTP.IIs100.Config;
 using FuseCP.Providers.Utils;
 using FuseCP.Providers.Utils.LogParser;
 using FuseCP.Server.Utils;
-using Microsoft.Web.Management.Server;
-using IisFtpSite = FuseCP.Providers.FTP.IIs100.Config.FtpSite;
-using IisSite = Microsoft.Web.Administration.Site;
 
 namespace FuseCP.Providers.FTP
 {
@@ -41,14 +36,15 @@ namespace FuseCP.Providers.FTP
     public class MsFTP100 : HostingServiceProviderBase, IFtpServer
     {
 
-        private readonly SitesModuleService ftpSitesService;
         private static readonly string DefaultFtpSiteFolder = @"%SystemDrive%\inetpub\ftproot";
         private static readonly string DefaultFtpSiteLogsFolder = @"%SystemDrive%\inetpub\logs\LogFiles";
+        private const int PowerShellTimeoutMs = 120000;
+        private const int PowerShellDrainTimeoutMs = 5000;
         public const string DEFAULT_LOG_EXT_FILE_FIELDS = @"Date,Time,ClientIP,UserName,SiteName,ComputerName,
 			ServerIP,Method,UriStem,FtpStatus,Win32Status,BytesSent,BytesRecv,TimeTaken,ServerPort,Host,FtpSubStatus,
 			Session,FullPath,Info,ClientPort";
 
-        private static readonly string[] FTP100_SERVICE_CMD_LIST = new string[] {
+        private static readonly HashSet<string> Ftp100ServiceCommands = new(StringComparer.Ordinal) {
             "DataChannelClosed",
             "DataChannelOpened",
             "ControlChannelOpened"
@@ -61,10 +57,7 @@ namespace FuseCP.Providers.FTP
         /// </summary>
         public MsFTP100()
         {
-            if (IsMsFtpServiceInstalled())
-            {
-                this.ftpSitesService = new SitesModuleService();
-            }
+            // Intentionally lazy to avoid loading IIS management assemblies unless needed.
         }
 
         #region Properties
@@ -127,11 +120,11 @@ namespace FuseCP.Providers.FTP
             {
                 case ServerState.Continuing:
                 case ServerState.Started:
-                    this.ftpSitesService.StartSite(siteId);
+                    StartFtpSite(siteId);
                     break;
                 case ServerState.Stopped:
                 case ServerState.Paused:
-                    this.ftpSitesService.StopSite(siteId);
+                    StopFtpSite(siteId);
                     break;
             }
         }
@@ -149,7 +142,7 @@ namespace FuseCP.Providers.FTP
                 throw new ArgumentException("Site name is null or empty.");
             }
 
-            return this.ftpSitesService.GetSiteState(siteId);
+            return GetFtpSiteState(siteId);
         }
 
         /// <summary>
@@ -165,7 +158,7 @@ namespace FuseCP.Providers.FTP
                 throw new ArgumentException("Site name is null or empty.");
             }
             // In case site id doesn't contain default ftp site name we consider it as not existent.
-            return this.ftpSitesService.SiteExists(siteId);
+            return SiteExistsByPowerShell(siteId);
         }
 
         /// <summary>
@@ -176,7 +169,7 @@ namespace FuseCP.Providers.FTP
         {
             List<FtpSite> ftpSites = new List<FtpSite>();
 
-            foreach (string ftpSiteName in this.ftpSitesService.GetSitesNames())
+            foreach (string ftpSiteName in GetFtpSitesNames())
             {
                 ftpSites.Add(this.GetSite(ftpSiteName));
             }
@@ -227,41 +220,11 @@ namespace FuseCP.Providers.FTP
             }
 
             this.CheckFtpServerBindings(site);
-
-            PropertyBag siteBag = this.ftpSitesService.GetSiteDefaults();
-            // Set site name
-            siteBag[FtpSiteGlobals.Site_Name] = site.Name;
-            // Set site physical path
-            siteBag[FtpSiteGlobals.AppVirtualDirectory_PhysicalPath] = site.ContentPath;
-            PropertyBag ftpBinding = new PropertyBag();
-            // Set site binding protocol
-            ftpBinding[FtpSiteGlobals.BindingProtocol] = "ftp";
-            // fill binding summary info
-            ftpBinding[FtpSiteGlobals.BindingInformation] = site.Bindings[0].ToString();
-
-            // Set site binding
-            siteBag[FtpSiteGlobals.Site_SingleBinding] = ftpBinding;
-
-            // Auto-start
-            siteBag[FtpSiteGlobals.FtpSite_AutoStart] = true;
-
-            // Set anonumous authentication
-            siteBag[FtpSiteGlobals.Authentication_AnonymousEnabled] = true;
-            siteBag[FtpSiteGlobals.Authentication_BasicEnabled] = true;
-
-            this.ftpSitesService.AddSite(siteBag);
-
-            IIs100.Authorization.AuthorizationRuleCollection rules = this.ftpSitesService.GetAuthorizationRuleCollection(site.Name);
-            rules.Add(AuthorizationRuleAccessType.Allow, "*", String.Empty, PermissionsFlags.Read);
-
-            IisFtpSite iisFtpSite = this.ftpSitesService.GetIisFtpSite(site.Name);
-            iisFtpSite.UserIsolation.Mode = IIs100.Config.Mode.StartInUsersDirectory;
-            iisFtpSite.Security.Ssl.ControlChannelPolicy = ControlChannelPolicy.SslAllow;
-            iisFtpSite.Security.Ssl.DataChannelPolicy = DataChannelPolicy.SslAllow;
-
-            this.FillIisFromFtpSite(site);
-
-            this.ftpSitesService.CommitChanges();
+            string error;
+            if (!EnsureFtpSiteConfiguredWithPowerShell(site, out error))
+            {
+                throw new InvalidOperationException(error);
+            }
 
             // Do not start the site because it is started during creation.
             try
@@ -284,9 +247,11 @@ namespace FuseCP.Providers.FTP
             // Check server bindings.
             CheckFtpServerBindings(site);
 
-            this.FillIisFromFtpSite(site);
-
-            this.ftpSitesService.CommitChanges();
+            string error;
+            if (!EnsureFtpSiteConfiguredWithPowerShell(site, out error))
+            {
+                throw new InvalidOperationException(error);
+            }
         }
 
         /// <summary>
@@ -295,7 +260,7 @@ namespace FuseCP.Providers.FTP
         /// <param name="siteId">Site's name to be deleted.</param>
         public void DeleteSite(string siteId)
         {
-            this.ftpSitesService.DeleteSite(siteId);
+            DeleteFtpSite(siteId);
         }
 
         /// <summary>
@@ -317,7 +282,7 @@ namespace FuseCP.Providers.FTP
 
                 default:
                     // check acocunt on FTP server
-                    bool ftpExists = this.ftpSitesService.AppVirtualDirectoryExists(this.SiteId, accountName);
+                    bool ftpExists = AppVirtualDirectoryExistsByPowerShell(this.SiteId, accountName);
 
                     // check account in the system
                     bool systemExists = SecurityUtils.UserExists(accountName, ServerSettings, UsersOU);
@@ -338,7 +303,7 @@ namespace FuseCP.Providers.FTP
                 default:
                     List<FtpAccount> accounts = new List<FtpAccount>();
 
-                    foreach (string directory in this.ftpSitesService.GetAppVirtualDirectoriesNames(this.SiteId)
+                    foreach (string directory in this.GetAppVirtualDirectoriesNamesByPowerShell(this.SiteId)
                         .Where(directory => !String.Equals(directory, "/")))
                     {
                         //
@@ -444,10 +409,8 @@ namespace FuseCP.Providers.FTP
                     this.EnsureUserHomeFolderExists(account.Folder, account.Name, account.CanRead, account.CanWrite);
 
                     // Future account will be given virtual directory under default ftp web site.
-                    this.ftpSitesService.CreateFtpAccount(this.SiteId, account);
-                    //
-                    this.ftpSitesService.ConfigureConnectAs(account.Folder, this.SiteId, account.VirtualPath,
-                        this.GetQualifiedAccountName(account.Name), account.Password, true);
+                    EnsureFtpAccountVirtualDirectory(this.SiteId, account.VirtualPath, account.Folder);
+                    SetFtpAuthorization(this.SiteId, account.Name, account.CanRead, account.CanWrite);
                     break;
             }
         }
@@ -543,12 +506,10 @@ namespace FuseCP.Providers.FTP
 
                 default:
                     string appVirtualDirectory = String.Format("/{0}", accountName);
-                    string currentPhysicalPath = this.ftpSitesService.GetSitePhysicalPath(this.SiteId, appVirtualDirectory);
+                    string currentPhysicalPath = GetSitePhysicalPathByPowerShell(this.SiteId, appVirtualDirectory);
 
                     // Delete virtual directory
-                    this.ftpSitesService.DeleteFtpAccount(this.SiteId, appVirtualDirectory);
-
-                    this.ftpSitesService.CommitChanges();
+                    DeleteFtpAccountVirtualDirectory(this.SiteId, appVirtualDirectory);
 
                     // Remove permissions
                     RemoveFtpFolderPermissions(currentPhysicalPath, accountName);
@@ -569,7 +530,7 @@ namespace FuseCP.Providers.FTP
 		private void FillIisFromFtpAccount(FtpAccount ftpAccount)
         {
             // Remove permissions if required.
-            string currentPhysicalPath = this.ftpSitesService.GetSitePhysicalPath(this.SiteId, String.Format("/{0}", ftpAccount.Name));
+            string currentPhysicalPath = GetSitePhysicalPathByPowerShell(this.SiteId, String.Format("/{0}", ftpAccount.Name));
             if (String.Compare(currentPhysicalPath, ftpAccount.Folder, true) != 0)
             {
                 RemoveFtpFolderPermissions(currentPhysicalPath, ftpAccount.Name);
@@ -578,34 +539,8 @@ namespace FuseCP.Providers.FTP
             // Set new permissions
             EnsureUserHomeFolderExists(ftpAccount.Folder, ftpAccount.Name, ftpAccount.CanRead, ftpAccount.CanWrite);
             // Update physical path.
-            this.ftpSitesService.SetSitePhysicalPath(this.SiteId, ftpAccount.VirtualPath, ftpAccount.Folder);
-
-            // Configure connect as feature.
-            this.ftpSitesService.ConfigureConnectAs(ftpAccount.Folder, this.SiteId, ftpAccount.VirtualPath,
-                this.GetQualifiedAccountName(ftpAccount.Name), ftpAccount.Password, false);
-
-            // Update authorization rules.
-            IIs100.Authorization.AuthorizationRuleCollection authRulesCollection = this.ftpSitesService.GetAuthorizationRuleCollection(String.Format("{0}/{1}", this.SiteId, ftpAccount.Name));
-            IIs100.Authorization.AuthorizationRule realtedRule = authRulesCollection
-                .FirstOrDefault(rule => rule.Users.Split(',').Contains(ftpAccount.Name));
-            if (realtedRule != null)
-            {
-                PermissionsFlags permissions = 0;
-                if (ftpAccount.CanRead)
-                {
-                    permissions |= PermissionsFlags.Read;
-                }
-                if (ftpAccount.CanWrite)
-                {
-                    permissions |= PermissionsFlags.Write;
-                }
-                if (ftpAccount.CanRead || ftpAccount.CanWrite)
-                {
-                    realtedRule.Permissions = permissions;
-                }
-            }
-
-            this.ftpSitesService.CommitChanges();
+            EnsureFtpAccountVirtualDirectory(this.SiteId, ftpAccount.VirtualPath, ftpAccount.Folder);
+            SetFtpAuthorization(this.SiteId, ftpAccount.Name, ftpAccount.CanRead, ftpAccount.CanWrite);
         }
 
         /// <summary>
@@ -615,20 +550,15 @@ namespace FuseCP.Providers.FTP
         private void FillFtpAccountFromIis(FtpAccount ftpAccount)
         {
             //
-            ftpAccount.Folder = this.ftpSitesService.GetSitePhysicalPath(this.SiteId, String.Format("/{0}", ftpAccount.Name));
+            ftpAccount.Folder = GetSitePhysicalPathByPowerShell(this.SiteId, String.Format("/{0}", ftpAccount.Name));
 
-            IIs100.Authorization.AuthorizationRuleCollection authRulesCollection = this.ftpSitesService.GetAuthorizationRuleCollection(String.Format("{0}/{1}", this.SiteId, ftpAccount.Name));
             ftpAccount.CanRead = false;
             ftpAccount.CanWrite = false;
-            var matchingRule = authRulesCollection
-                .FirstOrDefault(rule =>
-                    rule.AccessType == AuthorizationRuleAccessType.Allow
-                    && rule.Users.Split(',').Any(userName => String.Compare(userName, ftpAccount.Name, true) == 0));
-
-            if (matchingRule != null)
+            if (!String.IsNullOrEmpty(ftpAccount.Folder) && FileUtils.DirectoryExists(ftpAccount.Folder))
             {
-                ftpAccount.CanWrite = (matchingRule.Permissions & PermissionsFlags.Write) == PermissionsFlags.Write;
-                ftpAccount.CanRead = (matchingRule.Permissions & PermissionsFlags.Read) == PermissionsFlags.Read;
+                var permission = GetUserPermission(ftpAccount.Name, ftpAccount.Folder);
+                ftpAccount.CanRead = permission.Read;
+                ftpAccount.CanWrite = permission.Write;
             }
 
             // Load user account.
@@ -645,26 +575,15 @@ namespace FuseCP.Providers.FTP
         /// <param name="ftpSite">Ftp site to fill.</param>
         private void FillFtpSiteFromIis(FtpSite ftpSite)
         {
-            IisFtpSite iisFtpSite = this.ftpSitesService.GetIisFtpSite(ftpSite.SiteId);
-            if (iisFtpSite != null)
-            {
-                // Security settings.
-                ftpSite.AllowAnonymous = iisFtpSite.Security.Authentication.AnonymousAuthentication.Enabled;
-                ftpSite.AnonymousUsername = iisFtpSite.Security.Authentication.AnonymousAuthentication.UserName;
-                ftpSite.AnonymousUserPassword = iisFtpSite.Security.Authentication.AnonymousAuthentication.Password;
-                ftpSite["UserIsolationMode"] = iisFtpSite.UserIsolation.Mode.ToString();
-                // Logging settings.
-                ftpSite[FtpSite.MSFTP7_SITE_ID] = iisFtpSite.SiteServiceId;
-                if (iisFtpSite.LogFile.Enabled)
-                {
-                    ftpSite.LogFileDirectory = iisFtpSite.LogFile.Directory;
-                    ftpSite[FtpSite.MSFTP7_LOG_EXT_FILE_FIELDS] = iisFtpSite.LogFile.LogExtFileFlags.ToString();
-                }
-            }
-            // Bindings
-            ftpSite.Bindings = this.ftpSitesService.GetSiteBindings(ftpSite.SiteId);
-            // Physical path
-            ftpSite.ContentPath = this.ftpSitesService.GetSitePhysicalPath(ftpSite.SiteId, "/");
+            ftpSite.AllowAnonymous = GetFtpSiteAnonymousEnabled(ftpSite.SiteId);
+            ftpSite.AnonymousUsername = String.Empty;
+            ftpSite.AnonymousUserPassword = String.Empty;
+            ftpSite["UserIsolationMode"] = GetFtpSiteUserIsolationMode(ftpSite.SiteId);
+            ftpSite[FtpSite.MSFTP7_SITE_ID] = ftpSite.SiteId;
+            ftpSite.LogFileDirectory = GetFtpSiteLogDirectory(ftpSite.SiteId);
+            ftpSite[FtpSite.MSFTP7_LOG_EXT_FILE_FIELDS] = DEFAULT_LOG_EXT_FILE_FIELDS;
+            ftpSite.Bindings = GetSiteBindingsByPowerShell(ftpSite.SiteId);
+            ftpSite.ContentPath = GetSitePhysicalPathByPowerShell(ftpSite.SiteId, "/");
         }
 
         /// <summary>
@@ -673,29 +592,11 @@ namespace FuseCP.Providers.FTP
         /// <param name="ftpSite">Ftp site that holds information.</param>
         private void FillIisFromFtpSite(FtpSite ftpSite)
         {
-            IisFtpSite iisFtpSite = this.ftpSitesService.GetIisFtpSite(ftpSite.SiteId);
-            string logExtFileFields = ftpSite[FtpSite.MSFTP7_LOG_EXT_FILE_FIELDS];
-
-            if (iisFtpSite != null)
+            string error;
+            if (!EnsureFtpSiteConfiguredWithPowerShell(ftpSite, out error))
             {
-                // Security settings.
-                iisFtpSite.Security.Authentication.AnonymousAuthentication.Enabled = ftpSite.AllowAnonymous;
-                iisFtpSite.Security.Authentication.AnonymousAuthentication.UserName = ftpSite.AnonymousUsername;
-                iisFtpSite.Security.Authentication.AnonymousAuthentication.Password = ftpSite.AnonymousUserPassword;
-                // enable logging
-                iisFtpSite.LogFile.Enabled = true;
-                // set logging fields
-                if (!String.IsNullOrEmpty(logExtFileFields))
-                    iisFtpSite.LogFile.LogExtFileFlags = (FtpLogExtFileFlags)Enum.Parse(typeof(FtpLogExtFileFlags), logExtFileFields);
-                // set log files directory
-                if (!String.IsNullOrEmpty(ftpSite.LogFileDirectory))
-                    iisFtpSite.LogFile.Directory = ftpSite.LogFileDirectory;
+                throw new InvalidOperationException(error);
             }
-            // Set new bindings.
-            this.CheckFtpServerBindings(ftpSite);
-            this.ftpSitesService.SetSiteBindings(ftpSite.Name, ftpSite.Bindings);
-            // Physical path
-            this.ftpSitesService.SetSitePhysicalPath(ftpSite.SiteId, "/", ftpSite.ContentPath);
         }
 
         /// <summary>
@@ -824,6 +725,7 @@ namespace FuseCP.Providers.FTP
             FtpSite site = null;
             string folder = FileUtils.EvaluateSystemVariables(DefaultFtpSiteFolder);
             string logsDirectory = FileUtils.EvaluateSystemVariables(DefaultFtpSiteLogsFolder);
+            Log.WriteInfo("MSFTP100 Install: preparing folders. SiteId='{0}', SiteFolder='{1}', LogsFolder='{2}'", SiteId, folder, logsDirectory);
             // Create site folder.
             if (!FileUtils.DirectoryExists(folder))
             {
@@ -860,14 +762,20 @@ namespace FuseCP.Providers.FTP
                 //}
 
 
-            if (this.IsFtpServerBindingsInUse(site))
+            bool siteExists = SiteExistsByPowerShell(site.SiteId);
+            if (!siteExists && !IsFtpPortAvailable(site.Bindings[0]?.Port ?? "21"))
             {
                 messages.Add("Cannot create ftp site because requested bindings are already in use.");
                 return messages.ToArray();
             }
+            if (siteExists)
+            {
+                Log.WriteInfo("MSFTP100 Install: site '{0}' already exists, applying hardening/update flow.", site.SiteId);
+            }
 
             try
             {
+                Log.WriteInfo("MSFTP100 Install: ensuring AD organizational units. UsersOU='{0}', GroupsOU='{1}'", UsersOU, GroupsOU);
                 SecurityUtils.EnsureOrganizationalUnitsExist(ServerSettings, UsersOU, GroupsOU);
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -893,6 +801,7 @@ namespace FuseCP.Providers.FTP
                     try
                     {
                         // create group
+                        Log.WriteInfo("MSFTP100 Install: ensuring FTP group exists. Group='{0}'", FtpGroupName);
                         if (!SecurityUtils.GroupExists(FtpGroupName, ServerSettings, GroupsOU))
                         {
                             SystemGroup group = new SystemGroup();
@@ -911,28 +820,13 @@ namespace FuseCP.Providers.FTP
                     }
                 }
 
-                if (!this.ftpSitesService.SiteExists(this.SiteId))
+                Log.WriteInfo("MSFTP100 Install: configuring IIS FTP site via PowerShell. SiteId='{0}'", site.SiteId);
+                if (!EnsureFtpSiteConfigured(site, messages))
                 {
-                    this.CreateSite(site);
-                }
-                else
-                {
-                    this.UpdateSite(site);
-                }
-
-                try
-                {
-                    // set permissions on the site root
-                    SecurityUtils.GrantNtfsPermissions(site.ContentPath, FtpGroupName,
-                        NTFSPermission.Read, true, true, ServerSettings,
-                        UsersOU, GroupsOU);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    messages.Add(String.Format("Can not set permissions on '{0}' folder: {1}",
-                        site.ContentPath, ex.Message));
                     return messages.ToArray();
                 }
+
+                Log.WriteInfo("MSFTP100 Install: skipping broad root NTFS grant to preserve per-user isolation. SitePath='{0}'", site.ContentPath);
             }
             return messages.ToArray();
         }
@@ -1022,7 +916,7 @@ namespace FuseCP.Providers.FTP
 
         private bool IsFtpServiceCommand(string command)
         {
-            return (Array.IndexOf(FTP100_SERVICE_CMD_LIST, command) > -1);
+            return Ftp100ServiceCommands.Contains(command);
         }
 
         private void LogParser_ProcessKeyFields(string[] key_fields, string[] key_values, string[] log_fields,
@@ -1067,26 +961,510 @@ namespace FuseCP.Providers.FTP
 
         private static bool IsMsFtpServiceInstalled()
         {
-            int value = 0;
-            RegistryKey root = Registry.LocalMachine;
-            RegistryKey rk = root.OpenSubKey("SOFTWARE\\Microsoft\\InetStp");
-            if (rk != null)
+            if (!OperatingSystem.IsWindows())
             {
-                value = (int)rk.GetValue("MajorVersion", null);
-                rk.Close();
+                return false;
             }
 
-            RegistryKey ftp = root.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\ftpsvc");
-            bool res = (value == 10) && ftp != null;
-            if (ftp != null)
-                ftp.Close();
+            using RegistryKey inetStp = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\InetStp", writable: false);
+            int majorVersion = inetStp?.GetValue("MajorVersion") as int? ?? 0;
 
-            return res;
+            using RegistryKey ftpService = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\ftpsvc", writable: false);
+            return majorVersion == 10 && ftpService != null;
+        }
+
+        private bool EnsureFtpSiteConfigured(FtpSite site, List<string> messages)
+        {
+            string error;
+            if (!EnsureFtpSiteConfiguredWithPowerShell(site, out error))
+            {
+                Log.WriteWarning("MSFTP100 Install: IIS FTP site configuration failed. {0}", error);
+                messages.Add(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsFtpPortAvailable(string port)
+        {
+            string script = "$port = [int]'" + EscapePowerShellLiteral(port) + "';"
+                + "$listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -eq $port };"
+                + "if ($listeners) { exit 1 } else { exit 0 }";
+
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr))
+            {
+                // If we cannot determine port state, do not block installation here.
+                return true;
+            }
+
+            return exitCode == 0;
+        }
+
+        private bool EnsureFtpSiteConfiguredWithPowerShell(FtpSite site, out string error)
+        {
+            error = null;
+
+            if (String.IsNullOrWhiteSpace(FtpGroupName))
+            {
+                error = "Could not configure Microsoft FTP 10.0 site because FTP Group is empty.";
+                return false;
+            }
+
+            string siteName = EscapePowerShellLiteral(site.SiteId);
+            string physicalPath = EscapePowerShellLiteral(FileUtils.EvaluateSystemVariables(site.ContentPath));
+            string ip = EscapePowerShellLiteral(site.Bindings?[0]?.IP ?? "*");
+            string port = EscapePowerShellLiteral(site.Bindings?[0]?.Port ?? "21");
+            string hostHeader = EscapePowerShellLiteral(site.Bindings?[0]?.Host ?? String.Empty);
+            string logDir = EscapePowerShellLiteral(FileUtils.EvaluateSystemVariables(site.LogFileDirectory));
+            string ftpGroup = EscapePowerShellLiteral(FtpGroupName);
+
+            string script = $@"
+Import-Module WebAdministration -ErrorAction Stop
+$siteName = '{siteName}'
+$physicalPath = '{physicalPath}'
+$ip = '{ip}'
+$port = '{port}'
+$hostHeader = '{hostHeader}'
+$logDir = '{logDir}'
+$ftpGroup = '{ftpGroup}'
+
+if ($hostHeader -eq '*') {{
+    $hostHeader = ''
+}}
+
+if (-not (Test-Path -LiteralPath $physicalPath)) {{
+    New-Item -Path $physicalPath -ItemType Directory -Force | Out-Null
+}}
+
+if (-not (Test-Path -LiteralPath $logDir)) {{
+    New-Item -Path $logDir -ItemType Directory -Force | Out-Null
+}}
+
+if (-not (Test-Path ('IIS:\Sites\' + $siteName))) {{
+    New-WebFtpSite -Name $siteName -Port ([int]$port) -IPAddress $ip -PhysicalPath $physicalPath -Force | Out-Null
+}} else {{
+    Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name physicalPath -Value $physicalPath
+}}
+
+$desiredBinding = ($ip + ':' + $port + ':' + $hostHeader)
+$ftpBindings = @(Get-WebBinding -Name $siteName -Protocol ftp -ErrorAction SilentlyContinue)
+$hasDesiredBinding = $false
+foreach ($binding in $ftpBindings) {{
+    if ($binding.bindingInformation -eq $desiredBinding) {{
+        $hasDesiredBinding = $true
+    }} else {{
+        Remove-WebBinding -Name $siteName -Protocol ftp -BindingInformation $binding.bindingInformation -ErrorAction SilentlyContinue
+    }}
+}}
+
+if (-not $hasDesiredBinding) {{
+    New-WebBinding -Name $siteName -Protocol ftp -IPAddress $ip -Port ([int]$port) -HostHeader $hostHeader | Out-Null
+}}
+
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name ftpServer.security.authentication.anonymousAuthentication.enabled -Value $false
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name ftpServer.security.authentication.basicAuthentication.enabled -Value $true
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name ftpServer.userIsolation.mode -Value 'StartInUsersDirectory'
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name ftpServer.security.ssl.controlChannelPolicy -Value 'SslAllow'
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name ftpServer.security.ssl.dataChannelPolicy -Value 'SslAllow'
+Set-ItemProperty -Path ('IIS:\Sites\' + $siteName) -Name logFile.directory -Value $logDir
+
+Clear-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location $siteName -Filter 'system.ftpServer/security/authorization'
+Add-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location $siteName -Filter 'system.ftpServer/security/authorization' -Value @{{ accessType = 'Allow'; users = ''; roles = $ftpGroup; permissions = 'Read' }}
+";
+
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr))
+            {
+                error = "Could not configure Microsoft FTP 10.0 site because PowerShell could not be started.";
+                return false;
+            }
+
+            if (exitCode != 0)
+            {
+                error = String.Format("Could not configure Microsoft FTP 10.0 site using PowerShell (exit code {0}). {1}", exitCode,
+                    !String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim());
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool RunPowerShell(string script, out int exitCode, out string stdOut, out string stdErr)
+        {
+            exitCode = -1;
+            stdOut = String.Empty;
+            stdErr = String.Empty;
+
+            string executable = ResolvePowerShellExecutable();
+            if (String.IsNullOrEmpty(executable))
+            {
+                return false;
+            }
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = executable,
+                Arguments = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand " + Convert.ToBase64String(Encoding.Unicode.GetBytes(script)),
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (var process = Process.Start(startInfo))
+            {
+                if (process == null)
+                {
+                    return false;
+                }
+
+                Task<string> stdOutTask = process.StandardOutput.ReadToEndAsync();
+                Task<string> stdErrTask = process.StandardError.ReadToEndAsync();
+
+                bool exited = process.WaitForExit(PowerShellTimeoutMs);
+                if (!exited)
+                {
+                    try
+                    {
+                        process.Kill(true);
+                    }
+                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                    {
+                        // Best effort kill; continue and report timeout.
+                    }
+
+                    process.WaitForExit(PowerShellDrainTimeoutMs);
+                    exitCode = -2;
+                }
+                else
+                {
+                    exitCode = process.ExitCode;
+                }
+
+                Task.WaitAll(new Task[] { stdOutTask, stdErrTask }, PowerShellDrainTimeoutMs);
+                stdOut = stdOutTask.IsCompleted ? stdOutTask.Result : String.Empty;
+                stdErr = stdErrTask.IsCompleted ? stdErrTask.Result : String.Empty;
+
+                if (!exited)
+                {
+                    string timeoutDetails = "PowerShell operation timed out after " + (PowerShellTimeoutMs / 1000) + " seconds.";
+                    stdErr = String.IsNullOrEmpty(stdErr) ? timeoutDetails : (stdErr.TrimEnd() + Environment.NewLine + timeoutDetails);
+                }
+
+                return true;
+            }
+        }
+
+        private static string ResolvePowerShellExecutable()
+        {
+            // WebAdministration + IIS provider commands are most reliable in Windows PowerShell.
+            string[] candidates = new[] { "powershell.exe", "pwsh.exe" };
+            foreach (string candidate in candidates)
+            {
+                try
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = candidate,
+                        Arguments = "-NoProfile -NonInteractive -Command \"Import-Module WebAdministration -ErrorAction Stop; if (Test-Path 'IIS:\\Sites') { exit 0 } else { exit 1 }\"",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    using (var process = Process.Start(startInfo))
+                    {
+                        if (process == null)
+                        {
+                            continue;
+                        }
+
+                        process.WaitForExit(5000);
+                        if (process.ExitCode == 0)
+                        {
+                            return candidate;
+                        }
+                    }
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    // Try next candidate.
+                }
+            }
+
+            return null;
+        }
+
+        private static string EscapePowerShellLiteral(string value)
+        {
+            if (value == null)
+            {
+                return String.Empty;
+            }
+
+            return value.Replace("'", "''");
         }
 
         protected virtual bool IsMsFTPInstalled()
         {
             return IsMsFtpServiceInstalled();
+        }
+
+        private void StartFtpSite(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; Start-WebSite -Name '" + EscapePowerShellLiteral(siteId) + "'";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                throw new InvalidOperationException("Could not start FTP site '" + siteId + "'. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private void StopFtpSite(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; Stop-WebSite -Name '" + EscapePowerShellLiteral(siteId) + "'";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                throw new InvalidOperationException("Could not stop FTP site '" + siteId + "'. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private void DeleteFtpSite(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; if (Test-Path ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "')) { Remove-Website -Name '" + EscapePowerShellLiteral(siteId) + "' }";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                throw new InvalidOperationException("Could not delete FTP site '" + siteId + "'. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private bool SiteExistsByPowerShell(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; if (Test-Path ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "')) { exit 0 } else { exit 1 }";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr))
+                return false;
+            return exitCode == 0;
+        }
+
+        private ServerState GetFtpSiteState(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; $s = Get-Item ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "') -ErrorAction Stop; $s.State.ToString()";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return ServerState.Unknown;
+
+            string state = (stdOut ?? String.Empty).Trim();
+            switch (state)
+            {
+                case "Started": return ServerState.Started;
+                case "Stopped": return ServerState.Stopped;
+                case "Starting": return ServerState.Starting;
+                case "Stopping": return ServerState.Stopping;
+                default: return ServerState.Unknown;
+            }
+        }
+
+        private string[] GetFtpSitesNames()
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; Get-ChildItem IIS:\\Sites | Where-Object { $_.Bindings.Collection | Where-Object { $_.protocol -eq 'ftp' } } | Select-Object -ExpandProperty Name";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return Array.Empty<string>();
+
+            return (stdOut ?? String.Empty)
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim())
+                .Where(s => !String.IsNullOrEmpty(s))
+                .ToArray();
+        }
+
+        private ServerBinding[] GetSiteBindingsByPowerShell(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; Get-WebBinding -Name '" + EscapePowerShellLiteral(siteId) + "' -Protocol ftp | Select-Object -ExpandProperty bindingInformation";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return Array.Empty<ServerBinding>();
+
+            return (stdOut ?? String.Empty)
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(ParseBindingInformation)
+                .Where(b => b != null)
+                .ToArray();
+        }
+
+        private static ServerBinding ParseBindingInformation(string value)
+        {
+            if (String.IsNullOrWhiteSpace(value))
+                return null;
+
+            string[] parts = value.Split(':');
+            if (parts.Length < 2)
+                return null;
+
+            string ip = parts[0];
+            string port = parts[1];
+            string host = parts.Length > 2 ? parts[2] : String.Empty;
+            return new ServerBinding("ftp", ip, port, host);
+        }
+
+        private string GetSitePhysicalPathByPowerShell(string siteId, string virtualPath)
+        {
+            string normalizedVirtualPath = String.IsNullOrEmpty(virtualPath) ? "/" : virtualPath;
+            string stdOut;
+            string stdErr;
+            int exitCode;
+
+            string script;
+            if (String.Equals(normalizedVirtualPath, "/", StringComparison.Ordinal))
+            {
+                script = "Import-Module WebAdministration -ErrorAction Stop; (Get-Item ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "')).physicalPath";
+            }
+            else
+            {
+                string name = normalizedVirtualPath.Trim('/');
+                script = "Import-Module WebAdministration -ErrorAction Stop; $v = Get-WebVirtualDirectory -Site '" + EscapePowerShellLiteral(siteId) + "' -Name '" + EscapePowerShellLiteral(name) + "' -ErrorAction SilentlyContinue; if ($v) { $v.PhysicalPath }";
+            }
+
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return String.Empty;
+
+            return (stdOut ?? String.Empty).Trim();
+        }
+
+        private bool AppVirtualDirectoryExistsByPowerShell(string siteId, string accountName)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; $v = Get-WebVirtualDirectory -Site '" + EscapePowerShellLiteral(siteId) + "' -Name '" + EscapePowerShellLiteral(accountName) + "' -ErrorAction SilentlyContinue; if ($v) { exit 0 } else { exit 1 }";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr))
+                return false;
+            return exitCode == 0;
+        }
+
+        private IEnumerable<string> GetAppVirtualDirectoriesNamesByPowerShell(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; Get-WebVirtualDirectory -Site '" + EscapePowerShellLiteral(siteId) + "' | Select-Object -ExpandProperty Path";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return Array.Empty<string>();
+
+            return (stdOut ?? String.Empty)
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim())
+                .Where(s => !String.IsNullOrEmpty(s));
+        }
+
+        private void EnsureFtpAccountVirtualDirectory(string siteId, string virtualPath, string physicalPath)
+        {
+            string name = (virtualPath ?? String.Empty).Trim('/');
+            string script = "Import-Module WebAdministration -ErrorAction Stop; "
+                + "$site='" + EscapePowerShellLiteral(siteId) + "';"
+                + "$name='" + EscapePowerShellLiteral(name) + "';"
+                + "$path='" + EscapePowerShellLiteral(physicalPath) + "';"
+                + "if (-not (Test-Path -LiteralPath $path)) { New-Item -Path $path -ItemType Directory -Force | Out-Null };"
+                + "$existing = Get-WebVirtualDirectory -Site $site -Name $name -ErrorAction SilentlyContinue;"
+                + "if ($existing) { Set-ItemProperty -Path ('IIS:\\Sites\\' + $site + '\\' + $name) -Name physicalPath -Value $path } else { New-WebVirtualDirectory -Site $site -Name $name -PhysicalPath $path | Out-Null }";
+
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                throw new InvalidOperationException("Could not create/update FTP account virtual directory. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private void DeleteFtpAccountVirtualDirectory(string siteId, string virtualPath)
+        {
+            string name = (virtualPath ?? String.Empty).Trim('/');
+            string script = "Import-Module WebAdministration -ErrorAction Stop; $target = 'IIS:\\Sites\\" + EscapePowerShellLiteral(siteId) + "\\" + EscapePowerShellLiteral(name) + "'; if (Test-Path $target) { Remove-Item -Path $target -Recurse -Force }";
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            RunPowerShell(script, out exitCode, out stdOut, out stdErr);
+        }
+
+        private void SetFtpAuthorization(string siteId, string accountName, bool canRead, bool canWrite)
+        {
+            string permissions = canRead && canWrite ? "Read, Write" : (canWrite ? "Write" : "Read");
+            string location = EscapePowerShellLiteral(siteId + "/" + accountName);
+            string script = "Import-Module WebAdministration -ErrorAction Stop; "
+                + "Clear-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location '" + location + "' -Filter 'system.ftpServer/security/authorization';"
+                + "Add-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location '" + location + "' -Filter 'system.ftpServer/security/authorization' -Value @{ accessType='Allow'; users='" + EscapePowerShellLiteral(accountName) + "'; roles=''; permissions='" + permissions + "' }";
+
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                throw new InvalidOperationException("Could not set FTP authorization. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private bool GetFtpSiteAnonymousEnabled(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; $site = Get-Item ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "') -ErrorAction Stop; $site.ftpServer.security.authentication.anonymousAuthentication.enabled.ToString()";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return false;
+            return String.Equals((stdOut ?? String.Empty).Trim(), "True", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string GetFtpSiteUserIsolationMode(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; $site = Get-Item ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "') -ErrorAction Stop; $site.ftpServer.userIsolation.mode.ToString()";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return Mode.StartInUsersDirectory.ToString();
+
+            string value = (stdOut ?? String.Empty).Trim();
+            if (String.IsNullOrEmpty(value))
+                return Mode.None.ToString();
+
+            if (value.IndexOf("StartInUsersDirectory", StringComparison.OrdinalIgnoreCase) >= 0 || value == "0")
+                return Mode.StartInUsersDirectory.ToString();
+            if (value.IndexOf("IsolateRootDirectoryOnly", StringComparison.OrdinalIgnoreCase) >= 0 || value == "1")
+                return Mode.IsolateRootDirectoryOnly.ToString();
+            if (value.IndexOf("IsolateAllDirectories", StringComparison.OrdinalIgnoreCase) >= 0 || value == "2")
+                return Mode.IsolateAllDirectories.ToString();
+            if (value.IndexOf("ActiveDirectory", StringComparison.OrdinalIgnoreCase) >= 0 || value == "3")
+                return Mode.ActiveDirectory.ToString();
+            if (value.IndexOf("None", StringComparison.OrdinalIgnoreCase) >= 0 || value == "4")
+                return Mode.None.ToString();
+
+            return Mode.None.ToString();
+        }
+
+        private string GetFtpSiteLogDirectory(string siteId)
+        {
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            string script = "Import-Module WebAdministration -ErrorAction Stop; (Get-Item ('IIS:\\Sites\\' + '" + EscapePowerShellLiteral(siteId) + "')).logFile.directory";
+            if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
+                return DefaultFtpSiteLogsFolder;
+            return (stdOut ?? String.Empty).Trim();
         }
 
         public override bool IsInstalled()

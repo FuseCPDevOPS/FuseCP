@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<RootNamespace>FuseCP.Providers.DNS</RootNamespace>
 		<TargetFramework>net10.0</TargetFramework>
-		<OutputPath>..\FuseCP.Server\bin\netstandard\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\netstandard\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -28,3 +28,4 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+

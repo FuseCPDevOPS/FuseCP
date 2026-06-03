@@ -12,7 +12,7 @@
         <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework.ToLowerInvariant())\</IntermediateOutputPath>
         <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
         <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
-        <OutputPath>bin_dotnet</OutputPath>
+        <OutputPath>bin</OutputPath>
         <StartupObject>FuseCP.EnterpriseServer.Program</StartupObject>
         <ImplicitUsings>enable</ImplicitUsings>
         <NoWarn>$(NoWarn);NETSDK1206;MSB3231</NoWarn>
@@ -29,9 +29,9 @@
         <Content Remove="WebServces\**\*.*" />
         <Compile Remove="WebServices\**\*.*" />
         <None Include="WebServices\**\*.*" />
-        <Content Remove="bin_dotnet\**\*.*" />
-        <None Remove="bin_dotnet\**\*.*" />
-        <Compile Remove="bin_dotnet\**\*.*" />
+        <Content Remove="bin\**\*.*" />
+        <None Remove="bin\**\*.*" />
+        <Compile Remove="bin\**\*.*" />
         <None Remove="**\*.asmx" />
     </ItemGroup>
     
@@ -90,7 +90,7 @@
     </ItemGroup>
 
     <Target Name="CopyCoreWebConfig" AfterTargets="CopyFilesToOutputDirectory">
-        <Copy SourceFiles="Core.Web.config" DestinationFiles="bin_dotnet\Web.config" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="Core.Web.config" DestinationFiles="bin\Web.config" SkipUnchangedFiles="true" />
         <Message Text="Copied Core.Web.config" Importance="high" />
     </Target>
 
@@ -152,7 +152,6 @@
             <FilesToMove Include="bin\BouncyCastle.*" />
             <FilesToMove Include="bin\Microsoft.Extensions.*" />
             <FilesToDelete Include="bin\WebServices\**\*.*" />
-            <FilesToDelete Include="bin_dotnet\WebServices\**\*.*" />
             <!--<FilesToDelete Include="bin\refs\**\*.*" />-->
         </ItemGroup>
 
@@ -161,8 +160,8 @@
         </ItemGroup>
         
         <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
-        <Move SourceFiles="@(ExistingFilesToMove)" DestinationFolder="bin\Code" ContinueOnError="true" />
-        <RemoveDir Directories="bin\WebServices;bin\refs;bin_dotnet\WebServices" ContinueOnError="true" />
+        <Move SourceFiles="@(ExistingFilesToMove)" DestinationFolder="bin\Code" ContinueOnError="true" Condition="'$(TargetFramework)' != 'net10.0'" />
+        <RemoveDir Directories="bin\WebServices;bin\refs" ContinueOnError="true" />
     </Target>
 </Project>
 

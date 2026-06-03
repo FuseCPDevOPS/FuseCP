@@ -31,8 +31,26 @@
                     <asp:RequiredFieldValidator runat="server" ID="txtAdFtpRootReqValidator" ControlToValidate="txtAdFtpRoot" Enabled="False" ErrorMessage="*"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+            <tr runat="server" id="IisFtpHardeningRow">
+                <td class="SubHead">
+                    <asp:Label ID="lblHardeningStatusTitle" runat="server" Text="IIS FTP Hardening:"></asp:Label>
+                </td>
+                <td class="Normal">
+                    <div class="d-flex align-items-center gap-2">
+                        <asp:Literal ID="litHardeningStatus" runat="server"></asp:Literal>
+                        <asp:Button ID="cmdHardenNow" runat="server" CssClass="btn btn-sm btn-warning" CausesValidation="False" OnClick="cmdHardenNow_Click" Text="Harden Now" />
+                    </div>
+                    <asp:Literal ID="litHardeningMessage" runat="server"></asp:Literal>
+                    <div class="mt-2">
+                        <asp:Literal ID="litHardeningDetails" runat="server"></asp:Literal>
+                    </div>
+                </td>
+            </tr>
         </table>
     </ContentTemplate>
+    <Triggers>
+        <asp:PostBackTrigger ControlID="cmdHardenNow" />
+    </Triggers>
 </asp:UpdatePanel>
 <table class="table table-borderless align-middle mb-0">
     <tr>

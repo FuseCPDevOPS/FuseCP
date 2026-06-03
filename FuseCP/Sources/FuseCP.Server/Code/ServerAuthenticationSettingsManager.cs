@@ -44,7 +44,7 @@ namespace FuseCP.Server
 			// Write only the two hardened values to a dedicated overlay file that:
 			//   - is registered in Startup.Core with optional:true, reloadOnChange:true
 			//   - is NOT overwritten by builds or deployments
-			//   - requires write access only on this one file (not appsettings.json / bin_dotnet)
+			//   - requires write access only on this one file (not appsettings.json / bin)
 			string targetPath = ResolveHardenedConfigPath();
 
 			var overlay = new JObject(
@@ -77,7 +77,7 @@ namespace FuseCP.Server
 
 		private static string ResolveHardenedConfigPath()
 		{
-			// Prefer the server content root (parent of bin_dotnet), fall back to the running directory.
+			// Prefer the server content root (parent of bin), fall back to the running directory.
 			string[] candidateDirs = new[]
 			{
 				AutoDiscoveryHelper.GetServerFilePath(),

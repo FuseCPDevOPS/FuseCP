@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
-		<OutputPath>..\FuseCP.Server\bin\Filters\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\Filters\</OutputPath>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
@@ -30,4 +30,5 @@
 		<ProjectReference Include="..\FuseCP.Providers.HostedSolution\FuseCP.Providers.HostedSolution.csproj" />
 	</ItemGroup>
 </Project>
+
 

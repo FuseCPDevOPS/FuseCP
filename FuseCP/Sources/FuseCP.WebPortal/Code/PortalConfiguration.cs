@@ -28,7 +28,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using System.Web.Hosting;
 using System.Xml;
 
 namespace FuseCP.WebPortal
@@ -89,7 +88,7 @@ namespace FuseCP.WebPortal
 						modules = new Dictionary<string, ModuleDefinition>();
 
 						// load modules
-						string appData = HostingEnvironment.MapPath(APP_DATA_FOLDER);
+						string appData = PortalPathResolver.MapPath(APP_DATA_FOLDER);
 						FileInfo[] files = new DirectoryInfo(appData).GetFiles(MODULES_PATTERN);
 
 						foreach (FileInfo file in files)
@@ -114,7 +113,7 @@ namespace FuseCP.WebPortal
 						site = new SiteStructure();
 
 						// load pages
-						string appData = HostingEnvironment.MapPath(APP_DATA_FOLDER);
+						string appData = PortalPathResolver.MapPath(APP_DATA_FOLDER);
 						FileInfo[] files = new DirectoryInfo(appData).GetFiles(PAGES_PATTERN);
 
 						foreach (FileInfo file in files)
@@ -138,7 +137,7 @@ namespace FuseCP.WebPortal
 						settings = new SiteSettings();
 
 						// load pages
-						string appData = HostingEnvironment.MapPath(APP_DATA_FOLDER);
+						string appData = PortalPathResolver.MapPath(APP_DATA_FOLDER);
 						string path = CombineUnderRoot(appData, SITE_SETTINGS_FILE);
 
 						// load site settings

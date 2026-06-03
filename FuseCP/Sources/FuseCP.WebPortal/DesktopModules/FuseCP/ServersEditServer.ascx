@@ -222,7 +222,7 @@
             <div class="col-md-4">
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="bi bi-wrench">&nbsp;</i>&nbsp;<asp:Label ID="lblServerTools" runat="server" meta:resourcekey="lblServerTools" Text="Server Tools"></asp:Label></h3>
+                        <h5 class="mb-0"><i class="bi bi-wrench">&nbsp;</i>&nbsp;<asp:Label ID="lblServerTools" runat="server" meta:resourcekey="lblServerTools" Text="Server Tools"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <asp:Panel ID="pnTerminalPanel" runat="server">
@@ -276,7 +276,7 @@
                 <br />
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="bi bi-medkit">&nbsp;</i>&nbsp;<asp:Label ID="lblRecoveryTools" runat="server" meta:resourcekey="lblRecoveryTools" Text="Server Recovery"></asp:Label></h3>
+                        <h5 class="mb-0"><i class="bi bi-medkit">&nbsp;</i>&nbsp;<asp:Label ID="lblRecoveryTools" runat="server" meta:resourcekey="lblRecoveryTools" Text="Server Recovery"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -315,7 +315,7 @@
                 <br />
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="bi bi-microchip">&nbsp;</i>&nbsp;<asp:Label ID="lblServerRAM" runat="server" meta:resourcekey="lblServerRAM" Text="Server RAM"></asp:Label></h3>
+                        <h5 class="mb-0"><i class="bi bi-microchip">&nbsp;</i>&nbsp;<asp:Label ID="lblServerRAM" runat="server" meta:resourcekey="lblServerRAM" Text="Server RAM"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item">

@@ -16,7 +16,7 @@
         <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition="$(TargetFramework) == 'net10.0'">
-        <OutputPath>..\FuseCP.EnterpriseServer\bin_dotnet</OutputPath>
+        <OutputPath>..\FuseCP.EnterpriseServer\bin</OutputPath>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="..\VersionInfo.cs" Link="VersionInfo.cs" />

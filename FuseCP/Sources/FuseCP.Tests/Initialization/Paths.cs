@@ -35,7 +35,7 @@ namespace FuseCP.Tests
 				{
 					var path = IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 					var dir = IO.Path.GetFileName(path);
-					while (Regex.IsMatch(dir, @"^((net[0-9][.0-9]*)|Debug|Release|bin|bin_dotnet)$"))
+					while (Regex.IsMatch(dir, @"^((net[0-9][.0-9]*)|Debug|Release|bin|bin)$"))
 					{
 						path = IO.Path.GetDirectoryName(path);
 						dir = IO.Path.GetFileName(path);

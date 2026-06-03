@@ -10,7 +10,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<Nullable>disable</Nullable>
-        <OutputPath>..\FuseCP.Server\bin\DNS\</OutputPath>
+        <OutputPath>..\FuseCP.Server\bin\Providers\DNS\</OutputPath>
     </PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<DebugType>full</DebugType>
@@ -31,6 +31,7 @@
 		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 </Project>
+
 
 
 

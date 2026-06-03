@@ -272,7 +272,7 @@
 			<ServerBuildExclude Include="$(ServerSrc)\WebServices\**" />
 			<ServerBuildExclude Include="$(ServerSrc)\Properties\**" />
 			<!--<ServerBuildExclude Include="$(ServerSrc)\wwwroot\**" />-->
-			<ServerBuildExclude Include="$(ServerSrc)\bin_dotnet\WebServices\**" />
+			<ServerBuildExclude Include="$(ServerSrc)\bin\WebServices\**" />
 			<ServerBuildExclude Include="$(ServerSrc)\bin\wwwroot\**" />
 			<ServerBuildExclude Include="$(ServerSrc)\Pages\**" />
 			<ServerBuildExclude Include="$(ServerSrc)\**\*.pdb" Condition=" '$(BuildConfiguration)' == 'Release' And !$(IncludeReleasePdbs)" />
@@ -352,9 +352,9 @@
 
 		<Copy SourceFiles="@(PortalBuildFiles)" DestinationFolder="$(PortalBuild)\%(RecursiveDir)" Condition=" '$(UseAspNetPrecompile)' != 'true' " />
 
-		<!-- net10 host: root Web.config should boot AspNetCoreModule against bin_dotnet output -->
-		<Copy SourceFiles="$(PortalBuild)\bin_dotnet\Web.config" DestinationFiles="$(PortalBuild)\Web.config" OverwriteReadOnlyFiles="true" Condition="Exists('$(PortalBuild)\bin_dotnet\Web.config')" />
-		<Exec Command="powershell &quot;$p='$(PortalBuild)\Web.config'; $c=[System.IO.File]::ReadAllText($p); $c=$c.Replace('arguments=&quot;.\FuseCP.WebPortal.dll&quot;','arguments=&quot;.\bin_dotnet\FuseCP.WebPortal.dll&quot;'); $c=$c.Replace('stdoutLogFile=&quot;..\App_Data\logs\stdout&quot;','stdoutLogFile=&quot;.\App_Data\logs\stdout&quot;'); [System.IO.File]::WriteAllText($p,$c)&quot;" Condition="Exists('$(PortalBuild)\Web.config')" />
+		<!-- net10 host: root Web.config should boot AspNetCoreModule against bin output -->
+		<Copy SourceFiles="$(PortalBuild)\bin\Web.config" DestinationFiles="$(PortalBuild)\Web.config" OverwriteReadOnlyFiles="true" Condition="Exists('$(PortalBuild)\bin\Web.config')" />
+		<Exec Command="powershell &quot;$p='$(PortalBuild)\Web.config'; $c=[System.IO.File]::ReadAllText($p); $c=$c.Replace('arguments=&quot;.\FuseCP.WebPortal.dll&quot;','arguments=&quot;.\bin\FuseCP.WebPortal.dll&quot;'); $c=$c.Replace('stdoutLogFile=&quot;..\App_Data\logs\stdout&quot;','stdoutLogFile=&quot;.\App_Data\logs\stdout&quot;'); [System.IO.File]::WriteAllText($p,$c)&quot;" Condition="Exists('$(PortalBuild)\Web.config')" />
 		<Delete Files="$(PortalBuild)\Global.asax" Condition="Exists('$(PortalBuild)\Global.asax')" />
 
 		<!-- Use aspnet_compiler to percompile WebPortal if UseAspNetPrecompile is set to true -->

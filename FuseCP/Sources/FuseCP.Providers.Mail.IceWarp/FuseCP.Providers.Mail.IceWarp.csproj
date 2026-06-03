@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
-		<OutputPath>..\FuseCP.Server\bin\IceWarp\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\IceWarp\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -42,3 +42,4 @@
     </Target>
 
 </Project>
+

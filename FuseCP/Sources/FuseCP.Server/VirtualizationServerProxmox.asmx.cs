@@ -149,7 +149,6 @@ namespace FuseCP.Server
         [WebMethod, SoapHeader("settings")]
         public JobResult ChangeVirtualMachineState(string vmId, VirtualMachineRequestedState newState)
         {
-            Type.GetType(ProviderSettings.ProviderType);
             try
             {
                 Log.WriteStart("'{0}' ChangeVirtualMachineState", ProviderSettings.ProviderName);

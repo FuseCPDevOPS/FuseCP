@@ -23,3 +23,4 @@
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
 	</ItemGroup>
 </Project>
+

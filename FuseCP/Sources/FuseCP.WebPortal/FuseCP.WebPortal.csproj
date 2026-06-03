@@ -19,7 +19,7 @@
         <NoWarn>$(NoWarn);NU1701;NETSDK1187</NoWarn>
     </PropertyGroup>
     <PropertyGroup>
-        <OutputPath>bin_dotnet\</OutputPath>
+        <OutputPath>bin\</OutputPath>
         <OutputType>Exe</OutputType>
         <UseRidGraph>true</UseRidGraph>
     </PropertyGroup>
@@ -166,7 +166,7 @@
     </ItemGroup>
     <ItemGroup>
         <None Remove="obj\**\*.*" />
-        <None Remove="bin_dotnet\**\*.*" />
+        <None Remove="bin\**\*.*" />
         <None Remove="Properties\PublishProfiles\**" />
         <None Remove="appsettings.json" />
         <AspNetControls Remove="DesktopModules\**\*.ascx" />
@@ -187,7 +187,7 @@
     </Target>
 
     <Target Name="CopyCoreWebConfig" AfterTargets="Build">
-        <Copy SourceFiles="Core.Web.config" DestinationFiles="bin_dotnet\Web.config" />
+        <Copy SourceFiles="Core.Web.config" DestinationFiles="bin\Web.config" />
         <Message Text="Copied Core.Web.config" Importance="high" />
     </Target>
 
@@ -214,7 +214,7 @@
             <FilesToMove Include="bin\Newtonsoft.Json.*" />
             <FilesToMove Include="bin\Microsoft.IdentityModel.*" />
             <FilesToMove Include="bin\Microsoft.Web.Administration.*" />
-            <FilesToMove Include="bin\Microsoft.Extensions.*" />
+            <FilesToMove Include="bin\Microsoft.Extensions.*" Condition="'$(TargetFramework)' != 'net10.0'" />
             <FilesToMove Include="bin\Microsoft.Web.*" />
             <FilesToMove Include="bin\FuseCP.Server.Client.*" />
             <FilesToMove Include="bin\MsieJavaScriptEngine.*" />
@@ -223,7 +223,7 @@
             <FilesToMove Include="bin\FuseCP.Providers.*" Exclude="bin\FuseCP.Providers.Virtualization.NoVNC.*;bin\FuseCP.Providers.Base.*" />
             <FilesToMove Include="bin\WebGrease.*" />
             <FilesToMove Include="bin\JavaScriptEngineSwitcher.*" />
-            <FilesToMove Include="bin\System.*" />
+            <FilesToMove Include="bin\System.*" Condition="'$(TargetFramework)' != 'net10.0'" />
             <FilesToMove Include="bin\SwaggerWcf.*" />
             <FilesToMove Include="bin\SkiaSharp.*" />
             <FilesToMove Include="bin\BouncyCastle.*" />
@@ -232,21 +232,20 @@
             <FilesToMove Include="bin\AntiXssLibrary.*" />
             <FilesToMove Include="bin\HtmlSanitizationLibrary.*" />
             <FilesToDelete Include="bin\WebServices\**\*.*" />
-            <FilesToDelete Include="bin_dotnet\WebServices\**\*.*" />
             <!--<FilesToDelete Include="bin\refs\**\*.*" />-->
         </ItemGroup>
 
         <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
-        <Move SourceFiles="@(FilesToMove)" DestinationFolder="bin\Lazy" ContinueOnError="true" />
-        <RemoveDir Directories="bin\WebServices;bin\refs;bin_dotnet\WebServices" ContinueOnError="true" />
+        <Move SourceFiles="@(FilesToMove)" DestinationFolder="bin\Lazy" ContinueOnError="true" Condition="'$(TargetFramework)' != 'net10.0'" />
+        <RemoveDir Directories="bin\WebServices;bin\refs" ContinueOnError="true" />
     </Target>
 
 <Target Name="CopyProvidersBaseToBin" AfterTargets="DeleteUnusedDlls">
       <Message Text="Ensuring FuseCP.Providers.Base.dll is in bin folder for TargetFramework $(TargetFramework)" Importance="high" />
       <MakeDir Directories="$(ProjectDir)bin" />
     <ItemGroup>
-        <!-- For net10.0, copy from bin_dotnet. Also restore from bin\Lazy in case it was moved there by mistake. -->
-        <FilesToCopy Include="bin_dotnet\FuseCP.Providers.Base.*" Condition="'$(TargetFramework)' == 'net10.0'" />
+        <!-- For net10.0, copy from bin. Also restore from bin\Lazy in case it was moved there by mistake. -->
+        <FilesToCopy Include="bin\FuseCP.Providers.Base.*" Condition="'$(TargetFramework)' == 'net10.0'" />
         <FilesToCopy Include="bin\Lazy\FuseCP.Providers.Base.*" />
     </ItemGroup>
       <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="bin" SkipUnchangedFiles="true" /> 
@@ -265,7 +264,7 @@
         <ItemGroup>
             <DllsToCopy Include="..\..\Lib\WebFormsForCore\src\WebFormsForCore.Drawing\bin\Debug\net10.0\**\*.*" />
         </ItemGroup>
-        <Copy SourceFiles="@(DllsToCopy)" DestinationFolder="bin_dotnet" />
+        <Copy SourceFiles="@(DllsToCopy)" DestinationFolder="bin" />
     </Target>-->
 
 </Project>

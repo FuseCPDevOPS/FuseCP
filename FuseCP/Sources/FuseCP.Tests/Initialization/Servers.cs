@@ -106,9 +106,9 @@ public class Servers
 				$@"..\{Paths.App}.Server\bin\netstandard;" +
 				$@"..\{Paths.App}.Server\bin\Lazy;", "none", false);
 #else
-		Configuration.ProbingPaths = $@"..\..\..\..\{Paths.App}.EnterpriseServer\bin_dotnet;" +
+		Configuration.ProbingPaths = $@"..\..\..\..\{Paths.App}.EnterpriseServer\bin;" +
 			$@"..\..\..\..\{Paths.App}.EnterpriseServer\bin\netstandard" +
-			$@"..\..\..\..\{Paths.App}.Server\bin_dotnet;" +
+			$@"..\..\..\..\{Paths.App}.Server\bin;" +
 			$@"..\..\..\..\{Paths.App}.Server\bin\netstandard;";
 		FuseCP.Web.Services.AssemblyLoaderNetCore.Init();
 #endif

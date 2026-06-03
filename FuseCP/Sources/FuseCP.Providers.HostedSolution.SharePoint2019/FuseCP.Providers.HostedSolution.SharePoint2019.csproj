@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
-		<OutputPath>..\FuseCP.Server\bin\Sharepoint2019\</OutputPath>
+		<OutputPath>..\FuseCP.Server\bin\Providers\Sharepoint2019\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -49,4 +49,5 @@
         <PackageReference Include="System.Management.Automation" />
     </ItemGroup>
 </Project>
+
 
