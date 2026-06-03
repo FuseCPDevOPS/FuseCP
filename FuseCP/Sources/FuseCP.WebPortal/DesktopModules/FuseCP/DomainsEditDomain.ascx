@@ -131,7 +131,7 @@
     </fieldset>
 </div>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnDelete" CssClass="btn btn-danger" meta:resourcekey="btnDelete" runat="server" OnClick="btnDelete_Click" CausesValidation="false"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp;
+    <asp:LinkButton id="btnDelete" CssClass="btn btn-danger" meta:resourcekey="btnDelete" runat="server" OnClick="btnDelete_Click" CausesValidation="false"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp;
     <fcp:ItemButtonPanel id="buttonPanel" runat="server" ValidationGroup="EditMailbox" 
         OnSaveClick="btnSave_Click" OnSaveExitClick="btnSaveExit_Click" OnSaveClientClick="ShowProgressDialog('Updating Domain...');" />
 </div>

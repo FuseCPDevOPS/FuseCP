@@ -61,7 +61,7 @@
 		    <td><%--<div class="FormButtonsBar">--%>
                 <asp:LinkButton id="btnRemoveAddAddon" CssClass="btn btn-danger" runat="server" CausesValidation="false" 
                     CommandName="Remove" CommandArgument="<%# Container.ItemIndex %>" OnCommand="btnRemoveAddAddon_OnCommand"> 
-                    <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRemoveAddAddonText" Text="Remove Add-on:"/> 
+                    <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRemoveAddAddonText" Text="Remove Add-on:"/> 
                 </asp:LinkButton>
                 <%--</div>--%>
             </td>
@@ -202,7 +202,7 @@
 </asp:UpdatePanel>
 
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-    <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateSpace" OnClientClick="ShowProgressDialog('Creating hosting space...');"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+    <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateSpace" OnClientClick="ShowProgressDialog('Creating hosting space...');"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
 </div>
 

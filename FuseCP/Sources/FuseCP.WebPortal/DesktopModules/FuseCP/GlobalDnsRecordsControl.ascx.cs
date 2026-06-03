@@ -30,14 +30,6 @@ namespace FuseCP.Portal
 {
     public partial class GlobalDnsRecordsControl : FuseCPControlBase
     {
-        private const string RecordsLoadedViewStateKey = "RecordsLoaded";
-
-        private bool RecordsLoaded
-        {
-            get { return (bool?)ViewState[RecordsLoadedViewStateKey] ?? false; }
-            set { ViewState[RecordsLoadedViewStateKey] = value; }
-        }
-
         public string IPServerIdParam
         {
             get { return ipAddress.ServerIdParam; }
@@ -69,24 +61,31 @@ namespace FuseCP.Portal
         {
             if (!IsPostBack)
             {
-                RecordsLoaded = false;
                 ShowPanels(false);
-                ToggleRecordControls();
+
+                try
+                {
+                    BindDnsRecords();
+                }
+                catch (Exception ex)
+                {
+                    HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
+                    return;
+                }
             }
 
         }
 
         private void BindDnsRecords()
         {
-            RecordsLoaded = true;
             DataSet ds = null;
 
             if (ServiceIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(Request.QueryString[ServiceIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(Request[ServiceIdParam], 0));
             else if (ServerIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(Request.QueryString[ServerIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(Request[ServerIdParam], 0));
             else if (PackageIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(Request.QueryString[PackageIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(Request[PackageIdParam], 0));
 
             if (ds != null)
             {
@@ -101,7 +100,6 @@ namespace FuseCP.Portal
         {
             try
             {
-                ipAddress.EnsureBound();
                 ViewState["RecordID"] = recordId;
 
                 GlobalDnsRecord record = ES.Services.Servers.GetDnsRecord(recordId);
@@ -119,7 +117,7 @@ namespace FuseCP.Portal
 
                 ToggleRecordControls();
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (Exception ex)
             {
                 HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
                 return;
@@ -168,7 +166,10 @@ namespace FuseCP.Portal
 /*
 			var ip = args.Value;
 			System.Net.IPAddress ipaddr;
-            args.IsValid = string.IsNullOrEmpty(args.Value) ? true : System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) &&;
+            if (string.IsNullOrEmpty(args.Value))
+                args.IsValid = true;
+            else
+			    args.IsValid = System.Net.IPAddress.TryParse(ip, out ipaddr) && (ip.Contains(":") || ip.Contains(".")) && 
                     ((ddlRecordType.SelectedValue == "A" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) ||
                     (ddlRecordType.SelectedValue == "AAAA" && ipaddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6));
 */
@@ -177,8 +178,8 @@ namespace FuseCP.Portal
 
         private void SaveRecord()
         {
-            if (!string.IsNullOrEmpty(txtRecordData.Text) && !Page.IsValid)
-			    return;
+            if (!string.IsNullOrEmpty(txtRecordData.Text))
+			    if (!Page.IsValid) return;
 
             GlobalDnsRecord record = new GlobalDnsRecord();
             record.RecordId = (int)ViewState["RecordID"];
@@ -192,11 +193,11 @@ namespace FuseCP.Portal
             record.IpAddressId = ipAddress.AddressId;
 
             if (ServiceIdParam != null)
-                record.ServiceId = Utils.ParseInt(Request.QueryString[ServiceIdParam], 0);
+                record.ServiceId = Utils.ParseInt(Request[ServiceIdParam], 0);
             else if (ServerIdParam != null)
-                record.ServerId = Utils.ParseInt(Request.QueryString[ServerIdParam], 0);
+                record.ServerId = Utils.ParseInt(Request[ServerIdParam], 0);
             else if (PackageIdParam != null)
-                record.PackageId = Utils.ParseInt(Request.QueryString[PackageIdParam], 0);
+                record.PackageId = Utils.ParseInt(Request[PackageIdParam], 0);
 
             if (record.RecordId == 0)
             {
@@ -210,7 +211,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (Exception ex)
                 {
                     HostModule.ShowErrorMessage("GDNS_ADD_RECORD", ex);
                     return;
@@ -228,7 +229,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                catch (Exception ex)
                 {
                     HostModule.ShowErrorMessage("GDNS_UPDATE_RECORD", ex);
                     return;
@@ -251,7 +252,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (Exception ex)
             {
                 HostModule.ShowErrorMessage("GDNS_DELETE_RECORD", ex);
                 return;
@@ -261,7 +262,6 @@ namespace FuseCP.Portal
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            ipAddress.EnsureBound();
             ViewState["RecordID"] = 0;
 
             // erase fields
@@ -281,20 +281,7 @@ namespace FuseCP.Portal
         {
             pnlEdit.Visible = editMode;
             pnlRecords.Visible = !editMode;
-            pnlLoadRecords.Visible = !editMode && !RecordsLoaded;
-            gvRecords.Visible = !editMode && RecordsLoaded;
-        }
-        protected void btnLoadRecords_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                BindDnsRecords();
-                ShowPanels(false);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
-            }
+            gvRecords.Visible = !editMode;
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {

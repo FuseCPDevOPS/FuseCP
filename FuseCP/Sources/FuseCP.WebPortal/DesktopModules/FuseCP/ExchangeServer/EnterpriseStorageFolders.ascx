@@ -14,7 +14,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton id="btnAddFolder" CssClass="btn btn-success" runat="server" OnClick="btnAddFolder_Click">
-        <i class="bi bi-folder">&nbsp;</i>&nbsp;
+        <i class="bi bi-folder me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddFolderText"/>
     </asp:LinkButton>
 </div>
@@ -94,8 +94,7 @@
         <asp:TemplateField>
             <ItemTemplate>
                 <asp:LinkButton id="imgDelFolder" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("Name") %>' OnClientClick="return confirm('Confirming Deletion will result in the deletion of all files on this share.')">
-                    &nbsp;<i class="bi bi-trash"></i>
-                    &nbsp;
+                    <i class="bi bi-trash"></i>
                 </asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>

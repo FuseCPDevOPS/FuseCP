@@ -16,7 +16,7 @@
                     <fcp:SimpleMessageBox id="messageBox" runat="server" />
 
                     <div class="FormButtonsBar right">
-                            <asp:LinkButton id="btnCreate" CssClass="btn btn-primary" runat="server" OnClick="btnCreate_Click" CausesValidation="False"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnCreate" CssClass="btn btn-primary" runat="server" OnClick="btnCreate_Click" CausesValidation="False"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
                     </div>
                     <div class="FormButtonsBarClean">
                         <div class="FormButtonsBarCleanRight">
@@ -64,18 +64,18 @@
 						    <asp:TemplateField>
 							    <ItemTemplate>
 								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName='DeleteItem' CommandArgument='<%# Eval("ItemID") %>'> 
-                                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                                        <i class="bi bi-trash"></i> 
                                     </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
                             <asp:TemplateField>
 			                    <ItemTemplate>
-				                    <asp:LinkButton id="cmdMove" CssClass="btn btn-warning" runat="server" CommandName="Move" CommandArgument='<%# Eval("ItemID") %>' Visible="false"> <i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdMoveText"/> </asp:LinkButton>
+				                    <asp:LinkButton id="cmdMove" CssClass="btn btn-warning" runat="server" CommandName="Move" CommandArgument='<%# Eval("ItemID") %>' Visible="false"> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdMoveText"/> </asp:LinkButton>
 					                &nbsp;
 				                    <asp:LinkButton ID="cmdDetach" runat="server" 
  					                    CommandName="Detach" CommandArgument='<%# Eval("ItemID") %>'
 					                    CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
-                                        <i class="bi bi-link-45deg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
+                                        <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
                                     </asp:LinkButton>
 			                    </ItemTemplate>
                             </asp:TemplateField>

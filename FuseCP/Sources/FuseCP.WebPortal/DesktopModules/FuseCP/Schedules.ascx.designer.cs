@@ -23,15 +23,6 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.Timer tasksTimer;
         
         /// <summary>
-        /// btnAddItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAddItem;
-        
-        /// <summary>
         /// chkRecursive control.
         /// </summary>
         /// <remarks>
@@ -48,6 +39,15 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::FuseCP.Portal.SearchBox searchBox;
+        
+        /// <summary>
+        /// btnAddItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnAddItem;
         
         /// <summary>
         /// schedulesUpdatePanel control.

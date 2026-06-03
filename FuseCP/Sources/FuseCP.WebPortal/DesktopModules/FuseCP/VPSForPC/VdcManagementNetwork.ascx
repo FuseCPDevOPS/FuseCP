@@ -12,7 +12,7 @@
 			    </div>
                     <div class="card-body form-horizontal">
                     <div class="FormButtonsBar right">
-                        <asp:LinkButton id="btnAddVlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddVlan_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddVlanText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnAddVlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddVlan_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddVlanText"/> </asp:LinkButton>
                     </div>
                     <fcp:Menu id="menu" runat="server" SelectedItem="vdc_management_network" />
                     <div class="card tab-content">
@@ -25,7 +25,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName='DeleteItem' CommandArgument='<%# Eval("VLanID") %>' OnClientClick="return confirm('Remove this item?');"> 
-                                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                                        <i class="bi bi-trash"></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>

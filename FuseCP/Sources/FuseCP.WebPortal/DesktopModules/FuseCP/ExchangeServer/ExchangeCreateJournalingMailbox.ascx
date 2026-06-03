@@ -178,7 +178,7 @@
 
 <div class="card-footer text-end">
     <asp:LinkButton ID="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateMailbox" meta:resourcekey="btnCreate" OnClientClick="ShowProgressDialog('Creating journaling mailbox...');">
-        <i class="bi bi-envelope">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText" />
+        <i class="bi bi-envelope me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText" />
     </asp:LinkButton>
     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="CreateMailbox" />
 </div>

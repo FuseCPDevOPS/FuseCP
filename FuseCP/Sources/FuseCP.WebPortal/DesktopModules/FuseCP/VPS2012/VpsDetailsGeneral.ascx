@@ -120,7 +120,7 @@
                         <asp:Image ID="imgThumbnail" runat="server" Height="120" Style="border-style: ridge; border-width: 3px; border-color: #ffffff;" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                <asp:HyperLink ID="lnkRDP" CssClass="btn btn-primary" runat="server" NavigateUrl="javascript:OpenRemoteDesktopWindow(4, 1280, 1024);"> <i class="bi bi-desktop">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="lnkRDP" Text="Open Console"/> </asp:HyperLink>
+                <asp:HyperLink ID="lnkRDP" CssClass="btn btn-primary" runat="server" NavigateUrl="javascript:OpenRemoteDesktopWindow(4, 1280, 1024);"> <i class="bi bi-desktop me-1"></i><asp:Localize runat="server" meta:resourcekey="lnkRDP" Text="Open Console"/> </asp:HyperLink>
             </td>
             <td class="align-top" rowspan="2">
                 <ul class="ActionButtons">
@@ -257,10 +257,10 @@
             <asp:Localize ID="locReboot" runat="server" Text="Restart required" meta:resourcekey="locReboot"></asp:Localize>
         </div>
         <div class="popup-buttons text-end">
-            <asp:LinkButton ID="btnCancelHostname" CssClass="btn btn-warning" runat="server" CausesValidation="false"><i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelHostnameText" />
+            <asp:LinkButton ID="btnCancelHostname" CssClass="btn btn-warning" runat="server" CausesValidation="false"><i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelHostnameText" />
             </asp:LinkButton>
             &nbsp;
-            <asp:LinkButton ID="btnChangeHostname" CssClass="btn btn-primary" runat="server" ValidationGroup="ChangeHostname" OnClick="btnChangeHostname_Click"><i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnChangeHostnameText" />
+            <asp:LinkButton ID="btnChangeHostname" CssClass="btn btn-primary" runat="server" ValidationGroup="ChangeHostname" OnClick="btnChangeHostname_Click"><i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnChangeHostnameText" />
             </asp:LinkButton>
         </div>
     </div>

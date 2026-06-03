@@ -256,8 +256,8 @@
                     </asp:Panel>
                     
                     <p>
-                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click" meta:resourcekey="btnCancel"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-                        <asp:LinkButton id="btnImport" CssClass="btn btn-success" runat="server" OnClick="btnImport_Click" ValidationGroup="ImportWizard" meta:resourcekey="btnImport"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnImportText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click" meta:resourcekey="btnCancel"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnImport" CssClass="btn btn-success" runat="server" OnClick="btnImport_Click" ValidationGroup="ImportWizard" meta:resourcekey="btnImport"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnImportText"/> </asp:LinkButton>
                     </p>
                         
 			    </div>

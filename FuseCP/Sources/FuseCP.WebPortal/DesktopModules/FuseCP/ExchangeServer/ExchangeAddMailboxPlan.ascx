@@ -284,7 +284,7 @@
 			                    </asp:TemplateField>
                                 <asp:TemplateField>
 				                    <ItemTemplate>
-					                    <asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+					                    <asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 				                    </ItemTemplate>
 			                    </asp:TemplateField>
 		                    </Columns>
@@ -301,6 +301,6 @@
 				
 				</div>
 				    <div class="card-footer text-end">
-					    <asp:LinkButton id="btnAdd" CssClass="btn btn-success" runat="server" OnClick="btnAdd_Click" ValidationGroup="CreateMailboxPlan" OnClientClick="ShowProgressDialog('Creating ...');"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>&nbsp;
+					    <asp:LinkButton id="btnAdd" CssClass="btn btn-success" runat="server" OnClick="btnAdd_Click" ValidationGroup="CreateMailboxPlan" OnClientClick="ShowProgressDialog('Creating ...');"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>&nbsp;
 					    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="CreateMailboxPlan" />
 				    </div>

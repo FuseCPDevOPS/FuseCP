@@ -5,7 +5,7 @@
 <%@ Import Namespace="FuseCP.Portal" %>
 <div class="FormButtonsBar right fcp-home-create-toolbar">
 	<div class="right">
-		<asp:LinkButton id="btnCreate" CssClass="btn btn-primary" runat="server" OnClick="btnCreate_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreate"/> </asp:LinkButton>
+		<asp:LinkButton id="btnCreate" CssClass="btn btn-primary" runat="server" OnClick="btnCreate_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreate"/> </asp:LinkButton>
 	</div>
 	<div class="Right">
 		<%-- <asp:Panel ID="tblSearch" runat="server" CssClass="NormalBold">

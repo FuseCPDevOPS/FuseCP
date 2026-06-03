@@ -222,7 +222,7 @@
             <div class="col-md-4">
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="bi bi-wrench">&nbsp;</i>&nbsp;<asp:Label ID="lblServerTools" runat="server" meta:resourcekey="lblServerTools" Text="Server Tools"></asp:Label></h5>
+                        <h5 class="mb-0"><i class="bi bi-wrench me-1"></i><asp:Label ID="lblServerTools" runat="server" meta:resourcekey="lblServerTools" Text="Server Tools"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <asp:Panel ID="pnTerminalPanel" runat="server">
@@ -276,7 +276,7 @@
                 <br />
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="bi bi-medkit">&nbsp;</i>&nbsp;<asp:Label ID="lblRecoveryTools" runat="server" meta:resourcekey="lblRecoveryTools" Text="Server Recovery"></asp:Label></h5>
+                        <h5 class="mb-0"><i class="bi bi-medkit me-1"></i><asp:Label ID="lblRecoveryTools" runat="server" meta:resourcekey="lblRecoveryTools" Text="Server Recovery"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -315,7 +315,7 @@
                 <br />
                 <div class="card border-primary">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="bi bi-microchip">&nbsp;</i>&nbsp;<asp:Label ID="lblServerRAM" runat="server" meta:resourcekey="lblServerRAM" Text="Server RAM"></asp:Label></h5>
+                        <h5 class="mb-0"><i class="bi bi-microchip me-1"></i><asp:Label ID="lblServerRAM" runat="server" meta:resourcekey="lblServerRAM" Text="Server RAM"></asp:Label></h5>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -344,8 +344,8 @@
     </div>
 </section>
 <div class="card-footer text-end">
-    <asp:LinkButton ID="btnDelete" runat="server" CausesValidation="false" CssClass="btn btn-danger" OnClick="btnDelete_Click" OnClientClick="return confirm('Are you sure you want to delete server?');"><i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText" /></asp:LinkButton>
-    <asp:LinkButton ID="btnCancel" runat="server" CausesValidation="false" CssClass="btn btn-warning" OnClick="btnCancel_Click"><i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel" /></asp:LinkButton>
+    <asp:LinkButton ID="btnDelete" runat="server" CausesValidation="false" CssClass="btn btn-danger" OnClick="btnDelete_Click" OnClientClick="return confirm('Are you sure you want to delete server?');"><i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText" /></asp:LinkButton>
+    <asp:LinkButton ID="btnCancel" runat="server" CausesValidation="false" CssClass="btn btn-warning" OnClick="btnCancel_Click"><i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel" /></asp:LinkButton>
     <asp:LinkButton ID="btnUpdate" runat="server" ValidationGroup="Server" CssClass="btn btn-success" OnClick="btnUpdate_Click" OnClientClick="ShowProgressDialog('Updating Server...');"><span class="bi bi-arrow-clockwise">&nbsp;</span>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateText" /></asp:LinkButton>
 </div>
 

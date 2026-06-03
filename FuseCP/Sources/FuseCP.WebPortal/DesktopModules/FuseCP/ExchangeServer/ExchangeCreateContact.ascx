@@ -37,7 +37,7 @@
     </div>
     <div class="card-footer text-end">
         <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateContact">
-            <i class="bi bi-person-plus">&nbsp;</i>&nbsp;
+            <i class="bi bi-person-plus me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnCreateText"/>
         </asp:LinkButton>
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="CreateContact" />

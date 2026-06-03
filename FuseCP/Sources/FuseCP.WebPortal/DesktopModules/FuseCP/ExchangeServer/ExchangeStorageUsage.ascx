@@ -27,6 +27,6 @@
 				        </table>			    						
 				        <br />
 				        <br />
-				        <asp:LinkButton id="btnRecalculate" CausesValidation="false" CssClass="btn btn-success" runat="server" onclick="btnRecalculate_Click"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRecalculateText"/> </asp:LinkButton>&nbsp;						
+				        <asp:LinkButton id="btnRecalculate" CausesValidation="false" CssClass="btn btn-success" runat="server" onclick="btnRecalculate_Click"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRecalculateText"/> </asp:LinkButton>&nbsp;						
 				    </div>
 				</div>

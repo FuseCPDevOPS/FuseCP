@@ -10,7 +10,7 @@
  <div class="FormButtonsBar right">
      <div class="right">
         <asp:LinkButton ID="btnAddItembtn" runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click" >
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize id="btnAddItem" runat="server" meta:resourcekey="btnAddItem" Text="btnAddItem"/>
+            <i class="bi bi-plus-lg me-1"></i><asp:Localize id="btnAddItem" runat="server" meta:resourcekey="btnAddItem" Text="btnAddItem"/>
         </asp:LinkButton>
          &nbsp;<asp:CheckBox ID="chkRecursive" runat="server" Text="Show Nested Spaces Items" meta:resourcekey="chkRecursive" AutoPostBack="true" Checked="True" CssClass="Normal" />
      </div>
@@ -95,7 +95,7 @@
 				<asp:LinkButton ID="cmdDetach" runat="server" 
  					CommandName="Detach" CommandArgument='<%# Eval("ItemID") %>'
 					CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
-                    <i class="bi bi-link-45deg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
+                    <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
                 </asp:LinkButton>
 			</ItemTemplate>
         </asp:TemplateField>

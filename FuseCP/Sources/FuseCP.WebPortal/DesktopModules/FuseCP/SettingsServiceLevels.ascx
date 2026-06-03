@@ -28,7 +28,7 @@
 			</asp:TemplateField>
 			<asp:TemplateField>
 				<ItemTemplate>
-					<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("LevelId") %>' OnClientClick="return confirm('Are you sure you want to delete selected service level?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+					<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("LevelId") %>' OnClientClick="return confirm('Are you sure you want to delete selected service level?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
 		</Columns>
@@ -66,12 +66,12 @@
         <tr>
             <td>
                 <div class="FormButtonsBarClean">
-                    <asp:LinkButton id="btnAddServiceLevel" CssClass="btn btn-success" runat="server" OnClick="btnAddServiceLevel_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddServiceLevelText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnAddServiceLevel" CssClass="btn btn-success" runat="server" OnClick="btnAddServiceLevel_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddServiceLevelText"/> </asp:LinkButton>
                 </div>
             </td>
             <td>
                 <div class="FormButtonsBarClean">
-                        <asp:LinkButton id="btnUpdateServiceLevel" CssClass="btn btn-success" runat="server" OnClick="btnUpdateServiceLevel_Click"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateServiceLevelText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnUpdateServiceLevel" CssClass="btn btn-success" runat="server" OnClick="btnUpdateServiceLevel_Click"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateServiceLevelText"/> </asp:LinkButton>
             </td>
         </tr>
     </table>

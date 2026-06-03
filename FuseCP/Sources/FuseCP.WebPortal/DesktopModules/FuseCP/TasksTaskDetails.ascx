@@ -53,7 +53,7 @@
     </tr>
     <tr>
         <td class="text-center">
-            <asp:LinkButton id="btnStop" CssClass="btn btn-danger" runat="server" OnClick="btnStop_Click" OnClientClick="return confirm('Do you really want to terminate this task?');"> <i class="bi bi-hand-index-thumb">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnStopText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnStop" CssClass="btn btn-danger" runat="server" OnClick="btnStop_Click" OnClientClick="return confirm('Do you really want to terminate this task?');"> <i class="bi bi-hand-index-thumb me-1"></i><asp:Localize runat="server" meta:resourcekey="btnStopText"/> </asp:LinkButton>
         </td>
     </tr>
 </table>
@@ -81,6 +81,6 @@
 </div>
 
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click" CausesValidation="false"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBackText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click" CausesValidation="false"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBackText"/> </asp:LinkButton>
 </div>
 

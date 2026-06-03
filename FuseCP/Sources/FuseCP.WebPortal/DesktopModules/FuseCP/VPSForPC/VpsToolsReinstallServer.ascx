@@ -83,8 +83,8 @@
 				    </table>
 				    
                     <p>
-                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-                        <asp:LinkButton id="btnReinstall" CssClass="btn btn-success" runat="server" onclick="btnUpdate_Click" ValidationGroup="Reinstall"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnReinstall"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnReinstall" CssClass="btn btn-success" runat="server" onclick="btnUpdate_Click" ValidationGroup="Reinstall"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnReinstall"/> </asp:LinkButton>
                     </p>
 			    </div>
 		    </div>

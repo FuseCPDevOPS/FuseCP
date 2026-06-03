@@ -23,7 +23,7 @@
                     <div class="FormButtonsBarClean">
                         <div class="FormButtonsBarClean">
                             <div class="FormButtonsBarCleanLeft">
-                                <asp:LinkButton id="btnCreateNewBlackBerryUser" CssClass="btn btn-primary" runat="server" OnClick="btnCreateNewBlackBerryUser_Click"> <i class="bi bi-person-plus">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateNewBlackBerryUser"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnCreateNewBlackBerryUser" CssClass="btn btn-primary" runat="server" OnClick="btnCreateNewBlackBerryUser_Click"> <i class="bi bi-person-plus me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateNewBlackBerryUser"/> </asp:LinkButton>
                             </div>
                             <div class="FormButtonsBarCleanRight">
                                 <asp:Panel ID="SearchPanel" runat="server" DefaultButton="cmdSearch">

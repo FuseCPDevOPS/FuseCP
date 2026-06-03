@@ -11,7 +11,7 @@
  <div class="FormButtonsBar right">
      <div class="right">
         <asp:LinkButton ID="btnAddDomain" runat="server" CssClass="btn btn-primary" OnClick="btnAddDomain_Click" >
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddDomain"/>
+            <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddDomain"/>
         </asp:LinkButton>
          &nbsp;<asp:CheckBox ID="chkRecursive" runat="server" Text="Show Nested Spaces Items" meta:resourcekey="chkRecursive" AutoPostBack="true" Checked="True" CssClass="Normal" />
      </div>
@@ -130,7 +130,7 @@
  				<asp:LinkButton ID="cmdDetach" runat="server" 
  					CommandName="Detach" CommandArgument='<%# Eval("DomainID") %>'
 					CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
-                    <i class="bi bi-link-45deg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
+                    <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
 				</asp:LinkButton>
  			</ItemTemplate>
          </asp:TemplateField>

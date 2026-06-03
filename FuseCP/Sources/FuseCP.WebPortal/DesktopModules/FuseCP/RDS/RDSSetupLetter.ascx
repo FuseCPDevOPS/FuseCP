@@ -39,8 +39,8 @@
                             </tr>                            
                         </table>
                         <div class="card-footer text-end">
-                        <asp:LinkButton id="btnExit" CssClass="btn btn-danger" runat="server" OnClick="btnExit_Click" OnClientClick="ShowProgressDialog('Loading ...');"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnExitText"/> </asp:LinkButton>&nbsp;
-                        <asp:LinkButton id="btnSend" CssClass="btn btn-success" runat="server" OnClick="btnSend_Click" ValidationGroup="SendEmail"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSendtext"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnExit" CssClass="btn btn-danger" runat="server" OnClick="btnExit_Click" OnClientClick="ShowProgressDialog('Loading ...');"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnExitText"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnSend" CssClass="btn btn-success" runat="server" OnClick="btnSend_Click" ValidationGroup="SendEmail"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSendtext"/> </asp:LinkButton>
 			        </div>
                     </asp:Panel>
 					

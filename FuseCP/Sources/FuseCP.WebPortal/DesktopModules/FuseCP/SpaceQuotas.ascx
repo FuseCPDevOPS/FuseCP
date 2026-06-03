@@ -183,6 +183,6 @@
 </table>
 </div>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnViewQuotas" CssClass="btn btn-success" runat="server" OnClick="btnViewQuotas_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnViewQuotasText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnViewQuotas" CssClass="btn btn-success" runat="server" OnClick="btnViewQuotas_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnViewQuotasText"/> </asp:LinkButton>
 </div>
 

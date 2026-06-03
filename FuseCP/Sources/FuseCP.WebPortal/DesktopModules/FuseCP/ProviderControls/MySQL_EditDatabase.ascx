@@ -29,8 +29,8 @@
     <table class="table table-borderless align-middle mb-0">
         <tr>
             <td>
-                <asp:LinkButton id="btnBackup" CssClass="btn btn-primary" runat="server" OnClick="btnBackup_Click" CausesValidation="false"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBackupText"/> </asp:LinkButton>&nbsp;
-                <asp:LinkButton id="btnRestore" CssClass="btn btn-warning" runat="server" OnClick="btnRestore_Click" CausesValidation="false"> <i class="bi bi-repeat">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRestoreText"/> </asp:LinkButton>
+                <asp:LinkButton id="btnBackup" CssClass="btn btn-primary" runat="server" OnClick="btnBackup_Click" CausesValidation="false"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBackupText"/> </asp:LinkButton>&nbsp;
+                <asp:LinkButton id="btnRestore" CssClass="btn btn-warning" runat="server" OnClick="btnRestore_Click" CausesValidation="false"> <i class="bi bi-repeat me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRestoreText"/> </asp:LinkButton>
             </td>
         </tr>
     </table>

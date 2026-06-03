@@ -13,7 +13,7 @@
 <asp:UpdatePanel ID="RecordsUpdatePanel" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
     <ContentTemplate>
 	<div class="FormButtonsBar right fcp-domain-records-action-offset">
-						<asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-primary" CausesValidation="False"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAdd"/> </asp:LinkButton>
+						<asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-primary" CausesValidation="False"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAdd"/> </asp:LinkButton>
 	</div>
 				<fcp:SimpleMessageBox id="messageBox" runat="server" />
 		    
@@ -55,7 +55,7 @@
 						</asp:TemplateField>
 						<asp:TemplateField>
 							<ItemTemplate>
-								<asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="delete" OnClientClick="return confirm('Delete record?');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+								<asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="delete" OnClientClick="return confirm('Delete record?');"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							</ItemTemplate>
 						</asp:TemplateField>
 					</Columns>
@@ -63,7 +63,7 @@
 
 				<br />
 				<div class="text-center">
-					<asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>&nbsp;
+					<asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>&nbsp;
 				</div>
 
 
@@ -164,8 +164,8 @@
 				</asp:UpdatePanel>
 					</div>
 					<div class="popup-buttons text-end">
-                    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="DnsZoneRecord"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSave"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="DnsZoneRecord"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSave"/> </asp:LinkButton>
                     </div>
             </div>
        </asp:Panel>

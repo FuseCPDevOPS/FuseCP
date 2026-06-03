@@ -111,6 +111,6 @@
 </ContentTemplate>
 </asp:UpdatePanel>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateMailbox" OnClientClick="ShowProgressDialog('Creating user...');"> <i class="bi bi-person">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateMailbox" OnClientClick="ShowProgressDialog('Creating user...');"> <i class="bi bi-person me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="CreateMailbox" />
 </div>

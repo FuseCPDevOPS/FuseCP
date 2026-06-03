@@ -18,7 +18,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton ID="btnCreateUser" CssClass="btn btn-primary" runat="server" OnClick="btnCreateUser_Click">
-        <i class="bi bi-person-plus">&nbsp;</i>&nbsp;
+        <i class="bi bi-person-plus me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCreateUserText" />
     </asp:LinkButton>
 </div>
@@ -116,8 +116,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Linkbutton ID="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Container.DataItemIndex %>' OnClientClick="return ShowProgressDialog('Please wait...');">
-                                &nbsp;
-                                <i class="bi bi-trash"></i>&nbsp;
+                                <i class="bi bi-trash"></i>
                             </asp:Linkbutton>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -151,11 +150,11 @@
                     </div>
 					<div class="popup-buttons text-end">
                         <asp:LinkButton ID="btnCancelDelete" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClientClick="CloseProgressDialog();">
-                            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+                            <i class="bi bi-x-lg me-1"></i>
                             <asp:Localize runat="server" meta:resourcekey="btnCancelText" />
                         </asp:LinkButton>&nbsp;
 			            <asp:LinkButton ID="btnDeleteUser" CssClass="btn btn-danger" runat="server" OnClick="btnDelete_Click" OnClientClick="closePopup(); return ShowProgressDialog('Deleting user...');">
-                            <i class="bi bi-trash">&nbsp;</i>&nbsp;
+                            <i class="bi bi-trash me-1"></i>
                             <asp:Localize runat="server" meta:resourcekey="btnDeleteText" />
 			            </asp:LinkButton>
                     </div>

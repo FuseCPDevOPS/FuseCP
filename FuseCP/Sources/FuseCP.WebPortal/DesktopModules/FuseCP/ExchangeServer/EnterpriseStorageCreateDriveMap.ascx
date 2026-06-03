@@ -65,7 +65,7 @@
 </div>
 <div class="card-footer text-end">
     <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" ValidationGroup="CreateDriveMap">
-        <i class="bi bi-check-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-check-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCreateText"/>
     </asp:LinkButton>
     <asp:ValidationSummary ID="valSummary" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="CreateDriveMap" />

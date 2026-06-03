@@ -27,7 +27,7 @@
 			<asp:TemplateField>
 				<itemtemplate>
 					<asp:LinkButton id="cmdDeleteDomain" CssClass="btn btn-danger" runat="server" CommandName='delete_item' CausesValidation="false"> 
-                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                        <i class="bi bi-trash"></i> 
                     </asp:LinkButton>
 				</itemtemplate>
 				<ItemStyle HorizontalAlign="Center" />

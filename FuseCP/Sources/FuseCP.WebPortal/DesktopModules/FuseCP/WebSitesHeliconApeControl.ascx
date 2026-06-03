@@ -49,7 +49,7 @@
 			<asp:TemplateField>
 				<ItemTemplate>
 					<asp:LinkButton id="cmdDeleteHeliconApeFolder" CssClass="btn btn-danger" runat="server" CommandName='delete' CausesValidation="false" OnClientClick="return confirm('Delete .htaccess?');"> 
-                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                        <i class="bi bi-trash"></i> 
                     </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
@@ -95,7 +95,7 @@
 			<asp:TemplateField>
 				<ItemTemplate>
 					<asp:LinkButton id="cmdDeleteUser" CssClass="btn btn-danger" runat="server" CommandName='delete' CausesValidation="false" OnClientClick="return confirm('Delete user?');"> 
-                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                        <i class="bi bi-trash"></i> 
                     </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
@@ -134,7 +134,7 @@
 			<asp:TemplateField>
 				<ItemTemplate>
 					<asp:LinkButton id="cmdDeleteGroup" CssClass="btn btn-danger" runat="server" CommandName='delete' CausesValidation="false" OnClientClick="return confirm('Delete group?');"> 
-                        &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                        <i class="bi bi-trash"></i> 
                     </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>

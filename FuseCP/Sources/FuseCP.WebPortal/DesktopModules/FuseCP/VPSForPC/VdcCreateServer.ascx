@@ -30,15 +30,15 @@
                         <SideBarStyle CssClass="SideBar" VerticalAlign="Top" />
                         <StepStyle VerticalAlign="Top" />
                         <StartNavigationTemplate>
-                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
                         </StartNavigationTemplate>
                         <StepNavigationTemplate>
-                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
-                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
+                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
                         </StepNavigationTemplate>
                         <FinishNavigationTemplate>
-                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
-                            <asp:LinkButton id="btnFinish" CssClass="btn btn-success" runat="server"  CommandName="MoveComplete" ValidationGroup="VpsWizard"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnFinishText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="VpsWizard"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
+                            <asp:LinkButton id="btnFinish" CssClass="btn btn-success" runat="server"  CommandName="MoveComplete" ValidationGroup="VpsWizard"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnFinishText"/> </asp:LinkButton>
                         </FinishNavigationTemplate>
                         <WizardSteps>
                             <asp:WizardStep ID="stepName" runat="server" meta:resourcekey="stepName" Title="Name and OS">

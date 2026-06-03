@@ -42,7 +42,7 @@
                                             <fcp:EmailAddress ID="upn" runat="server" ValidationGroup="CreateMailbox"></fcp:EmailAddress>
                                 <asp:DropDownList ID="ddlEmailAddresses" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
-                                        <asp:LinkButton ID="btnSetUserPrincipalName" CssClass="col-sm-3 btn btn-primary" runat="server" OnClick="btnSetUserPrincipalName_Click"><i class="bi bi-person">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetUserPrincipalNameText" />
+                                        <asp:LinkButton ID="btnSetUserPrincipalName" CssClass="col-sm-3 btn btn-primary" runat="server" OnClick="btnSetUserPrincipalName_Click"><i class="bi bi-person me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetUserPrincipalNameText" />
                                 </asp:LinkButton>
                  </div>
        <div class="row mb-3 fcp-user-display-row">
@@ -68,7 +68,7 @@
                 </div>
                 <div id="PasswordBlock" runat="server" style="position:relative">
                     <fcp:PasswordControl ID="password" runat="server" ValidationGroup="ValidatePassword" AllowGeneratePassword="true"></fcp:PasswordControl>
-                    <div class="fcp-org-user-password-action"><asp:LinkButton ID="btnSetUserPassword" CssClass="btn btn-primary btn-sm" runat="server" OnClick="btnSetUserPassword_Click" ValidationGroup="ValidatePassword"><i class="bi bi-key">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetUserPasswordText" />
+                    <div class="fcp-org-user-password-action"><asp:LinkButton ID="btnSetUserPassword" CssClass="btn btn-primary btn-sm" runat="server" OnClick="btnSetUserPassword_Click" ValidationGroup="ValidatePassword"><i class="bi bi-key me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetUserPasswordText" />
                                 </asp:LinkButton></div>
                 </div>
      

@@ -15,7 +15,7 @@
 				    <fcp:SimpleMessageBox id="messageBox" runat="server" />
 				    
                     <div class="FormButtonsBarClean">
-                        <asp:LinkButton id="btnAddDomain" CssClass="btn btn-success" runat="server" OnClick="btnAddDomain_Click"> <i class="bi bi-globe">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddDomainText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnAddDomain" CssClass="btn btn-success" runat="server" OnClick="btnAddDomain_Click"> <i class="bi bi-globe me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddDomainText"/> </asp:LinkButton>
                     </div>
 
 				    <asp:GridView ID="gvDomains" runat="server" AutoGenerateColumns="False" EnableViewState="true"
@@ -31,7 +31,7 @@
 						    </asp:TemplateField>
 						    <asp:TemplateField>
 							    <ItemTemplate>
-									<asp:LinkButton id="imgDelDomain" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("DomainName") %>' OnClientClick="return confirm('Are you sure you want to delete selected domain?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+									<asp:LinkButton id="imgDelDomain" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("DomainName") %>' OnClientClick="return confirm('Are you sure you want to delete selected domain?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>

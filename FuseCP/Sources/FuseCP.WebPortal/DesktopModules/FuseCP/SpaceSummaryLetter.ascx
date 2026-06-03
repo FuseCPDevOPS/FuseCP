@@ -40,5 +40,5 @@
     </div>
 </div>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnReturn" CssClass="btn btn-warning" runat="server" OnClick="btnReturn_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnReturnText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnReturn" CssClass="btn btn-warning" runat="server" OnClick="btnReturn_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnReturnText"/> </asp:LinkButton>
 </div>

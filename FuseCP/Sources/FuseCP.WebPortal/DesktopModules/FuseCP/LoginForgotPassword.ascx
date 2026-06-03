@@ -11,5 +11,5 @@
 </div>
 <div class="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2">
 	<asp:LinkButton ID="cmdBack" runat="server" CssClass="btn btn-secondary" CausesValidation="False" OnClick="cmdBack_Click"><i class="bi bi-arrow-left" aria-hidden="true"></i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdBack" /> </asp:LinkButton>
-	<asp:LinkButton ID="btnSend" CssClass="btn btn-success" runat="server" OnClick="btnSend_Click"><i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSendtext" /> </asp:LinkButton>
+	<asp:LinkButton ID="btnSend" CssClass="btn btn-success" runat="server" OnClick="btnSend_Click"><i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSendtext" /> </asp:LinkButton>
 </div>

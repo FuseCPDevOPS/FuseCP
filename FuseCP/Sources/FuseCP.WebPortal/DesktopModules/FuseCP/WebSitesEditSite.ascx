@@ -89,13 +89,13 @@
         <div class="popup-buttons text-end">
             <asp:LinkButton ID="PubProfileWizardCancelButton" CssClass="btn btn-warning" runat="server" ValidationGroup="WDeployBuildPublishingProfileWizard" CausesValidation="False">
                
-<i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="PubProfileWizardCancelButtonText" />
+<i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="PubProfileWizardCancelButtonText" />
             </asp:LinkButton>
             &nbsp;
            
             <asp:LinkButton ID="PubProfileWizardOkButton" CssClass="btn btn-success" runat="server" OnClick="PubProfileWizardOkButton_Click" ValidationGroup="WDeployBuildPublishingProfileWizard">
                
-<i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="PubProfileWizardOkButtonText" />
+<i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="PubProfileWizardOkButtonText" />
             </asp:LinkButton>
         </div>
     </div>
@@ -151,7 +151,7 @@
 
                             <asp:LinkButton ID="btnAddPointer" runat="server" CssClass="btn btn-primary" OnClick="btnAddPointer_Click">
                                
-<i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddPointer" />
+<i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddPointer" />
                             </asp:LinkButton>
                         </div>
 
@@ -190,19 +190,19 @@
                         </td>
                         <td class="text-end margin-bottom-xs">
                             <asp:LinkButton ID="cmdStart" CssClass="btn btn-sm btn-success btn-circle" runat="server" CommandName="Started" OnClick="cmdChangeState_Click">
-                                &nbsp;<i class="bi bi-play"></i>&nbsp;
+                                <i class="bi bi-play"></i>
                            
                             </asp:LinkButton>
                             <asp:LinkButton ID="cmdPause" CssClass="btn btn-sm btn-warning btn-circle" runat="server" CommandName="Paused" OnClick="cmdChangeState_Click">
-                                &nbsp;<i class="bi bi-pause-fill"></i>&nbsp;
+                                <i class="bi bi-pause-fill"></i>
                            
                             </asp:LinkButton>
                             <asp:LinkButton ID="cmdContinue" CssClass="btn btn-sm btn-success btn-circle" runat="server" CommandName="Continuing" OnClick="cmdChangeState_Click">
-                                &nbsp;<i class="bi bi-skip-forward-fill"></i>&nbsp;
+                                <i class="bi bi-skip-forward-fill"></i>
                            
                             </asp:LinkButton>
                             <asp:LinkButton ID="cmdStop" CssClass="btn btn-sm btn-danger btn-circle" runat="server" CommandName="Stopped" OnClick="cmdChangeState_Click">
-                                &nbsp;<i class="bi bi-stop-fill"></i>&nbsp;
+                                <i class="bi bi-stop-fill"></i>
                            
                             </asp:LinkButton>
                         </td>
@@ -217,15 +217,15 @@
                         <td class="padding-top-sm">
                             <asp:Panel runat="server" ID="AppPoolRestartPanel" CssClass="float-end">
                                 <asp:LinkButton ID="cmdAppPoolStart" CssClass="btn btn-sm btn-success btn-circle" runat="server" CommandName="Started" OnClick="cmdAppPoolChangeState_Click">
-                                    &nbsp;<i class="bi bi-play"></i>&nbsp;
+                                    <i class="bi bi-play"></i>
                                
                                 </asp:LinkButton>
                                 <asp:LinkButton ID="cmdAppPoolRecycle" CssClass="btn btn-sm btn-warning btn-circle" runat="server" CommandName="Recycle" OnClick="cmdAppPoolChangeState_Click">
-                                    &nbsp;<i class="bi bi-arrow-clockwise"></i>&nbsp;
+                                    <i class="bi bi-arrow-clockwise"></i>
                                
                                 </asp:LinkButton>
                                 <asp:LinkButton ID="cmdAppPoolStop" CssClass="btn btn-sm btn-danger btn-circle" runat="server" CommandName="Stopped" OnClick="cmdAppPoolChangeState_Click">
-                                    &nbsp;<i class="bi bi-stop-fill"></i>&nbsp;
+                                    <i class="bi bi-stop-fill"></i>
                                
                                 </asp:LinkButton>
                             </asp:Panel>
@@ -279,7 +279,7 @@
                                 <div class="row">
                                     <asp:LinkButton ID="btnAddVirtualDirectory" runat="server"
                                         CssClass="btn btn-primary w-100" CausesValidation="false" OnClick="btnAddVirtualDirectory_Click">
-                                            <i class="bi bi-folder2-open">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddVirtualDirectory" />
+                                            <i class="bi bi-folder2-open me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddVirtualDirectory" />
                                     </asp:LinkButton>
 
                                 </div>
@@ -320,7 +320,7 @@
                                 <div class="row">
                                     <asp:LinkButton ID="btnAddAppVirtualDirectory" runat="server" CssClass="btn btn-primary w-100" CausesValidation="false" OnClick="btnAddAppVirtualDirectory_Click">
                                        
-<i class="bi bi-code-fork">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddAppVirtualDirectory" />
+<i class="bi bi-code-fork me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddAppVirtualDirectory" />
                                     </asp:LinkButton>
                                 </div>
                                 <hr />
@@ -392,19 +392,19 @@
                                 <td class="Normal">
                                     <asp:LinkButton ID="btnUninstallFrontPage" CssClass="btn btn-danger" runat="server" CausesValidation="false" OnClick="btnUninstallFrontPage_Click" OnClientClick="confirmationFPSE()">
                                        
-<i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Label runat="server" meta:resourcekey="btnUninstallFrontPageText" />
+<i class="bi bi-trash me-1"></i><asp:Label runat="server" meta:resourcekey="btnUninstallFrontPageText" />
                                     </asp:LinkButton>
                                     &nbsp;
                                            
                                     <asp:LinkButton ID="btnChangeFrontPagePassword" CssClass="btn btn-warning" runat="server" ValidationGroup="FrontPage" OnClick="btnChangeFrontPagePassword_Click">
                                                
-<i class="bi bi-key">&nbsp;</i>&nbsp;<asp:Label runat="server" meta:resourcekey="btnChangeFrontPagePasswordText" />
+<i class="bi bi-key me-1"></i><asp:Label runat="server" meta:resourcekey="btnChangeFrontPagePasswordText" />
                                             </asp:LinkButton>
                                     &nbsp;
                                            
                                     <asp:LinkButton ID="btnInstallFrontPage" CssClass="btn btn-success" runat="server" ValidationGroup="FrontPage" OnClick="btnInstallFrontPage_Click" OnClientClick="ShowProgressDialog('Installing Frontpage...');">
                                                
-<i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Label runat="server" meta:resourcekey="btnInstallFrontPageText" />
+<i class="bi bi-check-lg me-1"></i><asp:Label runat="server" meta:resourcekey="btnInstallFrontPageText" />
                                             </asp:LinkButton>
                                 </td>
                             </tr>
@@ -509,19 +509,19 @@
                             <div>
                                 <asp:LinkButton ID="WDeployDisablePublishingButton" CssClass="btn btn-danger" runat="server" OnClick="WDeployDisablePublishingButton_Click" OnClientClick="return confirmationWebDeployPublishing();" ValidationGroup="WDeployPublishingGroup" CausesValidation="false">
                                    
-<i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="WDeployDisablePublishingButtonText" />
+<i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="WDeployDisablePublishingButtonText" />
                                 </asp:LinkButton>
                                 &nbsp;
                                        
                                 <asp:LinkButton ID="WDeployChangePublishingPasswButton" CssClass="btn btn-warning" runat="server" OnClick="WDeployChangePublishingPasswButton_Click" ValidationGroup="WDeployPublishingGroup">
                                            
-<i class="bi bi-key">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="WDeployChangePublishingPasswButtonText" />
+<i class="bi bi-key me-1"></i><asp:Localize runat="server" meta:resourcekey="WDeployChangePublishingPasswButtonText" />
                                         </asp:LinkButton>
                                 &nbsp;
 									
                                 <asp:LinkButton ID="WDeployEnabePublishingButton" CssClass="btn btn-success" runat="server" OnClick="WDeployEnabePublishingButton_Click" ValidationGroup="WDeployPublishingGroup">
                                            
-<i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="WDeployEnabePublishingButtonText" />
+<i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="WDeployEnabePublishingButtonText" />
                                         </asp:LinkButton>
                             </div>
                         </asp:PlaceHolder>
@@ -632,19 +632,19 @@
                             <div>
                                 <asp:LinkButton ID="btnWmSvcSiteDisable" CssClass="btn btn-danger" runat="server" OnClick="btnWmSvcSiteDisable_Click" OnClientClick="return confirmationWMSVC();" ValidationGroup="WmSvcGroup" CausesValidation="false">
                                    
-<i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnWmSvcSiteDisableText" />
+<i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnWmSvcSiteDisableText" />
                                 </asp:LinkButton>
                                 &nbsp;
                                        
                                 <asp:LinkButton ID="btnWmSvcChangePassw" CssClass="btn btn-warning" runat="server" OnClick="btnWmSvcChangePassw_Click" ValidationGroup="WmSvcGroup">
                                            
-<i class="bi bi-key">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnWmSvcChangePasswText" />
+<i class="bi bi-key me-1"></i><asp:Localize runat="server" meta:resourcekey="btnWmSvcChangePasswText" />
                                         </asp:LinkButton>
                                 &nbsp;
                                        
                                 <asp:LinkButton ID="btnWmSvcSiteEnable" CssClass="btn btn-success" runat="server" OnClick="btnWmSvcSiteEnable_Click" ValidationGroup="WmSvcGroup">
                                            
-<i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnWmSvcSiteEnableText" />
+<i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnWmSvcSiteEnableText" />
                                         </asp:LinkButton>
                             </div>
                         </asp:PlaceHolder>
@@ -671,7 +671,7 @@
         <div class="col-md-6">
             <asp:LinkButton ID="btnDelete" CssClass="btn btn-danger" runat="server" CausesValidation="false" OnClientClick="return confirm('Delete this web site?');" OnClick="btnDelete_Click">
                
-<i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText" />
+<i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText" />
             </asp:LinkButton>&nbsp;&nbsp;
             <asp:CheckBox ID="chkDeleteWebsiteDirectory" runat="server" Text="Delete Website Directory?" AutoPostBack="false" meta:resourcekey="chkDeleteWebsiteDirectory" />
 

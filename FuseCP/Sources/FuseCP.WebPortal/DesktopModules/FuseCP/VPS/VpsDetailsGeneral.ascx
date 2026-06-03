@@ -243,8 +243,8 @@
 			</table>                               
 			</div>
 					<div class="popup-buttons text-end">
-		    <asp:LinkButton id="btnCancelHostname" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelHostnameText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnChangeHostname" CssClass="btn btn-primary" runat="server" ValidationGroup="ChangeHostname" onclick="btnChangeHostname_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnChangeHostnameText"/> </asp:LinkButton> 
+		    <asp:LinkButton id="btnCancelHostname" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelHostnameText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnChangeHostname" CssClass="btn btn-primary" runat="server" ValidationGroup="ChangeHostname" onclick="btnChangeHostname_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnChangeHostnameText"/> </asp:LinkButton> 
 		</div>
 	</div>
 </asp:Panel>

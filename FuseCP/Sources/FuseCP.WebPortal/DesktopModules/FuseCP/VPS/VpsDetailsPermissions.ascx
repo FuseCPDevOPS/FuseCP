@@ -53,7 +53,7 @@
 			            </Columns>
 		            </asp:GridView>
 		            <br />
-                    <asp:LinkButton id="btnUpdateVpsPermissions" CssClass="btn btn-success" runat="server" CausesValidation="false" meta:resourcekey="btnUpdateVpsPermissions"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateVpsPermissionsText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnUpdateVpsPermissions" CssClass="btn btn-success" runat="server" CausesValidation="false" meta:resourcekey="btnUpdateVpsPermissions"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateVpsPermissionsText"/> </asp:LinkButton>
                     <br />
 			    </div>
                 </div>

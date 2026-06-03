@@ -27,7 +27,7 @@
 					<fcp:SimpleMessageBox id="messageBox" runat="server" />
 					<div class="FormButtonsBarClean">
 						<div class="FormButtonsBarCleanLeft">
-							<asp:LinkButton id="btnCreateSiteCollection" CssClass="btn btn-primary" runat="server" OnClick="btnCreateSiteCollection_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateSiteCollectionText"/> </asp:LinkButton>
+							<asp:LinkButton id="btnCreateSiteCollection" CssClass="btn btn-primary" runat="server" OnClick="btnCreateSiteCollection_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateSiteCollectionText"/> </asp:LinkButton>
 						</div>
 						<div class="FormButtonsBarCleanRight">
 							<asp:Panel ID="SearchPanel" runat="server" DefaultButton="cmdSearch">
@@ -61,7 +61,7 @@
 							<asp:BoundField meta:resourcekey="gvOwnerDisplayName" DataField="OwnerName" />
 							<asp:TemplateField>
 								<ItemTemplate>
-									<asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("Id") %>' OnClientClick="return fuseCpConfirmWithProgress('Are you sure you want to delete Site Collection?', 'Deleting SharePoint site collection...');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+									<asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("Id") %>' OnClientClick="return fuseCpConfirmWithProgress('Are you sure you want to delete Site Collection?', 'Deleting SharePoint site collection...');"> <i class="bi bi-trash"></i> </asp:LinkButton>
 								</ItemTemplate>
 							</asp:TemplateField>
 						</Columns>

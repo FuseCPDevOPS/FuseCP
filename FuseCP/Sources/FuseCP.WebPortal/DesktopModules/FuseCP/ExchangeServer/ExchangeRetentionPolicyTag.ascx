@@ -39,8 +39,7 @@
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')" Visible='<%# ((int)Eval("ItemID") == PanelRequest.ItemID) %>'>
-                        &nbsp;
-                        <i class="bi bi-trash"></i>&nbsp;
+                        <i class="bi bi-trash"></i>
                     </asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
@@ -89,17 +88,17 @@
     </asp:Panel>
     <div class="FormButtonsBarClean">
         <asp:LinkButton id="btnAddPolicy" CssClass="btn btn-success" runat="server" OnClick="btnAddPolicy_Click">
-            <i class="bi bi-check-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-check-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnAddPolicy"/>
         </asp:LinkButton>
         &nbsp;
         <asp:LinkButton id="btnUpdatePolicy" CssClass="btn btn-warning" runat="server" OnClick="btnUpdatePolicy_Click">
-            <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;
+            <i class="bi bi-arrow-clockwise me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnUpdatePolicy"/>
         </asp:LinkButton>
         &nbsp;
         <asp:LinkButton id="btnCancelPolicy" CssClass="btn btn-warning" runat="server" OnClick="btnCancelPolicy_Click">
-            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-x-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnCancelPolicy"/>
         </asp:LinkButton>
         &nbsp;

@@ -12,12 +12,12 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton ID="btnAddCollection" CssClass="btn btn-primary" runat="server" OnClick="btnAddCollection_Click">
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-plus-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddCollectionText" />
     </asp:LinkButton>
     &nbsp;
     <asp:LinkButton ID="btnImportCollection" CssClass="btn btn-warning" runat="server" OnClick="btnImportCollection_Click">
-        <i class="bi bi-download">&nbsp;</i>&nbsp;
+        <i class="bi bi-download me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnImportCollectionText" />
     </asp:LinkButton>
 </div>
@@ -70,7 +70,7 @@
             <ItemStyle Width="65px" HorizontalAlign="Center" />
             <ItemTemplate>
                 <asp:LinkButton ID="lnkRemove" runat="server" CssClass="btn btn-danger" CommandName="DeleteItem" CommandArgument='<%# Eval("Id") %>' OnClientClick="return confirm('Are you sure you want to remove selected rds collection?')">
-                    &nbsp;<i class="bi bi-trash"></i>&nbsp;
+                    <i class="bi bi-trash"></i>
                 </asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>

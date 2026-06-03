@@ -48,8 +48,8 @@
 					</asp:Panel>
                    									                    
 				    <div class="card-footer text-end">
-					    <asp:LinkButton id="btnSave" CssClass="btn btn-warning" runat="server" OnClick="btnSave_Click" ValidationGroup="EditStorageSettings"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>&nbsp;
-						<asp:LinkButton id="btnSaveApply" CssClass="btn btn-success" runat="server" OnClick="btnSaveApply_Click" ValidationGroup="EditStorageSettings"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveApplyText"/> </asp:LinkButton>
+					    <asp:LinkButton id="btnSave" CssClass="btn btn-warning" runat="server" OnClick="btnSave_Click" ValidationGroup="EditStorageSettings"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>&nbsp;
+						<asp:LinkButton id="btnSaveApply" CssClass="btn btn-success" runat="server" OnClick="btnSaveApply_Click" ValidationGroup="EditStorageSettings"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveApplyText"/> </asp:LinkButton>
 				    </div>
 				    
 				</div>

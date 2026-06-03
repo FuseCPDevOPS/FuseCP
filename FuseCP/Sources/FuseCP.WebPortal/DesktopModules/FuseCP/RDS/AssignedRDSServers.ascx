@@ -11,7 +11,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton ID="btnAddServerToOrg" runat="server" CssClass="btn btn-primary" OnClick="btnAddServerToOrg_Click">
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-plus-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddServerToOrg" />
     </asp:LinkButton>
 </div>
@@ -63,7 +63,7 @@
         <asp:TemplateField>
             <ItemTemplate>
                 <asp:LinkButton ID="imgRemove1" CssClass="btn btn-sm btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("Id") %>' Visible='<%# Eval("RdsCollectionId") == null %>' OnClientClick="return confirm('Are you sure you want to remove selected server?')"> 
-                    &nbsp;<i class="bi bi-trash"></i>&nbsp;
+                    <i class="bi bi-trash"></i>
                 </asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>

@@ -26,7 +26,7 @@
 				            <td class="align-top">
 				            
                                 <div class="FormButtonsBarClean">
-                                    <asp:LinkButton id="btnTakeSnapshot" CssClass="btn btn-success" runat="server" onclick="btnTakeSnapshot_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnTakeSnapshotText"/> </asp:LinkButton>
+                                    <asp:LinkButton id="btnTakeSnapshot" CssClass="btn btn-success" runat="server" onclick="btnTakeSnapshot_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnTakeSnapshotText"/> </asp:LinkButton>
                                 </div>
                                 <br />
                                 
@@ -107,8 +107,8 @@
 			</table>                      
 			</div>
 					<div class="popup-buttons text-end">
-		    <asp:LinkButton id="btnCancelRename" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelRenameText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnRenameSnapshot" CssClass="btn btn-success" runat="server" OnClick="btnRenameSnapshot_Click" ValidationGroup="RenameSnapshot"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRenameSnapshotText"/> </asp:LinkButton>
+		    <asp:LinkButton id="btnCancelRename" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelRenameText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnRenameSnapshot" CssClass="btn btn-success" runat="server" OnClick="btnRenameSnapshot_Click" ValidationGroup="RenameSnapshot"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRenameSnapshotText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>

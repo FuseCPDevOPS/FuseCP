@@ -7,7 +7,7 @@
 
 <div class="FormButtonsBarClean d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
     <div class="FormButtonsBarCleanLeft d-flex align-items-center gap-2">
-        <asp:LinkButton id="btnAllocateVLAN" CssClass="btn btn-primary" runat="server" OnClick="btnAllocateVLAN_Click" CausesValidation="False"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAllocateVLANText"/> </asp:LinkButton>
+        <asp:LinkButton id="btnAllocateVLAN" CssClass="btn btn-primary" runat="server" OnClick="btnAllocateVLAN_Click" CausesValidation="False"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAllocateVLANText"/> </asp:LinkButton>
     </div>
     <div class="FormButtonsBarCleanRight">
         <div class="d-flex align-items-center gap-2">

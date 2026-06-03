@@ -30,7 +30,7 @@
                            </div>
                            <div class="input-group col-sm-10">
                                <fcp:EmailAddress id="email" runat="server" class="form-control" ValidationGroup="AddEmail"></fcp:EmailAddress>
-                               <span class="d-flex"><asp:LinkButton id="btnAddEmail" CssClass="btn btn-success" runat="server" OnClick="btnAddEmail_Click" ValidationGroup="AddEmail"> <i class="bi bi-envelope">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddEmail"/> </asp:LinkButton></span>
+                               <span class="d-flex"><asp:LinkButton id="btnAddEmail" CssClass="btn btn-success" runat="server" OnClick="btnAddEmail_Click" ValidationGroup="AddEmail"> <i class="bi bi-envelope me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddEmail"/> </asp:LinkButton></span>
                            </div>
 					   </div>
 					</fieldset>
@@ -77,8 +77,8 @@
 				        
 					    <br />
 					    <br />
-				        <asp:LinkButton id="btnSetAsPrimary" CssClass="btn btn-success" runat="server"  CausesValidation="false" OnClick="btnSetAsPrimary_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetAsPrimary"/> </asp:LinkButton>&nbsp;
-				        <asp:LinkButton id="btnDeleteAddresses" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteAddresses_Click" CausesValidation="false"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteAddresses"/> </asp:LinkButton>
+				        <asp:LinkButton id="btnSetAsPrimary" CssClass="btn btn-success" runat="server"  CausesValidation="false" OnClick="btnSetAsPrimary_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetAsPrimary"/> </asp:LinkButton>&nbsp;
+				        <asp:LinkButton id="btnDeleteAddresses" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteAddresses_Click" CausesValidation="false"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteAddresses"/> </asp:LinkButton>
 					</asp:Panel>					
 					<br />
 					<table class="fcp-mt-10">

@@ -31,18 +31,18 @@
                         <StepStyle VerticalAlign="Top" />
                         
                         <StartNavigationTemplate>
-                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="Vps"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="Vps"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
                         </StartNavigationTemplate>
                         
                         <StepNavigationTemplate>
-                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="Vps"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
-                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="Vps"> <i class="bi bi-arrow-right">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="Vps"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;
+                            <asp:LinkButton id="btnNext" CssClass="btn btn-primary" runat="server" CommandName="MoveNext" ValidationGroup="Vps"> <i class="bi bi-arrow-right me-1"></i><asp:Localize runat="server" meta:resourcekey="btnNextText"/> </asp:LinkButton>
 
                         </StepNavigationTemplate>
                         
                         <FinishNavigationTemplate>
-                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="Vps"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;        
-                            <asp:LinkButton id="btnFinish" CssClass="btn btn-success" runat="server"  CommandName="MoveComplete" ValidationGroup="Vps"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnFinishText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnPrevious" CssClass="btn btn-primary" runat="server" CommandName="MovePrevious" ValidationGroup="Vps"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPreviousText"/> </asp:LinkButton>&nbsp;        
+                            <asp:LinkButton id="btnFinish" CssClass="btn btn-success" runat="server"  CommandName="MoveComplete" ValidationGroup="Vps"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnFinishText"/> </asp:LinkButton>
                         </FinishNavigationTemplate>
                        
                         
@@ -143,7 +143,7 @@
                                                     <asp:Localize ID="locGB" runat="server" meta:resourcekey="locGB" Text="GB"/>
                                                     </div>
                                         <div class="fcp-mt-15 fcp-mb-25 fcp-ms-10">
-                                            <asp:LinkButton id="btnAddHdd" CssClass="btn btn-success" runat="server" Visible="false" OnClick="btnAddHdd_Click" CausesValidation="false"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddHdd"/> </asp:LinkButton>
+                                            <asp:LinkButton id="btnAddHdd" CssClass="btn btn-success" runat="server" Visible="false" OnClick="btnAddHdd_Click" CausesValidation="false"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddHdd"/> </asp:LinkButton>
                                         </div>
                                         <asp:Repeater ID="repHdd" runat="server">
                                             <HeaderTemplate>
@@ -160,7 +160,7 @@
 														ControlToValidate="txtAdditionalHdd" Display="Dynamic" SetFocusOnError="true" ValidationGroup="Vps">
 													</asp:RegularExpressionValidator>
                                                     <asp:Localize ID="locGB" runat="server" meta:resourcekey="locGB" Text="GB"/>
-                                                    <asp:LinkButton id="btnRemoveHdd" CssClass="btn btn-danger fcp-ms-30" runat="server" CausesValidation="false" CommandName="Remove" CommandArgument="<%# Container.ItemIndex %>" OnCommand="btnRemoveHdd_OnCommand"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRemoveHdd"/> </asp:LinkButton>
+                                                    <asp:LinkButton id="btnRemoveHdd" CssClass="btn btn-danger fcp-ms-30" runat="server" CausesValidation="false" CommandName="Remove" CommandArgument="<%# Container.ItemIndex %>" OnCommand="btnRemoveHdd_OnCommand"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRemoveHdd"/> </asp:LinkButton>
                                                 </div>
                                             </ItemTemplate>
                                             <SeparatorTemplate>

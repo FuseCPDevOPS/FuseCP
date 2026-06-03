@@ -37,8 +37,8 @@
 						    <td></td>
 							<td>
 							    <br />
-							    <asp:LinkButton id="btnMailDisable" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnMailDisable_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMailDisable"/> </asp:LinkButton>&nbsp;
-                                <asp:LinkButton id="btnMailEnable" CssClass="btn btn-success" runat="server" OnClick="btnMailEnable_Click" CausesValidation="false"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMailEnable"/> </asp:LinkButton>
+							    <asp:LinkButton id="btnMailDisable" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnMailDisable_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMailDisable"/> </asp:LinkButton>&nbsp;
+                                <asp:LinkButton id="btnMailEnable" CssClass="btn btn-success" runat="server" OnClick="btnMailEnable_Click" CausesValidation="false"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMailEnable"/> </asp:LinkButton>
 
 							</td>
 						</tr>
@@ -68,6 +68,6 @@
 				</div>
                     </div>
 				    <div class="card-footer text-end">
-					    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="EditPublicFolder"> <i class="bi bi-folder">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
+					    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="EditPublicFolder"> <i class="bi bi-folder me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
 					    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="EditPublicFolder" />
 				    </div>

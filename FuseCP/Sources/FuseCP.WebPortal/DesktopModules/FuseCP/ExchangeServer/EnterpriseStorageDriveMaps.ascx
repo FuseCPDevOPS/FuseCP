@@ -11,7 +11,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton id="btnAddDriveMap" CssClass="btn btn-success" runat="server" OnClick="btnAddDriveMap_Click">
-        <i class="bi bi-check-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-check-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddDriveMap"/>
     </asp:LinkButton>
 </div>
@@ -70,8 +70,7 @@
         <asp:TemplateField>
             <ItemTemplate>
                 <asp:LinkButton id="imgDelDriveMap" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("Folder.Name") %>' OnClientClick="return confirm('Are you sure you want to delete selected map drive?')">
-                    &nbsp;
-                    <i class="bi bi-trash"></i>&nbsp;
+                    <i class="bi bi-trash"></i>
                 </asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>

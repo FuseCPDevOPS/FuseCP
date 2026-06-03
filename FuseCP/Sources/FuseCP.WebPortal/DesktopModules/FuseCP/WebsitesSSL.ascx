@@ -126,7 +126,7 @@
                     <p class="Normal">
 						<asp:Literal ID="LENotInstalledDescription" runat="server" meta:resourcekey="LENotInstalledDescription" /></p>
                     <div class="mb-3 text-center">
-                        <asp:LinkButton ID="LEInstall" CssClass="btn btn-primary" runat="server" OnClick="LEInstallCertificate_Click"> <i class="bi bi-lock">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="LEInstallText" /></asp:LinkButton>
+                        <asp:LinkButton ID="LEInstall" CssClass="btn btn-primary" runat="server" OnClick="LEInstallCertificate_Click"> <i class="bi bi-lock me-1"></i><asp:Localize runat="server" meta:resourcekey="LEInstallText" /></asp:LinkButton>
                     </div>
                 </div>
 				<div id="NoSSL" class="col-sm-6">

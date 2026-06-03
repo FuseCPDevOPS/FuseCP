@@ -17,7 +17,7 @@
             </div>
             <div class="input-group float-end">
                 <asp:LinkButton id="btnClearLog" CssClass="btn btn-danger" runat="server" meta:resourcekey="btnClearLog" OnClick="btnClearLog_Click">
-                    <i class="bi bi-trash">&nbsp;</i>&nbsp;
+                    <i class="bi bi-trash me-1"></i>
                 </asp:LinkButton>
             </div>
         </div>
@@ -70,7 +70,7 @@
 </asp:UpdatePanel>
 <div class="card-footer text-end">
     <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click">
-        <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-x-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCancel"/>
     </asp:LinkButton>
 </div>

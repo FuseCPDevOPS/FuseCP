@@ -13,7 +13,7 @@
 					<asp:Localize ID="locTitle" runat="server" meta:resourcekey="locTitle" Text="Domain Names"></asp:Localize>
 				</div>
  <div class="FormButtonsBar right">
-     <asp:LinkButton id="btnAddPlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddPlan_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddPlanText"/> </asp:LinkButton>
+     <asp:LinkButton id="btnAddPlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddPlan_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddPlanText"/> </asp:LinkButton>
      
      </div>
 					<fcp:SimpleMessageBox id="messageBox" runat="server" />
@@ -43,14 +43,14 @@
 						    </asp:TemplateField>
 						    <asp:TemplateField>
 							    <ItemTemplate>
-									<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("SfBUserPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected plan?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+									<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("SfBUserPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected plan?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>
 				    </asp:GridView>
 		
 				    <div class="card-body text-end">
-				        <asp:LinkButton id="btnSetDefaultPlan" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultPlan_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetDefaultPlanText"/> </asp:LinkButton>
+				        <asp:LinkButton id="btnSetDefaultPlan" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultPlan_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetDefaultPlanText"/> </asp:LinkButton>
                     </div>
 				     <div class="card-body text-end">
                     <fcp:CollapsiblePanel id="secMainTools" runat="server" IsCollapsed="true" TargetControlID="ToolsPanel" meta:resourcekey="secMainTools" Text="SfB user plan maintenance">
@@ -84,7 +84,7 @@
 						</table>
                             </div>
 				        <div class="card-footer text-end">
-					        <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" OnClientClick = "ShowProgressDialog('Stamping mailboxes, this might take a while ...');"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
+					        <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" OnClientClick = "ShowProgressDialog('Stamping mailboxes, this might take a while ...');"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
 				        </div>
 
 

@@ -90,7 +90,7 @@
                         </div>
 
 				    <div class="card-footer text-end">
-                        <asp:LinkButton id="btnMigrate" CssClass="btn btn-warning" runat="server" OnClick="btnMigrate_Click"> <i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMigrateText"/> </asp:LinkButton>&nbsp;
-					    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="EditFolder"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnMigrate" CssClass="btn btn-warning" runat="server" OnClick="btnMigrate_Click"> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMigrateText"/> </asp:LinkButton>&nbsp;
+					    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="EditFolder"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>&nbsp;
 					    <asp:ValidationSummary ID="valSummary" runat="server" ShowMessageBox="True" ShowSummary="False" ValidationGroup="EditFolder" />
 				    </div>

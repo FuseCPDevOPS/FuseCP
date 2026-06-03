@@ -75,7 +75,7 @@
                     </asp:UpdatePanel>
                     <br /><br />
                     <asp:LinkButton id="btnCancelAdd" CssClass="btn btn-warning" runat="server" CausesValidation="False">
-                        <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+                        <i class="bi bi-x-lg me-1"></i>
                         <asp:Localize runat="server" meta:resourcekey="btnCancelText"/>
                     </asp:LinkButton>
                     &nbsp;

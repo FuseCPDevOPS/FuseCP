@@ -23,17 +23,17 @@
                     <div class="FormButtonsBarCleanRight">
                         <div class="FormButtonsBarClean">
                             <asp:LinkButton id="btnRefresh" CssClass="btn btn-warning" runat="server" OnClick="btnRefresh_Click" OnClientClick="ShowProgressDialog('Loading'); return true;">
-                                <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;
+                                <i class="bi bi-arrow-clockwise me-1"></i>
                                 <asp:Localize runat="server" meta:resourcekey="btnRefreshText"/>
                             </asp:LinkButton>
                             &nbsp;
                             <asp:LinkButton id="btnRecentMessages" CssClass="btn btn-primary" runat="server" OnClick="btnRecentMessages_Click" OnClientClick="ShowProgressDialog('Loading'); return true;">
-                                <i class="bi bi-chat-dots">&nbsp;</i>&nbsp;
+                                <i class="bi bi-chat-dots me-1"></i>
                                 <asp:Localize runat="server" meta:resourcekey="btnRecentMessagesText"/>
                             </asp:LinkButton>
                             &nbsp;
                             <asp:LinkButton id="btnSendMessage" CssClass="btn btn-success" runat="server" OnClick="btnSendMessage_Click">
-                                <i class="bi bi-chat-left-text">&nbsp;</i>&nbsp;
+                                <i class="bi bi-chat-left-text me-1"></i>
                                 <asp:Localize runat="server" meta:resourcekey="cmdSendMessageText"/>
                             </asp:LinkButton>
                         </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="popup-buttons text-end">
                                 <asp:LinkButton id="btnCancelMessagesHistory" CssClass="btn btn-warning" runat="server" CausesValidation="False">
-                                    <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+                                    <i class="bi bi-x-lg me-1"></i>
                                     <asp:Localize runat="server" meta:resourcekey="btnCancelText"/>
                                 </asp:LinkButton>
                             </div>
@@ -153,12 +153,12 @@
                             </div>
                             <div class="popup-buttons text-end">
                                 <asp:LinkButton id="btnAddMessage" CssClass="btn btn-success" runat="server" OnClick="btnAddMessage_Click" CausesValidation="false">
-                                    <i class="bi bi-check-lg">&nbsp;</i>&nbsp;
+                                    <i class="bi bi-check-lg me-1"></i>
                                     <asp:Localize runat="server" meta:resourcekey="btnAddText"/>
                                 </asp:LinkButton>
                                 &nbsp;
                                 <asp:LinkButton id="btnCancelEnterMessage" CssClass="btn btn-warning" runat="server" CausesValidation="False">
-                                    <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+                                    <i class="bi bi-x-lg me-1"></i>
                                     <asp:Localize runat="server" meta:resourcekey="btnCancelText"/>
                                 </asp:LinkButton>
                             </div>

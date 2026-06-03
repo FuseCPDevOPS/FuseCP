@@ -37,15 +37,15 @@
                             <ContentTemplate>                
                             <asp:Literal ID="litProcessorChart" runat="server" />
                             <div>
-                                <asp:LinkButton id="btnShowProcessorAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Processor','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnShowProcessorAsPanelText"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnShowProcessorAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Processor','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnShowProcessorAsPanelText"/> </asp:LinkButton>
 			                </div>
                             <asp:Literal ID="litNetworkChart" runat="server" />
                             <div>
-                                <asp:LinkButton id="btnShowNetworkAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Network','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnShowNetworkAsPanelText"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnShowNetworkAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Network','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnShowNetworkAsPanelText"/> </asp:LinkButton>
 			                </div>
                             <asp:Literal ID="litMemoryChart" runat="server" />
                             <div>
-                                <asp:LinkButton id="btnShowMemoryAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Memory','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnShowMemoryAsPanelText"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnShowMemoryAsPanel" CssClass="btn btn-success" runat="server" OnClientClick="return FuseCPVpsMonitoring.showAsPanel('Memory','<%=hItemId.ClientID%>');"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnShowMemoryAsPanelText"/> </asp:LinkButton>
 			                </div>
 
                         </ContentTemplate>

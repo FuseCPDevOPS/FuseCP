@@ -69,5 +69,5 @@
 				    <br />
               				</div>
 				    <div class="card-footer">
-                        <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
 				    </div>

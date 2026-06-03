@@ -1,9 +1,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Servers.ascx.cs" Inherits="FuseCP.Portal.Servers" %>
 <%@ Import Namespace="FuseCP.Portal" %>
-<div class="buttons-in-panel-header">
-    <asp:LinkButton ID="btnAddItem"  runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click">
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddItem" />
-    </asp:LinkButton>
+<div class="FormButtonsBar right">
+    <div class="right">
+        <asp:LinkButton ID="btnAddItem" runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click">
+            <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddItem" />
+        </asp:LinkButton>
+    </div>
 </div>
 <section>
     <div class="card-body">
@@ -52,6 +54,6 @@
 </table>
 <div class="card-footer text-end">
     <asp:LinkButton ID="StyleButton1"  runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click">
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddItem" />
+        <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddItem" />
     </asp:LinkButton>
 </div>

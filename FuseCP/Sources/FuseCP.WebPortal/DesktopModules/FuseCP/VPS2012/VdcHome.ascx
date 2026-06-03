@@ -7,8 +7,8 @@
 <%@ Register Src="../UserControls/SearchBox.ascx" TagName="SearchBox" TagPrefix="fcp" %>
 
 <div class="FormButtonsBar right">
-			                <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" CausesValidation="False"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>&nbsp;
-                            <asp:LinkButton id="btnImport" CssClass="btn btn-warning" runat="server" OnClick="btnImport_Click" CausesValidation="False"> <i class="bi bi-download">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnImportText"/> </asp:LinkButton>
+			                <asp:LinkButton id="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click" CausesValidation="False"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>&nbsp;
+                            <asp:LinkButton id="btnImport" CssClass="btn btn-warning" runat="server" OnClick="btnImport_Click" CausesValidation="False"> <i class="bi bi-download me-1"></i><asp:Localize runat="server" meta:resourcekey="btnImportText"/> </asp:LinkButton>
                   </div>
 			    <div class="card-body form-horizontal">
                     
@@ -16,7 +16,7 @@
 
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <asp:LinkButton id="btnReplicaStates" CssClass="btn btn-success" runat="server" OnClick="btnReplicaStates_Click" CausesValidation="False"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnReplicaStatesText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnReplicaStates" CssClass="btn btn-success" runat="server" OnClick="btnReplicaStates_Click" CausesValidation="False"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnReplicaStatesText"/> </asp:LinkButton>
                             <asp:Label runat="server" Text="Page size:" CssClass="Normal"></asp:Label>
 							<asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True"   
                                 onselectedindexchanged="ddlPageSize_SelectedIndexChanged"> 
@@ -73,22 +73,22 @@
 					        </asp:TemplateField>
 						    <asp:TemplateField>
 							    <ItemTemplate>
-								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> <i class="bi bi-trash"></i> </asp:LinkButton>
                                     </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:LinkButton id="cmdReinstall" CssClass="btn btn-success" runat="server" CommandName="ReinstallItem" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> &nbsp;<i class="bi bi-arrow-clockwise"></i>&nbsp; </asp:LinkButton>							    
+                                    <asp:LinkButton id="cmdReinstall" CssClass="btn btn-success" runat="server" CommandName="ReinstallItem" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> <i class="bi bi-arrow-clockwise"></i> </asp:LinkButton>							    
                                 </ItemTemplate>
 						    </asp:TemplateField>
                             <asp:TemplateField>
 			                    <ItemTemplate>
-				                    <asp:LinkButton id="cmdMove" CssClass="btn btn-warning" runat="server" CommandName="Move" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> <i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdMoveText"/> </asp:LinkButton>
+				                    <asp:LinkButton id="cmdMove" CssClass="btn btn-warning" runat="server" CommandName="Move" CommandArgument='<%# Eval("ItemID") %>' Enabled='<%# !IsServerDeleting(Eval("ItemID").ToString())%>'> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdMoveText"/> </asp:LinkButton>
 					                &nbsp;
 				                    <asp:LinkButton ID="cmdDetach" runat="server" 
  					                    CommandName="Detach" CommandArgument='<%# Eval("ItemID") %>'
 					                    CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
-                                        <i class="bi bi-link-45deg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
+                                        <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
                                     </asp:LinkButton>
 			                    </ItemTemplate>
                             </asp:TemplateField>

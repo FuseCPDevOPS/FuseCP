@@ -11,7 +11,7 @@
 	</div>
     <div class="FormButtonsBar">
         <asp:LinkButton id="btnAdd" CssClass="btn btn-success" runat="server" meta:resourcekey="btnAdd" OnClick="btnAdd_Click" CausesValidation="False">
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-plus-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnAddText" Text="Add record" />
         </asp:LinkButton>
     </div>
@@ -49,14 +49,14 @@
                 <ItemStyle Width="65px" HorizontalAlign="Center" />
                 <ItemTemplate>
                     <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="delete" OnClientClick="return fuseCpConfirmWithProgress('Are you sure you want to delete this DNS Zone Record?', 'Deleting DNS Zone Record...');"> 
-                    &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                    <i class="bi bi-trash"></i> 
                     </asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <div class="card-footer text-end">
-        <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
+        <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
     </div>
 </asp:Panel>
 <asp:ObjectDataSource ID="odsDnsRecords" runat="server" SelectMethod="GetRawDnsZoneRecords" TypeName="FuseCP.Portal.ServersHelper" OnSelected="odsDnsRecords_Selected">
@@ -172,12 +172,12 @@
     </div>
     <div class="card-footer text-end">
         <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click">
-            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-x-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnCancel"/>
         </asp:LinkButton>
         &nbsp;
         <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" OnClientClick="ShowProgressDialog('Saving DNS Zone Record ...');" ValidationGroup="DnsZoneRecord">
-            <i class="bi bi-floppy">&nbsp;</i>&nbsp;
+            <i class="bi bi-floppy me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnSaveText"/>
         </asp:LinkButton>
     </div>

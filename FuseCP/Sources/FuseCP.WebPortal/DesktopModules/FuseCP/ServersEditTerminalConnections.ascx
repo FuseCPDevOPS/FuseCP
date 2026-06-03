@@ -31,7 +31,7 @@
 </asp:UpdatePanel>
 <div class="card-footer text-end">
     <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click">
-        <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-x-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCancel"/>
     </asp:LinkButton>
 </div>

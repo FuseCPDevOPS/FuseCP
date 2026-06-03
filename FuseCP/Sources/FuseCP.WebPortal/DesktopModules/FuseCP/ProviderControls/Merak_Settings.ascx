@@ -46,7 +46,7 @@
                     <ItemStyle Width="65px" HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:LinkButton id="imgDelRouteFromSE" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# (string)Container.DataItem %>' OnClientClick="return confirm('Are you sure you want to delete selected route?')"> 
-                            &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                            <i class="bi bi-trash"></i> 
                         </asp:LinkButton>
                     </ItemTemplate>
 		        </asp:TemplateField>
@@ -57,7 +57,7 @@
              <asp:TextBox ID="tbSEDestinations" CssClass="form-control" runat="server"></asp:TextBox>
                 <span class="d-flex">
                 <asp:LinkButton ID="bntAddSEDestination" runat="server" CssClass="btn btn-primary" OnClick="bntAddSEDestination_Click" CausesValidation="False">
-                <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="bntAddSEDestination" />
+                <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="bntAddSEDestination" />
                 </asp:LinkButton>
                 </span>
             </div>

@@ -58,7 +58,7 @@
                                 <asp:HiddenField id="hiddenTxtValHdd" runat="server" />
                             </div>
                             <div class="fcp-mt-15 fcp-mb-25 fcp-ms-10">
-                                <asp:LinkButton id="btnAddHdd" CssClass="btn btn-success" runat="server" OnClick="btnAddHdd_Click" CausesValidation="false"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddHdd"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnAddHdd" CssClass="btn btn-success" runat="server" OnClick="btnAddHdd_Click" CausesValidation="false"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddHdd"/> </asp:LinkButton>
                             </div>
                             <asp:Repeater ID="repHdd" runat="server">
                                 <HeaderTemplate>
@@ -77,7 +77,7 @@
 										</asp:RegularExpressionValidator>
                                         <asp:Localize ID="locGB" runat="server" meta:resourcekey="locGB" Text="GB"/>
                                         <asp:LinkButton id="btnRemoveHdd" meta:resourcekey="btnRemoveHdd" CssClass="btn btn-danger fcp-ms-30" runat="server" CausesValidation="false" CommandName="Remove" CommandArgument="<%# Container.ItemIndex %>" OnCommand="btnRemoveHdd_OnCommand"
-                                            OnClientClick="if(!confirm('Virtual hard drive will be removed.\n\nDo you want to proceed?')) return false;"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="locRemoveHdd"/> </asp:LinkButton>
+                                            OnClientClick="if(!confirm('Virtual hard drive will be removed.\n\nDo you want to proceed?')) return false;"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="locRemoveHdd"/> </asp:LinkButton>
                                     </div>
                                 </ItemTemplate>
                                 <SeparatorTemplate>
@@ -225,8 +225,8 @@
                     </p>
 
                     <div class="text-end">
-                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-                        <asp:LinkButton id="btnUpdate" CssClass="btn btn-success" runat="server" meta:resourcekey="btnUpdate" OnClick="btnUpdate_Click" ValidationGroup="Vps" OnClientClick="if(!confirm('Before applying new configuration VPS could be stopped.\n\nAfter the configuration is changed it will be started again automatically.\n\nDo you want to proceed?')) return false; ShowProgressDialog('Updating configuration...');"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnUpdate" CssClass="btn btn-success" runat="server" meta:resourcekey="btnUpdate" OnClick="btnUpdate_Click" ValidationGroup="Vps" OnClientClick="if(!confirm('Before applying new configuration VPS could be stopped.\n\nAfter the configuration is changed it will be started again automatically.\n\nDo you want to proceed?')) return false; ShowProgressDialog('Updating configuration...');"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateText"/> </asp:LinkButton>
                     </div>
 			    </div>
 		    </div>

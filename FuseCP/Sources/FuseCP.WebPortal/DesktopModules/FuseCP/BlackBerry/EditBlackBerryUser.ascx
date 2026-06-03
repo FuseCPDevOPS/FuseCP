@@ -58,7 +58,7 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>                    
                     <br />
-                    <asp:LinkButton id="btnSetPassword" CssClass="btn btn-primary" runat="server" OnClick="btnSetPassword_Click"> <i class="bi bi-lock">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetPassword"/> </asp:LinkButton>              
+                    <asp:LinkButton id="btnSetPassword" CssClass="btn btn-primary" runat="server" OnClick="btnSetPassword_Click"> <i class="bi bi-lock me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetPassword"/> </asp:LinkButton>              
                     </asp:Panel>
                     <br />                    
                    
@@ -73,9 +73,9 @@
                     </asp:GridView>
                         
 					<div class="card-footer text-end">
-					<asp:LinkButton id="btnDelete" CssClass="btn btn-danger" runat="server" OnClick="btnDelete_Click" CausesValidation="false"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp; 
-                    <asp:LinkButton id="btnDeleteData" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteData_Click" CausesValidation="false"> <i class="bi bi-database">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteDataText"/> </asp:LinkButton>&nbsp; 
-                    <asp:LinkButton id="btnSaveExit" CssClass="btn btn-success" runat="server" OnClick="btnSaveExit_Click"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveExitText"/> </asp:LinkButton>
+					<asp:LinkButton id="btnDelete" CssClass="btn btn-danger" runat="server" OnClick="btnDelete_Click" CausesValidation="false"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp; 
+                    <asp:LinkButton id="btnDeleteData" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteData_Click" CausesValidation="false"> <i class="bi bi-database me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteDataText"/> </asp:LinkButton>&nbsp; 
+                    <asp:LinkButton id="btnSaveExit" CssClass="btn btn-success" runat="server" OnClick="btnSaveExit_Click"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveExitText"/> </asp:LinkButton>
 				    </div>	
                 </div>
             </div>

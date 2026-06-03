@@ -15,7 +15,7 @@
                         </h3>
 				</div>
        <div class="FormButtonsBar right">
-                        <asp:LinkButton id="btnAddMailboxPlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddMailboxPlan_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddMailboxPlan"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnAddMailboxPlan" CssClass="btn btn-primary" runat="server" OnClick="btnAddMailboxPlan_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddMailboxPlan"/> </asp:LinkButton>
                     </div>
 				<div class="card-body form-horizontal">
 				    <fcp:SimpleMessageBox id="messageBox" runat="server" />
@@ -49,14 +49,14 @@
 						    </asp:TemplateField>
 						    <asp:TemplateField >
 							    <ItemTemplate>
-									<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+									<asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>
 				    </asp:GridView>
 				    <br />
 				    <div class="card-body text-end">
-				        <asp:LinkButton id="btnSetDefaultMailboxPlan" CssClass="btn btn-success" runat="server"  CausesValidation="false" OnClick="btnSetDefaultMailboxPlan_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetDefaultMailboxPlan"/> </asp:LinkButton>
+				        <asp:LinkButton id="btnSetDefaultMailboxPlan" CssClass="btn btn-success" runat="server"  CausesValidation="false" OnClick="btnSetDefaultMailboxPlan_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetDefaultMailboxPlan"/> </asp:LinkButton>
                     </div>
 <div class="card-body">
 					<fcp:CollapsiblePanel id="secMainTools" runat="server" IsCollapsed="true" TargetControlID="ToolsPanel" meta:resourcekey="secMainTools" Text="Mailbox plan maintenance">
@@ -90,7 +90,7 @@
 						</table>
                             </div>
                         				        <div class="card-footer text-end">
-					        <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" OnClientClick = "ShowProgressDialog('Stamping mailboxes, this might take a while ...');"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
+					        <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" OnClientClick = "ShowProgressDialog('Stamping mailboxes, this might take a while ...');"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>
 				        </div>
 					</asp:Panel>
 				</div>

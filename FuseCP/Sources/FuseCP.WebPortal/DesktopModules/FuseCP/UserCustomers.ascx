@@ -9,7 +9,7 @@
     <ContentTemplate> 
         <div class="FormButtonsBar right">
           <asp:LinkButton ID="btnAddUser" runat="server" CssClass="btn btn-primary" OnClick="btnAddUser_Click" >
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddUser"/>
+            <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddUser"/>
             </asp:LinkButton>
         </div>
         <div class="card-body">

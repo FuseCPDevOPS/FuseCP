@@ -12,7 +12,7 @@
                     </h3>
 				</div>
                 <div class="FormButtonsBar right">
-                        <asp:LinkButton id="btnAddDomain" CssClass="btn btn-primary" runat="server" OnClick="btnAddDomain_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddDomainText"/> </asp:LinkButton>&nbsp;
+                        <asp:LinkButton id="btnAddDomain" CssClass="btn btn-primary" runat="server" OnClick="btnAddDomain_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddDomainText"/> </asp:LinkButton>&nbsp;
                 </div>
 				    <fcp:SimpleMessageBox id="messageBox" runat="server" />
 				    <asp:GridView ID="gvDomains" runat="server" AutoGenerateColumns="False"
@@ -36,7 +36,7 @@
 						    </asp:TemplateField>                            
 						    <asp:TemplateField>
 							    <ItemTemplate>
-									<asp:LinkButton id="imgDelDomain" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("DomainId") %>' Visible='<%# !((bool)Eval("IsDefault")) %>' OnClientClick="return confirm('Are you sure you want to delete selected domain?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+									<asp:LinkButton id="imgDelDomain" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("DomainId") %>' Visible='<%# !((bool)Eval("IsDefault")) %>' OnClientClick="return confirm('Are you sure you want to delete selected domain?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>
@@ -49,7 +49,7 @@
 				    <fcp:QuotaViewer ID="domainsQuota" runat="server" QuotaTypeId="2" />
                             </div>
                             <div class="col-md-6 text-end">
-                                     <asp:LinkButton id="btnSetDefaultDomain" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultDomain_Click"> <i class="bi bi-globe">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetDefaultDomainText"/> </asp:LinkButton>&nbsp;
+                                     <asp:LinkButton id="btnSetDefaultDomain" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultDomain_Click"> <i class="bi bi-globe me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetDefaultDomainText"/> </asp:LinkButton>&nbsp;
    
                             </div>
                         </div>

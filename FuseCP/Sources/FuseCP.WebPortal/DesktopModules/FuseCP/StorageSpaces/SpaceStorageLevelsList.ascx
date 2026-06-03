@@ -18,7 +18,7 @@
 </asp:UpdatePanel>
 <div class="FormButtonsBar right">
     <asp:LinkButton ID="btnAddSsLevel" runat="server" CssClass="btn btn-primary" OnClick="btnAddSsLevel_Click" >
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-plus-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddSsLevel"/>
     </asp:LinkButton>
 </div>

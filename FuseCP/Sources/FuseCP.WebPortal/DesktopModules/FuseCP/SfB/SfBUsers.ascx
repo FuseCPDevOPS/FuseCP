@@ -11,7 +11,7 @@
                     <asp:Localize ID="locTitle" meta:resourcekey="locTitle" runat="server" Text="SfB Users"></asp:Localize>
                 </div>
                 <div class="FormButtonsBar right">
-                            <asp:LinkButton id="btnCreateUser" CssClass="btn btn-success" runat="server" OnClick="btnCreateUser_Click"> <i class="bi bi-person-plus">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateUserText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnCreateUser" CssClass="btn btn-success" runat="server" OnClick="btnCreateUser_Click"> <i class="bi bi-person-plus me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateUserText"/> </asp:LinkButton>
                 </div>
                 <div class="card-body form-horizontal">
                     <fcp:SimpleMessageBox id="messageBox" runat="server" />
@@ -82,7 +82,7 @@
                             <asp:BoundField HeaderText="gvSfBUserPlan" meta:resourcekey="gvSfBUserPlan" DataField="SfBUserPlanName" SortExpression="SfBUserPlanName" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("AccountId") %>' OnClientClick="return confirm('Remove this item?');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+                                    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("AccountId") %>' OnClientClick="return confirm('Remove this item?');"> <i class="bi bi-trash"></i> </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

@@ -164,10 +164,10 @@
         </asp:Panel>
     </div>
     <div class="card-footer text-end">
-        <asp:LinkButton ID="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"><i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel" />
+        <asp:LinkButton ID="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"><i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel" />
         </asp:LinkButton>
         &nbsp;
-        <asp:LinkButton ID="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click"><i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreate" />
+        <asp:LinkButton ID="btnCreate" CssClass="btn btn-success" runat="server" OnClick="btnCreate_Click"><i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreate" />
         </asp:LinkButton>
     </div>
 </asp:Panel>

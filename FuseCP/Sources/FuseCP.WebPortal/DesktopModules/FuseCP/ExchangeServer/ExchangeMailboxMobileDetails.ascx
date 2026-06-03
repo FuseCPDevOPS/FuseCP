@@ -16,8 +16,8 @@
 				<fcp:MailboxTabs id="tabs" runat="server" SelectedTab="mailbox_mobile" />
                     <div class="card tab-content">
                     <fcp:SimpleMessageBox id="messageBox" runat="server" />
-				    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnWipeAllData" CssClass="btn btn-danger" runat="server" OnClick="btnWipeAllData_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnWipeAllDataText"/> </asp:LinkButton>
+				    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnWipeAllData" CssClass="btn btn-danger" runat="server" OnClick="btnWipeAllData_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnWipeAllDataText"/> </asp:LinkButton>
 					<table>					    
 					    <tr>
 					        <td class="FormLabel150"><asp:Localize runat="server" ID="loc" meta:resourcekey="locStatus"></asp:Localize></td>
@@ -88,5 +88,5 @@
                         </div>
 				</div>
 				    <div class="card-footer text-end">
-					   <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
+					   <asp:LinkButton id="btnBack" CssClass="btn btn-warning" runat="server" OnClick="btnBack_Click"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnBack"/> </asp:LinkButton>
 				    </div>

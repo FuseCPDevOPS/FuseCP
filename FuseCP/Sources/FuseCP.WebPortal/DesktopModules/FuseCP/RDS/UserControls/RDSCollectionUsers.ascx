@@ -4,8 +4,8 @@
 <asp:UpdatePanel ID="UsersUpdatePanel" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
     <ContentTemplate>
         <div class="FormButtonsBarClean">
-            <asp:LinkButton ID="btnDelete" CssClass="btn btn-danger" runat="server" OnClick="btnDelete_Click" OnClientClick="ShowProgressDialog('Checking users ...');return true;"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton ID="btnAdd" CssClass="btn btn-success" runat="server" OnClick="btnAdd_Click" OnClientClick="ShowProgressDialog('Loading ...');return true;"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>
+            <asp:LinkButton ID="btnDelete" CssClass="btn btn-danger" runat="server" OnClick="btnDelete_Click" OnClientClick="ShowProgressDialog('Checking users ...');return true;"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton ID="btnAdd" CssClass="btn btn-success" runat="server" OnClick="btnAdd_Click" OnClientClick="ShowProgressDialog('Loading ...');return true;"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>
         </div>
         <asp:GridView ID="gvUsers" runat="server" meta:resourcekey="gvUsers" AutoGenerateColumns="False"
             CssSelectorClass="NormalGridView" OnRowCommand="gvUsers_RowCommand"
@@ -112,11 +112,11 @@
                     </asp:UpdatePanel>
                     <div class="popup-buttons text-end">
                         <asp:LinkButton ID="btnCancelAdd" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClientClick="CloseProgressDialog();">
-                            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText" />
+                            <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText" />
                         </asp:LinkButton>
                         &nbsp;
                         <asp:LinkButton ID="btnAddSelected" CssClass="btn btn-success" runat="server" OnClick="btnAddSelected_Click" OnClientClick="CloseProgressDialog();">
-                            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddSelectedText" />
+                            <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddSelectedText" />
                         </asp:LinkButton>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="popup-buttons text-end">
                     <asp:LinkButton ID="btnCancelDeleteWarning" CssClass="btn btn-warning" runat="server" CausesValidation="False">
-                        <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelDeleteWarningText" />
+                        <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelDeleteWarningText" />
                     </asp:LinkButton>
                 </div>
             </div>

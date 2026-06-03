@@ -25,7 +25,7 @@
 			</asp:TemplateField>
 			<asp:TemplateField>
 				<ItemTemplate>
-					<asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+					<asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
 		</Columns>
@@ -88,8 +88,8 @@
         <tr>
             <td>
                 <div class="FormButtonsBarClean">
-                    <asp:LinkButton id="btnUpdatePolicy" CssClass="btn btn-warning" runat="server" OnClick="btnUpdatePolicy_Click"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdatePolicyText"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnAddPolicy" CssClass="btn btn-success" runat="server" OnClick="btnAddPolicy_Click"> <i class="bi bi-file-earmark-text">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddPolicyText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnUpdatePolicy" CssClass="btn btn-warning" runat="server" OnClick="btnUpdatePolicy_Click"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdatePolicyText"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnAddPolicy" CssClass="btn btn-success" runat="server" OnClick="btnAddPolicy_Click"> <i class="bi bi-file-earmark-text me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddPolicyText"/> </asp:LinkButton>
                 </div>
             </td>
         </tr>

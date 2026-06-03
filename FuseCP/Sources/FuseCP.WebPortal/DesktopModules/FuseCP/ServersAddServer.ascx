@@ -28,12 +28,12 @@
     </div>
     <div class="card-footer text-end">
         <asp:LinkButton id="btnCancel" runat="server" CausesValidation="False" CssClass="btn btn-warning" OnClick="btnCancel_Click">
-            <i class="bi bi-x-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-x-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnCancel"/>
         </asp:LinkButton>
         &nbsp;
         <asp:LinkButton id="btnAdd" runat="server" ValidationGroup="Server" CssClass="btn btn-success" OnClick="btnAdd_Click" OnClientClick="ShowProgressDialog('Adding New server...');">
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+            <i class="bi bi-plus-lg me-1"></i>
             <asp:Localize runat="server" meta:resourcekey="btnAddText"/>
         </asp:LinkButton>
     </div>

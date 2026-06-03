@@ -32,10 +32,10 @@
         </div>
         <div class="text-end">
             <asp:LinkButton ID="btnAddServices" runat="server" CssClass="btn btn-primary" OnClick="btnAddServices_Click">
-                <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddServices" />
+                <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddServices" />
             </asp:LinkButton>
             <asp:LinkButton ID="btnRemoveSelected" runat="server" CssClass="btn btn-danger"  OnClick="btnRemoveSelected_Click" >
-                <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRemoveSelected" />
+                <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRemoveSelected" />
             </asp:LinkButton>
             <br /><br/>
         </div>
@@ -123,13 +123,13 @@
 </div>
 
 <div class="card-footer text-end">
-    <asp:LinkButton ID="btnDelete" CssClass="btn btn-danger" runat="server" CausesValidation="False" OnClick="btnDelete_Click" OnClientClick="return confirm('Delete server?');"><i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteText" />
+    <asp:LinkButton ID="btnDelete" CssClass="btn btn-danger" runat="server" CausesValidation="False" OnClick="btnDelete_Click" OnClientClick="return confirm('Delete server?');"><i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteText" />
     </asp:LinkButton>
     &nbsp;
-    <asp:LinkButton ID="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"><i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel" />
+    <asp:LinkButton ID="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"><i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel" />
     </asp:LinkButton>
     &nbsp;
-    <asp:LinkButton ID="btnUpdate" CssClass="btn btn-success" runat="server" OnClick="btnUpdate_Click" CausesValidation="true" ValidationGroup="VirtualServer"><i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdate" />
+    <asp:LinkButton ID="btnUpdate" CssClass="btn btn-success" runat="server" OnClick="btnUpdate_Click" CausesValidation="true" ValidationGroup="VirtualServer"><i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdate" />
     </asp:LinkButton>
     &nbsp;
 </div>

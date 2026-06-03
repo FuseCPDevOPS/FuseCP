@@ -2,7 +2,7 @@
 <%@ Import Namespace="FuseCP.Portal" %>
 <div class="FormButtonsBar right">
 	<asp:LinkButton ID="btnAddItem" runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click" >
-         <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddItem"/>
+         <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddItem"/>
 	</asp:LinkButton>
 </div>
 <asp:GridView id="usersList" runat="server" AutoGenerateColumns="False"

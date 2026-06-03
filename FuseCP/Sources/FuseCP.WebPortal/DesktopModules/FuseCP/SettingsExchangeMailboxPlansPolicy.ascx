@@ -39,17 +39,17 @@
 			</asp:TemplateField>
 			<asp:TemplateField>
 				<ItemTemplate>
-					    <asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected plan?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+					    <asp:LinkButton id="imgDelMailboxPlan" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="return confirm('Are you sure you want to delete selected plan?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField>
 				<ItemTemplate>
-                        <asp:LinkButton id="btnStamp" CssClass="btn btn-warning" runat="server" CommandName="RestampItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="if (confirm('Restamp mailboxes with this plan.\n\nAre you sure you want to restamp the mailboxes ?')) ShowProgressDialog('Stamping mailboxes, this might take a while ...'); else return false;"> <i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnStampText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnStamp" CssClass="btn btn-warning" runat="server" CommandName="RestampItem" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="if (confirm('Restamp mailboxes with this plan.\n\nAre you sure you want to restamp the mailboxes ?')) ShowProgressDialog('Stamping mailboxes, this might take a while ...'); else return false;"> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnStampText"/> </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField>
 				<ItemTemplate>
-                        <asp:LinkButton id="btnStampUnassigned" CssClass="btn btn-primary" runat="server" CommandName="StampUnassigned" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="if (confirm('Stamp unassigned mailboxes with this mailbox plan.\n\nAre you sure you want to continue with this ?')) ShowProgressDialog('Applying mailbox plans, this might take a while ...'); else return false;"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnStampUnassignedText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnStampUnassigned" CssClass="btn btn-primary" runat="server" CommandName="StampUnassigned" CommandArgument='<%# Eval("MailboxPlanId") %>' OnClientClick="if (confirm('Stamp unassigned mailboxes with this mailbox plan.\n\nAre you sure you want to continue with this ?')) ShowProgressDialog('Applying mailbox plans, this might take a while ...'); else return false;"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnStampUnassignedText"/> </asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>
 
@@ -57,7 +57,7 @@
 	</asp:GridView>
     <br />
 	<div class="text-center">
-		<asp:LinkButton id="btnSetDefaultMailboxPlan" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultMailboxPlan_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetDefaultMailboxPlanText"/> </asp:LinkButton>
+		<asp:LinkButton id="btnSetDefaultMailboxPlan" CssClass="btn btn-success" runat="server" OnClick="btnSetDefaultMailboxPlan_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetDefaultMailboxPlanText"/> </asp:LinkButton>
     </div>
     	<fcp:CollapsiblePanel id="secMailboxPlan" runat="server"
             TargetControlID="MailboxPlan" meta:resourcekey="secMailboxPlan" Text="Mailboxplan">
@@ -319,7 +319,7 @@
 			        </asp:TemplateField>
                     <asp:TemplateField>
 				        <ItemTemplate>
-					        <asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+					        <asp:LinkButton id="imgDelPolicy" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("TagId") %>' OnClientClick="return confirm('Are you sure you want to delete selected policy tag?')"> <i class="bi bi-trash"></i> </asp:LinkButton>
 				        </ItemTemplate>
 			        </asp:TemplateField>
 		        </Columns>
@@ -338,8 +338,8 @@
         <tr>
             <td>
                 <div class="FormButtonsBarClean">
-                    <asp:LinkButton id="btnUpdateMailboxPlan" CssClass="btn btn-warning" runat="server" OnClick="btnUpdateMailboxPlan_Click"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateMailboxPlanText"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnAddMailboxPlan" CssClass="btn btn-success" runat="server" OnClick="btnAddMailboxPlan_Click"> <i class="bi bi-file-earmark-text">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddMailboxPlanText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnUpdateMailboxPlan" CssClass="btn btn-warning" runat="server" OnClick="btnUpdateMailboxPlan_Click"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateMailboxPlanText"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnAddMailboxPlan" CssClass="btn btn-success" runat="server" OnClick="btnAddMailboxPlan_Click"> <i class="bi bi-file-earmark-text me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddMailboxPlanText"/> </asp:LinkButton>
                 </div>
             </td>
         </tr>

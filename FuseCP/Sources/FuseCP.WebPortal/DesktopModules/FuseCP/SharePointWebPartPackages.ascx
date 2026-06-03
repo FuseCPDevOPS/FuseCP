@@ -21,11 +21,11 @@
 
 		    </td>
 		    <td class="align-top">
-                <asp:LinkButton id="btnUninstall" CssClass="btn btn-danger" runat="server" OnClick="btnUninstall_Click" CausesValidation="false" OnClientClick="return confirm('Uninstall?');"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUninstallText"/> </asp:LinkButton>
+                <asp:LinkButton id="btnUninstall" CssClass="btn btn-danger" runat="server" OnClick="btnUninstall_Click" CausesValidation="false" OnClientClick="return confirm('Uninstall?');"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUninstallText"/> </asp:LinkButton>
 		    </td>
 	    </tr>
     </table>
 </div>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>
+    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>
 </div>

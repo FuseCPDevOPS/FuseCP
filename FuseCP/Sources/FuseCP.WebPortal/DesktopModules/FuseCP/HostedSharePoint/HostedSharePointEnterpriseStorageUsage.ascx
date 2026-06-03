@@ -48,7 +48,7 @@
 				
 				
 				<div class="card-footer text-end">
-					    <asp:LinkButton id="btnRecalculateDiscSpace" CssClass="btn btn-success" runat="server" onclick="btnRecalculateDiscSpace_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRecalculateDiscSpaceText"/> </asp:LinkButton>					
+					    <asp:LinkButton id="btnRecalculateDiscSpace" CssClass="btn btn-success" runat="server" onclick="btnRecalculateDiscSpace_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRecalculateDiscSpaceText"/> </asp:LinkButton>					
 				    </div>
 				</div>
 			</div>

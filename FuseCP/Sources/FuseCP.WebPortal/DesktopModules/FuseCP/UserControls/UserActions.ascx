@@ -45,8 +45,8 @@
                     <asp:DropDownList ID="ddlServiceLevels" runat="server" CssClass="form-control" />
                     </div>
 					<div class="popup-buttons text-end">
-                    <asp:LinkButton id="btnServiceLevelCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="false"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnServiceLevelCancelText"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnServiceLevelOk" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Setting Service Level...')"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnServiceLevelOkText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnServiceLevelCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="false"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnServiceLevelCancelText"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnServiceLevelOk" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Setting Service Level...')"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnServiceLevelOkText"/> </asp:LinkButton>
                 </div>
             </div>
         </asp:Panel>
@@ -63,8 +63,8 @@
                     <fcp:MailboxPlanSelector ID="mailboxPlanSelector" runat="server" />
                     </div>
 					<div class="popup-buttons text-end">
-                    <asp:LinkButton id="btnMailboxPlanCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="false"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMailboxPlanCancelText"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnMailboxPlanOk" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Setting Mailbox Plan ...')"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMailboxPlanOkText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnMailboxPlanCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="false"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMailboxPlanCancelText"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnMailboxPlanOk" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Setting Mailbox Plan ...')"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMailboxPlanOkText"/> </asp:LinkButton>
                 </div>
             </div>
         </asp:Panel>
@@ -87,8 +87,8 @@
                     </ul>
                      </div>
 					<div class="popup-buttons text-end">
-                    <asp:LinkButton id="btnPasswordResetNotificationSendCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPasswordResetNotificationSendCancelText"/> </asp:LinkButton>&nbsp;
-                    <asp:LinkButton id="btnPasswordResetNotificationSend" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Sending password reset notification ...')"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnPasswordResetNotificationText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnPasswordResetNotificationSendCancel" CssClass="btn btn-warning" runat="server" OnClick="btnModalCancel_OnClick" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPasswordResetNotificationSendCancelText"/> </asp:LinkButton>&nbsp;
+                    <asp:LinkButton id="btnPasswordResetNotificationSend" CssClass="btn btn-success" runat="server" OnClick="btnModalOk_Click" OnClientClick="return CloseAndShowUserActionProgress('Sending password reset notification ...')"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnPasswordResetNotificationText"/> </asp:LinkButton>
                 </div>
             </div>
         </asp:Panel>

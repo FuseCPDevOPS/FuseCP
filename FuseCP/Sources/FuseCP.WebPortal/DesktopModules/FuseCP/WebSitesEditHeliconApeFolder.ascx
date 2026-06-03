@@ -30,9 +30,9 @@
 			<asp:HiddenField ID="DebuggerUrlField" runat="server" />
 		</td>
         <td >
-            <asp:LinkButton id="ButtonDebuggerStop" CssClass="btn btn-warning" runat="server" OnClick="DebugStopClick"> <i class="bi bi-stop-circle">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnApeDebuggerStopText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="ButtonDebuggerStart" CssClass="btn btn-success" runat="server" OnClick="DebugStartClick"> <i class="bi bi-play-circle">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnApeDebuggerStartText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="BUttonShowDebuggingPageLinkModal" CssClass="btn btn-success Hidden" runat="server"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnShowDebuggingPageLinkModalText"/> </asp:LinkButton>
+            <asp:LinkButton id="ButtonDebuggerStop" CssClass="btn btn-warning" runat="server" OnClick="DebugStopClick"> <i class="bi bi-stop-circle me-1"></i><asp:Localize runat="server" meta:resourcekey="btnApeDebuggerStopText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="ButtonDebuggerStart" CssClass="btn btn-success" runat="server" OnClick="DebugStartClick"> <i class="bi bi-play-circle me-1"></i><asp:Localize runat="server" meta:resourcekey="btnApeDebuggerStartText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="BUttonShowDebuggingPageLinkModal" CssClass="btn btn-success Hidden" runat="server"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnShowDebuggingPageLinkModalText"/> </asp:LinkButton>
         </td>
 	</tr>
 </table>
@@ -47,9 +47,9 @@
 </div>
 
 <div class="card-footer text-end">
-	<asp:LinkButton id="btnUpdate" CssClass="btn btn-success" runat="server" OnClick="btnUpdate_Click" > <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdate"/> </asp:LinkButton>&nbsp;
-    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="BtnCancelClick"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSave"/> </asp:LinkButton>
+	<asp:LinkButton id="btnUpdate" CssClass="btn btn-success" runat="server" OnClick="btnUpdate_Click" > <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdate"/> </asp:LinkButton>&nbsp;
+    <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="BtnCancelClick"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
+    <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSave"/> </asp:LinkButton>
 </div>
 
 <asp:Panel ID="DebuggingPageLinkPanel" runat="server" CssClass="PopupContainer" style="display:none" DefaultButton="btnCancelDebuggingPageLinkPanel">
@@ -70,7 +70,7 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelDebuggingPageLinkPanel" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCloseText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelDebuggingPageLinkPanel" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCloseText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>

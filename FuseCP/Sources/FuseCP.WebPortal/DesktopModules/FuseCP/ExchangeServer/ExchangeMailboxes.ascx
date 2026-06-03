@@ -17,7 +17,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton id="btnCreateMailbox" CssClass="btn btn-primary" runat="server" OnClick="btnCreateMailbox_Click" ValidationGroup="CreateMailbox">
-        <i class="bi bi-envelope">&nbsp;</i>&nbsp;
+        <i class="bi bi-envelope me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCreateMailbox"/>
     </asp:LinkButton>
 </div>
@@ -123,7 +123,7 @@
     <asp:TemplateField>
         <ItemTemplate>
             <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("AccountId") %>' OnClientClick="if(!confirm('Are you sure you want to delete the Exchange mailbox?.\n\nThis will only delete the mailbox, the Active Directory account will remain (under Organization --> Users) .\n\nDo you want to delete mailbox?')) return false; ShowProgressDialog('Deleting Exchange Mailbox...');">
-                &nbsp;<i class="bi bi-trash"></i>&nbsp;
+                <i class="bi bi-trash"></i>
             </asp:LinkButton>
         </ItemTemplate>
     </asp:TemplateField>

@@ -76,6 +76,6 @@
 	
                 </div>
 					<div class="card-footer text-end">
-					 <asp:LinkButton id="btnSaveExit" CssClass="btn btn-warning" runat="server" OnClick="btnSaveExit_Click" ValidationGroup="Validation1"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveExitText"/> </asp:LinkButton>&nbsp;
-                     <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="Validation1"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>				 					                                                
+					 <asp:LinkButton id="btnSaveExit" CssClass="btn btn-warning" runat="server" OnClick="btnSaveExit_Click" ValidationGroup="Validation1"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveExitText"/> </asp:LinkButton>&nbsp;
+                     <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="Validation1"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveText"/> </asp:LinkButton>				 					                                                
 				    </div>		

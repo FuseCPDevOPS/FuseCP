@@ -29,8 +29,8 @@
 			                    <td>
 			                        <br />
 			                        <br />
-			                        <asp:LinkButton id="btnEjectDisk" CssClass="btn btn-warning" runat="server" OnClick="btnEjectDisk_Click" CausesValidation="false"> <i class="bi bi-stop-circle">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnEjectDiskText"/> </asp:LinkButton>&nbsp;
-                                    <asp:LinkButton id="btnInsertDisk" CssClass="btn btn-success" runat="server" OnClick="btnInsertDisk_Click" CausesValidation="false"> <i class="bi bi-play-circle">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnInsertDiskText"/> </asp:LinkButton> 
+			                        <asp:LinkButton id="btnEjectDisk" CssClass="btn btn-warning" runat="server" OnClick="btnEjectDisk_Click" CausesValidation="false"> <i class="bi bi-stop-circle me-1"></i><asp:Localize runat="server" meta:resourcekey="btnEjectDiskText"/> </asp:LinkButton>&nbsp;
+                                    <asp:LinkButton id="btnInsertDisk" CssClass="btn btn-success" runat="server" OnClick="btnInsertDisk_Click" CausesValidation="false"> <i class="bi bi-play-circle me-1"></i><asp:Localize runat="server" meta:resourcekey="btnInsertDiskText"/> </asp:LinkButton> 
 			                    </td>
 			                </tr>
 			            </table>

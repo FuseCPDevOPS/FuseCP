@@ -45,7 +45,7 @@
 				            </Columns>
 			            </asp:GridView>
 			            <br />
-                        <asp:LinkButton id="btnUpdateVdcPermissions" CssClass="btn btn-success" runat="server" OnClick="btnUpdateVdcPermissions_Click" CausesValidation="false"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateVdcPermissionsText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnUpdateVdcPermissions" CssClass="btn btn-success" runat="server" OnClick="btnUpdateVdcPermissions_Click" CausesValidation="false"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateVdcPermissionsText"/> </asp:LinkButton>
                         <br />
                         <br />
                     </asp:Panel>
@@ -88,7 +88,7 @@
 				            </Columns>
 			            </asp:GridView>
 			            <br />
-                        <asp:LinkButton id="btnUpdateVpsPermissions" CssClass="btn btn-success" runat="server" onclick="btnUpdateVpsPermissions_Click" CausesValidation="false"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUpdateVpsPermissionsText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnUpdateVpsPermissions" CssClass="btn btn-success" runat="server" onclick="btnUpdateVpsPermissions_Click" CausesValidation="false"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUpdateVpsPermissionsText"/> </asp:LinkButton>
                         <br />
                         
                     </asp:Panel>

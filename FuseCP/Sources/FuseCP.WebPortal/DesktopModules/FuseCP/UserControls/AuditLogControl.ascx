@@ -269,7 +269,7 @@
         </table>
             </div>
 					<div class="popup-buttons text-end">
-	        <asp:LinkButton id="btnCloseTaskDetails" CssClass="btn btn-primary" runat="server"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCloseTaskDetailsText"/> </asp:LinkButton>
+	        <asp:LinkButton id="btnCloseTaskDetails" CssClass="btn btn-primary" runat="server"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCloseTaskDetailsText"/> </asp:LinkButton>
 	    </div>
 	    
     </div>

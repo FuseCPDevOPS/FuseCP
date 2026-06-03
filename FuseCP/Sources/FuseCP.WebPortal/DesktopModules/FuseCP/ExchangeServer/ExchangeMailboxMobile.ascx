@@ -49,7 +49,7 @@
 						    
 						    <asp:TemplateField>
 							    <ItemTemplate>
-								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' OnClientClick="return confirm('Remove this item?');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' OnClientClick="return confirm('Remove this item?');"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>

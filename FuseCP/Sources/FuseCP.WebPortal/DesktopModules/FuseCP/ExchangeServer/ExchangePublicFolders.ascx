@@ -12,7 +12,7 @@
                     </h3>
 				</div>
 			     <div class="FormButtonsBar right">
-                        <asp:LinkButton id="btnCreatePublicFolder" CssClass="btn btn-primary" runat="server" OnClick="btnCreatePublicFolder_Click"> <i class="bi bi-folder">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreatePublicFolderText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnCreatePublicFolder" CssClass="btn btn-primary" runat="server" OnClick="btnCreatePublicFolder_Click"> <i class="bi bi-folder me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreatePublicFolderText"/> </asp:LinkButton>
                     </div>	
 				<div class="card-body form-horizontal">
 				    <fcp:SimpleMessageBox id="messageBox" runat="server" />
@@ -27,7 +27,7 @@
 				    <fcp:QuotaViewer ID="foldersQuota" runat="server" QuotaTypeId="2" />
                             </div>
                         <div class="col-md-6 text-end">
-                                <asp:LinkButton id="btnDeleteFolders" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteFolders_Click"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteFoldersText"/> </asp:LinkButton>
+                                <asp:LinkButton id="btnDeleteFolders" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteFolders_Click"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteFoldersText"/> </asp:LinkButton>
                             </div>
                         </div>
 				</div>

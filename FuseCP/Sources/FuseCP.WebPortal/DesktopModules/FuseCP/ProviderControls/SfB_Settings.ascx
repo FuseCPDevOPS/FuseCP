@@ -26,7 +26,7 @@
         <td>
             <asp:DropDownList ID="ddlSfBServers" runat="server" CssClass="form-control">
             </asp:DropDownList>
-            <asp:LinkButton id="btnAddSfBServer" CssClass="btn btn-success" runat="server" OnClick="btnAddSfBServer_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnAddSfBServer" CssClass="btn btn-success" runat="server" OnClick="btnAddSfBServer_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton>
             <br />
             <asp:GridView ID="gvSfBServers" runat="server" AutoGenerateColumns="False" EmptyDataText="gvRecords"
                 CssSelectorClass="NormalGridView" OnRowCommand="gvSfBServers_RowCommand" meta:resourcekey="gvSfBServers">
@@ -40,7 +40,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName='RemoveServer' CommandArgument='<%#Eval("ServiceId") %>' OnClientClick="return confirm('Delete?');"> 
-                                &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                                <i class="bi bi-trash"></i> 
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>

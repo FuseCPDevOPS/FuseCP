@@ -137,7 +137,7 @@
                     </asp:Panel>
                     
                     <p class="fcp-p-5">
-                        <asp:LinkButton id="btnEdit" CssClass="btn btn-success" runat="server" OnClick="btnEdit_Click" CausesValidation="false" Enabled="false"> <i class="bi bi-pencil">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnEditText"/> </asp:LinkButton>
+                        <asp:LinkButton id="btnEdit" CssClass="btn btn-success" runat="server" OnClick="btnEdit_Click" CausesValidation="false" Enabled="false"> <i class="bi bi-pencil me-1"></i><asp:Localize runat="server" meta:resourcekey="btnEditText"/> </asp:LinkButton>
                     </p>
 
 			    </div>
@@ -171,8 +171,8 @@
 			</table>                       
 			</div>
 					<div class="popup-buttons text-end">
-		    <asp:LinkButton id="btnCancelChangePassword" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelChangePasswordText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnChangePassword" CssClass="btn btn-primary" runat="server" OnClick="btnChangePassword_Click" ValidationGroup="ChangePassword"> <i class="bi bi-key">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnChangePasswordText"/> </asp:LinkButton>
+		    <asp:LinkButton id="btnCancelChangePassword" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelChangePasswordText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnChangePassword" CssClass="btn btn-primary" runat="server" OnClick="btnChangePassword_Click" ValidationGroup="ChangePassword"> <i class="bi bi-key me-1"></i><asp:Localize runat="server" meta:resourcekey="btnChangePasswordText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>

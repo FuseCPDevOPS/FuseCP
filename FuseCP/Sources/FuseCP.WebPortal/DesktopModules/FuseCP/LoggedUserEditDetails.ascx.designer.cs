@@ -68,6 +68,15 @@ namespace FuseCP.Portal {
         protected global::FuseCP.Portal.PasswordControl userPassword;
         
         /// <summary>
+        /// valSummaryNewPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary valSummaryNewPassword;
+        
+        /// <summary>
         /// rowChangePassword control.
         /// </summary>
         /// <remarks>
@@ -471,7 +480,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPaletteMatrix;
-
+        
         /// <summary>
         /// lblButtonProperty control.
         /// </summary>
@@ -480,7 +489,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblButtonProperty;
-
+        
         /// <summary>
         /// lblButtonLight control.
         /// </summary>
@@ -489,7 +498,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblButtonLight;
-
+        
         /// <summary>
         /// lblButtonDark control.
         /// </summary>
@@ -498,7 +507,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblButtonDark;
-
+        
         /// <summary>
         /// rptButtonMatrix control.
         /// </summary>

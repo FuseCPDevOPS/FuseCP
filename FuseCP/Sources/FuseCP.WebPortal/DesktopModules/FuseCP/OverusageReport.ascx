@@ -76,7 +76,7 @@
 	</asp:Panel>
 </div>
 <div class="FormButtonsBar">
-	<asp:LinkButton id="refreshButton" CssClass="btn btn-success" runat="server" OnClick="OnRefreshButtonClick"> <i class="bi bi-arrow-clockwise">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="refreshButtonText"/> </asp:LinkButton>
+	<asp:LinkButton id="refreshButton" CssClass="btn btn-success" runat="server" OnClick="OnRefreshButtonClick"> <i class="bi bi-arrow-clockwise me-1"></i><asp:Localize runat="server" meta:resourcekey="refreshButtonText"/> </asp:LinkButton>
 </div>
 
 <asp:Panel ID="pnlSummary" runat="server" CssClass="mt-3">

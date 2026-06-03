@@ -19,8 +19,8 @@
 
                     <asp:TreeView runat="server" ID="treeCheckPoints"></asp:TreeView>
                 <div class="FormButtonsBar" >
-                    <asp:LinkButton id="btnRestoreCheckPoint" CssClass="btn btn-warning" runat="server" OnClick="btnRestoreCheckPoint_Click" CausesValidation="False"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRestoreText"/> </asp:LinkButton>&nbsp;        
-                    <asp:LinkButton id="btnCreateCheckPoint" CssClass="btn btn-success" runat="server" OnClick="btnCreateCheckPoint_Click" CausesValidation="False"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnRestoreCheckPoint" CssClass="btn btn-warning" runat="server" OnClick="btnRestoreCheckPoint_Click" CausesValidation="False"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRestoreText"/> </asp:LinkButton>&nbsp;        
+                    <asp:LinkButton id="btnCreateCheckPoint" CssClass="btn btn-success" runat="server" OnClick="btnCreateCheckPoint_Click" CausesValidation="False"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
                 </div> 
             </div>
                     </div>

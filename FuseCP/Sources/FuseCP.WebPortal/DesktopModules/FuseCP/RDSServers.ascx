@@ -13,7 +13,7 @@
 <asp:UpdatePanel runat="server" ID="messageBoxPanel" UpdateMode="Conditional"><ContentTemplate><fcp:SimpleMessageBox id="messageBox" runat="server" /></ContentTemplate></asp:UpdatePanel>
 <div class="FormButtonsBar right">
     <asp:LinkButton ID="btnAddRDSServer"  runat="server" CssClass="btn btn-primary" OnClick="btnAddRDSServer_Click" >
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;
+        <i class="bi bi-plus-lg me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnAddRDSServer" />
     </asp:LinkButton>
 </div>
@@ -129,7 +129,7 @@
 			        <ItemTemplate>
 				        <asp:LinkButton ID="lnkRemove" runat="server" Text="Remove" Visible='<%# Eval("ItemId") == null %>'
 					        CommandName="DeleteItem" CssClass="btn btn-danger" CommandArgument='<%# Eval("Id") %>' 
-                            meta:resourcekey="cmdDelete" OnClientClick="if(confirm('Are you sure you want to delete selected rds server??')) ShowProgressDialog('Removeing RDS Server...'); else return false;">&nbsp; <i class="bi bi-trash"></i> &nbsp;</asp:LinkButton>
+                            meta:resourcekey="cmdDelete" OnClientClick="if(confirm('Are you sure you want to delete selected rds server??')) ShowProgressDialog('Removeing RDS Server...'); else return false;"><i class="bi bi-trash"></i></asp:LinkButton>
 			        </ItemTemplate>
 		        </asp:TemplateField>
 	        </Columns>
@@ -217,7 +217,7 @@
                     </asp:UpdatePanel>
                     </div>
 					<div class="popup-buttons text-end">            
-                    <asp:LinkButton id="btnCancelServerInfo" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnServerInfoCancelText"/> </asp:LinkButton>
+                    <asp:LinkButton id="btnCancelServerInfo" CssClass="btn btn-warning" runat="server" CausesValidation="false"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnServerInfoCancelText"/> </asp:LinkButton>
                 </div>
             </div>
         </asp:Panel>
@@ -228,6 +228,6 @@
     </ContentTemplate>    
 </asp:UpdatePanel>
 <div class="card-footer text-end">
-    	<asp:LinkButton ID="StyleButton1"  runat="server" CssClass="btn btn-primary" OnClick="btnAddRDSServer_Click" ><i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddRDSServer" /></asp:LinkButton>
+    	<asp:LinkButton ID="StyleButton1"  runat="server" CssClass="btn btn-primary" OnClick="btnAddRDSServer_Click" ><i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddRDSServer" /></asp:LinkButton>
 </div>
 

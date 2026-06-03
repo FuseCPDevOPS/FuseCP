@@ -39,5 +39,5 @@
 
 </div>
 <div class="card-footer text-end">
-    <asp:LinkButton id="btnReturn" CssClass="btn btn-warning" runat="server" OnClick="btnReturn_Click" CausesValidation="False"> <i class="bi bi-arrow-left">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnReturnText"/> </asp:LinkButton>
+    <asp:LinkButton id="btnReturn" CssClass="btn btn-warning" runat="server" OnClick="btnReturn_Click" CausesValidation="False"> <i class="bi bi-arrow-left me-1"></i><asp:Localize runat="server" meta:resourcekey="btnReturnText"/> </asp:LinkButton>
 </div>

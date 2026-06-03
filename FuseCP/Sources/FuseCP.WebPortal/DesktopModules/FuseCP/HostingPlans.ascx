@@ -3,7 +3,7 @@
 <%@ Register Src="UserControls/ServerDetails.ascx" TagName="ServerDetails" TagPrefix="uc3" %>
 <div class="FormButtonsBar right">
 	<asp:LinkButton ID="btnAddItem" runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click" >
-        <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddItem"/>
+        <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddItem"/>
 	</asp:LinkButton>
 </div>
 <asp:GridView id="gvPlans" runat="server" AutoGenerateColumns="False"
@@ -21,7 +21,7 @@
 		</asp:TemplateField>
 		<asp:TemplateField>
 			<ItemTemplate>
-				<asp:hyperlink id="lnkCopy" runat="server" CssClass="btn btn-secondary btn-sm" NavigateUrl='<%# EditUrl("PlanID", Eval("PlanID").ToString(), "edit_plan", "UserID=" + Eval("UserID").ToString(), "TargetAction=Copy") %>'><i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="lnkCopy"/></asp:hyperlink>
+				<asp:hyperlink id="lnkCopy" runat="server" CssClass="btn btn-secondary btn-sm" NavigateUrl='<%# EditUrl("PlanID", Eval("PlanID").ToString(), "edit_plan", "UserID=" + Eval("UserID").ToString(), "TargetAction=Copy") %>'><i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="lnkCopy"/></asp:hyperlink>
 			</ItemTemplate>
 		</asp:TemplateField>
         <asp:TemplateField SortExpression="ServerName" HeaderText="gvPlansServer"

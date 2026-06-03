@@ -4,26 +4,21 @@
 <asp:Panel ID="pnlRecords" runat="server">
     <div class="text-end fcp-mb-10">
         <asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-primary" OnClick="btnAdd_Click" CausesValidation="False">
-            <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAdd" />
+            <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAdd" />
         </asp:LinkButton>
         <br />
     </div>
-</asp:Panel>
-<asp:Panel ID="pnlLoadRecords" runat="server" CssClass="alert alert-secondary d-flex flex-wrap justify-content-between align-items-center gap-2">
-    <asp:Label ID="lblLoadRecordsHint" runat="server" Text="Existing DNS records are loaded on demand to keep large server pages responsive."></asp:Label>
-    <asp:LinkButton ID="btnLoadRecords" runat="server" CssClass="btn btn-outline-primary" OnClick="btnLoadRecords_Click" CausesValidation="False">
-        <i class="bi bi-arrow-repeat">&nbsp;</i>&nbsp;Load Existing DNS Records
-    </asp:LinkButton>
 </asp:Panel>
 <asp:GridView ID="gvRecords" runat="server" AutoGenerateColumns="False"
     DataKeyNames="RecordID" EmptyDataText="gvRecords" CssSelectorClass="NormalGridView"
     OnRowEditing="gvRecords_RowEditing" OnRowDeleting="gvRecords_RowDeleting">
     <Columns>
         <asp:TemplateField HeaderText="gvRecordsName" ItemStyle-CssClass="NormalBold" ItemStyle-Wrap="false">
+            <ItemStyle Width="25px" HorizontalAlign="Center" />
             <ItemTemplate>
-                <ItemStyle Width="25px" HorizontalAlign="Center" />
-                <asp:ImageButton ID="cmdEdit" runat="server" SkinID="EditSmall" CommandName="edit" AlternateText="Edit record">
-                </asp:ImageButton>
+                <asp:LinkButton ID="cmdEdit" runat="server" CssClass="btn btn-primary btn-sm me-1" CommandName="edit" CausesValidation="False" ToolTip="Edit record">
+                    <i class="bi bi-pencil"></i>
+                </asp:LinkButton>
                 <%# Eval("RecordName") %>
             </ItemTemplate>
         </asp:TemplateField>
@@ -32,9 +27,7 @@
         <asp:TemplateField>
             <ItemStyle Width="65px" HorizontalAlign="Center" />
             <ItemTemplate>
-                <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="delete" OnClientClick="return confirm('Delete?');"> 
-                    &nbsp;<i class="bi bi-trash"></i>&nbsp; 
-                </asp:LinkButton>
+                <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger btn-sm" runat="server" CommandName="delete" OnClientClick="return confirm('Delete?');"><i class="bi bi-trash"></i></asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>
     </Columns>
@@ -66,7 +59,7 @@
             <td class="SubHead"><asp:Label ID="lblRecordData" runat="server" meta:resourcekey="lblRecordData" Text="Record Data:"></asp:Label></td>
             <td class="Normal text-nowrap">
                 <div class="d-flex flex-wrap gap-2 align-items-center">
-                <asp:TextBox ID="txtRecordData" runat="server" Width="260px" CssClass="form-control"></asp:TextBox> <uc1:SelectIPAddress ID="ipAddress" CssClass="form-control" runat="server" AutoBindOnInitialLoad="false" />
+                <asp:TextBox ID="txtRecordData" runat="server" Width="260px" CssClass="form-control"></asp:TextBox> <uc1:SelectIPAddress ID="ipAddress" CssClass="form-control" runat="server" />
                     </div>
 <!--
                 <asp:RequiredFieldValidator ID="valRequireData" runat="server" ControlToValidate="txtRecordData"
@@ -111,8 +104,8 @@
 
         <tr>
             <td class="text-end" colspan="2">
-                <asp:LinkButton id="btnCancel" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancel_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancel"/> </asp:LinkButton>&nbsp;
-                <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="DnsRecord"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSave"/> </asp:LinkButton>
+                <asp:LinkButton id="btnCancel" CssClass="btn btn-warning me-2" runat="server" CausesValidation="False" OnClick="btnCancel_Click"><i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancel"/></asp:LinkButton>
+                <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" ValidationGroup="DnsRecord"><i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSave"/></asp:LinkButton>
             </td>
         </tr>
     </table>

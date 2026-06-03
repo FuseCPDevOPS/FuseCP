@@ -12,7 +12,7 @@
 </div>
 <div class="FormButtonsBar right">
     <asp:LinkButton id="btnCreateList" CssClass="btn btn-primary" runat="server" OnClick="btnCreateList_Click">
-        <i class="bi bi-people">&nbsp;</i>&nbsp;
+        <i class="bi bi-people me-1"></i>
         <asp:Localize runat="server" meta:resourcekey="btnCreateList"/>
     </asp:LinkButton>
 </div>
@@ -69,8 +69,7 @@
         <asp:TemplateField>
             <ItemTemplate>
                 <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("AccountId") %>' OnClientClick="return confirm('Remove this item?');">
-                    &nbsp;
-                    <i class="bi bi-trash"></i>&nbsp;
+                    <i class="bi bi-trash"></i>
                 </asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>

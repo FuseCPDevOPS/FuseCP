@@ -75,8 +75,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelUpload" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnUpload" CssClass="btn btn-success" runat="server" ValidationGroup="UploadFile" OnClick="btnUpload_Click"> <i class="bi bi-upload">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnUploadText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelUpload" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnUpload" CssClass="btn btn-success" runat="server" ValidationGroup="UploadFile" OnClick="btnUpload_Click"> <i class="bi bi-upload me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUploadText"/> </asp:LinkButton>
 	</div>
   </div>
 </asp:Panel>
@@ -101,8 +101,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelCopy" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCopy" CssClass="btn btn-success" runat="server" OnClick="btnCopy_Click" ValidationGroup="CopyFiles"> <i class="bi bi-copy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCopyText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelCopy" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCopy" CssClass="btn btn-success" runat="server" OnClick="btnCopy_Click" ValidationGroup="CopyFiles"> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCopyText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -127,8 +127,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-			<asp:LinkButton id="btnCancelMove" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnMove" CssClass="btn btn-success" runat="server" OnClick="btnMove_Click" ValidationGroup="MoveFiles"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnMoveText"/> </asp:LinkButton>
+			<asp:LinkButton id="btnCancelMove" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnMove" CssClass="btn btn-success" runat="server" OnClick="btnMove_Click" ValidationGroup="MoveFiles"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMoveText"/> </asp:LinkButton>
 		</div>
      </div>
 </asp:Panel>
@@ -158,8 +158,8 @@
 			</div>
             </div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelCreateFile" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCreateFile" CssClass="btn btn-success" runat="server" OnClick="btnCreateFile_Click" ValidationGroup="NewFileName"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelCreateFile" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCreateFile" CssClass="btn btn-success" runat="server" OnClick="btnCreateFile_Click" ValidationGroup="NewFileName"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -185,8 +185,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelCreateFolder" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCreateFolder" CssClass="btn btn-success" runat="server" OnClick="btnCreateFolder_Click" ValidationGroup="NewFolderName"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelCreateFolder" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCreateFolder" CssClass="btn btn-success" runat="server" OnClick="btnCreateFolder_Click" ValidationGroup="NewFolderName"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -211,8 +211,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelZip" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnZip" CssClass="btn btn-success" runat="server" OnClick="btnZip_Click" ValidationGroup="ZipName"> <i class="bi bi-file-earmark-zip">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnZipText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelZip" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnZip" CssClass="btn btn-success" runat="server" OnClick="btnZip_Click" ValidationGroup="ZipName"> <i class="bi bi-file-earmark-zip me-1"></i><asp:Localize runat="server" meta:resourcekey="btnZipText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -237,8 +237,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelCreateDatabase" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCreateDatabase" CssClass="btn btn-success" runat="server" OnClick="btnCreateDatabase_Click" ValidationGroup="DatabaseName"> <i class="bi bi-database">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelCreateDatabase" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCreateDatabase" CssClass="btn btn-success" runat="server" OnClick="btnCreateDatabase_Click" ValidationGroup="DatabaseName"> <i class="bi bi-database me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -263,8 +263,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnDeleteFiles" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteFiles_Click" CausesValidation="false"> <i class="bi bi-trash">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnDeleteFilesText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCancelDeleteFiles" CssClass="btn btn-warning" runat="server"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelDeleteFilesText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnDeleteFiles" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteFiles_Click" CausesValidation="false"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteFilesText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCancelDeleteFiles" CssClass="btn btn-warning" runat="server"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelDeleteFilesText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -391,8 +391,8 @@
 			</div>
             </div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelEditFile" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelEditFile_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnSaveEditFile" CssClass="btn btn-success" runat="server" OnClick="btnSaveEditFile_Click" CausesValidation="false"> <i class="bi bi-floppy">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSaveEditFileText"/> </asp:LinkButton> 
+            <asp:LinkButton id="btnCancelEditFile" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelEditFile_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnSaveEditFile" CssClass="btn btn-success" runat="server" OnClick="btnSaveEditFile_Click" CausesValidation="false"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveEditFileText"/> </asp:LinkButton> 
 		</div>
 	</div>
 </asp:Panel>
@@ -418,8 +418,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelRename" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelRename_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnRename" CssClass="btn btn-success" runat="server" OnClick="btnRename_Click" ValidationGroup="RenameFile"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnRenameText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelRename" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelRename_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnRename" CssClass="btn btn-success" runat="server" OnClick="btnRename_Click" ValidationGroup="RenameFile"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRenameText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -467,8 +467,8 @@
 			</div>
 			</div>
 					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelPermissions" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelPermissions_Click"> <i class="bi bi-x-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCancelPermissionsText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnSetPermissions" CssClass="btn btn-success" runat="server" OnClick="btnSetPermissions_Click"> <i class="bi bi-check-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnSetPermissionsText"/> </asp:LinkButton>
+            <asp:LinkButton id="btnCancelPermissions" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelPermissions_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelPermissionsText"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnSetPermissions" CssClass="btn btn-success" runat="server" OnClick="btnSetPermissions_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetPermissionsText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>

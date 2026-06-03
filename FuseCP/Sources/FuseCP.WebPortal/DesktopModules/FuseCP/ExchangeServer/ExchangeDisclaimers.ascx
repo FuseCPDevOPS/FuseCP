@@ -12,7 +12,7 @@
                         </h3>
 				</div>
 				<div class="FormButtonsBar right">
-                            <asp:LinkButton id="btnCreateList" CssClass="btn btn-primary" runat="server" OnClick="btnCreateList_Click"> <i class="bi bi-file-earmark-text">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateList"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnCreateList" CssClass="btn btn-primary" runat="server" OnClick="btnCreateList_Click"> <i class="bi bi-file-earmark-text me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateList"/> </asp:LinkButton>
                         </div>
 				<div class="card-body form-horizontal">
 				    <fcp:SimpleMessageBox id="messageBox" runat="server" />
@@ -32,7 +32,7 @@
 						    </asp:TemplateField>
 						    <asp:TemplateField>
 							    <ItemTemplate>
-								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("ExchangeDisclaimerId") %>' OnClientClick="return confirm('Remove this item?');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+								    <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("ExchangeDisclaimerId") %>' OnClientClick="return confirm('Remove this item?');"> <i class="bi bi-trash"></i> </asp:LinkButton>
 							    </ItemTemplate>
 						    </asp:TemplateField>
 					    </Columns>

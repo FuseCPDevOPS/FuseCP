@@ -122,7 +122,7 @@
                 <asp:DropDownList ID="ddlHubTransport" runat="server" CssClass="form-control">
                 </asp:DropDownList>
             <span class="d-flex">
-                <asp:LinkButton id="btnAdd" CssClass="btn btn-primary" runat="server" OnClick="btnAdd_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton><br />
+                <asp:LinkButton id="btnAdd" CssClass="btn btn-primary" runat="server" OnClick="btnAdd_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton><br />
             </span>
             </div>
              <asp:GridView ID="gvHubTransport" runat="server" AutoGenerateColumns="False" EmptyDataText="gvRecords"
@@ -137,7 +137,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName='RemoveServer' CommandArgument='<%#Eval("ServiceId") %>' OnClientClick="return confirm('Delete?');"> 
-                                &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                                <i class="bi bi-trash"></i> 
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -155,7 +155,7 @@
                 <asp:DropDownList ID="ddlClientAccess" runat="server" CssClass="form-control">
                 </asp:DropDownList>
                 <span class="d-flex">
-                    <asp:LinkButton id="btnAddClientAccess" CssClass="btn btn-primary" runat="server" OnClick="btnAddClientAccess_Click"> <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton><br />
+                    <asp:LinkButton id="btnAddClientAccess" CssClass="btn btn-primary" runat="server" OnClick="btnAddClientAccess_Click"> <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAddText"/> </asp:LinkButton><br />
                 </span>
             </div>
             <asp:GridView ID="gvClients" runat="server" AutoGenerateColumns="False" EmptyDataText="gvRecords"
@@ -170,7 +170,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName='RemoveServer' CommandArgument='<%#Eval("ServiceId") %>' OnClientClick="return confirm('Delete?');"> 
-                                &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                                <i class="bi bi-trash"></i> 
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -260,7 +260,7 @@
                     <ItemStyle Width="65px" HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:LinkButton id="imgDelRouteFromSE" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# (string)Container.DataItem %>' OnClientClick="return confirm('Are you sure you want to delete selected route?')"> 
-                            &nbsp;<i class="bi bi-trash"></i>&nbsp; 
+                            <i class="bi bi-trash"></i> 
                         </asp:LinkButton>
                     </ItemTemplate>
 		        </asp:TemplateField>
@@ -271,7 +271,7 @@
              <asp:TextBox ID="tbSEDestinations" CssClass="form-control" runat="server"></asp:TextBox>
                 <span class="d-flex">
                 <asp:LinkButton ID="bntAddSEDestination" runat="server" CssClass="btn btn-primary" OnClick="bntAddSEDestination_Click" CausesValidation="False">
-                <i class="bi bi-plus-lg">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="bntAddSEDestination" />
+                <i class="bi bi-plus-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="bntAddSEDestination" />
                 </asp:LinkButton>
                 </span>
             </div>

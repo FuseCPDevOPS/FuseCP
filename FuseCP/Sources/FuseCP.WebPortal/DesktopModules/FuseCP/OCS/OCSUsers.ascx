@@ -18,7 +18,7 @@
                     <fcp:SimpleMessageBox id="messageBox" runat="server" />
                     <div class="FormButtonsBarClean">
                         <div class="FormButtonsBarCleanLeft">
-                            <asp:LinkButton id="btnCreateUser" CssClass="btn btn-primary" runat="server" OnClick="btnCreateUser_Click"> <i class="bi bi-person-plus">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnCreateUserText"/> </asp:LinkButton>
+                            <asp:LinkButton id="btnCreateUser" CssClass="btn btn-primary" runat="server" OnClick="btnCreateUser_Click"> <i class="bi bi-person-plus me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateUserText"/> </asp:LinkButton>
                         </div>
                         <div class="FormButtonsBarCleanRight">
                             <asp:Panel ID="SearchPanel" runat="server" DefaultButton="cmdSearch">
@@ -65,7 +65,7 @@
                                     SortExpression="PrimaryEmailAddress" />
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("InstanceID") %>' OnClientClick="return confirm('Remove this item?');"> &nbsp;<i class="bi bi-trash"></i>&nbsp; </asp:LinkButton>
+                                        <asp:LinkButton id="cmdDelete" CssClass="btn btn-danger" runat="server" CommandName="DeleteItem" CommandArgument='<%# Eval("InstanceID") %>' OnClientClick="return confirm('Remove this item?');"> <i class="bi bi-trash"></i> </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

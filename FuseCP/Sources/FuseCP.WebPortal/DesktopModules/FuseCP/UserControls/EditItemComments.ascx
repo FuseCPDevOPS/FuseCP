@@ -42,7 +42,7 @@
             </div>
             <div class="card-footer text-end">
                 <asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-primary" OnClick="btnAdd_Click" ValidationGroup="AddItemComment" >
-                    <i class="bi bi-chat-left-text">&nbsp;</i>&nbsp;<asp:Localize runat="server" meta:resourcekey="btnAdd"/>
+                    <i class="bi bi-chat-left-text me-1"></i><asp:Localize runat="server" meta:resourcekey="btnAdd"/>
                 </asp:LinkButton>
                  <asp:RequiredFieldValidator ID="valRequireComment" runat="server" ControlToValidate="txtComments"
                     ErrorMessage="*" ValidationGroup="AddItemComment" meta:resourcekey="valRequireComment"></asp:RequiredFieldValidator>
