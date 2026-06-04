@@ -1,46 +1,4 @@
 -- USE [${install.database}]
--- GO
--- update database version
--- DECLARE @build_version nvarchar(10), @build_date datetime
--- SET @build_version = N'${release.version}'
--- SET @build_date = '${release.date}T00:00:00' -- ISO 8601 Format (YYYY-MM-DDTHH:MM:SS)
-
--- IF NOT EXISTS (SELECT * FROM [dbo].[Versions] WHERE [DatabaseVersion] = @build_version)
--- BEGIN
--- 	INSERT [dbo].[Versions] ([DatabaseVersion], [BuildDate]) VALUES (@build_version, @build_date)
--- END
--- GO
-
--- Fix for Some problems with collate in GetDnsRecordsTotal
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE type = 'P' AND name = 'GetDnsRecordsTotal')
-DROP PROCEDURE GetDnsRecordsTotal
-GO
-CREATE PROCEDURE [dbo].[GetDnsRecordsTotal]
-(
-	@ActorID int,
-	@PackageID int
-)
-AS
-
--- check rights
-IF dbo.CheckActorPackageRights(@ActorID, @PackageID) = 0
-RAISERROR('You are not allowed to access this package', 16, 1)
-
--- create temp table for DNS records
-DECLARE @Records TABLE
-(
-	RecordID int,
-	RecordType nvarchar(10),
-	RecordName nvarchar(50)
-)
-
--- select PACKAGES DNS records
-DECLARE @ParentPackageID int, @TmpPackageID int
-SET @TmpPackageID = @PackageID
-
-WHILE 10 = 10
-BEGIN
-
 	-- get DNS records for the current package
 	INSERT INTO @Records (RecordID, RecordType, RecordName)
 	SELECT
@@ -13593,48 +13551,6 @@ END
 SET @sql = '
 SET @curValue = cursor local for
  SELECT '
-
-IF @OnlyFind = 1
-SET @sql = @sql + 'TOP ' + CAST(@MaximumRows AS varchar(12)) + ' '
-
-SET @sql = @sql + '
-  @UserID as ItemID,
-  ea.AccountName as TextSearch,
-  ''CRMSite'' as ColumnType,
-  ''CRMSites'' as FullType,
-  SI.PackageID as PackageID,
-  ea.AccountID as AccountID,
-  U.Username,
-  U.FirstName + '' '' + U.LastName as Fullname
- FROM 
-  ExchangeAccounts as ea 
- INNER JOIN 
-  CRMUsers AS CRMU ON ea.AccountID = CRMU.AccountID
- INNER JOIN
-  ServiceItems AS SI ON ea.ItemID = SI.ItemID
- INNER JOIN
-  Packages AS P ON SI.PackageID = P.PackageID
- INNER JOIN
-  Users AS U ON U.UserID = P.UserID
- WHERE ' + CAST((@HasUserRights) AS varchar(12)) + ' = 1
-  AND (' + CAST((@IsAdmin) AS varchar(12)) + ' = 1 OR P.UserID = @UserID)'
-IF @FilterValue <> ''
-	SET @sql = @sql + ' AND ea.AccountName LIKE ''' + @FilterValue + ''''
-IF @OnlyFind = 1
-	SET @sql = @sql + ' ORDER BY TextSearch'
-SET @sql = @sql + ' ;open @curValue'
-
-CLOSE @curAll
-DEALLOCATE @curAll
-exec sp_executesql @sql, N'@UserID int, @curValue cursor output', @UserID, @curAll output
-
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-WHILE @@FETCH_STATUS = 0
-BEGIN
-INSERT INTO @ItemsAll(ItemID, TextSearch, ColumnType, FullType, PackageID, AccountID, Username, Fullname)
-VALUES(@ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname)
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-END
 
 /*------------------------------------VirtualServer------------------------------------------------*/
 IF @IsAdmin = 1

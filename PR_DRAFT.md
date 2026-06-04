@@ -789,6 +789,49 @@ Reverted WebServices.cs to its last known good state (HEAD~9) where compilation 
 ### Commit: bb30dee23
 **Message**: docs: update PR_DRAFT.md with JS/CodeQL remediation batch details
 
+---
+
+### Commit: pending
+**Message**: fix: restore portal search and submenu behavior
+
+**Scope**: 11 files modified with the shared search fix, runtime script stack cleanup, the Bootstrap submenu recovery work, and database stored procedure/script regeneration
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/Scripts/global-search.js` — hardened trimming helpers and switched autocomplete positioning to concrete DOM targets with a stable document-body boundary
+- `FuseCP/Sources/FuseCP.WebPortal/Code/Adapters/MenuAdapter.cs` — emitted submenu collapse IDs/attributes and made parent items with children render as Bootstrap collapse toggles
+- `FuseCP/Sources/FuseCP.WebPortal/JavaScript/fcp-common.js` — ignored Bootstrap-managed submenu clicks and synchronized parent active state from collapse events
+- `FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/js/fcp-common.js` — mirrored the Bootstrap submenu handling in the theme-copied script
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SkinControls/GlobalSearch.ascx` — removed the duplicate legacy script include so the shared runtime stack owns jQuery/bootstrap loading
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SkinControls/GlobalSearch.ascx.cs` — stopped injecting legacy jQuery/jQuery UI versions from the control code-behind
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SkinControls/ThemeScripts.ascx` — added the shared jQuery compatibility shim and centralized the global search script include in the skin runtime stack
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/SqlServer/v2.0.0/StoredProcedures/dbo.GetSearchObject.StoredProcedure.sql` — updated the search stored procedure payload and result-shaping logic used by the portal search flow
+- `FuseCP/Database/install.sqlserver.sql` — regenerated SQL Server install script to reflect the stored procedure changes
+- `FuseCP/Database/update_db.sql` — regenerated SQL Server update script to match the stored procedure changes
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/SqlServer/install.sqlserver.sql` — regenerated migration install script to keep EF artifacts aligned
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/SqlServer/v1.5.1/StoredProcedures.sql` — regenerated provider migration stored procedure bundle
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/SqlServer/v1.5.1/install_db.sql` — regenerated migration install script
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/SqlServer/v1.5.1/update_db.sql` — regenerated migration update script
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/LegacyScripts/install_db.sql` — regenerated legacy install script
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/LegacyScripts/master.update_db.sql` — regenerated legacy master update script
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Data/LegacyScripts/update_db.sql` — regenerated legacy update script
+
+#### Validation Summary
+- **Local Validation**: ✅ `dotnet build FuseCP/Sources/FuseCP.WebPortal/FuseCP.WebPortal.csproj -nologo -v minimal` succeeded after stopping IIS locks and recycling the portal app pool
+- **Runtime Check**: ✅ `http://localhost:9001` returned `200` after app-pool recycle
+- **Editor Diagnostics**: ✅ clean in touched files
+- **Database Workflow**: ✅ local rebuild completed after clearing IIS locks; database scripts regenerated as part of the stored procedure update
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: focused UI behavior fix for search autocomplete positioning and submenu toggle handling
+- ✅ **Database Change Risk**: stored procedure/result-shape update is paired with regenerated SQL install/update artifacts
+- ✅ **Backward Compatible**: legacy submenu fallback remains available when Bootstrap collapse is absent
+
+#### Testing Guidance
+1. Open the portal, verify the top menu submenu expands and collapses normally.
+2. Exercise global search autocomplete and confirm the popup positions correctly in desktop and mobile shell layouts.
+3. Hard refresh once after deployment to clear any cached JavaScript bundles.
+4. Validate portal search against the updated `dbo.GetSearchObject` stored procedure and confirm expected search results still render.
+
 **Scope**: PR documentation expansion (80 lines added)
 
 #### Content Added

@@ -39,50 +39,8 @@ DECLARE @Records TABLE
 DECLARE @ParentPackageID int, @TmpPackageID int
 SET @TmpPackageID = @PackageID
 
-WHILE 10 = 10
-BEGIN
+ SELECT '
 
-	-- get DNS records for the current package
-	INSERT INTO @Records (RecordID, RecordType, RecordName)
-	SELECT
-		GR.RecordID,
-		GR.RecordType,
-		GR.RecordName
-	FROM GlobalDNSRecords AS GR
-	WHERE GR.PackageID = @TmpPackageID
-	AND GR.RecordType + GR.RecordName NOT IN (SELECT RecordType + RecordName FROM @Records)
-
-	SET @ParentPackageID = NULL
-
-	-- get parent package
-	SELECT
-		@ParentPackageID = ParentPackageID
-	FROM Packages
-	WHERE PackageID = @TmpPackageID
-
-	IF @ParentPackageID IS NULL -- the last parent
-	BREAK
-
-	SET @TmpPackageID = @ParentPackageID
-END
-
--- select VIRTUAL SERVER DNS records
-DECLARE @ServerID int
-SELECT @ServerID = ServerID FROM Packages
-WHERE PackageID = @PackageID
-
-INSERT INTO @Records (RecordID, RecordType, RecordName)
-SELECT
-	GR.RecordID,
-	GR.RecordType,
-	GR.RecordName
-FROM GlobalDNSRecords AS GR
-WHERE GR.ServerID = @ServerID
-AND GR.RecordType + GR.RecordName NOT IN (SELECT RecordType + RecordName FROM @Records)
-
--- select SERVER DNS records
-INSERT INTO @Records (RecordID, RecordType, RecordName)
-SELECT
 	GR.RecordID,
 	GR.RecordType,
 	GR.RecordName
@@ -105,52 +63,6 @@ EXEC DistributePackageServices @ActorID, @PackageID
 
 --INSERT INTO @Records (RecordID, RecordType, RecordName)
 --SELECT
---	GR.RecordID,
---	GR.RecordType,
-	-- GR.RecordName
--- FROM GlobalDNSRecords AS GR
--- WHERE GR.ServiceID IN (SELECT ServiceID FROM PackageServices WHERE PackageID = @PackageID)
--- AND GR.RecordType + GR.RecordName NOT IN (SELECT RecordType + RecordName FROM @Records)
-
-
-SELECT
-	NR.RecordID,
-	NR.ServiceID,
-	NR.ServerID,
-	NR.PackageID,
-	NR.RecordType,
-	NR.RecordName,
-	NR.RecordData,
-	NR.MXPriority,
-	NR.SrvPriority,
-	NR.SrvWeight,
-	NR.SrvPort,
-	NR.IPAddressID,
-	ISNULL(IP.ExternalIP, '') AS ExternalIP,
-	ISNULL(IP.InternalIP, '') AS InternalIP,
-	CASE
-		WHEN NR.RecordType = 'A' AND NR.RecordData = '' THEN dbo.GetFullIPAddress(IP.ExternalIP, IP.InternalIP)
-		WHEN NR.RecordType = 'MX' THEN CONVERT(varchar(3), NR.MXPriority) + ', ' + NR.RecordData
-		WHEN NR.RecordType = 'SRV' THEN CONVERT(varchar(3), NR.SrvPort) + ', ' + NR.RecordData
-		ELSE NR.RecordData
-	END AS FullRecordData,
-	dbo.GetFullIPAddress(IP.ExternalIP, IP.InternalIP) AS IPAddress
-FROM @Records AS TR
-INNER JOIN GlobalDnsRecords AS NR ON TR.RecordID = NR.RecordID
-LEFT OUTER JOIN IPAddresses AS IP ON NR.IPAddressID = IP.AddressID
-
-RETURN
-GO
-
-
--- SimpleDNS 6.x
-IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1703')
-BEGIN
-INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1703, 7, N'SimpleDNS', N'SimpleDNS Plus 6.x', N'FuseCP.Providers.DNS.SimpleDNS6, FuseCP.Providers.DNS.SimpleDNS60', N'SimpleDNS', NULL)
-END
-GO
-
--- SimpleDNS 8.x
 IF NOT EXISTS (SELECT * FROM [dbo].[Providers] WHERE [ProviderID] = '1901')
 BEGIN
 INSERT [dbo].[Providers] ([ProviderID], [GroupID], [ProviderName], [DisplayName], [ProviderType], [EditorControl], [DisableAutoDiscovery]) VALUES (1901, 7, N'SimpleDNS', N'SimpleDNS Plus 8.x', N'FuseCP.Providers.DNS.SimpleDNS8, FuseCP.Providers.DNS.SimpleDNS80', N'SimpleDNS', NULL)
@@ -13680,44 +13592,6 @@ END
 SET @sql = '
 SET @curValue = cursor local for
  SELECT '
-
-IF @OnlyFind = 1
-SET @sql = @sql + 'TOP ' + CAST(@MaximumRows AS varchar(12)) + ' '
-
-SET @sql = @sql + '
-  @UserID as ItemID,
-  ea.AccountName as TextSearch,
-  ''CRMSite'' as ColumnType,
-  ''CRMSites'' as FullType,
-  SI.PackageID as PackageID,
-  ea.AccountID as AccountID,
-  U.Username,
-  U.FirstName + '' '' + U.LastName as Fullname
- FROM 
-  ExchangeAccounts as ea 
- INNER JOIN 
-  CRMUsers AS CRMU ON ea.AccountID = CRMU.AccountID
- INNER JOIN
-  ServiceItems AS SI ON ea.ItemID = SI.ItemID
- INNER JOIN
-  Packages AS P ON SI.PackageID = P.PackageID
- INNER JOIN
-  Users AS U ON U.UserID = P.UserID
- WHERE ' + CAST((@HasUserRights) AS varchar(12)) + ' = 1
-  AND (' + CAST((@IsAdmin) AS varchar(12)) + ' = 1 OR P.UserID = @UserID)'
-IF @FilterValue <> ''
-	SET @sql = @sql + ' AND ea.AccountName LIKE ''' + @FilterValue + ''''
-IF @OnlyFind = 1
-	SET @sql = @sql + ' ORDER BY TextSearch'
-SET @sql = @sql + ' ;open @curValue'
-
-CLOSE @curAll
-DEALLOCATE @curAll
-exec sp_executesql @sql, N'@UserID int, @curValue cursor output', @UserID, @curAll output
-
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-WHILE @@FETCH_STATUS = 0
-BEGIN
 INSERT INTO @ItemsAll(ItemID, TextSearch, ColumnType, FullType, PackageID, AccountID, Username, Fullname)
 VALUES(@ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname)
 FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname

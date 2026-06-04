@@ -25,48 +25,6 @@ CREATE PROCEDURE [dbo].[AddAuditLogRecord]
 (
 	@RecordID varchar(32),
 	@SeverityID int,
-	@UserID int,
-	@PackageID int,
-	@Username nvarchar(50),
-	@ItemID int,
-	@StartDate datetime,
-	@FinishDate datetime,
-	@SourceName varchar(50),
-	@TaskName varchar(50),
-	@ItemName nvarchar(50),
-	@ExecutionLog ntext
-)
-AS
-
-IF @ItemID = 0 SET @ItemID = NULL
-IF @UserID = 0 OR @UserID = -1 SET @UserID = NULL
-
-
-INSERT INTO AuditLog
-(
-	RecordID,
-	SeverityID,
-	UserID,
-	PackageID,
-	Username,
-	ItemID,
-	SourceName,
-	StartDate,
-	FinishDate,
-	TaskName,
-	ItemName,
-	ExecutionLog
-)
-VALUES
-(
-	@RecordID,
-	@SeverityID,
-	@UserID,
-	@PackageID,
-	@Username,
-	@ItemID,
-	@SourceName,
-	@StartDate,
 	@FinishDate,
 	@TaskName,
 	@ItemName,
@@ -29945,48 +29903,6 @@ END
 SET @sql = '
 SET @curValue = cursor local for
  SELECT '
-
-IF @OnlyFind = 1
-SET @sql = @sql + 'TOP ' + CAST(@MaximumRows AS varchar(12)) + ' '
-
-SET @sql = @sql + '
-  @UserID as ItemID,
-  ea.AccountName as TextSearch,
-  ''CRMSite'' as ColumnType,
-  ''CRMSites'' as FullType,
-  SI.PackageID as PackageID,
-  ea.AccountID as AccountID,
-  U.Username,
-  U.FirstName + '' '' + U.LastName as Fullname
- FROM 
-  ExchangeAccounts as ea 
- INNER JOIN 
-  CRMUsers AS CRMU ON ea.AccountID = CRMU.AccountID
- INNER JOIN
-  ServiceItems AS SI ON ea.ItemID = SI.ItemID
- INNER JOIN
-  Packages AS P ON SI.PackageID = P.PackageID
- INNER JOIN
-  Users AS U ON U.UserID = P.UserID
- WHERE ' + CAST((@HasUserRights) AS varchar(12)) + ' = 1
-  AND (' + CAST((@IsAdmin) AS varchar(12)) + ' = 1 OR P.UserID = @UserID)'
-IF @FilterValue <> ''
-	SET @sql = @sql + ' AND ea.AccountName LIKE ''' + @FilterValue + ''''
-IF @OnlyFind = 1
-	SET @sql = @sql + ' ORDER BY TextSearch'
-SET @sql = @sql + ' ;open @curValue'
-
-CLOSE @curAll
-DEALLOCATE @curAll
-exec sp_executesql @sql, N'@UserID int, @curValue cursor output', @UserID, @curAll output
-
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-WHILE @@FETCH_STATUS = 0
-BEGIN
-INSERT INTO @ItemsAll(ItemID, TextSearch, ColumnType, FullType, PackageID, AccountID, Username, Fullname)
-VALUES(@ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname)
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-END
 
 /*------------------------------------VirtualServer------------------------------------------------*/
 IF @IsAdmin = 1

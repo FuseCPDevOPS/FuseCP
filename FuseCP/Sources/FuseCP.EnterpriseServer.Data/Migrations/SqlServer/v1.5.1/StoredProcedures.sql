@@ -36,48 +36,6 @@ CREATE FUNCTION [dbo].[CalculatePackageBandwidth]
 (
 	@PackageID int
 )
-RETURNS int
-AS
-BEGIN
-
-DECLARE @d datetime, @StartDate datetime, @EndDate datetime
-SET @d = GETDATE()
-SET @StartDate = DATEADD(Day, -DAY(@d) + 1, @d)
-SET @EndDate = DATEADD(Day, -1, DATEADD(Month, 1, @StartDate))
---SET @EndDate =  GETDATE()
---SET @StartDate = DATEADD(month, -1, @EndDate)
-
--- remove hours and minutes
-SET @StartDate = CONVERT(datetime, CONVERT(nvarchar, @StartDate, 112))
-SET @EndDate = CONVERT(datetime, CONVERT(nvarchar, @EndDate, 112))
-
-DECLARE @Bandwidth int
-SELECT
-	@Bandwidth = ROUND(CONVERT(float, SUM(ISNULL(PB.BytesSent + PB.BytesReceived, 0))) / 1024 / 1024, 0) -- in megabytes
-FROM PackagesTreeCache AS PT
-INNER JOIN Packages AS P ON PT.PackageID = P.PackageID
-INNER JOIN PackagesBandwidth AS PB ON PT.PackageID = PB.PackageID
-INNER JOIN HostingPlanResources AS HPR ON PB.GroupID = HPR.GroupID
-	AND HPR.PlanID = P.PlanID AND HPR.CalculateBandwidth = 1
-WHERE
-	PT.ParentPackageID = @PackageID
-	AND PB.LogDate BETWEEN @StartDate AND @EndDate
-
-IF @Bandwidth IS NULL
-SET @Bandwidth = 0
-
-RETURN @Bandwidth
-END
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -22126,48 +22084,6 @@ END
 SET @sql = '
 SET @curValue = cursor local for
  SELECT '
-
-IF @OnlyFind = 1
-SET @sql = @sql + 'TOP ' + CAST(@MaximumRows AS varchar(12)) + ' '
-
-SET @sql = @sql + '
-  @UserID as ItemID,
-  ea.AccountName as TextSearch,
-  ''CRMSite'' as ColumnType,
-  ''CRMSites'' as FullType,
-  SI.PackageID as PackageID,
-  ea.AccountID as AccountID,
-  U.Username,
-  U.FirstName + '' '' + U.LastName as Fullname
- FROM 
-  ExchangeAccounts as ea 
- INNER JOIN 
-  CRMUsers AS CRMU ON ea.AccountID = CRMU.AccountID
- INNER JOIN
-  ServiceItems AS SI ON ea.ItemID = SI.ItemID
- INNER JOIN
-  Packages AS P ON SI.PackageID = P.PackageID
- INNER JOIN
-  Users AS U ON U.UserID = P.UserID
- WHERE ' + CAST((@HasUserRights) AS varchar(12)) + ' = 1
-  AND (' + CAST((@IsAdmin) AS varchar(12)) + ' = 1 OR P.UserID = @UserID)'
-IF @FilterValue <> ''
-	SET @sql = @sql + ' AND ea.AccountName LIKE ''' + @FilterValue + ''''
-IF @OnlyFind = 1
-	SET @sql = @sql + ' ORDER BY TextSearch'
-SET @sql = @sql + ' ;open @curValue'
-
-CLOSE @curAll
-DEALLOCATE @curAll
-exec sp_executesql @sql, N'@UserID int, @curValue cursor output', @UserID, @curAll output
-
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-WHILE @@FETCH_STATUS = 0
-BEGIN
-INSERT INTO @ItemsAll(ItemID, TextSearch, ColumnType, FullType, PackageID, AccountID, Username, Fullname)
-VALUES(@ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname)
-FETCH NEXT FROM @curAll INTO @ItemID, @TextSearch, @ColumnType, @FullTypeAll, @PackageID, @AccountID, @Username, @Fullname
-END
 
 /*------------------------------------VirtualServer------------------------------------------------*/
 IF @IsAdmin = 1
