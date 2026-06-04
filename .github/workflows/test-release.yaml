@@ -102,6 +102,16 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
 
+    - name: Install Node.js 24
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24.x'
+
+    - name: Verify Node.js version
+      shell: pwsh
+      run: |
+        node --version
+
     - name: Install latest .NET 10 SDK
       uses: actions/setup-dotnet@v5
       with:
@@ -141,8 +151,32 @@ jobs:
       id: test
       working-directory: FuseCP\Sources
       continue-on-error: true
+      shell: pwsh
       run: |
-        dotnet test --no-build -v n --logger trx -m:1 -p:BuildInParallel=false --configuration ${{ matrix.configuration }} --results-directory ..\..\test-results FuseCP.Tests.sln
+        $testFilter = ""
+        if ([string]::IsNullOrWhiteSpace($env:FUSECP_TEST_ES_URL)) {
+          # This test requires a reachable EnterpriseServer + SQL instance and is not stable on hosted runners.
+          $testFilter = 'FullyQualifiedName!~FuseCP.Tests.TestServerSettings.TestESAccess'
+        }
+
+        $testArgs = @(
+          'test',
+          '--no-build',
+          '-v', 'n',
+          '--logger', 'trx',
+          '-m:1',
+          '-p:BuildInParallel=false',
+          '--configuration', '${{ matrix.configuration }}',
+          '--results-directory', '..\\..\\test-results',
+          'FuseCP.Tests.sln'
+        )
+
+        if (-not [string]::IsNullOrWhiteSpace($testFilter)) {
+          $testArgs += @('--filter', $testFilter)
+          Write-Host "Applying test filter: $testFilter"
+        }
+
+        dotnet @testArgs
  
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
