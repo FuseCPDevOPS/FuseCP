@@ -40,7 +40,7 @@ namespace FuseCP.EnterpriseServer
 
 		static readonly object Lock = new object();
 		// purge timer, used for killing old tasks from the hash
-		 Timer purgeTimer = null;
+         static Timer purgeTimer = null;
          int timers = 0;
         public TaskManager(): this(null) { }
 		public TaskManager(ControllerBase provider) : base(provider) {
@@ -307,7 +307,7 @@ namespace FuseCP.EnterpriseServer
 
         private void WriteLogRecord(Guid guid, int severity, string text, string stackTrace, params string[] textParameters)
         {
-            using (var taskController = AsAsync<TaskManager>().TaskController)
+            using (var taskController = TaskController)
             {
                 List<BackgroundTask> tasks = taskController.GetTasks(guid);
 
@@ -498,12 +498,26 @@ namespace FuseCP.EnterpriseServer
                         foreach (BackgroundTask task in tasks.Where(task => task.MaximumExecutionTime != -1
                             && (DateTime.Now - task.StartDate).TotalSeconds > task.MaximumExecutionTime))
                         {
-                            task.Status = BackgroundTaskStatus.Stopping;
+                            task.Status = BackgroundTaskStatus.Abort;
+                            task.FinishDate = DateTime.Now;
 
+                            mgr.StopProcess(task);
+
+                            if (!mgr.HasErrors(task))
+                            {
+                                task.Severity = 1;
+                            }
+
+                            mgr.WriteWarning(task.Guid, "Task exceeded maximum execution time and was stopped");
+                            mgr.AddAuditLog(task);
                             mgr.TaskController.UpdateTask(task);
                         }
                     }
                 }
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                Trace.TraceWarning("PurgeCompletedTasks failed: " + ex.Message);
             } finally
             {
                 lock (Lock) IsPurging = false;
@@ -706,8 +720,7 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
             // get user tasks
             list.AddRange(TaskController.GetTasks(user.IsPeer ? user.OwnerId : user.UserId)
                 .Where(task => task.UserId == userId
-                    && !task.Completed
-                    && task.Status == BackgroundTaskStatus.Run));
+                    && !task.Completed));
             return list;
         }
 
