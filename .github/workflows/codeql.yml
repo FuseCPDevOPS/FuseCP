@@ -80,15 +80,35 @@ jobs:
         if: matrix.language == 'csharp'
         shell: pwsh
         run: |
+          $scopeSolution = ""
           if ("${{ matrix.build_scope }}" -eq "server") {
-            dotnet build .\FuseCP\Sources\FuseCP.Server.sln -c Debug -m:1 -p:BuildInParallel=false --nologo
+            $scopeSolution = ".\FuseCP\Sources\FuseCP.Server.sln"
           }
           elseif ("${{ matrix.build_scope }}" -eq "enterprise") {
-            dotnet build .\FuseCP\Sources\FuseCP.EnterpriseServer.sln -c Debug -m:1 -p:BuildInParallel=false --nologo
+            $scopeSolution = ".\FuseCP\Sources\FuseCP.EnterpriseServer.sln"
           }
           elseif ("${{ matrix.build_scope }}" -eq "webportal") {
-            dotnet build .\FuseCP\Sources\FuseCP.WebPortal.sln -c Debug -m:1 -p:BuildInParallel=false --nologo
+            $scopeSolution = ".\FuseCP\Sources\FuseCP.WebPortal.sln"
           }
+
+          if ([string]::IsNullOrWhiteSpace($scopeSolution)) {
+            throw "Unsupported build scope: ${{ matrix.build_scope }}"
+          }
+
+          # These provider projects are referenced across scoped solutions and
+          # have intermittently missed assets generation on hosted runners.
+          $providerProjects = @(
+            ".\FuseCP\Sources\FuseCP.Providers.OS.Windows2016\FuseCP.Providers.OS.Windows2016.csproj",
+            ".\FuseCP\Sources\FuseCP.Providers.OS.Windows2022\FuseCP.Providers.OS.Windows2022.csproj",
+            ".\FuseCP\Sources\FuseCP.Providers.OS.Windows2025\FuseCP.Providers.OS.Windows2025.csproj"
+          )
+
+          foreach ($project in $providerProjects) {
+            dotnet restore $project --nologo
+          }
+
+          dotnet restore $scopeSolution --nologo
+          dotnet build $scopeSolution -c Debug -m:1 -p:BuildInParallel=false --no-restore --nologo
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
