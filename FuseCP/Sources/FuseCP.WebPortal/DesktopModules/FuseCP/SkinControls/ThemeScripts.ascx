@@ -1,6 +1,53 @@
 <%@ Control AutoEventWireup="true" %>
 <!-- Shared runtime script stack for default portal skins. -->
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery-2.1.0.min.js") %>'></script>
+<script type="text/javascript">
+  (function (w) {
+    function applyCompat($) {
+      if (!$) return;
+
+      if (typeof $.isFunction !== "function") {
+        $.isFunction = function (obj) {
+          return typeof obj === "function";
+        };
+      }
+
+      if (typeof $.isArray !== "function") {
+        $.isArray = Array.isArray || function (obj) {
+          return Object.prototype.toString.call(obj) === "[object Array]";
+        };
+      }
+
+      if (typeof $.isWindow !== "function") {
+        $.isWindow = function (obj) {
+          return obj != null && obj === obj.window;
+        };
+      }
+
+      if (typeof $.trim !== "function") {
+        $.trim = function (value) {
+          if (value === null || value === undefined) {
+            return "";
+          }
+          return String(value).replace(/^\s+|\s+$/g, "");
+        };
+      }
+    }
+
+    applyCompat(w.jQuery);
+    applyCompat(w.$);
+
+    var attempts = 0;
+    var timer = w.setInterval(function () {
+      applyCompat(w.jQuery);
+      applyCompat(w.$);
+      attempts++;
+      if (attempts >= 50) {
+        w.clearInterval(timer);
+      }
+    }, 100);
+  })(window);
+</script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/bootstrap/bootstrap.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-common.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-charts.js") %>'></script>
@@ -8,6 +55,7 @@
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/plugin/plugins.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery-ui/jquery-ui-1.10.4.custom.min.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery.matchHeight.js") %>'></script>
+<script src='<%= ResolveUrl("~/DesktopModules/FuseCP/Scripts/global-search.js") %>'></script>
 
 <style type="text/css">
   #fcp-global-busy-banner {

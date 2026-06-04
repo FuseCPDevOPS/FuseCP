@@ -23,6 +23,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
 using BaseMenuAdapter = System.Web.UI.WebControls.Adapters.MenuAdapter;
 
 namespace CSSFriendly
@@ -106,7 +107,7 @@ namespace CSSFriendly
             }
         }
 
-        private void BuildItems(MenuItemCollection items, bool isRoot, HtmlTextWriter writer)
+        private void BuildItems(MenuItemCollection items, bool isRoot, HtmlTextWriter writer, string id = null)
         {
             if (items.Count > 0)
             {
@@ -121,6 +122,10 @@ namespace CSSFriendly
                 else
                 {
                     writer.WriteAttribute("class", "list-unstyled sub-menu collapse");
+                    if (!String.IsNullOrEmpty(id))
+                    {
+                        writer.WriteAttribute("id", id);
+                    }
                 }
                 writer.Write(HtmlTextWriter.TagRightChar);
                 writer.Indent++;
@@ -141,6 +146,10 @@ namespace CSSFriendly
             Menu menu = Control;
             if ((menu != null) && (item != null) && (writer != null))
             {
+                bool hasChildItems = (item.ChildItems != null) && (item.ChildItems.Count > 0);
+                bool canNavigate = IsLink(item) && !hasChildItems;
+                string submenuId = hasChildItems ? GetSubMenuId(menu, item) : null;
+
                 writer.WriteLine();
                 writer.WriteBeginTag("li");
 
@@ -183,7 +192,7 @@ namespace CSSFriendly
                 }
                 else
                 {
-                    if (IsLink(item))
+                    if (canNavigate)
                     {
                         writer.WriteBeginTag("a");
                         if (!String.IsNullOrEmpty(item.NavigateUrl))
@@ -215,7 +224,11 @@ namespace CSSFriendly
                         writer.WriteBeginTag("a"); //changed span to a
                         writer.WriteAttribute("href", "#");
                         writer.WriteAttribute("class", "submenu-toggle"); //GetItemClass(menu, item)
-                        writer.WriteAttribute("onclick", "this.parentNode.classList.toggle('active');var u=this.parentNode.getElementsByTagName('ul')[0];if(u){u.classList.toggle('show');}return false;");
+                        writer.WriteAttribute("data-bs-toggle", "collapse");
+                        writer.WriteAttribute("data-bs-target", "#" + submenuId);
+                        writer.WriteAttribute("aria-controls", submenuId);
+                        writer.WriteAttribute("aria-expanded", "false");
+                        writer.WriteAttribute("role", "button");
                         writer.Write(HtmlTextWriter.TagRightChar);
                         writer.Indent++;
                         writer.WriteLine();
@@ -320,9 +333,9 @@ namespace CSSFriendly
 
                 }
 
-                if ((item.ChildItems != null) && (item.ChildItems.Count > 0))
+                if (hasChildItems)
                 {
-                    BuildItems(item.ChildItems, false, writer);
+                    BuildItems(item.ChildItems, false, writer, submenuId);
                 }
 
                 writer.Indent--;
@@ -334,6 +347,12 @@ namespace CSSFriendly
         private bool IsLink(MenuItem item)
         {
             return (item != null) && item.Enabled && ((!String.IsNullOrEmpty(item.NavigateUrl)) || item.Selectable);
+        }
+
+        private string GetSubMenuId(Menu menu, MenuItem item)
+        {
+            string baseId = (menu != null ? menu.ClientID : "menu") + "_submenu_" + (item != null ? item.ValuePath : "item");
+            return Regex.Replace(baseId, "[^A-Za-z0-9_-]", "_");
         }
 
         private string GetItemClass(Menu menu, MenuItem item)

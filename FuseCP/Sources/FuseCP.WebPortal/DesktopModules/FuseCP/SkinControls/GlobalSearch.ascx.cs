@@ -77,11 +77,8 @@ namespace FuseCP.Portal.SkinControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ClientScriptManager cs = Page.ClientScript;
-            cs.RegisterClientScriptInclude("jquery",ResolveUrl("~/JavaScript/jquery-1.4.4.min.js"));
-            cs.RegisterClientScriptInclude("jqueryui",ResolveUrl("~/JavaScript/jquery-ui-1.8.9.min.js"));
-//            cs.RegisterClientScriptBlock(this.GetType(), "jquerycss",
-//                "<link rel='stylesheet' type='text/css' href='" + ResolveUrl("~/App_Themes/Default/Styles/jquery-ui-1.8.9.css") + "' />");
+            // Global jQuery and jQuery UI are provided by ThemeScripts.ascx.
+            // Do not inject legacy versions here; mixed versions break shared plugins.
             if (!IsPostBack)
             {
                 BindItemTypes();

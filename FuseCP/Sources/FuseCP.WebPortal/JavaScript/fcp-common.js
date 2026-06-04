@@ -260,6 +260,10 @@ $(document).ready(function () {
     ensureDesktopSearchVisible();
 
     $(document).on('click', '.main-menu .submenu-toggle', function (e) {
+        if (this.getAttribute('data-bs-toggle') === 'collapse' && window.bootstrap && window.bootstrap.Collapse) {
+            return;
+        }
+
         e.preventDefault();
 
         $currentItemToggle = $(this);
@@ -277,6 +281,10 @@ $(document).ready(function () {
         // Keep page shell height aligned after collapse animation completes.
         queueShellLayoutHeightSync(0);
         queueShellLayoutHeightSync(300);
+    });
+
+    $(document).on('shown.bs.collapse hidden.bs.collapse', '.main-menu .sub-menu', function () {
+        $(this).parent('li').toggleClass('active', $(this).hasClass('show'));
     });
 
     $('#main-nav').on('shown.bs.collapse hidden.bs.collapse', function () {

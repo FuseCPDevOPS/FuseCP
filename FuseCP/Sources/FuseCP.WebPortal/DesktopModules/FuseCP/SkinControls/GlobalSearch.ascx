@@ -4,8 +4,6 @@
     .ui-menu-item a {white-space: nowrap; }
 </style>
 
-<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/global-search.js"></script>
-
 <asp:Panel runat="server" ID="updatePanelUsers" UpdateMode="Conditional" ChildrenAsTriggers="true" CssClass="SearchQuery navbar-form ms-auto fcp-global-search" DefaultButton="ImageButton1">
 
 

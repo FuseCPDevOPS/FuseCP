@@ -1,5 +1,17 @@
 // Shared GlobalSearch client behavior for autocomplete and quick-submit.
 $(document).ready(function () {
+    function safeTrim(value) {
+        if ($ && typeof $.trim === "function") {
+            return $.trim(value || "");
+        }
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value).replace(/^\s+|\s+$/g, "");
+    }
+
     $(".fcp-global-search").each(function () {
         var $root = $(this);
         var $search = $root.find("input[id$='tbSearch']");
@@ -15,8 +27,8 @@ $(document).ready(function () {
         var $mobileShell = $root.closest(".search-top");
         var isMobileShell = $mobileShell.length > 0;
         var isSubmitting = false;
-        var noResultsText = $.trim(($noResultsText.val() || ""));
-        var goToSearchText = $.trim(($goToSearchText.val() || ""));
+        var noResultsText = safeTrim($noResultsText.val() || "");
+        var goToSearchText = safeTrim($goToSearchText.val() || "");
 
         if (!noResultsText) {
             noResultsText = "No results found";
@@ -109,7 +121,7 @@ $(document).ready(function () {
                     event.preventDefault();
                 }
                 clearSelectedEntityFields();
-                $searchText.val($.trim($search.val() || item.value || ""));
+                $searchText.val(safeTrim($search.val() || item.value || ""));
                 submitSearch();
                 return false;
             }
@@ -118,14 +130,14 @@ $(document).ready(function () {
 
             if (!code || typeof code !== "object") {
                 clearSelectedEntityFields();
-                $searchText.val($.trim($search.val() || ""));
+                $searchText.val(safeTrim($search.val() || ""));
                 submitSearch();
                 return false;
             }
 
             $searchColumnType.val(code.ColumnType || code.columnType || "");
             $searchFullType.val(code.FullType || code.fullType || "");
-            $searchText.val(code.TextSearch || code.textSearch || (item && (item.value || item.label)) || $.trim($search.val() || ""));
+            $searchText.val(code.TextSearch || code.textSearch || (item && (item.value || item.label)) || safeTrim($search.val() || ""));
             $objectId.val(code.ItemID || code.itemID || code.id || "");
             $packageId.val(code.PackageID || code.packageID || "");
             $accountId.val(code.AccountID || code.accountID || "");
@@ -181,7 +193,8 @@ $(document).ready(function () {
             position: {
                 my: "left top",
                 at: "left bottom+6",
-                of: isMobileShell ? $mobileShell : $search,
+                of: isMobileShell ? $mobileShell.get(0) : $search.get(0),
+                within: document.body,
                 collision: "fit flip"
             },
             source: function (request, response) {
@@ -201,7 +214,7 @@ $(document).ready(function () {
                         });
 
                         if (!mapped.length) {
-                            var term = $.trim(request.term || "");
+                            var term = safeTrim(request.term || "");
                             var noResultsItems = [buildNoResultsItem()];
 
                             if (term.length > 0) {
@@ -215,7 +228,7 @@ $(document).ready(function () {
                         response(mapped);
                     },
                     error: function () {
-                        var term = $.trim(request.term || "");
+                        var term = safeTrim(request.term || "");
                         var errorItems = [buildNoResultsItem()];
 
                         if (term.length > 0) {
@@ -251,7 +264,8 @@ $(document).ready(function () {
                     widget.position({
                         my: "left top",
                         at: "left bottom+6",
-                        of: $mobileShell,
+                        of: $mobileShell.get(0),
+                        within: document.body,
                         collision: "fit flip"
                     });
 
@@ -261,7 +275,8 @@ $(document).ready(function () {
                         widget.position({
                             my: "left top",
                             at: "left bottom+6",
-                            of: $mobileShell,
+                            of: $mobileShell.get(0),
+                            within: document.body,
                             collision: "fit flip"
                         });
                     }, 40);
