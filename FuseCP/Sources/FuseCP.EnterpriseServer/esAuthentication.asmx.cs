@@ -41,7 +41,9 @@ namespace FuseCP.EnterpriseServer
         [WebMethod]
         public UserInfo GetUserByUsernamePassword(string username, string password, string ip)
         {
-            return UserController.GetUserByUsernamePassword(username, password, ip);
+            // Portal login flow calls this helper multiple times (MFA mode, ticket creation,
+            // role check). Keep AuthenticateUser as the primary audited login action.
+            return UserController.GetUserByUsernamePassword(username, password, ip, false);
         }
 
         [WebMethod]

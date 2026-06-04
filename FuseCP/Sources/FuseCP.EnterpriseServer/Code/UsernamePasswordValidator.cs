@@ -117,7 +117,7 @@ namespace FuseCP.EnterpriseServer
 					return true;
 				}
 
-				UserInfo user = controller.UserController.GetUserByUsernamePassword(username, password, hostAddress, true);
+				UserInfo user = controller.UserController.GetUserByUsernamePassword(username, password, hostAddress, false);
 
 				if (user == null)
 				{

@@ -360,7 +360,7 @@ namespace FuseCP.EnterpriseServer
 				}
 			});
 		}
-		public UserInfo GetUserByUsernamePassword(string username, string password, string ip, bool log = true)
+		public UserInfo GetUserByUsernamePassword(string username, string password, string ip, bool log = false)
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
@@ -383,7 +383,8 @@ namespace FuseCP.EnterpriseServer
 				if (user == null)
 				{
 					if (log) TaskManager.WriteWarning("Account not found");
-					AuditLog.AddAuditLogWarningRecord("USER", "GET_BY_USERNAME_PASSWORD", username, new string[] { "IP: " + ip, "Account not found" });
+					if (log)
+						AuditLog.AddAuditLogWarningRecord("USER", "GET_BY_USERNAME_PASSWORD", username, new string[] { "IP: " + ip, "Account not found" });
 					return null;
 				}
 
@@ -409,19 +410,23 @@ namespace FuseCP.EnterpriseServer
 					return new UserInfo(user);
 				} else
 				{
-					AuditLog.AddAuditLogWarningRecord("USER", "GET_BY_USERNAME_PASSWORD", username, new string[] { "IP: " + ip, "Failed login attempt" });
+					if (log)
+						AuditLog.AddAuditLogWarningRecord("USER", "GET_BY_USERNAME_PASSWORD", username, new string[] { "IP: " + ip, "Failed login attempt" });
 				}
 
 				return null;
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
-				AuditLog.AddAuditLogErrorRecord("USER", "GET_BY_USERNAME_PASSWORD", username,
-					new string[] {
-						"IP: " + ip,
-						"Message: " + ex.Message,
-						"StackTrace: " + ex.StackTrace
-					});
+				if (log)
+				{
+					AuditLog.AddAuditLogErrorRecord("USER", "GET_BY_USERNAME_PASSWORD", username,
+						new string[] {
+							"IP: " + ip,
+							"Message: " + ex.Message,
+							"StackTrace: " + ex.StackTrace
+						});
+				}
 				if (log) throw TaskManager.WriteError(ex);
 				else throw;
 			}
@@ -442,7 +447,7 @@ namespace FuseCP.EnterpriseServer
 
 			try
 			{
-				UserInfo user = GetUserByUsernamePassword(username, oldPassword, ip);
+				UserInfo user = GetUserByUsernamePassword(username, oldPassword, ip, false);
 				if (user == null)
 				{
 					TaskManager.WriteWarning("Account not found");
