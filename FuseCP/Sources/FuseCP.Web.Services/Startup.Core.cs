@@ -177,6 +177,14 @@ namespace FuseCP.Web.Services
 			ServerRequestTimeout = Configuration.ServerRequestTimeout;
 			ConnectionString = Configuration.ConnectionString;
 			AltConnectionString = Configuration.AltConnectionString;
+			if (!string.IsNullOrWhiteSpace(ConnectionString))
+			{
+				Environment.SetEnvironmentVariable("FUSECP_CONNECTIONSTRING", ConnectionString);
+			}
+			if (!string.IsNullOrWhiteSpace(AltConnectionString))
+			{
+				Environment.SetEnvironmentVariable("FUSECP_ALT_CONNECTIONSTRING", AltConnectionString);
+			}
 			CryptoKey = Configuration.CryptoKey;
 			AltCryptoKey = Configuration.AltCryptoKey;
 			EncryptionEnabled = Configuration.EncryptionEnabled;
@@ -223,7 +231,7 @@ namespace FuseCP.Web.Services
 
 			builder.Services.AddRazorPages();
 			builder.Services.AddHttpContextAccessor();
-			if (IdleShutdownTime != default && OSInfo.IsSystemd &&
+			if (!Configuration.SchedulerEnabled && IdleShutdownTime != default && OSInfo.IsSystemd &&
 				(HttpFile.HasValue || HttpsFile.HasValue || NetTcpFile.HasValue))
 			{
 				Console.WriteLine($"Idle shutdown time set to {IdleShutdownTime}");
@@ -320,7 +328,7 @@ namespace FuseCP.Web.Services
 			var tunnelHandler = new TunnelHandlerCore();
 			tunnelHandler.Init(app);
 
-			if (IdleShutdownTime != default && OSInfo.IsSystemd &&
+			if (!Configuration.SchedulerEnabled && IdleShutdownTime != default && OSInfo.IsSystemd &&
 				(HttpFile.HasValue || HttpsFile.HasValue || NetTcpFile.HasValue)) app.UseIdleTimeout(IdleShutdownTime);
 
 			Server.ConfigureApp?.Invoke(app);

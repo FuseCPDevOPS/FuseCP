@@ -19,20 +19,60 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Linq;
+using System.Globalization;
 using FuseCP.EnterpriseServer.Base.Scheduling;
 using FuseCP.EnterpriseServer.Data;
+using FuseCP.EnterpriseServer.Data.Entities;
+using ScheduleTaskViewConfiguration = FuseCP.EnterpriseServer.Base.Scheduling.ScheduleTaskViewConfiguration;
 
 
 namespace FuseCP.EnterpriseServer
 {
     public class SchedulerController: ControllerBase
     {
+        private const string SchedulerLeaseSettingsName = "SchedulerLease";
+
         public SchedulerController(ControllerBase provider) : base(provider) { }
 
         public DateTime GetSchedulerTime()
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return DateTime.MinValue;
             return DateTime.Now;
+        }
+
+        public int GetSchedulerRuntimePerAffinityConcurrency()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.MaxConcurrentExecutions;
+        }
+
+        public int GetSchedulerRuntimeGlobalConcurrency()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.MaxGlobalConcurrentExecutions;
+        }
+
+        public int GetSchedulerRuntimeQueueDepth()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.QueuedExecutions;
+        }
+
+        public int GetSchedulerRuntimeActiveUnits()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.ActiveExecutionUnits;
+        }
+
+        public int ApplySchedulerRuntimeConcurrency(int perAffinityConcurrency, int globalConcurrency)
+        {
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive | DemandAccount.IsAdmin);
+            if (accountCheck < 0)
+                return accountCheck;
+
+            SchedulerExecutionQueue.ConfigureMaxConcurrentExecutions(perAffinityConcurrency);
+            SchedulerExecutionQueue.ConfigureGlobalMaxConcurrentExecutions(globalConcurrency);
+            return 0;
         }
 
         public List<ScheduleTaskInfo> GetScheduleTasks()
@@ -160,7 +200,7 @@ namespace FuseCP.EnterpriseServer
             if (schedule == null)
                 return 0;
 
-            if (TaskController.GetScheduleTasks(scheduleId).Any(x => x.Status == BackgroundTaskStatus.Run
+            if (SchedulerExecutionQueue.IsQueued(scheduleId) || TaskController.GetScheduleTasks(scheduleId).Any(x => x.Status == BackgroundTaskStatus.Run
                                                                      || x.Status == BackgroundTaskStatus.Starting))
                 return 0;
 
@@ -211,6 +251,11 @@ namespace FuseCP.EnterpriseServer
             if (schedule == null)
                 return 0;
 
+            ReleaseScheduleLease(scheduleId, SchedulerRuntime.GetLeaseOwner());
+
+            if (SchedulerExecutionQueue.TryCancel(scheduleId))
+                return 0;
+
             foreach (BackgroundTask task in TaskController.GetScheduleTasks(scheduleId))
             {
                 task.Status = BackgroundTaskStatus.Stopping;
@@ -221,6 +266,97 @@ namespace FuseCP.EnterpriseServer
             return 0;
 
         }
+
+                    internal bool TryAcquireScheduleLease(int scheduleId, string owner, string runToken, TimeSpan leaseDuration, out SchedulerLeaseState lease)
+                    {
+                        lease = null;
+
+                        if (scheduleId <= 0 || string.IsNullOrWhiteSpace(owner) || string.IsNullOrWhiteSpace(runToken))
+                            return false;
+
+                        var nowUtc = DateTime.UtcNow;
+                        var leaseUntilUtc = nowUtc.Add(leaseDuration);
+                        var scheduleKey = scheduleId.ToString(CultureInfo.InvariantCulture);
+
+                        using (var transaction = Database.Database.BeginTransaction())
+                        {
+                            var setting = Database.SystemSettings.FirstOrDefault(s => s.SettingsName == SchedulerLeaseSettingsName && s.PropertyName == scheduleKey);
+                            var current = SchedulerLeaseState.Parse(scheduleId, setting?.PropertyValue);
+
+                            if (current != null && !current.IsExpired(nowUtc) && !current.IsOwnedBy(owner, runToken))
+                                return false;
+
+                            var nextLease = new SchedulerLeaseState(scheduleId, owner, runToken, nowUtc, leaseUntilUtc);
+
+                            if (setting == null)
+                            {
+                                Database.SystemSettings.Add(new SystemSetting
+                                {
+                                    SettingsName = SchedulerLeaseSettingsName,
+                                    PropertyName = scheduleKey,
+                                    PropertyValue = nextLease.Serialize()
+                                });
+                            }
+                            else
+                            {
+                                setting.PropertyValue = nextLease.Serialize();
+                            }
+
+                            Database.SaveChanges();
+                            transaction.Commit();
+                            lease = nextLease;
+                            return true;
+                        }
+                    }
+
+                    internal bool RenewScheduleLease(int scheduleId, string owner, string runToken, TimeSpan leaseDuration)
+                    {
+                        if (scheduleId <= 0 || string.IsNullOrWhiteSpace(owner) || string.IsNullOrWhiteSpace(runToken))
+                            return false;
+
+                        var nowUtc = DateTime.UtcNow;
+                        var leaseUntilUtc = nowUtc.Add(leaseDuration);
+                        var scheduleKey = scheduleId.ToString(CultureInfo.InvariantCulture);
+
+                        using (var transaction = Database.Database.BeginTransaction())
+                        {
+                            var setting = Database.SystemSettings.FirstOrDefault(s => s.SettingsName == SchedulerLeaseSettingsName && s.PropertyName == scheduleKey);
+                            var current = SchedulerLeaseState.Parse(scheduleId, setting?.PropertyValue);
+
+                            if (current == null || !current.IsOwnedBy(owner, runToken))
+                                return false;
+
+                            var nextLease = new SchedulerLeaseState(scheduleId, owner, runToken, nowUtc, leaseUntilUtc);
+                            setting.PropertyValue = nextLease.Serialize();
+
+                            Database.SaveChanges();
+                            transaction.Commit();
+                            return true;
+                        }
+                    }
+
+                    internal void ReleaseScheduleLease(int scheduleId, string owner, string runToken = null)
+                    {
+                        if (scheduleId <= 0 || string.IsNullOrWhiteSpace(owner))
+                            return;
+
+                        var scheduleKey = scheduleId.ToString(CultureInfo.InvariantCulture);
+
+                        using (var transaction = Database.Database.BeginTransaction())
+                        {
+                            var setting = Database.SystemSettings.FirstOrDefault(s => s.SettingsName == SchedulerLeaseSettingsName && s.PropertyName == scheduleKey);
+                            if (setting == null)
+                                return;
+
+                            var current = SchedulerLeaseState.Parse(scheduleId, setting.PropertyValue);
+                            if (current != null && current.IsOwnedBy(owner, runToken ?? current.RunToken))
+                            {
+                                Database.SystemSettings.Remove(setting);
+                                Database.SaveChanges();
+                                transaction.Commit();
+                            }
+                        }
+                    }
 
         public void CalculateNextStartTime(ScheduleInfo schedule)
         {

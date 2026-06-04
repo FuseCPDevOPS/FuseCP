@@ -19,6 +19,7 @@ using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 namespace FuseCP.EnterpriseServer
 {
@@ -41,72 +42,188 @@ namespace FuseCP.EnterpriseServer
             get { return this.task; }
             set { this.task = value; }
         }
+
+		public string LeaseOwner { get; set; }
+		public string LeaseToken { get; set; }
         #endregion
 
         // Sets the next time this Schedule is kicked off and kicks off events on
         // a seperate thread, freeing the Scheduler to continue
-        public void Run()
+        public bool Run()
         {
-            // create worker
-            Thread worker = new Thread(new ThreadStart(RunSchedule));
-            // set worker priority
-            switch (scheduleInfo.Priority)
+            return SchedulerExecutionQueue.TryEnqueue(scheduleInfo.ScheduleId, ResolveAffinityKey(), RunSchedule, ResolveTaskWeight());
+        }
+
+        private int ResolveTaskWeight()
+        {
+            int configuredWeight = ResolveWeightFromParameters();
+            if (configuredWeight > 0)
+                return configuredWeight;
+
+            int? recommendedWeight = SchedulerTaskWeightAdvisor.GetRecommendedWeight(
+                task?.TaskType,
+                FuseCP.Web.Services.Configuration.SchedulerDefaultTaskWeight,
+                FuseCP.Web.Services.Configuration.SchedulerMediumTaskWeight,
+                FuseCP.Web.Services.Configuration.SchedulerHeavyTaskWeight);
+            if (recommendedWeight.HasValue)
+                return recommendedWeight.Value;
+
+            string taskType = task?.TaskType ?? string.Empty;
+            StringComparison cmp = StringComparison.OrdinalIgnoreCase;
+
+            if (taskType.IndexOf("CalculatePackagesDiskspaceTask", cmp) >= 0 ||
+                taskType.IndexOf("CalculatePackagesBandwidthTask", cmp) >= 0 ||
+                taskType.IndexOf("CalculateExchangeDiskspaceTask", cmp) >= 0 ||
+                taskType.IndexOf("BackupTask", cmp) >= 0 ||
+                taskType.IndexOf("BackupDatabaseTask", cmp) >= 0)
             {
-                case SchedulePriority.Highest: worker.Priority = ThreadPriority.Highest; break;
-                case SchedulePriority.AboveNormal: worker.Priority = ThreadPriority.AboveNormal; break;
-                case SchedulePriority.Normal: worker.Priority = ThreadPriority.Normal; break;
-                case SchedulePriority.BelowNormal: worker.Priority = ThreadPriority.BelowNormal; break;
-                case SchedulePriority.Lowest: worker.Priority = ThreadPriority.Lowest; break;
+                return FuseCP.Web.Services.Configuration.SchedulerHeavyTaskWeight;
             }
 
-            // start worker!
-            worker.Start();
+            if (taskType.IndexOf("HostedSolutionReport", cmp) >= 0 ||
+                taskType.IndexOf("NotifyOverusedDatabasesTask", cmp) >= 0 ||
+                taskType.IndexOf("SuspendOverusedPackagesTask", cmp) >= 0)
+            {
+                return FuseCP.Web.Services.Configuration.SchedulerMediumTaskWeight;
+            }
+
+            int maxExecutionTime = scheduleInfo?.MaxExecutionTime ?? 0;
+            if (maxExecutionTime >= 1800)
+                return FuseCP.Web.Services.Configuration.SchedulerHeavyTaskWeight;
+            if (maxExecutionTime >= 600)
+                return FuseCP.Web.Services.Configuration.SchedulerMediumTaskWeight;
+
+            return FuseCP.Web.Services.Configuration.SchedulerDefaultTaskWeight;
+        }
+
+        private int ResolveWeightFromParameters()
+        {
+            if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0)
+                return 0;
+
+            var prm = scheduleInfo.Parameters.FirstOrDefault(p =>
+                p != null &&
+                (string.Equals(p.ParameterId, "SCHEDULER_WEIGHT", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "TASK_WEIGHT", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "WEIGHT", StringComparison.OrdinalIgnoreCase)));
+
+            if (prm == null || string.IsNullOrWhiteSpace(prm.ParameterValue))
+                return 0;
+
+            return int.TryParse(prm.ParameterValue, out int weight) ? weight : 0;
+        }
+
+        private string ResolveAffinityKey()
+        {
+            string affinityFromParameter = ResolveAffinityKeyFromParameters();
+            if (!string.IsNullOrWhiteSpace(affinityFromParameter))
+                return affinityFromParameter;
+
+            if (scheduleInfo != null && scheduleInfo.PackageId > 0)
+            {
+                var package = PackageController.GetPackage(scheduleInfo.PackageId);
+                if (package != null && package.ServerId > 0)
+                    return $"server:{package.ServerId}";
+            }
+
+            return "global";
+        }
+
+        private string ResolveAffinityKeyFromParameters()
+        {
+            if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0)
+                return null;
+
+            var affinityParameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+                p != null &&
+                (string.Equals(p.ParameterId, "SCHEDULER_AFFINITY", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "SERVER_NAME", StringComparison.OrdinalIgnoreCase)));
+
+            if (affinityParameter == null || string.IsNullOrWhiteSpace(affinityParameter.ParameterValue))
+                return null;
+
+            if (string.Equals(affinityParameter.ParameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase) &&
+                int.TryParse(affinityParameter.ParameterValue, out int serverId) && serverId > 0)
+                return $"server:{serverId}";
+
+            return affinityParameter.ParameterValue.Trim();
         }
 
         // Implementation of ThreadStart delegate.
         // Used by Scheduler to kick off events on a seperate thread
         private void RunSchedule()
         {
+            if (string.IsNullOrWhiteSpace(LeaseOwner) || string.IsNullOrWhiteSpace(LeaseToken))
+                return;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             // impersonate thread
             UserInfo user = PackageController.GetPackageOwner(scheduleInfo.PackageId);
-            SecurityContext.SetThreadPrincipal(user.UserId);
+            if (user != null)
+            {
+                SecurityContext.SetThreadPrincipal(user.UserId);
+            }
+            else
+            {
+                SecurityContext.SetThreadSupervisorPrincipal();
+            }
+
+            var leaseDuration = SchedulerRuntime.GetLeaseDuration(scheduleInfo.MaxExecutionTime);
 
             var parameters = scheduleInfo.Parameters
                 .Select(prm => new BackgroundTaskParameter(prm.ParameterId, prm.ParameterValue))
                 .ToList();
 
-            TaskManager.StartTask("SCHEDULER", "RUN_SCHEDULE", scheduleInfo.ScheduleName, scheduleInfo.ScheduleId,
-                                  scheduleInfo.ScheduleId, scheduleInfo.PackageId, scheduleInfo.MaxExecutionTime,
-                                  parameters);
+            using (var lease = new SchedulerLeaseHeartbeat(SchedulerController, scheduleInfo.ScheduleId, LeaseOwner, LeaseToken, leaseDuration))
+            {
+                TaskManager.StartTask("SCHEDULER", "RUN_SCHEDULE", scheduleInfo.ScheduleName, scheduleInfo.ScheduleId,
+                                      scheduleInfo.ScheduleId, scheduleInfo.PackageId, scheduleInfo.MaxExecutionTime,
+                                      parameters);
+                TaskManager.Write("Scheduler task started: {0}", scheduleInfo.ScheduleName);
+                if (user == null)
+                {
+                    TaskManager.WriteWarning("Package owner not found for package '{0}', running schedule as supervisor", scheduleInfo.PackageId.ToString());
+                }
 
-            // run task
-            try
-            {
-                // create scheduled task object
-                ISchedulerTask objTask = (ISchedulerTask)Activator.CreateInstance(Type.GetType(task.TaskType));
-
-                if (objTask != null)
-                    objTask.DoWork();
-                else
-                    throw new Exception(String.Format("Could not create scheduled task of '{0}' type",
-                        task.TaskType));      
-               // Thread.Sleep(40000);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                // log error
-                TaskManager.WriteError(ex, "Error executing scheduled task");
-            }
-            finally
-            {
-                // complete task
                 try
                 {
-                    TaskManager.CompleteTask();
+                    if (task == null || string.IsNullOrWhiteSpace(task.TaskType))
+                    {
+                        throw new InvalidOperationException($"Scheduler task type not found for schedule '{scheduleInfo.ScheduleId}'");
+                    }
+
+                    ISchedulerTask objTask = (ISchedulerTask)Activator.CreateInstance(Type.GetType(task.TaskType));
+
+                    if (objTask != null)
+                        objTask.DoWork();
+                    else
+                        throw new Exception(String.Format("Could not create scheduled task of '{0}' type",
+                            task.TaskType));      
+                    // Thread.Sleep(40000);
                 }
-                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
-                    System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
+                    // log error
+                    TaskManager.WriteError(ex, "Error executing scheduled task");
+                }
+                finally
+                {
+                    stopwatch.Stop();
+                    SchedulerTaskWeightAdvisor.RecordExecution(task?.TaskType, stopwatch.Elapsed);
+                    TaskManager.Write("Scheduler task finished: {0}. Duration: {1}",
+                        scheduleInfo.ScheduleName,
+                        stopwatch.Elapsed.ToString());
+
+                    try
+                    {
+                        TaskManager.CompleteTask();
+                    }
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
+                    {
+                        System.Diagnostics.Trace.TraceWarning("Exception swallowed:" + swallowedEx.Message);
+                    }
                 }
             }
         }

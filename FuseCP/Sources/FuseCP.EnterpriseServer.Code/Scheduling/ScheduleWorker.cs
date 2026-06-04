@@ -22,34 +22,53 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.WindowsServices;
-using Microsoft.Extensions.Hosting.Systemd;
 
 namespace FuseCP.EnterpriseServer.Code;
 
 
 public class ScheduleWorker: BackgroundService
 {
-	public bool IsSystemd = false;
-	public bool IsWindowsService = false;
 	public static bool Collect = false;
-	public static bool RunAsService = false;
-	public bool IsService => RunAsService || IsWindowsService || IsSystemd;
 
 	public ILogger<ScheduleWorker> Log;
 
-	public ScheduleWorker(ILogger<ScheduleWorker> logger, IHostLifetime lifetime)
+	public ScheduleWorker(ILogger<ScheduleWorker> logger)
 	{
-		IsSystemd = lifetime is SystemdLifetime;
-		IsWindowsService = lifetime is WindowsServiceLifetime;
 		Log = logger;
 	}
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 	{
-		if (!IsService) return;
+		if (!Web.Services.Configuration.SchedulerEnabled) return;
+		SchedulerExecutionQueue.ConfigureGlobalMaxConcurrentExecutions(Web.Services.Configuration.SchedulerGlobalMaxConcurrentExecutions);
+		SchedulerExecutionQueue.ConfigureMaxConcurrentExecutions(Web.Services.Configuration.SchedulerMaxConcurrentExecutions);
+		SchedulerAdaptiveTuner adaptiveTuner = null;
+		if (Web.Services.Configuration.SchedulerAutoTuneEnabled)
+		{
+			adaptiveTuner = new SchedulerAdaptiveTuner(
+				Log,
+				Web.Services.Configuration.SchedulerMinConcurrentExecutions,
+				Web.Services.Configuration.SchedulerMaxAutoConcurrentExecutions,
+				Web.Services.Configuration.SchedulerAutoScaleUpCpuThresholdPercent,
+				Web.Services.Configuration.SchedulerAutoScaleDownCpuThresholdPercent,
+				Web.Services.Configuration.SchedulerAutoScaleDownMemoryThresholdPercent);
+		}
 
-		Log.LogInformation("Scheduler Service started...");
+		Log.LogInformation("Scheduler worker started...");
+		Log.LogInformation(
+			"Scheduler concurrency set: per-affinity max={PerAffinityMaxConcurrentExecutions}, global max={GlobalMaxConcurrentExecutions}",
+			SchedulerExecutionQueue.MaxConcurrentExecutions,
+			SchedulerExecutionQueue.MaxGlobalConcurrentExecutions);
+		if (adaptiveTuner != null)
+		{
+			Log.LogInformation(
+				"Scheduler autotune enabled (min={MinConcurrency}, max={MaxConcurrency}, scaleUpCpu<={ScaleUpCpu}%, scaleDownCpu>={ScaleDownCpu}%, scaleDownMem>={ScaleDownMem}%)",
+				Web.Services.Configuration.SchedulerMinConcurrentExecutions,
+				Web.Services.Configuration.SchedulerMaxAutoConcurrentExecutions,
+				Web.Services.Configuration.SchedulerAutoScaleUpCpuThresholdPercent,
+				Web.Services.Configuration.SchedulerAutoScaleDownCpuThresholdPercent,
+				Web.Services.Configuration.SchedulerAutoScaleDownMemoryThresholdPercent);
+		}
 
 		await Task.Delay(5000, stoppingToken);
 
@@ -59,6 +78,8 @@ public class ScheduleWorker: BackgroundService
 		{
 			try
 			{
+				adaptiveTuner?.TuneIfNeeded();
+
 				using (var scheduler = new Scheduler())
 				{
 					scheduler.Start();
@@ -69,7 +90,11 @@ public class ScheduleWorker: BackgroundService
 					// Leave collection to runtime heuristics; explicit full collections hurt throughput.
 				}
 			}
-			catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+			catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
+			{
+				Log.LogError(swallowedEx, "Scheduler worker loop failed");
+				System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
+			}
 
 			await Task.Delay(5000, stoppingToken);
 		}
