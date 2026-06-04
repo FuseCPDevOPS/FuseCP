@@ -1186,6 +1186,8 @@ public abstract partial class Installer
 				ConnectionString = connectionString,
 				EncryptionEnabled = true,
 			};
+			appsettings.Scheduler ??= new AppSettings.SchedulerSetting();
+			appsettings.Scheduler.Enabled = true;
 		}
 		else if (settings is ServerSettings srvSettings &&
 			(!string.IsNullOrEmpty(srvSettings.ServerPassword) || !string.IsNullOrEmpty(srvSettings.ServerPasswordSHA)))

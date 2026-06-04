@@ -908,6 +908,9 @@ namespace FuseCP.UniversalInstaller.Runtime
 			}
 			pool.ManagedRuntimeVersion = "v4.0";
 			pool.ManagedPipelineMode = ManagedPipelineMode.Integrated;
+			pool.AutoStart = true;
+			pool.StartMode = StartMode.AlwaysRunning;
+			pool.ProcessModel.IdleTimeout = TimeSpan.Zero;
 			serverManager.CommitChanges();
 		}
 
@@ -1007,6 +1010,9 @@ namespace FuseCP.UniversalInstaller.Runtime
 			{
 				pool.ProcessModel.IdentityType = ProcessModelIdentityType.NetworkService;
 			}
+			pool.AutoStart = true;
+			pool.StartMode = StartMode.AlwaysRunning;
+			pool.ProcessModel.IdleTimeout = TimeSpan.Zero;
 			serverManager.CommitChanges();
 		}
 

@@ -817,78 +817,12 @@ Add-AppxPackage ""{tmpFile}""");
 	}
 	public override void ConfigureSchedulerService()
 	{
-		var binFolder = (Settings.EnterpriseServer.RunOnNetCore ||
-			Settings.WebPortal.RunOnNetCore && Settings.WebPortal.EmbedEnterpriseServer) ?
-				"bin_dotnet" : "bin\\Code";
-		var exe = Path.Combine(Settings.EnterpriseServer.InstallPath, binFolder, "FuseCP.SchedulerService.exe");
-
-		var config = exe + ".config";
-		var xml = XElement.Load(config);
-
-		var conStrings = xml.Element("connectionStrings");
-		if (conStrings == null) xml.Add(conStrings = new XElement("connectionStrings"));
-		var appSettings = xml.Element("appSettings");
-		if (appSettings == null) xml.Add(appSettings = new XElement("appSettings"));
-
-		var conStrElement = conStrings.Elements("add").FirstOrDefault(e => e.Attribute("name")?.Value == "EnterpriseServer");
-		var esConfFile = Path.GetFullPath(Path.Combine(Settings.EnterpriseServer.InstallPath, "Web.config"));
-		if (File.Exists(esConfFile))
-		{
-			var esConf = XElement.Load(esConfFile);
-			var esAppSettings = esConf.Element("appSettings");
-
-			foreach (var esSetting in esAppSettings.Elements("add"))
-			{
-				var key = esSetting.Attribute("key")?.Value;
-				var setting = appSettings.Elements("add").FirstOrDefault(s => s.Attribute("key")?.Value == key);
-				if (setting == null)
-				{
-					appSettings.Add(esSetting);
-				}
-				else
-				{
-					setting.Attribute("value").SetValue(esSetting.Attribute("value")?.Value);
-				}
-			}
-
-			var esConStrings = esConf.Element("connectionStrings");
-			conStrings.ReplaceWith(esConStrings);
-
-			File.WriteAllText(config, xml.ToString());
-		}
+		// Scheduler now runs in-process in EnterpriseServer; no standalone scheduler service config is needed.
 	}
 	public override void InstallSchedulerService()
 	{
-		var services = OSInfo.Current.ServiceController;
-		if (services.Info(SchedulerServiceId) != null) services.Remove(SchedulerServiceId);
-
-		ConfigureSchedulerService();
-
-		Transaction(() =>
-		{
-			var binFolder = (Settings.EnterpriseServer.RunOnNetCore ||
-				Settings.WebPortal.RunOnNetCore && Settings.WebPortal.EmbedEnterpriseServer) ?
-					"bin_dotnet" : "bin\\Code";
-			var service = new WindowsServiceDescription()
-			{
-				ServiceId = SchedulerServiceId,
-				DisplayName = "FuseCP Scheduler Service",
-				Executable = Path.Combine(Settings.EnterpriseServer.InstallPath, binFolder, "FuseCP.SchedulerService.exe"),
-				Start = WindowsServiceStartMode.DelayedAuto,
-				Type = WindowsServiceType.Own,
-				Error = WindowsServiceErrorHandling.Normal
-			};
-
-			InstallService(service);
-
-		}).WithRollback(() =>
-		{
-			try
-			{
-				RemoveSchedulerService();
-			}
-			catch { }
-		});
+		// Backward-compatibility cleanup only: remove old standalone scheduler service if present.
+		RemoveSchedulerService();
 	}
 	public override void RemoveSchedulerService() => RemoveService(SchedulerServiceId);
 	public override bool CheckOSSupported() => OSInfo.WindowsVersion >= WindowsVersion.Windows7;

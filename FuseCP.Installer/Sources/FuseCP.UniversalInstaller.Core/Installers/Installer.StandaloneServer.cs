@@ -71,7 +71,7 @@ namespace FuseCP.UniversalInstaller
 			CopyStandaloneServer(true, StandaloneInstallFilter);
 			CreateStandaloneUsers();
 			InstallDatabase();
-			InstallSchedulerService();
+			RemoveSchedulerService();
 			ConfigureStandaloneServer();
 			SetStandaloneServerFilePermissions();
 			SetStandaloneServerFileOwner();
@@ -94,7 +94,7 @@ namespace FuseCP.UniversalInstaller
 			CopyStandaloneServer(true, StandaloneUpdateFiler);
 			UpdateDatabase();
 			UpdateStandaloneServerConfig();
-            InstallSchedulerService();
+		            RemoveSchedulerService();
             ConfigureStandaloneServer();
 			SetStandaloneServerFilePermissions();
 			SetStandaloneServerFileOwner();
@@ -109,7 +109,7 @@ namespace FuseCP.UniversalInstaller
 			RemoveServerWebsite();
 			RemoveWebPortalWebsite();
 			if (OSInfo.IsWindows) RemoveWebDavPortalWebsite();
-            InstallSchedulerService();
+		            RemoveSchedulerService();
             ConfigureStandaloneServer();
 			InstallServerWebsite();
 			InstallWebPortalWebsite();

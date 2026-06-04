@@ -74,7 +74,7 @@ public abstract partial class Installer
 		CreateEnterpriseServerUser();
 		InstallDatabase();
 		ConfigureEnterpriseServer();
-		InstallSchedulerService();
+		RemoveSchedulerService();
 		SetEnterpriseServerFilePermissions();
 		SetEnterpriseServerFileOwner();
 		InstallEnterpriseServerWebsite();
@@ -90,7 +90,6 @@ public abstract partial class Installer
 		UpdateDatabase();
 		UpdateEnterpriseServerConfig();
 		ConfigureEnterpriseServer();
-		InstallSchedulerService();
 		SetEnterpriseServerFilePermissions();
 		SetEnterpriseServerFileOwner();
 		EnableEnterpriseServerWebsite();
@@ -419,53 +418,7 @@ public abstract partial class Installer
     {
         RemoveService(SchedulerServiceId);
     }
-    public virtual void ConfigureSchedulerService()
-    {
-        ConfigureSchedulerServiceNetFX();
-    }
-    public virtual void ConfigureSchedulerServiceNetFX()
-    {
-        if (Settings.EnterpriseServer.RunOnNetCore) return;
-
-        var binFolder = (Settings.EnterpriseServer.RunOnNetCore ||
-            Settings.WebPortal.RunOnNetCore && Settings.WebPortal.EmbedEnterpriseServer) ?
-                "bin_dotnet" : Path.Combine("bin", "Code");
-        var config = Path.Combine(Settings.EnterpriseServer.InstallPath, binFolder, $"FuseCP.SchedulerService.{(Settings.EnterpriseServer.RunOnNetCore ? "dll" : "exe")}.config");
-
-        var xml = XElement.Load(config);
-
-        var conStrings = xml.Element("connectionStrings");
-        if (conStrings == null) xml.Add(conStrings = new XElement("connectionStrings"));
-        var appSettings = xml.Element("appSettings");
-        if (appSettings == null) xml.Add(appSettings = new XElement("appSettings"));
-
-        var conStrElement = conStrings.Elements("add").FirstOrDefault(e => e.Attribute("name")?.Value == "EnterpriseServer");
-        var esConfFile = Path.GetFullPath(Path.Combine(Settings.EnterpriseServer.InstallPath, "Web.config"));
-        if (File.Exists(esConfFile))
-        {
-            var esConf = XElement.Load(esConfFile);
-            var esAppSettings = esConf.Element("appSettings");
-
-            foreach (var esSetting in esAppSettings.Elements("add"))
-            {
-                var key = esSetting.Attribute("key")?.Value;
-                var setting = appSettings.Elements("add").FirstOrDefault(s => s.Attribute("key")?.Value == key);
-                if (setting == null)
-                {
-                    appSettings.Add(esSetting);
-                }
-                else
-                {
-                    setting.Attribute("value").SetValue(esSetting.Attribute("value")?.Value);
-                }
-            }
-
-            var esConStrings = esConf.Element("connectionStrings");
-            conStrings.ReplaceWith(esConStrings);
-
-            File.WriteAllText(config, xml.ToString());
-        }
-    }
+	public virtual void ConfigureSchedulerService() { }
     public virtual void RemoveEnterpriseServerWebsite() {
 		RemoveWebsite(EnterpriseServerSiteId, Settings.EnterpriseServer);
 	}
@@ -646,7 +599,6 @@ public abstract partial class Installer
 	{
 		ConfigureEnterpriseServerNetCore();
 		ConfigureEnterpriseServerNetFX();
-        ConfigureSchedulerService();
         InstallLog("Configured Enterprise Server.");
 	}
 	public virtual void CopyEnterpriseServer(bool clearDestination = false, Func<string, string> filter = null)

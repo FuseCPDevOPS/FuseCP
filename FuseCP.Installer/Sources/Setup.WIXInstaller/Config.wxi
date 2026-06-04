@@ -9,8 +9,8 @@
     <?define EServerDescription="Enterprise Server is the heart of FuseCP system. It includes all business logic of the application. Enterprise Server should have access to Server and be accessible from Portal applications."?>
     <?define PortalTitle="Portal"?>
     <?define PortalDescription="FuseCP Portal is a control panel itself with user interface which allows managing user accounts, hosting spaces, web sites, FTP accounts, files, etc."?>
-    <?define SchedulerTitle="Scheduler Service"?>
-    <?define SchedulerDescription="FuseCP Scheduler Service"?>
+    <?define SchedulerTitle="Legacy Scheduler Service"?>
+    <?define SchedulerDescription="FuseCP legacy Scheduler Service compatibility component"?>
     <?define VERSION="$(var.Version)"?>
     <?define MANUFACTURER="FuseCP"?>
     <?define LICENCE="..\..\..\FuseCP.Installer\Sources\Setup.WIXInstaller\License.rtf"?>

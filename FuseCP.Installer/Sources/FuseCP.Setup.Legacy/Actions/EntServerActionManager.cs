@@ -67,14 +67,6 @@ namespace FuseCP.Setup.Actions
 				if (CryptoNode != null)
 					CryptoNode.SetAttribute("value", vars.CryptoKey);
 				Xml.Save(file);
-				// FuseCP.SchedulerService.exe.config
-				var file1 = Path.Combine(vars.InstallationFolder, "Bin", "FuseCP.SchedulerService.exe.config");
-				var Xml1 = new XmlDocument();
-				Xml1.Load(file1);
-				var CryptoNode1 = Xml1.SelectSingleNode("configuration/appSettings/add[@key='FuseCP.CryptoKey']") as XmlElement;
-				if (CryptoNode1 != null)
-					CryptoNode1.SetAttribute("value", vars.CryptoKey);
-				Xml1.Save(file1);
 				Log.WriteEnd(LogEndInstallMessage);
 			}
 			catch (Exception ex)
@@ -87,82 +79,6 @@ namespace FuseCP.Setup.Actions
 		}
 	}
 
-	public class InstallSchedulerServiceAction : Action, IInstallAction, IUninstallAction
-	{
-		public const string LogStartInstallMessage = "Installing Scheduler Windows Service...";
-		public const string LogStartUninstallMessage = "Uninstalling Scheduler Windows Service...";
-
-		void IInstallAction.Run(SetupVariables vars)
-		{
-			try
-			{
-
-				Begin(LogStartInstallMessage);
-
-				Log.WriteStart(LogStartInstallMessage);
-
-				var ServiceName = Global.Parameters.SchedulerServiceName;
-				var ServiceFile = Path.Combine(vars.InstallationFolder, "bin", Global.Parameters.SchedulerServiceFileName);
-
-				Log.WriteInfo(String.Format("Scheduler Service Name: \"{0}\"", Global.Parameters.SchedulerServiceName));
-
-				if (ServiceController.GetServices().Any(s => s.DisplayName.Equals(Global.Parameters.SchedulerServiceName, StringComparison.CurrentCultureIgnoreCase)))
-				{
-					Log.WriteEnd("Scheduler Service Already Installed.");
-					InstallLog.AppendLine(String.Format("- Scheduler Service \"{0}\" Already Installed.", Global.Parameters.SchedulerServiceName));
-					return;
-				}
-
-				ManagedInstallerClass.InstallHelper(new[] { "/i /LogFile=\"\" ", ServiceFile });
-				Utils.StartService(Global.Parameters.SchedulerServiceName);
-
-				AppConfig.EnsureComponentConfig(vars.ComponentId);
-				AppConfig.SetComponentSettingStringValue(vars.ComponentId, "ServiceName", ServiceName);
-				AppConfig.SetComponentSettingStringValue(vars.ComponentId, "ServiceFile", ServiceFile);
-				AppConfig.SaveConfiguration();
-			}
-			catch (Exception ex)
-			{
-				UninstallService(vars);
-
-				if (Utils.IsThreadAbortException(ex))
-				{
-					return;
-				}
-
-				Log.WriteError("Installing scheduler service error.", ex);
-				throw;
-			}
-		}
-
-		void IUninstallAction.Run(SetupVariables vars)
-		{
-			try
-			{
-				Log.WriteStart(LogStartUninstallMessage);
-				UninstallService(vars);
-				Log.WriteEnd("Scheduler Service Uninstalled.");
-			}
-			catch (Exception ex)
-			{
-				if (Utils.IsThreadAbortException(ex))
-				{
-					return;
-				}
-
-				Log.WriteError("Uninstalling scheduler service error.", ex);
-				throw;
-			}
-		}
-
-		private void UninstallService(SetupVariables vars)
-		{
-			if (ServiceController.GetServices().Any(s => s.ServiceName.Equals(Global.Parameters.SchedulerServiceName, StringComparison.CurrentCultureIgnoreCase)))
-			{
-				ManagedInstallerClass.InstallHelper(new[] { "/u /LogFile=\"\" ", Path.Combine(vars.InstallationFolder, "bin", Global.Parameters.SchedulerServiceFileName) });
-			}
-		}
-	}
 
 	public class CreateDatabaseAction : Action, IInstallAction, IUninstallAction
 	{
@@ -414,109 +330,9 @@ namespace FuseCP.Setup.Actions
 			ConnNode.Attribute("providerName")?.Remove();
 			Xml.Save(file);
 			Log.WriteEnd(String.Format("Updated {0} file", vars.ConfigurationFile));
-			// Schedular
-			var file1 = Path.Combine(vars.InstallationFolder, "Bin", "FuseCP.SchedulerService.exe.config");
-			var Xml1 = XDocument.Load(file1);
-			var connectionStrings1 = Xml1
-				.Element("configuration")
-				?.Element("connectionStrings");
-			var ConnNode1 = connectionStrings1
-				?.Elements("add")
-				.FirstOrDefault(e => (string)e.Attribute("name") == "EnterpriseServer");
-			if (ConnNode1 == null) connectionStrings1.Add(ConnNode1 = new XElement("add", new XAttribute("name", "EnterpriseServer")));
-			ConnNode1.Attribute("connectionString").SetValue(vars.ConnectionString);
-			ConnNode1.Attribute("providerName")?.Remove();
-			Xml1.Save(file1);
-			Log.WriteEnd(String.Format("Updated {0} file", vars.ConfigurationFile));
 		}
 	}
 
-	public class SaveSchedulerServiceConnectionStringAction : Action, IInstallAction
-	{
-		void IInstallAction.Run(SetupVariables vars)
-		{
-			Log.WriteStart(string.Format("Updating {0}.config file (connection string)", Global.Parameters.SchedulerServiceFileName));
-			var file = Path.Combine(vars.InstallationFolder, "bin", string.Format("{0}.config", Global.Parameters.SchedulerServiceFileName));
-			string content;
-
-			using (var reader = new StreamReader(file))
-			{
-				content = reader.ReadToEnd();
-			}
-
-			vars.ConnectionString = Data.DatabaseUtils.BuildConnectionString(vars.DatabaseType, vars.DatabaseServer,
-				vars.DatabasePort, vars.Database, vars.Database, vars.DatabaseUserPassword,
-				vars.EnterpriseServerPath, vars.EmbedEnterpriseServer);
-			content = Utils.ReplaceScriptVariable(content, "installer.connectionstring", vars.ConnectionString);
-
-			using (var writer = new StreamWriter(file))
-			{
-				writer.Write(content);
-			}
-
-			Log.WriteEnd(string.Format("Updated {0}.config file (connection string)", Global.Parameters.SchedulerServiceFileName));
-		}
-	}
-
-	public class SaveSchedulerServiceCryptoKeyAction : Action, IInstallAction
-	{
-		void IInstallAction.Run(SetupVariables vars)
-		{
-			Log.WriteStart(string.Format("Updating {0}.config file (crypto key)", Global.Parameters.SchedulerServiceFileName));
-
-			try
-			{
-				UpdateCryptoKey(vars.InstallationFolder);
-			}
-			catch (Exception)
-			{
-			}
-
-			Log.WriteEnd(string.Format("Updated {0}.config file (connection string)", Global.Parameters.SchedulerServiceFileName));
-		}
-
-		private static void UpdateCryptoKey(string installFolder)
-		{
-			string path = Path.Combine(installFolder, "web.config");
-			string cryptoKey = "0123456789";
-
-			if (File.Exists(path))
-			{
-				using (var reader = new StreamReader(path))
-				{
-					string content = reader.ReadToEnd();
-					var pattern = new Regex(@"(?<=<add key=""FuseCP.CryptoKey"" .*?value\s*=\s*"")[^""]+(?="".*?>)");
-					Match match = pattern.Match(content);
-					cryptoKey = match.Value;
-				}
-			}
-
-			ChangeConfigString("installer.cryptokey", cryptoKey, installFolder);
-		}
-
-		private static void ChangeConfigString(string searchString, string replaceValue, string installFolder)
-		{
-			string path = Path.Combine(installFolder, "web.config");
-
-			if (File.Exists(path))
-			{
-				string content;
-
-				using (var reader = new StreamReader(path))
-				{
-					content = reader.ReadToEnd();
-				}
-
-				var re = new Regex("\\$\\{" + searchString + "\\}+", RegexOptions.IgnoreCase);
-				content = re.Replace(content, replaceValue);
-
-				using (var writer = new StreamWriter(path))
-				{
-					writer.Write(content);
-				}
-			}
-		}
-	}
 
 	public class SaveEntServerConfigSettingsAction : Action, IInstallAction
 	{
@@ -566,10 +382,7 @@ namespace FuseCP.Setup.Actions
 			new UpdateServeradminPasswAction(),
 			new SaveAspNetDbConnectionStringAction(),
 			new SaveComponentConfigSettingsAction(),
-			new SaveEntServerConfigSettingsAction(),
-			new SaveSchedulerServiceConnectionStringAction(),
-			new SaveSchedulerServiceCryptoKeyAction(),
-			new InstallSchedulerServiceAction()
+			new SaveEntServerConfigSettingsAction()
 		};
 
 		public EntServerActionManager(SetupVariables sessionVars) : base(sessionVars)

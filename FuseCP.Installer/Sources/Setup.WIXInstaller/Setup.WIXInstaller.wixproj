@@ -35,7 +35,6 @@
     <Compile Include="..\..\..\FuseCP\Build\$(Configuration)\WiXInstaller\ComponentsFiles\EnterpriseServerFiles.wxs" />
     <Compile Include="..\..\..\FuseCP\Build\$(Configuration)\WiXInstaller\ComponentsFiles\PortalFiles.wxs" />
     <Compile Include="..\..\..\FuseCP\Build\$(Configuration)\WiXInstaller\ComponentsFiles\WebDavPortalFiles.wxs" />
-	<Compile Include="..\..\..\FuseCP\Build\$(Configuration)\WiXInstaller\ComponentsFiles\SchedulerServiceFiles.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config.wxi" />

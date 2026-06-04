@@ -4350,11 +4350,6 @@ namespace FuseCP.Setup.Internal
 							Backup.XmlFiles.Add(@"App_Data\FuseCP_Pages.config");
 						}
 						break;
-						//case Global.Scheduler.ComponentCode:
-						//{
-						//   Backup.XmlFiles.Add("FuseCP.SchedulerService.exe.config");
-						//}
-						//break;
 				}
 				var MainCfg = Path.Combine(Ctx.InstallerFolder, BackupRestore.MainConfig);
 				if (string.IsNullOrWhiteSpace(WiXSetup.GetComponentID(MainCfg, Ctx.ComponentCode)))
@@ -5213,9 +5208,6 @@ namespace FuseCP.Setup.Internal
 			new SaveAspNetDbConnectionStringAction(),
 			new SaveComponentConfigSettingsAction(),
 			new SaveEntServerConfigSettingsAction(),
-            // new SaveSchedulerServiceConnectionStringAction(),
-            // new SaveSchedulerServiceCryptoKeyAction(),
-            // new InstallSchedulerServiceAction()
 		};
 		public WiXEnterpriseServerActionManager(SetupVariables sessionVars)
 			: base(sessionVars)

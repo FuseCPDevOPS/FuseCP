@@ -426,7 +426,7 @@ namespace FuseCP.WIXInstaller
                             }
                             catch (Exception ex)
                             {
-                                Log.WriteError("Detection of existing Scheduler Service failed.", ex);
+                                Log.WriteError("Detection of existing legacy Scheduler Service failed.", ex);
                             }                                
                         }
                     }
@@ -629,12 +629,12 @@ namespace FuseCP.WIXInstaller
             var S_Install = new List<string> { "Copy FuseCP Server files", "Add FuseCP Server website" };
             var ES_Install = new List<string> { "Copy FuseCP Enterprise Server files", "Install FuseCP database and updates", "Add FuseCP Enterprise Server website" };
             var P_Install = new List<string> { "Copy FuseCP Portal files", "Add FuseCP Enterprise Portal website" };
-            var SCH_Install = new List<string> { "Copy FuseCP Scheduler Service files", "Install Scheduler Service Windows Service" };
+            var SCH_Install = new List<string> { "Copy FuseCP legacy scheduler compatibility files", "Install legacy Scheduler Service Windows Service" };
             var WDP_Install = new List<string> { "Copy FuseCP WebDav Portal files" };
             var S_Uninstall = new List<string> { "Delete FuseCP Server files", "Remove FuseCP Server website" };
             var ES_Uninstall = new List<string> { "Delete FuseCP Enterprise Server files", "Keep FuseCP database and updates", "Remove FuseCP Enterprise Server website" };
             var P_Uninstall = new List<string> { "Delete FuseCP Portal files", "Remove FuseCP Enterprise Portal website" };
-            var SCH_Uninstall = new List<string> { "Delete FuseCP Scheduler Service files", "Remove Scheduler Service Windows Service" };
+            var SCH_Uninstall = new List<string> { "Delete FuseCP legacy scheduler compatibility files", "Remove legacy Scheduler Service Windows Service" };
             var WDP_Uninstall = new List<string> { "Delete FuseCP WebDav Portal files" };
             var RecapList = new List<string>();
             var EmptyList = new List<string>();

@@ -43,6 +43,11 @@ namespace FuseCP.UniversalInstaller
 			public bool? EncryptionEnabled { get; set; }
 		}
 
+		public class SchedulerSetting
+		{
+			public bool? Enabled { get; set; }
+		}
+
 		public class CertificateSetting
 		{
 			public StoreLocation StoreLocation;
@@ -67,7 +72,7 @@ namespace FuseCP.UniversalInstaller
 				if (property.PropertyName == "AllowedHosts" || property.PropertyName == "Certificate" ||
 					property.PropertyName == "Server" || property.PropertyName == "LettuceEncrypt" ||
 					property.PropertyName == "EnterpriseServer" || property.PropertyName == "ServerRequestTimeout" ||
-					property.PropertyName == "EncryptionEnabled")
+					property.PropertyName == "EncryptionEnabled" || property.PropertyName == "Scheduler")
 				{
 					property.NullValueHandling = NullValueHandling.Ignore;
 				}
@@ -80,6 +85,7 @@ namespace FuseCP.UniversalInstaller
 		public string AllowedHosts { get; set; } = null;
 		public ServerSetting Server { get; set; }
 		public EnterpriseServerSetting EnterpriseServer { get; set; }
+		public SchedulerSetting Scheduler { get; set; }
 		public CertificateSetting Certificate { get; set; }
 		public LettuceEncryptSetting LettuceEncrypt { get; set; }
 		public TraceLevel TraceLevel { get; set; }
