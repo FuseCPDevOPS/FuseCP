@@ -71,7 +71,7 @@ If a managed host starts returning `Invalid server request authentication`, the 
 
    ```powershell
    [pwsh|powershell] -File FuseCP/Tools/Recover-ServerCredential.ps1 `
-     -ServerName "EX1.fusecp-dev01.local" `
+     -ServerName "<Server Name>" `
      -Password "<server password>" `
      -Mode sha256 `
      -ConfigPath "FuseCP/Sources/FuseCP.WebPortal/Web.config"

@@ -212,6 +212,24 @@
 1. Follow the documented recovery flow in a production-like environment after a host password change.
 2. Confirm the server-side password, Enterprise credential, and `PasswordIsSHA256` mode are aligned before using the Portal.
 
+### Commit: pending
+**Message**: docs: genericize production auth recovery server name
+
+**Scope**: 1 file modified to replace the example server name with a generic placeholder in the README recovery snippet
+
+#### Files Modified
+- `README.md` — replaced the hard-coded EX1 example with `<Server Name>` in the recovery command
+
+#### Validation Summary
+- **Solution Sync Check**: not required for this text-only example substitution
+
+#### Risk Assessment
+- ✅ **Low Risk**: documentation-only wording update
+- ✅ **Backward Compatible**: no runtime change
+
+#### Testing Guidance
+1. Review the recovery snippet to confirm it uses placeholders instead of environment-specific values.
+
 ---
 
 ### Commit: 09026538e
