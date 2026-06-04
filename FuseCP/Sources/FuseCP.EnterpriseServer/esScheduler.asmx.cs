@@ -40,6 +40,36 @@ namespace FuseCP.EnterpriseServer
         }
 
         [WebMethod]
+        public int GetSchedulerRuntimePerAffinityConcurrency()
+        {
+            return SchedulerController.GetSchedulerRuntimePerAffinityConcurrency();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeGlobalConcurrency()
+        {
+            return SchedulerController.GetSchedulerRuntimeGlobalConcurrency();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeQueueDepth()
+        {
+            return SchedulerController.GetSchedulerRuntimeQueueDepth();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeActiveUnits()
+        {
+            return SchedulerController.GetSchedulerRuntimeActiveUnits();
+        }
+
+        [WebMethod]
+        public int ApplySchedulerRuntimeConcurrency(int perAffinityConcurrency, int globalConcurrency)
+        {
+            return SchedulerController.ApplySchedulerRuntimeConcurrency(perAffinityConcurrency, globalConcurrency);
+        }
+
+        [WebMethod]
         public List<ScheduleTaskInfo> GetScheduleTasks()
         {
             return SchedulerController.GetScheduleTasks();
