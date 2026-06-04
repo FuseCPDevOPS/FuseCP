@@ -85,10 +85,10 @@ jobs:
         submodules: recursive
 
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
 
     - name: Install Node.js 24
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: '24.x'
 
@@ -102,7 +102,6 @@ jobs:
       with:
         # Use the latest available .NET 10 SDK instead of an exact patch pin.
         dotnet-version: '10.0.x'
-        cache: true
 
     - name: Install Development Certificates
       continue-on-error: true
@@ -120,7 +119,7 @@ jobs:
 
     - name: Upload Database Verification Report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Database-Workflow-Report
         path: db-workflow-report.json
@@ -165,7 +164,7 @@ jobs:
         dotnet @testArgs
  
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Test-Results
         path: test-results
@@ -203,7 +202,7 @@ jobs:
 
     - name: Upload Truncated Test Markdown
       if: steps.process-trx.outputs.test-results-truncated == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Truncated-Test-Results-Markdown
         path: ${{ steps.process-trx.outputs.test-results-file-path }}
