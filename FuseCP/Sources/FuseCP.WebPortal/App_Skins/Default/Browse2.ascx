@@ -50,7 +50,7 @@
 		<div class="container-fluid primary-content" id="SkinContent">
 			<!-- PRIMARY CONTENT HEADING -->
 			<div class="primary-content-heading clearfix">
-				<fcp:UserSpaceBreadcrumb ID="breadcrumb" runat="server"/>
+				<fcp:UserSpaceBreadcrumb ID="breadcrumb" runat="server" CurrentNodeVisible="false" />
                 <div id="ContentOneColumn" class="row">
                     <div id="Center" class="col-md-12">
                         <asp:PlaceHolder ID="ContentPane" runat="server"></asp:PlaceHolder>

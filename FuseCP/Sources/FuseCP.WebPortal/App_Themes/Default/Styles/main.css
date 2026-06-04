@@ -6402,7 +6402,7 @@ legend {
   padding: 0 16px;
   margin-left: 0;
   margin-right: 0;
-  --desktop-search-width: min(430px, calc(100vw - 360px));
+  --desktop-search-width: 430px;
   --fcp-topbar-height: 64px;
 }
 .top-bar > .d-none.d-sm-block {
@@ -6635,7 +6635,7 @@ legend {
     --mobile-user-space: 96px;
     --mobile-search-gap: 10px;
     --mobile-search-right: calc(var(--mobile-menu-space) + var(--mobile-user-space) + var(--mobile-search-gap));
-    --mobile-search-width: min(380px, calc(100vw - 280px - var(--mobile-search-gap)));
+    --mobile-search-width: 380px;
     padding: 0 10px;
     overflow: hidden;
   }
@@ -7502,6 +7502,14 @@ html.dark-theme .card-footer input[type="image"]:hover {
 /* Scheduled Tasks page layout fixes */
 .fcp-schedules-page {
   position: relative;
+  --fcp-hero-ok-start: #8db63f;
+  --fcp-hero-ok-end: #6f9d2a;
+  --fcp-hero-warn-start: #d8a344;
+  --fcp-hero-warn-end: #be8a2f;
+  --fcp-hero-next-start: #8a8a8a;
+  --fcp-hero-next-end: #6f6f6f;
+  --fcp-hero-danger-start: #d45c4b;
+  --fcp-hero-danger-end: #b84334;
 }
 .fcp-schedules-page .fcp-schedules-toolbar {
   display: block;
@@ -7553,6 +7561,103 @@ html.dark-theme .card-footer input[type="image"]:hover {
 }
 .fcp-schedules-page .fcp-schedules-actions .btn {
   white-space: nowrap;
+}
+.fcp-schedules-page .fcp-scheduler-hero {
+  margin: 6px 0 14px;
+}
+.fcp-schedules-page .fcp-scheduler-stat {
+  min-height: 104px;
+  border-radius: 8px;
+  color: #fff;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 28px rgba(18, 32, 48, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.fcp-schedules-page .fcp-scheduler-stat:before {
+  content: "";
+  position: absolute;
+  right: -24px;
+  top: -24px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+.fcp-schedules-page .fcp-scheduler-stat-icon {
+  font-size: 34px;
+  line-height: 1;
+  opacity: 0.92;
+}
+.fcp-schedules-page .fcp-scheduler-stat-value {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+.fcp-schedules-page .fcp-scheduler-stat-label {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 600;
+}
+.fcp-schedules-page .fcp-scheduler-stat-ok {
+  background: linear-gradient(135deg, var(--fcp-hero-ok-start) 0%, var(--fcp-hero-ok-end) 100%);
+}
+.fcp-schedules-page .fcp-scheduler-stat-last {
+  background: linear-gradient(135deg, var(--fcp-hero-warn-start) 0%, var(--fcp-hero-warn-end) 100%);
+}
+.fcp-schedules-page .fcp-scheduler-stat-next {
+  background: linear-gradient(135deg, var(--fcp-hero-next-start) 0%, var(--fcp-hero-next-end) 100%);
+}
+.fcp-schedules-page .fcp-scheduler-stat-danger {
+  background: linear-gradient(135deg, var(--fcp-hero-danger-start) 0%, var(--fcp-hero-danger-end) 100%);
+}
+.fcp-schedules-page .fcp-schedules-overview {
+  margin: 10px 12px 18px;
+}
+.fcp-schedules-page #rowSchedulerDashboard {
+  margin-top: 4px;
+  margin-bottom: 22px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+.fcp-schedules-page #rowSchedulerDashboard .card {
+  border-radius: 8px;
+  box-shadow: 0 10px 22px rgba(15, 32, 50, 0.08);
+  margin-top: 4px;
+  padding: 14px;
+  border: 1px solid #d9e1ea;
+  background: #f8fafd;
+}
+.fcp-schedules-page #rowSchedulerDashboard .card-header {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7fb 100%);
+  padding: 12px 16px;
+  border: 1px solid #dde5ef;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.fcp-schedules-page #rowSchedulerDashboard .card-body {
+  padding: 0 6px 6px;
+}
+.fcp-schedules-page .fcp-scheduler-overrides {
+  margin-top: 16px;
+  border-top: 1px solid #e6eaf0;
+  padding-top: 14px;
+}
+.fcp-schedules-page .fcp-scheduler-overrides-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #1d2a39;
 }
 .fcp-schedules-page .fcp-schedules-grid-wrap {
   margin-bottom: 10px;
@@ -7607,6 +7712,22 @@ html.dark-theme .card-footer input[type="image"]:hover {
   }
   .fcp-schedules-page .fcp-schedules-actions .btn {
     width: 100%;
+  }
+  .fcp-schedules-page .fcp-scheduler-stat {
+    min-height: 100px;
+    padding: 14px 16px;
+    gap: 12px;
+    box-shadow: 0 8px 16px rgba(20, 28, 38, 0.12);
+  }
+  .fcp-schedules-page .fcp-scheduler-stat-icon {
+    font-size: 28px;
+  }
+  .fcp-schedules-page .fcp-scheduler-stat-value {
+    font-size: 24px;
+  }
+  .fcp-schedules-page .fcp-scheduler-stat-label {
+    margin-top: 6px;
+    font-size: 14px;
   }
   .fcp-schedules-page .fcp-schedules-grid-wrap {
     overflow-x: visible;
