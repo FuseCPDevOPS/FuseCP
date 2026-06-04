@@ -36,7 +36,6 @@
 		<ServerSrc>$(TrunkFolder)\Sources\FuseCP.Server</ServerSrc>
 		<EnterpriseServerSrc>$(TrunkFolder)\Sources\FuseCP.EnterpriseServer</EnterpriseServerSrc>
 		<EnterpriseServerDataSrc>$(TrunkFolder)\Sources\FuseCP.EnterpriseServer.Data</EnterpriseServerDataSrc>
-		<SchedulerServiceSrc>$(TrunkFolder)\Sources\FuseCP.SchedulerService\bin</SchedulerServiceSrc>
 		<ImportCsvSrc>$(TrunkFolder)\Sources\Tools\FuseCP.Import.CsvBulk\bin\$(BuildConfiguration)</ImportCsvSrc>
 		<HyperVUtilsSrc>$(RootFolder)\FuseCP.HyperV.Utils\Sources\FuseCP.HyperV.Utils\bin\$(BuildConfiguration)</HyperVUtilsSrc>
 		<VMConfigSrc>$(RootFolder)\FuseCP.VmConfig\Sources\FuseCP.VmConfig\bin\$(BuildConfiguration)</VMConfigSrc>
@@ -75,7 +74,6 @@
 
 		<ServerBuild>$(BuildFolder)\Server</ServerBuild>
 		<EnterpriseServerBuild>$(BuildFolder)\EnterpriseServer</EnterpriseServerBuild>
-		<SchedulerServiceBuild>$(BuildFolder)\SchedulerService</SchedulerServiceBuild>
 		<PortalBuild>$(BuildFolder)\Portal</PortalBuild>
 		<WebDavPortalBuild>$(BuildFolder)\WebDavPortal</WebDavPortalBuild>
 		<ImportCsvBuild>$(BuildFolder)\Import.CsvBulk</ImportCsvBuild>
@@ -227,7 +225,6 @@
 		<!-- Remove build output folders in reversed order (e.q. root folder removed last) -->
 		<RemoveDir Directories="$(ServerBuild)"/>
 		<RemoveDir Directories="$(EnterpriseServerBuild)"/>
-		<RemoveDir Directories="$(SchedulerServiceBuild)"/>
 		<RemoveDir Directories="$(PortalBuild)"/>
 		<RemoveDir Directories="$(WebDavPortalBuild)"/>
 		<RemoveDir Directories="$(ImportCsvBuild)"/>
@@ -244,7 +241,6 @@
     	<MakeDir Directories="$(BuildFolder)"/>
 		<MakeDir Directories="$(ServerBuild)"/>
 		<MakeDir Directories="$(EnterpriseServerBuild)"/>
-		<MakeDir Directories="$(SchedulerServiceBuild)"/>
 		<MakeDir Directories="$(PortalBuild)"/>
 		<MakeDir Directories="$(WebDavPortalBuild)"/>
 		<MakeDir Directories="$(HyperVUtilsBuild)"/>
@@ -362,26 +358,7 @@
 			Condition=" '$(UseAspNetPrecompile)' == 'true' " />
 	</Target>
 
-	<Target Name="CreateSchedulerBuild" DependsOnTargets="CreatePortalBuild">
-		<!--<ItemGroup>
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\.svn\**" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\obj\**" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\bin\*.xml" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\Release\**" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\Debug\**" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.pdb" Condition=" '$(BuildConfiguration)' == 'Release' And !$(IncludeReleasePdbs) " />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.user" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.suo" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.snk" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.cs" />
-			<SchBuildExclude Include="$(SchedulerServiceSrc)\**\*.csproj" />
-			<SchedulerServiceBuildFiles Include="$(SchedulerServiceSrc)\**\*.*" Exclude="@(SchBuildExclude)" />
-		</ItemGroup>
-		<Copy SourceFiles="@(SchedulerServiceBuildFiles)" DestinationFolder="$(SchedulerServiceBuild)\%(RecursiveDir)" />-->
-	</Target>
-
-
-	<Target Name="CreateWebDavPortalBuild" DependsOnTargets="CreateSchedulerBuild">
+	<Target Name="CreateWebDavPortalBuild" DependsOnTargets="CreatePortalBuild">
 		<ItemGroup>
       <WebDavPortalBuildExclude Include="$(WebDavPortalSrc)\**\ref\**" />
       <WebDavPortalBuildExclude Include="$(WebDavPortalSrc)\**\.svn\**" />
@@ -598,8 +575,6 @@
                 ItemName="FuseCPInstallerMsi" />
 		</MSBuild>
 
-		<MSBuild Projects="$(RootFolder)\FuseCP.Installer\Sources\FuseCP.SchedulerServiceInstaller\FuseCP.SchedulerServiceInstaller.csproj" Properties="Configuration=$(BuildConfiguration);Platform=$(Platform);DefineSolutionProperties=false"/>
-
 		<Copy SourceFiles="@(FuseCPInstallerMsi)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" />
 	</Target>
 
@@ -660,9 +635,6 @@
 	<Target Name="CreateEnterpriseServerInstall" DependsOnTargets="CreateServerInstall">
 		<ItemGroup>
 			<EnterpriseServerDeployFiles Include="$(EnterpriseServerBuild)\**\*.*" Exclude="@(EnterpriseServerDeployExclude)" />
-			<!-- Scheduler is already in EnterpriseServer bin folder 
-			<SchedulerServiceDeployExclude Include="$(SchedulerServiceBuild)\bin\FuseCP.SchedulerService.exe.config" />
-			<SchedulerServiceDeployFiles Include="$(SchedulerServiceBuild)\**\*.*" Exclude="@(SchedulerServiceDeployExclude)" />-->
 		</ItemGroup>
 		<RemoveDir Directories="$(EnterpriseServerInstall)"/>
 		<MakeDir Directories="$(EnterpriseServerInstall)"/>

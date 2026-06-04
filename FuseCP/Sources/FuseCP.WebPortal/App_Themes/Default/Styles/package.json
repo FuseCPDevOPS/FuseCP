@@ -4,14 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "lessc --math=always defaultTheme.less main.css",
-    "watch:css": "lessc --math=always --watch defaultTheme.less main.css"
+    "build:css": "npx --yes --package less@4.2.0 lessc --math=always defaultTheme.less main.css",
+    "watch:css": "npx --yes --package less@4.2.0 lessc --math=always --watch defaultTheme.less main.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "less": "^4.6.0"
-  }
+  "type": "commonjs"
 }

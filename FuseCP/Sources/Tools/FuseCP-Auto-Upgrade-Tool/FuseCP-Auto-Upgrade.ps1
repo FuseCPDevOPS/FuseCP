@@ -498,15 +498,7 @@ function UpgradeFCPentSvr() # Function to upgrade the FuseCP Enterprise Server C
 				ModifyXML "$FCP_EntSvr_Dir\web.config" "Add" "//configuration/runtime/assemblyBinding[@xmlns-temp='urn:schemas-microsoft-com:asm.v1']/dependentAssembly" "bindingRedirect" @( ("oldVersion","0.0.0.0-13.0.0.0"), ("newVersion","13.0.0.0") )
 				#ModifyXML "$FCP_EntSvr_Dir\bin\FuseCP.EnterpriseServer.dll.config" "Update" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString" "$FCP_EntSvr_ConStr"
 				#ModifyXML "$FCP_EntSvr_Dir\bin\FuseCP.EnterpriseServer.dll.config" "Update" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value" "$FCP_EntSvr_CryptoK"
-				ModifyXML "$FCP_EntSvr_Dir\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString" "$FCP_EntSvr_ConStr"
-				ModifyXML "$FCP_EntSvr_Dir\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value" "$FCP_EntSvr_CryptoK"
 				Write-Host "`t The `"FuseCP Enterprise Server`" web.config file has been updated" -ForegroundColor Green
-
-				# Start the Enterprise Server Scheduler service
-				if ($SchedularServiceName) {
-					Write-Host "`t Starting the `"$SchedularServiceName Enterprise Server`" Scheduler service" -ForegroundColor Green
-					(Start-Service "$SchedularServiceName Scheduler" -WarningAction SilentlyContinue) | Out-Null
-				}
 
 				# Start the Enterprise Server Website
 				Write-Host "`t Starting the `"$FCP_EntSvr_WebName`" website" -ForegroundColor Green

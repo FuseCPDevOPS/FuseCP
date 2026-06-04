@@ -2,6 +2,86 @@
 
 ## Commits Included
 
+### Commit: 12bd809dc
+**Message**: feat: refresh portal scheduled tasks ui
+
+**Scope**: 347 files changed with WebPortal scheduled tasks skin/theme refresh and node_modules cleanup
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.WebPortal/App_Skins/Default/Browse1.ascx` — hid the current breadcrumb node in the scheduled tasks skin
+- `FuseCP/Sources/FuseCP.WebPortal/App_Skins/Default/Browse2.ascx` — hid the current breadcrumb node in the scheduled tasks skin
+- `FuseCP/Sources/FuseCP.WebPortal/App_Skins/Default/Browse3.ascx` — hid the current breadcrumb node in the scheduled tasks skin
+- `FuseCP/Sources/FuseCP.WebPortal/App_Skins/Default/Edit.ascx` — hid the current breadcrumb node in the scheduled tasks skin
+- `FuseCP/Sources/FuseCP.WebPortal/App_Skins/Default/Exchange.ascx` — hid the current breadcrumb node in the scheduled tasks skin
+- `FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/Styles/main.less` — added scheduled-tasks dashboard styling and responsive hero/stat cards
+- `FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/Styles/main.css` — regenerated CSS output for the theme refresh
+- `FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/Styles/node_modules/**` — removed generated theme build dependencies from source control
+
+#### Validation Summary
+- **Focused Validation**: ✅ portal skin/theme diff was reviewed before commit
+- **Generated Asset Sync**: ✅ `main.css` was committed alongside `main.less`
+
+#### Risk Assessment
+- ✅ **Moderate Risk**: user-visible portal layout and styling changes
+- ✅ **Backward Compatible**: markup and CSS-only refresh; no contract changes
+
+#### Testing Guidance
+1. Open the scheduled tasks page and verify the new hero/stat layout renders correctly.
+2. Confirm the breadcrumb no longer shows the current node on the refreshed skins.
+3. Verify the theme compiles cleanly without the checked-in node_modules tree.
+
+### Commit: 05fa3f6dc
+**Message**: chore: remove legacy scheduler service installer
+
+**Scope**: 36 files modified to remove the old scheduler service project, installer artifacts, and solution references
+
+#### Files Modified
+- `FuseCP.sln` — removed the legacy scheduler service solution entry
+- `FuseCP/Sources/FuseCP.EnterpriseServer.sln` — removed the legacy scheduler service project entry
+- `FuseCP.Installer/Sources/FuseCP.Installer.Legacy.sln` — removed the obsolete scheduler service installer reference
+- `FuseCP.Installer/Sources/FuseCP.SchedulerServiceInstaller/**` — deleted the old scheduler service installer project files
+- `FuseCP.Installer/Sources/Setup.SchedulerService/**` — deleted the legacy scheduler service setup assets
+- `FuseCP/Sources/FuseCP.SchedulerService/**` — deleted the old scheduler service project source
+- `FuseCP.Installer/Sources/FuseCP.Setup.Legacy/Actions/EntServerActionManager.cs` — trimmed scheduler-service-specific installer branching
+- `FuseCP.Installer/Sources/FuseCP.Setup.Legacy/Actions/EntServerUnixActionManager.cs` — trimmed scheduler-service-specific installer branching
+- `FuseCP.Installer/Sources/FuseCP.Setup.Legacy/Internal/Adapter.cs` — removed scheduler-service-specific adapter code
+- `FuseCP.Installer/Sources/FuseCP.UniversalInstaller.Core/**` — updated installer logic to no longer reference the removed scheduler service path
+- `FuseCP.Installer/Sources/FuseCP.UniversalInstaller.Runtime/WebUtils.cs` — updated runtime wiring to align with the installer cleanup
+- `FuseCP.Installer/Sources/FuseCP.WIXInstaller/CustomAction.cs` — removed scheduler-service-specific custom action handling
+- `FuseCP.Installer/Sources/Setup.WIXInstaller/**` — removed obsolete scheduler service setup wiring
+
+#### Validation Summary
+- **Commit Review**: ✅ decommissioning diff was grouped and staged as one coherent batch
+- **Solution Hygiene**: ✅ solution/project references for the removed scheduler service were deleted
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: mostly project/installer removal
+- ⚠️ **Primary Risk Area**: any downstream packaging scripts that still reference the removed scheduler service project
+
+#### Testing Guidance
+1. Open the affected solutions and confirm the removed scheduler service no longer appears.
+2. Run installer/package validation if you need to regenerate distributables that depend on these project files.
+
+### Commit: 2aa13f086
+**Message**: feat: expose scheduler runtime web methods
+
+**Scope**: 1 file modified to surface scheduler runtime values and configuration through the ASMX endpoint
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer/esScheduler.asmx.cs` — added web methods for queue depth, concurrency, and runtime concurrency updates
+
+#### Validation Summary
+- **Focused Diagnostics**: ✅ `esScheduler.asmx.cs` has no editor diagnostics
+- **Runtime Alignment**: ✅ endpoint methods align with the scheduler runtime coordination layer
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: endpoint surface expansion only
+- ✅ **Backward Compatible**: existing scheduler methods remain unchanged
+
+#### Testing Guidance
+1. Call the new scheduler runtime web methods through the ASMX endpoint and verify they return the expected values.
+2. Confirm admin concurrency updates are reflected in the scheduler runtime UI and host behavior.
+
 ### Commit: e950b3119
 **Message**: feat: wire scheduler config defaults
 

@@ -153,11 +153,6 @@ $FCP_Database_Servr = ( (([xml](Get-Content "$FCP_EntSvr_Dir\Web.config")).confi
 ModifyXML "$FCP_EntSvr_Dir\web.config" "Delete" "//configuration/system.webServer"
 Write-Host "`t Enterprise Server - web.config Upgraded" -ForegroundColor Green
 
-# Set the correct values in the "bin\FuseCP.SchedulerService.exe.config" file so they match the ones in the "web.config" file for the Connection String and the CryptoKey
-ModifyXML "C:\FuseCP\Enterprise Server\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString" (ModifyXML "C:\FuseCP\Enterprise Server\web.config" "Get" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString")
-ModifyXML "C:\FuseCP\Enterprise Server\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value"                  (ModifyXML "C:\FuseCP\Enterprise Server\web.config" "Get" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value")
-Write-Host "`t Enterprise Server - Schedular Config File Upgraded" -ForegroundColor Green
-
 # Update the Portal web.config file and the additional items if they are missing
 # Update the web.config to change the "xmlns" to "xmlns-temp" otherwise we have issues when parsing the XML file
 (Get-Content "$FCP_Portal_Dir\web.config") -replace " xmlns=`"", " xmlns-temp=`"" | Set-Content "$FCP_Portal_Dir\web.config"

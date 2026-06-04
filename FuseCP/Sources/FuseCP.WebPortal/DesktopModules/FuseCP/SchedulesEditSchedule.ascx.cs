@@ -27,6 +27,10 @@ namespace FuseCP.Portal
     public partial class SchedulesEditSchedule : FuseCPModuleBase
     {
         private static readonly string ScheduleViewEnvironment = "ASP.NET";
+        private const string SchedulerWeightParameterId = "SCHEDULER_WEIGHT";
+        private const string SchedulerAffinityParameterId = "SCHEDULER_AFFINITY";
+        private static readonly string[] SchedulerWeightAliases = { "SCHEDULER_WEIGHT", "TASK_WEIGHT", "WEIGHT" };
+        private static readonly string[] SchedulerAffinityAliases = { "SCHEDULER_AFFINITY", "SERVER_ID", "AFFINITY" };
 
         private ISchedulerTaskView configurationView;
         private string cachedTaskIdsToLoad = String.Empty;
@@ -39,7 +43,11 @@ namespace FuseCP.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!EnsureScheduleAccess())
+                return;
+
             btnDelete.Visible = (PanelRequest.ScheduleID > 0);
+            rowAdvancedScheduler.Visible = PanelSecurity.SelectedUser.Role != UserRole.User;
 
             this.ControlToLoad.Value = this.cachedTaskIdsToLoad;
             if (!IsPostBack)
@@ -58,6 +66,32 @@ namespace FuseCP.Portal
                     return;
                 }
             }
+        }
+
+        private bool EnsureScheduleAccess()
+        {
+            if (PanelRequest.ScheduleID <= 0)
+                return true;
+
+            ScheduleInfo schedule = ES.Services.Scheduler.GetSchedule(PanelRequest.ScheduleID);
+            if (schedule == null)
+            {
+                ShowErrorMessage("ACCESS_DENIED");
+                RedirectSpaceHomePage();
+                return false;
+            }
+
+            if (PanelSecurity.SelectedUser.Role == UserRole.Administrator)
+                return true;
+
+            if (schedule.PackageId != PanelSecurity.PackageId)
+            {
+                ShowErrorMessage("ACCESS_DENIED");
+                RedirectSpaceHomePage();
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -238,12 +272,103 @@ namespace FuseCP.Portal
             ScheduleTaskParameterInfo[] parameters = ES.Services.Scheduler.GetScheduleParameters(ddlTaskType.SelectedValue,
                 PanelRequest.ScheduleID);
 
+            BindAdvancedSchedulerParameters(parameters);
+            parameters = FilterAdvancedSchedulerParameters(parameters);
+
             gvTaskParameters.DataSource = parameters;
             gvTaskParameters.DataBind();
 
             if (this.configurationView != null)
             {
                 this.configurationView.SetParameters(parameters);
+            }
+        }
+
+        private static bool IsParameterId(string parameterId, IEnumerable<string> aliases)
+        {
+            if (String.IsNullOrEmpty(parameterId))
+                return false;
+
+            foreach (string alias in aliases)
+            {
+                if (String.Equals(parameterId, alias, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static string FindParameterValue(ScheduleTaskParameterInfo[] parameters, IEnumerable<string> aliases)
+        {
+            if (parameters == null)
+                return String.Empty;
+
+            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            {
+                if (parameter == null)
+                    continue;
+
+                if (IsParameterId(parameter.ParameterId, aliases))
+                    return parameter.ParameterValue ?? String.Empty;
+            }
+
+            return String.Empty;
+        }
+
+        private void BindAdvancedSchedulerParameters(ScheduleTaskParameterInfo[] parameters)
+        {
+            txtSchedulerWeight.Text = FindParameterValue(parameters, SchedulerWeightAliases);
+            txtSchedulerAffinity.Text = FindParameterValue(parameters, SchedulerAffinityAliases);
+        }
+
+        private static ScheduleTaskParameterInfo[] FilterAdvancedSchedulerParameters(ScheduleTaskParameterInfo[] parameters)
+        {
+            if (parameters == null || parameters.Length == 0)
+                return parameters;
+
+            List<ScheduleTaskParameterInfo> filtered = new List<ScheduleTaskParameterInfo>();
+            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            {
+                if (parameter == null)
+                    continue;
+
+                bool isAdvancedScheduler = IsParameterId(parameter.ParameterId, SchedulerWeightAliases)
+                    || IsParameterId(parameter.ParameterId, SchedulerAffinityAliases);
+
+                if (!isAdvancedScheduler)
+                    filtered.Add(parameter);
+            }
+
+            return filtered.ToArray();
+        }
+
+        private static void RemoveParametersByAliases(List<ScheduleTaskParameterInfo> parameters, IEnumerable<string> aliases)
+        {
+            if (parameters == null)
+                return;
+
+            for (int index = parameters.Count - 1; index >= 0; index--)
+            {
+                ScheduleTaskParameterInfo existing = parameters[index];
+                if (existing == null || IsParameterId(existing.ParameterId, aliases))
+                    parameters.RemoveAt(index);
+            }
+        }
+
+        private static void UpsertParameter(List<ScheduleTaskParameterInfo> parameters, string parameterId, string parameterValue, IEnumerable<string> aliases)
+        {
+            if (parameters == null || String.IsNullOrWhiteSpace(parameterId))
+                return;
+
+            RemoveParametersByAliases(parameters, aliases);
+
+            if (!String.IsNullOrWhiteSpace(parameterValue))
+            {
+                parameters.Add(new ScheduleTaskParameterInfo
+                {
+                    ParameterId = parameterId,
+                    ParameterValue = parameterValue.Trim()
+                });
             }
         }
 
@@ -286,6 +411,9 @@ namespace FuseCP.Portal
 
         private void SaveTask()
         {
+            if (!EnsureScheduleAccess())
+                return;
+
             // gather form parameters
             ScheduleInfo sc = new ScheduleInfo();
             sc.ScheduleId = PanelRequest.ScheduleID;
@@ -354,6 +482,11 @@ if (cntx.Quotas.TryGetValue(Quotas.OS_MINIMUMTASKINTERVAL, out var _ckv))
                 sc.Parameters = this.configurationView.GetParameters();
             }
 
+            List<ScheduleTaskParameterInfo> mergedParameters = new List<ScheduleTaskParameterInfo>(sc.Parameters ?? Array.Empty<ScheduleTaskParameterInfo>());
+            UpsertParameter(mergedParameters, SchedulerWeightParameterId, txtSchedulerWeight.Text, SchedulerWeightAliases);
+            UpsertParameter(mergedParameters, SchedulerAffinityParameterId, txtSchedulerAffinity.Text, SchedulerAffinityAliases);
+            sc.Parameters = mergedParameters.ToArray();
+
             // save
             if (PanelRequest.ScheduleID == 0)
             {
@@ -398,6 +531,9 @@ if (cntx.Quotas.TryGetValue(Quotas.OS_MINIMUMTASKINTERVAL, out var _ckv))
 
         private void DeleteTask()
         {
+            if (!EnsureScheduleAccess())
+                return;
+
             try
             {
                 // delete

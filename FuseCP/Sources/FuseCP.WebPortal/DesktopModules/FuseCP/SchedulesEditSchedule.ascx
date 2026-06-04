@@ -159,6 +159,25 @@
                 <uc2:ScheduleInterval ID="intMaxExecutionTime" runat="server" Interval="0" />
             </td>
 		</tr>
+        <tr id="rowAdvancedScheduler" runat="server">
+            <td class="SubHead align-top">
+                <asp:Label ID="lblAdvancedScheduler" runat="server" Text="Advanced Scheduler:"></asp:Label>
+            </td>
+            <td class="Normal align-top">
+                <div class="row g-2">
+                    <div class="col-12 col-md-6">
+                        <asp:Label ID="lblSchedulerWeight" runat="server" AssociatedControlID="txtSchedulerWeight" CssClass="form-label" Text="Task Weight (optional)"></asp:Label>
+                        <asp:TextBox ID="txtSchedulerWeight" runat="server" CssClass="form-control" MaxLength="5"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="valSchedulerWeight" runat="server" ControlToValidate="txtSchedulerWeight" ErrorMessage="*" ValidationExpression="^$|^[1-9]\d{0,3}$" Display="Dynamic"></asp:RegularExpressionValidator>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <asp:Label ID="lblSchedulerAffinity" runat="server" AssociatedControlID="txtSchedulerAffinity" CssClass="form-label" Text="Affinity / Server Key (optional)"></asp:Label>
+                        <asp:TextBox ID="txtSchedulerAffinity" runat="server" CssClass="form-control" MaxLength="255"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="small text-muted mt-1">Use these values only when you need to override automatic scheduler balancing for this cron.</div>
+            </td>
+        </tr>
     </table>
 	<%--
     <fcp:CollapsiblePanel id="secHistory" runat="server"

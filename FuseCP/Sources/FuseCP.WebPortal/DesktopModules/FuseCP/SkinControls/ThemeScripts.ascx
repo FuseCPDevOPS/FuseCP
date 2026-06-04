@@ -119,7 +119,16 @@
       control.setAttribute('aria-disabled', 'true');
       if ((control.className || '').indexOf('disabled') < 0) {
         control.className = (control.className || '') + ' disabled';
+        control.setAttribute('data-fcp-busy-added-disabled', '1');
       }
+    }
+
+    function removeDisabledClass(control) {
+      if (!control || !control.className) return;
+      control.className = control.className
+        .split(/\s+/)
+        .filter(function (token) { return token && token !== 'disabled'; })
+        .join(' ');
     }
 
     function disableActionControls() {
@@ -137,6 +146,10 @@
         if (!control) continue;
         control.disabled = false;
         control.removeAttribute('aria-disabled');
+        if (control.getAttribute('data-fcp-busy-added-disabled') === '1') {
+          removeDisabledClass(control);
+          control.removeAttribute('data-fcp-busy-added-disabled');
+        }
       }
       disabledControls = [];
     }

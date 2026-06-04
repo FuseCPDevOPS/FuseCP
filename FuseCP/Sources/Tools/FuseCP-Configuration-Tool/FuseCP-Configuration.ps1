@@ -1970,15 +1970,15 @@ Function CreateDomainComputerObject()                                           
 		[switch]$Disabled # Disable the new Computer Object when creating it
 	)
 	if ($OU) {
-		$ComputerOU  = (([ADSI]“LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}else{
-		$ComputerOU  = (([ADSI]“LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}
 	if (!([string]::IsNullOrEmpty($ComputerOU))) { # Check of the Organisational Unit exists
 		if ( !([adsi]::Exists("LDAP://CN=$Name,$ComputerOU")) ) { # Check if the Computer Object exists
 			$dNewComputer = ([ADSI]"LDAP://$ComputerOU").create("Computer", "CN=$Name")
-			$dNewComputer.put(“sAMAccountName”,($Name + "$"))
-			$dNewComputer.put(“userAccountControl”,4128)
+			$dNewComputer.put(ï¿½sAMAccountNameï¿½,($Name + "$"))
+			$dNewComputer.put(ï¿½userAccountControlï¿½,4128)
 			# Disable the Computer Object if required
 			if ($Disabled) { $dNewComputer.InvokeSet("AccountDisabled", $true) }
 			$dNewComputer.setInfo()
@@ -2003,9 +2003,9 @@ Function AddDomainComputerToComputerObject()                                    
 		[string]$Add       # Domain Computer Object to be added
 	)
 	if ($OU) {
-		$ComputerOU  = (([ADSI]“LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}else{
-		$ComputerOU  = (([ADSI]“LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}
 	if (!([string]::IsNullOrEmpty($ComputerOU))) { # Check of the Organisational Unit exists
 		if ([adsi]::Exists("LDAP://CN=$Computer,$ComputerOU")) { # Check if the Computer Object exists
@@ -2035,9 +2035,9 @@ Function CheckDomainComputerObject()                                            
 		[string]$OU       # Organisational Unit in Active Directory where to check the Computer Object
 	)
 	if ($OU) {
-		$ComputerOU  = (([ADSI]“LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://OU=$OU,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}else{
-		$ComputerOU  = (([ADSI]“LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)“).distinguishedName)
+		$ComputerOU  = (([ADSI]ï¿½LDAP://CN=Computers,$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)ï¿½).distinguishedName)
 	}
 	if ([adsi]::Exists("LDAP://CN=$Name,$ComputerOU") ) { # Check if the Computer Object exists
 		return $true
@@ -2857,9 +2857,9 @@ Function AddWebServerToDomainIISacco()  # Add the FCPServer-ComputerName account
 
 
 ####################################################################################################################################################################################
-Function InstallDisablePasswdComplex()  # Disable Password Complexity Policy – Local Security Policy
+Function InstallDisablePasswdComplex()  # Disable Password Complexity Policy ï¿½ Local Security Policy
 {
-	Write-Host "`tDisabling Password Complexity Policy – Local Security Policy" -ForegroundColor Cyan
+	Write-Host "`tDisabling Password Complexity Policy ï¿½ Local Security Policy" -ForegroundColor Cyan
 	(secedit /export /cfg c:\secpol.cfg) | Out-Null;
 	((gc C:\secpol.cfg).replace("PasswordComplexity = 1", "PasswordComplexity = 0") | Out-File C:\secpol.cfg) | Out-Null;
 	(secedit /configure /db c:\windows\security\local.sdb /cfg c:\secpol.cfg /areas SECURITYPOLICY) | Out-Null;
@@ -2925,7 +2925,7 @@ Function AddRDSserversToServerManager()                     # Function to add al
 			# Get a list of all servers in the specified Organisational Unit
 			$ServerList = (Get-ADComputer -LDAPFilter "(name=*)" -SearchBase "OU=$(SplitStringReverseJoin -String $OU -Split '\\' -Join ",OU="),$(([ADSI]"LDAP://RootDSE").rootDomainNamingContext)").Name
 			# Close the Server Manager if it is running on this machine
-			get-process ServerManager  -ErrorAction SilentlyContinue | stop-process –force
+			get-process ServerManager  -ErrorAction SilentlyContinue | stop-process ï¿½force
 			if (!(Test-Path "$env:APPDATA\Microsoft\Windows\ServerManager\ServerList.xml")) {
 				if (!(Test-Path "$env:APPDATA\Microsoft\Windows\ServerManager\")) {
 					(md -Path "$env:APPDATA\Microsoft\Windows\ServerManager\" -Force) | Out-Null
@@ -2939,7 +2939,7 @@ Function AddRDSserversToServerManager()                     # Function to add al
 			}
 			# Get a list of all the servers in the specified Organisational Unit
 			$file = get-item "$env:APPDATA\Microsoft\Windows\ServerManager\ServerList.xml"
-			copy-item –path $file –destination $file-backup –force
+			copy-item ï¿½path $file ï¿½destination $file-backup ï¿½force
 			$xml = [xml] (get-content $file )
 			foreach ($Server in $ServerList) {
 				if ($xml.ServerList.ServerInfo.name -notcontains "$([System.Net.Dns]::GetHostByName(($Server)).HostName)") {
@@ -3152,7 +3152,7 @@ Function InstallRDSconnectionBroker()                       # Function to instal
 					Write-Host "`t Starting the installation of the Remote Desktop Connection Broker" -ForegroundColor Green
 					Write-Host "`t The `"RD Session Host`" will reboot automatically once the roles have been installed" -ForegroundColor Yellow
 					Write-Host "`t If not please reboot the server once this one has rebooted" -ForegroundColor Yellow
-					(New-SessionDeployment –ConnectionBroker "$(($dRDSconnBrokerServer).ToLower())" –WebAccessServer "$(($dRDwebAccessServer).ToLower())" –SessionHost "$(($dRDSessionHostServer).ToUpper())") | Out-Null
+					(New-SessionDeployment ï¿½ConnectionBroker "$(($dRDSconnBrokerServer).ToLower())" ï¿½WebAccessServer "$(($dRDwebAccessServer).ToLower())" ï¿½SessionHost "$(($dRDSessionHostServer).ToUpper())") | Out-Null
 
 					# If this server is not a RD Session Host server we can ask if it needs to be an RD Gateway server
 					if ($dRDSessionHostServer -ne $dFQDNthisMachine) {
@@ -3761,7 +3761,7 @@ Function InstallMariaDB_MySQL($dMariaMySQLpasswd)       # Function to install th
 		# Add the firewall rule to open Port 3306 for inbound management of the MySQL Server 5.1 only if it doesn't exist
 		if ( !(Get-NetFirewallRule | where DisplayName -EQ "MySQL Server - Port 3306") ) {
 			Write-Host "`tOpening port 3306 for the MySQL Database Server on the Firewall" -ForegroundColor Cyan
-			(New-NetFirewallRule -DisplayName "MySQL Server - Port 3306" -Direction Inbound –LocalPort 3306 -Protocol TCP -Action Allow) | Out-Null
+			(New-NetFirewallRule -DisplayName "MySQL Server - Port 3306" -Direction Inbound ï¿½LocalPort 3306 -Protocol TCP -Action Allow) | Out-Null
 		}
 		cd "\"
 	}
@@ -4123,8 +4123,8 @@ exit
 	# Register the SQL PowerShell Modules
 	start-Sleep -Seconds 25
 	(set-alias installutil $env:windir\microsoft.net\framework\v2.0.50727\installutil) | Out-Null
-	(installutil -i “C:\Program Files (x86)\Microsoft SQL Server\120\Tools\PowerShell\Modules\SQLPS\Microsoft.SqlServer.Management.PSProvider.dll”) | Out-Null
-	(installutil -i “C:\Program Files (x86)\Microsoft SQL Server\120\Tools\PowerShell\Modules\SQLPS\Microsoft.SqlServer.Management.PSSnapins.dll”) | Out-Null
+	(installutil -i ï¿½C:\Program Files (x86)\Microsoft SQL Server\120\Tools\PowerShell\Modules\SQLPS\Microsoft.SqlServer.Management.PSProvider.dllï¿½) | Out-Null
+	(installutil -i ï¿½C:\Program Files (x86)\Microsoft SQL Server\120\Tools\PowerShell\Modules\SQLPS\Microsoft.SqlServer.Management.PSSnapins.dllï¿½) | Out-Null
 	# Open the SQL PowerShell Enviroment and run the above command
 	cd "C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn"
 	invoke-expression "cmd /c start sqlps -Command {$dEnableSQLports}"
@@ -4149,14 +4149,14 @@ Function InstallFirewall_MSSQL()                        # Function to install th
 	}
 	# Add the firewall rule to open Port 1433 for inbound management of the Microsoft SQL Server only if it doesn't exist
 	if ( !(Get-NetFirewallRule | where DisplayName -EQ "Microsoft SQL Server - TCP Port 1433") ) {
-		(New-NetFirewallRule -DisplayName "Microsoft SQL Server - TCP Port 1433" -Direction Inbound –LocalPort "1433-1434" -Protocol TCP -Action Allow) | Out-Null
+		(New-NetFirewallRule -DisplayName "Microsoft SQL Server - TCP Port 1433" -Direction Inbound ï¿½LocalPort "1433-1434" -Protocol TCP -Action Allow) | Out-Null
 		Write-Host "`t The SQL Server TCP Port `"1433`" Firewall rule has been added successfully" -ForegroundColor Green
 	}else{
 		(Set-NetFirewallRule -DisplayName "Microsoft SQL Server - TCP Port 1433" -Direction Inbound -LocalPort "1433-1434" -Protocol TCP -Action Allow) | Out-Null
 		Write-Host "`t The SQL Server TCP Port `"1433`" Firewall rule has been modified successfully" -ForegroundColor Green
 	}
 	if ( !(Get-NetFirewallRule | where DisplayName -EQ "Microsoft SQL Server - UDP Port 1433") ) {
-		(New-NetFirewallRule -DisplayName "Microsoft SQL Server - UDP Port 1433" -Direction Inbound –LocalPort "1433-1434" -Protocol UDP -Action Allow) | Out-Null
+		(New-NetFirewallRule -DisplayName "Microsoft SQL Server - UDP Port 1433" -Direction Inbound ï¿½LocalPort "1433-1434" -Protocol UDP -Action Allow) | Out-Null
 		Write-Host "`t The SQL Server UDP Port `"1433`" Firewall rule has been added successfully" -ForegroundColor Green
 	}else{
 		(Set-NetFirewallRule -DisplayName "Microsoft SQL Server - UDP Port 1433" -Direction Inbound -LocalPort "1433-1434" -Protocol UDP -Action Allow) | Out-Null
@@ -4350,7 +4350,7 @@ Function InstallPhpMyAdmin()                            # Function to install ph
 		# Add the firewall rule to open the Port for phpMyAdmin only if it doesn't exist
 		if ( !(Get-NetFirewallRule | where DisplayName -EQ "FuseCP phpMyAdmin - Port $dPhpMyAdminPort") ) {
 			Write-Host "`tOpening port $dPhpMyAdminPort for phpMyAdmin on the Firewall" -ForegroundColor Cyan
-			(New-NetFirewallRule -DisplayName "FuseCP phpMyAdmin - Port $dPhpMyAdminPort" -Direction Inbound –LocalPort $dPhpMyAdminPort -Protocol TCP -Action Allow) | Out-Null
+			(New-NetFirewallRule -DisplayName "FuseCP phpMyAdmin - Port $dPhpMyAdminPort" -Direction Inbound ï¿½LocalPort $dPhpMyAdminPort -Protocol TCP -Action Allow) | Out-Null
 			Write-Host "`t Firewall rule added successfully" -ForegroundColor Green
 		}
 	}
@@ -4508,9 +4508,9 @@ Function CreateExchangeContentSubmittersGroup()                                 
 			do { $dCheckContentSubmitters = (([ADSI]("WinNT://$env:USERDNSDOMAIN/ContentSubmitters")).Path) } until ($dCheckContentSubmitters -ne $null)
 			start-sleep -Seconds "25"
 			Write-Host "`t Adding `"Network Service`" to the `"ContentSubmitters`" Security Group" -ForegroundColor Green
-			(Add-ADPermission -ID "ContentSubmitters" -User “Network Service” -AccessRights "GenericAll") | Out-Null
+			(Add-ADPermission -ID "ContentSubmitters" -User ï¿½Network Serviceï¿½ -AccessRights "GenericAll") | Out-Null
 			Write-Host "`t Adding `"Administrators`" to the `"ContentSubmitters`" Security Group" -ForegroundColor Green
-			(Add-ADPermission -Identity "ContentSubmitters" -User “Administrators” -AccessRights "GenericAll") | Out-Null
+			(Add-ADPermission -Identity "ContentSubmitters" -User ï¿½Administratorsï¿½ -AccessRights "GenericAll") | Out-Null
 		}
 	}
 }
@@ -4638,7 +4638,7 @@ Function CreateNewDAG()                                     # Function for creat
 					# Create a new IPv6 Cluster IP Resource
 					(Add-ClusterResource -Name "IPv6 Cluster Address" -ResourceType "IPv6 Address" -Group "Cluster Group") | Out-Null
 					# Set the properties for the newly created IP Address resource
-					(Get-ClusterResource "IPv6 Cluster Address" | Set-ClusterParameter –Multiple @{“Network"="Cluster Network 1"; "Address"= "$DAGipv6";"PrefixLength"="$(((Get-NetIPAddress –AddressFamily IPv6 | Select-Object PrefixLength,IPAddress) -match "$((Resolve-DnsName -Name $env:COMPUTERNAME -Type AAAA).IPAddress -notlike 'fe80:*')").PrefixLength)"}) | Out-Null
+					(Get-ClusterResource "IPv6 Cluster Address" | Set-ClusterParameter ï¿½Multiple @{ï¿½Network"="Cluster Network 1"; "Address"= "$DAGipv6";"PrefixLength"="$(((Get-NetIPAddress ï¿½AddressFamily IPv6 | Select-Object PrefixLength,IPAddress) -match "$((Resolve-DnsName -Name $env:COMPUTERNAME -Type AAAA).IPAddress -notlike 'fe80:*')").PrefixLength)"}) | Out-Null
 					(Stop-ClusterResource "Cluster Name") | Out-Null
 					(Set-ClusterResourceDependency "Cluster Name" "[Ipv6 Cluster Address] or [Cluster IP Address]") | Out-Null
 					(Start-ClusterResource "Cluster Name") | Out-Null
@@ -4691,7 +4691,7 @@ Function CreateNewExchangeFailoverCluster()                 # Function for creat
 				# Create a new IPv6 Failover Cluster IP Resource
 				(Add-ClusterResource -Name "IPv6 Cluster Address" -ResourceType "IPv6 Address" -Group "Cluster Group") | Out-Null
 				# Set the properties for the newly created IP Address resource
-				(Get-ClusterResource "IPv6 Cluster Address" | Set-ClusterParameter –Multiple @{“Network"="Cluster Network 1"; "Address"= "$Clusteripv6";"PrefixLength"="$(((Get-NetIPAddress –AddressFamily IPv6 | Select-Object PrefixLength,IPAddress) -match "$((Resolve-DnsName -Name $env:COMPUTERNAME -Type AAAA).IPAddress -notlike 'fe80:*')").PrefixLength)"}) | Out-Null
+				(Get-ClusterResource "IPv6 Cluster Address" | Set-ClusterParameter ï¿½Multiple @{ï¿½Network"="Cluster Network 1"; "Address"= "$Clusteripv6";"PrefixLength"="$(((Get-NetIPAddress ï¿½AddressFamily IPv6 | Select-Object PrefixLength,IPAddress) -match "$((Resolve-DnsName -Name $env:COMPUTERNAME -Type AAAA).IPAddress -notlike 'fe80:*')").PrefixLength)"}) | Out-Null
 				(Stop-ClusterResource "Cluster Name") | Out-Null
 				(Set-ClusterResourceDependency "Cluster Name" "[Ipv6 Cluster Address] or [Cluster IP Address]") | Out-Null
 				if (Get-OSName -Check "2016") { (Get-ClusterResource | Where {$_.ResourceType -eq "IPv6 Address"} | Where {$_.Name -ne "IPv6 Cluster Address"} | Remove-ClusterResource -Force) | Out-Null }
@@ -5142,7 +5142,7 @@ Function Exchange2016_PostCheck()  # Function to check Exchange 2016 Installatio
 					$orgName.SetInfo()
 				}
 				# Create the Default Public Folder Database for Primary Hierarchy
-				(New-Mailbox -Name "$dPublicFolderDatabase" –PublicFolder) | Out-Null
+				(New-Mailbox -Name "$dPublicFolderDatabase" ï¿½PublicFolder) | Out-Null
 			} else {
 				write-host "`n`t You MUST install a Public Folder Database for FuseCP to function correctly" -ForegroundColor Yellow
 			}
@@ -5232,16 +5232,16 @@ Function Exchange2016_Set_SSLredir()           # Function to configure the SSL R
 		Import-Module WebAdministration
 		# Set the SSL settings for the Default Website and Virtual Directories
 		Write-Host "`t Configuring SSL Settings for Microsoft Exchange on this server" -ForegroundColor Green
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site’ -name “sslFlags” -value “$null”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/Autodiscover’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/ecp’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/EWS’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/mapi’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/Microsoft-Server-ActiveSync’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/OAB’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/owa’ -name “sslFlags” -value “Ssl,Ssl128”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/PowerShell’ -name “sslFlags” -value “SslNegotiateCert”
-		Set-WebConfigurationProperty -pspath ‘MACHINE/WEBROOT/APPHOST’ -filter “system.webServer/security/access” -location ‘Default Web Site/Rpc’ -name “sslFlags” -value “Ssl,Ssl128”
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Siteï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½$nullï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/Autodiscoverï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/ecpï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/EWSï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/mapiï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/Microsoft-Server-ActiveSyncï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/OABï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/owaï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/PowerShellï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½SslNegotiateCertï¿½
+		Set-WebConfigurationProperty -pspath ï¿½MACHINE/WEBROOT/APPHOSTï¿½ -filter ï¿½system.webServer/security/accessï¿½ -location ï¿½Default Web Site/Rpcï¿½ -name ï¿½sslFlagsï¿½ -value ï¿½Ssl,Ssl128ï¿½
 		# Set the HTTP Redirect on the Default Website and remove it on all Virtual Directories
 		Write-Host "`t Configuring HTTP to HTTPS Redirection for Microsoft Exchange on this server" -ForegroundColor Green
 		Set-WebConfiguration -Filter "system.webServer/httpRedirect" "IIS:\sites\Default Web Site" -Value @{enabled="true";destination="https://$dOutlookAnywhFQDN/owa";exactDestination="false";childOnly="true";httpResponseStatus="Found"}
@@ -5446,12 +5446,12 @@ Function Exchange2016_UpgradeCheck()  # Function to check Exchange 2016 Installa
 		# Enable Automatic Forwards
 		if ((Get-RemoteDomain Default).AutoForwardEnabled -eq $false) {
 			Write-Host "`t Enabling Auto Forwards on the Exchange Server" -ForegroundColor Green
-			Set-RemoteDomain Default –AutoForwardEnabled $true
+			Set-RemoteDomain Default ï¿½AutoForwardEnabled $true
 		}
 		# Enable OOF for Outlook 2003 and previous (for Exchange 2007 and 2010 support)
 		if ((Get-RemoteDomain Default).AllowedOOFType -eq "External") {
 			Write-Host "`t Enabling Legacy Out Of Office Types on the Exchange Server" -ForegroundColor Green
-			Set-RemoteDomain Default –AllowedOOFType "ExternalLegacy"
+			Set-RemoteDomain Default ï¿½AllowedOOFType "ExternalLegacy"
 		}
 		# Enable Meeting Forward Notifications
 		if ((Get-RemoteDomain Default).MeetingForwardNotificationEnabled -eq $false) {
@@ -6475,9 +6475,6 @@ Function InstallFuseCPcomponent()  # Function to install the required FuseCP Com
 				}else{ # If the server is not joined to a domain then install the FuseCP Enterprise Server component normally
 					(Start-Process -FilePath "C:\Program Files (x86)\FuseCP Installer\FuseCP.SilentInstaller.exe" -Argumentlist "/cname:`"Enterprise Server`" /passw:`"$dFuseCPportalPassword`" /webip:`"*`" /webport:`"9002`"" -Wait -Passthru).ExitCode | Out-Null
 				}
-				# Set the correct values in the "bin\FuseCP.SchedulerService.exe.config" file so they match the ones in the "web.config" file for the Connection String and the CryptoKey
-				ModifyXML "C:\FuseCP\Enterprise Server\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString" (ModifyXML "C:\FuseCP\Enterprise Server\web.config" "Get" "//configuration/connectionStrings/add[@name='EnterpriseServer']/@connectionString")
-				ModifyXML "C:\FuseCP\Enterprise Server\bin\FuseCP.SchedulerService.exe.config" "Update" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value"                  (ModifyXML "C:\FuseCP\Enterprise Server\web.config" "Get" "//configuration/appSettings/add[@key='FuseCP.CryptoKey']/@value")
 				# Set the Machine Key in IIS for the FuseCP Enterprise Server Component
 				GenerateIISMachineKey "C:\FuseCP\Enterprise Server\web.config"
 				# Make the required changes ONLY if the FuseCP Enterprise Server site exists
@@ -6593,7 +6590,7 @@ Function InstallFuseCPcomponent()  # Function to install the required FuseCP Com
 						Write-Host "`t Firewall rule modified successfully" -ForegroundColor Green
 					}else {
 						Write-Host "`t Opening port 9003 for FuseCP Server on the Firewall" -ForegroundColor Green
-						(New-NetFirewallRule -DisplayName "FuseCP Server" -Direction Inbound –LocalPort "9003" -Protocol TCP -Action Allow -RemoteAddress $dFuseCPServerPort9003ips -WarningAction SilentlyContinue) | Out-Null
+						(New-NetFirewallRule -DisplayName "FuseCP Server" -Direction Inbound ï¿½LocalPort "9003" -Protocol TCP -Action Allow -RemoteAddress $dFuseCPServerPort9003ips -WarningAction SilentlyContinue) | Out-Null
 						Write-Host "`t Firewall rule added successfully" -ForegroundColor Green
 					}
 				}
