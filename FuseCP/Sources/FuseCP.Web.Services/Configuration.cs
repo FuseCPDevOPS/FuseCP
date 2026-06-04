@@ -78,6 +78,18 @@ public class Configuration
 	public static bool? EncryptionEnabled = null;
 	public static string ExposeWebServices = null;
 	public static bool IsPortal = false;
+	public static bool SchedulerEnabled = false;
+	public static int SchedulerGlobalMaxConcurrentExecutions = 256;
+	public static int SchedulerMaxConcurrentExecutions = 8;
+	public static bool SchedulerAutoTuneEnabled = false;
+	public static int SchedulerMinConcurrentExecutions = 4;
+	public static int SchedulerMaxAutoConcurrentExecutions = 32;
+	public static int SchedulerAutoScaleUpCpuThresholdPercent = 55;
+	public static int SchedulerAutoScaleDownCpuThresholdPercent = 85;
+	public static int SchedulerAutoScaleDownMemoryThresholdPercent = 90;
+	public static int SchedulerDefaultTaskWeight = 1;
+	public static int SchedulerMediumTaskWeight = 2;
+	public static int SchedulerHeavyTaskWeight = 3;
 	public static TimeSpan IdleShutdownTime = default;
 	public static void Log(string msg)
 	{
@@ -153,6 +165,64 @@ public class Configuration
 		CryptoKey = configuration.GetValue<string>("EnterpriseServer:CryptoKey");
 		AltCryptoKey = configuration.GetValue<string>("EnterpriseServer:AltCryptoKey");
 		EncryptionEnabled = configuration.GetValue<bool?>("EnterpriseServer:EncryptionEnabled");
+		SchedulerEnabled =
+			configuration.GetValue<bool?>("Scheduler:Enabled") ??
+			configuration.GetValue<bool?>("EnterpriseServer:RunScheduler") ??
+			(string.Equals(Environment.GetEnvironmentVariable("FUSECP_RUN_SCHEDULER"), "true", StringComparison.OrdinalIgnoreCase) ||
+			 string.Equals(Environment.GetEnvironmentVariable("FUSECP_RUN_SCHEDULER"), "1", StringComparison.OrdinalIgnoreCase));
+		SchedulerMaxConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:MaxConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerMaxConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_MAX_CONCURRENCY"), out int schedulerMaxConcurrency)
+				? schedulerMaxConcurrency
+				: 8);
+		SchedulerGlobalMaxConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:GlobalMaxConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerGlobalMaxConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_GLOBAL_MAX_CONCURRENCY"), out int schedulerGlobalMaxConcurrency)
+				? schedulerGlobalMaxConcurrency
+				: 256);
+		SchedulerAutoTuneEnabled =
+			configuration.GetValue<bool?>("Scheduler:AutoTuneEnabled") ??
+			configuration.GetValue<bool?>("EnterpriseServer:SchedulerAutoTuneEnabled") ??
+			(string.Equals(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_AUTOTUNE"), "true", StringComparison.OrdinalIgnoreCase) ||
+			 string.Equals(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_AUTOTUNE"), "1", StringComparison.OrdinalIgnoreCase));
+		SchedulerMinConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:MinConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerMinConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_MIN_CONCURRENCY"), out int schedulerMinConcurrency)
+				? schedulerMinConcurrency
+				: 4);
+		SchedulerMaxAutoConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:MaxAutoConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerMaxAutoConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_MAX_AUTO_CONCURRENCY"), out int schedulerMaxAutoConcurrency)
+				? schedulerMaxAutoConcurrency
+				: 32);
+		SchedulerAutoScaleUpCpuThresholdPercent =
+			configuration.GetValue<int?>("Scheduler:AutoScaleUpCpuThresholdPercent") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerAutoScaleUpCpuThresholdPercent") ??
+			55;
+		SchedulerAutoScaleDownCpuThresholdPercent =
+			configuration.GetValue<int?>("Scheduler:AutoScaleDownCpuThresholdPercent") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerAutoScaleDownCpuThresholdPercent") ??
+			85;
+		SchedulerAutoScaleDownMemoryThresholdPercent =
+			configuration.GetValue<int?>("Scheduler:AutoScaleDownMemoryThresholdPercent") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerAutoScaleDownMemoryThresholdPercent") ??
+			90;
+		SchedulerDefaultTaskWeight =
+			configuration.GetValue<int?>("Scheduler:DefaultTaskWeight") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerDefaultTaskWeight") ??
+			1;
+		SchedulerMediumTaskWeight =
+			configuration.GetValue<int?>("Scheduler:MediumTaskWeight") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerMediumTaskWeight") ??
+			2;
+		SchedulerHeavyTaskWeight =
+			configuration.GetValue<int?>("Scheduler:HeavyTaskWeight") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerHeavyTaskWeight") ??
+			3;
 		IsLocalService = AllowedHosts.Split(';')
 			.All(host => host != "*" && DnsService.IsHostLAN(host)); // local network ip
 		IdleShutdownTime = configuration.GetValue<TimeSpan?>("IdleShutdownTime") ?? default;
