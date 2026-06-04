@@ -12,7 +12,6 @@ FuseCP is a complete, open-source control panel for Cloud Computing Companies an
 ---
 
 ## What can FuseCP manage?
-
 | Category | Services |
 | -------- | -------- |
 | **Web hosting** | IIS 10, FTP |
@@ -28,7 +27,6 @@ FuseCP uses a multi-tenant model, meaning one installation can serve multiple re
 ---
 
 ## Installing FuseCP
-
 Download the latest release installer from [www.fusecp.com](https://www.fusecp.com) or the [Releases](../../releases) page.
 
 The installer sets up three components on your Windows Server:
@@ -48,7 +46,6 @@ All three can run on the same machine for small deployments, or be split across 
 * **.NET**: .NET Framework 4.8 (current release) — .NET 10 support in progress
 
 ---
-
 ## Getting started
 
 After installation, open the FuseCP Portal URL in a browser. Log in with the administrator account created during setup.
@@ -61,6 +58,26 @@ From the portal you can:
 4. **Provision services** — assign web, mail, database, and other services to customer packages
 
 Full administration documentation is available at [www.fusecp.com](https://www.fusecp.com).
+
+---
+
+## Production server authentication recovery
+
+If a managed host starts returning `Invalid server request authentication`, the Enterprise database credential and the server host password are out of sync. In production, fix the server host first, then reconcile the Enterprise-side record.
+
+1. Update the managed server's `appsettings.json` or `appsettings.hardened.json` so the `Server:Password` value matches the real server secret.
+2. Recycle the server's IIS application pool or restart the service so the new password is loaded.
+3. Run the recovery tool from a machine that can reach the Enterprise database:
+
+   ```powershell
+   [pwsh|powershell] -File FuseCP/Tools/Recover-ServerCredential.ps1 `
+     -ServerName "EX1.fusecp-dev01.local" `
+     -Password "<server password>" `
+     -Mode sha256 `
+     -ConfigPath "FuseCP/Sources/FuseCP.WebPortal/Web.config"
+   ```
+
+   Use `-DryRun` first if you want to confirm the target server and connection string before writing changes. If the server stores a legacy plain password, use `-Mode sha1`; if it stores a SHA256-based secret, use `-Mode sha256`.
 
 ---
 

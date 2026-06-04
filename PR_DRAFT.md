@@ -193,6 +193,25 @@
 2. Exercise file-transfer and portal path resolution paths with normal and traversal-style inputs.
 3. Exercise scheduler tasks and user preload flow for expected iteration behavior.
 
+### Commit: pending
+**Message**: docs: add production server authentication recovery note
+
+**Scope**: 1 file modified to document how to recover FuseCP server authentication in production after a host-side password change
+
+#### Files Modified
+- `README.md` — added a production recovery section covering the server-host password sync, service recycle, and `Recover-ServerCredential.ps1` workflow
+
+#### Validation Summary
+- **Solution Sync Check**: ✅ `FuseCP/Tools/check-sln-scope-sync.ps1` passed
+
+#### Risk Assessment
+- ✅ **Low Risk**: documentation-only update
+- ✅ **Backward Compatible**: no code, schema, or runtime behavior changes
+
+#### Testing Guidance
+1. Follow the documented recovery flow in a production-like environment after a host password change.
+2. Confirm the server-side password, Enterprise credential, and `PasswordIsSHA256` mode are aligned before using the Portal.
+
 ---
 
 ### Commit: 09026538e
