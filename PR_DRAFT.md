@@ -2,6 +2,41 @@
 
 ## Commits Included
 
+### Commit: 002df5316
+**Message**: feat: add scheduler runtime coordination
+
+**Scope**: 13 files modified with scheduler queueing, lease coordination, adaptive tuning, and startup/runtime wiring
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/ScheduleWorker.cs` — added explicit scheduler loop error logging so worker failures are visible
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/Scheduler.cs` — added stale-task recovery, queue-aware scheduling, lease ownership, and safer task startup/finish logging
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerController.cs` — added queue/concurrency controls and schedule lease acquire/release/renew operations
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerJob.cs` — added lease-aware execution, queue-aware cancellation checks, and safer fallback handling
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerAdaptiveTuner.cs` — added adaptive concurrency tuning based on process CPU and memory sampling
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerExecutionQueue.cs` — added in-memory execution queue and per-affinity/global concurrency gating
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerLeaseHeartbeat.cs` — added lease renewal heartbeat around long-running scheduler execution
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerLeaseState.cs` — added serialized lease state tracking and parsing helpers
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerRuntime.cs` — added lease owner and lease duration helpers
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Scheduling/SchedulerTaskWeightAdvisor.cs` — added execution-duration-based task weight recommendations
+- `FuseCP/Sources/FuseCP.EnterpriseServer/Web.config` — adjusted scheduler/runtime hosting configuration
+- `FuseCP/Sources/FuseCP.EnterpriseServer/appsettings.json` — updated scheduler/runtime settings for the hosted server
+- `FuseCP/Sources/FuseCP.Web.Services/Startup.Core.cs` — propagated runtime connection-string environment values needed by the scheduler/runtime path
+
+#### Validation Summary
+- **Focused Build**: ✅ `dotnet build FuseCP/Sources/FuseCP.EnterpriseServer/FuseCP.EnterpriseServer.csproj -c Debug` succeeded after releasing the IIS worker lock
+- **IIS Smoke Test**: ✅ EnterpriseServer site started on port 9002 with a live worker process and no recursion crash
+- **Editor Diagnostics**: ✅ clean in touched scheduler/runtime files
+
+#### Risk Assessment
+- ✅ **Moderate Risk**: broader scheduling/runtime behavior change, but contained to the EnterpriseServer scheduler path
+- ✅ **Backward Compatible**: the lease and queue coordination are internal to runtime scheduling behavior
+- ⚠️ **Primary Risk Areas**: scheduler timing, lease renewal, and queue gating under concurrent load
+
+#### Testing Guidance
+1. Force due schedules and confirm running tasks, audit rows, and lease renewal remain stable under IIS.
+2. Watch for stale-task recovery warnings and verify they do not trigger on normal short executions.
+3. Exercise scheduler load under concurrent tasks to confirm the queue and adaptive tuner behave as intended.
+
 ### Commit: e736c2a4a
 **Message**: Clean up noisy DNS provider info logging
 
