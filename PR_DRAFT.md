@@ -2,6 +2,26 @@
 
 ## Commits Included
 
+### Commit: e950b3119
+**Message**: feat: wire scheduler config defaults
+
+**Scope**: 1 file modified to surface scheduler defaults and environment/config fallbacks in the Web.Services configuration layer
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.Web.Services/Configuration.cs` — added scheduler enablement, concurrency, autotune, and task-weight configuration defaults plus environment-variable fallbacks
+
+#### Validation Summary
+- **Focused Diagnostics**: ✅ `FuseCP/Sources/FuseCP.Web.Services/Configuration.cs` has no editor diagnostics
+- **Functional Context**: ✅ file aligns with the scheduler runtime coordination commit and its config wiring
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: configuration-only change; no schema or contract changes
+- ✅ **Backward Compatible**: preserves existing defaults while adding scheduler-specific fallbacks
+
+#### Testing Guidance
+1. Verify scheduler settings resolve from appsettings and environment variables as expected.
+2. Confirm scheduler runtime picks up the configured concurrency and autotune values under IIS.
+
 ### Commit: 002df5316
 **Message**: feat: add scheduler runtime coordination
 
