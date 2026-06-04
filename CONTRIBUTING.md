@@ -127,14 +127,14 @@ Run the narrowest command set that matches your change:
 
 Fast path (single command):
 
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal,Enterprise`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Server -IncludeTests`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1` (shared/integration-safe)
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly` (auto scope from changed files)
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -DisableNuGetAudit`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.json`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal,Enterprise`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Server -IncludeTests`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1` (shared/integration-safe)
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly` (auto scope from changed files)
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -DisableNuGetAudit`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.json`
 
 Preferred integration-safe path (ordered dependencies):
 
@@ -164,7 +164,7 @@ and packaging dependencies).
 
 If your change requires legacy `.vdproj` MSI output, verify that specifically:
 
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Package -RequireLegacyMsi`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Package -RequireLegacyMsi`
 
 ## Pull Request Expectations
 
@@ -172,3 +172,4 @@ If your change requires legacy `.vdproj` MSI output, verify that specifically:
 * Note whether behavior/configuration changed and update docs if needed.
 * Keep backward compatibility unless breaking change is explicitly approved.
 * For dependency/CVE updates, include explicit compatibility evidence for affected TFMs and solution scopes, and update related scripts/docs when requirements or commands change.
+

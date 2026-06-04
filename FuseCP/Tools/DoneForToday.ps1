@@ -4,6 +4,20 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Resolve-PowerShellCommand {
+    $pwshCommand = Get-Command pwsh -ErrorAction SilentlyContinue
+    if ($null -ne $pwshCommand) {
+        return "pwsh"
+    }
+
+    $windowsPowerShellCommand = Get-Command powershell -ErrorAction SilentlyContinue
+    if ($null -ne $windowsPowerShellCommand) {
+        return "powershell"
+    }
+
+    throw "Neither 'pwsh' nor 'powershell' was found in PATH."
+}
+
 function Test-IsAdministrator {
     $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
     $principal = New-Object Security.Principal.WindowsPrincipal($identity)
@@ -30,13 +44,15 @@ function Ensure-ElevatedSession {
     Write-Host "Current shell is not elevated. Requesting Administrator permissions for done-for-today tasks..." -ForegroundColor Yellow
 
     try {
-        $childProcess = Start-Process -FilePath "pwsh" -ArgumentList $args -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_DONE_FOR_TODAY_ELEVATED = "1" }
+        $childProcess = Start-Process -FilePath $script:PowerShellCommand -ArgumentList $args -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_DONE_FOR_TODAY_ELEVATED = "1" }
         exit $childProcess.ExitCode
     }
     catch {
         throw "Unable to start elevated shell. Please approve UAC prompt or run an Administrator shell."
     }
 }
+
+$script:PowerShellCommand = Resolve-PowerShellCommand
 
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 Ensure-ElevatedSession

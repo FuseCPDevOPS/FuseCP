@@ -4,6 +4,20 @@ function Test-IsAdministrator {
 	return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
+function Resolve-PowerShellCommand {
+	$pwshCommand = Get-Command pwsh -ErrorAction SilentlyContinue
+	if ($null -ne $pwshCommand) {
+		return "pwsh"
+	}
+
+	$windowsPowerShellCommand = Get-Command powershell -ErrorAction SilentlyContinue
+	if ($null -ne $windowsPowerShellCommand) {
+		return "powershell"
+	}
+
+	throw "Neither 'pwsh' nor 'powershell' was found in PATH."
+}
+
 function Ensure-ElevatedSession {
 	if (Test-IsAdministrator) {
 		return
@@ -22,13 +36,15 @@ function Ensure-ElevatedSession {
 	Write-Host "Current shell is not elevated. Requesting Administrator permissions to manage IIS websites..." -ForegroundColor Yellow
 
 	try {
-		$childProcess = Start-Process -FilePath "pwsh" -ArgumentList $args -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_START_WEBSITE_ELEVATED = "1" }
+		$childProcess = Start-Process -FilePath $script:PowerShellCommand -ArgumentList $args -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_START_WEBSITE_ELEVATED = "1" }
 		exit $childProcess.ExitCode
 	}
 	catch {
 		throw "Unable to start elevated shell. Please approve UAC prompt or run an Administrator shell."
 	}
 }
+
+$script:PowerShellCommand = Resolve-PowerShellCommand
 
 Ensure-ElevatedSession
 

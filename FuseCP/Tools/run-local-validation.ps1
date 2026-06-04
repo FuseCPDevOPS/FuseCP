@@ -63,6 +63,20 @@ function Normalize-RelativePath {
     return ($Path -replace "\\", "/").ToLowerInvariant()
 }
 
+function Resolve-PowerShellCommand {
+    $pwshCommand = Get-Command pwsh -ErrorAction SilentlyContinue
+    if ($null -ne $pwshCommand) {
+        return "pwsh"
+    }
+
+    $windowsPowerShellCommand = Get-Command powershell -ErrorAction SilentlyContinue
+    if ($null -ne $windowsPowerShellCommand) {
+        return "powershell"
+    }
+
+    throw "Neither 'pwsh' nor 'powershell' was found in PATH."
+}
+
 function Get-ChangedFilesFromGit {
     param(
         [string]$RepoRoot,
@@ -222,6 +236,7 @@ $script:ExecutedArgs = @()
 $scopeExplicitlyProvided = $PSBoundParameters.ContainsKey("Scope")
 $runStart = Get-Date
 $changedFiles = @()
+$powerShellCommand = Resolve-PowerShellCommand
 $defaultScopeMap = Get-DefaultScopeMap
 $configScopeMap = Get-ScopeMapFromConfig -ConfigPath $ScopeMapPath
 $scopeMap = Merge-ScopeMaps -DefaultMap $defaultScopeMap -OverrideMap $configScopeMap
@@ -287,8 +302,8 @@ try {
     if (-not $SkipDatabaseWorkflow) {
         $dbOrchestratorScript = Join-Path $toolsDir "Orchestrate-Database-Workflow.ps1"
         if (Test-Path $dbOrchestratorScript) {
-            Invoke-Step -Name "Database workflow automation" -DisplayCommand "pwsh -NoProfile -File FuseCP/Tools/Orchestrate-Database-Workflow.ps1 -Mode Full" -CommandArgs @("pwsh", "-NoProfile", "-File", $dbOrchestratorScript, "-Mode", "Full") -Action {
-                & pwsh -NoProfile -File $dbOrchestratorScript -Mode Full
+            Invoke-Step -Name "Database workflow automation" -DisplayCommand "$powerShellCommand -NoProfile -File FuseCP/Tools/Orchestrate-Database-Workflow.ps1 -Mode Full" -CommandArgs @($powerShellCommand, "-NoProfile", "-File", $dbOrchestratorScript, "-Mode", "Full") -Action {
+                & $powerShellCommand -NoProfile -File $dbOrchestratorScript -Mode Full
             } -ContinueOnError
         }
     }

@@ -128,7 +128,7 @@ Source code is under `FuseCP/Sources/`. Build and deployment scripts are under `
 | .NET 10 SDK | Required for Core-targeted builds and EF migrations |
 | Visual Studio / MSBuild | Required for full orchestrated builds and `.vdproj` installer projects |
 | Node.js / npm | Required for portal LESS → CSS compilation (`FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/Styles/`) |
-| PowerShell 7+ (`pwsh`) | Required for all tooling scripts |
+| PowerShell (`pwsh` preferred, `powershell` supported) | Required for all tooling scripts |
 | SQL Server Express (local) | Required for integration testing |
 | IIS | Required for portal integration tests |
 | WiX Toolset v3.14 | Required for legacy installer packaging only |
@@ -143,7 +143,7 @@ powershell -File FuseCP/Tools/bootstrap-test-environment.ps1 `
 Check prerequisites only:
 
 ```powershell
-pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Unit
+[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Unit
 ```
 
 ---
@@ -160,7 +160,7 @@ git submodule update --init --recursive
 ### 2. Start of day
 
 ```powershell
-pwsh -File FuseCP/Tools/Start-Of-Day.ps1
+[pwsh|powershell] -File FuseCP/Tools/Start-Of-Day.ps1
 ```
 
 ### 3. Build (debug)
@@ -170,13 +170,13 @@ pwsh -File FuseCP/Tools/Start-Of-Day.ps1
 FuseCP/build-debug.bat
 
 # Or via the scripted validation entrypoint (recommended for CI-like local checks)
-pwsh -File FuseCP/Tools/run-local-validation.ps1
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1
 ```
 
 ### 4. Validate changed files only (fast loop)
 
 ```powershell
-pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges -DisableNuGetAudit
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges -DisableNuGetAudit
 ```
 
 ### 5. Deploy (debug, local)
@@ -190,7 +190,7 @@ FuseCP/deploy-debug.bat
 Run the VS Code task **Done for today** or:
 
 ```powershell
-pwsh -File FuseCP/Tools/Done-For-Today.ps1
+[pwsh|powershell] -File FuseCP/Tools/Done-For-Today.ps1
 ```
 
 ---
@@ -313,19 +313,19 @@ For scaffolding from an existing database or porting raw SQL changes, see the fu
 
 ```powershell
 # Broadest (full build, all scopes)
-pwsh -File FuseCP/Tools/run-local-validation.ps1
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1
 
 # Changed files only
-pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges
 
 # Scoped (Portal, Enterprise, or Server)
-pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal
 
 # After initial restore (skip restore for speed)
-pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Enterprise -NoRestore
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Enterprise -NoRestore
 
 # Machine-readable output for PR tooling
-pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json
+[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json
 ```
 
 > In scoped mode, `Portal` already builds `FuseCP.WebPortalAndEnterpriseServer.sln`; selecting both `Portal` and `Enterprise` does not run a redundant extra build.
@@ -344,3 +344,4 @@ pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath ar
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards |
 | [PROCESS_STREAMLINING.md](PROCESS_STREAMLINING.md) | Tooling and process optimization notes |
 | [CHANGELOG](CHANGELOG) | Release history |
+

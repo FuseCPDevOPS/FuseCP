@@ -6,6 +6,20 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Resolve-PowerShellCommand {
+    $pwshCommand = Get-Command pwsh -ErrorAction SilentlyContinue
+    if ($null -ne $pwshCommand) {
+        return "pwsh"
+    }
+
+    $windowsPowerShellCommand = Get-Command powershell -ErrorAction SilentlyContinue
+    if ($null -ne $windowsPowerShellCommand) {
+        return "powershell"
+    }
+
+    throw "Neither 'pwsh' nor 'powershell' was found in PATH."
+}
+
 function Test-IsAdministrator {
     $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
     $principal = New-Object Security.Principal.WindowsPrincipal($identity)
@@ -39,13 +53,15 @@ function Ensure-ElevatedSession {
     Write-Host "Requesting Administrator permissions for start-of-day tasks..." -ForegroundColor Yellow
 
     try {
-        $childProcess = Start-Process -FilePath "pwsh" -ArgumentList $relaunchArgs -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_START_OF_DAY_ELEVATED = "1" }
+        $childProcess = Start-Process -FilePath $script:PowerShellCommand -ArgumentList $relaunchArgs -Verb RunAs -Wait -PassThru -WorkingDirectory (Get-Location) -Environment @{ FUSECP_START_OF_DAY_ELEVATED = "1" }
         exit $childProcess.ExitCode
     }
     catch {
         throw "Unable to start elevated shell. Please approve UAC prompt or run an Administrator shell."
     }
 }
+
+$script:PowerShellCommand = Resolve-PowerShellCommand
 
 function Get-SqlExpressService {
     return Get-Service -Name "MSSQL`$SQLEXPRESS" -ErrorAction SilentlyContinue
@@ -121,7 +137,7 @@ if (-not $SkipEnvironmentCheck) {
 
 if (-not $SkipEnvironmentCheck) {
     Write-Host "Running environment check (Profile: Full)..." -ForegroundColor Cyan
-    & pwsh -NoProfile -ExecutionPolicy Bypass -File $checkEnvironmentScript -Profile Full
+    & $script:PowerShellCommand -NoProfile -ExecutionPolicy Bypass -File $checkEnvironmentScript -Profile Full
     if ($LASTEXITCODE -ne 0) {
         throw "Environment check failed. Resolve prerequisites before continuing."
     }
@@ -132,7 +148,7 @@ else {
 
 if (-not $SkipSolutionSyncCheck) {
     Write-Host "Running solution sync check..." -ForegroundColor Cyan
-    & pwsh -NoProfile -ExecutionPolicy Bypass -File $checkSolutionSyncScript
+    & $script:PowerShellCommand -NoProfile -ExecutionPolicy Bypass -File $checkSolutionSyncScript
     if ($LASTEXITCODE -ne 0) {
         throw "Solution sync check failed. Align FuseCP.sln with scope solutions before continuing."
     }
@@ -142,14 +158,14 @@ else {
 }
 
 Write-Host "Running database workflow quick check..." -ForegroundColor Cyan
-& pwsh -NoProfile -ExecutionPolicy Bypass -File $databaseWorkflowScript -Mode Quick
+& $script:PowerShellCommand -NoProfile -ExecutionPolicy Bypass -File $databaseWorkflowScript -Mode Quick
 if ($LASTEXITCODE -ne 0) {
     throw "Database workflow quick check failed. Resolve workflow issues before continuing."
 }
 
 if ($StartWebsites) {
     Write-Host "Starting local websites..." -ForegroundColor Cyan
-    & pwsh -NoProfile -ExecutionPolicy Bypass -File $startWebsiteScript
+    & $script:PowerShellCommand -NoProfile -ExecutionPolicy Bypass -File $startWebsiteScript
 }
 
 Write-Host "Start-of-day routine completed." -ForegroundColor Green

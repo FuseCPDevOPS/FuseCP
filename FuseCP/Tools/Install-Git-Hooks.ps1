@@ -56,8 +56,17 @@ echo ""
 echo "Running database workflow verification..."
 echo ""
 
+if command -v pwsh >/dev/null 2>&1; then
+    POWERSHELL_CMD="pwsh"
+elif command -v powershell >/dev/null 2>&1; then
+    POWERSHELL_CMD="powershell"
+else
+    echo "PowerShell was not found (checked: pwsh, powershell)."
+    exit 1
+fi
+
 if [ -f "`$ORCHESTRATOR" ]; then
-    pwsh -NoProfile -File "`$ORCHESTRATOR" -Mode Quick
+    "`$POWERSHELL_CMD" -NoProfile -File "`$ORCHESTRATOR" -Mode Quick
     EXIT_CODE=`$?
     
     if [ `$EXIT_CODE -ne 0 ]; then
@@ -113,5 +122,5 @@ Write-Host "To disable for a specific commit:"
 Write-Host "  git commit --no-verify -m 'message'"
 Write-Host ""
 Write-Host "To uninstall hooks:"
-Write-Host "  pwsh -File FuseCP/Tools/Install-Git-Hooks.ps1 -Uninstall"
+Write-Host "  powershell -File FuseCP/Tools/Install-Git-Hooks.ps1 -Uninstall"
 Write-Host ""

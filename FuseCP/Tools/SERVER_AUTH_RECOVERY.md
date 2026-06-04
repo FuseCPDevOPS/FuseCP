@@ -81,7 +81,7 @@ Those flows update the Server-side configuration. They do not provide a supporte
 Use the emergency CLI wrapper from the repository root:
 
 ```powershell
-pwsh -File FuseCP/Tools/Recover-ServerCredential.ps1 -ServerId 5 -Password "<secret>" -Mode sha256
+[pwsh|powershell] -File FuseCP/Tools/Recover-ServerCredential.ps1 -ServerId 5 -Password "<secret>" -Mode sha256
 ```
 
 Options:

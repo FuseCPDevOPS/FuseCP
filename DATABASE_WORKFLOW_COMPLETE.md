@@ -76,19 +76,19 @@ Single entry point: `FuseCP/Tools/Orchestrate-Database-Workflow.ps1`
 
 ```powershell
 # Quick: Fast pre-commit checks (<1 second)
-pwsh -File Orchestrate-Database-Workflow.ps1 -Mode Quick
+[pwsh|powershell] -File Orchestrate-Database-Workflow.ps1 -Mode Quick
 
 # Full: Complete automation with regeneration (~10 seconds) [DEFAULT]
-pwsh -File Orchestrate-Database-Workflow.ps1 -Mode Full
+[pwsh|powershell] -File Orchestrate-Database-Workflow.ps1 -Mode Full
 
 # Verify: Comprehensive 8-phase audit (~15 seconds)
-pwsh -File Orchestrate-Database-Workflow.ps1 -Mode Verify
+[pwsh|powershell] -File Orchestrate-Database-Workflow.ps1 -Mode Verify
 
 # Fix: Force MySQL artifact regeneration (~5 seconds)
-pwsh -File Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
+[pwsh|powershell] -File Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
 
 # Report: JSON output for CI integration
-pwsh -File Orchestrate-Database-Workflow.ps1 -Mode Report -JsonOutputPath report.json
+[pwsh|powershell] -File Orchestrate-Database-Workflow.ps1 -Mode Report -JsonOutputPath report.json
 ```
 
 ### What Gets Checked
@@ -254,25 +254,25 @@ sqlcmd -S (server) -U user -P pass -i FuseCP\Database\install.sqlserver.sql
 
 **Quick check** (pre-commit style):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Quick
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Quick
 ```
 Output: <1 second, 3 quick tests
 
 **Full verification** (what CI runs):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Full
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Full
 ```
 Output: ~10 seconds, all checks + auto-regen MySQL
 
 **Comprehensive audit** (detailed debugging):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Verify
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Verify
 ```
 Output: ~15 seconds, 8-phase detailed verification
 
 **JSON report** (for CI integration):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Report -JsonOutputPath report.json
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Report -JsonOutputPath report.json
 ```
 Output: Structured data for downstream processing
 
@@ -286,7 +286,7 @@ Automatic: ✅ `run-local-validation.ps1` regenerates before every build
 
 Manual (if needed):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
 ```
 
 **This**:
@@ -318,7 +318,7 @@ cd FuseCP\Sources\FuseCP.EnterpriseServer.Data
 .\MigrationAdd.bat
 
 # 4. Re-run verification
-pwsh -File ..\..\..\Tools\Orchestrate-Database-Workflow.ps1 -Mode Quick
+[pwsh|powershell] -File ..\..\..\Tools\Orchestrate-Database-Workflow.ps1 -Mode Quick
 ```
 
 ---
@@ -369,7 +369,7 @@ dir Migrations\Sqlite\v2.0.0\
 
 **Fix** (manual):
 ```powershell
-pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
+[pwsh|powershell] -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
 ```
 
 ---
@@ -396,7 +396,7 @@ pwsh -File FuseCP\Tools\Orchestrate-Database-Workflow.ps1 -Mode Fix -Force
 ```yaml
 - name: Automated Database Verification
   run: |
-    pwsh -NoProfile -File .\FuseCP\Tools\Orchestrate-Database-Workflow.ps1 `
+    [pwsh|powershell] -NoProfile -File .\FuseCP\Tools\Orchestrate-Database-Workflow.ps1 `
       -Mode Full `
       -BlockBuildOnFailure `
       -JsonOutputPath db-workflow-report.json
@@ -431,7 +431,7 @@ Invoke-Step "Database workflow automation" {
 
 **Setup**:
 ```powershell
-pwsh -File FuseCP\Tools\Install-Git-Hooks.ps1
+[pwsh|powershell] -File FuseCP\Tools\Install-Git-Hooks.ps1
 ```
 
 **Behavior**:
@@ -442,7 +442,7 @@ pwsh -File FuseCP\Tools\Install-Git-Hooks.ps1
 
 **Uninstall**:
 ```powershell
-pwsh -File FuseCP\Tools\Install-Git-Hooks.ps1 -Uninstall
+[pwsh|powershell] -File FuseCP\Tools\Install-Git-Hooks.ps1 -Uninstall
 ```
 
 ---
@@ -532,3 +532,4 @@ FuseCP/Database/
 ✅ **Self-Healing**: MySQL regenerates automatically when needed  
 ✅ **Developer Friendly**: Clear error messages with resolution steps  
 ✅ **Consolidated**: Single entry point, unified documentation
+

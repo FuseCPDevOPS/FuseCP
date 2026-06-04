@@ -6,7 +6,7 @@ reliably.
 ## 1) Baseline Requirements
 
 * Windows development environment
-* PowerShell 7 (`pwsh`)
+* PowerShell (`pwsh` preferred, `powershell` supported)
 * .NET SDK (CI currently uses .NET 10)
 * Visual Studio / MSBuild tooling (include Web Build Tools workload)
 * Repository submodules initialized:
@@ -81,15 +81,15 @@ From `FuseCP` folder for full build/package flow:
 
 Run the helper script to check common prerequisites:
 
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1`
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Integration`
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Package`
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Full`
-* `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Package -RequireLegacyMsi`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Integration`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Package`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Full`
+* `[pwsh|powershell] -File FuseCP/Tools/check-test-environment.ps1 -Profile Package -RequireLegacyMsi`
 
 Profiles:
 
-* `Unit`: pwsh + dotnet + msbuild
+* `Unit`: PowerShell + dotnet + msbuild
 * `Integration`: Unit + IIS/WebAdministration + SQLExpress reachability
 * `Package`: Unit + bundled WiX/WebDeploy/7-Zip/sqlcmd + WSL check
 * `Full`: Integration + Package
@@ -101,15 +101,15 @@ legacy `.vdproj` MSI packaging.
 
 Use a single command wrapper for local validation:
 
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal,Enterprise`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Server -IncludeTests`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -DisableNuGetAudit`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges`
-* `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.json`
-* `pwsh -File FuseCP/Tools/check-sln-scope-sync.ps1`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Portal,Enterprise`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Server -IncludeTests`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -DisableNuGetAudit`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.json`
+* `[pwsh|powershell] -File FuseCP/Tools/check-sln-scope-sync.ps1`
 
 Notes:
 
@@ -141,7 +141,7 @@ relationships, validate solution relationships in the same PR:
 * Validate affected scopes with `run-local-validation.ps1` (minimum affected
   scope, then broaden when uncertain).
 * For broad dependency graph changes, run orchestrated validation:
-  * `pwsh -File FuseCP/Tools/run-local-validation.ps1 -Scope Shared`
+  * `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -Scope Shared`
 * Include a short note in PR validation output confirming solution-sync checks.
 * Use `check-sln-scope-sync.ps1 -WriteReport` when attaching machine-readable
   solution inclusion evidence under `artifacts/`.
@@ -152,14 +152,14 @@ Use this when setting up a fresh machine.
 
 Check-only (no installs):
 
-* `pwsh -File FuseCP/Tools/bootstrap-test-environment.ps1`
-* `pwsh -File FuseCP/Tools/bootstrap-test-environment.ps1 -RunAllProfiles`
+* `[pwsh|powershell] -File FuseCP/Tools/bootstrap-test-environment.ps1`
+* `[pwsh|powershell] -File FuseCP/Tools/bootstrap-test-environment.ps1 -RunAllProfiles`
 
 Install + check (run elevated PowerShell):
 
-* `pwsh -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles`
-* `pwsh -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles -InstallSqlExpress`
-* `pwsh -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles -InstallSqlExpress -InstallIIS`
+* `[pwsh|powershell] -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles`
+* `[pwsh|powershell] -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles -InstallSqlExpress`
+* `[pwsh|powershell] -File FuseCP/Tools/bootstrap-test-environment.ps1 -Install -RunAllProfiles -InstallSqlExpress -InstallIIS`
 
 Optional flags:
 
@@ -239,3 +239,4 @@ Session handoff notes:
 * The `Done for today` task writes a handoff file to `artifacts/session-notes/<timestamp>.md`
 * Use it next session to resume from branch, local changes, and service state.
 * VS Code task `Start of day` runs `FuseCP/Tools/Start-Of-Day.ps1`.
+
