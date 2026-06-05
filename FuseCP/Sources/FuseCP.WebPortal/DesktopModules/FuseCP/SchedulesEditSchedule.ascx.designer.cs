@@ -372,7 +372,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::FuseCP.Portal.ScheduleInterval intMaxExecutionTime;
-
+        
         /// <summary>
         /// rowAdvancedScheduler control.
         /// </summary>
@@ -381,7 +381,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow rowAdvancedScheduler;
-
+        
         /// <summary>
         /// lblAdvancedScheduler control.
         /// </summary>
@@ -390,7 +390,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAdvancedScheduler;
-
+        
         /// <summary>
         /// lblSchedulerWeight control.
         /// </summary>
@@ -399,7 +399,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSchedulerWeight;
-
+        
         /// <summary>
         /// txtSchedulerWeight control.
         /// </summary>
@@ -408,7 +408,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSchedulerWeight;
-
+        
         /// <summary>
         /// valSchedulerWeight control.
         /// </summary>
@@ -417,7 +417,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator valSchedulerWeight;
-
+        
         /// <summary>
         /// lblSchedulerAffinity control.
         /// </summary>
@@ -426,7 +426,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSchedulerAffinity;
-
+        
         /// <summary>
         /// txtSchedulerAffinity control.
         /// </summary>
@@ -435,6 +435,78 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSchedulerAffinity;
+        
+        /// <summary>
+        /// lblParallelismMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParallelismMode;
+        
+        /// <summary>
+        /// ddlParallelismMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlParallelismMode;
+        
+        /// <summary>
+        /// lblParallelismMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParallelismMax;
+        
+        /// <summary>
+        /// txtParallelismMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtParallelismMax;
+        
+        /// <summary>
+        /// valParallelismMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator valParallelismMax;
+        
+        /// <summary>
+        /// rowExecutionMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowExecutionMode;
+        
+        /// <summary>
+        /// lblExecutionMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExecutionMode;
+        
+        /// <summary>
+        /// ddlExecutionMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlExecutionMode;
         
         /// <summary>
         /// btnDelete control.

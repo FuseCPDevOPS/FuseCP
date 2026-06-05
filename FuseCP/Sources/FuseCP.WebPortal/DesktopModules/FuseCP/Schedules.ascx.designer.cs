@@ -113,6 +113,15 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.WebControls.Literal litCronNextRunValue;
         
         /// <summary>
+        /// litSchedulerRoleGuidance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litSchedulerRoleGuidance;
+        
+        /// <summary>
         /// litScheduleOverview control.
         /// </summary>
         /// <remarks>
@@ -138,7 +147,7 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litSchedulerHealth;
-
+        
         /// <summary>
         /// litSchedulerExecution control.
         /// </summary>
@@ -156,6 +165,15 @@ namespace FuseCP.Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litSchedulerAutotune;
+        
+        /// <summary>
+        /// litSchedulerPlacement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litSchedulerPlacement;
         
         /// <summary>
         /// pnlSchedulerOverrides control.

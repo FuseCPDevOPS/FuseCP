@@ -32,6 +32,15 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.UpdatePanel tasksUpdatePanel;
         
         /// <summary>
+        /// litTasksRoleHint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTasksRoleHint;
+        
+        /// <summary>
         /// gvTasks control.
         /// </summary>
         /// <remarks>
