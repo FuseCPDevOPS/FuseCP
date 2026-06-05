@@ -35,21 +35,8 @@ namespace FuseCP.EnterpriseServer
 
         public override void DoWork()
         {
-            // Input parameters:
-            //  - URL
-            //  - USERNAME
-            //  - PASSWORD
-            //  - RESPONSE_STATUS
-            //  - RESPONSE_CONTAIN
-            //  - RESPONSE_DOESNT_CONTAIN
-            //  - MAIL_FROM
-            //  - MAIL_TO
-            //  - MAIL_SUBJECT
-            //  - MAIL_BODY
-
             BackgroundTask topTask = TaskManager.TopTask;
 
-            // get input parameters
             string url = (string)topTask.GetParamValue("URL");
             string username = (string)topTask.GetParamValue("USERNAME");
             string password = (string)topTask.GetParamValue("PASSWORD");
@@ -57,11 +44,10 @@ namespace FuseCP.EnterpriseServer
             string responseContains = (string)topTask.GetParamValue("RESPONSE_CONTAIN");
             string responseNotContains = (string)topTask.GetParamValue("RESPONSE_DOESNT_CONTAIN");
 
-			bool useResponseStatus = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_STATUS"));
-			bool useResponseContains = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_CONTAIN"));
-			bool useResponseDoesntContain = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_DOESNT_CONTAIN"));
+            bool useResponseStatus = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_STATUS"));
+            bool useResponseContains = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_CONTAIN"));
+            bool useResponseDoesntContain = Convert.ToBoolean(topTask.GetParamValue("USE_RESPONSE_DOESNT_CONTAIN"));
 
-            // check input parameters
             if (String.IsNullOrEmpty(url))
             {
                 TaskManager.WriteWarning("Specify 'Web Site URL' task parameter.");
@@ -86,10 +72,8 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            // load web site
             WebSiteResponse resp = GetWebDocument(url, username, password);
 
-            // check if there was a generic error
             if (resp.Status == -1)
             {
                 SendMailMessage(url, resp.Text, "");
@@ -97,22 +81,19 @@ namespace FuseCP.EnterpriseServer
 
             bool sendMessage = false;
 
-            // check status
             if (responseStatus != -1)
             {
-            	sendMessage |= ((resp.Status == responseStatus) && useResponseStatus);
+                sendMessage |= ((resp.Status == responseStatus) && useResponseStatus);
             }
 
-            // check "contains"
             if (!String.IsNullOrEmpty(responseContains))
             {
-            	sendMessage |= ((resp.Text.ToLower().IndexOf(responseContains.ToLower()) != -1) && useResponseContains);
+                sendMessage |= ((resp.Text.ToLower().IndexOf(responseContains.ToLower()) != -1) && useResponseContains);
             }
 
-            // check "not contains"
             if (!String.IsNullOrEmpty(responseNotContains))
             {
-            	sendMessage |= ((resp.Text.ToLower().IndexOf(responseNotContains.ToLower()) == -1) && useResponseDoesntContain);
+                sendMessage |= ((resp.Text.ToLower().IndexOf(responseNotContains.ToLower()) == -1) && useResponseDoesntContain);
             }
 
             if (sendMessage)
@@ -123,7 +104,6 @@ namespace FuseCP.EnterpriseServer
         {
             BackgroundTask topTask = TaskManager.TopTask;
 
-            // input parameters
             string mailFrom = (string)topTask.GetParamValue("MAIL_FROM");
             string mailTo = (string)topTask.GetParamValue("MAIL_TO");
             string mailSubject = (string)topTask.GetParamValue("MAIL_SUBJECT");
@@ -132,8 +112,10 @@ namespace FuseCP.EnterpriseServer
             if (String.IsNullOrEmpty(mailTo))
             {
                 TaskManager.WriteWarning("The e-mail message has not been sent because 'Mail To' is empty.");
+                return;
             }
-            else
+
+            try
             {
                 if (String.IsNullOrEmpty(mailFrom))
                     mailFrom = "automatic@localhost";
@@ -154,8 +136,11 @@ namespace FuseCP.EnterpriseServer
                     mailBody = message;
                 }
 
-                // send mail message
                 MailHelper.SendMessage(mailFrom, mailTo, mailSubject, mailBody, false);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("Website notification e-mail failed for '{0}'. Error: {1}", url, ex.ToString());
             }
         }
 
@@ -185,7 +170,6 @@ namespace FuseCP.EnterpriseServer
                     }
                 }
 #else
-                // Enable TLS1.2 support if its https
                 if (url.StartsWith("https://"))
                 {
                     TaskManager.Write("Identified as SSL Website");
@@ -194,7 +178,6 @@ namespace FuseCP.EnterpriseServer
 
                 WebRequest req = WebRequest.Create(url);
 
-                // set site credentials if required
                 if (!String.IsNullOrEmpty(username))
                 {
                     req.Credentials = new NetworkCredential(username, password);
@@ -257,6 +240,3 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
-
-
-

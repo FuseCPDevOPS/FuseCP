@@ -38,6 +38,7 @@ namespace FuseCP.EnterpriseServer
         
         public override void DoWork()
         {
+            int sectionFailures = 0;
             try
             {
                 TaskManager.Write("Start HostedSolutionReportTask");
@@ -75,21 +76,42 @@ namespace FuseCP.EnterpriseServer
                 TaskManager.WriteParameter("report.LyncReport.Items.Count", report.LyncReport?.Items?.Count ?? 0);
                 TaskManager.WriteParameter("report.SfBReport.Items.Count", report.SfBReport?.Items?.Count ?? 0);
 
-                SendMessage(user, email, isExchange && report.ExchangeReport != null ? report.ExchangeReport.ToCSV() : string.Empty,
-                            isSharePoint && report.SharePointReport != null ? report.SharePointReport.ToCSV() : string.Empty,
-                            isCRM && report.CRMReport != null ? report.CRMReport.ToCSV() : string.Empty,
-                            isOrganization && report.OrganizationReport != null ? report.OrganizationReport.ToCSV() : string.Empty,
-                            isLync && report.LyncReport != null ? report.LyncReport.ToCSV() : string.Empty,
-                            isSfB && report.SfBReport != null ? report.SfBReport.ToCSV() : string.Empty);
+                string exchangeCsv = SafeToCsv(isExchange && report.ExchangeReport != null, "Exchange", () => report.ExchangeReport.ToCSV(), ref sectionFailures);
+                string sharePointCsv = SafeToCsv(isSharePoint && report.SharePointReport != null, "SharePoint", () => report.SharePointReport.ToCSV(), ref sectionFailures);
+                string crmCsv = SafeToCsv(isCRM && report.CRMReport != null, "CRM", () => report.CRMReport.ToCSV(), ref sectionFailures);
+                string organizationCsv = SafeToCsv(isOrganization && report.OrganizationReport != null, "Organization", () => report.OrganizationReport.ToCSV(), ref sectionFailures);
+                string lyncCsv = SafeToCsv(isLync && report.LyncReport != null, "Lync", () => report.LyncReport.ToCSV(), ref sectionFailures);
+                string sfbCsv = SafeToCsv(isSfB && report.SfBReport != null, "SfB", () => report.SfBReport.ToCSV(), ref sectionFailures);
+
+                SendMessage(user, email, exchangeCsv, sharePointCsv, crmCsv, organizationCsv, lyncCsv, sfbCsv);
 
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
                 TaskManager.WriteError(ex);
+                sectionFailures++;
             }
 
+            TaskManager.Write("HostedSolutionReportTask finished. Section failures: {0}", sectionFailures.ToString());
             TaskManager.Write("End HostedSolutionReportTask");
 
+        }
+
+        private string SafeToCsv(bool enabled, string sectionName, Func<string> csvFactory, ref int sectionFailures)
+        {
+            if (!enabled || csvFactory == null)
+                return string.Empty;
+
+            try
+            {
+                return csvFactory();
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                sectionFailures++;
+                TaskManager.WriteError("Hosted solution report section '{1}' failed. Error: {0}", ex.ToString(), sectionName);
+                return string.Empty;
+            }
         }
 
         
@@ -135,19 +157,26 @@ namespace FuseCP.EnterpriseServer
             TaskManager.WriteParameter("subject", subject);
             TaskManager.WriteParameter("body", body);
           
-            
-            int res = MailHelper.SendMessage(from, email, cc,  subject, body, priority, isHtml, attacments.ToArray());
-
-            if (res==0)
+            try
             {
-                TaskManager.Write("SendMessage OK");
-            }
-            else
-            {
-                TaskManager.WriteError("SendMessage error ", "error code", res.ToString());
-            }
+                int res = MailHelper.SendMessage(from, email, cc, subject, body, priority, isHtml, attacments.ToArray());
 
-            TaskManager.WriteParameter("", res);
+                if (res == 0)
+                {
+                    TaskManager.Write("SendMessage OK");
+                }
+                else
+                {
+                    TaskManager.WriteError("SendMessage failed with error code {0}", res.ToString());
+                }
+
+                TaskManager.WriteParameter("sendMessageResult", res);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("SendMessage failed for recipient '{0}'. Error: {1}", email, ex.ToString());
+                throw;
+            }
 
             TaskManager.Write("End SendMessage");
 

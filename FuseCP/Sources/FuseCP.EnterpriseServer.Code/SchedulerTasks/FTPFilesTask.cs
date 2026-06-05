@@ -105,22 +105,44 @@ namespace FuseCP.EnterpriseServer
             // upload batch
             FilesController.UpdateFileBinaryContent(topTask.PackageId, cmdPath, Encoding.UTF8.GetBytes(cmdBatch));
 
-            // execute system command
-            // load OS service
-            int serviceId = PackageController.GetPackageServiceId(topTask.PackageId, ResourceGroups.Os);
+            try
+            {
+                int targetServerId = 0;
+                if (!TryGetRoutedServerId(topTask, out targetServerId))
+                {
+                    // Fallback to package OS service when no explicit routed server target is provided.
+                    int serviceId = PackageController.GetPackageServiceId(topTask.PackageId, ResourceGroups.Os);
+                    ServiceInfo service = ServerController.GetServiceInfo(serviceId);
+                    if (service == null)
+                    {
+                        TaskManager.WriteWarning("OS service for FTP execution was not found.");
+                        return;
+                    }
 
-            // load service
-            ServiceInfo service = ServerController.GetServiceInfo(serviceId);
-            if (service == null)
-                return;
+                    targetServerId = service.ServerId;
+                }
 
-            Server.Client.OperatingSystem winServer = new Server.Client.OperatingSystem();
-            ServiceProviderProxy.ServerInit(winServer, service.ServerId);
-            //TODO implement this as a method of OperatingSystem
-            TaskManager.Write(winServer.ExecuteSystemCommand(username, password, "ftp.exe", "-s:" + fullCmdPath));
-
-            // delete batch file
-            FilesController.DeleteFiles(topTask.PackageId, new string[] { cmdPath });
+                Server.Client.OperatingSystem winServer = new Server.Client.OperatingSystem();
+                ServiceProviderProxy.ServerInit(winServer, targetServerId);
+                //TODO implement this as a method of OperatingSystem
+                TaskManager.Write(winServer.ExecuteSystemCommand(username, password, "ftp.exe", "-s:" + fullCmdPath));
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("FTP command execution failed for '{0}'. Error: {1}", fullCmdPath, ex.ToString());
+                throw;
+            }
+            finally
+            {
+                try
+                {
+                    // delete batch file
+                    FilesController.DeleteFiles(topTask.PackageId, new string[] { cmdPath });
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }

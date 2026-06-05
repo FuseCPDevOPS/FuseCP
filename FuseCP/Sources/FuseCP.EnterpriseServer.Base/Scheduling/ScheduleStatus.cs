@@ -22,6 +22,7 @@ namespace FuseCP.EnterpriseServer
     public enum ScheduleStatus
     {
         Idle = 1,
-        Running = 2
+        Running = 2,
+        Queued = 3
     }
 }

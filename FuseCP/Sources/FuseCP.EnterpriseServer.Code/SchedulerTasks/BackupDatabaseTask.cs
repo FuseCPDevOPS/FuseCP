@@ -48,7 +48,7 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            bool zipBackup = (strZipBackup.ToLower() == "true");
+            bool zipBackup = String.Compare(strZipBackup, "true", true) == 0;
 
             if (String.IsNullOrEmpty(backupName))
             {
@@ -88,8 +88,19 @@ namespace FuseCP.EnterpriseServer
             backupName = Utils.ReplaceStringVariable(backupName, "date", date);
             backupName = Utils.ReplaceStringVariable(backupName, "time", time);
 
-            // backup database
-            DatabaseServerController.BackupSqlDatabase(item.Id, backupName, zipBackup, false, backupFolder);
+            try
+            {
+                // backup database
+                DatabaseServerController.BackupSqlDatabase(item.Id, backupName, zipBackup, false, backupFolder);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("BackupDatabaseTask failed for database '{0}' in group '{1}'. Error: {2}",
+                    databaseName,
+                    databaseGroup,
+                    ex.ToString());
+                throw;
+            }
         }
     }
 }

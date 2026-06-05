@@ -37,6 +37,8 @@ namespace FuseCP.Portal
         private string schedulerHealthText = String.Empty;
         private string schedulerExecutionText = String.Empty;
         private string schedulerAutotuneText = String.Empty;
+        private string schedulerRoleGuidanceText = String.Empty;
+        private string schedulerPlacementText = String.Empty;
         private string schedulerStatusValueText = "Ok";
         private string schedulerStatusLabelText = "View cron status";
         private string schedulerLastInvocationText = "No data";
@@ -46,6 +48,44 @@ namespace FuseCP.Portal
 
         private static readonly string[] SchedulerWeightParameterIds = { "SCHEDULER_WEIGHT", "TASK_WEIGHT", "WEIGHT" };
         private static readonly string[] SchedulerAffinityParameterIds = { "SCHEDULER_AFFINITY", "SERVER_ID", "AFFINITY" };
+        private static readonly string[] SchedulerExecutionModeParameterIds = { "SCHEDULER_EXECUTION_MODE", "EXECUTION_MODE", "SCHEDULER_MODE" };
+        private static readonly string[] SchedulerParallelismModeParameterIds = { "SCHEDULER_PARALLELISM_MODE", "PARALLELISM_MODE", "SCHEDULER_TASK_PARALLELISM_MODE" };
+        private static readonly string[] SchedulerParallelismMaxParameterIds = { "SCHEDULER_PARALLELISM_MAX", "PARALLELISM_MAX", "SCHEDULER_TASK_PARALLELISM_MAX" };
+        private static readonly string[] SchedulerTaskParallelismParameterIds = { "MAX_PARALLEL_PACKAGES", "MAX_PARALLEL_ORGANIZATIONS" };
+        private static readonly string[] SchedulerRiskLevelParameterIds = { "SCHEDULER_RISK_LEVEL" };
+        private static readonly string[] SchedulerApprovalStateParameterIds = { "SCHEDULER_APPROVAL_STATE" };
+        private static readonly string[] SchedulerApprovedParameterIds = { "SCHEDULER_APPROVED" };
+
+        private const string ExecutionModeAuto = "AUTO";
+        private const string ExecutionModeServerPreferred = "SERVER_PREFERRED";
+        private const string ExecutionModeEnterpriseOnly = "ENTERPRISE_ONLY";
+        private const string ParallelismModeAuto = "AUTO";
+        private const string ParallelismModeManual = "MANUAL";
+
+        private Control FindControlRecursive(Control rootControl, string controlID)
+        {
+            if (rootControl == null || String.IsNullOrEmpty(controlID))
+                return null;
+
+            if (rootControl.ID == controlID)
+                return rootControl;
+
+            foreach (Control controlToSearch in rootControl.Controls)
+            {
+                Control foundControl = FindControlRecursive(controlToSearch, controlID);
+                if (foundControl != null)
+                    return foundControl;
+            }
+
+            return null;
+        }
+
+        private void SetLiteralText(string controlId, string value)
+        {
+            Literal literal = FindControlRecursive(this, controlId) as Literal;
+            if (literal != null)
+                literal.Text = value ?? String.Empty;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -88,17 +128,29 @@ namespace FuseCP.Portal
                 BindOverview();
             }
 
-            litScheduleOverview.Text = schedulerOverviewText;
-            litSchedulerHealth.Text = schedulerHealthText;
-            litSchedulerExecution.Text = schedulerExecutionText;
-            litSchedulerAutotune.Text = schedulerAutotuneText;
-            litCronStatusValue.Text = schedulerStatusValueText;
-            litCronStatusLabel.Text = schedulerStatusLabelText;
-            litCronLastInvocationValue.Text = schedulerLastInvocationText;
-            litCronNextRunValue.Text = schedulerNextRunText;
-            cardCronStatus.Attributes["class"] = schedulerStatusCardCssClass;
-            litSchedulerOverrideResult.Text = schedulerOverrideResultText;
+            ApplyOverviewLiterals();
             searchBox.AjaxData = this.GetSearchBoxAjaxData();
+        }
+
+        private void ApplyOverviewLiterals()
+        {
+            SetLiteralText("litScheduleOverview", schedulerOverviewText);
+            SetLiteralText("litSchedulerHealth", schedulerHealthText);
+            SetLiteralText("litSchedulerExecution", schedulerExecutionText);
+            SetLiteralText("litSchedulerAutotune", schedulerAutotuneText);
+            SetLiteralText("litSchedulerRoleGuidance", schedulerRoleGuidanceText);
+            SetLiteralText("litSchedulerPlacement", schedulerPlacementText);
+            SetLiteralText("litCronStatusValue", schedulerStatusValueText);
+            SetLiteralText("litCronStatusLabel", schedulerStatusLabelText);
+            SetLiteralText("litCronLastInvocationValue", schedulerLastInvocationText);
+            SetLiteralText("litCronNextRunValue", schedulerNextRunText);
+            SetLiteralText("litSchedulerOverrideResult", schedulerOverrideResultText);
+
+            Control cardCronStatus = FindControlRecursive(this, "cardCronStatus");
+            if (cardCronStatus is HtmlControl htmlControl)
+                htmlControl.Attributes["class"] = schedulerStatusCardCssClass;
+            else if (cardCronStatus is WebControl webControl)
+                webControl.CssClass = schedulerStatusCardCssClass;
         }
 
         private void BindRuntimeOverrideInputs()
@@ -116,16 +168,34 @@ namespace FuseCP.Portal
 
         private void BindOverview()
         {
-            DataSet dsSchedules = new SchedulesHelper().GetFilteredSchedules(PanelSecurity.PackageId);
-            if (dsSchedules == null || dsSchedules.Tables.Count == 0 || dsSchedules.Tables[0] == null)
+            DataSet dsSchedules = new SchedulesHelper().GetOverviewSchedules(
+                chkRecursive != null && chkRecursive.Checked,
+                searchBox != null ? searchBox.FilterColumn : String.Empty,
+                searchBox != null ? searchBox.FilterValue : String.Empty,
+                2000);
+            if (dsSchedules == null || dsSchedules.Tables.Count == 0)
             {
                 schedulerOverviewText = GetLocalizedString("Text.NoData");
                 return;
             }
 
-            DataTable dtSchedules = dsSchedules.Tables[0];
+            DataTable dtSchedules = null;
+            if (dsSchedules.Tables.Count > 1 && dsSchedules.Tables[1] != null && dsSchedules.Tables[1].Columns.Contains("StatusID"))
+                dtSchedules = dsSchedules.Tables[1];
+            else if (dsSchedules.Tables[0] != null && dsSchedules.Tables[0].Columns.Contains("StatusID"))
+                dtSchedules = dsSchedules.Tables[0];
+
+            if (dtSchedules == null)
+            {
+                schedulerOverviewText = GetLocalizedString("Text.NoData");
+                schedulerLastInvocationText = "No data";
+                schedulerNextRunText = "No upcoming run";
+                return;
+            }
+
             int totalSchedules = dtSchedules.Rows.Count;
             int runningSchedules = 0;
+            int queuedSchedules = 0;
             int warningSchedules = 0;
             int failedSchedules = 0;
             DateTime mostRecentLastRun = DateTime.MinValue;
@@ -136,14 +206,29 @@ namespace FuseCP.Portal
 
             foreach (DataRow row in dtSchedules.Rows)
             {
-                int statusId = Utils.ParseInt(row["StatusID"], 0);
+                int statusId = row.Table.Columns.Contains("StatusID") ? Utils.ParseInt(row["StatusID"], 0) : 0;
                 int lastResult = row.Table.Columns.Contains("LastResult") ? Utils.ParseInt(row["LastResult"], 0) : 0;
                 string serverName = row.Table.Columns.Contains("ServerName") && row["ServerName"] != DBNull.Value
                     ? row["ServerName"].ToString()
                     : String.Empty;
+                DateTime rowLastRun = DateTime.MinValue;
+                if (row.Table.Columns.Contains("LastRun") && row["LastRun"] != DBNull.Value)
+                    DateTime.TryParse(row["LastRun"].ToString(), out rowLastRun);
+
+                if (rowLastRun > DateTime.MinValue && rowLastRun > mostRecentLastRun)
+                    mostRecentLastRun = rowLastRun;
+
+                DateTime rowNextRun = DateTime.MinValue;
+                if (row.Table.Columns.Contains("NextRun") && row["NextRun"] != DBNull.Value)
+                    DateTime.TryParse(row["NextRun"].ToString(), out rowNextRun);
+
+                if (rowNextRun > now && rowNextRun < nearestNextRun)
+                    nearestNextRun = rowNextRun;
 
                 if (statusId == (int)ScheduleStatus.Running)
                     runningSchedules++;
+                else if (statusId == (int)ScheduleStatus.Queued)
+                    queuedSchedules++;
 
                 if (lastResult == 1)
                     warningSchedules++;
@@ -159,6 +244,8 @@ namespace FuseCP.Portal
                 totals.Total++;
                 if (statusId == (int)ScheduleStatus.Running)
                     totals.Running++;
+                else if (statusId == (int)ScheduleStatus.Queued)
+                    totals.Queued++;
                 if (lastResult == 1)
                     totals.Warning++;
                 else if (lastResult == 2)
@@ -189,24 +276,51 @@ namespace FuseCP.Portal
             }
 
             List<string> serverSummary = new List<string>();
+            int serverBoundSchedules = 0;
+            int enterpriseBoundSchedules = 0;
+            int highRiskPendingApprovals = 0;
+
+            foreach (ScheduleInfo authorizedSchedule in authorizedSchedules)
+            {
+                if (IsHighRiskPendingApproval(authorizedSchedule))
+                    highRiskPendingApprovals++;
+            }
+
             foreach (KeyValuePair<string, ServerScheduleTotals> entry in serverTotals)
             {
                 string serverLabel = String.IsNullOrWhiteSpace(entry.Key) ? "Unassigned" : PortalAntiXSS.Encode(entry.Key);
-                serverSummary.Add(String.Format("{0}: {1} total, {2} running, {3} warnings, {4} failed", serverLabel,
-                    entry.Value.Total, entry.Value.Running, entry.Value.Warning, entry.Value.Failed));
+                serverSummary.Add(String.Format("{0}: {1} total, {2} running, {3} queued, {4} warnings, {5} failed", serverLabel,
+                    entry.Value.Total, entry.Value.Running, entry.Value.Queued, entry.Value.Warning, entry.Value.Failed));
+
+                if (String.IsNullOrWhiteSpace(entry.Key))
+                    enterpriseBoundSchedules += entry.Value.Total;
+                else
+                    serverBoundSchedules += entry.Value.Total;
             }
 
             schedulerOverviewText = String.Format(
-                "{0} total schedules, {1} running, {2} warnings, {3} failed. {4} Scheduler execution is limited to a bounded queue so extra work waits instead of fanning out.",
+                "{0} total schedules, {1} running, {2} queued, {3} warnings, {4} failed. {5} Execution placement: {6} server-bound, {7} enterprise-runtime. Scheduler execution is limited to a bounded queue so extra work waits instead of fanning out.",
                 totalSchedules,
                 runningSchedules,
+                queuedSchedules,
                 warningSchedules,
                 failedSchedules,
-                serverSummary.Count > 0 ? "Per-server: " + String.Join("; ", serverSummary.ToArray()) + "." : String.Empty);
+                serverSummary.Count > 0 ? "Per-server: " + String.Join("; ", serverSummary.ToArray()) + "." : String.Empty,
+                serverBoundSchedules,
+                enterpriseBoundSchedules);
 
             schedulerHealthText = BuildSchedulerHealthHtml(authorizedSchedules);
             schedulerExecutionText = BuildSchedulerExecutionHtml();
             schedulerAutotuneText = BuildSchedulerAutotuneHtml();
+            schedulerRoleGuidanceText = BuildRoleGuidanceHtml();
+            schedulerPlacementText = BuildSchedulerPlacementHtml(totalSchedules, serverBoundSchedules, enterpriseBoundSchedules, highRiskPendingApprovals);
+            if (mostRecentLastRun <= DateTime.MinValue)
+            {
+                DateTime latestAuditStart = GetLatestSchedulerAuditStart();
+                if (latestAuditStart > DateTime.MinValue)
+                    mostRecentLastRun = latestAuditStart;
+            }
+
             schedulerLastInvocationText = mostRecentLastRun > DateTime.MinValue ? FormatRelativeTime(mostRecentLastRun) : "No data";
             schedulerNextRunText = nearestNextRun < DateTime.MaxValue ? FormatRelativeTime(nearestNextRun) : "No upcoming run";
 
@@ -221,6 +335,12 @@ namespace FuseCP.Portal
                 schedulerStatusValueText = "Active";
                 schedulerStatusLabelText = "Cron workers are running";
                 schedulerStatusCardCssClass = "fcp-scheduler-stat fcp-scheduler-stat-ok";
+            }
+            else if (queuedSchedules > 0)
+            {
+                schedulerStatusValueText = "Queued";
+                schedulerStatusLabelText = "Cron work is queued";
+                schedulerStatusCardCssClass = "fcp-scheduler-stat fcp-scheduler-stat-last";
             }
             else
             {
@@ -264,6 +384,39 @@ namespace FuseCP.Portal
             return future
                 ? String.Format("in {0} day{1}", days, days == 1 ? String.Empty : "s")
                 : String.Format("{0} day{1} ago", days, days == 1 ? String.Empty : "s");
+        }
+
+        private DateTime GetLatestSchedulerAuditStart()
+        {
+            try
+            {
+                DateTime end = DateTime.Now.AddMinutes(1);
+                DateTime start = end.AddDays(-30);
+
+                DataSet recordsSet = ES.Services.AuditLog.GetAuditLogRecordsPaged(
+                    PanelSecurity.SelectedUserId,
+                    PanelSecurity.PackageId,
+                    0,
+                    String.Empty,
+                    start,
+                    end,
+                    0,
+                    "SCHEDULER",
+                    "RUN_SCHEDULE",
+                    "StartDate DESC",
+                    0,
+                    1);
+
+                DataTable records = recordsSet != null && recordsSet.Tables.Count > 1 ? recordsSet.Tables[1] : null;
+                if (records == null || records.Rows.Count == 0)
+                    return DateTime.MinValue;
+
+                return Utils.ParseDate(records.Rows[0]["StartDate"]?.ToString());
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                return DateTime.MinValue;
+            }
         }
 
         private string BuildSchedulerHealthHtml(IEnumerable<ScheduleInfo> schedules)
@@ -402,6 +555,93 @@ namespace FuseCP.Portal
             }
         }
 
+        private string BuildRoleGuidanceHtml()
+        {
+            UserRole role = PanelSecurity.SelectedUser.Role;
+            if (role == UserRole.Administrator)
+            {
+                return "<div class=\"fcp-scheduler-role-chip fcp-scheduler-role-admin\">Admin View</div>" +
+                    "<div class=\"fcp-scheduler-role-copy\">You can tune runtime concurrency, run queued tasks immediately, and validate execution topology across all tenants.</div>";
+            }
+
+            if (role == UserRole.Reseller)
+            {
+                return "<div class=\"fcp-scheduler-role-chip fcp-scheduler-role-reseller\">Reseller View</div>" +
+                    "<div class=\"fcp-scheduler-role-copy\">Focus on package-level schedules and run outcomes for your tenant scope. Runtime engine overrides remain administrator-only.</div>";
+            }
+
+            return "<div class=\"fcp-scheduler-role-chip fcp-scheduler-role-user\">User View</div>" +
+                "<div class=\"fcp-scheduler-role-copy\">This view is optimized for your selected space: monitor run health, next run times, and recent execution outcomes.</div>";
+        }
+
+        private string BuildSchedulerPlacementHtml(int totalSchedules, int serverBoundSchedules, int enterpriseBoundSchedules, int highRiskPendingApprovals)
+        {
+            int queueDepth = 0;
+            int activeUnits = 0;
+            int perAffinityCap = 0;
+            int globalCap = 0;
+            int tenantCap = GetAppSettingInt("SchedulerTenantMaxConcurrentExecutions", 4, 1, 1024);
+            int providerCap = GetAppSettingInt("SchedulerProviderMaxConcurrentExecutions", 8, 1, 1024);
+            bool freezeEnabled = GetAppSettingBool("SchedulerFreezeEnabled", false);
+
+            try
+            {
+                queueDepth = ES.Services.Scheduler.GetSchedulerRuntimeQueueDepth();
+                activeUnits = ES.Services.Scheduler.GetSchedulerRuntimeActiveUnits();
+                perAffinityCap = ES.Services.Scheduler.GetSchedulerRuntimePerAffinityConcurrency();
+                globalCap = ES.Services.Scheduler.GetSchedulerRuntimeGlobalConcurrency();
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                // keep fallback zeros
+            }
+
+            StringBuilder html = new StringBuilder();
+            html.Append("<ul class=\"fcp-scheduler-topology-list\">");
+            html.AppendFormat("<li><span>Server-bound schedules</span><strong>{0}</strong></li>", serverBoundSchedules);
+            html.AppendFormat("<li><span>Enterprise-runtime schedules</span><strong>{0}</strong></li>", enterpriseBoundSchedules);
+            html.AppendFormat("<li><span>Queued execution units</span><strong>{0}</strong></li>", queueDepth);
+            html.AppendFormat("<li><span>Active execution units</span><strong>{0}</strong></li>", activeUnits);
+            html.AppendFormat("<li><span>Per-affinity cap</span><strong>{0}</strong></li>", perAffinityCap);
+            html.AppendFormat("<li><span>Global cap</span><strong>{0}</strong></li>", globalCap);
+            html.AppendFormat("<li><span>Per-tenant cap</span><strong>{0}</strong></li>", tenantCap);
+            html.AppendFormat("<li><span>Per-provider cap</span><strong>{0}</strong></li>", providerCap);
+            html.AppendFormat("<li><span>Freeze mode</span><strong>{0}</strong></li>", freezeEnabled ? "Enabled" : "Disabled");
+            html.AppendFormat("<li><span>High-risk schedules awaiting second approval</span><strong>{0}</strong></li>", highRiskPendingApprovals);
+            html.Append("</ul>");
+            html.Append("<div class=\"small text-muted mt-2\">Recommended model: keep EnterpriseServer as control plane (policy, tenancy, queue), and execute heavy per-server checks through server modules/agents that report back.</div>");
+
+            if (totalSchedules > 0 && serverBoundSchedules == 0)
+            {
+                html.Append("<div class=\"small text-warning mt-2\">No server-bound schedules detected. For larger fleets, move high-frequency host probes closer to server modules to reduce central fan-out.</div>");
+            }
+
+            if (freezeEnabled)
+            {
+                html.Append("<div class=\"small text-warning mt-2\">Scheduler freeze mode is enabled. Automatic runs are paused until freeze is cleared.</div>");
+            }
+
+            return html.ToString();
+        }
+
+        private static bool IsHighRiskPendingApproval(ScheduleInfo schedule)
+        {
+            if (schedule == null)
+                return false;
+
+            string riskLevel = GetScheduleParameterValue(schedule.Parameters, SchedulerRiskLevelParameterIds);
+            if (!String.Equals((riskLevel ?? String.Empty).Trim(), "HIGH", StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            string approved = GetScheduleParameterValue(schedule.Parameters, SchedulerApprovedParameterIds);
+            if (String.Equals((approved ?? String.Empty).Trim(), "true", StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            string approvalState = GetScheduleParameterValue(schedule.Parameters, SchedulerApprovalStateParameterIds);
+            return String.Equals((approvalState ?? String.Empty).Trim(), "PENDING_SECOND_APPROVAL", StringComparison.OrdinalIgnoreCase)
+                || String.IsNullOrWhiteSpace(approvalState);
+        }
+
         private static bool GetAppSettingBool(string key, bool defaultValue)
         {
             string value = ConfigurationManager.AppSettings[key];
@@ -447,6 +687,97 @@ namespace FuseCP.Portal
             }
 
             return String.Empty;
+        }
+
+        public string GetExecutionModeBadge(object scheduleIdValue)
+        {
+            int scheduleId = Utils.ParseInt(scheduleIdValue, 0);
+            if (scheduleId <= 0)
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\">Auto</span>";
+
+            ScheduleInfo schedule = TryGetAuthorizedSchedule(scheduleId);
+            if (schedule == null)
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\">Auto</span>";
+
+            string mode = NormalizeExecutionMode(GetScheduleParameterValue(schedule.Parameters, SchedulerExecutionModeParameterIds));
+            if (String.Equals(mode, ExecutionModeServerPreferred, StringComparison.OrdinalIgnoreCase))
+            {
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-server\" title=\"Prefers server module/agent execution and reports back\">Server preferred</span>";
+            }
+
+            if (String.Equals(mode, ExecutionModeEnterpriseOnly, StringComparison.OrdinalIgnoreCase))
+            {
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-enterprise\" title=\"Runs on EnterpriseServer runtime\">Enterprise</span>";
+            }
+
+            return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\" title=\"Safe default with automatic placement\">Auto</span>";
+        }
+
+        public string GetParallelismBadge(object scheduleIdValue)
+        {
+            int scheduleId = Utils.ParseInt(scheduleIdValue, 0);
+            if (scheduleId <= 0)
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\" title=\"Task default parallelism\">Parallelism: default</span>";
+
+            ScheduleInfo schedule = TryGetAuthorizedSchedule(scheduleId);
+            if (schedule == null)
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\" title=\"Task default parallelism\">Parallelism: default</span>";
+
+            string explicitTaskParallelism = GetScheduleParameterValue(schedule.Parameters, SchedulerTaskParallelismParameterIds);
+            if (!String.IsNullOrWhiteSpace(explicitTaskParallelism))
+            {
+                string encoded = PortalAntiXSS.Encode(explicitTaskParallelism.Trim());
+                return String.Format("<span class=\"fcp-execution-badge fcp-execution-badge-enterprise\" title=\"Task-specific parameter override\">Parallelism: explicit ({0})</span>", encoded);
+            }
+
+            string configuredMode = NormalizeParallelismMode(GetScheduleParameterValue(schedule.Parameters, SchedulerParallelismModeParameterIds));
+            string configuredMax = GetScheduleParameterValue(schedule.Parameters, SchedulerParallelismMaxParameterIds);
+
+            if (String.Equals(configuredMode, ParallelismModeManual, StringComparison.OrdinalIgnoreCase))
+            {
+                int manualMax = Utils.ParseInt(configuredMax, 0);
+                string value = manualMax > 0 ? manualMax.ToString() : "n/a";
+                return String.Format("<span class=\"fcp-execution-badge fcp-execution-badge-server\" title=\"Manual scheduler-level override\">Parallelism: manual ({0})</span>", value);
+            }
+
+            if (IsAdvisorEligibleTask(schedule))
+            {
+                return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\" title=\"Scheduler advisor applies in AUTO mode\">Parallelism: auto-advised</span>";
+            }
+
+            return "<span class=\"fcp-execution-badge fcp-execution-badge-auto\" title=\"Task default parallelism\">Parallelism: default</span>";
+        }
+
+        private static string NormalizeExecutionMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ExecutionModeServerPreferred, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeServerPreferred;
+
+            if (String.Equals(candidate, ExecutionModeEnterpriseOnly, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeEnterpriseOnly;
+
+            return ExecutionModeAuto;
+        }
+
+        private static string NormalizeParallelismMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ParallelismModeManual, StringComparison.OrdinalIgnoreCase))
+                return ParallelismModeManual;
+
+            return ParallelismModeAuto;
+        }
+
+        private static bool IsAdvisorEligibleTask(ScheduleInfo schedule)
+        {
+            if (schedule == null || String.IsNullOrWhiteSpace(schedule.TaskId))
+                return false;
+
+            string taskId = schedule.TaskId.ToUpperInvariant();
+            return taskId.Contains("CALCULATEPACKAGESDISKSPACE")
+                || taskId.Contains("CALCULATEPACKAGESBANDWIDTH")
+                || taskId.Contains("CALCULATEEXCHANGEDISKSPACE");
         }
 
         protected string GetNextRunDisplay(object scheduleIdValue, object nextRunValue)
@@ -596,6 +927,7 @@ namespace FuseCP.Portal
         {
             public int Total { get; set; }
             public int Running { get; set; }
+            public int Queued { get; set; }
             public int Warning { get; set; }
             public int Failed { get; set; }
         }
@@ -631,7 +963,13 @@ namespace FuseCP.Portal
         public bool IsScheduleActive(int statusId)
         {
             ScheduleStatus status = (ScheduleStatus)statusId;
-            return (status == ScheduleStatus.Running);
+            return (status == ScheduleStatus.Running || status == ScheduleStatus.Queued);
+        }
+
+        public bool IsScheduleQueued(int statusId)
+        {
+            ScheduleStatus status = (ScheduleStatus)statusId;
+            return (status == ScheduleStatus.Queued);
         }
 
         public string GetUserHomePageUrl(int userId)
@@ -657,10 +995,7 @@ namespace FuseCP.Portal
                 ShowErrorMessage("ACCESS_DENIED");
                 gvSchedules.DataBind();
                 BindOverview();
-                litScheduleOverview.Text = schedulerOverviewText;
-                litSchedulerHealth.Text = schedulerHealthText;
-                litSchedulerExecution.Text = schedulerExecutionText;
-                litSchedulerAutotune.Text = schedulerAutotuneText;
+                ApplyOverviewLiterals();
                 return;
             }
 
@@ -669,6 +1004,23 @@ namespace FuseCP.Portal
                 try
                 {
                     int result = ES.Services.Scheduler.StartSchedule(scheduleId);
+                    if (result < 0)
+                    {
+                        ShowResultMessage(result);
+                        return;
+                    }
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    ShowErrorMessage("SCHEDULE_START_TASK", ex);
+                    return;
+                }
+            }
+            else if (e.CommandName == "runnow")
+            {
+                try
+                {
+                    int result = ES.Services.Scheduler.StartScheduleNow(scheduleId);
                     if (result < 0)
                     {
                         ShowResultMessage(result);
@@ -702,10 +1054,7 @@ namespace FuseCP.Portal
             // rebind grid
             gvSchedules.DataBind();
             BindOverview();
-            litScheduleOverview.Text = schedulerOverviewText;
-            litSchedulerHealth.Text = schedulerHealthText;
-            litSchedulerExecution.Text = schedulerExecutionText;
-            litSchedulerAutotune.Text = schedulerAutotuneText;
+            ApplyOverviewLiterals();
         }
 
         public string GetSearchBoxAjaxData()
@@ -725,10 +1074,7 @@ namespace FuseCP.Portal
 
             gvSchedules.DataBind();
             BindOverview();
-            litScheduleOverview.Text = schedulerOverviewText;
-            litSchedulerHealth.Text = schedulerHealthText;
-            litSchedulerExecution.Text = schedulerExecutionText;
-            litSchedulerAutotune.Text = schedulerAutotuneText;
+            ApplyOverviewLiterals();
         }
 
         protected void btnApplySchedulerOverrides_Click(object sender, EventArgs e)
@@ -759,10 +1105,7 @@ namespace FuseCP.Portal
                 schedulerOverrideResultText = "<span class=\"text-success small\">Runtime overrides applied.</span>";
                 BindRuntimeOverrideInputs();
                 BindOverview();
-                litScheduleOverview.Text = schedulerOverviewText;
-                litSchedulerHealth.Text = schedulerHealthText;
-                litSchedulerExecution.Text = schedulerExecutionText;
-                litSchedulerAutotune.Text = schedulerAutotuneText;
+                ApplyOverviewLiterals();
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -774,10 +1117,7 @@ namespace FuseCP.Portal
         {
             gvSchedules.DataBind();
             BindOverview();
-            litScheduleOverview.Text = schedulerOverviewText;
-            litSchedulerHealth.Text = schedulerHealthText;
-            litSchedulerExecution.Text = schedulerExecutionText;
-            litSchedulerAutotune.Text = schedulerAutotuneText;
+            ApplyOverviewLiterals();
         }
 
         protected void chkAutoRefresh_CheckedChanged(object sender, EventArgs e)

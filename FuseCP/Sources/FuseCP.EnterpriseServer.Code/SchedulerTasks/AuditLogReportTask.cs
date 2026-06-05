@@ -26,13 +26,15 @@ namespace FuseCP.EnterpriseServer
         {
             BackgroundTask topTask = TaskManager.TopTask;
 
-            // get input parameters
-            string mailTo = (string)topTask.GetParamValue("MAIL_TO");
-            int auditLogSeverity = Utils.ParseInt((string)topTask.GetParamValue("AUDIT_LOG_SEVERITY"), -1);
-            string auditLogSource = (string)topTask.GetParamValue("AUDIT_LOG_SOURCE");
-            string auditLogTask = (string)topTask.GetParamValue("AUDIT_LOG_TASK");
-            string auditLogDate = (string)topTask.GetParamValue("AUDIT_LOG_DATE");
-            int showExecutionLog = Utils.ParseInt((string)topTask.GetParamValue("SHOW_EXECUTION_LOG"), 0);
+            try
+            {
+                // get input parameters
+                string mailTo = (string)topTask.GetParamValue("MAIL_TO");
+                int auditLogSeverity = Utils.ParseInt((string)topTask.GetParamValue("AUDIT_LOG_SEVERITY"), -1);
+                string auditLogSource = (string)topTask.GetParamValue("AUDIT_LOG_SOURCE");
+                string auditLogTask = (string)topTask.GetParamValue("AUDIT_LOG_TASK");
+                string auditLogDate = (string)topTask.GetParamValue("AUDIT_LOG_DATE");
+                int showExecutionLog = Utils.ParseInt((string)topTask.GetParamValue("SHOW_EXECUTION_LOG"), 0);
 
             // check input parameters
             if (string.IsNullOrEmpty(mailTo))
@@ -125,36 +127,51 @@ namespace FuseCP.EnterpriseServer
                 }
                 foreach (DataRow log in logs.Rows)
                 {
-                    sb.AppendLine("<tr>");
-                    // Started
-                    sb.AppendFormat("<td>{0}</td>", log["StartDate"]);
-                    // Finished
-                    sb.AppendFormat("<td>{0}</td>", log["FinishDate"]);
-                    // Severity
-                    sb.AppendFormat("<td>{0}</td>", GetAuditLogRecordSeverityName((int)log["SeverityID"]));
-                    // Username
-                    sb.AppendFormat("<td>{0}</td>", log["Username"]);
-                    // Source
-                    sb.AppendFormat("<td>{0}</td>", log["SourceName"]);
-                    // Task
-                    sb.AppendFormat("<td>{0}</td>", log["TaskName"]);
-                    // Item-Name
-                    sb.AppendFormat("<td>{0}</td>", log["ItemName"]);
-                    // Execution-Log
-                    if (showExecutionLog == 1)
+                    try
                     {
-                        string executionLog = FormatPlainTextExecutionLog(log["ExecutionLog"].ToString());
-                        sb.AppendFormat("<td>{0}</td>", executionLog);
+                        sb.AppendLine("<tr>");
+                        // Started
+                        sb.AppendFormat("<td>{0}</td>", log["StartDate"]);
+                        // Finished
+                        sb.AppendFormat("<td>{0}</td>", log["FinishDate"]);
+                        // Severity
+                        sb.AppendFormat("<td>{0}</td>", GetAuditLogRecordSeverityName((int)log["SeverityID"]));
+                        // Username
+                        sb.AppendFormat("<td>{0}</td>", log["Username"]);
+                        // Source
+                        sb.AppendFormat("<td>{0}</td>", log["SourceName"]);
+                        // Task
+                        sb.AppendFormat("<td>{0}</td>", log["TaskName"]);
+                        // Item-Name
+                        sb.AppendFormat("<td>{0}</td>", log["ItemName"]);
+                        // Execution-Log
+                        if (showExecutionLog == 1)
+                        {
+                            string executionLog = FormatPlainTextExecutionLog(log["ExecutionLog"].ToString());
+                            sb.AppendFormat("<td>{0}</td>", executionLog);
+                        }
+                        sb.AppendLine("</tr>");
                     }
-                    sb.AppendLine("</tr>");
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    {
+                        TaskManager.WriteError("AuditLogReportTask skipped a malformed audit row. Error: {0}", ex.ToString());
+                    }
                 }
                 sb.AppendLine("</table>");
             }
             sb.AppendLine("</p></body></html>");
 
-            // send mail message
-            int res = MailHelper.SendMessage(mailFrom, mailTo, mailSubject, sb.ToString(), true);
-            if (res != 0) TaskManager.WriteError("SMTP Error. Code: " + res);
+                // send mail message
+                int res = MailHelper.SendMessage(mailFrom, mailTo, mailSubject, sb.ToString(), true);
+                if (res != 0) TaskManager.WriteError("SMTP Error. Code: " + res);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("AuditLogReportTask failed for recipient '{0}'. Error: {1}",
+                    (string)topTask.GetParamValue("MAIL_TO"),
+                    ex.ToString());
+                throw;
+            }
         }
 
         private string FormatPlainTextExecutionLog(string xmlLog)

@@ -19,6 +19,13 @@ namespace FuseCP.EnterpriseServer
 {
 	internal static class SchedulerRuntime
 	{
+		public static bool IsStaleStartingTask(BackgroundTask task)
+		{
+			return task != null
+				&& task.Status == BackgroundTaskStatus.Starting
+				&& (DateTime.Now - task.StartDate).TotalSeconds > 180;
+		}
+
 		public static string GetLeaseOwner()
 		{
 			return Environment.MachineName;

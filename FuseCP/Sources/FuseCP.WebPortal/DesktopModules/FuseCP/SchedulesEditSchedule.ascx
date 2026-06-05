@@ -174,8 +174,33 @@
                         <asp:Label ID="lblSchedulerAffinity" runat="server" AssociatedControlID="txtSchedulerAffinity" CssClass="form-label" Text="Affinity / Server Key (optional)"></asp:Label>
                         <asp:TextBox ID="txtSchedulerAffinity" runat="server" CssClass="form-control" MaxLength="255"></asp:TextBox>
                     </div>
+                    <div class="col-12 col-md-6">
+                        <asp:Label ID="lblParallelismMode" runat="server" AssociatedControlID="ddlParallelismMode" CssClass="form-label" Text="Parallelism Mode"></asp:Label>
+                        <asp:DropDownList ID="ddlParallelismMode" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="AUTO" Selected="True">Auto (recommended)</asp:ListItem>
+                            <asp:ListItem Value="MANUAL">Manual override</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <asp:Label ID="lblParallelismMax" runat="server" AssociatedControlID="txtParallelismMax" CssClass="form-label" Text="Manual Max Parallelism"></asp:Label>
+                        <asp:TextBox ID="txtParallelismMax" runat="server" CssClass="form-control" MaxLength="3"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="valParallelismMax" runat="server" ControlToValidate="txtParallelismMax" ErrorMessage="*" ValidationExpression="^$|^[1-9]\d{0,1}$|^100$" Display="Dynamic"></asp:RegularExpressionValidator>
+                    </div>
                 </div>
                 <div class="small text-muted mt-1">Use these values only when you need to override automatic scheduler balancing for this cron.</div>
+            </td>
+        </tr>
+        <tr id="rowExecutionMode" runat="server">
+            <td class="SubHead align-top">
+                <asp:Label ID="lblExecutionMode" runat="server" Text="Execution Mode:"></asp:Label>
+            </td>
+            <td class="Normal align-top">
+                <asp:DropDownList ID="ddlExecutionMode" runat="server" CssClass="form-control" Width="380px">
+                    <asp:ListItem Value="AUTO" Selected="True">Auto (recommended)</asp:ListItem>
+                    <asp:ListItem Value="SERVER_PREFERRED">Prefer server module/agent</asp:ListItem>
+                    <asp:ListItem Value="ENTERPRISE_ONLY">Enterprise runtime only</asp:ListItem>
+                </asp:DropDownList>
+                <div class="small text-muted mt-1">Admin-only safety control. Unknown values automatically fall back to Auto at runtime.</div>
             </td>
         </tr>
     </table>

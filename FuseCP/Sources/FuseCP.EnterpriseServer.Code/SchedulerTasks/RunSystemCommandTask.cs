@@ -41,31 +41,33 @@ namespace FuseCP.EnterpriseServer
             if (execParams == null)
                 execParams = "";
 
-            // check input parameters
-            if (String.IsNullOrEmpty(serverName))
-            {
-                TaskManager.WriteWarning("Specify 'Server Name' task parameter");
-                return;
-            }
-
             if (String.IsNullOrEmpty(execPath))
             {
                 TaskManager.WriteWarning("Specify 'Executable Path' task parameter");
                 return;
             }
 
-            // find server by name
-            ServerInfo server = ServerController.GetServerByName(serverName);
-            if (server == null)
+            if (!TryResolveTargetServer(topTask, serverName, out ServerInfo server) || server == null)
             {
-                TaskManager.WriteWarning(String.Format("Server with the name '{0}' was not found", serverName));
+                TaskManager.WriteWarning("Target server could not be resolved. Provide SERVER_NAME or route with SCHEDULER_TARGET_SERVER_ID.");
                 return;
             }
 
-            // execute system command
-            Server.Client.OperatingSystem winServer = new Server.Client.OperatingSystem();
-            ServiceProviderProxy.ServerInit(winServer, server.ServerId);
-            TaskManager.Write(winServer.ExecuteSystemCommand(username, password, execPath, execParams));
+            try
+            {
+                // execute system command
+                Server.Client.OperatingSystem winServer = new Server.Client.OperatingSystem();
+                ServiceProviderProxy.ServerInit(winServer, server.ServerId);
+                TaskManager.Write(winServer.ExecuteSystemCommand(username, password, execPath, execParams));
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("RunSystemCommandTask failed for server '{0}' and executable '{1}'. Error: {2}",
+                    server.ServerName,
+                    execPath,
+                    ex.ToString());
+                throw;
+            }
         }
     }
 }

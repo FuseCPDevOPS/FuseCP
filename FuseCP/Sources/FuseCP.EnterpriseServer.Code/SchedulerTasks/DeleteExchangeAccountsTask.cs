@@ -35,14 +35,40 @@ namespace FuseCP.EnterpriseServer
         {
             List<Organization> organizations = OrganizationController.GetOrganizations(TaskManager.TopTask.PackageId, true);
 
-            foreach (List<OrganizationDeletedUser> deletedUsers in organizations.Select(organization => OrganizationController.GetOrganizationDeletedUsers(organization.Id)))
-            {
+            int attempted = 0;
+            int succeeded = 0;
+            int failed = 0;
 
-                foreach (OrganizationDeletedUser deletedUser in deletedUsers.Where(deletedUser => deletedUser.ExpirationDate > DateTime.UtcNow))
+            foreach (Organization organization in organizations)
+            {
+                try
                 {
-                    OrganizationController.DeleteUser(TaskManager.TopTask.ItemId, deletedUser.AccountId);
+                    List<OrganizationDeletedUser> deletedUsers = OrganizationController.GetOrganizationDeletedUsers(organization.Id);
+
+                    foreach (OrganizationDeletedUser deletedUser in deletedUsers.Where(deletedUser => deletedUser.ExpirationDate > DateTime.UtcNow))
+                    {
+                        attempted++;
+                        try
+                        {
+                            OrganizationController.DeleteUser(TaskManager.TopTask.ItemId, deletedUser.AccountId);
+                            succeeded++;
+                        }
+                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                        {
+                            failed++;
+                            TaskManager.WriteError("DeleteExchangeAccountsTask failed for AccountId '{0}': {1}", deletedUser.AccountId.ToString(), ex.ToString());
+                        }
+                    }
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    failed++;
+                    TaskManager.WriteError("DeleteExchangeAccountsTask failed while loading deleted users for organization '{0}'. Error: {1}", organization.OrganizationId, ex.ToString());
                 }
             }
+
+            TaskManager.Write("Delete exchange accounts finished. Attempted: {0}, succeeded: {1}, failed: {2}",
+                attempted.ToString(), succeeded.ToString(), failed.ToString());
         }
     }
 }

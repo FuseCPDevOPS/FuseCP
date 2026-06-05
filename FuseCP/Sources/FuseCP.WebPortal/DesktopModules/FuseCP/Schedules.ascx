@@ -20,7 +20,7 @@
 		<div class="fcp-schedules-actions">
 			<asp:CheckBox ID="chkAutoRefresh" runat="server" AutoPostBack="True" CssClass="Normal me-2"
 				Text="Auto Refresh" />
-			<asp:LinkButton ID="btnRefresh" runat="server" CssClass="btn btn-outline-secondary me-2">
+			<asp:LinkButton ID="btnRefresh" runat="server" CssClass="btn btn-outline-secondary me-2" OnClick="btnRefresh_Click" CausesValidation="false">
 				<i class="bi bi-arrow-repeat me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRefresh" />
 			</asp:LinkButton>
 			<asp:LinkButton ID="btnAddItem" runat="server" CssClass="btn btn-primary" OnClick="btnAddItem_Click">
@@ -57,6 +57,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="fcp-scheduler-role-strip" role="status">
+		<asp:Literal ID="litSchedulerRoleGuidance" runat="server" />
+	</div>
 	<div class="alert alert-info fcp-schedules-overview" role="status">
 		<asp:Literal ID="litScheduleOverview" runat="server" />
 	</div>
@@ -75,10 +78,14 @@
 		<div class="col-12 col-xl-4">
 			<div class="card h-100">
 				<div class="card-header">
-					Auto-Tune Snapshot
+					Execution &amp; Capacity
 				</div>
 				<div class="card-body">
 					<asp:Literal ID="litSchedulerAutotune" runat="server" />
+					<div class="fcp-scheduler-topology mt-3">
+						<div class="fcp-scheduler-topology-title">Execution Topology</div>
+						<asp:Literal ID="litSchedulerPlacement" runat="server" />
+					</div>
 					<div id="pnlSchedulerOverrides" runat="server" class="fcp-scheduler-overrides mt-3">
 						<div class="fcp-scheduler-overrides-title">Manual Runtime Overrides</div>
 						<div class="small text-muted mb-2">Applies live to the scheduler worker on this EnterpriseServer runtime.</div>
@@ -104,7 +111,7 @@
 		</div>
 	</div>
 
-<asp:UpdatePanel runat="server" ID="schedulesUpdatePanel" UpdateMode="Conditional">
+<asp:UpdatePanel runat="server" ID="schedulesUpdatePanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
     <Triggers>
         <asp:AsyncPostBackTrigger ControlID="tasksTimer" EventName="Tick" />
     </Triggers>
@@ -140,11 +147,29 @@
 		    ItemStyle-Wrap="false" HeaderStyle-Wrap="false"></asp:BoundField>
 		<asp:TemplateField HeaderText="gvSchedulesStatus" ItemStyle-Wrap="false">
 			<ItemTemplate>
-                <asp:ImageButton ID="cmdStart" runat="server" ToolTip="Start" SkinID="StartMedium" Visible='<%# !IsScheduleActive((int)Eval("StatusID")) %>'
-                    CommandName="start" CommandArgument='<%# Eval("ScheduleID") %>' />
-                <asp:ImageButton ID="cmdStop" runat="server" ToolTip="Stop" SkinID="StopMedium" Visible='<%# IsScheduleActive((int)Eval("StatusID")) %>'
-                    CommandName="stop" CommandArgument='<%# Eval("ScheduleID") %>' />
-                <%# GetScheduleStatus((int)Eval("StatusID")) %>
+				<div class="fcp-schedule-action-cell">
+					<div class="fcp-schedule-action-buttons">
+						<asp:LinkButton ID="cmdStart" runat="server" ToolTip="Start" aria-label="Start schedule" Visible='<%# !IsScheduleActive((int)Eval("StatusID")) %>'
+							CssClass="btn btn-sm btn-success fcp-schedule-action-btn" CommandName="start" CommandArgument='<%# Eval("ScheduleID") %>' CausesValidation="false">
+							<i class="bi bi-play-fill me-1" aria-hidden="true" focusable="false"></i><span>Start</span>
+						</asp:LinkButton>
+						<asp:LinkButton ID="cmdRunNow" runat="server" Text="Run now" ToolTip="Run now (bypass queue)" aria-label="Run schedule now"
+							CssClass="btn btn-sm btn-outline-primary fcp-schedule-action-btn" Visible='<%# IsScheduleQueued((int)Eval("StatusID")) %>'
+							CommandName="runnow" CommandArgument='<%# Eval("ScheduleID") %>' CausesValidation="false">
+							<i class="bi bi-fast-forward-fill me-1" aria-hidden="true" focusable="false"></i><span>Run now</span>
+						</asp:LinkButton>
+						<asp:LinkButton ID="cmdStop" runat="server" ToolTip="Stop" aria-label="Stop schedule" Visible='<%# IsScheduleActive((int)Eval("StatusID")) %>'
+							CssClass="btn btn-sm btn-outline-danger fcp-schedule-action-btn" CommandName="stop" CommandArgument='<%# Eval("ScheduleID") %>' CausesValidation="false"
+							OnClientClick="return confirm('Stop this scheduled task?');">
+							<i class="bi bi-stop-fill me-1" aria-hidden="true" focusable="false"></i><span>Stop</span>
+						</asp:LinkButton>
+					</div>
+					<div class="fcp-schedule-action-meta">
+						<div class="fcp-schedule-action-status"><%# GetScheduleStatus((int)Eval("StatusID")) %></div>
+						<div class="fcp-schedule-mode-cell"><%# GetExecutionModeBadge(Eval("ScheduleID")) %></div>
+						<div class="fcp-schedule-mode-cell"><%# GetParallelismBadge(Eval("ScheduleID")) %></div>
+					</div>
+				</div>
 			</ItemTemplate>
 		</asp:TemplateField>
 		<asp:TemplateField HeaderText="gvSchedulesResult" HeaderStyle-Wrap="false">

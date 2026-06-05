@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TasksTaskDetails.ascx.cs" Inherits="FuseCP.Portal.TasksTaskDetails" %>
 <%@ Import Namespace="FuseCP.Portal" %>
 
-<div class="card-body form-horizontal">
+<div class="card-body form-horizontal fcp-task-details-panel">
 <asp:Timer runat="server" Interval="4000" ID="tasksTimer" />
 <asp:UpdatePanel runat="server" ID="tasksUpdatePanel" UpdateMode="Conditional">
   <Triggers>
@@ -11,7 +11,7 @@
   
 <table class="table table-borderless align-middle mb-0">
     <tr>
-        <td class="MediumBold">
+        <td class="MediumBold fcp-task-details-title">
             <asp:Literal id="litTitle" runat="server"></asp:Literal>
         </td>
     </tr>
@@ -20,7 +20,7 @@
             <fieldset>
                 <table class="table table-borderless align-middle mb-0 w-100">
                     <tr>
-                        <td class="NormalBold" colspan="2">
+                        <td class="NormalBold fcp-task-details-step" colspan="2">
                             <asp:Literal id="litStep" runat="server"></asp:Literal>
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
     </tr>
     <tr>
         <td class="Normal">
-            <asp:Panel ID="pnlLog" runat="server" CssClass="fcp-log-scroll">
+            <asp:Panel ID="pnlLog" runat="server" CssClass="fcp-log-scroll fcp-task-log">
                 <asp:Literal ID="litLog" runat="server"></asp:Literal>
             </asp:Panel>
         </td>

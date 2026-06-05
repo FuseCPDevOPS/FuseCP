@@ -79,8 +79,11 @@ public class Configuration
 	public static string ExposeWebServices = null;
 	public static bool IsPortal = false;
 	public static bool SchedulerEnabled = false;
+	public static bool SchedulerFreezeEnabled = false;
 	public static int SchedulerGlobalMaxConcurrentExecutions = 256;
 	public static int SchedulerMaxConcurrentExecutions = 8;
+	public static int SchedulerTenantMaxConcurrentExecutions = 4;
+	public static int SchedulerProviderMaxConcurrentExecutions = 8;
 	public static bool SchedulerAutoTuneEnabled = false;
 	public static int SchedulerMinConcurrentExecutions = 4;
 	public static int SchedulerMaxAutoConcurrentExecutions = 32;
@@ -170,6 +173,11 @@ public class Configuration
 			configuration.GetValue<bool?>("EnterpriseServer:RunScheduler") ??
 			(string.Equals(Environment.GetEnvironmentVariable("FUSECP_RUN_SCHEDULER"), "true", StringComparison.OrdinalIgnoreCase) ||
 			 string.Equals(Environment.GetEnvironmentVariable("FUSECP_RUN_SCHEDULER"), "1", StringComparison.OrdinalIgnoreCase));
+		SchedulerFreezeEnabled =
+			configuration.GetValue<bool?>("Scheduler:FreezeEnabled") ??
+			configuration.GetValue<bool?>("EnterpriseServer:SchedulerFreezeEnabled") ??
+			(string.Equals(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_FREEZE"), "true", StringComparison.OrdinalIgnoreCase) ||
+			 string.Equals(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_FREEZE"), "1", StringComparison.OrdinalIgnoreCase));
 		SchedulerMaxConcurrentExecutions =
 			configuration.GetValue<int?>("Scheduler:MaxConcurrentExecutions") ??
 			configuration.GetValue<int?>("EnterpriseServer:SchedulerMaxConcurrentExecutions") ??
@@ -182,6 +190,18 @@ public class Configuration
 			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_GLOBAL_MAX_CONCURRENCY"), out int schedulerGlobalMaxConcurrency)
 				? schedulerGlobalMaxConcurrency
 				: 256);
+		SchedulerTenantMaxConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:TenantMaxConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerTenantMaxConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_TENANT_MAX_CONCURRENCY"), out int schedulerTenantMaxConcurrency)
+				? schedulerTenantMaxConcurrency
+				: 4);
+		SchedulerProviderMaxConcurrentExecutions =
+			configuration.GetValue<int?>("Scheduler:ProviderMaxConcurrentExecutions") ??
+			configuration.GetValue<int?>("EnterpriseServer:SchedulerProviderMaxConcurrentExecutions") ??
+			(int.TryParse(Environment.GetEnvironmentVariable("FUSECP_SCHEDULER_PROVIDER_MAX_CONCURRENCY"), out int schedulerProviderMaxConcurrency)
+				? schedulerProviderMaxConcurrency
+				: 8);
 		SchedulerAutoTuneEnabled =
 			configuration.GetValue<bool?>("Scheduler:AutoTuneEnabled") ??
 			configuration.GetValue<bool?>("EnterpriseServer:SchedulerAutoTuneEnabled") ??

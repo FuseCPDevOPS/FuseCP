@@ -50,13 +50,14 @@ namespace FuseCP.Portal
         [WebMethod]
         public int GetTasksNumber()
         {
-            return ES.Services.Tasks.GetTasksNumber();
+            return ES.Services.Tasks.GetUserTasks(PanelSecurity.SelectedUserId).Length;
         }
 
         [WebMethod]
         public BackgroundTask[] GetUserTasks(int userId)
         {
-            return ES.Services.Tasks.GetUserTasks(userId);
+            // Always enforce panel-selected scope for this script endpoint.
+            return ES.Services.Tasks.GetUserTasks(PanelSecurity.SelectedUserId);
         }
 
         [WebMethod]

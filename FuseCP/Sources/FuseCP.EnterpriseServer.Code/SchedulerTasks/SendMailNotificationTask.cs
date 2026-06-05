@@ -56,8 +56,16 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            // send mail message
-            MailHelper.SendMessage(mailFrom, mailTo, mailSubject, mailBody, false);
+            try
+            {
+                // send mail message
+                MailHelper.SendMessage(mailFrom, mailTo, mailSubject, mailBody, false);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("SendMailNotificationTask failed for recipient '{0}'. Error: {1}", mailTo, ex.ToString());
+                throw;
+            }
         }
     }
 }

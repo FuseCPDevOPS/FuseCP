@@ -219,6 +219,9 @@
   <data name="ScheduleStatus.Running" xml:space="preserve">
     <value>Wird ausgef�hrt</value>
   </data>
+  <data name="ScheduleStatus.Queued" xml:space="preserve">
+    <value>In Warteschlange</value>
+  </data>
   <data name="ScheduleType.Daily" xml:space="preserve">
     <value>T�glich</value>
   </data>

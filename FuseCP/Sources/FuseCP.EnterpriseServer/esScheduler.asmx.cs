@@ -64,6 +64,48 @@ namespace FuseCP.EnterpriseServer
         }
 
         [WebMethod]
+        public bool GetSchedulerRuntimeFreezeEnabled()
+        {
+            return SchedulerController.GetSchedulerRuntimeFreezeEnabled();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeTenantConcurrency()
+        {
+            return SchedulerController.GetSchedulerRuntimeTenantConcurrency();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeProviderConcurrency()
+        {
+            return SchedulerController.GetSchedulerRuntimeProviderConcurrency();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeActiveTenantBuckets()
+        {
+            return SchedulerController.GetSchedulerRuntimeActiveTenantBuckets();
+        }
+
+        [WebMethod]
+        public int GetSchedulerRuntimeActiveProviderBuckets()
+        {
+            return SchedulerController.GetSchedulerRuntimeActiveProviderBuckets();
+        }
+
+        [WebMethod]
+        public long GetSchedulerRuntimeTenantDeferrals()
+        {
+            return SchedulerController.GetSchedulerRuntimeTenantDeferrals();
+        }
+
+        [WebMethod]
+        public long GetSchedulerRuntimeProviderDeferrals()
+        {
+            return SchedulerController.GetSchedulerRuntimeProviderDeferrals();
+        }
+
+        [WebMethod]
         public int ApplySchedulerRuntimeConcurrency(int perAffinityConcurrency, int globalConcurrency)
         {
             return SchedulerController.ApplySchedulerRuntimeConcurrency(perAffinityConcurrency, globalConcurrency);
@@ -128,6 +170,12 @@ namespace FuseCP.EnterpriseServer
         public int StartSchedule(int scheduleId)
         {
             return SchedulerController.StartSchedule(scheduleId);
+        }
+
+	    [WebMethod]
+        public int StartScheduleNow(int scheduleId)
+        {
+            return SchedulerController.StartScheduleNow(scheduleId);
         }
 
         [WebMethod]

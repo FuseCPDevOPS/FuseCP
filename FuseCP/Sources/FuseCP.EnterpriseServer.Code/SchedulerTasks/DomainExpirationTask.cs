@@ -20,7 +20,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using FuseCP.Providers.DomainLookup;
 using FuseCP.EnterpriseServer.Data;
 
@@ -28,6 +27,8 @@ namespace FuseCP.EnterpriseServer
 {
     public class DomainExpirationTask: SchedulerTask
     {
+        private const int ProgressLogInterval = 100;
+
         private static readonly string TaskId = "SCHEDULE_TASK_DOMAIN_EXPIRATION";
 
         // Input parameters:
@@ -52,6 +53,8 @@ namespace FuseCP.EnterpriseServer
             var nonExistenDomains = new List<DomainInfo>();
             var allDomains = new List<DomainInfo>();
             var allTopLevelDomains = new List<DomainInfo>();
+            int processedTopLevelDomains = 0;
+            int updatedSubDomains = 0;
 
             // get input parameters
             int daysBeforeNotify;
@@ -74,64 +77,89 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var package in packages)
             {
-                var domains = ServerController.GetDomains(package.PackageId);
-
-                allDomains.AddRange(domains);
-
-                domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
-
-                allTopLevelDomains.AddRange(domains);
-
-                var domainUser = UserController.GetUser(package.UserId);
-
-                if (!domainUsers.ContainsKey(package.PackageId))
+                try
                 {
-                    domainUsers.Add(package.PackageId, domainUser);
+                    var domains = ServerController.GetDomains(package.PackageId);
+
+                    allDomains.AddRange(domains);
+
+                    domains = domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer).ToList(); //Selecting top-level domains
+
+                    allTopLevelDomains.AddRange(domains);
+
+                    var domainUser = UserController.GetUser(package.UserId);
+
+                    if (!domainUsers.ContainsKey(package.PackageId))
+                    {
+                        domainUsers.Add(package.PackageId, domainUser);
+                    }
+
+                    foreach (var domain in domains)
+                    {
+                        try
+                        {
+                            if (checkedDomains.Any(x=> x.DomainId == domain.DomainId))
+                            {
+                                continue;
+                            }
+
+                            checkedDomains.Add(domain);
+
+                            ServerController.UpdateDomainWhoisData(domain);
+
+                            if (CheckDomainExpiration(domain.ExpirationDate, daysBeforeNotify))
+                            {
+                                expiredDomains.Add(domain);
+                            }
+
+                            if (domain.ExpirationDate == null && domain.CreationDate == null)
+                            {
+                                nonExistenDomains.Add(domain);
+                            }
+
+                            processedTopLevelDomains++;
+                            if (processedTopLevelDomains % ProgressLogInterval == 0)
+                            {
+                                TaskManager.Write("Domain expiration progress: processed top-level domains {0}", processedTopLevelDomains.ToString());
+                            }
+                        }
+                        catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                        {
+                            TaskManager.WriteError("Domain expiration failed for domain '{0}'. Error: {1}", domain.DomainName, ex.ToString());
+                        }
+                    }
                 }
-
-                foreach (var domain in domains)
-                {
-                    if (checkedDomains.Any(x=> x.DomainId == domain.DomainId))
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                     {
-                        continue;
+                    TaskManager.WriteError("Domain expiration failed while loading package '{0}'. Error: {1}", package.PackageId.ToString(), ex.ToString());
                     }
-
-                    checkedDomains.Add(domain);
-
-                    ServerController.UpdateDomainWhoisData(domain);
-
-                    if (CheckDomainExpiration(domain.ExpirationDate, daysBeforeNotify))
-                    {
-                        expiredDomains.Add(domain);
-                    }
-
-                    if (domain.ExpirationDate == null && domain.CreationDate == null)
-                    {
-                        nonExistenDomains.Add(domain);
-                    }
-
-                    Thread.Sleep(100);
-                }
             }
 
             var subDomains = allDomains.Where(x => !checkedDomains.Any(z => z.DomainId == x.DomainId && z.ExpirationDate != null)).GroupBy(p => p.DomainId).Select(g => g.First()).ToList();
 
             foreach (var subDomain in subDomains)
             {
-                var mainDomain = checkedDomains.Where(x => subDomain.DomainId != x.DomainId && subDomain.DomainName.ToLowerInvariant().Contains(x.DomainName.ToLowerInvariant())).OrderByDescending(s => s.DomainName.Length).FirstOrDefault(); ;
-
-                if (mainDomain != null)
+                try
                 {
-                    ServerController.UpdateDomainWhoisData(subDomain, mainDomain.CreationDate, mainDomain.ExpirationDate, mainDomain.RegistrarName);
+                    var mainDomain = checkedDomains.Where(x => subDomain.DomainId != x.DomainId && subDomain.DomainName.ToLowerInvariant().Contains(x.DomainName.ToLowerInvariant())).OrderByDescending(s => s.DomainName.Length).FirstOrDefault(); ;
 
-                    var nonExistenDomain = nonExistenDomains.FirstOrDefault(x => subDomain.DomainId == x.DomainId);
-
-                    if (nonExistenDomain != null)
+                    if (mainDomain != null)
                     {
-                        nonExistenDomains.Remove(nonExistenDomain);
-                    }
+                        ServerController.UpdateDomainWhoisData(subDomain, mainDomain.CreationDate, mainDomain.ExpirationDate, mainDomain.RegistrarName);
 
-                    Thread.Sleep(100);
+                        var nonExistenDomain = nonExistenDomains.FirstOrDefault(x => subDomain.DomainId == x.DomainId);
+
+                        if (nonExistenDomain != null)
+                        {
+                            nonExistenDomains.Remove(nonExistenDomain);
+                        }
+
+                        updatedSubDomains++;
+                    }
+                }
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                {
+                    TaskManager.WriteError("Domain expiration failed for sub-domain '{0}'. Error: {1}", subDomain.DomainName, ex.ToString());
                 }
             }
 
@@ -141,6 +169,12 @@ namespace FuseCP.EnterpriseServer
             {
                 SendMailMessage(user, expiredDomains, domainUsers, nonExistenDomains, includeNonExistenDomains);
             }
+
+            TaskManager.Write("Domain expiration finished. Top-level processed: {0}, sub-domains updated: {1}, expiring domains: {2}, missing WHOIS domains: {3}",
+                processedTopLevelDomains.ToString(),
+                updatedSubDomains.ToString(),
+                expiredDomains.Count.ToString(),
+                nonExistenDomains.Count.ToString());
         }
 
         private IEnumerable<PackageInfo> GetUserPackages(int userId,UserRole userRole)
@@ -214,7 +248,14 @@ namespace FuseCP.EnterpriseServer
             body = PackageController.EvaluateTemplate(body, items);
 
             // send mail message
-            MailHelper.SendMessage(from, mailTo, bcc, subject, body, priority, isHtml);
+            try
+            {
+                MailHelper.SendMessage(from, mailTo, bcc, subject, body, priority, isHtml);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("Domain expiration e-mail failed for recipient '{0}'. Error: {1}", mailTo, ex.ToString());
+            }
         }
 
 

@@ -32,6 +32,8 @@ namespace FuseCP.EnterpriseServer
 {
     public class DomainLookupViewTask : SchedulerTask
     {
+        private const int ProgressLogInterval = 100;
+
         private static readonly string TaskId = "SCHEDULE_TASK_DOMAIN_LOOKUP";
 
         // Input parameters:
@@ -47,6 +49,9 @@ namespace FuseCP.EnterpriseServer
         private const string NsRecordPattern = @"nameserver = (.+)";
         private const string DnsTimeOutMessage = @"dns request timed out";
         private const int DnsTimeOutRetryCount = 3;
+
+        private int recordsAddedCount;
+        private int recordsRemovedCount;
         
         public override void DoWork()
         {
@@ -55,8 +60,13 @@ namespace FuseCP.EnterpriseServer
             _ = MailBodyTemplateParameter;
             _ = MailBodyDomainRecordTemplateParameter;
 
+            recordsAddedCount = 0;
+            recordsRemovedCount = 0;
+
             List<DomainDnsChanges> domainsChanges = new List<DomainDnsChanges>();
             var domainUsers = new Dictionary<int, UserInfo>();
+            int processedDomains = 0;
+            int failedDomains = 0;
 
 			// get input parameters
 			string username = (string)topTask.GetParamValue("USERNAME");
@@ -86,11 +96,9 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            // find server by name
-            ServerInfo server = ServerController.GetServerByName(serverName);
-            if (server == null)
+            if (!TryResolveTargetServer(topTask, serverName, out ServerInfo server) || server == null)
             {
-                TaskManager.WriteWarning(String.Format("Server with the name '{0}' was not found", serverName));
+                TaskManager.WriteWarning("Target server could not be resolved. Provide SERVER_NAME or route with SCHEDULER_TARGET_SERVER_ID.");
                 return;
             }
 
@@ -103,11 +111,25 @@ namespace FuseCP.EnterpriseServer
 
             var packages = ObjectUtils.CreateListFromDataReader<PackageInfo>(Database.GetAllPackages());
             var packageUsers = packages.ToDictionary(package => package.PackageId, package => package.UserId);
+            var domains = new List<DomainInfo>();
 
-            foreach (var domain in packageUsers.Keys
-                .SelectMany(packageId => ServerController.GetDomains(packageId))
-                .Where(x => !x.IsSubDomain && !x.IsDomainPointer))
+            foreach (var packageId in packageUsers.Keys)
             {
+                try
+                {
+                    domains.AddRange(ServerController.GetDomains(packageId));
+                }
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                {
+                    failedDomains++;
+                    TaskManager.WriteError("Domain lookup failed while loading domains for package '{0}'. Error: {1}", packageId.ToString(), ex.ToString());
+                }
+            }
+
+            foreach (var domain in domains.Where(x => !x.IsSubDomain && !x.IsDomainPointer))
+            {
+                try
+                {
                     if (domainsChanges.Any(x => x.DomainName == domain.DomainName))
                     {
                         continue;
@@ -149,11 +171,30 @@ namespace FuseCP.EnterpriseServer
                     }
 
                     domainsChanges.Add(domainChanges);
+
+                    processedDomains++;
+                    if (processedDomains % ProgressLogInterval == 0)
+                    {
+                        TaskManager.Write("Domain lookup progress: processed domains {0}", processedDomains.ToString());
+                    }
+                }
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                {
+                    failedDomains++;
+                    TaskManager.WriteError("Domain lookup failed for '{0}'. Error: {1}", domain.DomainName, ex.ToString());
+                }
             }
 
             var changedDomains = FindDomainsWithChangedRecords(domainsChanges);
 
             SendMailMessage(user, changedDomains, domainUsers);
+
+            TaskManager.Write("Domain lookup finished. Domains processed: {0}, changed domains: {1}, records added: {2}, records removed: {3}",
+                processedDomains.ToString(),
+                changedDomains.Count().ToString(),
+                recordsAddedCount.ToString(),
+                recordsRemovedCount.ToString());
+            TaskManager.Write("Domain lookup failures: {0}", failedDomains.ToString());
         }
 
         
@@ -277,8 +318,7 @@ namespace FuseCP.EnterpriseServer
         private void RemoveRecord(DnsRecordInfo dnsRecord)
         {
             Database.DeleteDomainDnsRecord(dnsRecord.Id);
-
-            Thread.Sleep(100);
+            recordsRemovedCount++;
         }
 
         private void AddRecords(IEnumerable<DnsRecordInfo> dnsRecords)
@@ -292,8 +332,7 @@ namespace FuseCP.EnterpriseServer
         private void AddRecord(DnsRecordInfo dnsRecord)
         {
             Database.AddDomainDnsRecord(dnsRecord);
-
-            Thread.Sleep(100);
+            recordsAddedCount++;
         }
 
         private void SendMailMessage(UserInfo user, IEnumerable<DomainDnsChanges> domainsChanges, Dictionary<int, UserInfo> domainUsers)
@@ -330,37 +369,56 @@ namespace FuseCP.EnterpriseServer
             body = PackageController.EvaluateTemplate(body, items);
 
             // send mail message
-            MailHelper.SendMessage(from, mailTo, bcc, subject, body, priority, isHtml);
+            try
+            {
+                MailHelper.SendMessage(from, mailTo, bcc, subject, body, priority, isHtml);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("Domain lookup e-mail failed for recipient '{0}'. Error: {1}", mailTo, ex.ToString());
+            }
         }
 
         public List<DnsRecordInfo> GetDomainDnsRecords(Server.Client.OperatingSystem winServer, string username, string password, string domain, string dnsServer, DnsRecordType recordType, int pause)
         {
-            Thread.Sleep(pause);
-
-            //nslookup -type=mx google.com 195.46.39.39
-            var command = "nslookup";
-            var args = string.Format("-type={0} {1} {2}", recordType, domain, dnsServer);
-
-            // execute system command
-            var raw  = string.Empty;
-            int triesCount = 0;
-
-            do
+            try
             {
-				//TODO implement this as a method of OperatingSystem
-				raw = winServer.ExecuteSystemCommand(username, password, command, args);
-            } 
-            while (raw.ToLowerInvariant().Contains(DnsTimeOutMessage) && ++triesCount < DnsTimeOutRetryCount);
+                Thread.Sleep(pause);
 
-            //timeout check 
-            if (raw.ToLowerInvariant().Contains(DnsTimeOutMessage))
+                //nslookup -type=mx google.com 195.46.39.39
+                var command = "nslookup";
+                var args = string.Format("-type={0} {1} {2}", recordType, domain, dnsServer);
+
+                // execute system command
+                var raw  = string.Empty;
+                int triesCount = 0;
+
+                do
+                {
+					//TODO implement this as a method of OperatingSystem
+					raw = winServer.ExecuteSystemCommand(username, password, command, args);
+                } 
+                while (raw.ToLowerInvariant().Contains(DnsTimeOutMessage) && ++triesCount < DnsTimeOutRetryCount);
+
+                //timeout check 
+                if (raw.ToLowerInvariant().Contains(DnsTimeOutMessage))
+                {
+                    return null;
+                }
+
+                var records = ParseNsLookupResult(raw, dnsServer, recordType);
+
+                return records.ToList();
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
+                TaskManager.WriteError("DNS query failed for domain '{0}' against server '{1}' ({2}). Error: {3}",
+                    domain,
+                    dnsServer,
+                    recordType.ToString(),
+                    ex.ToString());
                 return null;
             }
-
-            var records = ParseNsLookupResult(raw, dnsServer, recordType);
-
-            return records.ToList();
         }
 
         private IEnumerable<DnsRecordInfo> ParseNsLookupResult(string raw, string dnsServer, DnsRecordType recordType)

@@ -219,6 +219,9 @@
   <data name="ScheduleStatus.Running" xml:space="preserve">
     <value>?????</value>
   </data>
+  <data name="ScheduleStatus.Queued" xml:space="preserve">
+    <value>?? ???????</value>
+  </data>
   <data name="ScheduleType.Daily" xml:space="preserve">
     <value>??????</value>
   </data>

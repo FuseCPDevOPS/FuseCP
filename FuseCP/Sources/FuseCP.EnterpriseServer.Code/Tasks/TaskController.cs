@@ -34,7 +34,7 @@ namespace FuseCP.EnterpriseServer
             BackgroundTask task = ObjectUtils.FillObjectFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTask(taskId));
 
-            if (task == null)
+            if (task == null || !CanAccessBackgroundTask(task))
             {
                 return null;
             }
@@ -61,6 +61,7 @@ namespace FuseCP.EnterpriseServer
         public List<BackgroundTask> GetTasks(int actorId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            if (!CanAccessUserTasks(actorId)) return new List<BackgroundTask>();
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
                 Database.GetBackgroundTasks(actorId));
         }
@@ -216,6 +217,44 @@ namespace FuseCP.EnterpriseServer
                 Database.GetBackgroundTaskParams(taskId));
 
             return DeserializeParams(parameters);
+        }
+
+        private bool CanAccessBackgroundTask(BackgroundTask task)
+        {
+            if (task == null)
+                return false;
+
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return false;
+
+            if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return true;
+
+            if (task.PackageId > 0 && SecurityContext.CheckPackage(task.PackageId, DemandPackage.IsActive) == 0)
+                return true;
+
+            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            if (Database.CheckActorUserRights(actorId, task.UserId))
+                return true;
+
+            return task.EffectiveUserId > 0 && Database.CheckActorUserRights(actorId, task.EffectiveUserId);
+        }
+
+        private bool CanAccessUserTasks(int userId)
+        {
+            if (userId <= 0)
+                return false;
+
+            var currentUser = SecurityContext.User;
+            if (currentUser == null)
+                return false;
+
+            if (currentUser.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return true;
+
+            int actorId = currentUser.IsPeer ? currentUser.OwnerId : currentUser.UserId;
+            return Database.CheckActorUserRights(actorId, userId);
         }
 
         public void AddLog(BackgroundTaskLogRecord log)

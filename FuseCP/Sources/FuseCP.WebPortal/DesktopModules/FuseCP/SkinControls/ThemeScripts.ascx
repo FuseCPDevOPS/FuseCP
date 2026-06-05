@@ -154,6 +154,37 @@
       disabledControls = [];
     }
 
+    // Passive auto-refresh timers should not trigger the global busy overlay.
+    // They are meant to update content in place; showing the banner on each
+    // tick causes the menu/search area to flicker and briefly disables controls.
+    function shouldBypassGlobalBusy(request, additionalTimerIds) {
+      if (!request || !request.get_postBackElement) {
+        return false;
+      }
+
+      var element = request.get_postBackElement();
+      if (!element) {
+        return false;
+      }
+
+      var elementId = (element.id || element.name || '').toLowerCase();
+      var timerIds = ['taskstimer', 'refreshtimer', 'operationtimer'];
+
+      if (additionalTimerIds && additionalTimerIds.length) {
+        for (var i = 0; i < additionalTimerIds.length; i++) {
+          timerIds.push(String(additionalTimerIds[i] || '').toLowerCase());
+        }
+      }
+
+      for (var j = 0; j < timerIds.length; j++) {
+        if (timerIds[j] && elementId.indexOf(timerIds[j]) >= 0) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     function beginBusy(message) {
       if (busy) return false;
       busy = true;
@@ -170,7 +201,8 @@
 
     window.fcpGlobalBusy = {
       start: beginBusy,
-      stop: endBusy
+      stop: endBusy,
+      shouldBypass: shouldBypassGlobalBusy
     };
 
     document.addEventListener('click', function (evt) {
@@ -197,7 +229,11 @@
 
     if (window.Sys && window.Sys.WebForms && window.Sys.WebForms.PageRequestManager) {
       var prm = window.Sys.WebForms.PageRequestManager.getInstance();
-      prm.add_initializeRequest(function () {
+      prm.add_initializeRequest(function (sender, args) {
+        if (shouldBypassGlobalBusy(args)) {
+          return;
+        }
+
         beginBusy('Loading updated content...');
       });
       prm.add_endRequest(function () {

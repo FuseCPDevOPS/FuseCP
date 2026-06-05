@@ -31,6 +31,9 @@ namespace FuseCP.Portal
 {
     public partial class TasksTaskDetails : FuseCPModuleBase
     {
+        private const int MaxTaskLogHtmlLength = 65536;
+        private const string TruncatedLogPrefix = "[older log entries trimmed]<br>";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             BindTask();
@@ -42,6 +45,9 @@ namespace FuseCP.Portal
             if (ViewState["lastLogDate"] != null)
                 lastLogDate = (DateTime)ViewState["lastLogDate"];
 
+            string cachedLogHtml = ViewState["taskLogHtml"] as string ?? String.Empty;
+            string cachedStepText = ViewState["taskStepText"] as string ?? String.Empty;
+
             BackgroundTask task = ES.Services.Tasks.GetTaskWithLogRecords(PanelRequest.TaskID, lastLogDate);
             if (task == null)
             {
@@ -49,11 +55,20 @@ namespace FuseCP.Portal
                 return;
             }
 
+            var logs = task.GetLogs();
+
             // bind task details
             litTitle.Text = String.Format("{0} &quot;{1}&quot;",
                 GetAuditLogTaskName(task.Source, task.TaskName),
                 task.ItemName);
-            litStep.Text = LocalizeActivityText(task.GetLogs().Count > 0 ? task.GetLogs()[0].Text : String.Empty);
+
+            // Restore previous step text first. Timer postbacks may return no new log rows.
+            litStep.Text = cachedStepText;
+            if (logs.Count > 0)
+            {
+                litStep.Text = LocalizeActivityText(logs[logs.Count - 1].Text);
+                ViewState["taskStepText"] = litStep.Text;
+            }
             litStartTime.Text = task.StartDate.ToString();
 
             // progress
@@ -67,22 +82,45 @@ namespace FuseCP.Portal
 
             // execution log
             StringBuilder log = new StringBuilder();
-            if (task.GetLogs().Count > 0)
-                ViewState["lastLogDate"] = task.GetLogs()[0].Date.AddTicks(1);
+            if (logs.Count > 0)
+                ViewState["lastLogDate"] = logs[logs.Count - 1].Date.AddTicks(1);
 
-
-
-            foreach (BackgroundTaskLogRecord logRecord in task.GetLogs())
+            foreach (BackgroundTaskLogRecord logRecord in logs)
             {
                 log.Append("[").Append(GetDurationText(task.StartDate, logRecord.Date)).Append("] ");
                 log.Append(GetLogLineIdent(logRecord.TextIdent));
                 log.Append(LocalizeActivityText(logRecord.Text));
                 log.Append("<br>");
             }
-            litLog.Text = log.ToString();//+ litLog.Text;
+            if (log.Length > 0)
+                cachedLogHtml = AppendAndTrimTaskLogHtml(cachedLogHtml, log.ToString());
+
+            ViewState["taskLogHtml"] = cachedLogHtml;
+            litLog.Text = cachedLogHtml;
 
             if(task.Completed)
                 btnStop.Visible = false;
+        }
+
+        private static string AppendAndTrimTaskLogHtml(string existingHtml, string appendedHtml)
+        {
+            string current = existingHtml ?? String.Empty;
+            bool hadTruncatedPrefix = current.StartsWith(TruncatedLogPrefix, StringComparison.Ordinal);
+            if (hadTruncatedPrefix)
+                current = current.Substring(TruncatedLogPrefix.Length);
+
+            string combined = current + (appendedHtml ?? String.Empty);
+            if (combined.Length <= MaxTaskLogHtmlLength)
+                return hadTruncatedPrefix ? TruncatedLogPrefix + combined : combined;
+
+            int startIndex = combined.Length - MaxTaskLogHtmlLength;
+            string trimmed = combined.Substring(startIndex);
+
+            int firstBreak = trimmed.IndexOf("<br>", StringComparison.Ordinal);
+            if (firstBreak >= 0 && firstBreak + 4 < trimmed.Length)
+                trimmed = trimmed.Substring(firstBreak + 4);
+
+            return TruncatedLogPrefix + trimmed;
         }
 
         private string LocalizeActivityText(string text)

@@ -42,6 +42,8 @@ public class ScheduleWorker: BackgroundService
 		if (!Web.Services.Configuration.SchedulerEnabled) return;
 		SchedulerExecutionQueue.ConfigureGlobalMaxConcurrentExecutions(Web.Services.Configuration.SchedulerGlobalMaxConcurrentExecutions);
 		SchedulerExecutionQueue.ConfigureMaxConcurrentExecutions(Web.Services.Configuration.SchedulerMaxConcurrentExecutions);
+		SchedulerExecutionQueue.ConfigureTenantMaxConcurrentExecutions(Web.Services.Configuration.SchedulerTenantMaxConcurrentExecutions);
+		SchedulerExecutionQueue.ConfigureProviderMaxConcurrentExecutions(Web.Services.Configuration.SchedulerProviderMaxConcurrentExecutions);
 		SchedulerAdaptiveTuner adaptiveTuner = null;
 		if (Web.Services.Configuration.SchedulerAutoTuneEnabled)
 		{
@@ -56,9 +58,11 @@ public class ScheduleWorker: BackgroundService
 
 		Log.LogInformation("Scheduler worker started...");
 		Log.LogInformation(
-			"Scheduler concurrency set: per-affinity max={PerAffinityMaxConcurrentExecutions}, global max={GlobalMaxConcurrentExecutions}",
+			"Scheduler concurrency set: per-affinity max={PerAffinityMaxConcurrentExecutions}, global max={GlobalMaxConcurrentExecutions}, tenant max={TenantMaxConcurrentExecutions}, provider max={ProviderMaxConcurrentExecutions}",
 			SchedulerExecutionQueue.MaxConcurrentExecutions,
-			SchedulerExecutionQueue.MaxGlobalConcurrentExecutions);
+			SchedulerExecutionQueue.MaxGlobalConcurrentExecutions,
+			SchedulerExecutionQueue.MaxTenantConcurrentExecutions,
+			SchedulerExecutionQueue.MaxProviderConcurrentExecutions);
 		if (adaptiveTuner != null)
 		{
 			Log.LogInformation(

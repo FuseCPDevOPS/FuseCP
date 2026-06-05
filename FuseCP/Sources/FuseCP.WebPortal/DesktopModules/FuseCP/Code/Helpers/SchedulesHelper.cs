@@ -154,6 +154,22 @@ namespace FuseCP.Portal
             return schedules;
         }
 
+        public DataSet GetOverviewSchedules(bool recursive, string filterColumn, string filterValue, int maxRows)
+        {
+            int take = maxRows > 0 ? maxRows : 2000;
+            DataSet schedules = ES.Services.Scheduler.GetSchedulesPaged(
+                PanelSecurity.PackageId,
+                recursive,
+                filterColumn,
+                filterValue,
+                "LastRun DESC",
+                0,
+                take);
+
+            PrepareSchedules(schedules);
+            return schedules;
+        }
+
         DataSet dsSchedulesPaged;
 
         public int GetSchedulesPagedCount(bool recursive, string filterColumn, string filterValue)

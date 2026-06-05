@@ -56,8 +56,19 @@ namespace FuseCP.EnterpriseServer
             zipFile = Utils.ReplaceStringVariable(zipFile, "date", date);
             zipFile = Utils.ReplaceStringVariable(zipFile, "time", time);
 
-            // zip files and folders
-            FilesController.ZipFiles(topTask.PackageId, new string[] { filesList }, zipFile);
+            try
+            {
+                // zip files and folders
+                FilesController.ZipFiles(topTask.PackageId, new string[] { filesList }, zipFile);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("ZipFilesTask failed for package '{0}' and zip file '{1}'. Error: {2}",
+                    topTask.PackageId.ToString(),
+                    zipFile,
+                    ex.ToString());
+                throw;
+            }
         }
     }
 }

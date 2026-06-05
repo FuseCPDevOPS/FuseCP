@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using FuseCP.EnterpriseServer;
 using FuseCP.EnterpriseServer.Base.Scheduling;
 using FuseCP.Portal.Code.Framework;
@@ -31,9 +32,47 @@ namespace FuseCP.Portal
         private const string SchedulerAffinityParameterId = "SCHEDULER_AFFINITY";
         private static readonly string[] SchedulerWeightAliases = { "SCHEDULER_WEIGHT", "TASK_WEIGHT", "WEIGHT" };
         private static readonly string[] SchedulerAffinityAliases = { "SCHEDULER_AFFINITY", "SERVER_ID", "AFFINITY" };
+        private const string SchedulerExecutionModeParameterId = "SCHEDULER_EXECUTION_MODE";
+        private static readonly string[] SchedulerExecutionModeAliases = { "SCHEDULER_EXECUTION_MODE", "EXECUTION_MODE", "SCHEDULER_MODE" };
+        private const string SchedulerParallelismModeParameterId = "SCHEDULER_PARALLELISM_MODE";
+        private const string SchedulerParallelismMaxParameterId = "SCHEDULER_PARALLELISM_MAX";
+        private static readonly string[] SchedulerParallelismModeAliases = { "SCHEDULER_PARALLELISM_MODE", "PARALLELISM_MODE", "SCHEDULER_TASK_PARALLELISM_MODE" };
+        private static readonly string[] SchedulerParallelismMaxAliases = { "SCHEDULER_PARALLELISM_MAX", "PARALLELISM_MAX", "SCHEDULER_TASK_PARALLELISM_MAX" };
+
+        private const string ExecutionModeAuto = "AUTO";
+        private const string ExecutionModeServerPreferred = "SERVER_PREFERRED";
+        private const string ExecutionModeEnterpriseOnly = "ENTERPRISE_ONLY";
+        private const string ParallelismModeAuto = "AUTO";
+        private const string ParallelismModeManual = "MANUAL";
 
         private ISchedulerTaskView configurationView;
         private string cachedTaskIdsToLoad = String.Empty;
+
+        private Control FindControlRecursive(Control rootControl, string controlID)
+        {
+            if (rootControl == null || String.IsNullOrEmpty(controlID))
+                return null;
+
+            if (rootControl.ID == controlID)
+                return rootControl;
+
+            foreach (Control controlToSearch in rootControl.Controls)
+            {
+                Control foundControl = FindControlRecursive(controlToSearch, controlID);
+                if (foundControl != null)
+                    return foundControl;
+            }
+
+            return null;
+        }
+
+        private HtmlTableRow ExecutionModeRow => FindControlRecursive(this, "rowExecutionMode") as HtmlTableRow;
+
+        private DropDownList ExecutionModeDropDown => FindControlRecursive(this, "ddlExecutionMode") as DropDownList;
+
+        private DropDownList ParallelismModeDropDown => FindControlRecursive(this, "ddlParallelismMode") as DropDownList;
+
+        private TextBox ParallelismMaxTextBox => FindControlRecursive(this, "txtParallelismMax") as TextBox;
 
         public int PackageId
         {
@@ -48,6 +87,9 @@ namespace FuseCP.Portal
 
             btnDelete.Visible = (PanelRequest.ScheduleID > 0);
             rowAdvancedScheduler.Visible = PanelSecurity.SelectedUser.Role != UserRole.User;
+            HtmlTableRow executionModeRow = ExecutionModeRow;
+            if (executionModeRow != null)
+                executionModeRow.Visible = PanelSecurity.LoggedUser.Role == UserRole.Administrator;
 
             this.ControlToLoad.Value = this.cachedTaskIdsToLoad;
             if (!IsPostBack)
@@ -319,6 +361,20 @@ namespace FuseCP.Portal
         {
             txtSchedulerWeight.Text = FindParameterValue(parameters, SchedulerWeightAliases);
             txtSchedulerAffinity.Text = FindParameterValue(parameters, SchedulerAffinityAliases);
+
+            string mode = NormalizeExecutionMode(FindParameterValue(parameters, SchedulerExecutionModeAliases));
+            DropDownList executionModeDropDown = ExecutionModeDropDown;
+            if (executionModeDropDown != null)
+                Utils.SelectListItem(executionModeDropDown, mode);
+
+            string parallelismMode = NormalizeParallelismMode(FindParameterValue(parameters, SchedulerParallelismModeAliases));
+            DropDownList parallelismModeDropDown = ParallelismModeDropDown;
+            if (parallelismModeDropDown != null)
+                Utils.SelectListItem(parallelismModeDropDown, parallelismMode);
+
+            TextBox parallelismMaxTextBox = ParallelismMaxTextBox;
+            if (parallelismMaxTextBox != null)
+                parallelismMaxTextBox.Text = NormalizeParallelismMax(FindParameterValue(parameters, SchedulerParallelismMaxAliases));
         }
 
         private static ScheduleTaskParameterInfo[] FilterAdvancedSchedulerParameters(ScheduleTaskParameterInfo[] parameters)
@@ -333,7 +389,10 @@ namespace FuseCP.Portal
                     continue;
 
                 bool isAdvancedScheduler = IsParameterId(parameter.ParameterId, SchedulerWeightAliases)
-                    || IsParameterId(parameter.ParameterId, SchedulerAffinityAliases);
+                    || IsParameterId(parameter.ParameterId, SchedulerAffinityAliases)
+                    || IsParameterId(parameter.ParameterId, SchedulerExecutionModeAliases)
+                    || IsParameterId(parameter.ParameterId, SchedulerParallelismModeAliases)
+                    || IsParameterId(parameter.ParameterId, SchedulerParallelismMaxAliases);
 
                 if (!isAdvancedScheduler)
                     filtered.Add(parameter);
@@ -485,6 +544,13 @@ if (cntx.Quotas.TryGetValue(Quotas.OS_MINIMUMTASKINTERVAL, out var _ckv))
             List<ScheduleTaskParameterInfo> mergedParameters = new List<ScheduleTaskParameterInfo>(sc.Parameters ?? Array.Empty<ScheduleTaskParameterInfo>());
             UpsertParameter(mergedParameters, SchedulerWeightParameterId, txtSchedulerWeight.Text, SchedulerWeightAliases);
             UpsertParameter(mergedParameters, SchedulerAffinityParameterId, txtSchedulerAffinity.Text, SchedulerAffinityAliases);
+            UpsertParameter(mergedParameters, SchedulerExecutionModeParameterId, GetExecutionModeForSave(sc), SchedulerExecutionModeAliases);
+            string parallelismModeForSave = GetParallelismModeForSave(sc);
+            UpsertParameter(mergedParameters, SchedulerParallelismModeParameterId, parallelismModeForSave, SchedulerParallelismModeAliases);
+            string parallelismMaxForSave = String.Equals(parallelismModeForSave, ParallelismModeManual, StringComparison.OrdinalIgnoreCase)
+                ? GetParallelismMaxForSave(sc)
+                : String.Empty;
+            UpsertParameter(mergedParameters, SchedulerParallelismMaxParameterId, parallelismMaxForSave, SchedulerParallelismMaxAliases);
             sc.Parameters = mergedParameters.ToArray();
 
             // save
@@ -527,6 +593,90 @@ if (cntx.Quotas.TryGetValue(Quotas.OS_MINIMUMTASKINTERVAL, out var _ckv))
 
             // redirect
             RedirectSpaceHomePage();
+        }
+
+        private static string NormalizeExecutionMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ExecutionModeServerPreferred, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeServerPreferred;
+
+            if (String.Equals(candidate, ExecutionModeEnterpriseOnly, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeEnterpriseOnly;
+
+            return ExecutionModeAuto;
+        }
+
+        private string GetExecutionModeForSave(ScheduleInfo schedule)
+        {
+            if (PanelSecurity.LoggedUser.Role == UserRole.Administrator)
+            {
+                DropDownList executionModeDropDown = ExecutionModeDropDown;
+                if (executionModeDropDown != null)
+                    return NormalizeExecutionMode(executionModeDropDown.SelectedValue);
+
+                return ExecutionModeAuto;
+            }
+
+            if (PanelRequest.ScheduleID <= 0)
+                return ExecutionModeAuto;
+
+            ScheduleTaskParameterInfo[] existingParameters = ES.Services.Scheduler.GetScheduleParameters(schedule.TaskId, PanelRequest.ScheduleID);
+            return NormalizeExecutionMode(FindParameterValue(existingParameters, SchedulerExecutionModeAliases));
+        }
+
+        private static string NormalizeParallelismMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ParallelismModeManual, StringComparison.OrdinalIgnoreCase))
+                return ParallelismModeManual;
+
+            return ParallelismModeAuto;
+        }
+
+        private static string NormalizeParallelismMax(string value)
+        {
+            if (!Int32.TryParse((value ?? String.Empty).Trim(), out int parsed))
+                return String.Empty;
+
+            parsed = Math.Max(1, Math.Min(100, parsed));
+            return parsed.ToString();
+        }
+
+        private string GetParallelismModeForSave(ScheduleInfo schedule)
+        {
+            if (PanelSecurity.LoggedUser.Role == UserRole.Administrator)
+            {
+                DropDownList parallelismModeDropDown = ParallelismModeDropDown;
+                if (parallelismModeDropDown != null)
+                    return NormalizeParallelismMode(parallelismModeDropDown.SelectedValue);
+
+                return ParallelismModeAuto;
+            }
+
+            if (PanelRequest.ScheduleID <= 0)
+                return ParallelismModeAuto;
+
+            ScheduleTaskParameterInfo[] existingParameters = ES.Services.Scheduler.GetScheduleParameters(schedule.TaskId, PanelRequest.ScheduleID);
+            return NormalizeParallelismMode(FindParameterValue(existingParameters, SchedulerParallelismModeAliases));
+        }
+
+        private string GetParallelismMaxForSave(ScheduleInfo schedule)
+        {
+            if (PanelSecurity.LoggedUser.Role == UserRole.Administrator)
+            {
+                TextBox parallelismMaxTextBox = ParallelismMaxTextBox;
+                if (parallelismMaxTextBox != null)
+                    return NormalizeParallelismMax(parallelismMaxTextBox.Text);
+
+                return String.Empty;
+            }
+
+            if (PanelRequest.ScheduleID <= 0)
+                return String.Empty;
+
+            ScheduleTaskParameterInfo[] existingParameters = ES.Services.Scheduler.GetScheduleParameters(schedule.TaskId, PanelRequest.ScheduleID);
+            return NormalizeParallelismMax(FindParameterValue(existingParameters, SchedulerParallelismMaxAliases));
         }
 
         private void DeleteTask()

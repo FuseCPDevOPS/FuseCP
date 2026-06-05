@@ -622,7 +622,7 @@ namespace FuseCP.EnterpriseServer
             {
                 foreach (BackgroundTask task in TaskController.GetTasks().Where(task => task.ScheduleId > 0
                     && !task.Completed
-                    && (task.Status == BackgroundTaskStatus.Run || task.Status == BackgroundTaskStatus.Starting)
+                    && (task.Status == BackgroundTaskStatus.Run || (task.Status == BackgroundTaskStatus.Starting && !SchedulerRuntime.IsStaleStartingTask(task)))
                     && !scheduledTasks.ContainsKey(task.ScheduleId)))
                 {
                     scheduledTasks.Add(task.ScheduleId, task);
@@ -726,7 +726,18 @@ if (_taskThreadsDictionary.TryGetValue(task.Id, out var _ckv))
 
         public List<BackgroundTask> GetUserCompletedTasks(int userId)
         {
-            return new List<BackgroundTask>();
+            List<BackgroundTask> list = new List<BackgroundTask>();
+
+            UserInfo user = UserController.GetUser(userId);
+            if (user == null)
+                return list;
+
+            list.AddRange(TaskController.GetTasks(user.IsPeer ? user.OwnerId : user.UserId)
+                .Where(task => task.UserId == userId
+                    && task.Completed)
+                .OrderByDescending(task => task.FinishDate));
+
+            return list;
         }
 
         public int GetTasksNumber()

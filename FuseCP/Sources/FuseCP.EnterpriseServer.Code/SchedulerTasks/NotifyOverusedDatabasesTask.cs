@@ -25,6 +25,7 @@ namespace FuseCP.EnterpriseServer
     {
         public const string DISKSPACE_FORMAT_STRING = "{0} - {1}Mb ({2}%)";
         public const string ALLOC_FORMAT_STRING = "{0} - {1}Mb";
+        private const int ProgressLogInterval = 25;
 
         public override void DoWork()
         {
@@ -56,56 +57,61 @@ namespace FuseCP.EnterpriseServer
             string overusedMailBody = Convert.ToString(topTask.GetParamValue("OVERUSED_MAIL_BODY"));
 
             int overusedPackages = 0;
+            int processedPackages = 0;
+            int failedPackages = 0;
 
             foreach (PackageInfo package in packages)
             {
-				UserInfo userInfo = UserController.GetUser(package.UserId);
-
-                List<DatabaseQuota> quotaMSSQL = new List<DatabaseQuota>();
-                List<DatabaseQuota> quotaMYSQL = new List<DatabaseQuota>();
-                List<DatabaseQuota> quotaMARIADB = new List<DatabaseQuota>();
-
-                if (checkMSSQL || checkMySQL || checkMariaDB)
+                try
                 {
-                    QuotaValueInfo dsQuota = null;
-                    DataSet Diskspace = PackageController.GetPackageDiskspace(package.PackageId);
-                    foreach (DataRow spaceRow in Diskspace.Tables[0].Rows)
+				    UserInfo userInfo = UserController.GetUser(package.UserId);
+
+                    List<DatabaseQuota> quotaMSSQL = new List<DatabaseQuota>();
+                    List<DatabaseQuota> quotaMYSQL = new List<DatabaseQuota>();
+                    List<DatabaseQuota> quotaMARIADB = new List<DatabaseQuota>();
+
+                    if (checkMSSQL || checkMySQL || checkMariaDB)
                     {
-                       string groupName = spaceRow["GroupName"].ToString();
-                       if (checkMSSQL && groupName.ToUpper().Contains("MSSQL"))
+                        QuotaValueInfo dsQuota = null;
+                        DataSet Diskspace = PackageController.GetPackageDiskspace(package.PackageId);
+                        foreach (DataRow spaceRow in Diskspace.Tables[0].Rows)
                         {
-                            dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
-                            if (dsQuota.QuotaAllocatedValue > 0)
+                            string groupName = spaceRow["GroupName"].ToString();
+                            if (checkMSSQL && groupName.ToUpper().Contains("MSSQL"))
                             {
-                                int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
-                                quotaMSSQL.Add(new DatabaseQuota(groupName.ToUpper().Replace("MSSQL","SQL Server "),
-                                            Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
-                                            databaseSpaceUsage < warningUsageThreshold,
-                                            databaseSpaceUsage < overusedUsageThreshold));
+                                dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
+                                if (dsQuota.QuotaAllocatedValue > 0)
+                                {
+                                    int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
+                                    quotaMSSQL.Add(new DatabaseQuota(groupName.ToUpper().Replace("MSSQL","SQL Server "),
+                                                Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
+                                                databaseSpaceUsage < warningUsageThreshold,
+                                                databaseSpaceUsage < overusedUsageThreshold));
+                                }
                             }
-                        }
-                       if (checkMySQL && groupName.ToUpper().Contains("MYSQL"))
-                        {
-                            dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
-                            if (dsQuota.QuotaAllocatedValue > 0)
+                            if (checkMySQL && groupName.ToUpper().Contains("MYSQL"))
                             {
-                                int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
-                                quotaMYSQL.Add(new DatabaseQuota(groupName.ToUpper().Replace("MYSQL", "MySQL "),
-                                            Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
-                                            databaseSpaceUsage < warningUsageThreshold,
-                                            databaseSpaceUsage < overusedUsageThreshold));
+                                dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
+                                if (dsQuota.QuotaAllocatedValue > 0)
+                                {
+                                    int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
+                                    quotaMYSQL.Add(new DatabaseQuota(groupName.ToUpper().Replace("MYSQL", "MySQL "),
+                                                Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
+                                                databaseSpaceUsage < warningUsageThreshold,
+                                                databaseSpaceUsage < overusedUsageThreshold));
+                                }
                             }
-                        }
-                        if (checkMariaDB && groupName.ToUpper().Contains("MARIADB"))
-                        {
-                            dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
-                            if (dsQuota.QuotaAllocatedValue > 0)
+                            if (checkMariaDB && groupName.ToUpper().Contains("MARIADB"))
                             {
-                                int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
-                                quotaMARIADB.Add(new DatabaseQuota(groupName.ToUpper().Replace("MARIADB", "MariaDB "),
-                                            Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
-                                            databaseSpaceUsage < warningUsageThreshold,
-                                            databaseSpaceUsage < overusedUsageThreshold));
+                                dsQuota = PackageController.GetPackageQuota(package.PackageId, groupName + ".MaxDatabaseSize");
+                                if (dsQuota.QuotaAllocatedValue > 0)
+                                {
+                                    int databaseSpaceUsage = Convert.ToInt32(spaceRow["Diskspace"]) * 100 / dsQuota.QuotaAllocatedValue;
+                                    quotaMARIADB.Add(new DatabaseQuota(groupName.ToUpper().Replace("MARIADB", "MariaDB "),
+                                                Convert.ToInt32(spaceRow["Diskspace"]), dsQuota.QuotaAllocatedValue,
+                                                databaseSpaceUsage < warningUsageThreshold,
+                                                databaseSpaceUsage < overusedUsageThreshold));
+                                }
                             }
                         }
                     }
@@ -182,10 +188,24 @@ namespace FuseCP.EnterpriseServer
                         overusedPackages++;
                     }
                 }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    failedPackages++;
+                    TaskManager.WriteError("Notify overused databases failed for PackageID '{1}'. Error: {0}", ex.ToString(), package.PackageId.ToString());
+                }
+                finally
+                {
+                    processedPackages++;
+                    if (processedPackages % ProgressLogInterval == 0)
+                    {
+                        TaskManager.Write("Notify overused databases progress: processed {0}/{1} packages", processedPackages.ToString(), packages.Count.ToString());
+                    }
+                }
             }
 
             // log results
             TaskManager.Write("Total packages overused: " + overusedPackages);
+            TaskManager.Write("Notify overused databases finished. Processed packages: {0}, failures: {1}", processedPackages.ToString(), failedPackages.ToString());
         }
 
 		private string ReplaceVariables(string content, string threshold, string usage, string spaceName, string customerName)
@@ -216,8 +236,14 @@ namespace FuseCP.EnterpriseServer
 				return;
 			}
 
-			// send mail message
-			MailHelper.SendMessage(from, to, bcc, subject, body, isHtml);
+            try
+            {
+                MailHelper.SendMessage(from, to, bcc, subject, body, isHtml);
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                TaskManager.WriteError("NotifyOverusedDatabasesTask e-mail failed for recipient '{0}'. Error: {1}", to, ex.ToString());
+            }
 		}
     }
 

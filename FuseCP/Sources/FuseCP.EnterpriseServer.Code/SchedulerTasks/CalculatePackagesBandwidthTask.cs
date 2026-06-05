@@ -14,10 +14,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 using FuseCP.Providers;
 using FuseCP.Server.Client;
@@ -27,12 +28,29 @@ namespace FuseCP.EnterpriseServer
 {
     public class CalculatePackagesBandwidthTask : SchedulerTask
     {
+        private const int ProgressLogInterval = 25;
         private readonly bool suspendOverused = false;
+        private int serviceCallAttempts = 3;
+        private int serviceRetryBaseDelayMs = 250;
+        private int maxParallelPackages = 1;
+        private int totalServiceTimeoutFailures;
+        private int totalServiceErrorFailures;
 
         public override void DoWork()
         {
             // Input parameters:
             //  - SUSPEND_OVERUSED_PACKAGES
+            //  - SERVICE_CALL_ATTEMPTS
+            //  - SERVICE_RETRY_DELAY_MS
+            //  - MAX_PARALLEL_PACKAGES
+
+            var topTask = TaskManager.TopTask;
+            serviceCallAttempts = NormalizeInt(topTask.GetParamValue("SERVICE_CALL_ATTEMPTS"), 3, 1, 8);
+            serviceRetryBaseDelayMs = NormalizeInt(topTask.GetParamValue("SERVICE_RETRY_DELAY_MS"), 250, 0, 5000);
+            int suggestedParallelism = Math.Max(1, Math.Min(8, Environment.ProcessorCount / 2));
+            maxParallelPackages = NormalizeInt(topTask.GetParamValue("MAX_PARALLEL_PACKAGES"), suggestedParallelism, 1, 32);
+            totalServiceTimeoutFailures = 0;
+            totalServiceErrorFailures = 0;
 
             CalculateBandwidth();
         }
@@ -42,15 +60,55 @@ namespace FuseCP.EnterpriseServer
             // get all owned packages
             List<PackageInfo> packages = PackageController.GetPackagePackages(TaskManager.TopTask.PackageId, true);
             TaskManager.Write("Packages to calculate: " + packages.Count);
+            TaskManager.Write("Bandwidth package parallelism: {0}", maxParallelPackages.ToString());
 
-            foreach (PackageInfo package in packages)
+            int packageSuccessCount = 0;
+            int packageFailureCount = 0;
+            int processedCount = 0;
+
+            if (maxParallelPackages <= 1 || packages.Count <= 1)
             {
-                // calculating package bandwidth
-                CalculatePackage(package.PackageId);
+                foreach (PackageInfo package in packages)
+                {
+                    // calculating package bandwidth
+                    if (CalculatePackage(package.PackageId))
+                        packageSuccessCount++;
+                    else
+                        packageFailureCount++;
+
+                    processedCount++;
+                    if (processedCount % ProgressLogInterval == 0)
+                    {
+                        TaskManager.Write("Bandwidth progress: processed {0}/{1} packages", processedCount.ToString(), packages.Count.ToString());
+                    }
+                }
             }
+            else
+            {
+                var options = new ParallelOptions { MaxDegreeOfParallelism = maxParallelPackages };
+                Parallel.ForEach(packages, options, package =>
+                {
+                    bool success = CalculatePackage(package.PackageId);
+                    if (success)
+                        Interlocked.Increment(ref packageSuccessCount);
+                    else
+                        Interlocked.Increment(ref packageFailureCount);
+
+                    int processed = Interlocked.Increment(ref processedCount);
+                    if (processed % ProgressLogInterval == 0 || processed == packages.Count)
+                    {
+                        TaskManager.Write("Bandwidth progress: processed {0}/{1} packages", processed.ToString(), packages.Count.ToString());
+                    }
+                });
+            }
+
+            TaskManager.Write("Bandwidth calculation finished. Total packages: {0}, successful: {1}, failed: {2}",
+                packages.Count.ToString(), packageSuccessCount.ToString(), packageFailureCount.ToString());
+            TaskManager.Write("Bandwidth service call failures. Timeout: {0}, Other errors: {1}",
+                totalServiceTimeoutFailures.ToString(), totalServiceErrorFailures.ToString());
         }
 
-        public void CalculatePackage(int packageId)
+        public bool CalculatePackage(int packageId)
         {
             DateTime since = PackageController.GetPackageBandwidthUpdate(packageId);
             DateTime nextUpdate = DateTime.Now;
@@ -66,19 +124,33 @@ namespace FuseCP.EnterpriseServer
                     PackageController.OrderServiceItemsByServices(items);
 
                 // calculate statistics for each service set
-                var itemsBandwidth = orderedItems.Keys
-                    .Select(serviceId => CalculateItems(serviceId, orderedItems[serviceId], since))
-                    .Where(bw => bw != null)
-                    .SelectMany(bw => bw)
-                    .ToList();
+                List<ServiceProviderItemBandwidth> itemsBandwidth = new List<ServiceProviderItemBandwidth>(items.Count);
+                int serviceFailures = 0;
+                foreach (int serviceId in orderedItems.Keys)
+                {
+                    ServiceProviderItemBandwidth[] serviceBandwidth = CalculateItems(serviceId, orderedItems[serviceId], since);
+                    if (serviceBandwidth == null)
+                    {
+                        serviceFailures++;
+                        continue;
+                    }
+
+                    itemsBandwidth.AddRange(serviceBandwidth.Where(bw => bw != null));
+                }
+
+                if (serviceFailures > 0)
+                {
+                    TaskManager.WriteError("Bandwidth partial result for package '{0}': {1} service(s) failed and were skipped",
+                        packageId.ToString(), serviceFailures.ToString());
+                }
 
                 // update info in the database
                 string xml = BuildDiskBandwidthStatisticsXml(itemsBandwidth.ToArray());
                 PackageController.UpdatePackageBandwidth(packageId, xml);
 
-                // if everything is OK
-                // update date
-                PackageController.UpdatePackageBandwidthUpdate(packageId, nextUpdate);
+                // advance update timestamp only when all services succeeded.
+                if (serviceFailures == 0)
+                    PackageController.UpdatePackageBandwidthUpdate(packageId, nextUpdate);
 
                 // suspend package if requested
                 if (suspendOverused)
@@ -89,6 +161,8 @@ namespace FuseCP.EnterpriseServer
                     if (dsQuota.QuotaExhausted)
                         PackageController.ChangePackageStatus(null, packageId, PackageStatus.Suspended, false);
                 }
+
+                return serviceFailures == 0;
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -101,6 +175,8 @@ namespace FuseCP.EnterpriseServer
                 // log error
                 TaskManager.WriteError(String.Format("Error calculating bandwidth for '{0}' space of user '{1}': {2}",
                     package.PackageName, user.Username, ex));
+
+                return false;
             }
         }
 
@@ -110,54 +186,82 @@ namespace FuseCP.EnterpriseServer
             // convert items to SoapObjects
             var objItems = items.Select(SoapServiceProviderItem.Wrap).ToList();
 
-            int attempt = 0;
-            int ATTEMPTS = 3;
-            while (attempt < ATTEMPTS)
-            {
-                // increment attempt
-                attempt++;
+            if (objItems.Count == 0)
+                return Array.Empty<ServiceProviderItemBandwidth>();
 
-                try
+            var retry = SchedulerTaskReliability.ExecuteWithRetry(
+                () =>
                 {
-                    // send packet for calculation
-                    // invoke service provider
-                    //TaskManager.Write(String.Format("{0} - Invoke GetServiceItemsDiskSpace method ('{1}' items) - {2} attempt",
-                    //    DateTime.Now, objItems.Count, attempt));
-
                     ServiceProvider prov = new ServiceProvider();
                     ServiceProviderProxy.Init(prov, serviceId);
                     return prov.GetServiceItemsBandwidth(objItems.ToArray(), since);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                },
+                serviceCallAttempts,
+                serviceRetryBaseDelayMs,
+                (currentAttempt, ex, isTimeout) =>
                 {
-                    TaskManager.WriteError("Error in Service ID: {1}  Error: {0}", ex.ToString(), serviceId.ToString());
-                }
-            }
+                    if (isTimeout)
+                        Interlocked.Increment(ref totalServiceTimeoutFailures);
+                    else
+                        Interlocked.Increment(ref totalServiceErrorFailures);
 
-            throw new Exception("The number of attemtps has been reached. The package calculation has been aborted.");
+                    TaskManager.WriteError(
+                        "Bandwidth error in Service ID '{1}' on attempt {2} ({3}). Error: {0}",
+                        ex.ToString(),
+                        serviceId.ToString(),
+                        currentAttempt.ToString(),
+                        isTimeout ? "timeout" : "error");
+                });
+
+            if (retry.Success)
+                return retry.Value;
+
+            TaskManager.WriteWarning("Service ID '{0}' skipped after {1} failed bandwidth attempts. Last failure type: {2}",
+                serviceId.ToString(),
+                serviceCallAttempts.ToString(),
+                retry.LastWasTimeout ? "timeout" : "error");
+            return null;
+        }
+
+        private static int NormalizeInt(object rawValue, int defaultValue, int min, int max)
+        {
+            int parsed;
+            if (!int.TryParse(Convert.ToString(rawValue), out parsed))
+                parsed = defaultValue;
+
+            if (parsed < min)
+                parsed = min;
+            if (parsed > max)
+                parsed = max;
+
+            return parsed;
         }
 
         private string BuildDiskBandwidthStatisticsXml(ServiceProviderItemBandwidth[] itemsBandwidth)
         {
-            StringBuilder sb = new StringBuilder();
+            int estimatedItems = itemsBandwidth == null ? 0 : itemsBandwidth.Length;
+            StringBuilder sb = new StringBuilder(Math.Max(64, estimatedItems * 80));
             sb.Append("<items>");
 
 			if (itemsBandwidth != null)
 			{
 				CultureInfo culture = CultureInfo.InvariantCulture;
 
-                    foreach (ServiceProviderItemBandwidth item in itemsBandwidth.Where(item => item != null && item.Days != null))
+                foreach (ServiceProviderItemBandwidth item in itemsBandwidth)
+                {
+                    if (item == null || item.Days == null)
+                        continue;
+
+                    foreach (DailyStatistics day in item.Days)
                     {
-                            foreach (DailyStatistics day in item.Days)
-                            {
-                                string dt = new DateTime(day.Year, day.Month, day.Day).ToString("MM/dd/yyyy", culture);
-                                sb.Append("<item id=\"").Append(item.ItemId).Append("\"")
-                                    .Append(" date=\"").Append(dt).Append("\"")
-                                    .Append(" sent=\"").Append(day.BytesSent).Append("\"")
-                                    .Append(" received=\"").Append(day.BytesReceived).Append("\"")
-                                    .Append("></item>\n");
-                            }
-				}
+                        string dt = new DateTime(day.Year, day.Month, day.Day).ToString("MM/dd/yyyy", culture);
+                        sb.Append("<item id=\"").Append(item.ItemId).Append("\"")
+                            .Append(" date=\"").Append(dt).Append("\"")
+                            .Append(" sent=\"").Append(day.BytesSent).Append("\"")
+                            .Append(" received=\"").Append(day.BytesReceived).Append("\"")
+                            .Append("></item>\n");
+                    }
+                }
 			}
 
             sb.Append("</items>");

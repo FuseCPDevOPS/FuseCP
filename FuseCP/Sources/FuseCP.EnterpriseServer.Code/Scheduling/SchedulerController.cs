@@ -20,6 +20,7 @@ using System.Text;
 using System.Xml;
 using System.Linq;
 using System.Globalization;
+using System.Threading;
 using FuseCP.EnterpriseServer.Base.Scheduling;
 using FuseCP.EnterpriseServer.Data;
 using FuseCP.EnterpriseServer.Data.Entities;
@@ -31,6 +32,32 @@ namespace FuseCP.EnterpriseServer
     public class SchedulerController: ControllerBase
     {
         private const string SchedulerLeaseSettingsName = "SchedulerLease";
+        private static readonly string[] SchedulerExecutionModeParameterIds = { "SCHEDULER_EXECUTION_MODE", "EXECUTION_MODE", "SCHEDULER_MODE" };
+        private static readonly string[] SchedulerAffinityParameterIds = { "SCHEDULER_TARGET_AFFINITY", "SCHEDULER_AFFINITY", "SERVER_ID", "SERVER_NAME" };
+        private static readonly string[] SchedulerParallelismModeParameterIds = { "SCHEDULER_PARALLELISM_MODE", "PARALLELISM_MODE", "SCHEDULER_TASK_PARALLELISM_MODE" };
+        private static readonly string[] SchedulerParallelismMaxParameterIds = { "SCHEDULER_PARALLELISM_MAX", "PARALLELISM_MAX", "SCHEDULER_TASK_PARALLELISM_MAX" };
+        private const string SchedulerParallelismEffectiveParameterId = "SCHEDULER_PARALLELISM_EFFECTIVE";
+        private const string SchedulerParallelismSourceParameterId = "SCHEDULER_PARALLELISM_SOURCE";
+        private const string SchedulerTargetServerIdParameterId = "SCHEDULER_TARGET_SERVER_ID";
+        private const string SchedulerDispatchNodeParameterId = "SCHEDULER_DISPATCH_NODE";
+        private const string SchedulerRunTokenParameterId = "SCHEDULER_RUN_TOKEN";
+        private const string SchedulerIdempotencyKeyParameterId = "SCHEDULER_IDEMPOTENCY_KEY";
+        private const string SchedulerRiskLevelParameterId = "SCHEDULER_RISK_LEVEL";
+        private const string SchedulerApprovedParameterId = "SCHEDULER_APPROVED";
+        private const string SchedulerApprovedByParameterId = "SCHEDULER_APPROVED_BY_USERID";
+        private const string SchedulerApprovedAtParameterId = "SCHEDULER_APPROVED_AT_UTC";
+        private const string SchedulerApprovalStateParameterId = "SCHEDULER_APPROVAL_STATE";
+        private const string SchedulerFirstApproverParameterId = "SCHEDULER_FIRST_APPROVER_USERID";
+        private const string SchedulerSecondApproverParameterId = "SCHEDULER_SECOND_APPROVER_USERID";
+        private const string ApprovalStatePendingSecond = "PENDING_SECOND_APPROVAL";
+        private const string ApprovalStateApproved = "APPROVED";
+        private static readonly string[] HighRiskTaskIdMarkers = { "SYSTEM_COMMAND", "DELETE_EXCHANGE", "SUSPEND_OVERUSED", "BACKUP_DATABASE" };
+
+        private const string ExecutionModeAuto = "AUTO";
+        private const string ExecutionModeServerPreferred = "SERVER_PREFERRED";
+        private const string ExecutionModeEnterpriseOnly = "ENTERPRISE_ONLY";
+        private const string ParallelismModeAuto = "AUTO";
+        private const string ParallelismModeManual = "MANUAL";
 
         public SchedulerController(ControllerBase provider) : base(provider) { }
 
@@ -62,6 +89,48 @@ namespace FuseCP.EnterpriseServer
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
             return SchedulerExecutionQueue.ActiveExecutionUnits;
+        }
+
+        public bool GetSchedulerRuntimeFreezeEnabled()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
+            return Web.Services.Configuration.SchedulerFreezeEnabled;
+        }
+
+        public int GetSchedulerRuntimeTenantConcurrency()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.MaxTenantConcurrentExecutions;
+        }
+
+        public int GetSchedulerRuntimeProviderConcurrency()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.MaxProviderConcurrentExecutions;
+        }
+
+        public int GetSchedulerRuntimeActiveTenantBuckets()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.ActiveTenantBuckets;
+        }
+
+        public int GetSchedulerRuntimeActiveProviderBuckets()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.ActiveProviderBuckets;
+        }
+
+        public long GetSchedulerRuntimeTenantDeferrals()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.DeferralsTenant;
+        }
+
+        public long GetSchedulerRuntimeProviderDeferrals()
+        {
+            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return 0;
+            return SchedulerExecutionQueue.DeferralsProvider;
         }
 
         public int ApplySchedulerRuntimeConcurrency(int perAffinityConcurrency, int globalConcurrency)
@@ -97,8 +166,7 @@ namespace FuseCP.EnterpriseServer
             // set status to each returned schedule
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                dr["StatusID"] = Scheduler.IsScheduleActive((int)dr["ScheduleID"])
-                    ? ScheduleStatus.Running : ScheduleStatus.Idle;
+                dr["StatusID"] = Scheduler.GetScheduleStatus((int)dr["ScheduleID"]);
             }
             return ds;
         }
@@ -113,8 +181,7 @@ namespace FuseCP.EnterpriseServer
             // set status to each returned schedule
             foreach (DataRow dr in ds.Tables[1].Rows)
             {
-                dr["StatusID"] = Scheduler.IsScheduleActive((int)dr["ScheduleID"])
-                    ? ScheduleStatus.Running : ScheduleStatus.Idle;
+                dr["StatusID"] = Scheduler.GetScheduleStatus((int)dr["ScheduleID"]);
             }
             return ds;
         }
@@ -190,30 +257,108 @@ namespace FuseCP.EnterpriseServer
 
         public int StartSchedule(int scheduleId)
         {
+            return StartScheduleInternal(scheduleId, false);
+        }
+
+        public int StartScheduleNow(int scheduleId)
+        {
+            return StartScheduleInternal(scheduleId, true);
+        }
+
+        private sealed class SchedulerDispatchPlan
+        {
+            public string EffectiveExecutionMode { get; set; }
+            public string AffinityKey { get; set; }
+            public string NodeHint { get; set; }
+            public int? TargetServerId { get; set; }
+            public string FallbackReason { get; set; }
+        }
+
+        private int StartScheduleInternal(int scheduleId, bool bypassQueue)
+        {
             // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 
             if (accountCheck < 0)
                 return accountCheck;
+
+            if (Web.Services.Configuration.SchedulerFreezeEnabled && !SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
             SchedulerJob schedule = GetScheduleComplete(scheduleId);
             if (schedule == null)
                 return 0;
 
-            if (SchedulerExecutionQueue.IsQueued(scheduleId) || TaskController.GetScheduleTasks(scheduleId).Any(x => x.Status == BackgroundTaskStatus.Run
-                                                                     || x.Status == BackgroundTaskStatus.Starting))
+            if (IsHighRiskSchedule(schedule.ScheduleInfo) && !IsHighRiskExecutionApproved(schedule.ScheduleInfo))
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
+            bool hasExplicitExecutionMode = HasScheduleParameter(schedule.ScheduleInfo?.Parameters, SchedulerExecutionModeParameterIds);
+            string configuredExecutionMode = NormalizeExecutionMode(GetScheduleParameterValue(schedule.ScheduleInfo?.Parameters, SchedulerExecutionModeParameterIds));
+            string dispatchExecutionMode = ResolveDispatchExecutionMode(schedule, configuredExecutionMode, hasExplicitExecutionMode, out string placementNote);
+            SchedulerDispatchPlan dispatchPlan = BuildDispatchPlan(schedule, dispatchExecutionMode);
+
+            if (TaskController.GetScheduleTasks(scheduleId).Any(x => x.Status == BackgroundTaskStatus.Run
+                                                                     || (x.Status == BackgroundTaskStatus.Starting && !SchedulerRuntime.IsStaleStartingTask(x))))
                 return 0;
 
-            var parameters = schedule.ScheduleInfo.Parameters.Select(
+            if (!bypassQueue && SchedulerExecutionQueue.IsQueued(scheduleId))
+                return 0;
+
+            if (bypassQueue)
+                SchedulerExecutionQueue.TryCancel(scheduleId);
+
+            var parameters = (schedule.ScheduleInfo.Parameters ?? Array.Empty<ScheduleTaskParameterInfo>()).Select(
                 prm => new BackgroundTaskParameter(prm.ParameterId, prm.ParameterValue)).ToList();
+            string runToken = Guid.NewGuid().ToString("N");
+            string idempotencyKey = String.Format(CultureInfo.InvariantCulture, "schedule:{0}:nextrun:{1:O}",
+                scheduleId,
+                schedule.ScheduleInfo.NextRun == DateTime.MinValue ? DateTime.UtcNow : schedule.ScheduleInfo.NextRun.ToUniversalTime());
+
+            parameters.Add(new BackgroundTaskParameter("SCHEDULER_EXECUTION_MODE_CONFIGURED", configuredExecutionMode));
+            parameters.Add(new BackgroundTaskParameter("SCHEDULER_EXECUTION_MODE_EFFECTIVE", dispatchPlan.EffectiveExecutionMode));
+            UpsertBackgroundTaskParameter(parameters, SchedulerRunTokenParameterId, runToken);
+            UpsertBackgroundTaskParameter(parameters, SchedulerIdempotencyKeyParameterId, idempotencyKey);
+            UpsertBackgroundTaskParameter(parameters, SchedulerAffinityParameterIds[0], dispatchPlan.AffinityKey);
+            UpsertBackgroundTaskParameter(parameters, SchedulerDispatchNodeParameterId, dispatchPlan.NodeHint);
+            string parallelismNote = ApplyAdaptiveParallelismParameters(schedule, parameters);
+
+            if (dispatchPlan.TargetServerId.HasValue)
+                UpsertBackgroundTaskParameter(parameters, SchedulerTargetServerIdParameterId, dispatchPlan.TargetServerId.Value.ToString(CultureInfo.InvariantCulture));
+
+            // update next run (if required)
+            CalculateNextStartTime(schedule.ScheduleInfo);
+
+            // disable run once task
+            if (schedule.ScheduleInfo.ScheduleType == ScheduleType.OneTime)
+                schedule.ScheduleInfo.Enabled = false;
+
+            schedule.ScheduleInfo.LastRun = DateTime.Now;
+            int scheduleUpdateResult = UpdateSchedule(schedule.ScheduleInfo);
+            if (scheduleUpdateResult < 0)
+                return scheduleUpdateResult;
 
             var userInfo = PackageController.GetPackageOwner(schedule.ScheduleInfo.PackageId);
+            var actor = SecurityContext.User;
+
+            int ownerUserId;
+            int effectiveUserId;
+
+            if (userInfo != null)
+            {
+                ownerUserId = userInfo.OwnerId == 0 ? userInfo.UserId : userInfo.OwnerId;
+                effectiveUserId = userInfo.UserId;
+            }
+            else
+            {
+                ownerUserId = actor != null && actor.OwnerId > 0 ? actor.OwnerId : actor?.UserId ?? 0;
+                effectiveUserId = actor?.UserId ?? ownerUserId;
+            }
 
             var backgroundTask = new BackgroundTask(
                 Guid.NewGuid(),
                 Guid.NewGuid().ToString("N"),
-                userInfo.OwnerId == 0 ? userInfo.UserId : userInfo.OwnerId,
-                userInfo.UserId,
+                ownerUserId,
+                effectiveUserId,
                 "SCHEDULER",
                 "RUN_SCHEDULE",
                 schedule.ScheduleInfo.ScheduleName,
@@ -225,24 +370,400 @@ namespace FuseCP.EnterpriseServer
                                          Status = BackgroundTaskStatus.Starting
                                      };
             
-            TaskController.AddTask(backgroundTask);
+            int createdTaskId = TaskController.AddTask(backgroundTask);
+            TaskController.AddLog(new BackgroundTaskLogRecord(
+                createdTaskId,
+                0,
+                false,
+                String.Format("Scheduler task created; mode configured='{0}', effective='{1}', affinity='{2}', nodeHint='{3}', runToken='{4}', idempotencyKey='{5}'; waiting for worker startup.",
+                    configuredExecutionMode,
+                    dispatchPlan.EffectiveExecutionMode,
+                    dispatchPlan.AffinityKey,
+                    dispatchPlan.NodeHint,
+                    runToken,
+                    idempotencyKey),
+                null,
+                null));
 
-            // update next run (if required)
-            CalculateNextStartTime(schedule.ScheduleInfo);
-            
-            // disable run once task
-            if (schedule.ScheduleInfo.ScheduleType == ScheduleType.OneTime)
-                schedule.ScheduleInfo.Enabled = false;
+            if (!String.IsNullOrWhiteSpace(placementNote))
+            {
+                TaskController.AddLog(new BackgroundTaskLogRecord(
+                    createdTaskId,
+                    0,
+                    false,
+                    placementNote,
+                    null,
+                    null));
+            }
 
-            schedule.ScheduleInfo.LastRun = DateTime.Now;
-            UpdateSchedule(schedule.ScheduleInfo);
+            if (!String.IsNullOrWhiteSpace(dispatchPlan.FallbackReason))
+            {
+                TaskController.AddLog(new BackgroundTaskLogRecord(
+                    createdTaskId,
+                    1,
+                    false,
+                    dispatchPlan.FallbackReason,
+                    null,
+                    null));
+            }
+
+                    if (!String.IsNullOrWhiteSpace(parallelismNote))
+                    {
+                    TaskController.AddLog(new BackgroundTaskLogRecord(
+                        createdTaskId,
+                        0,
+                        false,
+                        parallelismNote,
+                        null,
+                        null));
+                    }
+
+            if (userInfo == null)
+            {
+                TaskController.AddLog(new BackgroundTaskLogRecord(
+                    createdTaskId,
+                    1,
+                    false,
+                    "Package owner could not be resolved at schedule start. Falling back to current actor identity for task ownership metadata.",
+                    null,
+                    null));
+            }
+
+            if (bypassQueue)
+            {
+                var workerThread = new Thread(() => RunScheduledTaskImmediately(backgroundTask))
+                {
+                    Priority = ThreadPriority.Highest,
+                    IsBackground = true
+                };
+
+                TaskManager.AddTaskThread(createdTaskId, workerThread);
+                workerThread.Start();
+            }
 
             return 0;
         }        
 
+        private SchedulerDispatchPlan BuildDispatchPlan(SchedulerJob schedule, string configuredMode)
+        {
+            string normalizedMode = NormalizeExecutionMode(configuredMode);
+            int? packageServerId = ResolvePackageServerId(schedule?.ScheduleInfo?.PackageId ?? 0);
+            string requestedAffinity = ResolveRequestedAffinity(schedule?.ScheduleInfo?.Parameters, packageServerId);
+
+            var plan = new SchedulerDispatchPlan
+            {
+                EffectiveExecutionMode = normalizedMode,
+                AffinityKey = requestedAffinity,
+                NodeHint = "enterprise:" + SchedulerRuntime.GetLeaseOwner(),
+                TargetServerId = packageServerId
+            };
+
+            if (String.Equals(normalizedMode, ExecutionModeEnterpriseOnly, StringComparison.OrdinalIgnoreCase))
+            {
+                plan.AffinityKey = plan.NodeHint;
+                plan.TargetServerId = null;
+                return plan;
+            }
+
+            if (String.Equals(normalizedMode, ExecutionModeServerPreferred, StringComparison.OrdinalIgnoreCase))
+            {
+                if (packageServerId.HasValue)
+                {
+                    plan.AffinityKey = "server:" + packageServerId.Value.ToString(CultureInfo.InvariantCulture);
+                    plan.NodeHint = plan.AffinityKey;
+                    return plan;
+                }
+
+                plan.EffectiveExecutionMode = ExecutionModeAuto;
+                plan.FallbackReason = "Execution mode 'SERVER_PREFERRED' requested, but the schedule package is not bound to a server. Falling back to AUTO dispatch.";
+            }
+
+            return plan;
+        }
+
+        private static void UpsertBackgroundTaskParameter(List<BackgroundTaskParameter> parameters, string name, string value)
+        {
+            if (parameters == null || String.IsNullOrWhiteSpace(name))
+                return;
+
+            for (int index = parameters.Count - 1; index >= 0; index--)
+            {
+                BackgroundTaskParameter existing = parameters[index];
+                if (existing == null || String.IsNullOrWhiteSpace(existing.Name))
+                    continue;
+
+                if (String.Equals(existing.Name, name, StringComparison.OrdinalIgnoreCase))
+                    parameters.RemoveAt(index);
+            }
+
+            parameters.Add(new BackgroundTaskParameter(name, value ?? String.Empty));
+        }
+
+        private static string ResolveRequestedAffinity(ScheduleTaskParameterInfo[] parameters, int? packageServerId)
+        {
+            if (parameters != null)
+            {
+                foreach (string parameterId in SchedulerAffinityParameterIds)
+                {
+                    string value = GetScheduleParameterValue(parameters, new[] { parameterId });
+                    if (String.IsNullOrWhiteSpace(value))
+                        continue;
+
+                    string trimmed = value.Trim();
+                    if (String.Equals(parameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase)
+                        && Int32.TryParse(trimmed, NumberStyles.Integer, CultureInfo.InvariantCulture, out int explicitServerId)
+                        && explicitServerId > 0)
+                    {
+                        return "server:" + explicitServerId.ToString(CultureInfo.InvariantCulture);
+                    }
+
+                    return trimmed;
+                }
+            }
+
+            if (packageServerId.HasValue)
+                return "server:" + packageServerId.Value.ToString(CultureInfo.InvariantCulture);
+
+            return "global";
+        }
+
+        private static bool HasScheduleParameter(ScheduleTaskParameterInfo[] parameters, IEnumerable<string> parameterIds)
+        {
+            if (parameters == null || parameterIds == null)
+                return false;
+
+            foreach (string parameterId in parameterIds)
+            {
+                if (String.IsNullOrWhiteSpace(parameterId))
+                    continue;
+
+                foreach (ScheduleTaskParameterInfo parameter in parameters)
+                {
+                    if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
+                        continue;
+
+                    if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static string ResolveDispatchExecutionMode(SchedulerJob schedule, string configuredMode, bool hasExplicitExecutionMode, out string placementNote)
+        {
+            placementNote = null;
+
+            if (hasExplicitExecutionMode && !String.Equals(configuredMode, ExecutionModeAuto, StringComparison.OrdinalIgnoreCase))
+                return configuredMode;
+
+            SchedulerPlacementMode recommendation = SchedulerTaskPlacementAdvisor.GetRecommendedMode(schedule?.Task?.TaskType, schedule?.Task?.TaskId);
+            string recommendedMode = configuredMode;
+            switch (recommendation)
+            {
+                case SchedulerPlacementMode.ServerPreferred:
+                    recommendedMode = ExecutionModeServerPreferred;
+                    break;
+                case SchedulerPlacementMode.EnterpriseOnly:
+                    recommendedMode = ExecutionModeEnterpriseOnly;
+                    break;
+                default:
+                    recommendedMode = ExecutionModeAuto;
+                    break;
+            }
+
+            if (!String.Equals(recommendedMode, configuredMode, StringComparison.OrdinalIgnoreCase))
+            {
+                placementNote = String.Format(
+                    CultureInfo.InvariantCulture,
+                    "Scheduler placement policy applied for task '{0}' ({1}): mode '{2}' -> '{3}'.",
+                    schedule?.Task?.TaskId ?? "unknown",
+                    schedule?.Task?.TaskType ?? "unknown",
+                    configuredMode,
+                    recommendedMode);
+            }
+
+            return recommendedMode;
+        }
+
+        private static string ApplyAdaptiveParallelismParameters(SchedulerJob schedule, List<BackgroundTaskParameter> runtimeParameters)
+        {
+            SchedulerParallelismRecommendation recommendation = SchedulerTaskParallelismAdvisor.GetRecommendation(schedule?.Task?.TaskId, schedule?.Task?.TaskType);
+            if (recommendation == null)
+                return null;
+
+            string configuredMode = NormalizeParallelismMode(GetScheduleParameterValue(schedule?.ScheduleInfo?.Parameters, SchedulerParallelismModeParameterIds));
+            string explicitTaskParallelism = GetScheduleParameterValue(schedule?.ScheduleInfo?.Parameters, recommendation.TargetParameterIds);
+            if (!String.IsNullOrWhiteSpace(explicitTaskParallelism))
+            {
+                UpsertBackgroundTaskParameter(runtimeParameters, SchedulerParallelismEffectiveParameterId, explicitTaskParallelism.Trim());
+                UpsertBackgroundTaskParameter(runtimeParameters, SchedulerParallelismSourceParameterId, "EXPLICIT_TASK_PARAMETER");
+
+                return String.Format(
+                    CultureInfo.InvariantCulture,
+                    "Scheduler parallelism kept explicit task parameter '{0}'='{1}' for task '{2}' ({3}).",
+                    recommendation.PrimaryParameterId,
+                    explicitTaskParallelism.Trim(),
+                    schedule?.Task?.TaskId ?? "unknown",
+                    schedule?.Task?.TaskType ?? "unknown");
+            }
+
+            if (String.Equals(configuredMode, ParallelismModeAuto, StringComparison.OrdinalIgnoreCase)
+                && !Web.Services.Configuration.SchedulerAutoTuneEnabled)
+            {
+                return null;
+            }
+
+            int effectiveParallelism;
+            string source;
+
+            if (String.Equals(configuredMode, ParallelismModeManual, StringComparison.OrdinalIgnoreCase))
+            {
+                string configuredMax = GetScheduleParameterValue(schedule?.ScheduleInfo?.Parameters, SchedulerParallelismMaxParameterIds);
+                if (!Int32.TryParse(configuredMax, NumberStyles.Integer, CultureInfo.InvariantCulture, out effectiveParallelism) || effectiveParallelism <= 0)
+                {
+                    effectiveParallelism = recommendation.RecommendedValue;
+                    source = "AUTO_FALLBACK_INVALID_MANUAL";
+                }
+                else
+                {
+                    effectiveParallelism = Math.Min(100, effectiveParallelism);
+                    source = "MANUAL";
+                }
+            }
+            else
+            {
+                effectiveParallelism = recommendation.RecommendedValue;
+                source = "AUTO";
+            }
+
+            UpsertBackgroundTaskParameter(runtimeParameters, recommendation.PrimaryParameterId, effectiveParallelism.ToString(CultureInfo.InvariantCulture));
+            UpsertBackgroundTaskParameter(runtimeParameters, SchedulerParallelismEffectiveParameterId, effectiveParallelism.ToString(CultureInfo.InvariantCulture));
+            UpsertBackgroundTaskParameter(runtimeParameters, SchedulerParallelismSourceParameterId, source);
+
+            return String.Format(
+                CultureInfo.InvariantCulture,
+                "Scheduler parallelism applied for task '{0}' ({1}): '{2}' mode set '{3}'={4}.",
+                schedule?.Task?.TaskId ?? "unknown",
+                schedule?.Task?.TaskType ?? "unknown",
+                configuredMode,
+                recommendation.PrimaryParameterId,
+                effectiveParallelism);
+        }
+
+        private int? ResolvePackageServerId(int packageId)
+        {
+            if (packageId <= 0)
+                return null;
+
+            PackageInfo package = PackageController.GetPackage(packageId);
+            if (package == null || package.ServerId <= 0)
+                return null;
+
+            return package.ServerId;
+        }
+
+        private static string GetScheduleParameterValue(ScheduleTaskParameterInfo[] parameters, IEnumerable<string> parameterIds)
+        {
+            if (parameters == null)
+                return String.Empty;
+
+            foreach (string parameterId in parameterIds)
+            {
+                foreach (ScheduleTaskParameterInfo parameter in parameters)
+                {
+                    if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
+                        continue;
+
+                    if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
+                        return parameter.ParameterValue ?? String.Empty;
+                }
+            }
+
+            return String.Empty;
+        }
+
+        private static string NormalizeExecutionMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ExecutionModeServerPreferred, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeServerPreferred;
+
+            if (String.Equals(candidate, ExecutionModeEnterpriseOnly, StringComparison.OrdinalIgnoreCase))
+                return ExecutionModeEnterpriseOnly;
+
+            return ExecutionModeAuto;
+        }
+
+        private static string NormalizeParallelismMode(string mode)
+        {
+            string candidate = (mode ?? String.Empty).Trim();
+            if (String.Equals(candidate, ParallelismModeManual, StringComparison.OrdinalIgnoreCase))
+                return ParallelismModeManual;
+
+            return ParallelismModeAuto;
+        }
+
+        private void RunScheduledTaskImmediately(BackgroundTask backgroundTask)
+        {
+            UserInfo user = PackageController.GetPackageOwner(backgroundTask.PackageId);
+            if (user != null)
+            {
+                SecurityContext.SetThreadPrincipal(user.UserId);
+            }
+            else
+            {
+                SecurityContext.SetThreadSupervisorPrincipal();
+            }
+
+            var schedule = GetScheduleComplete(backgroundTask.ScheduleId);
+
+            backgroundTask.Guid = TaskManager.Guid;
+            backgroundTask.Status = BackgroundTaskStatus.Run;
+
+            TaskController.UpdateTask(backgroundTask);
+            TaskManager.Write("Scheduler task started: {0}", backgroundTask.ItemName);
+            if (user == null)
+            {
+                TaskManager.WriteWarning("Package owner not found for package '{0}', running schedule as supervisor", backgroundTask.PackageId.ToString());
+            }
+
+            try
+            {
+                if (schedule == null || schedule.Task == null || string.IsNullOrWhiteSpace(schedule.Task.TaskType))
+                {
+                    throw new InvalidOperationException($"Scheduler metadata not found for ScheduleID={backgroundTask.ScheduleId}");
+                }
+
+                var objTask = (ISchedulerTask)Activator.CreateInstance(Type.GetType(schedule.Task.TaskType));
+                if (objTask == null)
+                {
+                    throw new InvalidOperationException($"Could not create scheduled task type '{schedule.Task.TaskType}'");
+                }
+
+                objTask.DoWork();
+            }
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            {
+                TaskManager.WriteError(ex, "Error executing scheduled task");
+            }
+            finally
+            {
+                TaskManager.Write("Scheduler task finished: {0}", backgroundTask.ItemName);
+                try
+                {
+                    TaskManager.CompleteTask();
+                }
+                catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
+                {
+                    System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message);
+                }
+            }
+        }
+
         public int StopSchedule(int scheduleId)
         {
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo);
+            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
 
             if (accountCheck < 0)
                 return accountCheck;
@@ -358,6 +879,31 @@ namespace FuseCP.EnterpriseServer
                         }
                     }
 
+                    internal bool ReleaseExpiredScheduleLease(int scheduleId)
+                    {
+                        if (scheduleId <= 0)
+                            return false;
+
+                        string scheduleKey = scheduleId.ToString(CultureInfo.InvariantCulture);
+                        DateTime nowUtc = DateTime.UtcNow;
+
+                        using (var transaction = Database.Database.BeginTransaction())
+                        {
+                            var setting = Database.SystemSettings.FirstOrDefault(s => s.SettingsName == SchedulerLeaseSettingsName && s.PropertyName == scheduleKey);
+                            if (setting == null)
+                                return false;
+
+                            SchedulerLeaseState current = SchedulerLeaseState.Parse(scheduleId, setting.PropertyValue);
+                            if (current != null && !current.IsExpired(nowUtc))
+                                return false;
+
+                            Database.SystemSettings.Remove(setting);
+                            Database.SaveChanges();
+                            transaction.Commit();
+                            return true;
+                        }
+                    }
+
         public void CalculateNextStartTime(ScheduleInfo schedule)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return;
@@ -447,6 +993,10 @@ namespace FuseCP.EnterpriseServer
                 return BusinessErrorCodes.ERROR_OS_SCHEDULED_TASK_QUOTA_LIMIT;
 
             CalculateNextStartTime(schedule);
+            EnforceExecutionModeParameterAccess(schedule, false);
+            int approvalCheck = EnforceHighRiskApprovalPolicy(schedule, false);
+            if (approvalCheck < 0)
+                return approvalCheck;
 
             string xmlParameters = BuildParametersXml(schedule.Parameters);
 
@@ -472,6 +1022,10 @@ namespace FuseCP.EnterpriseServer
             ScheduleInfo original = GetScheduleInternal(schedule.ScheduleId);
             schedule.LastRun = original?.LastRun ?? schedule.LastRun;
             CalculateNextStartTime(schedule);
+            EnforceExecutionModeParameterAccess(schedule, true);
+            int approvalCheck = EnforceHighRiskApprovalPolicy(schedule, true);
+            if (approvalCheck < 0)
+                return approvalCheck;
 
             string xmlParameters = BuildParametersXml(schedule.Parameters);
 
@@ -502,6 +1056,230 @@ namespace FuseCP.EnterpriseServer
                 }
             }
             return nodeProps.OuterXml;
+        }
+
+        private void EnforceExecutionModeParameterAccess(ScheduleInfo schedule, bool isUpdate)
+        {
+            if (schedule == null)
+                return;
+
+            List<ScheduleTaskParameterInfo> parameters = new List<ScheduleTaskParameterInfo>(schedule.Parameters ?? Array.Empty<ScheduleTaskParameterInfo>());
+            string incomingMode = NormalizeExecutionMode(GetScheduleParameterValue(schedule.Parameters, SchedulerExecutionModeParameterIds));
+
+            if (SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR))
+            {
+                UpsertExecutionModeParameter(parameters, incomingMode);
+                schedule.Parameters = parameters.ToArray();
+                return;
+            }
+
+            string preservedMode = ExecutionModeAuto;
+            if (isUpdate && schedule.ScheduleId > 0)
+            {
+                SchedulerJob existingSchedule = GetScheduleComplete(schedule.ScheduleId);
+                if (existingSchedule != null && existingSchedule.ScheduleInfo != null)
+                {
+                    preservedMode = NormalizeExecutionMode(GetScheduleParameterValue(existingSchedule.ScheduleInfo.Parameters, SchedulerExecutionModeParameterIds));
+                }
+            }
+
+            UpsertExecutionModeParameter(parameters, preservedMode);
+            schedule.Parameters = parameters.ToArray();
+        }
+
+        private static void UpsertExecutionModeParameter(List<ScheduleTaskParameterInfo> parameters, string mode)
+        {
+            if (parameters == null)
+                return;
+
+            for (int index = parameters.Count - 1; index >= 0; index--)
+            {
+                ScheduleTaskParameterInfo parameter = parameters[index];
+                if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
+                    continue;
+
+                foreach (string alias in SchedulerExecutionModeParameterIds)
+                {
+                    if (String.Equals(parameter.ParameterId, alias, StringComparison.OrdinalIgnoreCase))
+                    {
+                        parameters.RemoveAt(index);
+                        break;
+                    }
+                }
+            }
+
+            parameters.Add(new ScheduleTaskParameterInfo
+            {
+                ParameterId = SchedulerExecutionModeParameterIds[0],
+                ParameterValue = NormalizeExecutionMode(mode)
+            });
+        }
+
+        private int EnforceHighRiskApprovalPolicy(ScheduleInfo schedule, bool isUpdate)
+        {
+            if (schedule == null)
+                return 0;
+
+            bool isHighRisk = IsHighRiskSchedule(schedule);
+            if (!isHighRisk)
+                return 0;
+
+            bool isAdmin = SecurityContext.User.IsInRole(SecurityContext.ROLE_ADMINISTRATOR);
+            if (!isAdmin)
+                return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
+
+            List<ScheduleTaskParameterInfo> parameters = new List<ScheduleTaskParameterInfo>(schedule.Parameters ?? Array.Empty<ScheduleTaskParameterInfo>());
+
+            ScheduleInfo existing = null;
+            if (isUpdate && schedule.ScheduleId > 0)
+            {
+                SchedulerJob existingSchedule = GetScheduleComplete(schedule.ScheduleId);
+                existing = existingSchedule?.ScheduleInfo;
+            }
+
+            int actorUserId = SecurityContext.User.UserId;
+            int firstApprover = ResolveIntParameter(parameters, existing?.Parameters, SchedulerFirstApproverParameterId);
+            int secondApprover = ResolveIntParameter(parameters, existing?.Parameters, SchedulerSecondApproverParameterId);
+            string approvedAt = ResolveStringParameter(parameters, existing?.Parameters, SchedulerApprovedAtParameterId);
+
+            if (firstApprover <= 0)
+            {
+                firstApprover = actorUserId;
+            }
+            else if (secondApprover <= 0 && actorUserId > 0 && actorUserId != firstApprover)
+            {
+                secondApprover = actorUserId;
+                if (String.IsNullOrWhiteSpace(approvedAt))
+                    approvedAt = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
+            }
+
+            bool approved = firstApprover > 0 && secondApprover > 0 && firstApprover != secondApprover;
+            if (!approved)
+            {
+                schedule.Enabled = false;
+            }
+
+            UpsertScheduleParameter(parameters, SchedulerRiskLevelParameterId, "HIGH");
+            UpsertScheduleParameter(parameters, SchedulerFirstApproverParameterId, firstApprover > 0 ? firstApprover.ToString(CultureInfo.InvariantCulture) : String.Empty);
+            UpsertScheduleParameter(parameters, SchedulerSecondApproverParameterId, secondApprover > 0 ? secondApprover.ToString(CultureInfo.InvariantCulture) : String.Empty);
+            UpsertScheduleParameter(parameters, SchedulerApprovalStateParameterId, approved ? ApprovalStateApproved : ApprovalStatePendingSecond);
+            UpsertScheduleParameter(parameters, SchedulerApprovedParameterId, approved ? "true" : "false");
+
+            string approvedBy = approved
+                ? String.Format(CultureInfo.InvariantCulture, "{0},{1}", firstApprover, secondApprover)
+                : (firstApprover > 0 ? firstApprover.ToString(CultureInfo.InvariantCulture) : String.Empty);
+            UpsertScheduleParameter(parameters, SchedulerApprovedByParameterId, approvedBy);
+            UpsertScheduleParameter(parameters, SchedulerApprovedAtParameterId, approved ? approvedAt : String.Empty);
+            schedule.Parameters = parameters.ToArray();
+
+            return 0;
+        }
+
+        private static bool IsHighRiskExecutionApproved(ScheduleInfo schedule)
+        {
+            if (schedule == null)
+                return false;
+
+            string approved = GetScheduleParameterValue(schedule.Parameters, new[] { SchedulerApprovedParameterId });
+            if (!String.Equals((approved ?? String.Empty).Trim(), "true", StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            int firstApprover = ResolveIntParameter(schedule.Parameters, SchedulerFirstApproverParameterId);
+            int secondApprover = ResolveIntParameter(schedule.Parameters, SchedulerSecondApproverParameterId);
+            if (firstApprover <= 0 || secondApprover <= 0 || firstApprover == secondApprover)
+                return false;
+
+            string state = GetScheduleParameterValue(schedule.Parameters, new[] { SchedulerApprovalStateParameterId });
+            return String.Equals((state ?? String.Empty).Trim(), ApprovalStateApproved, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static int ResolveIntParameter(List<ScheduleTaskParameterInfo> incoming, ScheduleTaskParameterInfo[] existing, string parameterId)
+        {
+            string incomingValue = ResolveStringParameter(incoming, parameterId);
+            if (Int32.TryParse(incomingValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int incomingParsed))
+                return incomingParsed;
+
+            string existingValue = GetScheduleParameterValue(existing, new[] { parameterId });
+            if (Int32.TryParse(existingValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int existingParsed))
+                return existingParsed;
+
+            return 0;
+        }
+
+        private static int ResolveIntParameter(ScheduleTaskParameterInfo[] parameters, string parameterId)
+        {
+            string value = GetScheduleParameterValue(parameters, new[] { parameterId });
+            return Int32.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed) ? parsed : 0;
+        }
+
+        private static string ResolveStringParameter(List<ScheduleTaskParameterInfo> incoming, ScheduleTaskParameterInfo[] existing, string parameterId)
+        {
+            string incomingValue = ResolveStringParameter(incoming, parameterId);
+            if (!String.IsNullOrWhiteSpace(incomingValue))
+                return incomingValue;
+
+            return GetScheduleParameterValue(existing, new[] { parameterId });
+        }
+
+        private static string ResolveStringParameter(List<ScheduleTaskParameterInfo> parameters, string parameterId)
+        {
+            if (parameters == null || String.IsNullOrWhiteSpace(parameterId))
+                return String.Empty;
+
+            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            {
+                if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
+                    continue;
+
+                if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
+                    return parameter.ParameterValue ?? String.Empty;
+            }
+
+            return String.Empty;
+        }
+
+        private static bool IsHighRiskSchedule(ScheduleInfo schedule)
+        {
+            if (schedule == null)
+                return false;
+
+            string riskLevel = GetScheduleParameterValue(schedule.Parameters, new[] { SchedulerRiskLevelParameterId });
+            if (String.Equals((riskLevel ?? String.Empty).Trim(), "HIGH", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            string taskId = (schedule.TaskId ?? String.Empty).Trim();
+            if (String.IsNullOrWhiteSpace(taskId))
+                return false;
+
+            foreach (string marker in HighRiskTaskIdMarkers)
+            {
+                if (taskId.IndexOf(marker, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static void UpsertScheduleParameter(List<ScheduleTaskParameterInfo> parameters, string parameterId, string parameterValue)
+        {
+            if (parameters == null || String.IsNullOrWhiteSpace(parameterId))
+                return;
+
+            for (int index = parameters.Count - 1; index >= 0; index--)
+            {
+                ScheduleTaskParameterInfo existing = parameters[index];
+                if (existing == null || String.IsNullOrWhiteSpace(existing.ParameterId))
+                    continue;
+
+                if (String.Equals(existing.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
+                    parameters.RemoveAt(index);
+            }
+
+            parameters.Add(new ScheduleTaskParameterInfo
+            {
+                ParameterId = parameterId,
+                ParameterValue = parameterValue ?? String.Empty
+            });
         }
 
         public int DeleteSchedule(int scheduleId)

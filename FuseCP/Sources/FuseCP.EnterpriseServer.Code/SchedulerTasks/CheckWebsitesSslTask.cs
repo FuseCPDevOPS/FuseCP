@@ -17,15 +17,20 @@ using FuseCP.Providers.Web;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Linq;
 
 namespace FuseCP.EnterpriseServer
 {
     public class CheckWebsitesSslTask : SchedulerTask
     {
+        private const int ProgressLogInterval = 100;
+        private int httpTimeoutSeconds = 15;
+        private int requestAttempts = 2;
+        private int requestRetryDelayMs = 250;
+
         private readonly string domainVariableKey = "[domain]";
         private readonly string urlVariableKey = "[url]";
         private readonly string issuerVariableKey = "[issuer]";
@@ -50,7 +55,6 @@ namespace FuseCP.EnterpriseServer
         {
             BackgroundTask topTask = TaskManager.TopTask;
 
-            // get input parameters
             mailToCustomer = Convert.ToBoolean(topTask.GetParamValue("SEND_MAIL_TO_CUSTOMER"));
             sendBcc = Convert.ToBoolean(topTask.GetParamValue("SEND_BCC"));
             bccMail = (string)topTask.GetParamValue("BCC_MAIL");
@@ -62,8 +66,10 @@ namespace FuseCP.EnterpriseServer
             sendSslError = Convert.ToBoolean(topTask.GetParamValue("SEND_SSL_ERROR"));
             errorMailSubject = (string)topTask.GetParamValue("ERROR_MAIL_SUBJECT");
             errorMailBody = (string)topTask.GetParamValue("ERROR_MAIL_BODY");
+            httpTimeoutSeconds = NormalizeInt(topTask.GetParamValue("SSL_REQUEST_TIMEOUT_SECONDS"), 15, 5, 300);
+            requestAttempts = NormalizeInt(topTask.GetParamValue("SSL_REQUEST_ATTEMPTS"), 2, 1, 8);
+            requestRetryDelayMs = NormalizeInt(topTask.GetParamValue("SSL_REQUEST_RETRY_DELAY_MS"), 250, 0, 5000);
 
-            // check input parameters
             if (sendBcc && String.IsNullOrEmpty(bccMail))
             {
                 TaskManager.WriteWarning("Specify 'BCC Mail To' task parameter");
@@ -101,7 +107,6 @@ namespace FuseCP.EnterpriseServer
                 }
             }
 
-            // get mail from
             SystemSettings settings = SystemController.GetSystemSettingsInternal(SystemSettings.SMTP_SETTINGS, false);
             if (settings != null)
             {
@@ -113,90 +118,116 @@ namespace FuseCP.EnterpriseServer
                 return;
             }
 
-            // get websites
+            int totalProcessed = 0;
+            int totalErrors = 0;
             if (topTask.EffectiveUserId == 1)
             {
-                // serveradmin - get all websites
-                DataSet serviceItems = PackageController.GetRawPackageItemsPaged(1, ResourceGroups.Web, typeof(WebSite),
-                        true, "ItemName", "%%", "", 0, Int32.MaxValue);
-                checkWebsites(serviceItems);
+                DataSet serviceItems = PackageController.GetRawPackageItemsPaged(1, ResourceGroups.Web, typeof(WebSite), true, "ItemName", "%%", "", 0, Int32.MaxValue);
+                CheckWebsites(serviceItems, ref totalProcessed, ref totalErrors);
             }
             else
             {
-                // get user packages
                 foreach (var packageId in PackageController.GetMyPackages(topTask.EffectiveUserId).Select(p => p.PackageId))
                 {
-                    DataSet serviceItems = PackageController.GetRawPackageItemsPaged(packageId, ResourceGroups.Web, typeof(WebSite),
-                        true, "ItemName", "%%", "", 0, Int32.MaxValue);
-                    checkWebsites(serviceItems);
+                    try
+                    {
+                        DataSet serviceItems = PackageController.GetRawPackageItemsPaged(packageId, ResourceGroups.Web, typeof(WebSite), true, "ItemName", "%%", "", 0, Int32.MaxValue);
+                        CheckWebsites(serviceItems, ref totalProcessed, ref totalErrors);
+                    }
+                    catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+                    {
+                        totalErrors++;
+                        TaskManager.WriteError("SSL check failed while loading websites for package '{0}'. Error: {1}", packageId.ToString(), ex.ToString());
+                    }
                 }
             }
+
+            TaskManager.Write("SSL check finished. Processed websites: {0}, certificate errors: {1}", totalProcessed.ToString(), totalErrors.ToString());
         }
 
-        private void checkWebsites(DataSet serviceItems)
+        private void CheckWebsites(DataSet serviceItems, ref int totalProcessed, ref int totalErrors)
         {
             if (serviceItems == null) return;
             int recordsCount = (int)serviceItems.Tables[0].Rows[0][0];
             if (recordsCount == 0) return;
             DataView dvItems = serviceItems.Tables[1].DefaultView;
-            foreach (DataRowView row in dvItems.Cast<DataRowView>()
-                .Where(r => typeof(WebSite).Equals(Type.GetType((string)r["TypeName"]))))
+            foreach (DataRowView row in dvItems.Cast<DataRowView>().Where(r => typeof(WebSite).Equals(Type.GetType((string)r["TypeName"]))))
             {
-                string domain = (string)row["ItemName"];
-                if (String.IsNullOrEmpty(domain)) continue;
-                string url = "https://" + domain;
-                string email = (string)row["Email"];
-
-                var varList = new List<KeyValuePair<string, string>>();
-                varList.Add(new KeyValuePair<string, string>(domainVariableKey, domain));
-                varList.Add(new KeyValuePair<string, string>(urlVariableKey, url));
-
-                var task = GetServerCertificateAsync(url, HttpMethod.Head);
-                task.Wait();
-                X509Certificate2 cert = task.Result.Certificate;
-                if (cert == null)
+                try
                 {
-                    task = GetServerCertificateAsync(url, HttpMethod.Get);
-                    task.Wait();
-                    cert = task.Result.Certificate;
+                    string domain = (string)row["ItemName"];
+                    if (String.IsNullOrEmpty(domain)) continue;
+                    string url = "https://" + domain;
+                    string email = (string)row["Email"];
+
+                    var varList = new List<KeyValuePair<string, string>>();
+                    varList.Add(new KeyValuePair<string, string>(domainVariableKey, domain));
+                    varList.Add(new KeyValuePair<string, string>(urlVariableKey, url));
+
+                    CheckCertificateResult certResult = GetServerCertificate(url, HttpMethod.Head);
+                    X509Certificate2 cert = certResult.Certificate;
                     if (cert == null)
                     {
-                        if (!sendSslError) continue;
-                        varList.Add(new KeyValuePair<string, string>(errorVariableKey, task.Result.ErrorMessage));
-                        sendEmail(errorMailSubject, errorMailBody, email, varList);
-                        continue;
+                        certResult = GetServerCertificate(url, HttpMethod.Get);
+                        cert = certResult.Certificate;
+                        if (cert == null)
+                        {
+                            if (!sendSslError) continue;
+                            string errorMessage = String.IsNullOrWhiteSpace(certResult.ErrorMessage) ? "Unknown SSL connection error" : certResult.ErrorMessage;
+
+                            varList.Add(new KeyValuePair<string, string>(errorVariableKey, errorMessage));
+                            SendEmail(errorMailSubject, errorMailBody, email, varList);
+                            totalErrors++;
+                            totalProcessed++;
+
+                            if (totalProcessed % ProgressLogInterval == 0)
+                            {
+                                TaskManager.Write("SSL check progress: processed {0} websites", totalProcessed.ToString());
+                            }
+                            continue;
+                        }
+                    }
+
+                    string expirationDateString = cert.GetExpirationDateString();
+                    string issuer = cert.Issuer;
+                    DateTime expirationDate = DateTime.Parse(expirationDateString);
+                    string expiresOnDate = expirationDate.ToString("yyyy-MM-dd");
+                    DateTime current = DateTime.UtcNow.Date;
+                    int expiresInDays = (expirationDate - current).Days;
+
+                    varList.Add(new KeyValuePair<string, string>(issuerVariableKey, issuer));
+                    varList.Add(new KeyValuePair<string, string>(expiresInDaysVariableKey, expiresInDays.ToString()));
+                    varList.Add(new KeyValuePair<string, string>(expiresOnDateVariableKey, expiresOnDate));
+
+                    if (send30DaysBeforeExpiration && expiresInDays == 30)
+                    {
+                        SendEmail(expirationMailSubject, expirationMailBody, email, varList);
+                    }
+                    if (send14DaysBeforeExpiration && expiresInDays == 14)
+                    {
+                        SendEmail(expirationMailSubject, expirationMailBody, email, varList);
+                    }
+                    if (sendTodayExpired && expiresInDays == 0)
+                    {
+                        SendEmail(expirationMailSubject, expirationMailBody, email, varList);
+                    }
+
+                    totalProcessed++;
+                    if (totalProcessed % ProgressLogInterval == 0)
+                    {
+                        TaskManager.Write("SSL check progress: processed {0} websites", totalProcessed.ToString());
                     }
                 }
-
-                string expirationDateString = cert.GetExpirationDateString();
-                string issuer = cert.Issuer;
-                DateTime expirationDate = DateTime.Parse(expirationDateString);
-                string expiresOnDate = expirationDate.ToString("yyyy-MM-dd");
-                DateTime current = DateTime.UtcNow.Date;
-                int expiresInDays = (expirationDate - current).Days;
-
-                varList.Add(new KeyValuePair<string, string>(issuerVariableKey, issuer));
-                varList.Add(new KeyValuePair<string, string>(expiresInDaysVariableKey, expiresInDays.ToString()));
-                varList.Add(new KeyValuePair<string, string>(expiresOnDateVariableKey, expiresOnDate));
-
-                if (send30DaysBeforeExpiration && expiresInDays == 30)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
-                    sendEmail(expirationMailSubject, expirationMailBody, email, varList);
-                }
-                if (send14DaysBeforeExpiration && expiresInDays == 14)
-                {
-                    sendEmail(expirationMailSubject, expirationMailBody, email, varList);
-                }
-                if (sendTodayExpired && expiresInDays == 0)
-                {
-                    sendEmail(expirationMailSubject, expirationMailBody, email, varList);
+                    totalErrors++;
+                    TaskManager.WriteError("SSL check failed for website '{0}'. Error: {1}", row["ItemName"].ToString(), ex.ToString());
                 }
             }
         }
 
-        private void sendEmail(string subject, string body, string customerEmail, List<KeyValuePair<string, string>> varList)
+        private void SendEmail(string subject, string body, string customerEmail, List<KeyValuePair<string, string>> varList)
         {
-            // set variables
             foreach (KeyValuePair<string, string> keyValuePair in varList)
             {
                 body = body.Replace(keyValuePair.Key, keyValuePair.Value);
@@ -229,17 +260,69 @@ namespace FuseCP.EnterpriseServer
                     }
                 };
 
-                using var httpClient = new HttpClient(httpClientHandler);
+                using var httpClient = new HttpClient(httpClientHandler)
+                {
+                    Timeout = TimeSpan.FromSeconds(httpTimeoutSeconds)
+                };
                 using var request = new HttpRequestMessage(httpMethod, url);
-                await httpClient.SendAsync(request);
+                httpResponse = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
             }
             catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
-                string errorMessage = e.InnerException.Message;
+                string errorMessage = e.InnerException != null ? e.InnerException.Message : e.Message;
                 if (httpResponse != null) errorMessage += ", HTTP Response Code: " + httpResponse.StatusCode;
                 return new CheckCertificateResult(certificate, errorMessage);
             }
+            finally
+            {
+                httpResponse?.Dispose();
+            }
+
             return new CheckCertificateResult(certificate, null);
+        }
+
+        private CheckCertificateResult GetServerCertificate(string url, HttpMethod httpMethod)
+        {
+            var retry = SchedulerTaskReliability.ExecuteWithRetry(
+                () =>
+                {
+                    var response = GetServerCertificateAsync(url, httpMethod).GetAwaiter().GetResult();
+                    if (response.Certificate == null && !string.IsNullOrWhiteSpace(response.ErrorMessage))
+                    {
+                        throw new Exception(response.ErrorMessage);
+                    }
+
+                    return response;
+                },
+                requestAttempts,
+                requestRetryDelayMs,
+                (attempt, ex, isTimeout) =>
+                {
+                    TaskManager.WriteError("SSL probe failed for '{0}' attempt {1} ({2}). Error: {3}",
+                        url,
+                        attempt.ToString(),
+                        isTimeout ? "timeout" : "error",
+                        ex.ToString());
+                });
+
+            if (retry.Success)
+                return retry.Value;
+
+            return new CheckCertificateResult(null, retry.LastException?.Message ?? "SSL probe failed");
+        }
+
+        private static int NormalizeInt(object rawValue, int defaultValue, int min, int max)
+        {
+            int parsed;
+            if (!int.TryParse(Convert.ToString(rawValue), out parsed))
+                parsed = defaultValue;
+
+            if (parsed < min)
+                parsed = min;
+            if (parsed > max)
+                parsed = max;
+
+            return parsed;
         }
 
         private class CheckCertificateResult
@@ -270,5 +353,3 @@ namespace FuseCP.EnterpriseServer
         }
     }
 }
-
-

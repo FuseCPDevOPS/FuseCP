@@ -20,11 +20,15 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace FuseCP.EnterpriseServer
 {
     public class SchedulerJob: ControllerAsyncBase
     {
+        private const int DefaultRetryAttempts = 1;
+        private const int DefaultRetryBaseDelayMs = 500;
+
         private ScheduleInfo scheduleInfo;
         private ScheduleTaskInfo task;
 
@@ -51,7 +55,55 @@ namespace FuseCP.EnterpriseServer
         // a seperate thread, freeing the Scheduler to continue
         public bool Run()
         {
-            return SchedulerExecutionQueue.TryEnqueue(scheduleInfo.ScheduleId, ResolveAffinityKey(), RunSchedule, ResolveTaskWeight());
+            return SchedulerExecutionQueue.TryEnqueue(
+                scheduleInfo.ScheduleId,
+                ResolveAffinityKey(),
+                ResolveTenantKey(),
+                ResolveProviderThrottleKey(),
+                RunSchedule,
+                ResolveTaskWeight());
+        }
+
+        private string ResolveTenantKey()
+        {
+            int tenantId = 0;
+
+            if (scheduleInfo != null && scheduleInfo.PackageId > 0)
+            {
+                var package = PackageController.GetPackage(scheduleInfo.PackageId);
+                if (package != null)
+                    tenantId = package.UserId;
+            }
+
+            return tenantId > 0
+                ? "tenant:" + tenantId.ToString(CultureInfo.InvariantCulture)
+                : "tenant:global";
+        }
+
+        private string ResolveProviderThrottleKey()
+        {
+            if (scheduleInfo?.Parameters != null)
+            {
+                var providerParameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+                    p != null &&
+                    !string.IsNullOrWhiteSpace(p.ParameterId) &&
+                    (string.Equals(p.ParameterId, "SCHEDULER_PROVIDER_THROTTLE_KEY", StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(p.ParameterId, "PROVIDER_THROTTLE_KEY", StringComparison.OrdinalIgnoreCase)) &&
+                    !string.IsNullOrWhiteSpace(p.ParameterValue));
+
+                if (providerParameter != null)
+                    return providerParameter.ParameterValue.Trim();
+            }
+
+            string taskId = task?.TaskId;
+            if (!string.IsNullOrWhiteSpace(taskId))
+                return "provider:" + taskId.Trim();
+
+            string taskType = task?.TaskType;
+            if (!string.IsNullOrWhiteSpace(taskType))
+                return "provider:" + taskType.Trim();
+
+            return "provider:global";
         }
 
         private int ResolveTaskWeight()
@@ -115,6 +167,10 @@ namespace FuseCP.EnterpriseServer
 
         private string ResolveAffinityKey()
         {
+            string effectiveMode = ResolveExecutionMode();
+            if (string.Equals(effectiveMode, "ENTERPRISE_ONLY", StringComparison.OrdinalIgnoreCase))
+                return "enterprise:" + SchedulerRuntime.GetLeaseOwner();
+
             string affinityFromParameter = ResolveAffinityKeyFromParameters();
             if (!string.IsNullOrWhiteSpace(affinityFromParameter))
                 return affinityFromParameter;
@@ -129,6 +185,77 @@ namespace FuseCP.EnterpriseServer
             return "global";
         }
 
+        private string ResolveExecutionMode()
+        {
+            if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0)
+                return "AUTO";
+
+            string[] ids =
+            {
+                "SCHEDULER_EXECUTION_MODE_EFFECTIVE",
+                "SCHEDULER_EXECUTION_MODE_CONFIGURED",
+                "SCHEDULER_EXECUTION_MODE",
+                "EXECUTION_MODE",
+                "SCHEDULER_MODE"
+            };
+
+            foreach (string id in ids)
+            {
+                var parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+                    p != null &&
+                    !string.IsNullOrWhiteSpace(p.ParameterId) &&
+                    string.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase) &&
+                    !string.IsNullOrWhiteSpace(p.ParameterValue));
+
+                if (parameter != null)
+                    return parameter.ParameterValue.Trim();
+            }
+
+            return "AUTO";
+        }
+
+        private int ResolveRetryAttempts()
+        {
+            return ResolveIntParameter("SCHEDULER_RETRY_MAX_ATTEMPTS", "RETRY_MAX_ATTEMPTS", "TASK_RETRY_ATTEMPTS", DefaultRetryAttempts, 1, 10);
+        }
+
+        private int ResolveRetryBaseDelayMs()
+        {
+            return ResolveIntParameter("SCHEDULER_RETRY_BASE_DELAY_MS", "RETRY_BASE_DELAY_MS", "TASK_RETRY_DELAY_MS", DefaultRetryBaseDelayMs, 0, 30000);
+        }
+
+        private int ResolveIntParameter(string id1, string id2, string id3, int defaultValue, int minValue, int maxValue)
+        {
+            if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0)
+                return defaultValue;
+
+            string[] ids = { id1, id2, id3 };
+            foreach (string id in ids)
+            {
+                var parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+                    p != null
+                    && !string.IsNullOrWhiteSpace(p.ParameterId)
+                    && string.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase)
+                    && !string.IsNullOrWhiteSpace(p.ParameterValue));
+
+                if (parameter == null)
+                    continue;
+
+                if (int.TryParse(parameter.ParameterValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed))
+                {
+                    if (parsed < minValue)
+                        return minValue;
+
+                    if (parsed > maxValue)
+                        return maxValue;
+
+                    return parsed;
+                }
+            }
+
+            return defaultValue;
+        }
+
         private string ResolveAffinityKeyFromParameters()
         {
             if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0)
@@ -136,15 +263,18 @@ namespace FuseCP.EnterpriseServer
 
             var affinityParameter = scheduleInfo.Parameters.FirstOrDefault(p =>
                 p != null &&
-                (string.Equals(p.ParameterId, "SCHEDULER_AFFINITY", StringComparison.OrdinalIgnoreCase) ||
+                (string.Equals(p.ParameterId, "SCHEDULER_TARGET_AFFINITY", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "SCHEDULER_AFFINITY", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(p.ParameterId, "SCHEDULER_TARGET_SERVER_ID", StringComparison.OrdinalIgnoreCase) ||
                  string.Equals(p.ParameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase) ||
                  string.Equals(p.ParameterId, "SERVER_NAME", StringComparison.OrdinalIgnoreCase)));
 
             if (affinityParameter == null || string.IsNullOrWhiteSpace(affinityParameter.ParameterValue))
                 return null;
 
-            if (string.Equals(affinityParameter.ParameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase) &&
-                int.TryParse(affinityParameter.ParameterValue, out int serverId) && serverId > 0)
+            if ((string.Equals(affinityParameter.ParameterId, "SERVER_ID", StringComparison.OrdinalIgnoreCase)
+                 || string.Equals(affinityParameter.ParameterId, "SCHEDULER_TARGET_SERVER_ID", StringComparison.OrdinalIgnoreCase)) &&
+                int.TryParse(affinityParameter.ParameterValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int serverId) && serverId > 0)
                 return $"server:{serverId}";
 
             return affinityParameter.ParameterValue.Trim();
@@ -197,7 +327,32 @@ namespace FuseCP.EnterpriseServer
                     ISchedulerTask objTask = (ISchedulerTask)Activator.CreateInstance(Type.GetType(task.TaskType));
 
                     if (objTask != null)
-                        objTask.DoWork();
+                    {
+                        int retryAttempts = ResolveRetryAttempts();
+                        int retryBaseDelayMs = ResolveRetryBaseDelayMs();
+
+                        var retryResult = SchedulerTaskReliability.ExecuteWithRetry(
+                            () =>
+                            {
+                                objTask.DoWork();
+                                return true;
+                            },
+                            retryAttempts,
+                            retryBaseDelayMs,
+                            (attempt, ex, timeout) =>
+                            {
+                                TaskManager.WriteWarning(
+                                    "Scheduler retry {0}/{1} failed for '{2}' ({3}): {4}",
+                                    attempt.ToString(CultureInfo.InvariantCulture),
+                                    retryAttempts.ToString(CultureInfo.InvariantCulture),
+                                    scheduleInfo.ScheduleName,
+                                    timeout ? "timeout" : "error",
+                                    ex.Message);
+                            });
+
+                        if (!retryResult.Success)
+                            throw retryResult.LastException ?? new Exception("Scheduled task failed after retries.");
+                    }
                     else
                         throw new Exception(String.Format("Could not create scheduled task of '{0}' type",
                             task.TaskType));      

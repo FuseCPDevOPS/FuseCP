@@ -30,9 +30,38 @@ namespace FuseCP.Portal
 {
     public partial class Tasks : FuseCPModuleBase
     {
+        private Control FindControlRecursive(Control rootControl, string controlID)
+        {
+            if (rootControl == null || String.IsNullOrEmpty(controlID))
+                return null;
+
+            if (rootControl.ID == controlID)
+                return rootControl;
+
+            foreach (Control controlToSearch in rootControl.Controls)
+            {
+                Control foundControl = FindControlRecursive(controlToSearch, controlID);
+                if (foundControl != null)
+                    return foundControl;
+            }
+
+            return null;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                bool isUser = PanelSecurity.SelectedUser.Role == UserRole.User;
+                gvTasks.Columns[1].Visible = !isUser;
+                Literal litTasksRoleHint = FindControlRecursive(this, "litTasksRoleHint") as Literal;
+                if (litTasksRoleHint != null)
+                {
+                    litTasksRoleHint.Text = isUser
+                        ? "<div class=\"small text-muted\">Showing tasks in your selected account scope.</div>"
+                        : "<div class=\"small text-muted\">Showing active tasks for the selected account scope with execution source details.</div>";
+                }
+            }
         }
 
         protected void odsTasks_Selected(object sender, ObjectDataSourceStatusEventArgs e)
@@ -55,6 +84,7 @@ namespace FuseCP.Portal
             HyperLink lnkTaskName = (HyperLink)e.Row.FindControl("lnkTaskName");
             Literal litTaskDuration = (Literal)e.Row.FindControl("litTaskDuration");
             Panel pnlProgressIndicator = (Panel)e.Row.FindControl("pnlProgressIndicator");
+            Literal litProgressPercent = (Literal)e.Row.FindControl("litProgressPercent");
             LinkButton cmdStop = (LinkButton)e.Row.FindControl("cmdStop");
 
             // bind controls
@@ -73,6 +103,7 @@ namespace FuseCP.Portal
             if (task.IndicatorMaximum > 0)
                 percent = task.IndicatorCurrent * 100 / task.IndicatorMaximum;
             pnlProgressIndicator.Width = Unit.Percentage(percent);
+            litProgressPercent.Text = String.Format("<span class=\"fcp-task-progress-value\">{0}%</span>", percent);
 
             // stop button
             cmdStop.CommandArgument = task.TaskId;

@@ -20,6 +20,8 @@ using System.Collections;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
+using System.Linq;
 #if !EF64
 using Microsoft.Data.SqlClient;
 #else
@@ -33,6 +35,8 @@ namespace FuseCP.EnterpriseServer
     public sealed class Scheduler: ControllerBase
     {
         private const int StartingGraceSeconds = 180;
+        private const string MisfirePolicyRunOnce = "RUN_ONCE";
+        private const string MisfirePolicySkip = "SKIP";
 
         public Scheduler(ControllerBase provider) : base(provider) { }
         public Scheduler() : this(null) { }
@@ -46,9 +50,20 @@ namespace FuseCP.EnterpriseServer
 
         public bool IsScheduleActive(int scheduleId)
         {
+            return GetScheduleStatus(scheduleId) != ScheduleStatus.Idle;
+        }
+
+        public ScheduleStatus GetScheduleStatus(int scheduleId)
+        {
             Dictionary<int, BackgroundTask> scheduledTasks = TaskManager.GetScheduledTasks();
 
-            return scheduledTasks.ContainsKey(scheduleId) || SchedulerExecutionQueue.IsQueued(scheduleId);
+            if (scheduledTasks.ContainsKey(scheduleId))
+                return ScheduleStatus.Running;
+
+            if (SchedulerExecutionQueue.IsQueued(scheduleId))
+                return ScheduleStatus.Queued;
+
+            return ScheduleStatus.Idle;
         }
 
         public void ScheduleTasks()
@@ -71,6 +86,7 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var task in tasks)
             {
+                SchedulerExecutionQueue.TryCancel(task.Id);
                 TaskManager.StopTask(task.TaskId);
             }
 
@@ -78,10 +94,117 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var task in tasks)
             {
-                var taskThread = new Thread(() => RunBackgroundTask(task)) { Priority = ThreadPriority.Highest };
-                taskThread.Start();
-                TaskManager.AddTaskThread(task.Id, taskThread);
+                var hydratedTask = TaskController.GetTask(task.TaskId) ?? task;
+
+                bool enqueued = SchedulerExecutionQueue.TryEnqueue(
+                    hydratedTask.Id,
+                    ResolveRuntimeAffinityKey(hydratedTask),
+                    ResolveRuntimeTenantKey(hydratedTask),
+                    ResolveRuntimeProviderThrottleKey(hydratedTask),
+                    () => RunBackgroundTask(hydratedTask),
+                    ResolveRuntimeWeight(hydratedTask));
+
+                if (!enqueued)
+                    continue;
             }
+        }
+
+        private string ResolveRuntimeAffinityKey(BackgroundTask task)
+        {
+            string explicitAffinity = GetTaskParameterValue(task, "SCHEDULER_TARGET_AFFINITY", "SCHEDULER_AFFINITY", "SERVER_ID", "SCHEDULER_TARGET_SERVER_ID", "SERVER_NAME");
+            if (!String.IsNullOrWhiteSpace(explicitAffinity))
+            {
+                string trimmed = explicitAffinity.Trim();
+                if (Int32.TryParse(trimmed, NumberStyles.Integer, CultureInfo.InvariantCulture, out int numericServerId) && numericServerId > 0)
+                    return "server:" + numericServerId.ToString(CultureInfo.InvariantCulture);
+
+                return trimmed;
+            }
+
+            if (task != null && task.PackageId > 0)
+            {
+                PackageInfo package = PackageController.GetPackage(task.PackageId);
+                if (package != null && package.ServerId > 0)
+                    return "server:" + package.ServerId.ToString(CultureInfo.InvariantCulture);
+            }
+
+            return "global";
+        }
+
+        private static int ResolveRuntimeWeight(BackgroundTask task)
+        {
+            string weightValue = GetTaskParameterValue(task, "SCHEDULER_WEIGHT", "TASK_WEIGHT", "WEIGHT");
+            if (Int32.TryParse(weightValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int configuredWeight) && configuredWeight > 0)
+                return configuredWeight;
+
+            if (task != null)
+            {
+                if (task.MaximumExecutionTime >= 1800)
+                    return FuseCP.Web.Services.Configuration.SchedulerHeavyTaskWeight;
+
+                if (task.MaximumExecutionTime >= 600)
+                    return FuseCP.Web.Services.Configuration.SchedulerMediumTaskWeight;
+            }
+
+            return FuseCP.Web.Services.Configuration.SchedulerDefaultTaskWeight;
+        }
+
+        private string ResolveRuntimeTenantKey(BackgroundTask task)
+        {
+            if (task == null)
+                return "tenant:global";
+
+            int tenantId = task.EffectiveUserId > 0 ? task.EffectiveUserId : task.UserId;
+            if (tenantId <= 0 && task.PackageId > 0)
+            {
+                PackageInfo package = PackageController.GetPackage(task.PackageId);
+                if (package != null)
+                    tenantId = package.UserId;
+            }
+
+            return tenantId > 0
+                ? "tenant:" + tenantId.ToString(CultureInfo.InvariantCulture)
+                : "tenant:global";
+        }
+
+        private static string ResolveRuntimeProviderThrottleKey(BackgroundTask task)
+        {
+            string explicitProvider = GetTaskParameterValue(task, "SCHEDULER_PROVIDER_THROTTLE_KEY", "PROVIDER_THROTTLE_KEY");
+            if (!String.IsNullOrWhiteSpace(explicitProvider))
+                return explicitProvider.Trim();
+
+            if (!String.IsNullOrWhiteSpace(task?.TaskName))
+                return "provider:" + task.TaskName.Trim();
+
+            if (!String.IsNullOrWhiteSpace(task?.Source))
+                return "provider:" + task.Source.Trim();
+
+            return "provider:global";
+        }
+
+        private static string GetTaskParameterValue(BackgroundTask task, params string[] names)
+        {
+            if (task?.Params == null || names == null || names.Length == 0)
+                return String.Empty;
+
+            foreach (string name in names)
+            {
+                if (String.IsNullOrWhiteSpace(name))
+                    continue;
+
+                BackgroundTaskParameter parameter = task.Params.FirstOrDefault(p =>
+                    p != null && !String.IsNullOrWhiteSpace(p.Name)
+                    && String.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
+
+                if (parameter?.Value == null)
+                    continue;
+
+                string value = Convert.ToString(parameter.Value, CultureInfo.InvariantCulture);
+                if (!String.IsNullOrWhiteSpace(value))
+                    return value;
+            }
+
+            return String.Empty;
         }
 
         private void RecoverStaleProcessTasks()
@@ -95,6 +218,7 @@ namespace FuseCP.EnterpriseServer
                     continue;
 
                 TaskManager.StopTask(task.TaskId);
+                SchedulerController.ReleaseExpiredScheduleLease(task.ScheduleId);
                 TaskManager.WriteWarning(task.Guid, "Recovered stale starting scheduler task '{0}' after {1} seconds", task.ItemName, ((int)ageSeconds).ToString());
             }
 
@@ -108,6 +232,7 @@ namespace FuseCP.EnterpriseServer
                     continue;
 
                 TaskManager.StopTask(task.TaskId);
+                SchedulerController.ReleaseExpiredScheduleLease(task.ScheduleId);
                 TaskManager.WriteWarning(task.Guid, "Recovered stale running scheduler task '{0}' after {1} seconds", task.ItemName, ((int)ageSeconds).ToString());
             }
         }
@@ -185,6 +310,25 @@ namespace FuseCP.EnterpriseServer
             string leaseToken = null;
             bool leaseTransferred = false;
 
+            if (Web.Services.Configuration.SchedulerFreezeEnabled)
+            {
+                if (changeNextRun && schedule?.ScheduleInfo != null)
+                {
+                    try
+                    {
+                        SchedulerController.CalculateNextStartTime(schedule.ScheduleInfo);
+                        SchedulerController.UpdateSchedule(schedule.ScheduleInfo);
+                    }
+                    catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException))
+                    {
+                        System.Diagnostics.Trace.TraceWarning("Scheduler freeze reschedule warning: " + swallowedEx.Message);
+                    }
+                }
+
+                System.Diagnostics.Trace.TraceWarning("Scheduler execution skipped because freeze mode is enabled.");
+                return;
+            }
+
             try
             {
                 leaseOwner = SchedulerRuntime.GetLeaseOwner();
@@ -196,6 +340,8 @@ namespace FuseCP.EnterpriseServer
 
                 schedule.LeaseOwner = leaseOwner;
                 schedule.LeaseToken = leaseToken;
+
+                bool skipExecution = changeNextRun && ShouldSkipMisfireExecution(schedule.ScheduleInfo, DateTime.Now);
 
                 // update next run (if required)
                 if (changeNextRun)
@@ -233,6 +379,14 @@ namespace FuseCP.EnterpriseServer
                 if (counter == MAX_RETRY_COUNT)
                     return;
 
+                if (skipExecution)
+                {
+                    TaskManager.WriteWarning("Skipping misfired schedule execution for '{0}' according to policy '{1}'",
+                        schedule.ScheduleInfo.ScheduleName,
+                        MisfirePolicySkip);
+                    return;
+                }
+
                 // skip execution if the current task is still running
                 scheduledTasks = TaskManager.GetScheduledTasks();
                 if (!scheduledTasks.ContainsKey(schedule.ScheduleInfo.ScheduleId) && !SchedulerExecutionQueue.IsQueued(schedule.ScheduleInfo.ScheduleId))
@@ -262,6 +416,82 @@ namespace FuseCP.EnterpriseServer
                     SchedulerController.ReleaseScheduleLease(schedule.ScheduleInfo.ScheduleId, leaseOwner, leaseToken);
                 }
             }
+        }
+
+        private static bool ShouldSkipMisfireExecution(ScheduleInfo scheduleInfo, DateTime now)
+        {
+            if (scheduleInfo == null)
+                return false;
+
+            if (!string.Equals(ResolveMisfirePolicy(scheduleInfo), MisfirePolicySkip, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            if (scheduleInfo.NextRun == DateTime.MinValue)
+                return false;
+
+            return scheduleInfo.NextRun < now.AddSeconds(-ResolveMisfireGraceSeconds(scheduleInfo));
+        }
+
+        private static int ResolveMisfireGraceSeconds(ScheduleInfo scheduleInfo)
+        {
+            int configuredGrace = ResolveIntScheduleParameter(scheduleInfo, 60, 60, 3600,
+                "SCHEDULER_MISFIRE_GRACE_SECONDS",
+                "MISFIRE_GRACE_SECONDS");
+
+            if (scheduleInfo.ScheduleType == ScheduleType.Interval && scheduleInfo.Interval > 0)
+                return Math.Max(configuredGrace, Math.Min(scheduleInfo.Interval, 3600));
+
+            return configuredGrace;
+        }
+
+        private static string ResolveMisfirePolicy(ScheduleInfo scheduleInfo)
+        {
+            string configured = ResolveStringScheduleParameter(scheduleInfo,
+                "SCHEDULER_MISFIRE_POLICY",
+                "MISFIRE_POLICY");
+
+            if (string.Equals(configured, MisfirePolicySkip, StringComparison.OrdinalIgnoreCase))
+                return MisfirePolicySkip;
+
+            return MisfirePolicyRunOnce;
+        }
+
+        private static int ResolveIntScheduleParameter(ScheduleInfo scheduleInfo, int defaultValue, int minValue, int maxValue, params string[] ids)
+        {
+            string value = ResolveStringScheduleParameter(scheduleInfo, ids);
+            if (!Int32.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed))
+                return defaultValue;
+
+            if (parsed < minValue)
+                return minValue;
+
+            if (parsed > maxValue)
+                return maxValue;
+
+            return parsed;
+        }
+
+        private static string ResolveStringScheduleParameter(ScheduleInfo scheduleInfo, params string[] ids)
+        {
+            if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0 || ids == null)
+                return String.Empty;
+
+            foreach (string id in ids)
+            {
+                if (String.IsNullOrWhiteSpace(id))
+                    continue;
+
+                ScheduleTaskParameterInfo parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+                    p != null
+                    && !String.IsNullOrWhiteSpace(p.ParameterId)
+                    && String.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase)
+                    && !String.IsNullOrWhiteSpace(p.ParameterValue));
+
+                if (parameter != null)
+                    return parameter.ParameterValue.Trim();
+            }
+
+            return String.Empty;
         }
     }
 }
