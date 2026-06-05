@@ -24,7 +24,7 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.0" />
 
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" GeneratePathProperty="true" />
+		<PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.8" GeneratePathProperty="true" />
         <!--
 		<ProjectReference Include="..\..\Lib\CoreWCF\src\CoreWCF.Http\src\CoreWCF.Http.csproj" />
 		<ProjectReference Include="..\..\Lib\CoreWCF\src\CoreWCF.NetTcp\src\CoreWCF.NetTcp.csproj" />

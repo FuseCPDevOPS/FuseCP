@@ -6,6 +6,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         
         <LangVersion>11</LangVersion>
         <Nullable>disable</Nullable>
@@ -27,8 +28,17 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="System.Management" />
+            <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.8" />
       <PackageReference Include="System.Management.Automation" />
     </ItemGroup>
+
+        <Target Name="CopyServiceProcessRuntimeToProviders" AfterTargets="Build">
+            <ItemGroup>
+                <ServiceControllerRuntimeDll Include="$(NuGetPackageRoot)system.serviceprocess.servicecontroller\10.0.8\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll" Condition="Exists('$(NuGetPackageRoot)system.serviceprocess.servicecontroller\10.0.8\runtimes\win\lib\net10.0\System.ServiceProcess.ServiceController.dll')" />
+            </ItemGroup>
+            <Copy SourceFiles="@(ServiceControllerRuntimeDll)" DestinationFolder="$(OutputPath)" Condition="'@(ServiceControllerRuntimeDll)' != ''" />
+            <Copy SourceFiles="@(ServiceControllerRuntimeDll)" DestinationFolder="$(OutputPath)runtimes\win\lib\net10.0" Condition="'@(ServiceControllerRuntimeDll)' != ''" />
+        </Target>
 </Project>
 
 

@@ -59,7 +59,8 @@ namespace FuseCP.Server
 
 				// Allow specific provider dependencies that are not FuseCP.* but are shipped in provider folders.
 				if (assemblyName.Name.Equals("Microsoft.Management.Infrastructure", StringComparison.OrdinalIgnoreCase)
-					|| assemblyName.Name.Equals("Microsoft.Management.Infrastructure.Native", StringComparison.OrdinalIgnoreCase))
+					|| assemblyName.Name.Equals("Microsoft.Management.Infrastructure.Native", StringComparison.OrdinalIgnoreCase)
+					|| assemblyName.Name.Equals("System.ServiceProcess.ServiceController", StringComparison.OrdinalIgnoreCase))
 				{
 					var providerDependencyPath = ResolveDependencyFromProviderRoots(assemblyName.Name);
 					if (!string.IsNullOrEmpty(providerDependencyPath) && File.Exists(providerDependencyPath))
