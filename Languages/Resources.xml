@@ -2557,6 +2557,11 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>ScheduleStatus.Queued</Key>
+    <DefaultValue>Queued</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>ScheduleType.Daily</Key>
     <DefaultValue>Daily</DefaultValue>
   </Resource>
