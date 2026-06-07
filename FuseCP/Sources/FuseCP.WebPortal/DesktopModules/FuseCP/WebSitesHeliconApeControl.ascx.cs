@@ -63,6 +63,9 @@ namespace FuseCP.Portal
             ClientScriptManager cs = Page.ClientScript;
             cs.RegisterClientScriptInclude("jquery", ResolveUrl("~/JavaScript/jquery-1.4.4.min.js"));
 
+            panelHeliconApeIsNotInstalledMessage.Visible = false;
+            panelHeliconApeIsNotEnabledMessage.Visible = false;
+
             if (HeliconApeStatus.IsInstalled && !IsPostBack)
             {
                 WebSite site = null;

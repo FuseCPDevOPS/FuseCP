@@ -9425,6 +9425,18 @@ WHERE "PropertyName" = 'retrydelay' AND "ProviderID" = 410;
 SELECT changes();
 
 
+UPDATE "GlobalDnsRecords" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "PackageServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "ServiceItems" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "ServiceProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "StorageSpaces" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
+UPDATE "VirtualServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
+
 UPDATE "Services" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
 
 UPDATE "ServiceDefaultProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
@@ -9530,6 +9542,92 @@ SELECT changes();
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260508094600_ConsolidateSharePointEnterpriseProvider', '9.0.9');
+
+INSERT INTO "ServiceDefaultProperties" ("PropertyName", "ProviderID", "PropertyValue")
+SELECT sdp."PropertyName", 1306, sdp."PropertyValue"
+FROM "ServiceDefaultProperties" sdp
+WHERE sdp."ProviderID" IN (15, 23)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM "ServiceDefaultProperties" dst
+      WHERE dst."ProviderID" = 1306 AND dst."PropertyName" = sdp."PropertyName"
+  );
+
+DELETE FROM "ServiceDefaultProperties" WHERE "ProviderID" IN (15, 23);
+
+UPDATE "Services" SET "ProviderID" = 1306 WHERE "ProviderID" IN (15, 23);
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 15;
+SELECT changes();
+
+
+DELETE FROM "Providers"
+WHERE "ProviderID" = 23;
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260511164357_RemapLegacySpsProvidersToSharePoint2016', '9.0.9');
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260513151228_RemoveCrmUserEntity', '9.0.9');
+
+DROP TABLE "CRMUsers";
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'AspNet11Path' AND "ProviderID" = 2;
+SELECT changes();
+
+
+DELETE FROM "ServiceDefaultProperties"
+WHERE "PropertyName" = 'AspNet11Pool' AND "ProviderID" = 2;
+SELECT changes();
+
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SERVICE_CALL_ATTEMPTS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH', 'String', '3', 1);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SERVICE_RETRY_DELAY_MS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH', 'String', '250', 2);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SERVICE_CALL_ATTEMPTS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE', 'String', '3', 1);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SERVICE_RETRY_DELAY_MS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE', 'String', '250', 2);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('REQUEST_ATTEMPTS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '2', 12);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('REQUEST_RETRY_DELAY_MS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '250', 13);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('REQUEST_TIMEOUT_SECONDS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '15', 11);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SSL_REQUEST_ATTEMPTS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '2', 13);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SSL_REQUEST_RETRY_DELAY_MS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '250', 14);
+SELECT changes();
+
+INSERT INTO "ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+VALUES ('SSL_REQUEST_TIMEOUT_SECONDS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '15', 12);
+SELECT changes();
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260607162441_RemoveAspNet11SeedData', '9.0.9');
 
 COMMIT;
 

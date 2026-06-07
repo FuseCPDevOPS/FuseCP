@@ -74,14 +74,14 @@ namespace FuseCP.Providers.Web
 
 		public const string APP_POOL_NAME_FORMAT_STRING = "#SITE-NAME# #IIS7-ASPNET-VERSION# (#PIPELINE-MODE#)";
 
-		public const string AspNet11Pool = "AspNet11Pool";
 		public const string ClassicAspNet20Pool = "ClassicAspNet20Pool";
 		public const string IntegratedAspNet20Pool = "IntegratedAspNet20Pool";
 		public const string ClassicAspNet40Pool = "ClassicAspNet40Pool";
 		public const string IntegratedAspNet40Pool = "IntegratedAspNet40Pool";
+		public const string NoManagedCodePool = "NoManagedCodePool";
+		public const string DefaultNoManagedCodePool = ".NET Core";
 
 		public const string AspPathSetting = "AspPath";
-		public const string AspNet11PathSetting = "AspNet11Path";
 		public const string AspNet20PathSetting = "AspNet20Path";
 		public const string AspNet20x64PathSetting = "AspNet20x64Path";
 		public const string AspNet40PathSetting = "AspNet40Path";
@@ -139,9 +139,10 @@ namespace FuseCP.Providers.Web
 	{
 		public static readonly Dictionary<SiteAppPoolMode, string> AspNetVersions = new Dictionary<SiteAppPoolMode, string>
 		{
-			{ SiteAppPoolMode.dotNetFramework1, "v1.1" },
 			{ SiteAppPoolMode.dotNetFramework2, "v2.0" },
-			{ SiteAppPoolMode.dotNetFramework4, "v4.0" }
+			{ SiteAppPoolMode.dotNetFramework4, "v4.0" },
+			// Empty string = "No Managed Code" in IIS — required for .NET Core out-of-process / ANCM hosting
+			{ SiteAppPoolMode.dotNetCore, "" }
 		};
 
 		public string AspNetInstalled { get; set; }
@@ -163,11 +164,12 @@ namespace FuseCP.Providers.Web
 
 		public static Dictionary<string, SiteAppPoolMode> SupportedAppPoolModes = new Dictionary<string, SiteAppPoolMode>
 		{
-			{ "1",	SiteAppPoolMode.dotNetFramework1 | SiteAppPoolMode.Classic },
 			{ "2",	SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.Classic },
 			{ "2I", SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.Integrated },
 			{ "4",	SiteAppPoolMode.dotNetFramework4 | SiteAppPoolMode.Classic },
-			{ "4I", SiteAppPoolMode.dotNetFramework4 | SiteAppPoolMode.Integrated }
+			{ "4I", SiteAppPoolMode.dotNetFramework4 | SiteAppPoolMode.Integrated },
+			// No Managed Code — Integrated pipeline only (required for .NET Core / ANCM)
+			{ "core", SiteAppPoolMode.dotNetCore | SiteAppPoolMode.Integrated }
 		};
 
 		//
@@ -178,7 +180,15 @@ namespace FuseCP.Providers.Web
 		//
 		public SiteAppPoolMode dotNetVersion(SiteAppPoolMode m)
 		{
-			return m & (SiteAppPoolMode.dotNetFramework1 | SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.dotNetFramework4);
+			return m & (SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.dotNetFramework4 | SiteAppPoolMode.dotNetCore);
+		}
+		// Normalize obsolete ASP.NET 1.1 profile markers to the closest supported runtime profile.
+		public string normalize_aspnet_profile(string aspNetInstalled)
+		{
+			if (String.IsNullOrEmpty(aspNetInstalled) || aspNetInstalled == "1")
+				return "2";
+
+			return aspNetInstalled;
 		}
 		//
 		public SiteAppPoolMode pipeline(SiteAppPoolMode m)
@@ -212,26 +222,20 @@ namespace FuseCP.Providers.Web
 			// Detect isolation mode
 			SiteAppPoolMode sisMode = is_shared_pool(vdir.ApplicationPool) ?
 				SiteAppPoolMode.Shared : SiteAppPoolMode.Dedicated;
+			var aspNetInstalled = normalize_aspnet_profile(vdir.AspNetInstalled);
 			// Match proper app pool
 			return Array.Find<WebAppPool>(SupportedAppPools.ToArray(),
-				x => x.AspNetInstalled.Equals(vdir.AspNetInstalled) && isolation(x.Mode) == sisMode);
+				x => x.AspNetInstalled.Equals(aspNetInstalled) && isolation(x.Mode) == sisMode);
 		}
 		//
 		private void SetupSupportedAppPools(ServiceProviderSettings settings)
 		{
 			supportedAppPools = new List<WebAppPool>();
+			var noManagedCodePoolName = settings[Constants.NoManagedCodePool];
+			if (String.IsNullOrWhiteSpace(noManagedCodePoolName))
+				noManagedCodePoolName = Constants.DefaultNoManagedCodePool;
 
 			#region Populate Shared Application Pools
-			// ASP.NET 1.1
-			if (!String.IsNullOrEmpty(settings[Constants.AspNet11Pool]))
-			{
-				supportedAppPools.Add(new WebAppPool
-				{
-					AspNetInstalled = "1",
-					Mode = SiteAppPoolMode.dotNetFramework1 | SiteAppPoolMode.Classic | SiteAppPoolMode.Shared,
-					Name = settings[Constants.AspNet11Pool].Trim()
-				});
-			}
 			// ASP.NET 2.0 (Classic pipeline)
 			if (!String.IsNullOrEmpty(settings[Constants.ClassicAspNet20Pool]))
 			{
@@ -272,16 +276,16 @@ namespace FuseCP.Providers.Web
 					Name = settings[Constants.IntegratedAspNet40Pool].Trim()
 				});
 			}
+			// No Managed Code / .NET Core (Integrated pipeline only)
+			supportedAppPools.Add(new WebAppPool
+			{
+				AspNetInstalled = "core",
+				Mode = SiteAppPoolMode.dotNetCore | SiteAppPoolMode.Integrated | SiteAppPoolMode.Shared,
+				Name = noManagedCodePoolName.Trim()
+			});
 		    #endregion
 
 			#region Populate Dedicated Application Pools
-			// ASP.NET 1.1
-			supportedAppPools.Add(new WebAppPool
-			{
-				AspNetInstalled = "1",
-				Mode = SiteAppPoolMode.dotNetFramework1 | SiteAppPoolMode.Classic | SiteAppPoolMode.Dedicated,
-				Name = Constants.APP_POOL_NAME_FORMAT_STRING
-			});
 			// ASP.NET 2.0 (Classic pipeline)
 			supportedAppPools.Add(new WebAppPool
 			{
@@ -310,14 +314,16 @@ namespace FuseCP.Providers.Web
 				Mode = SiteAppPoolMode.dotNetFramework4 | SiteAppPoolMode.Integrated | SiteAppPoolMode.Dedicated,
 				Name = Constants.APP_POOL_NAME_FORMAT_STRING
 			});
+			// No Managed Code / .NET Core (Integrated pipeline only)
+			supportedAppPools.Add(new WebAppPool
+			{
+				AspNetInstalled = "core",
+				Mode = SiteAppPoolMode.dotNetCore | SiteAppPoolMode.Integrated | SiteAppPoolMode.Dedicated,
+				Name = Constants.APP_POOL_NAME_FORMAT_STRING
+			});
 			#endregion
 
 			// Make some corrections for frameworks with the version number greater or less than 2.0 ...
-
-			#region No ASP.NET 1.1 has been found - so remove extra pools
-			if (String.IsNullOrEmpty(settings[Constants.AspNet11PathSetting]))
-				supportedAppPools.RemoveAll(x => dotNetVersion(x.Mode) == SiteAppPoolMode.dotNetFramework1);
-			#endregion
 
 			#region No ASP.NET 4.0 has been found - so remove extra pools
 			var aspNet40PathSetting = (Constants.X64Environment)
@@ -1102,14 +1108,7 @@ namespace FuseCP.Providers.Web
 				// Generate dedicated iisAppObject pools names and create them.
 				foreach (var item in dedicatedPools)
 				{
-					// Retrieve .NET Framework version
-					var dotNetVersion = aphl.dotNetVersion(item.Mode);
-					//
 					var enable32BitAppOnWin64 = Enable32BitAppOnWin64;
-					// Force "enable32BitAppOnWin64" set to true for .NET v1.1
-					if (dotNetVersion == SiteAppPoolMode.dotNetFramework1)
-						enable32BitAppOnWin64 = true;
-					//
 					var poolName = WSHelper.InferAppPoolName(item.Name, site.Name, item.Mode);
 					// Ensure we are not going to add an existing app pool
 					if (webObjectsSvc.IsApplicationPoolExist(poolName))
@@ -1132,11 +1131,40 @@ namespace FuseCP.Providers.Web
 					}
 				}
 			}
+			site.AspNetInstalled = aphl.normalize_aspnet_profile(site.AspNetInstalled);
 			// Find
 			var siteAppPool = Array.Find<WebAppPool>(aphl.SupportedAppPools.ToArray(),
 				x => x.AspNetInstalled.Equals(site.AspNetInstalled) && aphl.isolation(x.Mode) == sisMode);
+			if (siteAppPool == null)
+				throw new InvalidOperationException(String.Format("No application pool mapping found for ASP.NET profile '{0}' and isolation mode '{1}'.", site.AspNetInstalled, sisMode));
 			// Assign iisAppObject pool according to ASP.NET version installed and isolation mode specified.
 			site.ApplicationPool = WSHelper.InferAppPoolName(siteAppPool.Name, site.Name, siteAppPool.Mode);
+
+			// Existing installs may not have newly introduced shared pools yet. Create the selected pool on demand.
+			if (createAppPools && !webObjectsSvc.IsApplicationPoolExist(site.ApplicationPool))
+			{
+				using (var srvman = webObjectsSvc.GetServerManager())
+				{
+					var pool = srvman.ApplicationPools.Add(site.ApplicationPool);
+					pool.ManagedRuntimeVersion = aphl.aspnet_runtime(siteAppPool.Mode);
+					pool.ManagedPipelineMode = aphl.runtime_pipeline(siteAppPool.Mode);
+					pool.Enable32BitAppOnWin64 = Enable32BitAppOnWin64;
+					pool.AutoStart = true;
+
+					if (sisMode == SiteAppPoolMode.Dedicated)
+					{
+						pool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
+						pool.ProcessModel.UserName = GetQualifiedAccountName(site.AnonymousUsername);
+						pool.ProcessModel.Password = site.AnonymousUserPassword;
+					}
+					else
+					{
+						pool.ProcessModel.IdentityType = ProcessModelIdentityType.NetworkService;
+					}
+
+					srvman.CommitChanges();
+				}
+			}
 		}
 
 		private void CheckEnableWritePermissionsNonApp(ServerManager srvman, WebVirtualDirectory virtualDir)
@@ -1379,6 +1407,7 @@ namespace FuseCP.Providers.Web
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				Log.WriteError(ex);
+				throw;
 			}
 			//
 			SetAnonymousAuthentication(site);
@@ -1982,6 +2011,7 @@ namespace FuseCP.Providers.Web
 			// set folder permissions
 			SetWebFolderPermissions(directory.ContentPath, GetNonQualifiedAccountName(directory.AnonymousUsername),
 					directory.EnableWritePermissions, dedicatedPool);
+			directory.AspNetInstalled = aphl.normalize_aspnet_profile(directory.AspNetInstalled);
 			//
 			var pool = Array.Find<WebAppPool>(aphl.SupportedAppPools.ToArray(),
 				x => x.AspNetInstalled.Equals(directory.AspNetInstalled) && aphl.isolation(x.Mode) == sisMode);
@@ -2087,9 +2117,6 @@ namespace FuseCP.Providers.Web
 				var currentPool = aphl.match_webapp_pool(webSite);
 				var dotNetVersion = aphl.dotNetVersion(currentPool.Mode);
 				var sisMode = aphl.isolation(currentPool.Mode);
-				// AT least ASP.NET 2.0 is allowed to provide such capabilities...
-				if (dotNetVersion == SiteAppPoolMode.dotNetFramework1)
-					dotNetVersion = SiteAppPoolMode.dotNetFramework2;
 				// and Integrated pipeline...
 				if (aphl.pipeline(currentPool.Mode) != SiteAppPoolMode.Integrated)
 				{
@@ -2552,9 +2579,6 @@ namespace FuseCP.Providers.Web
 				var currentPool = aphl.match_webapp_pool(webSite);
 				var dotNetVersion = aphl.dotNetVersion(currentPool.Mode);
 				var sisMode = aphl.isolation(currentPool.Mode);
-				// AT least ASP.NET 2.0 is allowed to provide such capabilities...
-				if (dotNetVersion == SiteAppPoolMode.dotNetFramework1)
-					dotNetVersion = SiteAppPoolMode.dotNetFramework2;
 				// and Integrated pipeline...
 				if (aphl.pipeline(currentPool.Mode) != SiteAppPoolMode.Integrated)
 				{
@@ -3604,7 +3628,7 @@ namespace FuseCP.Providers.Web
 					using (var srvman = webObjectsSvc.GetServerManager())
 					{
 						// Local variables
-						bool enable32BitAppOnWin64 = (aphl.dotNetVersion(item.Mode) == SiteAppPoolMode.dotNetFramework1);
+						bool enable32BitAppOnWin64 = Enable32BitAppOnWin64;
 						//
 						if (srvman.ApplicationPools[item.Name] == null)
 						{

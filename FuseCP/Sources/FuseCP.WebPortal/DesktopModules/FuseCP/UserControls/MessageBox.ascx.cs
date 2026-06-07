@@ -96,7 +96,7 @@ namespace FuseCP.Portal
 					string loggedUser = GetUserDisplayName(PanelSecurity.LoggedUser);
 					string selectedUser = GetUserDisplayName(PanelSecurity.SelectedUser);
 					string activeSpace = GetActiveSpaceLabel();
-					string detailsForAdmin = BuildExceptionDetails(ex, errorId, true);
+					string detailsForAdmin = BuildExceptionDetails(ex, errorId, true, safeMessage, safeDescription);
 
 					if (ex != null)
 						System.Diagnostics.Trace.TraceError("FuseCP Portal error. Reference ID: {0}{1}{2}",
@@ -264,14 +264,21 @@ namespace FuseCP.Portal
 			return errorId;
 		}
 
-		private static string BuildExceptionDetails(Exception ex, string errorId, bool includeStackTrace)
+		private static string BuildExceptionDetails(Exception ex, string errorId, bool includeStackTrace, string messageText, string descriptionText)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("Reference ID: " + errorId);
 
 			if (ex == null)
 			{
-				sb.AppendLine("No exception details are available.");
+				sb.AppendLine("No exception object was provided by the caller.");
+				if (!String.IsNullOrWhiteSpace(messageText))
+					sb.AppendLine("Message: " + messageText);
+
+				if (!String.IsNullOrWhiteSpace(descriptionText))
+					sb.AppendLine("Description: " + descriptionText);
+
+				sb.AppendLine("This typically means the operation failed with an error code rather than a thrown exception.");
 				return sb.ToString();
 			}
 

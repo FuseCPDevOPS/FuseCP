@@ -75,14 +75,6 @@
     <table class="table table-borderless align-middle mb-0 w-100" >
 
 		<tr>
-		    <td class="Normal FormLabel200">
-		        <asp:Label ID="lblAspNet11Path" runat="server" meta:resourcekey="lblAspNet11Path" Text="ASP.NET 1.1:"></asp:Label>
-		    </td>
-		    <td class="Normal align-top">
-                <asp:TextBox ID="txtAspNet11Path" runat="server" CssClass="form-control"></asp:TextBox>
-            </td>
-		</tr>
-		<tr>
 		    <td class="Normal align-top">
 		        <asp:Label ID="lblAspNet20Path" runat="server" meta:resourcekey="lblAspNet20Path" Text="ASP.NET 2.0:"></asp:Label>
 		    </td>
@@ -117,19 +109,18 @@
     </table>
 </fieldset>
 <br />
-
 <fieldset>
-    <legend>
-        <asp:Label ID="secPools" runat="server" meta:resourcekey="secPools" Text="Pools" CssClass="NormalBold"></asp:Label>
-    </legend>
+	<legend>
+		<asp:Label ID="secPools" runat="server" meta:resourcekey="secPools" Text="Pools" CssClass="NormalBold"></asp:Label>
+	</legend>
 
-    <table class="table table-borderless align-middle mb-0 w-100" >
-		<tr>
+	<table class="table table-borderless align-middle mb-0 w-100" >
+				<tr>
 		    <td class="Normal align-top FormLabel200">
-		        <asp:Label ID="lblAsp11Pool" runat="server" meta:resourcekey="lblAsp11Pool" Text="ASP.NET 1.1:"></asp:Label>
+		        <asp:Label ID="lblNoManagedCodePool" runat="server" meta:resourcekey="lblNoManagedCodePool" Text="No Managed Code (.NET Core):"></asp:Label>
 		    </td>
 		    <td class="Normal align-top">
-                <asp:TextBox ID="txtAspNet11Pool" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="NoManagedCodePool" runat="server" CssClass="form-control"></asp:TextBox>
             </td>
 		</tr>
 		<tr>

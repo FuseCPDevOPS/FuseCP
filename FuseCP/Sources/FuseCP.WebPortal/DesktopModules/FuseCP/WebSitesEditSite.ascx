@@ -132,7 +132,7 @@
 
                                 <asp:LinkButton ID="cmdSwitchToSharedIP" meta:resourcekey="cmdSwitchToSharedIP" runat="server" Text="Switch to shared IP" OnClick="cmdSwitchToSharedIP_Click"></asp:LinkButton>
                             </asp:Panel>
-                            <asp:Panel ID="switchToDedicatedIP" runat="server" Visible="false">
+                            <asp:Panel ID="switchToDedicatedIP" runat="server">
                                 <asp:Localize ID="locSelectIPAddress" runat="server" meta:resourcekey="locSelectIPAddress" Text="Select IP address:" />
                                 <asp:DropDownList ID="ddlIpAddresses" runat="server" CssClass="form-control"></asp:DropDownList>
                                 &nbsp;
@@ -162,15 +162,15 @@
 
                 <asp:GridView ID="gvPointers" runat="server" EnableViewState="True" AutoGenerateColumns="false"
                     ShowHeader="false" CssSelectorClass="NormalGridView" EmptyDataText="gvPointers"
-                    DataKeyNames="DomainID" OnRowDeleting="gvPointers_RowDeleting">
+                    DataKeyNames="DomainID" OnRowDeleting="gvPointers_RowDeleting" OnRowDataBound="gvPointers_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="gvPointersName">
                             <ItemStyle Wrap="false"></ItemStyle>
                             <ItemTemplate>
-                                <asp:HyperLink ID="lnkPointer" runat="server" NavigateUrl='<%# "http://" + (string)Eval("DomainName") % CssClass="fcp-pt-7">'
+                                <asp:HyperLink ID="lnkPointer" runat="server" NavigateUrl='<%# "http://" + (string)Eval("DomainName") %>' CssClass="fcp-pt-7"
                                     Target="_blank"><%# Eval("DomainName") %></asp:HyperLink>
 
-                                <asp:LinkButton runat="server" ID="cmdDeletePointer" CommandName='delete' CommandArgument='<%# Eval("DomainId") %>' Visible='<%# !(bool)Eval("IsPreviewDomain") %>' CssClass="btn btn-danger float-end" OnClientClick="return confirm('Remove pointer?');">&nbsp;<i class="bi bi-trash">&nbsp;</i></asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="cmdDeletePointer" CommandName='delete' CommandArgument='<%# Eval("DomainId") %>' CssClass="btn btn-danger float-end" OnClientClick="return confirm('Remove pointer?');">&nbsp;<i class="bi bi-trash">&nbsp;</i></asp:LinkButton>
 
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -438,7 +438,7 @@
                 </asp:View>
                 <asp:View ID="tabWebDeployPublishing" runat="server">
                     <div class="fcp-p-20">
-                        <asp:PlaceHolder runat="server" ID="PanelWDeploySitePublishingDisabled" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="PanelWDeploySitePublishingDisabled">
                             <div class="NormalBold">
                                 <asp:Localize runat="server" meta:resourcekey="WDeploySitePublishingDisabled" />
                             </div>
@@ -448,7 +448,7 @@
                             </div>
                             <br />
                         </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="PanelWDeployManagePublishingProfile" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="PanelWDeployManagePublishingProfile">
                             <div class="NormalBold">
                                 <asp:Localize runat="server" meta:resourcekey="WDeploySitePublishingEnabled" />
                             </div>
@@ -465,7 +465,7 @@
                             </p>
                             <br />
                         </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="PanelWDeployPublishingCredentials" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="PanelWDeployPublishingCredentials">
                             <table class="table table-borderless align-middle mb-0">
                                 <tr>
                                     <td class="Normal">
@@ -474,7 +474,7 @@
                                     <td class="NormalBold">
                                         <asp:TextBox runat="server" ID="WDeployPublishingAccountTextBox" CssClass="form-control"
                                             ValidationGroup="WDeployPublishingGroup" MaxLength="20" />
-                                        <asp:Literal runat="server" ID="WDeployPublishingAccountLiteral" Visible="false" />
+                                        <asp:Literal runat="server" ID="WDeployPublishingAccountLiteral" />
                                         <asp:RequiredFieldValidator ID="WDeployPublishingAccountRequiredFieldValidator" runat="server"
                                             ErrorMessage="*" ValidationGroup="WDeployPublishingGroup" ControlToValidate="WDeployPublishingAccountTextBox" />
                                     </td>
@@ -525,7 +525,7 @@
                                         </asp:LinkButton>
                             </div>
                         </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="PanelWDeployNotInstalled" Visible="false">Web Deploy
+                        <asp:PlaceHolder runat="server" ID="PanelWDeployNotInstalled">Web Deploy
 									Remote Agent is not installed... </asp:PlaceHolder>
                     </div>
                 </asp:View>
@@ -569,7 +569,7 @@
                 </asp:View>
                 <asp:View ID="tabWebManagement" runat="server">
                     <div class="fcp-p-20">
-                        <asp:PlaceHolder runat="server" ID="pnlWmSvcSiteDisabled" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="pnlWmSvcSiteDisabled">
                             <div class="NormalBold">
                                 <asp:Localize runat="server" meta:resourcekey="lclWmSvcSiteDisabled" />
                             </div>
@@ -579,7 +579,7 @@
                             </div>
                             <br />
                         </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="pnlWmSvcSiteEnabled" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="pnlWmSvcSiteEnabled">
                             <div class="NormalBold">
                                 <asp:Localize runat="server" meta:resourcekey="lclWmSvcSiteEnabled" />
                             </div>
@@ -598,7 +598,7 @@
                                     <td class="NormalBold">
                                         <asp:TextBox runat="server" ID="txtWmSvcAccountName" CssClass="form-control" ValidationGroup="WmSvcGroup"
                                             MaxLength="20" />
-                                        <asp:Literal runat="server" ID="litWmSvcAccountName" Visible="false" />
+                                        <asp:Literal runat="server" ID="litWmSvcAccountName" />
                                         <asp:RequiredFieldValidator runat="server" ErrorMessage="*" ValidationGroup="WmSvcGroup"
                                             ControlToValidate="txtWmSvcAccountName" />
                                     </td>
@@ -648,7 +648,7 @@
                                         </asp:LinkButton>
                             </div>
                         </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="pnlNotInstalled" Visible="false">
+                        <asp:PlaceHolder runat="server" ID="pnlNotInstalled">
                             <div class="NormalBold">
                                 <asp:Localize runat="server" meta:resourcekey="lclWmSvcNotInstalled" />
                             </div>

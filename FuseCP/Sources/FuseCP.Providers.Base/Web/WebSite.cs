@@ -230,7 +230,8 @@ namespace FuseCP.Providers.Web
 		Integrated = 8,
 		dotNetFramework1 = 16,
 		dotNetFramework2 = 32,
-		dotNetFramework4 = 64
+		dotNetFramework4 = 64,
+		dotNetCore = 128
 	};
 
 	public class WSHelper
@@ -244,6 +245,7 @@ namespace FuseCP.Providers.Web
 			{ SiteAppPoolMode.dotNetFramework1, new string[] {"", "v1.1"} },
 			{ SiteAppPoolMode.dotNetFramework2, new string[] {"2.0", "v2.0"} },
 			{ SiteAppPoolMode.dotNetFramework4, new string[] {"4.0", "v4.0"} },
+			{ SiteAppPoolMode.dotNetCore,        new string[] {"core", "Core"} },
 		};
 
 		public static string InferAppPoolName(string formatString, string siteName, SiteAppPoolMode NHRT)
@@ -272,8 +274,11 @@ namespace FuseCP.Providers.Web
 		public static string WhatFrameworkVersionIs(SiteAppPoolMode value)
 		{
 			SiteAppPoolMode dotNetVersion = value & (SiteAppPoolMode.dotNetFramework1
-				| SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.dotNetFramework4);
+				| SiteAppPoolMode.dotNetFramework2 | SiteAppPoolMode.dotNetFramework4
+				| SiteAppPoolMode.dotNetCore);
 			//
+			if (dotNetVersion == SiteAppPoolMode.dotNetCore)
+				return "No Managed Code";
 			return String.Format("v{0}", MMD[dotNetVersion][IIS7]);
 		}
 	}

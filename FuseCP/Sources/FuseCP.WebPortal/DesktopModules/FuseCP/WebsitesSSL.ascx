@@ -12,7 +12,7 @@
 </asp:UpdatePanel>
 <div class="fcp-modern-tabs">
 	<ul class="fcp-modern-nav-tabs nav nav-tabs" role="tablist">
-		<li class="nav-item" role="presentation" runat="server" id="liInstalledTabLink" visible="false">
+		<li class="nav-item" role="presentation" runat="server" id="liInstalledTabLink">
 			<asp:LinkButton ID="btnShowInstalledTab" runat="server" CssClass="nav-link" OnClick="btnShowInstalledTab_Click">
 				<asp:Literal ID="litInstalledTabText" runat="server" />
 			</asp:LinkButton>
@@ -25,7 +25,7 @@
 	</ul>
 </div>
 <asp:MultiView ID="sslTabs" runat="server" ActiveViewIndex="0">
-	<asp:View ID="tabInstalled" runat="server" Visible="false">
+	<asp:View ID="tabInstalled" runat="server">
 			<div class="Normal">
 				<h2><asp:Localize runat="server" meta:resourcekey="headerInstalledCertificate"/></h2>
 				<table>
@@ -119,7 +119,7 @@
 				DropShadow="false" CancelControlID="btnPFXExportCancel" />
 	</asp:View>
 	<asp:View ID="tabCSR" runat="server">
-			<asp:Panel ID="SSLNotInstalled" runat="server" Visible="true">
+			<asp:Panel ID="SSLNotInstalled" runat="server">
                 <div id="NoLE" class="col-sm-6">
                     <h3>
 						<asp:Literal ID="LENotInstalledHeading" runat="server" meta:resourcekey="LENotInstalledHeading" /></h3>
@@ -142,7 +142,7 @@
 						runat="server" OnClick="btnShowUpload_click" Text="Upload Certificate" />
 				</div>
 			</asp:Panel>
-			<asp:Panel ID="SSLImport" runat="server" Visible="false">
+			<asp:Panel ID="SSLImport" runat="server">
 				<div>
 					<h2>
 						<asp:Localize ID="SSLImportHeading" runat="server" meta:resourcekey="SSLImportHeading" /></h2>
@@ -153,7 +153,7 @@
 				        CssClass="btn btn-primary" OnClick="btnDeleteAll_Click" />
 				</div>
 			</asp:Panel>
-			<asp:Panel ID="pnlCSR" runat="server" Visible="false">
+			<asp:Panel ID="pnlCSR" runat="server">
 				<h2>
 					<asp:Localize runat="server" meta:resourcekey="GenerateCSR" /></h2>
 				<table >
@@ -197,7 +197,7 @@
 						<td class="Normal">
 							<asp:TextBox id="txtState" runat="server" CssClass="form-control" Width="200px"></asp:TextBox>
 							<asp:DropDownList ID="ddlStates" runat="server" DataTextField="Text" DataValueField="Value" CssClass="form-control"
-								Width="200px" Visible="false" />
+													Width="200px" />
 							<asp:RequiredFieldValidator ID="SSLSSLStateReq" ValidationGroup="SSL" runat="server"
 								ControlToValidate="txtState" Display="Dynamic" ErrorMessage="*" /></td>
 					</tr>
@@ -214,9 +214,9 @@
 				<asp:Button ID="btnCSR" meta:resourcekey="btnCSR" runat="server" CssClass="btn btn-primary"
 					Text="Generate CSR" ValidationGroup="SSL" OnClick="btnCSR_Click" />&nbsp;&nbsp;
 				<asp:Button ID="btnRenCSR" meta:resourcekey="btnRenCSR" runat="server" CssClass="btn btn-warning"
-					Text="Generate CSR" ValidationGroup="SSL" OnClick="btnRenCSR_Click" Visible="false" />
+					Text="Generate CSR" ValidationGroup="SSL" OnClick="btnRenCSR_Click" />
 			</asp:Panel>
-			<asp:Panel ID="pnlShowUpload" runat="server" Visible="false">
+			<asp:Panel ID="pnlShowUpload" runat="server">
 				<div class="FormBody">
 					<div class="FormField">
 						<asp:FileUpload ID="upPFX" runat="server"></asp:FileUpload></div>
@@ -231,14 +231,14 @@
 						meta:resourcekey="btnInstallPFX" ValidationGroup="InstallPfxGrp" />
 				</div>
 			</asp:Panel>
-			<asp:Panel ID="pnlInstallCertificate" runat="server" Visible="false">
+			<asp:Panel ID="pnlInstallCertificate" runat="server">
 				<div class="Normal">
 					<h2>
 						<asp:Localize ID="InstallCSRHeading" runat="server" meta:resourcekey="InstallCSRHeading" /></h2>
 					<p>
 						<asp:Localize ID="InstallCSRDescription" runat="server" meta:resourcekey="InstallCSRDescription" /></p>
 					<asp:Localize ID="sslCSR" runat="server" meta:resourcekey="sslCSR" />:<br />
-					<asp:TextBox ID="txtCSR" runat="server" CssClass="form-control" CssClass="fcp-code-mono"
+					<asp:TextBox ID="txtCSR" runat="server" CssClass="form-control fcp-code-mono"
 						Rows="25" TextMode="MultiLine" ReadOnly="True" Columns="65" Wrap="false" onfocus="this.select();"></asp:TextBox>
 					<br />
 					<br />
@@ -249,8 +249,8 @@
 						<asp:Localize ID="InstallCSRCertificate" runat="server" meta:resourcekey="InstallCSRCertificate" />
 					</p>
 					<asp:Localize ID="sslCertificate" runat="server" meta:resourcekey="sslCertificate" />:<br />
-					<asp:TextBox ID="txtCertificate" CssClass="form-control" runat="server" Rows="30" Columns="65" Wrap="false"
-						CssClass="fcp-code-mono" TextMode="MultiLine" ReadOnly="False"></asp:TextBox>
+					<asp:TextBox ID="txtCertificate" CssClass="form-control fcp-code-mono" runat="server" Rows="30" Columns="65" Wrap="false"
+						TextMode="MultiLine" ReadOnly="False"></asp:TextBox>
 					<br />
 					<br />
 					<asp:Button ID="btnInstallCertificate" meta:resourcekey="btnInstallCertificate" runat="server"

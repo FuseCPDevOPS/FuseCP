@@ -2434,43 +2434,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
 
                     b.HasIndex(new[] { "UserId" }, "CommentsIdx_UserID");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.CrmUser", b =>
-                {
-                    b.Property<int>("CrmUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("CRMUserID");
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("AccountID");
-
-                    b.Property<Guid?>("BusinessUnitId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("BusinessUnitID");
-
-                    b.Property<int?>("CalType")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("CALType");
-
-                    b.Property<DateTime>("ChangedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("CrmUserGuid")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("CRMUserGuid");
-
-                    b.HasKey("CrmUserId");
-
-                    b.HasIndex(new[] { "AccountId" }, "CRMUsersIdx_AccountID");
-
-                    b.ToTable("CRMUsers");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DmzIpAddress", b =>
@@ -9169,6 +9133,38 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH",
+                            ParameterId = "SERVICE_CALL_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "3",
+                            ParameterOrder = 1
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH",
+                            ParameterId = "SERVICE_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 2
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE",
+                            ParameterId = "SERVICE_CALL_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "3",
+                            ParameterOrder = 1
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE",
+                            ParameterId = "SERVICE_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 2
+                        },
+                        new
+                        {
                             TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
                             ParameterId = "MAIL_BODY",
                             DataTypeId = "MultiString",
@@ -9205,6 +9201,30 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                             ParameterId = "PASSWORD",
                             DataTypeId = "String",
                             ParameterOrder = 3
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_TIMEOUT_SECONDS",
+                            DataTypeId = "String",
+                            DefaultValue = "15",
+                            ParameterOrder = 11
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "2",
+                            ParameterOrder = 12
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 13
                         },
                         new
                         {
@@ -9803,6 +9823,30 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                             DataTypeId = "MultiString",
                             DefaultValue = "Hello, <br>we cannot verify the SSL certificate for the domain [domain]. <br><br>Error message: [error] <br><br>Please check if the website is available.",
                             ParameterOrder = 11
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_TIMEOUT_SECONDS",
+                            DataTypeId = "String",
+                            DefaultValue = "15",
+                            ParameterOrder = 12
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "2",
+                            ParameterOrder = 13
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 14
                         });
                 });
 
@@ -10158,18 +10202,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.ToTable("ServiceDefaultProperties");
 
                     b.HasData(
-                        new
-                        {
-                            ProviderId = 2,
-                            PropertyName = "AspNet11Path",
-                            PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v1.1.4322\\aspnet_isapi.dll"
-                        },
-                        new
-                        {
-                            ProviderId = 2,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET V1.1"
-                        },
                         new
                         {
                             ProviderId = 2,
@@ -15160,17 +15192,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.CrmUser", b =>
-                {
-                    b.HasOne("FuseCP.EnterpriseServer.Data.Entities.ExchangeAccount", "Account")
-                        .WithMany("CrmUsers")
-                        .HasForeignKey("AccountId")
-                        .IsRequired()
-                        .HasConstraintName("FK_CRMUsers_ExchangeAccounts");
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DmzIpAddress", b =>
                 {
                     b.HasOne("FuseCP.EnterpriseServer.Data.Entities.ServiceItem", "Item")
@@ -16141,8 +16162,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("AccessTokens");
 
                     b.Navigation("BlackBerryUsers");
-
-                    b.Navigation("CrmUsers");
 
                     b.Navigation("EnterpriseFoldersOwaPermissions");
 

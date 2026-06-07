@@ -65,6 +65,12 @@ namespace FuseCP.Portal
             set { ViewState["ActiveSslTab"] = value; }
         }
 
+        private bool InstalledTabAvailable
+        {
+            get { return (bool)(ViewState["InstalledTabAvailable"] ?? false); }
+            set { ViewState["InstalledTabAvailable"] = value; }
+        }
+
         public string State
         {
             get
@@ -87,6 +93,16 @@ namespace FuseCP.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            liInstalledTabLink.Visible = false;
+            InstalledTabAvailable = false;
+            SSLNotInstalled.Visible = true;
+            SSLImport.Visible = false;
+            pnlCSR.Visible = false;
+            ddlStates.Visible = false;
+            btnRenCSR.Visible = false;
+            pnlShowUpload.Visible = false;
+            pnlInstallCertificate.Visible = false;
+
             if (!IsPostBack)
             {
                 // Load countries
@@ -134,10 +150,10 @@ namespace FuseCP.Portal
 
         private void ApplyTabSelection()
         {
-            liInstalledTabLink.Visible = tabInstalled.Visible;
+            liInstalledTabLink.Visible = InstalledTabAvailable;
             liCsrTabLink.Visible = true;
 
-            bool useInstalled = tabInstalled.Visible && ActiveSslTab == InstalledTabKey;
+            bool useInstalled = InstalledTabAvailable && ActiveSslTab == InstalledTabKey;
             sslTabs.SetActiveView(useInstalled ? tabInstalled : tabCSR);
 
             btnShowInstalledTab.CssClass = useInstalled ? "nav-link active" : "nav-link";
@@ -378,7 +394,7 @@ namespace FuseCP.Portal
             }
             //
             messageBox.ShowSuccessMessage("WEB_INSTALL_CSR");
-            tabInstalled.Visible = true;
+            InstalledTabAvailable = true;
             SetInstalledTabText("Installed Certificate");
             SetCsrTabText("New Certificate");
             pnlInstallCertificate.Visible = false;
@@ -417,7 +433,7 @@ namespace FuseCP.Portal
 
             messageBox.ShowSuccessMessage("WEB_INSTALL_CSR");
             SSLNotInstalled.Visible = false;
-            tabInstalled.Visible = true;
+            InstalledTabAvailable = true;
             RefreshControlLayout();
             SelectInstalledTab();
             ApplyTabSelection();
@@ -498,7 +514,7 @@ namespace FuseCP.Portal
             // Show success message
             messageBox.ShowSuccessMessage(WEB_SSL_DELETE);
             //
-            tabInstalled.Visible = false;
+            InstalledTabAvailable = false;
             SetInstalledTabText(GetLocalizedString("tabInstalled.Text"));
             InstalledCert = null;
             SelectCsrTab();
@@ -574,7 +590,7 @@ namespace FuseCP.Portal
                 SSLCertificate[] certificates = ES.Services.WebServers.GetCertificatesForSite(SiteId);
 
                 // Set some default visible values, states and texts
-                tabInstalled.Visible = false;
+                InstalledTabAvailable = false;
                 SSLNotInstalled.Visible = true;
                 SSLImport.Visible = false;
                 pnlCSR.Visible = false;
@@ -608,7 +624,7 @@ namespace FuseCP.Portal
                 // Web site has active certificate
                 if (hasactive)
                 {
-                    tabInstalled.Visible = true;
+                    InstalledTabAvailable = true;
                     SetInstalledTabText(GetLocalizedString("tabInstalled.Text"));
 
                     InstalledCert = (from c in certificates

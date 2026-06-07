@@ -49,15 +49,14 @@ namespace FuseCP.Portal.ProviderControls
 			txtWebGroupName.Text = settings["WebGroupName"];
 			chkAssignIPAutomatically.Checked = Utils.ParseBool(settings["AutoAssignDedicatedIP"], true);
 
-			txtAspNet11Path.Text = settings["AspNet11Path"];
 			txtAspNet20Path.Text = settings["AspNet20Path"];
 			txtAspNet20x64Path.Text = settings["AspNet20x64Path"];
             txtAspNet40Path.Text = settings["AspNet40Path"];
 			txtAspNet40x64Path.Text = settings["AspNet40x64Path"];
 
-			txtAspNet11Pool.Text = settings["AspNet11Pool"];
 			// ASP.NET 2.0
 			txtAspNet20Pool.Text = settings["ClassicAspNet20Pool"];
+			NoManagedCodePool.Text = settings["NoManagedCodePool"];
 			txtAspNet20IntegratedPool.Text = settings["IntegratedAspNet20Pool"];
 			// ASP.NET 4.0
 			ClassicAspNet40Pool.Text = settings[ClassicAspNet40Pool.ID];
@@ -171,15 +170,14 @@ namespace FuseCP.Portal.ProviderControls
 			settings["AutoAssignDedicatedIP"] = chkAssignIPAutomatically.Checked.ToString();
 
             // paths
-            settings["AspNet11Path"] = txtAspNet11Path.Text.Trim();
             settings["AspNet20Path"] = txtAspNet20Path.Text.Trim();
             settings["AspNet20x64Path"] = txtAspNet20x64Path.Text.Trim();
             settings["AspNet40Path"] = txtAspNet40Path.Text.Trim();
             settings["AspNet40x64Path"] = txtAspNet40x64Path.Text.Trim();
 
-			settings["AspNet11Pool"] = txtAspNet11Pool.Text.Trim();
 			// ASP.NET 2.0
 			settings["ClassicAspNet20Pool"] = txtAspNet20Pool.Text.Trim();
+			settings["NoManagedCodePool"] = NoManagedCodePool.Text.Trim();
 			settings["IntegratedAspNet20Pool"] = txtAspNet20IntegratedPool.Text.Trim();
 			// ASP.NET 4.0
 			settings[ClassicAspNet40Pool.ID] = ClassicAspNet40Pool.Text.Trim();

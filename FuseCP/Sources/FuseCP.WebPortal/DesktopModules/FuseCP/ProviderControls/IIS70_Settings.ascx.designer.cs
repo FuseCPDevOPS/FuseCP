@@ -122,24 +122,6 @@ namespace FuseCP.Portal.ProviderControls {
         protected global::System.Web.UI.WebControls.Label secAspNet;
         
         /// <summary>
-        /// lblAspNet11Path control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAspNet11Path;
-        
-        /// <summary>
-        /// txtAspNet11Path control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAspNet11Path;
-        
-        /// <summary>
         /// lblAspNet20Path control.
         /// </summary>
         /// <remarks>
@@ -203,24 +185,6 @@ namespace FuseCP.Portal.ProviderControls {
         protected global::System.Web.UI.WebControls.Label secPools;
         
         /// <summary>
-        /// lblAsp11Pool control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAsp11Pool;
-        
-        /// <summary>
-        /// txtAspNet11Pool control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAspNet11Pool;
-        
-        /// <summary>
         /// lblAsp20Pool control.
         /// </summary>
         /// <remarks>
@@ -273,6 +237,10 @@ namespace FuseCP.Portal.ProviderControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox IntegratedAspNet40Pool;
+        
+        /// <summary>
+        /// AspNetBitnessMode control.
+        protected global::System.Web.UI.WebControls.TextBox NoManagedCodePool;
         
         /// <summary>
         /// AspNetBitnessMode control.

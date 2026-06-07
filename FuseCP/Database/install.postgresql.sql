@@ -9920,5 +9920,70 @@ BEGIN
     VALUES ('20260511164431_RemapLegacySpsProvidersToSharePoint2016', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260513151212_RemoveCrmUserEntity') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260513151212_RemoveCrmUserEntity', '9.0.9');
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260607162511_RemoveAspNet11SeedData') THEN
+    DROP TABLE public."CRMUsers";
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260607162511_RemoveAspNet11SeedData') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'AspNet11Path' AND "ProviderID" = 2;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260607162511_RemoveAspNet11SeedData') THEN
+    DELETE FROM public."ServiceDefaultProperties"
+    WHERE "PropertyName" = 'AspNet11Pool' AND "ProviderID" = 2;
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260607162511_RemoveAspNet11SeedData') THEN
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SERVICE_CALL_ATTEMPTS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH', 'String', '3', 1);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SERVICE_RETRY_DELAY_MS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH', 'String', '250', 2);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SERVICE_CALL_ATTEMPTS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE', 'String', '3', 1);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SERVICE_RETRY_DELAY_MS', 'SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE', 'String', '250', 2);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('REQUEST_ATTEMPTS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '2', 12);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('REQUEST_RETRY_DELAY_MS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '250', 13);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('REQUEST_TIMEOUT_SECONDS', 'SCHEDULE_TASK_CHECK_WEBSITE', 'String', '15', 11);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SSL_REQUEST_ATTEMPTS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '2', 13);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SSL_REQUEST_RETRY_DELAY_MS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '250', 14);
+    INSERT INTO public."ScheduleTaskParameters" ("ParameterID", "TaskID", "DataTypeID", "DefaultValue", "ParameterOrder")
+    VALUES ('SSL_REQUEST_TIMEOUT_SECONDS', 'SCHEDULE_TASK_CHECK_WEBSITES_SSL', 'String', '15', 12);
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260607162511_RemoveAspNet11SeedData') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260607162511_RemoveAspNet11SeedData', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

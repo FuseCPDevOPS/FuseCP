@@ -39,7 +39,6 @@ namespace FuseCP.Providers.Web.Iis.Extensions
                 // Classic ASP
                 new KeyValuePair<string, string>(Constants.AspPathSetting, @"\inetsrv\asp.dll"),
                 // ASP.NET
-                new KeyValuePair<string, string>(Constants.AspNet11PathSetting, @"\Framework\v1.1.4322\aspnet_isapi.dll"),
                 new KeyValuePair<string, string>(Constants.AspNet20PathSetting, @"\Framework\v2.0.50727\aspnet_isapi.dll"),
                 new KeyValuePair<string, string>(Constants.AspNet40PathSetting, @"\Framework\v4.0.30319\aspnet_isapi.dll"),
                 // ASP.NET x64

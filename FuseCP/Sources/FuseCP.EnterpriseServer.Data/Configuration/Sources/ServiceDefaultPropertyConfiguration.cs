@@ -40,8 +40,6 @@ public partial class ServiceDefaultPropertyConfiguration: EntityTypeConfiguratio
         #region Seed Data
         HasData(() => new ServiceDefaultProperty[] {
             new ServiceDefaultProperty() { ProviderId = 1, PropertyName = "UsersHome", PropertyValue = "%SYSTEMDRIVE%\\HostingSpaces" },
-            new ServiceDefaultProperty() { ProviderId = 2, PropertyName = "AspNet11Path", PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v1.1.4322\\aspnet_isapi.dll" },
-            new ServiceDefaultProperty() { ProviderId = 2, PropertyName = "AspNet11Pool", PropertyValue = "ASP.NET V1.1" },
             new ServiceDefaultProperty() { ProviderId = 2, PropertyName = "AspNet20Path", PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v2.0.50727\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 2, PropertyName = "AspNet20Pool", PropertyValue = "ASP.NET V2.0" },
             new ServiceDefaultProperty() { ProviderId = 2, PropertyName = "AspNet40Path", PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll" },
@@ -262,7 +260,6 @@ Protocol=dbmssocn"
             new ServiceDefaultProperty() { ProviderId = 67, PropertyName = "ServerIPAddress", PropertyValue = "127.0.0.1;127.0.0.1" },
             new ServiceDefaultProperty() { ProviderId = 67, PropertyName = "ServiceUrl", PropertyValue = "http://localhost:9998" },
             new ServiceDefaultProperty() { ProviderId = 100, PropertyName = "UsersHome", PropertyValue = "%SYSTEMDRIVE%\\HostingSpaces" },
-            new ServiceDefaultProperty() { ProviderId = 101, PropertyName = "AspNet11Pool", PropertyValue = "ASP.NET 1.1" },
             new ServiceDefaultProperty() { ProviderId = 101, PropertyName = "AspNet40Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 101, PropertyName = "AspNet40x64Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 101, PropertyName = "AspNetBitnessMode", PropertyValue = "32" },
@@ -288,7 +285,6 @@ Protocol=dbmssocn"
             new ServiceDefaultProperty() { ProviderId = 102, PropertyName = "FtpGroupName", PropertyValue = "FCPFtpUsers" },
             new ServiceDefaultProperty() { ProviderId = 102, PropertyName = "SiteId", PropertyValue = "Default FTP Site" },
             new ServiceDefaultProperty() { ProviderId = 104, PropertyName = "UsersHome", PropertyValue = "%SYSTEMDRIVE%\\HostingSpaces" },
-            new ServiceDefaultProperty() { ProviderId = 105, PropertyName = "AspNet11Pool", PropertyValue = "ASP.NET 1.1" },
             new ServiceDefaultProperty() { ProviderId = 105, PropertyName = "AspNet40Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 105, PropertyName = "AspNet40x64Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 105, PropertyName = "AspNetBitnessMode", PropertyValue = "32" },
@@ -316,7 +312,6 @@ Protocol=dbmssocn"
             new ServiceDefaultProperty() { ProviderId = 106, PropertyName = "SiteId", PropertyValue = "Default FTP Site" },
             new ServiceDefaultProperty() { ProviderId = 106, PropertyName = "sslusesni", PropertyValue = "False" },
             new ServiceDefaultProperty() { ProviderId = 111, PropertyName = "UsersHome", PropertyValue = "%SYSTEMDRIVE%\\HostingSpaces" },
-            new ServiceDefaultProperty() { ProviderId = 112, PropertyName = "AspNet11Pool", PropertyValue = "ASP.NET 1.1" },
             new ServiceDefaultProperty() { ProviderId = 112, PropertyName = "AspNet40Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 112, PropertyName = "AspNet40x64Path", PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_isapi.dll" },
             new ServiceDefaultProperty() { ProviderId = 112, PropertyName = "AspNetBitnessMode", PropertyValue = "32" },

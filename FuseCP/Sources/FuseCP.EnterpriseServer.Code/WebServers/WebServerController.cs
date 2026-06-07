@@ -356,6 +356,8 @@ namespace FuseCP.EnterpriseServer
                     // extensions
                     site.AspInstalled = Utils.ParseBool(webPolicy["AspInstalled"], false);
                     site.AspNetInstalled = webPolicy["AspNetInstalled"];
+                    if (String.IsNullOrEmpty(site.AspNetInstalled) || site.AspNetInstalled == "1")
+                        site.AspNetInstalled = "2";
                     site.PhpInstalled = webPolicy["PhpInstalled"];
                     site.EnableDynamicCompression = Utils.ParseBool(webPolicy["EnableDynamicCompression"], false);
                     site.EnableStaticCompression = Utils.ParseBool(webPolicy["EnableStaticCompression"], false);
@@ -382,7 +384,7 @@ namespace FuseCP.EnterpriseServer
 
                     // extensions
                     site.AspInstalled = true;
-                    site.AspNetInstalled = "1";
+                    site.AspNetInstalled = "2";
                     site.PhpInstalled = "";
                     site.EnableDynamicCompression = false;
                     site.EnableStaticCompression = false;

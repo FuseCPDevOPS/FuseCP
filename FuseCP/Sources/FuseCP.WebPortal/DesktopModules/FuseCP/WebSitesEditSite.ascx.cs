@@ -199,6 +199,7 @@ namespace FuseCP.Portal
 
 			dedicatedIP.Visible = site.IsDedicatedIP;
 			sharedIP.Visible = !site.IsDedicatedIP;
+			switchToDedicatedIP.Visible = false;
 
 			PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 			cmdSwitchToDedicatedIP.Visible = Utils.CheckQouta(Quotas.WEB_ALLOWIPADDRESSMODESWITCH, cntx) ? (ddlIpAddresses.Items.Count > 0) : cmdSwitchToSharedIP.Visible = false;
@@ -1067,6 +1068,24 @@ namespace FuseCP.Portal
 		#endregion
 
 		#region Pointers
+		protected void gvPointers_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType != DataControlRowType.DataRow)
+				return;
+
+			DataRowView row = e.Row.DataItem as DataRowView;
+			if (row == null)
+				return;
+
+			bool isPreviewDomain = false;
+			if (row.Row.Table.Columns.Contains("IsPreviewDomain") && row["IsPreviewDomain"] != DBNull.Value)
+				isPreviewDomain = Convert.ToBoolean(row["IsPreviewDomain"]);
+
+			LinkButton cmdDeletePointer = e.Row.FindControl("cmdDeletePointer") as LinkButton;
+			if (cmdDeletePointer != null)
+				cmdDeletePointer.Visible = !isPreviewDomain;
+		}
+
 		protected void gvPointers_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			int domainId = (int)gvPointers.DataKeys[e.RowIndex][0];

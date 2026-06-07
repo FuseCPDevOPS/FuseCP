@@ -268,8 +268,8 @@ namespace FuseCP.Portal
                 }
                 else
                 {
-                    //render localized exception message without stack trace
-                    messageBox.RenderMessage(MessageBoxType.Error, localizedMessage, localizedDescription, null);
+                    // Preserve exception details for diagnostics while keeping localized text.
+                    messageBox.RenderMessage(MessageBoxType.Error, localizedMessage, localizedDescription, ex);
                     return;
                 }
 

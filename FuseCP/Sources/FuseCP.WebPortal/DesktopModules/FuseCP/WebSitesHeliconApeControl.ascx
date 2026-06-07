@@ -148,11 +148,11 @@
 
 
 <div class="FormButtonsBar">
-	<asp:Panel runat="server" ID="panelHeliconApeIsNotInstalledMessage" Visible="false">
+	<asp:Panel runat="server" ID="panelHeliconApeIsNotInstalledMessage">
 		<p>
 			<asp:Localize ID="Localize1" runat="server" meta:resourcekey="ApeModuleNotes" /></p>
 	</asp:Panel>
-	<asp:Panel runat="server" ID="panelHeliconApeIsNotEnabledMessage" Visible="false">
+	<asp:Panel runat="server" ID="panelHeliconApeIsNotEnabledMessage">
 		<p>
 			<asp:Localize ID="Localize2" runat="server" meta:resourcekey="ApeProductNotes" /></p>
 	</asp:Panel>
