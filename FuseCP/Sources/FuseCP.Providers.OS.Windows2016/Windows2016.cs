@@ -1404,7 +1404,12 @@ namespace FuseCP.Providers.OS
                 foreach (ManagementObject objOs in objOses)
                 {
                     objOs.Scope.Options.EnablePrivileges = true;
-                    objOs.InvokeMethod("Reboot", null);
+                    var result = objOs.InvokeMethod("Reboot", null);
+                    if (result != null && Convert.ToUInt32(result, CultureInfo.InvariantCulture) != 0)
+                    {
+                        throw new InvalidOperationException(
+                            $"WMI Reboot failed with return code {result}. Ensure the server agent account has shutdown privileges.");
+                    }
                 }
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))

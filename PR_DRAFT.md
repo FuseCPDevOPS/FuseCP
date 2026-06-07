@@ -159,6 +159,32 @@
 1. Exercise DNS zone create/delete and record add/delete flows to confirm behavior is unchanged.
 2. Confirm operational logs remain actionable without high-volume informational noise.
 
+### Commit: pending
+**Message**: fix: reboot task logs server name and restores reboot flow
+
+**Scope**: 6 files modified to make reboot postbacks reliable, preserve the authenticated caller context, and include the server name in task/audit logging
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/Common/SecurityContext.cs` — restored authenticated caller resolution in assembly:// mode so task/audit identity is stable
+- `FuseCP/Sources/FuseCP.EnterpriseServer.Code/OperatingSystems/OperatingSystemController.cs` — kept reboot execution after task start and logged the server name in the reboot task record
+- `FuseCP/Sources/FuseCP.EnterpriseServer/esServers.asmx.cs` — simplified the reboot web method to pass through to the controller
+- `FuseCP/Sources/FuseCP.Providers.OS.Windows2016/Windows2016.cs` — hardened WMI reboot error handling so failed reboot calls surface a usable exception
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ServersEditReboot.ascx` — restored the standard reboot confirm submit path
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/ServersEditReboot.ascx.cs` — added the server-side reboot fallback that makes the action fire reliably when the WebForms click event is skipped
+
+#### Validation Summary
+- **Focused Builds**: ✅ `FuseCP.WebPortal` module and `FuseCP.EnterpriseServer` rebuilt successfully after releasing IIS locks
+- **Runtime Verification**: ✅ reboot click now reaches the reboot path and writes the expected task/audit entry again
+
+#### Risk Assessment
+- ✅ **Low to Moderate Risk**: localized to the reboot action and task identity resolution
+- ⚠️ **Primary Risk Area**: the fallback reboot trigger on the reboot page is intentionally broader than the original click-event path
+
+#### Testing Guidance
+1. Open the server reboot page and confirm the reboot task now records the server name.
+2. Verify the audit/task log still shows the correct authenticated user after the principal fix.
+3. Re-test a cancel action to confirm it does not trigger reboot.
+
 ---
 
 ### Commit: pending

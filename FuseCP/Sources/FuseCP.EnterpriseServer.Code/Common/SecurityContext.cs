@@ -19,7 +19,9 @@ using System.Threading;
 using System.Diagnostics;
 using System.Security;
 using System.Security.Principal;
+#if NETFRAMEWORK
 using System.Web;
+#endif
 using FuseCP.Providers.Common;
 
 namespace FuseCP.EnterpriseServer
@@ -112,6 +114,32 @@ namespace FuseCP.EnterpriseServer
                 EnterpriseServerPrincipal principal = Thread.CurrentPrincipal as EnterpriseServerPrincipal;
                 if(principal != null)
                     return principal;
+
+                // In assembly:// mode, ensure we bind to the authenticated caller when available.
+                string identityName = null;
+#if NETFRAMEWORK
+                var httpIdentity = HttpContext.Current?.User?.Identity;
+                if (httpIdentity != null && httpIdentity.IsAuthenticated)
+                    identityName = httpIdentity.Name;
+#endif
+                if (String.IsNullOrWhiteSpace(identityName))
+                {
+                    var threadIdentity = Thread.CurrentPrincipal?.Identity;
+                    if (threadIdentity != null && threadIdentity.IsAuthenticated)
+                        identityName = threadIdentity.Name;
+                }
+
+                if (!String.IsNullOrWhiteSpace(identityName))
+                {
+                    UserInfo user = UserController.GetUserInternally(identityName);
+                    if (user != null)
+                    {
+                        SetThreadPrincipal(user);
+                        principal = Thread.CurrentPrincipal as EnterpriseServerPrincipal;
+                        if (principal != null)
+                            return principal;
+                    }
+                }
 
                 // Username Token Manager was unable to set principal
                 // or authentication is disabled

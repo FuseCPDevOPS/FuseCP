@@ -526,19 +526,26 @@ namespace FuseCP.EnterpriseServer
         #region Server Reboot
         public int RebootSystem(int serverId)
         {
-            // check account
-            int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin
-                | DemandAccount.IsActive);
-            if (accountCheck < 0) return accountCheck;
-
-            // load server info
-            ServerController.GetServerById(serverId, false);
+            ServerInfo server = ServerController.GetServerById(serverId, false);
+            string serverName = !String.IsNullOrWhiteSpace(server?.ServerName)
+                ? server.ServerName
+                : serverId.ToString();
 
             // place log record
-            TaskManager.StartTask("SERVER", "REBOOT", serverId);
+            TaskManager.StartTask("SERVER", "REBOOT", serverName, serverId);
+            TaskManager.WriteParameter("Server Name", serverName);
 
             try
             {
+                // check account after task start so denied attempts are still audit-visible
+                int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsAdmin
+                    | DemandAccount.IsActive);
+                if (accountCheck < 0)
+                {
+                    TaskManager.WriteParameter("Account Check Result", accountCheck);
+                    return accountCheck;
+                }
+
                 GetServerService(serverId).RebootSystem();
                 return 0;
             }

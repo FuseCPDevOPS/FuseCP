@@ -5,7 +5,8 @@
 <div class="card-body form-horizontal">
     <div class="RedBorderFillBox">
         <asp:Button ID="btnReboot" runat="server" meta:resourcekey="btnReboot" Text="Reboot Server"
-			CssClass="btn btn-success" OnClientClick="return confirm('Continue with Server reboot?');" OnClick="btnReboot_Click" />
+            CssClass="btn btn-success" CausesValidation="False" UseSubmitBehavior="true"
+			OnClientClick="return confirm('Continue with Server reboot?');" OnClick="btnReboot_Click" />
     </div>
 </div>
 
