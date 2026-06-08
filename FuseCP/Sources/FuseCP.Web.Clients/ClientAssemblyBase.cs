@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.ExceptionServices;
 using FuseCP.Providers;
 
 namespace FuseCP.Web.Clients
@@ -121,7 +122,16 @@ namespace FuseCP.Web.Clients
 
 				parameters = (object[])DataContractCopier.Clone(parameters);
 
-				var result = method.Invoke(service, parameters);
+				object result;
+				try
+				{
+					result = method.Invoke(service, parameters);
+				}
+				catch (TargetInvocationException ex) when (ex.InnerException != null)
+				{
+					ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+					throw;
+				}
 
 				return (T)DataContractCopier.Clone(result);
 			}

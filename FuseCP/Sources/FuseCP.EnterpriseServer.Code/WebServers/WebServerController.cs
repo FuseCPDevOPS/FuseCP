@@ -480,6 +480,9 @@ namespace FuseCP.EnterpriseServer
             int accountCheck = SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive);
             if (accountCheck < 0) return accountCheck;
 
+            if (site == null)
+                throw new ArgumentNullException("site");
+
             // load web site item
             WebSite siteItem = (WebSite)PackageController.GetPackageItem(site.Id);
             if (siteItem == null)
@@ -490,14 +493,40 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
+                var updateStage = "hydrate-site";
+
+                // Ensure provider receives a fully populated object even if UI omitted fields.
+                site.Id = siteItem.Id;
+                if (site.PackageId <= 0)
+                    site.PackageId = siteItem.PackageId;
+                if (site.ServiceId <= 0)
+                    site.ServiceId = siteItem.ServiceId;
+                if (string.IsNullOrWhiteSpace(site.SiteId))
+                    site.SiteId = siteItem.SiteId;
+                if (string.IsNullOrWhiteSpace(site.Name))
+                    site.Name = siteItem.Name;
+                if (string.IsNullOrWhiteSpace(site.AnonymousUsername))
+                    site.AnonymousUsername = siteItem.AnonymousUsername;
+                if (string.IsNullOrWhiteSpace(site.AnonymousUserPassword))
+                    site.AnonymousUserPassword = siteItem.AnonymousUserPassword;
+                if (string.IsNullOrWhiteSpace(site.AspNetInstalled))
+                    site.AspNetInstalled = siteItem.AspNetInstalled;
+                if (string.IsNullOrWhiteSpace(site.ApplicationPool))
+                    site.ApplicationPool = siteItem.ApplicationPool;
+
                 // update home folder
+                updateStage = "normalize-paths";
                 string origPath = site.ContentPath;
+                if (string.IsNullOrWhiteSpace(site.ContentPath))
+                    site.ContentPath = siteItem.ContentPath;
                 site.ContentPath = FilesController.GetFullPackagePath(site.PackageId, site.ContentPath);
 
                 // build data folder path
                 site.DataPath = siteItem.DataPath;
+                site.LogsPath = siteItem.LogsPath;
 
                 // update site on the service
+                updateStage = "provider-update-site";
                 WebServer web = new WebServer();
                 ServiceProviderProxy.Init(web, siteItem.ServiceId);
                 web.UpdateSite(site);
@@ -510,6 +539,7 @@ namespace FuseCP.EnterpriseServer
 				#endregion
 
                 // update service item
+                updateStage = "persist-package-item";
                 PackageController.UpdatePackageItem(site);
 
                 // set origpath

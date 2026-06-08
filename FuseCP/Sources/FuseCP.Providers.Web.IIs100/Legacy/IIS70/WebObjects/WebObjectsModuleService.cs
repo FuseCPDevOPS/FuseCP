@@ -432,11 +432,18 @@ namespace FuseCP.Providers.Web.Iis.WebObjects
             // ensure physical site content path
             if (String.IsNullOrEmpty(site.ContentPath))
                 throw new Exception("SiteContentPathEmpty");
+
+            var siteName = !String.IsNullOrWhiteSpace(site.Name) ? site.Name : site.SiteId;
+            if (String.IsNullOrWhiteSpace(siteName))
+                throw new Exception("SiteNameEmpty");
+
             //
             using (var srvman = GetServerManager())
             {
                 //
-                var iisObject = srvman.Sites[site.Name];
+                var iisObject = srvman.Sites[siteName];
+                if (iisObject == null)
+                    throw new Exception(String.Format("SiteNotFound:{0}", siteName));
                 //
                 iisObject.Applications[0].ApplicationPoolName = site.ApplicationPool;
                 //

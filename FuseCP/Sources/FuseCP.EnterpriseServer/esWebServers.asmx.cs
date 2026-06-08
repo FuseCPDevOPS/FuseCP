@@ -83,7 +83,17 @@ namespace FuseCP.EnterpriseServer
         [WebMethod]
         public int UpdateWebSite(WebSite site)
         {
-            return WebServerController.UpdateWebSite(site);
+            try
+            {
+                return WebServerController.UpdateWebSite(site);
+            }
+            catch (Exception ex)
+            {
+                var siteId = site != null ? site.Id.ToString() : "null";
+                var iisSiteId = site != null ? site.SiteId : "null";
+                throw new InvalidOperationException(
+                    string.Format("esWebServers.UpdateWebSite failed for item '{0}', siteId '{1}'.", siteId, iisSiteId), ex);
+            }
         }
 
         [WebMethod]

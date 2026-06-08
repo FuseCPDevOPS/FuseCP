@@ -72,7 +72,8 @@ namespace FuseCP.Providers.Web
 		public const string ModulesSection = "system.webServer/modules";
 		public const string IsapiCgiRestrictionSection = "system.webServer/security/isapiCgiRestriction";
 
-		public const string APP_POOL_NAME_FORMAT_STRING = "#SITE-NAME# #IIS7-ASPNET-VERSION# (#PIPELINE-MODE#)";
+		public const string APP_POOL_NAME_FORMAT_STRING = "#SITE-NAME#";
+		public const string LEGACY_APP_POOL_NAME_FORMAT_STRING = "#SITE-NAME# #IIS7-ASPNET-VERSION# (#PIPELINE-MODE#)";
 
 		public const string ClassicAspNet20Pool = "ClassicAspNet20Pool";
 		public const string IntegratedAspNet20Pool = "IntegratedAspNet20Pool";
@@ -854,16 +855,26 @@ namespace FuseCP.Providers.Web
 			try
 			{
 				WebAppPoolHelper aphl = new WebAppPoolHelper(ProviderSettings);
-				//
 				var dedicatedPools = Array.FindAll<WebAppPool>(aphl.SupportedAppPools.ToArray(),
 					x => aphl.isolation(x.Mode) == SiteAppPoolMode.Dedicated);
+				var poolNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+				foreach (var poolItem in dedicatedPools)
+				{
+					poolNames.Add(WSHelper.InferAppPoolName(poolItem.Name, siteName, poolItem.Mode));
+					poolNames.Add(WSHelper.InferAppPoolName(Constants.LEGACY_APP_POOL_NAME_FORMAT_STRING, siteName, poolItem.Mode));
+				}
 
 				// cleanup app pools
 				using (var srvman = webObjectsSvc.GetServerManager())
 				{
-					foreach (ApplicationPool pool in dedicatedPools.Select(poolItem => WSHelper.InferAppPoolName(poolItem.Name, siteName, poolItem.Mode)).Select(poolName => srvman.ApplicationPools[poolName]).Where(pool => pool != null))
+					foreach (var poolName in poolNames)
 					{
-						srvman.ApplicationPools.Remove(pool);
+						var pool = srvman.ApplicationPools[poolName];
+						if (pool != null)
+						{
+							srvman.ApplicationPools.Remove(pool);
+						}
 					}
 
 					// save changes
@@ -1097,73 +1108,59 @@ namespace FuseCP.Providers.Web
 		private void SetWebSiteApplicationPool(WebSite site, bool createAppPools)
 		{
 			var aphl = new WebAppPoolHelper(ProviderSettings);
-			// Site isolation mode
 			var sisMode = site.DedicatedApplicationPool ? SiteAppPoolMode.Dedicated : SiteAppPoolMode.Shared;
-			// Create dedicated iisAppObject pool name for the site with installed ASP.NET version
-			if (createAppPools && site.DedicatedApplicationPool)
-			{
-				// Find dedicated app pools
-				var dedicatedPools = Array.FindAll<WebAppPool>(aphl.SupportedAppPools.ToArray(),
-					x => aphl.isolation(x.Mode) == SiteAppPoolMode.Dedicated);
-				// Generate dedicated iisAppObject pools names and create them.
-				foreach (var item in dedicatedPools)
-				{
-					var enable32BitAppOnWin64 = Enable32BitAppOnWin64;
-					var poolName = WSHelper.InferAppPoolName(item.Name, site.Name, item.Mode);
-					// Ensure we are not going to add an existing app pool
-					if (webObjectsSvc.IsApplicationPoolExist(poolName))
-						continue;
-					//
-					using (var srvman = webObjectsSvc.GetServerManager())
-					{
-						// Create iisAppObject pool
-						var pool = srvman.ApplicationPools.Add(poolName);
-						pool.ManagedRuntimeVersion = aphl.aspnet_runtime(item.Mode);
-						pool.ManagedPipelineMode = aphl.runtime_pipeline(item.Mode);
-						pool.Enable32BitAppOnWin64 = enable32BitAppOnWin64;
-						pool.AutoStart = true;
-						// Identity
-						pool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
-						pool.ProcessModel.UserName = GetQualifiedAccountName(site.AnonymousUsername);
-						pool.ProcessModel.Password = site.AnonymousUserPassword;
-						// Commit changes
-						srvman.CommitChanges();
-					}
-				}
-			}
+			var sitePoolOwnerName = !String.IsNullOrWhiteSpace(site.Name) ? site.Name : site.SiteId;
+			if (String.IsNullOrWhiteSpace(sitePoolOwnerName))
+				throw new InvalidOperationException("Unable to determine website name for application pool assignment.");
+
 			site.AspNetInstalled = aphl.normalize_aspnet_profile(site.AspNetInstalled);
-			// Find
 			var siteAppPool = Array.Find<WebAppPool>(aphl.SupportedAppPools.ToArray(),
 				x => x.AspNetInstalled.Equals(site.AspNetInstalled) && aphl.isolation(x.Mode) == sisMode);
 			if (siteAppPool == null)
 				throw new InvalidOperationException(String.Format("No application pool mapping found for ASP.NET profile '{0}' and isolation mode '{1}'.", site.AspNetInstalled, sisMode));
-			// Assign iisAppObject pool according to ASP.NET version installed and isolation mode specified.
-			site.ApplicationPool = WSHelper.InferAppPoolName(siteAppPool.Name, site.Name, siteAppPool.Mode);
 
-			// Existing installs may not have newly introduced shared pools yet. Create the selected pool on demand.
-			if (createAppPools && !webObjectsSvc.IsApplicationPoolExist(site.ApplicationPool))
+			// Assign app pool according to selected profile and isolation mode.
+			site.ApplicationPool = WSHelper.InferAppPoolName(siteAppPool.Name, sitePoolOwnerName, siteAppPool.Mode);
+			if (String.IsNullOrWhiteSpace(site.ApplicationPool))
+				throw new InvalidOperationException(String.Format(
+					"Application pool name resolved to empty for site '{0}' with profile '{1}'.", sitePoolOwnerName, site.AspNetInstalled));
+
+			// Shared pools are pre-configured by the administrator; only assign the site to one.
+			if (sisMode != SiteAppPoolMode.Dedicated)
+				return;
+
+			// Dedicated pool: create if missing, then update settings in place so a single pool
+			// is reused and reconfigured whenever the runtime/pipeline selection changes.
+			using (var srvman = webObjectsSvc.GetServerManager())
 			{
-				using (var srvman = webObjectsSvc.GetServerManager())
+				var pool = srvman.ApplicationPools[site.ApplicationPool];
+				var isNewPool = pool == null;
+				if (pool == null)
 				{
-					var pool = srvman.ApplicationPools.Add(site.ApplicationPool);
-					pool.ManagedRuntimeVersion = aphl.aspnet_runtime(siteAppPool.Mode);
-					pool.ManagedPipelineMode = aphl.runtime_pipeline(siteAppPool.Mode);
-					pool.Enable32BitAppOnWin64 = Enable32BitAppOnWin64;
-					pool.AutoStart = true;
+					if (!createAppPools)
+						return;
 
-					if (sisMode == SiteAppPoolMode.Dedicated)
-					{
-						pool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
-						pool.ProcessModel.UserName = GetQualifiedAccountName(site.AnonymousUsername);
-						pool.ProcessModel.Password = site.AnonymousUserPassword;
-					}
-					else
-					{
-						pool.ProcessModel.IdentityType = ProcessModelIdentityType.NetworkService;
-					}
-
-					srvman.CommitChanges();
+					pool = srvman.ApplicationPools.Add(site.ApplicationPool);
 				}
+
+				pool.ManagedRuntimeVersion = aphl.aspnet_runtime(siteAppPool.Mode);
+				pool.ManagedPipelineMode = aphl.runtime_pipeline(siteAppPool.Mode);
+				pool.Enable32BitAppOnWin64 = Enable32BitAppOnWin64;
+				pool.AutoStart = true;
+				if (String.IsNullOrWhiteSpace(site.AnonymousUsername))
+					throw new InvalidOperationException("Dedicated application pool requires a website anonymous username.");
+				pool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
+				pool.ProcessModel.UserName = GetQualifiedAccountName(site.AnonymousUsername);
+				if (!String.IsNullOrWhiteSpace(site.AnonymousUserPassword))
+				{
+					pool.ProcessModel.Password = site.AnonymousUserPassword;
+				}
+				else if (isNewPool)
+				{
+					throw new InvalidOperationException("Dedicated application pool creation requires a website anonymous password.");
+				}
+
+				srvman.CommitChanges();
 			}
 		}
 
@@ -1442,86 +1439,122 @@ namespace FuseCP.Providers.Web
 
 		public override void UpdateSite(WebSite site)
 		{
-			// load original site settings
-			WebSite origSite = GetSite(site.SiteId);
+			var siteName = !String.IsNullOrWhiteSpace(site.Name) ? site.Name : site.SiteId;
+			if (String.IsNullOrWhiteSpace(siteName))
+				throw new InvalidOperationException("Unable to determine website name for update operation.");
+			site.Name = siteName;
+			var updateStage = "load-original-site";
 
-			// Get non-qualified anonymous account user name (eq. without domain name or machine name)
-			string anonymousAccount = GetNonQualifiedAccountName(site.AnonymousUsername);
-			string origAnonymousAccount = GetNonQualifiedAccountName(origSite.AnonymousUsername);
-
-			// if folder has been changed
-			if (String.Compare(origSite.ContentPath, site.ContentPath, true) != 0)
-				RemoveWebFolderPermissions(origSite.ContentPath, origAnonymousAccount);
-
-			// ensure anonumous user account exists
-			if (!SecurityUtils.UserExists(anonymousAccount, ServerSettings, UsersOU))
+			try
 			{
-				CreateWebSiteAnonymousAccount(site);
-			}
 
-			anonymousAccount = GetNonQualifiedAccountName(site.AnonymousUsername);
+				// load original site settings
+				WebSite origSite = GetSite(site.SiteId);
+				if (origSite == null)
+					throw new InvalidOperationException(String.Format("Website '{0}' could not be loaded for update.", site.SiteId));
 
-			// Grant IIS_IUSRS group membership
-			if (!SecurityUtils.HasLocalGroupMembership(anonymousAccount, IIS_IUSRS_GROUP, ServerSettings, UsersOU))
-			{
-				SecurityUtils.GrantLocalGroupMembership(anonymousAccount, IIS_IUSRS_GROUP, ServerSettings);
-			}
+				updateStage = "hydrate-anonymous-account";
+				if (String.IsNullOrWhiteSpace(site.AnonymousUsername))
+					site.AnonymousUsername = origSite.AnonymousUsername;
+				if (String.IsNullOrWhiteSpace(site.AnonymousUserPassword))
+					site.AnonymousUserPassword = origSite.AnonymousUserPassword;
 
-			//
-			bool appPoolFlagChanged = origSite.DedicatedApplicationPool != site.DedicatedApplicationPool;
-			// check if we need to remove dedicated app pools
-			bool deleteDedicatedPools = (appPoolFlagChanged && !site.DedicatedApplicationPool);
-			//
-			SetWebSiteApplicationPool(site, false);
-			//
-			if (!webObjectsSvc.IsApplicationPoolExist(site.ApplicationPool) &&
-				site.DedicatedApplicationPool)
-			{
-				// CREATE dedicated pool
-				SetWebSiteApplicationPool(site, true);
-			}
-			//
-			FillIISObjectFromAppVirtualDirectory(site);
-			//
-			FillIISObjectFromAppVirtualDirectoryRest(site);
+				// Get non-qualified anonymous account user name (eq. without domain name or machine name)
+				string anonymousAccount = GetNonQualifiedAccountName(site.AnonymousUsername);
+				string origAnonymousAccount = GetNonQualifiedAccountName(origSite.AnonymousUsername);
+				if (String.IsNullOrWhiteSpace(anonymousAccount))
+					anonymousAccount = origAnonymousAccount;
+				if (String.IsNullOrWhiteSpace(anonymousAccount))
+					throw new InvalidOperationException(String.Format("Website '{0}' does not have a valid anonymous account.", siteName));
 
-			// set logs folder permissions
-			if (!FileUtils.DirectoryExists(site.LogsPath))
-				FileUtils.CreateDirectory(site.LogsPath);
-			// Update website
-			webObjectsSvc.UpdateSite(site);
-			// Update website bindings
-			webObjectsSvc.UpdateSiteBindings(site.SiteId, site.Bindings, false);
-			// Set website logging settings
-			webObjectsSvc.SetWebSiteLoggingSettings(site);
-			//
-			UpdateCgiBinFolder(site);
+				updateStage = "sync-folder-permissions";
+				// if folder has been changed
+				if (String.Compare(origSite.ContentPath, site.ContentPath, true) != 0)
+					RemoveWebFolderPermissions(origSite.ContentPath, origAnonymousAccount);
 
-			// TO-DO
-			// update all child virtual directories to use new pool
-			if (appPoolFlagChanged)
-			{
-				WebAppVirtualDirectory[] dirs = GetAppVirtualDirectories(site.SiteId);
-				foreach (WebAppVirtualDirectory dir in dirs)
+				updateStage = "ensure-anonymous-account";
+				// ensure anonumous user account exists
+				if (!SecurityUtils.UserExists(anonymousAccount, ServerSettings, UsersOU))
 				{
-					WebAppVirtualDirectory vdir = GetAppVirtualDirectory(site.SiteId, dir.Name);
-					// set dedicated pool flag
-					//dir.DedicatedApplicationPool = site.DedicatedApplicationPool;
-					vdir.AspNetInstalled = site.AspNetInstalled;
-					vdir.ApplicationPool = site.ApplicationPool;
-					// update iisDirObject
-					UpdateAppVirtualDirectory(site.SiteId, vdir);
+					CreateWebSiteAnonymousAccount(site);
 				}
-				// Enforce Web Deploy publishing settings if enabled to ensure we use correct settings all the time
-				if (site.WebDeploySitePublishingEnabled)
-				{
-					EnforceDelegationRulesRestrictions(site.Name, site.WebDeployPublishingAccount);
-				}
-			}
 
-			#region ColdFusion Virtual Directories
-			using (ServerManager srvman = webObjectsSvc.GetServerManager())
-			{
+				anonymousAccount = GetNonQualifiedAccountName(site.AnonymousUsername);
+
+				updateStage = "ensure-iis_iusrs-membership";
+				// Grant IIS_IUSRS group membership
+				if (!SecurityUtils.HasLocalGroupMembership(anonymousAccount, IIS_IUSRS_GROUP, ServerSettings, UsersOU))
+				{
+					SecurityUtils.GrantLocalGroupMembership(anonymousAccount, IIS_IUSRS_GROUP, ServerSettings);
+				}
+
+				updateStage = "resolve-site-app-pool";
+				//
+				bool appPoolFlagChanged = origSite.DedicatedApplicationPool != site.DedicatedApplicationPool;
+				// check if we need to remove dedicated app pools
+				bool deleteDedicatedPools = (appPoolFlagChanged && !site.DedicatedApplicationPool);
+				//
+				SetWebSiteApplicationPool(site, false);
+				//
+				if (!webObjectsSvc.IsApplicationPoolExist(site.ApplicationPool) &&
+					site.DedicatedApplicationPool)
+				{
+					// CREATE dedicated pool
+					SetWebSiteApplicationPool(site, true);
+				}
+				updateStage = "apply-site-configuration";
+				//
+				FillIISObjectFromAppVirtualDirectory(site);
+				//
+				FillIISObjectFromAppVirtualDirectoryRest(site);
+
+				updateStage = "persist-site-settings";
+				// set logs folder permissions
+				if (!FileUtils.DirectoryExists(site.LogsPath))
+					FileUtils.CreateDirectory(site.LogsPath);
+				// Update website
+				webObjectsSvc.UpdateSite(site);
+				// Update website bindings
+				webObjectsSvc.UpdateSiteBindings(site.SiteId, site.Bindings, false);
+				// Set website logging settings
+				webObjectsSvc.SetWebSiteLoggingSettings(site);
+				//
+				UpdateCgiBinFolder(site);
+
+				updateStage = "update-child-app-virtual-directories";
+				// TO-DO
+				// update all child virtual directories to use new pool
+				if (appPoolFlagChanged)
+				{
+					WebAppVirtualDirectory[] dirs = GetAppVirtualDirectories(site.SiteId) ?? new WebAppVirtualDirectory[0];
+					foreach (WebAppVirtualDirectory dir in dirs)
+					{
+						if (dir == null || String.IsNullOrEmpty(dir.Name))
+							continue;
+
+						WebAppVirtualDirectory vdir = GetAppVirtualDirectory(site.SiteId, dir.Name);
+						if (vdir == null)
+							continue;
+
+						// set dedicated pool flag
+						//dir.DedicatedApplicationPool = site.DedicatedApplicationPool;
+						if (String.IsNullOrWhiteSpace(vdir.AspNetInstalled))
+							vdir.AspNetInstalled = site.AspNetInstalled;
+						vdir.ApplicationPool = site.ApplicationPool;
+						// update iisDirObject
+						UpdateAppVirtualDirectory(site.SiteId, vdir);
+					}
+					// Enforce Web Deploy publishing settings if enabled to ensure we use correct settings all the time
+					if (site.WebDeploySitePublishingEnabled)
+					{
+						EnforceDelegationRulesRestrictions(siteName, site.WebDeployPublishingAccount);
+					}
+				}
+
+				updateStage = "update-coldfusion-virtual-directories";
+				#region ColdFusion Virtual Directories
+				using (ServerManager srvman = webObjectsSvc.GetServerManager())
+				{
 				//TODO: NANOFIX:Added the If block and put the rest of the code in the else block(For Virtual Directory)
 				if (string.IsNullOrEmpty(base.CFFlashRemotingDirPath))
 				{
@@ -1550,58 +1583,70 @@ namespace FuseCP.Providers.Web
 						}
 					}
 				}
-			}
-			#endregion
+				}
+				#endregion
 
-			#region ColdFusionHandlerFix
-			//TODO: NANOFIX: Region Added for Cold Fusion Handler Fix
-			using (ServerManager srvman = webObjectsSvc.GetServerManager())
-			{
+				updateStage = "update-coldfusion-handlers";
+				#region ColdFusionHandlerFix
+				//TODO: NANOFIX: Region Added for Cold Fusion Handler Fix
+				using (ServerManager srvman = webObjectsSvc.GetServerManager())
+				{
 				var appConfig = srvman.GetApplicationHostConfiguration();
 				ConfigurationSection handlersSection = appConfig.GetSection(Constants.HandlersSection, (site).FullQualifiedPath);
 
 				var handlersCollection = handlersSection.GetCollection();
 
-				List<ConfigurationElement> cfElementList = new List<ConfigurationElement>();
-				foreach (var action in handlersCollection)
-				{
-					var name = action["name"].ToString();
-					if (string.Compare(name, "coldfusion", true) == 0)
+					List<ConfigurationElement> cfElementList = new List<ConfigurationElement>();
+					foreach (var action in handlersCollection)
 					{
-						cfElementList.Add(action);
+						var nameObj = action["name"];
+						if (nameObj == null)
+							continue;
+
+						var name = nameObj.ToString();
+						if (string.Compare(name, "coldfusion", true) == 0)
+						{
+							cfElementList.Add(action);
+						}
 					}
-				}
-				foreach (var e in cfElementList)
-				{
-					handlersCollection.Remove(e);
-				}
-				if (site.ColdFusionInstalled && (IsColdFusion7Installed() || IsColdFusion8Installed() || IsColdFusion9Installed()))
-				{
-					var cfElement = handlersCollection.CreateElement("add");
+					foreach (var e in cfElementList)
+					{
+						handlersCollection.Remove(e);
+					}
+					if (site.ColdFusionInstalled && (IsColdFusion7Installed() || IsColdFusion8Installed() || IsColdFusion9Installed()))
+					{
+						var cfElement = handlersCollection.CreateElement("add");
 
-					cfElement["name"] = "coldfusion";
-					cfElement["modules"] = "IsapiModule";
-					cfElement["path"] = "*";
-					cfElement["scriptProcessor"] = base.ColdFusionPath;
-					cfElement["verb"] = "*";
-					cfElement["resourceType"] = "Unspecified";
-					cfElement["requireAccess"] = "None";
-					cfElement["preCondition"] = "bitness64";
-					handlersCollection.AddAt(0, cfElement);
+						cfElement["name"] = "coldfusion";
+						cfElement["modules"] = "IsapiModule";
+						cfElement["path"] = "*";
+						cfElement["scriptProcessor"] = base.ColdFusionPath;
+						cfElement["verb"] = "*";
+						cfElement["resourceType"] = "Unspecified";
+						cfElement["requireAccess"] = "None";
+						cfElement["preCondition"] = "bitness64";
+						handlersCollection.AddAt(0, cfElement);
+					}
+					srvman.CommitChanges();
 				}
-				srvman.CommitChanges();
+				#endregion
+
+				updateStage = "cleanup-legacy-dedicated-pools";
+				// remove dedicated pools if any
+				if (deleteDedicatedPools)
+					DeleteDedicatedPoolsAllocated(siteName);
+
+				updateStage = "finalize-folder-permissions";
+				// set WEB folder permissions
+				SetWebFolderPermissions(site.ContentPath, anonymousAccount, site.EnableWritePermissions, site.DedicatedApplicationPool);
+
+				// set DATA folder permissions
+				SetWebFolderPermissions(site.DataPath, anonymousAccount, true, site.DedicatedApplicationPool);
 			}
-			#endregion
-
-			// remove dedicated pools if any
-			if (deleteDedicatedPools)
-				DeleteDedicatedPoolsAllocated(site.Name);
-
-			// set WEB folder permissions
-			SetWebFolderPermissions(site.ContentPath, anonymousAccount, site.EnableWritePermissions, site.DedicatedApplicationPool);
-
-			// set DATA folder permissions
-			SetWebFolderPermissions(site.DataPath, anonymousAccount, true, site.DedicatedApplicationPool);
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+				throw new InvalidOperationException(String.Format("Website update failed at stage '{0}' for site '{1}'.", updateStage, siteName), ex);
+			}
 		}
 
 		/// <summary>

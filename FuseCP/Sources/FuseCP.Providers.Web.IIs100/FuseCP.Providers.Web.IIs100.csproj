@@ -79,6 +79,21 @@
         <Delete Files="@(FilesToDelete)" />
     </Target>
 
+    <!-- Keep the flat Providers copy in sync so FuseCP.Server always loads the current build. -->
+    <Target Name="CopyToProvidersFlat" AfterTargets="DeleteUnusedDlls">
+        <Copy SourceFiles="$(OutputPath)FuseCP.Providers.Web.IIs100.dll"
+              DestinationFolder="$(OutputPath)..\"
+              SkipUnchangedFiles="false"
+              OverwriteReadOnlyFiles="true" />
+        <Copy SourceFiles="$(OutputPath)FuseCP.Providers.Web.IIs100.pdb"
+              DestinationFolder="$(OutputPath)..\"
+              SkipUnchangedFiles="false"
+              OverwriteReadOnlyFiles="true"
+              Condition="Exists('$(OutputPath)FuseCP.Providers.Web.IIs100.pdb')" />
+    </Target>
 </Project>
+
+
+
 
 

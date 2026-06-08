@@ -3611,6 +3611,9 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 
 		protected string GetQualifiedAccountName(string accountName)
 		{
+			if (String.IsNullOrWhiteSpace(accountName))
+				return accountName;
+
 			if (!ServerSettings.ADEnabled)
 				return accountName;
 
@@ -3635,6 +3638,9 @@ foreach (HttpError errorA in virtDir.HttpErrors.Where(errorA =>
 
 		protected string GetNonQualifiedAccountName(string accountName)
 		{
+			if (String.IsNullOrWhiteSpace(accountName))
+				return accountName;
+
 			int idx = accountName.LastIndexOf("\\");
 			return (idx != -1) ? accountName.Substring(idx + 1) : accountName;
 		}
