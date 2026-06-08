@@ -20,6 +20,7 @@
                 <asp:ListItem Value="2I">2I</asp:ListItem>
                 <asp:ListItem Value="4">4</asp:ListItem>
                 <asp:ListItem Value="4I">4I</asp:ListItem>
+                <asp:ListItem Value="core">core</asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>

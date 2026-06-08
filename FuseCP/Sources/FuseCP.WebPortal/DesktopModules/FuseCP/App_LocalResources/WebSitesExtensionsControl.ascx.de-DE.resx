@@ -138,6 +138,9 @@
   <data name="ddlAspNetItem.4I" xml:space="preserve">
     <value>4.0 (Integrierte Pipeline)</value>
   </data>
+  <data name="ddlAspNetItem.core" xml:space="preserve">
+    <value>Kein verwalteter Code (.NET Core)</value>
+  </data>
   <data name="ddlAspNetItem.None" xml:space="preserve">
     <value>Nichts</value>
   </data>

@@ -132,6 +132,9 @@
   <data name="ddlAspNetItem.4" xml:space="preserve">
     <value>4.0</value>
   </data>
+  <data name="ddlAspNetItem.core" xml:space="preserve">
+    <value>بدون كود مُدار (.NET Core)</value>
+  </data>
   <data name="ddlAspNetItem.None" xml:space="preserve">
     <value>لا شيء</value>
   </data>
