@@ -16,6 +16,32 @@
 </asp:UpdatePanel>
 
 <script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/file-manager.js"></script>
+<script type="text/javascript">
+function closeFileManagerModal() {
+	if (window.Sys && Sys.Application && window.AjaxControlToolkit && AjaxControlToolkit.ModalPopupBehavior) {
+		var components = Sys.Application.getComponents();
+		for (var i = 0; i < components.length; i++) {
+			if (AjaxControlToolkit.ModalPopupBehavior.isInstanceOfType(components[i])) {
+				components[i].hide();
+			}
+		}
+	}
+
+	// Ensure popup panels are hidden even if modal behavior lookup fails.
+	var popups = document.querySelectorAll('.PopupContainer');
+	for (var p = 0; p < popups.length; p++) {
+		popups[p].style.display = 'none';
+	}
+
+	// Fallback in case behavior lookup fails or stale client script is served.
+	var overlays = document.querySelectorAll('.modalBackground');
+	for (var j = 0; j < overlays.length; j++) {
+		overlays[j].style.display = 'none';
+	}
+
+	return false;
+}
+</script>
 
 <div class="FormButtonsBar">
 		<asp:LinkButton ID="cmdUpload" runat="server" CssClass="btn btn-secondary" CausesValidation="false">
@@ -61,7 +87,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-upload"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblUploadFile" Text="Upload File" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -73,12 +99,12 @@
 				<asp:FileUpload ID="fileUpload4" runat="server" Width="400px" />
 				<asp:FileUpload ID="fileUpload5" runat="server" Width="400px" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelUpload" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnUpload" CssClass="btn btn-success" runat="server" ValidationGroup="UploadFile" OnClick="btnUpload_Click"> <i class="bi bi-upload me-1"></i><asp:Localize runat="server" meta:resourcekey="btnUploadText"/> </asp:LinkButton>
+			</div>
+		</div>
 	</div>
-  </div>
 </asp:Panel>
 
 <ajaxToolkit:ModalPopupExtender ID="UploadModal" runat="server"
@@ -90,7 +116,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-files"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblCopySelectedFiles" Text="Copy Selected Files" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -99,10 +125,10 @@
 				<asp:Label ID="lblDestinationFolder1" runat="server" meta:resourcekey="lblDestinationFolder" Text="Destination Folder:"></asp:Label>
 				<uc1:FileLookup ID="copyDestination" runat="server" Width="400px" DropShadow="False" ValidationGroup="CopyFiles" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelCopy" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnCopy" CssClass="btn btn-success" runat="server" OnClick="btnCopy_Click" ValidationGroup="CopyFiles"> <i class="bi bi-copy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCopyText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -116,7 +142,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-clipboard"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblMoveSelectedFiles" Text="Move Selected Files" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -125,12 +151,12 @@
 				<asp:Label ID="lblDestinationFolder2" runat="server" meta:resourcekey="lblDestinationFolder" Text="Destination Folder:"></asp:Label>
 				<uc1:FileLookup ID="moveDestination" runat="server" Width="400px" DropShadow="False" ValidationGroup="MoveFiles" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
 			<asp:LinkButton id="btnCancelMove" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnMove" CssClass="btn btn-success" runat="server" OnClick="btnMove_Click" ValidationGroup="MoveFiles"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnMoveText"/> </asp:LinkButton>
-		</div>
-     </div>
+			</div>
+     	</div>
+    </div>
 </asp:Panel>
 
 <ajaxToolkit:ModalPopupExtender ID="MoveFilesModal" runat="server"
@@ -143,7 +169,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-file-earmark-code"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblCreateFile" Text="Create Text File" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -156,10 +182,10 @@
 				<asp:Label ID="lblFileContentOptional" runat="server" meta:resourcekey="lblFileContentOptional" Text="File Content (Optional):"></asp:Label>
 				<asp:TextBox ID="txtFileContent" runat="server" Rows="10" TextMode="MultiLine" Wrap="False"></asp:TextBox>
 			</div>
-            </div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelCreateFile" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnCreateFile" CssClass="btn btn-success" runat="server" OnClick="btnCreateFile_Click" ValidationGroup="NewFileName"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -174,7 +200,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-folder"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblCreateFolder" Text="Create Folder" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -183,10 +209,10 @@
 				<asp:Label ID="lblFolderName" runat="server" meta:resourcekey="lblFolderName" Text="Folder Name:"></asp:Label>
 				<uc2:FileNameControl ID="txtFolderName" runat="server" ValidationGroup="NewFolderName" Width="400px" />
 			</div>
+			<div class="popup-buttons text-end" style="clear: both; display: block; margin-top: 12px;">
+            <asp:LinkButton id="btnCancelCreateFolder" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText" Text="Cancel"/> </asp:LinkButton>&nbsp;
+            <asp:LinkButton id="btnCreateFolder" CssClass="btn btn-success" runat="server" OnClick="btnCreateFolder_Click" ValidationGroup="NewFolderName"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText" Text="Create"/> </asp:LinkButton>
 			</div>
-					<div class="popup-buttons text-end">
-            <asp:LinkButton id="btnCancelCreateFolder" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
-            <asp:LinkButton id="btnCreateFolder" CssClass="btn btn-success" runat="server" OnClick="btnCreateFolder_Click" ValidationGroup="NewFolderName"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
 		</div>
 	</div>
 </asp:Panel>
@@ -200,7 +226,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-file-earmark-zip"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblZipFiles" Text="Zip Selected Files" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -209,10 +235,10 @@
 				<asp:Label ID="lblZIPArchiveName" runat="server" meta:resourcekey="lblZIPArchiveName" Text="ZIP Archive Name:"></asp:Label>
 				<uc2:FileNameControl ID="txtZipName" runat="server" ValidationGroup="ZipName" Width="400px" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelZip" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnZip" CssClass="btn btn-success" runat="server" OnClick="btnZip_Click" ValidationGroup="ZipName"> <i class="bi bi-file-earmark-zip me-1"></i><asp:Localize runat="server" meta:resourcekey="btnZipText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -226,7 +252,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-database"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblCreateAccessDatabase" Text="Create Access Database" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -235,10 +261,10 @@
 				<asp:Label ID="lblDatabaseName" runat="server" meta:resourcekey="lblDatabaseName" Text="Database Name:"></asp:Label>
 				<uc2:FileNameControl ID="txtDatabaseName" runat="server" ValidationGroup="DatabaseName" Width="400px" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelCreateDatabase" CssClass="btn btn-warning" runat="server" CausesValidation="False"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnCreateDatabase" CssClass="btn btn-success" runat="server" OnClick="btnCreateDatabase_Click" ValidationGroup="DatabaseName"> <i class="bi bi-database me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCreateText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -253,7 +279,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-trash"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblDeleteFiles" Text="Delete Selected Files" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -261,10 +287,10 @@
 			<div class="FormRow">
 				<asp:Label ID="lblDeleteConfirmation" runat="server" meta:resourcekey="lblDeleteConfirmation" Text="Do you really want to delete selected files and folders?"></asp:Label>
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnDeleteFiles" CssClass="btn btn-danger" runat="server" OnClick="btnDeleteFiles_Click" CausesValidation="false"> <i class="bi bi-trash me-1"></i><asp:Localize runat="server" meta:resourcekey="btnDeleteFilesText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnCancelDeleteFiles" CssClass="btn btn-warning" runat="server"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelDeleteFilesText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -376,7 +402,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-pencil"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblEditFile" Text="Edit File" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -389,10 +415,10 @@
 				<asp:Label ID="lblFileContent" runat="server" meta:resourcekey="lblFileContent" Text="File Content:"></asp:Label>
 				<asp:TextBox ID="txtEditFileContent" runat="server" Rows="10" TextMode="MultiLine" Wrap="False"></asp:TextBox>
 			</div>
-            </div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelEditFile" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelEditFile_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnSaveEditFile" CssClass="btn btn-success" runat="server" OnClick="btnSaveEditFile_Click" CausesValidation="false"> <i class="bi bi-floppy me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSaveEditFileText"/> </asp:LinkButton> 
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -407,7 +433,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-pencil"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblRenameFileFolder" Text="Rename File" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -416,10 +442,10 @@
 				<asp:Label ID="lblNewName" runat="server" meta:resourcekey="lblNewName" Text="New Name:"></asp:Label>
 				<uc2:FileNameControl ID="txtRenameFile" runat="server" ValidationGroup="RenameFile" Width="400px" />
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelRename" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelRename_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnRename" CssClass="btn btn-success" runat="server" OnClick="btnRename_Click" ValidationGroup="RenameFile"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnRenameText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>
@@ -434,7 +460,7 @@
         <div class="widget-content Popup">
         <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
             <h3 class="m-0 fs-6 text-secondary"><i class="bi bi-people"></i> <fcp:PopupHeader runat="server" meta:resourcekey="lblPermissions" Text="File/Folder Permissions" /></h3>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="$find(this).get_element().closest('.PopupContainer').style.display='none'; return false;">
+			<button type="button" class="btn btn-sm btn-outline-secondary" onclick="return closeFileManagerModal();">
                 <i class="bi bi-x-lg" aria-hidden="true"></i>
                 <span class="ms-1">Close</span>
             </button>
@@ -465,10 +491,10 @@
 			<div class="FormRow">
 				<asp:CheckBox ID="chkReplaceChildPermissions" Runat="server" Text="Replace permissions on all child objects" meta:resourcekey="chkReplaceChildPermissions"></asp:CheckBox>
 			</div>
-			</div>
-					<div class="popup-buttons text-end">
+			<div class="popup-buttons text-end">
             <asp:LinkButton id="btnCancelPermissions" CssClass="btn btn-warning" runat="server" CausesValidation="False" OnClick="btnCancelPermissions_Click"> <i class="bi bi-x-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnCancelPermissionsText"/> </asp:LinkButton>&nbsp;
             <asp:LinkButton id="btnSetPermissions" CssClass="btn btn-success" runat="server" OnClick="btnSetPermissions_Click"> <i class="bi bi-check-lg me-1"></i><asp:Localize runat="server" meta:resourcekey="btnSetPermissionsText"/> </asp:LinkButton>
+			</div>
 		</div>
 	</div>
 </asp:Panel>

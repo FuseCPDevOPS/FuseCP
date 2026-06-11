@@ -32,15 +32,49 @@ function pageLoad(sender, args) {
     }
 }
 
+function HideAllModalDialogs() {
+    if (!(window.Sys && Sys.Application && typeof Sys.Application.getComponents === "function")) {
+        return;
+    }
+    if (!(window.AjaxControlToolkit && AjaxControlToolkit.ModalPopupBehavior)) {
+        return;
+    }
+
+    var c = Sys.Application.getComponents();
+    for (var i = 0; i < c.length; i++) {
+        if (AjaxControlToolkit.ModalPopupBehavior.isInstanceOfType(c[i])) {
+            c[i].hide();
+        }
+    }
+}
+
+function CloseFileManagerPopup(button) {
+    HideAllModalDialogs();
+
+    var popupContainer = null;
+    if (button) {
+        if (typeof button.closest === "function") {
+            popupContainer = button.closest(".PopupContainer");
+        } else {
+            var node = button;
+            while (node && node.className && node.className.indexOf("PopupContainer") < 0) {
+                node = node.parentNode;
+            }
+            popupContainer = node;
+        }
+    }
+
+    if (popupContainer) {
+        popupContainer.style.display = "none";
+    }
+
+    return false;
+}
+
 function onKeyDown(e) {
     if (e && e.keyCode === Sys.UI.Key.esc) {
         // If the key pressed is escape, dismiss all modal dialogs.
-        var c = Sys.Application.getComponents();
-        for (var i = 0; i < c.length; i++) {
-            if (AjaxControlToolkit.ModalPopupBehavior.isInstanceOfType(c[i])) {
-                c[i].hide();
-            }
-        }
+        HideAllModalDialogs();
     }
 }
 
