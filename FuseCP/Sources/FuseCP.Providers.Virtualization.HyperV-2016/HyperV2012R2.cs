@@ -36,7 +36,6 @@ using FuseCP.Providers.Utils;
 using FuseCP.Server.Utils;
 
 using Vds = Microsoft.Storage.Vds;
-using System.Configuration;
 using System.Linq;
 using FuseCP.Providers.Virtualization.Extensions;
 using FuseCP.Providers.OS;
@@ -183,7 +182,9 @@ namespace FuseCP.Providers.Virtualization
         public HyperV2012R2()
         {
             _fileSystemHelper = new Lazy<FileSystemHelper>(() => new FileSystemHelper(Mi));
-            _vdsHelper = new Lazy<VdsHelper>(() => new VdsHelper(Mi, FileSystemHelper));
+            _vdsHelper = new Lazy<VdsHelper>(() => new VdsHelper(Mi, FileSystemHelper,
+                string.Equals(Environment.GetEnvironmentVariable(Constants.CONFIG_USE_DISKPART_TO_CLEAR_READONLY_FLAG),
+                    "true", StringComparison.OrdinalIgnoreCase)));
             _virtualMachineHelper = new Lazy<VirtualMachineHelper>(() => new VirtualMachineHelper(PowerShell, Mi));
             _dvdDriveHelper = new Lazy<DvdDriveHelper>(() => new DvdDriveHelper(PowerShell, Mi));
             _hardDriveHelper = new Lazy<HardDriveHelper>(() => new HardDriveHelper(PowerShell, Mi, FileSystemHelper));

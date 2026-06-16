@@ -21,7 +21,6 @@ using FuseCP.Providers.HostedSolution;
 using FuseCP.Providers.Virtualization.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
@@ -39,12 +38,14 @@ namespace FuseCP.Providers.Virtualization
         private readonly MiManager _miCim;
         private readonly FileSystemHelper _fileSystemHelper;
         private readonly string _serverName;
+        private readonly bool _useDiskPartToClearReadOnly;
 
-        public VdsHelper(MiManager mi, FileSystemHelper fileSystemHelper)
+        public VdsHelper(MiManager mi, FileSystemHelper fileSystemHelper, bool useDiskPartToClearReadOnly = false)
         {
             _serverName = mi.TargetComputer;
             _miCim = new MiManager(mi, Constants.WMI_CIMV2_NAMESPACE);
             _fileSystemHelper = fileSystemHelper;
+            _useDiskPartToClearReadOnly = useDiskPartToClearReadOnly;
         }
 
         public void ExpandDiskVolume(string diskAddress, string volumeName)
@@ -141,9 +142,7 @@ namespace FuseCP.Providers.Virtualization
             var lun = addressParts[3];
 
             // check if DiskPart must be used to bring disk online and clear read-only flag
-            bool useDiskPartToClearReadOnly = false;
-            if (ConfigurationManager.AppSettings[Constants.CONFIG_USE_DISKPART_TO_CLEAR_READONLY_FLAG] != null)
-                useDiskPartToClearReadOnly = Boolean.Parse(ConfigurationManager.AppSettings[Constants.CONFIG_USE_DISKPART_TO_CLEAR_READONLY_FLAG]);
+            bool useDiskPartToClearReadOnly = _useDiskPartToClearReadOnly;
 
             // determine disk index for DiskPart
             CimInstance objDisk = _miCim.GetCimInstanceWithSelect(

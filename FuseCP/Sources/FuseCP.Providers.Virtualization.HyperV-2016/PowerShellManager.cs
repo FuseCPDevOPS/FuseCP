@@ -58,7 +58,7 @@ namespace FuseCP.Providers.Virtualization
 
             if (session == null)
             {
-                session = InitialSessionState.Create();
+                session = InitialSessionState.CreateDefault2();
                 session.ImportPSModule(new[] {"Hyper-V"});
             }
 
