@@ -50,8 +50,8 @@
                             <asp:WizardStep ID="stepName" runat="server" meta:resourcekey="stepName" Title="Name and OS">
                                     <div class="row mb-3">
                                             <asp:Label ID="locHostname" meta:resourcekey="locHostname" runat="server" Text="Host name:" CssClass="col-sm-2 col-form-label"  AssociatedControlID="txtHostname"></asp:Label>
-                                                <div class="col-sm-10 d-flex flex-wrap gap-2 align-items-center">
-                                                <asp:TextBox ID="txtHostname" runat="server" CssClass="form-control"></asp:TextBox>
+                                                <div class="col-sm-10 d-flex flex-nowrap gap-2 align-items-center">
+                                                <asp:TextBox ID="txtHostname" runat="server" CssClass="form-control w-auto" Style="width: 320px;"></asp:TextBox>
                                                 
                                                 <asp:RequiredFieldValidator ID="HostnameValidator" runat="server" Text="*" Display="Dynamic"
                                                     ControlToValidate="txtHostname" meta:resourcekey="HostnameValidator" SetFocusOnError="true"
@@ -61,8 +61,8 @@
 			                                        ControlToValidate="txtHostname" Display="Dynamic" SetFocusOnError="true" ValidationGroup="Vps">
 			                                    </asp:RegularExpressionValidator>
                                                 
-                                               . 
-                                                <asp:TextBox ID="txtDomain" runat="server" CssClass="form-control"></asp:TextBox>
+                                               <span class="text-muted">.</span>
+                                                <asp:TextBox ID="txtDomain" runat="server" CssClass="form-control w-auto" Style="width: 320px;"></asp:TextBox>
                                                     
                                                 <asp:RequiredFieldValidator ID="DomainValidator" runat="server" Text="*" Display="Dynamic"
                                                     ControlToValidate="txtDomain" meta:resourcekey="DomainValidator" SetFocusOnError="true"
