@@ -188,6 +188,30 @@
 ---
 
 ### Commit: pending
+**Message**: fix: expand VPS menu when opening HyperV pages
+
+**Scope**: 2 files modified to ensure HyperV pages expand the VPS menu section instead of Hosting Space menu
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/SpaceMenu.ascx.cs` — suppressed VPS-related entries from Hosting Space menu when current page is `SpaceVPS2012` or `SpaceProxmox` so the wrong section is not auto-selected
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VpsMenu.ascx.cs` — set VPS root menu value and added explicit selected-item logic using `pid`/`ctl` so the VPS section expands correctly on HyperV pages
+
+#### Validation Summary
+- **Focused Build**: ✅ `dotnet build FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/FuseCP.Portal.Modules.sln -c Debug -m` succeeded
+- **Runtime Verification**: ✅ opening HyperV (`SpaceVPS2012`) now expands VPS Menu instead of Hosting Space Menu
+
+#### Risk Assessment
+- ✅ **Low Risk**: localized navigation/selection logic update in WebPortal menu controls
+- ✅ **Backward Compatible**: no API, schema, or contract changes
+
+#### Testing Guidance
+1. Open a space with HyperV enabled and navigate to the HyperV page.
+2. Confirm the left sidebar expands **VPS Menu** and does not expand **Hosting Space Menu**.
+3. Navigate between VPS subpages (`VPSHome`, `ExternalNetwork`, `PrivateNetwork`, `AuditLog`) and verify the correct VPS item remains selected.
+
+---
+
+### Commit: pending
 **Message**: fix: continue CodeQL web and analyzer cleanup pass
 
 **Scope**: 11 files modified with targeted follow-up remediations from the 71-alert baseline

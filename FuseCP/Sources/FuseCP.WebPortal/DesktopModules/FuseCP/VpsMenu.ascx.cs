@@ -36,6 +36,7 @@ namespace FuseCP.Portal
             if (vpsVisible)
             {
                 MenuItem rootItem = new MenuItem(locMenuTitle.Text);
+                rootItem.Value = "VPS Menu";
                 rootItem.Selectable = false;
                 menu.Items.Add(rootItem);
                 BindMenu(rootItem.ChildItems);
@@ -112,6 +113,22 @@ namespace FuseCP.Portal
             //    item.ImageUrl = PortalUtils.GetThemedIcon("Icons/tool_48.png");
             //else
             //    item.ImageUrl = PortalUtils.GetThemedIcon(img);
+
+            string pid = Request.QueryString[DefaultPage.PAGE_ID_PARAM];
+            if (!String.IsNullOrEmpty(pid)
+                && (pid.Equals(PID_SPACE_VPS, StringComparison.InvariantCultureIgnoreCase)
+                    || pid.Equals(PID_SPACE_PROXMOX, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                string ctl = Request.QueryString["ctl"] ?? String.Empty;
+                bool isHome = String.IsNullOrEmpty(key);
+
+                if ((isHome && String.IsNullOrEmpty(ctl))
+                    || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    item.Selected = true;
+                }
+            }
+
             return item;
         }
         public static List<T> GetAllControlsOfType<T>(Control parent) where T : Control

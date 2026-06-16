@@ -93,6 +93,20 @@ namespace FuseCP.Portal
                 if (!PortalUtils.PageExists(pageId))
                     continue;
 
+                string currentPid = Request.QueryString.Get("pid");
+                bool isCurrentVpsPage = !String.IsNullOrEmpty(currentPid)
+                    && (currentPid.Equals("SpaceVPS2012", StringComparison.InvariantCultureIgnoreCase)
+                        || currentPid.Equals("SpaceProxmox", StringComparison.InvariantCultureIgnoreCase));
+                bool isVpsEntry = !String.IsNullOrEmpty(pageId)
+                    && (pageId.Equals("SpaceVPS", StringComparison.InvariantCultureIgnoreCase)
+                        || pageId.Equals("SpaceVPS2012", StringComparison.InvariantCultureIgnoreCase)
+                        || pageId.Equals("SpaceProxmox", StringComparison.InvariantCultureIgnoreCase)
+                        || pageId.Equals("SpaceVPSForPC", StringComparison.InvariantCultureIgnoreCase));
+
+                // Avoid duplicate HyperV/VPS selection under Hosting Space when VPS menu is active.
+                if (isCurrentVpsPage && isVpsEntry)
+                    continue;
+
                 string url = null;
                 if (node.Attributes["url"] != null)
                     url = node.Attributes["url"].Value;
@@ -160,11 +174,13 @@ namespace FuseCP.Portal
                 //item.Text += displayValue;
                 //Response.Write("DisplayValue :[" + displayValue + "] ");
 
-                //for Selected == added kuldeep 
-                string pid = Request.QueryString.Get("pid");
-                if (pid != null && item.NavigateUrl.IndexOf(pid) >= 0)
+                // Keep VPS pages owned by the VPS menu so the correct section expands.
+                string pid = currentPid;
+                bool isVpsPage = isCurrentVpsPage;
+
+                if (!isVpsPage && pid != null && item.NavigateUrl.IndexOf(pid, StringComparison.InvariantCultureIgnoreCase) >= 0)
                 {
-                        item.Selected = true;
+                    item.Selected = true;
                 }
 
                 if (display && !(disabled && item.ChildItems.Count == 0))
