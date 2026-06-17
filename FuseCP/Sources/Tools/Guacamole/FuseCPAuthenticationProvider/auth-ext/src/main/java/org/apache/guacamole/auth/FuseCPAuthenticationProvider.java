@@ -36,6 +36,13 @@ import org.apache.guacamole.environment.Environment;
 import org.apache.guacamole.environment.LocalEnvironment;
 import org.apache.guacamole.properties.StringGuacamoleProperty;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.bouncycastle.crypto.engines.RijndaelEngine;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
@@ -202,27 +209,122 @@ public class FuseCPAuthenticationProvider extends SimpleAuthenticationProvider {
 		}catch (Exception e) {}
 	}
 
+	private static final String MODERN_PREFIX = "v2:";
+	private static final int GCM_NONCE_LEN = 12;
+	private static final int GCM_TAG_LEN = 16;
+
 	private String decrypt(String key, String encrypted)
 	{
 		String[] split = key.split(":");
 		if (split.length != 2) return "";
-		return decryptWithAesCBC(split[0], split[1], encrypted);
+		String keyPart = split[0];
+		String ivPart  = split[1];
+
+		if (encrypted.startsWith(MODERN_PREFIX)) {
+			String result = decryptAesGcm(keyPart, ivPart, encrypted.substring(MODERN_PREFIX.length()));
+			if (result != null && !result.isEmpty()) return result;
+		}
+
+		// Fallback: try standard AES-256-CBC (16-byte IV)
+		String cbcResult = decryptAesCbc(keyPart, ivPart, encrypted);
+		if (cbcResult != null && !cbcResult.isEmpty()) return cbcResult;
+
+		// Legacy fallback: Rijndael-256 via BouncyCastle (32-byte IV)
+		return decryptRijndaelCBC(keyPart, ivPart, encrypted);
 	}
 
-	private String decryptWithAesCBC(String key, String iv, String encrypted)
+	/**
+	 * AES-256-GCM decrypt. Payload layout: [12-byte nonce][16-byte tag][ciphertext].
+	 * The IV from the key config is used as AAD (additional authenticated data).
+	 */
+	private String decryptAesGcm(String keyB64, String ivB64, String payloadB64)
 	{
 		try {
-			encrypted = new String(Base64.decode(encrypted));
-			byte[] bEncrypted = Base64.decode(encrypted);
-			byte[] bKey = Base64.decode(key);
-			byte[] bIv = Base64.decode(iv);
-			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(new RijndaelEngine(256)), new PKCS7Padding());
+			byte[] payloadBin = urlSafeBase64Decode(payloadB64);
+			if (payloadBin == null || payloadBin.length < GCM_NONCE_LEN + GCM_TAG_LEN) return "";
+
+			byte[] nonce      = new byte[GCM_NONCE_LEN];
+			byte[] tagAndCipher = new byte[payloadBin.length - GCM_NONCE_LEN];
+			System.arraycopy(payloadBin, 0, nonce, 0, nonce.length);
+			System.arraycopy(payloadBin, nonce.length, tagAndCipher, 0, tagAndCipher.length);
+
+			byte[] keyBytes = Base64.decode(keyB64);
+			byte[] aad      = Base64.decode(ivB64);
+
+			SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
+			GCMParameterSpec gcmSpec = new GCMParameterSpec(GCM_TAG_LEN * 8, nonce);
+
+			Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+			cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmSpec);
+			cipher.updateAAD(aad);
+
+			byte[] plain = cipher.doFinal(tagAndCipher);
+			return new String(plain, StandardCharsets.UTF_8);
+		} catch (Exception e) {
+			log("error", "decryptAesGcm exception: " + e.toString());
+			return "";
+		}
+	}
+
+	/**
+	 * AES-256-CBC decrypt using JCA (requires 16-byte IV).
+	 */
+	private String decryptAesCbc(String keyB64, String ivB64, String encryptedB64)
+	{
+		try {
+			byte[] keyBytes  = Base64.decode(keyB64);
+			byte[] ivBytes   = Base64.decode(ivB64);
+			if (ivBytes.length != 16) return ""; // Not a standard AES IV
+
+			byte[] encBytes  = urlSafeBase64Decode(encryptedB64);
+			if (encBytes == null) return "";
+
+			SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			cipher.init(Cipher.DECRYPT_MODE, keySpec, new IvParameterSpec(ivBytes));
+
+			byte[] plain = cipher.doFinal(encBytes);
+			return new String(plain, StandardCharsets.UTF_8);
+		} catch (Exception e) {
+			log("error", "decryptAesCbc exception: " + e.toString());
+			return "";
+		}
+	}
+
+	/**
+	 * Legacy Rijndael-256 via BouncyCastle (32-byte IV, old FuseCP payloads).
+	 */
+	private String decryptRijndaelCBC(String keyB64, String ivB64, String encryptedB64)
+	{
+		try {
+			String innerDecoded = new String(Base64.decode(encryptedB64));
+			byte[] bEncrypted = Base64.decode(innerDecoded);
+			byte[] bKey = Base64.decode(keyB64);
+			byte[] bIv  = Base64.decode(ivB64);
+
+			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
+				new CBCBlockCipher(new RijndaelEngine(256)), new PKCS7Padding());
 			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(bKey), bIv);
 			aes.init(false, ivAndKey);
-			return new String(cipherData(aes, bEncrypted));
+
+			return new String(cipherData(aes, bEncrypted), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			log("error", "decryptWithAesCBC exception: " + e.toString());
+			log("error", "decryptRijndaelCBC exception: " + e.toString());
 			return "";
+		}
+	}
+
+	/** Decodes both URL-safe and standard Base64. */
+	private byte[] urlSafeBase64Decode(String input)
+	{
+		if (input == null) return null;
+		String normalized = input.replace('-', '+').replace('_', '/');
+		int mod4 = normalized.length() % 4;
+		if (mod4 > 0) normalized += "====".substring(mod4);
+		try {
+			return java.util.Base64.getDecoder().decode(normalized);
+		} catch (Exception e) {
+			try { return Base64.decode(normalized); } catch (Exception ex) { return null; }
 		}
 	}
 

@@ -129,7 +129,7 @@
   Guacamole Client      https://guacamole.apache.org/releases/1.4.0/
   Tomcat Manual         https://tomcat.apache.org/tomcat-9.0-doc/index.html
   Bouncy Castle         https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.70
-  JSON in Java          https://mvnrepository.com/artifact/org.json/json/20211205
+  JSON in Java          https://mvnrepository.com/artifact/org.json/json/20240303
   SLF4J Logger          https://mvnrepository.com/artifact/org.slf4j/slf4j-api
   Nginx Manual          https://docs.nginx.com/nginx/admin-guide
 
@@ -187,6 +187,11 @@
 
 4) INSTALL GUACAMOLE AND TOMCAT SERVER (Guacamole VM)
 	- SSH into Guacamole VM
+	- Verify the server is running Java 11 or later. The FuseCP authentication extension requires Java 11+.
+		# java -version
+		- If Java 11 is not installed:
+		# sudo apt install openjdk-11-jdk -y
+		# sudo update-alternatives --config java
 		# sudo apt update
 		# sudo apt install gcc make -y
 		# sudo apt install libcairo2-dev libjpeg-turbo8-dev libpng-dev libtool-bin uuid-dev freerdp2-dev libssl-dev libvorbis-dev libwebp-dev -y
@@ -217,9 +222,9 @@
 6) CONFIGURE GUACAMOLE (Guacamole VM)
 	- Download project files. If you experience issues, you can also download the files manually and SFTP them onto the server
 	- Each command should be pasted into SSH as one line
-		# sudo wget -O /etc/guacamole/extensions/guacamole-auth-fusecp-1.4.0.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/guacamole-auth-fusecp-1.4.0.jar
+		# sudo wget -O /etc/guacamole/extensions/guacamole-auth-fusecp-1.5.0.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/guacamole-auth-fusecp-1.5.0.jar
 		# sudo wget -O /etc/guacamole/lib/bcprov-jdk15on-1.70.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/lib/bcprov-jdk15on-1.70.jar
-		# sudo wget -O /etc/guacamole/lib/json-20211205.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/lib/json-20211205.jar
+		# sudo wget -O /etc/guacamole/lib/json-20240303.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/lib/json-20240303.jar
 		# sudo wget -O /etc/guacamole/lib/slf4j-api-2.0.5.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/lib/slf4j-api-2.0.5.jar
 		# sudo wget -O /etc/guacamole/lib/slf4j-simple-2.0.5.jar https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/auth-ext/target/lib/slf4j-simple-2.0.5.jar
 		# sudo wget -O /etc/guacamole/guacamole.properties https://raw.githubusercontent.com/FuseCP/FuseCP/master/FuseCP/Sources/Tools/Guacamole/FuseCPAuthenticationProvider/config/guacamole.properties

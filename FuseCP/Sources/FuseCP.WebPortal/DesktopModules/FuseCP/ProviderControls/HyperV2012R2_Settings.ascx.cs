@@ -60,7 +60,8 @@ namespace FuseCP.Portal.ProviderControls
 
             // Guacamole
             txtGuacamoleConnectScript.Text = settings["GuacamoleConnectScript"];
-            ViewState["GUAC_PWD"] = settings["GuacamoleConnectPassword"];
+            string normalizedGuacamolePassword = EnsureModernGuacamoleKey(settings["GuacamoleConnectPassword"]);
+            ViewState["GUAC_PWD"] = normalizedGuacamolePassword;
             txtGuacamoleConnectPassword.Text = String.Empty;
             txtGuacamoleHyperVDomain.Text = settings["GuacamoleHyperVDomain"];
             txtGuacamoleHyperVIP.Text = settings["GuacamoleHyperVIP"];
@@ -209,6 +210,7 @@ namespace FuseCP.Portal.ProviderControls
             string guacamolePassword = txtGuacamoleConnectPassword.Text.Trim();
             if (String.IsNullOrEmpty(guacamolePassword))
                 guacamolePassword = (string)ViewState["GUAC_PWD"];
+            guacamolePassword = EnsureModernGuacamoleKey(guacamolePassword);
             settings["GuacamoleConnectPassword"] = guacamolePassword;
             settings["GuacamoleHyperVIP"] = txtGuacamoleHyperVIP.Text.Trim();
             settings["GuacamoleHyperVDomain"] = txtGuacamoleHyperVDomain.Text.Trim();
@@ -514,6 +516,30 @@ namespace FuseCP.Portal.ProviderControls
         protected void btnConnect_Click(object sender, EventArgs e)
         {
             BindNetworksList();
+        }
+
+        private static string EnsureModernGuacamoleKey(string configuredValue)
+        {
+            if (!String.IsNullOrWhiteSpace(configuredValue))
+            {
+                string[] parts = configuredValue.Split(':');
+                if (parts.Length == 2)
+                {
+                    try
+                    {
+                        byte[] key = Convert.FromBase64String(parts[0]);
+                        byte[] iv = Convert.FromBase64String(parts[1]);
+                        if (key.Length == 32 && iv.Length == 16)
+                            return configuredValue;
+                    }
+                    catch (FormatException)
+                    {
+                        // Fall through and rotate to a modern key.
+                    }
+                }
+            }
+
+            return VPS2012.guacamole.Encryption.GenerateEncryptionKey();
         }
 
         protected void btnguacamolepassword_Click(object sender, EventArgs e)

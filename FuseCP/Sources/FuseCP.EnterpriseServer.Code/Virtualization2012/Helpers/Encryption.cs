@@ -25,69 +25,80 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
 {
     class Encryption
     {
+        private const string ModernPayloadPrefix = "v2:";
+        private const int ModernNonceSize = 12;
+        private const int ModernTagSize = 16;
 
         public static string Encrypt(string prm_text_to_encrypt, string prm_key, string prm_iv)
         {
-            var sToEncrypt = prm_text_to_encrypt;
-
-            using var rj = Aes.Create();
-            rj.Padding = PaddingMode.PKCS7;
-            rj.Mode = CipherMode.CBC;
-            rj.KeySize = 256;
-
             var key = Convert.FromBase64String(prm_key);
-            var IV = Convert.FromBase64String(prm_iv);
-            //var key = Encoding.ASCII.GetBytes(prm_key);
-            //var key = Encoding.ASCII.GetBytes(prm_key);
-            //var IV = Encoding.ASCII.GetBytes(prm_iv);
+            if (key.Length != 32)
+                throw new CryptographicException("Guacamole key must be 32 bytes (Base64-encoded).");
 
-            var encryptor = rj.CreateEncryptor(key, IV);
+            var iv = Convert.FromBase64String(prm_iv);
+            var plain = Encoding.UTF8.GetBytes(prm_text_to_encrypt);
+            var nonce = new byte[ModernNonceSize];
+            RandomNumberGenerator.Fill(nonce);
 
-            using var msEncrypt = new MemoryStream();
-            using var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
+            var cipher = new byte[plain.Length];
+            var tag = new byte[ModernTagSize];
 
-            var toEncrypt = Encoding.ASCII.GetBytes(sToEncrypt);
+            using var aesGcm = new AesGcm(key);
+            aesGcm.Encrypt(nonce, plain, cipher, tag, iv);
 
-            csEncrypt.Write(toEncrypt, 0, toEncrypt.Length);
-            csEncrypt.FlushFinalBlock();
+            var payload = new byte[nonce.Length + tag.Length + cipher.Length];
+            Buffer.BlockCopy(nonce, 0, payload, 0, nonce.Length);
+            Buffer.BlockCopy(tag, 0, payload, nonce.Length, tag.Length);
+            Buffer.BlockCopy(cipher, 0, payload, nonce.Length + tag.Length, cipher.Length);
 
-            var encrypted = msEncrypt.ToArray();
-
-            return (Convert.ToBase64String(encrypted));
+            return ModernPayloadPrefix + Convert.ToBase64String(payload);
         }
 
         public static string Decrypt(string prm_text_to_decrypt, string prm_key, string prm_iv)
         {
+            var key = Convert.FromBase64String(prm_key);
+            if (key.Length != 32)
+                throw new CryptographicException("Guacamole key must be 32 bytes (Base64-encoded).");
 
-            var sEncryptedString = prm_text_to_decrypt;
+            var iv = Convert.FromBase64String(prm_iv);
 
+            if (!String.IsNullOrEmpty(prm_text_to_decrypt)
+                && prm_text_to_decrypt.StartsWith(ModernPayloadPrefix, StringComparison.Ordinal))
+            {
+                var modernPayload = Convert.FromBase64String(prm_text_to_decrypt.Substring(ModernPayloadPrefix.Length));
+                if (modernPayload.Length < ModernNonceSize + ModernTagSize)
+                    throw new CryptographicException("Invalid Guacamole encrypted payload.");
+
+                var nonce = new byte[ModernNonceSize];
+                var tag = new byte[ModernTagSize];
+                var cipherLen = modernPayload.Length - ModernNonceSize - ModernTagSize;
+                var cipher = new byte[cipherLen];
+                var plain = new byte[cipherLen];
+
+                Buffer.BlockCopy(modernPayload, 0, nonce, 0, nonce.Length);
+                Buffer.BlockCopy(modernPayload, nonce.Length, tag, 0, tag.Length);
+                Buffer.BlockCopy(modernPayload, nonce.Length + tag.Length, cipher, 0, cipher.Length);
+
+                using var aesGcm = new AesGcm(key);
+                aesGcm.Decrypt(nonce, cipher, tag, plain, iv);
+                return Encoding.UTF8.GetString(plain);
+            }
+
+            // Backward-compatible AES-CBC path.
             using var rj = Aes.Create();
             rj.Padding = PaddingMode.PKCS7;
             rj.Mode = CipherMode.CBC;
             rj.KeySize = 256;
 
-            var key = Convert.FromBase64String(prm_key);
-            var IV = Convert.FromBase64String(prm_iv);
+            var decryptor = rj.CreateDecryptor(key, iv);
 
-            var decryptor = rj.CreateDecryptor(key, IV);
-
-            var sEncrypted = Convert.FromBase64String(sEncryptedString);
-
-            var fromEncrypt = new byte[sEncrypted.Length];
-
+            var sEncrypted = Convert.FromBase64String(prm_text_to_decrypt);
             using var msDecrypt = new MemoryStream(sEncrypted);
             using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
+            using var plainBuffer = new MemoryStream();
+            csDecrypt.CopyTo(plainBuffer);
 
-            int i = 0;
-            var nread = csDecrypt.Read(fromEncrypt, 0, fromEncrypt.Length);
-            // Fix: In Net Core, Read does not read the whole stream, we need to check for nread == 0
-            while (nread != 0)
-            {
-                i += nread;
-				nread = csDecrypt.Read(fromEncrypt, i, fromEncrypt.Length);
-			}
-
-            return (Encoding.ASCII.GetString(fromEncrypt));
+            return Encoding.UTF8.GetString(plainBuffer.ToArray());
         }
 
         public static void GenerateIV(out string IV)
