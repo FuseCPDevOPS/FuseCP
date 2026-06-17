@@ -1,0 +1,1 @@
+Fixing various HyperV bugs and enabling stronger encryption on guacamole console
