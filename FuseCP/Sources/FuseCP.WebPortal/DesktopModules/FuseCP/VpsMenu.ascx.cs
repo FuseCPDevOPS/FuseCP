@@ -122,7 +122,9 @@ namespace FuseCP.Portal
             string ctl = Request.QueryString["ctl"] ?? String.Empty;
             bool isHome = String.IsNullOrEmpty(key);
 
-            if ((isHome && (String.IsNullOrEmpty(ctl) || ctl.Equals("vps_general", StringComparison.InvariantCultureIgnoreCase)))
+            // VPSHome should be selected for any VPS server tab (vps_general, vps_config, vps_dvd, etc.)
+            // or when no specific ctl is provided (empty ctl = default home)
+            if ((isHome && (String.IsNullOrEmpty(ctl) || ctl.StartsWith("vps_", StringComparison.InvariantCultureIgnoreCase)))
                 || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
             {
                 item.Selected = true;
