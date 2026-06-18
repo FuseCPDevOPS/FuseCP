@@ -1607,14 +1607,22 @@ namespace FuseCP.Providers.Virtualization
                 using (cimVm)
                 using (CimInstance cimInstKvpExchange = Mi.GetAssociatedCimInstance(cimVm, "Msvm_KvpExchangeComponent", "Msvm_SystemDevice"))
                 {
-                    // return XML pairs
-                    xmlPairs = (string[])cimInstKvpExchange.CimInstanceProperties[exchangeItemsName].Value;
+                    if (cimInstKvpExchange != null)
+                    {
+                        // return XML pairs
+                        xmlPairs = (string[])cimInstKvpExchange.CimInstanceProperties[exchangeItemsName].Value;
+                    }
                 }                
             }
             catch (CimException)
             {
                 //there is no point in spamming the error, if this method does not work, we have a spare method "GetHddUsagesFromKVPHyperV"
                 //HostedSolutionLog.LogError("GetKVPItems", new Exception("msvm_KvpExchangeComponent"));
+                return pairs;
+            }
+            catch (NullReferenceException)
+            {
+                // VM is likely turned off or KVP component is not available
                 return pairs;
             }
 
