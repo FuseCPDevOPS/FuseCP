@@ -1,29 +1,46 @@
 # Build artifacts
-bin/
-obj/
-out/
-publish/
-artifacts/
+**/bin/
+**/bin/
+**/obj/
+**/Release/
+**/Debug/
+**/.vs/
+**/.vscode/
+**/.idea/
+**/out/
+**/publish/
+**/artifacts/
 
 # Frontend build artifacts
-dist/
 build/
-.cache/
 .next/
 .vite/
 .vscode-test/
 
-# Dependency folders
-node_modules/
-packages/
+# --- Dependencies & Packages ---
+**/packages/
+**/node_modules/
+**/bower_components/
+**/vendor/
 *.nupkg
 
-# Logs and temp files
-*.log
-*.tmp
-*.temp
-*.cache
-*.DS_Store
+# --- Logs, Databases, and Local State ---
+**.log
+**.sqlite
+**.db
+**.ldf
+**.mdf
+**.suo
+**.user
+**.userosscache
+**.sln.docstates
+
+# --- Temporary / Cache Folders ---
+**/.cache/
+**/.npm/
+**/.yarn/
+**/dist/
+**/out/
 
 # Large config or metadata files
 *.lock
@@ -42,10 +59,10 @@ packages/
 *.userosscache
 *.sln.docstates
 
-# Version control
-.git/
-.gitignore
-.gitattributes
+# --- Version Control ---
+**/.git/
+**/.gitignore
+**/.gitattributes
 
 # Documentation and non-code
 *.md
@@ -73,3 +90,17 @@ public/
 
 # Test snapshots
 __snapshots__/
+
+# --- Assets & Static Files (Unless actively refactoring them) ---
+**.png
+**.jpg
+**.jpeg
+**.gif
+**.svg
+**.ico
+**.woff
+**.woff2
+**.eot
+**.ttf
+**.mp4
+**.mp3
