@@ -119,14 +119,14 @@ namespace FuseCP.Portal
                 && (pid.Equals(PID_SPACE_VPS, StringComparison.InvariantCultureIgnoreCase)
                     || pid.Equals(PID_SPACE_PROXMOX, StringComparison.InvariantCultureIgnoreCase)))
             {
-                string ctl = Request.QueryString["ctl"] ?? String.Empty;
-                bool isHome = String.IsNullOrEmpty(key);
+            string ctl = Request.QueryString["ctl"] ?? String.Empty;
+            bool isHome = String.IsNullOrEmpty(key);
 
-                if ((isHome && String.IsNullOrEmpty(ctl))
-                    || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
-                {
-                    item.Selected = true;
-                }
+            if ((isHome && (String.IsNullOrEmpty(ctl) || ctl.Equals("vps_general", StringComparison.InvariantCultureIgnoreCase)))
+                || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                item.Selected = true;
+            }
             }
 
             return item;
