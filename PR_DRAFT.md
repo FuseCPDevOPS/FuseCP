@@ -1013,6 +1013,81 @@ Reverted WebServices.cs to its last known good state (HEAD~9) where compilation 
 
 ---
 
+### Commit: 090c728ef
+**Message**: fix: VPS menu stays selected for all server sub-tabs
+
+**Scope**: 1 file modified with a targeted menu selection logic fix in the VPS menu control
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/VpsMenu.ascx.cs` — updated the `CreateMenuItem` selection condition so the VPSHome item stays selected for all VPS server sub-tabs (configuration, DVD, snapshots, network, etc.)
+
+#### Root Cause
+When navigating to any VPS server detail tab (e.g., `vps_config`, `vps_dvd`, `vps_snapshots`, `vps_network`, `vps_replication`, `vps_audit_log`, `vps_permissions`, `vps_tools`, `vps_help`, `vps_events_log`, `vps_alerts_log`, `vps_monitoring`, `vps_checkpoints`), the `CreateMenuItem` method's selection logic only matched exact `ctl` values against menu item keys. Since the VPSHome item has an empty `key=""` and these sub-tab `ctl` values are all non-empty, no menu item was ever marked as `Selected`. This caused the VPS menu to lose its "Virtual Personal Servers" selection when viewing any server detail tab.
+
+#### Fix Applied
+Changed the `isHome` condition from:
+```csharp
+if ((isHome && String.IsNullOrEmpty(ctl))
+    || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
+```
+To:
+```csharp
+if ((isHome && (String.IsNullOrEmpty(ctl) || ctl.StartsWith("vps_", StringComparison.InvariantCultureIgnoreCase)))
+    || (!isHome && ctl.Equals(key, StringComparison.InvariantCultureIgnoreCase)))
+```
+
+This uses `ctl.StartsWith("vps_")` to match **any** VPS server sub-tab as belonging to the VPSHome section. The `vdc_*` menu items (ExternalNetwork, PrivateNetwork, DmzNetwork, AuditLog) continue to match exactly via their specific keys in the `!isHome` branch.
+
+#### Validation Summary
+- **Focused Build**: ✅ `dotnet build` succeeded (file-locking issues from IIS worker process are unrelated to the code change)
+- **Editor Diagnostics**: ✅ clean in the modified file
+- **Code Review**: ✅ All VPS server sub-tabs use `vps_` prefix consistently across all VPS submodules (VPS2012, VPSForPC, Proxmox, VPS); menu sub-items use `vdc_` prefix — no overlap
+
+#### Risk Assessment
+- ✅ **Low Risk**: single-condition logic fix in menu selection; no API, schema, or contract changes
+- ✅ **Backward Compatible**: all existing menu item selection behavior preserved; the VPSHome item now matches all `vps_*` sub-tabs
+- ✅ **No Prefix Collision**: `vps_*` (server tabs) and `vdc_*` (menu sub-items) are distinct prefixes with no overlap
+
+#### Testing Guidance
+1. Open a VPS space and click on a VPS server — verify the left sidebar menu shows "Virtual Personal Servers" as selected on the General tab.
+2. Navigate through all VPS server sub-tabs (Configuration, DVD, Snapshots, Network, Replication, Audit Log, Permissions, Tools, Help, Events Log, Alerts Log, Monitoring, Checkpoints) and verify the VPSHome menu item remains selected.
+3. Navigate to VPS sub-menu items (ExternalNetwork, PrivateNetwork, DmzNetwork, AuditLog) and verify each correctly shows as selected.
+4. Test with both `SpaceVPS2012` and `SpaceProxmox` page IDs to confirm the fix works for both HyperV and Proxmox VPS types.
+
+---
+
+### Commit: 3a24c88e6
+**Message**: fix: NullReferenceException in GetKVPItems when VM is turned off
+
+**Scope**: 1 file modified with null-safety guards in the Hyper-V 2012R2 provider
+
+#### Files Modified
+- `FuseCP/Sources/FuseCP.Providers.Virtualization.HyperV-2016/HyperV2012R2.cs` — added null check for `cimInstKvpExchange` before accessing `CimInstanceProperties` and added `NullReferenceException` catch block
+
+#### Root Cause
+When a VM is turned off, the `Msvm_KvpExchangeComponent` is not available via WMI/CIM. The `GetAssociatedCimInstance` call returns `null`, and the subsequent access to `cimInstKvpExchange.CimInstanceProperties[exchangeItemsName].Value` throws a `NullReferenceException`. The existing `catch (CimException)` block did not catch `NullReferenceException`, causing the exception to propagate up through `SetUsagesFromKVP` → `GetVirtualMachine` → the web service layer.
+
+#### Fix Applied
+1. Added null check: `if (cimInstKvpExchange != null)` before accessing `CimInstanceProperties`
+2. Added `catch (NullReferenceException)` block that returns empty pairs (same behavior as the existing `CimException` catch)
+
+#### Validation Summary
+- **Build**: ✅ `dotnet build` succeeded
+- **Editor Diagnostics**: ✅ clean in the modified file
+- **Code Review**: ✅ The `GetHddUsagesFromKVPHyperV` fallback method already handles the case where KVP data is unavailable
+
+#### Risk Assessment
+- ✅ **Low Risk**: defensive null check and exception handler; no behavior change for running VMs
+- ✅ **Backward Compatible**: all existing functionality preserved; only adds graceful handling for powered-off VMs
+- ✅ **Consistent Pattern**: follows the same pattern as the existing `CimException` catch — return empty pairs and let the caller fall back to alternative methods
+
+#### Testing Guidance
+1. Navigate to a VPS that is turned off — verify no error is thrown and the page loads correctly
+2. Navigate to a VPS that is running — verify RAM usage and HDD usage data still display correctly
+3. Test with both Hyper-V 2012R2 and Hyper-V 2025 environments
+
+---
+
 ### Commit: pending
 **Message**: fix: restore portal search and submenu behavior
 
