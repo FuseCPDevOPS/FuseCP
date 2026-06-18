@@ -1,0 +1,75 @@
+# Build artifacts
+bin/
+obj/
+out/
+publish/
+artifacts/
+
+# Frontend build artifacts
+dist/
+build/
+.cache/
+.next/
+.vite/
+.vscode-test/
+
+# Dependency folders
+node_modules/
+packages/
+*.nupkg
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.cache
+*.DS_Store
+
+# Large config or metadata files
+*.lock
+*.map
+*.pdb
+*.dll
+*.exe
+*.so
+*.dylib
+
+# IDE-specific junk
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Documentation and non-code
+*.md
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+
+# JSON/YAML configs that explode token count
+*.json
+*.yaml
+*.yml
+
+# EF migrations (HUGE token hog)
+Migrations/
+migrations/
+
+# Static assets
+wwwroot/
+assets/
+static/
+public/
+
+# Test snapshots
+__snapshots__/
