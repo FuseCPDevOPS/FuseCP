@@ -1,6 +1,4 @@
-
-			
-	function makearray(n) {
+function makearray(n) {
 	this.length = n;
 	for (var i = 1; i <= n; i++) this[i] = 0;
 	return this;}
@@ -60,24 +58,18 @@ asciitable[83]="y"; asciitable[84]="z";
 function nchar(num) {
 	if ((num>=0) && (num<=84)) return asciitable[num];
 }
-	
+
     
 	function getRandomChars(_charsRange, _length, _target) {
-		var _arr = [];
 		var l1 = _charsRange[0];
 		var rest = _charsRange[1] - _charsRange[0] + 1;
-		// 
-		while (_arr.length < _length) {
-			var charCode = Math.floor(Math.random() * rest);
-			// 
-			var symbol = nchar(charCode + l1);
-			// adds symbol only if it's unique
-			if (_arr.toString().indexOf(symbol) == -1)
-				_arr[_arr.length] = symbol;
-		}
 		//
-		for (var i = 0; i < _length; i++)
-			_target[_target.length] = _arr[i];
+		for (var i = 0; i < _length; i++) {
+			var charCode = Math.floor(Math.random() * rest);
+			//
+			var symbol = nchar(charCode + l1);
+			_target[_target.length] = symbol;
+		}
 	}
 	
 	function mixCharArray(_arr) {
@@ -85,7 +77,7 @@ function nchar(num) {
 		//
 		while (_arr.length > 0){
 			// get random element
-			var index = Math.floor(Math.random() * (_arr.length - 1));
+			var index = Math.floor(Math.random() * _arr.length);
 			// add element
 			_str += _arr[index];
 			// remove element from array
@@ -142,5 +134,4 @@ function nchar(num) {
 		
 		document.getElementById(txt1).value = pass;
 		document.getElementById(txt2).value = pass;
-	}	
-	
+	}
