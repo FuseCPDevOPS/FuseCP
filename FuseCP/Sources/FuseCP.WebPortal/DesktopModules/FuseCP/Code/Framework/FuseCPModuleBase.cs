@@ -16,6 +16,7 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -30,20 +31,67 @@ namespace FuseCP.Portal
         private IMessageBoxControl messageBox;
         private readonly object _msgLock = new object();
 
-        public FuseCPModuleBase()
+                public FuseCPModuleBase()
         {
         }
 
-        protected override void OnInit(EventArgs e)
+        /// <summary>
+        /// Temporarily unlocks the Controls collection for modification during locked
+        /// lifecycle phases (Init, Load, PreRender, etc.). The WebFormsForCore framework
+        /// marks the collection read-only during these phases. This uses the same technique
+        /// the framework itself uses internally (e.g., WebPartManager, Wizard).
+        /// </summary>
+        private static IDisposable UnlockControlCollection(ControlCollection collection)
         {
-            // add message box control
-            messageBox = (IMessageBoxControl)this.LoadControl(
-                PanelGlobals.FuseCPRootPath + "UserControls/MessageBox.ascx");
-            this.Controls.AddAt(0, (Control)messageBox);
-            ((Control)messageBox).Visible = false;
+            if (collection == null || !collection.IsReadOnly)
+                return null;
 
-            // call base handler
-            base.OnInit(e);
+            var method = typeof(ControlCollection).GetMethod("SetCollectionReadOnly",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            if (method == null)
+                return null;
+
+            string oldMsg = (string)method.Invoke(collection, new object[] { null });
+            return new CollectionLockRestorer(collection, method, oldMsg);
+        }
+
+        private sealed class CollectionLockRestorer : IDisposable
+        {
+            private readonly ControlCollection _collection;
+            private readonly MethodInfo _method;
+            private readonly string _originalMsg;
+            private bool _disposed;
+
+            public CollectionLockRestorer(ControlCollection collection, MethodInfo method, string originalMsg)
+            {
+                _collection = collection;
+                _method = method;
+                _originalMsg = originalMsg;
+            }
+
+            public void Dispose()
+            {
+                if (!_disposed)
+                {
+                    _disposed = true;
+                    _method.Invoke(_collection, new object[] { _originalMsg });
+                }
+            }
+        }
+
+        protected override void CreateChildControls()
+        {
+            // The WebFormsForCore framework locks Controls during Init/Load/PreRender/etc.
+            // Temporarily unlock to add the MessageBox control, then restore the lock.
+            using (UnlockControlCollection(this.Controls))
+            {
+                messageBox = (IMessageBoxControl)this.LoadControl(
+                    PanelGlobals.FuseCPRootPath + "UserControls/MessageBox.ascx");
+                this.Controls.AddAt(0, (Control)messageBox);
+                ((Control)messageBox).Visible = false;
+            }
+
+            base.CreateChildControls();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -131,10 +179,11 @@ namespace FuseCP.Portal
         }
 
         public void ShowResultMessage(string moduleName, int resultCode, bool showcf, params object[] formatArgs)
-        {
-            lock (_msgLock)
-            {
-                MessageBoxType messageType = MessageBoxType.Warning;
+                {
+                    EnsureChildControls();
+                    lock (_msgLock)
+                    {
+                        MessageBoxType messageType = MessageBoxType.Warning;
 
                 // try to get warning
                 string sCode = Convert.ToString(resultCode * -1);
