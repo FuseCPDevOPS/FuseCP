@@ -1,0 +1,287 @@
+﻿# =============================================================================
+# Continue.dev Configuration for FuseCP
+# Optimized for minimal token usage with on-demand rule loading
+# =============================================================================
+# Rule loading strategy:
+#   - alwaysApply: true  -> loaded in EVERY conversation (~200 tokens)
+#   - alwaysApply: false + globs -> loaded ONLY when matching files are in context
+#   - alwaysApply: false (no globs) -> manual rules via @rules or /rules
+# =============================================================================
+
+name: FuseCP
+version: 1.0.0
+schema: v1
+
+# ---------------------------------------------------------------------------
+# MCP Servers (Smart Routing via ICT Shift Hub)
+# ---------------------------------------------------------------------------
+mcpServers:
+  - name: ICT Shift Hub
+    type: streamable-http
+    url: https://ai-mcp.ictshift.net/mcp/$smart/MTiggelaar
+    apiKey: mcphub_1feaa114a5a21cfdadfd7345f6e33a9de76ce8f8b9d11f90c52a2ffd7381ac2b
+
+# ---------------------------------------------------------------------------
+# ALWAYS-ON RULES - Minimal core (~200 tokens, always in context)
+# ---------------------------------------------------------------------------
+rules:
+  - name: fusecp-core
+    alwaysApply: true
+    rule: |
+      # FuseCP Core Rules
+      - Keep changes minimal and task-focused. Preserve existing behavior.
+      - Match existing architecture and coding style in the touched project.
+      - Prefer root-cause fixes over cosmetic patches.
+      - Validate null handling, error paths, and permission checks.
+      - Keep backward compatibility in shared contracts unless explicitly approved.
+      - Never expose secrets, credentials, tokens, or private tenant data.
+      - Copyright header: Copyright (C) 2026 FuseCP
+      - FuseCP migrates from SolidCP to ASP.NET Core. Solutions/projects split across FuseCP/Sources.
+      - Prefer orchestrated builds (build.xml, build-debug.bat) over ad-hoc .sln builds.
+      - Fast validation: pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges -DisableNuGetAudit
+      - Start of day: pwsh -File FuseCP/Tools/Start-Of-Day.ps1
+      - Solution sync: pwsh -File FuseCP/Tools/check-sln-scope-sync.ps1
+
+  # === ON-DEMAND: Database / EF / Migrations ===
+  - name: database-workflow
+    alwaysApply: false
+    globs:
+      - "FuseCP/Sources/FuseCP.EnterpriseServer.Data/**"
+      - "FuseCP/Database/**"
+      - "**/Entities/*.cs"
+      - "**/Configuration/*.cs"
+      - "**/Migrations/**"
+      - "**/DbContext*.cs"
+      - "**/install.*.sql"
+      - "**/update_db.sql"
+    rule: |
+      # Database / EF Workflow
+      ## Schema Changes Order
+      1. Edit Entity classes in FuseCP.EnterpriseServer.Data/Entities/
+      2. Update Fluent API in Configuration/ if needed
+      3. Add ApplyConfiguration(model, new MyEntityConfiguration()); in DbContextBase.OnModelCreating()
+      4. Add DbSet property in DbContext.Sets.cs
+      5. Run MigrationAdd.bat for all 4 providers (SqlServer/MySql/PostgreSql/Sqlite)
+
+      ## SQLite FK Constraint Rule
+      PRAGMA foreign_keys = OFF is a no-op inside transactions. When deleting from parent tables
+      (e.g. Providers), emit migrationBuilder.Sql(...) to delete child rows from non-cascading FK
+      tables FIRST. Non-cascading FK tables to Providers: ServiceDefaultProperties, Services.
+
+      ## Provider Removal Dependency Rule
+      Never delete from Providers first. Handle ServiceDefaultProperties -> Services -> then Providers.
+      Remap Services rows to replacement provider (preferred) or explicitly remove.
+
+      ## Known Local Issues
+      - MySQL: Bat hardcodes password but local has none. Re-run with Uid=root; (no Pwd).
+      - SQL Server: "Stream was not readable" is pre-existing; CI regenerates correctly.
+      - PostgreSQL: Host=localhost;Port=5433;User ID=postgres;Password=Password12
+
+      ## Rules
+      - Never hand-edit EF model snapshots or migration files.
+      - install.*.sql are generated artifacts, not source of truth.
+      - SQLite upgrades run through EF migrations only.
+      - Verification automated via FuseCP/Tools/Orchestrate-Database-Workflow.ps1
+      - Show both EF impact AND SQL impact in responses.
+
+  # === ON-DEMAND: UI / LESS / CSS / Bootstrap ===
+  - name: ui-styling
+    alwaysApply: false
+    globs:
+      - "FuseCP/Sources/FuseCP.WebPortal/App_Themes/**"
+      - "**/*.less"
+      - "**/*.css"
+      - "**/DesktopModules/FuseCP/**"
+      - "FuseCP/Sources/FuseCP.WebPortal/**/*.ascx"
+      - "FuseCP/Sources/FuseCP.WebPortal/**/*.aspx"
+    rule: |
+      # UI / Styling Workflow
+      ## LESS Source Files (edit these)
+      - main.less - main theme rules
+      - Menus.less - navigation/menu
+      - defaultVariables.less - shared LESS variables
+      - defaultTheme.less - root entry point
+      ## Compiled Output (NEVER edit directly): main.css
+      ## Recompile: cd .../App_Themes/Default/Styles && npm run build:css
+      ## Bootstrap 3 -> 5.3: Replace panel, well, input-group-addon, btn-default, pull-*,
+      img-responsive, hidden-*, visible-*. Replace Glyphicons with Bootstrap Icons.
+
+  # === ON-DEMAND: Build / Validation ===
+  - name: build-validation
+    alwaysApply: false
+    globs:
+      - "**/*.sln"
+      - "**/*.csproj"
+      - "**/*.vbproj"
+      - "**/*.vcxproj"
+      - "**/*.shproj"
+      - "FuseCP/build.xml"
+      - "FuseCP/build*.bat"
+      - "FuseCP/deploy*.bat"
+      - "FuseCP/Tools/*.ps1"
+      - ".github/workflows/**"
+      - "Directory.Build.props"
+      - "Directory.Build.targets"
+    rule: |
+      # Build / Validation Workflow
+      ## Scopes (smallest first): Portal, Enterprise, Server, Shared
+      - Portal already builds FuseCP.WebPortalAndEnterpriseServer.sln
+      ## Solution Sync: Keep FuseCP.sln synced with WebPortal/EnterpriseServer/Server .sln files
+      ## Key Options: -ChangedOnly, -SkipIfNoChanges, -DisableNuGetAudit, -JsonOutputPath, -NoRestore
+      ## Build Issues: If w3wp locks bin_dotnet use Unlock-WebPortal-Build.ps1
+      ## Warning policy: prefer explicit fixes, never weaken dependencies to silence warnings
+      ## Dependency/CVE: validate across net48, net10.0, netstandard2.0 and all scopes
+
+  # === ON-DEMAND: Cleanup / Removal ===
+  - name: cleanup-checklist
+    alwaysApply: false
+    globs:
+      - "**/CHANGELOG*"
+    rule: |
+      # Complete Cleanup Checklist (removing features/providers/components)
+      DO NOT perform partial removals. Must satisfy ALL:
+      1. Solution Files: Remove from ALL .sln + ProjectConfigurationPlatforms
+      2. Source Code: Delete source files and project directories
+      3. Database: Remove EF seed, entities, configs, migrations (regenerate install scripts)
+      4. Dependencies: Remove NuGet/assembly refs, unused usings
+      5. Localization: Search Languages/Resources.xml for component strings
+      6. Config/Docs: Update web.config, README, CHANGELOG, upgrade scenarios
+      7. Build: Remove from build.xml, build/deploy scripts
+      8. Tests: Delete test fixtures and examples
+      9. Artifacts: Regenerate scope reports
+      10. Provider Verification: Targeted build, verify contract stability
+
+  # === ON-DEMAND: Exchange Providers ===
+  - name: exchange-providers
+    alwaysApply: false
+    globs:
+      - "FuseCP/Sources/FuseCP.Providers.HostedSolution.Exchange*/**"
+      - "**/HostedSolution/Exchange*/**"
+    rule: |
+      # Exchange Provider Patterns
+      - Provider Parity: Exchange 2013/2016/2019 share identical structure. Apply changes to ALL THREE.
+      - PSObject Type Variance: NEVER direct cast on GetPSObjectProperty() results.
+        Use: ObjToBoolean, ConvertByteSizePropertyToKB/MB, ConvertUnlimitedIntPropertyToInt32
+      - No-Language Runspace: Guard ConfirmPreference and Get-MailboxSearch with try-catch + fallback.
+      - Property Access: Prefer PSObject.Properties["name"] over PSObject.Members["name"].
+
+  # === ON-DEMAND: PR Hygiene ===
+  - name: pr-hygiene
+    alwaysApply: false
+    globs:
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - "PR_DRAFT.md"
+    rule: |
+      # PR Hygiene
+      - Include: summary, risk notes, exact validation commands, what was NOT validated
+      - AI disclosure: tools used, parts generated/transformed, manual validation done
+      - DB schema PRs: EF view + SQL view + provider retirement safety
+      - Sanitize GitHub Actions artifact names
+      - Use Create-Upstream-PR.ps1 for upstream PRs
+      - Escalate: installer packaging, security defaults, multi-sln deps, major upgrades
+
+  # === ON-DEMAND: Security ===
+  - name: security-rules
+    alwaysApply: false
+    globs:
+      - "**/Web.config"
+      - "**/web.config"
+      - "**/appsettings*.json"
+      - "**/app.config"
+      - "**/Security/**/*.cs"
+      - "**/Authentication/**/*.cs"
+    rule: |
+      # Security Rules
+      - Never commit secrets, credentials, connection strings, tokens, or tenant data.
+      - Web.config: commit only structural/runtime-safe changes (ANCM wiring, handlers, non-secret defaults).
+      - Keep secrets local-only; use sanitized commit-safe variants for git.
+      - Runtime auth config: write to appsettings.hardened.json as narrow overlay.
+      - Flag security-sensitive changes for maintainer review.
+
+  # === ON-DEMAND: Legacy Context ===
+  - name: legacy-context
+    alwaysApply: false
+    globs:
+      - "**/LegacyScripts/**"
+      - "SolidCP/**"
+      - "**/update_db.sql"
+      - "**/Migrate_msSQL.sql"
+    rule: |
+      # Legacy Context
+      - FuseCP migrated from SolidCP. Check origin/SolidCPv1 branch for legacy behavior.
+      - update_db.sql: legacy bridge for pre-v2.0.0 upgrades only.
+      - LegacyScripts/master.update_db.sql: archival baseline, do not modify.
+      - Migrate_msSQL.sql: legacy SQL Server module cleanup during upgrade scenarios.
+
+# ---------------------------------------------------------------------------
+# Custom Slash Commands - Common FuseCP workflows
+# ---------------------------------------------------------------------------
+customCommands:
+  - name: validate
+    description: Run fast local validation on changed files
+    prompt: |
+      Run the FuseCP local validation for the current changes:
+      pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges -DisableNuGetAudit
+      Report what was validated and what could not be validated locally.
+
+  - name: sln-sync
+    description: Check solution file synchronization
+    prompt: |
+      Check if solution files are in sync:
+      pwsh -File FuseCP/Tools/check-sln-scope-sync.ps1
+      Report any synchronization issues found.
+
+  - name: db-check
+    description: Run database workflow verification
+    prompt: |
+      Run the automated database workflow verification:
+      pwsh -File FuseCP/Tools/Orchestrate-Database-Workflow.ps1 -Mode Quick
+      Report the EF and SQL impact, any migration issues, and known local generation exceptions.
+
+  - name: cleanup-audit
+    description: Audit completeness of a feature/provider removal
+    prompt: |
+      Review the current changes for completeness of removal. Check ALL of these:
+      1. All .sln files - project declarations and ProjectConfigurationPlatforms removed
+      2. Source files and project directories deleted
+      3. EF seed data, entities, configs, migrations cleaned up
+      4. NuGet/assembly references removed
+      5. Languages/Resources.xml strings cleaned
+      6. Config files (web.config, app.config) updated
+      7. build.xml and build/deploy scripts updated
+      8. Test fixtures and examples removed
+      9. Generated reports noted as stale
+      10. Provider contracts verified if applicable
+      List any gaps found.
+
+  - name: pr-prep
+    description: Prepare PR description with validation summary
+    prompt: |
+      Help me prepare a PR description. Include:
+      1. Concise summary of changes
+      2. Risk assessment
+      3. What was validated (exact commands)
+      4. What was NOT validated locally
+      5. AI disclosure (tools used, parts generated/transformed, manual validation)
+      6. For DB changes: EF view + SQL view + provider retirement safety
+      7. Solution sync status
+
+  - name: start-of-day
+    description: Run start-of-day routine
+    prompt: |
+      Run the FuseCP start-of-day routine:
+      pwsh -File FuseCP/Tools/Start-Of-Day.ps1
+      Report the status and any issues found.
+
+# ---------------------------------------------------------------------------
+# Docs context - Key documentation available via @docs
+# ---------------------------------------------------------------------------
+docs:
+  - title: DATABASE_WORKFLOW_COMPLETE
+    url: file:///./DATABASE_WORKFLOW_COMPLETE.md
+  - title: AI_FUSECP_PLAYBOOK
+    url: file:///./.github/AI_FUSECP_PLAYBOOK.md
+  - title: CONTRIBUTING
+    url: file:///./CONTRIBUTING.md
+  - title: TESTING_ENVIRONMENT
+    url: file:///./TESTING_ENVIRONMENT.md

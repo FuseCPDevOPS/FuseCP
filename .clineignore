@@ -1,3 +1,13 @@
+# Allow AI rules and directives
+!.clinerules/
+
+# Disable github documentation
+.github/*.md
+
+# Allow key project config files
+!global.json
+!Directory.Build.props
+!Directory.Build.targets
 # Build artifacts
 **/bin/
 **/bin/
@@ -9,7 +19,7 @@
 **/.idea/
 **/out/
 **/publish/
-**/artifacts/
+## **/artifacts/
 
 # Frontend build artifacts
 build/
@@ -65,8 +75,8 @@ build/
 **/.gitattributes
 
 # Documentation and non-code
-*.md
-*.pdf
+# *.md
+# *.pdf
 *.png
 *.jpg
 *.jpeg
