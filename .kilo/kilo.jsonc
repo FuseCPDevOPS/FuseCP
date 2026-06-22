@@ -1,0 +1,38 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    ".github/copilot-instructions.md"
+  ],
+  "permission": {
+    "bash": "allow",
+    "edit": {
+      "FuseCP/Sources/**/*.cs": "allow",
+      "FuseCP/Sources/**/*.less": "allow",
+      "FuseCP/Sources/**/*.ascx": "allow",
+      "FuseCP/Sources/**/*.aspx": "allow",
+      "FuseCP/Sources/**/*.csproj": "allow",
+      "FuseCP/Sources/**/*.sln": "allow",
+      "FuseCP/Tools/**/*.ps1": "allow",
+      "**/*.md": "allow",
+      "**/main.css": "deny",
+      "**/install.*.sql": "deny",
+      "**/Web.config": "ask",
+      "**/web.config": "ask",
+      "**/appsettings.json": "ask",
+      "**/*ModelSnapshot*.cs": "deny",
+      "**/Migrations/**/*.cs": "ask"
+    },
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "webfetch": "allow",
+    "external_directory": "deny"
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true
+  }
+}
