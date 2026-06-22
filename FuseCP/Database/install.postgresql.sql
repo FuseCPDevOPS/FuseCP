@@ -9616,48 +9616,6 @@ END $EF$;
 DO $EF$
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "GlobalDnsRecords" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "PackageServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "ServiceItems" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "ServiceProperties" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "StorageSpaces" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
-    UPDATE "VirtualServices" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
-    END IF;
-END $EF$;
-
-DO $EF$
-BEGIN
-    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260507120307_ConsolidateMsDnsProvidersToMsDnsPs') THEN
     UPDATE "Services" SET "ProviderID" = 1902 WHERE "ProviderID" = 410;
     END IF;
 END $EF$;

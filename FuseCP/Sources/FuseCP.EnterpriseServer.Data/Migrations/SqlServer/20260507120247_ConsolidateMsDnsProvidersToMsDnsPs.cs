@@ -57,12 +57,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.SqlServer
                 keyColumns: new[] { "PropertyName", "ProviderID" },
                 keyValues: new object[] { "retrydelay", 410 });
 
-            migrationBuilder.Sql("UPDATE [GlobalDnsRecords] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
-            migrationBuilder.Sql("UPDATE [PackageServices] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
-            migrationBuilder.Sql("UPDATE [ServiceItems] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
-            migrationBuilder.Sql("UPDATE [ServiceProperties] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
-            migrationBuilder.Sql("UPDATE [StorageSpaces] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
-            migrationBuilder.Sql("UPDATE [VirtualServices] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
             migrationBuilder.Sql("UPDATE [Services] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
             migrationBuilder.Sql("UPDATE [ServiceDefaultProperties] SET [ProviderID] = 1902 WHERE [ProviderID] = 410;");
 
