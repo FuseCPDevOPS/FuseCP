@@ -1,0 +1,104 @@
+# Kilo ignore file — standard .gitignore syntax
+# Derived from .clineignore, adapted for FuseCP's Kilo workflow.
+# NOTE: JSON/YAML patterns are intentionally omitted so .csproj,
+#       appsettings.json, kilo.jsonc, and other critical configs remain readable.
+
+# --- Build artifacts ---
+**/bin/
+**/obj/
+**/Release/
+**/Debug/
+**/.vs/
+**/.vscode/
+**/.idea/
+**/out/
+**/publish/
+**/artifacts/
+build/
+.next/
+.vite/
+.vscode-test/
+
+# --- Dependencies & packages ---
+**/packages/
+**/node_modules/
+**/bower_components/
+**/vendor/
+*.nupkg
+
+# --- Logs, databases, and local state ---
+*.log
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.ldf
+*.mdf
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# --- Temporary / cache folders ---
+**/.cache/
+**/.npm/
+**/.yarn/
+**/dist/
+**/out/
+
+# --- Compiled / binary artifacts ---
+*.lock
+*.map
+*.pdb
+*.dll
+*.exe
+*.so
+*.dylib
+
+# --- Version control metadata ---
+**/.git/
+**/.gitignore
+**/.gitattributes
+
+# --- Image and media assets ---
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+*.ico
+*.woff
+*.woff2
+*.eot
+*.ttf
+*.mp4
+*.mp3
+
+# --- Compiled CSS output (rebuild from LESS source) ---
+**/main.css
+
+# --- EF migration install scripts (generated artifacts) ---
+**/install.*.sql
+
+# --- EF migrations (large generated text blocks) ---
+Migrations/
+migrations/
+
+# --- Static asset directories ---
+wwwroot/
+assets/
+static/
+public/
+
+# --- Test snapshots ---
+__snapshots__/
+
+# --- FuseCP project-specific generated / local state ---
+**/bin_dotnet/
+**/TestResults/
+appsettings.hardened.json
+.fake
+
+# Keep Kilo configuration directory accessible
+!.kilo/
