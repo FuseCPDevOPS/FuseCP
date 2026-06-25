@@ -3283,6 +3283,10 @@ namespace FuseCP.EnterpriseServer
             if (account == null)
                 return null;
 
+            // GetExchangeAccount does not return PackageId; populate it from the organization
+            if (account.PackageId == 0)
+                account.PackageId = org.PackageId;
+
             if (SecurityContext.CheckPackage(account.PackageId, DemandPackage.IsActive) < 0)
                 return null;
 
@@ -3317,77 +3321,77 @@ namespace FuseCP.EnterpriseServer
             Database.DeleteExchangeAccount(itemId, accountId);
         }
 
-        public OrganizationUser GetUserGeneralSettings(int itemId, int accountId)
-        {
-            if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
-                return null;
+         public OrganizationUser GetUserGeneralSettings(int itemId, int accountId)
+         {
+             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0)
+                 return null;
 
-            #region Demo Mode
-            if (IsDemoMode)
-            {
-                return GetDemoUserGeneralSettings();
-            }
-            #endregion
+             #region Demo Mode
+             if (IsDemoMode)
+             {
+                 return GetDemoUserGeneralSettings();
+             }
+             #endregion
 
-            // place log record
-            //TaskManager.StartTask("ORGANIZATION", "GET_USER_GENERAL", itemId);
+             // place log record
+             //TaskManager.StartTask("ORGANIZATION", "GET_USER_GENERAL", itemId);
 
-            OrganizationUser account = null;
-            Organization org = null;
+             OrganizationUser account = null;
+             Organization org = null;
 
-            try
-            {
-                // load organization
-                org = GetOrganization(itemId, false);
-                if (org == null)
-                    return null;
+             try
+             {
+                 // load organization
+                 org = GetOrganization(itemId, false);
+                 if (org == null)
+                     return null;
 
-                // load account
-                account = GetAccount(itemId, accountId, false);
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                _ = ex;
-            }
+                 // load account
+                 account = GetAccount(itemId, accountId, false);
+             }
+             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+             {
+                 _ = ex;
+             }
 
 			if (org == null || account == null)
 				return account;
 
-            try
-            {
+             try
+             {
 
-                // get mailbox settings
-                Organizations orgProxy = GetOrganizationProxy(org.ServiceId);
-                string accountName = GetAccountName(account.AccountName);
+                 // get mailbox settings
+                 Organizations orgProxy = GetOrganizationProxy(org.ServiceId);
+                 string accountName = GetAccountName(account.AccountName);
 
 
-                OrganizationUser retUser = orgProxy.GetUserGeneralSettings(accountName, org.OrganizationId);
-                retUser.AccountId = accountId;
-                retUser.AccountName = account.AccountName;
-                retUser.PrimaryEmailAddress = account.PrimaryEmailAddress;
-                retUser.AccountType = account.AccountType;
-                retUser.CrmUserId = Guid.Empty;
-                retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
-                retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
-                retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);
-                retUser.IsBlackBerryUser = BlackBerryController.CheckBlackBerryUserExists(accountId);
-                retUser.SubscriberNumber = account.SubscriberNumber;
-                retUser.LevelId = account.LevelId;
-                retUser.IsVIP = account.IsVIP;
+                 OrganizationUser retUser = orgProxy.GetUserGeneralSettings(accountName, org.OrganizationId);
+                 retUser.AccountId = accountId;
+                 retUser.AccountName = account.AccountName;
+                 retUser.PrimaryEmailAddress = account.PrimaryEmailAddress;
+                 retUser.AccountType = account.AccountType;
+                 retUser.CrmUserId = Guid.Empty;
+                 retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
+                 retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
+                 retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);
+                 retUser.IsBlackBerryUser = BlackBerryController.CheckBlackBerryUserExists(accountId);
+                 retUser.SubscriberNumber = account.SubscriberNumber;
+                 retUser.LevelId = account.LevelId;
+                 retUser.IsVIP = account.IsVIP;
 
-                return retUser;
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-            _ = ex;
-            }
-            finally
-            {
-                //TaskManager.CompleteTask();
-            }
+                 return retUser;
+             }
+             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+             {
+             _ = ex;
+             }
+             finally
+             {
+                 //TaskManager.CompleteTask();
+             }
 
-            return (account);
-        }
+             return (account);
+         }
 
         public OrganizationUser GetUserGeneralSettingsWithExtraData(int itemId, int accountId)
         {

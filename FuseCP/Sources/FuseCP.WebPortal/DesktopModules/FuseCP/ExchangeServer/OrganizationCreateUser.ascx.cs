@@ -32,7 +32,9 @@ namespace FuseCP.Portal.HostedSolution
                 BindPasswordSettings();
 
                 string instructions = ES.Services.Organizations.GetOrganizationUserSummuryLetter(PanelRequest.ItemID, PanelRequest.AccountID, false, false, false);
-                if (!string.IsNullOrEmpty(instructions))
+                bool hasInstructions = !string.IsNullOrEmpty(instructions);
+                ViewState["HasInstructions"] = hasInstructions;
+                if (hasInstructions)
                 {
                     chkSendInstructions.Checked = chkSendInstructions.Visible = sendInstructionEmail.Visible = true;
                     PackageInfo package = ES.Services.Packages.GetPackage(PanelSecurity.PackageId);
@@ -46,16 +48,25 @@ namespace FuseCP.Portal.HostedSolution
                 else
                 {
                     chkSendInstructions.Checked = chkSendInstructions.Visible = sendInstructionEmail.Visible = false;
+                    sendInstructionEmail.RequiredEnabled = false;
+                }
+            }
+            else
+            {
+                // Maintain visibility state across postbacks
+                bool hasInstructions = ViewState["HasInstructions"] is bool b && b;
+                chkSendInstructions.Visible = sendInstructionEmail.Visible = hasInstructions;
+                if (!hasInstructions)
+                {
+                    sendInstructionEmail.RequiredEnabled = false;
                 }
             }
 
-
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
-{
-                    locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
-}
-
+            if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ckv.QuotaAllocatedValue != 1)
+            {
+                locSubscriberNumber.Visible = txtSubscriberNumber.Visible = valRequireSubscriberNumber.Enabled = false;
+            }
         }
 
         private void BindPasswordSettings()
@@ -89,6 +100,13 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
                 if (sendToControl.IsRequestSend)
                 {
                     passwordString = GenerateSecurePassword(16);
+                }
+
+                // Validate domain is selected
+                if (string.IsNullOrEmpty(email.DomainName))
+                {
+                    messageBox.ShowWarningMessage("No domain selected. Please ensure the organization has at least one domain configured.");
+                    return;
                 }
 
                 int accountId = ES.Services.Organizations.CreateUser(PanelRequest.ItemID, txtDisplayName.Text.Trim(),
@@ -126,7 +144,7 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
                     "ItemID=" + PanelRequest.ItemID,
                     "Context=User"));
             }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException) && !(ex is System.Threading.ThreadAbortException))
             {
                 messageBox.ShowErrorMessage("ORGANIZATION_CREATE_USER", ex);
             }
@@ -135,6 +153,9 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
         private void SetUserAttributes(int accountId)
         {
             OrganizationUser user = ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID, accountId);
+
+            if (user == null)
+                return;
 
             ES.Services.Organizations.SetUserGeneralSettings(
                     PanelRequest.ItemID, accountId,

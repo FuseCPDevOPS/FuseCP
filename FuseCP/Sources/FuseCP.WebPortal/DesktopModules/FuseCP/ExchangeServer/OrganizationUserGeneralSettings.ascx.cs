@@ -76,6 +76,12 @@ namespace FuseCP.Portal.HostedSolution
                 OrganizationUser user = ES.Services.Organizations.GetUserGeneralSettings(PanelRequest.ItemID,
                     PanelRequest.AccountID);
 
+                if (user == null)
+                {
+                    messageBox.ShowWarningMessage("User settings could not be loaded. The user may not be fully initialized.");
+                    return;
+                }
+
                 litDisplayName.Text = PortalAntiXSS.Encode(user.DisplayName);
 
                 lblUserDomainName.Text = user.DomainUserName;

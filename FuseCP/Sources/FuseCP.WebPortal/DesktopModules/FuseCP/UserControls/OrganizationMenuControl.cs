@@ -113,7 +113,7 @@ namespace FuseCP.Portal.UserControls
                     {
                         if (Request.QueryString.Get("Context") != null)
                         {
-                            string local_Context = Request.QueryString.Get("local_Context").ToString();
+                            string local_Context = Request.QueryString.Get("Context").ToString();
                             ctl = local_Context.Equals("JournalingMailbox", StringComparison.CurrentCultureIgnoreCase) ? "journaling_mailboxes" : "mailboxes";
 
 
@@ -129,7 +129,7 @@ namespace FuseCP.Portal.UserControls
                     {
                         if (Request.QueryString.Get("Context") != null)
                         {
-                            string local_Context = Request.QueryString.Get("local_Context").ToString();
+                            string local_Context = Request.QueryString.Get("Context").ToString();
                             if (local_Context.Equals("Mailbox", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 ctl = "mailboxes";

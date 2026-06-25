@@ -72,16 +72,21 @@ namespace FuseCP.Portal.UserControls
             MobileDiv.Visible = !rbtnEmail.Checked;
         }
 
-        protected void chkSendPasswordResetEmail_StateChanged(object sender, EventArgs e)
-        {
-            SendToBody.Visible = chkSendPasswordResetEmail.Checked;
+		protected void chkSendPasswordResetEmail_StateChanged(object sender, EventArgs e)
+		{
+			SendToBody.Visible = chkSendPasswordResetEmail.Checked;
 
-            var control = !string.IsNullOrEmpty(ControlToHide) ? Parent.FindControl(ControlToHide) : null;
-            if (control != null)
-            {
-                    control.Visible = !chkSendPasswordResetEmail.Checked;
-            }
-        }
+			valEmailAddress.Enabled = chkSendPasswordResetEmail.Checked;
+			regexEmailValid.Enabled = chkSendPasswordResetEmail.Checked;
+			valMobile.Enabled = chkSendPasswordResetEmail.Checked;
+			regexMobileValid.Enabled = chkSendPasswordResetEmail.Checked;
+
+			var control = !string.IsNullOrEmpty(ControlToHide) ? Parent.FindControl(ControlToHide) : null;
+			if (control != null)
+			{
+					control.Visible = !chkSendPasswordResetEmail.Checked;
+			}
+		}
 
         // Fix AutoPostBack issue due to Bootstrap Javascript
         protected void RadioButton_FixAutoPostBack_OnPreRender(object sender, EventArgs e)

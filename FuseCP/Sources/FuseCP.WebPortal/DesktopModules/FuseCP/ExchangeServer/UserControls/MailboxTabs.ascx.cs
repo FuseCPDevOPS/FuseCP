@@ -46,7 +46,10 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
-            Providers.HostedSolution.ExchangeMailboxPlan plan = ES.Services.ExchangeServer.GetExchangeMailboxPlan(PanelRequest.ItemID, ES.Services.ExchangeServer.GetAccount(PanelRequest.ItemID, PanelRequest.AccountID).MailboxPlanId);
+            var account = ES.Services.ExchangeServer.GetAccount(PanelRequest.ItemID, PanelRequest.AccountID);
+            Providers.HostedSolution.ExchangeMailboxPlan plan = account != null
+                ? ES.Services.ExchangeServer.GetExchangeMailboxPlan(PanelRequest.ItemID, account.MailboxPlanId)
+                : null;
 
             if (user != null && (user.Role == UserRole.User) && (Utils.CheckQouta(Quotas.EXCHANGE2007_ISCONSUMER, cntx)))
             {

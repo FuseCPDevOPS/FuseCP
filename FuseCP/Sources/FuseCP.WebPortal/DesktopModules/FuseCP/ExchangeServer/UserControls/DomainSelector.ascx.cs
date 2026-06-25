@@ -23,7 +23,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
     {
         public string DomainName
         {
-            get { return ddlDomain.SelectedItem.Text; }
+            get { return ddlDomain.SelectedItem?.Text ?? string.Empty; }
             set
             {
                 foreach (ListItem li in ddlDomain.Items)
@@ -66,12 +66,12 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                BindDomains();
-            }
+            // Bind domains in Page_Init so that LoadPostData can restore the selected value.
+            // This is necessary because the control is inside an UpdatePanel with UpdateMode="Conditional"
+            // and the postback trigger is outside the UpdatePanel, which can cause ViewState issues.
+            BindDomains();
         }
 
         private void BindDomains()
