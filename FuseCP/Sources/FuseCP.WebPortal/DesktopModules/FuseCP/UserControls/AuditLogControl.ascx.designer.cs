@@ -32,22 +32,22 @@ namespace FuseCP.Portal.UserControls {
         protected global::System.Web.UI.WebControls.Literal litPeriod;
         
         /// <summary>
-        /// litStartDate control.
+        /// hidStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litStartDate;
+        protected global::System.Web.UI.WebControls.HiddenField hidStartDate;
         
         /// <summary>
-        /// litEndDate control.
+        /// hidEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litEndDate;
+        protected global::System.Web.UI.WebControls.HiddenField hidEndDate;
         
         /// <summary>
         /// lblSeverity control.
@@ -212,13 +212,22 @@ namespace FuseCP.Portal.UserControls {
         protected global::System.Web.UI.WebControls.ObjectDataSource odsLog;
         
         /// <summary>
-        /// pnlTaskDetails control.
+        /// hidRecordId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTaskDetails;
+        protected global::System.Web.UI.WebControls.HiddenField hidRecordId;
+        
+        /// <summary>
+        /// btnShowDetail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowDetail;
         
         /// <summary>
         /// TaskDetailsHeader control.
@@ -383,15 +392,6 @@ namespace FuseCP.Portal.UserControls {
         protected global::System.Web.UI.WebControls.Label lblExecutionLog;
         
         /// <summary>
-        /// pnlExecutionLog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlExecutionLog;
-        
-        /// <summary>
         /// litLog control.
         /// </summary>
         /// <remarks>
@@ -401,30 +401,12 @@ namespace FuseCP.Portal.UserControls {
         protected global::System.Web.UI.WebControls.Literal litLog;
         
         /// <summary>
-        /// btnCloseTaskDetails control.
+        /// btnCloseTaskDetailsText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCloseTaskDetails;
-        
-        /// <summary>
-        /// modalTaskDetailsProperties control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender modalTaskDetailsProperties;
-        
-        /// <summary>
-        /// btnShowTaskDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowTaskDetails;
+        protected global::System.Web.UI.WebControls.Localize btnCloseTaskDetailsText;
     }
 }

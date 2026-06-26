@@ -16,6 +16,7 @@
 using System;
 using System.Data;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
 using FuseCP.EnterpriseServer;
@@ -34,8 +35,6 @@ namespace FuseCP.Portal.UserControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //modalTaskDetailsProperties.Hide();
-
             // set display preferences
             gvLog.PageSize = UsersHelper.GetDisplayItemsPerPage();
 
@@ -74,9 +73,7 @@ namespace FuseCP.Portal.UserControls
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
-                    //ShowErrorMessage("AUDIT_INIT_FORM", ex);
                     HostModule.ProcessException(ex);
-                    //this.DisableControls = true;
                     return;
                 }
             }
@@ -142,8 +139,8 @@ namespace FuseCP.Portal.UserControls
             litPeriod.Text = startDate.ToString("MMM dd, yyyy") +
                 " - " + endDate.ToString("MMM dd, yyyy");
 
-            litStartDate.Text = startDate.ToString();
-            litEndDate.Text = endDate.ToString();
+            hidStartDate.Value = startDate.ToString();
+            hidEndDate.Value = endDate.ToString();
         }
 
         private void ExportLog()
@@ -151,8 +148,8 @@ namespace FuseCP.Portal.UserControls
             // build HTML
             DataSet recordsSet = ES.Services.AuditLog.GetAuditLogRecordsPaged(PanelSecurity.SelectedUserId,
                 PanelSecurity.PackageId, PanelRequest.ItemID, txtItemName.Text.Trim(),
-                DateTime.Parse(litStartDate.Text),
-                DateTime.Parse(litEndDate.Text),
+                DateTime.Parse(hidStartDate.Value),
+                DateTime.Parse(hidEndDate.Value),
                 Utils.ParseInt(ddlSeverity.SelectedValue, 0),
                 ddlSource.SelectedValue, ddlTask.SelectedValue,
                 "StartDate ASC", 0, Int32.MaxValue);
@@ -214,8 +211,8 @@ namespace FuseCP.Portal.UserControls
             {
                 int result = ES.Services.AuditLog.DeleteAuditLogRecords(PanelSecurity.SelectedUserId,
                     0, txtItemName.Text.Trim(),
-                    DateTime.Parse(litStartDate.Text),
-                    DateTime.Parse(litEndDate.Text),
+                    DateTime.Parse(hidStartDate.Value),
+                    DateTime.Parse(hidEndDate.Value),
                     Utils.ParseInt(ddlSeverity.SelectedValue, 0),
                     ddlSource.SelectedValue, ddlTask.SelectedValue);
 
@@ -237,6 +234,10 @@ namespace FuseCP.Portal.UserControls
             // load task
             LogRecord record = ES.Services.AuditLog.GetAuditLogRecord(recordId);
 
+            // guard against missing or deleted records
+            if (record == null)
+                return;
+
             litUsername.Text = record.Username;
             litTaskName.Text = GetAuditLogTaskName(record.SourceName, record.TaskName);
             litSourceName.Text = GetAuditLogSourceName(record.SourceName);
@@ -247,7 +248,9 @@ namespace FuseCP.Portal.UserControls
             litDuration.Text = GetDurationText(record.StartDate, record.FinishDate);
 
             litSeverity.Text = GetAuditLogRecordSeverityName(record.SeverityID);
-            litLog.Text = FormatExecutionLog(record.ExecutionLog, record.StartDate);
+            litLog.Text = !String.IsNullOrEmpty(record.ExecutionLog)
+                ? FormatExecutionLog(record.ExecutionLog, record.StartDate)
+                : String.Empty;
         }
 
 		private string FormatPlainTextExecutionLog(string xmlLog, DateTime startDate)
@@ -304,7 +307,7 @@ namespace FuseCP.Portal.UserControls
 				else if (severity == 2)
 					recordClass = "Error";
 
-				string text = nodeText.InnerText;
+				string text = nodeText != null ? nodeText.InnerText : String.Empty;
 
 				// localize text
 				string locText = GetSharedLocalizedString("TaskActivity." + text);
@@ -328,7 +331,7 @@ namespace FuseCP.Portal.UserControls
 				//
 				XmlNode nodeStackTrace = nodeRecord.SelectSingleNode("stackTrace");
 				// Record stack trace
-				if (!String.IsNullOrEmpty(nodeStackTrace.InnerText))
+				if (nodeStackTrace != null && !String.IsNullOrEmpty(nodeStackTrace.InnerText))
 				{
 					sb.Append('\t', ident);
 					sb.Append(nodeStackTrace.InnerText);
@@ -396,7 +399,7 @@ namespace FuseCP.Portal.UserControls
                 else if (severity == 2)
                     recordClass = "Error";
 
-                string text = nodeText.InnerText;
+                string text = nodeText != null ? nodeText.InnerText : String.Empty;
 
                 // localize text
                 string locText = GetSharedLocalizedString("TaskActivity." + text);
@@ -414,8 +417,11 @@ namespace FuseCP.Portal.UserControls
                 sb.Append(padding).Append("px;\">").Append(text);
 
                 XmlNode nodeStackTrace = nodeRecord.SelectSingleNode("stackTrace");
-                sb.Append("<br/>");
-                sb.Append(nodeStackTrace.InnerText.Replace("\n", "<br>"));
+                if (nodeStackTrace != null && !String.IsNullOrEmpty(nodeStackTrace.InnerText))
+                {
+                    sb.Append("<br/>");
+                    sb.Append(nodeStackTrace.InnerText.Replace("\n", "<br>"));
+                }
 
                 sb.Append("</div></div>");
             }
@@ -436,13 +442,12 @@ namespace FuseCP.Portal.UserControls
         {
             BindPeriod();
         }
+
         protected void odsLog_Selected(object sender, ObjectDataSourceStatusEventArgs e)
         {
             if (e.Exception != null)
             {
-                //ShowError(e.Exception.ToString());
                 HostModule.ProcessException(e.Exception);
-                //this.DisableControls = true;
                 e.ExceptionHandled = true;
             }
         }
@@ -465,14 +470,29 @@ namespace FuseCP.Portal.UserControls
             gvLog.DataBind();
         }
 
-        protected void gvLog_RowCommand(object sender, GridViewCommandEventArgs e)
+        /// <summary>
+        /// Handler for the hidden detail button, triggered by client-side JavaScript
+        /// when the user clicks an audit log task name link. The RecordID is passed
+        /// via the hidRecordId hidden field to avoid ViewState issues with the GridView.
+        /// </summary>
+        protected void btnShowDetail_Click(object sender, EventArgs e)
         {
-            if (e.CommandName == "ViewDetails")
+            string recordId = hidRecordId.Value;
+            if (string.IsNullOrEmpty(recordId))
+                return;
+
+            try
             {
-                string recordId = (string)e.CommandArgument;
-                modalTaskDetailsProperties.Show();
                 BindRecordDetails(recordId);
             }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                litLog.Text = "<div class='text-danger'>Error loading task details: " + Server.HtmlEncode(ex.Message) + "</div>";
+            }
+
+            // Show the Bootstrap 5 modal via client-side script after partial postback completes
+            ScriptManager.RegisterStartupScript(updatePanelLog, typeof(AuditLogControl), "ShowTaskDetailsModal",
+                "var el = document.getElementById('taskDetailsModal'); if (el && typeof bootstrap !== 'undefined') { bootstrap.Modal.getOrCreateInstance(el).show(); }", true);
         }
     }
 }
