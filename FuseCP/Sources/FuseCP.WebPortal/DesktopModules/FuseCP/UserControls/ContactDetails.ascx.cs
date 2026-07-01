@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+// Copyright (C) 2026 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -43,17 +43,17 @@ namespace FuseCP.Portal
         }
 
         private string country;
-        public string Country
-        {
-            get
+		public string Country
+		{
+			get
 			{
-				return ddlCountry.SelectedItem.Value;
+				return ddlCountry.SelectedItem?.Value ?? ddlCountry.SelectedValue ?? string.Empty;
 			}
-            set
-            {
-                country = value;
-            }
-        }
+			set
+			{
+				country = value;
+			}
+		}
 
         private string city;
         public string City
@@ -86,13 +86,10 @@ namespace FuseCP.Portal
         private string state;
         public string State
         {
-            get
-            {
-                return ddlStates.Visible ? ddlStates.SelectedItem.Text : NormalizeText(txtState.Text);
-
-
-
-            }
+			get
+			{
+				return ddlStates.Visible ? (ddlStates.SelectedItem?.Text ?? ddlStates.SelectedValue ?? string.Empty) : NormalizeText(txtState.Text);
+			}
             set
             {
                 state = value;
@@ -114,11 +111,18 @@ namespace FuseCP.Portal
             set { messengerId = value; }
         }
 
+
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            BindCountries();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindCountries();
                 BindContact();
             }
         }
@@ -164,11 +168,12 @@ namespace FuseCP.Portal
                 txtState.Text = val;
         }
 
-        private void SetDropdown(DropDownList dropdown, string val)
-        {
-            dropdown.SelectedItem.Selected = false;
+		private void SetDropdown(DropDownList dropdown, string val)
+		{
+			if (dropdown.SelectedItem != null)
+				dropdown.SelectedItem.Selected = false;
 
-            ListItem item = dropdown.Items.FindByValue(val);
+			ListItem item = dropdown.Items.FindByValue(val);
             if (item == null)
                 item = dropdown.Items.FindByText(val);
             if (item != null)
