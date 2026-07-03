@@ -85,15 +85,23 @@ namespace FuseCP.Portal
 				x.ResourceGroup = x.ResourceGroup ?? ResourceGroups.Web;
 			});
 
-			//
-			if (!IsPostBack)
-			{
-				BindWebSite();
+		//
+		if (!IsPostBack)
+		{
+			BindWebSite();
 
-				if (GetLocalizedString("buttonPanel.OnSaveClientClick")!=null)
-					buttonPanel.OnSaveClientClick = GetLocalizedString("buttonPanel.OnSaveClientClick");
-			}
+			if (GetLocalizedString("buttonPanel.OnSaveClientClick")!=null)
+				buttonPanel.OnSaveClientClick = GetLocalizedString("buttonPanel.OnSaveClientClick");
 		}
+		else
+		{
+			// WebFormsForCore can fail to fire the DataList tab command event on
+			// postback, leaving the tab DataList unbound. Re-bind the tabs so the
+			// menu is always rendered after a postback.
+			BindTabs();
+		}
+	}
+
 
 		private void BindTabs()
 		{

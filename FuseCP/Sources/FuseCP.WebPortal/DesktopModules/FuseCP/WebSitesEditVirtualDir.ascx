@@ -4,7 +4,7 @@
 <%@ Register Src="VirtualDirectoryHomeFolderControl.ascx" TagName="VirtualDirectoryHomeFolderControl" TagPrefix="uc1" %>
 <%@ Register Src="WebSitesCustomHeadersControl.ascx" TagName="WebSitesCustomHeadersControl" TagPrefix="uc6" %>
 <%@ Register Src="UserControls/EnableAsyncTasksSupport.ascx" TagName="EnableAsyncTasksSupport" TagPrefix="fcp" %>
-<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js"></script>
+<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js?v=4"></script>
 
 <fcp:EnableAsyncTasksSupport ID="asyncTasks" runat="server" />
 

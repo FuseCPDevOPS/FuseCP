@@ -30,14 +30,21 @@
         return confirmAndShow("Are you sure you want to disable Web Publishing?", "Disabling Web Publishing...");
     }
 
+
     function normalizeNavTabsMarkup() {
         if (!global.jQuery) {
             return;
         }
 
         global.jQuery(document).ready(function () {
-            global.jQuery(".nav-tabs li").unwrap();
-            global.jQuery(".nav-tabs li").unwrap();
+            // DataList with RepeatLayout="Flow" renders the tab <li>s inside
+            // <span> wrappers. Instead of unwrapping them (which breaks the
+            // DataList postback/command routing), make those wrappers invisible
+            // to the layout engine so the <li>s act as direct children of <ul>.
+            global.jQuery("<style>" +
+                ".fcp-modern-nav-tabs > span, " +
+                ".fcp-modern-nav-tabs > span > span { display: contents; }" +
+                "</style>").appendTo("head");
         });
     }
 

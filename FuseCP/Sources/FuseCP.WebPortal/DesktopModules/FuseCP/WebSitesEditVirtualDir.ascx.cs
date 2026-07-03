@@ -85,6 +85,10 @@ namespace FuseCP.Portal
 
                 BindTabs();
             }
+            else
+            {
+                BindTabs();
+            }
         }
 
         private void BindTabs()

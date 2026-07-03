@@ -16,4 +16,4 @@
         </SelectedItemTemplate>
 	</asp:DataList>	
 </ul>
-<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js"></script>
+<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js?v=4"></script>

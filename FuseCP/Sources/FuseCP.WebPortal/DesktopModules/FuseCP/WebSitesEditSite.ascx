@@ -23,7 +23,7 @@
     }
 </style>
 <fcp:EnableAsyncTasksSupport ID="asyncTasks" runat="server" />
-<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js"></script>
+<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js?v=4"></script>
 <asp:Panel ID="WDeployBuildPublishingProfileWizardPanel" runat="server" CssClass="PopupContainer" DefaultButton="PubProfileWizardOkButton" Style="display: none;">
     <div class="widget">
         <div class="widget-content Popup">

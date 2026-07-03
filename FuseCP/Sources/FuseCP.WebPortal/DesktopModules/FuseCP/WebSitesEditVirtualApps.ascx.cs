@@ -84,6 +84,10 @@ namespace FuseCP.Portal
                 BindVirtualDir();
                 BindTabs();
             }
+            else
+            {
+                BindTabs();
+            }
         }
 
         private void BindTabs()

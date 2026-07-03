@@ -7,7 +7,7 @@
 <%@ Register Src="UserControls/EnableAsyncTasksSupport.ascx" TagName="EnableAsyncTasksSupport" TagPrefix="fcp" %>
 
 <fcp:EnableAsyncTasksSupport ID="asyncTasks" runat="server" />
-<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js"></script>
+<script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-edit-site.js?v=4"></script>
 
 <div class="card-body form-horizontal fcp-modern-page">
     <table>
