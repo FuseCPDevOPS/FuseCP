@@ -33,13 +33,26 @@ namespace FuseCP.Portal
 {
     public partial class DnsZoneRecords : FuseCPModuleBase
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            // Ensure GridView rows exist before postback event routing.
+            // With ObjectDataSource, rows are not created until DataBind(),
+            // which normally happens after ProcessPostData. ImageButton controls
+            // inside templates cannot be found for event routing if rows don't
+            // exist yet, so RowEditing/RowDeleting events are silently dropped.
+            if (IsPostBack)
+            {
+                gvRecords.DataBind();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //int recorddefaultTTL = 0;
             if (!IsPostBack)
             {
                 // save return URL
-                ViewState["ReturnUrl"] = Request.UrlReferrer.ToString();
+                ViewState["ReturnUrl"] = Request.UrlReferrer?.ToString();
 
                 // toggle panels
                 ShowPanels(false);
@@ -321,6 +334,13 @@ namespace FuseCP.Portal
         }
         protected void gvRecords_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            DomainInfo domain = ES.Services.Servers.GetDomain(PanelRequest.DomainID);
+            if (domain == null)
+            {
+                ShowPanels(false);
+                return;
+            }
+            lblDomainName.Text = "." + domain.DomainName;
             BindDnsRecord(e.NewEditIndex);
             ShowPanels(true);
             e.Cancel = true;

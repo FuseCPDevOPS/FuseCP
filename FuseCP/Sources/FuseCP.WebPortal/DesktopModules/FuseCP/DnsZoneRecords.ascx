@@ -23,8 +23,7 @@
             <asp:TemplateField>
                 <ItemStyle Width="25px" HorizontalAlign="Center" />
                 <ItemTemplate>
-                    <asp:ImageButton ID="cmdEdit" runat="server" SkinID="EditSmall" CommandName="edit" AlternateText="Edit record">
-                    </asp:ImageButton>
+                    <asp:ImageButton ID="cmdEdit" runat="server" SkinID="EditSmall" CommandName="edit" AlternateText="Edit record" />
                     <asp:Literal ID="litMxPriority" runat="server" Text='<%# Eval("MxPriority") %>' Visible="false"></asp:Literal>
                     <asp:Literal ID="litRecordName" runat="server" Text='<%# Eval("RecordName") %>' Visible="false"></asp:Literal>
                     <asp:Literal ID="litRecordType" runat="server" Text='<%# Eval("RecordType") %>' Visible="false"></asp:Literal>
@@ -64,7 +63,7 @@
         <asp:QueryStringParameter DefaultValue="0" Name="domainId" QueryStringField="DomainID" />
     </SelectParameters>
 </asp:ObjectDataSource>
-<asp:Panel ID="pnlEdit" runat="server" DefaultButton="btnSave">
+<asp:Panel ID="pnlEdit" runat="server" Visible="false" DefaultButton="btnSave">
     <div class="card-body form-horizontal">
         <div class="row">
             <div class="mb-3 col-sm-8">
@@ -72,7 +71,7 @@
                     <asp:Localize ID="lblRecordType" runat="server" meta:resourcekey="lblRecordType" Text="Record Type:"></asp:Localize>
                 </asp:Label>
                 <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <asp:DropDownList ID="ddlRecordType" runat="server" SelectedValue='<%# Bind("RecordType") %>' CssClass="form-control" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="ddlRecordType_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlRecordType" runat="server" CssClass="form-control" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="ddlRecordType_SelectedIndexChanged">
                         <asp:ListItem>A</asp:ListItem>
 	                    <asp:ListItem>AAAA</asp:ListItem>
                         <asp:ListItem>CAA</asp:ListItem>

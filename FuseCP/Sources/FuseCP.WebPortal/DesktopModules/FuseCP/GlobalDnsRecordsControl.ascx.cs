@@ -57,6 +57,18 @@ namespace FuseCP.Portal
             set { packageIdParam = value; }
         }
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            // Ensure GridView rows exist before postback event routing.
+            // Without early binding, rows don't exist when ASP.NET tries to
+            // match the posted event target to a control, so RowEditing
+            // events are silently dropped.
+            if (IsPostBack)
+            {
+                BindDnsRecords();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

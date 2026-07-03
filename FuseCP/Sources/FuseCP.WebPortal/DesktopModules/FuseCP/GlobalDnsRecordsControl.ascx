@@ -32,7 +32,7 @@
         </asp:TemplateField>
     </Columns>
 </asp:GridView>
-<asp:Panel ID="pnlEdit" runat="server" DefaultButton="btnSave">
+<asp:Panel ID="pnlEdit" runat="server" Visible="false" DefaultButton="btnSave">
     <table class="table table-borderless align-middle mb-0">
         <tr>
             <td class="SubHead text-nowrap"><asp:Label ID="lblRecordType" runat="server" meta:resourcekey="lblRecordType" Text="Record Type:"></asp:Label></td>
