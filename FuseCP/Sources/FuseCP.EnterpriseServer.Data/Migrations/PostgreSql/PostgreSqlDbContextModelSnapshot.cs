@@ -4378,11 +4378,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         new
                         {
                             ProviderId = 1586,
-                            DisplayName = "MariaDB 11.7",
+                            DisplayName = "MariaDB",
                             EditorControl = "MariaDB",
                             GroupId = 50,
                             ProviderName = "MariaDB",
-                            ProviderType = "FuseCP.Providers.Database.MariaDB117, FuseCP.Providers.Database.MariaDB"
+                            ProviderType = "FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB"
                         },
                         new
                         {
@@ -10317,6 +10317,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         new
                         {
                             ProviderId = 2,
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
+                        },
+                        new
+                        {
+                            ProviderId = 2,
                             PropertyName = "AspNet40Path",
                             PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
@@ -11403,14 +11409,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         new
                         {
                             ProviderId = 101,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
+                            PropertyName = "AspNet40Path",
+                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 101,
-                            PropertyName = "AspNet40Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11547,26 +11553,20 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
-                        },
-                        new
-                        {
-                            ProviderId = 105,
                             PropertyName = "AspNet40Path",
                             PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNet40x64Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "AspNetBitnessMode",
+                            PropertyValue = "32"
                         },
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNetBitnessMode",
-                            PropertyValue = "32"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11709,14 +11709,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         new
                         {
                             ProviderId = 112,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
+                            PropertyName = "AspNet40Path",
+                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 112,
-                            PropertyName = "AspNet40Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -12004,7 +12004,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.PostgreSql
                         {
                             ProviderId = 1586,
                             PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MariaDB 11.7"
+                            PropertyValue = "%PROGRAMFILES%\\MariaDB"
                         },
                         new
                         {

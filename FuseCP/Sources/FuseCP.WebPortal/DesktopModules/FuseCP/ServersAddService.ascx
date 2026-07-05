@@ -27,9 +27,9 @@
 			    <asp:Label ID="lblServiceProvider" runat="server" meta:resourcekey="lblServiceProvider" Text="Service provider:"></asp:Label></td>
 		    <td class="NormalBold align-top">
 			    <asp:DropDownList id="ddlProviders" CssClass="form-control" runat="server" DataTextField="DisplayName"
-				    DataValueField="ProviderID"></asp:DropDownList>
+				    DataValueField="ProviderID" EnableViewState="true"></asp:DropDownList>
 			    <asp:RequiredFieldValidator id="serviceValidator" meta:resourcekey="serviceValidator" runat="server" Display="Dynamic" ControlToValidate="ddlProviders"
-				    ErrorMessage="Please select service provider"></asp:RequiredFieldValidator></td>
+				    InitialValue="" ErrorMessage="Please select service provider"></asp:RequiredFieldValidator></td>
 	    </tr>
     </table>
 </div>

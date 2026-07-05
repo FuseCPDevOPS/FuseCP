@@ -2459,45 +2459,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
 
                     b.HasIndex(new[] { "UserId" }, "CommentsIdx_UserID");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.CrmUser", b =>
-                {
-                    b.Property<int>("CrmUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("CRMUserID");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CrmUserId"));
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int")
-                        .HasColumnName("AccountID");
-
-                    b.Property<Guid?>("BusinessUnitId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("BusinessUnitID");
-
-                    b.Property<int?>("CalType")
-                        .HasColumnType("int")
-                        .HasColumnName("CALType");
-
-                    b.Property<DateTime>("ChangedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("CrmUserGuid")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("CRMUserGuid");
-
-                    b.HasKey("CrmUserId");
-
-                    b.HasIndex(new[] { "AccountId" }, "CRMUsersIdx_AccountID");
-
-                    b.ToTable("CRMUsers");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DmzIpAddress", b =>
@@ -4415,11 +4377,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         new
                         {
                             ProviderId = 1586,
-                            DisplayName = "MariaDB 11.7",
+                            DisplayName = "MariaDB",
                             EditorControl = "MariaDB",
                             GroupId = 50,
                             ProviderName = "MariaDB",
-                            ProviderType = "FuseCP.Providers.Database.MariaDB117, FuseCP.Providers.Database.MariaDB"
+                            ProviderType = "FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB"
                         },
                         new
                         {
@@ -9266,6 +9228,38 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         },
                         new
                         {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH",
+                            ParameterId = "SERVICE_CALL_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "3",
+                            ParameterOrder = 1
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_BANDWIDTH",
+                            ParameterId = "SERVICE_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 2
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE",
+                            ParameterId = "SERVICE_CALL_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "3",
+                            ParameterOrder = 1
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CALCULATE_PACKAGES_DISKSPACE",
+                            ParameterId = "SERVICE_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 2
+                        },
+                        new
+                        {
                             TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
                             ParameterId = "MAIL_BODY",
                             DataTypeId = "MultiString",
@@ -9302,6 +9296,30 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             ParameterId = "PASSWORD",
                             DataTypeId = "String",
                             ParameterOrder = 3
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_TIMEOUT_SECONDS",
+                            DataTypeId = "String",
+                            DefaultValue = "15",
+                            ParameterOrder = 11
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "2",
+                            ParameterOrder = 12
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITE",
+                            ParameterId = "REQUEST_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 13
                         },
                         new
                         {
@@ -9900,6 +9918,30 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             DataTypeId = "MultiString",
                             DefaultValue = "Hello, <br>we cannot verify the SSL certificate for the domain [domain]. <br><br>Error message: [error] <br><br>Please check if the website is available.",
                             ParameterOrder = 11
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_TIMEOUT_SECONDS",
+                            DataTypeId = "String",
+                            DefaultValue = "15",
+                            ParameterOrder = 12
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_ATTEMPTS",
+                            DataTypeId = "String",
+                            DefaultValue = "2",
+                            ParameterOrder = 13
+                        },
+                        new
+                        {
+                            TaskId = "SCHEDULE_TASK_CHECK_WEBSITES_SSL",
+                            ParameterId = "SSL_REQUEST_RETRY_DELAY_MS",
+                            DataTypeId = "String",
+                            DefaultValue = "250",
+                            ParameterOrder = 14
                         });
                 });
 
@@ -10262,18 +10304,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         new
                         {
                             ProviderId = 2,
-                            PropertyName = "AspNet11Path",
-                            PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v1.1.4322\\aspnet_isapi.dll"
-                        },
-                        new
-                        {
-                            ProviderId = 2,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET V1.1"
-                        },
-                        new
-                        {
-                            ProviderId = 2,
                             PropertyName = "AspNet20Path",
                             PropertyValue = "%SYSTEMROOT%\\Microsoft.NET\\Framework\\v2.0.50727\\aspnet_isapi.dll"
                         },
@@ -10282,6 +10312,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                             ProviderId = 2,
                             PropertyName = "AspNet20Pool",
                             PropertyValue = "ASP.NET V2.0"
+                        },
+                        new
+                        {
+                            ProviderId = 2,
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11372,14 +11408,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         new
                         {
                             ProviderId = 101,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
+                            PropertyName = "AspNet40Path",
+                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 101,
-                            PropertyName = "AspNet40Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11516,26 +11552,20 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
-                        },
-                        new
-                        {
-                            ProviderId = 105,
                             PropertyName = "AspNet40Path",
                             PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNet40x64Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "AspNetBitnessMode",
+                            PropertyValue = "32"
                         },
                         new
                         {
                             ProviderId = 105,
-                            PropertyName = "AspNetBitnessMode",
-                            PropertyValue = "32"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11678,14 +11708,14 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         new
                         {
                             ProviderId = 112,
-                            PropertyName = "AspNet11Pool",
-                            PropertyValue = "ASP.NET 1.1"
+                            PropertyName = "AspNet40Path",
+                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
                         },
                         new
                         {
                             ProviderId = 112,
-                            PropertyName = "AspNet40Path",
-                            PropertyValue = "%WINDIR%\\Microsoft.NET\\Framework\\v4.0.30319\\aspnet_isapi.dll"
+                            PropertyName = "NoManagedCodePool",
+                            PropertyValue = ".NET Core"
                         },
                         new
                         {
@@ -11973,7 +12003,7 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                         {
                             ProviderId = 1586,
                             PropertyName = "InstallFolder",
-                            PropertyValue = "%PROGRAMFILES%\\MariaDB 11.7"
+                            PropertyValue = "%PROGRAMFILES%\\MariaDB"
                         },
                         new
                         {
@@ -15295,17 +15325,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.CrmUser", b =>
-                {
-                    b.HasOne("FuseCP.EnterpriseServer.Data.Entities.ExchangeAccount", "Account")
-                        .WithMany("CrmUsers")
-                        .HasForeignKey("AccountId")
-                        .IsRequired()
-                        .HasConstraintName("FK_CRMUsers_ExchangeAccounts");
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.DmzIpAddress", b =>
                 {
                     b.HasOne("FuseCP.EnterpriseServer.Data.Entities.ServiceItem", "Item")
@@ -16276,8 +16295,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.MySql
                     b.Navigation("AccessTokens");
 
                     b.Navigation("BlackBerryUsers");
-
-                    b.Navigation("CrmUsers");
 
                     b.Navigation("EnterpriseFoldersOwaPermissions");
 

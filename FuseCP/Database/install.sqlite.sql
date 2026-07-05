@@ -9617,5 +9617,11 @@ SELECT changes();
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260607162441_RemoveAspNet11SeedData', '9.0.9');
 
+UPDATE "Providers" SET "ProviderType" = 'FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB', "DisplayName" = 'MariaDB' WHERE "ProviderID" = 1586;
+UPDATE "ServiceDefaultProperties" SET "PropertyValue" = '%PROGRAMFILES%\MariaDB' WHERE "ProviderID" = 1586 AND "PropertyName" = 'InstallFolder';
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260703115717_RenameMariaDbProviderType', '9.0.9');
+
 COMMIT;
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+// Copyright (C) 2026 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ using System.Data.Common;
 namespace FuseCP.Providers.Database
 {
 	[SupportedOSPlatform("windows")]
-	public class MariaDB101 : HostingServiceProviderBase, IDatabaseServer
+	public class MariaDB : HostingServiceProviderBase, IDatabaseServer
 	{
 
 		#region Properties
@@ -119,7 +119,7 @@ namespace FuseCP.Providers.Database
 
 		#region Static ctor
 
-		static MariaDB101()
+		static MariaDB()
 		{
 			if (UseMySqlConnector) AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 		}
@@ -332,7 +332,7 @@ namespace FuseCP.Providers.Database
 		public virtual bool UserExists(string username)
 		{
 			return (ExecuteQuery(String.Format("SELECT user FROM user WHERE user = '{0}'",
-			username)).DefaultView.Count > 0);
+				username)).DefaultView.Count > 0);
 		}
 
 		public virtual string[] GetUsers()
@@ -770,30 +770,13 @@ namespace FuseCP.Providers.Database
 
 		public virtual long CalculateDatabaseSize(string database)
 		{
-			// read mySQL INI file
-			string dataPath = null;
-			string iniPath = Path.Join(InstallFolder, "my.ini");
-			if (File.Exists(iniPath))
+			DataTable dt = ExecuteQuery(string.Format("SELECT SUM(data_length + index_length) AS 'Size' FROM information_schema.TABLES WHERE TABLE_SCHEMA = '{0}'", database));
+			string dbsize = dt.Rows[0]["Size"].ToString();
+			if (String.IsNullOrEmpty(dbsize)) // empty database
 			{
-				string[] lines = File.ReadAllLines(iniPath);
-				Regex re = new Regex(@"^datadir\s?=\s?\""?(?<path>[^\""\n]*)", RegexOptions.IgnoreCase);
-				var matchedDataPath = lines.Select(line => re.Match(line)).FirstOrDefault(m => m.Success);
-				if (matchedDataPath != null) dataPath = matchedDataPath.Groups["path"].Value.Trim();
+				dbsize = "0";
 			}
-
-			if (String.IsNullOrEmpty(dataPath))
-				dataPath = Path.Join(InstallFolder, "data");
-
-			string dbFolder = Path.Join(dataPath, database.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-
-			Log.WriteStart("Database path: " + dbFolder);
-
-			if (Directory.Exists(dbFolder))
-			{
-				Log.WriteStart("Data folder exists");
-				return FileUtils.CalculateFolderSize(dbFolder);
-			}
-			return 0;
+			return Convert.ToInt64(dbsize);
 		}
 
 		#endregion
@@ -891,19 +874,35 @@ namespace FuseCP.Providers.Database
 		}
 		#endregion
 
-		protected virtual bool IsInstalledWindows(string version)
+		protected virtual bool IsInstalledWindows()
 		{
-			RegistryKey HKLM = Registry.LocalMachine;
+			string[] baseKeyPaths = new[]
+			{
+				@"SOFTWARE\Monty Program AB",
+				@"SOFTWARE\Wow6432Node\Monty Program AB",
+				@"SOFTWARE",
+				@"SOFTWARE\Wow6432Node"
+			};
 
-			RegistryKey key = HKLM.OpenSubKey(@$"SOFTWARE\Monty Program AB\MariaDB {version} (x64)");
-			if (key == null) key = HKLM.OpenSubKey(@$"SOFTWARE\Wow6432Node\Monty Program AB\MariaDB {version}");
-			if (key == null) key = HKLM.OpenSubKey(@$"SOFTWARE\MariaDB {version} (x64)");
-			if (key == null) key = HKLM.OpenSubKey(@$"SOFTWARE\Wow6432Node\MariaDB {version}");
+			foreach (string baseKeyPath in baseKeyPaths)
+			{
+				using RegistryKey baseKey = Registry.LocalMachine.OpenSubKey(baseKeyPath);
+				if (baseKey == null)
+					continue;
 
-			return key != null;
+				foreach (string subKeyName in baseKey.GetSubKeyNames())
+				{
+					if (subKeyName.StartsWith("MariaDB ", StringComparison.OrdinalIgnoreCase))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 
-		protected virtual bool IsInstalledUnix(string version)
+		protected virtual bool IsInstalledUnix()
 		{
 			var processes = Process.GetProcessesByName("mysqld")
 				.Concat(Process.GetProcessesByName("mariadbd"))
@@ -913,30 +912,20 @@ namespace FuseCP.Providers.Database
 				.Distinct();
 			foreach (var exe in processes.Where(exe => File.Exists(exe)))
 			{
-					try
+				try
+				{
+					var output = Shell.Default.Exec($"\"{exe}\" --version").Output().Result;
+					var match = Regex.Match(output, @"(?<version>[0-9][0-9.]+)(?=.*MariaDB)", RegexOptions.IgnoreCase);
+					if (match.Success)
 					{
-						var output = Shell.Default.Exec($"\"{exe}\" --version").Output().Result;
-						var match = Regex.Match(output, @"(?<version>[0-9][0-9.]+)(?=.*MariaDB)", RegexOptions.IgnoreCase);
-						if (match.Success)
-						{
-							var ver = match.Groups["version"].Value;
-							if (ver.StartsWith(version)) return true;
-						}
+						return true;
 					}
-					catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
+				}
+				catch (Exception swallowedEx) when (!(swallowedEx is OutOfMemoryException) && !(swallowedEx is StackOverflowException) && !(swallowedEx is AccessViolationException)) { System.Diagnostics.Trace.TraceWarning("Exception swallowed: " + swallowedEx.Message); }
 			}
 			return false;
 		}
 
-		protected virtual bool IsInstalled(string version)
-		{
-			return OS.OSInfo.IsWindows ? IsInstalledWindows(version) : IsInstalledUnix(version);
-
-		}
-
-		public override bool IsInstalled() => IsInstalled("10.1");
+		public override bool IsInstalled() => OS.OSInfo.IsWindows ? IsInstalledWindows() : IsInstalledUnix();
 	}
 }
-
-
-

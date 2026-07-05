@@ -38,6 +38,14 @@ namespace FuseCP.Portal
                 BindGroup();
                 BindProviders();
             }
+            else
+            {
+                // On postback, ensure dropdown still has items (ViewState might be lost)
+                if (ddlProviders.Items.Count == 0)
+                {
+                    BindProviders();
+                }
+            }
         }
 
         private void BindGroup()
@@ -55,12 +63,16 @@ namespace FuseCP.Portal
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            // validate input
-            if (!Page.IsValid)
-                return;
+            // Read provider directly from form post data (bypassing ViewState issues)
+            string postedProviderId = Request.Form[ddlProviders.UniqueID];
+            int providerId = Utils.ParseInt(postedProviderId, 0);
 
-            // register service type
-            int providerId = Utils.ParseInt(ddlProviders.SelectedValue, 0);
+            // validate input
+            if (providerId == 0)
+            {
+                ShowWarningMessage("SERVER_ADD_SERVICE");
+                return;
+            }
 
             // add a new service ...
             try

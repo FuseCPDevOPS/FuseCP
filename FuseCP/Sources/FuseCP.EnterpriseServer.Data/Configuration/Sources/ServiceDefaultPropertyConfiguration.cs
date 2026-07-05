@@ -361,7 +361,7 @@ Protocol=dbmssocn"
             new ServiceDefaultProperty() { ProviderId = 500, PropertyName = "LogDir", PropertyValue = "/var/log" },
             new ServiceDefaultProperty() { ProviderId = 500, PropertyName = "UsersHome", PropertyValue = "/var/www/HostingSpaces" },
             new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "ExternalAddress", PropertyValue = "localhost" },
-            new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "InstallFolder", PropertyValue = "%PROGRAMFILES%\\MariaDB 11.7" },
+            new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "InstallFolder", PropertyValue = "%PROGRAMFILES%\\MariaDB" },
             new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "InternalAddress", PropertyValue = "localhost" },
             new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "RootLogin", PropertyValue = "root" },
             new ServiceDefaultProperty() { ProviderId = 1586, PropertyName = "RootPassword", PropertyValue = "" },

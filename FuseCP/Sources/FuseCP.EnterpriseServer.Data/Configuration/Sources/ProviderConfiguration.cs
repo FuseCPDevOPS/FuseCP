@@ -140,7 +140,7 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
             new Provider() { ProviderId = 1505, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2025", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2025",
                 ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesk" +
                 "topServices.Windows2025" },
-            new Provider() { ProviderId = 1586, DisplayName = "MariaDB 11.7", EditorControl = "MariaDB", GroupId = 50, ProviderName = "MariaDB", ProviderType = "FuseCP.Providers.Database.MariaDB117, FuseCP.Providers.Database.MariaDB" },
+            new Provider() { ProviderId = 1586, DisplayName = "MariaDB", EditorControl = "MariaDB", GroupId = 50, ProviderName = "MariaDB", ProviderType = "FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB" },
             new Provider() { ProviderId = 1601, DisableAutoDiscovery = true, DisplayName = "Mail Cleaner", EditorControl = "MailCleaner", GroupId = 61, ProviderName = "MailCleaner",
                 ProviderType = "FuseCP.Providers.Filters.MailCleaner, FuseCP.Providers.Filters.MailCleaner" },
             new Provider() { ProviderId = 1602, DisableAutoDiscovery = true, DisplayName = "SpamExperts Mail Filter", EditorControl = "SpamExperts", GroupId = 61, ProviderName = "SpamExperts",

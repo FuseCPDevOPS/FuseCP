@@ -9943,5 +9943,21 @@ BEGIN
     VALUES ('20260607162511_RemoveAspNet11SeedData', '9.0.9');
     END IF;
 END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260703115749_RenameMariaDbProviderType') THEN
+    UPDATE "Providers" SET "ProviderType" = 'FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB', "DisplayName" = 'MariaDB' WHERE "ProviderID" = 1586;
+    UPDATE "ServiceDefaultProperties" SET "PropertyValue" = '%PROGRAMFILES%\MariaDB' WHERE "ProviderID" = 1586 AND "PropertyName" = 'InstallFolder';
+    END IF;
+END $EF$;
+
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20260703115749_RenameMariaDbProviderType') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20260703115749_RenameMariaDbProviderType', '9.0.9');
+    END IF;
+END $EF$;
 COMMIT;
 

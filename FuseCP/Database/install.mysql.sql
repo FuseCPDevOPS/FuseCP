@@ -11601,5 +11601,35 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260703115918_RenameMariaDbProviderType') THEN
+
+    UPDATE `Providers` SET `ProviderType` = 'FuseCP.Providers.Database.MariaDB, FuseCP.Providers.Database.MariaDB', `DisplayName` = 'MariaDB' WHERE `ProviderID` = 1586;
+    UPDATE `ServiceDefaultProperties` SET `PropertyValue` = '%PROGRAMFILES%\MariaDB' WHERE `ProviderID` = 1586 AND `PropertyName` = 'InstallFolder';
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260703115918_RenameMariaDbProviderType') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260703115918_RenameMariaDbProviderType', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 
