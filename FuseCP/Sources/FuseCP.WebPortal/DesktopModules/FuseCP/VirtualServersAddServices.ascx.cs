@@ -1,4 +1,4 @@
-// Copyright (C) 2025 FuseCP
+// Copyright (C) 2026 FuseCP
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,11 +29,17 @@ namespace FuseCP.Portal
 {
     public partial class VirtualServersAddServices : FuseCPModuleBase
     {
-        DataSet dsServers = null;
+        private DataSet dsServers;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                BindServers();
+            }
+            else
+            {
+                // Rebind to rebuild control tree, then restore checkbox states from posted form values
                 BindServers();
             }
         }
@@ -47,8 +53,7 @@ namespace FuseCP.Portal
 
         private void AddServices()
         {
-            // iterate through all services
-            List<int> ids = new List<int>();
+            var ids = new List<int>();
 
             foreach (DataListItem itemGroup in dlServers.Items)
             {
@@ -68,7 +73,6 @@ namespace FuseCP.Portal
                 }
             }
 
-            // add virtual services
             try
             {
                 int result = ES.Services.Servers.AddVirtualServices(PanelRequest.ServerId, ids.ToArray());
@@ -84,18 +88,22 @@ namespace FuseCP.Portal
                 return;
             }
 
-            // return
             Response.Redirect(EditUrl("ServerID", PanelRequest.ServerId.ToString(), "edit_server"));
         }
 
         public DataView GetServerServices(int serverId)
         {
+            if (dsServers == null || dsServers.Tables.Count < 2)
+                return new DataView(new DataTable());
+
             return new DataView(dsServers.Tables[1], "ServerID=" + serverId, "", DataViewRowState.CurrentRows);
         }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             AddServices();
         }
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(EditUrl("ServerID", PanelRequest.ServerId.ToString(), "edit_server"));
