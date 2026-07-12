@@ -6,7 +6,7 @@
     <asp:UpdatePanel runat="server" ID="updatePanelUsers" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate> 
             <div class="card-body form-horizontal">
-                <asp:Label ID="lblMessage" runat="server" CssClass="NormalBold" ForeColor="red"></asp:Label>
+                <asp:Label ID="lblMessage" runat="server" CssClass="alert d-none mb-3 d-block"></asp:Label>
                 <div class="row mb-3">
                     <asp:Label runat="server" CssClass="form-label col-sm-2" AssociatedControlID="txtPlanName">
                         <asp:Localize ID="lblPlanName" runat="server" meta:resourcekey="lblPlanName" Text="Plan Name:"></asp:Localize>
@@ -35,7 +35,7 @@
                         <div class="col-sm-10">
                             <div class="input-group col-sm-12">
                                 <asp:DropDownList ID="ddlServer" runat="server" CssClass="form-control" DataValueField="ServerID" DataTextField="ServerName" AutoPostBack="True" OnSelectedIndexChanged="planTarget_SelectedIndexChanged"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="valRequireServer" runat="server" ControlToValidate="ddlServer" ErrorMessage="Select target server"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="valRequireServer" runat="server" ControlToValidate="ddlServer" ErrorMessage="Select target server" EnableClientScript="False"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <div class="col-sm-10">
                             <div class="input-group col-sm-12">
                                 <asp:DropDownList ID="ddlSpace" runat="server" CssClass="form-control" DataValueField="PackageId" DataTextField="PackageName" AutoPostBack="True" OnSelectedIndexChanged="planTarget_SelectedIndexChanged"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="valRequireSpace" runat="server" ControlToValidate="ddlSpace" ErrorMessage="Select target space"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="valRequireSpace" runat="server" ControlToValidate="ddlSpace" ErrorMessage="Select target space" EnableClientScript="False"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                     </div>
@@ -65,5 +65,10 @@
                 <asp:LinkButton id="btnSave" CssClass="btn btn-success" runat="server" OnClick="btnSave_Click" meta:resourcekey="btnSave" Text="Save"></asp:LinkButton>
             </div>
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnSave" />
+            <asp:PostBackTrigger ControlID="btnCancel" />
+            <asp:PostBackTrigger ControlID="btnDelete" />
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>

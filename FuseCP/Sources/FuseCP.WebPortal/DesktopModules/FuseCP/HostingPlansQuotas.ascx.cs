@@ -18,6 +18,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -95,7 +96,8 @@ namespace FuseCP.Portal
 
                 // iterate quotas
                 Control quotaPanel = item.FindControl("QuotaPanel");
-                quotaPanel.Visible = chkEnabled.Checked;
+                if (quotaPanel is WebControl quotaPanelControl)
+                    quotaPanelControl.Style[HtmlTextWriterStyle.Display] = chkEnabled.Checked ? String.Empty : "none";
 
                 DataList dlQuotas = (DataList)item.FindControl("dlQuotas");
                 foreach (DataListItem quotaItem in dlQuotas.Items)
@@ -143,6 +145,9 @@ namespace FuseCP.Portal
             groups = new List<HostingPlanGroupInfo>();
             quotas = new List<HostingPlanQuotaInfo>();
 
+            bool isPostBack = Page != null && Page.IsPostBack;
+            NameValueCollection form = HttpContext.Current != null ? HttpContext.Current.Request.Form : null;
+
             // gather info
             foreach (RepeaterItem item in dlGroups.Items)
             {
@@ -151,14 +156,29 @@ namespace FuseCP.Portal
                 CheckBox chkCountDiskspace = (CheckBox)item.FindControl("chkCountDiskspace");
                 CheckBox chkCountBandwidth = (CheckBox)item.FindControl("chkCountBandwidth");
 
-                if (!chkEnabled.Checked)
+                bool isGroupEnabled = chkEnabled.Checked;
+                if (isPostBack && form != null && chkEnabled != null)
+                    isGroupEnabled = !String.IsNullOrEmpty(form[chkEnabled.UniqueID]);
+
+                if (!isGroupEnabled)
                     continue; // disabled group
+
+                bool countDiskspace = chkCountDiskspace.Checked;
+                bool countBandwidth = chkCountBandwidth.Checked;
+                if (isPostBack && form != null)
+                {
+                    if (chkCountDiskspace != null)
+                        countDiskspace = !String.IsNullOrEmpty(form[chkCountDiskspace.UniqueID]) || chkCountDiskspace.Checked;
+
+                    if (chkCountBandwidth != null)
+                        countBandwidth = !String.IsNullOrEmpty(form[chkCountBandwidth.UniqueID]) || chkCountBandwidth.Checked;
+                }
 
                 HostingPlanGroupInfo group = new HostingPlanGroupInfo();
                 group.GroupId = Utils.ParseInt(litGroupId.Text, 0);
-                group.Enabled = chkEnabled.Checked;
-                group.CalculateDiskSpace = chkCountDiskspace.Checked;
-                group.CalculateBandwidth = chkCountBandwidth.Checked;
+                group.Enabled = isGroupEnabled;
+                group.CalculateDiskSpace = countDiskspace;
+                group.CalculateBandwidth = countBandwidth;
                 groups.Add(group);
 
                 // iterate quotas
@@ -166,6 +186,23 @@ namespace FuseCP.Portal
                 foreach (DataListItem quotaItem in dlQuotas.Items)
                 {
                     QuotaEditor quotaEditor = (QuotaEditor)quotaItem.FindControl("quotaEditor");
+
+                    if (isPostBack && form != null && quotaEditor != null)
+                    {
+                        TextBox txtQuotaValue = (TextBox)quotaEditor.FindControl("txtQuotaValue");
+                        CheckBox chkQuotaEnabled = (CheckBox)quotaEditor.FindControl("chkQuotaEnabled");
+                        CheckBox chkQuotaUnlimited = (CheckBox)quotaEditor.FindControl("chkQuotaUnlimited");
+
+                        if (txtQuotaValue != null && form[txtQuotaValue.UniqueID] != null)
+                            txtQuotaValue.Text = form[txtQuotaValue.UniqueID];
+
+                        if (chkQuotaEnabled != null)
+                            chkQuotaEnabled.Checked = !String.IsNullOrEmpty(form[chkQuotaEnabled.UniqueID]);
+
+                        if (chkQuotaUnlimited != null)
+                            chkQuotaUnlimited.Checked = !String.IsNullOrEmpty(form[chkQuotaUnlimited.UniqueID]);
+                    }
+
                     HostingPlanQuotaInfo quota = new HostingPlanQuotaInfo();
                     quota.QuotaId = quotaEditor.QuotaId;
                     quota.QuotaValue = quotaEditor.QuotaValue;

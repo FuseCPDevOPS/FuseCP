@@ -22,6 +22,21 @@ namespace FuseCP.Portal
 {
     public partial class HostingPlansEditPlan : FuseCPModuleBase
     {
+        private const string InlineMessageHiddenCssClass = "alert d-none mb-3 d-block";
+        private const string InlineMessageBaseCssClass = "alert mb-3 d-block";
+
+        private int CurrentPlanPackageId
+        {
+            get { return ViewState["CurrentPlanPackageId"] != null ? (int)ViewState["CurrentPlanPackageId"] : 0; }
+            set { ViewState["CurrentPlanPackageId"] = value; }
+        }
+
+        private int CurrentPlanServerId
+        {
+            get { return ViewState["CurrentPlanServerId"] != null ? (int)ViewState["CurrentPlanServerId"] : 0; }
+            set { ViewState["CurrentPlanServerId"] = value; }
+        }
+
 		protected bool ShouldCopyCurrentHostingPlan()
 		{
 			return (HttpContext.Current.Request.QueryString["TargetAction"] == "Copy");
@@ -30,6 +45,13 @@ namespace FuseCP.Portal
         protected void Page_Load(object sender, EventArgs e)
         {
 			btnDelete.Visible = (PanelRequest.PlanID > 0) && (!ShouldCopyCurrentHostingPlan());
+
+            if (!IsPostBack)
+                ClearInlineMessage();
+
+			bool isUserAdmin = PanelSecurity.SelectedUser.Role == UserRole.Administrator;
+			ConfigureTargetSelection(isUserAdmin);
+            RestoreCurrentTargetSelection();
 
             if (!IsPostBack)
             {
@@ -43,6 +65,34 @@ namespace FuseCP.Portal
                     return;
                 }
             }
+        }
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+                return;
+
+            // Recreate list and quota controls early so posted values are loaded into dynamic controls.
+            BindServers();
+            BindSpaces();
+
+            int serverId = Utils.ParseInt(Request.Form[ddlServer.UniqueID], 0);
+            int packageId = Utils.ParseInt(Request.Form[ddlSpace.UniqueID], -1);
+
+            if (PanelRequest.PlanID > 0 && (serverId <= 0 || packageId <= 0))
+            {
+                HostingPlanInfo existingPlan = ES.Services.Packages.GetHostingPlan(PanelRequest.PlanID);
+                if (existingPlan != null)
+                {
+                    if (serverId <= 0)
+                        serverId = existingPlan.ServerId;
+
+                    if (packageId <= 0)
+                        packageId = existingPlan.PackageId > 0 ? existingPlan.PackageId : -1;
+                }
+            }
+
+            hostingPlansQuotas.BindPlanQuotas(packageId, PanelRequest.PlanID, serverId);
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -86,13 +136,10 @@ namespace FuseCP.Portal
 
         private void BindPlan()
         {
-            // hide "target server" section for non-admins
             bool isUserAdmin = PanelSecurity.SelectedUser.Role == UserRole.Administrator;
-            rowTargetServer.Visible = isUserAdmin;
-            rowTargetSpace.Visible = !isUserAdmin;
 
-            if(isUserAdmin) BindServers();
-            else BindSpaces();
+            BindServers();
+            BindSpaces();
 
             if (PanelRequest.PlanID == 0)
             {
@@ -108,6 +155,9 @@ namespace FuseCP.Portal
                 RedirectBack();
                 return;
             }
+
+			CurrentPlanPackageId = plan.PackageId;
+			CurrentPlanServerId = plan.ServerId;
 
 			if (ShouldCopyCurrentHostingPlan())
 			{
@@ -132,6 +182,29 @@ namespace FuseCP.Portal
             BindQuotas();
         }
 
+        private void ConfigureTargetSelection(bool isUserAdmin)
+        {
+            // Only one target selector is applicable at a time.
+            rowTargetServer.Visible = isUserAdmin;
+            rowTargetSpace.Visible = !isUserAdmin;
+
+            // Target validation is handled explicitly in SavePlan to avoid stale client validation during edit flows.
+            valRequireServer.Enabled = false;
+            valRequireSpace.Enabled = false;
+        }
+
+        private void RestoreCurrentTargetSelection()
+        {
+            if (PanelRequest.PlanID <= 0 || ShouldCopyCurrentHostingPlan())
+                return;
+
+            if (ddlServer.SelectedIndex <= 0 && CurrentPlanServerId > 0)
+                Utils.SelectListItem(ddlServer, CurrentPlanServerId);
+
+            if (ddlSpace.SelectedIndex <= 0 && CurrentPlanPackageId > 0)
+                Utils.SelectListItem(ddlSpace, CurrentPlanPackageId);
+        }
+
         private void BindQuotas()
         {
             int serverId = Utils.ParseInt(ddlServer.SelectedValue, 0);
@@ -139,8 +212,24 @@ namespace FuseCP.Portal
             hostingPlansQuotas.BindPlanQuotas(packageId, PanelRequest.PlanID, serverId);
         }
 
+        private void ClearInlineMessage()
+        {
+            lblMessage.Text = String.Empty;
+            lblMessage.CssClass = InlineMessageHiddenCssClass;
+            lblMessage.Attributes.Remove("role");
+        }
+
+        private void ShowInlineMessage(string message, string bootstrapAlertType = "warning")
+        {
+            lblMessage.Text = PortalAntiXSS.Encode(message);
+            lblMessage.CssClass = String.Format("{0} alert-{1}", InlineMessageBaseCssClass, bootstrapAlertType);
+            lblMessage.Attributes["role"] = "alert";
+        }
+
         private void SavePlan()
         {
+            ClearInlineMessage();
+
             if (!Page.IsValid)
                 return;
 
@@ -158,8 +247,40 @@ namespace FuseCP.Portal
             plan.RecurrenceLength = 1;
             plan.RecurrenceUnit = 2; // month
 
-            plan.PackageId = Utils.ParseInt(ddlSpace.SelectedValue, 1);
+            bool isNewOrCopy = (PanelRequest.PlanID == 0) || ShouldCopyCurrentHostingPlan();
+            bool isAdmin = PanelSecurity.SelectedUser.Role == UserRole.Administrator;
+
+            if (isNewOrCopy)
+            {
+                if (isAdmin && String.IsNullOrEmpty(ddlServer.SelectedValue))
+                {
+                    ShowInlineMessage("Select target server", "warning");
+                    return;
+                }
+
+                if (!isAdmin && String.IsNullOrEmpty(ddlSpace.SelectedValue))
+                {
+                    ShowInlineMessage("Select target space", "warning");
+                    return;
+                }
+            }
+
+            plan.PackageId = Utils.ParseInt(ddlSpace.SelectedValue, 0);
             plan.ServerId = Utils.ParseInt(ddlServer.SelectedValue, 0);
+
+            if ((PanelRequest.PlanID > 0) && !ShouldCopyCurrentHostingPlan() && (plan.PackageId == 0 || plan.ServerId == 0))
+            {
+                HostingPlanInfo existingPlan = ES.Services.Packages.GetHostingPlan(PanelRequest.PlanID);
+                if (existingPlan != null)
+                {
+                    if (plan.PackageId == 0)
+                        plan.PackageId = existingPlan.PackageId;
+
+                    if (plan.ServerId == 0)
+                        plan.ServerId = existingPlan.ServerId;
+                }
+            }
+
             // if this is non-admin
             // get server info from parent package
             if (PanelSecurity.EffectiveUser.Role != UserRole.Administrator)
@@ -179,6 +300,12 @@ namespace FuseCP.Portal
 
             plan.Groups = hostingPlansQuotas.Groups;
             plan.Quotas = hostingPlansQuotas.Quotas;
+
+            if ((PanelRequest.PlanID > 0) && !ShouldCopyCurrentHostingPlan() && plan.Groups.Length == 0)
+            {
+                ShowInlineMessage("No quotas were submitted. Please reload the page and try saving again.", "warning");
+                return;
+            }
 
             if ((PanelRequest.PlanID == 0) || ShouldCopyCurrentHostingPlan())
             {
@@ -207,7 +334,7 @@ namespace FuseCP.Portal
                     if (result.Result < 0)
                     {
                         ShowResultMessage(result.Result);
-                        lblMessage.Text = PortalAntiXSS.Encode(GetExceedingQuotasMessage(result.ExceedingQuotas));
+                        ShowInlineMessage(GetExceedingQuotasMessage(result.ExceedingQuotas), "danger");
                         return;
                     }
                 }
