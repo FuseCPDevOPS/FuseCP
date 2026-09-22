@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9">
     <title>Solid CP</title>
     <link runat="server" rel="stylesheet" href="~/Styles/Import.css" type="text/css" id="AdaptersInvariantImportCSS" />
+    <link runat="server" rel="stylesheet" href="~/App_Themes/Default/Styles/bootstrap5.min.css" type="text/css" id="BootstrapCSS" />
+    <link runat="server" rel="stylesheet" href="~/App_Themes/Default/Styles/main.css" type="text/css" id="ThemeCSS" />
+    <link runat="server" rel="stylesheet" href="~/App_Themes/Default/Styles/custom.css" type="text/css" id="CustomCSS" />
+    <link runat="server" rel="stylesheet" href="~/App_Themes/Default/Styles/bootstrap-icons/bootstrap-icons.min.css" type="text/css" id="BootstrapIconsCSS" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Fav and touch icons -->
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
