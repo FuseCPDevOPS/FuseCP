@@ -54,6 +54,55 @@
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-elements.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/plugin/plugins.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery-ui/jquery-ui-1.10.4.custom.min.js") %>'></script>
+<script type="text/javascript">
+  (function (w) {
+    function patchPosition() {
+      var $ = w.jQuery;
+      if (!$ || !$.position || typeof $.position.getWithinInfo !== "function") {
+        return false;
+      }
+      if ($.position.getWithinInfo.__fcpPatched) {
+        return true;
+      }
+
+      // jQuery 2.x .offset() requires a DOM element, but the jQuery UI 1.10.4
+      // position plugin calls it with window/document when "within" is not set.
+      var orig = $.position.getWithinInfo;
+      $.position.getWithinInfo = function (within) {
+        var i = $(within || window);
+        var isWindow = $.isWindow(i[0]);
+        var isDocument = !!i[0] && i[0].nodeType === 9;
+
+        if (!isWindow && !isDocument) {
+          return orig(within);
+        }
+
+        var win = $(window);
+        return {
+          element: i,
+          isWindow: isWindow,
+          isDocument: isDocument,
+          offset: { left: 0, top: 0 },
+          scrollLeft: i.scrollLeft(),
+          scrollTop: i.scrollTop(),
+          width: win.width(),
+          height: win.height()
+        };
+      };
+      $.position.getWithinInfo.__fcpPatched = true;
+      return true;
+    }
+
+    if (!patchPosition()) {
+      var attempts = 0;
+      var timer = w.setInterval(function () {
+        if (patchPosition() || ++attempts >= 50) {
+          w.clearInterval(timer);
+        }
+      }, 100);
+    }
+  })(window);
+</script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery.matchHeight.js") %>'></script>
 <script src='<%= ResolveUrl("~/DesktopModules/FuseCP/Scripts/global-search.js") %>'></script>
 
