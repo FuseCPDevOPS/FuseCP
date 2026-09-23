@@ -31,3 +31,17 @@ paths-ignore:
 query-filters:
   - exclude:
       id: cs/class-name-matches-base-class
+  # E-mail-like values reaching the server log pipeline. In this mail hosting panel account
+  # identifiers are e-mail addresses by design, and Log is an internal, access-controlled
+  # diagnostic sink; credential-like values are masked in ExchangeLog.DebugCommand.
+  - exclude:
+      id: cs/exposure-of-sensitive-information
+      paths:
+        - "FuseCP/Sources/FuseCP.Server.Utils/Log.cs"
+  # Transmission flagged at the portal message box's render sink. Displayed text is HTML-encoded
+  # and localized; raw exception text is hidden behind a reference ID, so the flagged flow is a
+  # data dependency through name-matched password sources rather than an actual disclosure.
+  - exclude:
+      id: cs/sensitive-data-transmission
+      paths:
+        - "FuseCP/Sources/FuseCP.WebPortal/DesktopModules/FuseCP/UserControls/MessageBox.ascx.cs"

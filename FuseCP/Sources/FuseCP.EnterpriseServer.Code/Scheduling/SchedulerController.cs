@@ -295,8 +295,8 @@ namespace FuseCP.EnterpriseServer
             if (IsHighRiskSchedule(schedule.ScheduleInfo) && !IsHighRiskExecutionApproved(schedule.ScheduleInfo))
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
-            bool hasExplicitExecutionMode = HasScheduleParameter(schedule.ScheduleInfo?.Parameters, SchedulerExecutionModeParameterIds);
-            string configuredExecutionMode = NormalizeExecutionMode(GetScheduleParameterValue(schedule.ScheduleInfo?.Parameters, SchedulerExecutionModeParameterIds));
+            bool hasExplicitExecutionMode = HasScheduleParameter(schedule.ScheduleInfo.Parameters, SchedulerExecutionModeParameterIds);
+            string configuredExecutionMode = NormalizeExecutionMode(GetScheduleParameterValue(schedule.ScheduleInfo.Parameters, SchedulerExecutionModeParameterIds));
             string dispatchExecutionMode = ResolveDispatchExecutionMode(schedule, configuredExecutionMode, hasExplicitExecutionMode, out string placementNote);
             SchedulerDispatchPlan dispatchPlan = BuildDispatchPlan(schedule, dispatchExecutionMode);
 

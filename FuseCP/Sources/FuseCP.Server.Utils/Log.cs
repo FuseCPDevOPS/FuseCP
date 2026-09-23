@@ -122,7 +122,6 @@ namespace FuseCP.Server.Utils
             {
                 if (logSeverity.TraceInfo)
                 {
-                    // codeql[cs/exposure-of-sensitive-information] Name-based private data detection; the log pipeline is an internal, access-controlled sink and values pass through ProtectLogText sanitization.
                     Trace.TraceInformation(FormatIncomingMessage(message, "INFO", args));
                 }
             }

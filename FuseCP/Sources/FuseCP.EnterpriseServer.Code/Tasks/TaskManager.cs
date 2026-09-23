@@ -51,15 +51,20 @@ namespace FuseCP.EnterpriseServer
         {
 			lock (Lock)
 			{
-                if (purgeTimer == null)
-                {
-                    purgeTimer = new Timer(new TimerCallback(PurgeCompletedTasks),
-                    null,
-                    60000, // start from 1 minute
-                    60000);// invoke each minute
-                }
+                EnsurePurgeTimer(new TimerCallback(PurgeCompletedTasks));
 				timers++;
 			}
+		}
+
+		private static void EnsurePurgeTimer(TimerCallback callback)
+		{
+            if (purgeTimer == null)
+            {
+                purgeTimer = new Timer(callback,
+                null,
+                60000, // start from 1 minute
+                60000);// invoke each minute
+            }
 		}
 
         bool isDisposed = false;

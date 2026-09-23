@@ -78,9 +78,50 @@ namespace FuseCP.Providers.HostedSolution
                 if (parameter.Value is string) formatString = " -{0} '{1}'";
                 else if (parameter.Value is SwitchParameter) formatString = " -{0}:${1}";
                 else if (parameter.Value is bool) formatString = " -{0} ${1}";
-                sb.AppendFormat(formatString, parameter.Name, parameter.Value);
+                object valueToLog = parameter.Value;
+                if (IsSensitiveParameterName(parameter.Name) || ContainsEmailAddress(parameter.Value))
+                    valueToLog = "********";
+                sb.AppendFormat(formatString, parameter.Name, valueToLog);
             }
             Log.WriteInfo("{0} {1}", LogPrefix, sb.ToString());
+        }
+
+        private static bool IsSensitiveParameterName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return false;
+
+            string lowered = name.ToLowerInvariant();
+            return lowered.Contains("password") || lowered.Contains("passwd") || lowered.Contains("secret") || lowered.Contains("token")
+                || lowered.Contains("email") || lowered.Contains("smtp");
+        }
+
+        private static bool ContainsEmailAddress(object value)
+        {
+            if (value is string text)
+                return LooksLikeEmailAddress(text);
+
+            if (value is System.Collections.IEnumerable enumerable)
+            {
+                foreach (object item in enumerable)
+                {
+                    if (item is string itemText && LooksLikeEmailAddress(itemText))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool LooksLikeEmailAddress(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return false;
+
+            if (value.Contains(' ') || value.IndexOf('@') <= 0)
+                return false;
+
+            return value.LastIndexOf('.') > value.IndexOf('@');
         }
     }
 }

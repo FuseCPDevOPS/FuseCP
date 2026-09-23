@@ -248,7 +248,6 @@ namespace FuseCP.EnterpriseServer
         private async Task<CheckCertificateResult> GetServerCertificateAsync(string url, HttpMethod httpMethod)
         {
             X509Certificate2 certificate = null;
-            System.Net.HttpStatusCode? statusCode = null;
             try
             {
                 using var httpClientHandler = new HttpClientHandler
@@ -266,12 +265,10 @@ namespace FuseCP.EnterpriseServer
                 };
                 using var request = new HttpRequestMessage(httpMethod, url);
                 using HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-                statusCode = response.StatusCode;
             }
             catch (Exception e) when (!(e is OutOfMemoryException) && !(e is StackOverflowException) && !(e is AccessViolationException))
             {
                 string errorMessage = e.InnerException != null ? e.InnerException.Message : e.Message;
-                if (statusCode.HasValue) errorMessage += ", HTTP Response Code: " + statusCode.Value;
                 return new CheckCertificateResult(certificate, errorMessage);
             }
 

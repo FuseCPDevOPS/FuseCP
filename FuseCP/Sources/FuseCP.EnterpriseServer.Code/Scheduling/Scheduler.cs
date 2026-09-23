@@ -96,16 +96,13 @@ namespace FuseCP.EnterpriseServer
 
             foreach (var hydratedTask in hydratedTasks)
             {
-                bool enqueued = SchedulerExecutionQueue.TryEnqueue(
+                SchedulerExecutionQueue.TryEnqueue(
                     hydratedTask.Id,
                     ResolveRuntimeAffinityKey(hydratedTask),
                     ResolveRuntimeTenantKey(hydratedTask),
                     ResolveRuntimeProviderThrottleKey(hydratedTask),
                     () => RunBackgroundTask(hydratedTask),
                     ResolveRuntimeWeight(hydratedTask));
-
-                if (!enqueued)
-                    continue;
             }
         }
 
@@ -310,7 +307,7 @@ namespace FuseCP.EnterpriseServer
 
             if (Web.Services.Configuration.SchedulerFreezeEnabled)
             {
-                if (changeNextRun && schedule?.ScheduleInfo != null)
+                if (changeNextRun)
                 {
                     try
                     {
@@ -474,11 +471,8 @@ namespace FuseCP.EnterpriseServer
             if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0 || ids == null)
                 return String.Empty;
 
-            foreach (string id in ids)
+            foreach (string id in ids.Where(id => !String.IsNullOrWhiteSpace(id)))
             {
-                if (String.IsNullOrWhiteSpace(id))
-                    continue;
-
                 ScheduleTaskParameterInfo parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
                     p != null
                     && !String.IsNullOrWhiteSpace(p.ParameterId)

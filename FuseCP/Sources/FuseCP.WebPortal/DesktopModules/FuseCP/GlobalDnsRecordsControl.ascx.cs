@@ -88,10 +88,9 @@ namespace FuseCP.Portal
 
         }
 
-        // codeql[cs/web/ambiguous-client-variable] Parameter names are developer-assigned module properties, not client-controlled input.
         private string GetRequestParam(string param)
         {
-            return param == null ? null : Request[param];
+            return param == null ? null : Request.QueryString[param];
         }
 
         private void BindDnsRecords()
