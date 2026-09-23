@@ -81,12 +81,11 @@ namespace FuseCP.Web.Services
 			var xForwardedFor = request.Headers["X-Forwarded-For"];
 			if (!string.IsNullOrWhiteSpace(xForwardedFor))
 			{
-				foreach (var segment in xForwardedFor.Split(','))
-				{
-					var ip = ExtractIp(segment);
-					if (!string.IsNullOrWhiteSpace(ip))
-						return ip;
-				}
+				var ip = xForwardedFor.Split(',')
+					.Select(segment => ExtractIp(segment))
+					.FirstOrDefault(candidate => !string.IsNullOrWhiteSpace(candidate));
+				if (!string.IsNullOrWhiteSpace(ip))
+					return ip;
 			}
 
 			var xRealIp = ExtractIp(request.Headers["X-Real-IP"]);
@@ -96,19 +95,15 @@ namespace FuseCP.Web.Services
 			var forwarded = request.Headers["Forwarded"];
 			if (!string.IsNullOrWhiteSpace(forwarded))
 			{
-				foreach (var item in forwarded.Split(','))
-				{
-					foreach (var token in item.Split(';'))
-					{
-						var pair = token.Split(new[] { '=' }, 2);
-						if (pair.Length != 2 || !pair[0].Trim().Equals("for", StringComparison.OrdinalIgnoreCase))
-							continue;
-
-						var ip = ExtractIp(pair[1]);
-						if (!string.IsNullOrWhiteSpace(ip))
-							return ip;
-					}
-				}
+				var ip = forwarded
+					.Split(',')
+					.SelectMany(item => item.Split(';'))
+					.Select(token => token.Split(new[] { '=' }, 2))
+					.Where(pair => pair.Length == 2 && pair[0].Trim().Equals("for", StringComparison.OrdinalIgnoreCase))
+					.Select(pair => ExtractIp(pair[1]))
+					.FirstOrDefault(candidate => !string.IsNullOrWhiteSpace(candidate));
+				if (!string.IsNullOrWhiteSpace(ip))
+					return ip;
 			}
 
 			return null;

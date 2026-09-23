@@ -284,7 +284,7 @@ public class Configuration
 			DirectoryInfo dir = new DirectoryInfo(AppContext.BaseDirectory);
 			for (int i = 0; i < 8 && dir != null; i++)
 			{
-				string candidate = Path.Combine(dir.FullName, "Web.config");
+				string candidate = Path.Join(dir.FullName, "Web.config");
 				if (File.Exists(candidate))
 				{
 					return candidate;
@@ -293,9 +293,10 @@ public class Configuration
 				dir = dir.Parent;
 			}
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			// Keep logging initialization resilient.
+			System.Diagnostics.Trace.TraceWarning("Could not locate Web.config above the base directory. Reason: {0}", ex.Message);
 		}
 
 		return null;
@@ -320,8 +321,9 @@ public class Configuration
 			value = (string)switchElement.Attribute("value");
 			return !string.IsNullOrWhiteSpace(value);
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
+			System.Diagnostics.Trace.TraceWarning("Could not read legacy log switch from '{0}'. Reason: {1}", webConfigPath, ex.Message);
 			return false;
 		}
 	}

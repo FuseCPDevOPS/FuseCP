@@ -29,7 +29,7 @@ namespace FuseCP.Providers.DNS
 	public class PowerShellHelper: IDisposable
 	{
 		private static readonly InitialSessionState s_session = null;
-		private static readonly string s_dnsModuleManifestPath = Path.Combine(
+		private static readonly string s_dnsModuleManifestPath = Path.Join(
 			Environment.GetFolderPath( Environment.SpecialFolder.Windows ),
 			"System32",
 			"WindowsPowerShell",
@@ -198,13 +198,11 @@ namespace FuseCP.Providers.DNS
 				// Terminating errors raise exceptions instead.
 				if( null != pipeLine.Error && pipeLine.Error.Count > 0 )
 				{
-					List<string> errors = new List<string>();
-					foreach( object item in pipeLine.Error.ReadToEnd() )
-					{
-						string message = item?.ToString() ?? string.Empty;
-						errors.Add( message );
+					List<string> errors = pipeLine.Error.ReadToEnd()
+						.Select( item => item?.ToString() ?? string.Empty )
+						.ToList();
+					foreach( string message in errors )
 						Log.WriteWarning( string.Format( "Invoke error: {0}", message ) );
-					}
 
 					bool enumerableAppendMismatch = errors.Any( message =>
 						(message?.IndexOf( "EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase ) ?? -1) >= 0

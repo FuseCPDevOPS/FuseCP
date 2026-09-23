@@ -129,9 +129,21 @@ namespace FuseCP.Providers.HostedSolution
                     formatString = " -{0} '{1}'";
                 else if (parameter.Value is bool)
                     formatString = " -{0} ${1}";
-                sb.AppendFormat(formatString, parameter.Name, parameter.Value);
+                object valueToLog = parameter.Value;
+                if (IsSensitiveParameterName(parameter.Name))
+                    valueToLog = "********";
+                sb.AppendFormat(formatString, parameter.Name, valueToLog);
             }
             Log.WriteInfo("{0} {1}", LogPrefix, sb.ToString());
+        }
+
+        private static bool IsSensitiveParameterName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return false;
+
+            string lowered = name.ToLowerInvariant();
+            return lowered.Contains("password") || lowered.Contains("passwd") || lowered.Contains("secret") || lowered.Contains("token");
         }
 
 		

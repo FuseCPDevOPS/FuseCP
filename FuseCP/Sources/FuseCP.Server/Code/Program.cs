@@ -75,7 +75,7 @@ namespace FuseCP.Server
 		{
 			foreach (var providerRoot in GetProviderProbeRoots().Where(Directory.Exists))
 			{
-				var directPath = Path.Combine(providerRoot, assemblySimpleName + ".dll");
+				var directPath = Path.Join(providerRoot, assemblySimpleName + ".dll");
 				if (File.Exists(directPath))
 					return directPath;
 

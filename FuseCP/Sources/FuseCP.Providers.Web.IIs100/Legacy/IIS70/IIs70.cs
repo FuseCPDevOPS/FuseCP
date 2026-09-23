@@ -868,14 +868,12 @@ namespace FuseCP.Providers.Web
 				// cleanup app pools
 				using (var srvman = webObjectsSvc.GetServerManager())
 				{
-					foreach (var poolName in poolNames)
-					{
-						var pool = srvman.ApplicationPools[poolName];
-						if (pool != null)
-						{
-							srvman.ApplicationPools.Remove(pool);
-						}
-					}
+					var poolsToRemove = poolNames
+						.Select(poolName => srvman.ApplicationPools[poolName])
+						.Where(pool => pool != null)
+						.ToList();
+					foreach (var pool in poolsToRemove)
+						srvman.ApplicationPools.Remove(pool);
 
 					// save changes
 					srvman.CommitChanges();
@@ -1527,11 +1525,8 @@ namespace FuseCP.Providers.Web
 				if (appPoolFlagChanged)
 				{
 					WebAppVirtualDirectory[] dirs = GetAppVirtualDirectories(site.SiteId) ?? new WebAppVirtualDirectory[0];
-					foreach (WebAppVirtualDirectory dir in dirs)
+					foreach (WebAppVirtualDirectory dir in dirs.Where(d => d != null && !String.IsNullOrEmpty(d.Name)))
 					{
-						if (dir == null || String.IsNullOrEmpty(dir.Name))
-							continue;
-
 						WebAppVirtualDirectory vdir = GetAppVirtualDirectory(site.SiteId, dir.Name);
 						if (vdir == null)
 							continue;
@@ -4136,9 +4131,9 @@ namespace FuseCP.Providers.Web
 			//
 			string fqWebPath = String.Format("/{0}", siteName);
 
-			// Trace input parameters
-			Log.WriteInfo("Site Name: {0}; Account Name: {1}; Account Password: {2}; FqWebPath: {3};",
-				siteName, accountName, accountPassword, fqWebPath);
+			// Trace input parameters (never log the account password)
+			Log.WriteInfo("Site Name: {0}; Account Name: {1}; FqWebPath: {2};",
+				siteName, accountName, fqWebPath);
 
 
 			string contentPath = string.Empty;
@@ -4221,8 +4216,8 @@ namespace FuseCP.Providers.Web
 			// against the web server
 			//ServerSettings.ADEnabled = false;
 
-			// Trace input parameters
-			Log.WriteInfo("Account Name: {0}; Account Password: {1};", accountName, accountPassword);
+			// Trace input parameters (never log the account password)
+			Log.WriteInfo("Account Name: {0};", accountName);
 
 			if (IdentityCredentialsMode == "IISMNGR")
 			{

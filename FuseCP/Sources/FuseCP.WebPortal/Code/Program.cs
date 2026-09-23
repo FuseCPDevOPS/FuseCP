@@ -73,9 +73,10 @@ public class Program
 		{
 			return Assembly.Load("FuseCP.EnterpriseServer");
 		}
-		catch
+		catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 		{
 			// Fall back to explicit probe paths for split Portal/EnterpriseServer layouts.
+			System.Diagnostics.Trace.TraceWarning("Could not load 'FuseCP.EnterpriseServer' assembly directly. Reason: {0}", ex.Message);
 		}
 
 		var probePaths = (Configuration.ProbingPaths ?? string.Empty)
@@ -89,15 +90,16 @@ public class Program
 			{
 				var basePath = Path.IsPathRooted(probePath)
 					? probePath
-					: Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, probePath));
-				var candidate = Path.Combine(basePath, "FuseCP.EnterpriseServer.dll");
+					: Path.GetFullPath(Path.Join(AppContext.BaseDirectory, probePath));
+				var candidate = Path.Join(basePath, "FuseCP.EnterpriseServer.dll");
 				if (!File.Exists(candidate)) continue;
 
 				return AssemblyLoadContext.Default.LoadFromAssemblyPath(candidate);
 			}
-			catch
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
 				// Try next configured path.
+				System.Diagnostics.Trace.TraceWarning("Could not probe path '{0}' for 'FuseCP.EnterpriseServer.dll'. Reason: {1}", probePath, ex.Message);
 			}
 		}
 
