@@ -12,72 +12,85 @@
         }
     }
 
-    $(document).ready(function () {
-        var cfg = document.getElementById("searchBoxConfig");
-        if (!cfg) {
+    function init() {
+        // This script renders before the theme's jQuery (registered later in the page).
+        if (typeof window.jQuery === "undefined") {
             return;
         }
 
-        var filterColumns = cfg.getAttribute("data-filter-columns") || "";
-        var extraDataExpression = cfg.getAttribute("data-ajax-data") || "";
-        var submitId = cfg.getAttribute("data-submit-id") || "";
-
-        $("#tbSearch").keypress(function (e) {
-            if (e.keyCode !== 13) {
-                $("#tbSearchText").val("");
-                $("#tbObjectId").val("");
-                $("#tbPackageId").val("");
-                $("#tbAccountId").val("");
+        $(document).ready(function () {
+            var cfg = document.getElementById("searchBoxConfig");
+            if (!cfg) {
+                return;
             }
-        });
 
-        $("#tbSearch").autocomplete({
-            zIndex: 0,
-            source: function (request, response) {
-                var payload = {
-                    fullType: "TableSearch",
-                    FilterValue: request.term,
-                    FilterColumns: filterColumns
-                };
+            var filterColumns = cfg.getAttribute("data-filter-columns") || "";
+            var extraDataExpression = cfg.getAttribute("data-ajax-data") || "";
+            var submitId = cfg.getAttribute("data-submit-id") || "";
 
-                payload = $.extend(payload, parseExtraAjaxData(extraDataExpression));
+            $("#tbSearch").keypress(function (e) {
+                if (e.keyCode !== 13) {
+                    $("#tbSearchText").val("");
+                    $("#tbObjectId").val("");
+                    $("#tbPackageId").val("");
+                    $("#tbAccountId").val("");
+                }
+            });
 
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    data: payload,
-                    url: "AjaxHandler.ashx",
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            var type = $('#ddlFilterColumn option[value="' + item.ColumnType + '"]').text();
-                            if (type == null || type.length === 0) {
-                                type = item.ColumnType;
-                            }
-                            $("#ddlFilterColumn :selected").removeAttr("selected");
-                            return {
-                                label: item.TextSearch + " [" + type + "]",
-                                code: item
-                            };
-                        }));
-                    }
-                });
-            },
-            select: function (event, ui) {
-                var item = ui.item;
-                if (item.code.url != null) {
-                    window.location.href = item.code.url;
-                } else {
-                    $("#ddlFilterColumn").val(item.code.ColumnType);
-                    $("#tbSearchText").val(item.code.TextSearch);
+            $("#tbSearch").autocomplete({
+                zIndex: 0,
+                source: function (request, response) {
+                    var payload = {
+                        fullType: "TableSearch",
+                        FilterValue: request.term,
+                        FilterColumns: filterColumns
+                    };
 
-                    var submit = document.getElementById(submitId);
-                    if (submit && typeof submit.click === "function") {
-                        submit.click();
-                    } else if (submit) {
-                        $(submit).trigger("click");
+                    payload = $.extend(payload, parseExtraAjaxData(extraDataExpression));
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        data: payload,
+                        url: "AjaxHandler.ashx",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                var type = $('#ddlFilterColumn option[value="' + item.ColumnType + '"]').text();
+                                if (type == null || type.length === 0) {
+                                    type = item.ColumnType;
+                                }
+                                $("#ddlFilterColumn :selected").removeAttr("selected");
+                                return {
+                                    label: item.TextSearch + " [" + type + "]",
+                                    code: item
+                                };
+                            }));
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    var item = ui.item;
+                    if (item.code.url != null) {
+                        window.location.href = item.code.url;
+                    } else {
+                        $("#ddlFilterColumn").val(item.code.ColumnType);
+                        $("#tbSearchText").val(item.code.TextSearch);
+
+                        var submit = document.getElementById(submitId);
+                        if (submit && typeof submit.click === "function") {
+                            submit.click();
+                        } else if (submit) {
+                            $(submit).trigger("click");
+                        }
                     }
                 }
-            }
+            });
         });
-    });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
 }());

@@ -43,38 +43,47 @@
         show();
     };
 
-    if (!global.jQuery) {
-        return;
-    }
-
-    global.jQuery(function ($) {
-        function loadFilters() {
-            var value = $("#tbFilters").val();
-            if (!value) {
-                return;
-            }
-
-            var typesSelected = JSON.parse(value);
-            $("#mydialog input[rel]").each(function () {
-                var rel = $(this).attr("rel");
-                if (typesSelected.indexOf(rel) >= 0) {
-                    $(this).val("1");
-                }
-            });
+    function init() {
+        // This script renders before the theme's jQuery (registered later in the page).
+        if (!global.jQuery) {
+            return;
         }
 
-        $("#btnSelectFilter").click(function () {
-            var typesSelected = [];
-            $("#mydialog input[rel]").each(function () {
-                var val = $(this).attr("checked");
-                if (val) {
-                    typesSelected.push($(this).attr("rel"));
+        global.jQuery(function ($) {
+            function loadFilters() {
+                var value = $("#tbFilters").val();
+                if (!value) {
+                    return;
                 }
-            });
-            $("#tbFilters").val(JSON.stringify(typesSelected));
-            document.forms[0].submit();
-        });
 
-        loadFilters();
-    });
+                var typesSelected = JSON.parse(value);
+                $("#mydialog input[rel]").each(function () {
+                    var rel = $(this).attr("rel");
+                    if (typesSelected.indexOf(rel) >= 0) {
+                        $(this).val("1");
+                    }
+                });
+            }
+
+            $("#btnSelectFilter").click(function () {
+                var typesSelected = [];
+                $("#mydialog input[rel]").each(function () {
+                    var val = $(this).attr("checked");
+                    if (val) {
+                        typesSelected.push($(this).attr("rel"));
+                    }
+                });
+                $("#tbFilters").val(JSON.stringify(typesSelected));
+                document.forms[0].submit();
+            });
+
+            loadFilters();
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
 }(window));

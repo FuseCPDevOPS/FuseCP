@@ -2,18 +2,27 @@
 (function (global) {
     "use strict";
 
-    if (!global.jQuery) {
-        return;
+    function init() {
+        // This script renders before the theme's jQuery (registered later in the page).
+        if (!global.jQuery) {
+            return;
+        }
+
+        global.jQuery(function ($) {
+            $(".hideContentOnBlur")
+                .off("blur.fusecpPassword focus.fusecpPassword")
+                .on("blur.fusecpPassword", function () {
+                    this.type = "password";
+                })
+                .on("focus.fusecpPassword", function () {
+                    this.type = "text";
+                });
+        });
     }
 
-    global.jQuery(function ($) {
-        $(".hideContentOnBlur")
-            .off("blur.fusecpPassword focus.fusecpPassword")
-            .on("blur.fusecpPassword", function () {
-                this.type = "password";
-            })
-            .on("focus.fusecpPassword", function () {
-                this.type = "text";
-            });
-    });
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
 }(window));

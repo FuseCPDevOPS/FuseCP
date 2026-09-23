@@ -75,5 +75,18 @@
         wireFormProgress: wireFormProgress
     };
 
-    wireFormProgress();
+    function init() {
+        // This script renders before the theme's jQuery (registered later in the page).
+        if (!global.jQuery) {
+            return;
+        }
+
+        wireFormProgress();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
 }(window));
