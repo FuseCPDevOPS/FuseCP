@@ -493,8 +493,6 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
-                var updateStage = "hydrate-site";
-
                 // Ensure provider receives a fully populated object even if UI omitted fields.
                 site.Id = siteItem.Id;
                 if (site.PackageId <= 0)
@@ -515,7 +513,6 @@ namespace FuseCP.EnterpriseServer
                     site.ApplicationPool = siteItem.ApplicationPool;
 
                 // update home folder
-                updateStage = "normalize-paths";
                 string origPath = site.ContentPath;
                 if (string.IsNullOrWhiteSpace(site.ContentPath))
                     site.ContentPath = siteItem.ContentPath;
@@ -526,7 +523,6 @@ namespace FuseCP.EnterpriseServer
                 site.LogsPath = siteItem.LogsPath;
 
                 // update site on the service
-                updateStage = "provider-update-site";
                 WebServer web = new WebServer();
                 ServiceProviderProxy.Init(web, siteItem.ServiceId);
                 web.UpdateSite(site);
@@ -539,7 +535,6 @@ namespace FuseCP.EnterpriseServer
 				#endregion
 
                 // update service item
-                updateStage = "persist-package-item";
                 PackageController.UpdatePackageItem(site);
 
                 // set origpath

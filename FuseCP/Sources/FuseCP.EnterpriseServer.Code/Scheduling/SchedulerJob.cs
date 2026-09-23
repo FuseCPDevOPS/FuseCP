@@ -199,19 +199,15 @@ namespace FuseCP.EnterpriseServer
                 "SCHEDULER_MODE"
             };
 
-            foreach (string id in ids)
-            {
-                var parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+            var parameter = ids
+                .Select(id => scheduleInfo.Parameters.FirstOrDefault(p =>
                     p != null &&
                     !string.IsNullOrWhiteSpace(p.ParameterId) &&
                     string.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase) &&
-                    !string.IsNullOrWhiteSpace(p.ParameterValue));
+                    !string.IsNullOrWhiteSpace(p.ParameterValue)))
+                .FirstOrDefault(p => p != null);
 
-                if (parameter != null)
-                    return parameter.ParameterValue.Trim();
-            }
-
-            return "AUTO";
+            return parameter != null ? parameter.ParameterValue.Trim() : "AUTO";
         }
 
         private int ResolveRetryAttempts()
@@ -230,27 +226,24 @@ namespace FuseCP.EnterpriseServer
                 return defaultValue;
 
             string[] ids = { id1, id2, id3 };
-            foreach (string id in ids)
-            {
-                var parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+            string rawValue = ids
+                .Select(id => scheduleInfo.Parameters.FirstOrDefault(p =>
                     p != null
                     && !string.IsNullOrWhiteSpace(p.ParameterId)
                     && string.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase)
-                    && !string.IsNullOrWhiteSpace(p.ParameterValue));
+                    && !string.IsNullOrWhiteSpace(p.ParameterValue)))
+                .Select(p => p?.ParameterValue)
+                .FirstOrDefault(value => int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _));
 
-                if (parameter == null)
-                    continue;
+            if (rawValue != null && int.TryParse(rawValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed))
+            {
+                if (parsed < minValue)
+                    return minValue;
 
-                if (int.TryParse(parameter.ParameterValue, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed))
-                {
-                    if (parsed < minValue)
-                        return minValue;
+                if (parsed > maxValue)
+                    return maxValue;
 
-                    if (parsed > maxValue)
-                        return maxValue;
-
-                    return parsed;
-                }
+                return parsed;
             }
 
             return defaultValue;
@@ -306,7 +299,7 @@ namespace FuseCP.EnterpriseServer
                 .Select(prm => new BackgroundTaskParameter(prm.ParameterId, prm.ParameterValue))
                 .ToList();
 
-            using (var lease = new SchedulerLeaseHeartbeat(SchedulerController, scheduleInfo.ScheduleId, LeaseOwner, LeaseToken, leaseDuration))
+            using (new SchedulerLeaseHeartbeat(SchedulerController, scheduleInfo.ScheduleId, LeaseOwner, LeaseToken, leaseDuration))
             {
                 TaskManager.StartTask("SCHEDULER", "RUN_SCHEDULE", scheduleInfo.ScheduleName, scheduleInfo.ScheduleId,
                                       scheduleInfo.ScheduleId, scheduleInfo.PackageId, scheduleInfo.MaxExecutionTime,

@@ -92,10 +92,10 @@ namespace FuseCP.EnterpriseServer
 
             tasks = TaskController.GetProcessTasks(BackgroundTaskStatus.Starting);
 
-            foreach (var task in tasks)
-            {
-                var hydratedTask = TaskController.GetTask(task.TaskId) ?? task;
+            var hydratedTasks = tasks.Select(task => TaskController.GetTask(task.TaskId) ?? task);
 
+            foreach (var hydratedTask in hydratedTasks)
+            {
                 bool enqueued = SchedulerExecutionQueue.TryEnqueue(
                     hydratedTask.Id,
                     ResolveRuntimeAffinityKey(hydratedTask),
@@ -187,11 +187,8 @@ namespace FuseCP.EnterpriseServer
             if (task?.Params == null || names == null || names.Length == 0)
                 return String.Empty;
 
-            foreach (string name in names)
+            foreach (string name in names.Where(n => !String.IsNullOrWhiteSpace(n)))
             {
-                if (String.IsNullOrWhiteSpace(name))
-                    continue;
-
                 BackgroundTaskParameter parameter = task.Params.FirstOrDefault(p =>
                     p != null && !String.IsNullOrWhiteSpace(p.Name)
                     && String.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
@@ -222,11 +219,9 @@ namespace FuseCP.EnterpriseServer
                 TaskManager.WriteWarning(task.Guid, "Recovered stale starting scheduler task '{0}' after {1} seconds", task.ItemName, ((int)ageSeconds).ToString());
             }
 
-            foreach (var task in TaskController.GetProcessTasks(BackgroundTaskStatus.Run))
+            foreach (var task in TaskController.GetProcessTasks(BackgroundTaskStatus.Run)
+                .Where(task => task.MaximumExecutionTime > 0 && task.MaximumExecutionTime != -1))
             {
-                if (task.MaximumExecutionTime <= 0 || task.MaximumExecutionTime == -1)
-                    continue;
-
                 double ageSeconds = (now - task.StartDate).TotalSeconds;
                 if (ageSeconds <= task.MaximumExecutionTime)
                     continue;
@@ -306,6 +301,9 @@ namespace FuseCP.EnterpriseServer
 
         void RunSchedule(SchedulerJob schedule, bool changeNextRun)
         {
+            if (schedule?.ScheduleInfo == null)
+                return;
+
             string leaseOwner = null;
             string leaseToken = null;
             bool leaseTransferred = false;

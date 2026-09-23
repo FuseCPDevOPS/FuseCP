@@ -87,7 +87,7 @@ namespace FuseCP.EnterpriseServer
             {
                 return WebServerController.UpdateWebSite(site);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 var siteId = site != null ? site.Id.ToString() : "null";
                 var iisSiteId = site != null ? site.SiteId : "null";

@@ -139,8 +139,9 @@ namespace FuseCP.EnterpriseServer
                     // delete batch file
                     FilesController.DeleteFiles(topTask.PackageId, new string[] { cmdPath });
                 }
-                catch
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
+                    TaskManager.WriteWarning("Could not delete FTP batch file '{0}': {1}", cmdPath, ex.Message);
                 }
             }
         }

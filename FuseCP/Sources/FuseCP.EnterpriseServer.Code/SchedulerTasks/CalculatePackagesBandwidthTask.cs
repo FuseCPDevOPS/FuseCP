@@ -247,10 +247,8 @@ namespace FuseCP.EnterpriseServer
 			{
 				CultureInfo culture = CultureInfo.InvariantCulture;
 
-                foreach (ServiceProviderItemBandwidth item in itemsBandwidth)
+                foreach (ServiceProviderItemBandwidth item in itemsBandwidth.Where(item => item != null && item.Days != null))
                 {
-                    if (item == null || item.Days == null)
-                        continue;
 
                     foreach (DailyStatistics day in item.Days)
                     {

@@ -289,6 +289,9 @@ namespace FuseCP.EnterpriseServer
             if (schedule == null)
                 return 0;
 
+            if (schedule.ScheduleInfo == null)
+                return 0;
+
             if (IsHighRiskSchedule(schedule.ScheduleInfo) && !IsHighRiskExecutionApproved(schedule.ScheduleInfo))
                 return BusinessErrorCodes.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS;
 
@@ -532,16 +535,10 @@ namespace FuseCP.EnterpriseServer
             if (parameters == null || parameterIds == null)
                 return false;
 
-            foreach (string parameterId in parameterIds)
+            foreach (string parameterId in parameterIds.Where(parameterId => !String.IsNullOrWhiteSpace(parameterId)))
             {
-                if (String.IsNullOrWhiteSpace(parameterId))
-                    continue;
-
-                foreach (ScheduleTaskParameterInfo parameter in parameters)
+                foreach (ScheduleTaskParameterInfo parameter in parameters.Where(parameter => parameter != null && !String.IsNullOrWhiteSpace(parameter.ParameterId)))
                 {
-                    if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
-                        continue;
-
                     if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
                         return true;
                 }
@@ -558,7 +555,7 @@ namespace FuseCP.EnterpriseServer
                 return configuredMode;
 
             SchedulerPlacementMode recommendation = SchedulerTaskPlacementAdvisor.GetRecommendedMode(schedule?.Task?.TaskType, schedule?.Task?.TaskId);
-            string recommendedMode = configuredMode;
+            string recommendedMode;
             switch (recommendation)
             {
                 case SchedulerPlacementMode.ServerPreferred:
@@ -670,11 +667,8 @@ namespace FuseCP.EnterpriseServer
 
             foreach (string parameterId in parameterIds)
             {
-                foreach (ScheduleTaskParameterInfo parameter in parameters)
+                foreach (ScheduleTaskParameterInfo parameter in parameters.Where(parameter => parameter != null && !String.IsNullOrWhiteSpace(parameter.ParameterId)))
                 {
-                    if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
-                        continue;
-
                     if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
                         return parameter.ParameterValue ?? String.Empty;
                 }
@@ -1226,11 +1220,8 @@ namespace FuseCP.EnterpriseServer
             if (parameters == null || String.IsNullOrWhiteSpace(parameterId))
                 return String.Empty;
 
-            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            foreach (ScheduleTaskParameterInfo parameter in parameters.Where(parameter => parameter != null && !String.IsNullOrWhiteSpace(parameter.ParameterId)))
             {
-                if (parameter == null || String.IsNullOrWhiteSpace(parameter.ParameterId))
-                    continue;
-
                 if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
                     return parameter.ParameterValue ?? String.Empty;
             }
