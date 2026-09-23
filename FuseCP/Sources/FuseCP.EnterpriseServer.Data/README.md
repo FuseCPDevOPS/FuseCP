@@ -107,8 +107,8 @@ revert/rebase migration workflows.
 # Usage of FuseCP.EnterpriseServer.Data
 FuseCP.EnterpriseServer.Data provides a class DbContext, that can be used as EF DbContext to access the database,
 It has properties to access the DbSet's of the Entities, and the usual SaveChanges etc. commands. In order to
-consume SoldiCP.EnterpriseServer.Data, you don't have to import the assemblies for EF Core 8 or EF 6, just use the
-FuseCP.EnterpriseServer.Data.DbContext class. It will use either EF Core 8 or EF 6 for accessing the database
+consume SoldiCP.EnterpriseServer.Data, you don't have to import the assemblies for EF Core 9 or EF 6, just use the
+FuseCP.EnterpriseServer.Data.DbContext class. It will use either EF Core 9 or EF 6 for accessing the database
 depending on wether you run on NET 10 or on NET Framework.
 
 # Connection Strings

@@ -131,7 +131,7 @@ FuseCP is organized into three primary layers:
 | Layer | Description |
 | ----- | ----------- |
 | **Portal** | ASP.NET (WebForms, migrating to Core) front-end — user-facing web UI |
-| **Enterprise Server** | Business logic, database access (EF Core 8 / EF 6), and service orchestration |
+| **Enterprise Server** | Business logic, database access (EF Core 9 / EF 6), and service orchestration |
 | **Server** | Execution agent that runs on managed hosts and carries out provisioning actions |
 
 Source code is under `FuseCP/Sources/`. Build and deployment scripts are under `FuseCP/` and `tools/`.
@@ -259,7 +259,7 @@ Commit both the `.less` source and the recompiled `main.css` together.
 
 ## Database Schema Changes (Entity Framework)
 
-FuseCP uses EF Core 8 on .NET 10 and EF 6 on .NET Framework, with a single shared `DbContext` in `FuseCP.EnterpriseServer.Data`.
+FuseCP uses EF Core 9 on .NET 10 and EF 6 on .NET Framework, with a single shared `DbContext` in `FuseCP.EnterpriseServer.Data`.
 
 ### Workflow
 

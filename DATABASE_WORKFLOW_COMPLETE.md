@@ -21,7 +21,7 @@ This document covers the complete FuseCP database architecture, EF workflow, and
 ### The EF Stack
 
 FuseCP uses **Entity Framework as the source-of-truth** for database schema:
-- **EF Core 8** (.NET 10) – Cloud/containerized deployments
+- **EF Core 9** (.NET 10) – Cloud/containerized deployments
 - **EF 6** (.NET Framework 4.8) – Legacy on-premises installations
 
 **Key principle:** Migrations are managed by EF Core; migration SQL is used by both EF Core and EF 6.

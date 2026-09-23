@@ -80,7 +80,7 @@ The portal theme is authored in LESS source files, not directly in the compiled 
 
 ## 6. Database Schema Changes — Entity Framework Workflow
 
-FuseCP uses Entity Framework (EF Core 8 on .NET 10, EF 6 on .NET Framework) for database access. Schema changes must follow this workflow:
+FuseCP uses Entity Framework (EF Core 9 on .NET 10, EF 6 on .NET Framework) for database access. Schema changes must follow this workflow:
 
 ### Updating the schema
 

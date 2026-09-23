@@ -1,5 +1,7 @@
 # FuseCP Agent Instructions
 
+This file is the single source of truth for all AI coding agents working in this repository (Kilo, Claude Code, Codex, Copilot, Cursor, Aider, or any other). Tool-specific instruction files (for example `.github/copilot-instructions.md`) are thin pointers to here and must not duplicate this content.
+
 ## Architecture
 
 FuseCP is a hosting control panel migrated from SolidCP to ASP.NET Core on .NET 10. Three primary layers:
@@ -20,6 +22,15 @@ Solutions are split across `FuseCP/Sources/`. Many have ordering/dependency rela
 - Keep backward compatibility in shared contracts unless explicitly approved.
 - Update docs when behavior, configuration, or deployment steps change.
 - FuseCP is a migrated codebase: if implementation intent is unclear, consult `origin/SolidCPv1` branch for legacy behavior before changing contracts or build wiring.
+
+## Reference Docs
+
+- `.github/AI_FUSECP_PLAYBOOK.md` — safe starting workflow / first 5 minutes
+- `.github/AI_DIRECTIVES.md` — minimum standards and accountability for AI-assisted work
+- `.github/AI_CLEANUP_DIRECTIVE.md` — mandatory checklist for feature/provider removals
+- `TESTING_ENVIRONMENT.md` — environment prerequisites
+- `DATABASE_WORKFLOW_COMPLETE.md` — full EF/database workflow reference
+- `FuseCP/Sources/POWERSHELL_HOSTING_TROUBLESHOOTING.md` — read first for provider-side PowerShell hosting, runspaces, module loading, or IIS-hosted execution behavior
 
 ## Tech Stack
 
@@ -48,6 +59,7 @@ Solutions are split across `FuseCP/Sources/`. Many have ordering/dependency rela
 - Never expose secrets, credentials, tokens, or private tenant data.
 - Never commit environment-specific `Web.config` secrets (connection strings, machineKey, private endpoints).
 - Commit only structural/runtime-safe Web.config changes; keep secrets local-only.
+- When `Web.config` needs functional fixes: create a sanitized commit-safe variant for git, then restore local secret-bearing values after commit and keep them local-only (for example via local git index flags such as `skip-worktree` where appropriate).
 - Runtime auth config: write to `appsettings.hardened.json` as narrow overlay, not base `appsettings.json`.
 - Avoid introducing insecure defaults. Flag security-sensitive changes for maintainer review.
 - Never delete `FuseCP.Installer/Sources/FuseCP.InstallPackages/src/bin/fusecp-installer` unless explicitly requested.
@@ -55,10 +67,11 @@ Solutions are split across `FuseCP/Sources/`. Many have ordering/dependency rela
 ## Build & Validation
 
 ### Quick References
-- **Start of day**: `pwsh -File FuseCP/Tools/Start-Of-Day.ps1`
+- **Start of day**: `pwsh -File FuseCP/Tools/Start-Of-Day.ps1` — run at the start of each new development day/session before making code changes
 - **Fast validation**: `pwsh -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges -DisableNuGetAudit`
-- **Solution sync**: `pwsh -File FuseCP/Tools/check-sln-scope-sync.ps1`
+- **Solution sync**: `pwsh -File FuseCP/Tools/check-sln-scope-sync.ps1` — also the minimum check for docs-only changes
 - **Unlock portal build**: `pwsh -File FuseCP/Tools/Unlock-WebPortal-Build.ps1`
+- **Legacy MSI packaging check**: `pwsh -File FuseCP/Tools/check-test-environment.ps1 -Profile Package -RequireLegacyMsi`
 
 ### Validation Strategy
 Use **smallest relevant scope first**:
@@ -76,8 +89,9 @@ Use **smallest relevant scope first**:
 - `-ScopeMapPath`: extend path-to-scope routing from JSON
 
 ### Build Orchestration
-- Prefer orchestrated builds (`build.xml`, `build-debug.bat`, `build-release.bat`) for end-to-end validation.
-- If `w3wp` locks `bin_dotnet`, stop IIS worker processes first or use `Unlock-WebPortal-Build.ps1`.
+- Prefer orchestrated builds (`build.xml`, `build-debug.bat`, `build-release.bat`, `deploy-*.bat`) for end-to-end validation; independent solution order may be insufficient.
+- If `w3wp` locks `bin_dotnet`, stop IIS worker processes first or use `Unlock-WebPortal-Build.ps1` (it stops `w3wp` and can rerun the Portal Modules build with `-RunBuild`).
+- Run the narrowest relevant build/tests first, then broaden if needed. Report what was validated and what could not be validated locally.
 - Keep `FuseCP.sln` synchronized with `FuseCP/Sources/FuseCP.WebPortal.sln`, `FuseCP/Sources/FuseCP.EnterpriseServer.sln`, and `FuseCP/Sources/FuseCP.Server.sln` for project add/remove/rename.
 
 ### Warning Policy
@@ -94,24 +108,40 @@ Use **smallest relevant scope first**:
 3. Add `ApplyConfiguration(model, new MyEntityConfiguration());` in `DbContextBase.OnModelCreating()`
 4. Add DbSet property in `DbContext.Sets.cs`
 5. Run `MigrationAdd.bat` to generate migrations for all 4 providers (SqlServer/MySQL/PostgreSQL/SQLite)
+6. Commit Entity, Configuration, migration files, and regenerated `install.*.sql` files
 
 ### SQLite FK Constraint Rule
-`PRAGMA foreign_keys = OFF` is a no-op inside transactions. When deleting from parent tables (e.g. `Providers`), emit `migrationBuilder.Sql(...)` to delete child rows from non-cascading FK tables FIRST. Non-cascading FK tables to `Providers`: `ServiceDefaultProperties`, `Services`.
+`PRAGMA foreign_keys = OFF` is a no-op inside transactions. When deleting from parent tables (e.g. `Providers`), emit `migrationBuilder.Sql(...)` to delete child rows from non-cascading FK tables FIRST. Non-cascading FK tables to `Providers`: `ServiceDefaultProperties`, `Services`. Pattern:
+```csharp
+migrationBuilder.Sql(@"DELETE FROM ""ServiceDefaultProperties"" WHERE ""ProviderID"" IN (1, 2, 3);");
+migrationBuilder.DeleteData(table: "Providers", keyColumn: "ProviderID", keyValue: 1);
+```
 
 ### Provider Removal Dependency Rule
-Never delete from `Providers` first. Handle `ServiceDefaultProperties` -> `Services` -> then `Providers`. Remap `Services` rows to replacement provider (preferred) or explicitly remove.
+Never delete from `Providers` first. Handle `ServiceDefaultProperties` -> `Services` -> then `Providers`. Remap `Services` rows to replacement provider (preferred) or explicitly remove. Only after dependents are handled may `migrationBuilder.DeleteData(...)` remove provider records. Apply this logic consistently across SqlServer/MySql/PostgreSql/Sqlite migrations.
 
 ### Known Local Issues
-- **MySQL**: Bat hardcodes password but local has none. Re-run with `Uid=root;` (no Pwd).
-- **SQL Server**: "Stream was not readable" is pre-existing; CI regenerates correctly.
+- **MySQL**: Bat hardcodes password but local has none. Re-run with `Uid=root;` (no Pwd). The MySQL migration/install-script steps will fail with "Access denied" — this is expected; after the bat finishes, manually re-run:
+  ```
+  dotnet ef migrations add --framework net10.0 --no-build -o Migrations\MySql --context MySqlDbContext <MigrationName> -- "DbType=MySql;Server=localhost;Database=FuseCP;Uid=root;"
+  dotnet ef migrations script --framework net10.0 --no-build -o Migrations\MySql\install.mysql.sql --context MySqlDbContext -i -- "DbType=MySql;Server=localhost;Database=FuseCP;Uid=root;"
+  Copy-Item -Force "Migrations\MySql\install.mysql.sql" "..\..\Database\install.mysql.sql"
+  ```
+- **SQL Server**: "Stream was not readable" during `install.sqlserver.sql` generation via `migrations script -i` is pre-existing; the previous file is copied in its place and CI regenerates it correctly. Does not block validation.
 - **PostgreSQL**: `Host=localhost;Port=5433;User ID=postgres;Password=Password12`
 
 ### Rules
 - Never hand-edit EF model snapshots or migration files.
 - `install.*.sql` are generated artifacts, not source of truth.
 - SQLite upgrades run through EF migrations only.
-- Verification automated via `FuseCP/Tools/Orchestrate-Database-Workflow.ps1`.
-- Show both EF impact AND SQL impact in responses for DB changes.
+- Verification is fully automated via `FuseCP/Tools/Orchestrate-Database-Workflow.ps1` (modes: Quick, Full, Verify, Fix, Report) — it runs in CI, local validation, and pre-commit hooks; do not hand-run verification scripts.
+- Full reference: `DATABASE_WORKFLOW_COMPLETE.md`.
+
+### AI Response Requirements for DB Changes
+When proposing or implementing database changes, explicitly show both impacts:
+- **EF side**: Entities/Configuration touched, DbContext wiring changes, migration names created for SqlServer/MySql/PostgreSql/Sqlite.
+- **SQL side**: concrete operations introduced (`INSERT/UPDATE/DELETE`, data remap, seed add/remove, FK-safety deletes) and where they appear (`migrationBuilder.Sql(...)` and/or generated `install.*.sql` deltas).
+- **Artifacts**: which generated scripts changed (`FuseCP/Sources/FuseCP.EnterpriseServer.Data/Migrations/*/install.*.sql`, `FuseCP/Database/install.*.sql`) and any known local generation exceptions.
 
 ## UI / LESS / CSS Workflow
 
@@ -128,6 +158,7 @@ Never delete from `Providers` first. Handle `ServiceDefaultProperties` -> `Servi
 cd FuseCP/Sources/FuseCP.WebPortal/App_Themes/Default/Styles
 npm run build:css
 ```
+Commit both the `.less` and the recompiled `main.css` together.
 
 ### Bootstrap 3 -> 5.3 Migration
 Replace deprecated: `panel`, `well`, `input-group-addon`, `btn-default`, `pull-*`, `img-responsive`, `hidden-*`, `visible-*`. Replace Glyphicons with Bootstrap Icons. Do not break existing behaviors or remove accessibility semantics.

@@ -12,13 +12,13 @@ When removing a feature, technology, provider, or component from FuseCP:
    - [ ] Search for ALL `.sln` files in repo (not just `FuseCP.sln`)
    - [ ] Remove project declarations from **each** solution file found
    - [ ] Remove corresponding ProjectConfigurationPlatforms entries (Debug/Release/Platform variants)
-   - [ ] Verify with `grep_search` on `**/*.sln` for any remaining project name references
+    - [ ] Verify with a repo-wide content search (e.g. `grep`/ripgrep) over `**/*.sln` for any remaining project name references
    - [ ] Example: CRM appeared in both `FuseCP.sln` AND `FuseCP/Sources/FuseCP.Server.sln`
 
 2. **Source Code & Project Directories**
    - [ ] Delete all source files related to the component (*.cs, *.vb, etc.)
    - [ ] Delete entire project directories if removing a provider/plugin
-   - [ ] Verify deletion with `file_search` to ensure no stray references remain
+    - [ ] Verify deletion with file-pattern and content searches (e.g. `glob`/`grep`) to ensure no stray references remain
 
 3. **Database & Data**
    - [ ] Remove EF seed data (Configuration Fluent API files)

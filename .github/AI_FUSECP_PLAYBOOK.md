@@ -5,8 +5,8 @@ This playbook gives AI coding agents a safe, fast starting workflow for FuseCP.
 ## 1) First 5 Minutes
 
 1. Read:
+   - `AGENTS.md` (repo root — single source of AI instructions)
    - `.github/AI_DIRECTIVES.md`
-   - `.github/copilot-instructions.md`
    - `CONTRIBUTING.md`
    - `TESTING_ENVIRONMENT.md`
   - `FuseCP/Sources/POWERSHELL_HOSTING_TROUBLESHOOTING.md` when the task touches provider-side PowerShell hosting, runspaces, module loading, or IIS-hosted execution behavior.

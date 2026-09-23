@@ -108,7 +108,7 @@ Use a single command wrapper for local validation:
 * `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -JsonOutputPath artifacts/validation/summary.json`
 * `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -DisableNuGetAudit`
 * `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -SkipIfNoChanges`
-* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.json`
+* `[pwsh|powershell] -File FuseCP/Tools/run-local-validation.ps1 -ChangedOnly -ScopeMapPath FuseCP/Tools/validation-scope-map.example.json`
 * `[pwsh|powershell] -File FuseCP/Tools/check-sln-scope-sync.ps1`
 
 Notes:

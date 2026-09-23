@@ -3,8 +3,7 @@
   "instructions": [
     "AGENTS.md",
     "CONTRIBUTING.md",
-    "SECURITY.md",
-    ".github/copilot-instructions.md"
+    "SECURITY.md"
   ],
   "permission": {
     "bash": "allow",
