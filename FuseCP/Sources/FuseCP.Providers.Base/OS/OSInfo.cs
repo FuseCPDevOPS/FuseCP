@@ -280,7 +280,7 @@ namespace FuseCP.Providers.OS
 
 			foreach (var root in probeRoots.Where(Directory.Exists))
 			{
-				var assemblyPath = Path.Combine(root, assemblySimpleName + ".dll");
+				var assemblyPath = Path.Join(root, assemblySimpleName + ".dll");
 				if (!File.Exists(assemblyPath))
 				{
 					assemblyPath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
@@ -319,6 +319,7 @@ namespace FuseCP.Providers.OS
 			}
 			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
 			{
+				System.Diagnostics.Trace.TraceWarning("Could not determine executing assembly directory for OS provider probing. Reason: {0}", ex.Message);
 			}
 
 			var baseDirectories = new[]
@@ -334,13 +335,13 @@ namespace FuseCP.Providers.OS
 			return baseDirectories
 				.SelectMany(baseDir => new[]
 				{
-					Path.Combine(baseDir, "bin", "OS"),
-					Path.Combine(baseDir, "bin", "Providers", "OS"),
-					Path.Combine(baseDir, "bin", "Providers"),
-					Path.Combine(baseDir, "OS"),
-					Path.Combine(baseDir, "Providers"),
-					Path.Combine(baseDir, "DNS"),
-					Path.Combine(baseDir, "ProvidersLegacy")
+					Path.Join(baseDir, "bin", "OS"),
+					Path.Join(baseDir, "bin", "Providers", "OS"),
+					Path.Join(baseDir, "bin", "Providers"),
+					Path.Join(baseDir, "OS"),
+					Path.Join(baseDir, "Providers"),
+					Path.Join(baseDir, "DNS"),
+					Path.Join(baseDir, "ProvidersLegacy")
 				})
 				.Distinct(StringComparer.OrdinalIgnoreCase)
 				.ToArray();
@@ -348,29 +349,22 @@ namespace FuseCP.Providers.OS
 
 		static Providers.OS.IOperatingSystem CreateOperatingSystem(params string[] typeNames)
 		{
-			foreach (string typeName in typeNames)
-			{
-				Type type = ResolveOperatingSystemType(typeName);
-				if (type == null)
+			return typeNames
+				.Select(typeName => ResolveOperatingSystemType(typeName))
+				.Where(type => type != null)
+				.Select(type =>
 				{
-					continue;
-				}
-
-				try
-				{
-					Providers.OS.IOperatingSystem instance = Activator.CreateInstance(type) as Providers.OS.IOperatingSystem;
-					if (instance != null)
+					try
 					{
-						return instance;
+						return Activator.CreateInstance(type) as Providers.OS.IOperatingSystem;
 					}
-				}
-				catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-				{
-					System.Diagnostics.Trace.TraceWarning("Could not create OS provider '{0}'. Reason: {1}", type.AssemblyQualifiedName, ex.Message);
-				}
-			}
-
-			return null;
+					catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+					{
+						System.Diagnostics.Trace.TraceWarning("Could not create OS provider '{0}'. Reason: {1}", type.AssemblyQualifiedName, ex.Message);
+						return null;
+					}
+				})
+				.FirstOrDefault(instance => instance != null);
 		}
 
 		static Providers.OS.IOperatingSystem os = null;

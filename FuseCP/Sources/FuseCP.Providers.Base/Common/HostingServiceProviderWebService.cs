@@ -110,7 +110,7 @@ namespace FuseCP.Providers
             // Attempt explicit assembly loading from known provider probe folders.
             foreach (var root in GetProviderProbeRoots().Where(Directory.Exists))
             {
-                var assemblyPath = Path.Combine(root, assemblySimpleName + ".dll");
+                var assemblyPath = Path.Join(root, assemblySimpleName + ".dll");
                 if (!File.Exists(assemblyPath))
                 {
                     assemblyPath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
@@ -141,15 +141,15 @@ namespace FuseCP.Providers
             return GetProbeBaseDirectories()
                 .SelectMany(baseDir => new[]
                 {
-                    Path.Combine(baseDir, "bin", "Providers"),
-                    Path.Combine(baseDir, "bin", "OS"),
-                    Path.Combine(baseDir, "bin", "DNS"),
-                    Path.Combine(baseDir, "bin", "Providers", "OS"),
-                    Path.Combine(baseDir, "Providers"),
-                    Path.Combine(baseDir, "OS"),
-                    Path.Combine(baseDir, "DNS"),
-                    Path.Combine(baseDir, "ProvidersLegacy"),
-                    Path.Combine(baseDir, "netstandard")
+                    Path.Join(baseDir, "bin", "Providers"),
+                    Path.Join(baseDir, "bin", "OS"),
+                    Path.Join(baseDir, "bin", "DNS"),
+                    Path.Join(baseDir, "bin", "Providers", "OS"),
+                    Path.Join(baseDir, "Providers"),
+                    Path.Join(baseDir, "OS"),
+                    Path.Join(baseDir, "DNS"),
+                    Path.Join(baseDir, "ProvidersLegacy"),
+                    Path.Join(baseDir, "netstandard")
                 })
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToArray();
@@ -164,6 +164,7 @@ namespace FuseCP.Providers
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
+                System.Diagnostics.Trace.TraceWarning("Could not determine executing assembly directory for provider probing. Reason: {0}", ex.Message);
             }
 
             return new[]
@@ -224,7 +225,7 @@ namespace FuseCP.Providers
             if (string.IsNullOrWhiteSpace(assemblySimpleName))
                 return null;
 
-            string candidatePath = Path.Combine(directory, assemblySimpleName + ".dll");
+            string candidatePath = Path.Join(directory, assemblySimpleName + ".dll");
             if (File.Exists(candidatePath))
             {
                 try
@@ -233,12 +234,13 @@ namespace FuseCP.Providers
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                    System.Diagnostics.Trace.TraceWarning("Could not load assembly '{0}'. Reason: {1}", candidatePath, ex.Message);
                 }
             }
 
             foreach (var root in GetProviderProbeRoots().Where(Directory.Exists))
             {
-                candidatePath = Path.Combine(root, assemblySimpleName + ".dll");
+                candidatePath = Path.Join(root, assemblySimpleName + ".dll");
                 if (!File.Exists(candidatePath))
                 {
                     candidatePath = Directory.EnumerateFiles(root, assemblySimpleName + ".dll", SearchOption.AllDirectories)
@@ -254,6 +256,7 @@ namespace FuseCP.Providers
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                    System.Diagnostics.Trace.TraceWarning("Could not load assembly '{0}'. Reason: {1}", candidatePath, ex.Message);
                 }
             }
 
