@@ -12799,7 +12799,7 @@ html.semi-dark ul.main-menu li.active > a {
   color: #fff;
 }
 html.semi-dark .main-nav h3 {
-  color: rgba(255, 255, 255, 0.4);
+  color: #dbdbdb;
 }
 /* -- minimal-theme: reduced shadows/borders ------------------------------ */
 html.minimal-theme .card {
@@ -12877,7 +12877,7 @@ html.color-sidebar ul.main-menu li.active > a i {
   color: #fff;
 }
 html.color-sidebar .main-nav h3 {
-  color: rgba(255, 255, 255, 0.4);
+  color: #dbdbdb;
 }
 html.color-sidebar ul.sub-menu {
   background-color: rgba(0, 0, 0, 0.1);
