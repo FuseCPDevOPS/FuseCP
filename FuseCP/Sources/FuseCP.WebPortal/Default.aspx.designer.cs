@@ -32,42 +32,6 @@ namespace FuseCP.WebPortal {
         protected global::System.Web.UI.HtmlControls.HtmlLink AdaptersInvariantImportCSS;
         
         /// <summary>
-        /// BootstrapCSS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink BootstrapCSS;
-        
-        /// <summary>
-        /// ThemeCSS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink ThemeCSS;
-        
-        /// <summary>
-        /// CustomCSS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink CustomCSS;
-        
-        /// <summary>
-        /// BootstrapIconsCSS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink BootstrapIconsCSS;
-        
-        /// <summary>
         /// IEMenu6CSS control.
         /// </summary>
         /// <remarks>
