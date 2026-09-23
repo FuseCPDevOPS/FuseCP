@@ -70,7 +70,7 @@ namespace FuseCP.Portal
 
 			// set texts
 			string safeMessage = message;
-			string safeDescription = description;
+			string safeDescription;
 			string errorId = null;
 			bool canSendReport = false;
 

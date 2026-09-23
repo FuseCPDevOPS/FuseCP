@@ -248,7 +248,8 @@ namespace FuseCP.Portal
                 string localizedDescription = GetSharedLocalizedString(moduleName, "SuccessDescription." + messageKey);
                 if (localizedMessage == null)
                 {
-                    localizedMessage = messageKey;
+                    // Do not echo the raw resource key to the client; let MessageBox use its default.
+                    localizedMessage = null;
                 }
                 else
                 {
@@ -275,7 +276,10 @@ namespace FuseCP.Portal
                 string localizedMessage = GetSharedLocalizedString(moduleName, "Warning." + messageKey);
                 string localizedDescription = GetSharedLocalizedString(moduleName, "WarningDescription." + messageKey);
                 if (localizedMessage == null)
-                    localizedMessage = messageKey;
+                {
+                    // Do not echo the raw resource key to the client; let MessageBox use its default.
+                    localizedMessage = null;
+                }
 
                 // render message
                 messageBox.RenderMessage(MessageBoxType.Warning, localizedMessage, localizedDescription, null);
@@ -313,7 +317,10 @@ namespace FuseCP.Portal
                     localizedMessage = GetSharedLocalizedString(moduleName, "Error." + messageKey);
                     localizedDescription = GetSharedLocalizedString(moduleName, messageKey);
                     if (localizedMessage == null)
-                        localizedMessage = messageKey;
+                    {
+                        // Do not echo the raw resource key to the client; let MessageBox use its default.
+                        localizedMessage = null;
+                    }
                 }
                 else
                 {
