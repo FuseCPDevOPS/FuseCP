@@ -9,8 +9,8 @@
       <PackageReference Update="Azure.Identity" Version="1.17.1" />
       <PackageReference Update="bootstrap" Version="5.2.3" />
       <PackageReference Update="BouncyCastle.Cryptography" Version="2.6.2" />
-      <PackageReference Update="CoreWCF.Primitives" Version="1.8.0" />
-      <PackageReference Update="CoreWCF.WebHttp" Version="1.8.0" />
+      <PackageReference Update="CoreWCF.Primitives" Version="1.9.1" />
+      <PackageReference Update="CoreWCF.WebHttp" Version="1.9.1" />
       <PackageReference Update="EntityFramework6.Npgsql" Version="6.4.3" />
       <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit" Version="1.4.6" />
       <PackageReference Update="EstrellasDeEsperanza.WebFormsForCore.Configuration" Version="1.4.6" />
