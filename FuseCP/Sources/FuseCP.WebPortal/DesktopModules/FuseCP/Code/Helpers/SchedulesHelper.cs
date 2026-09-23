@@ -16,6 +16,7 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Linq;
 using FuseCP.EnterpriseServer;
 
 namespace FuseCP.Portal
@@ -69,10 +70,9 @@ namespace FuseCP.Portal
             if (tasks == null)
                 return allowedTaskIds;
 
-            foreach (ScheduleTaskInfo task in tasks)
+            foreach (ScheduleTaskInfo task in tasks.Where(t => !String.IsNullOrWhiteSpace(t?.TaskId)))
             {
-                if (!String.IsNullOrWhiteSpace(task?.TaskId))
-                    allowedTaskIds.Add(task.TaskId);
+                allowedTaskIds.Add(task.TaskId);
             }
 
             return allowedTaskIds;

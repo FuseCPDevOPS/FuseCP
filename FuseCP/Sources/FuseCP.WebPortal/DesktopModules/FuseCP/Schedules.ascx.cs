@@ -146,10 +146,10 @@ namespace FuseCP.Portal
             SetLiteralText("litCronNextRunValue", schedulerNextRunText);
             SetLiteralText("litSchedulerOverrideResult", schedulerOverrideResultText);
 
-            Control cardCronStatus = FindControlRecursive(this, "cardCronStatus");
-            if (cardCronStatus is HtmlControl htmlControl)
+            Control cronStatusCard = FindControlRecursive(this, "cardCronStatus");
+            if (cronStatusCard is HtmlControl htmlControl)
                 htmlControl.Attributes["class"] = schedulerStatusCardCssClass;
-            else if (cardCronStatus is WebControl webControl)
+            else if (cronStatusCard is WebControl webControl)
                 webControl.CssClass = schedulerStatusCardCssClass;
         }
 
@@ -280,11 +280,7 @@ namespace FuseCP.Portal
             int enterpriseBoundSchedules = 0;
             int highRiskPendingApprovals = 0;
 
-            foreach (ScheduleInfo authorizedSchedule in authorizedSchedules)
-            {
-                if (IsHighRiskPendingApproval(authorizedSchedule))
-                    highRiskPendingApprovals++;
-            }
+            highRiskPendingApprovals = authorizedSchedules.Count(authorizedSchedule => IsHighRiskPendingApproval(authorizedSchedule));
 
             foreach (KeyValuePair<string, ServerScheduleTotals> entry in serverTotals)
             {
@@ -676,11 +672,8 @@ namespace FuseCP.Portal
 
             foreach (string parameterId in parameterIds)
             {
-                foreach (ScheduleTaskParameterInfo parameter in parameters)
+                foreach (ScheduleTaskParameterInfo parameter in parameters.Where(p => p != null && !String.IsNullOrEmpty(p.ParameterId)))
                 {
-                    if (parameter == null || String.IsNullOrEmpty(parameter.ParameterId))
-                        continue;
-
                     if (String.Equals(parameter.ParameterId, parameterId, StringComparison.OrdinalIgnoreCase))
                         return parameter.ParameterValue ?? String.Empty;
                 }

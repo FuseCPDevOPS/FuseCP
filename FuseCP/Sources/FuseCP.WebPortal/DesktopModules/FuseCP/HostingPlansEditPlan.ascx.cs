@@ -136,8 +136,6 @@ namespace FuseCP.Portal
 
         private void BindPlan()
         {
-            bool isUserAdmin = PanelSecurity.SelectedUser.Role == UserRole.Administrator;
-
             BindServers();
             BindSpaces();
 

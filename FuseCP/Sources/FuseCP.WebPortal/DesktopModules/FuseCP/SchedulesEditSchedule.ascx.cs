@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -345,11 +346,8 @@ namespace FuseCP.Portal
             if (parameters == null)
                 return String.Empty;
 
-            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            foreach (ScheduleTaskParameterInfo parameter in parameters.Where(p => p != null))
             {
-                if (parameter == null)
-                    continue;
-
                 if (IsParameterId(parameter.ParameterId, aliases))
                     return parameter.ParameterValue ?? String.Empty;
             }
@@ -383,11 +381,8 @@ namespace FuseCP.Portal
                 return parameters;
 
             List<ScheduleTaskParameterInfo> filtered = new List<ScheduleTaskParameterInfo>();
-            foreach (ScheduleTaskParameterInfo parameter in parameters)
+            foreach (ScheduleTaskParameterInfo parameter in parameters.Where(p => p != null))
             {
-                if (parameter == null)
-                    continue;
-
                 bool isAdvancedScheduler = IsParameterId(parameter.ParameterId, SchedulerWeightAliases)
                     || IsParameterId(parameter.ParameterId, SchedulerAffinityAliases)
                     || IsParameterId(parameter.ParameterId, SchedulerExecutionModeAliases)

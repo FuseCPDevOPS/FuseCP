@@ -156,15 +156,15 @@ namespace FuseCP.Portal
                 CheckBox chkCountDiskspace = (CheckBox)item.FindControl("chkCountDiskspace");
                 CheckBox chkCountBandwidth = (CheckBox)item.FindControl("chkCountBandwidth");
 
-                bool isGroupEnabled = chkEnabled.Checked;
+                bool isGroupEnabled = chkEnabled != null && chkEnabled.Checked;
                 if (isPostBack && form != null && chkEnabled != null)
                     isGroupEnabled = !String.IsNullOrEmpty(form[chkEnabled.UniqueID]);
 
                 if (!isGroupEnabled)
                     continue; // disabled group
 
-                bool countDiskspace = chkCountDiskspace.Checked;
-                bool countBandwidth = chkCountBandwidth.Checked;
+                bool countDiskspace = chkCountDiskspace != null && chkCountDiskspace.Checked;
+                bool countBandwidth = chkCountBandwidth != null && chkCountBandwidth.Checked;
                 if (isPostBack && form != null)
                 {
                     if (chkCountDiskspace != null)
@@ -203,10 +203,13 @@ namespace FuseCP.Portal
                             chkQuotaUnlimited.Checked = !String.IsNullOrEmpty(form[chkQuotaUnlimited.UniqueID]);
                     }
 
-                    HostingPlanQuotaInfo quota = new HostingPlanQuotaInfo();
-                    quota.QuotaId = quotaEditor.QuotaId;
-                    quota.QuotaValue = quotaEditor.QuotaValue;
-                    quotas.Add(quota);
+                    if (quotaEditor != null)
+                    {
+                        HostingPlanQuotaInfo quota = new HostingPlanQuotaInfo();
+                        quota.QuotaId = quotaEditor.QuotaId;
+                        quota.QuotaValue = quotaEditor.QuotaValue;
+                        quotas.Add(quota);
+                    }
                 }
             }
         }

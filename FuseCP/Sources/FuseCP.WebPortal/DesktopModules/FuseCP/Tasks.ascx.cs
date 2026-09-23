@@ -54,10 +54,10 @@ namespace FuseCP.Portal
             {
                 bool isUser = PanelSecurity.SelectedUser.Role == UserRole.User;
                 gvTasks.Columns[1].Visible = !isUser;
-                Literal litTasksRoleHint = FindControlRecursive(this, "litTasksRoleHint") as Literal;
-                if (litTasksRoleHint != null)
+                Literal roleHintLiteral = FindControlRecursive(this, "litTasksRoleHint") as Literal;
+                if (roleHintLiteral != null)
                 {
-                    litTasksRoleHint.Text = isUser
+                    roleHintLiteral.Text = isUser
                         ? "<div class=\"small text-muted\">Showing tasks in your selected account scope.</div>"
                         : "<div class=\"small text-muted\">Showing active tasks for the selected account scope with execution source details.</div>";
                 }

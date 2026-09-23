@@ -134,14 +134,9 @@ namespace FuseCP.Portal.ProviderControls
             try
             {
                 string[] installResults = ES.Services.Servers.InstallService(PanelRequest.ServiceId);
-                if (installResults != null && installResults.Length > 0)
-                {
-                    litHardeningMessage.Text = "<br /><span class='text-danger'>Hardening failed: " + String.Join(" | ", installResults.Select(Server.HtmlEncode)) + "</span>";
-                }
-                else
-                {
-                    litHardeningMessage.Text = "<br /><span class='text-success'>Hardening applied successfully.</span>";
-                }
+                litHardeningMessage.Text = installResults != null && installResults.Length > 0
+                    ? "<br /><span class='text-danger'>Hardening failed: " + String.Join(" | ", installResults.Select(Server.HtmlEncode)) + "</span>"
+                    : "<br /><span class='text-success'>Hardening applied successfully.</span>";
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
