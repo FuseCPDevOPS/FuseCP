@@ -44,7 +44,9 @@ namespace FuseCP.Portal.SkinControls
 		protected void chkUseEntityFramework_CheckedChanged(object sender, EventArgs e)
 		{
             DbHelper.UseEntityFramework = chkUseEntityFramework.Checked;
-            Page.Response.Redirect(Page.Request.RawUrl);
+            string rawUrl = Page.Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Page.Response.Redirect(rawUrl);
 		}
 	}
 }

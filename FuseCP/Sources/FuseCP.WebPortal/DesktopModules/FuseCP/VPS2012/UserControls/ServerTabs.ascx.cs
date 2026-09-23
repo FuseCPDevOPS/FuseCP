@@ -91,7 +91,11 @@ namespace FuseCP.Portal.VPS2012.UserControls
             }
 
             if (TaskTable.Visible)
-                Response.Redirect(Request.RawUrl); // refresh screen
+            {
+                string rawUrl = Request.RawUrl;
+                if (PortalUtils.IsLocalUrl(rawUrl))
+                    Response.Redirect(rawUrl); // refresh screen
+            }
 
             // show tabs
             TabsTable.Visible = true;

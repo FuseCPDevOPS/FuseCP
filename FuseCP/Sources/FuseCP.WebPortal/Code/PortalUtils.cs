@@ -307,7 +307,11 @@ public class PortalUtils
 		rSessionCookie.Secure = System.Web.Security.FormsAuthentication.RequireSSL;
 		HttpContext.Current.Response.Cookies.Add(rSessionCookie);
 
-		HttpContext.Current.Response.Redirect(LoginRedirectUrl);
+		string logoutUrl = LoginRedirectUrl;
+		if (IsLocalUrl(logoutUrl))
+			HttpContext.Current.Response.Redirect(logoutUrl);
+		else
+			HttpContext.Current.Response.Redirect(DefaultPage.GetPageUrl(PortalConfiguration.SiteSettings["DefaultPage"]));
 	}
 	public static void UserSignOutOnly()
 	{
@@ -1029,7 +1033,9 @@ public class PortalUtils
 					if (list.Items.Count > 0 && list.Items[0] != null)
 					{
 						SetCurrentLanguage(list.Items[0].Value);
-						HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+						string rawUrl = HttpContext.Current.Request.RawUrl;
+						if (IsLocalUrl(rawUrl))
+							HttpContext.Current.Response.Redirect(rawUrl);
 					}
 				}
 			}
@@ -1047,7 +1053,7 @@ public class PortalUtils
 	}
 
 	#region Navigation Routines
-	private static bool IsSafeLocalRedirectUrl(string url)
+	public static bool IsLocalUrl(string url)
 	{
 		if (string.IsNullOrWhiteSpace(url))
 		{
@@ -1089,7 +1095,7 @@ public class PortalUtils
 		get
 		{
 			string returnUrl = HttpContext.Current?.Request?.QueryString["ReturnUrl"];
-			if (IsSafeLocalRedirectUrl(returnUrl))
+			if (IsLocalUrl(returnUrl))
 			{
 				return returnUrl.StartsWith("~/", StringComparison.Ordinal)
 					? VirtualPathUtility.ToAbsolute(returnUrl)

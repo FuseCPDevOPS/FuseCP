@@ -265,7 +265,9 @@ namespace FuseCP.Portal
 
         public void openSelectedPackage(Object sender, EventArgs e) {
             Session["currentPackage"] = int.Parse(ddlPackageSelect.SelectedValue);
-            Response.Redirect(Request.RawUrl);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl);
         }
     }
 }

@@ -16,7 +16,6 @@
 using System;
 using System.Data;
 using System.Text;
-using System.Configuration;
 using System.Collections;
 using System.Web;
 using System.Web.Security;
@@ -73,21 +72,18 @@ namespace FuseCP.Portal
 			string safeMessage = message;
 			string safeDescription = description;
 			string errorId = null;
-			bool showDetailedError = false;
 			bool canSendReport = false;
 
 			// show exception
 			if (ex != null || messageType == MessageBoxType.Error)
 			{
 				bool isServerAdmin = IsServerAdminUser();
-				showDetailedError = isServerAdmin && ShouldShowDetailedErrors();
 				canSendReport = !isServerAdmin;
 				errorId = GetOrCreateErrorId();
 				if (String.IsNullOrWhiteSpace(safeMessage))
 					safeMessage = "An unexpected error occurred.";
 
-				if (!showDetailedError)
-					safeDescription = "Technical details are available in server logs. Reference ID: " + errorId;
+				safeDescription = "Technical details are available in server logs. Reference ID: " + errorId;
 
 				// show error
 				try
@@ -111,13 +107,10 @@ namespace FuseCP.Portal
 					litSelectedUser.Text = PortalAntiXSS.Encode(selectedUser);
 					litPackageName.Text = PortalAntiXSS.Encode(activeSpace);
 
-					secTechnicalDetails.Visible = showDetailedError;
-					TechnicalDetailsPanel.Visible = showDetailedError;
-					tblTechnicalDetails.Visible = showDetailedError;
-					if (showDetailedError)
-						litStackTrace.Text = PortalAntiXSS.Encode(detailsForAdmin).Replace("\r\n", "<br/>");
-					else
-						litStackTrace.Text = String.Empty;
+					secTechnicalDetails.Visible = false;
+					TechnicalDetailsPanel.Visible = false;
+					tblTechnicalDetails.Visible = false;
+					litStackTrace.Text = String.Empty;
 
 					secSendReport.Visible = canSendReport;
 					SendReportPanel.Visible = canSendReport;
@@ -132,7 +125,7 @@ namespace FuseCP.Portal
 						litSendSubject.Text = PortalAntiXSS.Encode(GetReportSubject(errorId));
 					}
 
-					rowTechnicalDetails.Visible = showDetailedError || canSendReport;
+					rowTechnicalDetails.Visible = canSendReport;
 
 				}
 				catch (System.Exception catchEx) when (!(catchEx is System.OutOfMemoryException) && !(catchEx is System.StackOverflowException) && !(catchEx is System.AccessViolationException))
@@ -207,27 +200,6 @@ namespace FuseCP.Portal
 		protected override void LoadControlState(object state)
 		{
 			base.LoadControlState(state);
-		}
-
-		private static bool ShouldShowDetailedErrors()
-		{
-			try
-			{
-				string explicitSetting = ConfigurationManager.AppSettings["FuseCP.WebPortal.ShowDetailedErrors"];
-				if (!String.IsNullOrEmpty(explicitSetting))
-					return explicitSetting.Equals("true", StringComparison.OrdinalIgnoreCase);
-
-				string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-				if (String.Equals(environmentName, "Development", StringComparison.OrdinalIgnoreCase))
-					return true;
-
-				HttpContext context = HttpContext.Current;
-				return context != null && context.Request != null && context.Request.IsLocal;
-			}
-			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-			{
-				return false;
-			}
 		}
 
 		private static bool IsServerAdminUser()

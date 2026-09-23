@@ -375,8 +375,12 @@ namespace FuseCP.WebPortal
             {
                 // redirect to login page
                 string returnUrl = Request.RawUrl;
-                Response.Redirect(DEFAULT_PAGE + "?" + PAGE_ID_PARAM + "=" +
-                    PortalConfiguration.SiteSettings["LoginPage"] + "&ReturnUrl=" + Uri.EscapeDataString(returnUrl));
+                if (PortalUtils.IsLocalUrl(returnUrl))
+                    Response.Redirect(DEFAULT_PAGE + "?" + PAGE_ID_PARAM + "=" +
+                        PortalConfiguration.SiteSettings["LoginPage"] + "&ReturnUrl=" + Uri.EscapeDataString(returnUrl));
+                else
+                    Response.Redirect(DEFAULT_PAGE + "?" + PAGE_ID_PARAM + "=" +
+                        PortalConfiguration.SiteSettings["LoginPage"]);
             }
 
             Title = String.Format("{0} - {1}",

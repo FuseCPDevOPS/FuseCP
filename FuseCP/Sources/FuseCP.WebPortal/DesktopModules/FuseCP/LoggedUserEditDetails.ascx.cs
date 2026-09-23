@@ -492,13 +492,17 @@ namespace FuseCP.Portal
                 SetCurrentTheme();
             }
 
-            Response.Redirect(Request.RawUrl);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl);
         }
 
         protected void ddlTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetCurrentTheme();
-            Response.Redirect(Request.RawUrl);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl);
 
         }
 
@@ -769,7 +773,9 @@ namespace FuseCP.Portal
         protected void cmdResetDisplay_Click(object sender, EventArgs e)
         {
             RemoveThemeOptions();
-            Response.Redirect(Request.RawUrl);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl);
         }
 
         private void ApplySelectedThemeMode()

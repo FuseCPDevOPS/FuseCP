@@ -209,14 +209,18 @@ namespace FuseCP.Portal
         {
             var rdsServer = ES.Services.RDS.GetRdsServer(Convert.ToInt32(serverId));
             ES.Services.RDS.RestartRdsServer(null, rdsServer.FqdName);
-            Response.Redirect(Request.RawUrl, true);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl, true);
         }
 
         private void ShutDown(string serverId)
         {
             var rdsServer = ES.Services.RDS.GetRdsServer(Convert.ToInt32(serverId));
             ES.Services.RDS.ShutDownRdsServer(null, rdsServer.FqdName);
-            Response.Redirect(Request.RawUrl, true);
+            string rawUrl = Request.RawUrl;
+            if (PortalUtils.IsLocalUrl(rawUrl))
+                Response.Redirect(rawUrl, true);
         }
 
         private void RefreshServerInfo()
