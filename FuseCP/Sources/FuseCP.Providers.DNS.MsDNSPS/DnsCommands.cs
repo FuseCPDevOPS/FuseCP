@@ -306,20 +306,32 @@ namespace FuseCP.Providers.DNS
             if (ex == null)
                 return false;
 
+            const string appendMarker = "EnumerableExtensions.Append";
+            const string methodNotFoundMarker = "Method not found";
+            const string enumerableMarker = "EnumerableExtensions";
+            const string recordTypeMarker = "PS_DnsServerResourceRecord";
+
             System.Exception current = ex;
             while (current != null)
             {
                 string message = current.Message ?? string.Empty;
                 string details = current.ToString() ?? string.Empty;
 
-                if (message.IndexOf("EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase) >= 0
-                    || details.IndexOf("EnumerableExtensions.Append", StringComparison.OrdinalIgnoreCase) >= 0
-                    || (message.IndexOf("Method not found", StringComparison.OrdinalIgnoreCase) >= 0
-                        && (message.IndexOf("EnumerableExtensions", StringComparison.OrdinalIgnoreCase) >= 0
-                            || message.IndexOf("PS_DnsServerResourceRecord", StringComparison.OrdinalIgnoreCase) >= 0))
-                    || (details.IndexOf("Method not found", StringComparison.OrdinalIgnoreCase) >= 0
-                        && (details.IndexOf("EnumerableExtensions", StringComparison.OrdinalIgnoreCase) >= 0
-                            || details.IndexOf("PS_DnsServerResourceRecord", StringComparison.OrdinalIgnoreCase) >= 0)))
+                bool messageHasAppend = message.IndexOf(appendMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool detailsHasAppend = details.IndexOf(appendMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool messageHasMethodNotFound = message.IndexOf(methodNotFoundMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool detailsHasMethodNotFound = details.IndexOf(methodNotFoundMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool messageHasRecordType = message.IndexOf(enumerableMarker, StringComparison.OrdinalIgnoreCase) >= 0
+                    || message.IndexOf(recordTypeMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool detailsHasRecordType = details.IndexOf(enumerableMarker, StringComparison.OrdinalIgnoreCase) >= 0
+                    || details.IndexOf(recordTypeMarker, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                bool isMismatch = messageHasAppend
+                    || detailsHasAppend
+                    || (messageHasMethodNotFound && messageHasRecordType)
+                    || (detailsHasMethodNotFound && detailsHasRecordType);
+
+                if (isMismatch)
                 {
                     return true;
                 }

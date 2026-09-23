@@ -41,7 +41,7 @@ namespace FuseCP.Server.Utils
                 Debug.WriteLine(text);
                 Console.Error.WriteLine(text);
             }
-            catch
+            catch (Exception loggingEx) when (!(loggingEx is OutOfMemoryException) && !(loggingEx is StackOverflowException) && !(loggingEx is AccessViolationException))
             {
                 // Never throw from logging fallback paths.
             }

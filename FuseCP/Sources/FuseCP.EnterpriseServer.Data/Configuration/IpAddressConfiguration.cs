@@ -39,7 +39,7 @@ public partial class IpAddressConfiguration: EntityTypeConfiguration<IpAddress>
 		else if (IsCore && (IsMySql || IsMariaDb || IsSqlite || IsPostgreSql))
 		{
             Property(e => e.Comments).HasColumnType("TEXT");
-            if (IsCore && IsSqlite)
+            if (IsSqlite)
             {
                 Property(e => e.ExternalIp).HasColumnType("TEXT COLLATE NOCASE");
 				Property(e => e.InternalIp).HasColumnType("TEXT COLLATE NOCASE");

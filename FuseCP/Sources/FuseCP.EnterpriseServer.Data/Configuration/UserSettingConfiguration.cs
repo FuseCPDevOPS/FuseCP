@@ -35,7 +35,7 @@ public partial class UserSettingConfiguration: EntityTypeConfiguration<UserSetti
         else if (IsCore && (IsMySql || IsMariaDb || IsSqlite || IsPostgreSql))
         {
             Property(e => e.PropertyValue).HasColumnType("TEXT");
-			if (IsCore && IsSqlite)
+			if (IsSqlite)
 			{
 				Property(e => e.SettingsName).HasColumnType("TEXT COLLATE NOCASE");
 				Property(e => e.PropertyName).HasColumnType("TEXT COLLATE NOCASE");

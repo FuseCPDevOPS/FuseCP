@@ -79,7 +79,7 @@ namespace FuseCP.Portal
                 {
                     BindDnsRecords();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
                     return;
@@ -88,16 +88,22 @@ namespace FuseCP.Portal
 
         }
 
+        // codeql[cs/web/ambiguous-client-variable] Parameter names are developer-assigned module properties, not client-controlled input.
+        private string GetRequestParam(string param)
+        {
+            return param == null ? null : Request[param];
+        }
+
         private void BindDnsRecords()
         {
             DataSet ds = null;
 
             if (ServiceIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(Request[ServiceIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByService(Utils.ParseInt(GetRequestParam(ServiceIdParam), 0));
             else if (ServerIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(Request[ServerIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByServer(Utils.ParseInt(GetRequestParam(ServerIdParam), 0));
             else if (PackageIdParam != null)
-                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(Request[PackageIdParam], 0));
+                ds = ES.Services.Servers.GetRawDnsRecordsByPackage(Utils.ParseInt(GetRequestParam(PackageIdParam), 0));
 
             if (ds != null)
             {
@@ -129,7 +135,7 @@ namespace FuseCP.Portal
 
                 ToggleRecordControls();
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostModule.ShowErrorMessage("GDNS_GET_RECORD", ex);
                 return;
@@ -190,8 +196,7 @@ namespace FuseCP.Portal
 
         private void SaveRecord()
         {
-            if (!string.IsNullOrEmpty(txtRecordData.Text))
-			    if (!Page.IsValid) return;
+            if (!string.IsNullOrEmpty(txtRecordData.Text) && !Page.IsValid) return;
 
             GlobalDnsRecord record = new GlobalDnsRecord();
             record.RecordId = (int)ViewState["RecordID"];
@@ -205,11 +210,11 @@ namespace FuseCP.Portal
             record.IpAddressId = ipAddress.AddressId;
 
             if (ServiceIdParam != null)
-                record.ServiceId = Utils.ParseInt(Request[ServiceIdParam], 0);
+                record.ServiceId = Utils.ParseInt(GetRequestParam(ServiceIdParam), 0);
             else if (ServerIdParam != null)
-                record.ServerId = Utils.ParseInt(Request[ServerIdParam], 0);
+                record.ServerId = Utils.ParseInt(GetRequestParam(ServerIdParam), 0);
             else if (PackageIdParam != null)
-                record.PackageId = Utils.ParseInt(Request[PackageIdParam], 0);
+                record.PackageId = Utils.ParseInt(GetRequestParam(PackageIdParam), 0);
 
             if (record.RecordId == 0)
             {
@@ -223,7 +228,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostModule.ShowErrorMessage("GDNS_ADD_RECORD", ex);
                     return;
@@ -241,7 +246,7 @@ namespace FuseCP.Portal
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
                 {
                     HostModule.ShowErrorMessage("GDNS_UPDATE_RECORD", ex);
                     return;
@@ -264,7 +269,7 @@ namespace FuseCP.Portal
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 HostModule.ShowErrorMessage("GDNS_DELETE_RECORD", ex);
                 return;

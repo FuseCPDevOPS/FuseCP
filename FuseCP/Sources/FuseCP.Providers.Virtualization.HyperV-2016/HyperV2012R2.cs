@@ -1607,10 +1607,15 @@ namespace FuseCP.Providers.Virtualization
                 using (cimVm)
                 using (CimInstance cimInstKvpExchange = Mi.GetAssociatedCimInstance(cimVm, "Msvm_KvpExchangeComponent", "Msvm_SystemDevice"))
                 {
-                    if (cimInstKvpExchange != null)
+                    if (cimInstKvpExchange != null && cimInstKvpExchange.CimInstanceProperties != null)
                     {
-                        // return XML pairs
-                        xmlPairs = (string[])cimInstKvpExchange.CimInstanceProperties[exchangeItemsName].Value;
+                        // The exchange property is missing when the VM is powered off or the KVP component is not ready.
+                        var kvpProperty = cimInstKvpExchange.CimInstanceProperties[exchangeItemsName];
+                        if (kvpProperty != null)
+                        {
+                            // return XML pairs
+                            xmlPairs = (string[])kvpProperty.Value;
+                        }
                     }
                 }                
             }
@@ -1618,11 +1623,6 @@ namespace FuseCP.Providers.Virtualization
             {
                 //there is no point in spamming the error, if this method does not work, we have a spare method "GetHddUsagesFromKVPHyperV"
                 //HostedSolutionLog.LogError("GetKVPItems", new Exception("msvm_KvpExchangeComponent"));
-                return pairs;
-            }
-            catch (NullReferenceException)
-            {
-                // VM is likely turned off or KVP component is not available
                 return pairs;
             }
 

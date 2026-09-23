@@ -267,7 +267,7 @@ namespace FuseCP.Server.Utils
                 Debug.WriteLine(message);
                 Console.Error.WriteLine(message);
             }
-            catch
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 // Avoid surfacing logging backend failures.
             }
