@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "npx --yes --package less@4.2.0 lessc --math=always defaultTheme.less main.css",
+    "build:css": "npx --yes --package less@4.2.0 lessc --math=always --compress defaultTheme.less main.css",
     "watch:css": "npx --yes --package less@4.2.0 lessc --math=always --watch defaultTheme.less main.css"
   },
   "keywords": [],

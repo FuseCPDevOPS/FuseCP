@@ -48,10 +48,10 @@
     }, 100);
   })(window);
 </script>
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/bootstrap/bootstrap.js") %>'></script>
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-common.js") %>'></script>
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-charts.js") %>'></script>
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-elements.js") %>'></script>
+<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/bootstrap/bootstrap.min.js") %>'></script>
+<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-common.min.js") %>'></script>
+<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-charts.min.js") %>'></script>
+<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/fcp-elements.min.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/plugin/plugins.js") %>'></script>
 <script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery-ui/jquery-ui-1.10.4.custom.min.js") %>'></script>
 <script type="text/javascript">
@@ -103,8 +103,8 @@
     }
   })(window);
 </script>
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery.matchHeight.js") %>'></script>
-<script src='<%= ResolveUrl("~/DesktopModules/FuseCP/Scripts/global-search.js") %>'></script>
+<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery.matchHeight.min.js") %>'></script>
+<script src='<%= ResolveUrl("~/DesktopModules/FuseCP/Scripts/global-search.min.js") %>'></script>
 
 <style type="text/css">
   #fcp-global-busy-banner {
