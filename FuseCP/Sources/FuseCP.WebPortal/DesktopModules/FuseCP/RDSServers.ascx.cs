@@ -89,7 +89,7 @@ namespace FuseCP.Portal
                 builder.AppendLine("}");
                 builder.AppendLine("}");                
                 
-                Page.ClientScript.RegisterClientScriptInclude("jquery", ResolveUrl("~/JavaScript/jquery-1.4.4.min.js"));
+                ScriptManager.RegisterNamedClientScriptResource(Page, "jquery");
                 Page.ClientScript.RegisterClientScriptBlock(typeof(RDSServers), "RDSAjaxQuery", builder.ToString(), true);
             }
         }

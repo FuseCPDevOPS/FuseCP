@@ -2,8 +2,10 @@
 <%@ Register Src="UserControls/UsernameControl.ascx" TagName="UsernameControl" TagPrefix="uc3" %>
 <%@ Register Src="UserControls/PasswordControl.ascx" TagName="PasswordControl" TagPrefix="uc2" %>
 <%@ Register TagPrefix="fcp" TagName="CollapsiblePanel" Src="UserControls/CollapsiblePanel.ascx" %>
-<script src="/JavaScript/jquery-1.4.4.min.js" type="text/javascript">
-
+<script type="text/javascript">
+	if (!window.jQuery) {
+		document.write('<script src="/JavaScript/jquery-2.1.0.min.js"><\/script>');
+	}
 </script>
 <script src="/DesktopModules/FuseCP/Scripts/helicon-ape-user.js" type="text/javascript"></script>
 <div class="card-body form-horizontal">

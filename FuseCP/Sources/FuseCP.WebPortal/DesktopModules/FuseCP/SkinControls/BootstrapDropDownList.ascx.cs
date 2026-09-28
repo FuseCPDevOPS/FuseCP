@@ -352,7 +352,7 @@ namespace FuseCP.Portal.SkinControls
         {
             this.Initialization();
             ClientScriptManager clientScript = this.Page.ClientScript;
-            clientScript.RegisterClientScriptInclude("jquery", base.ResolveUrl("~/JavaScript/jquery-1.12.3.min.js"));
+            ScriptManager.RegisterNamedClientScriptResource(Page, "jquery");
             clientScript.RegisterClientScriptInclude("bootstrap", base.ResolveUrl("~/JavaScript/bootstrap/bootstrap.min.js"));
             clientScript.RegisterClientScriptBlock(base.GetType(), "BootstrapDropDownList", 
                 "<script type=\"text/javascript\">\nfunction BootstrapDropDownListSelect(link)\n{\n    a = $(link); li = a.parent(); ul = li.parent(); ddl = ul.parent();\n    hd = ddl.children().eq(0); btn = ddl.children().eq(1); \n    lit = btn.children().eq(0); hdval = ddl.children().eq(2);\n    index = li.index();\n    itemvalue = li.attr('value');\n    lit.html(a.html());\n    ul.children().removeClass('active');\n    li.addClass('active');\n    hd.val(index);\n    hdval.val(itemvalue);\n}\n</script>");

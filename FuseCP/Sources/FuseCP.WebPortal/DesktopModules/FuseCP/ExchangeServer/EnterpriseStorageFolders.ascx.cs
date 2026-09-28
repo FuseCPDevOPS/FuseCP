@@ -15,6 +15,7 @@
 
 using System;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using FuseCP.EnterpriseServer;
 using FuseCP.EnterpriseServer.Base.HostedSolution;
@@ -88,7 +89,7 @@ namespace FuseCP.Portal.ExchangeServer
                 builder.AppendLine("}");
                 builder.AppendLine("}");
 
-                Page.ClientScript.RegisterClientScriptInclude("jquery", ResolveUrl("~/JavaScript/jquery-1.4.4.min.js"));
+                ScriptManager.RegisterNamedClientScriptResource(Page, "jquery");
                 Page.ClientScript.RegisterClientScriptBlock(typeof(EnterpriseStorageFolders), "ESAjaxQuery", builder.ToString(), true);
             }
         }

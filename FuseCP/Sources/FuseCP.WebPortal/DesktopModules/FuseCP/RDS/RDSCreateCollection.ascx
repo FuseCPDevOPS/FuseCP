@@ -3,7 +3,11 @@
 <%@ Register Src="../UserControls/EnableAsyncTasksSupport.ascx" TagName="EnableAsyncTasksSupport" TagPrefix="fcp" %>
 <%@ Register Src="UserControls/RDSCollectionServers.ascx" TagName="CollectionServers" TagPrefix="fcp"%>
 <%@ Register TagPrefix="fcp" TagName="CollapsiblePanel" Src="../UserControls/CollapsiblePanel.ascx" %>
-<script type="text/javascript" src="/JavaScript/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+	if (!window.jQuery) {
+		document.write('<script src="/JavaScript/jquery-2.1.0.min.js"><\/script>');
+	}
+</script>
 
 <fcp:EnableAsyncTasksSupport id="asyncTasks" runat="server"/>
 

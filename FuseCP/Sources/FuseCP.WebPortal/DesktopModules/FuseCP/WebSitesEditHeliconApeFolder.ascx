@@ -3,7 +3,11 @@
 <%@ Register Src="UserControls/FileLookup.ascx" TagName="FileLookup" TagPrefix="uc1" %>
 <%@ Register Src="UserControls/PopupHeader.ascx" TagName="PopupHeader" TagPrefix="fcp" %>
 <link rel="stylesheet" href="/JavaScript/codemirror/codemirror.css" />
-<script type="text/javascript" src="/JavaScript/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+	if (!window.jQuery) {
+		document.write('<script src="/JavaScript/jquery-2.1.0.min.js"><\/script>');
+	}
+</script>
 <script type="text/javascript" src="/JavaScript/codemirror/codemirror.js"></script>
 <script type="text/javascript" src="/JavaScript/codemirror/htaccess.js"></script>
 <script type="text/javascript" src="/DesktopModules/FuseCP/Scripts/websites-helicon-ape-folder.js"></script>
