@@ -27789,6 +27789,11 @@ After creating your virtual directory go to FP administrator and create a subweb
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\WebSitesExtensionsControl.ascx.resx</File>
+    <Key>ddlAspNetItem.core</Key>
+    <DefaultValue>No Managed Code (.NET Core)</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesExtensionsControl.ascx.resx</File>
     <Key>ddlAspNetItem.None</Key>
     <DefaultValue>None</DefaultValue>
   </Resource>
