@@ -1,6 +1,13 @@
 <%@ Control AutoEventWireup="true" %>
 <!-- Shared runtime script stack for default portal skins. -->
-<script src='<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery-2.1.0.min.js") %>'></script>
+<script>
+  // Unobtrusive validators and some modules load the same jQuery build through
+  // the ScriptManager "jquery" ScriptResourceMapping. Only load the theme copy
+  // when no jQuery instance exists yet, so themed pages keep a single copy.
+  if (!window.jQuery) {
+    document.write('<script src="<%= ResolveUrl("~/App_Themes/" + Page.Theme + "/js/jquery/jquery-2.1.0.min.js") %>"><\/script>');
+  }
+</script>
 <script type="text/javascript">
   (function (w) {
     function applyCompat($) {
