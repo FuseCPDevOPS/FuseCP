@@ -7027,6 +7027,57 @@
   <data name="Success.QRCodeActivation" xml:space="preserve">
     <value>Activation successful</value>
   </data>
+  <data name="lblWebAuthn" xml:space="preserve">
+    <value>Passkeys:</value>
+  </data>
+  <data name="lblWebAuthnNote" xml:space="preserve">
+    <value>A passkey is a password-less way to sign in. You can add more than one.</value>
+  </data>
+  <data name="btnAddPasskey" xml:space="preserve">
+    <value>Add passkey</value>
+  </data>
+  <data name="Success.WebAuthnAdd" xml:space="preserve">
+    <value>Passkey added</value>
+  </data>
+  <data name="SuccessDescription.WebAuthnAdd" xml:space="preserve">
+    <value>Your passkey was registered successfully.</value>
+  </data>
+  <data name="Error.WebAuthnAdd" xml:space="preserve">
+    <value>Passkey could not be added. Please try again.</value>
+  </data>
+  <data name="btnRenamePasskey" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="btnRemovePasskey" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Prompt.WebAuthnRename" xml:space="preserve">
+    <value>Name this passkey</value>
+  </data>
+  <data name="Confirm.WebAuthnRemove" xml:space="preserve">
+    <value>Remove this passkey? You will no longer be able to sign in with it.</value>
+  </data>
+  <data name="Success.WebAuthnRename" xml:space="preserve">
+    <value>Passkey renamed</value>
+  </data>
+  <data name="SuccessDescription.WebAuthnRename" xml:space="preserve">
+    <value>Your passkey name was updated.</value>
+  </data>
+  <data name="Error.WebAuthnRename" xml:space="preserve">
+    <value>Passkey could not be renamed. Please try again.</value>
+  </data>
+  <data name="Success.WebAuthnRemove" xml:space="preserve">
+    <value>Passkey removed</value>
+  </data>
+  <data name="SuccessDescription.WebAuthnRemove" xml:space="preserve">
+    <value>Your passkey was removed.</value>
+  </data>
+  <data name="Error.WebAuthnRemove" xml:space="preserve">
+    <value>Passkey could not be removed. Please try again.</value>
+  </data>
+  <data name="Error.WebAuthnLogin" xml:space="preserve">
+    <value>Passkey sign-in failed. Please try again.</value>
+  </data>
   <data name="SuccessDescription.PinSend" xml:space="preserve">
     <value>Pin code was successfully sent to the primary email address.</value>
   </data>

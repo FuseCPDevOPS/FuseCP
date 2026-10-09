@@ -70,6 +70,12 @@
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
         <PackageReference Include="Nito.AsyncEx" />
         <PackageReference Include="ReportViewerCore.NETCore" />
+        <PackageReference Include="WebAuthn.Net" Version="2.1.1" />
+        <!-- Pin to the portal's Microsoft.IdentityModel 8.19.1 baseline. WebAuthn.Net 2.1.1
+             pulls JsonWebTokens/Jwt 8.0.1, which is ABI-incompatible with Tokens 8.19.1 and
+             throws MissingMethodException (Base64UrlEncoder.Decode) at host startup. -->
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.19.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
     </ItemGroup>
     <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
         <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.4.6" />

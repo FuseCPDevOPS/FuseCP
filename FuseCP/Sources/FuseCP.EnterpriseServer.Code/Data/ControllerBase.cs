@@ -152,6 +152,9 @@ namespace FuseCP.EnterpriseServer
 		UserController userController = null;
 		protected UserController UserController => userController ??= new UserController(this);
 
+		WebAuthnController webAuthnController = null;
+		protected WebAuthnController WebAuthnController => webAuthnController ??= new WebAuthnController(this);
+
 		VirtualizationServerController virtualizationServerController = null;
 		protected VirtualizationServerController VirtualizationServerController => virtualizationServerController ??= new VirtualizationServerController(this);
 

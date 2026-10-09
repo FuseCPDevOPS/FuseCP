@@ -9623,5 +9623,41 @@ UPDATE "ServiceDefaultProperties" SET "PropertyValue" = '%PROGRAMFILES%\MariaDB'
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260703115717_RenameMariaDbProviderType', '9.0.9');
 
+CREATE TABLE "WebAuthnCredentials" (
+    "ID" INTEGER NOT NULL CONSTRAINT "PK_WebAuthnCredentials" PRIMARY KEY AUTOINCREMENT,
+    "UserId" INTEGER NOT NULL,
+    "RpId" TEXT NULL,
+    "UserHandle" BLOB NULL,
+    "CredentialId" BLOB NULL,
+    "CredentialType" INTEGER NOT NULL,
+    "Kty" INTEGER NOT NULL,
+    "Alg" INTEGER NOT NULL,
+    "Ec2Crv" INTEGER NULL,
+    "Ec2X" BLOB NULL,
+    "Ec2Y" BLOB NULL,
+    "RsaModulusN" BLOB NULL,
+    "RsaExponentE" BLOB NULL,
+    "OkpCrv" INTEGER NULL,
+    "OkpX" BLOB NULL,
+    "SignCount" INTEGER NOT NULL,
+    "Transports" TEXT NULL,
+    "UvInitialized" INTEGER NOT NULL,
+    "BackupEligible" INTEGER NOT NULL,
+    "BackupState" INTEGER NOT NULL,
+    "AttestationObject" BLOB NULL,
+    "AttestationClientDataJson" BLOB NULL,
+    "DisplayName" TEXT NULL,
+    "CreatedAt" TEXT NOT NULL,
+    "UpdatedAt" TEXT NOT NULL,
+    CONSTRAINT "FK_WebAuthnCredentials_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("UserID") ON DELETE CASCADE
+);
+
+CREATE INDEX "WebAuthnCredentialsIdx_CredentialId" ON "WebAuthnCredentials" ("CredentialId");
+
+CREATE INDEX "WebAuthnCredentialsIdx_UserId" ON "WebAuthnCredentials" ("UserId");
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20261007142707_AddWebAuthnCredentials', '9.0.9');
+
 COMMIT;
 

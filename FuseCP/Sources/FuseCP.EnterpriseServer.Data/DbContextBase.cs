@@ -267,6 +267,8 @@ namespace FuseCP.EnterpriseServer.Context
 
 		public virtual DbSet<WebDavPortalUsersSetting> WebDavPortalUsersSettings { get; set; }
 
+		public virtual DbSet<WebAuthnCredential> WebAuthnCredentials { get; set; }
+
 		public virtual DbSet<TempId> TempIds { get; set; }
 
 #if NetCore
@@ -455,6 +457,7 @@ namespace FuseCP.EnterpriseServer.Context
 			ApplyConfiguration(model, new VirtualServiceConfiguration());
 			ApplyConfiguration(model, new WebDavAccessTokenConfiguration());
 			ApplyConfiguration(model, new WebDavPortalUsersSettingConfiguration());
+			ApplyConfiguration(model, new WebAuthnCredentialConfiguration());
 
 			// Store DateTime in UTC for PostgreSQL
 #if NetCore

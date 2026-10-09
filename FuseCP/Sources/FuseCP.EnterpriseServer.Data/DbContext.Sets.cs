@@ -364,5 +364,8 @@ namespace FuseCP.EnterpriseServer.Data
 
 		DbSet<WebDavPortalUsersSetting> webDavPortalUsersSettings = null;
 		public virtual DbSet<WebDavPortalUsersSetting> WebDavPortalUsersSettings => webDavPortalUsersSettings ??= Set<WebDavPortalUsersSetting>();
+
+		DbSet<WebAuthnCredential> webAuthnCredentials = null;
+		public virtual DbSet<WebAuthnCredential> WebAuthnCredentials => webAuthnCredentials ??= Set<WebAuthnCredential>();
 	}
 }

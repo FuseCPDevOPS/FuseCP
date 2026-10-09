@@ -150,4 +150,16 @@
   <data name="toresetyourpassword.Text" xml:space="preserve">
     <value>لإعادة تعيين كلمة المرور الخاصة بك</value>
   </data>
+  <data name="lblPasskeyText.Text" xml:space="preserve">
+    <value>تم تسجيل مفتاح مرور لهذا الحساب. يرجى تأكيد هويتك باستخدام جهازك.</value>
+  </data>
+  <data name="btnPasskey.Text" xml:space="preserve">
+    <value>تسجيل الدخول بمفتاح المرور</value>
+  </data>
+  <data name="lblPasskeyFallback.Text" xml:space="preserve">
+    <value>مفتاح المرور غير متاح؟</value>
+  </data>
+  <data name="btnPasskeyFallback.Text" xml:space="preserve">
+    <value>استخدم رمز تحقق بدلاً من ذلك</value>
+  </data>
 </root>

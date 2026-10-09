@@ -11631,5 +11631,90 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20261007142813_AddWebAuthnCredentials') THEN
+
+    CREATE TABLE `WebAuthnCredentials` (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `UserId` int NOT NULL,
+        `RpId` varchar(255) CHARACTER SET utf8mb4 NULL,
+        `UserHandle` longblob NULL,
+        `CredentialId` varbinary(3072) NULL,
+        `CredentialType` int NOT NULL,
+        `Kty` int NOT NULL,
+        `Alg` int NOT NULL,
+        `Ec2Crv` int NULL,
+        `Ec2X` longblob NULL,
+        `Ec2Y` longblob NULL,
+        `RsaModulusN` longblob NULL,
+        `RsaExponentE` longblob NULL,
+        `OkpCrv` int NULL,
+        `OkpX` longblob NULL,
+        `SignCount` bigint NOT NULL,
+        `Transports` varchar(50) CHARACTER SET utf8mb4 NULL,
+        `UvInitialized` tinyint(1) NOT NULL,
+        `BackupEligible` tinyint(1) NOT NULL,
+        `BackupState` tinyint(1) NOT NULL,
+        `AttestationObject` longblob NULL,
+        `AttestationClientDataJson` longblob NULL,
+        `DisplayName` varchar(255) CHARACTER SET utf8mb4 NULL,
+        `CreatedAt` datetime(6) NOT NULL,
+        `UpdatedAt` datetime(6) NOT NULL,
+        CONSTRAINT `PK_WebAuthnCredentials` PRIMARY KEY (`ID`),
+        CONSTRAINT `FK_WebAuthnCredentials_UserId` FOREIGN KEY (`UserId`) REFERENCES `Users` (`UserID`) ON DELETE CASCADE
+    ) CHARACTER SET=utf8mb4;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20261007142813_AddWebAuthnCredentials') THEN
+
+    CREATE INDEX `WebAuthnCredentialsIdx_CredentialId` ON `WebAuthnCredentials` (`CredentialId`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20261007142813_AddWebAuthnCredentials') THEN
+
+    CREATE INDEX `WebAuthnCredentialsIdx_UserId` ON `WebAuthnCredentials` (`UserId`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20261007142813_AddWebAuthnCredentials') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20261007142813_AddWebAuthnCredentials', '9.0.9');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

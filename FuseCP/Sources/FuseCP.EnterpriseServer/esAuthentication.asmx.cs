@@ -87,5 +87,47 @@ namespace FuseCP.EnterpriseServer
         {
             return UserController.SendVerificationCode(username);
         }
+
+        [WebMethod]
+        public WebAuthnCredentialInfo[] GetWebAuthnCredentials(string username, string password, string ip)
+        {
+            return WebAuthnController.GetWebAuthnCredentials(username, password, ip);
+        }
+
+        [WebMethod]
+        public WebAuthnCredentialInfo GetWebAuthnCredential(string username, string password, string ip, string credentialId)
+        {
+            return WebAuthnController.GetWebAuthnCredential(username, password, ip, credentialId);
+        }
+
+        [WebMethod]
+        public bool UpdateWebAuthnCredential(string username, string password, string ip, WebAuthnCredentialInfo credential)
+        {
+            return WebAuthnController.UpdateWebAuthnCredential(username, password, ip, credential);
+        }
+
+        [WebMethod]
+        public WebAuthnCredentialInfo[] GetMyWebAuthnCredentials()
+        {
+            return WebAuthnController.GetMyWebAuthnCredentials();
+        }
+
+        [WebMethod]
+        public bool SaveMyWebAuthnCredential(WebAuthnCredentialInfo credential)
+        {
+            return WebAuthnController.SaveMyWebAuthnCredential(credential);
+        }
+
+        [WebMethod]
+        public bool UpdateMyWebAuthnCredentialDisplayName(string credentialId, string displayName)
+        {
+            return WebAuthnController.UpdateMyWebAuthnCredentialDisplayName(credentialId, displayName);
+        }
+
+        [WebMethod]
+        public bool DeleteMyWebAuthnCredential(string credentialId)
+        {
+            return WebAuthnController.DeleteMyWebAuthnCredential(credentialId);
+        }
     }
 }

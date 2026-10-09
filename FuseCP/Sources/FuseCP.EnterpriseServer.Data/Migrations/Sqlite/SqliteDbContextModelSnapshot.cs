@@ -15067,6 +15067,99 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.ToTable("VirtualServices");
                 });
 
+            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebAuthnCredential", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("ID");
+
+                    b.Property<int>("Alg")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("AttestationClientDataJson")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("AttestationObject")
+                        .HasColumnType("BLOB");
+
+                    b.Property<bool>("BackupEligible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("BackupState")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("CredentialId")
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("CredentialType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Ec2Crv")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Ec2X")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Ec2Y")
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("Kty")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OkpCrv")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("OkpX")
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("RpId")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("RsaExponentE")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("RsaModulusN")
+                        .HasColumnType("BLOB");
+
+                    b.Property<long>("SignCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Transports")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("UserHandle")
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("UserId");
+
+                    b.Property<bool>("UvInitialized")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id")
+                        .HasName("PK_WebAuthnCredentials");
+
+                    b.HasIndex(new[] { "CredentialId" }, "WebAuthnCredentialsIdx_CredentialId");
+
+                    b.HasIndex(new[] { "UserId" }, "WebAuthnCredentialsIdx_UserId");
+
+                    b.ToTable("WebAuthnCredentials");
+                });
+
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebDavAccessToken", b =>
                 {
                     b.Property<int>("Id")
@@ -16107,6 +16200,18 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("Server");
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebAuthnCredential", b =>
+                {
+                    b.HasOne("FuseCP.EnterpriseServer.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_WebAuthnCredentials_UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.WebDavAccessToken", b =>

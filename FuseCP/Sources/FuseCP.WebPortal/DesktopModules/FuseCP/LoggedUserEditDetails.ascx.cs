@@ -22,8 +22,19 @@ using System.Drawing;
 using System.Globalization;
 using System.Web.UI.WebControls;
 using FuseCP.WebPortal;
+using FuseCP.Portal.WebAuthn;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Text.Json;
+using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
+using WebAuthn.Net.Models.Protocol.Enums;
+using WebAuthn.Net.Models.Protocol.Json.RegistrationCeremony.CreateCredential;
+using WebAuthn.Net.Models.Protocol.RegistrationCeremony.CreateOptions;
+using WebAuthn.Net.Services.RegistrationCeremony;
+using WebAuthn.Net.Services.RegistrationCeremony.Models.CreateOptions;
+using WebAuthn.Net.Services.RegistrationCeremony.Models.CreateCredential;
+using WebAuthn.Net.Services.Serialization.Cose.Models.Enums;
 
 namespace FuseCP.Portal
 {
@@ -156,6 +167,16 @@ namespace FuseCP.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // The portal's global busy / double-submit guards disable every
+            // input[type=submit] during the submit event, which drops the
+            // clicked button from the POST body and breaks native button
+            // postback. Route this button through __doPostBack (the LinkButton
+            // path) so the click is delivered via __EVENTTARGET.
+            btnAddPasskey.OnClientClick = "__doPostBack('" + btnAddPasskey.UniqueID + "','');return false;";
+            // Bind on every request: the per-passkey Rename/Remove buttons live
+            // inside the Repeater and must exist in the control tree for
+            // __EVENTTARGET routing on postback.
+            BindPasskeys();
             if (!IsPostBack)
             {
                 // bind form
@@ -960,6 +981,269 @@ namespace FuseCP.Portal
 
             qrData.Visible = false;
             ShowSuccessMessage("QRCodeActivation");
+        }
+
+        protected void btnAddPasskey_Click(object sender, EventArgs e)
+        {
+            string responseJson = hdnWebAuthnResponse.Value;
+            // Clear the one-shot response so a stale value never re-enters the
+            // completion path on a later postback.
+            hdnWebAuthnResponse.Value = string.Empty;
+            if (string.IsNullOrEmpty(responseJson))
+                BeginPasskeyRegistration();
+            else
+                CompletePasskeyRegistration(responseJson);
+        }
+
+        private void BindPasskeys()
+        {
+            try
+            {
+                WebAuthnCredentialInfo[] credentials = PortalUtils.GetMyWebAuthnCredentials();
+                if (credentials != null && credentials.Length > 0)
+                {
+                    pnlPasskeyList.Visible = true;
+                    rptPasskeys.DataSource = credentials;
+                    rptPasskeys.DataBind();
+                    return;
+                }
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                System.Diagnostics.Trace.TraceWarning("WebAuthn credential list failed: " + ex.Message);
+            }
+            pnlPasskeyList.Visible = false;
+        }
+
+	protected void rptPasskeys_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            WebAuthnCredentialInfo cred = e.Item.DataItem as WebAuthnCredentialInfo;
+            if (cred == null || cred.CredentialId == null)
+                return;
+
+            string credIdBase64 = Convert.ToBase64String(cred.CredentialId);
+            string displayName = string.IsNullOrEmpty(cred.DisplayName) ? "Passkey" : cred.DisplayName;
+
+            System.Web.UI.WebControls.Button btnRename = e.Item.FindControl("btnRenamePasskey") as System.Web.UI.WebControls.Button;
+            System.Web.UI.WebControls.HiddenField hidName = e.Item.FindControl("hidPasskeyName") as System.Web.UI.WebControls.HiddenField;
+            if (btnRename != null && hidName != null)
+            {
+                btnRename.CommandArgument = credIdBase64;
+                // Native submit buttons are disabled by the portal's busy /
+                // double-submit guards before serialization (see Page_Load);
+                // route the click through __doPostBack instead. The new name
+                // travels in the row's hidden field because event validation
+                // only accepts arguments registered at render time.
+                string promptText = GetSharedLocalizedString(Utils.ModuleName, "Prompt.WebAuthnRename");
+                if (string.IsNullOrEmpty(promptText))
+                    promptText = "Name this passkey";
+                btnRename.OnClientClick =
+                    "var n='';do{var c=prompt('" + JsStringLiteral(promptText) + "','" + JsStringLiteral(displayName) + "');if(c===null)break;n=c.trim();}while(n==='');"
+                    + "if(n!==''){document.getElementById('" + hidName.ClientID + "').value=n;__doPostBack('" + btnRename.UniqueID + "','');}"
+                    + "return false;";
+            }
+
+            System.Web.UI.WebControls.Button btnRemove = e.Item.FindControl("btnRemovePasskey") as System.Web.UI.WebControls.Button;
+            if (btnRemove != null)
+            {
+                btnRemove.CommandArgument = credIdBase64;
+                string confirmText = GetSharedLocalizedString(Utils.ModuleName, "Confirm.WebAuthnRemove");
+                if (string.IsNullOrEmpty(confirmText))
+                    confirmText = "Remove this passkey? You will no longer be able to sign in with it.";
+                btnRemove.OnClientClick =
+                    "if(confirm('" + JsStringLiteral(confirmText) + "')){__doPostBack('" + btnRemove.UniqueID + "','');}"
+                    + "return false;";
+            }
+        }
+
+        protected void PasskeyCommand(object sender, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+        {
+            string command = e.CommandName;
+            string commandArgument = e.CommandArgument as string;
+            try
+            {
+                if (command == "RenamePasskey")
+                {
+                    System.Web.UI.WebControls.HiddenField hidName = e.Item.FindControl("hidPasskeyName") as System.Web.UI.WebControls.HiddenField;
+                    string name = hidName != null ? hidName.Value : null;
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        ShowErrorMessage("WebAuthnRename");
+                        return;
+                    }
+                    if (!PortalUtils.UpdateMyWebAuthnCredentialDisplayName(commandArgument, name))
+                    {
+                        ShowErrorMessage("WebAuthnRename");
+                        return;
+                    }
+                    BindPasskeys();
+                    ShowSuccessMessage("WebAuthnRename");
+                }
+                else if (command == "RemovePasskey")
+                {
+                    if (!PortalUtils.DeleteMyWebAuthnCredential(commandArgument))
+                    {
+                        ShowErrorMessage("WebAuthnRemove");
+                        return;
+                    }
+                    BindPasskeys();
+                    ShowSuccessMessage("WebAuthnRemove");
+                }
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                System.Diagnostics.Trace.TraceError("WebAuthn passkey action failed: " + ex);
+                ShowErrorMessage(command == "RemovePasskey" ? "WebAuthnRemove" : "WebAuthnRename");
+            }
+        }
+
+        private static string JsStringLiteral(string value)
+        {
+            if (value == null)
+                return string.Empty;
+            return value
+                .Replace("\\", "\\\\")
+                .Replace("'", "\\'")
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n");
+        }
+
+        private Microsoft.AspNetCore.Http.HttpContext GetCoreHttpContext()
+        {
+            try
+            {
+                return WebAuthnServices.Provider.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>().HttpContext;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private void BeginPasskeyRegistration()
+        {
+            Microsoft.AspNetCore.Http.HttpContext httpContext = GetCoreHttpContext();
+            if (httpContext == null || PortalUtils.AuthTicket == null)
+            {
+                ShowErrorMessage("WebAuthnAdd");
+                return;
+            }
+
+            httpContext.Items[FuseCPWebAuthnContext.TicketItemKey] = PortalUtils.AuthTicket;
+            // The portal may sit behind a TLS-terminating proxy, where Request.Scheme
+            // reports the internal scheme (http) while the browser origin is the public
+            // scheme (https). Allow both schemes for the same host so the ceremony is
+            // not rejected by origin validation.
+            Uri[] origins = new Uri[] { new Uri("https://" + httpContext.Request.Host.Value), new Uri("http://" + httpContext.Request.Host.Value) };
+            byte[] userHandle = BitConverter.GetBytes(PanelSecurity.LoggedUserId);
+
+            BeginRegistrationCeremonyRequest request = new BeginRegistrationCeremonyRequest(
+                new RegistrationCeremonyOriginParameters(origins),
+                new RegistrationCeremonyOriginParameters(origins),
+                "FuseCP",
+                new PublicKeyCredentialUserEntity(PortalUtils.AuthTicket.Name, userHandle, PortalUtils.AuthTicket.Name),
+                32,
+                new CoseAlgorithm[] { CoseAlgorithm.ES256, CoseAlgorithm.RS256 },
+                null,
+                RegistrationCeremonyExcludeCredentials.None(),
+                new AuthenticatorSelectionCriteria(null, ResidentKeyRequirement.Preferred, null, UserVerificationRequirement.Preferred),
+                null,
+                AttestationConveyancePreference.None,
+                null,
+                null);
+
+            try
+            {
+                IRegistrationCeremonyService ceremony = WebAuthnServices.Provider.GetRequiredService<IRegistrationCeremonyService>();
+                BeginRegistrationCeremonyResult result = ceremony.BeginCeremonyAsync(httpContext, request, CancellationToken.None).GetAwaiter().GetResult();
+                hdnWebAuthnOptions.Value = JsonSerializer.Serialize(result.Options);
+                hdnWebAuthnCeremonyId.Value = result.RegistrationCeremonyId;
+                RegisterPasskeyScript();
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                System.Diagnostics.Trace.TraceError("WebAuthn begin failed: " + ex);
+                ShowErrorMessage("WebAuthnAdd");
+            }
+        }
+
+        private void CompletePasskeyRegistration(string responseJson)
+        {
+            Microsoft.AspNetCore.Http.HttpContext httpContext = GetCoreHttpContext();
+            if (httpContext == null || string.IsNullOrEmpty(hdnWebAuthnCeremonyId.Value))
+            {
+                ShowErrorMessage("WebAuthnAdd");
+                return;
+            }
+
+            httpContext.Items[FuseCPWebAuthnContext.TicketItemKey] = PortalUtils.AuthTicket;
+
+            try
+            {
+                RegistrationResponseJSON response = JsonSerializer.Deserialize<RegistrationResponseJSON>(responseJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                CompleteRegistrationCeremonyRequest request = new CompleteRegistrationCeremonyRequest(hdnWebAuthnCeremonyId.Value, "Passkey", response);
+
+                IRegistrationCeremonyService ceremony = WebAuthnServices.Provider.GetRequiredService<IRegistrationCeremonyService>();
+                var result = ceremony.CompleteCeremonyAsync(httpContext, request, CancellationToken.None).GetAwaiter().GetResult();
+
+                if (result.HasError)
+                {
+                    System.Diagnostics.Trace.TraceWarning("WebAuthn registration ceremony was rejected during completion (WebAuthn.Net validation failed). CeremonyId=" + hdnWebAuthnCeremonyId.Value + " " + DescribeRegistrationResponse(response));
+                    ShowErrorMessage("WebAuthnAdd");
+                    return;
+                }
+                BindPasskeys();
+                ShowSuccessMessage("WebAuthnAdd");
+            }
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                System.Diagnostics.Trace.TraceError("WebAuthn complete failed: " + ex);
+                ShowErrorMessage("WebAuthnAdd");
+            }
+        }
+
+        private static string DescribeRegistrationResponse(RegistrationResponseJSON response)
+        {
+            try
+            {
+                if (response != null && response.Response != null && !string.IsNullOrEmpty(response.Response.ClientDataJson))
+                {
+                    string clientDataJson = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(response.Response.ClientDataJson));
+                    JsonElement root = JsonDocument.Parse(clientDataJson).RootElement;
+                    string type = root.TryGetProperty("type", out JsonElement typeElement) ? typeElement.GetString() : "?";
+                    string origin = root.TryGetProperty("origin", out JsonElement originElement) ? originElement.GetString() : "?";
+                    return "type=" + type + " origin=" + origin;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return "clientData unavailable";
+        }
+
+        private void RegisterPasskeyScript()
+        {
+            string js = "<script type=\"text/javascript\">(function(){"
+                + "function b64uToBuf(b){b=b.replace(/-/g,'+').replace(/_/g,'/');var p=(4-b.length%4)%4;var bin=atob(b+'===='.substring(0,p));var o=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)o[i]=bin.charCodeAt(i);return o.buffer;}"
+                + "function bufToB64u(b){var y=new Uint8Array(b);var s='';for(var i=0;i<y.length;i++)s+=String.fromCharCode(y[i]);return btoa(s).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'');}"
+                + "var btn=document.getElementById('" + btnAddPasskey.ClientID + "');"
+                + "var opts=JSON.parse(document.getElementById('" + hdnWebAuthnOptions.ClientID + "').value);"
+                + "if(!navigator.credentials||!navigator.credentials.create){if(btn){btn.disabled=false;}alert('WebAuthn is not supported in this browser.');return;}"
+                + "opts.challenge=b64uToBuf(opts.challenge);opts.user.id=b64uToBuf(opts.user.id);"
+                + "if(opts.excludeCredentials){for(var j=0;j<opts.excludeCredentials.length;j++)opts.excludeCredentials[j].id=b64uToBuf(opts.excludeCredentials[j].id);}"
+                + "function start(){navigator.credentials.create({publicKey:opts}).then(function(c){"
+                + "document.getElementById('" + hdnWebAuthnResponse.ClientID + "').value=JSON.stringify({"
+                + "id:c.id,rawId:bufToB64u(c.rawId),type:c.type,authenticatorAttachment:c.authenticatorAttachment,clientExtensionResults:c.clientExtensionResults,"
+                + "response:{clientDataJSON:bufToB64u(c.response.clientDataJSON),authenticatorData:bufToB64u(c.response.authenticatorData),attestationObject:bufToB64u(c.response.attestationObject),transports:c.response.transports}"
+                + "});__doPostBack('" + btnAddPasskey.UniqueID + "','');"
+                + "}).catch(function(err){if(btn){btn.disabled=false;}alert('Passkey registration failed: '+(err&&err.message?err.message:err));});}"
+                + "if(document.hasFocus()){start();}"
+                + "else{var t=0;var iv=setInterval(function(){t++;if(document.hasFocus()||t>=50){clearInterval(iv);start();}},100);}"
+                + "})();</script>";
+            Controls.Add(new System.Web.UI.LiteralControl(js));
         }
     }
 }

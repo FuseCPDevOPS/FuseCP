@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using FuseCP.Web.Services;
 using FuseCP.Web.Clients;
+using FuseCP.Portal.WebAuthn;
 public class Program
 {
 
@@ -33,10 +34,13 @@ public class Program
 		Server.ConfigurationComplete = () => AssemblyLoader.Init(Configuration.ProbingPaths, Configuration.ExposeWebServices, true);
 		Server.ConfigureApp = app =>
 		{
+			WebAuthnServices.SetProvider(app.Services);
 			app.UseWebForms(options => options.AddHandleExtensions(".less"));
 		};
 		Server.ConfigureBuilder = builder =>
 		{
+			WebAuthnServices.Register(builder.Services);
+
 			var es = TryLoadEnterpriseServerAssembly();
 			if (es != null)
 			{

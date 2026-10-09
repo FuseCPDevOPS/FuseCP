@@ -16,6 +16,7 @@
         </div>
     </div>
     <div class="container-fluid primary-content" id="SkinContent">
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
         <div class="row">
             <div class="col-sm-4 centering">
                 <asp:PlaceHolder ID="ContentPane" runat="server"></asp:PlaceHolder>

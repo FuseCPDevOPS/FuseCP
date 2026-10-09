@@ -153,4 +153,16 @@
   <data name="btResendPin.Text" xml:space="preserve">
     <value>Bestätigungscode erneut senden</value>
   </data>
+  <data name="lblPasskeyText.Text" xml:space="preserve">
+    <value>Für dieses Konto ist ein Passkey registriert. Bestätigen Sie über Ihr Gerät, dass Sie es sind.</value>
+  </data>
+  <data name="btnPasskey.Text" xml:space="preserve">
+    <value>Mit Passkey anmelden</value>
+  </data>
+  <data name="lblPasskeyFallback.Text" xml:space="preserve">
+    <value>Passkey nicht verfügbar?</value>
+  </data>
+  <data name="btnPasskeyFallback.Text" xml:space="preserve">
+    <value>Stattessen einen Bestätigungscode verwenden</value>
+  </data>
 </root>

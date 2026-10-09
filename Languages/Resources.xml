@@ -13903,6 +13903,91 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>lblWebAuthn</Key>
+    <DefaultValue>Passkeys:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>lblWebAuthnNote</Key>
+    <DefaultValue>A passkey is a password-less way to sign in. You can add more than one.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>btnAddPasskey</Key>
+    <DefaultValue>Add passkey</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Success.WebAuthnAdd</Key>
+    <DefaultValue>Passkey added</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>SuccessDescription.WebAuthnAdd</Key>
+    <DefaultValue>Your passkey was registered successfully.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.WebAuthnAdd</Key>
+    <DefaultValue>Passkey could not be added. Please try again.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>btnRenamePasskey</Key>
+    <DefaultValue>Rename</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>btnRemovePasskey</Key>
+    <DefaultValue>Remove</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Prompt.WebAuthnRename</Key>
+    <DefaultValue>Name this passkey</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Confirm.WebAuthnRemove</Key>
+    <DefaultValue>Remove this passkey? You will no longer be able to sign in with it.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Success.WebAuthnRename</Key>
+    <DefaultValue>Passkey renamed</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>SuccessDescription.WebAuthnRename</Key>
+    <DefaultValue>Your passkey name was updated.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.WebAuthnRename</Key>
+    <DefaultValue>Passkey could not be renamed. Please try again.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Success.WebAuthnRemove</Key>
+    <DefaultValue>Passkey removed</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>SuccessDescription.WebAuthnRemove</Key>
+    <DefaultValue>Your passkey was removed.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.WebAuthnRemove</Key>
+    <DefaultValue>Passkey could not be removed. Please try again.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.WebAuthnLogin</Key>
+    <DefaultValue>Passkey sign-in failed. Please try again.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>SuccessDescription.PinSend</Key>
     <DefaultValue>Pin code was successfully sent to the primary email address.</DefaultValue>
   </Resource>
@@ -16979,6 +17064,26 @@
     <File>DesktopModules\FuseCP\App_LocalResources\Login.ascx.resx</File>
     <Key>btResendPin.Text</Key>
     <DefaultValue>Resend Pin Code</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\Login.ascx.resx</File>
+    <Key>lblPasskeyText.Text</Key>
+    <DefaultValue>A passkey is registered for this account. Confirm it is you with your device.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\Login.ascx.resx</File>
+    <Key>btnPasskey.Text</Key>
+    <DefaultValue>Sign in with passkey</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\Login.ascx.resx</File>
+    <Key>lblPasskeyFallback.Text</Key>
+    <DefaultValue>Passkey unavailable?</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\Login.ascx.resx</File>
+    <Key>btnPasskeyFallback.Text</Key>
+    <DefaultValue>Use a verification code instead</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\LoginForgotPassword.ascx.resx</File>

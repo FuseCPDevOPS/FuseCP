@@ -302,6 +302,87 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.WebControls.Button btnActivateQRCode;
         
         /// <summary>
+        /// rowWebAuthn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rowWebAuthn;
+        
+        /// <summary>
+        /// lblWebAuthn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWebAuthn;
+        
+        /// <summary>
+        /// lblWebAuthnNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWebAuthnNote;
+        
+        /// <summary>
+        /// btnAddPasskey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddPasskey;
+        
+        /// <summary>
+        /// pnlPasskeyList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPasskeyList;
+        
+        /// <summary>
+        /// rptPasskeys control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptPasskeys;
+        
+        /// <summary>
+        /// hdnWebAuthnOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnWebAuthnOptions;
+        
+        /// <summary>
+        /// hdnWebAuthnCeremonyId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnWebAuthnCeremonyId;
+        
+        /// <summary>
+        /// hdnWebAuthnResponse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnWebAuthnResponse;
+        
+        /// <summary>
         /// headContact control.
         /// </summary>
         /// <remarks>

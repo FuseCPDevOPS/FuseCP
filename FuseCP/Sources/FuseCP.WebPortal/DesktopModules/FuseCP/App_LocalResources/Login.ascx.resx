@@ -153,4 +153,16 @@
   <data name="btResendPin.Text" xml:space="preserve">
     <value>Resend Pin Code</value>
   </data>
+  <data name="lblPasskeyText.Text" xml:space="preserve">
+    <value>A passkey is registered for this account. Confirm it is you with your device.</value>
+  </data>
+  <data name="btnPasskey.Text" xml:space="preserve">
+    <value>Sign in with passkey</value>
+  </data>
+  <data name="lblPasskeyFallback.Text" xml:space="preserve">
+    <value>Passkey unavailable?</value>
+  </data>
+  <data name="btnPasskeyFallback.Text" xml:space="preserve">
+    <value>Use a verification code instead</value>
+  </data>
 </root>

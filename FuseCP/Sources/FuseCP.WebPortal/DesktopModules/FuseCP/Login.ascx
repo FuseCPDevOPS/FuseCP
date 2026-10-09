@@ -1,6 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Login.ascx.cs" Inherits="FuseCP.Portal.Login" %>
 
-
 <div class="card-body mb-3" runat="server" id="userPwdDiv">
     <div class="row g-3 mb-3">
         <div class="col-sm-12">
@@ -62,6 +61,33 @@
         </div>
     </div>
 </div>
+<div class="card-body mb-3" runat="server" id="passkeyDiv" visible="false">
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <asp:Label runat="server" ID="lblPasskeyText" meta:resourcekey="lblPasskeyText" CssClass="fcp-field-note" Text="A passkey is registered for this account. Confirm it is you with your device."></asp:Label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-end">
+            <asp:LinkButton runat="server" ID="btnPasskey" CssClass="btn btn-success" OnClick="btnPasskey_Click" CausesValidation="False">
+                <asp:Localize runat="server" meta:resourcekey="btnPasskey" />&nbsp;<i class="bi bi-key" aria-hidden="true"></i>
+            </asp:LinkButton>
+        </div>
+    </div>
+    <div id="passkeyFallbackDiv" runat="server" visible="false" class="fcp-field-note mt-3">
+        <asp:Label runat="server" ID="lblPasskeyFallback" meta:resourcekey="lblPasskeyFallback" Text="Passkey unavailable?"></asp:Label>
+        &nbsp;
+        <asp:LinkButton runat="server" ID="btnPasskeyFallback" OnClick="btnPasskeyFallback_Click" CausesValidation="False" CssClass="color-green">
+            <asp:Localize runat="server" meta:resourcekey="btnPasskeyFallback" Text="Use a verification code instead" />
+        </asp:LinkButton>
+    </div>
+</div>
+<asp:HiddenField ID="hdnPasskeyOptions" runat="server" />
+<asp:HiddenField ID="hdnPasskeyCeremonyId" runat="server" />
+<asp:HiddenField ID="hdnPasskeyResponse" runat="server" />
+<asp:HiddenField ID="hdnPasskeyTicket" runat="server" />
+<asp:HiddenField ID="hdnPasskeyFallback" runat="server" />
+<asp:HiddenField ID="hdnPinTicket" runat="server" />
 
 <div class="card-footer">
     <div class="row g-3 align-items-end">

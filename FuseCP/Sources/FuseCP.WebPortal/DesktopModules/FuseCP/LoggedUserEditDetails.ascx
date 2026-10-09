@@ -89,6 +89,32 @@
                     </div>
                 </div>
             </div>
+            <div id="rowWebAuthn" runat="server" class="row mb-3">
+                <asp:Label ID="lblWebAuthn" runat="server" meta:resourcekey="lblWebAuthn" Text="Passkeys:" CssClass="col-sm-2 col-form-label fcp-form-label"></asp:Label>
+                <div class="col-sm-10">
+                    <asp:Label ID="lblWebAuthnNote" runat="server" meta:resourcekey="lblWebAuthnNote" Text="A passkey is a password-less way to sign in. You can add more than one." CssClass="fcp-field-note d-block mb-2"></asp:Label>
+                    <asp:Button ID="btnAddPasskey" runat="server" meta:resourcekey="btnAddPasskey" Text="Add passkey" CssClass="btn btn-outline-primary" OnClick="btnAddPasskey_Click"></asp:Button>
+                    <asp:Panel ID="pnlPasskeyList" runat="server" Visible="false" CssClass="mt-3">
+                        <asp:Repeater ID="rptPasskeys" runat="server" OnItemDataBound="rptPasskeys_ItemDataBound" OnItemCommand="PasskeyCommand">
+                            <ItemTemplate>
+                                <div class="fcp-passkey-row d-flex align-items-center justify-content-between mb-1">
+                                    <span class="fcp-field-note">
+                                        <%# string.IsNullOrEmpty(Eval("DisplayName") as string) ? "Passkey" : (string)Eval("DisplayName") %>
+                                    </span>
+                                    <asp:HiddenField ID="hidPasskeyName" runat="server" />
+                                    <span>
+                                        <asp:Button ID="btnRenamePasskey" runat="server" meta:resourcekey="btnRenamePasskey" Text="Rename" CssClass="btn btn-sm btn-outline-secondary me-1" CommandName="RenamePasskey"></asp:Button>
+                                        <asp:Button ID="btnRemovePasskey" runat="server" meta:resourcekey="btnRemovePasskey" Text="Remove" CssClass="btn btn-sm btn-outline-danger" CommandName="RemovePasskey"></asp:Button>
+                                    </span>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </asp:Panel>
+                    <asp:HiddenField ID="hdnWebAuthnOptions" runat="server" />
+                    <asp:HiddenField ID="hdnWebAuthnCeremonyId" runat="server" />
+                    <asp:HiddenField ID="hdnWebAuthnResponse" runat="server" />
+                </div>
+            </div>
         </div>
         <br/>
 

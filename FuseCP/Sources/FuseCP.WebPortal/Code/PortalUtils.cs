@@ -544,6 +544,74 @@ public class PortalUtils
 		return usersService.ActivateUserMfaQrCode(username, pin);
 	}
 
+	public static WebAuthnCredentialInfo[] GetMyWebAuthnCredentials()
+	{
+		return GetMyWebAuthnCredentials(null);
+	}
+
+	public static WebAuthnCredentialInfo[] GetMyWebAuthnCredentials(FormsAuthenticationTicket ticket)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, true, ticket);
+		return authService.GetMyWebAuthnCredentials();
+	}
+
+	public static WebAuthnCredentialInfo[] GetWebAuthnCredentials(string username, string password, string ipAddress)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, false);
+		return authService.GetWebAuthnCredentials(username, SHA256(password), ipAddress);
+	}
+
+	// Password-proven (login-flow) update of a stored WebAuthn credential. Used by
+	// the sign-in ceremony: the ceremony ticket is a synthetic login ticket, and the
+	// EnterpriseServer resolves its Basic-auth (SecurityContext) principal to the
+	// supervisor account, so the ticket-based "My" endpoints cannot find or update the
+	// user's credentials. The explicit username + SHA256(password) endpoint validates
+	// the proven credentials directly and performs the sign-count update atomically.
+	public static bool UpdateWebAuthnCredential(string username, string password, string ipAddress, WebAuthnCredentialInfo credential)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, false);
+		return authService.UpdateWebAuthnCredential(username, SHA256(password), ipAddress, credential);
+	}
+
+	public static bool SaveMyWebAuthnCredential(WebAuthnCredentialInfo credential)
+	{
+		return SaveMyWebAuthnCredential(credential, null);
+	}
+
+	public static bool SaveMyWebAuthnCredential(WebAuthnCredentialInfo credential, FormsAuthenticationTicket ticket)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, true, ticket);
+		return authService.SaveMyWebAuthnCredential(credential);
+	}
+
+	public static bool UpdateMyWebAuthnCredentialDisplayName(string credentialIdBase64, string displayName)
+	{
+		return UpdateMyWebAuthnCredentialDisplayName(credentialIdBase64, displayName, null);
+	}
+
+	public static bool UpdateMyWebAuthnCredentialDisplayName(string credentialIdBase64, string displayName, FormsAuthenticationTicket ticket)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, true, ticket);
+		return authService.UpdateMyWebAuthnCredentialDisplayName(credentialIdBase64, displayName);
+	}
+
+	public static bool DeleteMyWebAuthnCredential(string credentialIdBase64)
+	{
+		return DeleteMyWebAuthnCredential(credentialIdBase64, null);
+	}
+
+	public static bool DeleteMyWebAuthnCredential(string credentialIdBase64, FormsAuthenticationTicket ticket)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, true, ticket);
+		return authService.DeleteMyWebAuthnCredential(credentialIdBase64);
+	}
+
 	public static string CreateEncryptedAuthenticationTicket(string username, string password, string ipAddress, bool rememberLogin, string preferredLocale, string theme)
 	{
 		esAuthentication authService = new esAuthentication();
