@@ -74,8 +74,10 @@ namespace FuseCP.Portal
 			string errorId = null;
 			bool canSendReport = false;
 
-			// show exception
-			if (ex != null || messageType == MessageBoxType.Error)
+			// show exception (only when an actual exception is present; plain
+			// error messages such as "Wrong Pin" must not expose a reference ID
+			// or a report-to-host panel that has no logged details behind it)
+			if (ex != null)
 			{
 				bool isServerAdmin = IsServerAdminUser();
 				canSendReport = !isServerAdmin;
@@ -144,7 +146,9 @@ namespace FuseCP.Portal
 				if (String.IsNullOrWhiteSpace(safeMessage))
 					safeMessage = messageType == MessageBoxType.Warning
 						? "Operation completed with warnings."
-						: "Operation completed successfully.";
+						: (messageType == MessageBoxType.Error
+							? "An unexpected error occurred."
+							: "Operation completed successfully.");
 			}
 
 			litMessage.Text = HttpUtility.HtmlEncode(safeMessage);
