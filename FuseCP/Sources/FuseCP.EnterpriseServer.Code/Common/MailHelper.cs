@@ -20,6 +20,7 @@ using MimeKit;
 using MailKit;
 using MailKit.Security;
 using MailKit.Net.Smtp;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Security.Authentication;
 using System.IO;
@@ -28,11 +29,16 @@ namespace FuseCP.EnterpriseServer
 {
     public class MailHelper
     {
+        // Total budget for a single SMTP send (connect + auth + data). An unreachable
+        // server must fail fast instead of stalling callers such as MFA login.
+        private const int SmtpSendTimeoutMs = 10000;
+
         public static async Task<int> SendMessageAsync(string from, string to, string bcc, string subject, string body,
             MimeKit.MessagePriority priority, bool isHtml, IEnumerable<MimePart> attachments)
         {
             using (var client = new SmtpClient())
             {
+                using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(SmtpSendTimeoutMs));
                 try
                 {
                     SystemSettings settings;
@@ -59,6 +65,7 @@ namespace FuseCP.EnterpriseServer
                     }
 
                     client.SslProtocols = enableLegacySSL ? SslProtocols.None : SslProtocols.Tls12 | SslProtocols.Tls13;
+                    client.Timeout = SmtpSendTimeoutMs;
 
 
 
@@ -68,12 +75,12 @@ namespace FuseCP.EnterpriseServer
 
 
                     // Connect
-                    await client.ConnectAsync(smtpServer, smtpPort, secureSocketOptions);
+                    await client.ConnectAsync(smtpServer, smtpPort, secureSocketOptions, cts.Token);
 
                     // Authenticate if username is provided
                     if (!String.IsNullOrEmpty(smtpUsername))
                     {
-                        await client.AuthenticateAsync(smtpUsername, smtpPassword);
+                        await client.AuthenticateAsync(smtpUsername, smtpPassword, cts.Token);
                     }
 
                     using var message = new MimeMessage();
@@ -119,9 +126,13 @@ namespace FuseCP.EnterpriseServer
 
 
                     // Send messages
-                    await client.SendAsync(message);
+                    await client.SendAsync(message, cts.Token);
 
                     return 0;
+                }
+                catch (OperationCanceledException)
+                {
+                    return BusinessErrorCodes.SMTP_UNKNOWN_ERROR;
                 }
                 catch (SmtpCommandException)
                 {
@@ -137,10 +148,22 @@ namespace FuseCP.EnterpriseServer
                 }
                 finally
                 {
-                    // Disconnect
+                    // Disconnect (best effort: a failed teardown must not mask the send result)
                     if (client.IsConnected)
                     {
-                        await client.DisconnectAsync(true);
+                        try
+                        {
+                            await client.DisconnectAsync(true, cts.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
+                        }
+                        catch (SmtpCommandException)
+                        {
+                        }
+                        catch (System.IO.IOException)
+                        {
+                        }
                     }
                 }
             }
