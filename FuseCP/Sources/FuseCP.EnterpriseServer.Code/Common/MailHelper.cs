@@ -36,9 +36,30 @@ namespace FuseCP.EnterpriseServer
         public static async Task<int> SendMessageAsync(string from, string to, string bcc, string subject, string body,
             MimeKit.MessagePriority priority, bool isHtml, IEnumerable<MimePart> attachments)
         {
+            using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(SmtpSendTimeoutMs));
+
+            // MailKit's ConnectAsync can block inside the native connect and ignore the
+            // cancellation token, so "await ConnectAsync(..., token)" may never complete and
+            // stall callers such as MFA login. Run the send on a dedicated thread and race it
+            // against a hard wall-clock budget so the request thread is guaranteed to unblock
+            // within SmtpSendTimeoutMs even if the SMTP operation cannot be cancelled.
+            var sendTask = Task.Run(() => SendSmtpMessage(from, to, bcc, subject, body, priority, isHtml, attachments, cts.Token));
+            var completed = await Task.WhenAny(sendTask, Task.Delay(SmtpSendTimeoutMs));
+
+            if (completed != sendTask)
+            {
+                cts.Cancel();
+                return BusinessErrorCodes.SMTP_UNKNOWN_ERROR;
+            }
+
+            return await sendTask;
+        }
+
+        private static int SendSmtpMessage(string from, string to, string bcc, string subject, string body,
+            MimeKit.MessagePriority priority, bool isHtml, IEnumerable<MimePart> attachments, CancellationToken cancellationToken)
+        {
             using (var client = new SmtpClient())
             {
-                using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(SmtpSendTimeoutMs));
                 try
                 {
                     SystemSettings settings;
@@ -75,12 +96,12 @@ namespace FuseCP.EnterpriseServer
 
 
                     // Connect
-                    await client.ConnectAsync(smtpServer, smtpPort, secureSocketOptions, cts.Token);
+                    client.Connect(smtpServer, smtpPort, secureSocketOptions, cancellationToken);
 
                     // Authenticate if username is provided
                     if (!String.IsNullOrEmpty(smtpUsername))
                     {
-                        await client.AuthenticateAsync(smtpUsername, smtpPassword, cts.Token);
+                        client.Authenticate(smtpUsername, smtpPassword, cancellationToken);
                     }
 
                     using var message = new MimeMessage();
@@ -126,7 +147,7 @@ namespace FuseCP.EnterpriseServer
 
 
                     // Send messages
-                    await client.SendAsync(message, cts.Token);
+                    client.Send(message, cancellationToken);
 
                     return 0;
                 }
@@ -153,7 +174,7 @@ namespace FuseCP.EnterpriseServer
                     {
                         try
                         {
-                            await client.DisconnectAsync(true, cts.Token);
+                            client.Disconnect(true, cancellationToken);
                         }
                         catch (OperationCanceledException)
                         {
