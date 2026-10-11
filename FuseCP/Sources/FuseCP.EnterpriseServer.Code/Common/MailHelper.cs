@@ -253,7 +253,22 @@ namespace FuseCP.EnterpriseServer
 
             try
             {
-                return SendMessageAsync(from, to, bcc, subject, body, mailkitPriority, isHtml, mailkitAttachments).GetAwaiter().GetResult();
+                using var cts = new CancellationTokenSource(SmtpSendTimeoutMs);
+
+                // Do NOT use sync-over-async here (SendMessageAsync().GetAwaiter().GetResult()).
+                // The caller is a WebForms request thread; the async method's continuation is
+                // scheduled through the request SynchronizationContext/thread pool, which can
+                // never run while this thread is blocked on GetResult() - a permanent deadlock
+                // that stalls MFA login indefinitely. Task.Wait(timeout) instead blocks directly
+                // on the worker task's completion handle, so the send is hard-bounded by
+                // SmtpSendTimeoutMs regardless of the surrounding synchronization context.
+                var sendTask = Task.Run(() => SendSmtpMessage(from, to, bcc, subject, body, mailkitPriority, isHtml, mailkitAttachments, cts.Token));
+                if (!sendTask.Wait(SmtpSendTimeoutMs))
+                {
+                    cts.Cancel();
+                    return BusinessErrorCodes.SMTP_UNKNOWN_ERROR;
+                }
+                return sendTask.Result;
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
