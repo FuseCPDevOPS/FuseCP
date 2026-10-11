@@ -187,11 +187,15 @@
         .join(' ');
     }
 
-    function disableActionControls() {
+    function disableActionControls(submitter) {
       disabledControls = [];
 
       var actionControls = document.querySelectorAll('input[type="submit"], input[type="button"], button, a.btn, a[role="button"]');
       for (var i = 0; i < actionControls.length; i++) {
+        // Disabling the submitting button itself would make the browser drop
+        // its name/value from the form data, so the server could not tell
+        // which button was clicked and the postback would do nothing.
+        if (submitter && actionControls[i] === submitter) continue;
         disableControl(actionControls[i]);
       }
     }
@@ -241,10 +245,10 @@
       return false;
     }
 
-    function beginBusy(message) {
+    function beginBusy(message, submitter) {
       if (busy) return false;
       busy = true;
-      disableActionControls();
+      disableActionControls(submitter);
       setBanner(message);
       return true;
     }
@@ -280,7 +284,7 @@
         if (custom) message = custom;
       }
 
-      beginBusy(message);
+      beginBusy(message, evt.submitter);
     }, true);
 
     if (window.Sys && window.Sys.WebForms && window.Sys.WebForms.PageRequestManager) {

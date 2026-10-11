@@ -49,6 +49,14 @@
 
                         var submitControls = form.querySelectorAll('button[type="submit"], input[type="submit"]');
                         for (var i = 0; i < submitControls.length; i++) {
+                            // The clicked button must stay enabled so the browser
+                            // includes its name/value in the form data; disabled
+                            // submit buttons are dropped, which leaves the server
+                            // unable to tell which button was clicked and the
+                            // postback silently does nothing. Re-submission is
+                            // still blocked by the data-submitting flag and the
+                            // global busy overlay.
+                            if (submitControls[i] === event.submitter) continue;
                             if (submitControls[i].getAttribute('data-allow-multi-submit') !== 'true') {
                                 submitControls[i].setAttribute('disabled', 'disabled');
                             }
