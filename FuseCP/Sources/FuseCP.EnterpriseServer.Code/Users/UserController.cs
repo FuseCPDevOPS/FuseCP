@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.Authenticator;
+using QRCoder;
 using FuseCP.EnterpriseServer.Data;
 using FuseCP.EnterpriseServer.Security;
 
@@ -291,7 +292,20 @@ namespace FuseCP.EnterpriseServer
 
 			TwoFactorAuthenticator twoFactorAuthenticator = new TwoFactorAuthenticator();
 			var faSetupCode = twoFactorAuthenticator.GenerateSetupCode(mfaTokenAppDisplayName, $"{user.Username}", CryptoUtils.Decrypt(user.PinSecret), false);
-			return new string[] { faSetupCode.ManualEntryKey, faSetupCode.QrCodeSetupImageUrl };
+			return new string[] { faSetupCode.ManualEntryKey, CreateMfaQrCodeDataUrl(faSetupCode.ManualEntryKey) };
+		}
+
+		private static string CreateMfaQrCodeDataUrl(string otpAuthUri)
+		{
+			using (var qrGenerator = new QRCodeGenerator())
+			{
+				var qrCodeData = qrGenerator.CreateQrCode(otpAuthUri, QRCodeGenerator.ECCLevel.M);
+				using (var pngRenderer = new PngByteQRCode(qrCodeData))
+				{
+					byte[] pngBytes = pngRenderer.GetGraphic(5);
+					return "data:image/png;base64," + Convert.ToBase64String(pngBytes);
+				}
+			}
 		}
 
 		public bool ActivateUserMfaQrCode(string username, string pin)

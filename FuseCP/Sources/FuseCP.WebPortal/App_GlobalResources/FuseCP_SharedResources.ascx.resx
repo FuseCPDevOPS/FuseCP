@@ -7018,6 +7018,9 @@
   <data name="Error.QRCodeActivation" xml:space="preserve">
     <value>Activation unsuccessful. Wrong pin code.</value>
   </data>
+  <data name="Error.USER_MFA_GET_QR_CODE" xml:space="preserve">
+    <value>Failed to retrieve QR code data.</value>
+  </data>
   <data name="Error.WrongPin" xml:space="preserve">
     <value>Wrong Pin</value>
   </data>

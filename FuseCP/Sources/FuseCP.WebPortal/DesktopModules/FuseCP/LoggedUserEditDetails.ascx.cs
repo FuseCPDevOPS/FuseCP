@@ -967,6 +967,14 @@ namespace FuseCP.Portal
                 lblManualAuth.Text = qrCodeData[0];
                 imgQrCode.ImageUrl = qrCodeData[1];
             }
+            else if (cbxMfaEnabled.Checked && user.IsDemo)
+            {
+                ShowErrorMessage("ERROR_USER_ACCOUNT_DEMO");
+            }
+            else if (cbxMfaEnabled.Checked)
+            {
+                ShowErrorMessage("USER_MFA_GET_QR_CODE");
+            }
         }
 
         protected void btnActivateQRCode_Click(object sender, EventArgs e)
