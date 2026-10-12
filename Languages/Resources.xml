@@ -13888,6 +13888,11 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.USER_MFA_GET_QR_CODE</Key>
+    <DefaultValue>Failed to retrieve QR code data.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Error.WrongPin</Key>
     <DefaultValue>Wrong Pin</DefaultValue>
   </Resource>

@@ -248,6 +248,42 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.WebControls.Label lblMfaEnabled;
         
         /// <summary>
+        /// lblMfaStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMfaStatus;
+        
+        /// <summary>
+        /// reauthGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reauthGroup;
+        
+        /// <summary>
+        /// lblReauthPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReauthPassword;
+        
+        /// <summary>
+        /// txtReauthPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReauthPassword;
+        
+        /// <summary>
         /// btnGetQRCodeData control.
         /// </summary>
         /// <remarks>

@@ -26,7 +26,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.Authenticator;
-using QRCoder;
 using FuseCP.EnterpriseServer.Data;
 using FuseCP.EnterpriseServer.Security;
 
@@ -269,9 +268,40 @@ namespace FuseCP.EnterpriseServer
 			if (!canChange)
 				return false;
 
-			var pinSecret = activate ? CryptoUtils.Encrypt(GetRandomString(20)) : null;
+			string pinSecret;
+			int newMfaMode;
+			bool newSecretIssued = false;
+			if (!activate)
+			{
+				pinSecret = null;
+				newMfaMode = 0;
+			}
+			else if (user.MfaMode > 0 && !String.IsNullOrEmpty(user.PinSecret))
+			{
+				// MFA is already enabled with an existing secret. Re-activating must
+				// NOT rotate the secret or demote the MfaMode: the portal MFA checkbox
+				// is AutoPostBack and can fire CheckedChanged on unrelated postbacks
+				// (Get QR-Code, Validate Activation Pin). Rotating here invalidates any
+				// scanned QR code (activation fails with "wrong pin code"), and demoting
+				// MfaMode 2->1 would silently switch a TOTP user back to email
+				// verification. Keep the current secret and mode (no-op).
+				pinSecret = user.PinSecret;
+				newMfaMode = user.MfaMode;
+			}
+			else
+			{
+				pinSecret = CryptoUtils.Encrypt(GetRandomString(20));
+				newMfaMode = 1;
+				newSecretIssued = true;
+			}
 			Database.UpdateUserPinSecret(SecurityContext.User.UserId, user.UserId, pinSecret);
-			Database.UpdateUserMfaMode(SecurityContext.User.UserId, user.UserId, pinSecret != null ? 1 : 0);
+			Database.UpdateUserMfaMode(SecurityContext.User.UserId, user.UserId, newMfaMode);
+
+			if (newMfaMode != user.MfaMode || newSecretIssued)
+			{
+				AuditLog.AddAuditLogInfoRecord("USER", "MFA_UPDATE", username,
+					new string[] { "MFA " + (activate ? "enabled (new TOTP secret issued)" : "disabled") });
+			}
 
 			UserInfoInternal userAfterUpdate = GetUserInternally(username);
 			return userAfterUpdate.MfaMode > 0;
@@ -292,20 +322,7 @@ namespace FuseCP.EnterpriseServer
 
 			TwoFactorAuthenticator twoFactorAuthenticator = new TwoFactorAuthenticator();
 			var faSetupCode = twoFactorAuthenticator.GenerateSetupCode(mfaTokenAppDisplayName, $"{user.Username}", CryptoUtils.Decrypt(user.PinSecret), false);
-			return new string[] { faSetupCode.ManualEntryKey, CreateMfaQrCodeDataUrl(faSetupCode.ManualEntryKey) };
-		}
-
-		private static string CreateMfaQrCodeDataUrl(string otpAuthUri)
-		{
-			using (var qrGenerator = new QRCodeGenerator())
-			{
-				var qrCodeData = qrGenerator.CreateQrCode(otpAuthUri, QRCodeGenerator.ECCLevel.M);
-				using (var pngRenderer = new PngByteQRCode(qrCodeData))
-				{
-					byte[] pngBytes = pngRenderer.GetGraphic(5);
-					return "data:image/png;base64," + Convert.ToBase64String(pngBytes);
-				}
-			}
+			return new string[] { faSetupCode.ManualEntryKey, faSetupCode.QrCodeSetupImageUrl };
 		}
 
 		public bool ActivateUserMfaQrCode(string username, string pin)
@@ -323,6 +340,40 @@ namespace FuseCP.EnterpriseServer
 				return false;
 
 			Database.UpdateUserMfaMode(SecurityContext.User.UserId, user.UserId, 2);
+			AuditLog.AddAuditLogInfoRecord("USER", "MFA_ACTIVATE", username,
+				new string[] { "TOTP authenticator app activated" });
+			return true;
+		}
+
+		/// <summary>
+		/// Rotates the user's TOTP secret to a brand-new value and drops the account to
+		/// email-verification mode (MfaMode 1). All previously enrolled authenticator apps
+		/// are invalidated. The account is intentionally left at MfaMode 1 (not 2) so the
+		/// user is not locked out while they re-enroll a device with the new QR code; login
+		/// falls back to the email one-time code until activation is completed again.
+		/// </summary>
+		public bool ResetUserMfaSecret(string username)
+		{
+ if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return false;
+ if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return false;
+			if (SecurityContext.User == null) return false;
+
+			UserInfoInternal user = GetUserInternally(username);
+			if (user.MfaMode == 0)
+				return false;
+
+			var authSettings = SystemController.GetSystemSettingsInternal(SystemSettings.AUTHENTICATION_SETTINGS, false);
+			var canPeerChangeMfa = Convert.ToBoolean(authSettings[SystemSettings.MFA_CAN_PEER_CHANGE_MFA]);
+			var canChange = Database.CanUserChangeMfa(SecurityContext.User.UserId, user.UserId, canPeerChangeMfa);
+			if (!canChange)
+				return false;
+
+			var pinSecret = CryptoUtils.Encrypt(GetRandomString(20));
+			Database.UpdateUserPinSecret(SecurityContext.User.UserId, user.UserId, pinSecret);
+			Database.UpdateUserMfaMode(SecurityContext.User.UserId, user.UserId, 1);
+
+			AuditLog.AddAuditLogInfoRecord("USER", "MFA_RESET", username,
+				new string[] { "TOTP secret rotated; all previously enrolled authenticator apps invalidated; MFA set to email-verification pending re-enrollment" });
 			return true;
 		}
 

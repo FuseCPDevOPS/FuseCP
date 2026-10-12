@@ -75,11 +75,16 @@
                     <div class="form-check fcp-form-check-stack">
                         <asp:CheckBox id="cbxMfaEnabled" runat="server" AutoPostBack="true" OnCheckedChanged="cbxMfaEnabled_CheckedChanged"></asp:CheckBox>
                         <asp:Label ID="lblMfaEnabled" runat="server" meta:resourcekey="lblMfaEnabled" Text="When you log in, a validation code is sent to the primary email address. Enabling an authentication app stops the validation code from being sent by email." CssClass="fcp-field-note"></asp:Label>
+                        <asp:Label ID="lblMfaStatus" runat="server" Visible="false" CssClass="fcp-field-note fw-semibold"></asp:Label>
                     </div>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-sm-10 offset-sm-2">
+                    <div class="d-flex align-items-center gap-2 mb-2" id="reauthGroup" runat="server" visible="false">
+                        <asp:Label ID="lblReauthPassword" runat="server" meta:resourcekey="lblReauthPassword" Text="Password:" AssociatedControlID="txtReauthPassword"></asp:Label>
+                        <asp:TextBox ID="txtReauthPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                    </div>
                     <asp:Button id="btnGetQRCodeData" Visible="false" runat="server" meta:resourcekey="btnGetQRCodeData" Text="Get QR-Code" CssClass="btn btn-outline-primary" OnClick="btnGetQRCodeData_Click"></asp:Button>
                     <div id="qrData" visible="false" runat="server" class="fcp-password-policy mt-3">
                         <asp:Image ID="imgQrCode" runat="server"/>

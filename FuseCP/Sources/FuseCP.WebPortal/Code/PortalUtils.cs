@@ -544,6 +544,25 @@ public class PortalUtils
 		return usersService.ActivateUserMfaQrCode(username, pin);
 	}
 
+	public static bool ResetUserMfa(string username)
+	{
+		esUsers usersService = new esUsers();
+		ConfigureEnterpriseServerProxy(usersService, true);
+		return usersService.ResetUserMfaSecret(username);
+	}
+
+	// Re-authentication check: verifies the user's password without altering session
+	// state. Returns true only when the credentials are valid. Used to gate sensitive
+	// MFA operations (e.g. rotating the TOTP secret) behind proof of the password so a
+	// stolen session cookie alone is not enough.
+	public static bool VerifyUserPassword(string username, string password, string ipAddress)
+	{
+		esAuthentication authService = new esAuthentication();
+		ConfigureEnterpriseServerProxy(authService, false);
+		UserInfo user = authService.GetUserByUsernamePassword(username, SHA256(password), ipAddress);
+		return user != null;
+	}
+
 	public static WebAuthnCredentialInfo[] GetMyWebAuthnCredentials()
 	{
 		return GetMyWebAuthnCredentials(null);

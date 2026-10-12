@@ -294,6 +294,12 @@ namespace FuseCP.EnterpriseServer
         }
 
         [WebMethod]
+        public bool ResetUserMfaSecret(string username)
+        {
+            return UserController.ResetUserMfaSecret(username);
+        }
+
+        [WebMethod]
         public int ChangeUserStatus(int userId, UserStatus status)
         {
             return UserController.ChangeUserStatus(userId, status);

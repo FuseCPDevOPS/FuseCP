@@ -192,6 +192,18 @@
   <data name="lblUseMfa.Text" xml:space="preserve">
     <value>Enable MFA:</value>
   </data>
+  <data name="btnResetTotp.Text" xml:space="preserve">
+    <value>Reset TOTP</value>
+  </data>
+  <data name="lblMfaStatusEnabled.Text" xml:space="preserve">
+    <value>TOTP authentication app is enabled.</value>
+  </data>
+  <data name="lblMfaStatusPending.Text" xml:space="preserve">
+    <value>MFA enabled (email verification). Complete TOTP setup below.</value>
+  </data>
+  <data name="lblReauthPassword.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
   <data name="lblPaletteColor.Text" xml:space="preserve">
     <value>Color</value>
   </data>

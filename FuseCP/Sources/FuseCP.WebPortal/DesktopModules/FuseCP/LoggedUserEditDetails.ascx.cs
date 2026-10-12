@@ -242,10 +242,7 @@ namespace FuseCP.Portal
                 txtSecondaryEmail.Text = user.SecondaryEmail;
                 lblUsername.Text = PortalAntiXSS.Encode(user.Username);
                 ddlMailFormat.SelectedIndex = user.HtmlMail ? 1 : 0;
-                cbxMfaEnabled.Checked = user.MfaMode > 0;
-                cbxMfaEnabled.Enabled = ES.Services.Users.CanUserChangeMfa(PanelSecurity.LoggedUserId);
-                btnGetQRCodeData.Visible = cbxMfaEnabled.Checked;
-                lblMfaEnabled.Visible = cbxMfaEnabled.Checked;
+                BindMfaControls(user);
 
                 // contact info
                 contact.CompanyName = user.CompanyName;
@@ -465,10 +462,11 @@ namespace FuseCP.Portal
         protected void cbxMfaEnabled_CheckedChanged(object sender, EventArgs e)
         {
             UserInfo user = ES.Services.Users.GetUserById(PanelSecurity.LoggedUserId);
-            var result = PortalUtils.UpdateUserMfa(user.Username, cbxMfaEnabled.Checked);
+            PortalUtils.UpdateUserMfa(user.Username, cbxMfaEnabled.Checked);
             qrData.Visible = false;
-            btnGetQRCodeData.Visible = result;
-            lblMfaEnabled.Visible = result;
+            // Re-fetch to reflect the actual MfaMode (update may have been denied) and rebind
+            user = ES.Services.Users.GetUserById(PanelSecurity.LoggedUserId);
+            BindMfaControls(user);
         }
 
         private static string NormalizeUserText(string value)
@@ -960,18 +958,64 @@ namespace FuseCP.Portal
         protected void btnGetQRCodeData_Click(object sender, EventArgs e)
         {
             UserInfo user = ES.Services.Users.GetUserById(PanelSecurity.LoggedUserId);
+
+            if (!cbxMfaEnabled.Checked || user.MfaMode == 0)
+                return;
+
+            if (user.MfaMode == 2)
+            {
+                // Fully activated TOTP: this button is "Reset TOTP". Rotating the secret
+                // invalidates every enrolled authenticator app, so require proof of the
+                // password first (a stolen session cookie alone must not be enough).
+                //
+                // Read the value from the submitted form by key suffix rather than
+                // txtReauthPassword.Text: in this portal (WebFormsForCore) the control's
+                // ClientID is "_"-separated while the rendered form field name is "$"-
+                // separated, so the normal postback value->Text mapping does not populate
+                // .Text. The browser does submit the field (verified in the request), so
+                // locate it by its ID suffix and read the raw value.
+                string reauthPassword = string.Empty;
+                foreach (string key in Request.Form.AllKeys)
+                {
+                    if (key != null && key.EndsWith("txtReauthPassword", System.StringComparison.Ordinal))
+                    {
+                        reauthPassword = Request.Form[key] ?? string.Empty;
+                        break;
+                    }
+                }
+                txtReauthPassword.Text = String.Empty; // never retain the password
+                if (string.IsNullOrEmpty(reauthPassword) ||
+                    !PortalUtils.VerifyUserPassword(user.Username, reauthPassword, Request.UserHostAddress))
+                {
+                    ShowErrorMessage("MFA_RESET_REAUTH_FAILED");
+                    return;
+                }
+
+                if (!PortalUtils.ResetUserMfa(user.Username))
+                {
+                    ShowErrorMessage("MFA_RESET_FAILED");
+                    return;
+                }
+
+                // Reset drops MfaMode to 1 (email verification) and issues a new secret.
+                // Rebind so the button becomes "Show QR-Code" and the status reflects the
+                // pending state, then fall through to display the fresh QR for re-enrollment.
+                user = ES.Services.Users.GetUserById(PanelSecurity.LoggedUserId);
+                BindMfaControls(user);
+            }
+
             var qrCodeData = PortalUtils.GetQrCodeData(user.Username);
-            if (cbxMfaEnabled.Checked && qrCodeData.Length == 2)
+            if (qrCodeData.Length == 2)
             {
                 qrData.Visible = true;
                 lblManualAuth.Text = qrCodeData[0];
                 imgQrCode.ImageUrl = qrCodeData[1];
             }
-            else if (cbxMfaEnabled.Checked && user.IsDemo)
+            else if (user.IsDemo)
             {
                 ShowErrorMessage("ERROR_USER_ACCOUNT_DEMO");
             }
-            else if (cbxMfaEnabled.Checked)
+            else
             {
                 ShowErrorMessage("USER_MFA_GET_QR_CODE");
             }
@@ -988,7 +1032,51 @@ namespace FuseCP.Portal
             }
 
             qrData.Visible = false;
+            txtQrCodeActivationPin.Text = String.Empty;
+            // MfaMode is now 2: rebind so the button becomes "Reset TOTP" (with re-auth)
+            // and the status reflects the fully-activated state.
+            user = ES.Services.Users.GetUserById(PanelSecurity.LoggedUserId);
+            BindMfaControls(user);
             ShowSuccessMessage("QRCodeActivation");
+        }
+
+        // Binds the MFA section controls (checkbox, status label, QR/Reset button, re-auth
+        // prompt) to the user's current MfaMode:
+        //   0 - MFA off (no button, no status)
+        //   1 - email verification (button "Show QR-Code" to complete TOTP setup)
+        //   2 - TOTP app active (status shown; button "Reset TOTP" requires re-auth)
+        private void BindMfaControls(UserInfo user)
+        {
+            bool enabled = user.MfaMode > 0;
+            cbxMfaEnabled.Checked = enabled;
+            cbxMfaEnabled.Enabled = ES.Services.Users.CanUserChangeMfa(PanelSecurity.LoggedUserId);
+            btnGetQRCodeData.Visible = enabled;
+            lblMfaEnabled.Visible = enabled;
+            txtReauthPassword.Text = String.Empty; // never retain a typed password
+
+            if (user.MfaMode == 2)
+            {
+                lblMfaStatus.Visible = true;
+                lblMfaStatus.Text = GetLocalResourceObject("lblMfaStatusEnabled.Text") as string;
+                btnGetQRCodeData.Text = GetLocalResourceObject("btnResetTotp.Text") as string;
+                // TOTP is active: rotating the secret invalidates every enrolled authenticator
+                // app, so require proof of the password. Show a real masked password input (so
+                // password managers can fill it) next to the "Reset TOTP" button instead of a
+                // plaintext JS prompt.
+                reauthGroup.Visible = true;
+            }
+            else if (user.MfaMode == 1)
+            {
+                lblMfaStatus.Visible = true;
+                lblMfaStatus.Text = GetLocalResourceObject("lblMfaStatusPending.Text") as string;
+                btnGetQRCodeData.Text = GetLocalResourceObject("btnGetQRCodeData.Text") as string;
+                reauthGroup.Visible = false;
+            }
+            else
+            {
+                lblMfaStatus.Visible = false;
+                reauthGroup.Visible = false;
+            }
         }
 
         protected void btnAddPasskey_Click(object sender, EventArgs e)
