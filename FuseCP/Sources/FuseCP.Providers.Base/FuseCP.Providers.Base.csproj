@@ -39,6 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SSH.NET" Version="2026.0.0" />
-    <PackageReference Include="System.DirectoryServices" Version="10.0.0" />
+    <PackageReference Include="System.DirectoryServices" Version="10.0.12" />
   </ItemGroup>
 </Project>

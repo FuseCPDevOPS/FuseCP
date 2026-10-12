@@ -21,7 +21,7 @@
     <ItemGroup>
         <PackageReference Include="MySql.Data" />
         <!-- System.Security.Permissions does no show up in output folder, so copy it manually -->
-        <PackageReference Include="System.Security.Permissions" Version="10.0.0" GeneratePathProperty="true" />
+        <PackageReference Include="System.Security.Permissions" Version="10.0.12" GeneratePathProperty="true" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />

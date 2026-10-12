@@ -10,7 +10,7 @@
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="..\..\VersionInfo.cs" Link="VersionInfo.cs" />

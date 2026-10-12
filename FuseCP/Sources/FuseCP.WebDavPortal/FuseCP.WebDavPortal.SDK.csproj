@@ -30,7 +30,7 @@
         <PackageReference Include="jQuery.FileUpload" />
         <PackageReference Include="jQuery.UI.Combined" />
         <PackageReference Include="jQuery.Validation" />
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.12" />
         <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
         <PackageReference Include="Modernizr" />
