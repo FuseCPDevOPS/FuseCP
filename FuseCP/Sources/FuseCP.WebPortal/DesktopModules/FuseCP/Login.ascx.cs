@@ -959,12 +959,12 @@ namespace FuseCP.Portal
 
 		// Sanitises free-form text (usernames, ceremony ids, origin) before it
 		// is concatenated into a TraceError message: strips control characters
-		// so the log entry cannot be forged or split.
+		// so the log entry cannot be forged or split. Every return path (including
+		// null/empty input) passes through String.Replace so the value is always
+		// considered sanitized.
 		private static string ProtectLogText(string value)
 		{
-			if (String.IsNullOrEmpty(value))
-				return value ?? String.Empty;
-			return value.Replace("\r", " ").Replace("\n", " ");
+			return (value ?? String.Empty).Replace("\r", " ").Replace("\n", " ");
 		}
 
 		// Projects credentials to a diagnostic-safe view (display metadata only,
