@@ -471,17 +471,17 @@ namespace FuseCP.EnterpriseServer
             if (scheduleInfo?.Parameters == null || scheduleInfo.Parameters.Length == 0 || ids == null)
                 return String.Empty;
 
-            foreach (string id in ids.Where(id => !String.IsNullOrWhiteSpace(id)))
-            {
-                ScheduleTaskParameterInfo parameter = scheduleInfo.Parameters.FirstOrDefault(p =>
+            ScheduleTaskParameterInfo parameter = ids
+                .Where(id => !String.IsNullOrWhiteSpace(id))
+                .Select(id => scheduleInfo.Parameters.FirstOrDefault(p =>
                     p != null
                     && !String.IsNullOrWhiteSpace(p.ParameterId)
                     && String.Equals(p.ParameterId, id, StringComparison.OrdinalIgnoreCase)
-                    && !String.IsNullOrWhiteSpace(p.ParameterValue));
+                    && !String.IsNullOrWhiteSpace(p.ParameterValue)))
+                .FirstOrDefault(p => p != null);
 
-                if (parameter != null)
-                    return parameter.ParameterValue.Trim();
-            }
+            if (parameter != null)
+                return parameter.ParameterValue.Trim();
 
             return String.Empty;
         }

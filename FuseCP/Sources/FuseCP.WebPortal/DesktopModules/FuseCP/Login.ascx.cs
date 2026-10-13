@@ -665,7 +665,7 @@ namespace FuseCP.Portal
 			{
 				return System.Web.Security.FormsAuthentication.Decrypt(encryptedTicket);
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				return null;
 			}
@@ -765,7 +765,7 @@ namespace FuseCP.Portal
 			{
 				return WebAuthnServices.Provider.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>().HttpContext;
 			}
-			catch (Exception)
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				return null;
 			}
@@ -824,7 +824,7 @@ namespace FuseCP.Portal
 			{
 				System.Diagnostics.Trace.TraceError("WebAuthn sign-in (begin) threw an exception:\r\n" + ex
 					+ "\r\n  " + GetOriginScheme(httpContext)
-					+ "\r\n  " + DescribeCredentials("password-based (username/pwd)", SafePwdCreds(username, password)));
+					+ "\r\n  " + ProtectLogText(DescribeCredentials("pwd-based (username/pwd)", ProtectCredsForLog(SafePwdCreds(username, password)))));
 				ShowErrorMessage("WebAuthnLogin");
 			}
 		}
@@ -882,7 +882,7 @@ namespace FuseCP.Portal
 				// context (credential state, origin/scheme, ceremony id) to the
 				// server-side trace so the failing step is identifiable.
 				string diagnostic = BuildPasskeyDiagnostic(ticket, username, password, httpContext, ceremonyId, response);
-				System.Diagnostics.Trace.TraceError("WebAuthn sign-in failed (ceremony HasError):\n" + diagnostic);
+				System.Diagnostics.Trace.TraceError("WebAuthn sign-in failed (ceremony HasError):\n" + ProtectLogText(diagnostic));
 				ShowErrorMessage("WebAuthnLogin");
 				return;
 			}
@@ -909,9 +909,9 @@ namespace FuseCP.Portal
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append("Passkey sign-in failed. Diagnostic:\r\n");
-			sb.Append("  user=" + username + "\r\n");
+			sb.Append("  user=" + ProtectLogText(username) + "\r\n");
 			sb.Append("  " + GetOriginScheme(httpContext) + "\r\n");
-			sb.Append("  ceremonyId=" + (ceremonyId ?? String.Empty) + "\r\n");
+			sb.Append("  ceremonyId=" + ProtectLogText(ceremonyId) + "\r\n");
 
 			byte[] browserCredId = null;
 			try
@@ -919,11 +919,11 @@ namespace FuseCP.Portal
 				if (response != null && !String.IsNullOrEmpty(response.RawId))
 					browserCredId = Base64UrlDecode(response.RawId);
 			}
-			catch (Exception) { /* ignore decode issues for diagnostics */ }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { /* ignore decode issues for diagnostics */ }
 			sb.Append("  browser credentialId (rawId)=" + (browserCredId == null ? "(none)" : Convert.ToBase64String(browserCredId)) + "\r\n");
 
-			sb.Append("  " + DescribeCredentials("ticket-based (SecurityContext)", SafeTicketCreds(ticket)) + "\r\n");
-			sb.Append("  " + DescribeCredentials("password-based (username/pwd)", SafePwdCreds(username, password)) + "\r\n");
+			sb.Append("  " + DescribeCredentials("ticket-based (SecurityContext)", ProtectCredsForLog(SafeTicketCreds(ticket))) + "\r\n");
+			sb.Append("  " + DescribeCredentials("pwd-based (username/pwd)", ProtectCredsForLog(SafePwdCreds(username, password))) + "\r\n");
 
 			return sb.ToString();
 		}
@@ -931,13 +931,13 @@ namespace FuseCP.Portal
 		private WebAuthnCredentialInfo[] SafeTicketCreds(System.Web.Security.FormsAuthenticationTicket ticket)
 		{
 			try { return PortalUtils.GetMyWebAuthnCredentials(ticket); }
-			catch (Exception ex) { return new WebAuthnCredentialInfo[] { new WebAuthnCredentialInfo { DisplayName = "LOOKUP THREW: " + ex.Message } }; }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { return new WebAuthnCredentialInfo[] { new WebAuthnCredentialInfo { DisplayName = "LOOKUP THREW: " + ex.Message } }; }
 		}
 
 		private WebAuthnCredentialInfo[] SafePwdCreds(string username, string password)
 		{
 			try { return PortalUtils.GetWebAuthnCredentials(username, password, ipAddress); }
-			catch (Exception ex) { return new WebAuthnCredentialInfo[] { new WebAuthnCredentialInfo { DisplayName = "LOOKUP THREW: " + ex.Message } }; }
+			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) { return new WebAuthnCredentialInfo[] { new WebAuthnCredentialInfo { DisplayName = "LOOKUP THREW: " + ex.Message } }; }
 		}
 
 		private static string DescribeCredentials(string label, WebAuthnCredentialInfo[] creds)
@@ -953,8 +953,40 @@ namespace FuseCP.Portal
 					: "credId=" + (c.CredentialId == null ? "(null)" : Convert.ToBase64String(c.CredentialId))
 						+ " rpId=" + (c.RpId ?? "(null)")
 						+ " userHandle=" + (c.UserHandle == null ? "(null)" : Convert.ToBase64String(c.UserHandle))
-						+ " signCount=" + c.SignCount.ToString()));
-			return label + " = " + creds.Length.ToString() + " [" + items + "]";
+						+ " signCount=" + c.SignCount));
+			return label + " = " + creds.Length + " [" + items + "]";
+		}
+
+		// Sanitises free-form text (usernames, ceremony ids, origin) before it
+		// is concatenated into a TraceError message: strips control characters
+		// so the log entry cannot be forged or split.
+		private static string ProtectLogText(string value)
+		{
+			if (String.IsNullOrEmpty(value))
+				return value ?? String.Empty;
+			return value.Replace("\r", " ").Replace("\n", " ");
+		}
+
+		// Projects credentials to a diagnostic-safe view (display metadata only,
+		// no raw key material) and strips control characters from the strings.
+		private static WebAuthnCredentialInfo[] ProtectCredsForLog(WebAuthnCredentialInfo[] creds)
+		{
+			if (creds == null)
+				return null;
+			WebAuthnCredentialInfo[] copy = new WebAuthnCredentialInfo[creds.Length];
+			for (int i = 0; i < creds.Length; i++)
+			{
+				WebAuthnCredentialInfo c = creds[i];
+				copy[i] = c == null ? null : new WebAuthnCredentialInfo
+				{
+					DisplayName = ProtectLogText(c.DisplayName),
+					CredentialId = c.CredentialId,
+					RpId = ProtectLogText(c.RpId),
+					UserHandle = c.UserHandle,
+					SignCount = c.SignCount
+				};
+			}
+			return copy;
 		}
 
 		private static byte[] Base64UrlDecode(string value)
@@ -974,8 +1006,8 @@ namespace FuseCP.Portal
 		{
 			if (httpContext == null || httpContext.Request == null)
 				return "(no httpContext)";
-			return "origin=" + (httpContext.Request.Host.Value ?? "(none)")
-				+ "  scheme=" + (httpContext.Request.Scheme ?? "(none)");
+			return "origin=" + ProtectLogText(httpContext.Request.Host.Value ?? "(none)")
+				+ "  scheme=" + ProtectLogText(httpContext.Request.Scheme ?? "(none)");
 		}
 
 		private void ShowPasskeyError(string reason)

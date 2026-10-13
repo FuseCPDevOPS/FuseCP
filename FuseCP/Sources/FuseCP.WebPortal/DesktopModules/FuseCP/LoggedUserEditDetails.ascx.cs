@@ -1213,7 +1213,7 @@ namespace FuseCP.Portal
             {
                 return WebAuthnServices.Provider.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>().HttpContext;
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 return null;
             }
@@ -1314,8 +1314,9 @@ namespace FuseCP.Portal
                     return "type=" + type + " origin=" + origin;
                 }
             }
-            catch (Exception)
+            catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
+                System.Diagnostics.Trace.TraceInformation("WebAuthn registration clientDataJson diagnostics unavailable: " + ex.GetType().Name);
             }
             return "clientData unavailable";
         }

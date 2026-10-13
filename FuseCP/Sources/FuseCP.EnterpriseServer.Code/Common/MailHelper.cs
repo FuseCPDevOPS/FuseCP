@@ -176,14 +176,9 @@ namespace FuseCP.EnterpriseServer
                         {
                             client.Disconnect(true, cancellationToken);
                         }
-                        catch (OperationCanceledException)
+                        catch (System.Exception ex) when (ex is OperationCanceledException || ex is SmtpCommandException || ex is System.IO.IOException)
                         {
-                        }
-                        catch (SmtpCommandException)
-                        {
-                        }
-                        catch (System.IO.IOException)
-                        {
+                            System.Diagnostics.Trace.TraceInformation("SMTP teardown failed (best effort, ignored): " + ex.GetType().Name);
                         }
                     }
                 }

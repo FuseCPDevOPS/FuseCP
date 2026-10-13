@@ -142,7 +142,7 @@ namespace FuseCP.Portal.WebAuthn
 			bool updated = PortalUtils.UpdateWebAuthnCredential(username, password, ip, info);
 			System.Diagnostics.Trace.TraceError("WebAuthn sign-in: UpdateCredential " + (updated ? "succeeded" : "FAILED")
 				+ " (user=" + username + ", credentialId=" + credentialIdBase64
-				+ ", signCount=" + info.SignCount.ToString() + ")");
+				+ ", signCount=" + info.SignCount + ")");
 			return Task.FromResult(updated);
 		}
 

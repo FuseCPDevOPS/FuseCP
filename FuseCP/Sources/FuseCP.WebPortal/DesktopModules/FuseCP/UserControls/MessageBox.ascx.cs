@@ -96,11 +96,10 @@ namespace FuseCP.Portal
 					string activeSpace = GetActiveSpaceLabel();
 					string detailsForAdmin = BuildExceptionDetails(ex, errorId, true, safeMessage, safeDescription);
 
-					if (ex != null)
-						System.Diagnostics.Trace.TraceError("FuseCP Portal error. Reference ID: {0}{1}{2}",
-							errorId,
-							Environment.NewLine,
-							ex);
+					System.Diagnostics.Trace.TraceError("FuseCP Portal error. Reference ID: {0}{1}{2}",
+						errorId,
+						Environment.NewLine,
+						ex);
 
 					StoreErrorReportContext(errorId, safeMessage, detailsForAdmin, pageUrl, loggedUser, selectedUser, activeSpace);
 
