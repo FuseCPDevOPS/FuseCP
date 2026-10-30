@@ -352,19 +352,24 @@ namespace FuseCP.Providers.Virtualization
         {
             do
             {
-                Command cmd = new Command("Remove-item");
-                cmd.Parameters.Add("path", disk.Path);
                 string serverNameSettings = _powerShell.RemoteComputerName;
 
                 if (!string.IsNullOrEmpty(serverNameSettings))
                 {
-                    //string cmdScript = "Invoke-Command -ComputerName " + serverNameSettings + " -ScriptBlock { Remove-item -path \"" + disk.Path + "\" }";
+                    // Remote host: full Windows PowerShell is available there, so delete via PowerShell.
+                    Command cmd = new Command("Remove-item");
+                    cmd.Parameters.Add("path", disk.Path);
                     string cmdScript = "Invoke-Command -ComputerName '" + serverNameSettings + "' -ScriptBlock { " + _powerShell.ConvertCommandAsScript(cmd) + " }";
                     _powerShell.Execute(new Command(cmdScript, true), false, true); //throw an exception that should help set up the connection to the remote server.
                 }
                 else
-                {   
-                    _powerShell.Execute(cmd, false);
+                {
+                    // Local host: delete the VHD file directly with .NET IO. The in-process
+                    // PowerShell Core runspace cannot load the Windows PowerShell 5.1
+                    // 'Microsoft.PowerShell.Management' module that 'Remove-item' resolves to
+                    // (CommandNotFoundException under Core), so avoid the cmdlet entirely.
+                    if (File.Exists(disk.Path))
+                        File.Delete(disk.Path);
                 }
                 // remove all parent disks
                 disk.Path = disk.ParentPath;
