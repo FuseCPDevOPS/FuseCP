@@ -21,9 +21,9 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 1 | Panel — auth & core flows | — | PASS | 2026-10-30 |
 | 2 | Panel — admin (customers/plans/spaces/servers) | — | PARTIAL | 2026-10-30 |
 | 3 | Panel — customer portal (spaces) | — | PARTIAL | 2026-10-30 |
-| 4 | OS — Windows (host is 2025) | Yes | PASS | 2026-10-30 |
+| 4 | OS — Windows (host is 2025) | Yes | PARTIAL | 2026-10-30 |
 | 5 | OS — Unix (systemd/openrc/launchd) | No | SKIP | — |
-| 6 | Web — IIS 10 | Yes | PASS | 2026-10-30 |
+| 6 | Web — IIS 10 | Yes | PARTIAL | 2026-10-30 |
 | 7 | Web — Apache 2.4 | No | SKIP | — |
 | 8 | Web — WebDAV | No | SKIP | — |
 | 9 | Web — Let's Encrypt (IIS module) | No | SKIP | — |
