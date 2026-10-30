@@ -1982,11 +1982,13 @@ namespace FuseCP.EnterpriseServer
                 {
                     // load package info
                     PackageInfo package = GetPackage(packageId);
-
-                    // load package server
-                    ServerInfo srv = ServerController.GetServerByIdInternal(package.ServerId);
-                    if (srv != null)
-                        settings["PreviewDomain"] = srv.InstantDomainAlias;
+                    if (package != null)
+                    {
+                        // load package server
+                        ServerInfo srv = ServerController.GetServerByIdInternal(package.ServerId);
+                        if (srv != null)
+                            settings["PreviewDomain"] = srv.InstantDomainAlias;
+                    }
                 }
 
                 // name servers

@@ -10587,7 +10587,7 @@ CREATE PROCEDURE [dbo].[GetStorageSpacesPaged]
 )
 AS
 -- build query and run it to the temporary table
-DECLARE @sql nvarchar(2500)
+DECLARE @sql nvarchar(4000)
 
 SET @sql = '
 
@@ -16096,7 +16096,7 @@ IF dbo.CheckActorPackageRights(@ActorID, @PackageID) = 0
 RAISERROR('You are not allowed to access this package', 16, 1)
 
 -- build query and run it to the temporary table
-DECLARE @sql nvarchar(2500)
+DECLARE @sql nvarchar(4000)
 
 IF @SortColumn = '' OR @SortColumn IS NULL
 SET @SortColumn = 'DomainName'

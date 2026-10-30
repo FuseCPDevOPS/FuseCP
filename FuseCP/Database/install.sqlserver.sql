@@ -1,4 +1,4 @@
-﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
@@ -17008,7 +17008,7 @@ BEGIN
     RAISERROR(''You are not allowed to access this package'', 16, 1)
 
     -- build query and run it to the temporary table
-    DECLARE @sql nvarchar(2500)
+    DECLARE @sql nvarchar(4000)
 
     IF @SortColumn = '''' OR @SortColumn IS NULL
     SET @SortColumn = ''DomainName''
@@ -28567,7 +28567,7 @@ BEGIN
     )
     AS
     -- build query and run it to the temporary table
-    DECLARE @sql nvarchar(2500)
+    DECLARE @sql nvarchar(4000)
 
     SET @sql = ''
 
@@ -57396,7 +57396,7 @@ BEGIN
         RAISERROR(''You are not allowed to access this package'', 16, 1)
 
         -- build query and run it to the temporary table
-        DECLARE @sql nvarchar(2500)
+        DECLARE @sql nvarchar(4000)
 
         IF @SortColumn = '''' OR @SortColumn IS NULL
         SET @SortColumn = ''DomainName''
@@ -68756,7 +68756,7 @@ BEGIN
         )
         AS
         -- build query and run it to the temporary table
-        DECLARE @sql nvarchar(2500)
+        DECLARE @sql nvarchar(4000)
 
         SET @sql = ''
 
