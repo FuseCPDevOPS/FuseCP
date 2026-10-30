@@ -108,8 +108,8 @@ Detailed per-check results, findings, and notes: `artifacts/PANEL_PROVIDER_TEST_
 | Area | What was verified | Status | Last tested |
 |------|-------------------|--------|-------------|
 | Panel — auth & core flows | Admin login (serveradmin) + TOTP MFA, session stability across navigations | PASS | 2026-10-30 |
-| Panel — admin | Space lifecycle (create / suspend / resume); full admin CRUD (users / plans / orders / billing / tickets) not exercised | PARTIAL | 2026-10-30 |
-| Panel — customer portal | Create space, space details, suspend/resume (as serveradmin); file manager / mail / DNS / billing not exercised | PARTIAL | 2026-10-30 |
+| Panel — admin | Space lifecycle (create / suspend / resume); full admin CRUD (users / plans / tickets) not exercised | PARTIAL | 2026-10-30 |
+| Panel — customer portal | Create space, space details, suspend/resume (as serveradmin); file manager / mail / DNS not exercised | PARTIAL | 2026-10-30 |
 | OS — Windows | Windows2025 provider, local users created for the space, lifecycle state | PARTIAL | 2026-10-30 |
 | Web — IIS 10 | Site create / start / bindings / suspend-resume; **content serving fails (HTTP 503)** — no .NET 2.0 CLR on host | PARTIAL | 2026-10-30 |
 | FTP — IIS 10 | FTP vdir + binding; client login / upload / quota not exercised | PARTIAL | 2026-10-30 |

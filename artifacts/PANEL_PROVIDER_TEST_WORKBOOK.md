@@ -71,23 +71,20 @@ Watch for: JS console errors, 500 pages, unstyled pages, missing localization st
 Notes: portal returned HTTP 500 twice this session due to F-001 (Roslyn DLL mix in bin) — both times recovered by restoring a consistent Roslyn set + pool recycle. No other 500s or raw resource keys observed.
 ## 2. Panel — Admin (serveradmin)
 
-Overall: **PARTIAL** — serveradmin login + space lifecycle exercised; full admin CRUD (users / customers / plans / orders / billing / tickets / announcements / server management) not tested this session.
+Overall: **PARTIAL** — serveradmin login + space lifecycle exercised; full admin CRUD (users / customers / plans / tickets / announcements / server management) not tested this session. (Orders / billing features are no longer part of the product.)
 
 | # | Step | Expected | Actual | Status | Notes | Last tested |
 |---|------|----------|--------|--------|-------|-------------|
 | 2.1 | Users: create user, assign role, disable | User works / is blocked | (not exercised) | TODO | | — |
 | 2.2 | Customers: create customer + login | Customer can log in | testsite (UserID 5) exists but was not created this session | TODO | | — |
 | 2.3 | Products/plans: create a plan | Plan saves with item list | PlanID 2 exists (used by test space) but not created this session | TODO | | — |
-| 2.4 | Orders: create order for customer | Order appears, services provisioned | (not exercised) | TODO | space created via Create Space flow (section 3) | — |
-| 2.5 | Suspend order / customer | Services suspended (offline) | Space-level suspend: IIS site testsite.local → Stopped, panel → Suspended; propagation ~28s | PARTIAL | via SpaceDetails "Suspended" button (WCF ChangePackageStatus, async) | 2026-10-30 |
-| 2.6 | Resume | Services back online | Space-level resume: IIS site → Started, panel → Active; propagation ~26s | PARTIAL | via SpaceDetails "Active" button | 2026-10-30 |
-| 2.7 | Cancel order | Services removed, host artifacts cleaned | (not exercised) | TODO | space still exists (PackageID 4) | — |
-| 2.8 | Billing: invoices for the order | Invoice exists, amounts match | (not exercised) | TODO | | — |
-| 2.9 | Tickets: customer creates, admin replies | Round-trip works | (not exercised) | TODO | | — |
-| 2.10 | Announcements: publish + dismiss | Shows to customers | (not exercised) | TODO | | — |
-| 2.11 | Admin → Servers: add server | Server added, handshake OK | (server already registered: ServerID 1) | TODO | | — |
-| 2.12 | Server: change credentials | New creds used next op | (not exercised) | TODO | | — |
-| 2.13 | Server: delete server | Removed; services flagged | (not exercised) | TODO | | — |
+| 2.4 | Suspend customer or hosting space | Services suspended (offline) | Space-level suspend: IIS site testsite.local → Stopped, panel → Suspended; propagation ~28s | PARTIAL | via SpaceDetails "Suspended" button (WCF ChangePackageStatus, async) | 2026-10-30 |
+| 2.5 | Resume customer or hosting space | Services back online | Space-level resume: IIS site → Started, panel → Active; propagation ~26s | PARTIAL | via SpaceDetails "Active" button | 2026-10-30 |
+| 2.6 | Tickets: customer creates, admin replies | Round-trip works | (not exercised) | TODO | | — |
+| 2.7 | Announcements: publish + dismiss | Shows to customers | (not exercised) | TODO | | — |
+| 2.8 | Admin → Servers: add server | Server added, handshake OK | (server already registered: ServerID 1) | TODO | | — |
+| 2.9 | Server: change credentials | New creds used next op | (not exercised) | TODO | | — |
+| 2.10 | Server: delete server | Removed; services flagged | (not exercised) | TODO | | — |
 
 Note: space lifecycle (create / suspend / resume) is the customer-facing space flow — see section 3.
 
@@ -95,7 +92,7 @@ Note: space lifecycle (create / suspend / resume) is the customer-facing space f
 
 ## 3. Panel — Customer Portal
 
-Overall: **PARTIAL** — create space + space details + suspend/resume verified (performed while logged in as serveradmin); file manager / mail / DNS / billing view / profile not exercised.
+Overall: **PARTIAL** — create space + space details + suspend/resume verified (performed while logged in as serveradmin); file manager / mail / DNS / profile not exercised.
 
 | # | Step | Expected | Actual | Status | Notes | Last tested |
 |---|------|----------|--------|--------|-------|-------------|
@@ -105,8 +102,7 @@ Overall: **PARTIAL** — create space + space details + suspend/resume verified 
 | 3.3 | File manager: upload / edit / delete | Changes visible in host dir | (not exercised) | TODO | wwwroot was seeded by provider | — |
 | 3.4 | E-mail tab: change mail password | New password works | (no mail product on host) | SKIP | | — |
 | 3.5 | DNS tab: add / remove a record | Record visible in zone | Add A record verified end-to-end (see 17.2); remove not re-verified | PARTIAL | see section 17 | 2026-10-30 |
-| 3.6 | Billing view: invoices | Matches admin-side invoices | (not exercised) | TODO | | — |
-| 3.7 | Account: change profile / password | Works; re-login if expected | (not exercised) | TODO | | — |
+| 3.6 | Account: change profile / password | Works; re-login if expected | (not exercised) | TODO | | — |
 
 Note: create space was done while logged in as serveradmin (admin exercising the customer space-creation flow).
 
