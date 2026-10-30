@@ -26,6 +26,16 @@ namespace FuseCP.Portal
 {
     public partial class UserCreateSpace : FuseCPModuleBase
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+                return;
+
+            // Recreate the plan list early so the posted value is loaded into the control
+            // before ProcessPostData (same pattern as HostingPlansEditPlan).
+            BindHostingPlans(PanelSecurity.SelectedUserId);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
