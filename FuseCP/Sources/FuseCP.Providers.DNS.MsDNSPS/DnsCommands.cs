@@ -91,21 +91,49 @@ namespace FuseCP.Providers.DNS
         /// <returns>Array of zone names</returns>
         public static string[] Get_DnsServerZone_Names(this PowerShellHelper ps)
         {
-            var allZones = ps.RunPipeline(new Command("Get-DnsServerZone"),
-                where("IsAutoCreated", false));
+            string[] res;
+            try
+            {
+                var allZones = ps.RunPipeline(new Command("Get-DnsServerZone"),
+                    where("IsAutoCreated", false));
 
-            string[] res = allZones
-                .Select(pso => new
-                {
-                    name = (string)pso.Properties["ZoneName"].Value,
-                    type = (string)pso.Properties["ZoneType"].Value
-                })
-                .Where(obj => obj.type == "Primary")
-                .Select(obj => obj.name)
-                .ToArray();
+                res = allZones
+                    .Select(pso => new
+                    {
+                        name = (string)pso.Properties["ZoneName"].Value,
+                        type = (string)pso.Properties["ZoneType"].Value
+                    })
+                    .Where(obj => obj.type == "Primary")
+                    .Select(obj => obj.name)
+                    .ToArray();
+            }
+            catch (System.Exception ex) when (IsEnumerableAppendMismatch(ex))
+            {
+                Log.WriteInfo("Get_DnsServerZone_Names compatibility mismatch. Falling back to pwsh: {0}", ex.Message);
+                res = Get_DnsServerZone_NamesViaPwsh();
+            }
 
             Log.WriteInfo("Get_DnsServerZone_Names: {{{0}}}", String.Join(", ", res));
             return res;
+        }
+
+        private static string[] Get_DnsServerZone_NamesViaPwsh()
+        {
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "@(Get-DnsServerZone -ErrorAction SilentlyContinue) "
+                + "| Where-Object { $_.IsAutoCreated -eq $false -and $_.ZoneType -eq 'Primary' } "
+                + "| ForEach-Object { $_.ZoneName }";
+
+            string stdout = RunPwshDnsScript(script);
+            if (string.IsNullOrWhiteSpace(stdout))
+                return Array.Empty<string>();
+
+            return stdout
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(line => line.Trim())
+                .Where(line => line.Length > 0)
+                .ToArray();
         }
 
         /// <summary>Returns true if the specified zone exists.</summary>
@@ -116,11 +144,32 @@ namespace FuseCP.Providers.DNS
         public static bool ZoneExists(this PowerShellHelper ps, string name)
         {
             Log.WriteStart("ZoneExists {0}", name);
-            bool res = ps.RunPipeline(new Command("Get-DnsServerZone"),
-                where("ZoneName", name))
-                .Any();
+            bool res;
+            try
+            {
+                res = ps.RunPipeline(new Command("Get-DnsServerZone"),
+                    where("ZoneName", name))
+                    .Any();
+            }
+            catch (System.Exception ex) when (IsEnumerableAppendMismatch(ex))
+            {
+                Log.WriteInfo("ZoneExists compatibility mismatch for zone '{0}'. Falling back to pwsh: {1}", name, ex.Message);
+                res = ZoneExistsViaPwsh(name);
+            }
             Log.WriteEnd("ZoneExists: {0}", res);
             return res;
+        }
+
+        private static bool ZoneExistsViaPwsh(string zoneName)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "$found = @(Get-DnsServerZone -Name '" + safeZone + "' -ErrorAction SilentlyContinue); "
+                + "if ($found.Count -gt 0) { 'YES' } else { 'NO' }";
+
+            string stdout = RunPwshDnsScript(script);
+            return string.Equals(stdout.Trim(), "YES", StringComparison.OrdinalIgnoreCase);
         }
 
         /* public enum eReplicationScope: byte
@@ -138,52 +187,104 @@ namespace FuseCP.Providers.DNS
             Log.WriteStart("Add_DnsServerPrimaryZone {0} {{{1}}}", zoneName, String.Join(", ", secondaryServers));
 
             // Add-DnsServerPrimaryZone -Name zzz.com -ZoneFile zzz.com.dns
-            var cmd = new Command("Add-DnsServerPrimaryZone");
-            cmd.addParam("Name", zoneName);
+            // The in-process CIM call creates the zone on the host, but the
+            // returned DnsServerPrimaryZone object carries array out-parameters
+            // (NotifyServers/SecondaryServers/Secondaries) that the in-process
+            // PowerShell SDK cannot materialize, so it throws after the zone
+            // is created. Catch that specific mismatch and ensure the zone
+            // exists via pwsh.
+            try
+            {
+                var cmd = new Command("Add-DnsServerPrimaryZone");
+                cmd.addParam("Name", zoneName);
 
-            // Add AD zone if required
-            if (AdMode)
-            { cmd.addParam("ReplicationScope", "Forest"); }
-            else
-            { cmd.addParam("ZoneFile", zoneName + ".dns"); }
+                // Add AD zone if required
+                if (AdMode)
+                { cmd.addParam("ReplicationScope", "Forest"); }
+                else
+                { cmd.addParam("ZoneFile", zoneName + ".dns"); }
 
+                ps.RunPipeline(cmd);
+            }
+            catch (System.Exception ex) when (IsEnumerableAppendMismatch(ex))
+            {
+                Log.WriteInfo("Add-DnsServerPrimaryZone compatibility mismatch for zone '{0}'. Verifying via pwsh: {1}", zoneName, ex.Message);
+            }
 
-            ps.RunPipeline(cmd);
+            // Ensure the zone exists on the host (covers the in-process call
+            // throwing before it created the zone).
+            bool exists;
+            try
+            {
+                exists = ps.ZoneExists(zoneName);
+            }
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                exists = false;
+            }
 
-            // Set-DnsServerPrimaryZone -Name zzz.com -SecureSecondaries ... -Notify ... Servers ..
-            cmd = new Command("Set-DnsServerPrimaryZone");
-            cmd.addParam("Name", zoneName);
+            if (!exists)
+            {
+                AddDnsServerPrimaryZoneViaPwsh(zoneName, AdMode);
+            }
+
+            // Apply secondary/notify settings via pwsh (best-effort) to avoid
+            // the in-process CIM array-out materialization failure on the
+            // returned DnsServerPrimaryZone object.
+            try
+            {
+                SetDnsServerPrimaryZoneViaPwsh(zoneName, secondaryServers);
+            }
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                Log.WriteInfo("Set-DnsServerPrimaryZone via pwsh failed for zone '{0}': {1}", zoneName, ex.Message);
+            }
+
+            Log.WriteEnd("Add_DnsServerPrimaryZone");
+        }
+
+        private static void AddDnsServerPrimaryZoneViaPwsh(string zoneName, bool adMode)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string addCmd = adMode
+                ? "Add-DnsServerPrimaryZone -Name '" + safeZone + "' -ReplicationScope Forest"
+                : "Add-DnsServerPrimaryZone -Name '" + safeZone + "' -ZoneFile '" + safeZone + ".dns'";
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "$z = Get-DnsServerZone -Name '" + safeZone + "' -ErrorAction SilentlyContinue; "
+                + "if ($null -eq $z) { " + addCmd + " }";
+
+            RunPwshDnsScript(script);
+        }
+
+        private static void SetDnsServerPrimaryZoneViaPwsh(string zoneName, string[] secondaryServers)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            StringBuilder setCmd = new StringBuilder("Set-DnsServerPrimaryZone -Name '" + safeZone + "'");
 
             if (secondaryServers == null || secondaryServers.Length == 0)
             {
                 // transfers are not allowed
-                // inParams2[ "SecureSecondaries" ] = 3;
-                // inParams2[ "Notify" ] = 0;
-                cmd.addParam("SecureSecondaries", "NoTransfer");
-                cmd.addParam("Notify", "NoNotify");
+                setCmd.Append(" -SecureSecondaries NoTransfer -Notify NoNotify");
             }
             else if (secondaryServers.Length == 1 && secondaryServers[0] == "*")
             {
                 // allowed transfer from all servers
-                // inParams2[ "SecureSecondaries" ] = 0;
-                // inParams2[ "Notify" ] = 1;
-                cmd.addParam("SecureSecondaries", "TransferAnyServer");
-                cmd.addParam("Notify", "Notify");
+                setCmd.Append(" -SecureSecondaries TransferAnyServer -Notify Notify");
             }
             else
             {
                 // allowed transfer from specified servers
-                // inParams2[ "SecureSecondaries" ] = 2;
-                // inParams2[ "SecondaryServers" ] = secondaryServers;
-                // inParams2[ "NotifyServers" ] = secondaryServers;
-                // inParams2[ "Notify" ] = 2;
-                cmd.addParam("SecureSecondaries", "TransferToSecureServers");
-                cmd.addParam("Notify", "NotifyServers");
-                cmd.addParam("SecondaryServers", secondaryServers);
-                cmd.addParam("NotifyServers", secondaryServers);
+                string servers = string.Join(", ", secondaryServers.Select(s => "'" + (s ?? string.Empty).Replace("'", "''") + "'"));
+                setCmd.Append(" -SecureSecondaries TransferToSecureServers -Notify NotifyServers");
+                setCmd.Append(" -SecondaryServers @(" + servers + ") -NotifyServers @(" + servers + ")");
             }
-            ps.RunPipeline(cmd);
-            Log.WriteEnd("Add_DnsServerPrimaryZone");
+
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + setCmd.ToString();
+
+            RunPwshDnsScript(script);
         }
 
         /// <summary>Call Add-DnsServerSecondaryZone cmdlet</summary>
@@ -202,10 +303,34 @@ namespace FuseCP.Providers.DNS
 
         public static void Remove_DnsServerZone(this PowerShellHelper ps, string zoneName)
         {
-            var cmd = new Command("Remove-DnsServerZone");
-            cmd.addParam("Name", zoneName);
-            cmd.addParam("Force");
-            ps.RunPipeline(cmd);
+            // The in-process CIM call deletes the zone on the host, but the
+            // returned DnsServerZone object carries array out-parameters that
+            // the in-process PowerShell SDK cannot materialize, so it throws
+            // after the zone is deleted. Catch that specific mismatch and
+            // fall back to pwsh (idempotent: no-op if the zone is already gone).
+            try
+            {
+                var cmd = new Command("Remove-DnsServerZone");
+                cmd.addParam("Name", zoneName);
+                cmd.addParam("Force");
+                ps.RunPipeline(cmd);
+            }
+            catch (System.Exception ex) when (IsEnumerableAppendMismatch(ex))
+            {
+                Log.WriteInfo("Remove-DnsServerZone compatibility mismatch for zone '{0}'. Falling back to pwsh: {1}", zoneName, ex.Message);
+                RemoveDnsServerZoneViaPwsh(zoneName);
+            }
+        }
+
+        private static void RemoveDnsServerZoneViaPwsh(string zoneName)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "$z = Get-DnsServerZone -Name '" + safeZone + "' -ErrorAction SilentlyContinue; "
+                + "if ($null -ne $z) { Remove-DnsServerZone -Name '" + safeZone + "' -Force }";
+
+            RunPwshDnsScript(script);
         }
         #endregion
 
@@ -366,6 +491,40 @@ namespace FuseCP.Providers.DNS
                 Log.WriteWarning("pwsh fallback Get-DnsServerResourceRecord failed for zone '{0}' on target '{1}': {2}", zoneName, target, ex.Message);
                 return Array.Empty<DnsRecord>();
             }
+        }
+
+        private static string RunPwshDnsScript(string script)
+        {
+            byte[] scriptBytes = Encoding.Unicode.GetBytes(script);
+            string encodedScript = Convert.ToBase64String(scriptBytes);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "pwsh",
+                Arguments = "-NoLogo -NoProfile -NonInteractive -EncodedCommand " + encodedScript,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using Process process = Process.Start(startInfo);
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start pwsh process for DNS zone query.");
+            }
+
+            string stdout = process.StandardOutput.ReadToEnd();
+            string stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    "pwsh exited with code {0}: {1}", process.ExitCode, stderr));
+            }
+
+            return stdout;
         }
 
         private static string RunPwshDnsRecordsScript(string zoneName, string computerName)
@@ -793,20 +952,47 @@ namespace FuseCP.Providers.DNS
 
         public static void Remove_DnsServerResourceRecords(this PowerShellHelper ps, string zoneName, string type)
         {
-            var cmd = new Command("Get-DnsServerResourceRecord");
-            cmd.addParam("ZoneName", zoneName);
-            cmd.addParam("RRType", type);
-            Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
-
-            foreach (PSObject resourceRecord in resourceRecords)
+            try
             {
-                cmd = new Command("Remove-DnsServerResourceRecord");
+                var cmd = new Command("Get-DnsServerResourceRecord");
                 cmd.addParam("ZoneName", zoneName);
-                cmd.addParam("InputObject", resourceRecord);
+                cmd.addParam("RRType", type);
+                Collection<PSObject> resourceRecords = ps.RunPipeline(cmd);
 
-                cmd.addParam("Force");
-                ps.RunPipeline(cmd);
+                foreach (PSObject resourceRecord in resourceRecords)
+                {
+                    cmd = new Command("Remove-DnsServerResourceRecord");
+                    cmd.addParam("ZoneName", zoneName);
+                    cmd.addParam("InputObject", resourceRecord);
+
+                    cmd.addParam("Force");
+                    ps.RunPipeline(cmd);
+                }
             }
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
+            {
+                Log.WriteInfo("Remove_DnsServerResourceRecords in-process deletion failed for zone '{0}', type '{1}': {2}. Falling back to pwsh deletion.", zoneName, type, ex.Message);
+                try
+                {
+                    RemoveDnsServerResourceRecordsViaPwsh(zoneName, type);
+                }
+                catch (System.Exception fallbackEx) when (!(fallbackEx is OutOfMemoryException) && !(fallbackEx is StackOverflowException) && !(fallbackEx is AccessViolationException))
+                {
+                    Log.WriteInfo("Remove_DnsServerResourceRecords pwsh fallback failed for zone '{0}', type '{1}': {2}", zoneName, type, fallbackEx.Message);
+                }
+            }
+        }
+
+        private static void RemoveDnsServerResourceRecordsViaPwsh(string zoneName, string type)
+        {
+            string safeZone = (zoneName ?? string.Empty).Replace("'", "''");
+            string safeType = (type ?? string.Empty).Replace("'", "''");
+            string script = "$ErrorActionPreference='Stop'; "
+                + "Import-Module DnsServer -ErrorAction Stop; "
+                + "$records = @(Get-DnsServerResourceRecord -ZoneName '" + safeZone + "' -RRType '" + safeType + "' -ErrorAction SilentlyContinue); "
+                + "foreach ($r in $records) { Remove-DnsServerResourceRecord -ZoneName '" + safeZone + "' -InputObject $r -Force }";
+
+            RunPwshDnsScript(script);
         }
 
         public static void Update_DnsServerResourceRecordSOA(this PowerShellHelper ps, string zoneName,

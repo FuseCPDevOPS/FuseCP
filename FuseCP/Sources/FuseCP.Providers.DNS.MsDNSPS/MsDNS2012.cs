@@ -149,20 +149,10 @@ namespace FuseCP.Providers.DNS
 					ps.Add_DnsServerResourceRecordSRV( zoneName, name, record.RecordData, (ushort)record.SrvPort, (ushort)record.SrvPriority, (ushort)record.SrvWeight );
                 else if (record.RecordType == DnsRecordType.PTR)
                     ps.Add_DnsServerResourceRecordPTR(zoneName, name, record.RecordData );
-                else
+				else
 					throw new Exception( "Unknown record type" );
 			}
-			catch( ArgumentException ex )
-			{
-				// log exception
-				Log.WriteError( ex );
-			}
-			catch( InvalidOperationException ex )
-			{
-				// log exception
-				Log.WriteError( ex );
-			}
-			catch( RuntimeException ex )
+			catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				// log exception
 				Log.WriteError( ex );
@@ -226,15 +216,7 @@ namespace FuseCP.Providers.DNS
             {
                 ps.Update_DnsServerResourceRecordSOA(zoneName, ExpireLimit, MinimumTTL, primaryNsServer, RefreshInterval, primaryPerson, RetryDelay, null);
             }
-			catch (ArgumentException ex)
-			{
-				Log.WriteError(ex);
-			}
-			catch (InvalidOperationException ex)
-			{
-				Log.WriteError(ex);
-			}
-			catch (RuntimeException ex)
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
             }
@@ -249,15 +231,7 @@ namespace FuseCP.Providers.DNS
             {
                 ps.Update_DnsServerResourceRecordSOA(zoneName, ExpireLimit, MinimumTTL, null, RefreshInterval, null, RetryDelay, null);
             }
-			catch (ArgumentException ex)
-			{
-				Log.WriteError(ex);
-			}
-			catch (InvalidOperationException ex)
-			{
-				Log.WriteError(ex);
-			}
-			catch (RuntimeException ex)
+            catch (System.Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
             {
                 Log.WriteError(ex);
             }
