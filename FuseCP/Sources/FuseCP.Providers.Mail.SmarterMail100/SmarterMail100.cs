@@ -137,6 +137,7 @@ namespace FuseCP.Providers.Mail
 			public HttpStatusCode resultCode { get; set; }
 			public string message { get; set; }
 			public string debugInfo { get; set; }
+			public string loginAccessToken { get; set; }
 		}
 		public class Domain
 		{
@@ -175,12 +176,26 @@ namespace FuseCP.Providers.Mail
 			return new HttpClient(handler, disposeHandler: true);
 		}
 
+		private string _clientId;
+
+		private string ClientId
+		{
+			get
+			{
+				if (String.IsNullOrEmpty(_clientId))
+					_clientId = "fusecp-" + Guid.NewGuid().ToString("N").Substring(0, 16);
+
+				return _clientId;
+			}
+		}
+
 		public async Task<AuthToken> GetAccessToken()
 		{
 HttpClient client = CreateHttpClient();
-			var loginData = new { 
-				username = AdminUsername, 
-				password = AdminPassword
+			var loginData = new {
+				username = AdminUsername,
+				password = AdminPassword,
+				clientId = ClientId
 			};
 			var loginDatajson = JsonConvert.SerializeObject(loginData);
 			using var authinput_post = new StringContent(loginDatajson, Encoding.UTF8, "application/json");
@@ -197,155 +212,238 @@ HttpClient client = CreateHttpClient();
 		public async Task<AuthToken> GetDomainAccessToken(string domain)
 		{
 			AuthToken authToken = await GetAccessToken();
-HttpClient client = CreateHttpClient();
-			var domainData = new { };
-			var domainDatajson = JsonConvert.SerializeObject(domainData);
-			using var authinput_post = new StringContent(domainDatajson, Encoding.UTF8, "application/json");
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
-			var authurl = ServiceUrl + "/api/v1//settings/sysadmin/manage-domain/" + domain;
-			var authresponse = await client.PostAsync(authurl, authinput_post);
-			authresponse.EnsureSuccessStatusCode();
-			var authresult = await authresponse.Content.ReadAsStringAsync();
-			dynamic data = JsonConvert.DeserializeObject<object>(authresult);
 
-			AuthToken authdata = new AuthToken();
-			authdata.accessToken = data["impersonateAccessToken"].ToString();
-			authdata.refreshToken = data["impersonateRefreshToken"].ToString();
-			authdata.accessTokenExpiration = Convert.ToDateTime(data["impersonateAccessTokenExpiration"]);
-			authdata.username = data["username"].ToString();
-			authdata.emailAddress = data["email"].ToString();
-			authdata.success = Convert.ToBoolean(data["success"]);
+			try
+			{
+				HttpClient client = CreateHttpClient();
+				var domainData = new { };
+				var domainDatajson = JsonConvert.SerializeObject(domainData);
+				using var authinput_post = new StringContent(domainDatajson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
+				var authurl = ServiceUrl + "/api/v1/settings/sysadmin/manage-domain/" + domain;
+				var authresponse = await client.PostAsync(authurl, authinput_post);
+				authresponse.EnsureSuccessStatusCode();
+				var authresult = await authresponse.Content.ReadAsStringAsync();
+				dynamic data = JsonConvert.DeserializeObject<object>(authresult);
 
-			return authdata;
+				AuthToken authdata = new AuthToken();
+				authdata.accessToken = data["impersonateAccessToken"].ToString();
+				authdata.refreshToken = data["impersonateRefreshToken"].ToString();
+				authdata.accessTokenExpiration = Convert.ToDateTime(data["impersonateAccessTokenExpiration"]);
+				authdata.username = data["username"].ToString();
+				authdata.emailAddress = data["email"].ToString();
+				authdata.success = Convert.ToBoolean(data["success"]);
+				authdata.loginAccessToken = authToken.accessToken;
+
+				return authdata;
+			}
+			catch
+			{
+				await LogoutToken(authToken.accessToken);
+				throw;
+			}
 		}
 
 		public async Task<AuthToken> GetUserAccessToken(string email)
 		{
 			AuthToken authToken = await GetAccessToken();
-HttpClient client = CreateHttpClient();
-			var UserData = new { };
-			var UserDatajson = JsonConvert.SerializeObject(UserData);
-			using var authinput_post = new StringContent(UserDatajson, Encoding.UTF8, "application/json");
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
-			var authurl = ServiceUrl + "/api/v1/settings/domain/impersonate-user/" + email;
-			var authresponse = await client.PostAsync(authurl, authinput_post);
-			authresponse.EnsureSuccessStatusCode();
-			var authresult = await authresponse.Content.ReadAsStringAsync();
-			dynamic data = JsonConvert.DeserializeObject<object>(authresult);
 
-			AuthToken authdata = new AuthToken();
+			try
+			{
+				HttpClient client = CreateHttpClient();
+				var UserData = new { };
+				var UserDatajson = JsonConvert.SerializeObject(UserData);
+				using var authinput_post = new StringContent(UserDatajson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
+				var authurl = ServiceUrl + "/api/v1/settings/domain/impersonate-user/" + email;
+				var authresponse = await client.PostAsync(authurl, authinput_post);
+				authresponse.EnsureSuccessStatusCode();
+				var authresult = await authresponse.Content.ReadAsStringAsync();
+				dynamic data = JsonConvert.DeserializeObject<object>(authresult);
 
-			authdata.accessToken = data["impersonateAccessToken"].ToString();
-			authdata.refreshToken = data["impersonateRefreshToken"].ToString();
-			authdata.accessTokenExpiration = Convert.ToDateTime(data["impersonateAccessTokenExpiration"]);
-			authdata.username = data["username"].ToString();
-			authdata.emailAddress = data["email"].ToString();
-			authdata.success = Convert.ToBoolean(data["success"]);
+				AuthToken authdata = new AuthToken();
 
-			return authdata;
+				authdata.accessToken = data["impersonateAccessToken"].ToString();
+				authdata.refreshToken = data["impersonateRefreshToken"].ToString();
+				authdata.accessTokenExpiration = Convert.ToDateTime(data["impersonateAccessTokenExpiration"]);
+				authdata.username = data["username"].ToString();
+				authdata.emailAddress = data["email"].ToString();
+				authdata.success = Convert.ToBoolean(data["success"]);
+				authdata.loginAccessToken = authToken.accessToken;
+
+				return authdata;
+			}
+			catch
+			{
+				await LogoutToken(authToken.accessToken);
+				throw;
+			}
+		}
+
+		private async Task LogoutToken(string accessToken)
+		{
+			if (String.IsNullOrEmpty(accessToken))
+				return;
+
+			try
+			{
+				HttpClient client = CreateHttpClient();
+				var logoutData = new { };
+				var logoutDatajson = JsonConvert.SerializeObject(logoutData);
+				using var logoutinput_post = new StringContent(logoutDatajson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+				var logouturl = ServiceUrl + "/api/v1/auth/logout-user";
+				var logoutresponse = await client.PostAsync(logouturl, logoutinput_post);
+				Log.WriteInfo("SmarterMail100: logout-user status {0}", (int)logoutresponse.StatusCode);
+			}
+			catch (Exception ex)
+			{
+				Log.WriteError("SmarterMail100: logout-user failed", ex);
+			}
 		}
 
 		private async Task<object> ExecGetCommand(string command)
 		{
 			AuthToken auth = await GetAccessToken();
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
-			var commandresponse = await client.GetAsync(commandurl);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
+				var commandresponse = await client.GetAsync(commandurl);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
 
-			Log.WriteInfo("ExecGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(auth.accessToken);
+			}
 		}
 
 		private async Task<object> ExecPostCommand(string command, object param)
 		{
 			AuthToken authToken = await GetAccessToken();
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			var commandparamjson = JsonConvert.SerializeObject(param);
-			using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
-			var commandresponse = await client.PostAsync(commandurl, commandinput_post);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				var commandparamjson = JsonConvert.SerializeObject(param);
+				using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
+				var commandresponse = await client.PostAsync(commandurl, commandinput_post);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
 
-			Log.WriteInfo("ExecPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(authToken.accessToken);
+			}
 		}
 
 		private async Task<object> ExecDomainGetCommand(string command, string domain)
 		{
 			AuthToken auth = await GetDomainAccessToken(domain);
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
-			var commandresponse = await client.GetAsync(commandurl);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
+				var commandresponse = await client.GetAsync(commandurl);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
 
-			Log.WriteInfo("ExecDomainGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecDomainGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(auth.loginAccessToken ?? auth.accessToken);
+			}
 		}
 
 		private async Task<object> ExecDomainPostCommand(string command, string domain, object param)
 		{
 			AuthToken authToken = await GetDomainAccessToken(domain);
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			var commandparamjson = JsonConvert.SerializeObject(param);
-			using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
-			var commandresponse = await client.PostAsync(commandurl, commandinput_post);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				var commandparamjson = JsonConvert.SerializeObject(param);
+				using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
+				var commandresponse = await client.PostAsync(commandurl, commandinput_post);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
 
-			Log.WriteInfo("ExecDomainPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecDomainPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(authToken.loginAccessToken ?? authToken.accessToken);
+			}
 		}
 
 		private async Task<object> ExecUserGetCommand(string command, string email)
 		{
 			AuthToken auth = await GetUserAccessToken(email);
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
-			var commandresponse = await client.GetAsync(commandurl);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + auth.accessToken);
+				var commandresponse = await client.GetAsync(commandurl);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<dynamic>(commandresult);
 
-			Log.WriteInfo("ExecUserGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecUserGetCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(auth.loginAccessToken ?? auth.accessToken);
+			}
 		}
 
 		private async Task<object> ExecUserPostCommand(string command, string email, object param)
 		{
 			AuthToken authToken = await GetUserAccessToken(email);
 
-			var commandurl = ServiceUrl + "/api/v1/" + command;
-HttpClient client = CreateHttpClient();
-			var commandparamjson = JsonConvert.SerializeObject(param);
-			using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
-			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
-			var commandresponse = await client.PostAsync(commandurl, commandinput_post);
-			var commandresult = await commandresponse.Content.ReadAsStringAsync();
-			Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
+			try
+			{
+				var commandurl = ServiceUrl + "/api/v1/" + command;
+				HttpClient client = CreateHttpClient();
+				var commandparamjson = JsonConvert.SerializeObject(param);
+				using var commandinput_post = new StringContent(commandparamjson, Encoding.UTF8, "application/json");
+				client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.accessToken);
+				var commandresponse = await client.PostAsync(commandurl, commandinput_post);
+				var commandresult = await commandresponse.Content.ReadAsStringAsync();
+				Object commanddata = JsonConvert.DeserializeObject<object>(commandresult);
 
-			Log.WriteInfo("ExecUserPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
+				Log.WriteInfo("ExecUserPostCommand: URL: {0} \n\n returned: {1}", commandurl, commanddata);
 
-			return commanddata;
+				return commanddata;
+			}
+			finally
+			{
+				await LogoutToken(authToken.loginAccessToken ?? authToken.accessToken);
+			}
 		}
 
 		#endregion
