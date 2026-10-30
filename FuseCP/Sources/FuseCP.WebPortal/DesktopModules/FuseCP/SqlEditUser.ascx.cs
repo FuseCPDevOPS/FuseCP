@@ -35,6 +35,17 @@ namespace FuseCP.Portal
     {
         SqlUser item = null;
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+                return;
+
+            // Recreate the database list early so the posted checkbox values are loaded into the
+            // control before ProcessPostData (same pattern as HostingPlansEditPlan). Without this the
+            // CheckBoxList is empty on postback and no per-database grants are saved.
+            BindDatabases(PanelSecurity.PackageId);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             btnDelete.Visible = (PanelRequest.ItemID > 0);
