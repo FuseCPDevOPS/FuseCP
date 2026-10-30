@@ -104,6 +104,48 @@ namespace FuseCP.Portal.VPS2012
             return isPossibleSendMail;
         }
 
+        private void BindCpuCores()
+        {
+            // The Wizard does not preserve data-bound control state across steps:
+            // ddlCpu is bound on the initial render (step 0 active) but sits on
+            // the Configuration step, whose controls are not rendered until the
+            // user advances, so its items never reach ViewState and the list is
+            // empty when the step becomes active. Re-bind it whenever that step
+            // is shown so the user can pick a CPU count.
+            int maxCores = ES.Services.VPS2012.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
+            PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+
+            ddlCpu.Items.Clear();
+            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out QuotaValueInfo cpuQuota2) && cpuQuota2.QuotaAllocatedValue == -1)
+            {
+                for (int i = 1; i < maxCores + 1; i++)
+                    ddlCpu.Items.Add(i.ToString());
+
+                ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
+            }
+            else if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out cpuQuota2) && cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
+            {
+                if ((cpuQuota2.QuotaAllocatedValue + 1 - cpuQuota2.QuotaUsedValue) > maxCores)
+                {
+                    for (int i = 1; i < maxCores + 1; i++)
+                        ddlCpu.Items.Add(i.ToString());
+
+                    ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
+                }
+                else
+                {
+                    for (int i = 1; i < (cpuQuota2.QuotaAllocatedValue - cpuQuota2.QuotaUsedValue) + 1; i++)
+                        ddlCpu.Items.Add(i.ToString());
+
+                    ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
+                }
+            }
+            else
+            {
+                ddlCpu.Items.Add("0");
+            }
+        }
+
         private void BindFormControls()
         {
             var virtualMachine = new VirtualMachine
@@ -139,37 +181,7 @@ namespace FuseCP.Portal.VPS2012
             PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
 
             // bind CPU cores
-            int maxCores = ES.Services.VPS2012.GetMaximumCpuCoresNumber(PanelSecurity.PackageId);
-
-            if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out QuotaValueInfo cpuQuota2) && cpuQuota2.QuotaAllocatedValue == -1)
-            {
-                for (int i = 1; i < maxCores + 1; i++)
-                    ddlCpu.Items.Add(i.ToString());
-
-                ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
-            }
-            else if (cntx != null && cntx.Quotas.TryGetValue(Quotas.VPS2012_CPU_NUMBER, out cpuQuota2) && cpuQuota2.QuotaAllocatedValue >= cpuQuota2.QuotaUsedValue)
-            {
-                if ((cpuQuota2.QuotaAllocatedValue + 1 - cpuQuota2.QuotaUsedValue) > maxCores)
-                {
-                    for (int i = 1; i < maxCores + 1; i++)
-                        ddlCpu.Items.Add(i.ToString());
-
-                    ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
-                }
-                else
-                {
-                    for (int i = 1; i < (cpuQuota2.QuotaAllocatedValue - cpuQuota2.QuotaUsedValue) + 1; i++)
-                        ddlCpu.Items.Add(i.ToString());
-
-                    ddlCpu.SelectedIndex = ddlCpu.Items.Count - 1; // select last (maximum) item
-                }
-            }
-            else
-            {
-                ddlCpu.Items.Add("0");
-
-            }
+            BindCpuCores();
 
             // external network details
             if (PackagesHelper.IsQuotaEnabled(PanelSecurity.PackageId, Quotas.VPS2012_EXTERNAL_NETWORK_ENABLED))
@@ -514,16 +526,16 @@ namespace FuseCP.Portal.VPS2012
             this.BindSettingsControls(resultVm);
 
             // general
-            litHostname.Text = PortalAntiXSS.Encode(String.Format("{0}.{1}", txtHostname.Text.Trim(), txtDomain.Text.Trim()));
-            litOperatingSystem.Text = listOperatingSystems.SelectedItem.Text;
+            litHostname.Text = PortalAntiXSS.Encode(String.Format("{0}.{1}", ViewState["HostName"] as string ?? txtHostname.Text.Trim(), ViewState["Domain"] as string ?? txtDomain.Text.Trim()));
+            litOperatingSystem.Text = PortalAntiXSS.Encode(ViewState["OsName"] as string ?? listOperatingSystems.SelectedItem?.Text ?? string.Empty);
 
-            litSummaryEmail.Text = PortalAntiXSS.Encode(txtSummaryEmail.Text.Trim());
-            SummSummaryEmailRow.Visible = chkSendSummary.Checked;
+            litSummaryEmail.Text = PortalAntiXSS.Encode(ViewState["SummaryEmail"] as string ?? txtSummaryEmail.Text.Trim());
+            SummSummaryEmailRow.Visible = (ViewState["SendSummary"] as bool?) ?? chkSendSummary.Checked;
 
             // config
-            litCpu.Text = PortalAntiXSS.Encode(ddlCpu.SelectedValue);
-            litRam.Text = PortalAntiXSS.Encode(txtRam.Text.Trim());
-            litHdd.Text = PortalAntiXSS.Encode(txtHdd.Text.Trim());
+            litCpu.Text = PortalAntiXSS.Encode(ViewState["CpuValue"] as string ?? ddlCpu.SelectedValue ?? string.Empty);
+            litRam.Text = PortalAntiXSS.Encode(ViewState["Ram"] as string ?? txtRam.Text.Trim());
+            litHdd.Text = PortalAntiXSS.Encode(ViewState["Hdd"] as string ?? txtHdd.Text.Trim());
             BindAdditionalHddInfo();
             litHddIOPSmin.Text = PortalAntiXSS.Encode(txtHddMinIOPS.Text.Trim());
             litHddIOPSmax.Text = PortalAntiXSS.Encode(txtHddMaxIOPS.Text.Trim());
@@ -586,12 +598,12 @@ namespace FuseCP.Portal.VPS2012
                 this.SaveSettingsControls(ref virtualMachine);
 
                 // collect and prepare data
-                virtualMachine.Name = chkAutoHostName.Checked ? "" : String.Format("{0}.{1}", txtHostname.Text.Trim(), txtDomain.Text.Trim());
+                virtualMachine.Name = chkAutoHostName.Checked ? "" : String.Format("{0}.{1}", ViewState["HostName"] as string ?? txtHostname.Text.Trim(), ViewState["Domain"] as string ?? txtDomain.Text.Trim());
                 virtualMachine.PackageId = PanelSecurity.PackageId;
-                virtualMachine.CpuCores = Utils.ParseInt(ddlCpu.SelectedValue);
-                virtualMachine.RamSize = Utils.ParseInt(txtRam.Text.Trim());
+                virtualMachine.CpuCores = Utils.ParseInt(ViewState["CpuValue"] as string ?? ddlCpu.SelectedValue);
+                virtualMachine.RamSize = Utils.ParseInt(ViewState["Ram"] as string ?? txtRam.Text.Trim());
                 List<int> hddSize = new List<int>();
-                hddSize.Add(Utils.ParseInt(txtHdd.Text.Trim()));
+                hddSize.Add(Utils.ParseInt(ViewState["Hdd"] as string ?? txtHdd.Text.Trim()));
                 List<AdditionalHdd> additionalHdd = GetAdditionalHdd();
                 hddSize.AddRange(additionalHdd.Select(hdd => hdd.DiskSize).Where(size => size > 0));
                 virtualMachine.HddSize = hddSize.ToArray();
@@ -626,7 +638,7 @@ namespace FuseCP.Portal.VPS2012
                 // dmz IPs
                 string[] dmzIps = Utils.ParseDelimitedString(txtDmzAddressesList.Text, '\n', '\r', ' ', '\t');
 
-                string summaryEmail = chkSendSummary.Checked ? txtSummaryEmail.Text.Trim() : null;
+                string summaryEmail = ((ViewState["SendSummary"] as bool?) ?? chkSendSummary.Checked) ? (ViewState["SummaryEmail"] as string ?? txtSummaryEmail.Text.Trim()) : null;
 
                 //virtualMachine.ExternalNetworkEnabled = false;
                 if (chkExternalNetworkEnabled.Checked && !String.IsNullOrEmpty(listVlanLists.SelectedValue) && (Convert.ToInt32(listVlanLists.SelectedValue) >= 0))
@@ -666,7 +678,7 @@ namespace FuseCP.Portal.VPS2012
 
                 // create virtual machine
                 IntResult res = ES.Services.VPS2012.CreateNewVirtualMachine(virtualMachine,
-                    listOperatingSystems.SelectedValue, adminPassword, summaryEmail,
+                    ViewState["OsValue"] as string ?? listOperatingSystems.SelectedValue, adminPassword, summaryEmail,
                     Utils.ParseInt(txtExternalAddressesNumber.Text.Trim()), radioExternalRandom.Checked, extIps.ToArray(),
                     Utils.ParseInt(txtPrivateAddressesNumber.Text.Trim()), radioPrivateRandom.Checked, privIps,
                     Utils.ParseInt(txtDmzAddressesNumber.Text.Trim()), radioDmzRandom.Checked, dmzIps
@@ -701,9 +713,7 @@ namespace FuseCP.Portal.VPS2012
             if (e.NextStepIndex < e.CurrentStepIndex)
                 return;
 
-            // save password
-            if (wizard.ActiveStepIndex == 0)
-                ViewState["Password"] = password.Password;
+            SaveWizardStepState();
 
             Page.Validate("Vps");
 
@@ -713,6 +723,11 @@ namespace FuseCP.Portal.VPS2012
 
         protected void wizard_ActiveStepChanged(object sender, EventArgs e)
         {
+            // Re-bind data-bound controls on the step that just became active
+            // (they are not restored from ViewState across wizard steps).
+            if (wizard.ActiveStepIndex == 1)
+                BindCpuCores();
+
             BindSummary();
         }
 
@@ -728,9 +743,48 @@ namespace FuseCP.Portal.VPS2012
 
         protected void wizard_NextButtonClick(object sender, WizardNavigationEventArgs e)
         {
-            // save password
+            SaveWizardStepState();
+        }
+
+        private void SaveWizardStepState()
+        {
+            // The Wizard does not preserve control state across steps: when the
+            // active step changes, the previous step's controls are no longer
+            // restored from ViewState, so DropDownList.SelectedItem is null and
+            // TextBox values are lost. Capture each step's values into ViewState
+            // as the user advances, then read them back in BindSummary and
+            // wizard_FinishButtonClick (same pattern as the existing Password).
+            //
+            // After a step-change postback the previous step's data-bound
+            // DropDownList items are not restored from ViewState, so
+            // SelectedItem/SelectedValue are null and the control-based reads
+            // above capture nothing. The raw values are still posted to the
+            // server, so read them from Request.Form (keyed by UniqueID) and
+            // resolve the OS display name from its Path.
             if (wizard.ActiveStepIndex == 0)
+            {
                 ViewState["Password"] = password.Password;
+
+                string osValue = Request.Form[listOperatingSystems.UniqueID] ?? string.Empty;
+                ViewState["OsValue"] = osValue;
+                string osName = string.Empty;
+                LibraryItem[] osTemplates = ES.Services.VPS2012.GetOperatingSystemTemplates(PanelSecurity.PackageId);
+                LibraryItem selectedOs = osTemplates.FirstOrDefault(t => string.Equals(t.Path, osValue, StringComparison.OrdinalIgnoreCase));
+                if (selectedOs != null)
+                    osName = selectedOs.Name;
+                ViewState["OsName"] = osName;
+
+                ViewState["HostName"] = Request.Form[txtHostname.UniqueID] ?? string.Empty;
+                ViewState["Domain"] = Request.Form[txtDomain.UniqueID] ?? string.Empty;
+                ViewState["SummaryEmail"] = Request.Form[txtSummaryEmail.UniqueID] ?? string.Empty;
+                ViewState["SendSummary"] = chkSendSummary.Checked;
+            }
+            if (wizard.ActiveStepIndex == 1)
+            {
+                ViewState["CpuValue"] = Request.Form[ddlCpu.UniqueID] ?? string.Empty;
+                ViewState["Ram"] = Request.Form[txtRam.UniqueID] ?? string.Empty;
+                ViewState["Hdd"] = Request.Form[txtHdd.UniqueID] ?? string.Empty;
+            }
         }
 
         protected void btnAddHdd_Click(object sender, EventArgs e)
