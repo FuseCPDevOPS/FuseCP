@@ -71,7 +71,7 @@ Watch for: JS console errors, 500 pages, unstyled pages, missing localization st
 Notes: portal returned HTTP 500 twice this session due to F-001 (Roslyn DLL mix in bin) — both times recovered by restoring a consistent Roslyn set + pool recycle. No other 500s or raw resource keys observed.
 ## 2. Panel — Admin (serveradmin)
 
-Overall: **PARTIAL** — serveradmin login + space lifecycle exercised; full admin CRUD (users / customers / plans / tickets / announcements / server management) not tested this session. (Orders / billing features are no longer part of the product.)
+Overall: **PARTIAL** — serveradmin login + space lifecycle exercised; full admin CRUD (users / customers / plans / announcements / server management) not tested this session. (Orders / billing / tickets features are no longer part of the panel — support tickets are handled by a separate system.)
 
 | # | Step | Expected | Actual | Status | Notes | Last tested |
 |---|------|----------|--------|--------|-------|-------------|
@@ -80,11 +80,10 @@ Overall: **PARTIAL** — serveradmin login + space lifecycle exercised; full adm
 | 2.3 | Products/plans: create a plan | Plan saves with item list | PlanID 2 exists (used by test space) but not created this session | TODO | | — |
 | 2.4 | Suspend customer or hosting space | Services suspended (offline) | Space-level suspend: IIS site testsite.local → Stopped, panel → Suspended; propagation ~28s | PARTIAL | via SpaceDetails "Suspended" button (WCF ChangePackageStatus, async) | 2026-10-30 |
 | 2.5 | Resume customer or hosting space | Services back online | Space-level resume: IIS site → Started, panel → Active; propagation ~26s | PARTIAL | via SpaceDetails "Active" button | 2026-10-30 |
-| 2.6 | Tickets: customer creates, admin replies | Round-trip works | (not exercised) | TODO | | — |
-| 2.7 | Announcements: publish + dismiss | Shows to customers | (not exercised) | TODO | | — |
-| 2.8 | Admin → Servers: add server | Server added, handshake OK | (server already registered: ServerID 1) | TODO | | — |
-| 2.9 | Server: change credentials | New creds used next op | (not exercised) | TODO | | — |
-| 2.10 | Server: delete server | Removed; services flagged | (not exercised) | TODO | | — |
+| 2.6 | Announcements: publish + dismiss | Shows to customers | (not exercised) | TODO | | — |
+| 2.7 | Admin → Servers: add server | Server added, handshake OK | (server already registered: ServerID 1) | TODO | | — |
+| 2.8 | Server: change credentials | New creds used next op | (not exercised) | TODO | | — |
+| 2.9 | Server: delete server | Removed; services flagged | (not exercised) | TODO | | — |
 
 Note: space lifecycle (create / suspend / resume) is the customer-facing space flow — see section 3.
 
