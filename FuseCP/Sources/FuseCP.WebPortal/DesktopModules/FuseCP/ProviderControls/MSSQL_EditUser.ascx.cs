@@ -36,23 +36,44 @@ namespace FuseCP.Portal.ProviderControls
 
         public void InitControl(string groupName)
         {
-            if (!IsPostBack)
-            {
-                BindDatabases(PanelSecurity.PackageId, groupName);
-            }
+            // Bind on every request (including the save postback). The host page (SqlEditUser)
+            // calls this in Page_Init on postback so the DropDownList items exist before
+            // ProcessPostData; under WebFormsForCore items bound later are not restored from
+            // ViewState and the default-database selection would be lost (same class as F-009).
+            BindDatabases(PanelSecurity.PackageId, groupName);
         }
 
         public void BindItem(SqlUser item)
         {
-            // bind again
-            BindDatabases(item.PackageId, item.GroupName);
+            if (!IsPostBack)
+            {
+                // bind again
+                BindDatabases(item.PackageId, item.GroupName);
 
-            Utils.SelectListItem(ddlDefaultDatabase, item.DefaultDatabase);
+                Utils.SelectListItem(ddlDefaultDatabase, item.DefaultDatabase);
+            }
         }
 
         public void SaveItem(SqlUser item)
         {
-            item.DefaultDatabase = ddlDefaultDatabase.SelectedValue;
+            // WebFormsForCore: the DropDownList's SelectedValue is empty on the save postback
+            // (list items bound after TrackViewState are not restored from ViewState, so the
+            // posted selection is not applied to the control). Read the raw posted value from
+            // the form directly. The form field name is the control's UniqueID, but the UniqueID
+            // recomputed on the postback can differ from the one rendered (the control-tree
+            // numbering shifts), so match by the stable trailing segment of the field name.
+            string posted = null;
+            foreach (string key in Page.Request.Form.Keys)
+            {
+                if (key.EndsWith("ddlDefaultDatabase", StringComparison.Ordinal))
+                {
+                    posted = Page.Request.Form[key];
+                    break;
+                }
+            }
+            if (posted == null)
+                posted = Page.Request.Form[ddlDefaultDatabase.UniqueID];
+            item.DefaultDatabase = string.IsNullOrEmpty(posted) ? ddlDefaultDatabase.SelectedValue : posted;
         }
 
         private void BindDatabases(int packageId, string groupName)

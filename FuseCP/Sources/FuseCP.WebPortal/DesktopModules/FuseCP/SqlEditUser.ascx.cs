@@ -40,6 +40,20 @@ namespace FuseCP.Portal
             if (!IsPostBack)
                 return;
 
+            // On the save postback, load + bind the provider control early so its default-database
+            // DropDownList is populated before ProcessPostData. Under WebFormsForCore, list items
+            // bound later (in Page_Load) are not restored from ViewState, so the selection is
+            // otherwise lost and the login is created with the "master" default database (same
+            // class as the F-009 grant bug).
+            if (providerControl.Controls.Count == 0)
+            {
+                LoadProviderControl(PanelSecurity.PackageId, SqlDatabases.GetDatabasesGroupName(Settings),
+                    providerControl, "EditUser.ascx");
+                IDatabaseEditUserControl initCtrl = providerControl.Controls[0] as IDatabaseEditUserControl;
+                if (initCtrl != null)
+                    initCtrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
+            }
+
             // Recreate the database list early so the posted checkbox values are loaded into the
             // control before ProcessPostData (same pattern as HostingPlansEditPlan). Without this the
             // CheckBoxList is empty on postback and no per-database grants are saved.
@@ -116,15 +130,17 @@ namespace FuseCP.Portal
                     }
                 }
 
-                // load provider control
-                LoadProviderControl((int)ViewState["PackageId"], SqlDatabases.GetDatabasesGroupName(Settings),
-                    providerControl, "EditUser.ascx");
+                // load provider control (already loaded in Page_Init on the save postback)
+                if (providerControl.Controls.Count == 0)
+                    LoadProviderControl((int)ViewState["PackageId"], SqlDatabases.GetDatabasesGroupName(Settings),
+                        providerControl, "EditUser.ascx");
 
                 IDatabaseEditUserControl ctrl = null;
                 if (providerControl.Controls.Count > 0)
                 {
                     ctrl = (IDatabaseEditUserControl)providerControl.Controls[0];
-                    ctrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
+                    if (!IsPostBack)
+                        ctrl.InitControl(SqlDatabases.GetDatabasesGroupName(Settings));
                 }
 
                 if (!IsPostBack && item != null)

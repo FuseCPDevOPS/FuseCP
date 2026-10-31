@@ -447,10 +447,10 @@ namespace FuseCP.Providers.Database
 			//ExecuteNonQuery(String.Format("EXEC sp_addlogin '{0}', '{1}', '{2}'",
 			//    user.Name, password, user.DefaultDatabase));
 			//Fixed create login with "Enforce password policy" disabled.
+			//CREATE LOGIN requires a string literal in the PASSWORD clause (a parameter fails with Msg 102).
 			ExecuteNonQuery(
-				 String.Format("CREATE LOGIN {0} WITH PASSWORD=@Password, DEFAULT_DATABASE={1}, CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF",
-					  QuoteSqlIdentifier(user.Name), QuoteSqlIdentifier(user.DefaultDatabase)),
-				 CreateNVarCharParameter("@Password", password));
+				 String.Format("CREATE LOGIN {0} WITH PASSWORD={1}, DEFAULT_DATABASE={2}, CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF",
+				  QuoteSqlIdentifier(user.Name), QuoteSqlStringLiteral(password), QuoteSqlIdentifier(user.DefaultDatabase)));
 
 			// add access to databases
 			foreach (string database in user.Databases)
