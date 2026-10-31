@@ -669,7 +669,8 @@ HttpClient client = CreateHttpClient();
                 var domainSettingsArray = new
 				{
                     blockedCountriesAtAuth = blockedCountriesAtAuthArray,
-					enableMailForwarding = domain.Enabled
+					enableMailForwarding = domain.Enabled,
+					maxDomainAliases = domain.MaxDomainAliases
                 };
 
 				var domainSettingsPram = new
