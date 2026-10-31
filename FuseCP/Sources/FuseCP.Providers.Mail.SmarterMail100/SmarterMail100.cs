@@ -548,16 +548,16 @@ HttpClient client = CreateHttpClient();
 
                 //Limits
                 domain.MaxDomainSizeInMB = (int)Convert.ToInt64((long)result["domainSettings"]["maxSize"] / 1048576);
-				domain.MaxDomainAliases = Convert.ToInt64(result["domainSettings"]["maxDomainAliases"].ToString());
-				domain.MaxDomainUsers = Convert.ToInt64(result["domainSettings"]["maxUsers"].ToString());
-				domain.MaxAliases = Convert.ToInt64(result["domainSettings"]["maxAliases"].ToString());
-				domain.MaxLists = Convert.ToInt64(result["domainSettings"]["maxLists"].ToString());
-				domain.MaxMessageSize = Convert.ToInt64(result["domainSettings"]["maxMessageSize"].ToString());
-				domain.MaxRecipients = Convert.ToInt64(result["domainSettings"]["maxRecipients"].ToString());
+				domain.MaxDomainAliases = (int)Convert.ToInt64(result["domainSettings"]["maxDomainAliases"].ToString());
+				domain.MaxDomainUsers = (int)Convert.ToInt64(result["domainSettings"]["maxUsers"].ToString());
+				domain.MaxAliases = (int)Convert.ToInt64(result["domainSettings"]["maxAliases"].ToString());
+				domain.MaxLists = (int)Convert.ToInt64(result["domainSettings"]["maxLists"].ToString());
+				domain.MaxMessageSize = (int)Convert.ToInt64(result["domainSettings"]["maxMessageSize"].ToString());
+				domain.MaxRecipients = (int)Convert.ToInt64(result["domainSettings"]["maxRecipients"].ToString());
 
 
 				domain.MaxMailboxSizeInMB = (int)Convert.ToInt64((long)result["domainSettings"]["maxMailboxSize"] / 1048576);
-				domain.MaxRecipients = Convert.ToInt64(result["domainSettings"]["maxRecipients"].ToString());
+				domain.MaxRecipients = (int)Convert.ToInt64(result["domainSettings"]["maxRecipients"].ToString());
 				domain.RequireSmtpAuthentication = Convert.ToBoolean(result["domainSettings"]["requireSmtpAuthentication"]);
 				domain.ListCommandAddress = result["domainSettings"]["listCommandAddress"].ToString();
 
@@ -848,16 +848,16 @@ HttpClient client = CreateHttpClient();
 
                     //Limits
                     domain.MaxDomainSizeInMB = (int)Convert.ToInt64((long)domainSettings["domainSettings"]["maxSize"] / 1048576);
-                    domain.MaxDomainAliases = Convert.ToInt64(domainSettings["domainSettings"]["maxDomainAliases"].ToString());
-                    domain.MaxDomainUsers = Convert.ToInt64(domainSettings["domainSettings"]["maxUsers"].ToString());
-                    domain.MaxAliases = Convert.ToInt64(domainSettings["domainSettings"]["maxAliases"].ToString());
-                    domain.MaxLists = Convert.ToInt64(domainSettings["domainSettings"]["maxLists"].ToString());
-                    domain.MaxMessageSize = Convert.ToInt64(domainSettings["domainSettings"]["maxMessageSize"].ToString());
-                    domain.MaxRecipients = Convert.ToInt64(domainSettings["domainSettings"]["maxRecipients"].ToString());
+                    domain.MaxDomainAliases = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxDomainAliases"].ToString());
+                    domain.MaxDomainUsers = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxUsers"].ToString());
+                    domain.MaxAliases = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxAliases"].ToString());
+                    domain.MaxLists = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxLists"].ToString());
+                    domain.MaxMessageSize = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxMessageSize"].ToString());
+                    domain.MaxRecipients = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxRecipients"].ToString());
 
 
                     domain.MaxMailboxSizeInMB = (int)Convert.ToInt64((long)domainSettings["domainSettings"]["maxMailboxSize"] / 1048576);
-                    domain.MaxRecipients = Convert.ToInt64(domainSettings["domainSettings"]["maxRecipients"].ToString());
+                    domain.MaxRecipients = (int)Convert.ToInt64(domainSettings["domainSettings"]["maxRecipients"].ToString());
                     domain.RequireSmtpAuthentication = Convert.ToBoolean(domainSettings["domainSettings"]["requireSmtpAuthentication"]);
                     domain.ListCommandAddress = domainSettings["domainSettings"]["listCommandAddress"].ToString();
 
@@ -1275,7 +1275,7 @@ HttpClient client = CreateHttpClient();
 				mailbox.IsDomainAdmin = Convert.ToBoolean(userDataresult["userData"]["IsDomainAdmin"]);
 				mailbox.Enabled = Convert.ToBoolean(result["userMailSettings"]["isEnabled"].ToString());
 				//string maxMailboxSizeint = userDataresult["userData"]["maxMailboxSize"].ToString();
-				mailbox.MaxMailboxSize = Convert.ToInt64(Convert.ToInt64(userDataresult["userData"]["maxMailboxSize"]) / 1048576);
+				mailbox.MaxMailboxSize = (int)Convert.ToInt64(Convert.ToInt64(userDataresult["userData"]["maxMailboxSize"]) / 1048576);
 				mailbox.ReplyTo = result["userMailSettings"]["replyToAddress"].ToString();
 				mailbox.PasswordLocked = Convert.ToBoolean(userDataresult["userData"]["lockPassword"]);
 				mailbox.ForwardingEnabled = Convert.ToBoolean(result["userMailSettings"]["enableMailForwarding"]);
@@ -1294,7 +1294,7 @@ HttpClient client = CreateHttpClient();
 					mailbox.Signature = userSignature["text"].ToString();
 					mailbox.SignatureGuid = userSignature["guid"].ToString();
 					mailbox.SignatureName = userSignature["name"].ToString();
-					mailbox.SignatureiD = Convert.ToInt64(userSignature["id"]);
+					mailbox.SignatureiD = (int)Convert.ToInt64(userSignature["id"]);
                 }
 
 				dynamic mailboxForwardListresult = ExecGetCommand("settings/domain/mailbox-forward-list/" + mailboxName).Result;
