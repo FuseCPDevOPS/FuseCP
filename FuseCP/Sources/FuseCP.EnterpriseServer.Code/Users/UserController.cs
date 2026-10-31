@@ -1116,8 +1116,20 @@ namespace FuseCP.EnterpriseServer
  accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
  if (accountCheck < 0) return accountCheck;
 
+			// authorization: the caller must be allowed to modify THIS user's password.
+			// CanGetUserPassword enforces the owner-tree rule: allowed for self, supervisor
+			// (actorId -1), and the owner of the target; denied for a user's owner and for any
+			// unrelated account (e.g. a customer changing another user's / their admin's password).
+			// Enforced here in the ES so it applies to every caller path (portal + WCF/ASMX API).
+			// Returns "not found" for a no-permission target to avoid leaking user existence.
+			var currentUser = SecurityContext.User;
+			if (currentUser == null || !Database.CanGetUserPassword(currentUser.UserId, userId))
+				return BusinessErrorCodes.ERROR_USER_NOT_FOUND;
+
 			// get user details
 			UserInfo user = GetUserInternally(userId);
+			if (user == null)
+				return BusinessErrorCodes.ERROR_USER_NOT_FOUND;
 
 			// place log record
 			TaskManager.StartTask("USER", "CHANGE_PASSWORD", user.Username, user.UserId);
