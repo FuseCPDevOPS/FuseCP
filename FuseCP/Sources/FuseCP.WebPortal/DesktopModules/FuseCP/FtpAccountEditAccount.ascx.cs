@@ -102,6 +102,18 @@ namespace FuseCP.Portal
                         ctrl.BindItem(item);
                     }
                 }
+
+                // WebFormsForCore does not reliably restore the UsernameControl's EditMode
+                // ViewState across postbacks. Without re-applying it here (during the parent
+                // Page_Load, before validation runs), the username field reverts to a visible
+                // empty textbox after the first postback and the required-username validator
+                // blocks the save. The account name is not user-editable when editing an
+                // existing account.
+                if (IsPostBack && PanelRequest.ItemID > 0)
+                {
+                    usernameControl.EditMode = true;
+                    passwordControl.EditMode = true;
+                }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -120,6 +132,23 @@ namespace FuseCP.Portal
             local_item.Id = PanelRequest.ItemID;
             local_item.PackageId = PanelSecurity.PackageId;
             local_item.Name = usernameControl.Text;
+            // In EditMode the username is shown read-only (a hidden textbox), so
+            // usernameControl.Text comes back empty on the save postback (WebFormsForCore does
+            // not reliably restore the value). The username is not user-editable when editing
+            // an existing account, so restore the authoritative name from the record.
+            if (PanelRequest.ItemID > 0 && String.IsNullOrEmpty(local_item.Name))
+            {
+                try
+                {
+                    FtpAccount existing = ES.Services.FtpServers.GetFtpAccount(PanelRequest.ItemID);
+                    if (existing != null)
+                        local_item.Name = existing.Name;
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    _ = ex;
+                }
+            }
             local_item.Password = passwordControl.Password;
             local_item.Folder = fileLookup.SelectedFile;
 

@@ -511,6 +511,10 @@ namespace FuseCP.Providers.FTP
                     // Delete virtual directory
                     DeleteFtpAccountVirtualDirectory(this.SiteId, appVirtualDirectory);
 
+                    // Remove the IIS FTP authorization for the account (best-effort) so no
+                    // orphaned <location> block accumulates in applicationhost.config.
+                    RemoveFtpAuthorization(this.SiteId, accountName);
+
                     // Remove permissions
                     RemoveFtpFolderPermissions(currentPhysicalPath, accountName);
 
@@ -1416,6 +1420,32 @@ Add-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location $siteName -Filt
             int exitCode;
             if (!RunPowerShell(script, out exitCode, out stdOut, out stdErr) || exitCode != 0)
                 throw new InvalidOperationException("Could not set FTP authorization. " + (!String.IsNullOrEmpty(stdErr) ? stdErr.Trim() : stdOut.Trim()));
+        }
+
+        private void RemoveFtpAuthorization(string siteId, string accountName)
+        {
+            // Best-effort cleanup: remove the IIS FTP authorization rules at the account's
+            // location, then remove the (now empty) <location> element so no orphaned block
+            // accumulates in applicationhost.config. Never throws — the account (vdir + user)
+            // is removed independently of this cleanup.
+            string location = EscapePowerShellLiteral(siteId + "/" + accountName);
+            string cfgPath = @"C:\Windows\System32\inetsrv\config\applicationhost.config";
+            string script =
+                "Import-Module WebAdministration -ErrorAction SilentlyContinue; "
+                + "try { Clear-WebConfiguration -PSPath 'MACHINE/WEBROOT/APPHOST' -Location '" + location + "' -Filter 'system.ftpServer/security/authorization'; } catch { }; "
+                + "try { "
+                + "$cfg = '" + cfgPath + "'; "
+                + "[xml]$xml = Get-Content -LiteralPath $cfg; "
+                + "$config = $xml.SelectSingleNode('configuration'); "
+                + "$removed = $false; "
+                + "foreach ($loc in @($config.SelectNodes('location'))) { if ($loc.GetAttribute('path') -eq '" + location + "') { $config.RemoveChild($loc) | Out-Null; $removed = $true; } } "
+                + "if ($removed) { $xml.Save($cfg); } "
+                + "} catch { };";
+
+            string stdOut;
+            string stdErr;
+            int exitCode;
+            RunPowerShell(script, out exitCode, out stdOut, out stdErr);
         }
 
         private bool GetFtpSiteAnonymousEnabled(string siteId)
