@@ -725,10 +725,15 @@ namespace FuseCP.Providers.DNS
 
         public IDataReader ExecuteReader(string mySqlStatement, params MySqlParameter[] parameters)
         {
-            using MySqlConnection mysqlConnection = new MySqlConnection(GetConnectionString());
+            // Note: no `using` on the connection/command here. With CommandBehavior.CloseConnection
+            // the connection is closed when the caller closes the reader. Wrapping them in `using`
+            // disposes them on method return and closes the reader before the caller can read it
+            // (surfaces as "Invalid attempt to Read when reader is closed", which every caller's
+            // catch swallows -> ZoneExists/GetDomainId/GetZones/GetZoneRecords always return empty).
+            MySqlConnection mysqlConnection = new MySqlConnection(GetConnectionString());
             mysqlConnection.Open();
 
-            using MySqlCommand command = new MySqlCommand(
+            MySqlCommand command = new MySqlCommand(
                   mySqlStatement
                 , mysqlConnection
             );
