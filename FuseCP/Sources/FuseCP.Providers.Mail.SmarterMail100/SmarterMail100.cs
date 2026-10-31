@@ -1084,10 +1084,16 @@ HttpClient client = CreateHttpClient();
 
         public bool AccountExists(string mailboxName)
 		{
-			dynamic result = ExecGetCommand("settings/sysadmin/user/" + mailboxName).Result;
+			dynamic result = ExecGetCommand("settings/sysadmin/list-users/" + GetDomainName(mailboxName)).Result;
 
-			if (Convert.ToBoolean(result["success"]))
-				return true;
+			if (!Convert.ToBoolean(result["success"]))
+				return false;
+
+			foreach (dynamic user in result["userData"])
+			{
+				if (user["emailAddress"].ToString() == mailboxName)
+					return true;
+			}
 
 			return false;
 		}
@@ -1156,7 +1162,7 @@ HttpClient client = CreateHttpClient();
 
 				var forwardListArray = new
 				{
-					forwardList = mailbox.ForwardingAddresses,
+					forwardList = mailbox.ForwardingAddresses ?? Array.Empty<string>(),
 					deleteOnForward = mailbox.DeleteOnForward
 				};
 
@@ -1430,7 +1436,7 @@ HttpClient client = CreateHttpClient();
 
 				var forwardListArray = new
 				{
-					forwardList = mailbox.ForwardingAddresses,
+					forwardList = mailbox.ForwardingAddresses ?? Array.Empty<string>(),
 					deleteOnForward = mailbox.DeleteOnForward
 				};
 
