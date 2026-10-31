@@ -795,18 +795,13 @@ public class PortalUtils
 		try
 		{
 			UserInfo user = usersService.GetUserById(userId);
+			if (user == null)
+				return BusinessErrorCodes.ERROR_USER_NOT_FOUND;
 
-			// Resolve currently authenticated user by ticket name to avoid stale/mismatched panel user ids.
-			if (AuthTicket != null && !String.IsNullOrEmpty(AuthTicket.Name))
-			{
-				UserInfo authUser = usersService.GetUserByUsername(AuthTicket.Name);
-				if (authUser != null && authUser.UserId > 0 && authUser.UserId != userId)
-				{
-					userId = authUser.UserId;
-					user = authUser;
-				}
-			}
-
+			// The target user id is explicit (set by the caller: self-service uses the
+			// logged-in id, admin/peer uses the target id). It must not be overridden by the
+			// authenticated ticket, otherwise an admin changing another user's password would
+			// change their own password instead.
 			// change FuseCP account password
 			int result = usersService.ChangeUserPassword(userId, newPassword);
 			if (result < 0)

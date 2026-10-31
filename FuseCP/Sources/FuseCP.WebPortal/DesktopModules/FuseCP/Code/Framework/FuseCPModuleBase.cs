@@ -298,6 +298,14 @@ namespace FuseCP.Portal
 
         public void ShowErrorMessage(string moduleName, string messageKey, Exception ex, params string[] additionalParameters)
         {
+            if (messageBox == null)
+            {
+                // messageBox is created in CreateChildControls; it may be unavailable
+                // if the error is raised before child controls exist (e.g. during early
+                // page load). Log and return instead of crashing with a NullReferenceException.
+                try { System.Diagnostics.Trace.TraceError("ShowErrorMessage: messageBox is null. moduleName={0}, key={1}, ex={2}", moduleName, messageKey, ex); } catch { }
+                return;
+            }
             lock (_msgLock)
             {
                 string exceptionKey = null;
