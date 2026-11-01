@@ -103,24 +103,7 @@ Use **smallest relevant scope first**:
 
 ## Manual Test Coverage
 
-Detailed per-check results, findings, and notes: `artifacts/PANEL_PROVIDER_TEST_WORKBOOK.md` (source of truth — keep it updated after each manual test pass). Last live manual pass: **2026-10-30** on the local dev environment (localhost: Windows Server 2025, IIS 10, SQL Server 2025).
-
-| Area | What was verified | Status | Last tested |
-|------|-------------------|--------|-------------|
-| Panel — auth & core flows | Admin login (serveradmin) + TOTP MFA, session stability across navigations | PASS | 2026-10-30 |
-| Panel — admin | Space lifecycle (create / suspend / resume); full admin CRUD (users / plans) not exercised | PARTIAL | 2026-10-30 |
-| Panel — customer portal | Create space, space details, suspend/resume (as serveradmin); file manager / mail / DNS not exercised | PARTIAL | 2026-10-30 |
-| OS — Windows | Windows2025 provider, local users created for the space, lifecycle state | PARTIAL | 2026-10-30 |
-| Web — IIS 10 | Site create / start / bindings / suspend-resume; **content serving fails (HTTP 503)** — no .NET 2.0 CLR on host | PARTIAL | 2026-10-30 |
-| FTP — IIS 10 | FTP vdir + binding; client login / upload / quota not exercised | PARTIAL | 2026-10-30 |
-| Database — SQL Server 2025 | Provider + SQL service provisioned; actual DB + login creation not exercised | PARTIAL | 2026-10-30 |
-| All other providers (Unix OS, Apache, WebDAV, Let's Encrypt, other FTP, Mail, DNS, MySQL, Virtualization, RDS, Exchange, SharePoint, SfB/Lync, Statistics, Storage, Filters) | — | SKIP (not installed) | — |
-
-Open findings (repro/evidence in the workbook): F-001 High (Roslyn bin mix → portal 500, workaround applied, recurs on build) · F-002 High (create-space plan dropdown lost selection — fixed in `295fb7655`) · F-003 Medium (completed background tasks + logs deleted, no audit trail) · F-004 Medium (provisioned site 503 on hosts without .NET 2.0) · F-005 Low (first-suspend no-op, environmental).
-
-Automated runs (2026-10-30): `FuseCP.Tests` 97/97 · `FuseCP.EnterpriseServer.Tests` 33/34 (1 environmental — `TestESAccess` hardcodes default admin creds, no MFA) · DB workflow verification 27/27.
-
-Coverage gaps (logged as TODO in the workbook): admin CRUD, file manager, FTP client login/upload/quota, actual SQL DB + login, SSL binding, password changes, service delete.
+Source of truth: `artifacts/PANEL_PROVIDER_TEST_WORKBOOK.md` (~105 KB — read it only when manual test coverage is in scope: manual test runs, updating coverage results, investigating open findings F-001..F-005, or PR notes about manual tests). Keep it updated after each manual test pass. Last live manual pass: **2026-10-30** (localhost: Windows Server 2025, IIS 10, SQL Server 2025).
 
 ## Database / Entity Framework Workflow
 
