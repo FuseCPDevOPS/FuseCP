@@ -35,6 +35,7 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 15 | FTP — Gene6 | No | SKIP | — |
 | 16 | Mail — SmarterMail 100.x+ | Yes | PASS (F-012 fixed + validated 2026-10-31) | 2026-10-31 |
 | 17 | DNS — Windows DNS (MsDNSPS) | Yes | PARTIAL | 2026-10-30 |
+| 17b | DNS — PowerDNS (database-backed, ProviderID 56) | Yes (pdnsdb01 backend) | PASS (F-021 + F-023 fixed + validated 2026-10-31; portal flow 17b.5 PASS; live resolution unverified — no authoritative on host) | 2026-10-31 |
 | 18 | Database — SQL Server 2025 | Yes | PASS (F-014/F-015 fixed + validated 2026-10-31; F-016 open) | 2026-10-31 |
 | 19 | Database — MariaDB 12.2 | Yes | PASS (F-009 fixed + validated 2026-10-30) | 2026-10-30 |
 | 20 | Virtualization — Hyper-V 2025 | Yes (role + template) | PASS (F-011 fixed 2026-10-30) | 2026-10-30 |
@@ -47,7 +48,7 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 27 | Storage — EnterpriseStorage / StorageSpaces | No | SKIP | — |
 | 28 | Filters — MailCleaner / SpamExperts | No | SKIP | — |
 
-Environment notes: providers registered in DB (Providers table) include many products not installed on this host; IIS100 (Web, ID 112), MSFTP100 (FTP, ID 113), MsSQL 2025 (ID 1707), Windows2025 (OS, ID 1804/1805), MsDNSPS (DNS, ID 1902 — host runs the Windows DNS Server role), MariaDB (ID 1586 — host runs MariaDB 12.2), HyperV2025 (ID 1805 — host has the Hyper-V role + template `C:\HyperV\Templates\blank.vhdx`) and SmarterMail 100.x+ (ID 67, ServiceID 11 — host runs SmarterMail 100.0.9784.23326 on `http://localhost:9998`) were exercised or provisioned against the live host.
+Environment notes: providers registered in DB (Providers table) include many products not installed on this host; IIS100 (Web, ID 112), MSFTP100 (FTP, ID 113), MsSQL 2025 (ID 1707), Windows2025 (OS, ID 1804/1805), MsDNSPS (DNS, ID 1902 — host runs the Windows DNS Server role), PowerDNS (DNS, ID 56 — database-backed, writes to the `pdnsdb01` PowerDNS-schema MariaDB backend; no authoritative on host), MariaDB (ID 1586 — host runs MariaDB 12.2), HyperV2025 (ID 1805 — host has the Hyper-V role + template `C:\HyperV\Templates\blank.vhdx`) and SmarterMail 100.x+ (ID 67, ServiceID 11 — host runs SmarterMail 100.0.9784.23326 on `http://localhost:9998`) were exercised or provisioned against the live host.
 
 ---
 
