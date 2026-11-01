@@ -97,6 +97,22 @@ namespace FuseCP.Portal
             }
         }
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            // On the save postback, re-bind the domain list early (before ProcessPostData) so the
+            // posted domain selection is applied to the control. Under WebFormsForCore, list items
+            // bound later (in Page_Load) are not restored from ViewState, so without this the
+            // selection is lost on postback and the domain RequiredFieldValidator always fails
+            // (same class as F-002 / F-009 / F-015). PanelSecurity.PackageId is used because the
+            // control's own ViewState["PackageId"] is not loaded yet during Page_Init.
+            if (IsPostBack)
+            {
+                if (PackageId == 0)
+                    PackageId = PanelSecurity.PackageId;
+                BindDomains();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
