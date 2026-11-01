@@ -1,6 +1,6 @@
 # FuseCP Panel & Provider — Manual Test Workbook
 
-**Date:** 2026-10-29 / 2026-10-30 / 2026-10-31
+**Date:** 2026-10-29 / 2026-10-30 / 2026-10-31 / 2026-11-01
 **Mode:** Live manual testing on the local dev environment (localhost: Windows Server 2025, IIS 10, SQL Server 2025). In-place deployment: Portal `FuseCP\Sources\FuseCP.WebPortal` (IIS site, https :9001), Enterprise Server (:9002), FuseCP Server (:9003).
 
 ## How to use this workbook
@@ -18,7 +18,7 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 
 | Section | Provider / Area | Installed? | Status | Last tested |
 |---------|-----------------|------------|--------|-------------|
-| 1 | Panel — auth & core flows | — | PASS | 2026-10-30 |
+| 1 | Panel — auth & core flows | — | PARTIAL (1.1/1.3/1.5–1.8 PASS incl. customer login/access-denied/password 2026-10-31, F-019 fix validated; 1.2 bad-password re-verify not done; 1.4 logout not re-verified) | 2026-10-31 |
 | 2 | Panel — admin (customers/plans/spaces/servers) | — | PARTIAL | 2026-10-30 |
 | 3 | Panel — customer portal (spaces) | — | PARTIAL (2026-10-31: customer login 1.5 + access-denied 1.6 + password/profile 3.6 PASS; web-site detail 3.1 / start-stop 3.2 / file-mgr 3.3 BLOCKED by F-020; mail 3.4 + DNS 3.5 SKIP — not provisioned for the space) | 2026-10-31 |
 | 4 | OS — Windows (host is 2025) | Yes | PARTIAL | 2026-10-30 |
@@ -35,7 +35,7 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 15 | FTP — Gene6 | No | SKIP | — |
 | 16 | Mail — SmarterMail 100.x+ | Yes | PASS (F-012 fixed + validated 2026-10-31) | 2026-10-31 |
 | 16b | Mail — MailEnable (Win32 P/Invoke, ProviderID 4) | Yes (install + all ME* services running) | PASS (14/14 direct CRUD + **portal flows 16b.11–16b.13** create / edit / non-zero-size exercised 2026-11-01; **F-025** domain-dropdown selection loss on the create save postback **fixed + validated**; **F-026** mailbox-size range validator 0–0 / unformatted error when plan lacks the size quota — open (confirmed by 16b.13); **F-027** mail **edit** save is a no-op + re-renders in create-mode (`EditMode` ViewState timing) — open; **F-024** — production host needs the VC++ 2008 x64 runtime for the provider to load) | 2026-11-01 |
-| 17 | DNS — Windows DNS (MsDNSPS) | Yes | PARTIAL | 2026-10-30 |
+| 17 | DNS — Windows DNS (MsDNSPS) | Yes | PASS (F-006 + F-007 fixed + validated 2026-10-30; zone create 17.1 / record add-remove 17.2–17.3 / detach 17.4 all PASS; F-008 SOA/NS defaults known-limitation) | 2026-10-30 |
 | 17b | DNS — PowerDNS (database-backed, ProviderID 56) | Yes (pdnsdb01 backend) | PASS (F-021 + F-023 fixed + validated 2026-10-31; portal flow 17b.5 PASS; live resolution unverified — no authoritative on host) | 2026-10-31 |
 | 18 | Database — SQL Server 2025 | Yes | PASS (F-014/F-015 fixed + validated 2026-10-31; F-016 open) | 2026-10-31 |
 | 19 | Database — MariaDB 12.2 | Yes | PASS (F-009 fixed + validated 2026-10-30) | 2026-10-30 |

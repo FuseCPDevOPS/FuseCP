@@ -103,7 +103,7 @@ Use **smallest relevant scope first**:
 
 ## Manual Test Coverage
 
-Source of truth: `artifacts/PANEL_PROVIDER_TEST_WORKBOOK.md` (~105 KB — read it only when manual test coverage is in scope: manual test runs, updating coverage results, investigating open findings F-001..F-005, or PR notes about manual tests). Keep it updated after each manual test pass. Last live manual pass: **2026-10-30** (localhost: Windows Server 2025, IIS 10, SQL Server 2025).
+Source of truth: `artifacts/PANEL_PROVIDER_TEST_WORKBOOK.md` (~105 KB — read it only when manual test coverage is in scope: manual test runs, updating coverage results, investigating open findings, or PR notes about manual tests). Keep it updated after each manual test pass; the workbook is the only place the last-tested date and environment are maintained.
 
 ## Database / Entity Framework Workflow
 
