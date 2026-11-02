@@ -894,11 +894,14 @@ namespace FuseCP.Providers.Utils
 			// check directory exists
 			if (!Directory.Exists(path))
 				return 0;
-			// normalize path
-			path = path.Replace("/", "\\");
-			// remove trailing slash
-			if (path.EndsWith(@"\"))
-				path = path.Substring(0, path.Length - 1);
+			// normalize path (Windows only: on Unix '\' is a valid filename character)
+			if (Path.DirectorySeparatorChar == '\\')
+			{
+				path = path.Replace("/", "\\");
+				// remove trailing slash
+				if (path.EndsWith(@"\"))
+					path = path.Substring(0, path.Length - 1);
+			}
 			// calculate folder size
 			return CalculateFolderSize(path, out files, out folders);
         }
