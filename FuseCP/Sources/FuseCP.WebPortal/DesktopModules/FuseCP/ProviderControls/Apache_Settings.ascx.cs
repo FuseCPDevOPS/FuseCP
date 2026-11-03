@@ -35,12 +35,19 @@ namespace FuseCP.Portal.ProviderControls
 
 		public void BindSettings(StringDictionary settings)
 		{
+			ipAddress.AddressId = (settings["SharedIP"] != null) ? Utils.ParseInt(settings["SharedIP"], 0) : 0;
+			ipAddress.SelectValueText = GetLocalizedString("ipAddress.SelectValueText");
+			txtPublicSharedIP.Text = settings["PublicSharedIP"];
+
 			txtConfigPath.Text = settings["ConfigPath"];
 			txtConfigFile.Text = settings["ConfigFile"];
 		}
 
 		public void SaveSettings(StringDictionary settings)
 		{
+			settings["SharedIP"] = ipAddress.AddressId.ToString();
+			settings["PublicSharedIP"] = txtPublicSharedIP.Text.Trim();
+
 			settings["ConfigPath"] = txtConfigPath.Text;
 			settings["ConfigFile"] = txtConfigFile.Text;
 		}

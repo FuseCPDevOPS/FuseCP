@@ -607,7 +607,7 @@ namespace FuseCP.Providers.Web.Apache
 				.SelectMany(filepattern =>
 				{
 					if (!Path.IsPathRooted(filepattern)) filepattern = Path.Join(Path.GetDirectoryName(FullName), filepattern);
-					return filepattern.Contains('*') || filepattern.Contains('?') ? System.IO.Directory.EnumerateFiles(filepattern) : new string[] { filepattern };
+					return filepattern.Contains('*') || filepattern.Contains('?') ? System.IO.Directory.EnumerateFiles(Path.GetDirectoryName(filepattern), Path.GetFileName(filepattern)) : new string[] { filepattern };
 
 
 

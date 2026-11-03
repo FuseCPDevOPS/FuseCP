@@ -57,6 +57,7 @@ namespace FuseCP.EnterpriseServer
 
         public WebServerController(ControllerBase provider) : base(provider) { }
 
+
         public WebServer GetWebServer(int serviceId)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return null;
@@ -116,8 +117,9 @@ namespace FuseCP.EnterpriseServer
             // load live site from service
             WebServer web = new WebServer();
             ServiceProviderProxy.Init(web, siteItem.ServiceId);
-            WebSite site = web.GetSite(siteItem.SiteId);
-            
+            WebSite site;
+            site = web.GetSite(siteItem.SiteId);
+
             // set other properties
             site.Id = siteItem.Id;
             site.Name = siteItem.Name;
@@ -138,24 +140,23 @@ namespace FuseCP.EnterpriseServer
             site.IsDedicatedIP = siteIpAddresses
                 .Select(siteIp => ServerController.GetPackageIPAddress(siteIp.AddressID))
                 .Any(packageIpAddress => packageIpAddress != null && packageIpAddress.ExternalIP == site.SiteIPAddress);
-
             // truncate home folder
             site.ContentPath = FilesController.GetVirtualPackagePath(siteItem.PackageId, site.ContentPath);
 
             //check if Coldfusion is available
             //site.ColdFusionAvailable = siteItem.ColdFusionAvailable;
-            
+
             // set FrontPage account
             site.FrontPageAccount = siteItem.FrontPageAccount;
             if (String.IsNullOrEmpty(site.FrontPageAccount))
                 site.FrontPageAccount = GetFrontPageUsername(site.Name);
 
-			// Set Web Deploy publishing account
-			site.WebDeployPublishingAccount = siteItem.WebDeployPublishingAccount;
-			// Set Web Deploy site publishing enabled
-			site.WebDeploySitePublishingEnabled = siteItem.WebDeploySitePublishingEnabled;
-			// Set Web Deploy site publishing profile
-			site.WebDeploySitePublishingProfile = siteItem.WebDeploySitePublishingProfile;
+ 			// Set Web Deploy publishing account
+ 			site.WebDeployPublishingAccount = siteItem.WebDeployPublishingAccount;
+ 			// Set Web Deploy site publishing enabled
+ 			site.WebDeploySitePublishingEnabled = siteItem.WebDeploySitePublishingEnabled;
+ 			// Set Web Deploy site publishing profile
+ 			site.WebDeploySitePublishingProfile = siteItem.WebDeploySitePublishingProfile;
 
             return site;
         }
@@ -747,12 +748,16 @@ namespace FuseCP.EnterpriseServer
                 // remove all web site pointers
 				List<DomainInfo> pointers = GetWebSitePointers(siteItemId);
 				foreach (DomainInfo pointer in pointers)
-					DeleteWebSitePointer(siteItemId, pointer.DomainId, false, true, true);
+				{
+                    DeleteWebSitePointer(siteItemId, pointer.DomainId, false, true, true);
+                }
 
 				// remove web site main pointer
 				DomainInfo domain = ServerController.GetDomain(siteItem.Name);
 				if(domain != null)
-					DeleteWebSitePointer(siteItemId, domain.DomainId, false, true, true);
+				{
+                    DeleteWebSitePointer(siteItemId, domain.DomainId, false, true, true);
+                }
 
                 List<WebSite> sites = domain != null ? WebServerController.GetWebSites(domain.PackageId, false) : new List<WebSite>();
                 bool oneSiteOnly = domain != null && (sites.Count == 1);
@@ -801,7 +806,7 @@ namespace FuseCP.EnterpriseServer
 
                 }
                 // delete service item
-                PackageController.DeletePackageItem(siteItemId);
+                Database.DeleteServiceItem(SecurityContext.User.UserId, siteItemId);
 
                 return 0;
             }
@@ -4786,6 +4791,5 @@ Please ensure the space has been allocated {0} IP address as a dedicated one and
         }
     }
 }
-
 
 

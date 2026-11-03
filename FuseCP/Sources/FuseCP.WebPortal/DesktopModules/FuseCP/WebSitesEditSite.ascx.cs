@@ -59,21 +59,25 @@ namespace FuseCP.Portal
 		protected string SharedIdAddres { get; set; }
 		private int PackageId
 		{
-			get { return (int)ViewState["PackageId"]; }
+			// WebFormsForCore can fail to restore ViewState on postback; guard the
+			// unboxing so BindTabs never throws. The value is re-derived by
+			// EnsureSiteViewState() in the postback path of Page_Load.
+			get { return ViewState["PackageId"] is int v ? v : 0; }
 			set { ViewState["PackageId"] = value; }
 		}
 
 		private bool AllowSsl
 		{
-			get { return (bool)ViewState["AllowSsl"]; }
+			get { return ViewState["AllowSsl"] is bool v ? v : false; }
 			set { ViewState["AllowSsl"] = value; }
 		}
 
 		private bool IIs7
 		{
-			get { return (bool)ViewState["IIs7"]; }
+			get { return ViewState["IIs7"] is bool v ? v : false; }
 			set { ViewState["IIs7"] = value; }
 		}
+
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -95,12 +99,38 @@ namespace FuseCP.Portal
 		}
 		else
 		{
-			// WebFormsForCore can fail to fire the DataList tab command event on
-			// postback, leaving the tab DataList unbound. Re-bind the tabs so the
-			// menu is always rendered after a postback.
+			// WebFormsForCore can fail to restore ViewState and fire the DataList
+			// tab command event on postback, leaving the tab DataList unbound and
+			// the PackageId/AllowSsl state unavailable. Re-derive the site state
+			// if it was not restored, then re-bind the tabs so the menu is always
+			// rendered after a postback.
+			EnsureSiteViewState();
 			BindTabs();
 		}
 	}
+
+		private void EnsureSiteViewState()
+		{
+			if (ViewState["PackageId"] != null)
+				return;
+
+			WebSite site = null;
+			try
+			{
+				site = ES.Services.WebServers.GetWebSite(PanelRequest.ItemID);
+			}
+			catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+			{
+				return;
+			}
+
+			if (site == null)
+				return;
+
+			IIs7 = site.IIs7;
+			PackageId = site.PackageId;
+			AllowSsl = site.IsDedicatedIP || site.SniEnabled;
+		}
 
 
 		private void BindTabs()
@@ -300,14 +330,14 @@ namespace FuseCP.Portal
 
             AppPoolRestartPanel.Visible = Utils.CheckQouta(Quotas.WEB_APPPOOLSRESTART, cntx);
 
-			// bind controls
-			webSitesHomeFolderControl.BindWebItem(PackageId, site);
-			webSitesSecuredFoldersControl.BindSecuredFolders(site);
-			webSitesHeliconApeControl.BindHeliconApe(site);
-			webSitesExtensionsControl.BindWebItem(PackageId, site);
-			webSitesMimeTypesControl.BindWebItem(site);
-			webSitesCustomHeadersControl.BindWebItem(site);
-			webSitesCustomErrorsControl.BindWebItem(site);
+		// bind controls
+		webSitesHomeFolderControl.BindWebItem(PackageId, site);
+		webSitesSecuredFoldersControl.BindSecuredFolders(site);
+		webSitesHeliconApeControl.BindHeliconApe(site);
+		webSitesExtensionsControl.BindWebItem(PackageId, site);
+		webSitesMimeTypesControl.BindWebItem(site);
+		webSitesCustomHeadersControl.BindWebItem(site);
+		webSitesCustomErrorsControl.BindWebItem(site);
 
 			// If SNI is enabled on the server, we do allow for SSL even if site not has dedicated Ip
 			if (site.IsDedicatedIP || site.SniEnabled)
@@ -327,9 +357,9 @@ namespace FuseCP.Portal
 
             // bind state
             BindSiteState(site.SiteState);
-			// AppPool
-			AppPoolState appPoolState = ES.Services.WebServers.GetAppPoolState(PanelRequest.ItemID);
-			BindAppPoolState(appPoolState);
+		// AppPool
+		AppPoolState appPoolState = ES.Services.WebServers.GetAppPoolState(PanelRequest.ItemID);
+		BindAppPoolState(appPoolState);
 
 			// bind pointers
 			BindPointers();

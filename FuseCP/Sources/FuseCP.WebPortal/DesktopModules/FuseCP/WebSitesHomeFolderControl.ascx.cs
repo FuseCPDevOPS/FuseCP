@@ -94,7 +94,7 @@ namespace FuseCP.Portal
             chkStaticCompression.Checked = item.EnableStaticCompression;
 
             // default documents
-            txtDefaultDocs.Text = String.Join("\n", item.DefaultDocs.Split(',', ';'));
+            txtDefaultDocs.Text = String.Join("\n", (item.DefaultDocs ?? "").Split(',', ';'));
 
             // redirection
             txtRedirectUrl.Text = item.HttpRedirect;

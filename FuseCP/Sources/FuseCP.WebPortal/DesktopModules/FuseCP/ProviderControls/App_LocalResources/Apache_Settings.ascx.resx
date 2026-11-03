@@ -123,4 +123,13 @@
   <data name="lblConfigPath.Text" xml:space="preserve">
     <value>Apache Configuration Path:</value>
   </data>
+  <data name="lblSharedIP.Text" xml:space="preserve">
+    <value>Web Sites Shared IP Address:</value>
+  </data>
+  <data name="lblPublicSharedIP.Text" xml:space="preserve">
+    <value>Web Sites Public Shared IP Address:</value>
+  </data>
+  <data name="ipAddress.SelectValueText" xml:space="preserve">
+    <value>&lt;All unassigned&gt;</value>
+  </data>
 </root>

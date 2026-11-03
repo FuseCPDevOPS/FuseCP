@@ -959,9 +959,6 @@ namespace FuseCP.EnterpriseServer
 		{
 			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0) return null;
 			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0) return null;
-
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
-			if (accountCheck < 0) return null;
 			if (SecurityContext.User == null) return null;
 
 			return ObjectUtils.FillObjectFromDataReader<ServiceInfo>(
@@ -1102,13 +1099,7 @@ namespace FuseCP.EnterpriseServer
 		public StringDictionary GetServiceSettings(int serviceId)
 		{
 			// check account
-			if (SecurityContext.CheckAccount(DemandAccount.NotDemo) < 0)
-				return null;
-
-			if (SecurityContext.CheckAccount(DemandAccount.IsActive) < 0)
-				return null;
-
-			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsAdmin);
+			int accountCheck = SecurityContext.CheckAccount(DemandAccount.IsActive);
 			if (accountCheck < 0)
 				return null;
 			if (SecurityContext.User == null)

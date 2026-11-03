@@ -15,7 +15,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Linq;
@@ -32,6 +31,7 @@ namespace FuseCP.Providers.Web
 	public class Apache24 : HostingServiceProviderBase, IWebServer
 	{
 		public OS.Shell Shell => OS.Shell.Default;
+
 
 		#region Properties
 		public string ApacheConfigPath => ProviderSettings["ConfigPath"]; // /etc/apache2
@@ -57,20 +57,31 @@ namespace FuseCP.Providers.Web
 			return ConfigFile.Load(path);
 		}
 
+		ConfigFile _globalConfig;
 		ConfigFile GlobalConfig
 		{
 			get
 			{
-				var conf = ConfigFile.Load(ApacheConfigFile);
-				conf.Include();
-				return conf;
+				if (_globalConfig == null)
+				{
+					_globalConfig = ConfigFile.Load(ApacheConfigFile);
+					_globalConfig.Include();
+				}
+				return _globalConfig;
 			}
 		}
 
 		void ReloadApache()
 		{
-			Shell.Exec($"{apachectl} start");
-			Shell.Exec($"{apachectl} graceful");
+			try
+			{
+				var start = Shell.Exec($"{apachectl} start");
+				var graceful = Shell.Exec($"{apachectl} graceful");
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public bool AppVirtualDirectoryExists(string siteId, string directoryName)
@@ -81,7 +92,8 @@ namespace FuseCP.Providers.Web
 
 		public void ChangeAppPoolState(string siteId, AppPoolState state)
 		{
-			throw new NotImplementedException();
+			// Apache has no application pool concept; site state is controlled by
+			// the vhost itself via ChangeSiteState (a2en/disablesite). No-op here.
 		}
 
 		public void ChangeFrontPagePassword(string username, string password)
@@ -91,22 +103,29 @@ namespace FuseCP.Providers.Web
 
 		public void ChangeSiteState(string siteId, ServerState state)
 		{
-			switch (state)
+			try
 			{
-				case ServerState.Started:
-				case ServerState.Starting:
-				case ServerState.Continuing:
-					Shell.Exec($"{a2ensite} {siteId}");
-					ReloadApache();
-					break;
-				case ServerState.Paused:
-				case ServerState.Pausing:
-				case ServerState.Stopped:
-				case ServerState.Stopping:
-					Shell.Exec($"{a2dissite} {siteId}");
-					ReloadApache();
-					break;
-				default: break;
+				switch (state)
+				{
+					case ServerState.Started:
+					case ServerState.Starting:
+					case ServerState.Continuing:
+						var ensite = Shell.Exec($"{a2ensite} {siteId}");
+						ReloadApache();
+						break;
+					case ServerState.Paused:
+					case ServerState.Pausing:
+					case ServerState.Stopped:
+					case ServerState.Stopping:
+						var dissite = Shell.Exec($"{a2dissite} {siteId}");
+						ReloadApache();
+						break;
+					default: break;
+				}
+			}
+			catch (Exception)
+			{
+				throw;
 			}
 		}
 
@@ -273,6 +292,8 @@ namespace FuseCP.Providers.Web
 		}
 		public string CreateSite(WebSite site)
 		{
+			try
+			{
 			site.SiteId = site.Name;
 
 			var conf = Config(site.SiteId);
@@ -286,24 +307,13 @@ namespace FuseCP.Providers.Web
 			var bindingsByAddress = bindings.GroupBy(b => b.Address);
 
 			var globalConfig = new ConfigFile[] { GlobalConfig }
-				.Concat(GlobalConfig.Descendants.OfType<IncludeFile>());
-			var globalNameVirtualHosts = globalConfig
-				.SelectMany(file => file.All("NameVirtualHosts"));
-			var allNameVirtualHosts = globalNameVirtualHosts.Any(vhost => vhost == "*");
+				.Concat(GlobalConfig.Where(s => s.Section is IncludeFile).Select(s => (ConfigFile)s.Section));
 			var globalListen = globalConfig
 				.SelectMany(file => file.All("Listen"));
-			var nameVirtualHosts = bindingsByAddress
-				.Select(b => b.Key)
-				.Except(globalNameVirtualHosts);
 			var listen = bindings
 				.Select(b => b.Listen)
 				.Distinct()
 				.Except(globalListen);
-
-			if (!allNameVirtualHosts)
-			{
-				foreach (var nvhost in nameVirtualHosts) conf.NameVirtualHost = nvhost;
-			}
 
 			foreach (var addr in listen) conf.Listen = addr;
 
@@ -331,6 +341,11 @@ namespace FuseCP.Providers.Web
 			ChangeSiteState(site.SiteId, ServerState.Started);
 
 			return site.SiteId;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public void CreateVirtualDirectory(string siteId, WebVirtualDirectory directory)
@@ -392,10 +407,17 @@ namespace FuseCP.Providers.Web
 
 		public void DeleteSite(string siteId)
 		{
+			try
+			{
 			ChangeSiteState(siteId, ServerState.Stopped);
 			var conf = Config(siteId);
 			conf.Remove();
 			ReloadApache();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public void DeleteUser(string siteId, string userName)
@@ -447,7 +469,9 @@ namespace FuseCP.Providers.Web
 
 		public AppPoolState GetAppPoolState(string siteId)
 		{
-			throw new NotImplementedException();
+			// Apache has no application pool concept; the vhost is "started" when
+			// Apache is running. Report Started so the portal shows the site as active.
+			return AppPoolState.Started;
 		}
 
 		WebAppVirtualDirectory GetAppVirtualDirectory(Location loc)
@@ -564,16 +588,26 @@ namespace FuseCP.Providers.Web
 
 		public WebSite GetSite(string siteId)
 		{
+			try
+			{
 			var conf = Config(siteId);
 			var vhost = conf.Sections.OfType<VirtualHost>().FirstOrDefault();
+			if (vhost == null)
+			{
+			}
+			else
+			{
+			}
 			var enabledFile = Path.Join(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
 			var enabled = File.Exists(enabledFile);
+
+			var bindings = GetSiteBindings(conf);
 
 			return new WebSite()
 			{
 				SiteId = siteId,
 				Name = siteId,
-				Bindings = GetSiteBindings(conf),
+				Bindings = bindings,
 				AspInstalled = false,
 				AspNetInstalled = "",
 				CgiBinInstalled = false,
@@ -584,7 +618,7 @@ namespace FuseCP.Providers.Web
 				CreatedDate = conf.Created,
 				DedicatedApplicationPool = false,
 				DefaultDocs = vhost?.DirectoryIndex,
-				EnableDirectoryBrowsing = vhost?.Options.Contains("Indexes") ?? false,
+				EnableDirectoryBrowsing = (vhost?.Options ?? "").Contains("Indexes"),
 				FrontPageAvailable = false,
 				FrontPageInstalled = false,
 				HeliconApeEnabled = false,
@@ -606,15 +640,21 @@ namespace FuseCP.Providers.Web
 				WebDeploySitePublishingEnabled = false,
 				WebServerType = WebServerType.Apache
 			};
-
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 		public ServerBinding[] GetSiteBindings(string siteId) => GetSiteBindings(Config(siteId));
 
 		ServerBinding[] GetSiteBindings(ConfigFile conf)
 		{
+			try
+			{
 			var vhosts = conf.Sections.OfType<VirtualHost>();
 			var listens = new ConfigFile[] { GlobalConfig }
-				.Concat(GlobalConfig.Descendants.OfType<IncludeFile>())
+				.Concat(GlobalConfig.Where(s => s.Section is IncludeFile).Select(s => (ConfigFile)s.Section))
 				.SelectMany(file => file.All("Listen"))
 				.ToArray();
 
@@ -636,9 +676,10 @@ namespace FuseCP.Providers.Web
 					var listenv6 = $"{(ip == "" ? $"[::]:{port}" : listen)} https";
 					var ishttps = port == "443" || listens.Any(lst => lst == listen || lst == listenv4 || lst == listenv6);
 					var protocol = ishttps ? "https" : "http";
+					var serverAlias = vhost.VirtualHost.ServerAlias ?? "";
 					var hosts = new string[] { vhost.VirtualHost.ServerName }
-						.Concat(vhost.VirtualHost.ServerAlias.Split(' '));
-					return hosts.Select(host => new ServerBinding()
+						.Concat(serverAlias.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+					return hosts.Where(h => !string.IsNullOrEmpty(h)).Select(host => new ServerBinding()
 					{
 						IP = ip,
 						Host = host,
@@ -647,6 +688,11 @@ namespace FuseCP.Providers.Web
 					});
 				})
 				.ToArray();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public string GetSiteId(string siteName)
@@ -940,5 +986,3 @@ namespace FuseCP.Providers.Web
 		}
 	}
 }
-
-

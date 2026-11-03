@@ -39,6 +39,11 @@ namespace FuseCP.Providers
             {
                 if (provider == null)
                 {
+                    try
+                    {
+                    }
+                    catch { }
+
                     // try to create provider class
                     Type providerType = ResolveProviderType(ProviderSettings.ProviderType);
                     if (providerType == null)
@@ -49,6 +54,7 @@ namespace FuseCP.Providers
                                 ProviderSettings.ProviderType,
                                 ProviderSettings.ProviderName));
                     }
+
 
                     try
                     {
@@ -61,14 +67,14 @@ namespace FuseCP.Providers
                     {
                         var root = ex.GetBaseException();
                         throw new Exception(String.Format("Can not create '{0}' provider instance with '{1}' type",
-                            ProviderSettings.ProviderName, ProviderSettings.ProviderType)
+                            ProviderSettings.ProviderName,
+                            ProviderSettings.ProviderType)
                             + String.Format(". Root cause: {0}: {1}", root.GetType().FullName, root.Message), ex);
                     }
                 }
                 return provider;
             }
         }
-
         private IHostingServiceProvider CreateProviderInstance(Type providerType, string providerTypeName)
         {
             try
@@ -297,6 +303,5 @@ namespace FuseCP.Providers
         }
     }
 }
-
 
 
