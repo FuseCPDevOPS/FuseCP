@@ -961,15 +961,28 @@ namespace FuseCP.Providers.HostedSolution
             try
             {
                 runSpace = OpenRunspace();
-                Command cmd = new Command("New-AddressBookPolicy");
-                cmd.Parameters.Add("Name", policyName);
-                cmd.Parameters.Add("AddressLists", addressBook);
-                cmd.Parameters.Add("RoomList", roomList);
-                cmd.Parameters.Add("GlobalAddressList", gal);
-                cmd.Parameters.Add("OfflineAddressBook", oab);
 
-                Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-                info.AddressBookPolicy = GetResultObjectDN(result);
+                // A retry after a partial failure may find the policy already created. Reuse it.
+                Command getCmd = new Command("Get-AddressBookPolicy");
+                getCmd.Parameters.Add("Identity", policyName);
+                Collection<PSObject> getResult = ExecuteShellCommand(runSpace, getCmd);
+                if ((getResult != null) && (getResult.Count > 0))
+                {
+                    ExchangeLog.LogWarning("Address Book Policy '{0}' already exists", new object[] { policyName });
+                    info.AddressBookPolicy = GetResultObjectDN(getResult);
+                }
+                else
+                {
+                    Command cmd = new Command("New-AddressBookPolicy");
+                    cmd.Parameters.Add("Name", policyName);
+                    cmd.Parameters.Add("AddressLists", addressBook);
+                    cmd.Parameters.Add("RoomList", roomList);
+                    cmd.Parameters.Add("GlobalAddressList", gal);
+                    cmd.Parameters.Add("OfflineAddressBook", oab);
+
+                    Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
+                    info.AddressBookPolicy = GetResultObjectDN(result);
+                }
 
             }
             catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
@@ -2662,7 +2675,8 @@ namespace FuseCP.Providers.HostedSolution
             if (dags != null && dags.Count > 0)
             {
 
-                ADMultiValuedProperty<ADObjectId> servers = (ADMultiValuedProperty<ADObjectId>)GetPSObjectProperty(dags[0], "Servers");
+                object serversObj = GetPSObjectProperty(dags[0], "Servers");
+                System.Collections.IEnumerable servers = serversObj as System.Collections.IEnumerable;
 
                 if (servers != null)
                 {
@@ -6360,12 +6374,22 @@ namespace FuseCP.Providers.HostedSolution
 
             string name = GetGlobalAddressListName(organizationId);
 
-            Command cmd = new Command("New-GlobalAddressList");
-            cmd.Parameters.Add("Name", name);
-            cmd.Parameters.Add("RecipientFilter", string.Format("(Alias -ne $null -and CustomAttribute1 -eq '{0}')", organizationId));
+            // A retry after a partial failure may find the GAL already created while the
+            // organization record was rolled back. Reuse the existing GAL instead of failing.
+            string id = this.GetGlobalAddressListDN(runSpace, name);
+            if (!string.IsNullOrEmpty(id))
+            {
+                ExchangeLog.LogWarning("Global Address List '{0}' already exists", new object[] { name });
+            }
+            else
+            {
+                Command cmd = new Command("New-GlobalAddressList");
+                cmd.Parameters.Add("Name", name);
+                cmd.Parameters.Add("RecipientFilter", string.Format("(Alias -ne $null -and CustomAttribute1 -eq '{0}')", organizationId));
 
-            Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
-            string id = GetResultObjectDN(result);
+                Collection<PSObject> result = ExecuteShellCommand(runSpace, cmd);
+                id = GetResultObjectDN(result);
+            }
 
             ExchangeLog.LogEnd("CreateGlobalAddressList");
             return id;
@@ -6402,6 +6426,17 @@ namespace FuseCP.Providers.HostedSolution
 
             string oabName = GetOfflineAddressBookName(organizationId);
             string addressListName = GetAddressListName(organizationId);
+
+            // A retry after a partial failure may find the OAB already created. Reuse it.
+            Command getCmd = new Command("Get-OfflineAddressBook");
+            getCmd.Parameters.Add("Identity", oabName);
+            Collection<PSObject> getResult = ExecuteShellCommand(runSpace, getCmd);
+            if ((getResult != null) && (getResult.Count > 0))
+            {
+                ExchangeLog.LogWarning("Offline Address Book '{0}' already exists", new object[] { oabName });
+                ExchangeLog.LogEnd("CreateOfflineAddressBook");
+                return GetResultObjectDN(getResult);
+            }
 
             Command cmd = new Command("New-OfflineAddressBook");
             cmd.Parameters.Add("Name", oabName);
@@ -6949,7 +6984,7 @@ namespace FuseCP.Providers.HostedSolution
                 string poolName = Environment.GetEnvironmentVariable("APP_POOL_ID", EnvironmentVariableTarget.Process);
                 ApplicationPool myAppPool = mgr.ApplicationPools[poolName];
 
-                using SecureString password = new SecureString();
+                SecureString password = new SecureString();
                 string str_password = myAppPool.ProcessModel.Password;
                 string username = myAppPool.ProcessModel.UserName;
 
@@ -7083,14 +7118,44 @@ namespace FuseCP.Providers.HostedSolution
                 // happened while executing the command.
                 if (pipeLine.Error != null && pipeLine.Error.Count > 0)
                 {
-                    foreach (object item in pipeLine.Error.ReadToEnd())
+                    // NOTE: On SMA 7.x the Pipeline.Error reader (ObjectReader /
+                    // PSDataCollectionPipelineReader) does NOT support ReadToEnd()
+                    // (throws NotSupportedException) and is NOT IEnumerable/IList.
+                    // For a synchronously invoked pipeline the error items are already
+                    // buffered, so read exactly Count items with Read(). Bounding by
+                    // Count avoids an extra end-of-stream Read() that could block on a
+                    // remote WSMan pipeline.
+                    int errorCount = pipeLine.Error.Count;
+                    for (int i = 0; i < errorCount; i++)
                     {
-                        errorList.Add(item);
-
-                        if (writeErrorExchangeLog)
+                        object error = pipeLine.Error.Read();
+                        if (error == null)
                         {
-                            string errorMessage = string.Format("Invoke error: {0}", item);
-                            ExchangeLog.LogWarning(errorMessage);
+                            break;
+                        }
+
+                        if (error is Collection<ErrorRecord> errorCollection)
+                        {
+                            foreach (ErrorRecord er in errorCollection)
+                            {
+                                errorList.Add(er);
+
+                                if (writeErrorExchangeLog)
+                                {
+                                    string errorMessage = string.Format("Invoke error: {0}", er.Exception != null ? er.Exception.Message : er.ToString());
+                                    ExchangeLog.LogWarning(errorMessage);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            errorList.Add(error);
+
+                            if (writeErrorExchangeLog)
+                            {
+                                string errorMessage = string.Format("Invoke error: {0}", error);
+                                ExchangeLog.LogWarning(errorMessage);
+                            }
                         }
                     }
                 }
@@ -7455,6 +7520,17 @@ namespace FuseCP.Providers.HostedSolution
         {
             ExchangeLog.LogStart("CreateAcceptedDomain");
 
+            // A retry after a partial failure may find the domain already created. Reuse it.
+            Command getCmd = new Command("Get-AcceptedDomain");
+            getCmd.Parameters.Add("Identity", name);
+            Collection<PSObject> getResult = ExecuteShellCommand(runSpace, getCmd);
+            if ((getResult != null) && (getResult.Count > 0))
+            {
+                ExchangeLog.LogWarning("Accepted Domain '{0}' already exists", new object[] { name });
+                ExchangeLog.LogEnd("CreateAcceptedDomain");
+                return GetResultObjectDN(getResult);
+            }
+
             Command cmd = new Command("New-AcceptedDomain");
             cmd.Parameters.Add("Name", name);
             cmd.Parameters.Add("DomainName", name);
@@ -7515,6 +7591,18 @@ namespace FuseCP.Providers.HostedSolution
         internal string CreateActiveSyncPolicy(Runspace runSpace, string organizationId)
         {
             ExchangeLog.LogStart("CreateActiveSyncPolicy");
+
+            // A retry after a partial failure may find the policy already created. Reuse it.
+            Command getCmd = new Command("Get-ActiveSyncMailboxPolicy");
+            getCmd.Parameters.Add("Identity", organizationId);
+            Collection<PSObject> getResult = ExecuteShellCommand(runSpace, getCmd);
+            if ((getResult != null) && (getResult.Count > 0))
+            {
+                ExchangeLog.LogWarning("ActiveSync Policy '{0}' already exists", new object[] { organizationId });
+                ExchangeLog.LogEnd("CreateActiveSyncPolicy");
+                return GetResultObjectIdentity(getResult);
+            }
+
             Command cmd = new Command("New-ActiveSyncMailboxPolicy");
             cmd.Parameters.Add("Name", organizationId);
             cmd.Parameters.Add("AllowNonProvisionableDevices", true);
