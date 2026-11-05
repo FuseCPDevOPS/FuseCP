@@ -82,9 +82,27 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            BindMailboxPlans();
+
+            if (IsPostBack)
             {
-                BindMailboxPlans();
+                // Re-binding on every request clears the selection, so restore the
+                // user's chosen plan from the posted value (otherwise the required
+                // plan validation fails on the first postback and the dropdown is
+                // left with no options).
+                string posted = Request[ddlMailboxPlan.UniqueID];
+                if (!string.IsNullOrEmpty(posted))
+                {
+                    foreach (ListItem li in ddlMailboxPlan.Items)
+                    {
+                        if (li.Value == posted)
+                        {
+                            ddlMailboxPlan.ClearSelection();
+                            li.Selected = true;
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -117,7 +135,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             }
 
             UpdateMailboxPlanSelected();
-
         }
 
         public event EventHandler Changed = null;
