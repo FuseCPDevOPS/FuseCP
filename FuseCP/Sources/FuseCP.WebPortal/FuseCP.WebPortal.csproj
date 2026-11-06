@@ -16,7 +16,6 @@
         <CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
         <GenerateDependencyFile>true</GenerateDependencyFile> 
         <EnableDynamicLoading>true</EnableDynamicLoading>
-        <NoWarn>$(NoWarn);NU1701;NETSDK1187</NoWarn>
     </PropertyGroup>
     <PropertyGroup>
         <OutputPath>bin\</OutputPath>

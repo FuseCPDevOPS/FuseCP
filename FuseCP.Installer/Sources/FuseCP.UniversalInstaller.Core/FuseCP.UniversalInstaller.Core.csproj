@@ -17,9 +17,6 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>false</Optimize>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>$(NoWarn);NU1702</NoWarn>
-  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Common\Utils.Old.cs" />
   </ItemGroup>

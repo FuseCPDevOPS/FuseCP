@@ -12,7 +12,6 @@
 
     <PropertyGroup Condition="$(TargetFramework) == 'net10.0'">
         <AssemblyName>FuseCP.UniversalInstaller.Runtime.NetCore</AssemblyName>
-        <NoWarn>$(NoWarn);NU1702</NoWarn>
     </PropertyGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
         <PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />

@@ -22,10 +22,6 @@
         <Optimize>false</Optimize>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <NoWarn>$(NoWarn);MSB3277;NU1701;NU1702</NoWarn>
-    </PropertyGroup>
-
     <ItemGroup>
         <Compile Include="..\..\..\FuseCP\Sources\VersionInfo.cs" Link="VersionInfo.cs" />
     </ItemGroup>
@@ -36,9 +32,9 @@
         <PackageReference Include="Mono.Posix" Version="7.1.0-final.1.21458.1" GeneratePathProperty="true" />
 		<PackageReference Include="Mono.Unix" Version="7.1.0-final.1.21458.1" GeneratePathProperty="true" />
         <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
-        <PackageReference Include="Microsoft.Data.SqlClient.SNI" Version="6.0.2" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
-        <PackageReference Include="Microsoft.Data.SqlClient.SNI.Runtime" Version="6.0.2" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.8" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
+        <PackageReference Include="Microsoft.Data.SqlClient.SNI" Version="6.0.3" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
+        <PackageReference Include="Microsoft.Data.SqlClient.SNI.Runtime" Version="6.0.3" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />
         <!--<PackageReference Include="System.DirectoryServices" Version="10.0.0" GeneratePathProperty="true" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" />-->
     </ItemGroup>
 
