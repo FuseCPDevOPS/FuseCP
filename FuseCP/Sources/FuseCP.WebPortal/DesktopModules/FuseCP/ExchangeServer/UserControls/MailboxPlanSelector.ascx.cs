@@ -90,7 +90,7 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 // user's chosen plan from the posted value (otherwise the required
                 // plan validation fails on the first postback and the dropdown is
                 // left with no options).
-                string posted = Request[ddlMailboxPlan.UniqueID];
+                string posted = Request.Form[ddlMailboxPlan.UniqueID];
                 if (!string.IsNullOrEmpty(posted))
                 {
                     foreach (ListItem li in ddlMailboxPlan.Items)

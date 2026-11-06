@@ -39,11 +39,6 @@ namespace FuseCP.Providers
             {
                 if (provider == null)
                 {
-                    try
-                    {
-                    }
-                    catch { }
-
                     // try to create provider class
                     Type providerType = ResolveProviderType(ProviderSettings.ProviderType);
                     if (providerType == null)

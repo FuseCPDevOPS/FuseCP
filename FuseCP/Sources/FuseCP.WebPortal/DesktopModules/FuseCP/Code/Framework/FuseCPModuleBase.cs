@@ -303,7 +303,7 @@ namespace FuseCP.Portal
                 // messageBox is created in CreateChildControls; it may be unavailable
                 // if the error is raised before child controls exist (e.g. during early
                 // page load). Log and return instead of crashing with a NullReferenceException.
-                try { System.Diagnostics.Trace.TraceError("ShowErrorMessage: messageBox is null. moduleName={0}, key={1}, ex={2}", moduleName, messageKey, ex); } catch { }
+                System.Diagnostics.Trace.TraceError("ShowErrorMessage: messageBox is null. moduleName={0}, key={1}, ex={2}", moduleName, messageKey, ex);
                 return;
             }
             lock (_msgLock)

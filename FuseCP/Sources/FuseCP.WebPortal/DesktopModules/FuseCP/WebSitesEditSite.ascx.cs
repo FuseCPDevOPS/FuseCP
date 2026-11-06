@@ -68,13 +68,13 @@ namespace FuseCP.Portal
 
 		private bool AllowSsl
 		{
-			get { return ViewState["AllowSsl"] is bool v ? v : false; }
+			get { return ViewState["AllowSsl"] is bool v && v; }
 			set { ViewState["AllowSsl"] = value; }
 		}
 
 		private bool IIs7
 		{
-			get { return ViewState["IIs7"] is bool v ? v : false; }
+			get { return ViewState["IIs7"] is bool v && v; }
 			set { ViewState["IIs7"] = value; }
 		}
 

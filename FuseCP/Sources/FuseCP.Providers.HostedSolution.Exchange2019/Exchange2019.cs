@@ -6899,6 +6899,9 @@ namespace FuseCP.Providers.HostedSolution
 
         #region PowerShell integration
         private WSManConnectionInfo connectionInfo = null;
+        // Held for the lifetime of the cached connectionInfo credential, which
+        // reuses this password on every subsequent runspace connection.
+        private SecureString connectionInfoPassword = null;
         private static string ExchangePath = null;
 
         internal static string GetExchangePath()
@@ -6984,16 +6987,16 @@ namespace FuseCP.Providers.HostedSolution
                 string poolName = Environment.GetEnvironmentVariable("APP_POOL_ID", EnvironmentVariableTarget.Process);
                 ApplicationPool myAppPool = mgr.ApplicationPools[poolName];
 
-                SecureString password = new SecureString();
+                connectionInfoPassword = new SecureString();
                 string str_password = myAppPool.ProcessModel.Password;
                 string username = myAppPool.ProcessModel.UserName;
 
                 foreach (char x in str_password)
                 {
-                    password.AppendChar(x);
+                    connectionInfoPassword.AppendChar(x);
                 }
 
-                PSCredential credential = new PSCredential(username, password);
+                PSCredential credential = new PSCredential(username, connectionInfoPassword);
 
                 connectionInfo = new WSManConnectionInfo(new Uri(PowerShellUrl),
                                                             "http://schemas.microsoft.com/powershell/Microsoft.Exchange",

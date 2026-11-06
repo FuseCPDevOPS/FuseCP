@@ -282,7 +282,7 @@ namespace FuseCP.Providers.DNS
 
             string script = "$ErrorActionPreference='Stop'; "
                 + "Import-Module DnsServer -ErrorAction Stop; "
-                + setCmd.ToString();
+                + setCmd;
 
             RunPwshDnsScript(script);
         }

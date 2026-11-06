@@ -188,17 +188,11 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter ZoneName = new MySqlParameter("?ZoneName", MySqlDbType.VarString);
                 ZoneName.Value = zoneName;
 
-                IDataReader reader = ExecuteReader(
+                result = ExecuteReader(
                       "SELECT name FROM domains WHERE name = ?ZoneName LIMIT 1"
+                    , reader => reader.Read()
                     , ZoneName
                 );
-
-                if (reader.Read())
-                {
-                    result = true;
-                }
-
-                reader.Close();
             }
             catch (MySqlException ex)
             {
@@ -223,33 +217,33 @@ namespace FuseCP.Providers.DNS
 
             try
             {
-                IDataReader reader = ExecuteReader(
+                ExecuteReader(
                     "SELECT name FROM domains WHERE id <> 1"
+                  , reader =>
+                    {
+                        while (reader.Read())
+                        {
+                            zones.Add(
+                                reader["name"].ToString()
+                            );
+                            try
+                            {
+                                string zonename = reader["name"].ToString();
+                                zones.Add(
+                                    zonename
+                                );
+                            }
+                            catch (InvalidCastException ex)
+                            {
+                                Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
+                            }
+                        }
+                    }
                 );
-
-                while (reader.Read())
-                {
-                    zones.Add(
-                        reader["name"].ToString()
-                    );
-                    try
-                    {
-                        string zonename = reader["name"].ToString();
-                        zones.Add(
-                            zonename
-                        );
-                    }
-                    catch (InvalidCastException ex)
-                    {
-                        Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
-                    }
-                }
-
-                reader.Close();
             }
             catch (MySqlException ex)
             {
@@ -341,19 +335,19 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter RecordType = new MySqlParameter("?Type", MySqlDbType.VarString);
                 RecordType.Value = ConvertDnsRecordTypeToString(DnsRecordType.SOA);
 
-                IDataReader reader = ExecuteReader(
+                ExecuteReader(
                      "SELECT id, content FROM records WHERE name = ?Name AND type = ?Type LIMIT 1"
+                     , reader =>
+                      {
+                          if (reader.Read())
+                          {
+                              recordId = reader["id"].ToString();
+                              recordContent = reader["content"].ToString();
+                          }
+                      }
                      , ZoneName
                      , RecordType
-                 );
-
-                if (reader.Read())
-                {
-                    recordId = reader["id"].ToString();
-                    recordContent = reader["content"].ToString();
-                }
-
-                reader.Close();
+                );
 
 
                 if (string.IsNullOrEmpty(recordId))
@@ -407,45 +401,45 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter DomainId = new MySqlParameter("?DomainId", MySqlDbType.Int32);
                 DomainId.Value = domainId;
 
-                IDataReader reader = ExecuteReader(
+                ExecuteReader(
                     "SELECT * FROM records WHERE domain_id = ?DomainId AND type != 'SOA'"
-                    , DomainId
-                );
-
-                while (reader.Read())
-                {
-                    DnsRecord record = new DnsRecord();
-
-                    record.RecordData = reader["content"].ToString();
-                    record.RecordName = CorrectHost(zoneName, reader["name"].ToString());
-                    record.RecordType = ConvertStringToDnsRecordType(reader["type"].ToString());
-                    record.RecordTTL = int.Parse(reader["ttl"].ToString());
-
-                    int mxPriority = 0;
-                    if (!string.IsNullOrEmpty(reader["prio"].ToString()) && Int32.TryParse(reader["prio"].ToString(), out mxPriority))
+                    , reader =>
                     {
-                        record.MxPriority = mxPriority;
-                        record.SrvPriority = mxPriority;
-                    }
-                    if (record.RecordType == DnsRecordType.SRV)
-                    {
-                        string[] srvparts = record.RecordData.Split(' ');
-                        if (srvparts.Length == 3)
+                        while (reader.Read())
                         {
-                            int SrvWeight = 0;
-                            if (Int32.TryParse(srvparts[0], out SrvWeight))
-                                record.SrvWeight = SrvWeight;
+                            DnsRecord record = new DnsRecord();
 
-                            int SrvPort = 0;
-                            if (Int32.TryParse(srvparts[1], out SrvPort))
-                                record.SrvPort = SrvPort;
-                            record.RecordData = srvparts[2];
+                            record.RecordData = reader["content"].ToString();
+                            record.RecordName = CorrectHost(zoneName, reader["name"].ToString());
+                            record.RecordType = ConvertStringToDnsRecordType(reader["type"].ToString());
+                            record.RecordTTL = int.Parse(reader["ttl"].ToString());
+
+                            int mxPriority = 0;
+                            if (!string.IsNullOrEmpty(reader["prio"].ToString()) && Int32.TryParse(reader["prio"].ToString(), out mxPriority))
+                            {
+                                record.MxPriority = mxPriority;
+                                record.SrvPriority = mxPriority;
+                            }
+                            if (record.RecordType == DnsRecordType.SRV)
+                            {
+                                string[] srvparts = record.RecordData.Split(' ');
+                                if (srvparts.Length == 3)
+                                {
+                                    int SrvWeight = 0;
+                                    if (Int32.TryParse(srvparts[0], out SrvWeight))
+                                        record.SrvWeight = SrvWeight;
+
+                                    int SrvPort = 0;
+                                    if (Int32.TryParse(srvparts[1], out SrvPort))
+                                        record.SrvPort = SrvPort;
+                                    record.RecordData = srvparts[2];
+                                }
+                            }
+                            records.Add(record);
                         }
                     }
-                    records.Add(record);
-                }
-
-                reader.Close();
+                    , DomainId
+                );
             }
             catch (MySqlException ex)
             {
@@ -661,22 +655,22 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter DomainId = new MySqlParameter("?DomainId", MySqlDbType.Int32);
                 DomainId.Value = domainId;
 
-                IDataReader reader = ExecuteReader(
-                      "SELECT id, content FROM records WHERE domain_id = ?DomainId AND type='SOA' LIMIT 1"
-                      , DomainId
-                );
-
                 string
                     recordId = string.Empty,
                     recordContent = string.Empty;
 
-                if (reader.Read())
-                {
-                    recordId = reader["id"].ToString();
-                    recordContent = reader["content"].ToString();
-                }
-
-                reader.Close();
+                ExecuteReader(
+                      "SELECT id, content FROM records WHERE domain_id = ?DomainId AND type='SOA' LIMIT 1"
+                      , reader =>
+                       {
+                           if (reader.Read())
+                           {
+                               recordId = reader["id"].ToString();
+                               recordContent = reader["content"].ToString();
+                           }
+                       }
+                      , DomainId
+                );
 
                 if (string.IsNullOrEmpty(recordId))
                     throw new ArgumentOutOfRangeException(string.Format("SOA record for Power DNS zone '{0}' not found", zoneName));
@@ -723,27 +717,58 @@ namespace FuseCP.Providers.DNS
                 );
         }
 
-        public IDataReader ExecuteReader(string mySqlStatement, params MySqlParameter[] parameters)
+        private void ExecuteReader(string mySqlStatement, Action<IDataReader> readerAction, params MySqlParameter[] parameters)
         {
-            // Note: no `using` on the connection/command here. With CommandBehavior.CloseConnection
-            // the connection is closed when the caller closes the reader. Wrapping them in `using`
-            // disposes them on method return and closes the reader before the caller can read it
-            // (surfaces as "Invalid attempt to Read when reader is closed", which every caller's
-            // catch swallows -> ZoneExists/GetDomainId/GetZones/GetZoneRecords always return empty).
-            MySqlConnection mysqlConnection = new MySqlConnection(GetConnectionString());
-            mysqlConnection.Open();
-
-            MySqlCommand command = new MySqlCommand(
-                  mySqlStatement
-                , mysqlConnection
-            );
-
-            foreach (MySqlParameter param in parameters)
+            // CommandBehavior.CloseConnection: disposing the reader (outermost owned resource
+            // below) also closes the connection, so the connection/command cannot outlive the
+            // reader that was created from them.
+            using (MySqlConnection mysqlConnection = new MySqlConnection(GetConnectionString()))
             {
-                command.Parameters.Add(param);
-            }
+                mysqlConnection.Open();
 
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
+                using (MySqlCommand command = new MySqlCommand(
+                      mySqlStatement
+                    , mysqlConnection
+                ))
+                {
+                    foreach (MySqlParameter param in parameters)
+                    {
+                        command.Parameters.Add(param);
+                    }
+
+                    using (IDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        readerAction(reader);
+                    }
+                }
+            }
+        }
+
+        private T ExecuteReader<T>(string mySqlStatement, Func<IDataReader, T> readerAction, params MySqlParameter[] parameters)
+        {
+            // CommandBehavior.CloseConnection: disposing the reader (outermost owned resource
+            // below) also closes the connection, so the connection/command cannot outlive the
+            // reader that was created from them.
+            using (MySqlConnection mysqlConnection = new MySqlConnection(GetConnectionString()))
+            {
+                mysqlConnection.Open();
+
+                using (MySqlCommand command = new MySqlCommand(
+                      mySqlStatement
+                    , mysqlConnection
+                ))
+                {
+                    foreach (MySqlParameter param in parameters)
+                    {
+                        command.Parameters.Add(param);
+                    }
+
+                    using (IDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        return readerAction(reader);
+                    }
+                }
+            }
         }
 
         public int ExecuteNonQuery(string mySqlStatement, params MySqlParameter[] parameters)
@@ -1076,16 +1101,17 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter DomainName = new MySqlParameter("?DomainName", MySqlDbType.VarString);
                 DomainName.Value = domainName;
 
-                IDataReader reader = ExecuteReader(
+                ExecuteReader(
                     "SELECT id FROM domains WHERE name = ?DomainName LIMIT 1"
+                    , reader =>
+                    {
+                        if (reader.Read())
+                        {
+                            domainId = reader["id"].ToString();
+                        }
+                    }
                     , DomainName
                 );
-
-                if (reader.Read())
-                {
-                    domainId = reader["id"].ToString();
-                }
-                reader.Close();
 
             }
             catch (MySqlException ex)
@@ -1115,16 +1141,17 @@ namespace FuseCP.Providers.DNS
                 MySqlParameter DomainName = new MySqlParameter("?DomainName", MySqlDbType.VarString);
                 DomainName.Value = domainName;
 
-                IDataReader reader = ExecuteReader(
+                ExecuteReader(
                     "SELECT notified_serial FROM domains WHERE name = ?DomainName LIMIT 1"
+                    , reader =>
+                    {
+                        if (reader.Read())
+                        {
+                            domainId = reader["notified_serial"].ToString();
+                        }
+                    }
                     , DomainName
                 );
-
-                if (reader.Read())
-                {
-                    domainId = reader["notified_serial"].ToString();
-                }
-                reader.Close();
             }
             catch (MySqlException ex)
             {

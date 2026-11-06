@@ -75,8 +75,8 @@ namespace FuseCP.Providers.Web
 		{
 			try
 			{
-				var start = Shell.Exec($"{apachectl} start");
-				var graceful = Shell.Exec($"{apachectl} graceful");
+				Shell.Exec($"{apachectl} start");
+				Shell.Exec($"{apachectl} graceful");
 			}
 			catch (Exception)
 			{
@@ -110,14 +110,14 @@ namespace FuseCP.Providers.Web
 					case ServerState.Started:
 					case ServerState.Starting:
 					case ServerState.Continuing:
-						var ensite = Shell.Exec($"{a2ensite} {siteId}");
+						Shell.Exec($"{a2ensite} {siteId}");
 						ReloadApache();
 						break;
 					case ServerState.Paused:
 					case ServerState.Pausing:
 					case ServerState.Stopped:
 					case ServerState.Stopping:
-						var dissite = Shell.Exec($"{a2dissite} {siteId}");
+						Shell.Exec($"{a2dissite} {siteId}");
 						ReloadApache();
 						break;
 					default: break;
@@ -592,12 +592,6 @@ namespace FuseCP.Providers.Web
 			{
 			var conf = Config(siteId);
 			var vhost = conf.Sections.OfType<VirtualHost>().FirstOrDefault();
-			if (vhost == null)
-			{
-			}
-			else
-			{
-			}
 			var enabledFile = Path.Join(ApacheConfigPath, "sites-enabled", $"{siteId}.conf");
 			var enabled = File.Exists(enabledFile);
 
