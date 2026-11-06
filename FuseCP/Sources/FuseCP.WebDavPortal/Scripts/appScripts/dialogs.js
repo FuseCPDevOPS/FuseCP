@@ -2,7 +2,7 @@
     this.settings = {
         dialogId: "#confirm-dialog",
         processDialogId: "#processDialog",
-        inlineProcessDialog: '.glyphicon-refresh'
+        inlineProcessDialog: '.small-processing'
     };
 }
 
@@ -31,15 +31,15 @@ ScpDialogs.prototype =
         $(dialogId).find('.modal-footer .positive-button').unbind('click');
         $(dialogId).find('.modal-footer .positive-button').click(positiveClickFunction);
 
-        $(dialogId).modal();
+        bootstrap.Modal.getOrCreateInstance($(dialogId).get(0)).show();
     },
 
     showProcessDialog: function() {
-        $(this.settings.processDialogId).modal();
+        bootstrap.Modal.getOrCreateInstance($(this.settings.processDialogId).get(0)).show();
     },
 
     hideProcessDialog: function() {
-        $(this.settings.processDialogId).modal('hide');
+        bootstrap.Modal.getOrCreateInstance($(this.settings.processDialogId).get(0)).hide();
     },
 
     showInlineProcessing: function(itemId) {

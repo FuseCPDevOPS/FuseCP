@@ -38,13 +38,11 @@
     <body>
         @if (isMobile)
         {
-            <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar navbar-light navbar-fixed-top">
                 <div class="container top-container">
-                    <div class="navbar-header">
-                        <a class="back-button" href="@Url.RouteUrl(FileSystemRouteNames.ShowContentPath, new {pathPart = Model.Backurl})">
-                            <i class="bi bi-circle-arrow-left"></i>
-                        </a>
-                    </div>
+                    <a class="navbar-brand back-button" href="@Url.RouteUrl(FileSystemRouteNames.ShowContentPath, new {pathPart = Model.Backurl})">
+                        <i class="bi bi-circle-arrow-left"></i>
+                    </a>
                 </div>
             </div>
         }

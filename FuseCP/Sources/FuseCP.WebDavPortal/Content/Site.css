@@ -314,7 +314,6 @@ tr.selected-file {
 }
 
 .search-block {
-    float: right;
     margin-right: 10px !important;
     width: 36%;
 }
@@ -390,7 +389,7 @@ tr.selected-file {
 /* Theme Mods */
 
 input,div{border-radius:0px!important;}
-.btn-primary:active,.btn-primary.active,.open>.dropdown-toggle.btn-primary {
+.btn-primary:active,.btn-primary.active,.dropdown.show>.dropdown-toggle.btn-primary {
     background-image: none;
 	font-family: 'Segoe UI Light','Open Sans',Arial;    
 	color: #fff;    
@@ -402,30 +401,30 @@ input,div{border-radius:0px!important;}
 	cursor: pointer;    
 	white-space: nowrap;    
 	padding: 6px 12px;    
-	font-size: 14px;    
+    font-size: 14px;
 	line-height: 1.428571429;
     border-radius: 0px;
 }
 
-.navbar-inverse .navbar-text {
+.navbar .navbar-text {
     color: #FFFFFF;
 }
 
-.navbar-inverse {
+.navbar {
   background-color: #2e8bcc;
   border-color: #2e8bcc;
 }
 
-.navbar-collapse, .navbar-header {
+.navbar-collapse {
     padding-top: 4px;
 }
 
-.navbar-inverse .navbar-brand, .navbar-text, #logout{
+.navbar .navbar-brand, .navbar-text, #logout{
   color: #FFFFFF;
   opacity: 0.8;
 }
 
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus, .navbar-text:hover, #logout:hover {
+.navbar .navbar-brand:hover, .navbar .navbar-brand:focus, .navbar-text:hover, #logout:hover {
   color: #fff;
   background-color: transparent;
   opacity: 1;
@@ -455,13 +454,7 @@ div#breadcrumb_wrapper a:last-child {
     display: inline-block;
 }
 
-@media (min-width: 768px) {
-    .navbar-right {
-        margin-right: 0;
-    }
-}
-
-.navbar-inverse {
+.navbar {
   background-color: #F4F4F4;
   border-color: #d4d4d4;
   background: rgb(251,251,251);
@@ -476,11 +469,11 @@ div#breadcrumb_wrapper a:last-child {
   -moz-box-shadow: 0 1px 10px rgba(0,0,0,.1);
   box-shadow: 0 1px 10px rgba(0,0,0,.1);
 }
-.navbar-inverse .navbar-text, .navbar-inverse .navbar-brand, .navbar-text, #logout {
+.navbar .navbar-text, .navbar .navbar-brand, .navbar-text, #logout {
   color: #565656;
 }
 
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus, .navbar-text:hover, #logout:hover {
+.navbar .navbar-brand:hover, .navbar .navbar-brand:focus, .navbar-text:hover, #logout:hover {
   color: #565656;
   background-color: transparent;
   opacity: 1;

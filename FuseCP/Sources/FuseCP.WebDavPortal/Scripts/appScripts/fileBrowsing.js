@@ -321,11 +321,11 @@ ScpFileBrowser.prototype = {
 
         $(this.settings.createNewItemTitleId).text($(this.settings.createNewItemTitleId).data('title') + " " + title);
 
-        $(this.settings.createNewItemDialogId).modal();
+        bootstrap.Modal.getOrCreateInstance($(this.settings.createNewItemDialogId).get(0)).show();
     },
 
     hideCreateNewItemDialog: function () {
-        $(this.settings.createNewItemDialogId).modal('hide');
+        bootstrap.Modal.getOrCreateInstance($(this.settings.createNewItemDialogId).get(0)).hide();
     },
 
     uniqueFileNameFieldRule: function(fieldId) {

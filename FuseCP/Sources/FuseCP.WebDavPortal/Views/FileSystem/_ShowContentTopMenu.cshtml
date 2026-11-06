@@ -36,7 +36,7 @@
             }
         </div>
 
-        <div class="search-block navbar-right">
+        <div class="search-block ms-auto">
             <div>
                 @using (Html.BeginRouteForm(FileSystemRouteNames.SearchFiles, FormMethod.Post))
                 {
@@ -44,7 +44,7 @@
                         <label>
                             @UI.SearchDocuments:
                         </label>
-                        @Html.TextBox("searchValue", Model.SearchValue, new { @class = "form-control input-sm" })
+                        @Html.TextBox("searchValue", Model.SearchValue, new { @class = "form-control form-control-sm" })
                     </div>
                 }
             </div>
@@ -56,15 +56,15 @@
     <div class="container file-actions-menu row prevent-deselect">
         @if (Model.Permissions.HasFlag(WebDavPermissions.Write))
         {
-            <div class="file-deletion navbar-left">
+            <div class="file-deletion">
                 <a id="delete-button" class="btn btn-danger btn-sm active" role="button"
                    data-target="#confirm-dialog"
                    data-target-positive-button-text="@UI.Delete"
                    data-target-title-text="@UI.DeleteFileQuestion"
                    data-target-content="@UI.DialogsContentConfrimFileDeletion">@UI.Delete</a>
             </div>
-            <div class="file-deletion hidden">
-                <a id="delete-all-button" class="hidden" role="button"
+            <div class="file-deletion d-none">
+                <a id="delete-all-button" class="d-none" role="button"
                    data-target="#confirm-dialog-2"
                    data-target-positive-button-text="@UI.DeleteAll"
                    data-target-title-text="@UI.ThisFolderNotEmpty"
@@ -72,21 +72,20 @@
             </div>
             if (Model.Permissions.HasFlag(WebDavPermissions.OwaEdit))
             {
-                <div class="dropdown create-new-item navbar-left">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <div class="dropdown create-new-item">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="true">
                         @UI.Create
-                        <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-extension=".docx" data-target="_blank">@UI.WordDocument</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-extension=".xlsx" data-target="_blank">@UI.ExcelWorkbook</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-extension=".pptx" data-target="_blank">@UI.PowerPointPresentation</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" data-extension=".docx" data-target="_blank">@UI.WordDocument</a></li>
+                        <li><a class="dropdown-item" href="#" data-extension=".xlsx" data-target="_blank">@UI.ExcelWorkbook</a></li>
+                        <li><a class="dropdown-item" href="#" data-extension=".pptx" data-target="_blank">@UI.PowerPointPresentation</a></li>
                     </ul>
                 </div>
             }
         }
 
-        <div class="file-upload navbar-right">
+        <div class="file-upload ms-auto">
             @if (!isMobile)
             {
                 <div class="btn-toolbar change-view-block" role="toolbar">
@@ -111,7 +110,7 @@
             var createNewFolderTitleId = '#create-dalog-label';
             $(createNewFolderDialogId + " input").val("");
             $(createNewFolderTitleId).text($(createNewFolderTitleId).data('title') + " " + title);
-            $(createNewFolderDialogId).modal();
+            bootstrap.Modal.getOrCreateInstance($(createNewFolderDialogId).get(0)).show();
         }
     </script>
 }

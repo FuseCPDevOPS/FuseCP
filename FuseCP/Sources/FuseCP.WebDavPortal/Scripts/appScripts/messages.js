@@ -5,7 +5,7 @@
         infoClass: "alert-info",
         warningClass: "alert-warning",
         dangerClass: "alert-danger",
-        messageDivtemplate: '<div class="alert {0} alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{1}</div>'
+        messageDivtemplate: '<div class="alert {0} alert-dismissible" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>{1}</div>'
     };
 }
 

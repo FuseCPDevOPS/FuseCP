@@ -13,7 +13,7 @@
 
 @if (Model != null && !string.IsNullOrEmpty(Model.Error))
 {
-    <span class="col-sm-offset-1" style="color: #A94442; font-weight: bold;">@Model.Error</span>
+    <span class="ms-sm-1" style="color: #A94442; font-weight: bold;">@Model.Error</span>
 }
 else
 {
@@ -57,49 +57,49 @@ else
 }
 
 @section popups{
-    <div id="createNewItemDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-process-dialog-title" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;">
+    <div id="createNewItemDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="create-dalog-label" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">�</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h4 class="modal-title" id="create-dalog-label" data-title="@UI.Create">@UI.Create</h4>
                 </div>
 
                 <div class="modal-body">
                     <form id="filenameForm">
-                        <div class="form-group has-feedback">
+                        <div class="form-group">
                             <label for="filename">@UI.FileName</label>
                             <input type="text" class="form-control" id="filename" name="filename" autofocus required placeholder="@UI.EnterFileName">
-                            <span class="bi bi-refresh glyphicon-spin form-control-feedback small-processing" aria-hidden="true"></span>
+                            <span class="bi bi-refresh small-processing" aria-hidden="true"></span>
                             <span id="inputProcessingStatus" class="sr-only">(processing)</span>
                         </div>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@UI.Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@UI.Cancel</button>
                     <a href="@Url.RouteUrl(FileSystemRouteNames.NewWebDavItem)" data-href="@Url.RouteUrl(FileSystemRouteNames.NewWebDavItem)" id="create-button" class="btn btn-success danger">@UI.Create</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="newFolderDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-process-dialog-title" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;">
+    <div id="newFolderDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="create-dalog-label" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">�</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h4 class="modal-title" id="create-dalog-label" data-title="@UI.Create">@UI.Create</h4>
                 </div>
 
                 <div class="modal-body">
                     <form id="foldernameForm" method="post" action="@Url.RouteUrl(FileSystemRouteNames.NewFolder)">
-                        <div class="form-group has-feedback">
+                        <div class="form-group">
                             <label for="foldername">@UI.FolderName</label>
                             <input type="text" class="form-control" id="foldername" name="foldername" autofocus required placeholder="@UI.EnterFolderName">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@UI.Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@UI.Cancel</button>
                             <button type="submit" class="btn btn-success danger">@UI.Create</button>
                         </div>
                     </form>

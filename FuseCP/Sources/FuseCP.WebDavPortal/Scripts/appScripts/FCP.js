@@ -75,13 +75,13 @@ $(document).ready(function () {
 function BindBootstrapValidationStyles() {
     $.validator.setDefaults({
         highlight: function (element) {
-            $(element).closest('.form-group').addClass('has-error');
+            $(element).addClass('is-invalid');
         },
         unhighlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
+            $(element).removeClass('is-invalid');
         },
         errorElement: 'span',
-        errorClass: 'help-block',
+        errorClass: 'invalid-feedback',
         errorPlacement: function (error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
@@ -105,12 +105,12 @@ function BindBootstrapValidationStyles() {
 
                 oldErrorPlacement(label, element);
 
-                element.closest('.form-group').addClass('has-error');
-                label.addClass('text-danger');
+                $(element).addClass('is-invalid');
+                label.addClass('invalid-feedback');
             };
 
             settings.success = function (label, element) {
-                $(element).closest('.form-group').removeClass('has-error');
+                $(element).removeClass('is-invalid');
 
                 oldSuccess(label);
             }
@@ -118,16 +118,16 @@ function BindBootstrapValidationStyles() {
     });
 
     $('.input-validation-error').each(function () {
-        $(this).closest('.form-group').addClass('has-error');
+        $(this).addClass('is-invalid');
     });
 
     $('.field-validation-error').each(function () {
-        $(this).addClass('text-danger');
+        $(this).addClass('invalid-feedback');
     });
 }
 
 
-$.fn.clearValidation = function () { var v = $(this).validate(); $('[name]', this).each(function () { v.successList.push(this); v.showErrors(); }); v.resetForm(); v.reset(); $(this).find('.form-group').removeClass('has-error'); };
+$.fn.clearValidation = function () { var v = $(this).validate(); $('[name]', this).each(function () { v.successList.push(this); v.showErrors(); }); v.resetForm(); v.reset(); $(this).find('.is-invalid').removeClass('is-invalid'); };
 
 
 function isMobileDevice() {
