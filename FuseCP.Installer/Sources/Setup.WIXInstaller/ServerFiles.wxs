@@ -244,15 +244,6 @@
             <Component Id="cmp9915820A670C5C19A6C9294B897FF3C8" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{3A6CC49B-5D91-4A99-8449-F4B1F60C39E6}">
                 <File Id="filC7E94E1BE1944047B2A059842B40FAA6" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.SmarterMail9.dll" />
             </Component>
-            <Component Id="cmp65CE1CB5E5A24AA63CBA691C915D9AD3" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{4AA0914E-7A87-430A-BE9D-EA97D8067912}">
-                <File Id="filD6718D48E1613420F9673CE7542678E3" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.OS.Windows2003.dll" />
-            </Component>
-            <Component Id="cmpFE93B68116E7CAC066957B5361E4F56E" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{07E95891-7EFA-4AE1-8D03-69F03FE97BE1}">
-                <File Id="filF0CEBF863BFC5AC6B5E9C064F6E6EA0E" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.OS.Windows2008.dll" />
-            </Component>
-            <Component Id="cmp8C4DD577A1F25877B486CCDEF1305C1E" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{8CA365DE-4170-4080-924B-350637FA2BB8}">
-                <File Id="filAE70F49B1733BFDDFC5A33D09AADBA65" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.OS.Windows2012.dll" />
-            </Component>
             <Component Id="cmp4DAC3798F902020D889357AF38E4FEFA" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{14CF5AD7-B965-4CE6-88EE-A58CECBD2D44}">
                 <File Id="fil543A793BC94DD575AC6A3D7FE9664C9C" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.OS.Windows2016.dll" />
             </Component>

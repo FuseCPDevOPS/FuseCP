@@ -39,9 +39,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
         <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Unix\FuseCP.Providers.OS.Unix.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2003\FuseCP.Providers.OS.Windows2003.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2008\FuseCP.Providers.OS.Windows2008.csproj" />
-        <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2012\FuseCP.Providers.OS.Windows2012.csproj" />
         <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2016\FuseCP.Providers.OS.Windows2016.csproj" />
         <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2019\FuseCP.Providers.OS.Windows2019.csproj" />
         <ProjectReference Include="..\..\..\FuseCP\Sources\FuseCP.Providers.OS.Windows2022\FuseCP.Providers.OS.Windows2022.csproj" />
