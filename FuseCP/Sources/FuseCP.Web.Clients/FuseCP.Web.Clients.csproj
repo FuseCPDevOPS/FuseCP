@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SSH.NET" Version="2026.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="11.0.0-rc.3.26522.148" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
