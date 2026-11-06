@@ -4,7 +4,6 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<LangVersion>11</LangVersion>
 		<Nullable>disable</Nullable>
-		<NoWarn>$(NoWarn);NU1904</NoWarn>
 		<OutputPath>..\..\Bin\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
@@ -20,7 +19,7 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.6" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.6" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
-		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.3.13" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.0" />
 
