@@ -27,8 +27,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="EntityFramework" Version="6.5.1" />
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
+        <PackageReference Include="EntityFramework" Version="6.5.2" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.8" />
         <PackageReference Include="Azure.Identity" />
         <PackageReference Include="System.Linq.Dynamic.Core" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" />

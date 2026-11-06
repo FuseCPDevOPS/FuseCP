@@ -59,15 +59,15 @@
         <Exec Command="powershell &quot;(Get-Content Web.config) -replace '\.\.\\FuseCP.EnterpriseServer', '..\EnterpriseServer' | Set-Content -Path $(DeployDir)\Web.config&quot;" />
     </Target>
     <ItemGroup>
-        <PackageReference Include="AdvancedStringBuilder" Version="0.1.1" />
+        <PackageReference Include="AdvancedStringBuilder" Version="0.2.0" />
         <PackageReference Include="Antlr" Version="3.5.0.2" />
-        <PackageReference Include="JavaScriptEngineSwitcher.Core" Version="3.24.1" />
-        <PackageReference Include="JavaScriptEngineSwitcher.Msie" Version="3.24.1" />
-        <PackageReference Include="MsieJavaScriptEngine" Version="3.2.5" />
+        <PackageReference Include="JavaScriptEngineSwitcher.Core" Version="3.31.0" />
+        <PackageReference Include="JavaScriptEngineSwitcher.Msie" Version="3.31.0" />
+        <PackageReference Include="MsieJavaScriptEngine" Version="3.3.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="MailKit" />
         <PackageReference Include="MimeKit" />
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.8" />
         <PackageReference Include="Nito.AsyncEx" />
         <PackageReference Include="ReportViewerCore.NETCore" />
         <PackageReference Include="WebAuthn.Net" Version="2.1.1" />

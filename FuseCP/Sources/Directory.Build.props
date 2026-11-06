@@ -1,0 +1,23 @@
+<Project>
+
+	<!--
+		Pin the transitive System.Security.Cryptography.Xml dependency to the patched
+		10.0.14 to clear the NU1903 high-severity audit warnings
+		(GHSA-r955-8q5j-3h83, GHSA-7hqp-7c5m-4vq6, GHSA-c399-9853-6jmj).
+		The package has no explicit PackageReference in the individual projects
+		(it is pulled in transitively), so it is pinned here for all solution
+		projects. Standalone Tools projects are excluded.
+	-->
+	<PropertyGroup>
+		<_FuseCPPinCryptographyXmlIsTools>$([System.String]::new('$(MSBuildProjectDirectory)').Contains('Tools'))</_FuseCPPinCryptographyXmlIsTools>
+	</PropertyGroup>
+	<!-- NU1510 is informational: the explicit reference is intentional, pinning the
+	     transitive (runtime-provided) package up from the vulnerable 10.0.12 to 10.0.14. -->
+	<PropertyGroup Condition="'$(_FuseCPPinCryptographyXmlIsTools)' != 'True'">
+		<NoWarn>$(NoWarn);NU1510</NoWarn>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(_FuseCPPinCryptographyXmlIsTools)' != 'True'">
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14" />
+	</ItemGroup>
+
+</Project>

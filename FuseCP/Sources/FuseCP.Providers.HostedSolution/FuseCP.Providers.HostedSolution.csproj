@@ -19,10 +19,10 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.5.2" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
-		<PackageReference Include="System.DirectoryServices" Version="10.0.12" />
-		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.8" />
-		<PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.8" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
+		<PackageReference Include="System.DirectoryServices" Version="10.0.14" />
+		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.14" />
+		<PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.14" />
 		<PackageReference Include="System.ServiceModel.Primitives" />
 		<PackageReference Include="System.Management.Automation" />
 	</ItemGroup>
