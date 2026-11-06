@@ -1,15 +1,19 @@
 <Project>
   <PropertyGroup>
     <FuseCPRetargetLegacyFrameworks Condition="'$(FuseCPRetargetLegacyFrameworks)' == ''">true</FuseCPRetargetLegacyFrameworks>
-    <!-- Suppress NU1901 warnings for low-severity transitive System.Security.Cryptography.Xml vulnerabilities -->
-    <!-- These affect legacy providers and can be resolved in a future security hardening sprint -->
+    <!-- Pin System.Security.Cryptography.Xml (and its transitive System.Security.Cryptography.Pkcs) to the
+         patched 10.0.14 for all SDK projects, clearing the NU1902/NU1903 NuGet audit warnings for the known
+         vulnerabilities (Pkcs: GHSA-2fmv-rv2c-59x7, GHSA-846f-f764-76mx;
+         Xml: GHSA-7hqp-7c5m-4vq6, GHSA-c399-9853-6jmj, GHSA-r955-8q5j-3h83).
+         Projects under FuseCP/Sources pin the same version in FuseCP/Sources/Directory.Build.props. -->
     <NoWarn>$(NoWarn);NU1510</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FuseCPRetargetLegacyFrameworks)' == 'true' and ( '$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.5' or '$(TargetFrameworkVersion)' == 'v4.0' or '$(TargetFrameworkVersion)' == 'v4.5' or '$(TargetFrameworkVersion)' == 'v4.5.2' )">
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
-    <!-- Force patched version globally to avoid NU1903 warnings from transitive pulls in provider projects. -->
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.12" />
+    <!-- Force the patched 10.0.14 globally so projects outside FuseCP/Sources (e.g. HyperV.Utils, VmConfig)
+         do not pull the vulnerable 10.0.12 transitively and trigger NU1902/NU1903. -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14" />
   </ItemGroup>
 </Project>
