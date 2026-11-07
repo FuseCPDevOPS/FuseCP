@@ -331,6 +331,10 @@ namespace FuseCP.EnterpriseServer
                     FtpAccount account = ftp.GetAccount(itemName);
                     account.Folder = FilesController.GetFullPackagePath(packageId, "\\"); // root space folder
 
+                    // F-037: GetAccount returns the stored MD5 hash as Password; clearing it
+                    // prevents UpdateAccount from re-hashing the hash on import.
+                    account.Password = "";
+
                     // update FTP account
                     ftp.UpdateAccount(account);
 

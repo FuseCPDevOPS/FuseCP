@@ -281,6 +281,11 @@ namespace FuseCP.Providers.FTP
                         // change FTP account state
                         FtpAccount account = GetAccount(item.Name);
                         account.Enabled = enabled;
+                        // F-037: GetAccount returns the stored MD5 hash as Password; leaving it set
+                        // would make UpdateAccount re-hash it (MD5(MD5(plain))) on every
+                        // suspend/resume. Clear it so the stored password stays untouched and
+                        // only the Enabled state changes.
+                        account.Password = "";
                         UpdateAccount(account);
                     }
                     catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
