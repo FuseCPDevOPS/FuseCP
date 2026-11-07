@@ -223,24 +223,11 @@ namespace FuseCP.Providers.DNS
                     {
                         while (reader.Read())
                         {
+                            // F-022: add each zone exactly once (a redundant inner try re-added
+                            // the same value; its catches were unreachable for the same expression)
                             zones.Add(
                                 reader["name"].ToString()
                             );
-                            try
-                            {
-                                string zonename = reader["name"].ToString();
-                                zones.Add(
-                                    zonename
-                                );
-                            }
-                            catch (InvalidCastException ex)
-                            {
-                                Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
-                            }
-                            catch (InvalidOperationException ex)
-                            {
-                                Log.WriteError("Error getting one zone from the list of Power DNS zones.", ex);
-                            }
                         }
                     }
                 );
