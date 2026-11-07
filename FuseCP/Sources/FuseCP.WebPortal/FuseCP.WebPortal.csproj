@@ -59,7 +59,7 @@
     </Target>
     <ItemGroup>
         <PackageReference Include="AdvancedStringBuilder" Version="0.2.0" />
-        <PackageReference Include="Antlr" Version="3.5.0.2" />
+        <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
         <PackageReference Include="JavaScriptEngineSwitcher.Core" Version="3.31.0" />
         <PackageReference Include="JavaScriptEngineSwitcher.Msie" Version="3.31.0" />
         <PackageReference Include="MsieJavaScriptEngine" Version="3.3.1" />

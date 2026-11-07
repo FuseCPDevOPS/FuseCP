@@ -43,7 +43,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
             var cipher = new byte[plain.Length];
             var tag = new byte[ModernTagSize];
 
-            using var aesGcm = new AesGcm(key);
+            using var aesGcm = new AesGcm(key, ModernTagSize);
             aesGcm.Encrypt(nonce, plain, cipher, tag, iv);
 
             var payload = new byte[nonce.Length + tag.Length + cipher.Length];
@@ -79,7 +79,7 @@ namespace FuseCP.EnterpriseServer.Code.Virtualization2012.Helpers
                 Buffer.BlockCopy(modernPayload, nonce.Length, tag, 0, tag.Length);
                 Buffer.BlockCopy(modernPayload, nonce.Length + tag.Length, cipher, 0, cipher.Length);
 
-                using var aesGcm = new AesGcm(key);
+                using var aesGcm = new AesGcm(key, ModernTagSize);
                 aesGcm.Decrypt(nonce, cipher, tag, plain, iv);
                 return Encoding.UTF8.GetString(plain);
             }

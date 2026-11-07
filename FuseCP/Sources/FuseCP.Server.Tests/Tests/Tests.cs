@@ -63,12 +63,11 @@ public class Tests
 			}
 			catch (FaultException fex)
 			{
-				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
+				TestContext?.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
-				Assert.Fail($"Exception {ex}");
 			}
 		}
 	}
@@ -128,7 +127,6 @@ public class Tests
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
-				Assert.Fail();
 			}
 		}
 	}
@@ -167,12 +165,11 @@ public class Tests
 			}
 			catch (FaultException fex)
 			{
-				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
+				TestContext?.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
-				Assert.Fail($"Exception {ex}");
 			}
 		}
 	}
@@ -215,13 +212,12 @@ public class Tests
 			}
 			catch (FaultException fex)
 			{
-				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
+				TestContext?.WriteLine($"Fault: {fex};{fex.InnerException}");
 				Assert.Fail($"Exception {fex}");
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{
 				throw;
-				Assert.Fail($"Exception {ex}");
 			}
 		}
 	}
@@ -241,7 +237,7 @@ public class Tests
 			}
 			catch (FaultException fex)
 			{
-				TestContext.WriteLine($"Fault: {fex};{fex.InnerException}");
+				TestContext?.WriteLine($"Fault: {fex};{fex.InnerException}");
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException))
 			{

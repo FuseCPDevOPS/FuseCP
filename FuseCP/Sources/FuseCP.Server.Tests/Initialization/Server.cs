@@ -37,8 +37,8 @@ namespace FuseCP.Tests
 				if (aserver != null)
 				{
 					var validatorType = aserver.GetType("FuseCP.Server.PasswordValidator");
-					var init = validatorType.GetMethod("Init", BindingFlags.Public | BindingFlags.Static);
-					init.Invoke(null, new object[0]);
+					var init = validatorType?.GetMethod("Init", BindingFlags.Public | BindingFlags.Static);
+					init?.Invoke(null, new object[0]);
 				}
 			}
 			catch (Exception ex) when (!(ex is OutOfMemoryException) && !(ex is StackOverflowException) && !(ex is AccessViolationException)) {
