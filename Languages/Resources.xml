@@ -13893,6 +13893,31 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.MFA_RESET_REAUTH_FAILED</Key>
+    <DefaultValue>Password verification failed. TOTP was not reset.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.MFA_RESET_FAILED</Key>
+    <DefaultValue>Could not reset TOTP. Please try again.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>AuditLogTask.USER_MFA_UPDATE</Key>
+    <DefaultValue>MFA enabled or disabled</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>AuditLogTask.USER_MFA_RESET</Key>
+    <DefaultValue>TOTP reset (secret rotated)</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>AuditLogTask.USER_MFA_ACTIVATE</Key>
+    <DefaultValue>TOTP authenticator app activated</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Error.WrongPin</Key>
     <DefaultValue>Wrong Pin</DefaultValue>
   </Resource>
@@ -16919,6 +16944,26 @@
     <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
     <Key>lblUseMfa.Text</Key>
     <DefaultValue>Enable MFA:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
+    <Key>btnResetTotp.Text</Key>
+    <DefaultValue>Reset TOTP</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
+    <Key>lblMfaStatusEnabled.Text</Key>
+    <DefaultValue>TOTP authentication app is enabled.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
+    <Key>lblMfaStatusPending.Text</Key>
+    <DefaultValue>MFA enabled (email verification). Complete TOTP setup below.</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
+    <Key>lblReauthPassword.Text</Key>
+    <DefaultValue>Password:</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\LoggedUserEditDetails.ascx.resx</File>
@@ -37798,6 +37843,21 @@ After creating your virtual directory go to FP administrator and create a subweb
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\Apache_Settings.ascx.resx</File>
     <Key>lblConfigPath.Text</Key>
     <DefaultValue>Apache Configuration Path:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\Apache_Settings.ascx.resx</File>
+    <Key>lblSharedIP.Text</Key>
+    <DefaultValue>Web Sites Shared IP Address:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\Apache_Settings.ascx.resx</File>
+    <Key>lblPublicSharedIP.Text</Key>
+    <DefaultValue>Web Sites Public Shared IP Address:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\Apache_Settings.ascx.resx</File>
+    <Key>ipAddress.SelectValueText</Key>
+    <DefaultValue>&lt;All unassigned&gt;</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\ArgoMail_EditAccount.ascx.resx</File>
