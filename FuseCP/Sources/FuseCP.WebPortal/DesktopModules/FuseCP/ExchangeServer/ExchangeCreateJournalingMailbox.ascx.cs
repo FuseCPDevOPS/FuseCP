@@ -30,16 +30,18 @@ namespace FuseCP.Portal.ExchangeServer
         {
             get
             {
-                return NewUserDiv.Visible;
+                return !rbtnUserExistingUser.Checked;
             }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
+
+            SetBranchVisibility(cntx);
+
             if (!IsPostBack)
             {
-                PackageContext cntx = PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId);
-
                 BindPasswordSettings();
 
                 ExchangeMailboxPlan[] plans = ES.Services.ExchangeServer.GetExchangeMailboxPlans(PanelRequest.ItemID, false);
@@ -214,15 +216,32 @@ if (cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var _ckv) && _ck
 
         protected void rbtnUserExistingUser_CheckedChanged(object sender, EventArgs e)
         {
-            ExistingUserDiv.Visible = true;
-            NewUserDiv.Visible = false;
+            SetBranchVisibility(PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId));
         }
 
         protected void rbtnCreateNewMailbox_CheckedChanged(object sender, EventArgs e)
         {
-            NewUserDiv.Visible = true;
-            ExistingUserDiv.Visible = false;
+            SetBranchVisibility(PackagesHelper.GetCachedPackageContext(PanelSecurity.PackageId));
+        }
 
+        private void SetBranchVisibility(PackageContext cntx)
+        {
+            bool existingUser = rbtnUserExistingUser.Checked;
+
+            // The user selector must always render so its event-validation tuple is registered on the initial GET;
+            // branch visibility is handled with CSS instead of server-side Visible (F-040).
+            NewUserDiv.Style["display"] = existingUser ? "none" : string.Empty;
+            ExistingUserDiv.Style["display"] = existingUser ? string.Empty : "none";
+
+            // WebFormsForCore validators do not inherit container visibility, so the inactive branch must be disabled explicitly.
+            valRequireDisplayName.Enabled = !existingUser;
+
+            bool requireSubscriberNumber = !(cntx.Quotas.TryGetValue(Quotas.EXCHANGE2007_ISCONSUMER, out var consumerQuota) && consumerQuota.QuotaAllocatedValue != 1);
+            valRequireSubscriberNumber.Enabled = !existingUser && requireSubscriberNumber;
+
+            email.ValidationEnabled = !existingUser;
+            sendToControl.ValidationEnabled = !existingUser && sendToControl.IsRequestSend;
+            password.ValidationEnabled = !existingUser;
         }
 
         protected void mailboxPlanSelector_Change(object sender, EventArgs e)

@@ -38,6 +38,16 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
 			}
 		}
 
+		public bool ValidationEnabled
+		{
+			get { return valRequireAccount.Enabled; }
+			set
+			{
+				valRequireAccount.Enabled = value;
+				valRequireCorrectEmail.Enabled = value;
+			}
+		}
+
 		public string AccountName
 		{
 			get

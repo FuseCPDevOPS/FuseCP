@@ -109,7 +109,7 @@
                     <fcp:PasswordControl ID="password" runat="server" ValidationGroup="CreateMailbox" AllowGeneratePassword="true"></fcp:PasswordControl>
                 </div>
             </div>
-            <div id="ExistingUserDiv" visible="false" runat="server">
+            <div id="ExistingUserDiv" runat="server" style="display: none;">
                 <div class="container">
                     <div class="row mb-3">
                         <label for="userSelector">
