@@ -1772,9 +1772,10 @@ namespace FuseCP.EnterpriseServer
                 }
             }
 
-            DeletePackageItem(itemId);
-
-            return 0;
+            // F-016: propagate DeletePackageItem's result so callers (the portal's
+            // "result < 0" checks) can surface the real failure code instead of
+            // seeing a silent no-op.
+            return DeletePackageItem(itemId);
         }
 
         public int MovePackageItem(int itemId, int destinationServiceId, bool forAutodiscover)

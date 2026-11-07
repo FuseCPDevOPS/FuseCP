@@ -175,16 +175,16 @@ namespace FuseCP.Portal.UserControls
         {
             if (e.CommandName == "Detach")
             {
-                // remove item from meta base
-                int itemId = Utils.ParseInt(e.CommandArgument.ToString(), 0);
-
+                // F-016: use the grid's DataKeys (DataKeyNames="ItemID") instead of
+                // e.CommandArgument, whose data binding renders an empty value and
+                // would throw a NullReferenceException before the delete is called.
+                int itemId = Utils.ParseInt(gvItems.DataKeys[e.RowIndex]["ItemID"].ToString(), 0);
                 int result = ES.Services.Packages.DetachPackageItem(itemId);
                 if (result < 0)
                 {
                     HostModule.ShowResultMessage(result);
                     return;
                 }
-
                 // refresh the list
                 gvItems.DataBind();
             }
