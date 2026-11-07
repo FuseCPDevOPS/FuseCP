@@ -69,8 +69,12 @@ namespace FuseCP.EnterpriseServer
         public List<BackgroundTask> GetTasks(Guid guid)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return new List<BackgroundTask>();
+            // Completed tasks are retained for audit (F-003); runtime guid lookups
+            // (task start/complete/log) must only see the live tasks of the chain.
             return ObjectUtils.CreateListFromDataReader<BackgroundTask>(
-                Database.GetBackgroundTasks(guid));
+                Database.GetBackgroundTasks(guid))
+                .Where(task => !task.Completed)
+                .ToList();
         }
 
         public List<BackgroundTask> GetProcessTasks(BackgroundTaskStatus status)
@@ -126,18 +130,16 @@ namespace FuseCP.EnterpriseServer
         public bool UpdateTask(BackgroundTask task)
         {
             if (SecurityContext.CheckAccount(DemandAccount.NotDemo | DemandAccount.IsActive) < 0) return false;
-            if (task.Status == BackgroundTaskStatus.Abort)
+
+            if (task.Completed || task.Status == BackgroundTaskStatus.Abort)
             {
-                DeleteBackgroundTasks(task.Guid);
-
-                return false;
-            }
-
-            if (task.Completed)
-            {
-                DeleteBackgroundTask(task.Id);
-
-                return false;
+                // Retain the task row and its log/parameter rows for audit (F-003):
+                // persist the terminal state instead of deleting the task.
+                task.Completed = true;
+                if (task.FinishDate <= DateTime.MinValue)
+                {
+                    task.FinishDate = DateTime.Now;
+                }
             }
 
             using (var db = Database.Context)

@@ -660,7 +660,8 @@ namespace FuseCP.EnterpriseServer
         {
             BackgroundTask task = GetTask(taskId);
 
-            if (task == null)
+            // Completed tasks are retained for audit (F-003); stopping one is a no-op.
+            if (task == null || task.Completed)
             {
                 return;
             }
