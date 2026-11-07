@@ -75,6 +75,11 @@ namespace FuseCP.Portal
 
             litName.Visible = EditMode;
             txtName.EditMode = EditMode;
+            // In edit mode the address (and its domain) is not user-editable. WebFormsForCore
+            // still validates validators inside server-side hidden containers, so the domain
+            // required validator must be explicitly disabled or the save postback is blocked
+            // by the empty (unrendered) dropdown (same class as F-027).
+            domainsSelectDomainControl.ValidationEnabled = !EditMode;
         }
     }
 }

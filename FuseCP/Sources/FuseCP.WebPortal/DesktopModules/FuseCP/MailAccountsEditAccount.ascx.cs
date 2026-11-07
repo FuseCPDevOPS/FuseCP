@@ -76,11 +76,18 @@ namespace FuseCP.Portal
                 // load package context
                 PackageContext cntx = PackagesHelper.GetCachedPackageContext((int)ViewState["PackageId"]);
 
+                // Re-applied on every request: WebFormsForCore does not restore control
+                // properties assigned in Page_Load (validator Enabled/Min/Max/ErrorMessage)
+                // back to the control across postbacks (TrackViewState runs before
+                // Page_Load), so on the save postback the size validator reverted to the
+                // .ascx default 0-0 range with the unformatted {0}/{1} message and
+                // rejected any non-zero size (F-026). The displayed value is only set on
+                // the initial load so the user's posted value is not clobbered.
+                HandleMaxMailboxSizeLimitDisplay(cntx);
+
                 if (!IsPostBack)
                 {
-					// set messagebox size textbox visibility
-					HandleMaxMailboxSizeLimitDisplay(cntx);
-					// bind item to controls
+ 					// bind item to controls
 					if (item != null)
 					{
 						// bind item to controls
@@ -119,6 +126,20 @@ namespace FuseCP.Portal
 						ctrl.BindItem(local_item);
 					}
 				}
+
+                // WebFormsForCore does not reliably restore the EditMode ViewState for
+                // MailEditAddress/PasswordControl across postbacks (it is written in
+                // Page_Load, after TrackViewState has already run). Without re-applying it
+                // here (during the parent Page_Load, before validation runs), the address
+                // field reverts to an editable create-mode textbox after the save postback,
+                // the create-mode validators fire against the empty hidden fields, and the
+                // update is silently dropped (F-027). The account name is not user-editable
+                // when editing an existing account.
+                if (IsPostBack && PanelRequest.ItemID > 0)
+                {
+                    mailEditAddress.EditMode = true;
+                    passwordControl.EditMode = true;
+                }
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -130,35 +151,53 @@ namespace FuseCP.Portal
 
 		private void HandleMaxMailboxSizeLimitDisplay(PackageContext cntx)
 		{
-            if (cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var _ckv))
-			{
-				// Obtain quotas from the plan assigned
-				bool maxMailboxSizeChangeable = (_ckv.QuotaAllocatedValue == 0);
-				int maxMailboxSizeLimit = cntx.Quotas[Quotas.MAIL_MAXBOXSIZE].QuotaAllocatedValue;
-                bool showReadonlyLimit = !maxMailboxSizeChangeable;
-                lblMaxMailboxSizeLimit.Visible = showReadonlyLimit;
-                txtMailBoxSizeLimit.Visible = !showReadonlyLimit;
-				// Set the value being displayed for both controls in either case, as the logic above addresses all rendering concerns.
+			if (cntx == null)
+				return;
+
+			// Obtain quotas from the plan assigned (0 for DisableSizeEdit = size stays editable;
+			// a missing MaxBoxSize quota = no plan cap, i.e. unlimited)
+			bool disableSizeEdit = cntx.Quotas.TryGetValue(Quotas.MAIL_DISABLESIZEEDIT, out var disableSizeEditQuota)
+				&& disableSizeEditQuota.QuotaAllocatedValue != 0;
+			int maxMailboxSizeLimit = cntx.Quotas.TryGetValue(Quotas.MAIL_MAXBOXSIZE, out var maxMailboxSizeQuota)
+				? maxMailboxSizeQuota.QuotaAllocatedValue : 0;
+
+			// Only set the displayed value on the initial load: on postback the textbox
+			// already holds the user's posted value and must not be clobbered.
+			if (!IsPostBack)
 				SetMaxMailboxSizeLimit(maxMailboxSizeLimit);
-				// Configure required field & range validators appropriately
-				RequiredFieldValidator1.Enabled = txtMailBoxSizeLimit.Visible;
-				MaxMailboxSizeLimitValidator.Enabled = txtMailBoxSizeLimit.Visible;
-				CompareValidator1.Enabled = txtMailBoxSizeLimit.Visible;
-				// Ensure the validator has its mimimun & maximum values adjusted correspondingly
-				if (maxMailboxSizeLimit == -1 || maxMailboxSizeLimit == 0)
-				{
-					MaxMailboxSizeLimitValidator.Enabled = false;
-				    CompareValidator1.Enabled = false;
-				}
-				else
-				{
-					MaxMailboxSizeLimitValidator.MinimumValue = "1";
-					MaxMailboxSizeLimitValidator.MaximumValue = maxMailboxSizeLimit.ToString();
-				}
-				// Format the validator's error message
-				MaxMailboxSizeLimitValidator.ErrorMessage = String.Format(MaxMailboxSizeLimitValidator.ErrorMessage,
-					MaxMailboxSizeLimitValidator.MinimumValue, MaxMailboxSizeLimitValidator.MaximumValue);
+
+			if (disableSizeEdit)
+			{
+				// read-only display of the plan limit
+				lblMaxMailboxSizeLimit.Visible = true;
+				txtMailBoxSizeLimit.Visible = false;
+				RequiredFieldValidator1.Enabled = false;
+				MaxMailboxSizeLimitValidator.Enabled = false;
+				CompareValidator1.Enabled = false;
+				return;
 			}
+
+			// editable; when the plan does not define a size quota the field stays editable
+			// with an unrestricted range (0 = unlimited). Without this fallback the validator
+			// keeps its .ascx default 0-0 range and its unformatted {0}/{1} error text, so
+			// any non-zero size is rejected (F-026)
+			lblMaxMailboxSizeLimit.Visible = false;
+			txtMailBoxSizeLimit.Visible = true;
+			RequiredFieldValidator1.Enabled = true;
+			CompareValidator1.Enabled = true;
+			if (maxMailboxSizeLimit > 0)
+			{
+				MaxMailboxSizeLimitValidator.Enabled = true;
+				MaxMailboxSizeLimitValidator.MinimumValue = "1";
+				MaxMailboxSizeLimitValidator.MaximumValue = maxMailboxSizeLimit.ToString();
+			}
+			else
+			{
+				MaxMailboxSizeLimitValidator.Enabled = false;
+			}
+			// Format the validator's error message so the {0}/{1} placeholders are always substituted
+			MaxMailboxSizeLimitValidator.ErrorMessage = String.Format(MaxMailboxSizeLimitValidator.ErrorMessage,
+				MaxMailboxSizeLimitValidator.MinimumValue, MaxMailboxSizeLimitValidator.MaximumValue);
 		}
 
 		private void SetMaxMailboxSizeLimit(int sizeLimit)
@@ -181,6 +220,23 @@ namespace FuseCP.Portal
             account.Id = PanelRequest.ItemID;
             account.PackageId = PanelSecurity.PackageId;
             account.Name = mailEditAddress.Email;
+            // In EditMode the address is shown read-only (a label), so mailEditAddress.Email
+            // comes back empty on the save postback (WebFormsForCore does not reliably restore
+            // the value). The account name is not user-editable when editing an existing
+            // account, so restore the authoritative name from the record.
+            if (PanelRequest.ItemID > 0 && String.IsNullOrEmpty(account.Name))
+            {
+                try
+                {
+                    MailAccount existing = ES.Services.MailServers.GetMailAccount(PanelRequest.ItemID);
+                    if (existing != null)
+                        account.Name = existing.Name;
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    _ = ex;
+                }
+            }
             account.Password = passwordControl.Password;
             account.MaxMailboxSize = Utils.ParseInt(txtMailBoxSizeLimit.Text);
 

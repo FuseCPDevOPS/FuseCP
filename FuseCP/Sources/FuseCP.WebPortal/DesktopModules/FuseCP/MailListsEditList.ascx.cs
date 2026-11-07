@@ -96,6 +96,17 @@ namespace FuseCP.Portal
                         ctrl.BindItem(item);
                     }
                 }
+
+                // WebFormsForCore does not reliably restore the EditMode ViewState for
+                // MailEditAddress across postbacks (it is written in Page_Load, after
+                // TrackViewState has already run). Without re-applying it here (during the
+                // parent Page_Load, before validation runs), the address field reverts to an
+                // editable create-mode textbox after the save postback, the create-mode
+                // validators fire against the empty hidden fields, and the update is silently
+                // dropped (same class as F-027). The list name is not user-editable when
+                // editing an existing list.
+                if (IsPostBack && PanelRequest.ItemID > 0)
+                    emailAddress.EditMode = true;
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -116,7 +127,25 @@ namespace FuseCP.Portal
             MailList local_item = new MailList();
             local_item.Id = PanelRequest.ItemID;
             local_item.PackageId = PanelSecurity.PackageId;
-			local_item.Name = listName != null ? listName : emailAddress.Email;
+ 			local_item.Name = listName != null ? listName : emailAddress.Email;
+            // In EditMode the address is shown read-only (a label), so emailAddress.Email
+            // comes back empty on the save postback (WebFormsForCore does not reliably restore
+            // the value). The list name is not user-editable when editing an existing list,
+            // so restore the authoritative name from the record.
+            if (PanelRequest.ItemID > 0 && String.IsNullOrEmpty(local_item.Name))
+            {
+                try
+                {
+                    MailList existing = ES.Services.MailServers.GetMailList(PanelRequest.ItemID);
+                    if (existing != null)
+                        local_item.Name = existing.Name;
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    _ = ex;
+                }
+            }
+
 
 
 

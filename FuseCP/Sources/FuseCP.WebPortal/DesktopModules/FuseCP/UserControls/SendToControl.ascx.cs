@@ -44,6 +44,18 @@ namespace FuseCP.Portal.UserControls
             get { return chkSendPasswordResetEmail.Checked; }
         }
 
+        public bool ValidationEnabled
+        {
+            get { return valEmailAddress.Enabled; }
+            set
+            {
+                valEmailAddress.Enabled = value;
+                regexEmailValid.Enabled = value;
+                valMobile.Enabled = value;
+                regexMobileValid.Enabled = value;
+            }
+        }
+
         public bool SendEmail
         {
             get { return chkSendPasswordResetEmail.Checked && rbtnEmail.Checked; }

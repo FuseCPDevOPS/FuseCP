@@ -94,6 +94,17 @@ namespace FuseCP.Portal
                         ctrl.BindItem(item);
                     }
                 }
+
+                // WebFormsForCore does not reliably restore the EditMode ViewState for
+                // MailEditAddress across postbacks (it is written in Page_Load, after
+                // TrackViewState has already run). Without re-applying it here (during the
+                // parent Page_Load, before validation runs), the address field reverts to an
+                // editable create-mode textbox after the save postback, the create-mode
+                // validators fire against the empty hidden fields, and the update is silently
+                // dropped (same class as F-027). The group name is not user-editable when
+                // editing an existing group.
+                if (IsPostBack && PanelRequest.ItemID > 0)
+                    emailAddress.EditMode = true;
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
@@ -113,6 +124,23 @@ namespace FuseCP.Portal
             local_item.Id = PanelRequest.ItemID;
             local_item.PackageId = PanelSecurity.PackageId;
             local_item.Name = emailAddress.Email;
+            // In EditMode the address is shown read-only (a label), so emailAddress.Email
+            // comes back empty on the save postback (WebFormsForCore does not reliably restore
+            // the value). The group name is not user-editable when editing an existing group,
+            // so restore the authoritative name from the record.
+            if (PanelRequest.ItemID > 0 && String.IsNullOrEmpty(local_item.Name))
+            {
+                try
+                {
+                    MailGroup existing = ES.Services.MailServers.GetMailGroup(PanelRequest.ItemID);
+                    if (existing != null)
+                        local_item.Name = existing.Name;
+                }
+                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
+                {
+                    _ = ex;
+                }
+            }
 
                 //checking if group name is different from existing e-mail accounts
                 MailAccount[] accounts = ES.Services.MailServers.GetMailAccounts(PanelSecurity.PackageId, true) ?? Array.Empty<MailAccount>();

@@ -75,6 +75,16 @@ namespace FuseCP.Portal
             set { ViewState["HideDomainsSubDomains"] = value; }
         }
 
+        public bool ValidationEnabled
+        {
+            get { return ViewState["ValidationEnabled"] == null || (bool)ViewState["ValidationEnabled"]; }
+            set
+            {
+                ViewState["ValidationEnabled"] = value;
+                valRequireDomain.Enabled = value;
+            }
+        }
+
         public int PackageId
         {
             get { return (ViewState["PackageId"] != null) ? (int)ViewState["PackageId"] : 0; }
