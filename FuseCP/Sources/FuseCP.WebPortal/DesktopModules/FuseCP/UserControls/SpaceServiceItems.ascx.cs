@@ -117,6 +117,27 @@ namespace FuseCP.Portal.UserControls
                 searchBox.AddCriteria("FullName", GetLocalizedString("SearchField.FullName"));
                 searchBox.AddCriteria("Email", GetLocalizedString("SearchField.EMail"));
             }
+
+            // F-016: the WebForms-for-Core shim does not bubble the GridView Command
+            // event to RowCommand, so handle the Detach postback directly here. The
+            // ItemID is carried in __EVENTARGUMENT by the cmdDetach OnClientClick.
+            if (IsPostBack)
+            {
+                string evtTarget = Request["__EVENTTARGET"];
+                if (evtTarget != null && evtTarget.EndsWith("cmdDetach"))
+                {
+                    int itemId = Utils.ParseInt(Request["__EVENTARGUMENT"], 0);
+                    if (itemId > 0)
+                    {
+                        int result = ES.Services.Packages.DetachPackageItem(itemId);
+                        if (result < 0)
+                            HostModule.ShowResultMessage(result);
+                        else
+                            gvItems.DataBind();
+                    }
+                }
+            }
+
             searchBox.AjaxData = this.GetSearchBoxAjaxData();
         }
 
@@ -173,25 +194,20 @@ namespace FuseCP.Portal.UserControls
 
         protected void gvItems_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Detach")
-            {
-                // F-016: use the grid's DataKeys (DataKeyNames="ItemID") instead of
-                // e.CommandArgument, whose data binding renders an empty value and
-                // would throw a NullReferenceException before the delete is called.
-                int itemId = Utils.ParseInt(gvItems.DataKeys[e.RowIndex]["ItemID"].ToString(), 0);
-                int result = ES.Services.Packages.DetachPackageItem(itemId);
-                if (result < 0)
-                {
-                    HostModule.ShowResultMessage(result);
-                    return;
-                }
-                // refresh the list
-                gvItems.DataBind();
-            }
+            // F-016: the WebForms-for-Core shim does not bubble the GridView Command
+            // event to RowCommand, so this handler never fires. The Detach postback
+            // is handled in Page_Load instead. Kept as a stub for the markup wiring.
         }
 
         protected void gvItems_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            // F-016: carry the ItemID into the Detach postback via a data attribute,
+            // since the WebForms-for-Core shim does not render the LinkButton
+            // CommandArgument into __EVENTARGUMENT.
+            LinkButton cmdDetach = e.Row.FindControl("cmdDetach") as LinkButton;
+            if (cmdDetach != null)
+                cmdDetach.Attributes["data-itemid"] = Convert.ToString(cmdDetach.CommandArgument);
+
             HyperLink lnkView = (HyperLink)e.Row.FindControl("lnkView");
             if (lnkView == null)
                 return;

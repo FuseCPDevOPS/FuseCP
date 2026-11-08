@@ -92,9 +92,10 @@
         </asp:TemplateField>
         <asp:TemplateField>
 			<ItemTemplate>
-				<asp:LinkButton ID="cmdDetach" runat="server" 
- 					CommandName="Detach" CommandArgument='<%# Eval("ItemID") %>'
-					CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
+				<asp:LinkButton ID="cmdDetach" runat="server"
+  					CommandName="Detach" CommandArgument='<%# Eval("ItemID") %>'
+					CssClass="btn btn-secondary btn-sm"
+					OnClientClick="if (confirm('Remove this item?')) { __doPostBack(this.id.split('_').join('$'), this.getAttribute('data-itemid')); } return false;">
                     <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
                 </asp:LinkButton>
 			</ItemTemplate>
@@ -116,7 +117,7 @@
     </SelectParameters>
 </asp:ObjectDataSource>
 
-	</ContentTemplate>
+ 	</ContentTemplate>
 </asp:UpdatePanel>
 
 <asp:Panel id="QuotasPanel" runat="server" CssClass="GridFooter">
