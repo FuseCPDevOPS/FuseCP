@@ -12,6 +12,12 @@ FuseCP is a hosting control panel migrated from SolidCP to ASP.NET Core on .NET 
 
 Solutions are split across `FuseCP/Sources/`. Many have ordering/dependency relationships.
 
+### Repository Structure
+
+- **Master solution**: root `FuseCP.sln` aggregates the three `FuseCP/Sources/*.sln` (Portal, Enterprise, Server); keep them in sync on project add/remove/rename (see Build Orchestration).
+- **Git submodules** (`.gitmodules`, all tracking branch `FuseCP`): `FuseCP/Lib/swaggerwcf`, `FuseCP/Lib/novnc-fusecp`, `FuseCP/Lib/WebFormsForCore`, `FuseCP/Sources/Tools/SSL-Certificate-Maker`, `tools/wpkg`, `tools/MSBuildCommunityTasks/Source`. Run `git submodule update --init` after cloning; do not edit or commit submodule contents directly — upstream changes go to the respective repos.
+- **Centralized version pinning**: package versions are pinned repo-wide via `PackageReference Update` in root `Directory.Build.targets` (e.g. bootstrap 5.3.8, MSTest 4.5.1, WebFormsForCore 1.4.6, CoreWCF 1.9.1) and crypto pins in `Directory.Build.props` / `FuseCP/Sources/Directory.Build.props`. Change versions there, not per-project.
+
 ## Core Principles
 
 - Keep changes minimal and task-focused. Preserve existing behavior unless explicitly requested.
@@ -35,9 +41,9 @@ Solutions are split across `FuseCP/Sources/`. Many have ordering/dependency rela
 
 ## Tech Stack
 
-- **Runtime**: .NET 10 (SDK 10.0.200), .NET Framework 4.8 (legacy providers)
+- **Runtime**: .NET 10 (SDK 10.0.200 per `global.json`). Main-tree TFMs: `net10.0`, `net10.0-windows` (Windows-only providers: Exchange, SharePoint, RDS/TerminalServices, HyperV, OS, WebDav, DNS, mail filters), `netstandard2.0` (build tooling, e.g. `FuseCP.Build`). No net48 projects in the main tree; .NET Framework v4.8 remains only in submodules and `_preprocessed` artifacts (root `Directory.Build.props` still retargets legacy v2.0–v4.5.2 projects to v4.8).
 - **Web**: ASP.NET Core (Server), ASP.NET WebForms on Core (Portal), CoreWCF
-- **Database**: Entity Framework Core on .NET 10, EF 6 on .NET Framework; SqlServer/MySQL/PostgreSQL/SQLite
+- **Database**: Entity Framework Core on .NET 10, EF 6 (via packages, e.g. `EntityFramework6.Npgsql`); SqlServer/MySQL/PostgreSQL/SQLite
 - **Testing**: MSTest (`Microsoft.VisualStudio.TestTools.UnitTesting`)
 - **Build**: MSBuild orchestration (`build.xml`), `dotnet build` for individual solutions
 - **Installer**: WiX, Avalonia UI
@@ -82,11 +88,17 @@ Use **smallest relevant scope first**:
 - Tests: `dotnet build FuseCP.Tests.sln` then `dotnet test FuseCP.Tests.sln --configuration Release --no-build -v n`
 
 ### Validation Options (`run-local-validation.ps1`)
+- `-Scope Portal|Enterprise|Server|Shared` (default `Shared`): scope selection, used with `-ChangedOnly`
+- `-Configuration Debug|Release` (default `Debug`): build configuration
 - `-ChangedOnly`: fast iteration, path-based scope inference
 - `-SkipIfNoChanges`: avoid unnecessary builds
+- `-IncludeTests`: include test projects in validation
+- `-UseOrchestratedBuild`: use the `build.xml` orchestrated build instead of per-solution `dotnet build`
+- `-BaseRef` (default `HEAD`): git ref for the changed-file diff used by `-ChangedOnly`
 - `-DisableNuGetAudit`: reduce local noise during iteration only
-- `-JsonOutputPath`: machine-readable output for PR tooling
 - `-NoRestore`: skip NuGet restore for repeated local loops
+- `-SkipEfWorkflowGuards` / `-SkipDatabaseWorkflow`: skip the EF/database verification steps
+- `-JsonOutputPath`: machine-readable output for PR tooling
 - `-ScopeMapPath`: extend path-to-scope routing from JSON
 
 ### Build Orchestration
@@ -112,7 +124,7 @@ Source of truth: `artifacts/PANEL_PROVIDER_TEST_WORKBOOK.md` (~105 KB — read i
 2. Update Fluent API configuration in `Configuration/` if needed
 3. Add `ApplyConfiguration(model, new MyEntityConfiguration());` in `DbContextBase.OnModelCreating()`
 4. Add DbSet property in `DbContext.Sets.cs`
-5. Run `MigrationAdd.bat` to generate migrations for all 4 providers (SqlServer/MySQL/PostgreSQL/SQLite)
+5. Run `FuseCP/Sources/FuseCP.EnterpriseServer.Data/MigrationAdd.bat` to generate migrations for all 4 providers (SqlServer/MySQL/PostgreSQL/SQLite)
 6. Commit Entity, Configuration, migration files, and regenerated `install.*.sql` files
 
 ### SQLite FK Constraint Rule
@@ -168,9 +180,11 @@ Commit both the `.less` and the recompiled `main.css` together.
 ### Bootstrap 3 -> 5.3 Migration
 Replace deprecated: `panel`, `well`, `input-group-addon`, `btn-default`, `pull-*`, `img-responsive`, `hidden-*`, `visible-*`. Replace Glyphicons with Bootstrap Icons. Do not break existing behaviors or remove accessibility semantics.
 
+- Regression guard for portal modernization: `pwsh -File FuseCP/Tools/run-gui-modernization-guards.ps1` (ripgrep-based; use `-FailOnHardRegressions` to block).
+
 ## Exchange Provider Patterns
 
-- **Provider parity**: Exchange 2013/2016/2019 share identical structure. Apply changes to ALL THREE in the same commit.
+- **Provider parity**: Only Exchange 2019 remains (`FuseCP.Providers.HostedSolution.Exchange2019`); 2013/2016 were removed. For multi-version provider families still in the tree (e.g. SharePoint 2016/2019, HyperV 2016/2019/2022), apply shared-behavior changes consistently across the versions in the same commit.
 - **PSObject type variance**: NEVER direct cast on `GetPSObjectProperty()` results. Use: `ObjToBoolean`, `ConvertByteSizePropertyToKB/MB`, `ConvertUnlimitedIntPropertyToInt32`.
 - **No-language runspace**: Guard `ConfirmPreference` and `Get-MailboxSearch` with try-catch + fallback.
 - **Property access**: Prefer `PSObject.Properties["name"]` over `PSObject.Members["name"]`.
@@ -215,7 +229,7 @@ Module prefix + imperative summary:
 
 ## Dependency/CVE Updates
 
-- Validate compatibility across all affected TFMs (`net48`, `net10.0`, `netstandard2.0`).
+- Validate compatibility across all affected TFMs (`net10.0`, `net10.0-windows`, `netstandard2.0`).
 - Validate all affected solution scopes (Portal, Enterprise, Server) before merge.
 - Update related scripts/docs if package requirements or commands change.
 
