@@ -37,13 +37,10 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 5a | Mail — SmarterMail 100.x+ | 100.0.9784.23326 | PASS (full domain + account CRUD 2026-10-31, 29/29) | 2026-10-31 |
 | 5b | Mail — MailEnable (Win32 P/Invoke, ProviderID 4) | 7.x (build 10.61) | PASS (14/14 direct CRUD + **portal flows 5b.11–5b.13** create / edit / non-zero-size exercised 2026-11-01; **F-026** mailbox-size range validator 0–0 / unformatted error when plan lacks the size quota — open (confirmed by 5b.13); **F-027** mail **edit** save is a no-op + re-renders in create-mode (`EditMode` ViewState timing) — open; **F-024** — production host needs the VC++ 2008 x64 runtime for the provider to load) | 2026-11-01 |
 | 5c | Mail — hMailServer 5.x | — | SKIP | — |
-| 5d | Mail — hMailServer 4.3 | — | SKIP | — |
-| 5e | Mail — hMailServer 4.2 | — | SKIP | — |
 | 5f | Mail — MDaemon 9.x–11.x | — | SKIP | — |
 | 5g | Mail — ArGoSoft Mail Server 1.x | — | SKIP | — |
 | 5h | Mail — Ability Mail Server 2.x | — | SKIP | — |
 | 5i | Mail — IceWarp Mail Server | — | SKIP | — |
-| 5j | Mail — Merak 8.0.3–9.2.x | — | SKIP | — |
 | 5k | Mail — Merak 10.x | — | SKIP | — |
 | 6a | DNS — Windows DNS (MsDNSPS) | Windows Server 2025 (DNS role) | PASS (zone create 6a.1 / record add-remove 6a.2–6a.3 / detach 6a.4 all PASS, 2026-10-30; F-008 SOA/NS defaults known-limitation) | 2026-10-30 |
 | 6b | DNS — PowerDNS (database-backed, ProviderID 56) | — (DB backend only, MariaDB 12.2) | PASS (portal flow 6b.5 PASS, 2026-10-31; live resolution unverified — no authoritative on host) | 2026-10-31 |
@@ -57,9 +54,7 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 | 8b | Virtualization — Proxmox | — | SKIP | — |
 | 9a | Terminal Services / RDS (2012–2025) | — | SKIP | — |
 | 10a | Hosted — Exchange 2019 | Exchange 2019 | PARTIAL (2026-11-05: provider 10a.0 + org create 10a.1 + AD user create 10a.2 PASS; 10a.3 form works end-to-end after the F-039 fix, but the actual mailbox enable is blocked only by the Exchange host being offline (DNS/ping/WinRM all fail) — environment limitation, not a code defect; F-040 (event-validation, "Existing user" path) still open) | 2026-11-05 |
-| 10b | Hosted — SharePoint 2016 | — | SKIP | — |
 | 10c | Hosted — SharePoint 2019 | — | SKIP | — |
-| 10d | Hosted — SfB 2019 / Lync | — | SKIP | — |
 | 11a | Statistics — AWStats | — | SKIP | — |
 | 11b | Statistics — SmarterStats | — | SKIP | — |
 | 12a | Storage — EnterpriseStorage | — | SKIP | — |
@@ -291,9 +286,9 @@ Overall: **PASS** (2026-11-01) — MailEnable 7.x (build 10.61) installed at `C:
 
 Note: 5b.0–5b.10 run via the `.kilo/mailenable-test` harness (untracked, not committed) — direct provider on the deployed DLL (`FuseCP.Server\bin\Providers\FuseCP.Providers.Mail.MailEnable.dll`), no WCF. **5b.11 (create) + 5b.12 (edit) + 5b.13 (non-zero size) portal flows are now exercised** — the MailEnable service item (ItemID 37, ServiceID 12) is bound to Space 5 (vServer02), so real mail accounts were created / edited / attempted through the panel UI (Playwright). Open findings: **F-026** (Mailbox Size range validator defaults to 0–0 with an unformatted error when the plan lacks the `Mail.DisableSizeEdit` quota — confirmed by 5b.13), **F-027** (mail **edit** save is a no-op + re-renders in create mode — `EditMode` ViewState timing), and **F-024** (MSVC 2008 runtime prerequisite the **production** `FuseCP.Server` process must satisfy for this provider to load).
 
-## 5c–5k. Mail — hMailServer 5.x / 4.3 / 4.2, MDaemon, ArGoSoft, Ability Mail Server, IceWarp, Merak 8.x–9.x / 10.x
+## 5c, 5f–5i, 5k. Mail — hMailServer 5.x, MDaemon, ArGoSoft, Ability Mail Server, IceWarp, Merak 10.x
 
-None of these mail providers is installed on the host. **SKIP** all rows (5c.x–5k.x). Projects: `FuseCP.Providers.Mail.{hMail5, hMailServer43, hMailServer, MDaemon, ArgoMail, AbilityMailServer, IceWarp, Merak, Merak10}`.
+None of these mail providers is installed on the host. **SKIP** all rows. Projects: `FuseCP.Providers.Mail.{hMail5, MDaemon, ArgoMail, AbilityMailServer, IceWarp, Merak10}`. (hMailServer 4.2 / 4.3 and Merak 8.0.3–9.2.x were removed from the codebase 2026-11-09, commit `f525b0a95` — services remapped to hMailServer 5.x / Merak 10.x.)
 
 ---
 ## 6a. DNS — Windows DNS (MsDNSPS)
@@ -424,13 +419,9 @@ No RDS host in scope. **SKIP** all rows (9a.0–9a.4).
 
 Note: the Exchange 2019 provider shares the `Exchange2016` provider record (the 2013/2016/2019 parity rule). The portal `create_mailbox` form is now fully working; the only remaining block on the actual mailbox enable (10a.3) + change (10a.4) + delete (10a.5) is the **offline Exchange host** (environment), not a code defect — the provider's org + AD-user paths are confirmed working (10a.1/10a.2). To finish 10a.3–10a.5, bring the Exchange 2019 host back online (DNS + WinRM reachable) and re-run the create through the now-fixed form. Environment must be restored after testing (stop the proxy, restore `Servers.ServerUrl` for ServerID 2 to `http://172.20.0.51:8003`, recycle the Portal app pool).
 
-## 10b–10c. Hosted — SharePoint 2016 / 2019
+## 10c. Hosted — SharePoint 2019
 
-No SharePoint server. **SKIP** all rows (10b.x–10c.x).
-
-## 10d. Hosted — SfB 2019 / Lync
-
-No SfB/Lync server. **SKIP** all rows (10d.0–10d.4).
+No SharePoint server. **SKIP** (10c.x). (SharePoint 2016 and SfB 2019 / Lync were removed from the codebase 2026-11-09, commit `f525b0a95` — SharePoint 2016 services remapped to SharePoint Enterprise, SfB/Lync services removed with no replacement.)
 
 ## 11a–11b. Statistics — AWStats / SmarterStats
 
@@ -479,7 +470,7 @@ No filter product. **SKIP** all rows (13a.x–13b.x).
 - **Providers tested (live) — Unix OS (section 2b, 2026-11-01, WSL2 Ubuntu 24.04 + systemd):** no Linux host was installed on the Windows box, so this was a **direct provider test on the deployed netstandard DLLs** (`.kilo/unix-wsl/unix-os-test` harness). The Unix provider has no local user management, so the OS service-item lifecycle ran through the `HomeFolder` item. **42/42 checks PASS:** provider load/status, HomeFolder create + file round-trip + zip/unzip, disk space, Mono.Unix permissions/ownership, process list + terminate, full systemd unit lifecycle (install → start [Running + MainPID] → stop [MainPID 0] → remove), memory/CPU info, log parsing + severity + clear. Not exercised: `RebootSystem` (would reboot the WSL VM), `ExecuteSystemCommand` (per-user credentials).
 - **Providers tested (live) — SimpleDNS Plus 9.x (section 6d, 2026-11-09):** REST provider (SimpleDNS Plus v2 API on `:8053`, DNS listener on port 5353). Full zone lifecycle validated through the live portal on vServer03 (PackageID 8, PlanID 5): zone create 6d.1 **PASS** (zone `vserver03a.local` + SOA/NS `fcp-dev003`), record add 6d.2 **PASS** (TXT `_dmarc` + MX `mail`), record delete 6d.3 **PASS** (4 records deleted + live-verified NXDOMAIN/NODATA on port 5353), live resolution 6d.5 **PASS** (all records resolve via a DNS-over-UDP query tool). **Zone delete / DNS detach 6d.4 BLOCKED by F-041 (High, open)** — the SpaceDomains page postbacks are broken under WebFormsForCore (per-row Detach silent no-op; Disable/Enable DNS → Apply 500 event-validation error), so the panel cannot trigger the zone-delete flow; the provider's zone-delete logic is confirmed working (zone removed via the API during cleanup).
 - **Providers provisioned, panel testing still pending:** (none remaining — all installable providers on this host have been passed through).
-- **Providers skipped (not installed):** WebDAV, Let's Encrypt, FTP (ServU / Cerberus 6 / VsFtp 3 / Gene6 — FileZilla 0.9.60 is installed + tested, section 4b / F-037 / F-038; Apache 2.4 is installed + tested, section 3b), other Mail products (SmarterMail 100.x+ is installed + tested — section 5a; MailEnable 7.x is installed + tested — section 5b / F-024), Proxmox, RDS, SharePoint, SfB/Lync, Statistics, Storage, Filters (Exchange 2019 is installed + tested — section 10a).
+- **Providers skipped (not installed):** WebDAV, Let's Encrypt, FTP (ServU / Cerberus 6 / VsFtp 3 / Gene6 — FileZilla 0.9.60 is installed + tested, section 4b / F-037 / F-038; Apache 2.4 is installed + tested, section 3b), other Mail products (SmarterMail 100.x+ is installed + tested — section 5a; MailEnable 7.x is installed + tested — section 5b / F-024), Proxmox, RDS, SharePoint, Statistics, Storage, Filters (Exchange 2019 is installed + tested — section 10a).
 - **Findings by severity:** High: 18 total — open: F-040 (Exchange infra-blocked), F-041 (SpaceDomains page postback — 6d.4) · fixed-validated (commit refs in the resolved-findings index below): F-027, F-037, F-001, F-002, F-006, F-007, F-009, F-010, F-011, F-012, F-014, F-015, F-020, F-021, F-025, F-039 · Medium: 10 — open: (none) · by-design: F-038 · fixed-validated: F-016, F-026, F-003, F-004, F-013, F-019, F-023, F-028 · known-limitation: F-024 · Low: 6 — open: F-018 · fixed (infra-blocked): F-022 · fixed-validated: F-005, F-017, F-029 · known-limitation: F-008.
 - **DNS / MariaDB / Hyper-V / SmarterMail passes (2026-10-30/31, completed):** root-caused the zone-provisioning abort and deployed a `pwsh`-fallback fix to `FuseCP.Server\bin\Providers\DNS` (uncommitted); retested 2026-10-30 — 6a.1 zone create PASS (ZoneItemID=23, host zone with SOA/NS), 6a.3 record remove PASS, 6a.4 detach PASS (SpaceDomains page loads cleanly, Detach returns `ERROR_DOMAIN_POINTS_TO_WEB_SITE`). **MariaDB (7b):** all PASS on host — DB create 7b.1 (per-DB GRANT live-verified) + connect 7b.2 (create + edit paths) + delete 7b.3. Re-run 2026-11-07 after the MySqlConnector 2.6.2 pin: full create → connect → DML → delete cycle re-executed and host-verified (`dbtest22` / `dbtest22_user`), no regressions. **Hyper-V (8a):** list 8a.1 + start/stop 8a.2 + create 8a.4 + delete 8a.3 all PASS on the host (new VM provisioned Running, then fully deleted: VM + VHD gone, panel item cleared). **SmarterMail (5a):** full provider lifecycle (5a.0–5a.9) validated end-to-end against a live SmarterMail 100.0.9784.23326 install, directly on the deployed DLL and through the live FuseCP Server WCF over IIS (29/29); admin-UI + delivery pass (5a.10/5a.11) verified in the SmarterMail admin console + webmail. All installable providers on this host are now passed through.
 - **Builds / runs:** `FuseCP.Tests.sln` Release build — 0 errors; `FuseCP.Tests` **97/97 pass**; `FuseCP.EnterpriseServer.Tests` **33/34 pass** (1 fail `TestESAccess` is environmental — hardcoded default `serveradmin` creds, no MFA code; local env uses a non-default admin password with TOTP). DB workflow verification (`Orchestrate-Database-Workflow.ps1`): **27/27 pass**. Rebuilds after the 2026-10-30/31 provider fixes: `FuseCP.WebPortalAndEnterpriseServer.sln` 0 errors, `FuseCP.Server.sln` 0 errors.
