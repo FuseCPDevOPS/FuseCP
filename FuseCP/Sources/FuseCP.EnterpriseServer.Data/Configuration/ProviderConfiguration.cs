@@ -51,14 +51,11 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
 			new Provider() { ProviderId = 10, DisplayName = "SmarterStats 3.x", EditorControl = "SmarterStats", GroupId = 8, ProviderName = "SmarterStats", ProviderType = "FuseCP.Providers.Statistics.SmarterStats, FuseCP.Providers.Statistics.SmarterS" +
 				"tats" },
 			new Provider() { ProviderId = 12, DisplayName = "Gene6 FTP Server 3.x", EditorControl = "Gene6FTP", GroupId = 3, ProviderName = "Gene6FTP", ProviderType = "FuseCP.Providers.FTP.Gene6, FuseCP.Providers.FTP.Gene6" },
-			new Provider() { ProviderId = 13, DisplayName = "Merak Mail Server 8.0.3 - 9.2.x", EditorControl = "Merak", GroupId = 4, ProviderName = "Merak", ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak" },
 			new Provider() { ProviderId = 18, DisplayName = "MDaemon 9.x - 11.x", EditorControl = "MDaemon", GroupId = 4, ProviderName = "MDaemon", ProviderType = "FuseCP.Providers.Mail.MDaemon, FuseCP.Providers.Mail.MDaemon" },
 			new Provider() { ProviderId = 19, DisableAutoDiscovery = true, DisplayName = "ArGoSoft Mail Server 1.x", EditorControl = "ArgoMail", GroupId = 4, ProviderName = "ArgoMail",
 				ProviderType = "FuseCP.Providers.Mail.ArgoMail, FuseCP.Providers.Mail.ArgoMail" },
-			new Provider() { ProviderId = 20, DisplayName = "hMailServer 4.2", EditorControl = "hMailServer", GroupId = 4, ProviderName = "hMailServer", ProviderType = "FuseCP.Providers.Mail.hMailServer, FuseCP.Providers.Mail.hMailServer" },
 			new Provider() { ProviderId = 21, DisplayName = "Ability Mail Server 2.x", EditorControl = "AbilityMailServer", GroupId = 4, ProviderName = "AbilityMailServer", ProviderType = "FuseCP.Providers.Mail.AbilityMailServer, FuseCP.Providers.Mail.AbilityMailServ" +
 				"er" },
-			new Provider() { ProviderId = 22, DisplayName = "hMailServer 4.3", EditorControl = "hMailServer43", GroupId = 4, ProviderName = "hMailServer43", ProviderType = "FuseCP.Providers.Mail.hMailServer43, FuseCP.Providers.Mail.hMailServer43" },
 			new Provider() { ProviderId = 24, DisplayName = "ISC BIND 8.x - 9.x", EditorControl = "Bind", GroupId = 7, ProviderName = "Bind", ProviderType = "FuseCP.Providers.DNS.IscBind, FuseCP.Providers.DNS.Bind" },
 			new Provider() { ProviderId = 25, DisplayName = "Serv-U FTP 6.x", EditorControl = "ServU", GroupId = 3, ProviderName = "ServU", ProviderType = "FuseCP.Providers.FTP.ServU, FuseCP.Providers.FTP.ServU" },
 			new Provider() { ProviderId = 26, DisplayName = "FileZilla FTP Server 0.9", EditorControl = "FileZilla", GroupId = 3, ProviderName = "FileZilla", ProviderType = "FuseCP.Providers.FTP.FileZilla, FuseCP.Providers.FTP.FileZilla" },
@@ -97,10 +94,6 @@ public partial class ProviderConfiguration: EntityTypeConfiguration<Provider>
 				"rage.Windows2012" },
 			new Provider() { ProviderId = 700, DisplayName = "Storage Spaces Windows 2012", EditorControl = "StorageSpaceServices", GroupId = 49, ProviderName = "StorageSpace2012", ProviderType = "FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Win" +
 				"dows2012" },
-			new Provider() { ProviderId = 1306, DisplayName = "Hosted SharePoint Foundation 2016", EditorControl = "HostedSharePoint30", GroupId = 20, ProviderName = "HostedSharePoint2016", ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.H" +
-				"ostedSolution.SharePoint2016" },
-			new Provider() { ProviderId = 1404, DisplayName = "Microsoft Skype for Business Server 2019", EditorControl = "SfB", GroupId = 52, ProviderName = "SfB2019", ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB20" +
-				"19" },
 			new Provider() { ProviderId = 1505, DisableAutoDiscovery = true, DisplayName = "Remote Desktop Services Windows 2025", EditorControl = "RDS", GroupId = 45, ProviderName = "RemoteDesktopServices2025",
 				ProviderType = "FuseCP.Providers.RemoteDesktopServices.Windows2025,FuseCP.Providers.RemoteDesk" +
 				"topServices.Windows2025" },

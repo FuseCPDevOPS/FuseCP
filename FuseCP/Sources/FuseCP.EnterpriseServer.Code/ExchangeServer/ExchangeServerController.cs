@@ -3187,15 +3187,6 @@ namespace FuseCP.EnterpriseServer
                     ocs.SetUserPrimaryUri(instanceId, emailAddress);
                 }
 
-                if (Database.CheckLyncUserExists(account.AccountId))
-                {
-                    LyncController.SetLyncUserGeneralSettings(itemId, accountId, emailAddress, null);
-                }
-
-                if (Database.CheckSfBUserExists(account.AccountId))
-                {
-                    SfBController.SetSfBUserGeneralSettings(itemId, accountId, emailAddress, null);
-                }
 
                 // save account
                 UpdateAccount(account);

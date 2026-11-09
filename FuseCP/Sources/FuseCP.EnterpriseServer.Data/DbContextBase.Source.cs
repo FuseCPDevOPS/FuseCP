@@ -134,10 +134,6 @@ namespace FuseCP.EnterpriseServer.Context
 
         public virtual DbSet<Ipaddress> Ipaddresses { get; set; }
 
-        public virtual DbSet<LyncUser> LyncUsers { get; set; }
-
-        public virtual DbSet<LyncUserPlan> LyncUserPlans { get; set; }
-
         public virtual DbSet<Ocsuser> Ocsusers { get; set; }
 
         public virtual DbSet<Package> Packages { get; set; }
@@ -209,10 +205,6 @@ namespace FuseCP.EnterpriseServer.Context
         public virtual DbSet<ServiceItemType> ServiceItemTypes { get; set; }
 
         public virtual DbSet<ServiceProperty> ServiceProperties { get; set; }
-
-        public virtual DbSet<SfBuser> SfBusers { get; set; }
-
-        public virtual DbSet<SfBuserPlan> SfBuserPlans { get; set; }
 
         public virtual DbSet<Sslcertificate> Sslcertificates { get; set; }
 
@@ -353,8 +345,6 @@ namespace FuseCP.EnterpriseServer.Context
             ApplyConfiguration(model, new HostingPlanResourceConfiguration());
             ApplyConfiguration(model, new IpaddressConfiguration());
             ApplyConfiguration(model, new IpSecurityPolicyConfiguration());
-            ApplyConfiguration(model, new LyncUserConfiguration());
-            ApplyConfiguration(model, new LyncUserPlanConfiguration());
             ApplyConfiguration(model, new OcsuserConfiguration());
             ApplyConfiguration(model, new PackageConfiguration());
             ApplyConfiguration(model, new PackageAddonConfiguration());
@@ -391,8 +381,6 @@ namespace FuseCP.EnterpriseServer.Context
             ApplyConfiguration(model, new ServiceItemPropertyConfiguration());
             ApplyConfiguration(model, new ServiceItemTypeConfiguration());
             ApplyConfiguration(model, new ServicePropertyConfiguration());
-            ApplyConfiguration(model, new SfBuserConfiguration());
-            ApplyConfiguration(model, new SfBuserPlanConfiguration());
             ApplyConfiguration(model, new SslcertificateConfiguration());
             ApplyConfiguration(model, new StorageSpaceConfiguration());
             ApplyConfiguration(model, new StorageSpaceFolderConfiguration());
@@ -538,12 +526,6 @@ namespace FuseCP.EnterpriseServer.Data {
         DbSet<Ipaddress> ipaddresses = null;
         public virtual DbSet<Ipaddress> Ipaddresses => ipaddresses ??= Set<Ipaddress>();
 
-        DbSet<LyncUser> lyncUsers = null;
-        public virtual DbSet<LyncUser> LyncUsers => lyncUsers ??= Set<LyncUser>();
-
-        DbSet<LyncUserPlan> lyncUserPlans = null;
-        public virtual DbSet<LyncUserPlan> LyncUserPlans => lyncUserPlans ??= Set<LyncUserPlan>();
-
         DbSet<Ocsuser> ocsusers = null;
         public virtual DbSet<Ocsuser> Ocsusers => ocsusers ??= Set<Ocsuser>();
 
@@ -651,12 +633,6 @@ namespace FuseCP.EnterpriseServer.Data {
 
         DbSet<ServiceProperty> serviceProperties = null;
         public virtual DbSet<ServiceProperty> ServiceProperties => serviceProperties ??= Set<ServiceProperty>();
-
-        DbSet<SfBuser> sfBusers = null;
-        public virtual DbSet<SfBuser> SfBusers => sfBusers ??= Set<SfBuser>();
-
-        DbSet<SfBuserPlan> sfBuserPlans = null;
-        public virtual DbSet<SfBuserPlan> SfBuserPlans => sfBuserPlans ??= Set<SfBuserPlan>();
 
         DbSet<Sslcertificate> sslcertificates = null;
         public virtual DbSet<Sslcertificate> Sslcertificates => sslcertificates ??= Set<Sslcertificate>();

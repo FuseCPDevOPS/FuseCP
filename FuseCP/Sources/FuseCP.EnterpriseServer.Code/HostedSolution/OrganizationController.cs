@@ -624,121 +624,7 @@ namespace FuseCP.EnterpriseServer
         }
 
 
-        private bool DeleteLyncUsers(int itemId)
-        {
-            bool successful = false;
 
-            try
-            {
-                LyncUsersPagedResult res = LyncController.GetLyncUsers(itemId);
-
-                if (res.IsSuccess)
-                {
-                    successful = true;
-                    foreach (LyncUser user in res.Value.PageUsers)
-                    {
-                        try
-                        {
-                            ResultObject delUserResult = LyncController.DeleteLyncUser(itemId, user.AccountID);
-                            if (!delUserResult.IsSuccess)
-                            {
-                                StringBuilder sb = new StringBuilder();
-                                foreach (string str in delUserResult.ErrorCodes)
-                                {
-                                    sb.Append(str);
-                                    sb.Append('\n');
-                                }
-
-                                throw new ApplicationException(sb.ToString());
-                            }
-                        }
-                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                        {
-                            successful = false;
-                            TaskManager.WriteError(ex);
-                        }
-                    }
-
-                    return successful;
-                }
-                else
-                {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string str in res.ErrorCodes)
-                    {
-                        sb.Append(str);
-                        sb.Append('\n');
-                    }
-
-                    throw new ApplicationException(sb.ToString());
-                }
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                successful = false;
-                TaskManager.WriteError(ex);
-            }
-
-            return successful;
-        }
-
-        private bool DeleteSfBUsers(int itemId)
-        {
-            bool successful = false;
-
-            try
-            {
-                SfBUsersPagedResult res = SfBController.GetSfBUsers(itemId);
-
-                if (res.IsSuccess)
-                {
-                    successful = true;
-                    foreach (SfBUser user in res.Value.PageUsers)
-                    {
-                        try
-                        {
-                            ResultObject delUserResult = SfBController.DeleteSfBUser(itemId, user.AccountID);
-                            if (!delUserResult.IsSuccess)
-                            {
-                                StringBuilder sb = new StringBuilder();
-                                foreach (string str in delUserResult.ErrorCodes)
-                                {
-                                    sb.Append(str);
-                                    sb.Append('\n');
-                                }
-
-                                throw new ApplicationException(sb.ToString());
-                            }
-                        }
-                        catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                        {
-                            successful = false;
-                            TaskManager.WriteError(ex);
-                        }
-                    }
-
-                    return successful;
-                }
-                else
-                {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string str in res.ErrorCodes)
-                    {
-                        sb.Append(str);
-                        sb.Append('\n');
-                    }
-
-                    throw new ApplicationException(sb.ToString());
-                }
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                successful = false;
-                TaskManager.WriteError(ex);
-            }
-
-            return successful;
-        }
 
         public int DeleteOrganization(int itemId)
         {
@@ -820,30 +706,6 @@ namespace FuseCP.EnterpriseServer
 
                         throw new ApplicationException(sb.ToString());
                     }
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    successful = false;
-                    TaskManager.WriteError(ex);
-                }
-
-                //Cleanup Lync
-                try
-                {
-                    if (!string.IsNullOrEmpty(org.LyncTenantId) && DeleteLyncUsers(itemId))
-                            LyncController.DeleteOrganization(itemId);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    successful = false;
-                    TaskManager.WriteError(ex);
-                }
-
-                //Cleanup SfB
-                try
-                {
-                    if (!string.IsNullOrEmpty(org.SfBTenantId) && DeleteSfBUsers(itemId))
-                            SfBController.DeleteOrganization(itemId);
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
@@ -1143,16 +1005,6 @@ namespace FuseCP.EnterpriseServer
                         stats.CreatedOCSUsers = OCSController.GetOCSUsersCount(org.Id, string.Empty, string.Empty).Value;
                     }
 
-                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.Lync))
-                    {
-                        stats.CreatedLyncUsers = LyncController.GetLyncUsersCount(org.Id).Value;
-                    }
-
-                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.SfB))
-                    {
-                        stats.CreatedSfBUsers = SfBController.GetSfBUsersCount(org.Id).Value;
-                    }
-
                     if (cntxTmp.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))
                     {
                         SystemFile[] folders = EnterpriseStorageController.GetFolders(itemId);
@@ -1218,16 +1070,6 @@ namespace FuseCP.EnterpriseServer
                                     if (cntxTmp.Groups.ContainsKey(ResourceGroups.OCS))
                                     {
                                         stats.CreatedOCSUsers += OCSController.GetOCSUsersCount(o.Id, string.Empty, string.Empty).Value;
-                                    }
-
-                                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.Lync))
-                                    {
-                                        stats.CreatedLyncUsers += LyncController.GetLyncUsersCount(o.Id).Value;
-                                    }
-
-                                    if (cntxTmp.Groups.ContainsKey(ResourceGroups.SfB))
-                                    {
-                                        stats.CreatedSfBUsers += SfBController.GetSfBUsersCount(o.Id).Value;
                                     }
 
                                     if (cntxTmp.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))
@@ -1297,16 +1139,6 @@ namespace FuseCP.EnterpriseServer
                 if (cntx.Groups.ContainsKey(ResourceGroups.OCS))
                 {
                     stats.AllocatedOCSUsers = cntx.Quotas[Quotas.OCS_USERS].GetQuotaAllocatedValue(byOrganization);
-                }
-
-                if (cntx.Groups.ContainsKey(ResourceGroups.Lync))
-                {
-                    stats.AllocatedLyncUsers = cntx.Quotas[Quotas.LYNC_USERS].GetQuotaAllocatedValue(byOrganization);
-                }
-
-                if (cntx.Groups.ContainsKey(ResourceGroups.SfB))
-                {
-                    stats.AllocatedSfBUsers = cntx.Quotas[Quotas.SFB_USERS].GetQuotaAllocatedValue(byOrganization);
                 }
 
                 if (cntx.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))
@@ -2891,16 +2723,6 @@ namespace FuseCP.EnterpriseServer
                     return BusinessErrorCodes.CURRENT_USER_IS_OCS_USER;
                 }
 
-                if (Database.CheckLyncUserExists(accountId))
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_LYNC_USER;
-                }
-
-                if (Database.CheckSfBUserExists(accountId))
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_SFB_USER;
-                }
-
 
                 // load organization
                 Organization org = GetOrganization(itemId);
@@ -3172,16 +2994,6 @@ namespace FuseCP.EnterpriseServer
                     return BusinessErrorCodes.CURRENT_USER_IS_OCS_USER;
                 }
 
-                if (Database.CheckLyncUserExists(accountId))
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_LYNC_USER;
-                }
-
-                if (Database.CheckSfBUserExists(accountId))
-                {
-                    return BusinessErrorCodes.CURRENT_USER_IS_SFB_USER;
-                }
-
                 // load organization
                 Organization org = GetOrganization(itemId);
                 if (org == null)
@@ -3372,8 +3184,6 @@ namespace FuseCP.EnterpriseServer
                  retUser.AccountType = account.AccountType;
                  retUser.CrmUserId = Guid.Empty;
                  retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
-                 retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
-                 retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);
                  retUser.IsBlackBerryUser = BlackBerryController.CheckBlackBerryUserExists(accountId);
                  retUser.SubscriberNumber = account.SubscriberNumber;
                  retUser.LevelId = account.LevelId;
@@ -3435,8 +3245,6 @@ namespace FuseCP.EnterpriseServer
                 retUser.AccountType = account.AccountType;
                 retUser.CrmUserId = Guid.Empty;
                 retUser.IsOCSUser = Database.CheckOCSUserExists(accountId);
-                retUser.IsLyncUser = Database.CheckLyncUserExists(accountId);
-                retUser.IsSfBUser = Database.CheckSfBUserExists(accountId);
                 retUser.IsBlackBerryUser = BlackBerryController.CheckBlackBerryUserExists(accountId);
                 retUser.SubscriberNumber = account.SubscriberNumber;
                 retUser.LevelId = account.LevelId;
@@ -3619,25 +3427,11 @@ namespace FuseCP.EnterpriseServer
                     }
                     else
                     {
-                        if (user.IsLyncUser && !Database.LyncUserExists(accountId, userPrincipalName.ToLower()))
+                        if (user.IsOCSUser)
                         {
-							LyncController.SetLyncUserGeneralSettings(itemId, accountId, userPrincipalName.ToLower(), null);
-                        }
-                        if (user.IsSfBUser)
-                        {
-                            if (!Database.SfBUserExists(accountId, userPrincipalName.ToLower()))
-                            {
-                                SfBController.SetSfBUserGeneralSettings(itemId, accountId, userPrincipalName.ToLower(), null);
-                            }
-                        }
-                        else
-                        {
-                            if (user.IsOCSUser)
-                            {
-                                OCSServer ocs = GetOCSProxy(itemId);
-                                string instanceId = Database.GetOCSUserInstanceID(user.AccountId);
-                                ocs.SetUserPrimaryUri(instanceId, userPrincipalName.ToLower());
-                            }
+                            OCSServer ocs = GetOCSProxy(itemId);
+                            string instanceId = Database.GetOCSUserInstanceID(user.AccountId);
+                            ocs.SetUserPrimaryUri(instanceId, userPrincipalName.ToLower());
                         }
                     }
                 }

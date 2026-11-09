@@ -94,9 +94,6 @@ namespace FuseCP.EnterpriseServer
 		ImportController importController = null;
 		protected ImportController ImportController => importController ??= new ImportController(this);
 
-		LyncController lyncController = null;
-		protected LyncController LyncController => lyncController ??= new LyncController(this);
-
 		MailServerController mailServerController = null;
 		protected MailServerController MailServerController => mailServerController ??= new MailServerController(this);
 
@@ -124,9 +121,6 @@ namespace FuseCP.EnterpriseServer
 
 		ServerController serverController = null;
 		protected ServerController ServerController => serverController ??= new ServerController(this);
-
-		SfBController sfBController = null;
-		protected SfBController SfBController => sfBController ??= new SfBController(this);
 
 		SharePointServerController sharePointServerController = null;
 		protected SharePointServerController SharePointServerController => sharePointServerController ??= new SharePointServerController(this);

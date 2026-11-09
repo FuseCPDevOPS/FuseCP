@@ -748,18 +748,7 @@
             <Component Id="cmp0B8CA0D16AD3EE4984F54E6E5854851A" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{C7DC1FFE-0C7D-4149-8E03-3B8246D7AA32}">
                 <File Id="fil69F4897943A1BDF0BF9590285FA6E204" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\scheduledtasks_48.png" />
             </Component>
-            <Component Id="cmp76E142323604305FA58B277B078A059A" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{D3E1CF23-41AF-431E-B2CF-6C552DD5E3AD}">
-                <File Id="fil5D4DDE5363752A52CA365B82506134EA" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\SfB_federationdomains_48.png" />
-            </Component>
-            <Component Id="cmp5BE0B04BA52AC54C8D681BC5D5709320" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{B1782766-1751-42F0-B1D7-60418AE31357}">
-                <File Id="fil94783176EF8198BB79AA5CA40114A48B" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\SfB_phonenumbers_48.png" />
-            </Component>
-            <Component Id="cmp89496636E84620C767FA96795282EE08" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{69C2F9E8-F04F-40DF-94FD-6431C6D77B97}">
-                <File Id="filA2D45EC4A6B42BB149ACADAE3F64DBB5" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\SfB_userplans_48.png" />
-            </Component>
-            <Component Id="cmp1F81B09D2F993606BCE467A230B0E05A" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{8E88AAE6-31A7-4125-9D98-78399E4EEDE4}">
-                <File Id="fil74C128642998A3EFAD39D4B742BC0344" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\SfB_users_48.png" />
-            </Component>
+
             <Component Id="cmp036599E8B7A9788F69DCE903F5DB7E03" Directory="dirBBAF325CC083BBCF53D00B560571F5DB" Guid="{509E3AFD-9064-439A-B183-0B17664C6D04}">
                 <File Id="filDF8671ADCED706CBEF9BED01D96DB074" KeyPath="yes" Source="!(wix.BUILDPPATH)\App_Themes\Default\Icons\sharedssl_48.png" />
             </Component>
@@ -5431,24 +5420,7 @@
             <Component Id="cmp45A4031648A55873C92024CE531C3A22" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{4A111D0D-6E34-4A2B-9867-FB8FB1AF2CE4}">
                 <File Id="fil9C3DFBB4044EF7452D942921CE57BE98" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\HeliconZoo_Settings.ascx" />
             </Component>
-            <Component Id="cmp34213B093BB163E53C99337CC64268FC" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{48BA4ECE-68E8-4139-A01A-CB872DCC7759}">
-                <File Id="filE5A7369D2B5D50823CA4692E140A7764" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_EditAccount.ascx" />
-            </Component>
-            <Component Id="cmpBC913B5D6BD098C54C4FAE42671B5A88" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{D6CA286F-211D-4F95-8F61-B403A2F60E3F}">
-                <File Id="fil1226E638EB894A13C72EA3581D8460F3" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_EditDomain.ascx" />
-            </Component>
-            <Component Id="cmp0214836AFB3B43237A621995156DF976" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{4B67D5E6-2568-4F0C-87AE-E2D93CE7C462}">
-                <File Id="filBADDE505B0E0AAF1A60B1C476D4E857B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_EditForwarding.ascx" />
-            </Component>
-            <Component Id="cmpF9C7172BE5ADDBCCEEABEC5D25D73534" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{3F51FAAA-0ED8-498C-92AD-9EF50B52AD15}">
-                <File Id="fil489ECADB7C740AFBDFC24B06E9B45DDE" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_EditGroup.ascx" />
-            </Component>
-            <Component Id="cmpC269AD83B9A0C8E570AD49865084688C" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{0D726965-66A8-4D9E-9E76-8144039249CC}">
-                <File Id="fil48B3D2168C93C794448538FBE67153EA" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_EditList.ascx" />
-            </Component>
-            <Component Id="cmp2B183651C6788B46D4AE0DDADECFCF1E" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{A20B36FF-C0F0-4D82-8A92-4803D708FB50}">
-                <File Id="filEE7AB98F6005EB5C4CB676E000E954B1" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer43_Settings.ascx" />
-            </Component>
+
             <Component Id="cmpEC517ACC9A631DB8D34DB08F7ED2AA8A" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{ED87A1E4-98D1-4F67-A489-0D37C1783417}">
                 <File Id="fil27101E0951E5D7D4EB4549ED9A1ACC8C" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer5_EditAccount.ascx" />
             </Component>
@@ -5467,24 +5439,7 @@
             <Component Id="cmp585DB4E4C623BFCBA0099D1565AD0311" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{62D03C25-2CBD-4391-83E0-F824AF8A1AC0}">
                 <File Id="fil8EC30279FAFF7A0CABCC0B4BCB0A0768" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer5_Settings.ascx" />
             </Component>
-            <Component Id="cmp006398D676C5B13CDC84A3E871FEA98F" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{F55B751E-006B-4036-8EA9-9490CBB03885}">
-                <File Id="filED009B616323FF6384965161673F0096" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_EditAccount.ascx" />
-            </Component>
-            <Component Id="cmp4534247F0B51704B5611839F51D09F62" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{835BFC2D-102D-4548-B24F-FE87A947E0D4}">
-                <File Id="filD45ABC5181413F66AC65A8C8D40F6010" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_EditDomain.ascx" />
-            </Component>
-            <Component Id="cmpB0BCBD38B0D16BE24902E6CAA4056B7E" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{D059150D-DF18-4081-A9E3-5EDC54427F5E}">
-                <File Id="fil89F468AFC0AD71B812EAD443CF975215" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_EditForwarding.ascx" />
-            </Component>
-            <Component Id="cmpDF00AD5E0991868ADA73AEB571C41415" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{DCD09F0B-1564-48A6-8306-B1EC93AE4CD4}">
-                <File Id="fil7B73539966E08ED5205918B576E596B4" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_EditGroup.ascx" />
-            </Component>
-            <Component Id="cmpF21B5011EA9235FEAB4EEA57CB5AED96" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{0F54D786-516B-4401-9796-0AC68482C000}">
-                <File Id="fil0549A42187F71A82B15D6D617EF97154" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_EditList.ascx" />
-            </Component>
-            <Component Id="cmpE2054AD3B1330156233B0D5EF8E2D6ED" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{77391435-34BE-4894-9CB8-FFC6F68F994F}">
-                <File Id="fil365FC58EDAA81467B878D79A002C59BB" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\hMailServer_Settings.ascx" />
-            </Component>
+
             <Component Id="cmp4F7759363BA3AA6BBF3B2572780C1486" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{CDD00418-D3C1-4941-8299-702293ADE727}">
                 <File Id="filFEB0BC42D05F9B2B7482E5351333E263" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\HostedSharePoint30_Settings.ascx" />
             </Component>
@@ -5524,9 +5479,7 @@
             <Component Id="cmpB56BA61ED432DABEFA0F4EC2C56888EC" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{18BE297E-7F5D-4235-8789-9C4C8E437770}">
                 <File Id="fil8FD8FA80C08CC82666ACD1A9A9170A59" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\IIS70_Settings.ascx" />
             </Component>
-            <Component Id="cmp6B924AF2320FD9670EEEF7958D1A2C10" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{323782F8-B1C8-4454-9958-80439BAC60A2}">
-                <File Id="fil03E18FE7B052AA92DA43CCF2764F2586" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Lync_Settings.ascx" />
-            </Component>
+
             <Component Id="cmp3A89D4DD7AD28E50A9FC24A53A7E176C" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{7A7AA51A-3C83-4BD0-B4F8-5444BBBBFBBF}">
                 <File Id="filF42638882DE3BB4681D4AB9213B997ED" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\MailCleaner_Settings.ascx" />
             </Component>
@@ -5575,24 +5528,7 @@
             <Component Id="cmp10D55B32E9B6F45183D841958B405158" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{B4AED737-0A75-4818-BB51-0EFFFFC6C04E}">
                 <File Id="fil6C693F0D9C923F277E1DC53E97544494" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\MDaemon_Settings.ascx" />
             </Component>
-            <Component Id="cmp7CC9FCAC13AC3CBA5A1CCAFCB3E20451" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{83810A43-DCF3-4613-A036-4580F507A865}">
-                <File Id="fil3A68D0FB12D304B4CB8F1BF089D5405B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_EditAccount.ascx" />
-            </Component>
-            <Component Id="cmp6BD82A5A83F5D93B6F9E1A5D66493C7B" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{8FBD95C8-70AB-45BD-8415-7A251A629DD1}">
-                <File Id="filDFA42A3CAF8DD4738B004D104034C84B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_EditDomain.ascx" />
-            </Component>
-            <Component Id="cmp878DE16A605589A23897B254D561D8E6" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{0CB8454C-3B71-4880-8C55-C0664122AEDC}">
-                <File Id="fil3520984EA6110C1605E0DDBEFF9988AE" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_EditForwarding.ascx" />
-            </Component>
-            <Component Id="cmp7BADA49A3F5A44E3C7B2A99DFFBCD72A" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{A01924D6-5B11-4AFF-A639-A09B4188C5D2}">
-                <File Id="filA58AF30464524EA3EF8077B0BA633CD3" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_EditGroup.ascx" />
-            </Component>
-            <Component Id="cmpAAA27D07EDBA6628E9688D0AE7CB8707" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{EE3315E1-920D-4866-9972-9567ABECBB41}">
-                <File Id="filE7D3FCC52BB938BD1863B51E82B83626" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_EditList.ascx" />
-            </Component>
-            <Component Id="cmpB3C8F9F69E66C2AEA3AC33CC5A7B21C4" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{BE9D315F-96FE-4BDF-9692-E93ED05DF6F9}">
-                <File Id="filB304D39F39B484AB272ADDED29CA889F" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\Merak_Settings.ascx" />
-            </Component>
+
             <Component Id="cmp85196A3F8ED47F5AE11428789D68914B" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{D574B450-BEFF-48CB-B106-C19C4BD719A6}">
                 <File Id="fil3CD381572751BD157DCCA20F9B61FCCD" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\MSDNS_Settings.ascx" />
             </Component>
@@ -5650,9 +5586,7 @@
             <Component Id="cmpE1849A36F02E70DABF80A0A911CD0C33" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{084BE8E1-AA1C-4F6B-8A2C-31D1740A7355}">
                 <File Id="fil11BCE387A199C603517B924DA407E084" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\ServU_Settings.ascx" />
             </Component>
-            <Component Id="cmp0A406AA49B733DC898729A27346F93C1" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{9F11AFAC-0E38-4A18-B2E5-071E5E473139}">
-                <File Id="fil41FA8C507606AD4BE8A22ADF5FA3630B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\SfB_Settings.ascx" />
-            </Component>
+
             <Component Id="cmp5B259A9D61767FDF1CB50FF3036EA903" Directory="dirBE0B001F00D756B8546D655258576D45" Guid="{396FBC8F-93D5-4A03-8137-14F5D01291E7}">
                 <File Id="fil08718747027C33B2D7F98513827B3969" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\SimpleDNS_Settings.ascx" />
             </Component>
@@ -5941,36 +5875,7 @@
             <Component Id="cmpACFBAB334639808B9EC1557ADB1CF3C7" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{219EC578-ADEF-43F2-8189-2B6EC5F8677F}">
                 <File Id="filB38FFB7516A13916A0D4D897F31FA03A" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\HeliconZoo_Settings.ascx.resx" />
             </Component>
-            <Component Id="cmp850C2A63977B5C339B75E74FE5C61A9F" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{1FA2D8A2-EAB8-4106-8E12-4CDA92EA813D}">
-                <File Id="filD502A533D31771AC445F4D9AA5EB16AA" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditAccount.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpD15E8637EA42BF134F18DA7323BB29BE" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{AACDA9A9-101C-471B-AED8-56A9FB3B2396}">
-                <File Id="filE0DFD86260ABAC3919349A030BCF3A98" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditAccount.ascx.resx" />
-            </Component>
-            <Component Id="cmp66A1167E504B07670E07DF370C98C888" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{29CDE6F7-5340-4784-88CB-15455A336225}">
-                <File Id="filAFCC7E80A36AF5DB7EFC274A61311BA7" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditDomain.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp49827BB780CDBB13EC3A1E775C604804" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{6083AB7D-6ABC-45FB-8040-A019E6FFEA33}">
-                <File Id="fil72E2B8D63B816F61AF6204F50ACEF87C" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditDomain.ascx.resx" />
-            </Component>
-            <Component Id="cmpE65A48886F17450A5EF6E13731E669EF" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{1B191CA8-FAB6-41BC-A917-722E84264F26}">
-                <File Id="fil87476FB8DD4400431B65298481DBFC99" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditGroup.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp9F40BADA2B0D2FDE4D8D84BB7E17E826" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{25C8C906-6B68-48E2-A08C-D105F20BC8C2}">
-                <File Id="fil54AFB1AC5CD81839C8FAD4D506A0FDEA" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditGroup.ascx.resx" />
-            </Component>
-            <Component Id="cmp642D9B1E82D304242AC49D46070487B2" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{8C6579D0-50BD-4989-9CF0-A8848FD2327D}">
-                <File Id="filED82FFF852A66D994828DD9A10DE085A" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditList.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp93639A6A9A3BD7E83A505F52EAD22559" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{F495E12C-8DCE-40BE-BD13-A5BA12C465B4}">
-                <File Id="filBE78E7DDFBD45ABB46911C095DF2F886" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_EditList.ascx.resx" />
-            </Component>
-            <Component Id="cmp3CFDEDD2B4A52321AB018D60F2206954" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{5BF41EAF-1CFA-45CA-8C59-1ADB6D8CEAB3}">
-                <File Id="fil57208EB938723A031B5EB55A87C62A9A" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_Settings.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpB13A1ACFBDA3C3ED1B7515B57DF49D48" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{41059878-D9ED-4230-B4F1-C579C031B134}">
-                <File Id="filC721760AB29CC9D539E70D9D11BA7CF7" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer43_Settings.ascx.resx" />
-            </Component>
+
             <Component Id="cmp7E8B8ABFF58BC772565036765159AF2D" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{1B5C5A24-87F5-4C51-ABD0-AB24C1CF8520}">
                 <File Id="filF82D0EC32CC99631B73754E66194B688" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer5_EditAccount.ascx.de-DE.resx" />
             </Component>
@@ -6001,36 +5906,7 @@
             <Component Id="cmp4FEEDC8778D121830B6379BA481E3696" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{F8BFFD34-6009-458A-A69F-F4FD07154878}">
                 <File Id="fil5DE7713BE2162866988DA07FC3BA1E4D" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer5_Settings.ascx.resx" />
             </Component>
-            <Component Id="cmp4AC5113DDBA27F2516863046359854E3" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{68E857F9-B4AA-45FC-94DF-6E3929CE7277}">
-                <File Id="fil00F4F2746267C8072EDB819D48805335" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpDDD6872494135BF050D03A08BA59A06E" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{C00EDCC7-811F-42C1-BE99-982CA1AA092D}">
-                <File Id="filF5D75782CFC2AD294F10A17D25A60165" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx" />
-            </Component>
-            <Component Id="cmp95DE01A4FDA79F44682FC610582FC919" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{D84FE0B8-6043-495C-8F17-67A315DE0EE9}">
-                <File Id="fil24DA1A953FB5A96E7517BC9BF3188B00" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp150A7B6BCD306937438B270E25FDD27A" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{AF73A487-4ED2-422E-9083-BE434CBA5432}">
-                <File Id="fil8AE01755846219D5B01A6D275F030709" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx" />
-            </Component>
-            <Component Id="cmp3529A0059AF9AE9C8A577C4DB3D4870B" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{490604AC-9E3C-4007-8D8E-05A22C801DBA}">
-                <File Id="filB86BDD5E525993C3F3AA57A1D70EFA0A" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditGroup.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpAA305E5E6B115EC74B3F489D5E00BD40" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{8CE8921B-610F-42FC-B0A6-3984EBA38FEC}">
-                <File Id="fil871B5BEA7E47E7C8E0DE7268D36A5EF8" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditGroup.ascx.resx" />
-            </Component>
-            <Component Id="cmpB2DADED1C6A134E826C7CF99A8096402" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{1A2D808E-79E7-4023-B6B2-97D92572CF10}">
-                <File Id="fil401B743CAB9E318478E01E1AB01C2B36" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp3E5B7267A24835024DA37FA6E1E4F5BB" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{5F082FB1-B909-4564-88F8-E01EAC8A073C}">
-                <File Id="filD67BA70FC111798871F46F8A9B246B77" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx" />
-            </Component>
-            <Component Id="cmp8CEF34ACB679ABCB9DAFD0AA85B5681E" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{934D2BA2-840F-4E87-8A80-E4576A39EAB0}">
-                <File Id="fil794EBDE2AF02F2AC88DC504027D6B74A" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_Settings.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp60CB75F5978BD950D344B45C05804845" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{D522F901-DAB5-492B-BBB6-45413E599C25}">
-                <File Id="filB512122942A3D7BAA0468218E66025F0" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_Settings.ascx.resx" />
-            </Component>
+
             <Component Id="cmpBE1827BB7CF40A502A68E214D23E1A06" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{BE2A0C75-F3E1-4F61-9EE9-E475178FCB44}">
                 <File Id="fil4992702C555119A8111C9C04D8634A3D" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\HostedSharePoint30_Settings.ascx.de-DE.resx" />
             </Component>
@@ -6102,12 +5978,6 @@
             </Component>
             <Component Id="cmpF2D39B7C4A746FD7DD9F60F47575D599" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{047FD043-6810-486A-B8C1-1E302FF26601}">
                 <File Id="fil5099FA7E0D06A92F6FAB1CC48034AF3B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\IIS70_Settings.ascx.resx" />
-            </Component>
-            <Component Id="cmpE9DE35D6417751070E861547D3A79951" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{2611F666-385C-4BFD-89F3-6512447FBEA9}">
-                <File Id="filA373939BCAE18E16E07462BDF8F9CF82" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Lync_Settings.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp0B5EC7F0617A34F1AB909767B951F3DE" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{1CBD743A-E43E-4B01-A39D-C59F3C2CF6F1}">
-                <File Id="fil7D483295AF5F1AC3B8069717A1EBF0B3" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Lync_Settings.ascx.resx" />
             </Component>
             <Component Id="cmpB35C29259462715350095F5508DBCB23" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{846C6E84-FB5F-459A-8BBC-597CFA552ABD}">
                 <File Id="fil5DB436DA585DA0B97918DD52ABC439E4" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.de-DE.resx" />
@@ -6192,39 +6062,6 @@
             </Component>
             <Component Id="cmp2DBE9DF509175A721AA4D7DCF569DC0C" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{0E749627-47D5-4BA3-9736-62CA6BA3877A}">
                 <File Id="fil394CBF2F5ECA8B00B87ADECD0325284E" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\MDaemon_Settings.ascx.resx" />
-            </Component>
-            <Component Id="cmp64C1A79EFDD7702EC2A998C8D7D28151" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{C18294AA-6370-4139-AF76-AFBAD49C1DD6}">
-                <File Id="filECA54C492D45614075B383580058F127" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditAccount.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpE94F96E8559B67CA4A21E1A0ADB34023" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{E4C029A8-F1B0-4C5D-AD7A-263FC32C4C2F}">
-                <File Id="fil3A64617FB2284EB89DF5308956791F3C" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditAccount.ascx.resx" />
-            </Component>
-            <Component Id="cmp4E73BC193F8A9DE31DFFB17FD6D55856" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{EC04F1BD-11C8-4E93-B344-A79DD5E95688}">
-                <File Id="fil5336B04B888737809C442FF3DAE919AB" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditDomain.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp5115093C8C8AA24609774B62EF0D1D55" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{E7809454-ABD0-460D-9615-4A3DE814D24D}">
-                <File Id="filC493BC90792FA9512A759CB31E59398B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditDomain.ascx.resx" />
-            </Component>
-            <Component Id="cmp38CC3344155E5CDDF4260F46283CB931" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{C72CF226-4067-48BE-8BE1-A3785702C576}">
-                <File Id="fil7D791052070BC071BF88B19016D9B4B2" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditForwarding.ascx.resx" />
-            </Component>
-            <Component Id="cmp5F51D64A7842D54605FA036FB65267FB" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{7A501746-12C9-46F6-9D33-3273128EC33C}">
-                <File Id="fil9CE78549A79A3AD6234A544316B51A0B" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditGroup.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp6213FB3F36A1B0E5720FC2738BF7354B" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{46355EB0-25C9-4E3C-8472-253A1E354A60}">
-                <File Id="filC773F5CD3867B001073256FDE1FF05BD" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditGroup.ascx.resx" />
-            </Component>
-            <Component Id="cmpC3B12125FF89977D1CB50CF42CCBEF9A" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{CEC2448F-B550-4033-8ED1-7EB1993F2313}">
-                <File Id="filC0B4F604DE05DB5884A968096A7D65E4" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditList.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpFE30AF80961D8D0B4107E8EFF528BE3B" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{FBC36132-D341-41DA-A514-0AEA109507B6}">
-                <File Id="filC86387C0E8CDB3A99AC8DB2388A0260F" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_EditList.ascx.resx" />
-            </Component>
-            <Component Id="cmpE338C6EE208D6445CBE59E40E8099A63" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{55A5E2D5-3D7C-43F6-947D-B47938B6F437}">
-                <File Id="filDCF00E03ADAD09649277276DB96C05E7" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_Settings.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmpE520386E4649E7DC987AD07455A2D89E" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{07EF3FFD-4A84-4705-9F83-DE0C726E7F6E}">
-                <File Id="fil9816F970FE33BF6D483BD95C7286C008" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\Merak_Settings.ascx.resx" />
             </Component>
             <Component Id="cmpD07E4B92415630C91246B03541DE8728" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{AE7A5F99-A49C-4479-B98F-0DF015D08AB3}">
                 <File Id="fil612D75E17AEBD9DBBE914277F0305719" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\MSDNS_Settings.ascx.de-DE.resx" />
@@ -6333,12 +6170,6 @@
             </Component>
             <Component Id="cmp7C1E7FE05518EE3AAB32079C6E28ED65" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{5F99617A-3123-479A-8DFD-E23015071770}">
                 <File Id="fil4999CBF9B80906665A503B2A2239C7E9" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\ServU_Settings.ascx.resx" />
-            </Component>
-            <Component Id="cmpA75626C692661920FDA679171A218B1D" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{BBD92F7F-9A49-447E-B68F-B3675F401EEC}">
-                <File Id="filEC82A7DFDA9E221F03FBDFD031003D2C" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\SfB_Settings.ascx.de-DE.resx" />
-            </Component>
-            <Component Id="cmp878F5AE1CE9D253B50CD6BB76CC3BC8A" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{2461BDC7-4625-414A-936F-2C6DAD887946}">
-                <File Id="fil5AAC98288F9A40C79164248C8778AB10" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\SfB_Settings.ascx.resx" />
             </Component>
             <Component Id="cmp3840A6529FB256CE10DB7CCB18A9BED1" Directory="dir5C476D59E68D19EC2A7D6900C78B7D14" Guid="{6487DA98-ED93-45EA-9FA9-A841720E9E19}">
                 <File Id="fil393358A571E7B6CA6E2CA12BFF61E7A5" KeyPath="yes" Source="!(wix.BUILDPPATH)\DesktopModules\FuseCP\ProviderControls\App_LocalResources\SimpleDNS_Settings.ascx.de-DE.resx" />
@@ -9049,11 +8880,6 @@
         </DirectoryRef>
     </Fragment>
     <Fragment>
-        <DirectoryRef Id="dir274347C45B66830DF7BFA09C4CE3F22F">
-            <Directory Id="dir067799BF6A354A0395B711AF41F91C8D" Name="Lync" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
         <DirectoryRef Id="dirC96C4F21359EEF9C5F874D7DF1AA38A0">
             <Directory Id="dir068E26188010F5BF6A75684C88ABC929" Name="html" />
         </DirectoryRef>
@@ -9211,11 +9037,6 @@
     <Fragment>
         <DirectoryRef Id="dir274347C45B66830DF7BFA09C4CE3F22F">
             <Directory Id="dir32706C59876DA230EDD02EA0EFF71791" Name="VPS" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir274347C45B66830DF7BFA09C4CE3F22F">
-            <Directory Id="dir34134C5A80A057110EAF6470852E2A94" Name="SfB" />
         </DirectoryRef>
     </Fragment>
     <Fragment>

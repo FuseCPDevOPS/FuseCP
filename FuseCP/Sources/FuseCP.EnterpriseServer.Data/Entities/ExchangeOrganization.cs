@@ -41,12 +41,6 @@ public partial class ExchangeOrganization
     [Column("ExchangeMailboxPlanID")]
     public int? ExchangeMailboxPlanId { get; set; }
 
-    [Column("LyncUserPlanID")]
-    public int? LyncUserPlanId { get; set; }
-
-    [Column("SfBUserPlanID")]
-    public int? SfBuserPlanId { get; set; }
-
     [InverseProperty("Item")]
     public virtual ICollection<ExchangeMailboxPlan> ExchangeMailboxPlans { get; set; } = new List<ExchangeMailboxPlan>();
 
@@ -58,8 +52,5 @@ public partial class ExchangeOrganization
     [InverseProperty("ExchangeOrganization")]
 #endif
     public virtual ServiceItem Item { get; set; }
-
-    [InverseProperty("Item")]
-    public virtual ICollection<LyncUserPlan> LyncUserPlans { get; set; } = new List<LyncUserPlan>();
 }
 #endif

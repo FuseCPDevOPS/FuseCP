@@ -58,9 +58,7 @@
             <Component Id="cmp054543F483FF5F6F43D2985746F9EC23" Directory="INSTALLENTERPRISESERVERFOLDER" Guid="{5F4DE1EE-2121-4905-96A8-604FFFC137C2}">
                 <File Id="filF07A7ABA84439092DC56A75CD5AEBD93" KeyPath="yes" Source="!(wix.BUILDESPATH)\esImport.asmx" />
             </Component>
-            <Component Id="cmp2A87CEC92AB93D101BB1035064B12552" Directory="INSTALLENTERPRISESERVERFOLDER" Guid="{4ECF2BFB-7FC0-4F8D-84E9-0A96087D7F69}">
-                <File Id="filBB7841946881D194671A3D3A6964C0F8" KeyPath="yes" Source="!(wix.BUILDESPATH)\esLync.asmx" />
-            </Component>
+
             <Component Id="cmp9DF80261245D898DCEDE3671500A4941" Directory="INSTALLENTERPRISESERVERFOLDER" Guid="{E0F2B0A8-3FDC-40BD-A73E-462A559C0ED4}">
                 <File Id="filF84E64CD412B775188940BD65D9E8197" KeyPath="yes" Source="!(wix.BUILDESPATH)\esMailServers.asmx" />
             </Component>

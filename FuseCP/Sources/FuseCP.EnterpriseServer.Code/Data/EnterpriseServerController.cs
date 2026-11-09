@@ -52,8 +52,6 @@ namespace FuseCP.EnterpriseServer
 
 		public new ImportController ImportController => base.ImportController;
 
-		public new Code.HostedSolution.LyncController LyncController => base.LyncController;
-
 		public new MailServerController MailServerController => base.MailServerController;
 
 		public new Code.HostedSolution.OCSController OCSController => base.OCSController;
@@ -71,8 +69,6 @@ namespace FuseCP.EnterpriseServer
 		public new SchedulerController SchedulerController => base.SchedulerController;
 
 		public new ServerController ServerController => base.ServerController;
-
-		public new Code.HostedSolution.SfBController SfBController => base.SfBController;
 
 		public new SharePointServerController SharePointServerController => base.SharePointServerController;
 

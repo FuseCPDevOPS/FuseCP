@@ -30,8 +30,6 @@ namespace FuseCP.EnterpriseServer
         private static readonly string EXCHANGE_REPORT = "EXCHANGE_REPORT";
         private static readonly string ORGANIZATION_REPORT = "ORGANIZATION_REPORT";
         private static readonly string SHAREPOINT_REPORT = "SHAREPOINT_REPORT";
-        private static readonly string LYNC_REPORT = "LYNC_REPORT";
-        private static readonly string SFB_REPORT = "SFB_REPORT";
         private static readonly string CRM_REPORT = "CRM_REPORT";
         private static readonly string EMAIL = "EMAIL";
         
@@ -47,8 +45,6 @@ namespace FuseCP.EnterpriseServer
 
                 bool isExchange = Utils.ParseBool(topTask.GetParamValue(EXCHANGE_REPORT), false);
                 bool isSharePoint = Utils.ParseBool(topTask.GetParamValue(SHAREPOINT_REPORT), false);
-                bool isLync = Utils.ParseBool(topTask.GetParamValue(LYNC_REPORT), false);
-                bool isSfB = Utils.ParseBool(topTask.GetParamValue(SFB_REPORT), false);
                 bool isCRM = Utils.ParseBool(topTask.GetParamValue(CRM_REPORT), false);
                 bool isOrganization = Utils.ParseBool(topTask.GetParamValue(ORGANIZATION_REPORT), false);
 
@@ -56,8 +52,6 @@ namespace FuseCP.EnterpriseServer
 
                 TaskManager.WriteParameter("isExchange",isExchange);
                 TaskManager.WriteParameter("isSharePoint",isSharePoint);
-                TaskManager.WriteParameter("isLync", isLync);
-                TaskManager.WriteParameter("isSfB", isSfB);
                 TaskManager.WriteParameter("isCRM", isCRM);
                 TaskManager.WriteParameter("isOrganization", isOrganization);
                 TaskManager.WriteParameter("email", email);
@@ -67,23 +61,19 @@ namespace FuseCP.EnterpriseServer
                 TaskManager.WriteParameter("user", user.Username);
 
                 EnterpriseSolutionStatisticsReport report =
-                ReportController.GetEnterpriseSolutionStatisticsReport(user.UserId, isExchange, isSharePoint, isCRM,isOrganization, isLync, isSfB);
+                ReportController.GetEnterpriseSolutionStatisticsReport(user.UserId, isExchange, isSharePoint, isCRM, isOrganization);
 
                 TaskManager.WriteParameter("report.ExchangeReport.Items.Count", report.ExchangeReport?.Items?.Count ?? 0);
                 TaskManager.WriteParameter("report.SharePointReport.Items.Count", report.SharePointReport?.Items?.Count ?? 0);
                 TaskManager.WriteParameter("report.CRMReport.Items.Count", report.CRMReport?.Items?.Count ?? 0);
                 TaskManager.WriteParameter("report.OrganizationReport.Items.Count", report.OrganizationReport?.Items?.Count ?? 0);
-                TaskManager.WriteParameter("report.LyncReport.Items.Count", report.LyncReport?.Items?.Count ?? 0);
-                TaskManager.WriteParameter("report.SfBReport.Items.Count", report.SfBReport?.Items?.Count ?? 0);
 
                 string exchangeCsv = SafeToCsv(isExchange && report.ExchangeReport != null, "Exchange", () => report.ExchangeReport.ToCSV(), ref sectionFailures);
                 string sharePointCsv = SafeToCsv(isSharePoint && report.SharePointReport != null, "SharePoint", () => report.SharePointReport.ToCSV(), ref sectionFailures);
                 string crmCsv = SafeToCsv(isCRM && report.CRMReport != null, "CRM", () => report.CRMReport.ToCSV(), ref sectionFailures);
                 string organizationCsv = SafeToCsv(isOrganization && report.OrganizationReport != null, "Organization", () => report.OrganizationReport.ToCSV(), ref sectionFailures);
-                string lyncCsv = SafeToCsv(isLync && report.LyncReport != null, "Lync", () => report.LyncReport.ToCSV(), ref sectionFailures);
-                string sfbCsv = SafeToCsv(isSfB && report.SfBReport != null, "SfB", () => report.SfBReport.ToCSV(), ref sectionFailures);
 
-                SendMessage(user, email, exchangeCsv, sharePointCsv, crmCsv, organizationCsv, lyncCsv, sfbCsv);
+                SendMessage(user, email, exchangeCsv, sharePointCsv, crmCsv, organizationCsv);
 
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
@@ -129,15 +119,13 @@ namespace FuseCP.EnterpriseServer
             }
         }
         
-        private void SendMessage(UserInfo user,string email, string exchange_csv, string sharepoint_csv, string crm_csv, string organization_csv, string lync_csv, string sfb_csv)
+        private void SendMessage(UserInfo user,string email, string exchange_csv, string sharepoint_csv, string crm_csv, string organization_csv)
         {
             TaskManager.Write("SendMessage");
 
             List<Attachment> attacments = new List<Attachment>();
             PrepareAttament("exchange.csv", exchange_csv, attacments);
             PrepareAttament("sharepoint.csv", sharepoint_csv, attacments);
-            PrepareAttament("lync.csv", lync_csv, attacments);
-            PrepareAttament("sfb.csv", sfb_csv, attacments);
             PrepareAttament("crm.csv", crm_csv, attacments);
             PrepareAttament("organization.csv", organization_csv, attacments);
             

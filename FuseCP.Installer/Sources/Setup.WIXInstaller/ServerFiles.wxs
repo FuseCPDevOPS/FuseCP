@@ -49,9 +49,7 @@
             <Component Id="cmpC34A97EA3AB0ED3CE564BAEDF1BABFD5" Directory="INSTALLSERVERFOLDER" Guid="{5880E926-9300-45C8-8D2B-96CB0CE8471D}">
                 <File Id="filB13216B0EA9E4BFF8977CFF9157300DE" KeyPath="yes" Source="!(wix.BUILDSPATH)\HostedSharePointServerEnt.asmx" />
             </Component>
-            <Component Id="cmp4C3E6D8D4B96BE1CD0196869D14FB245" Directory="INSTALLSERVERFOLDER" Guid="{2F95EDE6-B301-4338-B13B-A7A9296197CD}">
-                <File Id="fil660F7518B5488A7DC066BAF177DDEFC8" KeyPath="yes" Source="!(wix.BUILDSPATH)\LyncServer.asmx" />
-            </Component>
+
             <Component Id="cmp306CB2383A2A77A41C74C676B7811B47" Directory="INSTALLSERVERFOLDER" Guid="{D3712406-9D16-4E62-953E-74225087C0E2}">
                 <File Id="fil52F43BB29FFD7B874CB9732B72671C0D" KeyPath="yes" Source="!(wix.BUILDSPATH)\MailServer.asmx" />
             </Component>
@@ -202,24 +200,15 @@
             <Component Id="cmp643F968004472D678EFC63C00B2B3F93" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{110616CF-E0E4-49D7-B680-E1DB60B896C2}">
                 <File Id="fil42F48A70F9CB9D7429003A10644A0E45" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.ArgoMail.dll" />
             </Component>
-            <Component Id="cmpFA8A25B8D0D1A03A2655F11FE836DCD5" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{09E0635B-9F94-4FF4-A8EF-9524FA162DCB}">
-                <File Id="fil4A5FA29CDF70C26013160885ABA4D3E0" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.hMailServer.dll" />
-            </Component>
-            <Component Id="cmpCBD533D2117F57A9AB03AD60D5AE310D" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{9100549F-08E9-4E70-834C-F61C40FA5882}">
-                <File Id="filFFCEE74189DE194030DCBE4E4C46A6EB" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.hMailServer43.dll" />
-            </Component>
+
             <Component Id="cmpD88052ABA858305E4E0310B2C4267A53" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{8B10D94A-FA94-4C63-9012-B4117F18F46B}">
                 <File Id="filA661C58DB516C9C3F5FC6AD6B7ED5C31" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.hMailServer5.dll" />
             </Component>
-            <Component Id="cmpFA474E0D5ADB53CF4CC4B9C649892595" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{2555049D-8393-431C-BCDC-73A04A4132F8}">
-                <File Id="filB7186C7D14120065E0F13CF1E834F6F9" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.MailEnable.dll" />
-            </Component>
+
             <Component Id="cmpBF08B5858B9931ABF2F63DCFFE806987" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{AF60BD60-8B2F-4DC2-A256-D0211B8B4BC9}">
                 <File Id="filEA291480E37C4D92DE530F701DAA5FE5" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.MDaemon.dll" />
             </Component>
-            <Component Id="cmp812281B39D61474EABE3E3816507FD5E" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{82A98FA3-BC06-46C1-80B4-E55DF28AF6F8}">
-                <File Id="fil5462EC6DCC0199B72AFC617913E1D330" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.Merak.dll" />
-            </Component>
+
             <Component Id="cmp6E5CA6CDCC87EFD95C2D45726F75D8C2" Directory="dirFE040D7A5771FED5DD77B7A4BED10E7F" Guid="{F690D2CB-9189-4606-B2AF-3ACBE061C02F}">
                 <File Id="fil47A87507BB5C3F23B376BB42EE0D40BB" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\FuseCP.Providers.Mail.Merak10.dll" />
             </Component>
@@ -514,21 +503,7 @@
             <Component Id="cmp7810DAD25C4D294E20DFFCBEFEE1673B" Directory="dir545332CB192D456FD4BEFF68E1658417" Guid="{A1ED2F61-1D5D-49EF-87A9-83315C40373D}">
                 <File Id="filAF1215FB01AF14C24788EF6C57982B15" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\IIs80\System.Management.Automation.dll" />
             </Component>
-            <Component Id="cmp6BBFCEB80D3EF885C55D2ED22641901F" Directory="dir899A65007F0749FFEFB03A98389E2079" Guid="{0236D623-2658-454D-B368-CD362F0E2FF6}">
-                <File Id="fil4CB4787B5266A04311A09F5203A56AD8" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Lync2013\FuseCP.Providers.Base.dll" />
-            </Component>
-            <Component Id="cmpEA1DF62265A6EFA32C3986B87C88D8E5" Directory="dir899A65007F0749FFEFB03A98389E2079" Guid="{4DF30017-ACB0-4323-A405-037EC5ED39C2}">
-                <File Id="fil606D5E574FE1989FF661A5DA57F0FC5E" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Lync2013\FuseCP.Providers.HostedSolution.Lync2013.dll" />
-            </Component>
-            <Component Id="cmpC79F8355A119D7ACBB4ABAC515A01AA6" Directory="dir899A65007F0749FFEFB03A98389E2079" Guid="{24F54D50-F946-4A39-873F-0DE480A67AA5}">
-                <File Id="fil3781BBC307F693F76BC1560E9D3404F6" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Lync2013\FuseCP.Providers.HostedSolution.Lync2013HP.dll" />
-            </Component>
-            <Component Id="cmpFBFD59314D05031981AEFFFCBD6D32A3" Directory="dir899A65007F0749FFEFB03A98389E2079" Guid="{0FEC9357-D97A-4A9E-9594-284C0A7FFA2A}">
-                <File Id="fil48376E80032E548A7A28051C217668D5" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Lync2013\FuseCP.Server.Utils.dll" />
-            </Component>
-            <Component Id="cmp4B70F17F94EC2996767227E0DCBE8C24" Directory="dir899A65007F0749FFEFB03A98389E2079" Guid="{4C7F4431-5149-4E4C-960D-EEC6B4CC4239}">
-                <File Id="fil90D9E2861CC26BEAEB0B9E644CBE7975" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Lync2013\System.Management.Automation.dll" />
-            </Component>
+
             <Component Id="cmpF2DA7FE0B05CFED902C591B9BF652CAC" Directory="dir08A44BC77623D7AE394350EE60839E15" Guid="{1804E921-97A2-4263-B4DB-1207E0726246}">
                 <File Id="filB891FB13FF10ADC97738A857F1BC3124" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\SfB2015\FuseCP.Providers.HostedSolution.SfB2015.dll" />
             </Component>
@@ -541,15 +516,7 @@
             <Component Id="cmp92962F21E5277BE56E482F5C7E382FED" Directory="dirB3D4D8D478E88FDD3AAF3F23B7B1E605" Guid="{B1F9A3E1-1E6B-4A64-8F19-9B53CF78AB74}">
                 <File Id="filC5FBB87DD650D6D1ED1C79D84AAB2606" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Sharepoint2013\System.Management.Automation.dll" />
             </Component>
-            <Component Id="cmp5E4E80DCBD05E4174BFCA5429B14348B" Directory="dirA2DF6441077AD1B5CCE3749322E212AD" Guid="{F9A6E0C9-2ECF-4899-92C4-D7CD8B80A174}">
-                <File Id="fil879F67BA8C1ECFBF9DF343104EB86625" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Sharepoint2016\FuseCP.Providers.HostedSolution.SharePoint2016.dll" />
-            </Component>
-            <Component Id="cmpBBB752864C70A5DC75AACA12F6786207" Directory="dirA2DF6441077AD1B5CCE3749322E212AD" Guid="{DE2E6E70-0533-4358-AD9A-D9A9BE551F48}">
-                <File Id="fil58F8695E5451908F491E76DDBAD6E150" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Sharepoint2016\FuseCP.Providers.HostedSolution.SharePoint2016Ent.dll" />
-            </Component>
-            <Component Id="cmp68941AE3D3E1F828406F3BE04211E5E8" Directory="dirA2DF6441077AD1B5CCE3749322E212AD" Guid="{67384631-9ABD-44FF-ADF1-A1C93EB1A1D1}">
-                <File Id="fil0B31AD95B6223EC9C7B8B7CF8F03A332" KeyPath="yes" Source="!(wix.BUILDSPATH)\bin\Sharepoint2016\System.Management.Automation.dll" />
-            </Component>
+
         </ComponentGroup>
     </Fragment>
     <Fragment>
@@ -599,11 +566,6 @@
     </Fragment>
     <Fragment>
         <DirectoryRef Id="dirFE040D7A5771FED5DD77B7A4BED10E7F">
-            <Directory Id="dir899A65007F0749FFEFB03A98389E2079" Name="Lync2013" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dirFE040D7A5771FED5DD77B7A4BED10E7F">
             <Directory Id="dir998E0166BF408A87A8670569A16FBE74" Name="Exchange2016" />
         </DirectoryRef>
     </Fragment>
@@ -615,11 +577,6 @@
     <Fragment>
         <DirectoryRef Id="dirFE040D7A5771FED5DD77B7A4BED10E7F">
             <Directory Id="dir9DB81FFFD1FC013D1C2CF57BA60D8A21" Name="Dns2012" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dirFE040D7A5771FED5DD77B7A4BED10E7F">
-            <Directory Id="dirA2DF6441077AD1B5CCE3749322E212AD" Name="Sharepoint2016" />
         </DirectoryRef>
     </Fragment>
     <Fragment>

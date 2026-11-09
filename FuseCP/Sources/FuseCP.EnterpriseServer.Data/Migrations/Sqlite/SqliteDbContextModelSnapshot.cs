@@ -2962,19 +2962,11 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("ExchangeMailboxPlanID");
 
-                    b.Property<int?>("LyncUserPlanId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("LyncUserPlanID");
-
                     b.Property<string>("OrganizationId")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("TEXT COLLATE NOCASE")
                         .HasColumnName("OrganizationID");
-
-                    b.Property<int?>("SfBuserPlanId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("SfBUserPlanID");
 
                     b.HasKey("ItemId");
 
@@ -3361,127 +3353,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         .HasName("PK_IpSecurityPolicy");
 
                     b.ToTable("IpSecurityPolicies");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUser", b =>
-                {
-                    b.Property<int>("LyncUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("LyncUserID");
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("AccountID");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("LyncUserPlanId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("LyncUserPlanID");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SipAddress")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.HasKey("LyncUserId");
-
-                    b.HasIndex(new[] { "LyncUserPlanId" }, "LyncUsersIdx_LyncUserPlanID");
-
-                    b.ToTable("LyncUsers");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUserPlan", b =>
-                {
-                    b.Property<int>("LyncUserPlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("AllowOrganizeMeetingsWithExternalAnonymous")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ArchivePolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<bool>("Conferencing")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EnterpriseVoice")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Federation")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IM")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("IM");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("ItemID");
-
-                    b.Property<string>("LyncUserPlanName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<int?>("LyncUserPlanType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Mobility")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("MobilityEnableOutsideVoice")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("PublicIMConnectivity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false)
-                        .HasColumnName("PublicIMConnectivity");
-
-                    b.Property<bool>("RemoteUserAccess")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ServerUri")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("ServerURI");
-
-                    b.Property<int?>("Telephony")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TelephonyDialPlanPolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<string>("TelephonyVoicePolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<int>("VoicePolicy")
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.HasKey("LyncUserPlanId");
-
-                    b.HasIndex(new[] { "LyncUserPlanId" }, "IX_LyncUserPlans")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "ItemId" }, "LyncUserPlansIdx_ItemID");
-
-                    b.ToTable("LyncUserPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.OcsUser", b =>
@@ -4003,15 +3874,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
-                            ProviderId = 13,
-                            DisplayName = "Merak Mail Server 8.0.3 - 9.2.x",
-                            EditorControl = "Merak",
-                            GroupId = 4,
-                            ProviderName = "Merak",
-                            ProviderType = "FuseCP.Providers.Mail.Merak, FuseCP.Providers.Mail.Merak"
-                        },
-                        new
-                        {
                             ProviderId = 18,
                             DisplayName = "MDaemon 9.x - 11.x",
                             EditorControl = "MDaemon",
@@ -4031,30 +3893,12 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                         },
                         new
                         {
-                            ProviderId = 20,
-                            DisplayName = "hMailServer 4.2",
-                            EditorControl = "hMailServer",
-                            GroupId = 4,
-                            ProviderName = "hMailServer",
-                            ProviderType = "FuseCP.Providers.Mail.hMailServer, FuseCP.Providers.Mail.hMailServer"
-                        },
-                        new
-                        {
                             ProviderId = 21,
                             DisplayName = "Ability Mail Server 2.x",
                             EditorControl = "AbilityMailServer",
                             GroupId = 4,
                             ProviderName = "AbilityMailServer",
                             ProviderType = "FuseCP.Providers.Mail.AbilityMailServer, FuseCP.Providers.Mail.AbilityMailServer"
-                        },
-                        new
-                        {
-                            ProviderId = 22,
-                            DisplayName = "hMailServer 4.3",
-                            EditorControl = "hMailServer43",
-                            GroupId = 4,
-                            ProviderName = "hMailServer43",
-                            ProviderType = "FuseCP.Providers.Mail.hMailServer43, FuseCP.Providers.Mail.hMailServer43"
                         },
                         new
                         {
@@ -4266,24 +4110,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                             GroupId = 49,
                             ProviderName = "StorageSpace2012",
                             ProviderType = "FuseCP.Providers.StorageSpaces.Windows2012, FuseCP.Providers.StorageSpaces.Windows2012"
-                        },
-                        new
-                        {
-                            ProviderId = 1306,
-                            DisplayName = "Hosted SharePoint Foundation 2016",
-                            EditorControl = "HostedSharePoint30",
-                            GroupId = 20,
-                            ProviderName = "HostedSharePoint2016",
-                            ProviderType = "FuseCP.Providers.HostedSolution.HostedSharePointServer2016, FuseCP.Providers.HostedSolution.SharePoint2016"
-                        },
-                        new
-                        {
-                            ProviderId = 1404,
-                            DisplayName = "Microsoft Skype for Business Server 2019",
-                            EditorControl = "SfB",
-                            GroupId = 52,
-                            ProviderName = "SfB2019",
-                            ProviderType = "FuseCP.Providers.HostedSolution.SfB2019, FuseCP.Providers.HostedSolution.SfB2019"
                         },
                         new
                         {
@@ -13112,123 +12938,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.ToTable("ServiceProperties");
                 });
 
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SfBUser", b =>
-                {
-                    b.Property<int>("SfBUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("SfBUserID");
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("AccountID");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SfBUserPlanId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("SfBUserPlanID");
-
-                    b.Property<string>("SipAddress")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SfBUserId");
-
-                    b.ToTable("SfBUsers");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SfBUserPlan", b =>
-                {
-                    b.Property<int>("SfBUserPlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("SfBUserPlanId");
-
-                    b.Property<bool>("AllowOrganizeMeetingsWithExternalAnonymous")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ArchivePolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<bool>("Conferencing")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EnterpriseVoice")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Federation")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IM")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("IM");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("ItemID");
-
-                    b.Property<bool>("Mobility")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("MobilityEnableOutsideVoice")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("PublicIMConnectivity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false)
-                        .HasColumnName("PublicIMConnectivity");
-
-                    b.Property<bool>("RemoteUserAccess")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ServerUri")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("ServerURI");
-
-                    b.Property<string>("SfBUserPlanName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("SfBUserPlanName");
-
-                    b.Property<int?>("SfBUserPlanType")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("SfBUserPlanType");
-
-                    b.Property<int?>("Telephony")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TelephonyDialPlanPolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<string>("TelephonyVoicePolicy")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.Property<int>("VoicePolicy")
-                        .HasColumnType("TEXT COLLATE NOCASE");
-
-                    b.HasKey("SfBUserPlanId");
-
-                    b.ToTable("SfBUserPlans");
-                });
-
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.SslCertificate", b =>
                 {
                     b.Property<int>("Id")
@@ -15574,29 +15283,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("Server");
                 });
 
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUser", b =>
-                {
-                    b.HasOne("FuseCP.EnterpriseServer.Data.Entities.LyncUserPlan", "LyncUserPlan")
-                        .WithMany("LyncUsers")
-                        .HasForeignKey("LyncUserPlanId")
-                        .IsRequired()
-                        .HasConstraintName("FK_LyncUsers_LyncUserPlans");
-
-                    b.Navigation("LyncUserPlan");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUserPlan", b =>
-                {
-                    b.HasOne("FuseCP.EnterpriseServer.Data.Entities.ExchangeOrganization", "Item")
-                        .WithMany("LyncUserPlans")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_LyncUserPlans_ExchangeOrganizations");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Package", b =>
                 {
                     b.HasOne("FuseCP.EnterpriseServer.Data.Entities.Package", "ParentPackage")
@@ -16289,8 +15975,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("ExchangeMailboxPlans");
 
                     b.Navigation("ExchangeOrganizationSsFolders");
-
-                    b.Navigation("LyncUserPlans");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.HostingPlan", b =>
@@ -16309,11 +15993,6 @@ namespace FuseCP.EnterpriseServer.Data.Migrations.Sqlite
                     b.Navigation("GlobalDnsRecords");
 
                     b.Navigation("PackageIpAddresses");
-                });
-
-            modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.LyncUserPlan", b =>
-                {
-                    b.Navigation("LyncUsers");
                 });
 
             modelBuilder.Entity("FuseCP.EnterpriseServer.Data.Entities.Package", b =>

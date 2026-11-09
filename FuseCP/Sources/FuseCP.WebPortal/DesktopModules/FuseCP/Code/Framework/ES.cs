@@ -104,17 +104,6 @@ namespace FuseCP.WebPortal
 		}
 
 
-		public esLync Lync
-		{
-			get { return GetCachedProxy<esLync>(); }
-		}
-
-		public esSfB SfB
-		{
-			get { return GetCachedProxy<esSfB>(); }
-		}
-
-
 		public esOrganizations Organizations
 		{
 			get

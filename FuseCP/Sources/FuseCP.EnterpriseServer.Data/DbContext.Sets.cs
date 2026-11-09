@@ -139,12 +139,6 @@ namespace FuseCP.EnterpriseServer.Data
 		DbSet<IpAddress> ipaddresses = null;
 		public virtual DbSet<IpAddress> IpAddresses => ipaddresses ??= Set<IpAddress>();
 
-		DbSet<LyncUser> lyncUsers = null;
-		public virtual DbSet<LyncUser> LyncUsers => lyncUsers ??= Set<LyncUser>();
-
-		DbSet<LyncUserPlan> lyncUserPlans = null;
-		public virtual DbSet<LyncUserPlan> LyncUserPlans => lyncUserPlans ??= Set<LyncUserPlan>();
-
 		DbSet<OcsUser> ocsusers = null;
 		public virtual DbSet<OcsUser> OcsUsers => ocsusers ??= Set<OcsUser>();
 
@@ -255,12 +249,6 @@ namespace FuseCP.EnterpriseServer.Data
 
 		DbSet<ServiceProperty> serviceProperties = null;
 		public virtual DbSet<ServiceProperty> ServiceProperties => serviceProperties ??= Set<ServiceProperty>();
-
-		DbSet<SfBUser> sfBUsers = null;
-		public virtual DbSet<SfBUser> SfBUsers => sfBUsers ??= Set<SfBUser>();
-
-		DbSet<SfBUserPlan> sfBUserPlans = null;
-		public virtual DbSet<SfBUserPlan> SfBUserPlans => sfBUserPlans ??= Set<SfBUserPlan>();
 
 		DbSet<SslCertificate> sslCertificates = null;
 		public virtual DbSet<SslCertificate> SslCertificates => sslCertificates ??= Set<SslCertificate>();

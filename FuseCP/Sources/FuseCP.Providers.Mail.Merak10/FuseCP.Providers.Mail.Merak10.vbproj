@@ -68,7 +68,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
-		<ProjectReference Include="..\FuseCP.Providers.Mail.Merak\FuseCP.Providers.Mail.Merak.vbproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" />

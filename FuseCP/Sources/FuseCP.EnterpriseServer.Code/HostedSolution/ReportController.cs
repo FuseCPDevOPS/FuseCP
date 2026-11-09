@@ -132,29 +132,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
             item.TotalLyncUsers = 0;
             item.TotalLyncEVUsers = 0;
-            item.TotalSfBUsers = 0;
-            item.TotalSfBEVUsers = 0;
 
-            if (report.LyncReport != null)
-            {
-                List<LyncUserStatistics> lyncOrganizationStatistics =
-                    report.LyncReport.Items.FindAll(
-                        delegate(LyncUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
 
-                item.TotalLyncEVUsers = lyncOrganizationStatistics.Count(current => current.EnterpriseVoice);
 
-                item.TotalLyncUsers = lyncOrganizationStatistics.Count;
-            }
-            if (report.SfBReport != null)
-            {
-                List<SfBUserStatistics> SfBOrganizationStatistics =
-                    report.SfBReport.Items.FindAll(
-                        delegate (SfBUserStatistics stats) { return stats.OrganizationID == org.OrganizationId; });
-
-                item.TotalSfBEVUsers = SfBOrganizationStatistics.Count(current => current.EnterpriseVoice);
-
-                item.TotalSfBUsers = SfBOrganizationStatistics.Count;
-            }
 
             report.OrganizationReport.Items.Add(item);
         }
@@ -293,32 +273,8 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             }
 
 
-            if (report.LyncReport != null)
-            {
-                try
-                {
-                    TaskManager.Write("Populate Lync report items");
 
-                    PopulateLyncReportItems(org, report, topReseller);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    TaskManager.WriteError(ex);
-                }
-            }
-            if (report.SfBReport != null)
-            {
-                try
-                {
-                    TaskManager.Write("Populate Skype for Business report items");
 
-                    PopulateSfBReportItems(org, report, topReseller);
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    TaskManager.WriteError(ex);
-                }
-            }
 
             if (report.OrganizationReport != null)
             {
@@ -548,135 +504,9 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
 
 
-        private void PopulateLyncReportItems(Organization org, EnterpriseSolutionStatisticsReport report, string topReseller)
-        {
-
-            //Check if lync organization
-            if (string.IsNullOrEmpty(org.LyncTenantId))
-                return;
-
-            LyncUser[] lyncUsers = null;
-
-            try
-            {
-                LyncUsersPagedResult res = LyncController.GetLyncUsers(org.Id);
-                if (res.IsSuccess) lyncUsers = res.Value.PageUsers;
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                throw new ApplicationException(
-                    string.Format("Could not get lync users for current organization {0}", org.Id), ex);
-            }
 
 
-            if (lyncUsers == null)
-                return;
 
-            foreach (LyncUser lyncUser in lyncUsers)
-            {
-                try
-                {
-                    LyncUserStatistics stats = new LyncUserStatistics();
-
-                    try
-                    {
-                        stats.SipAddress = lyncUser.SipAddress;
-                        stats.PhoneNumber = string.IsNullOrEmpty(lyncUser.LineUri) ? string.Empty : lyncUser.LineUri;
-                        
-                        LyncUserPlan plan = LyncController.GetLyncUserPlan(org.Id, lyncUser.LyncUserPlanId);
-                        stats.Conferencing = plan.Conferencing;
-                        stats.EnterpriseVoice = plan.EnterpriseVoice;
-                        stats.Federation = plan.Federation;
-                        stats.InstantMessaing = plan.IM;
-                        stats.MobileAccess = plan.Mobility;
-                        stats.LyncUserPlan = plan.LyncUserPlanName;
-                        stats.DisplayName = lyncUser.DisplayName;
-                    }
-                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                    {
-                        TaskManager.WriteError(ex, "Could not get lync statistics. AccountName: {0}",
-                                               lyncUser.DisplayName);
-                    }
-
-
-                    if (stats != null)
-                    {
-                        PopulateBaseItem(stats, org, topReseller);
-                        report.LyncReport.Items.Add(stats);
-                    }
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    TaskManager.WriteError(ex);
-                }
-            }
-
-        }
-
-        private void PopulateSfBReportItems(Organization org, EnterpriseSolutionStatisticsReport report, string topReseller)
-        {
-
-            //Check if sfb organization
-            if (string.IsNullOrEmpty(org.SfBTenantId))
-                return;
-
-            SfBUser[] sfbUsers = null;
-
-            try
-            {
-                SfBUsersPagedResult res = SfBController.GetSfBUsers(org.Id);
-                if (res.IsSuccess) sfbUsers = res.Value.PageUsers;
-            }
-            catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-            {
-                throw new ApplicationException(
-                    string.Format("Could not get sfb users for current organization {0}", org.Id), ex);
-            }
-
-
-            if (sfbUsers == null)
-                return;
-
-            foreach (SfBUser sfbUser in sfbUsers)
-            {
-                try
-                {
-                    SfBUserStatistics stats = new SfBUserStatistics();
-
-                    try
-                    {
-                        stats.SipAddress = sfbUser.SipAddress;
-                        stats.PhoneNumber = string.IsNullOrEmpty(sfbUser.LineUri) ? string.Empty : sfbUser.LineUri;
-
-                        SfBUserPlan plan = SfBController.GetSfBUserPlan(org.Id, sfbUser.SfBUserPlanId);
-                        stats.Conferencing = plan.Conferencing;
-                        stats.EnterpriseVoice = plan.EnterpriseVoice;
-                        stats.Federation = plan.Federation;
-                        stats.InstantMessaing = plan.IM;
-                        stats.MobileAccess = plan.Mobility;
-                        stats.SfBUserPlan = plan.SfBUserPlanName;
-                        stats.DisplayName = sfbUser.DisplayName;
-                    }
-                    catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                    {
-                        TaskManager.WriteError(ex, "Could not get sfb statistics. AccountName: {0}",
-                                               sfbUser.DisplayName);
-                    }
-
-
-                    if (stats != null)
-                    {
-                        PopulateBaseItem(stats, org, topReseller);
-                        report.SfBReport.Items.Add(stats);
-                    }
-                }
-                catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
-                {
-                    TaskManager.WriteError(ex);
-                }
-            }
-
-        }
 
         private void PopulateSpaceData(int packageId, EnterpriseSolutionStatisticsReport report, string topReseller)
         {
@@ -739,7 +569,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             TaskManager.Write("End Populate UserData " + user.Username);
         }
 
-        private void GetUsersData(EnterpriseSolutionStatisticsReport report, int userId, bool generateExchangeReport, bool generateSharePointReport, bool generateCRMReport, bool generateOrganizationReport, bool generateLyncReport, bool generateSfBReport, string topReseller)
+        private void GetUsersData(EnterpriseSolutionStatisticsReport report, int userId, bool generateExchangeReport, bool generateSharePointReport, bool generateCRMReport, bool generateOrganizationReport, string topReseller)
         {
             TaskManager.Write("Get UsersData " + userId);
 
@@ -768,8 +598,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                         GetUsersData(report, user.UserId, generateExchangeReport, generateSharePointReport,
                                      generateCRMReport,
                                      generateOrganizationReport,
-                                     generateLyncReport,
-                                     generateSfBReport,
                                      string.IsNullOrEmpty(topReseller) ? user.Username : topReseller);
                     }
                 }
@@ -783,7 +611,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
 
         }
 
-        public EnterpriseSolutionStatisticsReport GetEnterpriseSolutionStatisticsReport(int userId, bool generateExchangeReport, bool generateSharePointReport, bool generateCRMReport, bool generateOrganizationReport, bool generateLyncReport, bool generateSfBReport)
+        public EnterpriseSolutionStatisticsReport GetEnterpriseSolutionStatisticsReport(int userId, bool generateExchangeReport, bool generateSharePointReport, bool generateCRMReport, bool generateOrganizationReport)
         {
             TaskManager.Write("Get enterprise solution statistics report " + userId);
 
@@ -795,11 +623,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             if (generateSharePointReport || generateOrganizationReport)
                 report.SharePointReport = new SharePointStatisticsReport();
 
-            if (generateLyncReport || generateOrganizationReport)
-                report.LyncReport = new LyncStatisticsReport();
-
-            if (generateSfBReport || generateOrganizationReport)
-                report.SfBReport = new SfBStatisticsReport();
 
             if (generateCRMReport || generateOrganizationReport)
                 report.CRMReport = new CRMStatisticsReport();
@@ -810,7 +633,7 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
             try
             {
                 GetUsersData(report, userId, generateExchangeReport, generateSharePointReport, generateCRMReport,
-                             generateOrganizationReport, generateLyncReport, generateSfBReport, null);
+                             generateOrganizationReport, null);
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {

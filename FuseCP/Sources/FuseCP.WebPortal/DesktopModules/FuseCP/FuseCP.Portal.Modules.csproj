@@ -148,10 +148,10 @@
         <Compile Include="Code\Helpers\BlackBerryHelper.cs" />
         <Compile Include="Code\Helpers\EnterpriseFolderDataHandler.cs" />
         <Compile Include="Code\Helpers\HostedSharePointEnterpriseSiteCollectionsHelper.cs" />
-        <Compile Include="Code\Helpers\SfBHelper.cs" />
+
         <Compile Include="Code\Helpers\RDSHelper.cs" />
         <Compile Include="Code\Helpers\EnterpriseStorageHelper.cs" />
-        <Compile Include="Code\Helpers\LyncHelper.cs" />
+
         <Compile Include="Code\Helpers\SsHelper.cs" />
         <Compile Include="Code\Helpers\RdsServerStatusHandler.cs" />
         <Compile Include="Code\Helpers\VirtualMachineSettingExtensions.cs" />
@@ -617,13 +617,7 @@
         <Compile Include="ProviderControls\MailCleaner_Settings.ascx.designer.cs">
             <DependentUpon>MailCleaner_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\SfB_Settings.ascx.cs">
-            <DependentUpon>SfB_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\SfB_Settings.ascx.designer.cs">
-            <DependentUpon>SfB_Settings.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="ScheduleTaskControls\AuditLogReportView.ascx.cs">
             <DependentUpon>AuditLogReportView.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -652,104 +646,8 @@
         <Compile Include="SettingsMariaDBPolicy.ascx.designer.cs">
             <DependentUpon>SettingsMariaDBPolicy.ascx</DependentUpon>
         </Compile>
-        <Compile Include="SettingsSfBUserPlansPolicy.ascx.cs">
-            <DependentUpon>SettingsSfBUserPlansPolicy.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SettingsSfBUserPlansPolicy.ascx.designer.cs">
-            <DependentUpon>SettingsSfBUserPlansPolicy.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfBPhoneNumbers.ascx.cs">
-            <DependentUpon>SfBPhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfBPhoneNumbers.ascx.designer.cs">
-            <DependentUpon>SfBPhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBAddFederationDomain.ascx.cs">
-            <DependentUpon>SfBAddFederationDomain.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBAddFederationDomain.ascx.designer.cs">
-            <DependentUpon>SfBAddFederationDomain.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBAddSfBUserPlan.ascx.cs">
-            <DependentUpon>SfBAddSfBUserPlan.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBAddSfBUserPlan.ascx.designer.cs">
-            <DependentUpon>SfBAddSfBUserPlan.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBAllocatePhoneNumbers.ascx.cs">
-            <DependentUpon>SfBAllocatePhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBAllocatePhoneNumbers.ascx.designer.cs">
-            <DependentUpon>SfBAllocatePhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBCreateUser.ascx.cs">
-            <DependentUpon>SfBCreateUser.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBCreateUser.ascx.designer.cs">
-            <DependentUpon>SfBCreateUser.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBEditUser.ascx.cs">
-            <DependentUpon>SfBEditUser.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBEditUser.ascx.designer.cs">
-            <DependentUpon>SfBEditUser.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBFederationDomains.ascx.cs">
-            <DependentUpon>SfBFederationDomains.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBFederationDomains.ascx.designer.cs">
-            <DependentUpon>SfBFederationDomains.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBPhoneNumbers.ascx.cs">
-            <DependentUpon>SfBPhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBPhoneNumbers.ascx.designer.cs">
-            <DependentUpon>SfBPhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBUserPlans.ascx.cs">
-            <DependentUpon>SfBUserPlans.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBUserPlans.ascx.designer.cs">
-            <DependentUpon>SfBUserPlans.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\SfBUsers.ascx.cs">
-            <DependentUpon>SfBUsers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\SfBUsers.ascx.designer.cs">
-            <DependentUpon>SfBUsers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBAllocatePackagePhoneNumbers.ascx.cs">
-            <DependentUpon>SfBAllocatePackagePhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBAllocatePackagePhoneNumbers.ascx.designer.cs">
-            <DependentUpon>SfBAllocatePackagePhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBUserPlanSelector.ascx.cs">
-            <DependentUpon>SfBUserPlanSelector.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBUserPlanSelector.ascx.designer.cs">
-            <DependentUpon>SfBUserPlanSelector.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBUserSettings.ascx.cs">
-            <DependentUpon>SfBUserSettings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SfB\UserControls\SfBUserSettings.ascx.designer.cs">
-            <DependentUpon>SfBUserSettings.ascx</DependentUpon>
-        </Compile>
+
+
         <Compile Include="ProviderControls\MariaDB_EditUser.ascx.cs">
             <DependentUpon>MariaDB_EditUser.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -1819,76 +1717,7 @@
         <Compile Include="ExchangeServer\ExchangeDisclaimerGeneralSettings.ascx.designer.cs">
             <DependentUpon>ExchangeDisclaimerGeneralSettings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="Lync\LyncAddFederationDomain.ascx.cs">
-            <DependentUpon>LyncAddFederationDomain.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncAddFederationDomain.ascx.designer.cs">
-            <DependentUpon>LyncAddFederationDomain.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncAddLyncUserPlan.ascx.cs">
-            <DependentUpon>LyncAddLyncUserPlan.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncAddLyncUserPlan.ascx.designer.cs">
-            <DependentUpon>LyncAddLyncUserPlan.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncCreateUser.ascx.cs">
-            <DependentUpon>LyncCreateUser.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncCreateUser.ascx.designer.cs">
-            <DependentUpon>LyncCreateUser.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncEditUser.ascx.cs">
-            <DependentUpon>LyncEditUser.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncEditUser.ascx.designer.cs">
-            <DependentUpon>LyncEditUser.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncFederationDomains.ascx.cs">
-            <DependentUpon>LyncFederationDomains.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncFederationDomains.ascx.designer.cs">
-            <DependentUpon>LyncFederationDomains.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncPhoneNumbers.ascx.cs">
-            <DependentUpon>LyncPhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncPhoneNumbers.ascx.designer.cs">
-            <DependentUpon>LyncPhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncUserPlans.ascx.cs">
-            <DependentUpon>LyncUserPlans.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncUserPlans.ascx.designer.cs">
-            <DependentUpon>LyncUserPlans.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncUsers.ascx.cs">
-            <DependentUpon>LyncUsers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncUsers.ascx.designer.cs">
-            <DependentUpon>LyncUsers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\UserControls\LyncUserSettings.ascx.cs">
-            <DependentUpon>LyncUserSettings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\UserControls\LyncUserSettings.ascx.designer.cs">
-            <DependentUpon>LyncUserSettings.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\UserControls\LyncUserPlanSelector.ascx.cs">
-            <DependentUpon>LyncUserPlanSelector.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\UserControls\LyncUserPlanSelector.ascx.designer.cs">
-            <DependentUpon>LyncUserPlanSelector.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="OrganizationMenu.ascx.cs">
             <DependentUpon>OrganizationMenu.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -1992,10 +1821,7 @@
         <Compile Include="ProviderControls\IceWarp_Settings.ascx.designer.cs">
             <DependentUpon>IceWarp_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\Lync_Settings.ascx.cs">
-            <DependentUpon>Lync_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
+
         <Compile Include="ProviderControls\RDS_Settings.ascx.cs">
             <DependentUpon>RDS_Settings.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -2003,9 +1829,7 @@
         <Compile Include="ProviderControls\RDS_Settings.ascx.designer.cs">
             <DependentUpon>RDS_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\Lync_Settings.ascx.designer.cs">
-            <DependentUpon>Lync_Settings.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="ScheduleTaskControls\NotifyOverusedDatabases.ascx.cs">
             <DependentUpon>NotifyOverusedDatabases.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -2024,13 +1848,7 @@
         <Compile Include="SettingsExchangeMailboxPlansPolicy.ascx.designer.cs">
             <DependentUpon>SettingsExchangeMailboxPlansPolicy.ascx</DependentUpon>
         </Compile>
-        <Compile Include="SettingsLyncUserPlansPolicy.ascx.cs">
-            <DependentUpon>SettingsLyncUserPlansPolicy.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="SettingsLyncUserPlansPolicy.ascx.designer.cs">
-            <DependentUpon>SettingsLyncUserPlansPolicy.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="SkinControls\SpaceOrganizationsSelector.ascx.cs">
             <DependentUpon>SpaceOrganizationsSelector.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -2082,13 +1900,7 @@
         <Compile Include="UserControls\PackagePhoneNumbers.ascx.designer.cs">
             <DependentUpon>PackagePhoneNumbers.ascx</DependentUpon>
         </Compile>
-        <Compile Include="Lync\UserControls\AllocatePackagePhoneNumbers.ascx.cs">
-            <DependentUpon>AllocatePackagePhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\UserControls\AllocatePackagePhoneNumbers.ascx.designer.cs">
-            <DependentUpon>AllocatePackagePhoneNumbers.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="UserControls\ItemButtonPanel.ascx.cs">
             <DependentUpon>ItemButtonPanel.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -3256,48 +3068,7 @@
         <Compile Include="ProviderControls\ServU_EditAccount.ascx.designer.cs">
             <DependentUpon>ServU_EditAccount.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditAccount.ascx.cs">
-            <DependentUpon>hMailServer43_EditAccount.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditAccount.ascx.designer.cs">
-            <DependentUpon>hMailServer43_EditAccount.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditDomain.ascx.cs">
-            <DependentUpon>hMailServer43_EditDomain.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditDomain.ascx.designer.cs">
-            <DependentUpon>hMailServer43_EditDomain.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditForwarding.ascx.cs">
-            <DependentUpon>hMailServer43_EditForwarding.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditForwarding.ascx.designer.cs">
-            <DependentUpon>hMailServer43_EditForwarding.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditGroup.ascx.cs">
-            <DependentUpon>hMailServer43_EditGroup.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditGroup.ascx.designer.cs">
-            <DependentUpon>hMailServer43_EditGroup.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditList.ascx.cs">
-            <DependentUpon>hMailServer43_EditList.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_EditList.ascx.designer.cs">
-            <DependentUpon>hMailServer43_EditList.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_Settings.ascx.cs">
-            <DependentUpon>hMailServer43_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer43_Settings.ascx.designer.cs">
-            <DependentUpon>hMailServer43_Settings.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="RestoreWizard.ascx.cs">
             <DependentUpon>RestoreWizard.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -3463,48 +3234,7 @@
         <Compile Include="ProviderControls\ArgoMail_Settings.ascx.designer.cs">
             <DependentUpon>ArgoMail_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditAccount.ascx.cs">
-            <DependentUpon>hMailServer_EditAccount.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditAccount.ascx.designer.cs">
-            <DependentUpon>hMailServer_EditAccount.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditDomain.ascx.cs">
-            <DependentUpon>hMailServer_EditDomain.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditDomain.ascx.designer.cs">
-            <DependentUpon>hMailServer_EditDomain.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditForwarding.ascx.cs">
-            <DependentUpon>hMailServer_EditForwarding.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditForwarding.ascx.designer.cs">
-            <DependentUpon>hMailServer_EditForwarding.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditGroup.ascx.cs">
-            <DependentUpon>hMailServer_EditGroup.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditGroup.ascx.designer.cs">
-            <DependentUpon>hMailServer_EditGroup.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditList.ascx.cs">
-            <DependentUpon>hMailServer_EditList.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_EditList.ascx.designer.cs">
-            <DependentUpon>hMailServer_EditList.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_Settings.ascx.cs">
-            <DependentUpon>hMailServer_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\hMailServer_Settings.ascx.designer.cs">
-            <DependentUpon>hMailServer_Settings.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="ProviderControls\MDaemon_EditAccount.ascx.cs">
             <DependentUpon>MDaemon_EditAccount.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -4009,48 +3739,7 @@
         <Compile Include="ProviderControls\MailEnable_Settings.ascx.designer.cs">
             <DependentUpon>MailEnable_Settings.ascx</DependentUpon>
         </Compile>
-        <Compile Include="ProviderControls\Merak_EditAccount.ascx.cs">
-            <DependentUpon>Merak_EditAccount.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditAccount.ascx.designer.cs">
-            <DependentUpon>Merak_EditAccount.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditDomain.ascx.cs">
-            <DependentUpon>Merak_EditDomain.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditDomain.ascx.designer.cs">
-            <DependentUpon>Merak_EditDomain.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditForwarding.ascx.cs">
-            <DependentUpon>Merak_EditForwarding.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditForwarding.ascx.designer.cs">
-            <DependentUpon>Merak_EditForwarding.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditGroup.ascx.cs">
-            <DependentUpon>Merak_EditGroup.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditGroup.ascx.designer.cs">
-            <DependentUpon>Merak_EditGroup.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditList.ascx.cs">
-            <DependentUpon>Merak_EditList.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_EditList.ascx.designer.cs">
-            <DependentUpon>Merak_EditList.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_Settings.ascx.cs">
-            <DependentUpon>Merak_Settings.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="ProviderControls\Merak_Settings.ascx.designer.cs">
-            <DependentUpon>Merak_Settings.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="ProviderControls\MSDNS_Settings.ascx.cs">
             <DependentUpon>MSDNS_Settings.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -5527,20 +5216,7 @@
         <Compile Include="WebsitesSSL.ascx.designer.cs">
             <DependentUpon>WebsitesSSL.ascx</DependentUpon>
         </Compile>
-        <Compile Include="LyncPhoneNumbers.ascx.cs">
-            <DependentUpon>LyncPhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="LyncPhoneNumbers.ascx.designer.cs">
-            <DependentUpon>LyncPhoneNumbers.ascx</DependentUpon>
-        </Compile>
-        <Compile Include="Lync\LyncAllocatePhoneNumbers.ascx.cs">
-            <DependentUpon>LyncAllocatePhoneNumbers.ascx</DependentUpon>
-            <SubType>ASPXCodeBehind</SubType>
-        </Compile>
-        <Compile Include="Lync\LyncAllocatePhoneNumbers.ascx.designer.cs">
-            <DependentUpon>LyncAllocatePhoneNumbers.ascx</DependentUpon>
-        </Compile>
+
         <Compile Include="PhoneNumbers.ascx.cs">
             <DependentUpon>PhoneNumbers.ascx</DependentUpon>
             <SubType>ASPXCodeBehind</SubType>
@@ -5660,7 +5336,7 @@
         <Content Include="Proxmox\VpsToolsReinstallServer.ascx" />
         <Content Include="ProviderControls\HyperVvmm_Settings.ascx" />
         <Content Include="ProviderControls\MailCleaner_Settings.ascx" />
-        <Content Include="ProviderControls\SfB_Settings.ascx" />
+
         <Content Include="ScheduleTaskControls\AuditLogReportView.ascx" />
         <Content Include="SecurityBruteForceAttempts.ascx" />
         <Content Include="SecurityIpSecurityPolicies.ascx" />
@@ -5816,20 +5492,7 @@
         <None Include="App.config" />
         <None Include="Resources\PlusSign.ico" />
         <Content Include="SettingsMariaDBPolicy.ascx" />
-        <Content Include="SettingsSfBUserPlansPolicy.ascx" />
-        <Content Include="SfBPhoneNumbers.ascx" />
-        <Content Include="SfB\SfBAddFederationDomain.ascx" />
-        <Content Include="SfB\SfBAddSfBUserPlan.ascx" />
-        <Content Include="SfB\SfBAllocatePhoneNumbers.ascx" />
-        <Content Include="SfB\SfBCreateUser.ascx" />
-        <Content Include="SfB\SfBEditUser.ascx" />
-        <Content Include="SfB\SfBFederationDomains.ascx" />
-        <Content Include="SfB\SfBPhoneNumbers.ascx" />
-        <Content Include="SfB\SfBUserPlans.ascx" />
-        <Content Include="SfB\SfBUsers.ascx" />
-        <Content Include="SfB\UserControls\SfBAllocatePackagePhoneNumbers.ascx" />
-        <Content Include="SfB\UserControls\SfBUserPlanSelector.ascx" />
-        <Content Include="SfB\UserControls\SfBUserSettings.ascx" />
+
         <Content Include="ProviderControls\MariaDB_EditUser.ascx" />
         <Content Include="ProviderControls\MariaDB_EditDatabase.ascx" />
         <Content Include="ProviderControls\MariaDB_Settings.ascx" />
@@ -6002,21 +5665,8 @@
         </Content>
         <Content Include="ProviderControls\App_LocalResources\MariaDB_EditUser.ascx.resx" />
         <Content Include="ProviderControls\App_LocalResources\MariaDB_EditDatabase.ascx.resx" />
-        <Content Include="App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAddFederationDomain.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAddSfBUserPlan.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAllocatePhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="SfB\App_LocalResources\SfBCreateUser.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBEditUser.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBFederationDomains.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBPhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="SfB\App_LocalResources\SfBUserPlans.ascx.resx" />
-        <Content Include="SfB\App_LocalResources\SfBUsers.ascx.resx" />
-        <Content Include="ProviderControls\App_LocalResources\SfB_Settings.ascx.resx" />
+
+
         <Content Include="ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.resx" />
         <Content Include="App_LocalResources\ApplyEnableHardQuotaFeature.ascx.resx" />
         <Content Include="App_LocalResources\SystemSettings.ascx.resx">
@@ -6061,7 +5711,7 @@
             <SubType>Designer</SubType>
         </Content>
         <Content Include="App_LocalResources\LoginForgotPassword.ascx.de-DE.resx" />
-        <Content Include="App_LocalResources\LyncPhoneNumbers.ascx.de-DE.resx" />
+
         <Content Include="App_LocalResources\MailAccounts.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\MailAccountsEditAccount.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\MailDomainsAddPointer.ascx.de-DE.resx" />
@@ -6121,7 +5771,7 @@
         <Content Include="App_LocalResources\SettingsExchangePolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsExchangeRetentionPolicyTag.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsFtpPolicy.ascx.de-DE.resx" />
-        <Content Include="App_LocalResources\SettingsLyncUserPlansPolicy.ascx.de-DE.resx" />
+
         <Content Include="App_LocalResources\SettingsMailPolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsMsSqlPolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsMySqlPolicy.ascx.de-DE.resx" />
@@ -6132,7 +5782,7 @@
         <Content Include="App_LocalResources\SettingsRdsPolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsRdsSetupLetter.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsServiceLevels.ascx.de-DE.resx" />
-        <Content Include="App_LocalResources\SettingsSfBUserPlansPolicy.ascx.de-DE.resx" />
+
         <Content Include="App_LocalResources\SettingsSharePointPolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsFuseCPPolicy.ascx.de-DE.resx" />
         <Content Include="App_LocalResources\SettingsUserPasswordExpirationLetter.ascx.de-DE.resx" />
@@ -6382,16 +6032,7 @@
         <Content Include="HostedSharePoint\App_LocalResources\HostedSharePointSiteCollections.ascx.de-DE.resx" />
         <Content Include="HostedSharePoint\App_LocalResources\HostedSharePointStorageSettings.ascx.de-DE.resx" />
         <Content Include="HostedSharePoint\App_LocalResources\HostedSharePointStorageUsage.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncAddFederationDomain.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncAddLyncUserPlan.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncAllocatePhoneNumbers.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncCreateUser.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncEditUser.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncFederationDomains.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncPhoneNumbers.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncUserPlans.ascx.de-DE.resx" />
-        <Content Include="Lync\App_LocalResources\LyncUsers.ascx.de-DE.resx" />
-        <Content Include="Lync\UserControls\App_LocalResources\AllocatePackagePhoneNumbers.ascx.de-DE.resx" />
+
         <Content Include="OCS\App_LocalResources\CreateOCSUser.ascx.de-DE.resx" />
         <Content Include="OCS\App_LocalResources\EditOCSUser.ascx.de-DE.resx" />
         <Content Include="OCS\App_LocalResources\OCSUsers.ascx.de-DE.resx" />
@@ -6419,21 +6060,13 @@
         <Content Include="ProviderControls\App_LocalResources\FileZilla_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\Gene6FTP_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\Gene6FTP_Settings.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditAccount.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditDomain.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditGroup.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditList.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_Settings.ascx.de-DE.resx" />
+
         <Content Include="ProviderControls\App_LocalResources\hMailServer5_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\hMailServer5_EditDomain.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\hMailServer5_EditGroup.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\hMailServer5_EditList.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\hMailServer5_Settings.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditGroup.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditList.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_Settings.ascx.de-DE.resx" />
+
         <Content Include="ProviderControls\App_LocalResources\HostedSharePoint30_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\HyperV2012R2_Settings.ascx.de-DE.resx">
             <SubType>Designer</SubType>
@@ -6452,7 +6085,7 @@
         <Content Include="ProviderControls\App_LocalResources\IceWarp_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\IIS60_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\IIS70_Settings.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Lync_Settings.ascx.de-DE.resx" />
+
         <Content Include="ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MailEnable_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MailEnable_EditDomain.ascx.de-DE.resx" />
@@ -6466,11 +6099,7 @@
         <Content Include="ProviderControls\App_LocalResources\MDaemon_EditGroup.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MDaemon_EditList.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MDaemon_Settings.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditAccount.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditDomain.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditGroup.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditList.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Merak_Settings.ascx.de-DE.resx" />
+
         <Content Include="ProviderControls\App_LocalResources\MSDNS_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MSFTP60_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\MSFTP60_Settings.ascx.de-DE.resx" />
@@ -6488,7 +6117,7 @@
         <Content Include="ProviderControls\App_LocalResources\RemoteDesktopServices_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\ServU_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\ServU_Settings.ascx.de-DE.resx" />
-        <Content Include="ProviderControls\App_LocalResources\SfB_Settings.ascx.de-DE.resx" />
+
         <Content Include="ProviderControls\App_LocalResources\SimpleDNS_Settings.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\SmarterMail100_EditAccount.ascx.de-DE.resx" />
         <Content Include="ProviderControls\App_LocalResources\SmarterMail100_EditDomain.ascx.de-DE.resx" />
@@ -6747,8 +6376,7 @@
         <Content Include="ExchangeServer\UserControls\GroupsList.ascx" />
         <Content Include="ExchangeServer\UserControls\SecurityGroupTabs.ascx" />
         <Content Include="ExchangeServer\UserControls\UsersList.ascx" />
-        <Content Include="Lync\LyncPhoneNumbers.ascx" />
-        <Content Include="Lync\UserControls\LyncUserSettings.ascx" />
+
         <Content Include="OrganizationMenu.ascx" />
         
         <Content Include="ProviderControls\EnterpriseStorage_Settings.ascx" />
@@ -6763,25 +6391,18 @@
         <Content Include="ExchangeServer\UserControls\AccountsListWithPermissions.ascx" />
         <Content Include="ExchangeServer\UserControls\MailboxPlanSelector.ascx" />
         <Content Include="ExchangeServer\UserControls\UserTabs.ascx" />
-        <Content Include="Lync\LyncAddFederationDomain.ascx" />
-        <Content Include="Lync\LyncAddLyncUserPlan.ascx" />
-        <Content Include="Lync\LyncCreateUser.ascx" />
-        <Content Include="Lync\LyncEditUser.ascx" />
-        <Content Include="Lync\LyncFederationDomains.ascx" />
-        <Content Include="Lync\LyncUserPlans.ascx" />
-        <Content Include="Lync\LyncUsers.ascx" />
-        <Content Include="Lync\UserControls\LyncUserPlanSelector.ascx" />
+
         <Content Include="ProviderControls\hMailServer5_EditAccount.ascx" />
         <Content Include="ProviderControls\hMailServer5_EditDomain.ascx" />
         <Content Include="ProviderControls\hMailServer5_EditForwarding.ascx" />
         <Content Include="ProviderControls\hMailServer5_EditGroup.ascx" />
         <Content Include="ProviderControls\hMailServer5_EditList.ascx" />
         <Content Include="ProviderControls\hMailServer5_Settings.ascx" />
-        <Content Include="ProviderControls\Lync_Settings.ascx" />
+
         <Content Include="ScheduleTaskControls\NotifyOverusedDatabases.ascx" />
         <Content Include="SettingsExchangeRetentionPolicyTag.ascx" />
         <Content Include="SettingsExchangeMailboxPlansPolicy.ascx" />
-        <Content Include="SettingsLyncUserPlansPolicy.ascx" />
+
         <Content Include="SkinControls\SpaceOrganizationsSelector.ascx" />
         <Content Include="SettingsExchangeRetentionPolicyTag.ascx" />
         <Content Include="UserControls\DomainControl.ascx" />
@@ -6789,7 +6410,7 @@
         <Content Include="UserControls\OrgIdPolicyEditor.ascx" />
         <Content Include="UserControls\OrgPolicyEditor.ascx" />
         <Content Include="UserControls\PackagePhoneNumbers.ascx" />
-        <Content Include="Lync\UserControls\AllocatePackagePhoneNumbers.ascx" />
+
         <Content Include="UserControls\ItemButtonPanel.ascx" />
         <Content Include="UserControls\DomainActions.ascx" />
         <Content Include="UserControls\MailAccountActions.ascx" />
@@ -6864,8 +6485,7 @@
         <Content Include="WebSitesEditVirtualDir.ascx" />
         <Content Include="VirtualDirectoryHomeFolderControl.ascx" />
         <Content Include="WebsitesSSL.ascx" />
-        <Content Include="LyncPhoneNumbers.ascx" />
-        <Content Include="Lync\LyncAllocatePhoneNumbers.ascx" />
+
         <Content Include="PhoneNumbers.ascx" />
         <Content Include="PhoneNumbersAddPhoneNumber.ascx" />
         <Content Include="PhoneNumbersEditPhoneNumber.ascx" />
@@ -6903,17 +6523,7 @@
         <Content Include="ScheduleTaskControls\App_LocalResources\SendFilesViaFtp.ascx.de-DE.resx" />
         <Content Include="ScheduleTaskControls\App_LocalResources\SuspendOverusedSpaces.ascx.de-DE.resx" />
         <Content Include="ScheduleTaskControls\App_LocalResources\ZipFiles.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAddFederationDomain.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAddSfBUserPlan.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBAllocatePhoneNumbers.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBCreateUser.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBEditUser.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBFederationDomains.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBPhoneNumbers.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBUserPlans.ascx.de-DE.resx" />
-        <Content Include="SfB\App_LocalResources\SfBUsers.ascx.de-DE.resx" />
-        <Content Include="SfB\UserControls\App_LocalResources\SfBAllocatePackagePhoneNumbers.ascx.de-DE.resx" />
-        <Content Include="SfB\UserControls\App_LocalResources\SfBAllocatePackagePhoneNumbers.ascx.resx" />
+
         <Content Include="SkinControls\App_LocalResources\GlobalSearch.ascx.de-DE.resx" />
         <Content Include="SkinControls\App_LocalResources\SearchObject.ascx.de-DE.resx" />
         <Content Include="SkinControls\App_LocalResources\SignedInUser.ascx.de-DE.resx" />
@@ -7575,24 +7185,7 @@
         <Content Include="ProviderControls\App_LocalResources\MailEnable_Settings.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditAccount.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditDomain.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditForwarding.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditGroup.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_EditList.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\Merak_Settings.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="ProviderControls\App_LocalResources\MSDNS_Settings.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -7652,12 +7245,7 @@
         <Content Include="ProviderControls\MailEnable_EditGroup.ascx" />
         <Content Include="ProviderControls\MailEnable_EditList.ascx" />
         <Content Include="ProviderControls\MailEnable_Settings.ascx" />
-        <Content Include="ProviderControls\Merak_EditAccount.ascx" />
-        <Content Include="ProviderControls\Merak_EditDomain.ascx" />
-        <Content Include="ProviderControls\Merak_EditForwarding.ascx" />
-        <Content Include="ProviderControls\Merak_EditGroup.ascx" />
-        <Content Include="ProviderControls\Merak_EditList.ascx" />
-        <Content Include="ProviderControls\Merak_Settings.ascx" />
+
         <Content Include="ProviderControls\MSDNS_Settings.ascx" />
         <Content Include="ProviderControls\MSFTP60_EditAccount.ascx" />
         <Content Include="ProviderControls\MSFTP60_Settings.ascx" />
@@ -7866,12 +7454,7 @@
         <Content Include="ProviderControls\ArgoMail_EditGroup.ascx" />
         <Content Include="ProviderControls\ArgoMail_EditList.ascx" />
         <Content Include="ProviderControls\ArgoMail_Settings.ascx" />
-        <Content Include="ProviderControls\hMailServer_EditAccount.ascx" />
-        <Content Include="ProviderControls\hMailServer_EditDomain.ascx" />
-        <Content Include="ProviderControls\hMailServer_EditForwarding.ascx" />
-        <Content Include="ProviderControls\hMailServer_EditGroup.ascx" />
-        <Content Include="ProviderControls\hMailServer_EditList.ascx" />
-        <Content Include="ProviderControls\hMailServer_Settings.ascx" />
+
         <Content Include="ProviderControls\MDaemon_EditAccount.ascx" />
         <Content Include="ProviderControls\MDaemon_EditDomain.ascx" />
         <Content Include="ProviderControls\MDaemon_EditForwarding.ascx" />
@@ -7943,21 +7526,7 @@
         <Content Include="ProviderControls\App_LocalResources\ArgoMail_Settings.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditGroup.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer_Settings.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="ProviderControls\App_LocalResources\MDaemon_EditAccount.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8147,19 +7716,12 @@
         </Content>
         <Content Include="ExchangeServer\App_LocalResources\ExchangeAddMailboxPlan.ascx.resx" />
         <Content Include="ExchangeServer\App_LocalResources\ExchangeMailboxPlans.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncAddFederationDomain.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncAddLyncUserPlan.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncCreateUser.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncEditUser.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncFederationDomains.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncUserPlans.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncUsers.ascx.resx" />
-        <Content Include="ProviderControls\App_LocalResources\Lync_Settings.ascx.resx" />
+
         <Content Include="ExchangeServer\UserControls\App_LocalResources\UserTabs.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
         <Content Include="App_LocalResources\SettingsExchangeMailboxPlansPolicy.ascx.resx" />
-        <Content Include="App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx" />
+
         <Content Include="ExchangeServer\App_LocalResources\OrganizationDomainNames.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8170,9 +7732,7 @@
         <Content Include="UserControls\App_LocalResources\PackagePhoneNumbers.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
-        <Content Include="Lync\UserControls\App_LocalResources\AllocatePackagePhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="UserControls\App_LocalResources\ItemButtonPanel.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8187,12 +7747,7 @@
         <Content Include="ExchangeServer\App_LocalResources\ExchangeDistributionListMemberOf.ascx.resx" />
         <Content Include="ExchangeServer\App_LocalResources\ExchangeMailboxMemberOf.ascx.resx" />
         <Content Include="ExchangeServer\App_LocalResources\OrganizationUserMemberOf.ascx.resx" />
-        <Content Include="App_LocalResources\LyncPhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="Lync\App_LocalResources\LyncAllocatePhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="App_LocalResources\PhoneNumbers.ascx.resx" />
         <Content Include="App_LocalResources\PhoneNumbersAddPhoneNumber.ascx.resx" />
         <Content Include="App_LocalResources\PhoneNumbersEditPhoneNumber.ascx.resx" />
@@ -8221,9 +7776,7 @@
             <SubType>Designer</SubType>
         </Content>
         <Content Include="ExchangeServer\UserControls\App_LocalResources\EnterpriseStoragePermissions.ascx.resx" />
-        <Content Include="Lync\App_LocalResources\LyncPhoneNumbers.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="App_LocalResources\OrganizationMenu.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8719,21 +8272,7 @@
         <Content Include="ExchangeServer\UserControls\PublicFolderTabs.ascx" />
         <Content Include="ExchangeServer\UserControls\RejectedSenders.ascx" />
         <Content Include="ExchangeServer\UserControls\SizeBox.ascx" />
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditAccount.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_Settings.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditDomain.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditGroup.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
-        <Content Include="ProviderControls\App_LocalResources\hMailServer43_EditList.ascx.resx">
-            <SubType>Designer</SubType>
-        </Content>
+
         <Content Include="ProviderControls\App_LocalResources\Bind_Settings.ascx.resx">
             <SubType>Designer</SubType>
         </Content>
@@ -8960,12 +8499,7 @@
         <Content Include="ProviderControls\FileZilla_EditAccount.ascx" />
         <Content Include="ProviderControls\ServU_Settings.ascx" />
         <Content Include="ProviderControls\ServU_EditAccount.ascx" />
-        <Content Include="ProviderControls\hMailServer43_EditAccount.ascx" />
-        <Content Include="ProviderControls\hMailServer43_EditDomain.ascx" />
-        <Content Include="ProviderControls\hMailServer43_EditForwarding.ascx" />
-        <Content Include="ProviderControls\hMailServer43_EditGroup.ascx" />
-        <Content Include="ProviderControls\hMailServer43_EditList.ascx" />
-        <Content Include="ProviderControls\hMailServer43_Settings.ascx" />
+
         <Content Include="SettingsExchangePolicy.ascx" />
         <Content Include="SettingsOrganizationUserSummaryLetter.ascx" />
         <Content Include="SkinControls\App_LocalResources\SiteFooter.ascx.resx">
