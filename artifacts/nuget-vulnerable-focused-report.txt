@@ -1,3 +1,0 @@
-No vulnerable packages found in focused scope.
-Scanned projects: 111
-Generated: 2026-05-11T22:51:40
