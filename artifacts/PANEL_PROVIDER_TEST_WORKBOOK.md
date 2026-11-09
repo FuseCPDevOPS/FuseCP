@@ -8,7 +8,8 @@
 1. Work through the sections top to bottom (or start with whichever providers are installed in your environment).
 2. For each step, report back in chat: **provider → step number → what happened → exact error text/log if any** (screenshot optional).
 3. I update the Results table (`PASS` / `FAIL` / `PARTIAL` / `SKIP` / `BLOCKED`) and log issues as `F-xxx`.
-4. Mark providers you don't have installed as `SKIP` — no need to test them.
+4. When a provider is tested, record the tested software version in the tracker's `Version` column (update it if the software is upgraded between passes).
+5. Mark providers you don't have installed as `SKIP` — no need to test them.
 
 Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applicable) | `BLOCKED` (can't proceed, reason in notes)
 
@@ -16,55 +17,55 @@ Status values: `PASS` | `FAIL` | `PARTIAL` | `SKIP` (not installed / not applica
 
 ## 0. Progress Tracker
 
-| Section | Provider / Area | Status | Last tested |
-|---------|-----------------|--------|-------------|
-| 1a | Panel — auth & core flows | PARTIAL (1a.1/1a.3/1a.5–1a.8 PASS incl. customer login/access-denied/password change, 2026-10-31; 1a.2 bad-password re-verify not done; 1a.4 logout not re-verified) | 2026-10-31 |
-| 1b | Panel — admin (customers/plans/spaces/servers) | PARTIAL | 2026-10-30 |
-| 1c | Panel — customer portal (spaces) | PASS (2026-11-03: customer login 1a.5 + access-denied 1a.6 + password/profile 1c.6 + web-site detail 1c.1 + start/stop 1c.2 + file-mgr 1c.3 PASS as a non-admin customer; mail 1c.4 + DNS 1c.5 SKIP — not provisioned for the space) | 2026-11-03 |
-| 2a | OS — Windows (host is 2025) | PARTIAL | 2026-10-30 |
-| 2b | OS — Unix (systemd/openrc/launchd) | PASS (42/42 checks 2026-11-01: full systemd unit lifecycle + Mono.Unix permissions + processes + logs + apt) | 2026-11-01 |
-| 3a | Web — IIS 10 | PASS (2026-11-03 re-run after Apache commit aeba4f22e: full IIS lifecycle re-verified — create 3a.1 / serve 3a.2 / file-mgr 3a.3 / app-pool 3a.5 / suspend-resume 3a.6 / delete 3a.7; 3a.4 SSL still TODO) | 2026-11-03 |
-| 3b | Web — Apache 2.4 | PASS (full E2E 2026-11-03: create → vhost clean → content serving 200 → delete → DB removed; 7 bugs fixed incl. GlobalConfig cache + IncludeFile enumeration) | 2026-11-03 |
-| 3c | Web — WebDAV | SKIP | — |
-| 3d | Web — Let's Encrypt (IIS module) | SKIP | — |
-| 4a | FTP — IIS 10 (MsFTP100) | PASS (login / upload / password / delete verified 2026-10-31; F-018 open) | 2026-10-31 |
-| 4b | FTP — FileZilla | PASS (2026-11-03: direct harness 31/31 — create/login/scoping/upload/download/FTPS :990/password/delete — + portal flow on Space 5 vServer02: create / file I-O / password change / space suspend+resume / reset / delete; **F-037 (High, open)** space suspend/resume (and import) re-hash the stored MD5 password → login broken until reset; **F-038 (Medium, open)** list-row Detach orphans the server account — working delete is the edit-page Delete button) | 2026-11-03 |
-| 4c | FTP — ServU | SKIP | — |
-| 4d | FTP — Cerberus 6 | SKIP | — |
-| 4e | FTP — VsFtp 3 | SKIP | — |
-| 4f | FTP — Gene6 | SKIP | — |
-| 5a | Mail — SmarterMail 100.x+ | PASS (full domain + account CRUD 2026-10-31, 29/29) | 2026-10-31 |
-| 5b | Mail — MailEnable (Win32 P/Invoke, ProviderID 4) | PASS (14/14 direct CRUD + **portal flows 5b.11–5b.13** create / edit / non-zero-size exercised 2026-11-01; **F-026** mailbox-size range validator 0–0 / unformatted error when plan lacks the size quota — open (confirmed by 5b.13); **F-027** mail **edit** save is a no-op + re-renders in create-mode (`EditMode` ViewState timing) — open; **F-024** — production host needs the VC++ 2008 x64 runtime for the provider to load) | 2026-11-01 |
-| 5c | Mail — hMailServer 5.x | SKIP | — |
-| 5d | Mail — hMailServer 4.3 | SKIP | — |
-| 5e | Mail — hMailServer 4.2 | SKIP | — |
-| 5f | Mail — MDaemon 9.x–11.x | SKIP | — |
-| 5g | Mail — ArGoSoft Mail Server 1.x | SKIP | — |
-| 5h | Mail — Ability Mail Server 2.x | SKIP | — |
-| 5i | Mail — IceWarp Mail Server | SKIP | — |
-| 5j | Mail — Merak 8.0.3–9.2.x | SKIP | — |
-| 5k | Mail — Merak 10.x | SKIP | — |
-| 6a | DNS — Windows DNS (MsDNSPS) | PASS (zone create 6a.1 / record add-remove 6a.2–6a.3 / detach 6a.4 all PASS, 2026-10-30; F-008 SOA/NS defaults known-limitation) | 2026-10-30 |
-| 6b | DNS — PowerDNS (database-backed, ProviderID 56) | PASS (portal flow 6b.5 PASS, 2026-10-31; live resolution unverified — no authoritative on host) | 2026-10-31 |
-| 6c | DNS — Windows DNS (MsDNS, WMI legacy) | SKIP | — |
-| 6d | DNS — SimpleDNS Plus 9.x | SKIP | — |
-| 6e | DNS — ISC BIND 8.x–9.x | SKIP | — |
-| 7a | Database — SQL Server 2025 | PASS (2026-11-08; F-016 fixed) | 2026-11-08 |
-| 7b | Database — MariaDB 12.2 | PASS (re-verified 2026-11-07 after MySqlConnector 2.4.0 → 2.6.2 pin `4aebee50c`: create DB+login / per-DB GRANT / connect+DML / delete all re-run end-to-end, host-verified) | 2026-11-07 |
-| 7c | Database — MySQL 9.0 | SKIP | — |
-| 8a | Virtualization — Hyper-V 2025 | PASS (2026-10-30) | 2026-10-30 |
-| 8b | Virtualization — Proxmox | SKIP | — |
-| 9a | Terminal Services / RDS (2012–2025) | SKIP | — |
-| 10a | Hosted — Exchange 2019 | PARTIAL (2026-11-05: provider 10a.0 + org create 10a.1 + AD user create 10a.2 PASS; 10a.3 form works end-to-end after the F-039 fix, but the actual mailbox enable is blocked only by the Exchange host being offline (DNS/ping/WinRM all fail) — environment limitation, not a code defect; F-040 (event-validation, "Existing user" path) still open) | 2026-11-05 |
-| 10b | Hosted — SharePoint 2016 | SKIP | — |
-| 10c | Hosted — SharePoint 2019 | SKIP | — |
-| 10d | Hosted — SfB 2019 / Lync | SKIP | — |
-| 11a | Statistics — AWStats | SKIP | — |
-| 11b | Statistics — SmarterStats | SKIP | — |
-| 12a | Storage — EnterpriseStorage | SKIP | — |
-| 12b | Storage — StorageSpaces | SKIP | — |
-| 13a | Filters — MailCleaner | SKIP | — |
-| 13b | Filters — SpamExperts | SKIP | — |
+| Section | Provider / Area | Version | Status | Last tested |
+|---------|-----------------|---------|--------|-------------|
+| 1a | Panel — auth & core flows | — | PARTIAL (1a.1/1a.3/1a.5–1a.8 PASS incl. customer login/access-denied/password change, 2026-10-31; 1a.2 bad-password re-verify not done; 1a.4 logout not re-verified) | 2026-10-31 |
+| 1b | Panel — admin (customers/plans/spaces/servers) | — | PARTIAL | 2026-10-30 |
+| 1c | Panel — customer portal (spaces) | — | PASS (2026-11-03: customer login 1a.5 + access-denied 1a.6 + password/profile 1c.6 + web-site detail 1c.1 + start/stop 1c.2 + file-mgr 1c.3 PASS as a non-admin customer; mail 1c.4 + DNS 1c.5 SKIP — not provisioned for the space) | 2026-11-03 |
+| 2a | OS — Windows (host is 2025) | Windows Server 2025 | PARTIAL | 2026-10-30 |
+| 2b | OS — Unix (systemd/openrc/launchd) | Ubuntu 24.04 (WSL2) | PASS (42/42 checks 2026-11-01: full systemd unit lifecycle + Mono.Unix permissions + processes + logs + apt) | 2026-11-01 |
+| 3a | Web — IIS 10 | IIS 10 (Windows Server 2025) | PASS (2026-11-03 re-run after Apache commit aeba4f22e: full IIS lifecycle re-verified — create 3a.1 / serve 3a.2 / file-mgr 3a.3 / app-pool 3a.5 / suspend-resume 3a.6 / delete 3a.7; 3a.4 SSL still TODO) | 2026-11-03 |
+| 3b | Web — Apache 2.4 | Apache 2.4 (Ubuntu 24.04) | PASS (full E2E 2026-11-03: create → vhost clean → content serving 200 → delete → DB removed; 7 bugs fixed incl. GlobalConfig cache + IncludeFile enumeration) | 2026-11-03 |
+| 3c | Web — WebDAV | — | SKIP | — |
+| 3d | Web — Let's Encrypt (IIS module) | — | SKIP | — |
+| 4a | FTP — IIS 10 (MsFTP100) | IIS 10 (Windows Server 2025) | PASS (login / upload / password / delete verified 2026-10-31; F-018 open) | 2026-10-31 |
+| 4b | FTP — FileZilla | 0.9.60 (beta) | PASS (2026-11-03: direct harness 31/31 — create/login/scoping/upload/download/FTPS :990/password/delete — + portal flow on Space 5 vServer02: create / file I-O / password change / space suspend+resume / reset / delete; **F-037 (High, open)** space suspend/resume (and import) re-hash the stored MD5 password → login broken until reset; **F-038 (Medium, open)** list-row Detach orphans the server account — working delete is the edit-page Delete button) | 2026-11-03 |
+| 4c | FTP — ServU | — | SKIP | — |
+| 4d | FTP — Cerberus 6 | — | SKIP | — |
+| 4e | FTP — VsFtp 3 | — | SKIP | — |
+| 4f | FTP — Gene6 | — | SKIP | — |
+| 5a | Mail — SmarterMail 100.x+ | 100.0.9784.23326 | PASS (full domain + account CRUD 2026-10-31, 29/29) | 2026-10-31 |
+| 5b | Mail — MailEnable (Win32 P/Invoke, ProviderID 4) | 7.x (build 10.61) | PASS (14/14 direct CRUD + **portal flows 5b.11–5b.13** create / edit / non-zero-size exercised 2026-11-01; **F-026** mailbox-size range validator 0–0 / unformatted error when plan lacks the size quota — open (confirmed by 5b.13); **F-027** mail **edit** save is a no-op + re-renders in create-mode (`EditMode` ViewState timing) — open; **F-024** — production host needs the VC++ 2008 x64 runtime for the provider to load) | 2026-11-01 |
+| 5c | Mail — hMailServer 5.x | — | SKIP | — |
+| 5d | Mail — hMailServer 4.3 | — | SKIP | — |
+| 5e | Mail — hMailServer 4.2 | — | SKIP | — |
+| 5f | Mail — MDaemon 9.x–11.x | — | SKIP | — |
+| 5g | Mail — ArGoSoft Mail Server 1.x | — | SKIP | — |
+| 5h | Mail — Ability Mail Server 2.x | — | SKIP | — |
+| 5i | Mail — IceWarp Mail Server | — | SKIP | — |
+| 5j | Mail — Merak 8.0.3–9.2.x | — | SKIP | — |
+| 5k | Mail — Merak 10.x | — | SKIP | — |
+| 6a | DNS — Windows DNS (MsDNSPS) | Windows Server 2025 (DNS role) | PASS (zone create 6a.1 / record add-remove 6a.2–6a.3 / detach 6a.4 all PASS, 2026-10-30; F-008 SOA/NS defaults known-limitation) | 2026-10-30 |
+| 6b | DNS — PowerDNS (database-backed, ProviderID 56) | — (DB backend only, MariaDB 12.2) | PASS (portal flow 6b.5 PASS, 2026-10-31; live resolution unverified — no authoritative on host) | 2026-10-31 |
+| 6c | DNS — Windows DNS (MsDNS, WMI legacy) | — | SKIP | — |
+| 6d | DNS — SimpleDNS Plus 9.x | — | SKIP | — |
+| 6e | DNS — ISC BIND 8.x–9.x | — | SKIP | — |
+| 7a | Database — SQL Server 2025 | SQL Server 2025 | PASS (2026-11-08; F-016 fixed) | 2026-11-08 |
+| 7b | Database — MariaDB 12.2 | 12.2 | PASS (re-verified 2026-11-07 after MySqlConnector 2.4.0 → 2.6.2 pin `4aebee50c`: create DB+login / per-DB GRANT / connect+DML / delete all re-run end-to-end, host-verified) | 2026-11-07 |
+| 7c | Database — MySQL 9.0 | — | SKIP | — |
+| 8a | Virtualization — Hyper-V 2025 | Hyper-V 2025 (Windows Server 2025) | PASS (2026-10-30) | 2026-10-30 |
+| 8b | Virtualization — Proxmox | — | SKIP | — |
+| 9a | Terminal Services / RDS (2012–2025) | — | SKIP | — |
+| 10a | Hosted — Exchange 2019 | Exchange 2019 | PARTIAL (2026-11-05: provider 10a.0 + org create 10a.1 + AD user create 10a.2 PASS; 10a.3 form works end-to-end after the F-039 fix, but the actual mailbox enable is blocked only by the Exchange host being offline (DNS/ping/WinRM all fail) — environment limitation, not a code defect; F-040 (event-validation, "Existing user" path) still open) | 2026-11-05 |
+| 10b | Hosted — SharePoint 2016 | — | SKIP | — |
+| 10c | Hosted — SharePoint 2019 | — | SKIP | — |
+| 10d | Hosted — SfB 2019 / Lync | — | SKIP | — |
+| 11a | Statistics — AWStats | — | SKIP | — |
+| 11b | Statistics — SmarterStats | — | SKIP | — |
+| 12a | Storage — EnterpriseStorage | — | SKIP | — |
+| 12b | Storage — StorageSpaces | — | SKIP | — |
+| 13a | Filters — MailCleaner | — | SKIP | — |
+| 13b | Filters — SpamExperts | — | SKIP | — |
 
 Environment notes: providers registered in DB (Providers table) include many products not installed on this host; IIS100 (Web, ID 112), MSFTP100 (FTP, ID 113), MsSQL 2025 (ID 1707), Windows2025 (OS, ID 1804/1805), MsDNSPS (DNS, ID 1902 — host runs the Windows DNS Server role), PowerDNS (DNS, ID 56 — database-backed, writes to the `pdnsdb01` PowerDNS-schema MariaDB backend; no authoritative on host), MariaDB (ID 1586 — host runs MariaDB 12.2), HyperV2025 (ID 1805 — host has the Hyper-V role + template `C:\HyperV\Templates\blank.vhdx`) SmarterMail 100.x+ (ID 67, ServiceID 11 — host runs SmarterMail 100.0.9784.23326 on `http://localhost:9998`), FileZilla Server 0.9.60 (FTP, ID 26, ServiceID 16 — `C:\Program Files (x86)\FileZilla Server`, service "FileZilla Server", plain :2121 + implicit TLS :990; port 21 on this host is IIS FTP, not FileZilla) and MailEnable 7.x (ID 4, ServiceID 12 — host runs MailEnable 10.61 at `C:\Program Files (x86)\Mail Enable\`, all ME* services running, x64) were exercised or provisioned against the live host. Legacy DB registrations with no provider project in this codebase (not listed in the tracker): NetticaDNS (ID 55), Hosted MS CRM 4.0 / 2011 / 2013 / 2015 / 2016 (IDs 201/1201/1202/1205/1206), SharePoint Enterprise (ID 1711), Hosted Organizations (ID 103).
 
