@@ -68,6 +68,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\FuseCP.Providers.Base\FuseCP.Providers.Base.csproj" />
+		<ProjectReference Include="..\FuseCP.Server.Utils\FuseCP.Server.Utils.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" />
