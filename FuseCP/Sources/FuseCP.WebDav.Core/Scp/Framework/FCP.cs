@@ -81,18 +81,6 @@ namespace FuseCP.WebDav.Core.Scp.Framework
             get { return GetCachedProxy<esOCS>(); }
         }
 
-
-        public esLync Lync
-        {
-            get { return GetCachedProxy<esLync>(); }
-        }
-
-        public esSfB SfB
-        {
-            get { return GetCachedProxy<esSfB>(); }
-        }
-
-
         public esOrganizations Organizations
         {
             get
