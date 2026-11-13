@@ -31,9 +31,9 @@
      </div>
  
  
- <asp:GridView ID="gvDomains" runat="server" AutoGenerateColumns="False" AllowSorting="True" DataSourceID="odsDomainsPaged"
-     EmptyDataText="gvDomains" DataKeyNames="DomainID"
-     CssSelectorClass="NormalGridView" AllowPaging="True" OnRowCommand="gvDomains_RowCommand">
+  <asp:GridView ID="gvDomains" runat="server" AutoGenerateColumns="False" AllowSorting="True" DataSourceID="odsDomainsPaged"
+      EmptyDataText="gvDomains" DataKeyNames="DomainID"
+      CssSelectorClass="NormalGridView" AllowPaging="True" OnRowCommand="gvDomains_RowCommand" OnRowDataBound="gvDomains_RowDataBound">
      <Columns>
          <asp:TemplateField>
              <HeaderTemplate>
@@ -127,9 +127,9 @@
 
          <asp:TemplateField>
  			<ItemTemplate>
- 				<asp:LinkButton ID="cmdDetach" runat="server" 
- 					CommandName="Detach" CommandArgument='<%# Eval("DomainID") %>'
-					CssClass="btn btn-secondary btn-sm" OnClientClick="return confirm('Remove this item?');">
+  			<asp:LinkButton ID="cmdDetach" runat="server"
+  				CommandName="Detach" CommandArgument='<%# Eval("DomainID") %>'
+				CssClass="btn btn-secondary btn-sm" OnClientClick="if (confirm('Remove this item?')) { __doPostBack(this.id.split('_').join('$'), this.getAttribute('data-itemid')); } return false;">
                     <i class="bi bi-link-45deg me-1"></i><asp:Localize runat="server" meta:resourcekey="cmdDetachText"/>
 				</asp:LinkButton>
  			</ItemTemplate>

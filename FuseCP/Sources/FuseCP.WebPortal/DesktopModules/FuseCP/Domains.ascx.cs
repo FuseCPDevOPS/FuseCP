@@ -76,6 +76,27 @@ namespace FuseCP.Portal
                     searchBox.AddCriteria("Email", GetLocalizedString("SearchField.Email"));
                 }
             }
+
+            // F-041: the WebForms-for-Core shim does not bubble the GridView Command
+            // event to RowCommand, so handle the Detach postback directly here. The
+            // DomainID is carried in __EVENTARGUMENT by the cmdDetach OnClientClick.
+            if (IsPostBack)
+            {
+                string evtTarget = Request["__EVENTTARGET"];
+                if (evtTarget != null && evtTarget.EndsWith("cmdDetach"))
+                {
+                    int domainId = Utils.ParseInt(Request["__EVENTARGUMENT"], 0);
+                    if (domainId > 0)
+                    {
+                        int result = ES.Services.Servers.DetachDomain(domainId);
+                        if (result < 0)
+                            ShowResultMessage(result);
+                        else
+                            gvDomains.DataBind();
+                    }
+                }
+            }
+
             searchBox.AjaxData = GetSearchBoxAjaxData();
         }
 
@@ -221,26 +242,22 @@ if (dnsRecords.TryGetValue(domainId, out var _ckv))
             Response.Redirect(EditUrl(PortalUtils.SPACE_ID_PARAM, PanelSecurity.PackageId.ToString(), "add_domain"));
         }
 
-		protected void gvDomains_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-			if (e.CommandName == "Detach")
-			{
-				
-                // remove item from meta base
-				int domainId = Utils.ParseInt(e.CommandArgument.ToString(), 0);
+ 		protected void gvDomains_RowCommand(object sender, GridViewCommandEventArgs e)
+ 		{
+ 			// F-041: the WebForms-for-Core shim does not bubble the GridView Command
+ 			// event to RowCommand, so this handler never fires. The Detach postback
+ 			// is handled in Page_Load instead. Kept as a stub for the markup wiring.
+ 		}
 
-				int result = ES.Services.Servers.DetachDomain(domainId);
-				if (result < 0)
-				{
-					 
-                    ShowResultMessage(result);
-				//	return;
-				}
-
-				// refresh the list
-				gvDomains.DataBind();
-			}
-		}
+ 		protected void gvDomains_RowDataBound(object sender, GridViewRowEventArgs e)
+ 		{
+ 			// F-041: carry the DomainID into the Detach postback via a data attribute,
+ 			// since the WebForms-for-Core shim does not render the LinkButton
+ 			// CommandArgument into __EVENTARGUMENT.
+ 			LinkButton cmdDetach = e.Row.FindControl("cmdDetach") as LinkButton;
+ 			if (cmdDetach != null)
+ 				cmdDetach.Attributes["data-itemid"] = Convert.ToString(cmdDetach.CommandArgument);
+ 		}
 
         public string GetSearchBoxAjaxData()
         {

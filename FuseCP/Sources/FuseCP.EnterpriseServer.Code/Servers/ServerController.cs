@@ -3223,14 +3223,10 @@ namespace FuseCP.EnterpriseServer
 					return BusinessErrorCodes.ERROR_DOMAIN_POINTS_TO_WEB_SITE;
 				}
 
-				// Find and delete all zone items for this domain
-				var zoneItems = PackageMetadataReader.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(DnsZone));
-				zoneItems.AddRange(PackageMetadataReader.GetPackageItemsByType(domain.PackageId, ResourceGroups.Dns, typeof(SecondaryDnsZone)));
-
-				foreach (var zoneItem in zoneItems.Where(z => z.Name == domain.ZoneName))
-				{
-					PackageController.DeletePackageItem(zoneItem.Id);
-				}
+				// F-041: metadata-only detach — remove the panel domain row only.
+				// The DNS zone items (and the provider-side zone), mail domain, web
+				// site and organization domain are left intact. The full delete path
+				// (DeleteDomain, detail-page Delete button) still removes the zone.
 
 				// delete domain
 				Database.DeleteDomain(SecurityContext.User.UserId, domainId);
