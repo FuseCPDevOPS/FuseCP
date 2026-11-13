@@ -1197,21 +1197,6 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_Modules.ascx.resx</File>
-    <Key>ModuleTitle.HeliconZoo</Key>
-    <DefaultValue>Helicon Zoo</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Modules.ascx.resx</File>
-    <Key>ModuleTitle.LyncPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Modules.ascx.resx</File>
-    <Key>ModuleTitle.SfBPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Modules.ascx.resx</File>
     <Key>ModuleTitle.AddPhoneNumber</Key>
     <DefaultValue>Add Phone Numbers</DefaultValue>
   </Resource>
@@ -2184,26 +2169,6 @@
     <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
     <Key>PageName.SpaceApplyEnableHardQuotaFeature</Key>
     <DefaultValue>System Hard Quota</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
-    <Key>PageName.LyncPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
-    <Key>PageTitle.LyncPhoneNumbers</Key>
-    <DefaultValue>{user} - {space} - Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
-    <Key>PageName.SfBPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
-    <Key>PageTitle.SfBPhoneNumbers</Key>
-    <DefaultValue>{user} - {space} - Phone Numbers</DefaultValue>
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_Pages.ascx.resx</File>
@@ -8623,11 +8588,6 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Warning.2710</Key>
-    <DefaultValue>Cannot delete user account as it is used in Lync.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Warning.2711</Key>
     <DefaultValue>Cannot delete user account as it is used in Skype for Business.</DefaultValue>
   </Resource>
@@ -8895,11 +8855,6 @@
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Quota.HostedCRM.Organization</Key>
     <DefaultValue>CRM Organization</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>ResourceGroup.HeliconZoo</Key>
-    <DefaultValue>Web Engines</DefaultValue>
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
@@ -12268,26 +12223,6 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>UserItemType.LyncAccount</Key>
-    <DefaultValue>Lync Account</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>UserItemType.LyncUsers</Key>
-    <DefaultValue>Lync Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>UserItemType.SfBAccount</Key>
-    <DefaultValue>Skype For Business Account</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>UserItemType.SfBUsers</Key>
-    <DefaultValue>Skype For Business Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>UserItemType.RDSCollection</Key>
     <DefaultValue>RDS Collection</DefaultValue>
   </Resource>
@@ -12453,166 +12388,6 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Lync.CANNOT_GET_USER_GENERAL_SETTINGS</Key>
-    <DefaultValue>Unable to get user general settings.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Lync.CANNOT_SET_DEFAULT_SETTINGS</Key>
-    <DefaultValue>Unable to set default settings.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Lync.USER_FIRST_NAME_IS_NOT_SPECIFIED</Key>
-    <DefaultValue>User first name is not specified.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Lync.USER_LAST_NAME_IS_NOT_SPECIFIED</Key>
-    <DefaultValue>User last name is not specified.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Lync.USER_QUOTA_HAS_BEEN_REACHED</Key>
-    <DefaultValue>Lync users quota has been reached.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.Federation</Key>
-    <DefaultValue>Federation Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.Users</Key>
-    <DefaultValue>Lync Users per Organization</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.Conferencing</Key>
-    <DefaultValue>Conferencing Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.MaxParticipants</Key>
-    <DefaultValue>Maximum participants per conference</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.AllowVideo</Key>
-    <DefaultValue>Conference Video Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EnterpriseVoice</Key>
-    <DefaultValue>Enterprise Voice Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EVUsers</Key>
-    <DefaultValue>Enterprise Voice users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EVNational</Key>
-    <DefaultValue>National Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EVMobile</Key>
-    <DefaultValue>Mobile Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EVInternational</Key>
-    <DefaultValue>International Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>ResourceGroup.Lync</Key>
-    <DefaultValue>Lync Server</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>SfB.CANNOT_GET_USER_GENERAL_SETTINGS</Key>
-    <DefaultValue>Unable to get user general settings.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>SfB.CANNOT_SET_DEFAULT_SETTINGS</Key>
-    <DefaultValue>Unable to set default settings.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>SfB.USER_FIRST_NAME_IS_NOT_SPECIFIED</Key>
-    <DefaultValue>User first name is not specified.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>SfB.USER_LAST_NAME_IS_NOT_SPECIFIED</Key>
-    <DefaultValue>User last name is not specified.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>SfB.USER_QUOTA_HAS_BEEN_REACHED</Key>
-    <DefaultValue>SfB users quota has been reached.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.Federation</Key>
-    <DefaultValue>Federation Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.Users</Key>
-    <DefaultValue>SfB Users per Organization</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.Conferencing</Key>
-    <DefaultValue>Conferencing Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.MaxParticipants</Key>
-    <DefaultValue>Maximum participants per conference</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.AllowVideo</Key>
-    <DefaultValue>Conference Video Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EnterpriseVoice</Key>
-    <DefaultValue>Enterprise Voice Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EVUsers</Key>
-    <DefaultValue>Enterprise Voice users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EVNational</Key>
-    <DefaultValue>National Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EVMobile</Key>
-    <DefaultValue>Mobile Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EVInternational</Key>
-    <DefaultValue>International Calls Allowed</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>ResourceGroup.SfB</Key>
-    <DefaultValue>Skype for Business Server</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Error.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS</Key>
     <DefaultValue>User has not enough permissions to do this task.</DefaultValue>
   </Resource>
@@ -12640,16 +12415,6 @@
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Error.EXCHANGE_SPECIFY_PLAN</Key>
     <DefaultValue>Specify a plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.EnablePlansEditing</Key>
-    <DefaultValue>Enable Lync User Plans Editing</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.EnablePlansEditing</Key>
-    <DefaultValue>Enable SfB User Plans Editing</DefaultValue>
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
@@ -12755,16 +12520,6 @@
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>WarningDescription.PHONE_EDIT_LIST_EMPTY_ERROR</Key>
     <DefaultValue>At least one Phone number must be selected.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.Lync.PhoneNumbers</Key>
-    <DefaultValue>Phone Numbers per Organization</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
-    <Key>Quota.SfB.PhoneNumbers</Key>
-    <DefaultValue>SfB Phone Numbers per Organization</DefaultValue>
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
@@ -16851,16 +16606,6 @@
     <DefaultValue>Send my password</DefaultValue>
   </Resource>
   <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\LyncPhoneNumbers.ascx.resx</File>
-    <Key>locIPQuota.Text</Key>
-    <DefaultValue>Number of Phone Numbers:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\LyncPhoneNumbers.ascx.resx</File>
-    <Key>secQuotas.Text</Key>
-    <DefaultValue>Quotas</DefaultValue>
-  </Resource>
-  <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\MailAccess.ascx.resx</File>
     <Key>btnAddAccount.Text</Key>
     <DefaultValue>Create Mail Account</DefaultValue>
@@ -17384,56 +17129,6 @@
     <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
     <Key>Text.ExchangeGroup</Key>
     <DefaultValue>Exchange</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.LyncFederationDomains</Key>
-    <DefaultValue>Lync Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.LyncGroup</Key>
-    <DefaultValue>Lync</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.LyncPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.LyncUserPlans</Key>
-    <DefaultValue>Lync User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.LyncUsers</Key>
-    <DefaultValue>Lync Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.SfBFederationDomains</Key>
-    <DefaultValue>Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.SfBGroup</Key>
-    <DefaultValue>Skype for Business</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.SfBPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.SfBUserPlans</Key>
-    <DefaultValue>User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
-    <Key>Text.SfBUsers</Key>
-    <DefaultValue>Users</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\OrganizationMenu.ascx.resx</File>
@@ -20641,141 +20336,6 @@
     <DefaultValue>Control Panel Settings</DefaultValue>
   </Resource>
   <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>btnAddPlan.Text</Key>
-    <DefaultValue>Add New Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>btnSetDefaultPlan.Text</Key>
-    <DefaultValue>Set Default Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkConferencing.Text</Key>
-    <DefaultValue>Conferencing</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkEmergency.Text</Key>
-    <DefaultValue>Emergency Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkEnterpriseVoice.Text</Key>
-    <DefaultValue>Enterprise Voice</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkFederation.Text</Key>
-    <DefaultValue>Federation</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkIM.Text</Key>
-    <DefaultValue>Instant Messaging</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkInternational.Text</Key>
-    <DefaultValue>International Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkMobile.Text</Key>
-    <DefaultValue>Mobile Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkMobility.Text</Key>
-    <DefaultValue>Mobile Access</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkNational.Text</Key>
-    <DefaultValue>National Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>chkNone.Text</Key>
-    <DefaultValue>None</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlan.Header</Key>
-    <DefaultValue>Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanDefault.Header</Key>
-    <DefaultValue>Default plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanEdit.Header</Key>
-    <DefaultValue>Select</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlans.Empty</Key>
-    <DefaultValue>No plans have been added yet. To add a new plan click "Add New plan" button.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanSelect.Header</Key>
-    <DefaultValue>Select</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>locConferencingSize.Text</Key>
-    <DefaultValue>Maximum Conference Size</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>secConferencing.Text</Key>
-    <DefaultValue>Conferencing Settings</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>secEnterpriseVoice.Text</Key>
-    <DefaultValue>Enterprise Voice Policy</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>secPlan.Text</Key>
-    <DefaultValue>Lync User Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>secPlanFeatures.Text</Key>
-    <DefaultValue>Plan Features</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>valRequirePlan.ErrorMessage</Key>
-    <DefaultValue>Please enter correct plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>valRequirePlan.Text</Key>
-    <DefaultValue>*</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>btnAddPlanText.Text</Key>
-    <DefaultValue>Add New Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>btnStampText.Text</Key>
-    <DefaultValue>Restamp all lync users with this plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsLyncUserPlansPolicy.ascx.resx</File>
-    <Key>btnUpdatePlanText.Text</Key>
-    <DefaultValue>Update Plan</DefaultValue>
-  </Resource>
-  <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\SettingsMailPolicy.ascx.resx</File>
     <Key>lblAccount.Text</Key>
     <DefaultValue>Account Name:</DefaultValue>
@@ -21189,141 +20749,6 @@
     <File>DesktopModules\FuseCP\App_LocalResources\SettingsServiceLevels.ascx.resx</File>
     <Key>btnUpdateServiceLevelText.Text</Key>
     <DefaultValue>Update</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>btnAddPlan.Text</Key>
-    <DefaultValue>Add New Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>btnSetDefaultPlan.Text</Key>
-    <DefaultValue>Set Default Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkConferencing.Text</Key>
-    <DefaultValue>Conferencing</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkEmergency.Text</Key>
-    <DefaultValue>Emergency Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkEnterpriseVoice.Text</Key>
-    <DefaultValue>Enterprise Voice</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkFederation.Text</Key>
-    <DefaultValue>Federation</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkIM.Text</Key>
-    <DefaultValue>Instant Messaging</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkInternational.Text</Key>
-    <DefaultValue>International Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkMobile.Text</Key>
-    <DefaultValue>Mobile Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkMobility.Text</Key>
-    <DefaultValue>Mobile Access</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkNational.Text</Key>
-    <DefaultValue>National Calls</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>chkNone.Text</Key>
-    <DefaultValue>None</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlan.Header</Key>
-    <DefaultValue>Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanDefault.Header</Key>
-    <DefaultValue>Default plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanEdit.Header</Key>
-    <DefaultValue>Select</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlans.Empty</Key>
-    <DefaultValue>No plans have been added yet. To add a new plan click "Add New plan" button.</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>gvPlanSelect.Header</Key>
-    <DefaultValue>Select</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>locConferencingSize.Text</Key>
-    <DefaultValue>Maximum Conference Size</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>secConferencing.Text</Key>
-    <DefaultValue>Conferencing Settings</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>secEnterpriseVoice.Text</Key>
-    <DefaultValue>Enterprise Voice Policy</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>secPlan.Text</Key>
-    <DefaultValue>Skype for Business User Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>secPlanFeatures.Text</Key>
-    <DefaultValue>Plan Features</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>valRequirePlan.ErrorMessage</Key>
-    <DefaultValue>Please enter correct plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>valRequirePlan.Text</Key>
-    <DefaultValue>*</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>btnAddPlanText.Text</Key>
-    <DefaultValue>Add New Plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>btnStampText.Text</Key>
-    <DefaultValue>Restamp all Skype for Business users with this plan</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SettingsSfBUserPlansPolicy.ascx.resx</File>
-    <Key>btnUpdatePlanText.Text</Key>
-    <DefaultValue>Update Plan</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\SettingsSharePointPolicy.ascx.resx</File>
@@ -23187,16 +22612,6 @@
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
-    <Key>lblLyncUsers.Text</Key>
-    <DefaultValue>Lync Users:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
-    <Key>lblSfBUsers.Text</Key>
-    <DefaultValue>Skype for Business Users:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
     <Key>lblExchangeAccounts.Text</Key>
     <DefaultValue>Exchange Mailboxes:</DefaultValue>
   </Resource>
@@ -23209,16 +22624,6 @@
     <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
     <Key>lblOrganizations.Text</Key>
     <DefaultValue>Organizations:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
-    <Key>lblLyncPhone.Text</Key>
-    <DefaultValue>Lync Phone Numbers:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
-    <Key>lblSfBPhone.Text</Key>
-    <DefaultValue>Skype for Business Phone Numbers:</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\SpaceQuotas.ascx.resx</File>
@@ -25204,56 +24609,6 @@ The following substitution variables can be used in the pattern:&lt;br/&gt;
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.LyncFederationDomains</Key>
-    <DefaultValue>Lync Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.LyncGroup</Key>
-    <DefaultValue>Hosted Organization - Lync</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.LyncPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.LyncUserPlans</Key>
-    <DefaultValue>Lync User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.LyncUsers</Key>
-    <DefaultValue>Lync Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.SfBFederationDomains</Key>
-    <DefaultValue>Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.SfBGroup</Key>
-    <DefaultValue>Hosted Organization - Skype for Business</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.SfBPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.SfBUserPlans</Key>
-    <DefaultValue>User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
-    <Key>Text.SfBUsers</Key>
-    <DefaultValue>Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\UserOrganization.ascx.resx</File>
     <Key>Text.Mailboxes</Key>
     <DefaultValue>Mailboxes</DefaultValue>
   </Resource>
@@ -26973,11 +26328,6 @@ The following substitution variables can be used in the pattern:&lt;br/&gt;
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\WebSitesEditSite.ascx.resx</File>
-    <Key>Tab.HeliconZoo</Key>
-    <DefaultValue>Web Engines</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesEditSite.ascx.resx</File>
     <Key>Tab.VirtualDirs</Key>
     <DefaultValue>Virtual Dirs - Virtual Apps</DefaultValue>
   </Resource>
@@ -27805,51 +27155,6 @@ After creating your virtual directory go to FP administrator and create a subweb
     <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconApeControl.ascx.resx</File>
     <Key>HeliconApeGroupsHeader.Text</Key>
     <DefaultValue>.htpasswd groups</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnInstall.Text</Key>
-    <DefaultValue>Install</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>SelectWebEngine.Text</Key>
-    <DefaultValue>Select web application engine to set up</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>gvInstalledApplicationsEnableConsole.Header</Key>
-    <DefaultValue>Web console</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnEnable.Text</Key>
-    <DefaultValue>Enable</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnDisable.Text</Key>
-    <DefaultValue>Disable</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>EnableWebConsole.Text</Key>
-    <DefaultValue>Enable web console</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnDisableText.Text</Key>
-    <DefaultValue>Disable</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnEnableText.Text</Key>
-    <DefaultValue>Enable</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHeliconZooControl.ascx.resx</File>
-    <Key>btnInstallText.Text</Key>
-    <DefaultValue>Install</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\App_LocalResources\WebSitesHomeFolderControl.ascx.resx</File>
@@ -29781,16 +29086,6 @@ After creating your virtual directory go to FP administrator and create a subweb
     <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\ExchangeCheckDomainName.ascx.resx</File>
     <Key>User.Text</Key>
     <DefaultValue>Organization user</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\ExchangeCheckDomainName.ascx.resx</File>
-    <Key>LyncUsers.Text</Key>
-    <DefaultValue>Lync User</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\ExchangeCheckDomainName.ascx.resx</File>
-    <Key>SfBUsers.Text</Key>
-    <DefaultValue>Skype for Business User</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\ExchangeContactGeneralSettings.ascx.resx</File>
@@ -33494,16 +32789,6 @@ After creating your virtual directory go to FP administrator and create a subweb
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
-    <Key>lnkLyncUsers.Text</Key>
-    <DefaultValue>Users:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
-    <Key>lnkSfBUsers.Text</Key>
-    <DefaultValue>Users:</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
     <Key>lnkMailboxes.Text</Key>
     <DefaultValue>Mailboxes:</DefaultValue>
   </Resource>
@@ -33546,16 +32831,6 @@ After creating your virtual directory go to FP administrator and create a subweb
     <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
     <Key>locHeadStatistics.Text</Key>
     <DefaultValue>Organization</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
-    <Key>locLyncStatistics.Text</Key>
-    <DefaultValue>Lync</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
-    <Key>locSfBStatistics.Text</Key>
-    <DefaultValue>Skype for Business</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ExchangeServer\App_LocalResources\OrganizationHome.ascx.resx</File>
@@ -35549,46 +34824,6 @@ After creating your virtual directory go to FP administrator and create a subweb
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.SfBGroup</Key>
-    <DefaultValue>Skype for Business</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.SfBUserPlans</Key>
-    <DefaultValue>Skype for Business User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.SfBUsers</Key>
-    <DefaultValue>Skype for Business Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.SfBFederationDomains</Key>
-    <DefaultValue>Skype for Business Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.LyncGroup</Key>
-    <DefaultValue>Lync</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.LyncUserPlans</Key>
-    <DefaultValue>Lync User Plans</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.LyncUsers</Key>
-    <DefaultValue>Lync Users</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.LyncFederationDomains</Key>
-    <DefaultValue>Lync Federation Domains</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
     <Key>Text.SecurityGroups</Key>
     <DefaultValue>Groups</DefaultValue>
   </Resource>
@@ -35601,16 +34836,6 @@ After creating your virtual directory go to FP administrator and create a subweb
     <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
     <Key>Text.EnterpriseStorageFolders</Key>
     <DefaultValue>Shared Folders</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.LyncPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
-    <Key>Text.SfBPhoneNumbers</Key>
-    <DefaultValue>Phone Numbers</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ExchangeServer\UserControls\App_LocalResources\Menu.ascx.resx</File>
@@ -37640,11 +36865,6 @@ After creating your virtual directory go to FP administrator and create a subweb
     <DefaultValue>&lt;Select FTP Site&gt;</DefaultValue>
   </Resource>
   <Resource>
-    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\HeliconZoo_Settings.ascx.resx</File>
-    <Key>btnInstallText.Text</Key>
-    <DefaultValue>Install</DefaultValue>
-  </Resource>
-  <Resource>
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer5_EditAccount.ascx.resx</File>
     <Key>cbSignatureEnabled.Text</Key>
     <DefaultValue>Yes</DefaultValue>
@@ -37866,6 +37086,101 @@ After creating your virtual directory go to FP administrator and create a subweb
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer5_Settings.ascx.resx</File>
+    <Key>lblPublicIP.Text</Key>
+    <DefaultValue>Public IP Address:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>chkDeleteOnForward.Text</Key>
+    <DefaultValue>Delete Message on Forward</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>lblForwardTo.Text</Key>
+    <DefaultValue>Forward mail to address:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>lblMessage.Text</Key>
+    <DefaultValue>Message:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>lblReplyTo.Text</Key>
+    <DefaultValue>Reply to address:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>lblResponderEnabled.Text</Key>
+    <DefaultValue>Enable autoresponder:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>lblSubject.Text</Key>
+    <DefaultValue>Subject:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>secAutoresponder.Text</Key>
+    <DefaultValue>Autoresponder</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditAccount.ascx.resx</File>
+    <Key>secForwarding.Text</Key>
+    <DefaultValue>Mail Forwarding</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx</File>
+    <Key>lblAbuse.Text</Key>
+    <DefaultValue>Abuse Account:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx</File>
+    <Key>lblCatchAll.Text</Key>
+    <DefaultValue>Catch-All Account:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx</File>
+    <Key>lblPostmaster.Text</Key>
+    <DefaultValue>Postmaster Account:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditDomain.ascx.resx</File>
+    <Key>Text.NotSelected</Key>
+    <DefaultValue>&lt;Not Selected&gt;</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditGroup.ascx.resx</File>
+    <Key>lblGroupMembers.Text</Key>
+    <DefaultValue>Group E-Mails:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx</File>
+    <Key>ddlPostingModeItem.Anyone</Key>
+    <DefaultValue>Anyone</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx</File>
+    <Key>ddlPostingModeItem.MembersOnly</Key>
+    <DefaultValue>Members Only</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx</File>
+    <Key>ddlPostingModeItem.Password</Key>
+    <DefaultValue>Password Protected Posting</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx</File>
+    <Key>lblMembers.Text</Key>
+    <DefaultValue>Mailing List Members:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_EditList.ascx.resx</File>
+    <Key>lblPostingMode.Text</Key>
+    <DefaultValue>Posting Mode:</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\hMailServer_Settings.ascx.resx</File>
     <Key>lblPublicIP.Text</Key>
     <DefaultValue>Public IP Address:</DefaultValue>
   </Resource>
@@ -41829,16 +41144,6 @@ The following substitution variables can be used in the pattern:&lt;br/&gt;
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.resx</File>
     <Key>btnAdd.Text</Key>
     <DefaultValue>Add</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.resx</File>
-    <Key>gvSfBServers.EmptyDataText</Key>
-    <DefaultValue>Located on the same server</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.resx</File>
-    <Key>gvSfBServers.Text</Key>
-    <DefaultValue>Skype for Business Servers</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ProviderControls\App_LocalResources\MailCleaner_Settings.ascx.resx</File>
@@ -50995,16 +50300,6 @@ The following substitution variables can be used in the pattern:&lt;br/&gt;
     <File>DesktopModules\FuseCP\ScheduleTaskControls\App_LocalResources\HostedSolutionReport.ascx.resx</File>
     <Key>cbExchange.Text</Key>
     <DefaultValue>Exchange Report</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ScheduleTaskControls\App_LocalResources\HostedSolutionReport.ascx.resx</File>
-    <Key>cbLync.Text</Key>
-    <DefaultValue>Lync Report</DefaultValue>
-  </Resource>
-  <Resource>
-    <File>DesktopModules\FuseCP\ScheduleTaskControls\App_LocalResources\HostedSolutionReport.ascx.resx</File>
-    <Key>cbSfB.Text</Key>
-    <DefaultValue>Skype for Business Report</DefaultValue>
   </Resource>
   <Resource>
     <File>DesktopModules\FuseCP\ScheduleTaskControls\App_LocalResources\HostedSolutionReport.ascx.resx</File>

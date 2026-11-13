@@ -236,10 +236,8 @@ namespace FuseCP.Portal
 																				 (local_resourceGroup.GroupName == ResourceGroups.HostedOrganizations) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointFoundationServer) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.SharepointEnterpriseServer) ||
-																				 (local_resourceGroup.GroupName == ResourceGroups.Mail) ||
-																				 (local_resourceGroup.GroupName == ResourceGroups.Lync) ||
-																				 (local_resourceGroup.GroupName == ResourceGroups.SfB) ||
-																				 (local_resourceGroup.GroupName == ResourceGroups.Exchange) ||
+ 																				 (local_resourceGroup.GroupName == ResourceGroups.Mail) ||
+ 																				 (local_resourceGroup.GroupName == ResourceGroups.Exchange) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.Web) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.Dns) ||
 																				 (local_resourceGroup.GroupName == ResourceGroups.Ftp) ||

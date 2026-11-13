@@ -231,42 +231,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             groups.Add(ocsGroup);
         }
 
-        private void PrepareSfBMenu(PackageContext cntx, List<MenuGroup> groups, string imagePath)
-        {
-            MenuGroup sfbGroup =
-                   new MenuGroup(GetLocalizedString("Text.SfBGroup"), imagePath + "SfB16.png");
-            sfbGroup.MenuItems.Add(CreateMenuItem("SfBUsers", "sfb_users"));
-
-            sfbGroup.MenuItems.Add(CreateMenuItem("SfBUserPlans", "sfb_userplans"));
-
-
-            if (Utils.CheckQouta(Quotas.SFB_FEDERATION, cntx))
-                sfbGroup.MenuItems.Add(CreateMenuItem("SfBFederationDomains", "sfb_federationdomains"));
-
-            if (Utils.CheckQouta(Quotas.SFB_PHONE, cntx))
-                sfbGroup.MenuItems.Add(CreateMenuItem("SfBPhoneNumbers", "sfb_phonenumbers"));
-
-            groups.Add(sfbGroup);
-        }
-
-        private void PrepareLyncMenu(PackageContext cntx, List<MenuGroup> groups, string imagePath)
-        {
-            MenuGroup lyncGroup =
-                   new MenuGroup(GetLocalizedString("Text.LyncGroup"), imagePath + "lync16.png");
-            lyncGroup.MenuItems.Add(CreateMenuItem("LyncUsers", "lync_users"));
-
-            lyncGroup.MenuItems.Add(CreateMenuItem("LyncUserPlans", "lync_userplans"));
-
-
-            if (Utils.CheckQouta(Quotas.LYNC_FEDERATION, cntx))
-                lyncGroup.MenuItems.Add(CreateMenuItem("LyncFederationDomains", "lync_federationdomains"));
-
-            if (Utils.CheckQouta(Quotas.LYNC_PHONE, cntx))
-                lyncGroup.MenuItems.Add(CreateMenuItem("LyncPhoneNumbers", "lync_phonenumbers"));
-
-            groups.Add(lyncGroup);
-        }
-
         private void PrepareEnterpriseStorageMenu(PackageContext cntx, List<MenuGroup> groups, string imagePath)
         {
             MenuGroup enterpriseStorageGroup =
@@ -313,14 +277,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             //OCS Menu
             if (cntx.Groups.ContainsKey(ResourceGroups.OCS))
                 PrepareOCSMenu(cntx, groups, imagePath);
-
-            //Lync Menu
-            if (cntx.Groups.ContainsKey(ResourceGroups.Lync))
-                PrepareLyncMenu(cntx, groups, imagePath);
-
-            //SfB Menu
-            if (cntx.Groups.ContainsKey(ResourceGroups.SfB))
-                PrepareSfBMenu(cntx, groups, imagePath);
 
             //EnterpriseStorage Menu
             if (cntx.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))

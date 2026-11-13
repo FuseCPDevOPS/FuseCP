@@ -25,8 +25,6 @@ namespace FuseCP.Portal.ExchangeServer
     {
         private static readonly string EXCHANGEACCOUNTEMAILADDRESSES = "ExchangeAccountEmailAddresses";
         private static readonly string EXCHANGEACCOUNTS = "ExchangeAccounts";
-        private static readonly string LYNCUSERS = "LyncUsers";
-        private static readonly string SFBUSERS = "SfBUsers";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -188,19 +186,6 @@ namespace FuseCP.Portal.ExchangeServer
                                 "AccountID=" + ownerId,
                                 "ItemID=" + PanelRequest.ItemID);
                 }
-            }
-
-            if (objectName == LYNCUSERS)
-            {
-                return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_lync_user",
-                    "AccountID=" + objectId,
-                    "ItemID=" + PanelRequest.ItemID);
-            }
-            if (objectName == SFBUSERS)
-            {
-                return EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_sfb_user",
-                    "AccountID=" + objectId,
-                    "ItemID=" + PanelRequest.ItemID);
             }
 
             return "";

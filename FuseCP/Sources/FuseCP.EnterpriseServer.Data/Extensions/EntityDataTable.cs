@@ -34,7 +34,7 @@ namespace FuseCP.EnterpriseServer.Data
 
 		/*
 		static HashSet<string> lowerCaseColumns = new HashSet<string>(new[] { "LoginStatusId", "PreviousId",
-			"SfBUserPlanId", "LyncUserPlanId", "MailboxPlanId", "DomainItemId", "BlackBerryUserId",
+			"MailboxPlanId", "DomainItemId", "BlackBerryUserId",
 			"ArchivingMailboxPlanId" });
 		public static string ColumnName<TEntity1>(string propertyName)
 		{

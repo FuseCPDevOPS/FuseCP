@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -120,13 +120,7 @@
   <data name="btnAdd.Text" xml:space="preserve">
     <value>أضف</value>
   </data>
-  <data name="gvSfBServers.EmptyDataText" xml:space="preserve">
-    <value>تقع على نفس الخادم</value>
-  </data>
-  <data name="gvSfBServers.Text" xml:space="preserve">
-    <value>سكايب لخوادم الأعمال</value>
-  </data>
-  <data name="lblRootOU.Text" xml:space="preserve">
+      <data name="lblRootOU.Text" xml:space="preserve">
     <value>الجذر OU:</value>
   </data>
   <data name="locServerName.Text" xml:space="preserve">

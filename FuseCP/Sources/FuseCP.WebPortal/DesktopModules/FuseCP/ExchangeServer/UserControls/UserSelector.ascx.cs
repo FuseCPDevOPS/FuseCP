@@ -66,33 +66,6 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
             }
         }
 
-        public bool ExcludeLyncUsers
-        {
-            get
-            {
-                object ret = ViewState["ExcludeLyncUsers"];
-                return (ret != null) && (bool)ret;
-            }
-            set
-            {
-                ViewState["ExcludeLyncUsers"] = value;
-            }
-        }
-
-        public bool ExcludeSfBUsers
-        {
-            get
-            {
-                object ret = ViewState["ExcludeSfBUsers"];
-                return (ret != null) && (bool)ret;
-            }
-            set
-            {
-                ViewState["ExcludeSfBUsers"] = value;
-            }
-        }
-
-
         public bool ExcludeBESUsers
         {
             get
@@ -202,23 +175,19 @@ namespace FuseCP.Portal.ExchangeServer.UserControls
                 {
                     bool hasMailbox = account.ExternalEmail != string.Empty;
                     bool blackBerryAllowed = !account.IsBlackBerryUser || !ExcludeBESUsers;
-                    bool lyncAllowed = !account.IsLyncUser || !ExcludeLyncUsers;
-                    bool sfbAllowed = !account.IsSfBUser || !ExcludeSfBUsers;
 
-                    return hasMailbox && blackBerryAllowed && lyncAllowed && sfbAllowed;
+                    return hasMailbox && blackBerryAllowed;
                 }).ToArray();
             }
             else
-                if ((ExcludeOCSUsers) | (ExcludeBESUsers) | (ExcludeLyncUsers) | (ExcludeSfBUsers))
+                if ((ExcludeOCSUsers) | (ExcludeBESUsers))
                 {
                     accounts = accounts.Where(account =>
                     {
                         bool ocsAllowed = !account.IsOCSUser || !ExcludeOCSUsers;
-                        bool lyncAllowed = !account.IsLyncUser || !ExcludeLyncUsers;
-                        bool sfbAllowed = !account.IsSfBUser || !ExcludeSfBUsers;
                         bool blackBerryAllowed = !account.IsBlackBerryUser || !ExcludeBESUsers;
 
-                        return ocsAllowed && lyncAllowed && sfbAllowed && blackBerryAllowed;
+                        return ocsAllowed && blackBerryAllowed;
                     }).ToArray();
                 }
 

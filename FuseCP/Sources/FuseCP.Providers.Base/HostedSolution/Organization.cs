@@ -34,8 +34,6 @@ namespace FuseCP.Providers.HostedSolution
 
         private string database;
         private string securityGroup;
-        private string lyncTenantId;
-        private string sfbTenantId;
         private int diskSpace;
         private int keepDeletedItemsDays;
 
@@ -229,20 +227,6 @@ namespace FuseCP.Providers.HostedSolution
 
         [Persistent]
         public bool IsOCSOrganization { get; set; }
-
-
-        [Persistent]
-        public string LyncTenantId
-        {
-            get { return lyncTenantId; }
-            set { lyncTenantId = value; }
-        }
-        [Persistent]
-        public string SfBTenantId
-        {
-            get { return sfbTenantId; }
-            set { sfbTenantId = value; }
-        }
 
 
     }

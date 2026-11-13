@@ -186,41 +186,6 @@
                         </tr>
                         </asp:Panel>
 
-                        <asp:Panel runat="server" ID="sfbStatsPanel">
-                        <tr>
-                            <td class="OrgStatsGroup" colspan="2">
-                                <asp:Localize ID="locSfBStatistics" runat="server" meta:resourcekey="locSfBStatistics" ></asp:Localize>
-                            </td>
-                        </tr>
-                        <tr class="OrgStatsRow"> 
-                            <td class="OrgStatsQuota text-nowrap">
-                                <asp:HyperLink ID="lnkSfBUsers" runat="server" meta:resourcekey="lnkSfBUsers" />
-                            </td>
-                            <td>
-                                <fcp:QuotaViewer ID="sfbUsersStats" QuotaTypeId="2" runat="server" DisplayGauge="true" />
-                            </td>
-                        </tr>
-                        </asp:Panel>
-
-                        <asp:Panel runat="server" ID="lyncStatsPanel">
-                        <tr>
-                            <td class="OrgStatsGroup" colspan="2">
-                                <asp:Localize ID="locLyncStatistics" runat="server" meta:resourcekey="locLyncStatistics" ></asp:Localize>
-                            </td>
-                        </tr>
-                        <tr class="OrgStatsRow"> 
-                            <td class="OrgStatsQuota text-nowrap">
-                                <asp:HyperLink ID="lnkLyncUsers" runat="server" meta:resourcekey="lnkLyncUsers" />
-                            </td>
-                            <td>
-                                <fcp:QuotaViewer ID="lyncUsersStats" QuotaTypeId="2" runat="server" DisplayGauge="true" />
-                            </td>
-                        </tr>
-                        </asp:Panel>
-
-
-
-                        
                         <asp:Panel runat="server" ID="sharePointStatsPanel">
                         <tr class="OrgStatsRow">
                             <td class="OrgStatsGroup" colspan="2">

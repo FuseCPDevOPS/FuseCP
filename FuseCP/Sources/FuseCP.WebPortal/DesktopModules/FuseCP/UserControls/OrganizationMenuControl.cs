@@ -245,14 +245,6 @@ namespace FuseCP.Portal.UserControls
             if (Cntx.Groups.ContainsKey(ResourceGroups.OCS))
                 PrepareOCSMenuRoot(items);
 
-            //Lync Menu
-            if (Cntx.Groups.ContainsKey(ResourceGroups.Lync))
-                PrepareLyncMenuRoot(items);
-
-            //SfBMenu
-            if (Cntx.Groups.ContainsKey(ResourceGroups.SfB))
-                PrepareSfBMenuRoot(items);
-
             //EnterpriseStorage Menu
             if (Cntx.Groups.ContainsKey(ResourceGroups.EnterpriseStorage))
                 PrepareEnterpriseStorageMenuRoot(items);
@@ -579,79 +571,6 @@ namespace FuseCP.Portal.UserControls
         private void PrepareOCSMenu(MenuItemCollection osItems)
         {
             osItems.Add(CreateMenuItem("OCSUsers", "ocs_users"));
-        }
-
-        private void PrepareLyncMenuRoot(MenuItemCollection items)
-        {
-            if (ShortMenu)
-            {
-                PrepareLyncMenu(items);
-            }
-            else
-            {
-                MenuItem item = new MenuItem(GetLocalizedString("Text.LyncGroup"), "", "", null);
-
-                item.Selectable = false;
-
-                PrepareLyncMenu(item.ChildItems);
-
-                if (item.ChildItems.Count > 0)
-                {
-                    items.Add(item);
-                }
-            }
-        }
-        private void PrepareLyncMenu(MenuItemCollection lyncItems)
-        {
-            lyncItems.Add(CreateMenuItem("LyncUsers", "lync_users", @"Icons/lync_users_48.png"));
-
-            //if (ShortMenu) return;
-
-            lyncItems.Add(CreateMenuItem("LyncUserPlans", "lync_userplans", @"Icons/lync_userplans_48.png"));
-
-
-            if (Utils.CheckQouta(Quotas.LYNC_FEDERATION, Cntx))
-                lyncItems.Add(CreateMenuItem("LyncFederationDomains", "lync_federationdomains", @"Icons/lync_federationdomains_48.png"));
-
-            if (Utils.CheckQouta(Quotas.LYNC_PHONE, Cntx))
-                lyncItems.Add(CreateMenuItem("LyncPhoneNumbers", "lync_phonenumbers", @"Icons/lync_phonenumbers_48.png"));
-        }
-
-        private void PrepareSfBMenuRoot(MenuItemCollection items)
-        {
-            if (ShortMenu)
-            {
-                PrepareSfBMenu(items);
-            }
-            else
-            {
-                MenuItem item = new MenuItem(GetLocalizedString("Text.SfBGroup"), "", "", null);
-
-                item.Selectable = false;
-
-                PrepareSfBMenu(item.ChildItems);
-
-                if (item.ChildItems.Count > 0)
-                {
-                    items.Add(item);
-                }
-            }
-        }
-
-        private void PrepareSfBMenu(MenuItemCollection sfbItems)
-        {
-            sfbItems.Add(CreateMenuItem("SfBUsers", "sfb_users", @"Icons/SfB_users_48.png"));
-
-            //if (ShortMenu) return;
-
-            sfbItems.Add(CreateMenuItem("SfBUserPlans", "sfb_userplans", @"Icons/SfB_userplans_48.png"));
-
-
-            if (Utils.CheckQouta(Quotas.SFB_FEDERATION, Cntx))
-                sfbItems.Add(CreateMenuItem("SfBFederationDomains", "sfb_federationdomains", @"Icons/SfB_federationdomains_48.png"));
-
-            if (Utils.CheckQouta(Quotas.SFB_PHONE, Cntx))
-                sfbItems.Add(CreateMenuItem("SfBPhoneNumbers", "sfb_phonenumbers", @"Icons/SfB_phonenumbers_48.png"));
         }
 
         private void PrepareEnterpriseStorageMenuRoot(MenuItemCollection items)

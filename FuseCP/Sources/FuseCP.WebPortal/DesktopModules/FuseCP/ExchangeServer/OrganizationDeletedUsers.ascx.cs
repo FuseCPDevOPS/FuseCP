@@ -171,14 +171,6 @@ namespace FuseCP.Portal.HostedSolution
                     Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_ocs_user",
                         "AccountID=" + accountId,
                         "ItemID=" + PanelRequest.ItemID));
-                if (Tmp[2] == "True")
-                        Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_lync_user",
-                            "AccountID=" + accountId,
-                            "ItemID=" + PanelRequest.ItemID));
-                if (Tmp[3] == "True")
-                    Response.Redirect(EditUrl("SpaceID", PanelSecurity.PackageId.ToString(), "edit_sfb_user",
-                        "AccountID=" + accountId,
-                        "ItemID=" + PanelRequest.ItemID));
             }
         }
 
@@ -216,17 +208,12 @@ namespace FuseCP.Portal.HostedSolution
             return GetThemedImage("Exchange/" + imgName);
         }
 
-        public string GetOCSImage(bool IsOCSUser, bool IsLyncUser, bool IsSfBUser)
+        public string GetOCSImage(bool IsOCSUser)
         {
             string imgName = "blank16.gif";
 
-            if (IsLyncUser)
-                imgName = "lync16.png";
-            if (IsSfBUser)
-                imgName = "SfB16.png";
-            else
-                if ((IsOCSUser))
-                    imgName = "ocs16.png";
+            if ((IsOCSUser))
+                imgName = "ocs16.png";
 
             return GetThemedImage("Exchange/" + imgName);
         }
@@ -276,17 +263,12 @@ namespace FuseCP.Portal.HostedSolution
             return imgName;
         }
 
-        public bool EnableOCSImageButton(bool IsOCSUser, bool IsLyncUser, bool IsSfBUser)
+        public bool EnableOCSImageButton(bool IsOCSUser)
         {
             bool imgName = false;
 
-            if (IsLyncUser)
+            if ((IsOCSUser))
                 imgName = true;
-            if (IsSfBUser)
-                imgName = true;
-            else
-                if ((IsOCSUser))
-                    imgName = true;
 
             return imgName;
         }
@@ -302,9 +284,9 @@ namespace FuseCP.Portal.HostedSolution
         }
 
 
-        public string GetOCSArgument(int accountID, bool IsOCS, bool IsLync, bool IsSfB)
+        public string GetOCSArgument(int accountID, bool IsOCS)
         {
-            return accountID + "|" + IsOCS + "|" + IsLync + "|" + IsSfB;
+            return accountID + "|" + IsOCS;
         }
 
         public ServiceLevel GetServiceLevel(int levelId)

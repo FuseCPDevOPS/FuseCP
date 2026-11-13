@@ -66,30 +66,5 @@
             set;
         }
 
-        public int TotalLyncUsers
-        {
-            get;
-            set;
-        }
-
-        public int TotalLyncEVUsers
-        {
-            get;
-            set;
-        }
-
-        public int TotalSfBUsers
-        {
-            get;
-            set;
-        }
-
-        public int TotalSfBEVUsers
-        {
-            get;
-            set;
-        }
-
-
     }
 }

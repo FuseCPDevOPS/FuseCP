@@ -301,13 +301,6 @@ namespace FuseCP.EnterpriseServer.Base.HostedSolution
         public int CreatedOCSUsers { get; set; }
         public int AllocatedOCSUsers { get; set; }
 
-        public int CreatedLyncUsers { get; set; }
-        public int AllocatedLyncUsers { get; set; }
-
-        public int CreatedSfBUsers { get; set; }
-        public int AllocatedSfBUsers { get; set; }
-
-
         public int CreatedEnterpriseStorageFolders
         {
             get { return createdEnterpriseStorageFolders; }

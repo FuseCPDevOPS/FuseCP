@@ -2469,17 +2469,6 @@ namespace FuseCP.EnterpriseServer
 
 		private string GetIPAddressesQuotaByResourceGroup(string groupName, IPAddressPool pool)
 		{
-			if (pool == IPAddressPool.PhoneNumbers)
-			{
-				return groupName == "SfB" ? Quotas.SFB_PHONE : Quotas.LYNC_PHONE;
-
-
-
-
-
-
-
-			}
 
 			if (String.Compare(groupName, ResourceGroups.VPS, true) == 0)
 			{
@@ -3506,24 +3495,6 @@ namespace FuseCP.EnterpriseServer
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Exchange, domain, "");
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.BlackBerry, domain, "");
 									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.OCS, domain, "");
-								}
-								break;
-							case ResourceGroups.Lync:
-								List<Organization> orgsLync = OrganizationController.GetOrganizations(domain.PackageId, false);
-								bFound = orgsLync.Any(o => o.LyncTenantId != null &&
-									string.Equals(o.DefaultDomain, domain.DomainName, StringComparison.OrdinalIgnoreCase));
-								if (bFound)
-								{
-									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.Lync, domain, "");
-								}
-								break;
-							case ResourceGroups.SfB:
-								List<Organization> orgsSfB = OrganizationController.GetOrganizations(domain.PackageId, false);
-								bFound = orgsSfB.Any(o => o.SfBTenantId != null &&
-									string.Equals(o.DefaultDomain, domain.DomainName, StringComparison.OrdinalIgnoreCase));
-								if (bFound)
-								{
-									ServerController.AddServiceDNSRecords(domain.PackageId, ResourceGroups.SfB, domain, "");
 								}
 								break;
 							case ResourceGroups.Web:

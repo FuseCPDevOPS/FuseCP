@@ -336,8 +336,6 @@ namespace FuseCP.EnterpriseServer
         public const int ERROR_USERS_RESOURCE_QUOTA_LIMIT = -2707;
         public const int CURRENT_USER_IS_CRM_USER = -2708;
         public const int CURRENT_USER_IS_OCS_USER = -2709;
-        public const int CURRENT_USER_IS_LYNC_USER = -2710;
-        public const int CURRENT_USER_IS_SFB_USER = -2710;
         public const int ERROR_DELETED_USERS_RESOURCE_QUOTA_LIMIT = -2711;
 
         #endregion
@@ -356,14 +354,6 @@ namespace FuseCP.EnterpriseServer
         public const int ERROR_FILE_DEST_FOLDER_NONEXISTENT = -3002;
         public const int ERROR_FILE_CREATE_FILE_WITH_DIR_NAME = -3003;
         public const int ERROR_FILE_MOVE_PATH_ALREADY_EXISTS = -3004;
-        #endregion
-
-        #region Lync Server
-        public const int ERROR_LYNC_DELETE_SOME_PROBLEMS = -2806;
-        #endregion
-
-        #region SfB Server
-        public const int ERROR_SFB_DELETE_SOME_PROBLEMS = -2806;
         #endregion
 
         public static string ToText(int code)

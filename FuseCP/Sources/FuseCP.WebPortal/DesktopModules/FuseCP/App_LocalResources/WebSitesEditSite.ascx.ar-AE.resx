@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -296,9 +296,6 @@
   </data>
   <data name="Tab.Htaccess" xml:space="preserve">
     <value>.htaccess</value>
-  </data>
-  <data name="Tab.HeliconZoo" xml:space="preserve">
-    <value>محركات الويب</value>
   </data>
   <data name="Tab.VirtualDirs" xml:space="preserve">
     <value>تطبيق الاستعراض المفصل الافتراضي- تطبيقات افتراضية</value>

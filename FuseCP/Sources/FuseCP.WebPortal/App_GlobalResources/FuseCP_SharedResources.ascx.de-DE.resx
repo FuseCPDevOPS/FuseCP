@@ -3342,12 +3342,6 @@
   <data name="AuditLogTask.ADD_EXCHANGE_MAILBOXPLAN_RETENTIONPOLICY_ARCHIVING" xml:space="preserve">
     <value>Exchange Archivierungs-Aufbewahrungsrichtlinie hinzuf�gen</value>
   </data>
-  <data name="AuditLogTask.GET_LYNC_LYNCUSERPLANS" xml:space="preserve">
-    <value>Lync Benutzerpl�ne abrufen</value>
-  </data>
-  <data name="AuditLogTask.GET_SFB_SFBUSERPLANS" xml:space="preserve">
-    <value>SfB Benutzerpl�ne abrufen</value>
-  </data>
   <data name="AuditLogTask.EXCHANGE_GET_PUBLIC_FOLDER_ADDRESSES" xml:space="preserve">
     <value>E-Mail-Adressen der �ffentlichen Ordner holen</value>
   </data>
@@ -3825,9 +3819,6 @@
   <data name="Warning.2709" xml:space="preserve">
     <value>Benutzerkonto kann nicht gel�scht werden, da es im OCS benutzt wird</value>
   </data>
-  <data name="Warning.2710" xml:space="preserve">
-    <value>Benutzerkonto kann nicht gel�scht werden, da es im Lync benutzt wird.</value>
-  </data>
   <data name="Warning.2711" xml:space="preserve">
     <value>Benutzerkonto kann nicht gel�scht werden, da es in Skype for Business benutzt wird.</value>
   </data>
@@ -3989,9 +3980,6 @@
   </data>
   <data name="Quota.HostedCRM.Organization" xml:space="preserve">
     <value>CRM-Organisation</value>
-  </data>
-  <data name="ResourceGroup.HeliconZoo" xml:space="preserve">
-    <value>Web-Engines</value>
   </data>
   <data name="Error.HOSTEDSHAREPOINT_DELETE_SITECOLLECTION" xml:space="preserve">
     <value>Ein Fehler ist w�hrend des L�schens der SharePoint-Seite aufgetreten</value>
@@ -6009,18 +5997,6 @@
   <data name="UserItemType.AccountHome" xml:space="preserve">
     <value>Konto�bersicht</value>
   </data>
-  <data name="UserItemType.LyncAccount" xml:space="preserve">
-    <value>Lync-Konto</value>
-  </data>
-  <data name="UserItemType.LyncUsers" xml:space="preserve">
-    <value>Lync-Benutzer</value>
-  </data>
-  <data name="UserItemType.SfBAccount" xml:space="preserve">
-    <value>Skype for Business-Konto</value>
-  </data>
-  <data name="UserItemType.SfBUsers" xml:space="preserve">
-    <value>Skype for Business-Benutzer</value>
-  </data>
   <data name="UserItemType.RDSCollection" xml:space="preserve">
     <value>RDS-Sammlung</value>
   </data>
@@ -6120,264 +6096,6 @@
   <data name="Quota.EnterpriseStorage.Folders" xml:space="preserve">
     <value>Anzahl an Hauptverzeichnissen</value>
   </data>
-  <data name="Error.LYNC_DELETE_DOMAIN" xml:space="preserve">
-    <value>Fehler beim L�schen des Dom�nennamen der Organisation. �berpr�fen Sie das Auditprotokoll f�r weitere Details.</value>
-  </data>
-  <data name="Success.CREATE_LYNC_USER" xml:space="preserve">
-    <value>Lync f�r diesen Benutzer erfolgreich aktiviert</value>
-  </data>
-  <data name="Error.CREATE_LYNC_USER" xml:space="preserve">
-    <value>Lync Benutzer kann nicht aktiviert werden. Die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Success.ADD_LYNC_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>Lync hat erfolgreich die Verbund-Dom�ne hinzugef�gt</value>
-  </data>
-  <data name="Error.ADD_LYNC_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>Die Federation Dom�ne kann nicht hinzugef�gt wrden. Die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Success.DELETE_LYNC_USER" xml:space="preserve">
-    <value>Lync f�r diesen Benutzer erfolgreich deaktiviert</value>
-  </data>
-  <data name="Error.DELETE_LYNC_USER" xml:space="preserve">
-    <value>Lync Benutzer kann nicht gel�scht werden. Die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Error.LYNC_UNABLE_TO_ADD_PLAN" xml:space="preserve">
-    <value>Plan konnte nicht hinzugef�gt werden.</value>
-  </data>
-  <data name="Success.UPDATE_LYNC_USER" xml:space="preserve">
-    <value>Allgemeine Lync-Benutzereinstellungen wurden erfolgreich aktualisiert.</value>
-  </data>
-  <data name="Error.UPDATE_LYNC_USER" xml:space="preserve">
-    <value>Fehler beim Aktualisieren der allgemeinen Lync-Benutzereinstellungen.</value>
-  </data>
-  <data name="Lync.CANNOT_ADD_LYNC_USER" xml:space="preserve">
-    <value>Lync Benutzer konnte nicht hinzugef�gt werden.</value>
-  </data>
-  <data name="Lync.CANNOT_ADD_LYNC_USER_TO_DATABASE" xml:space="preserve">
-    <value>Lync Benutzer konnte nicht in die Datenbank hinzugef�gt werden.</value>
-  </data>
-  <data name="Lync.CANNOT_CHECK_IF_LYNC_USER_EXISTS" xml:space="preserve">
-    <value>Kontingent konnte nicht �berpr�ft werden.</value>
-  </data>
-  <data name="Lync.CANNOT_DELETE_LYNC_USER" xml:space="preserve">
-    <value>Lync Benutzer konnte nicht gel�scht werden.</value>
-  </data>
-  <data name="Lync.CANNOT_DELETE_LYNC_USER_FROM_METADATA" xml:space="preserve">
-    <value>Lync Benutzer konnte nicht aus den Metadaten gel�scht werden.</value>
-  </data>
-  <data name="Lync.CANNOT_GET_LYNC_PROXY" xml:space="preserve">
-    <value>Lync Proxy konnte nicht ermittelt werden.</value>
-  </data>
-  <data name="Lync.CANNOT_GET_USER_GENERAL_SETTINGS" xml:space="preserve">
-    <value>Allgemeine Benutzereinstellungen konnten nicht gelesen werden.</value>
-  </data>
-  <data name="Lync.CANNOT_SET_DEFAULT_SETTINGS" xml:space="preserve">
-    <value>Standardeinstellungen konnten nicht ge�ndert werden.</value>
-  </data>
-  <data name="Lync.GET_LYNC_USERS" xml:space="preserve">
-    <value>Lync Benutzer konnten nicht gelesen werden</value>
-  </data>
-  <data name="Lync.GET_LYNC_USER_COUNT" xml:space="preserve">
-    <value>Anzahl Lync Benutzer konnte nicht gelesen werden.</value>
-  </data>
-  <data name="Lync.USER_FIRST_NAME_IS_NOT_SPECIFIED" xml:space="preserve">
-    <value>Vorname des Benutzers wurde nicht angegeben.</value>
-  </data>
-  <data name="Lync.USER_IS_ALREADY_LYNC_USER" xml:space="preserve">
-    <value>Aktuelles Benutzerkonto ist bereits f�r den Office Communications Server aktiviert.</value>
-  </data>
-  <data name="Lync.USER_LAST_NAME_IS_NOT_SPECIFIED" xml:space="preserve">
-    <value>Nachname des Benutzers wurde nicht angegeben.</value>
-  </data>
-  <data name="Lync.USER_QUOTA_HAS_BEEN_REACHED" xml:space="preserve">
-    <value>Kontingent an Lync-Benutzern wurde verbraucht.</value>
-  </data>
-  <data name="Quota.Lync.Federation" xml:space="preserve">
-    <value>Verbund erlaubt</value>
-  </data>
-  <data name="Quota.Lync.Users" xml:space="preserve">
-    <value>Lync-Benutzer pro Organisation</value>
-  </data>
-  <data name="Quota.Lync.Conferencing" xml:space="preserve">
-    <value>Konferenzf�hrung erlaubt</value>
-  </data>
-  <data name="Quota.Lync.MaxParticipants" xml:space="preserve">
-    <value>Maximale Teilnehmer pro Konferenz</value>
-  </data>
-  <data name="Quota.Lync.AllowVideo" xml:space="preserve">
-    <value>Videokonferenz erlaubt</value>
-  </data>
-  <data name="Quota.Lync.EnterpriseVoice" xml:space="preserve">
-    <value>Enterprise Voice erlaubt</value>
-  </data>
-  <data name="Quota.Lync.EVUsers" xml:space="preserve">
-    <value>Enterprise Voice-Benutzer</value>
-  </data>
-  <data name="Quota.Lync.EVNational" xml:space="preserve">
-    <value>Nationale Anrufe erlaubt</value>
-  </data>
-  <data name="Quota.Lync.EVMobile" xml:space="preserve">
-    <value>Mobile Anrufe erlaubt</value>
-  </data>
-  <data name="Quota.Lync.EVInternational" xml:space="preserve">
-    <value>Internationale Anrufe erlaubt</value>
-  </data>
-  <data name="ResourceGroup.Lync" xml:space="preserve">
-    <value>Lync-Server</value>
-  </data>
-  <data name="Warning.CREATE_LYNC_USER" xml:space="preserve">
-    <value>Der Lync Benutzer wurde erfolgreich erstellt, aber die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Warning.ADD_LYNC_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>Lync Verbund-Dom�ne wurde erfolgreich erstellt, aber die folgenden Fehler sind aufgetreten</value>
-  </data>
-  <data name="Warning.DELETE_LYNC_USER" xml:space="preserve">
-    <value>Der Lync Benutzer wurde erfolgreich gel�scht, aber die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Error.LYNC_SET_DEFAULT_PLAN" xml:space="preserve">
-    <value>Fehler beim Setzen des Organisations-Lync-Benutzer-Plans. �berpr�fen Sie das Aktivit�tenprotokoll f�r weitere Details.</value>
-  </data>
-  <data name="AuditLogTask.LYNC_ADD_PLAN" xml:space="preserve">
-    <value>Organisations-Lyncbenutzer-Plan hinzuf�gen</value>
-  </data>
-  <data name="AuditLogTask.LYNC_DELETE_PLAN" xml:space="preserve">
-    <value>Plan l�schen</value>
-  </data>
-  <data name="Error.LYNC_DELETE_PLAN" xml:space="preserve">
-    <value>Plan konnte nicht gel�scht werden. Stellen Sie sicher, dass der Plan keinem anderen Benutzer zugeordnet ist</value>
-  </data>
-  <data name="Error.LYNC_ADD_PLAN" xml:space="preserve">
-    <value>Fehler beim Erstellen des Organisations-Plans. �berpr�fen Sie das Auditprotokoll f�r weitere Details.</value>
-  </data>
-  <data name="Error.SFB_DELETE_DOMAIN" xml:space="preserve">
-    <value>Fehler beim L�schen des Dom�nennamen der Organisation. �berpr�fen Sie das Auditprotokoll f�r weitere Details.</value>
-  </data>
-  <data name="Success.CREATE_SFB_USER" xml:space="preserve">
-    <value>SfB wurde erfolgreich f�r diesen Benutzer aktiviert.</value>
-  </data>
-  <data name="Error.CREATE_SFB_USER" xml:space="preserve">
-    <value>SfB Benutzer kann nicht aktiviert werden. Der folgende Fehler ist aufgetreten:</value>
-  </data>
-  <data name="Success.ADD_SFB_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>SfB hat die Verbund-Dom�ne erfolgreich hinzugef�gt.</value>
-  </data>
-  <data name="Error.ADD_SFB_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>Die Federation Dom�ne kann nicht hinzugef�gt wrden. Die folgenden Fehler sind aufgetreten:</value>
-  </data>
-  <data name="Success.DELETE_SFB_USER" xml:space="preserve">
-    <value>SfB wurde erfolgreich f�r diesen Benutzer deaktiviert</value>
-  </data>
-  <data name="Error.DELETE_SFB_USER" xml:space="preserve">
-    <value>SfB Benutzer kann nicht gel�scht werden. Die folgenden Fehler sindaufgetreten:</value>
-  </data>
-  <data name="Error.SFB_UNABLE_TO_ADD_PLAN" xml:space="preserve">
-    <value>Plan konnte nicht hinzugef�gt werden.</value>
-  </data>
-  <data name="Success.UPDATE_SFB_USER" xml:space="preserve">
-    <value>Allgemeine SfB-Benutzereinstellungen wurden erfolgreich aktualisiert.</value>
-  </data>
-  <data name="Error.UPDATE_SFB_USER" xml:space="preserve">
-    <value>Fehler beim Aktualisieren der allgemeinen SfB Benutzereinstellungen</value>
-  </data>
-  <data name="SfB.CANNOT_ADD_SFB_USER" xml:space="preserve">
-    <value>SfB Benutzer konnte nicht hinzugef�gt werden.</value>
-  </data>
-  <data name="SfB.CANNOT_ADD_SFB_USER_TO_DATABASE" xml:space="preserve">
-    <value>SfB Benutzer konnte nicht in die Datenbank hinzugef�gt werden.</value>
-  </data>
-  <data name="SfB.CANNOT_CHECK_IF_SFB_USER_EXISTS" xml:space="preserve">
-    <value>Kontingent konnte nicht �berpr�ft werden.</value>
-  </data>
-  <data name="SfB.CANNOT_DELETE_SFB_USER" xml:space="preserve">
-    <value>SfB Benutzer konnte nicht gel�scht werden.</value>
-  </data>
-  <data name="SfB.CANNOT_DELETE_SFB_USER_FROM_METADATA" xml:space="preserve">
-    <value>SfB Benutzer konnte nicht aus den Metadaten gel�scht werden.</value>
-  </data>
-  <data name="SfB.CANNOT_GET_SFB_PROXY" xml:space="preserve">
-    <value>SfB Proxy konnte nicht ermittelt werden.</value>
-  </data>
-  <data name="SfB.CANNOT_GET_USER_GENERAL_SETTINGS" xml:space="preserve">
-    <value>Allgemeine Benutzereinstellungen konnten nicht gelesen werden.</value>
-  </data>
-  <data name="SfB.CANNOT_SET_DEFAULT_SETTINGS" xml:space="preserve">
-    <value>Standardeinstellungen konnten nicht ge�ndert werden.</value>
-  </data>
-  <data name="SfB.GET_SFB_USERS" xml:space="preserve">
-    <value>SfB Benutzer konnten nicht gelesen werden.</value>
-  </data>
-  <data name="SfB.GET_SFB_USER_COUNT" xml:space="preserve">
-    <value>Anzahl SfB Benutzer konnte nicht gelesen werden.</value>
-  </data>
-  <data name="SfB.USER_FIRST_NAME_IS_NOT_SPECIFIED" xml:space="preserve">
-    <value>Vorname des Benutzers wurde nicht angegeben.</value>
-  </data>
-  <data name="SfB.USER_IS_ALREADY_SFB_USER" xml:space="preserve">
-    <value>Aktuelles Benutzerkonto ist bereits f�r den Office Communications Server aktiviert.</value>
-  </data>
-  <data name="SfB.USER_LAST_NAME_IS_NOT_SPECIFIED" xml:space="preserve">
-    <value>Nachname des Benutzers wurde nicht angegeben.</value>
-  </data>
-  <data name="SfB.USER_QUOTA_HAS_BEEN_REACHED" xml:space="preserve">
-    <value>Kontingent an SfB-Benutzern wurde verbraucht.</value>
-  </data>
-  <data name="Quota.SfB.Federation" xml:space="preserve">
-    <value>Verbund erlaubt</value>
-  </data>
-  <data name="Quota.SfB.Users" xml:space="preserve">
-    <value>SfB-Benutzer pro Organisation</value>
-  </data>
-  <data name="Quota.SfB.Conferencing" xml:space="preserve">
-    <value>Konferenzf�hrung erlaubt</value>
-  </data>
-  <data name="Quota.SfB.MaxParticipants" xml:space="preserve">
-    <value>Maximale Teilnehmer pro Konferenz</value>
-  </data>
-  <data name="Quota.SfB.AllowVideo" xml:space="preserve">
-    <value>Videokonferenz erlaubt</value>
-  </data>
-  <data name="Quota.SfB.EnterpriseVoice" xml:space="preserve">
-    <value>Enterprise Voice erlaubt</value>
-  </data>
-  <data name="Quota.SfB.EVUsers" xml:space="preserve">
-    <value>Enterprise Voice-Benutzer</value>
-  </data>
-  <data name="Quota.SfB.EVNational" xml:space="preserve">
-    <value>Nationale Anrufe erlaubt</value>
-  </data>
-  <data name="Quota.SfB.EVMobile" xml:space="preserve">
-    <value>Mobile Anrufe erlaubt</value>
-  </data>
-  <data name="Quota.SfB.EVInternational" xml:space="preserve">
-    <value>Internationale Anrufe erlaubt</value>
-  </data>
-  <data name="ResourceGroup.SfB" xml:space="preserve">
-    <value>Skype for Business-Server</value>
-  </data>
-  <data name="Warning.CREATE_SFB_USER" xml:space="preserve">
-    <value>SfB-Benutzer wurde erfolgreich eingerichtet, aber der folgende Fehler ist aufgetreten:</value>
-  </data>
-  <data name="Warning.ADD_SFB_FEDERATIONDOMAIN" xml:space="preserve">
-    <value>SfB-Verbund-Dom�ne wurde erfolgreich eingerichtet, aber der folgende Fehler ist aufgetreten:</value>
-  </data>
-  <data name="Warning.DELETE_SFB_USER" xml:space="preserve">
-    <value>SfB-Benutzer wurde erfolgreich gel�scht, aber der folgende Fehler ist aufgetreten:</value>
-  </data>
-  <data name="Error.SFB_SET_DEFAULT_PLAN" xml:space="preserve">
-    <value>Fehler beim Setzen des SfB Standard-Organisations-Benutzer-Plans. Siehe Auditprotokoll f�r weitere Details.</value>
-  </data>
-  <data name="AuditLogTask.SFB_ADD_PLAN" xml:space="preserve">
-    <value>SfB Organisations-Benutzer-Plan hinzuf�gen</value>
-  </data>
-  <data name="AuditLogTask.SFB_DELETE_PLAN" xml:space="preserve">
-    <value>Plan l�schen</value>
-  </data>
-  <data name="Error.SFB_DELETE_PLAN" xml:space="preserve">
-    <value>Plan konnte nicht gel�scht werden. Stellen Sie sicher, dass der Plan keinem anderen Benutzer zugeordnet ist</value>
-  </data>
-  <data name="Error.SFB_ADD_PLAN" xml:space="preserve">
-    <value>Fehler beim Erstellen des Organisations-Plans. �berpr�fen Sie das Auditprotokoll f�r weitere Details.</value>
-  </data>
   <data name="Error.ERROR_USER_ACCOUNT_NOT_ENOUGH_PERMISSIONS" xml:space="preserve">
     <value>Der Benutzer hat nicht genug Rechte, um diese Aufgabe durchzuf�hren.</value>
   </data>
@@ -6395,12 +6113,6 @@
   </data>
   <data name="Error.EXCHANGE_SPECIFY_PLAN" xml:space="preserve">
     <value>Geben Sie einen Plan an</value>
-  </data>
-  <data name="Quota.Lync.EnablePlansEditing" xml:space="preserve">
-    <value>Lync-Benutzer-Plan-Bearbeitung aktivieren</value>
-  </data>
-  <data name="Quota.SfB.EnablePlansEditing" xml:space="preserve">
-    <value>SfB-Benutzer-Plan-Bearbeitung aktivieren</value>
   </data>
   <data name="Error.EXCHANGE_APPLYPLANTEMPLATE" xml:space="preserve">
     <value>Anwenden der Plan-Vorlagen fehlgeschlagen</value>
@@ -6428,30 +6140,6 @@
   </data>
   <data name="Success.EXCHANGE_SET_DEFAULT_MAILBOXPLAN" xml:space="preserve">
     <value>Standard-Postfach-Plan wurde erfolgreich aktiviert.</value>
-  </data>
-  <data name="Error.LYNC_UPDATEPLANS" xml:space="preserve">
-    <value>Aktualisierung des Lync-Plans fehlgeschlagen</value>
-  </data>
-  <data name="Success.LYNC_UPDATEPLANS" xml:space="preserve">
-    <value>Lync-Plan aktualisiert.</value>
-  </data>
-  <data name="Error.LYNC_APPLYPLANTEMPLATE" xml:space="preserve">
-    <value>Anwenden der Plan-Vorlagen fehlgeschlagen</value>
-  </data>
-  <data name="Success.LYNC_APPLYPLANTEMPLATE" xml:space="preserve">
-    <value>Planvorlage wurde erfolgreich angewendet</value>
-  </data>
-  <data name="Error.SFB_UPDATEPLANS" xml:space="preserve">
-    <value>Aktualisierung des SfB-Plans fehlgeschlagen</value>
-  </data>
-  <data name="Success.SFB_UPDATEPLANS" xml:space="preserve">
-    <value>SfB-Plan aktualisiert.</value>
-  </data>
-  <data name="Error.SFB_APPLYPLANTEMPLATE" xml:space="preserve">
-    <value>Anwenden der Plan-Vorlagen fehlgeschlagen</value>
-  </data>
-  <data name="Success.SFB_APPLYPLANTEMPLATE" xml:space="preserve">
-    <value>Planvorlage wurde erfolgreich angewendet</value>
   </data>
   <data name="Success.REQUEST_COMPLETED_SUCCESFULLY" xml:space="preserve">
     <value>Anfrage erfolgreich abgeschlossen</value>
@@ -6488,12 +6176,6 @@
   </data>
   <data name="WarningDescription.PHONE_EDIT_LIST_EMPTY_ERROR" xml:space="preserve">
     <value>Mindestens eine Telefonnummer muss ausgew�hlt werden.</value>
-  </data>
-  <data name="Quota.Lync.PhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern pro Organisation</value>
-  </data>
-  <data name="Quota.SfB.PhoneNumbers" xml:space="preserve">
-    <value>SfB-Telefonnummern pro Organisation</value>
   </data>
   <data name="Error.ORGANIZATION_CREATE_USER" xml:space="preserve">
     <value>Fehler beim Erstellen des Benutzers. �berpr�fen Sie das Auditprotokoll f�r weitere Details.</value>

@@ -61,20 +61,7 @@ namespace FuseCP.Portal
         {
             try
             {
-                ServerInfo[] allServers = ES.Services.Servers.GetServers();
                 List<ServerInfo> servers = new List<ServerInfo>();
-                foreach(ServerInfo server in allServers)
-                    {
-                        ServiceInfo[] service = ES.Services.Servers.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.Lync);
-
-                        if (service.Length > 0) servers.Add(server);
-                    }
-                foreach (ServerInfo server in allServers)
-                {
-                    ServiceInfo[] service = ES.Services.Servers.GetServicesByServerIdGroupName(server.ServerId, ResourceGroups.SfB);
-
-                    if (service.Length > 0) servers.Add(server);
-                }
 
                 ddlServer.DataSource = servers;
                 ddlServer.DataBind();

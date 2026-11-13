@@ -74,8 +74,7 @@ namespace FuseCP.Portal.ProviderControls
             txtConnectionBroker.Text = settings["ConnectionBroker"];
 
             GWServers = settings["GWServrsList"];
-            UpdateLyncServersGrid();
-            UpdateSfBServersGrid();
+            UpdateGWServersGrid();
 
             txtRootOU.Text = settings["RootOU"];
             txtComputersRootOu.Text = settings["ComputersRootOU"];
@@ -148,8 +147,7 @@ namespace FuseCP.Portal.ProviderControls
 
             txtAddGWServer.Text = string.Empty;
 
-            UpdateLyncServersGrid();
-            UpdateSfBServersGrid();
+            UpdateGWServersGrid();
         }
 
         public List<GWServer> GetServices(string data)
@@ -162,12 +160,7 @@ namespace FuseCP.Portal.ProviderControls
                 .ToList();
         }
 
-        private void UpdateLyncServersGrid()
-        {
-            gvGWServers.DataSource = GetServices(GWServers);
-            gvGWServers.DataBind();
-        }
-        private void UpdateSfBServersGrid()
+        private void UpdateGWServersGrid()
         {
             gvGWServers.DataSource = GetServices(GWServers);
             gvGWServers.DataBind();
@@ -180,8 +173,7 @@ namespace FuseCP.Portal.ProviderControls
                 List<GWServer> servers = GetServices(GWServers);
                 string serverToRemove = e.CommandArgument.ToString();
                 GWServers = servers == null ? string.Empty : string.Join(";", servers.Where(current => current.ServerName != serverToRemove).Select(current => current.ServerName));
-                UpdateLyncServersGrid();
-                UpdateSfBServersGrid();
+                UpdateGWServersGrid();
             }
         }       
     }

@@ -822,15 +822,6 @@
   <data name="ModuleTitle.ApplyEnableHardQuotaFeature" xml:space="preserve">
     <value>Systemkontingent (hart)</value>
   </data>
-  <data name="ModuleTitle.HeliconZoo" xml:space="preserve">
-    <value>Helicon Zoo</value>
-  </data>
-  <data name="ModuleTitle.LyncPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
-  <data name="ModuleTitle.SfBPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
   <data name="ModuleTitle.AddPhoneNumber" xml:space="preserve">
     <value>Telefonnummern hinzuf�gen</value>
   </data>

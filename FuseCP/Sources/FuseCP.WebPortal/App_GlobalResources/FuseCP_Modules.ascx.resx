@@ -834,15 +834,6 @@
   <data name="ModuleTitle.ApplyEnableHardQuotaFeature" xml:space="preserve">
     <value>System Hard Quota</value>
   </data>
-  <data name="ModuleTitle.HeliconZoo" xml:space="preserve">
-    <value>Helicon Zoo</value>
-  </data>
-  <data name="ModuleTitle.LyncPhoneNumbers" xml:space="preserve">
-    <value>Phone Numbers</value>
-  </data>
-  <data name="ModuleTitle.SfBPhoneNumbers" xml:space="preserve">
-    <value>Phone Numbers</value>
-  </data>
   <data name="ModuleTitle.AddPhoneNumber" xml:space="preserve">
     <value>Add Phone Numbers</value>
   </data>

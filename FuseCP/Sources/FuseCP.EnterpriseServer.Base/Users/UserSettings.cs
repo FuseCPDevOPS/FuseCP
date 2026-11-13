@@ -52,8 +52,6 @@ namespace FuseCP.EnterpriseServer
         public const string GRID_ITEMS = "GridItems";
 
         public const string DEFAULT_MAILBOXPLANS = "DefaultMailboxPlans";
-        public const string DEFAULT_LYNCUSERPLANS = "DefaultLyncUserPlans";
-        public const string DEFAULT_SFBUSERPLANS = "DefaultSfBUserPlans";
         public const string RDS_SETUP_LETTER = "RDSSetupLetter";
         public const string RDS_POLICY = "RdsPolicy";
         public const string USER_PASSWORD_EXPIRATION_LETTER = "UserPasswordExpirationLetter";

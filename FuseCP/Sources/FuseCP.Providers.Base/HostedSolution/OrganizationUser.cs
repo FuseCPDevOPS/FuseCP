@@ -57,8 +57,6 @@ namespace FuseCP.Providers.HostedSolution
         private bool locked;
         private bool isOCSUser;
         private bool isBlackBerryUser;
-        private bool isLyncUser;
-        private bool isSfBUser;
 
         ExchangeAccountType accountType;
 
@@ -281,17 +279,6 @@ namespace FuseCP.Providers.HostedSolution
         {
             get { return isOCSUser; }
             set { isOCSUser = value; }
-        }
-
-        public bool IsLyncUser
-        {
-            get { return isLyncUser; }
-            set { isLyncUser = value; }
-        }
-        public bool IsSfBUser
-        {
-            get { return isSfBUser; }
-            set { isSfBUser = value; }
         }
 
         public bool IsBlackBerryUser

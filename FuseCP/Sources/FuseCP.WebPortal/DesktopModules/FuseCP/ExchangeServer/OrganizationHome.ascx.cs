@@ -271,23 +271,6 @@ namespace FuseCP.Portal.ExchangeServer
             }
             else
                 besStatsPanel.Visible = false;
-            if (cntx.Groups.ContainsKey(ResourceGroups.SfB))
-            {
-                sfbStatsPanel.Visible = true;
-                BindSfBStats(orgStats);
-            }
-            else
-                sfbStatsPanel.Visible = false;
-
-            if (cntx.Groups.ContainsKey(ResourceGroups.Lync))
-            {
-                lyncStatsPanel.Visible = true;
-                BindLyncStats(orgStats);
-            }
-            else
-                lyncStatsPanel.Visible = false;
-
-
 
             crmStatsPanel.Visible = false;
             crm2013StatsPanel.Visible = false;
@@ -378,27 +361,6 @@ namespace FuseCP.Portal.ExchangeServer
             lnkOCSUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "ocs_users",
             "SpaceID=" + PanelSecurity.PackageId);
         }
-
-        private void BindLyncStats(OrganizationStatistics stats)
-        {
-            lyncUsersStats.QuotaValue = stats.AllocatedLyncUsers;
-            lyncUsersStats.QuotaUsedValue = stats.CreatedLyncUsers;
-            if (stats.AllocatedLyncUsers != -1) lyncUsersStats.QuotaAvailable = stats.AllocatedLyncUsers - stats.CreatedLyncUsers;
-
-            lnkLyncUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "lync_users",
-            "SpaceID=" + PanelSecurity.PackageId);
-        }
-
-        private void BindSfBStats(OrganizationStatistics stats)
-        {
-            sfbUsersStats.QuotaValue = stats.AllocatedSfBUsers;
-            sfbUsersStats.QuotaUsedValue = stats.CreatedSfBUsers;
-            if (stats.AllocatedSfBUsers != -1) sfbUsersStats.QuotaAvailable = stats.AllocatedSfBUsers - stats.CreatedSfBUsers;
-
-            lnkSfBUsers.NavigateUrl = EditUrl("ItemID", PanelRequest.ItemID.ToString(), "sfb_users",
-            "SpaceID=" + PanelSecurity.PackageId);
-        }
-
 
         private void BindBESStats(OrganizationStatistics stats)
         {

@@ -130,12 +130,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
                 item.TotalCRMUsers = crmOrganizationStatistics.Count;                
             }
 
-            item.TotalLyncUsers = 0;
-            item.TotalLyncEVUsers = 0;
-
-
-
-
             report.OrganizationReport.Items.Add(item);
         }
 
@@ -297,17 +291,6 @@ namespace FuseCP.EnterpriseServer.Code.HostedSolution
         {
             return PackageController.GetPackageServiceId(packageId, ResourceGroups.Exchange);
         }
-
-        private int GetLyncServiceID(int packageId)
-        {
-            return PackageController.GetPackageServiceId(packageId, ResourceGroups.Lync);
-        }
-
-        private int GetSfBServiceID(int packageId)
-        {
-            return PackageController.GetPackageServiceId(packageId, ResourceGroups.SfB);
-        }
-
 
         private void PopulateSharePointItem(Organization org, EnterpriseSolutionStatisticsReport report, string topReseller)
         {

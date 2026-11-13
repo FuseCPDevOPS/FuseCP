@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -123,13 +123,7 @@
   <data name="cbExchange.Text" xml:space="preserve">
     <value>Exchange Report</value>
   </data>
-  <data name="cbLync.Text" xml:space="preserve">
-    <value>Lync Report</value>
-  </data>
-  <data name="cbSfB.Text" xml:space="preserve">
-    <value>Skype for Business Report</value>
-  </data>
-  <data name="cbOrganization.Text" xml:space="preserve">
+      <data name="cbOrganization.Text" xml:space="preserve">
     <value>Organization Report</value>
   </data>
   <data name="cbSharePoint.Text" xml:space="preserve">

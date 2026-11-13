@@ -56,22 +56,6 @@
         <td class="SubHead text-nowrap"><asp:Label ID="lblOCSUsers" runat="server" meta:resourcekey="lblOCSUsers" Text="OCS Users:"></asp:Label></td>
         <td class="Normal"><fcp:Quota ID="quotaOCSUsers" runat="server" QuotaName="OCS.Users" DisplayGauge="True" /></td>
     </tr>
-    <tr ID="pnlLyncUsers" runat="server">
-        <td class="SubHead text-nowrap"><asp:Label ID="lblLyncUsers" runat="server" meta:resourcekey="lblLyncUsers" Text="Lync Users:"></asp:Label></td>
-        <td class="Normal"><fcp:Quota ID="quotaLyncUsers" runat="server" QuotaName="Lync.Users" DisplayGauge="True" /></td>
-    </tr>
-    <tr ID="pnlLyncPhone" runat="server">
-        <td class="SubHead text-nowrap"><asp:Label ID="lblLyncPhone" runat="server" meta:resourcekey="lblLyncPhone" Text="Lync Phone Numbers:"></asp:Label></td>
-        <td class="Normal"><fcp:Quota ID="quotaLyncPhone" runat="server" QuotaName="Lync.PhoneNumbers" DisplayGauge="True" /></td>
-    </tr>
-    <tr ID="pnlSfBUsers" runat="server">
-        <td class="SubHead text-nowrap"><asp:Label ID="lblSfBUsers" runat="server" meta:resourcekey="lblSfBUsers" Text="Skype for Business Users:"></asp:Label></td>
-        <td class="Normal"><fcp:Quota ID="quotaSfBUsers" runat="server" QuotaName="SfB.Users" DisplayGauge="True" /></td>
-    </tr>
-    <tr ID="pnlSfBPhone" runat="server">
-        <td class="SubHead text-nowrap"><asp:Label ID="lblSfBPhone" runat="server" meta:resourcekey="lblSfBPhone" Text="Skype for Business Phone Numbers:"></asp:Label></td>
-        <td class="Normal"><fcp:Quota ID="quotaSfBPhone" runat="server" QuotaName="SfB.PhoneNumbers" DisplayGauge="True" /></td>
-    </tr>
     <tr ID="pnlBlackBerryUsers" runat="server">
         <td class="SubHead text-nowrap"><asp:Label ID="lblBlackBerryUsers" runat="server" meta:resourcekey="lblBlackBerryUsers" Text="BlackBerry Users:"></asp:Label></td>
         <td class="Normal"><fcp:Quota ID="quotaBlackBerryUsers" runat="server" QuotaName="BlackBerry.Users" DisplayGauge="True" /></td>

@@ -50,8 +50,6 @@ namespace FuseCP.EnterpriseServer
         public const string BlackBerry = "BlackBerry";
         public const string OCS = "OCS";
         public const string VPSForPC = "VPSForPC";
-        public const string Lync = "Lync";
-        public const string SfB = "SfB";
         public const string EnterpriseStorage = "EnterpriseStorage";
         public const string ServiceLevels = "Service Levels";
         public const string RDS = "RDS";

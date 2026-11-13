@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -159,13 +159,7 @@
   <data name="lnkLists.Text" xml:space="preserve">
     <value>Verteilerlisten:</value>
   </data>
-  <data name="lnkLyncUsers.Text" xml:space="preserve">
-    <value>Benutzer:</value>
-  </data>
-  <data name="lnkSfBUsers.Text" xml:space="preserve">
-    <value>Benutzer:</value>
-  </data>
-  <data name="lnkMailboxes.Text" xml:space="preserve">
+      <data name="lnkMailboxes.Text" xml:space="preserve">
     <value>Postfächer:</value>
   </data>
   <data name="lnkOCSUsers.Text" xml:space="preserve">
@@ -192,13 +186,7 @@
   <data name="locHeadStatistics.Text" xml:space="preserve">
     <value>Organisationsstatistik</value>
   </data>
-  <data name="locLyncStatistics.Text" xml:space="preserve">
-    <value>Lync</value>
-  </data>
-  <data name="locSfBStatistics.Text" xml:space="preserve">
-    <value>Skype for Business</value>
-  </data>
-  <data name="locOCSStatistics.Text" xml:space="preserve">
+      <data name="locOCSStatistics.Text" xml:space="preserve">
     <value>OCS</value>
   </data>
   <data name="locSharePoint.Text" xml:space="preserve">

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -186,13 +186,7 @@
   <data name="lblUserAccounts.Text" xml:space="preserve">
     <value>User Accounts:</value>
   </data>
-  <data name="lblLyncUsers.Text" xml:space="preserve">
-    <value>Lync Users:</value>
-  </data>
-  <data name="lblSfBUsers.Text" xml:space="preserve">
-    <value>Skype for Business Users:</value>
-  </data>
-  <data name="lblExchangeAccounts.Text" xml:space="preserve">
+      <data name="lblExchangeAccounts.Text" xml:space="preserve">
     <value>Exchange Mailboxes:</value>
   </data>
   <data name="lblExchangeStorage.Text" xml:space="preserve">
@@ -201,13 +195,7 @@
   <data name="lblOrganizations.Text" xml:space="preserve">
     <value>Organizations:</value>
   </data>
-  <data name="lblLyncPhone.Text" xml:space="preserve">
-    <value>Lync Phone Numbers:</value>
-  </data>
-  <data name="lblSfBPhone.Text" xml:space="preserve">
-    <value>Skype for Business Phone Numbers:</value>
-  </data>
-  <data name="lblFolders.Text" xml:space="preserve">
+      <data name="lblFolders.Text" xml:space="preserve">
     <value>Folders:</value>
   </data>
   <data name="lblEnterpriseStorage.Text" xml:space="preserve">

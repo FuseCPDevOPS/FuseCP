@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -527,18 +527,6 @@
   </data>
   <data name="PageName.SpaceApplyEnableHardQuotaFeature" xml:space="preserve">
     <value>Systemkontingent (hart)</value>
-  </data>
-  <data name="PageName.LyncPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
-  <data name="PageTitle.LyncPhoneNumbers" xml:space="preserve">
-    <value>{user} - {space} - Telefonnummern</value>
-  </data>
-  <data name="PageName.SfBPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
-  <data name="PageTitle.SfBPhoneNumbers" xml:space="preserve">
-    <value>{user} - {space} - Telefonnummern</value>
   </data>
   <data name="PageName.PhoneNumbers" xml:space="preserve">
     <value>Telefonnummern</value>

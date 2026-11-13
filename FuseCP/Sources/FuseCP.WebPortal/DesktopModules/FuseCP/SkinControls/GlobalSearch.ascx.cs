@@ -36,8 +36,6 @@ namespace FuseCP.Portal.SkinControls
         const string TYPE_ORGANIZATION = "Organization";
         const string TYPE_EXCHANGEACCOUNT = "ExchangeAccount";
         const string TYPE_RDSCOLLECTION = "RDSCollection";
-        const string TYPE_LYNC = "LyncAccount";
-        const string TYPE_SFB = "SfBAccount";
         const string TYPE_FOLDER = "WebDAVFolder";
         const string TYPE_SHAREPOINT = "SharePointFoundationSiteCollection";
         const string TYPE_SHAREPOINTENTERPRISE = "SharePointEnterpriseSiteCollection";
@@ -223,16 +221,6 @@ namespace FuseCP.Portal.SkinControls
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
                             PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=rds_edit_collection",
                             "CollectionId=" + accountId, "moduleDefId=ExchangeServer");
-                        break;
-                    case TYPE_LYNC:
-                        res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_lync_user",
-                            "AccountID=" + accountId, "moduleDefId=ExchangeServer");
-                        break;
-                    case TYPE_SFB:
-                        res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),
-                            PortalUtils.SPACE_ID_PARAM + "=" + spaceId, "ctl=edit_sfb_user",
-                            "AccountID=" + accountId, "moduleDefId=ExchangeServer");
                         break;
                     case TYPE_FOLDER:
                         res = PortalUtils.NavigatePageURL(PID_SPACE_EXCHANGESERVER, "ItemID", itemId.ToString(),

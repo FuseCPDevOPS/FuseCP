@@ -274,32 +274,6 @@ order by rg.groupOrder
         public const string OCS_PresenceAllowedByDefault = "OCS.PresenceAllowedByDefault";
 
 
-        public const string LYNC_USERS = "Lync.Users";
-        public const string LYNC_FEDERATION = "Lync.Federation";
-        public const string LYNC_CONFERENCING = "Lync.Conferencing";
-        public const string LYNC_MAXPARTICIPANTS = "Lync.MaxParticipants";
-        public const string LYNC_ALLOWVIDEO = "Lync.AllowVideo";
-        public const string LYNC_ENTERPRISEVOICE = "Lync.EnterpriseVoice";
-        public const string LYNC_EVUSERS = "Lync.EVUsers";
-        public const string LYNC_EVNATIONAL = "Lync.EVNational";
-        public const string LYNC_EVMOBILE = "Lync.EVMobile";
-        public const string LYNC_EVINTERNATIONAL = "Lync.EVInternational";
-        public const string LYNC_ENABLEDPLANSEDITING = "Lync.EnablePlansEditing";
-        public const string LYNC_PHONE = "Lync.PhoneNumbers";
-
-        public const string SFB_USERS = "SfB.Users";
-        public const string SFB_FEDERATION = "SfB.Federation";
-        public const string SFB_CONFERENCING = "SfB.Conferencing";
-        public const string SFB_MAXPARTICIPANTS = "SfB.MaxParticipants";
-        public const string SFB_ALLOWVIDEO = "SfB.AllowVideo";
-        public const string SFB_ENTERPRISEVOICE = "SfB.EnterpriseVoice";
-        public const string SFB_EVUSERS = "SfB.EVUsers";
-        public const string SFB_EVNATIONAL = "SfB.EVNational";
-        public const string SFB_EVMOBILE = "SfB.EVMobile";
-        public const string SFB_EVINTERNATIONAL = "SfB.EVInternational";
-        public const string SFB_ENABLEDPLANSEDITING = "SfB.EnablePlansEditing";
-        public const string SFB_PHONE = "SfB.PhoneNumbers";
-
         public const string ENTERPRISESTORAGE_DISKSTORAGESPACE = "EnterpriseStorage.DiskStorageSpace"; 
         public const string ENTERPRISESTORAGE_FOLDERS = "EnterpriseStorage.Folders";
         public const string ENTERPRICESTORAGE_DRIVEMAPS = "EnterpriseStorage.DriveMaps";

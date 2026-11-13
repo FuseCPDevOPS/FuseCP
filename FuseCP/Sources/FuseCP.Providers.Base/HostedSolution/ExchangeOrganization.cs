@@ -23,8 +23,6 @@ namespace FuseCP.Providers.HostedSolution
     {
         int itemId;
         int exchangeMailboxPlanID;
-        int lyncUserPlanID;
-        int sfbUserPlanID;
 
 
         public int ItemId
@@ -38,17 +36,6 @@ namespace FuseCP.Providers.HostedSolution
         {
             get { return this.exchangeMailboxPlanID; }
             set { this.exchangeMailboxPlanID = value; }
-        }
-
-        public int LyncUserPlanID
-        {
-            get { return this.lyncUserPlanID; }
-            set { this.lyncUserPlanID = value; }
-        }
-        public int SfBUserPlanID
-        {
-            get { return this.sfbUserPlanID; }
-            set { this.sfbUserPlanID = value; }
         }
 
     }

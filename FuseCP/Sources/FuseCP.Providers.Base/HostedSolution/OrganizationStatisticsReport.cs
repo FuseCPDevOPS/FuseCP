@@ -44,11 +44,7 @@ namespace FuseCP.Providers.HostedSolution
                 sb.AppendFormat("{0},", ToCsvString(item.TotalPublicFoldersSize / 1024.0 / 1024.0));
                 sb.AppendFormat("{0},", ToCsvString(item.TotalSharePointSiteCollections));
                 sb.AppendFormat("{0},", ToCsvString(item.TotalSharePointSiteCollectionsSize / 1024.0 / 1024.0));
-                sb.AppendFormat("{0},", ToCsvString(item.TotalCRMUsers));
-                sb.AppendFormat("{0},", ToCsvString(item.TotalLyncUsers));
-                sb.AppendFormat("{0}", ToCsvString(item.TotalLyncEVUsers));
-                sb.AppendFormat("{0},", ToCsvString(item.TotalSfBUsers));
-                sb.AppendFormat("{0}", ToCsvString(item.TotalSfBEVUsers));
+                sb.AppendFormat("{0}", ToCsvString(item.TotalCRMUsers));
 
                 mainBuilder.Append(sb);
             }
@@ -57,7 +53,7 @@ namespace FuseCP.Providers.HostedSolution
 
         private static void AddCSVHeader(StringBuilder sb)
         {
-            sb.Append("Top Reseller,Reseller,Customer,Customer Created,Hosting Space,Hosting Space Created,Ogranization Name,Ogranization Created,Organization ID,Total mailboxes,Total mailboxes size(Mb),Total Public Folders size(Mb),Total SharePoint site collections,Total SharePoint site collections size(Mb),Total CRM users,Total Lync users,Total Lync EV users, Total SfB users,Total SfB EV users");
+            sb.Append("Top Reseller,Reseller,Customer,Customer Created,Hosting Space,Hosting Space Created,Ogranization Name,Ogranization Created,Organization ID,Total mailboxes,Total mailboxes size(Mb),Total Public Folders size(Mb),Total SharePoint site collections,Total SharePoint site collections size(Mb),Total CRM users");
         }
     }
 }

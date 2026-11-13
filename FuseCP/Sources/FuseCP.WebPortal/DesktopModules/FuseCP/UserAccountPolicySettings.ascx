@@ -22,14 +22,6 @@
                     Text="Global Retention Policy Tag" NavigateUrl='<%# GetSettingsLink("RetentionPolicyTag", "SettingsExchangeRetentionPolicyTag") %>'></asp:HyperLink>
         </li>
 
-        <li>
-            <asp:HyperLink ID="lnkLyncUserPlansPolicy" runat="server" meta:resourcekey="lnkLyncUserPlansPolicy"
-                    Text="Lync Userplan Policy" NavigateUrl='<%# GetSettingsLink("LyncUserPlansPolicy", "SettingsLyncUserPlansPolicy") %>'></asp:HyperLink>
-        </li>
-        <li>
-            <asp:HyperLink ID="lnkSfBUserPlansPolicy" runat="server" meta:resourcekey="lnkSfBUserPlansPolicy"
-                    Text="Skype for Business Userplan Policy" NavigateUrl='<%# GetSettingsLink("SfBUserPlansPolicy", "SettingsSfBUserPlansPolicy") %>'></asp:HyperLink>
-        </li>
 
         <li>
             <asp:HyperLink ID="lnkFtpPolicy" runat="server" meta:resourcekey="lnkFtpPolicy"

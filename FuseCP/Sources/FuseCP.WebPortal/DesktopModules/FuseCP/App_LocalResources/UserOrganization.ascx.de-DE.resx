@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -186,37 +186,7 @@
   <data name="Text.ExchangeGroup" xml:space="preserve">
     <value>Gehostete Organisation - Exchange</value>
   </data>
-  <data name="Text.LyncFederationDomains" xml:space="preserve">
-    <value>Lync Verbund-Domänen</value>
-  </data>
-  <data name="Text.LyncGroup" xml:space="preserve">
-    <value>Gehostete Organisation - Lync</value>
-  </data>
-  <data name="Text.LyncPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
-  <data name="Text.LyncUserPlans" xml:space="preserve">
-    <value>Lync-Benutzer-Pläne</value>
-  </data>
-  <data name="Text.LyncUsers" xml:space="preserve">
-    <value>Lync-Benutzer</value>
-  </data>
-  <data name="Text.SfBFederationDomains" xml:space="preserve">
-    <value>Verbund-Domänen</value>
-  </data>
-  <data name="Text.SfBGroup" xml:space="preserve">
-    <value>Gehostete Organisation - Skype for Business</value>
-  </data>
-  <data name="Text.SfBPhoneNumbers" xml:space="preserve">
-    <value>Telefonnummern</value>
-  </data>
-  <data name="Text.SfBUserPlans" xml:space="preserve">
-    <value>Benutzer-Pläne</value>
-  </data>
-  <data name="Text.SfBUsers" xml:space="preserve">
-    <value>Benutzer</value>
-  </data>
-  <data name="Text.Mailboxes" xml:space="preserve">
+                      <data name="Text.Mailboxes" xml:space="preserve">
     <value>Postfächer</value>
   </data>
   <data name="Text.MailboxPlans" xml:space="preserve">

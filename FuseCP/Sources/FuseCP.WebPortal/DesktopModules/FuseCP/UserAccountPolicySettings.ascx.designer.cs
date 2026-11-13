@@ -59,24 +59,6 @@ namespace FuseCP.Portal {
         protected global::System.Web.UI.WebControls.HyperLink lnkExchangeRetentionPolicyTag;
         
         /// <summary>
-        /// lnkLyncUserPlansPolicy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLyncUserPlansPolicy;
-        
-        /// <summary>
-        /// lnkSfBUserPlansPolicy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkSfBUserPlansPolicy;
-        
-        /// <summary>
         /// lnkFtpPolicy control.
         /// </summary>
         /// <remarks>
