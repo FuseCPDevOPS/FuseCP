@@ -79,8 +79,14 @@ namespace FuseCP.Portal
             }
         }
 
-        protected override void CreateChildControls()
+        protected override void OnInit(EventArgs e)
         {
+            // The MessageBox is created in OnInit (not CreateChildControls) so the module's
+            // child control tree is fully built before the ViewState load walk on postback.
+            // The framework used to insert it late (during Load/ProcessRequest), which made
+            // the save-time and load-time child trees differ by one control and shifted the
+            // by-index child state dispatch, so child controls never received their saved
+            // ViewState (e.g. SearchBox criteria restore, F-042).
             // The WebFormsForCore framework locks Controls during Init/Load/PreRender/etc.
             // Temporarily unlock to add the MessageBox control, then restore the lock.
             using (UnlockControlCollection(this.Controls))
@@ -91,6 +97,12 @@ namespace FuseCP.Portal
                 ((Control)messageBox).Visible = false;
             }
 
+            // call base handler
+            base.OnInit(e);
+        }
+
+        protected override void CreateChildControls()
+        {
             base.CreateChildControls();
         }
 

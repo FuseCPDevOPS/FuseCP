@@ -70,14 +70,56 @@ namespace FuseCP.Portal
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        // F-042: WFFC does not persist list items added in code to ViewState, so on
+        // postback the filter column dropdown renders without items and, after an
+        // UpdatePanel async postback rebuilds the __EVENTVALIDATION store from the
+        // rendered (empty) control, the next full postback posting a filter column
+        // fails event validation ("Invalid postback or callback argument").
+        // The added criteria are remembered in this control's ViewState and re-applied
+        // in LoadViewState (before post-data processing) so the dropdown has items
+        // on every request.
+        private const string CriteriaViewStateKey = "FilterColumnCriteria";
 
+        protected override void LoadViewState(object savedState)
+        {
+            base.LoadViewState(savedState);
+
+            // Re-apply the criteria remembered in ViewState so the dropdown has
+            // items on postback (see CriteriaViewStateKey comment above).
+            ArrayList criteria = ViewState[CriteriaViewStateKey] as ArrayList;
+            if (criteria != null)
+            {
+                foreach (string[] c in criteria)
+                {
+                    if (ddlFilterColumn.Items.FindByValue(c[0]) == null)
+                        ddlFilterColumn.Items.Add(new ListItem(c[1], c[0]));
+                }
+            }
         }
 
         public void AddCriteria(string columnName, string columnTitle)
         {
-            ddlFilterColumn.Items.Add(new ListItem(columnTitle, columnName));
+            if (ddlFilterColumn.Items.FindByValue(columnName) == null)
+                ddlFilterColumn.Items.Add(new ListItem(columnTitle, columnName));
+
+            // Remember the criteria so LoadViewState can re-add them on postback.
+            ArrayList criteria = ViewState[CriteriaViewStateKey] as ArrayList;
+            if (criteria == null)
+            {
+                criteria = new ArrayList();
+                ViewState[CriteriaViewStateKey] = criteria;
+            }
+            bool remembered = false;
+            foreach (string[] c in criteria)
+            {
+                if (c[0] == columnName)
+                {
+                    remembered = true;
+                    break;
+                }
+            }
+            if (!remembered)
+                criteria.Add(new string[] { columnName, columnTitle });
         }
 
         public string GetCriterias()
