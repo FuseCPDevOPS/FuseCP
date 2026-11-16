@@ -351,6 +351,9 @@
   <data name="Error.FTP_UPDATE_ACCOUNT" xml:space="preserve">
     <value>Error updating FTP account</value>
   </data>
+  <data name="Error.FTP_PASSWORD_POLICY_REJECTED" xml:space="preserve">
+    <value>The password was rejected by the host because it does not meet the host's password policy requirements. Please choose a stronger password (for example, a longer password that mixes upper- and lower-case letters, numbers, and symbols).</value>
+  </data>
   <data name="Error.MAIL_ADD_ACCOUNT" xml:space="preserve">
     <value>Error creating mail account</value>
   </data>

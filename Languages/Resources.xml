@@ -2742,6 +2742,11 @@
   </Resource>
   <Resource>
     <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
+    <Key>Error.FTP_PASSWORD_POLICY_REJECTED</Key>
+    <DefaultValue>The password was rejected by the host because it does not meet the host's password policy requirements. Please choose a stronger password (for example, a longer password that mixes upper- and lower-case letters, numbers, and symbols).</DefaultValue>
+  </Resource>
+  <Resource>
+    <File>App_GlobalResources\FuseCP_SharedResources.ascx.resx</File>
     <Key>Error.MAIL_ADD_ACCOUNT</Key>
     <DefaultValue>Error creating mail account</DefaultValue>
   </Resource>

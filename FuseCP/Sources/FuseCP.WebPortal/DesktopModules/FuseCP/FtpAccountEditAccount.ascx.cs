@@ -175,10 +175,16 @@ namespace FuseCP.Portal
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
-                    
+                    // F-018: the host's Windows local-account policy can be stricter than the
+                    // panel's advertised password rules. When the OS rejects the password,
+                    // surface the host's reason instead of a generic "Error creating FTP account".
+                    if (IsPasswordPolicyRejection(ex))
+                    {
+                        ShowErrorMessage("FTP_PASSWORD_POLICY_REJECTED", ex);
+                        return;
+                    }
                     ShowErrorMessage("FTP_ADD_ACCOUNT", ex);
                     return;
-                    
                 }
             }
             else
@@ -195,6 +201,12 @@ namespace FuseCP.Portal
                 }
                 catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
                 {
+                    // F-018: surface the host's password-policy reason instead of a generic error.
+                    if (IsPasswordPolicyRejection(ex))
+                    {
+                        ShowErrorMessage("FTP_PASSWORD_POLICY_REJECTED", ex);
+                        return;
+                    }
                     ShowErrorMessage("FTP_UPDATE_ACCOUNT", ex);
                     return;
                 }
@@ -202,6 +214,27 @@ namespace FuseCP.Portal
 
             // return
             RedirectSpaceHomePage();
+        }
+
+        // F-018: detect a host-side password-policy rejection anywhere in the exception chain.
+        // The OS (WinNT/AD SetPassword) throws messages such as
+        // "The password does not meet the password policy requirements." which SecurityUtils
+        // wraps in a generic exception. We match on the presence of both "password" and
+        // "policy" in any message in the chain so the host's reason can be surfaced to the user.
+        private static bool IsPasswordPolicyRejection(System.Exception ex)
+        {
+            System.Exception current = ex;
+            int depth = 0;
+            while (current != null && depth < 5)
+            {
+                string message = current.Message ?? String.Empty;
+                string lower = message.ToLowerInvariant();
+                if (lower.Contains("password") && lower.Contains("policy"))
+                    return true;
+                current = current.InnerException;
+                depth++;
+            }
+            return false;
         }
 
         private void DeleteItem()

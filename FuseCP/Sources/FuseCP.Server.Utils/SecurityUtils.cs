@@ -554,6 +554,27 @@ namespace FuseCP.Providers.Utils
             }
         }
 
+        // F-018: the host's password-policy rejection reason lives in the inner exception
+        // (e.g. "The password does not meet the password policy requirements..."). That inner
+        // exception is not reliably preserved across the WCF proxy boundary, so callers cannot
+        // see the reason. This helper extracts it so the wrapping methods can fold it into the
+        // top-level message (which always survives the proxy) for the portal to surface.
+        private static string GetPasswordPolicyReason(System.Exception ex)
+        {
+            System.Exception current = ex;
+            int depth = 0;
+            while (current != null && depth < 6)
+            {
+                string message = current.Message ?? String.Empty;
+                string lower = message.ToLowerInvariant();
+                if (lower.Contains("password") && lower.Contains("policy"))
+                    return message.Trim();
+                current = current.InnerException;
+                depth++;
+            }
+            return null;
+        }
+
         public static void CreateUser(SystemUser user, RemoteServerSettings serverSettings, string usersOU, string groupsOU)
         {
             try
@@ -669,7 +690,10 @@ namespace FuseCP.Providers.Utils
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                throw new Exception("Could not create system user", ex);
+                // F-018: fold the host's password-policy reason into the top-level message so it
+                // survives the WCF proxy (the inner exception carrying it is not preserved).
+                string pwReason = GetPasswordPolicyReason(ex);
+                throw new Exception(pwReason != null ? "Could not create system user: " + pwReason : "Could not create system user", ex);
             }
         }
 
@@ -782,7 +806,10 @@ namespace FuseCP.Providers.Utils
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                throw new Exception("Could not update system user", ex);
+                // F-018: fold the host's password-policy reason into the top-level message so it
+                // survives the WCF proxy (the inner exception carrying it is not preserved).
+                string pwReason = GetPasswordPolicyReason(ex);
+                throw new Exception(pwReason != null ? "Could not update system user: " + pwReason : "Could not update system user", ex);
             }
         }
 
@@ -820,7 +847,10 @@ namespace FuseCP.Providers.Utils
             }
             catch (System.Exception ex) when (!(ex is System.OutOfMemoryException) && !(ex is System.StackOverflowException) && !(ex is System.AccessViolationException))
             {
-                throw new Exception("Could not change user password", ex);
+                // F-018: fold the host's password-policy reason into the top-level message so it
+                // survives the WCF proxy (the inner exception carrying it is not preserved).
+                string pwReason = GetPasswordPolicyReason(ex);
+                throw new Exception(pwReason != null ? "Could not change user password: " + pwReason : "Could not change user password", ex);
             }
         }
 
